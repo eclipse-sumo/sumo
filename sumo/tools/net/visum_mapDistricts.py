@@ -20,11 +20,12 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import string
 import sys
-import StringIO
 import math
 from optparse import OptionParser
 from matplotlib.collections import LineCollection
@@ -68,11 +69,11 @@ optParser.add_option("-b", "--nodes2", dest="nodes2",
 
 # read networks
 if options.verbose:
-    print "Reading net#1..."
+    print("Reading net#1...")
 net1 = sumolib.net.readNet(options.net1)
 
 if options.verbose:
-    print "Reading net#2..."
+    print("Reading net#2...")
 net2 = sumolib.net.readNet(options.net2)
 
 # reproject the visum net onto the navteq net
@@ -152,16 +153,16 @@ for n2 in nodes2:
             highwaySources2.add(n2)
     else:
         urbanNodes2.add(n2)
-print "Found " + str(len(highwaySinks2)) + " highway sinks in net2"
+print("Found " + str(len(highwaySinks2)) + " highway sinks in net2")
 cont = ""
 for n in highwaySinks2:
     cont = cont + n._id + ", "
-print cont
+print(cont)
 cont = ""
-print "Found " + str(len(highwaySources2)) + " highway sources in net2"
+print("Found " + str(len(highwaySources2)) + " highway sources in net2")
 for n in highwaySources2:
     cont = cont + n._id + ", "
-print cont
+print(cont)
 
 
 fdd = open("dconns.con.xml", "w")
@@ -186,7 +187,7 @@ for n1 in nodes1:
     if d not in origDistrictNodes:
         origDistrictNodes[d] = []
     if options.verbose:
-        print "District: " + d
+        print("District: " + d)
     isHighwayNode = False
     isHighwaySink = False
     isHighwaySource = False
@@ -209,7 +210,7 @@ for n1 in nodes1:
         if e.getSpeed() > 99:
             noInConns = noInConns + 1
     if options.verbose:
-        print "Check", un1._id, noOutgoing, noIncoming
+        print("Check", un1._id, noOutgoing, noIncoming)
     if isHighwayNode:
         if noOutgoing == 0:
             highwaySinks1.add(n1)
@@ -249,7 +250,7 @@ for n1 in nodes1:
         if n1 not in nmap2to1[best]:
             nmap2to1[best].append(n1)
         if options.verbose:
-            print "a: " + d + "<->" + best._id
+            print("a: " + d + "<->" + best._id)
         if best not in origDistrictNodes[d]:
             origDistrictNodes[d].append(best)
 
@@ -278,18 +279,18 @@ for n1 in nodes1:
             nmap2to1[best] = []
         if n1 not in nmap2to1[best]:
             nmap2to1[best].append(n1)
-        print "b: " + d + "<->" + best._id
+        print("b: " + d + "<->" + best._id)
         if best not in origDistrictNodes[d]:
             origDistrictNodes[d].append(best)
 
 
 if options.verbose:
-    print "Found " + str(len(highwaySinks1)) + " highway sinks in net1"
+    print("Found " + str(len(highwaySinks1)) + " highway sinks in net1")
     for n in highwaySinks1:
-        print n._id
-    print "Found " + str(len(highwaySources1)) + " highway sources in net1"
+        print(n._id)
+    print("Found " + str(len(highwaySources1)) + " highway sources in net1")
     for n in highwaySources1:
-        print n._id
+        print(n._id)
 
 
 connectedNodesConnections = {}
@@ -323,7 +324,7 @@ for d in nmap1to2:
                                   0]._id + '" to="' + e1._id + '" lane="' + str(i) + ':' + str(i) + '"/>\n')
         if haveOutgoing:
             if options.verbose:
-                print "has outgoing"
+                print("has outgoing")
             e2 = net1.addEdge("i" + n2._id, n1i._id, n2._id, -2)
             if haveIncoming:
                 net1.addLane(e2, 20, 100.)
@@ -401,8 +402,8 @@ for d in nmap1to2:
         runningInLaneNumber = 0
         for n2 in nmap1to2[d]:
             [ni, no] = connectedNodesConnections[n2]
-            print "In: " + ni._id + " " + str(len(ni._incoming)) + " " + str(len(ni._outgoing))
-            print "Out: " + no._id + " " + str(len(no._incoming)) + " " + str(len(no._outgoing))
+            print("In: " + ni._id + " " + str(len(ni._incoming)) + " " + str(len(ni._outgoing)))
+            print("Out: " + no._id + " " + str(len(no._incoming)) + " " + str(len(no._outgoing)))
             if len(no._incoming) > 0:
                 incomingLaneNo = 0
                 for e in n2._incoming:

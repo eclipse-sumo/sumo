@@ -18,12 +18,14 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'sumolib'))
-from output import parse
-from miscutils import uMax, Statistics
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
+from sumolib.output import parse
+from sumolib.miscutils import uMax, Statistics
 
 
 def update_earliest(earliest_diffs, diff, timestamp, tag):
@@ -44,6 +46,8 @@ def write_diff(orig, new, out, earliest_out=None):
                 vOrig = vehicles_orig[v.id]
                 departDiff = float(v.depart) - float(vOrig.depart)
                 arrivalDiff = float(v.arrival) - float(vOrig.arrival)
+                if v.route[0].exitTimes is None:
+                    sys.exit("Error: Need route input with 'exitTimes'\n")
                 exitTimes = map(float, v.route[0].exitTimes.split())
                 origExitTimes = map(float, vOrig.route[0].exitTimes.split())
                 exitTimesDiff = [
@@ -73,9 +77,9 @@ def write_diff(orig, new, out, earliest_out=None):
             for diff in reversed(sorted(earliest_diffs.keys())):
                 f.write("%s, %s\n" % (diff, earliest_diffs[diff]))
 
-    print origDurations
-    print durations
-    print durationDiffs
+    print(origDurations)
+    print(durations)
+    print(durationDiffs)
 
 if __name__ == "__main__":
     write_diff(*sys.argv[1:])

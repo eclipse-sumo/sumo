@@ -17,10 +17,11 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import string
 import sys
-import StringIO
 from xml.sax import saxutils, make_parser, handler
 
 # attributes sorting lists
@@ -163,7 +164,7 @@ class NetConverter(handler.ContentHandler):
             self._attributes = {}
             for key in attrs.getNames():
                 self._attributes[key] = attrs[key]
-        elif name == "phase" and attrs.has_key('phase'):
+        elif name == "phase" and 'phase' in attrs:
             # patch phase definition
             state = patchPhase(attrs)
             for key in attrs.getNames():
@@ -171,7 +172,7 @@ class NetConverter(handler.ContentHandler):
                     self.checkWrite(' state="' + state + '"')
                 elif key != 'yellow' and key != 'brake':
                     self.checkWrite(' ' + key + '="' + attrs[key] + '"')
-        elif name == 'lane' and attrs.has_key('vclasses'):
+        elif name == 'lane' and 'vclasses' in attrs:
             for key in a['lane']:
                 if key == 'vclasses':
                     allowed = []
@@ -187,7 +188,7 @@ class NetConverter(handler.ContentHandler):
                     if disallowed:
                         self.checkWrite(' disallow="%s"' %
                                         (" ".join(disallowed)))
-                elif attrs.has_key(key):
+                elif key in attrs:
                     self.checkWrite(' ' + key + '="' + attrs[key] + '"')
         else:
             if name not in a:
@@ -195,9 +196,9 @@ class NetConverter(handler.ContentHandler):
                     self.checkWrite(' ' + key + '="' + attrs[key] + '"')
             else:
                 for key in a[name]:
-                    if attrs.has_key(key):
+                    if key in attrs:
                         self.checkWrite(' ' + key + '="' + attrs[key] + '"')
-        if (name != "lane" and name != "poly") or attrs.has_key("shape"):
+        if (name != "lane" and name != "poly") or "shape" in attrs:
             if name in c:
                 self.checkWrite("/")
             self.checkWrite(">")
@@ -256,7 +257,7 @@ class NetConverter(handler.ContentHandler):
 
 
 if len(sys.argv) < 2:
-    print "Usage: " + sys.argv[0] + " <net>"
+    print("Usage: " + sys.argv[0] + " <net>")
     sys.exit()
 beg = getBegin(sys.argv[1])
 parser = make_parser()

@@ -3,7 +3,7 @@
 @file    __init__.py
 @author  Daniel Krajzewicz
 @date    2014-07-01
-@version $Id: __init__.py 16583 2014-06-12 07:27:26Z dkrajzew $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -15,5 +15,6 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import pop2
-import scenarios
+from __future__ import absolute_import
+from . import pop2
+from . import scenarios

@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -68,9 +70,9 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 return
             if self._currAuthor not in self._authors:
                 self._authors.add(self._currAuthor)
-                print >> self._out, "@author", self._currAuthor
+                print("@author", self._currAuthor, file=self._out)
                 try:
-                    print >> self._out, msg
+                    print(msg, file=self._out)
                 except UnicodeEncodeError:
                     pass
                 if self._currAuthor not in authorFiles:
@@ -78,8 +80,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 authorFiles[self._currAuthor].add(self._out.name)
             if "thank" in msg:
                 try:
-                    print >> self._out, "THANKS", " ".join(msg.splitlines())
-                    print >> log, "thank %s %s" % (msg, self._out.name)
+                    print("THANKS", " ".join(msg.splitlines()), file=self._out)
+                    print("thank %s %s" % (msg, self._out.name), file=log)
                 except UnicodeEncodeError:
                     pass
                 authorFiles["thank"].add(self._out.name)
@@ -96,9 +98,9 @@ def checkAuthors(fullName, pattern):
                 if a in realNames.values():
                     authors.add(a)
                 else:
-                    print >> log, "unknown author", a, fullName
+                    print("unknown author", a, fullName, file=log)
     if not found:
-        print >> log, "no author", fullName
+        print("no author", fullName, file=log)
     return authors
 
 
@@ -111,18 +113,18 @@ def setAuthors(fullName, removal, add, pattern):
             for item in line[len(pattern):].split(","):
                 a = item.strip()
                 if a in removal:
-                    print >> log, "author %s not in svn log for %s" % (
-                        a, fullName)
+                    print("author %s not in svn log for %s" % (
+                        a, fullName), file=log)
                 authors.append(a)
         elif authors:
             if options.fix:
                 for a in authors:
-                    print >> out, "%s  %s" % (pattern, a)
+                    print("%s  %s" % (pattern, a), file=out)
                 for a in add:
-                    print >> out, "%s  %s" % (pattern, a)
+                    print("%s  %s" % (pattern, a), file=out)
                 out.write(line)
             elif add:
-                print >> log, "need to add author %s to %s" % (add, fullName)
+                print("need to add author %s to %s" % (add, fullName), file=log)
             authors = []
         elif options.fix:
             out.write(line)
@@ -172,13 +174,13 @@ for root, dirs, files in os.walk(options.root):
         ext = os.path.splitext(name)[1]
         if ext in _SOURCE_EXT:
             fullName = os.path.join(root, name)
-            print "checking authors for", fullName
+            print("checking authors for", fullName)
             if ext in _SOURCE_EXT[:2]:
                 pattern = "/// @author"
             elif ext == ".py":
                 pattern = "@author"
             else:
-                print >> log, "cannot parse for authors", fullName
+                print("cannot parse for authors", fullName, file=log)
                 continue
             authors = checkAuthors(fullName, pattern)
             p = subprocess.Popen(
@@ -197,5 +199,5 @@ for root, dirs, files in os.walk(options.root):
     for ignoreDir in ['.svn', 'foreign', 'contributed', 'foxtools']:
         if ignoreDir in dirs:
             dirs.remove(ignoreDir)
-print >> log, authorFiles
+print(authorFiles, file=log)
 log.close()

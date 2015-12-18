@@ -3,7 +3,7 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Mar 2010
-/// @version $Id: MSSwarmTrafficLightLogic.h 0 2010-03-04 12:40:00Z gslager $
+/// @version $Id$
 ///
 // The class for Swarm-based logics
 /****************************************************************************/
@@ -40,78 +40,68 @@
 #include "MSSOTLPolicy5DFamilyStimulus.h"
 
 template<class T>
-class CircularBuffer
-{
+class CircularBuffer {
 public:
-  CircularBuffer(unsigned short size) :
-      m_size(size), m_currentIndex(0), m_firstTime(true)
-  {
-    m_buffer = new T[m_size];
-  }
+    CircularBuffer(int size) :
+        m_size(size), m_currentIndex(0), m_firstTime(true) {
+        m_buffer = new T[m_size];
+    }
 
-  virtual ~CircularBuffer()
-  {
-    delete m_buffer;
-  }
+    virtual ~CircularBuffer() {
+        delete m_buffer;
+    }
 
-  bool addValue(const T newValue, T & replacedValue)
-  {
-    bool result = !m_firstTime;
-    if (result)
-      replacedValue = m_buffer[m_currentIndex];
-    insert(newValue);
-    return result;
-  }
+    bool addValue(const T newValue, T& replacedValue) {
+        bool result = !m_firstTime;
+        if (result) {
+            replacedValue = m_buffer[m_currentIndex];
+        }
+        insert(newValue);
+        return result;
+    }
 
-  void push_front(const T value)
-  {
-    insert(value);
-  }
+    void push_front(const T value) {
+        insert(value);
+    }
 
-  T at(const unsigned short index) const
-  {
-    unsigned short idx = (m_currentIndex - 1 - index + m_size) % m_size;
-    return m_buffer[idx];
-  }
+    T at(const int index) const {
+        int idx = (m_currentIndex - 1 - index + m_size) % m_size;
+        return m_buffer[idx];
+    }
 
-  T front() const
-  {
-    return at(0);
-  }
+    T front() const {
+        return at(0);
+    }
 
-  T back() const
-  {
-    return at(size()-1);
-  }
+    T back() const {
+        return at(size() - 1);
+    }
 
-  unsigned short size() const
-  {
-    if (m_firstTime)
-      return m_currentIndex;
-    return m_size;
-  }
+    int size() const {
+        if (m_firstTime) {
+            return m_currentIndex;
+        }
+        return m_size;
+    }
 
-  void clear()
-  {
-    m_currentIndex = 0;
-    m_firstTime = true;
-  }
+    void clear() {
+        m_currentIndex = 0;
+        m_firstTime = true;
+    }
 
 private:
-  T * m_buffer;
-  unsigned short m_size;
-  unsigned short m_currentIndex;
-  bool m_firstTime;
+    T* m_buffer;
+    int m_size;
+    int m_currentIndex;
+    bool m_firstTime;
 
-  inline void insert(const T & value)
-  {
-    m_buffer[m_currentIndex++] = value;
-    if (m_currentIndex == m_size)
-    {
-      m_currentIndex = 0;
-      m_firstTime = false;
+    inline void insert(const T& value) {
+        m_buffer[m_currentIndex++] = value;
+        if (m_currentIndex == m_size) {
+            m_currentIndex = 0;
+            m_firstTime = false;
+        }
     }
-  }
 };
 
 class MSSwarmTrafficLightLogic: public MSSOTLHiLevelTrafficLightLogic {
@@ -127,10 +117,10 @@ public:
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Parameters defined for the tll
      */
-    MSSwarmTrafficLightLogic(MSTLLogicControl &tlcontrol, const string &id,
-            const string &subid, const Phases &phases, unsigned int step,
-            SUMOTime delay,
-            const std::map<std::string, std::string>& parameters);
+    MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
+                             const std::string& subid, const Phases& phases, unsigned int step,
+                             SUMOTime delay,
+                             const std::map<std::string, std::string>& parameters);
 
     ~MSSwarmTrafficLightLogic();
 
@@ -140,45 +130,32 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb) throw (ProcessError);
+    void init(NLDetectorBuilder& nb) throw(ProcessError);
 
-    int getMaxCongestionDuration() {
+    SUMOTime getMaxCongestionDuration() {
         return TplConvert::_2int(getParameter("MAX_CONGESTION_DUR", "120").c_str());
     }
-    /*void setMaxCongestionDuration(unsigned int val) {
-     max_congestion_duration = val;
-     }*/
 
     SUMOReal getPheroMaxVal() {
         return TplConvert::_2SUMOReal(getParameter("PHERO_MAXVAL", "10").c_str());
     }
-    /*void setPheroMaxVal(double val) {
-     phero_maxval = val;
-     }*/
+
     SUMOReal getBetaNo() {
         return TplConvert::_2SUMOReal(getParameter("BETA_NO", "0.99").c_str());
     }
-    /*void setBetaNo(double val) {
-     beta_no = val;
-     }*/
+
     SUMOReal getGammaNo() {
         return TplConvert::_2SUMOReal(getParameter("GAMMA_NO", "1.0").c_str());
     }
-    /*void setGammaNo(double val) {
-     gamma_no = val;
-     }*/
+
     SUMOReal getBetaSp() {
         return TplConvert::_2SUMOReal(getParameter("BETA_SP", "0.99").c_str());
     }
-    /*void setBetaSp(double val) {
-     beta_sp = val;
-     }*/
+
     SUMOReal getGammaSp() {
         return TplConvert::_2SUMOReal(getParameter("GAMMA_SP", "1.0").c_str());
     }
-    /*void setGammaSp(double val) {
-     gamma_sp = val;
-     }*/
+
     SUMOReal getChangePlanProbability() {
         return TplConvert::_2SUMOReal(getParameter("CHANGE_PLAN_PROBABILITY", "0.003").c_str());
     }
@@ -203,11 +180,11 @@ public:
         return TplConvert::_2SUMOReal(getParameter("FORGETTING_COX", "0.0005").c_str());
     }
 
-    SUMOReal getScaleFactorDispersionIn(){
+    SUMOReal getScaleFactorDispersionIn() {
         return scaleFactorDispersionIn;
     }
 
-    SUMOReal getScaleFactorDispersionOut(){
+    SUMOReal getScaleFactorDispersionOut() {
         return scaleFactorDispersionOut;
     }
 
@@ -247,7 +224,7 @@ protected:
      * This member has to contain the switching logic for SOTL policies
      */
 
-    size_t decideNextPhase();
+    int decideNextPhase();
 
     bool canRelease();
 
@@ -268,32 +245,32 @@ protected:
     /*
      * @return The average pheromone level regarding congestion on input lanes
      */
-    double getPheromoneForInputLanes();
+    SUMOReal getPheromoneForInputLanes();
 
     /*
      * @return The average pheromone level regarding congestion on output lanes
      */
-    double getPheromoneForOutputLanes();
+    SUMOReal getPheromoneForOutputLanes();
 
     /*
      * @return The dispersion level regarding congestion on input lanes
      */
-    double getDispersionForInputLanes(double average_phero_in);
+    SUMOReal getDispersionForInputLanes(SUMOReal average_phero_in);
 
     /*
      * @return The dispersion level regarding congestion on output lanes
      */
-    double getDispersionForOutputLanes(double average_phero_out);
+    SUMOReal getDispersionForOutputLanes(SUMOReal average_phero_out);
 
     /*
      * @return The difference between the current max phero value and the average phero of the other lanes
      */
-    double getDistanceOfMaxPheroForInputLanes();
+    SUMOReal getDistanceOfMaxPheroForInputLanes();
 
     /*
      * @return The difference between the current max phero value and the average phero of the other lanes
      */
-    double getDistanceOfMaxPheroForOutputLanes();
+    SUMOReal getDistanceOfMaxPheroForOutputLanes();
     /**
      * @brief Update pheromone levels
      * Pheromone on input lanes is costantly updated
@@ -304,7 +281,7 @@ protected:
     /**
      * @brief Utility method to avoid code duplication
      */
-    void updatePheromoneLevels(MSLaneId_PheromoneMap &, std::string, const double, const double);
+    void updatePheromoneLevels(MSLaneId_PheromoneMap&, std::string, const SUMOReal, const SUMOReal);
 
     /**
      * After a policy has been chosen, for every iteration thresholds has to be updated.
@@ -325,7 +302,7 @@ protected:
      * or the number of cars in the lanes with a red tl.
      * @param[in] factor - the value to consider to compute this coefficient.
      */
-    double calculatePhi(int factor);
+    SUMOReal calculatePhi(int factor);
 
     /**
      * \brief Method that should calculate the valor of eta a coefficient to evaluate the current
@@ -333,17 +310,17 @@ protected:
      * and the ones that exit it. It consider vehicles on a lane with a tl set to red as well to determinate
      * policy work.
      */
-    double calculateEtaDiff();
+    SUMOReal calculateEtaDiff();
 
-    double calculateEtaRatio();
+    SUMOReal calculateEtaRatio();
 
     /*
      * \brief Method to reset the map that stores if a lane is already been checked during the
      * evaluation of eta.
      */
     void resetLaneCheck();
-    void choosePolicy(double phero_in, double phero_out, double dispersion_in, double dispersion_out);
-    void choosePolicy(double phero_in, double phero_out);
+    void choosePolicy(SUMOReal phero_in, SUMOReal phero_out, SUMOReal dispersion_in, SUMOReal dispersion_out);
+    void choosePolicy(SUMOReal phero_in, SUMOReal phero_out);
 
     std::string getPoliciesParam() {
         return getParameter("POLICIES", "Platoon;Phase;Marching;Congestion");
@@ -359,59 +336,59 @@ protected:
         return TplConvert::_2int(getParameter("REIMODE", "0").c_str());
     }
 
-    void initScaleFactorDispersionIn(int lanes_in){
-        std::vector<double> phero_values;
+    void initScaleFactorDispersionIn(int lanes_in) {
+        std::vector<SUMOReal> phero_values;
 
-        for(int i=0; i<lanes_in/2; i++){
+        for (int i = 0; i < lanes_in / 2; i++) {
             phero_values.push_back(getPheroMaxVal());
         }
-        for(int i=lanes_in/2; i<lanes_in; i++){
-                    phero_values.push_back(0.0);
+        for (int i = lanes_in / 2; i < lanes_in; i++) {
+            phero_values.push_back(0.0);
         }
 
-        double sum_avg_tmp = 0;
+        SUMOReal sum_avg_tmp = 0;
 
-        for(int i=0; i<phero_values.size(); i++){
-                    sum_avg_tmp += phero_values[i];
+        for (int i = 0; i < (int)phero_values.size(); i++) {
+            sum_avg_tmp += phero_values[i];
         }
 
-        double mean = sum_avg_tmp / phero_values.size();
+        SUMOReal mean = sum_avg_tmp / phero_values.size();
 
-        double sum_dev_tmp = 0;
-        for(int i=0; i<phero_values.size(); i++){
-                    sum_dev_tmp += pow(phero_values[i] - mean, 2);
+        SUMOReal sum_dev_tmp = 0;
+        for (int i = 0; i < (int)phero_values.size(); i++) {
+            sum_dev_tmp += pow(phero_values[i] - mean, 2);
         }
 
-        double deviation = sqrt(sum_dev_tmp/ phero_values.size());
+        SUMOReal deviation = sqrt(sum_dev_tmp / phero_values.size());
 
         scaleFactorDispersionIn = getPheroMaxVal() / deviation;
     }
 
-    void initScaleFactorDispersionOut(int lanes_out){
-        std::vector<double> phero_values;
+    void initScaleFactorDispersionOut(int lanes_out) {
+        std::vector<SUMOReal> phero_values;
 
-                for(int i=0; i<lanes_out/2; i++){
-                    phero_values.push_back(getPheroMaxVal());
-                }
-                for(int i=lanes_out/2; i<lanes_out; i++){
-                            phero_values.push_back(0.0);
-                }
+        for (int i = 0; i < lanes_out / 2; i++) {
+            phero_values.push_back(getPheroMaxVal());
+        }
+        for (int i = lanes_out / 2; i < lanes_out; i++) {
+            phero_values.push_back(0.0);
+        }
 
-                double sum_avg_tmp = 0;
-                for(int i=0; i<phero_values.size(); i++){
-                            sum_avg_tmp += phero_values[i];
-                }
-                double mean = sum_avg_tmp / phero_values.size();
+        SUMOReal sum_avg_tmp = 0;
+        for (int i = 0; i < (int)phero_values.size(); i++) {
+            sum_avg_tmp += phero_values[i];
+        }
+        SUMOReal mean = sum_avg_tmp / phero_values.size();
 
-                double sum_dev_tmp = 0;
+        SUMOReal sum_dev_tmp = 0;
 
-                for(int i=0; i<phero_values.size(); i++){
-                            sum_dev_tmp += pow(phero_values[i] - mean, 2);
-                }
+        for (int i = 0; i < (int)phero_values.size(); i++) {
+            sum_dev_tmp += pow(phero_values[i] - mean, 2);
+        }
 
-                double deviation = sqrt(sum_dev_tmp/ phero_values.size());
+        SUMOReal deviation = sqrt(sum_dev_tmp / phero_values.size());
 
-                scaleFactorDispersionOut = getPheroMaxVal() / deviation;
+        scaleFactorDispersionOut = getPheroMaxVal() / deviation;
     }
 
     /**
@@ -419,16 +396,16 @@ protected:
      * Control in this function if the lane is a walking area, a crossing, or if only pedestrian are allowed.
      * Return true if the lane has to be added, false otherwise.
      */
-    bool allowLine(MSLane * );
+    bool allowLine(MSLane*);
 
     bool logData;
-    ofstream swarmLogFile;
+    std::ofstream swarmLogFile;
     /**
      * \brief When true, indicates that the current policy MUST be changed.\n
      * It's used to force the exit from the congestion policy
      */
     bool mustChange;
-    unsigned int congestion_steps;
+    SUMOTime congestion_steps;
 
     /**
      * \brief Map to check if a lane was already controlled during the elaboration of eta.
@@ -456,24 +433,24 @@ protected:
     /**
      * \factors to scale pheromoneDispersion in range [0, 10]
      */
-    double scaleFactorDispersionIn;
-    double scaleFactorDispersionOut;
+    SUMOReal scaleFactorDispersionIn;
+    SUMOReal scaleFactorDispersionOut;
 
 //	For every lane its index. Esed to get the current lane state for the lane
     std::map<std::string, std::vector<int> > m_laneIndexMap;
-    std::string getLaneLightState(const std::string & laneId);
+    std::string getLaneLightState(const std::string& laneId);
 //	store the last message logged. if equal do not log it again
     std::map<std::string, std::string> m_pheroLevelLog;
 
     //derivative
-    std::map<std::string, CircularBuffer<double>* > m_meanSpeedHistory;
-    std::map<std::string, CircularBuffer<double>* > m_derivativeHistory;
-    double m_derivativeAlpha;
+    std::map<std::string, CircularBuffer<SUMOReal>* > m_meanSpeedHistory;
+    std::map<std::string, CircularBuffer<SUMOReal>* > m_derivativeHistory;
+    SUMOReal m_derivativeAlpha;
     int m_losCounter;//los: loss of signal
     int m_losMaxLimit;
     bool m_useVehicleTypesWeights;
 
-//	double pheroBegin;
+//	SUMOReal pheroBegin;
 };
 
 

@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from util.CalcTime import getTimeInSecs
 from util.CalcTime import getNiceTimeLabel
@@ -83,7 +85,7 @@ def readFCD():
             routes.append([(actTime, words[1])])
 
     inputFile.close()
-    print len(taxis)
+    print(len(taxis))
 
 
 def readFCDOLD():
@@ -107,7 +109,7 @@ def readFCDOLD():
             routes.append([getTimeInSecs(words[0]), words[1]])
 
     inputFile.close()
-    print len(taxis)
+    print(len(taxis))
 
 
 def readFCDCompleteOLD(fcdPath):

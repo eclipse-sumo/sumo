@@ -3,7 +3,7 @@
 /// @author  Riccardo Belletti
 /// @author  Simone Bacchilega
 /// @date    Aug 2014
-/// @version $Id: MSSOTLPolicyDesirability.h 0  $
+/// @version $Id$
 ///
 // The class the low-level policy stimulus
 /****************************************************************************/
@@ -39,7 +39,6 @@
 #include <string.h>
 #include "MSSOTLPolicy5DStimulus.h"
 
-using namespace std;
 /**
  * \class MSSOTLPolicy5DListStimulus
  * \brief This class determines the stimulus of a MSSOTLPolicy when
@@ -51,35 +50,35 @@ class MSSOTLPolicy5DFamilyStimulus: public MSSOTLPolicyDesirability {
 
 private:
 
-	/*double stimCoxDVal,
-	stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
-	stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
-	stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;*/
+    /*SUMOReal stimCoxDVal,
+    stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
+    stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
+    stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;*/
 
-	map<string,string> default_values;
-	vector<string> params_names;
-	vector<MSSOTLPolicy5DStimulus*> family;
+    std::map<std::string, std::string> default_values;
+    std::vector<std::string> params_names;
+    std::vector<MSSOTLPolicy5DStimulus*> family;
 
-	//std::vector<std::string> inline StringSplit(const std::string &source, const char *delimiter = " ", bool keepEmpty = false);
+    //std::vector<std::string> inline StringSplit(const std::string &source, const char *delimiter = " ", bool keepEmpty = false);
 
 public:
 
-	MSSOTLPolicy5DFamilyStimulus(string keyPrefix,const std::map<std::string, std::string>& parameters);
+    MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix, const std::map<std::string, std::string>& parameters);
 
-	string getMessage();
+    std::string getMessage();
 
-	vector<MSSOTLPolicy5DStimulus*> getFamilies(){
-		return family;
-	}
+    std::vector<MSSOTLPolicy5DStimulus*> getFamilies() {
+        return family;
+    }
 
-	/*
-	 *	@brief Computes stimulus function
-	 *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
-	 */
-	virtual double computeDesirability(double vehInMeasure,
-			double vehOutMeasure);
+    /*
+     *	@brief Computes stimulus function
+     *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
+     */
+    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
+                                       SUMOReal vehOutMeasure);
 
-	virtual double computeDesirability(double vehInMeasure, double vehOutMeasure,double vehInDispersionMeasure,	double vehOutDispersionMeasure);
+    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
 };
 
 #endif /* MSSOTLPOLICY5DFAMILYSTIMULUS_H_ */

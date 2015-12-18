@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import re
@@ -42,22 +44,22 @@ class ConfigReader(handler.ContentHandler):
 
     def endElement(self, name):
         if self._parent == name:
-            print '    </%s>' % name
+            print('    </%s>' % name)
             self._parentWritten = ""
         elif self._element == name:
             if not self._parentWritten:
-                print '    <%s>' % self._parent
+                print('    <%s>' % self._parent)
                 self._parentWritten = self._parent
-            print '        <%s value="%s"/>' % (self._element, self._string)
+            print('        <%s value="%s"/>' % (self._element, self._string))
         self._element = self._parent
 
     def startDocument(self):
-        print '<configuration>'
+        print('<configuration>')
 
     def endDocument(self):
         if self._parentWritten:
-            print '    </%s>' % self._parentWritten
-        print '</configuration>'
+            print('    </%s>' % self._parentWritten)
+        print('</configuration>')
 
 optParser = OptionParser(usage="usage: %prog <config>+")
 (options, args) = optParser.parse_args()

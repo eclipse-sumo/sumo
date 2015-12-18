@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import subprocess
@@ -27,4 +29,4 @@ for exe in "activitygen dfrouter duarouter marouter jtrrouter netconvert netgene
         subprocess.call(
             [exePath, "--save-schema", os.path.join(homeDir, "data", "xsd", exe + "Configuration.xsd")])
     else:
-        print "Warning! %s not found." % exe
+        print("Warning! %s not found." % exe)

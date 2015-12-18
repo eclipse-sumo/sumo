@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -60,7 +62,7 @@ def main(args=None):
     options, remaining_args = optParser.parse_args(args=args)
 
     if options.input == None:
-        print "Error: at least one csv file must be given"
+        print("Error: at least one csv file must be given")
         sys.exit(1)
 
     fd = open(options.input)
@@ -87,9 +89,9 @@ def main(args=None):
         labels = None
     shadow = options.shadow
     if options.percentage:
-        autopct = lambda(p): '{:.1f}%'.format(p)
+        autopct = lambda p: '{:.1f}%'.format(p)
     else:
-        autopct = lambda(p): '{:.0f}'.format(p * total / 100)
+        autopct = lambda p: '{:.0f}'.format(p * total / 100)
     patches, texts, autotexts = plt.pie(
         vals, labels=labels, autopct=autopct, colors=colors, shadow=shadow, startangle=options.startangle)
     helpers.closeFigure(fig, ax, options)

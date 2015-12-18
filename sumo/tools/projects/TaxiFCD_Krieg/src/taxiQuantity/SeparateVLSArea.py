@@ -19,15 +19,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import util.Path as path
 import util.Reader as reader
 
 
 def main():
-    print "start"
+    print("start")
     generateVLS_FCD_File()
-    print"end"
+    print("end")
 
 
 def generateVLS_FCD_File():

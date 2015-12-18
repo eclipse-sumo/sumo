@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import math
 import operator
@@ -72,12 +74,12 @@ def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, st
 def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lohse, first):
     if lohse:
         if options.verbose:
-            foutassign = file('lohse_pathSet.txt', 'a')
+            foutassign = open('lohse_pathSet.txt', 'a')
             foutassign.write('\niter:%s\n' % iter)
 
     # matrixPlong and matrixTruck should be added if available.
     if options.verbose:
-        print 'pathNum in doSUEAssign:', elements.pathNum
+        print('pathNum in doSUEAssign:', elements.pathNum)
     # calculate the overlapping factors between any two paths of a given OD
     # pair
     for start, startVertex in enumerate(startVertices):
@@ -161,8 +163,8 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
 
         if iter > options.maxiteration:
             stable = True
-            print 'Number of max. iterations is reached!'
-            print 'stable:', stable
+            print('Number of max. iterations is reached!')
+            print('stable:', stable)
 
     return stable
 
@@ -211,11 +213,11 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, lohse):
 def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse):
     if options.verbose:
         if counter == 0:
-            foutpath = file('paths.txt', 'w')
-            fouterror = file('errors.txt', 'w')
+            foutpath = open('paths.txt', 'w')
+            fouterror = open('errors.txt', 'w')
         else:
-            foutpath = file('paths.txt', 'a')
-            fouterror = file('errors.txt', 'a')
+            foutpath = open('paths.txt', 'a')
+            fouterror = open('errors.txt', 'a')
         if lohse:
             foutpath.write(
                 'begin the doSUEVehAssign based on the lohse assignment model!')
@@ -272,7 +274,7 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                 if options.verbose:
                     foutpath.write('\n')
     if options.verbose:
-        print 'total Number of the used paths for the current matrix:', TotalPath
+        print('total Number of the used paths for the current matrix:', TotalPath)
         foutpath.write(
             '\ntotal Number of the used paths for the current matrix:%s' % TotalPath)
         foutpath.close()
@@ -289,9 +291,9 @@ def assignVeh(verbose, vehicles, startVertex, endVertex, edges, AssignedVeh, Ass
 
         AssignedVeh[startVertex][endVertex] += 1
     if verbose:
-        print 'vehID:', vehID
-        print 'AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex]
-        print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
+        print('vehID:', vehID)
+        print('AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex])
+        print('AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex])
 
     return vehID
 
@@ -338,11 +340,11 @@ def doLohseStopCheck(net, options, stable, iter, maxIter, foutlog):
                 'The number of the links with convergence is 95% of the total links. The number of executed iterations:%s\n' % iter)
 
     if iter >= maxIter:
-        print 'The max. number of iterations is reached!'
+        print('The max. number of iterations is reached!')
         foutlog.write('The max. number(%s) of iterations is reached!\n' % iter)
         foutlog.write(
             'The number of new routes will be set to 0, since the max. number of iterations is reached.')
         stable = True
-        print 'stop?:', stable
-        print 'iter_inside:', iter
+        print('stop?:', stable)
+        print('iter_inside:', iter)
     return stable

@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 from xml.sax import parse, handler
@@ -46,7 +48,7 @@ class ConfigReader(handler.ContentHandler):
                     self._end = idx
                     break
             if currSect == "":
-                print line
+                print(line)
 
     def startElement(self, name, attrs):
         if self._level == 1:
@@ -57,34 +59,34 @@ class ConfigReader(handler.ContentHandler):
                 title = ("".join(self._mergeWiki[begin:end]))
             else:
                 title += "\n"
-            print """%s{| class="wikitable" style="width:90%%"
+            print("""%s{| class="wikitable" style="width:90%%"
 |-
 ! style="background:#ddffdd; vertical-align:top; width:350px" | Option
-! style="background:#ddffdd; vertical-align:top" | Description""" % title
+! style="background:#ddffdd; vertical-align:top" | Description""" % title)
         if self._level == 2:
             # entry
-            print '|-\n| style="vertical-align:top" |',
+            print('|-\n| style="vertical-align:top" |', end=' ')
             a = ""
             for s in attrs.get('synonymes', '').split():
                 if len(s) == 1:
                     a = s
             if a != "":
-                print '{{Option|-%s {{DT_%s}}}}<br/>' % (a, attrs['type']),
-            print '{{Option|--%s {{DT_%s}}}}' % (name, attrs['type'])
+                print('{{Option|-%s {{DT_%s}}}}<br/>' % (a, attrs['type']), end=' ')
+            print('{{Option|--%s {{DT_%s}}}}' % (name, attrs['type']))
             suffix = ""
             if attrs['value']:
                 suffix = "; ''default: '''%s'''''" % attrs['value']
-            print '| style="vertical-align:top" | %s%s' % (attrs['help'], suffix)
+            print('| style="vertical-align:top" | %s%s' % (attrs['help'], suffix))
         self._level += 1
 
     def endElement(self, name):
         self._level -= 1
         if self._level == 1:
             # subtopic end
-            print "|-\n|}\n"
+            print("|-\n|}\n")
 
     def endDocument(self):
-        print ("".join(self._mergeWiki[self._end:])).strip()
+        print(("".join(self._mergeWiki[self._end:])).strip())
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
@@ -98,5 +100,5 @@ if __name__ == "__main__":
     elif len(sys.argv) == 3:
         parse(sys.argv[1], ConfigReader(open(sys.argv[2]).readlines()))
     else:
-        print >> sys.stderr, "Usage: %s <template> <wikisrc>\n   or: %s <app>" % (
-            os.path.basename(__file__), os.path.basename(__file__))
+        print("Usage: %s <template> <wikisrc>\n   or: %s <app>" % (
+            os.path.basename(__file__), os.path.basename(__file__)), file=sys.stderr)

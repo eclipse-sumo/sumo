@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -37,35 +39,35 @@ def findErrors(line, warnings, errors, failed):
 def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toAddr="sumo-tests@dlr.de"):
     failed = ""
     build = commonprefix([basename(makeLog), basename(makeAllLog)])
-    print >> out, build,
-    print >> out, datetime.now().ctime()
-    print >> out, "--"
-    print >> out, basename(makeLog)
+    print(build, end=' ', file=out)
+    print(datetime.now().ctime(), file=out)
+    print("--", file=out)
+    print(basename(makeLog), file=out)
     warnings = 0
     errors = 0
     svnLocked = False
-    for l in file(makeLog):
+    for l in open(makeLog):
         if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
             svnLocked = True
             failed += l
         warnings, errors, failed = findErrors(l, warnings, errors, failed)
     if svnLocked:
         failed += "svn up failed\n\n"
-    print >> out, warnings, "warnings"
+    print(warnings, "warnings", file=out)
     if errors:
-        print >> out, errors, "errors"
+        print(errors, "errors", file=out)
         failed += "make failed\n\n"
-    print >> out, "--\nbatchreport\n--"
-    print >> out, basename(makeAllLog)
+    print("--\nbatchreport\n--", file=out)
+    print(basename(makeAllLog), file=out)
     warnings = 0
     errors = 0
-    for l in file(makeAllLog):
+    for l in open(makeAllLog):
         warnings, errors, failed = findErrors(l, warnings, errors, failed)
-    print >> out, warnings, "warnings"
+    print(warnings, "warnings", file=out)
     if errors:
-        print >> out, errors, "errors"
+        print(errors, "errors", file=out)
         failed += "make debug failed\n\n"
-    print >> out, "--"
+    print("--", file=out)
     if failed:
         fromAddr = "sumo-tests@dlr.de"
         message = """From: "%s" <%s>
@@ -78,7 +80,7 @@ Subject: Error occurred while building
             server.sendmail(fromAddr, toAddr, message)
             server.quit()
         except:
-            print "Could not send mail."
+            print("Could not send mail.")
 
 if __name__ == "__main__":
     printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.stdout, sys.argv[4])

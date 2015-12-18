@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 import os
@@ -33,9 +35,9 @@ import sumonet
 
 
 if len(sys.argv) < 4:
-    print "Usage: " + sys.argv[0] + " <SUMO_NET> <VISUM_TURNINGS> <OUTPUT>"
+    print("Usage: " + sys.argv[0] + " <SUMO_NET> <VISUM_TURNINGS> <OUTPUT>")
     sys.exit()
-print "Reading net..."
+print("Reading net...")
 parser = make_parser()
 net = sumonet.NetReader()
 parser.setContentHandler(net)
@@ -56,7 +58,7 @@ for e in net._edges:
 
 
 # fill with read values
-print "Reading turning percentages..."
+print("Reading turning percentages...")
 parse = False
 found = 0
 foundN = 0
@@ -78,13 +80,13 @@ for line in fd:
         number = float(amap["volvehprt(ah)"])
         if fromnode not in nmap:
             if number != 0:
-                print "Missing from-node '" + fromnode + "'; skipping"
+                print("Missing from-node '" + fromnode + "'; skipping")
             missing = missing + 1
             missingN = missingN + number
             continue
         if tonode not in nmap[fromnode]:
             if number != 0:
-                print "No connection between from-node '" + fromnode + "' and to-node '" + tonode + "'; skipping"
+                print("No connection between from-node '" + fromnode + "' and to-node '" + tonode + "'; skipping")
             missing = missing + 1
             missingN = missingN + number
             continue
@@ -97,12 +99,12 @@ for line in fd:
         attributes = line[6:].strip().lower().split(";")
         parse = True
 fd.close()
-print " " + str(found) + " connections found (" + str(foundN) + " vehs)"
-print " " + str(missing) + " connections missing (" + str(missingN) + " vehs)"
+print(" " + str(found) + " connections found (" + str(foundN) + " vehs)")
+print(" " + str(missing) + " connections missing (" + str(missingN) + " vehs)")
 
 
 # write as read by jtrrouter
-print "Writing jtrrouter turning percentages..."
+print("Writing jtrrouter turning percentages...")
 fd = open(sys.argv[3], "w")
 fd.write('<turns>\n')
 fd.write('    <interval begin="0" end="86400">\n')

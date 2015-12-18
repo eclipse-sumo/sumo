@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import string
 import glob
@@ -106,7 +108,7 @@ class netReader(handler.ContentHandler):
         self._edgeObj = None
 
     def startElement(self, name, attrs):
-        if name == 'edge' and not attrs.has_key('function'):
+        if name == 'edge' and 'function' not in attrs:
             if attrs['id'] not in self._edgesMap:
                 self._edgeObj = Edge(attrs['id'])
                 self._edgesList.append(self._edgeObj)
@@ -133,31 +135,31 @@ class addweightsReader(handler.ContentHandler):
         if name == 'edge':
             if attrs['id'] in self._edgesMap:
                 self._edgeObj = self._edgesMap[attrs['id']]
-            if attrs.has_key('traveltime'):
+            if 'traveltime' in attrs:
                 self._edgeObj.freetraveltime = float(attrs['traveltime'])
-            if attrs.has_key('CO_perVeh'):
+            if 'CO_perVeh' in attrs:
                 self._edgeObj.CO_perVeh_default = float(attrs['CO_perVeh'])
-            if attrs.has_key('CO2_perVeh'):
+            if 'CO2_perVeh' in attrs:
                 self._edgeObj.CO2_perVeh_default = float(attrs['CO2_perVeh'])
-            if attrs.has_key('HC_perVeh'):
+            if 'HC_perVeh' in attrs:
                 self._edgeObj.HC_perVeh_default = float(attrs['HC_perVeh'])
-            if attrs.has_key('PMx_perVeh'):
+            if 'PMx_perVeh' in attrs:
                 self._edgeObj.PMx_perVeh_default = float(attrs['PMx_perVeh'])
-            if attrs.has_key('NOx_perVeh'):
+            if 'NOx_perVeh' in attrs:
                 self._edgeObj.NOx_perVeh_default = float(attrs['NOx_perVeh'])
-            if attrs.has_key('fuel_perVeh'):
+            if 'fuel_perVeh' in attrs:
                 self._edgeObj.fuel_perVeh_default = float(attrs['fuel_perVeh'])
-            if attrs.has_key('fuel_abs'):
+            if 'fuel_abs' in attrs:
                 self._edgeObj.fuel_abs_default = float(attrs['fuel_abs'])
-            if attrs.has_key('NOx_abs'):
+            if 'NOx_abs' in attrs:
                 self._edgeObj.NOx_abs_default = float(attrs['NOx_abs'])
-            if attrs.has_key('PMx_abs'):
+            if 'PMx_abs' in attrs:
                 self._edgeObj.PMx_abs_default = float(attrs['PMx_abs'])
-            if attrs.has_key('HC_abs'):
+            if 'HC_abs' in attrs:
                 self._edgeObj.HC_abs_default = float(attrs['HC_abs'])
-            if attrs.has_key('CO2_abs'):
+            if 'CO2_abs' in attrs:
                 self._edgeObj.CO2_abs_default = float(attrs['CO2_abs'])
-            if attrs.has_key('CO_abs'):
+            if 'CO_abs' in attrs:
                 self._edgeObj.CO_abs_default = float(attrs['CO_abs'])
 
 
@@ -226,13 +228,13 @@ class vehrouteReader(handler.ContentHandler):
                 self._routObj = Route(attrs['edges'])
                 self._vehObj.routesList.append(self._routObj)
 
-            if attrs.has_key('probability'):
+            if 'probability' in attrs:
                 self._routObj.probability = float(attrs['probability'])
                 if self._routObj.probability == 0.0:
                     # check with Micha if there is a better way to avoid the
                     # prob. = 0.
                     self._routObj.probability = 1.02208127529e-16
-            if attrs.has_key('cost'):
+            if 'cost' in attrs:
                 self._routObj.ex_cost = float(attrs['cost'])
             for e in self._routObj.edges.split(' '):
                 eObj = self._edgesMap[e]
@@ -269,7 +271,7 @@ class vehrouteReader(handler.ContentHandler):
                 # calcuate the probabilites for the new routes
                 if not r.probability:
                     r.probability = 1. / float(len(self._vehObj.routesList))
-                    print 'new probability for route', r.label, 'for veh', self._vehObj.label
+                    print('new probability for route', r.label, 'for veh', self._vehObj.label)
                     self._newroutesList.append(r)
 
             # adjust the probabilites of the existing routes due to the new
@@ -362,31 +364,31 @@ class dumpsReader(handler.ContentHandler):
             else:
                 self._edgeObj = self._edgesMap[attrs['id']]
 
-            if attrs.has_key('traveltime'):
+            if 'traveltime' in attrs:
                 self._edgeObj.traveltime = float(attrs['traveltime'])
-            if attrs.has_key('CO_perVeh'):
+            if 'CO_perVeh' in attrs:
                 self._edgeObj.CO_perVeh = float(attrs['CO_perVeh'])
-            if attrs.has_key('CO2_perVeh'):
+            if 'CO2_perVeh' in attrs:
                 self._edgeObj.CO2_perVeh = float(attrs['CO2_perVeh'])
-            if attrs.has_key('HC_perVeh'):
+            if 'HC_perVeh' in attrs:
                 self._edgeObj.HC_perVeh = float(attrs['HC_perVeh'])
-            if attrs.has_key('PMx_perVeh'):
+            if 'PMx_perVeh' in attrs:
                 self._edgeObj.PMx_perVeh = float(attrs['PMx_perVeh'])
-            if attrs.has_key('NOx_perVeh'):
+            if 'NOx_perVeh' in attrs:
                 self._edgeObj.NOx_perVeh = float(attrs['NOx_perVeh'])
-            if attrs.has_key('fuel_perVeh'):
+            if 'fuel_perVeh' in attrs:
                 self._edgeObj.fuel_perVeh = float(attrs['fuel_perVeh'])
-            if attrs.has_key('fuel_abs'):
+            if 'fuel_abs' in attrs:
                 self._edgeObj.fuel_abs = float(attrs['fuel_abs'])
-            if attrs.has_key('NOx_abs'):
+            if 'NOx_abs' in attrs:
                 self._edgeObj.NOx_abs = float(attrs['NOx_abs'])
-            if attrs.has_key('PMx_abs'):
+            if 'PMx_abs' in attrs:
                 self._edgeObj.PMx_abs = float(attrs['PMx_abs'])
-            if attrs.has_key('HC_abs'):
+            if 'HC_abs' in attrs:
                 self._edgeObj.HC_abs = float(attrs['HC_abs'])
-            if attrs.has_key('CO2_abs'):
+            if 'CO2_abs' in attrs:
                 self._edgeObj.CO2_abs = float(attrs['CO2_abs'])
-            if attrs.has_key('CO_abs'):
+            if 'CO_abs' in attrs:
                 self._edgeObj.CO_abs = float(attrs['CO_abs'])
 
     def endElement(self, name):
@@ -418,20 +420,20 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     edgesList = []
     vehList = []
     vehMap = {}
-    print 'run getRouteChoices'
-    print 'ecoMeasure:', ecoMeasure
+    print('run getRouteChoices')
+    print('ecoMeasure:', ecoMeasure)
     outputPath = os.path.abspath(routeAltfile)
     outputPath = os.path.dirname(outputPath)
     prefix = os.path.basename(routeAltfile)
     #prefix = prefix[:prefix.find('.')]
     prefix = prefix[:-12]
-    print 'outputPath:', outputPath
-    print 'prefix:', prefix
+    print('outputPath:', outputPath)
+    print('prefix:', prefix)
     outputAltfile = os.path.join(outputPath, prefix + '.rou.galt.xml')
     outputRoufile = os.path.join(outputPath, prefix + '.grou.xml')
 
     if len(edgesMap) == 0:
-        print 'parse network file'
+        print('parse network file')
         parse(netfile, netReader(edgesList, edgesMap))
         parse(addWeightsfile, addweightsReader(edgesList, edgesMap))
     else:
@@ -452,17 +454,17 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     foutrout.write('-->\n')
     foutrout.write('<routes>')
 
-    print 'parse dumpfile'
-    print dumpfile
+    print('parse dumpfile')
+    print(dumpfile)
     parse(dumpfile, dumpsReader(edgesList, edgesMap))
-    print 'parse routeAltfile'
-    print routeAltfile
+    print('parse routeAltfile')
+    print(routeAltfile)
     # parse routeAltfile from SUMO
     parse(routeAltfile, routeReader(vehList, vehMap))
-    print 'parse routeAltfile from externalGawron'
+    print('parse routeAltfile from externalGawron')
     ex_outputAltFile = prefix[
         :prefix.rfind('_')] + '_%03i' % (step - 1) + '.rou.galt.xml'
-    print 'ex_outputAltFile:', ex_outputAltFile
+    print('ex_outputAltFile:', ex_outputAltFile)
     parse(ex_outputAltFile, vehrouteReader(
         vehList, vehMap, edgesMap, fout, foutrout, ecoMeasure, alpha, beta))
     return outputRoufile, edgesMap

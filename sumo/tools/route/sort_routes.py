@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import os
 import re
@@ -97,7 +99,7 @@ class RouteHandler(handler.ContentHandler):
 
 
 def create_line_index(file):
-    print "Building line offset index for %s" % file
+    print("Building line offset index for %s" % file)
     result = []
     offset = 0
     with open(file, 'rb') as f:  # need to read binary here for correct offsets
@@ -109,18 +111,18 @@ def create_line_index(file):
 
 def get_element_lines(routefilename):
     # [(depart, line_index_where_element_starts, line_index_where_element_ends), ...]
-    print "Parsing %s for line indices and departs" % routefilename
+    print("Parsing %s for line indices and departs" % routefilename)
     result = []
     parser = make_parser()
     parser.setContentHandler(RouteHandler(result))
     parser.parse(open(routefilename))
-    print "  found %s items" % len(result)
+    print("  found %s items" % len(result))
     return result
 
 
 def copy_elements(routefilename, outfilename, element_lines, line_offsets):
-    print "Copying elements from %s to %s sorted by departure" % (
-        routefilename, outfilename)
+    print("Copying elements from %s to %s sorted by departure" % (
+        routefilename, outfilename))
     outfile = open(outfilename, 'w')
     # copy header
     for line in open(routefilename):

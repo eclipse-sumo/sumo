@@ -2,7 +2,7 @@
 /// @file    MSPhasedTrafficLightLogic.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: MSPhasedTrafficLightLogic.h 7534 2010-02-13 17:00:00Z gslager $
+/// @version $Id$
 ///
 // The base class for traffic light logic with phases
 /****************************************************************************/
@@ -74,13 +74,13 @@ public:
 
     /// @name Switching and setting current rows
     /// @{
-	/// MEMBER FACTORIZED TO PARENT CLASS (MSTrafficLightLogic)
+    /// MEMBER FACTORIZED TO PARENT CLASS (MSTrafficLightLogic)
     /** @brief Switches to the next phase
      * @param[in] isActive Whether this program is the currently used one
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-   /* SUMOTime trySwitch(bool isActive) throw();*/
+    /* SUMOTime trySwitch(bool isActive) throw();*/
 
 
 
@@ -91,21 +91,21 @@ public:
      * @return The number of this tls program's phases
      * @see MSTrafficLightLogic::getPhaseNumber
      */
-    unsigned int getPhaseNumber() const;
+    int getPhaseNumber() const;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases &getPhases() const;
+    const Phases& getPhases() const;
 
     /** @brief Returns the definition of the phase from the given position within the plan
      * @param[in] givenstep The index of the phase within the plan
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition &getPhase(unsigned int givenstep) const;
+    const MSPhaseDefinition& getPhase(int givenstep) const;
     /// @}
 
 
@@ -117,14 +117,14 @@ public:
      * @return The index of the current phase within the tls
      * @see MSTrafficLightLogic::getCurrentPhaseIndex
      */
-    unsigned int getCurrentPhaseIndex() const;
+    int getCurrentPhaseIndex() const;
 
 
     /** @brief Returns the definition of the current phase
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    const MSPhaseDefinition &getCurrentPhaseDef() const;
+    const MSPhaseDefinition& getCurrentPhaseDef() const;
     /// @}
 
 
@@ -167,24 +167,24 @@ public:
      * @param[in] stepDuration The left duration of the phase
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
-    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
+    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
                                unsigned int step, SUMOTime stepDuration);
     /// @}
 
     /** @brief Replaces the phases and set the phase index
      */
-    void setPhases(const Phases& phases, unsigned int index);
+    void setPhases(const Phases& phases, int index);
     /// @}
 
 protected:
     /// @brief The list of phases this logic uses
     Phases myPhases;
 
-	/// @brief Proceed to the next step
-	void proceedToNextStep();
+    /// @brief Proceed to the next step
+    void proceedToNextStep();
 
-	/// @brief Forces a specific step
-	void setStep(unsigned int step);
+    /// @brief Forces a specific step
+    void setStep(int step);
 
 private:
 
@@ -194,7 +194,7 @@ private:
 protected:
 
     /// @brief The current step
-    unsigned int myStep;
+    int myStep;
 
 
 

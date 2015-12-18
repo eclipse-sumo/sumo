@@ -15,6 +15,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 from optparse import OptionParser
 import os
 import sys
@@ -122,9 +124,9 @@ def getRouteDistributions(vehroutesFile):
     startEnd = {}
     for route in routes:
         routeSplit = route[0].split(' ')
-        if (not startEnd.has_key((routeSplit[0], routeSplit[-1]))):
+        if ((routeSplit[0], routeSplit[-1]) not in startEnd):
             startEnd[routeSplit[0], routeSplit[-1]] = {}
-        if (not startEnd[routeSplit[0], routeSplit[-1]].has_key(route[0])):
+        if (route[0] not in startEnd[routeSplit[0], routeSplit[-1]]):
             startEnd[routeSplit[0], routeSplit[-1]][route[0]] = [0, 0]
         startEnd[routeSplit[0], routeSplit[-1]][route[0]][0] += 1
         startEnd[routeSplit[0], routeSplit[-1]][route[0]][1] += route[1]
@@ -332,7 +334,7 @@ def writeStatistics(assignments, out):
 
 # output the network statistics based on the sumo-simulation results
 def getStatisticsOutput(assignments, outputfile):
-    foutveh = file(outputfile, 'w')
+    foutveh = open(outputfile, 'w')
     writeStatistics(assignments, foutveh)
     foutveh.write('\n\nRoute distribution:\n')
     foutveh.write('==================:\n')
@@ -347,42 +349,42 @@ def getStatisticsOutput(assignments, outputfile):
 
 
 def getCSVOutput(assignments, path, veh_types, interval):
-    f_mean_travel_time = file(
+    f_mean_travel_time = open(
         os.path.join(options.path, 'mean_travel_time.csv'), 'w')
-    f_mean_speed = file(os.path.join(options.path, 'mean_speed.csv'), 'w')
-    f_mean_waiting_time = file(
+    f_mean_speed = open(os.path.join(options.path, 'mean_speed.csv'), 'w')
+    f_mean_waiting_time = open(
         os.path.join(options.path, 'mean_waiting_time.csv'), 'w')
-    f_mean_distance_travelled = file(
+    f_mean_distance_travelled = open(
         os.path.join(options.path, 'mean_distance_travelled.csv'), 'w')
-    f_mean_fuel_consumption = file(
+    f_mean_fuel_consumption = open(
         os.path.join(options.path, 'mean_fuel_consumption.csv'), 'w')
-    f_mean_CO_emissions = file(
+    f_mean_CO_emissions = open(
         os.path.join(options.path, 'mean_CO_emissions.csv'), 'w')
-    f_mean_CO2_emissions = file(
+    f_mean_CO2_emissions = open(
         os.path.join(options.path, 'mean_CO2_emissions.csv'), 'w')
-    f_mean_HC_emissions = file(
+    f_mean_HC_emissions = open(
         os.path.join(options.path, 'mean_HC_emissions.csv'), 'w')
-    f_mean_PMx_emissions = file(
+    f_mean_PMx_emissions = open(
         os.path.join(options.path, 'mean_PMx_emissions.csv'), 'w')
-    f_mean_NOx_emissions = file(
+    f_mean_NOx_emissions = open(
         os.path.join(options.path, 'mean_NOx_emissions.csv'), 'w')
-    f_abs_travel_time = file(
+    f_abs_travel_time = open(
         os.path.join(options.path, 'abs_travel_time.csv'), 'w')
-    f_abs_waiting_time = file(
+    f_abs_waiting_time = open(
         os.path.join(options.path, 'abs_waiting_time.csv'), 'w')
-    f_abs_distance_travelled = file(
+    f_abs_distance_travelled = open(
         os.path.join(options.path, 'abs_distance_travelled.csv'), 'w')
-    f_abs_fuel_consumption = file(
+    f_abs_fuel_consumption = open(
         os.path.join(options.path, 'abs_fuel_consumption.csv'), 'w')
-    f_abs_CO_emissions = file(
+    f_abs_CO_emissions = open(
         os.path.join(options.path, 'abs_CO_emissions.csv'), 'w')
-    f_abs_CO2_emissions = file(
+    f_abs_CO2_emissions = open(
         os.path.join(options.path, 'abs_CO2_emissions.csv'), 'w')
-    f_abs_HC_emissions = file(
+    f_abs_HC_emissions = open(
         os.path.join(options.path, 'abs_HC_emissions.csv'), 'w')
-    f_abs_PMx_emissions = file(
+    f_abs_PMx_emissions = open(
         os.path.join(options.path, 'abs_PMx_emissions.csv'), 'w')
-    f_abs_NOx_emissions = file(
+    f_abs_NOx_emissions = open(
         os.path.join(options.path, 'abs_NOx_emissions.csv'), 'w')
 
     files = []
@@ -437,7 +439,7 @@ def getCSVOutput(assignments, path, veh_types, interval):
         f.write('\n')
 
     t = 0
-    while assignments.has_key(t):
+    while t in assignments:
         for f in files:
             f.write('[' + str(t) + ':' + str(t + interval - 1) + '];')
         for veh_type in assignments[t].itervalues():
@@ -495,7 +497,7 @@ optParser.set_usage('\ngenerateITetrisNetworkMetrics.py -n inputs\\a_costa\\acos
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile or not options.path:
-    print "Missing arguments"
+    print("Missing arguments")
     optParser.print_help()
     exit()
 
@@ -520,7 +522,7 @@ else:
 vehicles_of_type_interval = {}
 for veh in vehicles:
     t = int(veh.depart / interval) * interval
-    if (not vehicles_of_type_interval.has_key(t)):
+    if (t not in vehicles_of_type_interval):
         vehicles_of_type_interval[t] = {}
         for veh_type in vehicle_types:
             vehicles_of_type_interval[t][veh_type] = []
@@ -544,4 +546,4 @@ assignment['routeDistr'] = getRouteDistributions(vehroutefile)
 getStatisticsOutput(
     assignment, os.path.join(options.path, "network_metrics_summary.txt"))
 
-print 'The calculation is done!'
+print('The calculation is done!')

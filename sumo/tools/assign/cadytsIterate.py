@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import subprocess
@@ -114,7 +116,7 @@ def main():
                            "-clonepostfix", options.clonepostfix, "-cntfirstlink", options.cntfirstlink, "-cntlastlink", options.cntlastlink], log)
 
     for step in range(options.calibStep):
-        print 'calibration step:', step
+        print('calibration step:', step)
         files = []
 
         # calibration choice
@@ -130,16 +132,16 @@ def main():
         files.append(output)
 
         # simulation
-        print ">> Running simulation"
+        print(">> Running simulation")
         btime = datetime.now()
-        print ">>> Begin time: %s" % btime
+        print(">>> Begin time: %s" % btime)
         writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
         retCode = call(
             [sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         etime = datetime.now()
-        print ">>> End time: %s" % etime
-        print ">>> Duration: %s" % (etime - btime)
-        print "<<"
+        print(">>> End time: %s" % etime)
+        print(">>> Duration: %s" % (etime - btime))
+        print("<<")
 
         # calibration update
         if evalprefix:
@@ -148,11 +150,11 @@ def main():
         else:
             call(calibrator + ["UPDATE", "-netfile",
                                "dump_%03i_%s.xml" % (step, options.aggregation)], log)
-        print "< Step %s ended (duration: %s)" % (step, datetime.now() - btime)
-        print "------------------\n"
+        print("< Step %s ended (duration: %s)" % (step, datetime.now() - btime))
+        print("------------------\n")
         log.flush()
 
-    print "calibration ended (duration: %s)" % (datetime.now() - starttime)
+    print("calibration ended (duration: %s)" % (datetime.now() - starttime))
     log.close()
 
 if __name__ == "__main__":

@@ -68,8 +68,8 @@ protected:
 
     static std::string getLaneType(SVCPermissions permissions);
 
-    /// @brief get the left border of the leftmost lane
-    static PositionVector getLeftBorder(const NBEdge* edge);
+    /// @brief get the left border of the given lane (the leftmost one by default)
+    static PositionVector getLeftLaneBorder(const NBEdge* edge, int laneIndex=-1);
 };
 
 

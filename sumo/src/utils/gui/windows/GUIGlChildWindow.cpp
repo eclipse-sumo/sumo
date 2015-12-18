@@ -160,7 +160,7 @@ GUIGlChildWindow::buildScreenshotToolBar() {
 //    myScreenshotToolBar = new FXToolBar(myContentFrame,LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
     new FXToolBarGrip(myNavigationToolBar, NULL, 0, TOOLBARGRIP_SINGLE | FRAME_SUNKEN);
     // snapshot
-    new FXButton(myNavigationToolBar,
+    new MFXCheckableButton(false, myNavigationToolBar,
                  "\tMake Snapshot\tMakes a snapshot of the view.",
                  GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT,
                  ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);

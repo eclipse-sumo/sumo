@@ -88,16 +88,16 @@ MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
             const SUMOReal laneLength = lane->getLength();
-            const SUMOReal length = MIN2(detectorLength, laneLength-POSITION_EPS);
+            const SUMOReal length = MIN2(detectorLength, laneLength - POSITION_EPS);
             // Build the lane state detetcor and set it into the container
             std::string id = "TL_" + myID + "_" + myProgramID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
 
             if (myE2Detectors.find(lane) == myE2Detectors.end()) {
                 MSDetectorFileOutput* det = nb.buildSingleLaneE2Det(id,
-                                           DU_TL_CONTROL, lane, laneLength-length, length,
-                                           /*haltingTimeThreshold!!!*/ 1,
-                                           /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0 / 3.6),
-                                           /*jamDistThreshold!!!*/ 10);
+                                            DU_TL_CONTROL, lane, laneLength - length, length,
+                                            /*haltingTimeThreshold!!!*/ 1,
+                                            /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0 / 3.6),
+                                            /*jamDistThreshold!!!*/ 10);
                 myE2Detectors[lane] = static_cast<MSE2Collector*>(det);
             }
         }
@@ -142,7 +142,7 @@ SUMOTime
 MSAgentbasedTrafficLightLogic::trySwitch() {
     assert(getCurrentPhaseDef().minDuration >= 0);
     assert(getCurrentPhaseDef().minDuration <= getCurrentPhaseDef().duration);
-	if (getCurrentPhaseDef().isGreenPhase()) {
+    if (getCurrentPhaseDef().isGreenPhase()) {
         // collects the data for the signal control
         collectData();
         // decides wheter greentime shall distributed between phases
@@ -164,9 +164,9 @@ MSAgentbasedTrafficLightLogic::trySwitch() {
 // ------------ "agentbased" algorithm methods
 unsigned int
 MSAgentbasedTrafficLightLogic::nextStep() {
-		
-	proceedToNextStep();
-	// increment the number of cycles since last decision
+
+    proceedToNextStep();
+    // increment the number of cycles since last decision
     if (getCurrentPhaseIndex() == stepOfLastDecision) {
         tSinceLastDecision = tSinceLastDecision + 1;
     }

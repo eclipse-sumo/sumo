@@ -1,9 +1,9 @@
 /****************************************************************************/
 /// @file    MSSOTLRequestPolicy.cpp
 /// @author  Gianfilippo Slager
-/// @author  Anna Chiara Bellini 
+/// @author  Anna Chiara Bellini
 /// @date    Apr 2013
-/// @version $Id: MSSOTLRequestPolicy.cpp 2 2013-04-05 15:00:00Z acbellini $
+/// @version $Id$
 ///
 // The class for SOTL Request logics
 /****************************************************************************/
@@ -21,28 +21,28 @@
 #include "MSSOTLRequestPolicy.h"
 
 MSSOTLRequestPolicy::MSSOTLRequestPolicy(
-		const std::map<std::string, std::string>& parameters) :
-		MSSOTLPolicy("Request", parameters) {
+    const std::map<std::string, std::string>& parameters) :
+    MSSOTLPolicy("Request", parameters) {
 }
 
 MSSOTLRequestPolicy::MSSOTLRequestPolicy(
-		MSSOTLPolicyDesirability *desirabilityAlgorithm) :
-		MSSOTLPolicy("Request", desirabilityAlgorithm) {
-	getDesirabilityAlgorithm()->setKeyPrefix("REQUEST");
+    MSSOTLPolicyDesirability* desirabilityAlgorithm) :
+    MSSOTLPolicy("Request", desirabilityAlgorithm) {
+    getDesirabilityAlgorithm()->setKeyPrefix("REQUEST");
 }
 
 MSSOTLRequestPolicy::MSSOTLRequestPolicy(
-		MSSOTLPolicyDesirability *desirabilityAlgorithm,
-		const std::map<std::string, std::string>& parameters) :
-		MSSOTLPolicy("Request", desirabilityAlgorithm, parameters) {
-	getDesirabilityAlgorithm()->setKeyPrefix("REQUEST");
+    MSSOTLPolicyDesirability* desirabilityAlgorithm,
+    const std::map<std::string, std::string>& parameters) :
+    MSSOTLPolicy("Request", desirabilityAlgorithm, parameters) {
+    getDesirabilityAlgorithm()->setKeyPrefix("REQUEST");
 
 }
 
-bool MSSOTLRequestPolicy::canRelease(int elapsed, bool thresholdPassed,  bool pushButtonPressed,
-		const MSPhaseDefinition* stage, int vehicleCount) {
-	if (elapsed >= getMinDecisionalPhaseDuration()) {
-		return thresholdPassed;
-	}
-	return false;
+bool MSSOTLRequestPolicy::canRelease(SUMOTime elapsed, bool thresholdPassed,  bool /* pushButtonPressed */,
+                                     const MSPhaseDefinition* /* stage */, int /* vehicleCount */) {
+    if (elapsed >= getMinDecisionalPhaseDuration()) {
+        return thresholdPassed;
+    }
+    return false;
 }

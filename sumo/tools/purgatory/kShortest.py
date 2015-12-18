@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import random
@@ -112,7 +114,7 @@ def printRoutes(net, startVertex):
         weight = "duration"
     else:
         weight = "length"
-    print "<routes>"
+    print("<routes>")
     for lastVertex in net.getNodes():
         routes = []
         for num, startPred in enumerate(lastVertex.preds):
@@ -133,9 +135,9 @@ def printRoutes(net, startVertex):
                                % (firstEdge.getID(), lastEdge.getID(),
                                   weight, startPred.distance, route[:-1])))
         for num, route in enumerate(sorted(routes)):
-            print '    <route id="route%s_%s' % (num, route[1])
-        print
-    print "</routes>"
+            print('    <route id="route%s_%s' % (num, route[1]))
+        print()
+    print("</routes>")
 
 
 optParser = OptionParser()
@@ -157,8 +159,8 @@ if not options.netfile:
     sys.exit()
 parser = make_parser()
 if options.verbose:
-    print "Reading net"
+    print("Reading net")
 net = sumolib.net.readNet(options.netfile)
 if options.verbose:
-    print len(net.getEdges()), "edges read"
+    print(len(net.getEdges()), "edges read")
 calcPaths(net, options.start)

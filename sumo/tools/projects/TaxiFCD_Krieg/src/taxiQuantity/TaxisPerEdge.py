@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import util.Path as path
 
@@ -29,10 +31,10 @@ edgeList = {}
 
 
 def main():
-    print "start program"
+    print("start program")
     countTaxisForEachEdge()
     writeOutput()
-    print "end"
+    print("end")
 
 
 def countTaxisForEachEdge():
@@ -44,9 +46,9 @@ def countTaxisForEachEdge():
         edgeList[words[1]].add(words[4])
 
     for k in edgeList:
-        print k
-        print len(edgeList[k])
-    print len(edgeList)
+        print(k)
+        print(len(edgeList[k]))
+    print(len(edgeList))
 
 
 def writeOutput():

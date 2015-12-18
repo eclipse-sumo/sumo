@@ -435,8 +435,7 @@ void
 TraCIAPI::simulationStep(SUMOTime time) {
     send_commandSimulationStep(time);
     tcpip::Storage inMsg;
-    std::string acknowledgement;
-    check_resultState(inMsg, CMD_SIMSTEP2, false, &acknowledgement);
+    check_resultState(inMsg, CMD_SIMSTEP2);
 }
 
 
@@ -611,8 +610,11 @@ TraCIAPI::GUIScope::setOffset(const std::string& viewID, SUMOReal x, SUMOReal y)
 void
 TraCIAPI::GUIScope::setSchema(const std::string& viewID, const std::string& schemeName) const {
     tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
     content.writeString(schemeName);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_SCHEMA, viewID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_GUI_VARIABLE);
 }
 
 void

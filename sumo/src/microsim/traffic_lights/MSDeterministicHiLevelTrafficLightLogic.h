@@ -2,7 +2,7 @@
 /// @file    MSDeterministicHiLevelTrafficLightLogic.h
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
-/// @version $Id: MSDeterministicHiLevelTrafficLightLogic.h 0 2014-03-04 12:40:00Z riccardo_belletti $
+/// @version $Id$
 ///
 // The class for deterministic high level traffic light logic
 /****************************************************************************/
@@ -41,36 +41,36 @@ class MSDeterministicHiLevelTrafficLightLogic: public MSSOTLHiLevelTrafficLightL
 public:
 
 
-	//****************************************************
+    //****************************************************
 
-	/**
-	 * @brief Constructor without sensors passed
+    /**
+     * @brief Constructor without sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This traffic light id
      * @param[in] subid This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
-	 * @param[in] parameters Parameters defined for the tll
-	 */
-	MSDeterministicHiLevelTrafficLightLogic(MSTLLogicControl &tlcontrol, const string &id,
-			const string &subid, const Phases &phases, unsigned int step,
-			SUMOTime delay,
-			const std::map<std::string, std::string>& parameters);
-
-	~MSDeterministicHiLevelTrafficLightLogic();
-
-	/**
-	 * @brief Initialises the tls with sensors on incoming and outgoing lanes
-	 * Sensors are built in the simulation according to the type of sensor specified in the simulation parameter
-	 * @param[in] nb The detector builder
-	 * @exception ProcessError If something fails on initialisation
-	 */
-	void init(NLDetectorBuilder &nb) throw (ProcessError);
-
-	    /** @brief Returns the type of the logic as a string
-     * @return The type of the logic
+     * @param[in] parameters Parameters defined for the tll
      */
+    MSDeterministicHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
+                                            const std::string& subid, const Phases& phases, unsigned int step,
+                                            SUMOTime delay,
+                                            const std::map<std::string, std::string>& parameters);
+
+    ~MSDeterministicHiLevelTrafficLightLogic();
+
+    /**
+     * @brief Initialises the tls with sensors on incoming and outgoing lanes
+     * Sensors are built in the simulation according to the type of sensor specified in the simulation parameter
+     * @param[in] nb The detector builder
+     * @exception ProcessError If something fails on initialisation
+     */
+    void init(NLDetectorBuilder& nb) throw(ProcessError);
+
+    /** @brief Returns the type of the logic as a string
+    * @return The type of the logic
+    */
     const std::string getLogicType() const {
         return "DeterministicHighLevelTrafficLightLogic";
     }
@@ -78,49 +78,49 @@ public:
 
 protected:
 
-	/**
-	 * \brief This pheronome is an indicator of congestion on input lanes.\n
-	 * Its levels refer to the average speed of vehicles passing the input lane:
-	 * the lower the speed the higher the pheromone.\n
-	 * These levels are updated on every input lane, independently on lights state.
-	 */
-	MSLaneID_set inputLanes;
+    /**
+     * \brief This pheronome is an indicator of congestion on input lanes.\n
+     * Its levels refer to the average speed of vehicles passing the input lane:
+     * the lower the speed the higher the pheromone.\n
+     * These levels are updated on every input lane, independently on lights state.
+     */
+    MSLaneID_set inputLanes;
 
-	/**
-	 * \brief This pheromone is an indicator of congestion on output lanes.\n
-	 * Its levels refer to the average speed of vehicles passing the output lane:
-	 * the lower the speed the higher the pheromone.\n
-	 * These levels are updated on every output lane, independently on lights state.
-	 */
-	MSLaneID_set outputLanes;
+    /**
+     * \brief This pheromone is an indicator of congestion on output lanes.\n
+     * Its levels refer to the average speed of vehicles passing the output lane:
+     * the lower the speed the higher the pheromone.\n
+     * These levels are updated on every output lane, independently on lights state.
+     */
+    MSLaneID_set outputLanes;
 
-	/*
-	 * This member has to contain the switching logic for SOTL policies
-	 */
-	size_t decideNextPhase();
+    /*
+     * This member has to contain the switching logic for SOTL policies
+     */
+    int decideNextPhase();
 
-	bool canRelease();
-
-
-	/*
-	 * @return The average pheromone level regarding congestion on input lanes
-	 */
-	SUMOReal getMeanSpeedForInputLanes();
-
-	/*
-	 * @return The average pheromone level regarding congestion on output lanes
-	 */
-	SUMOReal getMeanSpeedForOutputLanes();
+    bool canRelease();
 
 
+    /*
+     * @return The average pheromone level regarding congestion on input lanes
+     */
+    SUMOReal getMeanSpeedForInputLanes();
 
-	/**
-	 * @brief Decide the current policy according to pheromone levels
-	 * The decision reflects on currentPolicy value
-	 */
-	void decidePolicy();
+    /*
+     * @return The average pheromone level regarding congestion on output lanes
+     */
+    SUMOReal getMeanSpeedForOutputLanes();
 
-	void choosePolicy(double mean_vSpeed_in, double mean_vSpeed_out);
+
+
+    /**
+     * @brief Decide the current policy according to pheromone levels
+     * The decision reflects on currentPolicy value
+     */
+    void decidePolicy();
+
+    void choosePolicy(SUMOReal mean_vSpeed_in, SUMOReal mean_vSpeed_out);
 
 
 };

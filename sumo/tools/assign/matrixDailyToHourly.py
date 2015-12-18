@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import random
@@ -86,7 +88,7 @@ def combineDemand(matrix, districtList, startVertices, endVertices):
     matrixMap = {}
     combinedCounter = 0
     existCounter = 0
-    foutzone = file('combinedZones.txt', 'w')
+    foutzone = open('combinedZones.txt', 'w')
 
     for i, start in enumerate(startVertices):
         matrixMap[start] = {}
@@ -124,10 +126,10 @@ def combineDemand(matrix, districtList, startVertices, endVertices):
 
     foutzone.close()
     matrixMap.clear()
-    print 'finish combining zones!'
-    print 'number of zones (before):', len(startVertices)
-    print 'number of zones (after):', existCounter
-    print 'number of the combined zones:', combinedCounter
+    print('finish combining zones!')
+    print('number of zones (before):', len(startVertices))
+    print('number of zones (after):', existCounter)
+    print('number of the combined zones:', combinedCounter)
 
     return matrix
 # read the analyzed matrix
@@ -141,7 +143,7 @@ def getMatrix(verbose, matrix):  # , mtxplfile, mtxtfile):
     periodList = []
     MatrixSum = 0.
     if verbose:
-        print 'matrix:', str(matrix)
+        print('matrix:', str(matrix))
     ODpairs = 0
     origins = 0
     dest = 0
@@ -158,12 +160,12 @@ def getMatrix(verbose, matrix):  # , mtxplfile, mtxtfile):
             if skipCount == 2:
                 for elem in line.split():
                     periodList.append(float(elem))
-                print 'periodList:', periodList
+                print('periodList:', periodList)
             elif skipCount > 3:
                 if zones == 0:
                     for elem in line.split():
                         zones = int(elem)
-                        print 'zones:', zones
+                        print('zones:', zones)
                 elif len(startVertices) < zones:
                     for elem in line.split():
                         if len(elem) > 0:
@@ -184,20 +186,20 @@ def getMatrix(verbose, matrix):  # , mtxplfile, mtxtfile):
                             Pshort_EffCells += 1
     begintime = int(periodList[0])
     if verbose:
-        foutlog = file('log.txt', 'w')
+        foutlog = open('log.txt', 'w')
         foutlog.write('Number of zones:%s, Number of origins:%s, Number of destinations:%s, begintime:%s, \n' % (
             zones, origins, dest, begintime))
         foutlog.write('CurrentMatrixSum:%s, total O-D pairs:%s, effective O-D pairs:%s\n' %
                       (CurrentMatrixSum, ODpairs, Pshort_EffCells))
-        print 'Number of zones:', zones
-        print 'Number of origins:', origins
-        print 'Number of destinations:', dest
-        print 'begintime:', begintime
-        print 'CurrentMatrixSum:', CurrentMatrixSum
-        print 'total O-D pairs:', ODpairs
-        print 'Effective O-D Cells:', Pshort_EffCells
-        print 'len(startVertices):', len(startVertices)
-        print 'len(endVertices):', len(endVertices)
+        print('Number of zones:', zones)
+        print('Number of origins:', origins)
+        print('Number of destinations:', dest)
+        print('begintime:', begintime)
+        print('CurrentMatrixSum:', CurrentMatrixSum)
+        print('total O-D pairs:', ODpairs)
+        print('Effective O-D Cells:', Pshort_EffCells)
+        print('len(startVertices):', len(startVertices))
+        print('len(endVertices):', len(endVertices))
         foutlog.close()
 
     return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, zones
@@ -225,9 +227,9 @@ def main():
     subtotal = 0.
 
     if options.verbose:
-        foutlog = file('log.txt', 'a')
+        foutlog = open('log.txt', 'a')
     if options.timeseries:
-        print 'read the time-series profile'
+        print('read the time-series profile')
     # combine matrices
     matrix = combineDemand(matrix, districtList, startVertices, endVertices)
 
@@ -252,7 +254,7 @@ def main():
 
         filename = MTX_STUB % (hour, hour + 1)
 
-        foutmatrix = file(OUTPUTDIR + filename, 'w')  # /input/filename
+        foutmatrix = open(OUTPUTDIR + filename, 'w')  # /input/filename
 
         foutmatrix.write('$VMR;D2\n')
         foutmatrix.write('* Verkehrsmittelkennung\n')
@@ -292,13 +294,13 @@ def main():
                 elif k % 10 != 0 and j == (len(endVertices) - 1):
                     foutmatrix.write('\n')
             if options.verbose:
-                print 'origin:', startVertices[i]
-                print 'subtotal:', subtotal
+                print('origin:', startVertices[i])
+                print('subtotal:', subtotal)
                 foutlog.write('origin:%s, subtotal:%s\n' %
                               (startVertices[i], subtotal))
         foutmatrix.close()
     if options.verbose:
-        print 'done with generating', filename
+        print('done with generating', filename)
 
     if options.verbose:
         foutlog.close()

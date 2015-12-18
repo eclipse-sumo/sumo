@@ -1,0 +1,20 @@
+TraCITestClient output file. Date: Mon Dec 14 11:16:47 2015
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+testAPI:
+  edge:
+    getIDList: e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
+    getIDCount: 21
+  simulation:
+    getCurrentTime: 5000
+  gui:
+    setScheme: 
+    getScheme: real world
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

@@ -21,6 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
+from __future__ import absolute_import
 import sys
 import collections
 from optparse import OptionParser
@@ -170,4 +171,3 @@ if __name__ == "__main__":
     if options.verbose:
         print("Writing results")
     reader.writeResults(options)
-

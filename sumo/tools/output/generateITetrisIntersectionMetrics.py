@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 from optparse import OptionParser
 import os
 import sys
@@ -61,7 +63,7 @@ def mergeInfos(tlsInfoAll, tlsInfoOne, metric):
 
 
 def getStatisticsOutput(tlsInfo, outputfile):
-    opfile = file(outputfile, 'w')
+    opfile = open(outputfile, 'w')
     for tl in tlsInfo.keys():
         opfile.write('Traffic Light %s\n' % tl)
         opfile.write('=================\n')
@@ -110,7 +112,7 @@ class E2OutputReader(handler.ContentHandler):
         if name == 'interval':
             detID = attrs['id']
             laneID = detID[6:len(detID)]
-            if not self._lanes.has_key(laneID):
+            if laneID not in self._lanes:
                 self._lanes[laneID] = {}
                 self._lanes[laneID]['mQueueLen'] = []
  #               self._lanes[laneID]['mWaitTime'] = []
@@ -310,7 +312,7 @@ optParser.set_usage(
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile:
-    print "Missing arguments"
+    print("Missing arguments")
     optParser.print_help()
     exit()
 
@@ -343,4 +345,4 @@ if options.hbefaFile:
 getStatisticsOutput(
     tlsInfo, os.path.join(options.path, "intersection_metrics_summary.txt"))
 
-print 'The calculation is done!'
+print('The calculation is done!')

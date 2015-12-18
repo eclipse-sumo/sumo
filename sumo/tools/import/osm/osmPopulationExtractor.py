@@ -22,6 +22,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -123,7 +125,7 @@ class PopulationReader(handler.ContentHandler):
             self._nodeId = attrs['id']
             self._nodeLat = attrs['lat']
             self._nodeLon = attrs['lon']
-            if attrs.has_key('uid'):
+            if 'uid' in attrs:
                 self._nodeuid = attrs['uid']
         if self._nodeId and name == 'tag':
             if attrs['k'] == 'name':
@@ -141,7 +143,7 @@ class PopulationReader(handler.ContentHandler):
         if name == 'relation':
             self._relationId = attrs['id']
             self._uid = attrs['uid']
-            if attrs.has_key('uid'):
+            if 'uid' in attrs:
                 self._relationuid = attrs['uid']
         if self._relationId and name == 'tag':
             if attrs['k'] == 'name':
@@ -219,10 +221,10 @@ class PopulationReader(handler.ContentHandler):
 def main():
     parser = make_parser()
     osmFile = options.osmfile
-    print 'osmFile:', osmFile
+    print('osmFile:', osmFile)
     if options.bsafile:
         bsaFile = options.bsafile
-        print 'bsaFile:', bsaFile
+        print('bsaFile:', bsaFile)
     if options.outputfile:
         prefix = options.outputfile
     else:
@@ -234,9 +236,9 @@ def main():
         PopulationReader(net, foutredundant, options.encoding))
     parser.parse(osmFile)
     foutredundant.close()
-    print 'finish with data parsing'
+    print('finish with data parsing')
     if options.generateoutputs:
-        print 'write the population to the output file'
+        print('write the population to the output file')
         outputfile = '%s_populations.txt' % prefix
         fout = open(outputfile, 'w')
         fout.write("attribute\tid\tname\tuid\tpopulation\tlat\tlon\n")
@@ -248,8 +250,8 @@ def main():
         if os.path.exists(outputfile):
             fout = open(outputfile, 'a')
         else:
-            print "there is no file named %s", outputfile
-            print "A new file will be open."
+            print("there is no file named %s", outputfile)
+            print("A new file will be open.")
             fout = open(outputfile, 'w')
 
         for r in net._relations:
@@ -278,7 +280,7 @@ def main():
         fout.close()
 
     if options.bsafile:
-        print 'compare the data with the data from BSA'
+        print('compare the data with the data from BSA')
         bsaTotalCount = 0
         matchedCount = 0
         bsaNamesList = []
@@ -325,9 +327,9 @@ def main():
             foutnone.close()
         # Duplicated data does not exist.
         osmTotalCount = len(net._nodes) + len(net._relations)
-        print 'matched count in OSM and BSA data:', matchedCount
-        print 'Number of entries in the BSA data:', bsaTotalCount
-        print 'Number of entries in the OSM data:', osmTotalCount
+        print('matched count in OSM and BSA data:', matchedCount)
+        print('Number of entries in the BSA data:', bsaTotalCount)
+        print('Number of entries in the OSM data:', osmTotalCount)
 
 optParser = OptionParser()
 optParser.add_option("-s", "--osm-file", dest="osmfile",

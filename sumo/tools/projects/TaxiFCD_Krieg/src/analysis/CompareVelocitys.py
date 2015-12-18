@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import util.Path as path
 import util.Reader as reader
@@ -31,14 +33,14 @@ WEE = True
 
 
 def main():
-    print "start program"
+    print("start program")
     # getVtypeV()
     # getFcdV()
 
     getSpeeds()
     writeSelLanesOutput()
     writeOutput()
-    print "end"
+    print("end")
 
 
 def getSpeeds():
@@ -58,12 +60,12 @@ def getSpeeds():
     # print vtypeEdgeDict["558300689"]
     for edge in fcdEdgeDict:
         fcdEdgeDict[edge] = sum(fcdEdgeDict[edge]) / len(fcdEdgeDict[edge])
-    print len(fcdEdgeDict)
+    print(len(fcdEdgeDict))
 
     for edge in vtypeEdgeDict:
         vtypeEdgeDict[edge] = sum(
             vtypeEdgeDict[edge]) / len(vtypeEdgeDict[edge])
-    print len(vtypeEdgeDict)
+    print(len(vtypeEdgeDict))
 
 
 # deprecated
@@ -82,7 +84,7 @@ def getVtypeV():
     for edge in vtypeEdgeDictSpeedList:
         vtypeEdgeDict[edge] = sum(
             vtypeEdgeDictSpeedList[edge]) / len(vtypeEdgeDictSpeedList[edge])
-    print len(vtypeEdgeDict)
+    print(len(vtypeEdgeDict))
 
 # deprecated
 
@@ -100,7 +102,7 @@ def getFcdV():
     for edge in fcdEdgeDictSpeedList:
         fcdEdgeDict[edge] = sum(
             fcdEdgeDictSpeedList[edge]) / len(fcdEdgeDictSpeedList[edge])
-    print len(fcdEdgeDict)
+    print(len(fcdEdgeDict))
 
 
 def writeSelLanesOutput():
@@ -115,9 +117,9 @@ def writeSelLanesOutput():
             # print relDeviation
             if relDeviation < -50 or relDeviation > 50:
                 i += 1
-                print "relDev ", relDeviation, " edge ", edge
+                print("relDev ", relDeviation, " edge ", edge)
                 outputFile.write("lane:" + edge + "_0\n")
-    print "total", i
+    print("total", i)
     outputFile.close()
 
 

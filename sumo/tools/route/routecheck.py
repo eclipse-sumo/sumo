@@ -30,6 +30,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import string
 import sys
@@ -64,7 +66,7 @@ class NetReader(handler.ContentHandler):
         self._nb = {}
 
     def startElement(self, name, attrs):
-        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+        if name == 'edge' and ('function' not in attrs or attrs['function'] != 'internal'):
             self._nb[attrs['id']] = set()
         elif name == 'connection':
             if attrs['from'] in self._nb and attrs['to'] in self._nb:
@@ -101,7 +103,7 @@ class RouteReader(handler.ContentHandler):
 
     def startDocument(self):
         if self._out:
-            print >> self._out, '<?xml version="1.0"?>'
+            print('<?xml version="1.0"?>', file=self._out)
 
     def endDocument(self):
         if self._out:
@@ -131,32 +133,32 @@ class RouteReader(handler.ContentHandler):
             self._fileOut = None
 
     def startElement(self, name, attrs):
-        if name == 'vehicle' and not attrs.has_key('route'):
+        if name == 'vehicle' and 'route' not in attrs:
             self.condOutputRedirect()
             self._vID = attrs['id']
         if name == 'route':
             self.condOutputRedirect()
-            if attrs.has_key('id'):
+            if 'id' in attrs:
                 self._routeID = attrs['id']
             else:
                 self._routeID = "for vehicle " + self._vID
             self._routeString = ''
-            if attrs.has_key('edges'):
+            if 'edges' in attrs:
                 self._routeString = attrs['edges']
             else:
                 self._changed = True
-                print "Warning: No edges attribute in route " + self._routeID
+                print("Warning: No edges attribute in route " + self._routeID)
         elif self._routeID:
-            print "Warning: This script does not handle nested '%s' elements properly." % name
+            print("Warning: This script does not handle nested '%s' elements properly." % name)
         if self._out:
             if name in camelCase:
                 name = camelCase[name]
                 self._changed = True
             self._out.write('<' + name)
-            if options.fix_length and attrs.has_key('length') and not attrs.has_key('minGap'):
+            if options.fix_length and 'length' in attrs and 'minGap' not in attrs:
                 length = float(attrs["length"])
                 minGap = 2.5
-                if attrs.has_key('guiOffset'):
+                if 'guiOffset' in attrs:
                     minGap = float(attrs["guiOffset"])
                 attrs = dict(attrs)
                 attrs["length"] = str(length - minGap)
@@ -203,7 +205,7 @@ class RouteReader(handler.ContentHandler):
             returnValue = True
             edgeList = self._routeString.split()
             if len(edgeList) == 0:
-                print "Warning: Route %s is empty" % self._routeID
+                print("Warning: Route %s is empty" % self._routeID)
                 return False
             if net == None:
                 return True
@@ -213,13 +215,13 @@ class RouteReader(handler.ContentHandler):
                 if self._net.hasEdge(v):
                     cleanedEdgeList.append(v)
                 else:
-                    print "Warning: Unknown edge " + v + " in route " + self._routeID
+                    print("Warning: Unknown edge " + v + " in route " + self._routeID)
                     returnValue = False
             while doConnectivityTest:
                 doConnectivityTest = False
                 for i, v in enumerate(cleanedEdgeList):
                     if i < len(cleanedEdgeList) - 1 and not self._net.isNeighbor(v, cleanedEdgeList[i + 1]):
-                        print "Warning: Route " + self._routeID + " disconnected between " + v + " and " + cleanedEdgeList[i + 1]
+                        print("Warning: Route " + self._routeID + " disconnected between " + v + " and " + cleanedEdgeList[i + 1])
                         interEdge = self._net.getIntermediateEdge(
                             v, cleanedEdgeList[i + 1])
                         if interEdge != '':
@@ -272,11 +274,11 @@ for f in args:
     ffix = f + '.fixed'
     if options.fix:
         if options.verbose:
-            print "fixing " + f
+            print("fixing " + f)
         parser.setContentHandler(RouteReader(net, ffix))
     else:
         if options.verbose:
-            print "checking " + f
+            print("checking " + f)
     parser.parse(f)
     if options.fix and os.path.exists(ffix) and options.inplace:
         os.rename(ffix, f)

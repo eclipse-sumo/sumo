@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -89,7 +91,7 @@ def main():
         for vehicle in parse(options.routeFile2, 'vehicle'):
             lengths2[vehicle.id] = getRouteLength(net, vehicle)
             stats.add(lengths2[vehicle.id] - lengths[vehicle.id], vehicle.id)
-    print stats
+    print(stats)
 
     if options.hist_output is not None:
         with open(options.hist_output, 'w') as f:

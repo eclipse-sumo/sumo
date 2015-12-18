@@ -17,6 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os
 import subprocess
 import sys
@@ -41,11 +42,11 @@ def step():
 
 
 def setGetParam(objectType, object, objectID):
-    print objectType, 'foo="%s"' % object.getParameter(objectID, "foo")
+    print(objectType, 'foo="%s"' % object.getParameter(objectID, "foo"))
     object.setParameter(objectID, "foo", "42")
-    print objectType, 'foo="%s"' % object.getParameter(objectID, "foo")
+    print(objectType, 'foo="%s"' % object.getParameter(objectID, "foo"))
 
-print "step", step()
+print("step", step())
 
 # XXX test PoI, Polygon
 objects = [
@@ -59,6 +60,6 @@ objects = [
 ]
 
 [setGetParam(*x) for x in objects]
-print "step", step()
+print("step", step())
 
 traci.close()

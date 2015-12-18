@@ -99,13 +99,14 @@ public:
      * @param[in] shape The shape of the lane
      * @param[in] width The width of the lane
      * @param[in] permissions Encoding of vehicle classes that may drive on this lane
+     * @param[in] index The index of this lane within its parent edge
      * @see SUMOVehicleClass
      * @see MSLane
      * @todo Definitely not a good way
      */
     virtual MSLane* addLane(const std::string& id, SUMOReal maxSpeed,
                             SUMOReal length, const PositionVector& shape,
-                            SUMOReal width, SVCPermissions permissions);
+                            SUMOReal width, SVCPermissions permissions, int index);
 
 
     /** @brief Closes the building of an edge;

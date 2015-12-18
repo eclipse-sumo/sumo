@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import math
@@ -115,7 +117,7 @@ class Edge(sumolib.net.Edge):
     def __init__(self, label, source, target, prio, function, name):
         sumolib.net.Edge.__init__(
             self, label, source, target, prio, function, name)
-        self.capacity = sys.maxint
+        self.capacity = sys.maxsize
         # parameter for estimating capacities according to signal timing plans
         self.junction = None
         self.junctiontype = None
@@ -169,7 +171,7 @@ class Edge(sumolib.net.Edge):
 
     def __repr__(self):
         cap = str(self.capacity)
-        if self.capacity == sys.maxint or self.connection != 0:
+        if self.capacity == sys.maxsize or self.connection != 0:
             cap = "inf"
         return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self._function, self._id, self._from, self._to, self.junctiontype, self._speed,
                                                             self.flow, self._length, self._lanes,
@@ -258,7 +260,7 @@ class Edge(sumolib.net.Edge):
         """
         method to calculate/update link travel time
         """
-        foutcheck = file('queue_info.txt', 'a')
+        foutcheck = open('queue_info.txt', 'a')
 
         if self.CRcurve in crCurveTable:
             curve = crCurveTable[self.CRcurve]
@@ -492,7 +494,7 @@ class Signalphase:
                     self.brake += '1'
                     self.yellow += '0'
         else:
-            print 'no timing plans exist!'
+            print('no timing plans exist!')
 
     def __repr__(self):
         return "%s_%s<%s|%s|%s>" % (self.label, self.duration, self.green, self.brake, self.yellow)

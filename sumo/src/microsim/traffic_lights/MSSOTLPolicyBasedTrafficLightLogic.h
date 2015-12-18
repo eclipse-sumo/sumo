@@ -3,7 +3,7 @@
 /// @author  Alessio Bonfietti
 /// @author  Riccardo Belletti
 /// @date    Feb 2014
-/// @version $Id: MSSOTLPolicyBasedTrafficLightLogic.h 0 2014-02-28 16:23:00Z riccardo_belletti $
+/// @version $Id$
 ///
 // The class for SOTL Policy-based logics
 /****************************************************************************/
@@ -46,69 +46,69 @@
 
 class MSSOTLPolicyBasedTrafficLightLogic: public MSSOTLTrafficLightLogic {
 public:
-	/**
-	 * @brief Constructor without sensors passed
+    /**
+     * @brief Constructor without sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This traffic light id
      * @param[in] subid This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
-	 * @param[in] parameters Parameters defined for the tll
-	 */
-	MSSOTLPolicyBasedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-			const std::string &id, const std::string &subid,
-			const Phases &phases, unsigned int step, SUMOTime delay,
-			const std::map<std::string, std::string>& parameters,
-			MSSOTLPolicy *policy) throw ();
+     * @param[in] parameters Parameters defined for the tll
+     */
+    MSSOTLPolicyBasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                                       const std::string& id, const std::string& subid,
+                                       const Phases& phases, unsigned int step, SUMOTime delay,
+                                       const std::map<std::string, std::string>& parameters,
+                                       MSSOTLPolicy* policy) throw();
 
-	/**
-	 * @brief Constructor with sensors passed
+    /**
+     * @brief Constructor with sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
      * @param[in] subid This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
-	 * @param[in] parameters Parameters defined for the tll
-	 * @param[in] sensors The already defined sensor logic
-	 */
-	MSSOTLPolicyBasedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-			const std::string &id, const std::string &subid,
-			const Phases &phases, unsigned int step, SUMOTime delay,
-			const std::map<std::string, std::string>& parameters,
-			MSSOTLPolicy *policy, MSSOTLSensors *sensors) throw ();
-
-	~MSSOTLPolicyBasedTrafficLightLogic();
-
-	MSSOTLPolicy* getPolicy() {
-		return myPolicy;
-	}
-
-	    /** @brief Returns the type of the logic as a string
-     * @return The type of the logic
+     * @param[in] parameters Parameters defined for the tll
+     * @param[in] sensors The already defined sensor logic
      */
+    MSSOTLPolicyBasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                                       const std::string& id, const std::string& subid,
+                                       const Phases& phases, unsigned int step, SUMOTime delay,
+                                       const std::map<std::string, std::string>& parameters,
+                                       MSSOTLPolicy* policy, MSSOTLSensors* sensors) throw();
+
+    ~MSSOTLPolicyBasedTrafficLightLogic();
+
+    MSSOTLPolicy* getPolicy() {
+        return myPolicy;
+    }
+
+    /** @brief Returns the type of the logic as a string
+    * @return The type of the logic
+    */
     const std::string getLogicType() const {
         return "policyBasedTrafficLightLogic";
     }
     /// @}
 
-//	virtual bool canRelease(int elapsed, bool thresholdPassed, const MSPhaseDefinition* stage, int vehicleCount) throw ()=0;
+//	virtual bool canRelease(SUMOTime elapsed, bool thresholdPassed, const MSPhaseDefinition* stage, int vehicleCount) throw ()=0;
 
 protected:
 
-	/*
-	 * @brief Contains the logic to decide the phase change
-	 */
-	bool canRelease() throw ();
+    /*
+     * @brief Contains the logic to decide the phase change
+     */
+    bool canRelease() throw();
 
-	/*
-	 * This member has to contain the switching logic for SOTL policies
-	 */
-	size_t decideNextPhase();
+    /*
+     * This member has to contain the switching logic for SOTL policies
+     */
+    int decideNextPhase();
 
 private:
-	MSSOTLPolicy *myPolicy;
+    MSSOTLPolicy* myPolicy;
 };
 
 #endif /* MSSOTLPOLICYBASEDTRAFFICLIGHTLOGIC_H_ */

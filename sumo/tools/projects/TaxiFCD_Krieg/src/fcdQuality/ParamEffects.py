@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import random
@@ -68,22 +70,22 @@ def main():
     global period, quota
     stats = {}
     eiDict = {}
-    print "Reading edges..."
+    print("Reading edges...")
     edgeDumpDict = readEdgeDump(edgeDumpPath)
 
-    print "Reading vehicles..."
+    print("Reading vehicles...")
     vtypeDict = readVtype(vtypePath)
 
-    print "Processing..."
+    print("Processing...")
     for e in edgeDumpDict:
         eiDict[e] = EdgeInfo()
         eiDict[e]._agg = edgeDumpDict[e][0]
         eiDict[e]._aggSamples = edgeDumpDict[e][1]
     for p in period:
-        print "Period: " + str(p)
+        print("Period: " + str(p))
         stats[p] = {}
         for q in quota:
-            print "Quota: " + str(q)
+            print("Quota: " + str(q))
             for e in edgeDumpDict:
                 eiDict[e]._veh = 0
                 eiDict[e]._vehNo = 0
@@ -131,7 +133,7 @@ def main():
             s._absDiff = s._tV - s._oV
             s._relDiff = s._absDiff / s._oV * 100.
             stats[p][q] = s
-    print "end"
+    print("end")
 
     fd = open(outputPath, "w")
     for p in period:
@@ -217,7 +219,7 @@ def chooseTaxis(vtypeDict, quota):
         vehList.append(t)
     random.shuffle(vehList)
     taxiNo = int(round(quota * len(vehList) / 100))
-    print " " + str(len(vtypeDict)) + " taxis reduced to " + str(taxiNo)
+    print(" " + str(len(vtypeDict)) + " taxis reduced to " + str(taxiNo))
     return vehList[:taxiNo]
 
 

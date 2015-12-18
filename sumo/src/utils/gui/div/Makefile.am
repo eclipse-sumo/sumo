@@ -8,7 +8,6 @@ GUIParam_PopupMenu.cpp GUIParam_PopupMenu.h \
 GUIParameterTableItem.h \
 GUIParameterTableWindow.cpp GUIParameterTableWindow.h \
 GUISelectedStorage.cpp GUISelectedStorage.h \
-GUIUserIO.cpp GUIUserIO.h \
-GLHelper.cpp GLHelper.h
-
-EXTRA_DIST = GLObjectValuePassConnector.h
+GUIUserIO.cpp GUIUserIO.h GUIVideoEncoder.h \
+GLHelper.cpp GLHelper.h \
+GLObjectValuePassConnector.h

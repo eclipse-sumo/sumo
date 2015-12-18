@@ -1,0 +1,5 @@
+<routes>
+    <route id="r0" edges="beg end"/>
+    <vehicle id="right" color="red" route="r0" depart="0" departLane="0" departSpeed="2" departPos="-10"/>
+    <vehicle id="left" color="blue" route="r0" depart="0" departLane="1" departSpeed="2" departPos="-10"/>
+</routes>

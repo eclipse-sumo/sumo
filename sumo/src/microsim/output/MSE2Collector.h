@@ -231,10 +231,10 @@ public:
     void reset();
 
     /** @brief Returns an estimate of the number of vehicles currently on the detector */
-    unsigned getEstimatedCurrentVehicleNumber(double speedThreshold) const;
+    int getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const;
 
     /** @brief Returns an estimate of the lenght of the queue of vehicles currently stopped on the detector */
-    double getEstimateQueueLength() const;
+    SUMOReal getEstimateQueueLength() const;
 
     /// @name Methods returning current values
     /// @{
@@ -290,21 +290,19 @@ public:
     /// @}
 
     /** \brief Returns the number of vehicles passed over the sensor.
-	 *
-	 * @return number of cars passed over the sensor
-	 */
-    unsigned int getPassedVeh()
-    {
-    	return myPassedVeh;
+     *
+     * @return number of cars passed over the sensor
+     */
+    unsigned int getPassedVeh() {
+        return myPassedVeh;
     }
 
     /** \brief Subtract the number of vehicles indicated from passed from the sensor count.
-	 *
-	 * @param[in] passed - int that indicates the number of vehicles to subtract
-	 */
-    void subtractPassedVeh(int passed)
-    {
-    	myPassedVeh -= passed;
+     *
+     * @param[in] passed - int that indicates the number of vehicles to subtract
+     */
+    void subtractPassedVeh(int passed) {
+        myPassedVeh -= passed;
     }
 
 protected:

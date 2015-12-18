@@ -87,26 +87,26 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         return true;
     }
     if (newPos > myStartPos && oldPos <= myStartPos) {
-        if(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh) == myKnownVehicles.end()) {
+        if (find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh) == myKnownVehicles.end()) {
             std::string type = veh.getVehicleType().getID(); // get vehicle's type
-            if(type.find("COLOMBO_undetectable") == std::string::npos){
+            if (type.find("COLOMBO_undetectable") == std::string::npos) {
                 myKnownVehicles.push_back(&veh);
                 //Detection entering the sensor
                 myPassedVeh++;
                 DBG(
-                        std::ostringstream str;
-                        str << time2string(MSNet::getInstance()->getCurrentTimeStep())
-                                << " MSE2Collector::notifyMove::"
-                                << " lane " << myLane->getID()
-                                << " passedVeh " << myPassedVeh ;
-                        WRITE_MESSAGE(str.str());
+                    std::ostringstream str;
+                    str << time2string(MSNet::getInstance()->getCurrentTimeStep())
+                    << " MSE2Collector::notifyMove::"
+                    << " lane " << myLane->getID()
+                    << " passedVeh " << myPassedVeh ;
+                    WRITE_MESSAGE(str.str());
                 )
             }
         }
     }
     if (newPos - veh.getVehicleType().getLength() > myEndPos) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
-        if(i != myKnownVehicles.end()) {
+        if (i != myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
         return false;
@@ -142,19 +142,19 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason
         // the junction case is handled in the notifyMove
         // vehicle is on the detector, being already beyond was checked before
         std::string type = veh.getVehicleType().getID(); // get vehicle's type
-        if(type.find("COLOMBO_undetectable") == std::string::npos) {
+        if (type.find("COLOMBO_undetectable") == std::string::npos) {
             myKnownVehicles.push_back(&veh);
             //Detection entering the sensor
             myPassedVeh++;
             DBG(
-                 std::ostringstream str;
-                 str << time2string(MSNet::getInstance()->getCurrentTimeStep())
-                            << " MSE2Collector::notifyEnter::"
-                            << " lane " << myLane->getID()
-                            << " passedVeh " << myPassedVeh ;
-                 WRITE_MESSAGE(str.str());
-                 )
-        return true;
+                std::ostringstream str;
+                str << time2string(MSNet::getInstance()->getCurrentTimeStep())
+                << " MSE2Collector::notifyEnter::"
+                << " lane " << myLane->getID()
+                << " passedVeh " << myPassedVeh ;
+                WRITE_MESSAGE(str.str());
+            )
+            return true;
         }
     }
     if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myEndPos) {
@@ -440,72 +440,77 @@ MSE2Collector::getCurrentVehicleNumber() const {
     return (unsigned) myKnownVehicles.size();
 }
 
-unsigned
-MSE2Collector::getEstimatedCurrentVehicleNumber(double speedThreshold) const {
+int
+MSE2Collector::getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const {
 
     SUMOReal distance = 0;
-    double thresholdSpeed = myLane->getSpeedLimit() / speedThreshold;
+    SUMOReal thresholdSpeed = myLane->getSpeedLimit() / speedThreshold;
 
     int count = 0;
     for (std::list<SUMOVehicle*>::const_iterator it = myKnownVehicles.begin();
             it != myKnownVehicles.end(); it++) {
         MSVehicle* veh = static_cast<MSVehicle*>(*it);
-        double acceleration = veh->getAcceleration();
-        if (distance == 0)
+        SUMOReal acceleration = veh->getAcceleration();
+        if (distance == 0) {
             distance = veh->getPositionOnLane();
-        if (veh->getPositionOnLane() < distance)
+        }
+        if (veh->getPositionOnLane() < distance) {
             distance = veh->getPositionOnLane();
-        double carLenght = veh->getVehicleType().getLengthWithGap();
-        double vel = veh->getSpeed();
-        double realDistance = myLane->getLength() - distance; // the closer vehicle get to the light the greater is the distance
-        if (vel <= thresholdSpeed || acceleration > 0) //TODO speed less than half of the maximum speed for the lane NEED TUNING
-                {
-            count = (realDistance / carLenght) + 1;
+        }
+        SUMOReal carLength = veh->getVehicleType().getLengthWithGap();
+        SUMOReal vel = veh->getSpeed();
+        SUMOReal realDistance = myLane->getLength() - distance; // the closer vehicle get to the light the greater is the distance
+        if (vel <= thresholdSpeed || acceleration > 0) { //TODO speed less than half of the maximum speed for the lane NEED TUNING
+            count = (int)(realDistance / carLength) + 1;
         }
     }
 
     return count;
 }
 
-double
-MSE2Collector::getEstimateQueueLength() const{
+SUMOReal
+MSE2Collector::getEstimateQueueLength() const {
 
-    if (myKnownVehicles.empty())
+    if (myKnownVehicles.empty()) {
         return -1;
+    }
 
     SUMOReal distance = 0;
-    double realDistance = 0;
+    SUMOReal realDistance = 0;
     bool flowing =  true;
     for (std::list<SUMOVehicle*>::const_iterator it = myKnownVehicles.begin();
             it != myKnownVehicles.end(); it++) {
         MSVehicle* veh = static_cast<MSVehicle*>(*it);
-        if (distance == 0)
+        if (distance == 0) {
             distance = veh->getPositionOnLane();
-        if (veh->getPositionOnLane() < distance)
+        }
+        if (veh->getPositionOnLane() < distance) {
             distance = veh->getPositionOnLane();
-        double carLenght = veh->getVehicleType().getLengthWithGap();
-        double vel = veh->getSpeed();
-    //	double distanceTemp = myLane->getLength() - distance;
+        }
+        SUMOReal carLength = veh->getVehicleType().getLengthWithGap();
+        SUMOReal vel = veh->getSpeed();
+        //	SUMOReal distanceTemp = myLane->getLength() - distance;
         if (vel <= 0.5) {
-            realDistance = distance-carLenght;
+            realDistance = distance - carLength;
             flowing = false;
         }
         DBG(
-                std::ostringstream str;
-                str << time2string(MSNet::getInstance()->getCurrentTimeStep())
-                        << " MSE2Collector::getEstimateQueueLength::"
-                        << " lane " << myLane->getID()
-                        << " vehicle " << veh->getID()
-                        << " positionOnLane " << veh->getPositionOnLane()
-                        << " vel " << veh->getSpeed()
-                        << " realDistance " << realDistance;
-                WRITE_MESSAGE(str.str());
+            std::ostringstream str;
+            str << time2string(MSNet::getInstance()->getCurrentTimeStep())
+            << " MSE2Collector::getEstimateQueueLength::"
+            << " lane " << myLane->getID()
+            << " vehicle " << veh->getID()
+            << " positionOnLane " << veh->getPositionOnLane()
+            << " vel " << veh->getSpeed()
+            << " realDistance " << realDistance;
+            WRITE_MESSAGE(str.str());
         )
     }
-    if(flowing)
+    if (flowing) {
         return 0;
-    else
+    } else {
         return myLane->getLength() - realDistance;
+    }
 }
 
 
@@ -592,9 +597,8 @@ MSE2Collector::getCurrentVehicleIDs() const {
     return ret;
 }
 
-const std::list<SUMOVehicle*>& MSE2Collector::getCurrentVehicles() const
-{
-  return myKnownVehicles;
+const std::list<SUMOVehicle*>& MSE2Collector::getCurrentVehicles() const {
+    return myKnownVehicles;
 }
 
 /****************************************************************************/

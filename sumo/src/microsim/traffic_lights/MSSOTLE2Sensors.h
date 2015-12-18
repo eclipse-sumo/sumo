@@ -3,7 +3,7 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Feb 2010
-/// @version $Id: MSSOTLE2Sensors.h 3 2010-03-03 15:00:00Z gslager $
+/// @version $Id$
 ///
 // The class for SOTL sensors of "E2" type
 /****************************************************************************/
@@ -30,35 +30,34 @@
 #include <utility>
 #include <microsim/output/MSE2Collector.h>
 
-class MSSOTLE2Sensors :	public MSSOTLSensors
-{
+class MSSOTLE2Sensors :	public MSSOTLSensors {
 protected :
-    void buildSensorForLane(MSLane* lane, NLDetectorBuilder &nb);
-    void buildSensorForLane(MSLane* lane, NLDetectorBuilder &nb, double sensorLength);
-    void buildContinueSensior(MSLane* lane, NLDetectorBuilder &nb, double sensorLength, MSLane* continueOnLane, double usedLength);
-    void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder &nb);
-    void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder &nb, double sensorLength);
+    void buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb);
+    void buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength);
+    void buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength, MSLane* continueOnLane, SUMOReal usedLength);
+    void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb);
+    void buildSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb, SUMOReal sensorLength);
 
-    void buildCountSensorForLane(MSLane* lane, NLDetectorBuilder &nb);
-    void buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder &nb);
+    void buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& nb);
+    void buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb);
 
 public:
     /*
     * @brief This sensor logic contructor
     */
-    MSSOTLE2Sensors(std::string tlLogicID, const MSTrafficLightLogic::Phases *phases);
+    MSSOTLE2Sensors(std::string tlLogicID, const MSTrafficLightLogic::Phases* phases);
 
     /*
     * @brief This sensor logic destructor
     */
     ~MSSOTLE2Sensors(void);
 
-    void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder &nb);
-    void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder &nb, double sensorLength);
-    void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder &nb);
-    void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder &nb, double sensorLength);
-    void buildCountSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder &nb);
-    void buildCountOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder &nb);
+    void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
+    void buildSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb, SUMOReal sensorLength);
+    void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
+    void buildOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb, SUMOReal sensorLength);
+    void buildCountSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
+    void buildCountOutSensors(MSTrafficLightLogic::LaneVectorVector controlledLanes, NLDetectorBuilder& nb);
 
     /*
      * Returns the number of vehicles that have passed the sensor.
@@ -66,7 +65,7 @@ public:
      * @param[in] laneId The ID of the lane of which you want to count vehicles.
      * @param[in] out boolean that indicate if the lane is an incoming or an outgoing one (@todo review)
      */
-    unsigned int getPassedVeh(std::string laneId, bool out);
+    int getPassedVeh(std::string laneId, bool out);
 
     /*
      * Sets the number of vehicles that have passed the sensor.
@@ -75,7 +74,9 @@ public:
      */
     void subtractPassedVeh(std::string laneId, int passed);
 
-    void setSpeedThresholdParam(double newThreshold) {speedThresholdParam = newThreshold;}
+    void setSpeedThresholdParam(SUMOReal newThreshold) {
+        speedThresholdParam = newThreshold;
+    }
 
     /*
      * Returns the number of vehicles currently approaching the
@@ -83,7 +84,7 @@ public:
      * Vehicles are effectively counted or guessed in the space from the sensor to the junction.
      * @param[in] lane The lane to count vehicles
      */
-    unsigned int countVehicles(MSLane* lane);
+    int countVehicles(MSLane* lane);
 
     /*
      * Returns the number of vehicles currently approaching the
@@ -91,16 +92,16 @@ public:
      * Vehicles are effectively counted or guessed in the space from the sensor to the junction.
      * @param[in] lane The lane to count vehicles given by ID
      */
-    unsigned int countVehicles(std::string laneId);
+    int countVehicles(std::string laneId);
 
-    unsigned int estimateVehicles(std::string laneId);
+    int estimateVehicles(std::string laneId);
 
-    SUMOReal getEstimateQueueLength (std::string laneId);
+    SUMOReal getEstimateQueueLength(std::string laneId);
     /*
     * @param[in] The lane given by Id
     * @return The maximum speed allowed for the given laneId
     */
-    virtual double getMaxSpeed(std::string laneId);
+    virtual SUMOReal getMaxSpeed(std::string laneId);
 
     /*
      * Returns the average speed of vehicles currently approaching or leaving the
@@ -108,7 +109,7 @@ public:
      * Vehicles speed is effectively sensed or guessed in the space from the sensor.
      * @param[in] lane The lane to count vehicles
      */
-    virtual double meanVehiclesSpeed(MSLane* lane);
+    virtual SUMOReal meanVehiclesSpeed(MSLane* lane);
 
     /*
      * Returns the average speed of vehicles currently approaching or leaving the
@@ -116,7 +117,7 @@ public:
      * Vehicles speed is effectively sensed or guessed in the space from the sensor.
      * @param[in] laneID The lane to count vehicles by ID
      */
-    virtual double meanVehiclesSpeed(std::string laneId);
+    virtual SUMOReal meanVehiclesSpeed(std::string laneId);
 
     /*
      * Set the weight of the vehicle types to be used by countVehicles
@@ -125,16 +126,14 @@ public:
     virtual void setVehicleWeigths(const std::string& weightString);
 
 protected:
-    unsigned int count(MSE2Collector* sensor);
+    int count(MSE2Collector* sensor);
     template<typename Method, typename ValueType>
-    bool getVelueFromSensor(std::string laneId, Method function, ValueType & value)
-    {
-      if(m_sensorMap.find(laneId) != m_sensorMap.end())
-      {
-        value = (m_sensorMap[laneId]->*function)();
-        return true;
-      }
-      return false;
+    bool getVelueFromSensor(std::string laneId, Method function, ValueType& value) {
+        if (m_sensorMap.find(laneId) != m_sensorMap.end()) {
+            value = (m_sensorMap[laneId]->*function)();
+            return true;
+        }
+        return false;
     }
 
 //	MSLane_MSE2CollectorMap m_sensorMap;
@@ -145,7 +144,7 @@ protected:
 //	MSLaneID_MSE2CollectorMap mySensorsIDMap_OutLanes;
 //	MSLaneID_MaxSpeedMap myMaxSpeedMap_OutLanes;
 
-    double speedThresholdParam;
+    SUMOReal speedThresholdParam;
     std::map<std::string, std::vector<std::string> > m_continueSensorOnLanes;
     std::map<const std::string, unsigned int> m_typeWeightMap;
 

@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import random
 import os.path
@@ -49,7 +51,7 @@ quota = [0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.0, 10.0]
 def main():
     global period, quota
 
-    print "start program"
+    print("start program")
 
     edgeDumpDict = make(edgeDumpPicklePath, edgeDumpPath, readEdgeDump)
     vtypeDict = make(vtypePicklePath, vtypePath, readVtype)
@@ -64,14 +66,14 @@ def main():
     qList = quota
     for period in pList:
         for quota in qList:
-            print "create output for: period ", period, " quota ", quota
+            print("create output for: period ", period, " quota ", quota)
             taxis = chooseTaxis(vehList)
             taxiSum = len(taxis)
             vtypeDictR = reduceVtype(vtypeDict, taxis)
             del taxis
             createOutput(edgeDumpDict, vtypeDictR, vehSum, taxiSum)
 
-    print "end"
+    print("end")
 
 
 def readEdgeDump():
@@ -138,14 +140,14 @@ def make(source, dependentOn, builder, buildNew=False, *builderParams):
     # check date
     # if source is newer
     if not buildNew and os.path.getmtime(source) > os.path.getmtime(dependentOn):
-        print "load source: ", os.path.basename(source), "..."
+        print("load source: ", os.path.basename(source), "...")
         target = load(open(source, 'rb'))
     else:
-        print "build source: ", os.path.basename(source), "..."
+        print("build source: ", os.path.basename(source), "...")
         target = builder(*builderParams)
         # pickle the target
         dump(target, open(source, 'wb'), 1)
-    print "Done!"
+    print("Done!")
     return target
 
 

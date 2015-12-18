@@ -91,9 +91,8 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeDouble(v->getChanger().getYPos());
                 break;
             case VAR_VIEW_SCHEMA: {
-                FXComboBox& c = v->getColoringSchemesCombo();
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString((std::string)c.getItem(c.getCurrentItem()).text());
+                tempMsg.writeString(v->getVisualisationSettings()->name);
                 break;
             }
             case VAR_VIEW_BOUNDARY: {

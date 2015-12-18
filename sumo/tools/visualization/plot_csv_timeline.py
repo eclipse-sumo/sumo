@@ -21,6 +21,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -37,7 +39,7 @@ import matplotlib.pyplot as plt
 
 def readValues(file, verbose, columns):
     if verbose:
-        print "Reading '%s'..." % f
+        print("Reading '%s'..." % f)
     ret = {}
     with open(file, 'rb') as f:
         reader = csv.reader(f, delimiter=';')
@@ -69,7 +71,7 @@ def main(args=None):
     options, remaining_args = optParser.parse_args(args=args)
 
     if options.input == None:
-        print "Error: an input file must be given"
+        print("Error: an input file must be given")
         sys.exit(1)
 
     minV = 0

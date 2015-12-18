@@ -22,6 +22,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import optparse
 import array
@@ -44,13 +46,13 @@ class RouteReader(handler.ContentHandler):
         if name == 'vehicle':
             self._vID = attrs['id']
         elif name == 'route':
-            if attrs.has_key('id'):
+            if 'id' in attrs:
                 self._routeID = attrs['id']
             else:
                 self._routeID = self._vID
                 self._vID = ''
             self._routeString = ''
-            if attrs.has_key('edges'):
+            if 'edges' in attrs:
                 self._routeString = attrs['edges']
 
     def endElement(self, name):
@@ -83,13 +85,13 @@ class DistrictReader(handler.ContentHandler):
                 self._sources[self._edges[attrs['id']]] = self._districtID
             else:
                 if options.verbose:
-                    print "Warning! No routes touching source edge %s of %s." % (attrs['id'], self._districtID)
+                    print("Warning! No routes touching source edge %s of %s." % (attrs['id'], self._districtID))
         elif name == 'tazSink':
             if attrs['id'] in self._edges:
                 self._sinks[self._edges[attrs['id']]] = self._districtID
             else:
                 if options.verbose:
-                    print "Warning! No routes touching sink edge %s of %s." % (attrs['id'], self._districtID)
+                    print("Warning! No routes touching sink edge %s of %s." % (attrs['id'], self._districtID))
 
 
 def compare(first, second):
@@ -263,11 +265,11 @@ routes1 = {}
 routes2 = {}
 parser = make_parser()
 if options.verbose:
-    print "Reading first routes file %s" % args[0]
+    print("Reading first routes file %s" % args[0])
 parser.setContentHandler(RouteReader(routes1, edges))
 parser.parse(args[0])
 if options.verbose:
-    print "Reading second routes file %s" % args[1]
+    print("Reading second routes file %s" % args[1])
 parser.setContentHandler(RouteReader(routes2, edges))
 parser.parse(args[1])
 
@@ -277,7 +279,7 @@ if options.districts:
     sources = {}
     sinks = {}
     if options.verbose:
-        print "Reading districts %s" % options.districts
+        print("Reading districts %s" % options.districts)
     parser.setContentHandler(DistrictReader(sources, sinks, edges))
     parser.parse(options.districts)
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
@@ -300,16 +302,16 @@ totalIdentical = 0
 for source in routeMatrix1.iterkeys():
     if not source in routeMatrix2:
         if options.verbose:
-            print "Warning! No routes starting at %s in second route set" % source
+            print("Warning! No routes starting at %s in second route set" % source)
         continue
     for sink, routeIDs1 in routeMatrix1[source].iteritems():
         if not sink in routeMatrix2[source]:
             if options.verbose:
-                print "Warning! No routes starting at %s and ending at %s in second route set" % (source, sink)
+                print("Warning! No routes starting at %s and ending at %s in second route set" % (source, sink))
             continue
         routeIDs2 = routeMatrix2[source][sink]
         if options.verbose and len(routeIDs1) != len(routeIDs2):
-            print "Warning! Different route set sizes for start '%s' and end '%s'." % (source, sink)
+            print("Warning! Different route set sizes for start '%s' and end '%s'." % (source, sink))
         similarityMatrix = {}
         for idx, id1 in enumerate(routeIDs1):
             for oldID in routeIDs1[:idx]:
@@ -330,8 +332,8 @@ for source in routeMatrix1.iterkeys():
         identityVal = identityCount(routeIDs1, routeIDs2, similarityMatrix)
         totalIdentical += identityVal
         if options.verbose:
-            print source, sink, float(matchVal) / len(routeIDs1) / SCALE, float(identityVal) / len(routeIDs1)
+            print(source, sink, float(matchVal) / len(routeIDs1) / SCALE, float(identityVal) / len(routeIDs1))
 if options.printmatch:
     for r2, r1 in match.iteritems():
-        print r1, r2
-print float(totalMatch) / len(routes1) / SCALE, float(totalIdentical) / len(routes1)
+        print(r1, r2)
+print(float(totalMatch) / len(routes1) / SCALE, float(totalIdentical) / len(routes1))

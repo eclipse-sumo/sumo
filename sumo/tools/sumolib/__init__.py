@@ -18,6 +18,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
 import os
 import sys
 import subprocess
@@ -51,7 +52,7 @@ class ConfigurationReader(handler.ContentHandler):
             self._group = OptionGroup(self._opts, name)
         if self._group != self._opts and self._groups and self._group.title not in self._groups:
             return
-        if attrs.has_key('type') and name != "help":
+        if 'type' in attrs and name != "help":
             if self._options and name not in self._options:
                 return
             help = attrs.get("help", "")

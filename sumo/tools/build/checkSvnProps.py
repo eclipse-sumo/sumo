@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -69,19 +71,19 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if os.path.basename(self._file) not in _IGNORE:
             if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
                 if name == 'property' and self._property == "svn:executable" and ext not in [".py", ".pl", ".bat"]:
-                    print self._file, self._property, self._value
+                    print(self._file, self._property, self._value)
                     if self._fix:
                         subprocess.call(
                             ["svn", "pd", "svn:executable", self._file])
                 if name == 'property' and self._property == "svn:mime-type":
-                    print self._file, self._property, self._value
+                    print(self._file, self._property, self._value)
                     if self._fix:
                         subprocess.call(
                             ["svn", "pd", "svn:mime-type", self._file])
             if ext in _SOURCE_EXT or ext in _TESTDATA_EXT:
                 if name == 'property' and self._property == "svn:eol-style" and self._value != "LF"\
                    or name == "target" and not self._hadEOL:
-                    print self._file, "svn:eol-style", self._value
+                    print(self._file, "svn:eol-style", self._value)
                     if self._fix:
                         if os.name == "posix":
                             subprocess.call(
@@ -93,14 +95,14 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             if ext in _SOURCE_EXT:
                 if name == 'property' and self._property == "svn:keywords" and self._value != _KEYWORDS\
                    or name == "target" and not self._hadKeywords:
-                    print self._file, "svn:keywords", self._value
+                    print(self._file, "svn:keywords", self._value)
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:keywords", _KEYWORDS, self._file])
             if ext in _VS_EXT:
                 if name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF"\
                    or name == "target" and not self._hadEOL:
-                    print self._file, "svn:eol-style", self._value
+                    print(self._file, "svn:eol-style", self._value)
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
@@ -133,13 +135,13 @@ else:
             svnRoots.append(os.path.join(upDir, l.split()[0]))
 for svnRoot in svnRoots:
     if options.verbose:
-        print "checking", svnRoot
+        print("checking", svnRoot)
     output = subprocess.Popen(
         ["svn", "pl", "-v", "-R", "--xml", svnRoot], stdout=subprocess.PIPE).communicate()[0]
     xml.sax.parseString(output, PropertyReader(options.fix))
 
 if options.verbose:
-    print "re-checking tree at", options.recheck
+    print("re-checking tree at", options.recheck)
 for root, dirs, files in os.walk(options.recheck):
     for name in files:
         fullName = os.path.join(root, name)
@@ -148,7 +150,7 @@ for root, dirs, files in os.walk(options.recheck):
         ext = os.path.splitext(name)[1]
         if name not in _IGNORE:
             if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
-                print fullName, "svn:eol-style"
+                print(fullName, "svn:eol-style")
                 if options.fix:
                     if ext in _VS_EXT:
                         subprocess.call(
@@ -159,7 +161,7 @@ for root, dirs, files in os.walk(options.recheck):
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "LF", fullName])
             if ext in _SOURCE_EXT:
-                print fullName, "svn:keywords"
+                print(fullName, "svn:keywords")
                 if options.fix:
                     subprocess.call(
                         ["svn", "ps", "svn:keywords", _KEYWORDS, fullName])

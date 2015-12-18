@@ -23,6 +23,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import string
@@ -131,17 +133,17 @@ class PolyReprojector:
         rmsdSelection1 = []
         rmsdSelection2 = []
         if verbose:
-            print " Setting initial nodes..."
+            print(" Setting initial nodes...")
         for i in range(0, len(nodes1)):
             index1 = self._net1.getNodeIndex(nodes1[i])
             index2 = self._net2.getNodeIndex(nodes2[i])
             rmsdSelection1.append(index1)
             rmsdSelection2.append(index2)
             if verbose:
-                print str(index1) + " " + str(index2)
+                print(str(index1) + " " + str(index2))
         # build rmsd matrices
         if verbose:
-            print " Computing projection..."
+            print(" Computing projection...")
         rmsdNodePositions1 = self._net1.getNodePositionList()
         rmsdNodePositions2 = self._net2.getNodePositionList()
         rmsdNodePositions2.extend(polys.getPositionList())
@@ -150,7 +152,7 @@ class PolyReprojector:
         # we now have new coordinates for the second node set in projection
         #  transfer to net
         if verbose:
-            print " Applying projection..."
+            print(" Applying projection...")
         index = 0
         for i, n in enumerate(self._net2._nodes):
             self._net2._node2x[n] = projection[i][0]
@@ -185,7 +187,7 @@ optParser.add_option("-o", "--output", dest="output",
 
 # read network#1
 if options.verbose:
-    print "Reading net#1..."
+    print("Reading net#1...")
 parser = make_parser()
 net1 = NetReader()
 parser.setContentHandler(net1)
@@ -193,7 +195,7 @@ parser.parse(options.net1)
 
 # read network#2
 if options.verbose:
-    print "Reading net#2..."
+    print("Reading net#2...")
 parser = make_parser()
 net2 = NetReader()
 parser.setContentHandler(net2)
@@ -201,7 +203,7 @@ parser.parse(options.net2)
 
 # read polygons
 if options.verbose:
-    print "Reading polygons..."
+    print("Reading polygons...")
 parser = make_parser()
 polys = PolyReader()
 parser.setContentHandler(polys)
@@ -209,13 +211,13 @@ parser.parse(options.polys)
 
 # match
 if options.verbose:
-    print "(Re)Projecting..."
+    print("(Re)Projecting...")
 matcher = PolyReprojector(net1, net2)
 matcher.match(options.nodes1, options.nodes2, polys, options.verbose)
 
 # write
 if options.verbose:
-    print "Writing..."
+    print("Writing...")
 fd = open(options.output, "w")
 fd.write("<polygons>\n\n")
 polys.write(fd)

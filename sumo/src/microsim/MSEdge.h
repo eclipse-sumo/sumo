@@ -188,13 +188,12 @@ public:
 
     /** @brief Returns this edge's persons set.
      *  @brief Avoids the creation of new vector as in getSortedPersons
-		 *
-		 * @return This edge's persons.
-		 */
-		inline const std::set<MSTransportable*>& getPersons() const
-		{
-			return myPersons;
-		}
+    	 *
+    	 * @return This edge's persons.
+    	 */
+    inline const std::set<MSTransportable*>& getPersons() const {
+        return myPersons;
+    }
 
     /** @brief Returns this edge's persons sorted by pos
      *
@@ -289,16 +288,16 @@ public:
     /**@brief Sets the crossed edge ids for a crossing edge
      *
      */
-    void setCrossingEdges(const std::vector<std::string> & crossingEdges)		{
-    	myCrossingEdges.clear();
-			myCrossingEdges.insert(myCrossingEdges.begin(), crossingEdges.begin(), crossingEdges.end());
-		}
+    void setCrossingEdges(const std::vector<std::string>& crossingEdges)		{
+        myCrossingEdges.clear();
+        myCrossingEdges.insert(myCrossingEdges.begin(), crossingEdges.begin(), crossingEdges.end());
+    }
 
     /**@brief Gets the crossed edge ids
      *@return The list of crossed edge ids in a crossing edge or an empty vector
      */
-    const std::vector<std::string> & getCrossingEdges() const {
-    	return myCrossingEdges;
+    const std::vector<std::string>& getCrossingEdges() const {
+        return myCrossingEdges;
     }
 
 
@@ -324,11 +323,11 @@ public:
     }
 
     /** @brief Returns the list of edges that may be reached from this edge
-	 * @return Edges that may be reached from this edge
-	 */
-	const std::vector<MSEdge*>& getOutgoingEdges() const {
-		return mySuccessors;
-	}
+     * @return Edges that may be reached from this edge
+     */
+    const std::vector<MSEdge*>& getOutgoingEdges() const {
+        return mySuccessors;
+    }
 
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges

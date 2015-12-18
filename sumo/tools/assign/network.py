@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import string
@@ -249,10 +251,10 @@ class Net(sumolib.net.Net):
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcKPaths(self, verbose, kPaths, newRoutes, startVertices, endVertices, matrixPshort, gamma):
         if verbose:
-            foutkpath = file('kpaths.xml', 'w')
-            print >> foutkpath, """<?xml version="1.0"?>
+            foutkpath = open('kpaths.xml', 'w')
+            print("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<routes>""" % datetime.datetime.now()
+<routes>""" % datetime.datetime.now(), file=foutkpath)
         for start, startVertex in enumerate(startVertices):
             for vertex in self.getNodes():
                 vertex.preds = []
@@ -372,7 +374,7 @@ class ExtraSignalInformationReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         self._chars = ''
         if name == 'tl-logic' or name == 'tlLogic':
-            if attrs.has_key('id'):
+            if 'id' in attrs:
                 self._junctionObj = self._net.getJunction(attrs['id'])
                 if self._junctionObj:
                     self._junctionObj.phases = []
@@ -382,7 +384,7 @@ class ExtraSignalInformationReader(handler.ContentHandler):
                     self._net.addTLJunctions(self._junctionObj)
                 self._phasenoInfo = False
         elif name == 'phase':
-            if attrs.has_key('state'):
+            if 'state' in attrs:
                 self._newphase = Signalphase(
                     float(attrs['duration']), attrs['state'])
             else:

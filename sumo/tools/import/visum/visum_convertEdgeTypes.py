@@ -19,14 +19,16 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import os
 
 if len(sys.argv) < 3:
-    print "Usage: " + sys.argv[0] + " <VISUM-NET> <OUTPUT>"
+    print("Usage: " + sys.argv[0] + " <VISUM-NET> <OUTPUT>")
     sys.exit()
-print "Reading VISUM..."
+print("Reading VISUM...")
 fd = open(sys.argv[1])
 fdo = open(sys.argv[2], "w")
 fdo.write("<types>\n")

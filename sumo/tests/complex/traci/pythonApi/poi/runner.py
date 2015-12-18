@@ -18,6 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os
 import subprocess
 import sys
@@ -29,12 +30,12 @@ import sumolib
 
 
 def check(poiID):
-    print "pois", traci.poi.getIDList()
-    print "poi count", traci.poi.getIDCount()
-    print "examining", poiID
-    print "pos", traci.poi.getPosition(poiID)
-    print "type", traci.poi.getType(poiID)
-    print "color", traci.poi.getColor(poiID)
+    print("pois", traci.poi.getIDList())
+    print("poi count", traci.poi.getIDCount())
+    print("examining", poiID)
+    print("pos", traci.poi.getPosition(poiID))
+    print("type", traci.poi.getType(poiID))
+    print("color", traci.poi.getColor(poiID))
 
 sumoBinary = sumolib.checkBinary('sumo-gui')
 
@@ -43,18 +44,18 @@ sumoProcess = subprocess.Popen(
     "%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for step in range(3):
-    print "step", step
+    print("step", step)
     traci.simulationStep()
 poiID = "0"
-print "adding", poiID
+print("adding", poiID)
 traci.poi.add(poiID, 1, 1, (1, 2, 3, 4), "test")
 check(poiID)
 traci.poi.subscribe(poiID)
-print traci.poi.getSubscriptionResults(poiID)
+print(traci.poi.getSubscriptionResults(poiID))
 for step in range(3, 6):
-    print "step", step
+    print("step", step)
     traci.simulationStep(step)
-    print traci.poi.getSubscriptionResults(poiID)
+    print(traci.poi.getSubscriptionResults(poiID))
 
 traci.poi.setPosition(poiID, 5, 5)
 traci.poi.setType(poiID, "blub")

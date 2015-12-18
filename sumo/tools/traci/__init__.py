@@ -21,6 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import print_function
+from __future__ import absolute_import
 import socket
 import time
 import struct
@@ -29,6 +30,8 @@ try:
     _embedded = True
 except ImportError:
     _embedded = False
+from . import constants
+
 
 _RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 _DEBUG = False
@@ -79,8 +82,11 @@ class Message:
     Simple "struct" for the composed message string
     together with a list of TraCI commands which are inside.
     """
-    string = ""
+    string = bytes()
     queue = []
+
+    def packString(self, s, pre=constants.TYPE_STRING):
+        self.string += struct.pack("!Bi", pre, len(s)) + s.encode("latin1")
 
 
 class Storage:
@@ -108,7 +114,7 @@ class Storage:
 
     def readString(self):
         length = self.read("!i")[0]
-        return self.read("!%ss" % length)[0]
+        return str(self.read("!%ss" % length)[0].decode("latin1"))
 
     def readStringList(self):
         n = self.read("!i")[0]
@@ -174,8 +180,6 @@ class SubscriptionResults:
         return "<%s, %s>" % (self._results, self._contextResults)
 
 
-from . import constants
-
 
 def getParameterAccessors(cmdGetID, cmdSetID):
 
@@ -186,8 +190,7 @@ def getParameterAccessors(cmdGetID, cmdSetID):
         """
         _beginMessage(
             cmdGetID, constants.VAR_PARAMETER, objID, 1 + 4 + len(param))
-        _message.string += struct.pack("!Bi",
-                                       constants.TYPE_STRING, len(param)) + param
+        _message.packString(param)
         result = _checkResult(cmdGetID, constants.VAR_PARAMETER, objID)
         return result.readString()
 
@@ -199,10 +202,8 @@ def getParameterAccessors(cmdGetID, cmdSetID):
         _beginMessage(cmdSetID, constants.VAR_PARAMETER, objID,
                       1 + 4 + 1 + 4 + len(param) + 1 + 4 + len(value))
         _message.string += struct.pack("!Bi", constants.TYPE_COMPOUND, 2)
-        _message.string += struct.pack("!Bi",
-                                       constants.TYPE_STRING, len(param)) + param
-        _message.string += struct.pack("!Bi",
-                                       constants.TYPE_STRING, len(value)) + value
+        _message.packString(param)
+        _message.packString(value)
         _sendExact()
 
     return getParameter, setParameter
@@ -267,14 +268,14 @@ _message = Message()
 
 def _recvExact():
     try:
-        result = ""
+        result = bytes()
         while len(result) < 4:
             t = _connections[""].recv(4 - len(result))
             if not t:
                 return None
             result += t
         length = struct.unpack("!i", result)[0] - 4
-        result = ""
+        result = bytes()
         while len(result) < length:
             t = _connections[""].recv(length - len(result))
             if not t:
@@ -300,7 +301,7 @@ def _sendExact():
         prefix = result.read("!BBB")
         err = result.readString()
         if prefix[2] or err:
-            _message.string = ""
+            _message.string = bytes()
             _message.queue = []
             raise TraCIException(prefix[1], _RESULTS[prefix[2]], err)
         elif prefix[1] != command:
@@ -309,7 +310,7 @@ def _sendExact():
         elif prefix[1] == constants.CMD_STOP:
             length = result.read("!B")[0] - 1
             result.read("!%sx" % length)
-    _message.string = ""
+    _message.string = bytes()
     _message.queue = []
     return result
 
@@ -318,11 +319,10 @@ def _beginMessage(cmdID, varID, objID, length=0):
     _message.queue.append(cmdID)
     length += 1 + 1 + 1 + 4 + len(objID)
     if length <= 255:
-        _message.string += struct.pack("!BBBi", length,
-                                       cmdID, varID, len(objID)) + str(objID)
+        _message.string += struct.pack("!BB", length, cmdID)
     else:
-        _message.string += struct.pack("!BiBBi", 0, length + 4,
-                                       cmdID, varID, len(objID)) + str(objID)
+        _message.string += struct.pack("!BiB", 0, length + 4, cmdID)
+    _message.packString(objID, varID)
 
 
 def _sendReadOneStringCmd(cmdID, varID, objID):
@@ -350,8 +350,7 @@ def _sendByteCmd(cmdID, varID, objID, value):
 
 def _sendStringCmd(cmdID, varID, objID, value):
     _beginMessage(cmdID, varID, objID, 1 + 4 + len(value))
-    _message.string += struct.pack("!Bi", constants.TYPE_STRING,
-                                   len(value)) + str(value)
+    _message.packString(value)
     _sendExact()
 
 
@@ -422,7 +421,7 @@ def _subscribe(cmdID, begin, end, objID, varIDs, parameters=None):
     else:
         _message.string += struct.pack("!Bi", 0, length + 4)
     _message.string += struct.pack("!Biii",
-                                   cmdID, begin, end, len(objID)) + objID
+                                   cmdID, begin, end, len(objID)) + objID.encode("latin1")
     _message.string += struct.pack("!B", len(varIDs))
     for v in varIDs:
         _message.string += struct.pack("!B", v)
@@ -443,7 +442,7 @@ def _subscribeContext(cmdID, begin, end, objID, domain, dist, varIDs):
     else:
         _message.string += struct.pack("!Bi", 0, length + 4)
     _message.string += struct.pack("!Biii",
-                                   cmdID, begin, end, len(objID)) + objID
+                                   cmdID, begin, end, len(objID)) + objID.encode("latin1")
     _message.string += struct.pack("!BdB", domain, dist, len(varIDs))
     for v in varIDs:
         _message.string += struct.pack("!B", v)

@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import distutils.sysconfig
@@ -29,7 +31,7 @@ propsFile = join(
 print('generating %s ' % propsFile)
 props = open(propsFile, 'w')
 libPrefix = "%s\libs\python%s%s" % (sys.prefix, sys.version[0], sys.version[2])
-print >> props, """<?xml version="1.0" encoding="utf-8"?>
+print("""<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
     <PYTHON_LIB>%s.lib</PYTHON_LIB>
@@ -41,5 +43,5 @@ print >> props, """<?xml version="1.0" encoding="utf-8"?>
       <PreprocessorDefinitions>HAVE_PYTHON;%%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-</Project>""" % (libPrefix, libPrefix, distutils.sysconfig.get_config_var('INCLUDEPY'))
+</Project>""" % (libPrefix, libPrefix, distutils.sysconfig.get_config_var('INCLUDEPY')), file=props)
 props.close()

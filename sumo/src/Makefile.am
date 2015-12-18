@@ -101,7 +101,7 @@ $(sumo_LDADD) \
 ./foreign/polyfonts/libpolyfonts.a \
 ./gui/GUIManipulator.o \
 ./gui/GUITLLogicPhasesTrackerWindow.o \
-$(OSG_LIBS) \
+$(OSG_LIBS) $(FFMPEG_LIBS) \
 $(sumo_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
 

@@ -28,6 +28,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 
@@ -51,18 +53,18 @@ class RouteReader(handler.ContentHandler):
             self._vehAttrs = attrs
         elif name == 'route':
             self._routeString = ''
-            if attrs.has_key("edges"):
+            if "edges" in attrs:
                 self._routeString = attrs['edges']
         elif name == 'routes':
             if options.repair:
-                print '<routes>'
-            print >> sys.stderr, "   Route  UTurn UTurnFirst UTurnLast  Short"
+                print('<routes>')
+            print("   Route  UTurn UTurnFirst UTurnLast  Short", file=sys.stderr)
         else:
             if options.repair:
-                print '<' + name,
+                print('<' + name, end=' ')
                 for key in attrs.keys():
-                    print '%s="%s"' % (key, attrs[key]),
-                print '/>'
+                    print('%s="%s"' % (key, attrs[key]), end=' ')
+                print('/>')
 
     def characters(self, content):
         self._routeString += content
@@ -88,25 +90,25 @@ class RouteReader(handler.ContentHandler):
                         routeEnd -= 1
                 lastEdge = edge
             if self._routeCount % 10000 == 0:
-                print >> sys.stderr, "%8i %6i %10i %9i %6i"\
+                print("%8i %6i %10i %9i %6i"\
                                      % (self._routeCount, self._uTurnCount,
                                         self._uTurnFirst, self._uTurnLast,
-                                        self._short), "\r",
+                                        self._short), "\r", end=' ', file=sys.stderr)
             if routeEnd - routeStart > 1:
                 if options.repair:
-                    print '<vehicle',
+                    print('<vehicle', end=' ')
                     for key in self._vehAttrs.keys():
-                        print '%s="%s"' % (key, self._vehAttrs[key]),
-                    print '>'
-                    print '   <route edges="%s"/>' % ' '.join(route[routeStart:routeEnd])
-                    print '</vehicle>'
+                        print('%s="%s"' % (key, self._vehAttrs[key]), end=' ')
+                    print('>')
+                    print('   <route edges="%s"/>' % ' '.join(route[routeStart:routeEnd]))
+                    print('</vehicle>')
         elif name == 'routes':
             if options.repair:
-                print '</routes>'
-            print >> sys.stderr, "%8i %6i %10i %9i %6i"\
+                print('</routes>')
+            print("%8i %6i %10i %9i %6i"\
                                  % (self._routeCount, self._uTurnCount,
                                     self._uTurnFirst, self._uTurnLast,
-                                    self._short)
+                                    self._short), file=sys.stderr)
 
 optParser = OptionParser(usage="usage: %prog [options] <routefile>+")
 optParser.add_option("-r", "--repair", action="store_true", dest="repair",

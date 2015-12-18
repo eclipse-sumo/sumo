@@ -4,7 +4,7 @@
 /// @author	 Anna Chiara Bellini
 /// @author  Federico Caselli
 /// @date    Apr 2013
-/// @version $Id: MSSOTLTrafficLightLogic.h 2 2013-04-12 15:00:00Z acbellini $
+/// @version $Id$
 ///
 // The base abstract class for SOTL logics
 /****************************************************************************/
@@ -66,7 +66,7 @@ class MSSOTLTrafficLightLogic: public MSPhasedTrafficLightLogic {
 public:
     // typedef unsigned int CTS;
 
-    /** 
+    /**
      * @brief Constructor without sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This traffic light id
@@ -76,12 +76,12 @@ public:
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Parameters defined for the tll
      */
-    MSSOTLTrafficLightLogic(MSTLLogicControl &tlcontrol, const std::string &id,
-            const std::string &subid, const Phases &phases, unsigned int step,
-            SUMOTime delay,
-            const std::map<std::string, std::string>& parameters);
+    MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
+                            const std::string& subid, const Phases& phases, unsigned int step,
+                            SUMOTime delay,
+                            const std::map<std::string, std::string>& parameters);
 
-    /** 
+    /**
      * @brief Constructor with sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -92,22 +92,22 @@ public:
      * @param[in] parameters Parameters defined for the tll
      * @param[in] sensors The already defined sensor logic
      */
-    MSSOTLTrafficLightLogic(MSTLLogicControl &tlcontrol, const std::string &id,
-            const std::string &subid, const Phases &phases, unsigned int step,
-            SUMOTime delay,
-            const std::map<std::string, std::string>& parameters,
-            MSSOTLSensors *sensors);
+    MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
+                            const std::string& subid, const Phases& phases, unsigned int step,
+                            SUMOTime delay,
+                            const std::map<std::string, std::string>& parameters,
+                            MSSOTLSensors* sensors);
 
     /// @brief Destructor
     ~MSSOTLTrafficLightLogic();
 
-    /** 
+    /**
      * @brief Initialises the tls with sensors on incoming and outgoing lanes
      * Sensors are built in the simulation according to the type of sensor specified in the simulation parameter
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb) throw (ProcessError);
+    void init(NLDetectorBuilder& nb) throw(ProcessError);
 
     /*
      * This member implements the base operations for all SOTL logics.
@@ -126,8 +126,7 @@ protected:
      * This member has to contain the switching logic for SOTL policies
      */
 
-    //	virtual unsigned int decideNextPhase();
-    virtual size_t decideNextPhase();
+    virtual int decideNextPhase();
 
     virtual bool canRelease() = 0;
 
@@ -138,7 +137,7 @@ protected:
      * If the phase in not a target phase the function member will return 0.
      * @param[in] The target phase index
      */
-    unsigned int countVehicles(MSPhaseDefinition phase);
+    int countVehicles(MSPhaseDefinition phase);
 
     /*
      * Every target step except the one from the current chain is checked.
@@ -154,10 +153,10 @@ protected:
      */
     bool isPushButtonPressed();
 
-    unsigned int getThreshold() {
+    int getThreshold() {
         return TplConvert::_2int(getParameter("THRESHOLD", "10").c_str());
     }
-    
+
     SUMOReal getSpeedThreshold() {
         return TplConvert::_2SUMOReal(getParameter("THRESHOLDSPEED", "2").c_str());
     }
@@ -176,17 +175,7 @@ protected:
      * targeted again, it would be unfair.
      * @return The index of the phase with the maximum value of cars-timesteps
      */
-    size_t getPhaseIndexWithMaxCTS();
-
-    /*
-     * @param[in] chain The step number for the target phase
-     * @return The current cars*timesteps of the given target phase. 0 if not a target phase
-     */
-    unsigned int getCTS(size_t chain);
-
-    size_t getLastChain() {
-        return lastChain;
-    }
+    int getPhaseIndexWithMaxCTS();
 
     MSSOTLSensors* getSensors() {
         return mySensors;
@@ -195,8 +184,7 @@ protected:
     /**
      *\brief Return the sensors that count the passage of vehicles in and out of the tl.
      */
-    MSSOTLE2Sensors* getCountSensors()
-    {
+    MSSOTLE2Sensors* getCountSensors() {
         return myCountSensors;
     }
     /*
@@ -216,12 +204,12 @@ private:
     /*
      * Pointer to the sensor logic regarding the junction controlled by this SOTLTrafficLightLogic
      */
-    MSSOTLSensors *mySensors;
+    MSSOTLSensors* mySensors;
 
     /*
      * Pointer to the sensor logic regarding the count of the vehicles that pass into a tl.
      */
-    MSSOTLE2Sensors *myCountSensors;
+    MSSOTLE2Sensors* myCountSensors;
 
     /*
      * When true means the class has responsibilities to intantiate and delete the SOTLSensors instance,
@@ -230,19 +218,18 @@ private:
     bool sensorsSelfBuilt;
 
     // The map to store the cars*timesteps for each target phase
-    std::map<size_t, unsigned int> targetPhasesCTS;
+    std::map<int, SUMOTime> targetPhasesCTS;
 
     //The map to store the time each target phase have been checked last
     //This helps to compute the timesteps to get the cars*timesteps value
-    std::map<size_t, SUMOTime> lastCheckForTargetPhase;
+    std::map<int, SUMOTime> lastCheckForTargetPhase;
 
     //Map to store how many selection rounds have been done from the last selection of the phase
-    std::map<size_t, unsigned int> targetPhasesLastSelection;
+    std::map<int, int> targetPhasesLastSelection;
 
-    unsigned int getTargetPhaseMaxLastSelection()
-    {
-      //return 2 * targetPhasesCTS.size() - 1;
-      return targetPhasesCTS.size() - 1;
+    int getTargetPhaseMaxLastSelection() {
+        //return 2 * targetPhasesCTS.size() - 1;
+        return (int)targetPhasesCTS.size() - 1;
     }
 
     /*
@@ -250,9 +237,9 @@ private:
      * which is the last target phase executed (even if it is currently executed)
      * (a steps chain starts always with a target phase)
      */
-    size_t lastChain;
+    int lastChain;
 
-    double decayThreshold;
+    SUMOReal decayThreshold;
     /*
      * @brief Check for phases compliancy
      */
@@ -277,7 +264,7 @@ private:
      * To reset the cars-timesteps counter when a target phase is newly selected
      * If phaseStep is not a target phase nothing happens
      */
-    void resetCTS(size_t phaseStep);
+    void resetCTS(int phaseStep);
     /*
      * TEST
      */
@@ -297,11 +284,11 @@ private:
      * 0-> not active
      * 1-> active
      */
-    bool isDecayThresholdActivated(){
+    bool isDecayThresholdActivated() {
         return TplConvert::_2bool(getParameter("DECAY_THRESHOLD", "0").c_str());
     }
 
-    SUMOReal getDecayConstant(){
+    SUMOReal getDecayConstant() {
         return TplConvert::_2SUMOReal(getParameter("DECAY_CONSTANT", "-0.001").c_str());
     }
 

@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 from pylab import *
@@ -36,7 +38,7 @@ taxis = []
 
 
 def main():
-    print "start program"
+    print("start program")
     global taxis, edgeDict
     # load data
     edgeDict = load(open(path.edgeLengthDict, 'r'))
@@ -44,7 +46,7 @@ def main():
     plotAllTaxis()
     # plotIt(taxiId)
     # reader.readEdgesLength()
-    print "end"
+    print("end")
 
 
 def plotAllTaxis():
@@ -54,13 +56,13 @@ def plotAllTaxis():
     lastProz = 0
     for i in range(5, 105, 5):
         s = "%02d" % i
-        print s,
-    print "%"
+        print(s, end=' ')
+    print("%")
 
     for i in range(allT):
         actProz = (100 * i / allT)
         if actProz != lastProz and actProz % 5 == 0:
-            print "**",
+            print("**", end=' ')
             lastProz = actProz
         if plotIt(taxis[i].id) != -1:
             savefig(path.vOverRouteDir + "taxi_" +

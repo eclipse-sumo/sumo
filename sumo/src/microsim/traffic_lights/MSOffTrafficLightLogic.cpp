@@ -89,7 +89,7 @@ MSOffTrafficLightLogic::rebuildPhase() {
 
 
 // ------------ Static Information Retrieval
-unsigned int
+int
 MSOffTrafficLightLogic::getPhaseNumber() const {
     return 0;
 }
@@ -102,13 +102,13 @@ MSOffTrafficLightLogic::getPhases() const {
 
 
 const MSPhaseDefinition&
-MSOffTrafficLightLogic::getPhase(unsigned int) const {
+MSOffTrafficLightLogic::getPhase(int) const {
     return *myPhaseDefinition[0];
 }
 
 
 // ------------ Dynamic Information Retrieval
-unsigned int
+int
 MSOffTrafficLightLogic::getCurrentPhaseIndex() const {
     return 0;
 }

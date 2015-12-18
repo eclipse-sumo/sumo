@@ -27,6 +27,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import random
 import time
@@ -68,16 +70,16 @@ procFcdDict = None
 def main():
     global edgeDumpDict, vtypeDict, vehList, vehSum, period, quota, procFcdDict
 
-    print "start program"
+    print("start program")
     edgeDumpDict = make(path.FQedgeDumpPickle, path.FQedgeDump, readEdgeDump)
     vtypeDict = make(path.FQvtypePickle, path.FQvtype, readVtype)
     vehList = make(
         path.FQvehPickle, path.FQvtypePickle, getVehicleList, False, vtypeDict)
     vehSum = len(vehList)
     if mode == U_FCD:
-        print "load source: ", os.path.basename(path.FQprocessedFCD), "...",
+        print("load source: ", os.path.basename(path.FQprocessedFCD), "...", end=' ')
         procFcdDict = readProcessedFCD()
-        print "Done!"
+        print("Done!")
 
     orgPath = path.FQoutput
     if mode == W_FCD:
@@ -85,7 +87,7 @@ def main():
     orgPeriod = period
     orgQuota = quota
     for i in range(iteration):
-        print "iteration: ", i
+        print("iteration: ", i)
         period = orgPeriod
         quota = orgQuota
         path.FQoutput = orgPath + \
@@ -97,7 +99,7 @@ def main():
         else:
             createOutput()
 
-    print "end"
+    print("end")
 
 
 def generatePeriodQuotaSets(stopByPeriod=False):
@@ -117,7 +119,7 @@ def generatePeriodQuotaSets(stopByPeriod=False):
         if stopByPeriod:
             yield (period, None, None, None)
         for quota in qList:
-            print "create output for: period ", period, " quota ", quota
+            print("create output for: period ", period, " quota ", quota)
             taxis = chooseTaxis(vehList)
             taxiSum = len(taxis)
             if mode == U_FCD:
@@ -231,14 +233,14 @@ def make(source, dependentOn, builder, buildNew=False, *builderParams):
     # check date
     # if source is newer
     if not buildNew and os.path.getmtime(source) > os.path.getmtime(dependentOn):
-        print "load source: ", os.path.basename(source), "...",
+        print("load source: ", os.path.basename(source), "...", end=' ')
         target = load(open(source, 'rb'))
     else:
-        print "build source: ", os.path.basename(source), "...",
+        print("build source: ", os.path.basename(source), "...", end=' ')
         target = builder(*builderParams)
         # pickle the target
         dump(target, open(source, 'wb'), 1)
-    print "Done!"
+    print("Done!")
     return target
 
 
@@ -304,7 +306,7 @@ def writeRawFCD():
                                  # status      speed form m/s in km/h
                                  '\t' + tup[4][0:2] + '.' + tup[4][2:7] + tup[4][8:] + '\t' + "90" + '\t' + str(int(round(tup[2] * 3.6))) + '\n')
         # print dataset, time
-        print vehId
+        print(vehId)
     outputFile.close()
 
 
@@ -338,7 +340,7 @@ def createOutput():
             drivenEdgesSet = set()
 
             if len(vtypeDictR) == 0:  # if the processed FCD returns no Values
-                print "noData p", period, " q", quota
+                print("noData p", period, " q", quota)
                 drivenEdgesSet.add(0)
             else:  # create mean from all taxi speed values
                 for timestep, taxiList in vtypeDictR.iteritems():

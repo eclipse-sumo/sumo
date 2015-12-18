@@ -85,9 +85,9 @@ MSLane::DictType MSLane::myDict;
 // ===========================================================================
 MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
                unsigned int numericalID, const PositionVector& shape, SUMOReal width,
-               SVCPermissions permissions) :
+               SVCPermissions permissions, int index) :
     Named(id),
-    myShape(shape), myNumericalID(numericalID),
+    myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myLogicalPredecessorLane(0),

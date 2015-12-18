@@ -18,16 +18,18 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
 import route_departOffset
 
 if len(sys.argv) < 2:
-    print "Usage: route_1htoDay.py <INPUT_FILE>"
+    print("Usage: route_1htoDay.py <INPUT_FILE>")
     sys.exit()
 for i in range(0, 24):
     out = sys.argv[1]
     out = out[:out.find(".")] + "_" + str(i) + out[out.find("."):]
-    print "Building routes for hour " + str(i) + " into '" + out + "'..."
+    print("Building routes for hour " + str(i) + " into '" + out + "'...")
     route_departOffset.main(sys.argv[1], out, i * 3600)

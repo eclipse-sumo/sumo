@@ -102,7 +102,7 @@ public:
      * @return The number of this tls program's phases
      * @see MSTrafficLightLogic::getPhaseNumber
      */
-    unsigned int getPhaseNumber() const;
+    int getPhaseNumber() const;
 
 
     /** @brief Returns the phases of this tls program
@@ -117,7 +117,7 @@ public:
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition& getPhase(unsigned int givenstep) const;
+    const MSPhaseDefinition& getPhase(int givenstep) const;
 
     /** @brief Returns the type of the logic as a string
      * @return The type of the logic
@@ -136,7 +136,7 @@ public:
      * @return The index of the current phase within the tls
      * @see MSTrafficLightLogic::getCurrentPhaseIndex
      */
-    unsigned int getCurrentPhaseIndex() const;
+    int getCurrentPhaseIndex() const;
 
 
     /** @brief Returns the definition of the current phase

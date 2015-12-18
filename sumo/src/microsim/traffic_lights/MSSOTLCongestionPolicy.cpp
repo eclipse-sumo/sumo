@@ -3,7 +3,7 @@
 /// @author  Alessio Bonfietti
 /// @author  Riccardo Belletti
 /// @date    Feb 2014
-/// @version $Id: MSSOTLCongestionPolicy.h 0 2014-02-28 11:05:00Z riccardo_belletti $
+/// @version $Id$
 ///
 // The class for SOTL Congestion logics
 /****************************************************************************/
@@ -21,48 +21,47 @@
 #include "MSSOTLCongestionPolicy.h"
 
 MSSOTLCongestionPolicy::MSSOTLCongestionPolicy(
-		const std::map<std::string, std::string>& parameters) :
-		MSSOTLPolicy("Congestion", parameters) {
+    const std::map<std::string, std::string>& parameters) :
+    MSSOTLPolicy("Congestion", parameters) {
 }
 
 MSSOTLCongestionPolicy::MSSOTLCongestionPolicy(
-		MSSOTLPolicyDesirability *desirabilityAlgorithm) :
-		MSSOTLPolicy("Congestion", desirabilityAlgorithm) {
-	getDesirabilityAlgorithm()->setKeyPrefix("CONGESTION");
+    MSSOTLPolicyDesirability* desirabilityAlgorithm) :
+    MSSOTLPolicy("Congestion", desirabilityAlgorithm) {
+    getDesirabilityAlgorithm()->setKeyPrefix("CONGESTION");
 }
 
 MSSOTLCongestionPolicy::MSSOTLCongestionPolicy(
-		MSSOTLPolicyDesirability *desirabilityAlgorithm,
-		const std::map<std::string, std::string>& parameters) :
-		MSSOTLPolicy("Congestion", desirabilityAlgorithm, parameters) {
-	getDesirabilityAlgorithm()->setKeyPrefix("CONGESTION");
+    MSSOTLPolicyDesirability* desirabilityAlgorithm,
+    const std::map<std::string, std::string>& parameters) :
+    MSSOTLPolicy("Congestion", desirabilityAlgorithm, parameters) {
+    getDesirabilityAlgorithm()->setKeyPrefix("CONGESTION");
 
 }
 
-size_t MSSOTLCongestionPolicy::decideNextPhase(int elapsed,
-		const MSPhaseDefinition* stage, size_t currentPhaseIndex,
-		size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
-	if (stage->isCommit()) {
-		// decide which chain to activate. Gotta work on this
-		return currentPhaseIndex;
-	}
-	if (stage->isTransient()) {
-		//If the junction was in a transient step
-		//=> go to the next step and return computeReturnTime()
-		return currentPhaseIndex + 1;
-	}
+int MSSOTLCongestionPolicy::decideNextPhase(SUMOTime elapsed,
+        const MSPhaseDefinition* stage, int currentPhaseIndex,
+        int /* phaseMaxCTS */, bool thresholdPassed, bool pushButtonPressed, int vehicleCount) {
+    if (stage->isCommit()) {
+        // decide which chain to activate. Gotta work on this
+        return currentPhaseIndex;
+    }
+    if (stage->isTransient()) {
+        //If the junction was in a transient step
+        //=> go to the next step and return computeReturnTime()
+        return currentPhaseIndex + 1;
+    }
 
-	if (stage->isDecisional()) {
+    if (stage->isDecisional()) {
+        if (canRelease(elapsed, thresholdPassed, pushButtonPressed, stage, vehicleCount)) {
+            return currentPhaseIndex + 1;
+        }
+    }
 
-		if (canRelease(elapsed, thresholdPassed, pushButtonPressed, stage, vehicleCount)) {
-			return currentPhaseIndex + 1;
-		}
-	}
-
-	return currentPhaseIndex;
+    return currentPhaseIndex;
 }
 
-bool MSSOTLCongestionPolicy::canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
-		const MSPhaseDefinition* stage, int vehicleCount) {
-	return (elapsed >= stage->minDuration);
+bool MSSOTLCongestionPolicy::canRelease(SUMOTime elapsed, bool /* thresholdPassed */, bool /* pushButtonPressed */,
+                                        const MSPhaseDefinition* stage, int /* vehicleCount */) {
+    return (elapsed >= stage->minDuration);
 }

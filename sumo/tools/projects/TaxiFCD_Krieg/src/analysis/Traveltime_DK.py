@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 from pylab import *
 
@@ -35,7 +37,7 @@ data = {}
 def main():
     global data
 
-    print "start program"
+    print("start program")
 
     getDrivenEdges()
     data = processData()
@@ -45,7 +47,7 @@ def main():
     plotBarChart("relDiff")
     # plotBarChart("absDiff")
 
-    print "end"
+    print("end")
 
 
 def getDrivenEdges():
@@ -166,7 +168,7 @@ def processData():
                 data2[veh][
                     "simFCD"][-1][-2] = data2[veh]["simFCD"][-1][-2] + elm[2]
     data = data2
-    print "after remove double edges (simFCD)351_11 ", data["351_11"]["simFCD"]
+    print("after remove double edges (simFCD)351_11 ", data["351_11"]["simFCD"])
 
     # make comparison table
     # cut data if edge in between belongs to the "bad driven" edges
@@ -185,7 +187,7 @@ def processData():
                 haveBegin = False
             if haveBegin:
                 data2[id].append(elm)
-    print "after cutting data 351_11_0", data2["351_11_0"]
+    print("after cutting data 351_11_0", data2["351_11_0"])
 
     # ok, we should now have a list of valid FCD-trip parts within the container
     # for t in data["440_18"]:
@@ -220,7 +222,7 @@ def processData():
                 # print "len not ok ",veh
         if ok:
             data3[veh] = data2[veh]
-    print "afer remove entrys without simFCD 351_11_0 ", data3["351_11_0"]
+    print("afer remove entrys without simFCD 351_11_0 ", data3["351_11_0"])
 
     return data3
 
@@ -281,8 +283,8 @@ def plotScatterAbs():
         travelSim.append(travelTimeDict["real"])
         travelFCD.append(travelTimeDict["sim"])
         if travelTimeDict["real"] < 0:
-            print veh
-            print data[veh]
+            print(veh)
+            print(data[veh])
     plot(travelFCD, travelSim, '.')
     xlim(0, 2000)
     ylim(0, 2000)
@@ -303,8 +305,8 @@ def plotScatterRel():
             travelSim.append(travelTimeDict["real"] / travelTimeDict["sim"])
             travelFCD.append(travelTimeDict["sim"] / travelTimeDict["sim"])
         if travelTimeDict["sim"] < 0:
-            print veh
-            print data[veh]
+            print(veh)
+            print(data[veh])
     plot(travelSim, travelFCD, '.')
     # savefig(mainPath+"scatter_rel.png")
     show()
@@ -314,7 +316,7 @@ def plotBarChart(mode="relDiff"):
     l = []
     barsDict = {}
     i = 0
-    print "total", len(data)
+    print("total", len(data))
     for veh in data:
         if len(data[veh]) < 2:
             continue
@@ -333,7 +335,7 @@ def plotBarChart(mode="relDiff"):
     b = bar(barsDict.keys(), barsDict.values(), width=10, alpha=0.5)
     #hist(l, bins=41)
     # savefig(mainPath+"norm_abw_hist.png")
-    print "over100", i
+    print("over100", i)
     show()
 
 

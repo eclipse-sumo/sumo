@@ -41,3 +41,9 @@ The subfolders contain additional libraries used by SUMO:
  Used version: 1.3.8
  Modifications: fixing warnings (casting, initializing variables), adding NOMINMAX define before windows.h include
  Original page: http://www.geuz.org/gl2ps/
+
+- msinttypes
+ ISO C9x compliant stdint.h and inttypes.h for Microsoft Visual Studio 
+ Used version: r26
+ Modifications: none
+ Original page: https://code.google.com/p/msinttypes/

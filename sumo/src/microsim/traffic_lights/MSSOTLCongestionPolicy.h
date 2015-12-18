@@ -3,7 +3,7 @@
 /// @author  Alessio Bonfietti
 /// @author  Riccardo Belletti
 /// @date    Feb 2014
-/// @version $Id: MSSOTLCongestionPolicy.h 0 2014-02-28 11:05:00Z riccardo_belletti $
+/// @version $Id$
 ///
 // The class for SOTL Congestion logics
 /****************************************************************************/
@@ -40,20 +40,20 @@
 class MSSOTLCongestionPolicy: public MSSOTLPolicy {
 
 public:
-	MSSOTLCongestionPolicy(
-			const std::map<std::string, std::string>& parameters);
+    MSSOTLCongestionPolicy(
+        const std::map<std::string, std::string>& parameters);
 
-	MSSOTLCongestionPolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm);
+    MSSOTLCongestionPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm);
 
-	MSSOTLCongestionPolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm,
-			const std::map<std::string, std::string>& parameters);
+    MSSOTLCongestionPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
+                           const std::map<std::string, std::string>& parameters);
 
-	size_t decideNextPhase(int elapsed, const MSPhaseDefinition* stage,
-			size_t currentPhaseIndex, size_t phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
-			int vehicleCount);
+    int decideNextPhase(SUMOTime elapsed, const MSPhaseDefinition* stage,
+                           int currentPhaseIndex, int phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
+                           int vehicleCount);
 
-	bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
-			const MSPhaseDefinition* stage, int vehicleCount);
+    bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
+                    const MSPhaseDefinition* stage, int vehicleCount);
 
 };
 

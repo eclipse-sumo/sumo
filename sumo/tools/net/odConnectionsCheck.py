@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import string
@@ -67,7 +69,7 @@ class Edge:
         self.label = label
         self.source = source
         self.target = target
-        self.capacity = sys.maxint
+        self.capacity = sys.maxsize
         self.kind = kind
         self.maxspeed = 1.0
         self.length = 0.0
@@ -87,7 +89,7 @@ class Edge:
 
     def __repr__(self):
         cap = str(self.capacity)
-        if self.capacity == sys.maxint or self.connection != 0:
+        if self.capacity == sys.maxsize or self.connection != 0:
             cap = "inf"
         return "%s_<%s|%s|%s>" % (self.label, self.kind, self.source, self.target)
 
@@ -137,7 +139,7 @@ class Net:
                 odPairSet.append(
                     (startVertex.label, endVertex.label, matrixEntry))
                 if options.verbose:
-                    print "no connection to", endVertex.label
+                    print("no connection to", endVertex.label)
 
         return totalCounts, subCounts, odPairSet
 
@@ -160,7 +162,7 @@ class NetworkReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         self._chars = ''
-        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+        if name == 'edge' and ('function' not in attrs or attrs['function'] != 'internal'):
             self._edge = attrs['id']
             self._net.addIsolatedRealEdge(self._edge)
             self._edgeObj = self._net.getEdge(self._edge)
@@ -333,15 +335,15 @@ def main():
         endVertices = net._endVertices
 
     if options.verbose:
-        print len(net._edges), "edges read"
-        print len(startVertices), "start vertices read"
-        print len(endVertices), "target vertices read"
+        print(len(net._edges), "edges read")
+        print(len(startVertices), "start vertices read")
+        print(len(endVertices), "target vertices read")
 
     for start, startVertex in enumerate(startVertices):
         if startVertex not in separateZones:
             targets = net.getTargets(separateZones)
             if options.verbose:
-                print "checking start vertex", startVertex.label
+                print("checking start vertex", startVertex.label)
             D, P = dijkstraPlain(startVertex, targets)
 
             for end, endVertex in enumerate(endVertices):
@@ -359,18 +361,18 @@ def main():
                     totalCounts, subCounts, odPairSet = net.checkRoute(
                         startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixPshort[start][end], skipList)
 
-    print 'total OD connections:', totalCounts
+    print('total OD connections:', totalCounts)
     if len(odPairSet) > 0:
-        foutzones = file('absentConnections.txt', 'w')
+        foutzones = open('absentConnections.txt', 'w')
         for pair in odPairSet:
             sumDemand += float(pair[2])
             foutzones.write('from: %s   to: %s; demand:%s\n' %
                             (pair[0], pair[1], pair[2]))
         foutzones.close()
-        print subCounts, 'connections are absent!'
-        print sumDemand, 'vehicles are absent.'
+        print(subCounts, 'connections are absent!')
+        print(sumDemand, 'vehicles are absent.')
     else:
-        print 'all connections exist! '
+        print('all connections exist! ')
 
 
 optParser = OptionParser()

@@ -4,7 +4,7 @@
 /// @author  Riccardo Belletti
 /// @author  Federico Caselli
 /// @date    Feb 2014
-/// @version $Id: MSSOTLMarchingPolicy.h 0 2014-02-28 10:33:00Z riccardo_belletti $
+/// @version $Id$
 ///
 // The class for SOTL Marching logics
 /****************************************************************************/
@@ -37,21 +37,21 @@
  * @brief Class for low-level marching policy.
  *
  */
-class MSSOTLMarchingPolicy: public MSSOTLPolicy, public PushButtonLogic{
+class MSSOTLMarchingPolicy: public MSSOTLPolicy, public PushButtonLogic {
 
 
 public:
-	MSSOTLMarchingPolicy(const std::map<std::string, std::string>& parameters);
-	MSSOTLMarchingPolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm);
+    MSSOTLMarchingPolicy(const std::map<std::string, std::string>& parameters);
+    MSSOTLMarchingPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm);
 
-	MSSOTLMarchingPolicy(MSSOTLPolicyDesirability *desirabilityAlgorithm,
-			const std::map<std::string, std::string>& parameters);
+    MSSOTLMarchingPolicy(MSSOTLPolicyDesirability* desirabilityAlgorithm,
+                         const std::map<std::string, std::string>& parameters);
 
-	bool canRelease(int elapsed, bool thresholdPassed, bool pushButtonPressed,
-			const MSPhaseDefinition* stage, int vehicleCount);
+    bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
+                    const MSPhaseDefinition* stage, int vehicleCount);
 
 protected:
-	void init();
+    void init();
 
 };
 

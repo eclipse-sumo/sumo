@@ -30,6 +30,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import os
@@ -39,7 +41,7 @@ import sumolib.net
 
 
 if len(sys.argv) < 2:
-    print >> sys.stderr, "Call: tls_csv2SUMO.py <TLS_CSV> <NET>"
+    print("Call: tls_csv2SUMO.py <TLS_CSV> <NET>", file=sys.stderr)
     sys.exit()
 
 
@@ -133,7 +135,7 @@ for tlsFile in allTLS:
 
 net1 = sumolib.net.readNet(sys.argv[2])
 
-print '<?xml version="1.0" encoding="UTF-8"?>\n<add>'
+print('<?xml version="1.0" encoding="UTF-8"?>\n<add>')
 for keyIndex, key in enumerate(allKeys):
     minTimes = allMinTimes[keyIndex]
     maxTimes = allMaxTimes[keyIndex]
@@ -175,8 +177,8 @@ for keyIndex, key in enumerate(allKeys):
                 linkMap[tl_c[2]] = l[2]
                 laneMap[tl_c[2]] = (li, lo)
         if laneMap[tl_c[2]] == None:
-            print >> sys.stderr, "Warning: No link definition for connection (%s, %s)!. Using 'g' by default" % (
-                li.getID(), lo.getID())
+            print("Warning: No link definition for connection (%s, %s)!. Using 'g' by default" % (
+                li.getID(), lo.getID()), file=sys.stderr)
             linkMap[tl_c[2]] = -1
             laneMap[tl_c[2]] = (li, lo)
 
@@ -202,13 +204,13 @@ for keyIndex, key in enumerate(allKeys):
 
     for l in range(0, len(linkMap)):
         if linkMap[l] not in links2index:
-            print >> sys.stderr, "Error: Link %s is not described (%s)!" % (
-                l, linkMap[l])
+            print("Error: Link %s is not described (%s)!" % (
+                l, linkMap[l]), file=sys.stderr)
             sys.exit()
 
-    print '    <tlLogic id="' + key + '" type="static" programID="' + subkey + '" offset="' + offset + '">'
+    print('    <tlLogic id="' + key + '" type="static" programID="' + subkey + '" offset="' + offset + '">')
     for p in params:
-        print '        <param key="' + p[0] + '" value="' + p[1] + '"/>'
+        print('        <param key="' + p[0] + '" value="' + p[1] + '"/>')
 
     for i in range(0, len(normTimes)):
         state = ""
@@ -256,6 +258,6 @@ for keyIndex, key in enumerate(allKeys):
         if len(maxTimes) == len(normTimes):
             pd = pd + ' maxDur="' + maxTimes[i] + '"'
         pd = pd + '/>'
-        print pd
-    print "    </tlLogic>"
-print "</add>\n"
+        print(pd)
+    print("    </tlLogic>")
+print("</add>\n")

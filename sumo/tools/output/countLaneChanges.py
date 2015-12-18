@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
@@ -50,7 +52,7 @@ class DumpReader(handler.ContentHandler):
 def countLaneChanges(dumpfile):
     dr = DumpReader()
     parse(dumpfile, dr)
-    print dr.changes, dr.changes / float(len(dr.vehicles))
+    print(dr.changes, dr.changes / float(len(dr.vehicles)))
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

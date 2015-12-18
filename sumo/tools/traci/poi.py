@@ -17,6 +17,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
 import struct
 import traci
 import traci.constants as tc
@@ -111,8 +112,7 @@ def setType(poiID, poiType):
     """
     traci._beginMessage(
         tc.CMD_SET_POI_VARIABLE, tc.VAR_TYPE, poiID, 1 + 4 + len(poiType))
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(poiType)) + str(poiType)
+    traci._message.packString(poiType)
     traci._sendExact()
 
 
@@ -143,8 +143,7 @@ def add(poiID, x, y, color, poiType="", layer=0):
     traci._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1 +
                         4 + 1 + 4 + len(poiType) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(poiType)) + str(poiType)
+    traci._message.packString(poiType)
     traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
         color[0]), int(color[1]), int(color[2]), int(color[3]))
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)

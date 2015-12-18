@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import re
@@ -25,7 +27,7 @@ from collections import defaultdict
 
 
 def parse_log(logfile, edges=True, aggregate=3600):
-    print "Parsing %s" % logfile
+    print("Parsing %s" % logfile)
     reFrom = re.compile("lane='([^']*)'")
     reFromMeso = re.compile("edge '([^']*)'")
     reTime = re.compile("time.(\d*)\.")
@@ -53,7 +55,7 @@ def parse_log(logfile, edges=True, aggregate=3600):
                     waitingCounts[edge] += 1
                     waitingStepCounts[int(time) / aggregate] += 1
         except:
-            print sys.exc_info()
+            print(sys.exc_info())
             sys.exit("error when parsing line '%s'" % line)
 
     return (waitingCounts, collisionCounts,
@@ -63,8 +65,8 @@ def parse_log(logfile, edges=True, aggregate=3600):
 def print_counts(countDict, label):
     counts = [(v, k) for k, v in countDict.items()]
     counts.sort()
-    print counts
-    print label, 'total:', sum(countDict.values())
+    print(counts)
+    print(label, 'total:', sum(countDict.values()))
 
 
 def main(logfile):
@@ -81,8 +83,8 @@ def main(logfile):
             f.write("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title 'collisions'\n" % (
                 plotfile, plotfile))
             for step in range(min_step, max_step + 1):
-                print >>f, ' '.join(
-                    map(str, [step, waitingStepCounts[step], collisionStepCounts[step]]))
+                print(' '.join(
+                    map(str, [step, waitingStepCounts[step], collisionStepCounts[step]])), file=f)
 
 if __name__ == "__main__":
     main(*sys.argv[1:])

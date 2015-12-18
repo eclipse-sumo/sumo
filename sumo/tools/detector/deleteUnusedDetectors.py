@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 import os
@@ -75,13 +77,13 @@ in an edge from the network. """
 
 
 if len(sys.argv) < 3:
-    print "Usage: " + sys.argv[0] + " <net> <detectors>"
+    print("Usage: " + sys.argv[0] + " <net> <detectors>")
     sys.exit()
 
-print "Reading net..."
+print("Reading net...")
 net = sumolib.net.readNet(sys.argv[1])
 
-print "Reading detectors..."
+print("Reading detectors...")
 detectors = parse(sys.argv[2])
 detectors = deleteUnused(detectors, net)
 writeDetectors(detectors)

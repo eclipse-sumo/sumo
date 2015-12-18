@@ -22,6 +22,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 from optparse import OptionParser
@@ -97,9 +99,9 @@ def getReachable(net, source_id, options, useIncoming=False):
         fringe = new_fringe
 
     if useIncoming:
-        print "{} of {} edges can reach edge '{}':".format(len(found), len(net.getEdges()), source_id)
+        print("{} of {} edges can reach edge '{}':".format(len(found), len(net.getEdges()), source_id))
     else:
-        print "{} of {} edges are reachable from edge '{}':".format(len(found), len(net.getEdges()), source_id)
+        print("{} of {} edges are reachable from edge '{}':".format(len(found), len(net.getEdges()), source_id))
 
     ids = sorted([e.getID() for e in found])
     if options.selection_output:
@@ -107,7 +109,7 @@ def getReachable(net, source_id, options, useIncoming=False):
             for e in ids:
                 f.write("edge:{}\n".format(e))
     else:
-        print ids
+        print(ids)
 
 
 if __name__ == "__main__":
@@ -121,7 +123,7 @@ if __name__ == "__main__":
     else:
         components = getWeaklyConnected(net, options.vclass)
         if len(components) != 1:
-            print "Warning! Net is not connected."
+            print("Warning! Net is not connected.")
 
         total = 0
         max = 0
@@ -133,7 +135,7 @@ if __name__ == "__main__":
         dist_str_list = []
 
         # Iterate through components to output and summarise
-        for idx, comp in enumerate(sorted(components, key=lambda c: iter(c).next())):
+        for idx, comp in enumerate(sorted(components, key=lambda c: next(iter(c)))):
             if options.selection_output:
                 with open("{}comp{}.txt".format(options.selection_output, idx), 'w') as f:
                     for e in comp:
@@ -150,7 +152,7 @@ if __name__ == "__main__":
             edge_count_dist[edge_count] += 1
             output_str = "Component: #{} Edge Count: {}\n {}\n".format(
                 idx, edge_count, " ".join(comp))
-            print output_str
+            print(output_str)
             output_str_list.append(output_str)
 
         # Output the summary of all edges checked and largest component
@@ -160,26 +162,26 @@ if __name__ == "__main__":
             coverage = round(max * 100.0 / total, 2)
         summary_str = "Total Edges: {}\nLargest Component: #{} Edge Count: {} Coverage: {}%\n".format(
             total, max_idx, max, coverage)
-        print summary_str
+        print(summary_str)
         dist_str = "Edges\tIncidence"
-        print dist_str
+        print(dist_str)
         dist_str_list.append(dist_str)
 
         # Output the distribution of components by edge counts
         for key, value in sorted(edge_count_dist.iteritems()):
             dist_str = "{}\t{}".format(key, value)
-            print dist_str
+            print(dist_str)
             dist_str_list.append(dist_str)
 
         # Check for output of components to file
         if options.component_output is not None:
-            print "Writing component output to: {}".format(options.component_output)
+            print("Writing component output to: {}".format(options.component_output))
             with open(options.component_output, 'w') as f:
                 f.write("\n".join(output_str_list))
 
         # Check for output of results summary to file
         if options.results_output is not None:
-            print "Writing results output to: {}".format(options.results_output)
+            print("Writing results output to: {}".format(options.results_output))
             with open(options.results_output, 'w') as r:
                 r.write(summary_str)
                 r.write("\n".join(dist_str_list))

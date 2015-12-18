@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import random
@@ -32,7 +34,7 @@ from elements import Vehicle
 
 
 def timeForInput(inputreaderstart):
-    fouttime = file('timeforinput.txt', 'w')
+    fouttime = open('timeforinput.txt', 'w')
     inputreadtime = datetime.datetime.now() - inputreaderstart
     fouttime.write('Time for reading input files:%s\n' % inputreadtime)
     fouttime.close()
@@ -42,8 +44,8 @@ def timeForInput(inputreaderstart):
 
 
 def outputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter):
-    foutmatrixstart = file('origins.txt', 'a')
-    foutmatrixend = file('destinations.txt', 'a')
+    foutmatrixstart = open('origins.txt', 'a')
+    foutmatrixend = open('destinations.txt', 'a')
     foutmatrixstart.write('Interval =%s\n' % (MatrixCounter))
     foutmatrixstart.write('number of origins=%s\n' % len(startVertices))
     foutmatrixstart.write(
@@ -64,7 +66,7 @@ def outputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter):
 
 
 def outputNetwork(net):
-    foutnet = file('network.txt', 'w')
+    foutnet = open('network.txt', 'w')
     net.printNet(foutnet)
     foutnet.close()
 
@@ -76,7 +78,7 @@ def outputStatistics(net, starttime, periods):
     totaltime = 0.0
     totalflow = 0.0
     assigntime = datetime.datetime.now() - starttime
-    foutMOE = file('MOE.txt', 'w')
+    foutMOE = open('MOE.txt', 'w')
     foutMOE.write('Number of analyzed periods(hr):%s' % periods)
     # generate the output of the link travel times
     for edge in net._edges:
@@ -123,7 +125,7 @@ def sortedVehOutput(vehicles, departtime, options, foutroute):
 
 def outputMatrix(startVertices, endVertices, estMatrix, daytimeindex):
     filename = 'estimatedMatri-' + daytimeindex + '.fma'
-    foutmtx = file(filename, 'w')
+    foutmtx = open(filename, 'w')
 
     foutmtx.write(
         '$VMR;D2;estimated with the generalized least squares model\n')
@@ -154,10 +156,10 @@ def outputMatrix(startVertices, endVertices, estMatrix, daytimeindex):
 
 
 def linkChoicesOutput(net, startVertices, endVertices, matrixPshort, linkChoiceMap, odPairsMap, outputdir, starttime):
-    foutchoice = file(os.path.join(outputdir, "linkchoices.xml"), 'w')
-    print >> foutchoice, """<?xml version="1.0"?>
+    foutchoice = open(os.path.join(outputdir, "linkchoices.xml"), 'w')
+    print("""<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<edgechoices>""" % starttime
+<edgechoices>""" % starttime, file=foutchoice)
     for e in net._detectedEdges:
         if len(linkChoiceMap[e.detected]) > 0:
             foutchoice.write(

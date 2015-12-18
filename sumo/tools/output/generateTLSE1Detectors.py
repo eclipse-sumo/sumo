@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import logging
 import optparse
@@ -121,7 +123,7 @@ if __name__ == "__main__":
 
     (options, args) = option_parser.parse_args()
     if not options.net_file:
-        print "Missing arguments"
+        print("Missing arguments")
         option_parser.print_help()
         exit()
 
