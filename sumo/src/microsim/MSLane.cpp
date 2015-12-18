@@ -87,8 +87,7 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
                unsigned int numericalID, const PositionVector& shape, SUMOReal width,
                SVCPermissions permissions, int index) :
     Named(id),
-    myIndex(index),
-    myShape(shape), myNumericalID(numericalID),
+    myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myLogicalPredecessorLane(0),

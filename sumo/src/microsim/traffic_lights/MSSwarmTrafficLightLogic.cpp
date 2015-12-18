@@ -36,16 +36,16 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     std::transform(pols.begin(), pols.end(), pols.begin(), ::tolower);
     DBG(std::ostringstream str; str << "policies: " << pols; WRITE_MESSAGE(str.str());)
 
-    if (pols.find("platoon") != -1) {
+    if (pols.find("platoon") != std::string::npos) {
         addPolicy(new MSSOTLPlatoonPolicy(new MSSOTLPolicy5DFamilyStimulus("PLATOON", parameters), parameters));
     }
-    if (pols.find("phase") != -1) {
+    if (pols.find("phase") != std::string::npos) {
         addPolicy(new MSSOTLPhasePolicy(new MSSOTLPolicy5DFamilyStimulus("PHASE", parameters), parameters));
     }
-    if (pols.find("marching") != -1) {
+    if (pols.find("marching") != std::string::npos) {
         addPolicy(new MSSOTLMarchingPolicy(new MSSOTLPolicy5DFamilyStimulus("MARCHING", parameters), parameters));
     }
-    if (pols.find("congestion") != -1) {
+    if (pols.find("congestion") != std::string::npos) {
         addPolicy(new MSSOTLCongestionPolicy(new MSSOTLPolicy5DFamilyStimulus("CONGESTION", parameters), parameters));
     }
 
@@ -69,7 +69,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     })
     congestion_steps = 0;
     m_useVehicleTypesWeights = getParameter("USE_VEHICLE_TYPES_WEIGHTS", "0") == "1";
-    if (m_useVehicleTypesWeights && pols.find("phase") == -1) {
+    if (m_useVehicleTypesWeights && pols.find("phase") == std::string::npos) {
         WRITE_ERROR("VEHICLE TYPES WEIGHT only works with phase policy, which is missing");
     }
 }

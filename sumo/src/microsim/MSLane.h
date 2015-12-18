@@ -556,20 +556,13 @@ public:
     MSVehicle* getLastVehicle() const;
     MSVehicle* getFirstVehicle() const;
 
-
     /* @brief remove the vehicle from this lane
      * @param[notify] whether moveReminders of the vehicle shall be triggered
      */
     virtual MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify = true);
 
-    /// The shape of the lane
-    PositionVector myShape;
-
-
-
     void leftByLaneChange(MSVehicle* v);
     void enteredByLaneChange(MSVehicle* v);
-
 
     /** @brief Returns the lane with the given offset parallel to this one or 0 if it does not exist
      * @param[in] offset The offset of the result lane
@@ -837,6 +830,9 @@ protected:
 protected:
     /// Unique numerical ID (set on reading by netload)
     size_t myNumericalID;
+
+    /// The shape of the lane
+    PositionVector myShape;
 
     /// The lane index
     int myIndex;
