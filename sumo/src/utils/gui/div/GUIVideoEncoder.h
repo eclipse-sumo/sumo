@@ -2,7 +2,7 @@
 /// @file    GUIVideoEncoder.h
 /// @author  Michael Behrisch
 /// @date    Dec 2015
-/// @version $Id: MSSwarmTrafficLightLogic.h 19604 2015-12-13 20:49:24Z behrisch $
+/// @version $Id$
 ///
 // A simple video encoder from RGBA pics to anything ffmpeg can handle.
 // Tested with h264 only.
