@@ -294,12 +294,12 @@ if options.districts:
 else:
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
         routeMatrix["dummySource"] = {}
-        routeMatrix["dummySource"]["dummySink"] = list(routes.iterkeys())
+        routeMatrix["dummySource"]["dummySink"] = list(routes.keys())
 
 match = {}
 totalMatch = 0
 totalIdentical = 0
-for source in routeMatrix1.iterkeys():
+for source in routeMatrix1:
     if not source in routeMatrix2:
         if options.verbose:
             print("Warning! No routes starting at %s in second route set" % source)

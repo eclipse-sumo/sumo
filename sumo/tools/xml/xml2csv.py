@@ -139,7 +139,7 @@ class CSVWriter(NestingHandler):
         self.haveUnsavedValues = False
         self.outfiles = {}
         self.rootDepth = 1 if options.split else 0
-        for root in attrFinder.depthTags.iterkeys():
+        for root in attrFinder.depthTags:
             if len(attrFinder.depthTags) == 1:
                 if not options.output:
                     options.output = os.path.splitext(options.source)[0]

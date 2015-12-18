@@ -339,8 +339,8 @@ def getStatisticsOutput(assignments, outputfile):
     foutveh.write('\n\nRoute distribution:\n')
     foutveh.write('==================:\n')
     startEnd = assignment['routeDistr']
-    for se in startEnd.iterkeys():
-        for r in startEnd[se].iterkeys():
+    for se in startEnd:
+        for r in startEnd[se]:
             foutveh.write('%s: Number of vehicles: %d, Avg Travel Time: %d\n' % (
                 r, startEnd[se][r][0], 1.0 * startEnd[se][r][1] / startEnd[se][r][0]))
         foutveh.write('\n')

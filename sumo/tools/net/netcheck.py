@@ -65,11 +65,11 @@ def getWeaklyConnected(net, vclass=None):
             edge = queue.pop(0)
             if vclass is None or edge.allows(vclass):
                 component.add(edge.getID())
-                for n in edge.getOutgoing().iterkeys():
+                for n in edge.getOutgoing():
                     if n in edgesLeft:
                         queue.append(n)
                         edgesLeft.remove(n)
-                for n in edge.getIncoming().iterkeys():
+                for n in edge.getIncoming():
                     if n in edgesLeft:
                         queue.append(n)
                         edgesLeft.remove(n)
@@ -91,7 +91,7 @@ def getReachable(net, source_id, options, useIncoming=False):
         new_fringe = []
         for edge in fringe:
             cands = edge.getIncoming() if useIncoming else edge.getOutgoing()
-            for reachable in cands.iterkeys():
+            for reachable in cands:
                 if options.vclass is None or reachable.allows(options.vclass):
                     if not reachable in found:
                         found.add(reachable)
