@@ -95,9 +95,6 @@
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSPhaseDefinition.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSPhasedTrafficLightLogic.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>

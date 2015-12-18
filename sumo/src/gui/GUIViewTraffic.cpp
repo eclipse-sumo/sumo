@@ -365,6 +365,9 @@ GUIViewTraffic::saveFrame(const std::string& destFile, FXColor* buf) {
         myCurrentVideo = new GUIVideoEncoder(destFile.c_str(), getWidth(), getHeight(), myApp->getDelay());
     }
     myCurrentVideo->writeFrame((uint8_t*)buf);
+#else
+    UNUSED_PARAMETER(destFile);
+    UNUSED_PARAMETER(buf);
 #endif
 }
 

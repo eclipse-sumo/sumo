@@ -121,7 +121,7 @@ MSSimpleTrafficLightLogic::getPhases() {
 
 const MSPhaseDefinition&
 MSSimpleTrafficLightLogic::getPhase(int givenStep) const {
-    assert(myPhases.size() > givenStep);
+    assert((int)myPhases.size() > givenStep);
     return *myPhases[givenStep];
 }
 
@@ -209,7 +209,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 
 void
 MSSimpleTrafficLightLogic::setPhases(const Phases& phases, int step) {
-    assert(step < phases.size());
+    assert(step < (int)phases.size());
     deletePhases();
     myPhases = phases;
     myStep = step;

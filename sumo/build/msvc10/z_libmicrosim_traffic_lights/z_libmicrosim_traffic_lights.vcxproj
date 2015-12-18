@@ -266,7 +266,6 @@
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSDeterministicHiLevelTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSPhaseDefinition.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSPhasedTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSPushButton.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSRailCrossing.cpp" />

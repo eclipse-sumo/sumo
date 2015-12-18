@@ -5,7 +5,7 @@ MSActuatedTrafficLightLogic.cpp MSActuatedTrafficLightLogic.h \
 MSAgentbasedTrafficLightLogic.cpp MSAgentbasedTrafficLightLogic.h \
 MSOffTrafficLightLogic.cpp MSOffTrafficLightLogic.h \
 MSRailSignal.cpp MSRailSignal.h \
-MSPhaseDefinition.cpp MSPhaseDefinition.h \
+MSPhaseDefinition.h \
 MSPhasedTrafficLightLogic.cpp MSPhasedTrafficLightLogic.h \
 MSPushButton.cpp MSPushButton.h \
 MSRailCrossing.cpp MSRailCrossing.h \

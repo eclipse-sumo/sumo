@@ -183,13 +183,13 @@ void
 MSTrafficLightLogic::addLink(MSLink* link, MSLane* lane, int pos) {
     // !!! should be done within the loader (checking necessary)
     myLinks.reserve(pos + 1);
-    while (myLinks.size() <= pos) {
+    while ((int)myLinks.size() <= pos) {
         myLinks.push_back(LinkVector());
     }
     myLinks[pos].push_back(link);
     //
     myLanes.reserve(pos + 1);
-    while (myLanes.size() <= pos) {
+    while ((int)myLanes.size() <= pos) {
         myLanes.push_back(LaneVector());
     }
     myLanes[pos].push_back(lane);

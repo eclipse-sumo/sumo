@@ -366,9 +366,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         SUMOReal x2 = x + a;
 
         // go through the links
-        for (unsigned int j = 0; j < (unsigned int) myTLLogic->getLinks().size(); ++j) {
+        for (int j = 0; j < (int) myTLLogic->getLinks().size(); ++j) {
             // determine the current link's color
-            LinkState state = (*pi).getSignalState(j);
+            LinkState state = pi->getSignalState(j);
             // draw the bar (red is drawn as a line)
             GLHelper::setColor(getLinkColor(state));
             switch (state) {

@@ -43,10 +43,10 @@
 #include <bitset>
 #include <string>
 #include <vector>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/MsgHandler.h>
-#include <microsim/MSLink.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -274,7 +274,7 @@ public:
      * @param[in] pos The position of the signal to return the state for
      * @return The state of the signal at the given position
      */
-    LinkState getSignalState(unsigned int pos) const {
+    LinkState getSignalState(int pos) const {
         return (LinkState) state[pos];
     }
 

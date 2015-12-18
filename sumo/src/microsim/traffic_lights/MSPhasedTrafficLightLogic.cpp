@@ -127,7 +127,7 @@ MSPhasedTrafficLightLogic::getPhases() const {
 
 const MSPhaseDefinition&
 MSPhasedTrafficLightLogic::getPhase(int givenStep) const {
-    assert(myPhases.size() > givenStep);
+    assert((int)myPhases.size() > givenStep);
     return *myPhases[givenStep];
 }
 
@@ -206,7 +206,7 @@ MSPhasedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 /****************************************************************************/
 void
 MSPhasedTrafficLightLogic::setPhases(const Phases& phases, int step) {
-    assert(step < phases.size());
+    assert(step < (int)phases.size());
     deletePhases();
     myPhases = phases;
     myStep = step;

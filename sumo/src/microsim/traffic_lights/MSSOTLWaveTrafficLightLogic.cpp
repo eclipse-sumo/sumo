@@ -78,10 +78,9 @@ bool MSSOTLWaveTrafficLightLogic::canRelease() throw() {
 }
 
 int MSSOTLWaveTrafficLightLogic::countVehicles() {
-
     std::string state = getCurrentPhaseDef().getState();
     int vehicles = 0;
-    for (int i = 0; i < getLaneVectors().size(); i++) {
+    for (int i = 0; i < (int)getLaneVectors().size(); i++) {
         if (i > 0
                 && ((getLaneVectors()[i][0]->getID()).compare(
                         getLaneVectors()[i - 1][0]->getID()) == 0)) {
