@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -40,7 +42,7 @@ for root, dirs, files in os.walk(srcRoot):
         roots.append(root)
 
 for root in sorted(roots):
-    print "-- Test: %s" % root[len(srcRoot) + 1:]
+    print("-- Test: %s" % root[len(srcRoot) + 1:])
     prefix = os.path.join(root, "input_")
     sys.stdout.flush()
     subprocess.call([netconvertBinary, "-n", prefix + "nodes.nod.xml", "-e", prefix + "edges.edg.xml",
@@ -58,11 +60,11 @@ for root in sorted(roots):
     lanes = traci.vehicle.getBestLanes("0")
     sys.stdout.flush()
     for l in lanes:
-        print "lane %s:" % (l[0])
-        print "  length: %s" % (l[1])
-        print "  offset: %s" % (l[3])
-        print "  allowsContinuation: %s" % (l[4])
-        print "  over: %s" % (l[5])
+        print("lane %s:" % (l[0]))
+        print("  length: %s" % (l[1]))
+        print("  offset: %s" % (l[3]))
+        print("  allowsContinuation: %s" % (l[4]))
+        print("  over: %s" % (l[5]))
     traci.close()
     sys.stdout.flush()
 
@@ -71,8 +73,8 @@ for root in sorted(roots):
         vals = fdi.readline().strip().split()
         length = int(vals[0])
         if ((int(l[1]) + 500) / 500) * 500 == length:
-            print "lane %s ok" % i
+            print("lane %s ok" % i)
         else:
-            print "lane %s mismatches" % i
-    print "-" * 70
-    print ""
+            print("lane %s mismatches" % i)
+    print("-" * 70)
+    print("")

@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -34,7 +36,7 @@ sumoBinary = os.environ.get(
 def call(command):
     retCode = subprocess.call(command, stdout=sys.stdout, stderr=sys.stderr)
     if retCode != 0:
-        print >> sys.stderr, "Execution of %s failed." % command
+        print("Execution of %s failed." % command, file=sys.stderr)
         sys.exit(retCode)
 
 PERIOD = 5
@@ -42,20 +44,20 @@ DEPARTSPEED = "max"
 
 fdo = open("results.csv", "w")
 for departPos in "random free random_free base pwagSimple pwagGeneric maxSpeedGap".split():
-    print ">>> Building the routes (for departPos %s)" % departPos
+    print(">>> Building the routes (for departPos %s)" % departPos)
     fd = open("input_routes.rou.xml", "w")
-    print >> fd, """<routes>
+    print("""<routes>
     <flow id="vright" route="right" departPos="%s" departSpeed="%s" begin="0" end="10000" period="%s"/>
     <flow id="vleft" route="left" departPos="%s" departSpeed="%s" begin="0" end="10000" period="%s"/>
     <flow id="vhorizontal" route="horizontal" departPos="%s" departSpeed="%s" begin="0" end="10000" period="%s"/>
-</routes>""" % (3 * (departPos, DEPARTSPEED, PERIOD))
+</routes>""" % (3 * (departPos, DEPARTSPEED, PERIOD)), file=fd)
     fd.close()
 
-    print ">>> Simulating ((for departPos %s)" % departPos
+    print(">>> Simulating ((for departPos %s)" % departPos)
     call([sumoBinary, "-c", "sumo.sumocfg", "-v"])
 
     dump = sumolib.output.dump.readDump("aggregated.xml", ["entered"])
-    print >> fdo, "%s;%s" % (departPos, dump.get("entered")[-1]["1si"])
+    print("%s;%s" % (departPos, dump.get("entered")[-1]["1si"]), file=fdo)
 
     if os.path.exists(departPos + "_aggregated.xml"):
         os.remove(departPos + "_aggregated.xml")

@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -49,7 +51,7 @@ def runSingle(addOption):
                 timeline[-1][v] = traci.vehicle.getSpeed(v)
             step += 1
         except traciControl.FatalTraCIError:
-            print "Closed by SUMO"
+            print("Closed by SUMO")
             break
     traci.close()
     sys.stdout.flush()
@@ -63,29 +65,29 @@ def evalTimeline(timeline):
             for v in t:
                 s = t[v]
                 if s < 8.9 or s > 9.1:
-                    print " Mismatching velocity of vehicle %s at time %s (%s)" % (v, ct, s)
+                    print(" Mismatching velocity of vehicle %s at time %s (%s)" % (v, ct, s))
         ct = ct + 1
 
-print ">>> Building the network (with internal)"
+print(">>> Building the network (with internal)")
 sys.stdout.flush()
 retcode = subprocess.call(
     [netconvertBinary, "-c", "netconvert.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
-print ">>> Checking Simulation (network: internal, simulation: internal)"
+print(">>> Checking Simulation (network: internal, simulation: internal)")
 evalTimeline(runSingle(""))
 time.sleep(1)
-print ">>> Checking Simulation (network: internal, simulation: no internal)"
+print(">>> Checking Simulation (network: internal, simulation: no internal)")
 evalTimeline(runSingle("--no-internal-links"))
 time.sleep(1)
 
-print ""
-print ">>> Building the network (without internal)"
+print("")
+print(">>> Building the network (without internal)")
 sys.stdout.flush()
 retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netccfg",
                            "--no-internal-links"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
-print ">>> Checking Simulation (network: no internal, simulation: internal)"
+print(">>> Checking Simulation (network: no internal, simulation: internal)")
 evalTimeline(runSingle(""))
 time.sleep(1)
-print ">>> Checking Simulation (network: no internal, simulation: no internal)"
+print(">>> Checking Simulation (network: no internal, simulation: no internal)")
 evalTimeline(runSingle("--no-internal-links"))
