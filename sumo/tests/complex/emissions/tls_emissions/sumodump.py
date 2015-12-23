@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from xml.sax import saxutils, make_parser, handler
 
 

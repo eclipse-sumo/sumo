@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import os
@@ -47,7 +49,7 @@ for i, ec in enumerate(emissionClasses):
     if len(ec) == 0:
         continue
     drivingCycle = sys.argv[1]
-    print "Running '%s'" % ec
+    print("Running '%s'" % ec)
     sys.stdout.flush()
     sys.stderr.flush()
     call = [EDC, "-e", ec, "-t", drivingCycle, "-o", "tmp.csv",
@@ -56,7 +58,7 @@ for i, ec in enumerate(emissionClasses):
     sys.stdout.flush()
     sys.stderr.flush()
     if retCode != 0:
-        print "Error on building PHEMlight measurements"
+        print("Error on building PHEMlight measurements")
         sys.exit(1)
     fd = open("tmp.csv")
     out = fd.readlines()

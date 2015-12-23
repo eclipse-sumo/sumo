@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 import cPickle
@@ -25,7 +27,7 @@ class TripinfosReader(handler.ContentHandler):
                     try:
                         val = float(val)
                     except:
-                        print "%s=%s" % (val, a)
+                        print("%s=%s" % (val, a))
                 self._values[a][id] = val
 
     def get(self, name):
