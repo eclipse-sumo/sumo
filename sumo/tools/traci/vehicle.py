@@ -318,8 +318,8 @@ def getAdaptedTraveltime(vehID, time, edgeID):
     """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
                         tc.VAR_EDGE_TRAVELTIME, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
-    traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time,
-                                         tc.TYPE_STRING, len(edgeID)) + str(edgeID)
+    traci._message.string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
+    traci._message.packString(edgeID)
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID).readDouble()
 
 
@@ -330,8 +330,8 @@ def getEffort(vehID, time, edgeID):
     """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
                         tc.VAR_EDGE_EFFORT, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
-    traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time,
-                                         tc.TYPE_STRING, len(edgeID)) + str(edgeID)
+    traci._message.string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
+    traci._message.packString(edgeID)
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID).readDouble()
 
 
@@ -505,8 +505,8 @@ def getDrivingDistance(vehID, edgeID, pos, laneID=0):
     """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST,
                         vehID, 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1)
-    traci._message.string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2,
-                                         tc.POSITION_ROADMAP, len(edgeID)) + str(edgeID)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+    traci._message.packString(edgeID, tc.POSITION_ROADMAP)
     traci._message.string += struct.pack("!dBB",
                                          pos, laneID, tc.REQUEST_DRIVINGDIST)
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
@@ -628,8 +628,7 @@ def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1, flags=STOP_D
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP,
                         vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 7)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(edgeID)) + str(edgeID)
+    traci._message.packString(edgeID)
     traci._message.string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos,
                                          tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
     traci._message.string += struct.pack("!BdBi",
@@ -723,10 +722,7 @@ def setRoute(vehID, edgeList):
         edgeList = [edgeList]
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE, vehID,
                         1 + 4 + sum(map(len, edgeList)) + 4 * len(edgeList))
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRINGLIST, len(edgeList))
-    for edge in edgeList:
-        traci._message.string += struct.pack("!i", len(edge)) + str(edge)
+    traci._message.packStringList(edgeList)
     traci._sendExact()
 
 
@@ -737,8 +733,9 @@ def setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time):
     """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
                         vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
-    traci._message.string += struct.pack("!BiBiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                         tc.TYPE_INTEGER, endTime, tc.TYPE_STRING, len(edgeID)) + str(edgeID)
+    traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
+                                         tc.TYPE_INTEGER, endTime)
+    traci._message.packString(edgeID)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, time)
     traci._sendExact()
 
@@ -750,8 +747,9 @@ def setEffort(vehID, begTime, endTime, edgeID, effort):
     """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
                         vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4)
-    traci._message.string += struct.pack("!BiBiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                         tc.TYPE_INTEGER, endTime, tc.TYPE_STRING, len(edgeID)) + str(edgeID)
+    traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
+                                         tc.TYPE_INTEGER, endTime)
+    traci._message.packString(edgeID)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
     traci._sendExact()
 
@@ -792,8 +790,7 @@ def moveTo(vehID, laneID, pos):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE,
                         tc.VAR_MOVE_TO, vehID, 1 + 4 + 1 + 4 + len(laneID) + 1 + 8)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(laneID)) + str(laneID)
+    traci._message.packString(laneID)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
     traci._sendExact()
 
@@ -951,10 +948,8 @@ def add(vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAU
     if depart > 0:
         depart *= 1000
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(typeID)) + str(typeID)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(routeID)) + str(routeID)
+    traci._message.packString(typeID)
+    traci._message.packString(routeID)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
     traci._message.string += struct.pack("!BdBd",
                                          tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
@@ -972,7 +967,7 @@ def addFull(vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
     for val in (routeID, typeID, depart, departLane, departPos, departSpeed,
                 arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line):
         messageString += struct.pack("!Bi",
-                                     tc.TYPE_STRING, len(val)) + str(val)
+                                     tc.TYPE_STRING, len(val)) + str(val).encode("latin1")
     messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personCapacity)
     messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personNumber)
 
@@ -992,8 +987,7 @@ def moveToVTD(vehID, edgeID, lane, x, y, angle):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO_VTD,
                         vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(edgeID)) + str(edgeID)
+    traci._message.packString(edgeID)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, lane)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, x)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, y)

@@ -88,6 +88,11 @@ class Message:
     def packString(self, s, pre=constants.TYPE_STRING):
         self.string += struct.pack("!Bi", pre, len(s)) + s.encode("latin1")
 
+    def packStringList(self, l):
+        self.string += struct.pack("!Bi", constants.TYPE_STRINGLIST, len(l))
+        for s in l:
+            self.string += struct.pack("!i", len(s)) + s.encode("latin1")
+
 
 class Storage:
 
