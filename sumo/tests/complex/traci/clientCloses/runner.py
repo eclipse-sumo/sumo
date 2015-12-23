@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -52,49 +54,49 @@ def runSingle(traciEndTime, sumoEndTime=None):
     while not step > traciEndTime:
         traci.simulationStep()
         step += 1
-    print "Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T)
+    print("Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T))
     traci.close()
     sys.stdout.flush()
 
 
-print "=========== long route ==========="
+print("=========== long route ===========")
 fdo = open("input_routes.rou.xml", "w")
-print >> fdo, '<routes>"'
-print >> fdo, '   <route id="horizontal" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>'
-print >> fdo, '   <vehicle id="horiz" route="horizontal" depart="0"/>'
-print >> fdo, '</routes>'
+print('<routes>"', file=fdo)
+print('   <route id="horizontal" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>', file=fdo)
+print('   <vehicle id="horiz" route="horizontal" depart="0"/>', file=fdo)
+print('</routes>', file=fdo)
 fdo.close()
-print "----------- SUMO end time is smaller than TraCI's -----------"
+print("----------- SUMO end time is smaller than TraCI's -----------")
 sys.stdout.flush()
 runSingle(99, 50)
-print "----------- SUMO end time is not given -----------"
+print("----------- SUMO end time is not given -----------")
 sys.stdout.flush()
 runSingle(99)
 
 
-print "=========== empty routes in SUMO ==========="
+print("=========== empty routes in SUMO ===========")
 fdo = open("input_routes.rou.xml", "w")
-print >> fdo, '<routes>"'
-print >> fdo, '</routes>'
+print('<routes>"', file=fdo)
+print('</routes>', file=fdo)
 fdo.close()
-print "----------- SUMO end time is smaller than TraCI's -----------"
+print("----------- SUMO end time is smaller than TraCI's -----------")
 sys.stdout.flush()
 runSingle(99, 50)
-print "----------- SUMO end time is not given -----------"
+print("----------- SUMO end time is not given -----------")
 sys.stdout.flush()
 runSingle(99)
 
 
-print "=========== vehicle leaves before TraCI ends ==========="
+print("=========== vehicle leaves before TraCI ends ===========")
 fdo = open("input_routes.rou.xml", "w")
-print >> fdo, '<routes>"'
-print >> fdo, '   <route id="horizontal" edges="2fi 2si"/>'
-print >> fdo, '   <vehicle id="horiz" route="horizontal" depart="0"/>'
-print >> fdo, '</routes>'
+print('<routes>"', file=fdo)
+print('   <route id="horizontal" edges="2fi 2si"/>', file=fdo)
+print('   <vehicle id="horiz" route="horizontal" depart="0"/>', file=fdo)
+print('</routes>', file=fdo)
 fdo.close()
-print "----------- SUMO end time is smaller than TraCI's -----------"
+print("----------- SUMO end time is smaller than TraCI's -----------")
 sys.stdout.flush()
 runSingle(99, 50)
-print "----------- SUMO end time is not given -----------"
+print("----------- SUMO end time is not given -----------")
 sys.stdout.flush()
 runSingle(99)
