@@ -12,3 +12,6 @@ polygon_image
 
 # coloring and rotation of POIs
 poi_image
+
+# testing png and jpg support
+img_formats
