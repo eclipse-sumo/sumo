@@ -751,7 +751,7 @@ MSLane::handleCollision(SUMOTime timestep, const std::string& stage, MSVehicle* 
                 // synchroneous lane change maneuver
                 return false;
             }
-            WRITE_WARNING("Teleporting vehicle '" + collider->getID() + "'; collision with '"
+            WRITE_WARNING("Teleporting vehicle '" + collider->getID() + "'; collision with vehicle '"
                           + victim->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
                           + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
             MSNet::getInstance()->getVehicleControl().registerCollision();
