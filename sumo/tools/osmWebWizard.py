@@ -379,8 +379,8 @@ if __name__ == "__main__":
             [sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
         if not args.remote:
-            webbrowser.open(
-                os.path.join(os.path.dirname(os.path.abspath(__file__)), "webWizard", "index.html"))
+		webbrowser.open("file://"+
+				os.path.join(os.path.dirname(os.path.abspath(__file__)), "webWizard", "index.html"))
 
         server = SimpleWebSocketServer(
             args.address, args.port, OSMImporterWebSocket)
