@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jan  6 08:47:03 2016 by SUMO netconvert Version dev-SVN-r19670I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <dlr-navteq-prefix value="braunschweig_umgebung"/>
+    </input>
+
+    <output>
+        <output-file value="bs_nt.part.net.xml"/>
+        <plain-output-prefix value="bs_nt.part"/>
+    </output>
+
+    <projection>
+        <proj.scale value="5"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+        <ramps.ramp-length value="170"/>
+    </ramp_guessing>
+
+    <edge_removal>
+        <keep-edges.input-file value="/scr2/debug/2086/edges.txt"/>
+    </edge_removal>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-603464.43,-5793051.54" convBoundary="0.00,0.00,677.72,242.91" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="54534761" x="203.72" y="91.65" type="traffic_light" tl="c2a"/>
+    <node id="54534765" x="0.00" y="140.79" type="dead_end"/>
+    <node id="54534779" x="189.92" y="131.42" type="traffic_light" tl="c2a"/>
+    <node id="54535534" x="677.72" y="171.72" type="dead_end"/>
+    <node id="806373935" x="237.04" y="0.00" type="dead_end"/>
+    <node id="838257708" x="147.32" y="242.91" type="dead_end"/>
+</nodes>
