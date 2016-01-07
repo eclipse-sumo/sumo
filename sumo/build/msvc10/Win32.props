@@ -23,11 +23,11 @@
       <PreprocessorDefinitions>HAVE_FOX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <PropertyGroup Condition="Exists('$(OSG)')" Label="UserMacros">
+  <PropertyGroup Condition="Exists('$(OSG)') And ('$(Configuration)'=='InternalDebug' Or '$(Configuration)'=='InternalFastbuild' Or '$(Configuration)'=='InternalRelease')" Label="UserMacros">
     <OSG_LIB>$(OSG)\lib\osgUtil.lib;$(OSG)\lib\osgDB.lib;$(OSG)\lib\osgGA.lib;$(OSG)\lib\osg.lib;$(OSG)\lib\osgViewer.lib</OSG_LIB>
     <OSG_DEBUG_LIB>$(OSG)\lib\osgUtild.lib;$(OSG)\lib\osgDBd.lib;$(OSG)\lib\osgGAd.lib;$(OSG)\lib\osgd.lib;$(OSG)\lib\osgViewerd.lib</OSG_DEBUG_LIB>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="Exists('$(OSG)')">
+  <ItemDefinitionGroup Condition="Exists('$(OSG)') And ('$(Configuration)'=='InternalDebug' Or '$(Configuration)'=='InternalFastbuild' Or '$(Configuration)'=='InternalRelease')">
     <ClCompile>
       <AdditionalIncludeDirectories>$(OSG)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HAVE_OSG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -42,7 +42,7 @@
       <PreprocessorDefinitions>HAVE_FFMPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="Exists('$(PYTHON_INCLUDE_DIR)')">
+  <ItemDefinitionGroup Condition="Exists('$(PYTHON_INCLUDE_DIR)') And '$(Configuration)'!='Debug' And '$(Configuration)'!='InternalDebug'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(PYTHON_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HAVE_PYTHON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
