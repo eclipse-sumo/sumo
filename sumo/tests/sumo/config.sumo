@@ -14,7 +14,7 @@ copy_test_path:input_districts.taz.xml
 copy_test_path:busnet.net.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:settings.xml
-copy_test_path:dlr.gif
+copy_test_path:dlr.*
 copy_test_path:input_state.xml
 copy_test_path:input_meso_state.xml
 
