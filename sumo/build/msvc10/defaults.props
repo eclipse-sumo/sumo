@@ -22,4 +22,12 @@
       <Command>..\..\..\tools\build\version.py</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="config.props" Condition="Exists('config.props')" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='InternalDebug' Or '$(Configuration)'=='InternalFastbuild' Or '$(Configuration)'=='InternalRelease'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_INTERNAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
 </Project>

@@ -46,9 +46,6 @@
 /* Define for dynamic Fox linkage */
 #define FOXDLL 1
 
-/* Define if FOX toolkit is present. */
-#define HAVE_FOX 1
-
 /* defines the precision of floats */
 #define SUMOReal double
 
