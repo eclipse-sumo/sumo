@@ -1,6 +1,6 @@
 import_config_file:../config_all
 binary:$SUMO_BINARY
-interpreter:python $TEXTTEST_HOME/tracirunner.py
+interpreter:$PYTHON $TEXTTEST_HOME/tracirunner.py
 
 copy_test_path:net.net.xml
 copy_test_path:three_split.net.xml
