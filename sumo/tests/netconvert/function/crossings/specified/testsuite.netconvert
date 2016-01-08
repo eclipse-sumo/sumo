@@ -17,6 +17,9 @@
 # 4 arm junction with crossings on all sides, built for a left-hand network
 4_arm_complete_lefthand
 
+# 4 arm junction with crossings on all sides. Set a cycle time that cannot be met
+4_arm_complete_cycletime
+
 # slanted 4 arm junction with crossings on all sides
 4_arm_slanted_complete
 

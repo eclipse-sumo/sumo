@@ -383,16 +383,21 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
 
     SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
-        // adapt to cycle time by changing the duration of the green phases
         const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
+        // adapt to cycle time by changing the duration of the green phases
         SUMOTime greenPhaseTime = 0;
+        SUMOTime minGreenDuration = SUMOTime_MAX;
         for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
-            greenPhaseTime += logic->getPhases()[*it].duration;
+            const SUMOTime dur = logic->getPhases()[*it].duration;
+            greenPhaseTime += dur;
+            minGreenDuration = MIN2(minGreenDuration, dur);
         }
         const int patchSeconds = (int)(STEPS2TIME(cycleTime - totalDuration) / greenPhases.size());
         const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) - patchSeconds * (int)greenPhases.size();
         //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
-        if (greenSeconds + patchSeconds < MIN_GREEN_TIME || greenSeconds + patchSeconds + patchSecondsRest < MIN_GREEN_TIME) {
+        if (STEPS2TIME(minGreenDuration) + patchSeconds < MIN_GREEN_TIME 
+                || STEPS2TIME(minGreenDuration) + patchSeconds + patchSecondsRest < MIN_GREEN_TIME
+                || greenPhases.size() == 0) {
             if (getID() != DUMMY_ID) {
                 WRITE_WARNING("The traffic light '" + getID() + "' cannot be adapted to a cycle time of " + time2string(cycleTime) + ".");
             }
@@ -401,7 +406,9 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
                 logic->setPhaseDuration(*it, logic->getPhases()[*it].duration + TIME2STEPS(patchSeconds));
             }
-            logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + TIME2STEPS(patchSecondsRest));
+            if (greenPhases.size() > 0) {
+                logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + TIME2STEPS(patchSecondsRest));
+            }
             totalDuration = logic->getDuration();
         }
     }
