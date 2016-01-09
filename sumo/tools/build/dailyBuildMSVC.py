@@ -21,7 +21,6 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-from __future__ import with_statement
 from __future__ import absolute_import
 from __future__ import print_function
 import re
@@ -51,12 +50,17 @@ optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"trunk\sumo\
                      help="directory containg the tests, relative to the root dir")
 optParser.add_option("-e", "--sumo-exe", dest="sumoExe", default="sumo",
                      help="name of the sumo executable")
-optParser.add_option("-m", "--remote-dir", dest="remoteDir", default=r"O:\Daten\Sumo\daily",
+optParser.add_option("-m", "--remote-dir", dest="remoteDir",
+                     default=r"O:\Daten\Sumo\daily",
                      help="directory to move the results to")
 optParser.add_option("-a", "--add-build-config-prefix", dest="addConf",
                      help="prefix of an additional configuration to build")
-optParser.add_option("-l", "--add-solution", dest="addSln", default=r"trunk\sumo\build\msvc10\tools.sln",
+optParser.add_option("-l", "--add-solution", dest="addSln",
+                     default=r"trunk\sumo\build\msvc10\tools.sln",
                      help="path to an additional solution to build")
+optParser.add_option("-d", "--dll-dirs", dest="dllDirs",
+                     default=r"Win32:bin,x64:bin64",
+                     help="path to dependency dlls for the relevant platforms")
 optParser.add_option("-f", "--force", action="store_true",
                      default=False, help="force rebuild even if no source changed")
 (options, args) = optParser.parse_args()
@@ -68,22 +72,28 @@ env = os.environ
 if "SUMO_HOME" not in env:
     env["SUMO_HOME"] = os.path.dirname(
         os.path.dirname(os.path.dirname(__file__)))
+env["PYTHON"] = "python"
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
-env["TEMP"] = env["TMP"] = r"D:\Delphi\texttesttmp"
-env["REMOTEDIR_BASE"] = 'O:/Daten/Sumo'
+# this is only a try to fix the links in the test emails
+env["REMOTEDIR_BASE"] = os.path.basename(options.remoteDir)
 compiler = r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
+msvcVersion = "msvc10"
 if "VS100COMNTOOLS" in env:
     compiler = os.path.join(env["VS100COMNTOOLS"], "..", "IDE", "devenv.exe")
+if "VS120COMNTOOLS" in env:
+    compiler = os.path.join(env["VS120COMNTOOLS"], "..", "IDE", "devenv.exe")
+    msvcVersion = "msvc12"
 svnrev = ""
 
 maxTime = 0
 sumoAllZip = None
-for fname in glob.glob(r"O:\Daten\Sumo\Nightly\sumo-all-*.zip"):
+for fname in glob.glob(os.path.join(options.remoteDir, "sumo-all-*.zip")):
     if os.path.getmtime(fname) > maxTime:
         maxTime = os.path.getmtime(fname)
         sumoAllZip = fname
-for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\Daten\Sumo\Nightly\bin64")]:
-    env["FILEPREFIX"] = "msvc10" + options.suffix + platform
+platformDlls = [entry.split(":") for entry in options.dllDirs.split(",")]
+for platform, dllDir in platformDlls:
+    env["FILEPREFIX"] = msvcVersion + options.suffix + platform
     prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
@@ -139,8 +149,7 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     log = io.open(makeLog, 'a')
     if sumoAllZip:
         try:
-            binaryZip = sumoAllZip.replace(
-                "-all-", "-win32-" if platform == "Win32" else "-win64-")
+            binaryZip = sumoAllZip.replace("-all-", "-%s-" % env["FILEPREFIX"])
             zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
             srcZip = zipfile.ZipFile(sumoAllZip)
             write = False
@@ -158,30 +167,14 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
             files_to_zip = (
-                glob.glob(os.path.join(env["XERCES" + envSuffix], "bin", "xerces-c_?_?.dll")) +
-                glob.glob(os.path.join(env["PROJ_GDAL" + envSuffix], "bin", "*.dll")) +
-                glob.glob(os.path.join(env["FOX16" + envSuffix], "lib",
-                                       "FOXDLL-1.6.dll")) +
-                glob.glob(os.path.join(env["FOX16" + envSuffix], "lib",
-                                       "libpng*.dll")) +
-                glob.glob(os.path.join(nightlyDir, "msvc?100.dll")) +
+                glob.glob(os.path.join(dllDir, "*.dll")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
             for f in files_to_zip:
                 zipf.write(f, os.path.join(binDir, os.path.basename(f)))
-                if not f.startswith(nightlyDir):
-                    try:
-                        shutil.copy2(f, nightlyDir)
-                    except IOError as ioerr:
-                        (errno, strerror) = ioerr.args
-                        print("Warning: Could not copy %s to %s!" % (
-                            f, nightlyDir), file=log)
-                        print("I/O error(%s): %s" % (errno, strerror), file=log)
             zipf.close()
-            shutil.copy2(binaryZip, options.remoteDir)
             wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
-            shutil.copy2(binaryZip.replace(".zip", ".msi"), options.remoteDir)
         except IOError as ziperr:
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
@@ -206,6 +199,9 @@ for platform, nightlyDir in [("Win32", r"O:\Daten\Sumo\Nightly"), ("x64", r"O:\D
     if options.addConf:
         subprocess.call(compiler + " /rebuild %sDebug|%s %s\\%s /out %s" %
                         (options.addConf, platform, options.rootDir, options.project, makeAllLog))
+    if options.addSln:
+        subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
+                        (platform, options.rootDir, options.addSln, makeAllLog))
 
 # run tests
     env["TEXTTEST_TMP"] = os.path.join(
