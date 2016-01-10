@@ -40,7 +40,6 @@ if make >> $MAKELOG 2>&1; then
         for f in $PREFIX/sumo/sumo-*.tar.* $PREFIX/sumo/sumo-*.zip; do
           if test $f -nt $PREFIX/sumo/configure; then
             cp $f $NIGHTDIR
-            scp -q $f $REMOTEDIR
           fi
         done
         rsync -rcz $PREFIX/sumo/docs/pydoc $PREFIX/sumo/docs/doxygen $PREFIX/sumo/docs/userdoc $PREFIX/sumo/docs/javadoc $REMOTEDIR

@@ -167,7 +167,7 @@ for platform, dllDir in platformDlls:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
             files_to_zip = (
-                glob.glob(os.path.join(dllDir, "*.dll")) +
+                glob.glob(os.path.join(options.rootDir, dllDir, "*.dll")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
