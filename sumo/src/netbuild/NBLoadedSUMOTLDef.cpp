@@ -333,44 +333,95 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                 // patch states for the newly added crossings
 
                 // collect edges
-                assert(size > 0);
                 EdgeVector fromEdges(size, 0);
                 EdgeVector toEdges(size, 0);
-                for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-                    const NBConnection& c = *it;
-                    if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
-                        if (c.getTLIndex() >= (int)size) {
-                            throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
-                                               "' with " + toString(size) + " links.");
-                        }
-
-
-                        fromEdges[c.getTLIndex()] = c.getFrom();
-                        toEdges[c.getTLIndex()] = c.getTo();
-                    }
-                }
+                std::vector<int> fromLanes(size, 0);
+                collectEdgeVectors(fromEdges, toEdges, fromLanes);
                 const std::string crossingDefaultState(newCrossings, 'r');
 
-                // rebuild the logic (see NBOwnTLDef.cpp::myCompute)
-                const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-                NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-                SUMOTime brakingTime = TIME2STEPS(3);
-                //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
-                for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                    if ((*it).state.find_first_of("yY") != std::string::npos) {
-                        brakingTime = MAX2(brakingTime, it->duration);
-                    }
-                    NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, it->state + crossingDefaultState, crossings, fromEdges, toEdges);
+            // rebuild the logic (see NBOwnTLDef.cpp::myCompute)
+            const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+            NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
+            SUMOTime brakingTime = TIME2STEPS(3);
+            //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
+            for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+                if ((*it).state.find_first_of("yY") != std::string::npos) {
+                    brakingTime = MAX2(brakingTime, it->duration);
                 }
-                NBOwnTLDef::addPedestrianScramble(newLogic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
+                NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, it->state + crossingDefaultState, crossings, fromEdges, toEdges);
+            }
+            NBOwnTLDef::addPedestrianScramble(newLogic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
 
-                delete myTLLogic;
-                myTLLogic = newLogic;
-            } else if (phases.front().state.size() != noLinksAll) {
-                WRITE_WARNING("Could not patch tlLogic " + getID() + "for new crossings");
+            delete myTLLogic;
+            myTLLogic = newLogic;
+        } else if (phases.front().state.size() != noLinksAll) {
+            WRITE_WARNING("Could not patch tlLogic " + getID() + "for new crossings");
+        }
+    }
+}
+}
+
+
+void 
+NBLoadedSUMOTLDef::collectEdgeVectors(EdgeVector& fromEdges, EdgeVector& toEdges, std::vector<int>& fromLanes) const {
+assert(fromEdges.size() > 0);
+assert(fromEdges.size() == toEdges.size());
+const int size = fromEdges.size();
+
+for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+    const NBConnection& c = *it;
+    if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
+        if (c.getTLIndex() >= size) {
+            throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
+                    "' with " + toString(size) + " links.");
+        }
+
+
+        fromEdges[c.getTLIndex()] = c.getFrom();
+        toEdges[c.getTLIndex()] = c.getTo();
+        fromLanes[c.getTLIndex()] = c.getFromLane();
+    }
+}
+}
+
+
+void
+NBLoadedSUMOTLDef::initNeedsContRelation() const {
+    if (!amInvalid() && !myNeedsContRelationReady) {
+        myNeedsContRelation.clear();
+        const unsigned int size = myTLLogic->getNumLinks();
+        EdgeVector fromEdges(size, 0);
+        EdgeVector toEdges(size, 0);
+        std::vector<int> fromLanes(size, 0);
+        collectEdgeVectors(fromEdges, toEdges, fromLanes);
+        const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
+        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+            const std::string state = (*it).state;
+            for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
+                const NBConnection& c1 = *it1;
+                const int i1 = c1.getTLIndex();
+                if (i1 == NBConnection::InvalidTlIndex || state[i1] != 'g' || c1.getFrom() == 0 || c1.getTo() == 0) {
+                    continue;
+                }
+                for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
+                    const NBConnection& c2 = *it2;
+                    const int i2 = c2.getTLIndex();
+                    if (i2 != NBConnection::InvalidTlIndex
+                            && i2 != i1 
+                            && (state[i2] == 'G' || state[i2] == 'g') 
+                            && c2.getFrom() != 0 && c2.getTo() != 0) {
+                        const bool rightTurnConflict = NBNode::rightTurnConflict(
+                                c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
+                        if (forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin) || rightTurnConflict) {
+                            myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
+                        }
+                    }
+                }
             }
         }
     }
+    myNeedsContRelationReady = true;
 }
 
 

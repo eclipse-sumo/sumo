@@ -151,6 +151,9 @@ protected:
 
     bool amInvalid() const;
 
+    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
+    void initNeedsContRelation() const;
+
 private:
 
     /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */
@@ -167,6 +170,13 @@ private:
 
     /// @brief set of edges with shifted lane indices (to avoid shifting twice)
     std::set<NBEdge*> myShifted;
+
+    /** @brief Collects the edges for each tlIndex
+     * @param[out] fromEdges The from-edge for each controlled tlIndex
+     * @param[out] toEdges The to-edge for each controlled tlIndex
+     * @param[out] fromLanes The from-lanes for each controlled tlIndex
+     */
+    void collectEdgeVectors(EdgeVector& fromEdges, EdgeVector& toEdges, std::vector<int>& fromLanes) const;
 
 private:
     /// @brief class for identifying connections
