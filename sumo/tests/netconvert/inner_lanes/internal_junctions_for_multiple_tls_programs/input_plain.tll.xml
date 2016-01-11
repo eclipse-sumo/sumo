@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 11 Jan 2016 01:36:52 PM CET by Netedit Version dev-SVN-r19701I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/net2.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/2097/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="31" state="GGGrrrrrGGGrrrrr"/>
+        <phase duration="4"  state="yyyrrrrryyyrrrrr"/>
+        <phase duration="6"  state="rrrGrrrrrrrGrrrr"/>
+        <phase duration="4"  state="rrryrrrrrrryrrrr"/>
+        <phase duration="31" state="rrrrGGGgrrrrGGGg"/>
+        <phase duration="4"  state="rrrryyygrrrryyyg"/>
+        <phase duration="6"  state="rrrrrrrGrrrrrrrG"/>
+        <phase duration="4"  state="rrrrrrryrrrrrrry"/>
+    </tlLogic>
+
+    <tlLogic id="C" type="static" programID="1" offset="0">
+        <phase duration="31" state="GGGgrrrrGGGgrrrr"/>
+        <phase duration="4"  state="yyygrrrryyygrrrr"/>
+        <phase duration="6"  state="rrrGrrrrrrrGrrrr"/>
+        <phase duration="4"  state="rrryrrrrrrryrrrr"/>
+        <phase duration="31" state="rrrrGGGrrrrrGGGr"/>
+        <phase duration="4"  state="rrrryyyrrrrryyyr"/>
+        <phase duration="6"  state="rrrrrrrGrrrrrrrG"/>
+        <phase duration="4"  state="rrrrrrryrrrrrrry"/>
+    </tlLogic>
+
+</tlLogics>

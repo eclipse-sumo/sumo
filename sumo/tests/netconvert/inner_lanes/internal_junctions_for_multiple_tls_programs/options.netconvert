@@ -1,0 +1,3 @@
+--edge-files=input_plain.edg.xml --node-files=input_plain.nod.xml --x
+input_plain.con.xml -i input_plain.tll.xml
+--output=net.net.xml --no-turnarounds

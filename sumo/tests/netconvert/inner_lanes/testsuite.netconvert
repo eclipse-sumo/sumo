@@ -9,6 +9,7 @@ cross
 
 # more geometry points for internal lanes
 cross_more_detail
+internal_junctions_for_multiple_tls_programs
 
 # networks that have dedicated bicycle lanes
 bicycle_lanes
