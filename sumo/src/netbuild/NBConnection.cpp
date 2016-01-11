@@ -254,5 +254,20 @@ NBConnection::shiftLaneIndex(NBEdge* edge, int offset) {
     }
 }
 
+
+std::ostream&
+operator<<(std::ostream& os, const NBConnection& c) {
+    os 
+        << "Con(from=" << Named::getIDSecure(c.getFrom())
+        << " fromLane=" << c.getFromLane()
+        << " to=" << Named::getIDSecure(c.getTo())
+        << " toLane=" << c.getToLane()
+        << " tlIndex=" << c.getTLIndex()
+        << ")";
+    return os;
+}
+
+
+
 /****************************************************************************/
 

@@ -121,6 +121,9 @@ public:
         return !(*this == c);
     }
 
+    /// Output operator
+    friend std::ostream& operator<<(std::ostream& os, const NBConnection& c);
+
     const static int InvalidTlIndex;
     const static NBConnection InvalidConnection;
 
