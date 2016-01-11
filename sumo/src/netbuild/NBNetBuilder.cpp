@@ -379,7 +379,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing traffic light logics");
-    std::pair<unsigned int, unsigned int> numbers = myTLLCont.computeLogics(myEdgeCont, oc);
+    std::pair<unsigned int, unsigned int> numbers = myTLLCont.computeLogics(oc);
     PROGRESS_DONE_MESSAGE();
     std::string progCount = "";
     if (numbers.first != numbers.second) {

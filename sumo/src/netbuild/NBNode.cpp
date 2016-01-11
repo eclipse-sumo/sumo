@@ -652,7 +652,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         removeTrafficLights();
         for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
             (*i)->setParticipantsInformation();
-            (*i)->setTLControllingInformation(ec);
+            (*i)->setTLControllingInformation();
         }
         return;
     }

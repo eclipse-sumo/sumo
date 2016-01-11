@@ -717,8 +717,8 @@ GNENet::computeJunction(GNEJunction* junction) {
     for (std::set<NBTrafficLightDefinition*>::iterator it = tldefs.begin(); it != tldefs.end(); it++) {
         NBTrafficLightDefinition* def = *it;
         def->setParticipantsInformation();
-        def->setTLControllingInformation(ec);
-        tllCont.computeSingleLogic(ec, oc, def);
+        def->setTLControllingInformation();
+        tllCont.computeSingleLogic(oc, def);
     }
 
     // @todo compute connections etc...

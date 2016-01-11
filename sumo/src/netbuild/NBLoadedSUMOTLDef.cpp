@@ -77,9 +77,8 @@ NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() {
 
 
 NBTrafficLightLogic*
-NBLoadedSUMOTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTimeSeconds) {
+NBLoadedSUMOTLDef::myCompute(unsigned int brakingTimeSeconds) {
     // @todo what to do with those parameters?
-    UNUSED_PARAMETER(ec);
     UNUSED_PARAMETER(brakingTimeSeconds);
     myTLLogic->closeBuilding();
     patchIfCrossingsAdded();
@@ -106,12 +105,6 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     // myControlledInnerEdges.insert(from->getID()); // @todo recheck: this appears to be obsolete
     // set this information now so that it can be used while loading diffs
     from->setControllingTLInformation(conn, getID());
-}
-
-
-void
-NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont&) const {
-    setTLControllingInformation();
 }
 
 

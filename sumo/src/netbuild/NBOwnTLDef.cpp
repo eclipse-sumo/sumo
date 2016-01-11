@@ -184,7 +184,7 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
 }
 
 NBTrafficLightLogic*
-NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
+NBOwnTLDef::myCompute(unsigned int brakingTimeSeconds) {
     return computeLogicAndConts(brakingTimeSeconds);
 }
 
@@ -545,7 +545,7 @@ NBOwnTLDef::setParticipantsInformation() {
 
 
 void
-NBOwnTLDef::setTLControllingInformation(const NBEdgeCont&) const {
+NBOwnTLDef::setTLControllingInformation() const {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     for (NBConnectionVector::const_iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); ++j) {

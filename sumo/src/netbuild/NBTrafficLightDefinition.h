@@ -143,11 +143,10 @@ public:
      * Does some initialisation at first, then calls myCompute to finally
      *  build the tl-logic
      *
-     * @param[in] ec The edge container in order to retrieve edge information
      * @param[in] oc The options container holding options needed during the building
      * @return The built logic (may be 0)
      */
-    NBTrafficLightLogic* compute(const NBEdgeCont& ec, OptionsCont& oc);
+    NBTrafficLightLogic* compute(OptionsCont& oc);
 
 
 
@@ -241,9 +240,8 @@ public:
 
 
     /** @brief Informs edges about being controlled by a tls
-     * @param[in] ec The container of edges
      */
-    virtual void setTLControllingInformation(const NBEdgeCont& ec) const = 0;
+    virtual void setTLControllingInformation() const = 0;
 
 
     /** @brief Builds the list of participating nodes/edges/links
@@ -340,12 +338,10 @@ public:
 
 protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
-     * @param[in] ec The edge container
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
      * @return The computed logic
      */
-    virtual NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                           unsigned int brakingTime) = 0;
+    virtual NBTrafficLightLogic* myCompute(unsigned int brakingTime) = 0;
 
 
     /** @brief Collects the links participating in this traffic light

@@ -292,7 +292,7 @@ NBLoadedTLDef::~NBLoadedTLDef() {
 
 
 NBTrafficLightLogic*
-NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTimeSeconds) {
+NBLoadedTLDef::myCompute(unsigned int brakingTimeSeconds) {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
     // compute the switching times
@@ -334,7 +334,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTimeSeconds) 
         }
         // no information about yellow times will be generated
         assert((*l) >= 0);
-        logic->addStep(TIME2STEPS(duration), buildPhaseState(ec, (unsigned int)(*l)));
+        logic->addStep(TIME2STEPS(duration), buildPhaseState((unsigned int)(*l)));
     }
     // check whether any warnings were printed
     if (MsgHandler::getWarningInstance()->wasInformed()) {
@@ -377,7 +377,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTimeSeconds) 
 
 
 void
-NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont& ec) const {
+NBLoadedTLDef::setTLControllingInformation() const {
     // assign the tl-indices to the edge connections
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
         const NBConnection& c = *it;
@@ -389,7 +389,7 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont& ec) const {
 
 
 std::string
-NBLoadedTLDef::buildPhaseState(const NBEdgeCont& ec, unsigned int time) const {
+NBLoadedTLDef::buildPhaseState(unsigned int time) const {
     unsigned int pos = 0;
     std::string state;
     // set the green and yellow information first;
@@ -411,7 +411,7 @@ NBLoadedTLDef::buildPhaseState(const NBEdgeCont& ec, unsigned int time) const {
             const NBConnection& conn = group->getConnection(j);
             NBConnection assConn(conn);
             // assert that the connection really exists
-            if (assConn.check(ec)) {
+            if (assConn.check(*myEdgeCont)) {
                 state = state + c;
                 ++pos;
             }
@@ -425,8 +425,8 @@ NBLoadedTLDef::buildPhaseState(const NBEdgeCont& ec, unsigned int time) const {
         for (unsigned int j = 0; j < linkNo; j++) {
             const NBConnection& conn = group->getConnection(j);
             NBConnection assConn(conn);
-            if (assConn.check(ec)) {
-                if (!mustBrake(ec, assConn, state, pos)) {
+            if (assConn.check(*myEdgeCont)) {
+                if (!mustBrake(assConn, state, pos)) {
                     if (state[pos] == 'g') {
                         state[pos] = 'G';
                     }
@@ -443,8 +443,7 @@ NBLoadedTLDef::buildPhaseState(const NBEdgeCont& ec, unsigned int time) const {
 
 
 bool
-NBLoadedTLDef::mustBrake(const NBEdgeCont& ec,
-                         const NBConnection& possProhibited,
+NBLoadedTLDef::mustBrake(const NBConnection& possProhibited,
                          const std::string& state,
                          unsigned int strmpos) const {
     // check whether the stream has red
@@ -464,7 +463,7 @@ NBLoadedTLDef::mustBrake(const NBEdgeCont& ec,
             const NBConnection& other = group->getConnection(j);
             NBConnection possProhibitor(other);
             // if the connction ist still valid ...
-            if (possProhibitor.check(ec)) {
+            if (possProhibitor.check(*myEdgeCont)) {
                 // ... do nothing if it starts at the same edge
                 if (possProhibited.getFrom() == possProhibitor.getFrom()) {
                     pos++;

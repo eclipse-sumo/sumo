@@ -149,7 +149,7 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition* definition) {
 
 
 std::pair<unsigned int, unsigned int>
-NBTrafficLightLogicCont::computeLogics(NBEdgeCont& ec, OptionsCont& oc) {
+NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
     // clean previous logics
     Logics logics = getComputed();
     for (Logics::iterator it = logics.begin(); it != logics.end(); it++) {
@@ -160,7 +160,7 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont& ec, OptionsCont& oc) {
     unsigned int numPrograms = 0;
     Definitions definitions = getDefinitions();
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        if (computeSingleLogic(ec, oc, *it)) {
+        if (computeSingleLogic(oc, *it)) {
             numPrograms++;
         }
     }
@@ -169,11 +169,11 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont& ec, OptionsCont& oc) {
 
 
 bool
-NBTrafficLightLogicCont::computeSingleLogic(NBEdgeCont& ec, OptionsCont& oc, NBTrafficLightDefinition* def) {
+NBTrafficLightLogicCont::computeSingleLogic(OptionsCont& oc, NBTrafficLightDefinition* def) {
     const std::string& id = def->getID();
     const std::string& programID = def->getProgramID();
     // build program
-    NBTrafficLightLogic* built = def->compute(ec, oc);
+    NBTrafficLightLogic* built = def->compute(oc);
     if (built == 0) {
         WRITE_WARNING("Could not build program '" + programID + "' for traffic light '" + id + "'");
         return false;
@@ -284,7 +284,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
     ec.clearControllingTLInformation();
     // insert the information about the tl-controlling
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        (*it)->setTLControllingInformation(ec);
+        (*it)->setTLControllingInformation();
     }
     // handle rail signals which are not instantiated as normal definitions
     for (std::map<std::string, NBNode*>::const_iterator it = nc.begin(); it != nc.end(); it ++) {
@@ -292,7 +292,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
         if (n->getType() == NODETYPE_RAIL_SIGNAL || n->getType() == NODETYPE_RAIL_CROSSING) {
             NBOwnTLDef dummy(n->getID(), n, 0, TLTYPE_STATIC);
             dummy.setParticipantsInformation();
-            dummy.setTLControllingInformation(ec);
+            dummy.setTLControllingInformation();
             n->removeTrafficLight(&dummy);
         }
     }

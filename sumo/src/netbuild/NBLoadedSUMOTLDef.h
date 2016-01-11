@@ -71,9 +71,8 @@ public:
     ~NBLoadedSUMOTLDef();
 
     /** @brief Informs edges about being controlled by a tls
-     * @param[in] ec The container of edges
      */
-    void setTLControllingInformation(const NBEdgeCont& ec) const;
+    void setTLControllingInformation() const;
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
      * @param[in] removed The removed edge
@@ -142,12 +141,10 @@ protected:
     void collectEdges();
 
     /** @brief Computes the traffic light logic finally in dependence to the type
-     * @param[in] ec The edge container
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls in seconds
      * @return The computed logic
      */
-    NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                   unsigned int brakingTimeSeconds);
+    NBTrafficLightLogic* myCompute(unsigned int brakingTimeSeconds);
 
     bool amInvalid() const;
 
@@ -161,9 +158,6 @@ private:
 
     /// @brief The original nodes for which the loaded logic is valid
     std::set<NBNode*> myOriginalNodes;
-
-    /** @brief Informs edges about being controlled by a tls */
-    void setTLControllingInformation() const;
 
     /// @brief repair the plan if controlled nodes received pedestrian crossings
     void patchIfCrossingsAdded();
