@@ -196,9 +196,10 @@ NBTrafficLightDefinition::collectEdges() {
         NBEdge* edge = *j;
         // edges that are marked as 'inner' will not get their own phase when
         // computing traffic light logics (unless they cannot be reached from the outside at all)
-        if (myControlledInnerEdges.count(edge->getID()) == 0 && reachable.count(edge) == 1) {
+        if (reachable.count(edge) == 1) {
             edge->setIsInnerEdge();
-            if (uncontrolledWithin) {
+            // legacy behavior
+            if (uncontrolledWithin && myControlledInnerEdges.count(edge->getID()) == 0) {
                 myIncomingEdges.erase(find(myIncomingEdges.begin(), myIncomingEdges.end(), edge));
             }
         }
