@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# call jtrrouter twice and check that the output differs
+# test different traffic_light types
 import sys
 import os
 import subprocess
@@ -11,10 +11,10 @@ sys.path.append(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
-flow1def = "0;2000;200".split(";")
-flow2def = "0;2000;200".split(";")
-fillSteps = 3600  # 3600
-measureSteps = 10000  # 36000
+flow1def = "0;2000;600".split(";")
+flow2def = "0;2000;600".split(";")
+fillSteps = 120  # 3600
+measureSteps = 600  # 36000
 simSteps = fillSteps + measureSteps
 
 try:
@@ -77,7 +77,12 @@ def patchTLSType(ifile, itype, ofile, otype):
     fdi.close()
 
 
-sumo = ".\\sumo"  # checkBinary('sumo')
+sumoHome = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+if "SUMO_HOME" in os.environ:
+    sumoHome = os.environ["SUMO_HOME"]
+sumo = os.environ.get(
+    "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
 assert(sumo)
 
 
@@ -89,11 +94,15 @@ for f1 in range(int(flow1def[0]), int(flow1def[1]), int(flow1def[2])):
         pSN = pNS
         print "Computing for %s<->%s" % (f1, f2)
         buildDemand(simSteps, pWE, pEW, pNS, pSN)
-        for t in ["static", "agentbased", "actuated", "sotl_phase", "sotl_platoon", "sotl_request", "sotl_wave", "sotl_marching", "swarm"]:
+        for t in ["static", "actuated", "sotl_phase", "sotl_platoon", "sotl_request", "sotl_wave", "sotl_marching", "swarm"]:
             print " for tls-type %s" % t
             patchTLSType('input_additional_template.add.xml',
                          '%tls_type%', 'input_additional.add.xml', t)
             args = [sumo,
+                    '--no-step-log',
+                    #'--no-duration-log',
+                    #'--verbose',
+                    #'--duration-log.statistics',
                     '--net-file', 'input_net.net.xml',
                     '--route-files', 'input_routes.rou.xml',
                     '--additional-files', 'input_additional.add.xml',
