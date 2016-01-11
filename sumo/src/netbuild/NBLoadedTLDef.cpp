@@ -265,19 +265,22 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge* removed, int removedLane,
 /* -------------------------------------------------------------------------
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id,
+NBLoadedTLDef::NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id,
                              const std::vector<NBNode*>& junctions, SUMOTime offset, TrafficLightType type) :
-    NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type)
+    NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type),
+    myEdgeCont(&ec)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset, TrafficLightType type) :
-    NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type)
+NBLoadedTLDef::NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, NBNode* junction, SUMOTime offset, TrafficLightType type) :
+    NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type),
+    myEdgeCont(&ec)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id, SUMOTime offset, TrafficLightType type) :
-    NBTrafficLightDefinition(id, DefaultProgramID, offset, type)
+NBLoadedTLDef::NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, SUMOTime offset, TrafficLightType type) :
+    NBTrafficLightDefinition(id, DefaultProgramID, offset, type),
+    myEdgeCont(&ec)
 {}
 
 
@@ -338,30 +341,48 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTimeSeconds) 
         WRITE_WARNING("During computation of traffic light '" + getID() + "'.");
     }
     logic->closeBuilding();
+
+    // initialize myNeedsContRelation
+    myNeedsContRelation.clear();
+    const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
+    const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = logic->getPhases();
+    for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+        const std::string state = (*it).state;
+        for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
+            const NBConnection& c1 = *it1;
+            const int i1 = c1.getTLIndex();
+            if (i1 == NBConnection::InvalidTlIndex || state[i1] != 'g' || c1.getFrom() == 0 || c1.getTo() == 0) {
+                continue;
+            }
+            for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
+                const NBConnection& c2 = *it2;
+                const int i2 = c2.getTLIndex();
+                if (i2 != NBConnection::InvalidTlIndex
+                        && i2 != i1 
+                        && (state[i2] == 'G' || state[i2] == 'g') 
+                        && c2.getFrom() != 0 && c2.getTo() != 0) {
+                    const bool rightTurnConflict = NBNode::rightTurnConflict(
+                            c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
+                    if (forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin) || rightTurnConflict) {
+                        myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
+                    }
+                }
+            }
+        }
+    }
+    myNeedsContRelationReady = true;
+
     return logic;
 }
 
 
 void
 NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont& ec) const {
-    // assign the links to the connections
-    unsigned int pos = 0;
-    for (SignalGroupCont::const_iterator m = mySignalGroups.begin(); m != mySignalGroups.end(); m++) {
-        SignalGroup* group = (*m).second;
-        unsigned int linkNo = group->getLinkNo();
-        for (unsigned int j = 0; j < linkNo; j++) {
-            const NBConnection& conn = group->getConnection(j);
-            assert(conn.getFromLane() < 0 || (int) conn.getFrom()->getNumLanes() > conn.getFromLane());
-            NBConnection tst(conn);
-            tst.setTLIndex(pos);
-            if (tst.check(ec)) {
-                NBEdge* edge = conn.getFrom();
-                if (edge->setControllingTLInformation(tst, getID())) {
-                    pos++;
-                }
-            } else {
-                WRITE_WARNING("Could not set signal on connection (signal: " + getID() + ", group: " + group->getID() + ")");
-            }
+    // assign the tl-indices to the edge connections
+    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+        const NBConnection& c = *it;
+        if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
+            c.getFrom()->setControllingTLInformation(c, getID());
         }
     }
 }
@@ -497,6 +518,36 @@ NBLoadedTLDef::collectLinks() {
             }
         }
     }
+
+    // assign tl-indices to myControlledLinks
+    unsigned int pos = 0;
+    for (SignalGroupCont::const_iterator m = mySignalGroups.begin(); m != mySignalGroups.end(); m++) {
+        SignalGroup* group = (*m).second;
+        unsigned int linkNo = group->getLinkNo();
+        for (unsigned int j = 0; j < linkNo; j++) {
+            const NBConnection& conn = group->getConnection(j);
+            assert(conn.getFromLane() < 0 || (int) conn.getFrom()->getNumLanes() > conn.getFromLane());
+            NBConnection tst(conn);
+            tst.setTLIndex(pos);
+            if (tst.check(*myEdgeCont)) {
+                if (tst.getFrom()->mayBeTLSControlled(tst.getFromLane(), tst.getTo(), tst.getToLane())) {
+                    for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+                        NBConnection& c = *it;
+                        if (c.getTLIndex() == NBConnection::InvalidTlIndex 
+                                && tst.getFrom() == c.getFrom() && tst.getTo() == c.getTo()
+                                && (tst.getFromLane() < 0 || tst.getFromLane() == c.getFromLane())
+                                && (tst.getToLane() < 0 || tst.getToLane() == c.getToLane())) {
+                            c.setTLIndex(pos);
+                        }
+                    }
+                    //std::cout << getID() << " group=" << (*m).first << " tst=" << tst << "\n";
+                    pos++;
+                }
+            } else {
+                WRITE_WARNING("Could not set signal on connection (signal: " + getID() + ", group: " + group->getID() + ")");
+            }
+        }
+    }
 }
 
 
@@ -598,6 +649,13 @@ NBLoadedTLDef::replaceRemoved(NBEdge* removed, int removedLane,
     }
 }
 
+
+void
+NBLoadedTLDef::initNeedsContRelation() const {
+    if (!myNeedsContRelationReady) {
+        throw ProcessError("myNeedsContRelation was not propperly initialized\n");
+    }
+}
 
 
 /****************************************************************************/

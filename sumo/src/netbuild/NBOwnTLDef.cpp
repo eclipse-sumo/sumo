@@ -568,29 +568,19 @@ NBOwnTLDef::replaceRemoved(NBEdge* /*removed*/, int /*removedLane*/,
 
 void
 NBOwnTLDef::initNeedsContRelation() const {
-    if (!myNeedsContRelationReady) {
+    if (!myNeedsContRelationReady && !amInvalid()) {
         assert(myControlledNodes.size() > 0);
-        // there are basically 2 cases for controlling multiple nodes
-        // a) a complex (unjoined) intersection. Here, internal junctions should
-        // not be needed since real nodes are used instead
-        // b) two far-away junctions which shall be coordinated
-        // This is likely to mess up the bestPair computation for each
-        // individual node and thus generate incorrect needsCont data
-        //
-        // Therefore we compute needsCont for individual nodes which doesn't
-        // matter for a) and is better for b)
+        // we use a dummy node just to maintain const-correctness
         myNeedsContRelation.clear();
+        NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
+        dummy.setParticipantsInformation();
+        dummy.computeLogicAndConts(0, true);
+        myNeedsContRelation = dummy.myNeedsContRelation;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            NBNode* n = *i;
-            NBOwnTLDef dummy(DUMMY_ID, n, 0, TLTYPE_STATIC);
-            dummy.setParticipantsInformation();
-            dummy.computeLogicAndConts(0, true);
-            myNeedsContRelation.insert(dummy.myNeedsContRelation.begin(), dummy.myNeedsContRelation.end());
-            n->removeTrafficLight(&dummy);
+            (*i)->removeTrafficLight(&dummy);
         }
         myNeedsContRelationReady = true;
     }
-
 }
 
 

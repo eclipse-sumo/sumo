@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:34 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Mon Jan 11 12:53:15 2016 by SUMO netconvert Version dev-SVN-r19690ID
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1343,9 +1343,9 @@
     <connection from="30007[0]" to="30007[1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="30007[0]" to="30022" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="30007[0]" to="30022" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="0" toLane="0" tl="532" linkIndex="6" dir="r" state="o"/>
-    <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="1" toLane="1" tl="532" linkIndex="7" dir="r" state="o"/>
-    <connection from="30007[1][0]" to="30014" fromLane="1" toLane="0" tl="532" linkIndex="8" dir="s" state="o"/>
+    <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="0" toLane="0" tl="532" linkIndex="3" dir="r" state="o"/>
+    <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="1" toLane="1" tl="532" linkIndex="4" dir="r" state="o"/>
+    <connection from="30007[1][0]" to="30014" fromLane="1" toLane="0" tl="532" linkIndex="5" dir="s" state="o"/>
     <connection from="30007[1][1][0]" to="30021" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30007[1][1][0]" to="30007[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30007[1][1][0]" to="30007[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -1522,10 +1522,10 @@
     <connection from="85[1][1][1][0]" to="85[1][1][1][1][0]" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="85[1][1][1][1][0]" to="85[1][1][1][1][1]" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="85[1][1][1][1][0]" to="82[1]" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="86[0]" to="87[0]+94" fromLane="0" toLane="0" tl="454" linkIndex="15" dir="r" state="o"/>
-    <connection from="86[0]" to="86[1][0]" fromLane="0" toLane="0" tl="454" linkIndex="14" dir="s" state="o"/>
-    <connection from="86[0]" to="86[1][0]" fromLane="1" toLane="1" tl="454" linkIndex="16" dir="s" state="o"/>
-    <connection from="86[0]" to="86[1][0]" fromLane="2" toLane="2" tl="454" linkIndex="17" dir="s" state="o"/>
+    <connection from="86[0]" to="87[0]+94" fromLane="0" toLane="0" tl="454" linkIndex="7" dir="r" state="o"/>
+    <connection from="86[0]" to="86[1][0]" fromLane="0" toLane="0" tl="454" linkIndex="6" dir="s" state="o"/>
+    <connection from="86[0]" to="86[1][0]" fromLane="1" toLane="1" tl="454" linkIndex="8" dir="s" state="o"/>
+    <connection from="86[0]" to="86[1][0]" fromLane="2" toLane="2" tl="454" linkIndex="9" dir="s" state="o"/>
     <connection from="86[1][0]" to="86[1][1]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="86[1][0]" to="86[1][1]" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="86[1][0]" to="86[1][1]" fromLane="2" toLane="2" dir="l" state="M"/>
@@ -1542,9 +1542,9 @@
     <connection from="89" to="87[0]+94" fromLane="0" toLane="0" tl="454" linkIndex="18" dir="L" state="o"/>
     <connection from="89" to="87[0]+94" fromLane="0" toLane="1" tl="454" linkIndex="19" dir="L" state="o"/>
     <connection from="90" to="86[1][1]" fromLane="0" toLane="2" tl="454" linkIndex="20" dir="r" state="o"/>
-    <connection from="91" to="87[0]+94" fromLane="0" toLane="0" tl="454" linkIndex="21" dir="s" state="o"/>
+    <connection from="91" to="87[0]+94" fromLane="0" toLane="0" tl="454" linkIndex="3" dir="s" state="o"/>
     <connection from="92" to="93" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="93" to="85[1][1][0]" fromLane="0" toLane="0" tl="454" linkIndex="5" dir="r" state="o"/>
+    <connection from="93" to="85[1][1][0]" fromLane="0" toLane="0" tl="454" linkIndex="4" dir="r" state="o"/>
 
     <prohibition prohibitor="4+103->6[0]" prohibited="1->7"/>
     <prohibition prohibitor="4+103->6[0]" prohibited="1->7"/>

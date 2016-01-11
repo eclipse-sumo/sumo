@@ -211,7 +211,7 @@ public:
      * @param[in] offset The offset of the plan
      * @param[in] type The algorithm type for the computed traffic light
      */
-    NBLoadedTLDef(const std::string& id,
+    NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id,
                   const std::vector<NBNode*>& junctions, SUMOTime offset,
                   TrafficLightType type);
 
@@ -222,7 +222,7 @@ public:
      * @param[in] offset The offset of the plan
      * @param[in] type The algorithm type for the computed traffic light
      */
-    NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
+    NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, NBNode* junction, SUMOTime offset,
                   TrafficLightType type);
 
 
@@ -231,7 +231,7 @@ public:
      * @param[in] offset The offset of the plan
      * @param[in] type The algorithm type for the computed traffic light
      */
-    NBLoadedTLDef(const std::string& id, SUMOTime offset,
+    NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, SUMOTime offset,
                   TrafficLightType type);
 
 
@@ -311,6 +311,9 @@ public:
      */
     void remapRemoved(NBEdge* removed,
                       const EdgeVector& incoming, const EdgeVector& outgoing);
+
+    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
+    void initNeedsContRelation() const;
     /// @}
 
 
@@ -372,6 +375,9 @@ private:
      * @return The phase of this tls for the given time
      */
     std::string buildPhaseState(const NBEdgeCont& ec, unsigned int time) const;
+
+    // pointer to the NBEdgeCont for checking edges
+    const NBEdgeCont* myEdgeCont;
 
 
 private:

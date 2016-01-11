@@ -389,11 +389,6 @@ void
 NBLoadedSUMOTLDef::initNeedsContRelation() const {
     if (!amInvalid() && !myNeedsContRelationReady) {
         myNeedsContRelation.clear();
-        const unsigned int size = myTLLogic->getNumLinks();
-        EdgeVector fromEdges(size, 0);
-        EdgeVector toEdges(size, 0);
-        std::vector<int> fromLanes(size, 0);
-        collectEdgeVectors(fromEdges, toEdges, fromLanes);
         const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
         const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
