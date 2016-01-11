@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:30 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Mon Jan 11 14:17:10 2016 by SUMO netconvert Version dev-SVN-r19701I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -143,7 +143,7 @@
     <junction id="gneJ3" type="unregulated" x="50.60" y="9.93" incLanes="-51811895a_0 -51811895a_1 -51811895a_2" intLanes="" shape="43.14,14.55 51.11,11.33 50.82,10.34 42.92,13.65 43.14,14.55" customShape="1"/>
 
     <junction id=":54536753_8_0" type="internal" x="48.96" y="34.23" incLanes=":54536753_0_0" intLanes=":54536753_5_0 :54536753_c0_0 :54536753_c1_0"/>
-    <junction id=":54536753_9_0" type="internal" x="58.30" y="26.74" incLanes=":54536753_5_0 -786367651_1 -786367651_2" intLanes=":54536753_0_0 :54536753_1_0 :54536753_1_1 :54536753_7_0 :54536753_c1_0"/>
+    <junction id=":54536753_9_0" type="internal" x="58.30" y="26.74" incLanes=":54536753_5_0" intLanes=":54536753_0_0 :54536753_1_0 :54536753_1_1 :54536753_7_0 :54536753_c1_0"/>
     <junction id=":54536753_10_0" type="internal" x="52.53" y="30.14" incLanes=":54536753_7_0 51811895a_0" intLanes=":54536753_1_0 :54536753_1_1 :54536753_3_0 :54536753_3_1 :54536753_5_0 :54536753_c0_0 :54536753_c1_0"/>
 
     <connection from="-51812052" to="-51811895a" fromLane="1" toLane="1" via=":54536753_6_0" tl="K048" linkIndex="6" dir="r" state="o"/>

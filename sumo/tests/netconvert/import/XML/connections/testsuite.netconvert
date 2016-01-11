@@ -69,3 +69,6 @@ double_con_custom_unsafe
 
 # custom position for internal junction
 contPos
+
+# custom position for internal junction
+contPos_4arm

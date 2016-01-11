@@ -632,9 +632,6 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     }
     if (c.tlID != "" && !bothLeft) {
         assert(myTrafficLights.size() > 0);
-        if (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) {
-            return true; // XXX recheck
-        }
         for (std::set<NBTrafficLightDefinition*>::const_iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
             if ((*it)->needsCont(fromE, toE, otherFromE, otherToE)) {
                 return true;
