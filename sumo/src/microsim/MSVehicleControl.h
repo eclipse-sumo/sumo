@@ -414,17 +414,22 @@ public:
         myEmergencyStops++;
     }
 
-    /// @name State I/O (mesosim only)
+    /// @name State I/O 
     /// @{
 
     /** @brief Sets the current state variables as loaded from the stream
      */
-    void setState(int runningVehNo, int endedVehNo, SUMOReal totalDepartureDelay, SUMOReal totalTravelTime);
+    void setState(int runningVehNo, int loadedVehNo, int endedVehNo, SUMOReal totalDepartureDelay, SUMOReal totalTravelTime);
 
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);
     /// @}
+
+    /// @brief avoid counting a vehicle twice if it was loaded from state and route input
+    void discountStateLoaded() {
+        myLoadedVehNo--;
+    }
 
 
     /** @brief informes about all waiting vehicles (deletion in destructor)

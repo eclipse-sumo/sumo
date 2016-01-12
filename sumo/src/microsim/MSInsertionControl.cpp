@@ -267,6 +267,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             } else {
                 // strange: another vehicle with the same id already exists
                 if (MSGlobals::gStateLoaded) {
+                    vehControl.discountStateLoaded();
                     break;
                 }
                 throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
