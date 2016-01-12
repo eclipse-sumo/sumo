@@ -306,12 +306,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (from == to) {
         // in the special case of a looped way split again using passed
         assert(passed.size() >= 2);
-        std::vector<long long int> geom(passed);
-        geom.pop_back(); // remove to-node
-        NBNode* intermediate = insertNodeChecking(geom.back(), nc, tlsc);
-        index = insertEdge(e, index, from, intermediate, geom, nb);
-        geom.clear();
-        return insertEdge(e, index, intermediate, to, geom, nb);
+        size_t intermediateIndex = passed.size() / 2;
+        NBNode* intermediate = insertNodeChecking(passed[intermediateIndex], nc, tlsc);
+        std::vector<long long int> part1(passed.begin(), passed.begin() + intermediateIndex);
+        std::vector<long long int> part2(passed.begin() + intermediateIndex + 1, passed.end());
+        index = insertEdge(e, index, from, intermediate, part1, nb);
+        return insertEdge(e, index, intermediate, to, part2, nb);
     }
     const int newIndex = index + 1;
 

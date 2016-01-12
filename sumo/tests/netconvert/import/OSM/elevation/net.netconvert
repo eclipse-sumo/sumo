@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:37 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Tue Jan 12 09:20:02 2016 by SUMO netconvert Version dev-SVN-r19709I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -314,11 +314,11 @@
     <edge id="127418565" from="1410393659" to="56231597" priority="1" type="highway.footway" spreadType="center" shape="636.68,793.43,35.92 634.53,796.39,35.80 636.55,818.99,34.82">
         <lane id="127418565_0" index="0" allow="pedestrian" speed="8.33" length="26.38" width="2.00" shape="636.68,793.43,35.92 634.53,796.39 635.89,811.65,34.82"/>
     </edge>
-    <edge id="128643746#0" from="1371616225" to="1421174913" priority="1" type="highway.footway" spreadType="center" shape="664.47,752.05,37.30 663.33,753.24,37.28 664.56,754.50,37.26 656.07,764.18,37.08 660.68,768.17,37.00 663.16,765.34,37.05 682.33,781.51,36.96 688.63,777.68,37.06 692.92,775.07,37.09 693.52,773.81,37.08 665.62,750.64,37.33">
-        <lane id="128643746#0_0" index="0" allow="pedestrian" speed="8.33" length="101.30" width="2.00" shape="664.47,752.05,37.30 663.33,753.24 664.56,754.50 656.07,764.18 660.68,768.17 663.16,765.34 682.33,781.51 688.63,777.68,37.06 692.92,775.07 693.52,773.81 666.39,751.29,37.33"/>
+    <edge id="128643746#0" from="1371616225" to="1421174941" priority="1" type="highway.footway" spreadType="center" shape="664.47,752.05,37.30 663.33,753.24,37.28 664.56,754.50,37.26 656.07,764.18,37.08 660.68,768.17,37.00 663.16,765.34,37.05 682.33,781.51,36.96">
+        <lane id="128643746#0_0" index="0" allow="pedestrian" speed="8.33" length="51.24" width="2.00" shape="664.47,752.05,37.30 663.33,753.24 664.56,754.50 656.07,764.18 660.68,768.17 663.16,765.34 681.78,781.05,36.96"/>
     </edge>
-    <edge id="128643746#1" from="1421174913" to="1371616225" priority="1" type="highway.footway" spreadType="center">
-        <lane id="128643746#1_0" index="0" allow="pedestrian" speed="8.33" length="1.81" width="2.00" shape="664.98,751.42,37.33 664.47,752.05,37.30"/>
+    <edge id="128643746#1" from="1421174941" to="1371616225" priority="1" type="highway.footway" spreadType="center" shape="682.33,781.51,36.96 688.63,777.68,37.06 692.92,775.07,37.09 693.52,773.81,37.08 665.62,750.64,37.33 664.47,752.05,37.30">
+        <lane id="128643746#1_0" index="0" allow="pedestrian" speed="8.33" length="51.87" width="2.00" shape="682.95,781.14,36.96 688.63,777.68,37.06 692.92,775.07 693.52,773.81 665.62,750.64 664.47,752.05,37.30"/>
     </edge>
     <edge id="128643753#0" from="38920751" to="671564318" priority="1" type="highway.footway" spreadType="center">
         <lane id="128643753#0_0" index="0" allow="pedestrian" speed="8.33" length="10.82" width="2.00" shape="657.20,880.85,32.74 657.33,880.68,33.55"/>
@@ -801,7 +801,7 @@
         <request index="2" response="011" foes="011"/>
     </junction>
     <junction id="1410393659" type="unregulated" x="636.68" y="793.43" z="35.92" incLanes="" intLanes="" shape="635.87,792.84,35.92 637.49,794.01,35.92"/>
-    <junction id="1421174913" type="dead_end" x="665.62" y="750.64" z="37.33" incLanes="128643746#0_0" intLanes="" shape="665.76,752.06,37.33 667.03,750.52,37.33 664.21,750.79,37.33 665.76,752.06,37.33"/>
+    <junction id="1421174941" type="dead_end" x="682.33" y="781.51" z="36.96" incLanes="128643746#0_0" intLanes="" shape="683.47,781.99,36.96 682.43,780.29,36.96 681.14,781.82,36.96"/>
     <junction id="1421174953" type="unregulated" x="723.75" y="802.94" z="38.02" incLanes="128643753#1_0" intLanes="" shape="722.98,802.29,38.02 724.51,803.58,38.02"/>
     <junction id="1560223241" type="priority" x="1645.69" y="441.00" z="30.34" incLanes="190083608#1_0 190083608#1_1" intLanes="" shape="1645.69,441.05,30.34 1645.61,447.55,30.34 1645.78,434.46,30.34 1645.69,440.96,30.34">
         <request index="0" response="0" foes="0"/>
