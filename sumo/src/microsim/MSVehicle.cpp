@@ -1848,7 +1848,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
     MSLane* clane = enteredLane;
     while (leftLength > 0) {
         clane = clane->getLogicalPredecessorLane();
-        if (clane == 0) {
+        if (clane == 0 || clane == myLane) {
             break;
         }
         myFurtherLanes.push_back(clane);
