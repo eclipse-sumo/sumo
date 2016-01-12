@@ -56,6 +56,7 @@ vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 state:<!--{[->]}-->
+tls_state:<!--{[->]}-->
 state:snapshot version="[^"]*"{REPLACE snapshot}
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 errors:Leaked object at 
