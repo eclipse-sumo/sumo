@@ -39,6 +39,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
@@ -186,6 +187,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
             SUMOVehicle* v = vc.buildVehicle(p, route, type, true);
             vc.discountStateLoaded(); // already included (see SUMO_TAG_DELAY)
+            // disable pre-insertion rerouting and enable regular routing behavior
+            MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
+            if (routingDevice != 0) {
+                routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
+            }
             v->loadState(attrs, myOffset);
             if (!vc.addVehicle(p->id, v)) {
                 throw ProcessError("Error: Could not build vehicle " + p->id + "!");
