@@ -1693,6 +1693,7 @@ MSLane::by_connections_to_sorter::operator()(const MSEdge* const e1, const MSEdg
 void
 MSLane::saveState(OutputDevice& out) {
     out.openTag(SUMO_TAG_LANE);
+    out.writeAttr("id", getID()); // using "id" instead of SUMO_ATTR_ID makes the value only show up in xml state
     out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
     out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
     out.closeTag();
