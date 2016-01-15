@@ -90,7 +90,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     subprocess.call([os.path.join(wixBin, "light.exe"),
                      "-ext", "WixUIExtension", "-o", outFile] + wixObj,
                     stdout=log, stderr=log)
-#    shutil.rmtree(tmpDir, True)  # comment this out when debugging
+    shutil.rmtree(tmpDir, True)  # comment this out when debugging
 
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
