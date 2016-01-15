@@ -307,12 +307,12 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const {
     SUMOReal t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
     for (VehicleDataCont::const_iterator i = myVehicleDataCont.begin(); i != myVehicleDataCont.end(); ++i) {
-        if ((*i).leaveTimeM >= t) {
+        if ((*i).entryTimeM >= t) {
             ret.push_back(*i);
         }
     }
     for (VehicleDataCont::const_iterator i = myLastVehicleDataCont.begin(); i != myLastVehicleDataCont.end(); ++i) {
-        if ((*i).leaveTimeM >= t) {
+        if ((*i).entryTimeM >= t) {
             ret.push_back(*i);
         }
     }
