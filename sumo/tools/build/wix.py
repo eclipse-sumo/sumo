@@ -27,7 +27,7 @@ import tempfile
 import glob
 import shutil
 
-INPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-win32-svn.zip"
+INPUT_DEFAULT = r"O:\Daten\Sumo\daily\sumo-win32-svn.zip"
 OUTPUT_DEFAULT = "sumo.msi"
 WIX_DEFAULT = "%sbin" % os.environ.get(
     "WIX", r"D:\Programme\Windows Installer XML v3.5\\")
@@ -36,7 +36,7 @@ WXS_DEFAULT = os.path.join(
 LICENSE = os.path.join(
     os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
 
-SKIP_FILES = [r"osmWebWizard.py"]
+SKIP_FILES = ["osmWebWizard.py", "sumo-gui.exe", "netedit.exe", "start-command-line.bat"]
 
 
 def buildFragment(wixBin, sourceDir, targetLabel, tmpDir, log=None):
@@ -68,7 +68,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
     fragments = [buildFragment(wixBin, os.path.join(
-        sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["data", "tools"]]
+        sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["bin", "data", "tools"]]
     for d in ["userdoc", "pydoc", "javadoc", "tutorial", "examples"]:
         fragments.append(
             buildFragment(wixBin, os.path.join(sumoRoot, "docs", d), "DOCDIR", tmpDir, log))
@@ -90,7 +90,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     subprocess.call([os.path.join(wixBin, "light.exe"),
                      "-ext", "WixUIExtension", "-o", outFile] + wixObj,
                     stdout=log, stderr=log)
-    shutil.rmtree(tmpDir, True)  # comment this out when debugging
+#    shutil.rmtree(tmpDir, True)  # comment this out when debugging
 
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
