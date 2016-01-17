@@ -42,6 +42,9 @@
       <PreprocessorDefinitions>HAVE_FFMPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(PYTHON_64_LIB_DIR)')" Label="UserMacros">
+    <LibraryPath>$(PYTHON_64_LIB_DIR);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="Exists('$(PYTHON_64_INCLUDE_DIR)') And '$(Configuration)'!='Debug' And '$(Configuration)'!='InternalDebug'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(PYTHON_64_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

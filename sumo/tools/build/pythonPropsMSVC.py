@@ -38,8 +38,7 @@ def generateDefaultProps(propsFile):
         for platform in ("", "_64"):
             for lib in ("XERCES", "PROJ_GDAL", "FOX16", "OSG", "FFMPEG"):
                 props.write("    <%s%s>$(%s%s)</%s%s>\n" % (3 * (lib, platform)))
-            props.write("    <%s%s_LIB></%s%s_LIB>\n" % (2 * ("PYTHON", platform)))
-            props.write("    <%s%s_DEBUG_LIB></%s%s_DEBUG_LIB>\n" % (2 * ("PYTHON", platform)))
+            props.write("    <%s%s_LIB_DIR></%s%s_LIB_DIR>\n" % (2 * ("PYTHON", platform)))
             props.write("    <%s%s_INCLUDE_DIR></%s%s_INCLUDE_DIR>\n" % (2 * ("PYTHON", platform)))
         props.write("""  </PropertyGroup>
 </Project>
@@ -53,15 +52,10 @@ if sys.maxsize > 2**32:
     py = "PYTHON_64"
 else:
     py = "PYTHON"
-libPrefix = "%s\libs\python%s%s" % (sys.prefix, sys.version[0], sys.version[2])
-lib = libPrefix + ".lib"
-if not exists(lib):
-    print("Warning, %s not found, keeping config unmodfied!" % lib, file=sys.stderr)
+libDir = join(sys.prefix, "libs")
+if not exists(libDir):
+    print("Warning, %s not found, keeping config unmodfied!" % libDir, file=sys.stderr)
     sys.exit(1)
-debugLib = libPrefix + "_d.lib"
-if not exists(debugLib):
-    print("No debug lib %s found, using release lib for debug build!" % debugLib)
-    debugLib = lib
 
 propsBak = propsFile + ".bak"
 if exists(propsBak):
@@ -71,10 +65,8 @@ os.rename(propsFile, propsBak)
 modified = False
 with open(propsFile, "w") as props:
     for line in open(propsBak):
-        newLine = re.sub('<%s_LIB>(.*)</%s_LIB>' % (py, py),
-                         '<%s_LIB>%s</%s_LIB>' % (py, lib, py), line)
-        newLine = re.sub('<%s_DEBUG_LIB>(.*)</%s_DEBUG_LIB>' % (py, py),
-                         '<%s_DEBUG_LIB>%s</%s_DEBUG_LIB>' % (py, debugLib, py), newLine)
+        newLine = re.sub('<%s_LIB_DIR>(.*)</%s_LIB_DIR>' % (py, py),
+                         '<%s_LIB_DIR>%s</%s_LIB_DIR>' % (py, libDir, py), line)
         newLine = re.sub('<%s_INCLUDE_DIR>(.*)</%s_INCLUDE_DIR>' % (py, py),
                          '<%s_INCLUDE_DIR>%s</%s_INCLUDE_DIR>' % (py, distutils.sysconfig.get_config_var('INCLUDEPY'), py), newLine)
         if newLine != line:
