@@ -82,6 +82,22 @@ MSInductLoop::reset() {
 }
 
 
+bool 
+MSInductLoop::notifyEnter(SUMOVehicle& veh, Notification reason) {
+    if (reason == NOTIFICATION_DEPARTED ||
+            reason == NOTIFICATION_TELEPORT ||
+            reason == NOTIFICATION_PARKING ||
+            reason == NOTIFICATION_LANE_CHANGE) {
+        const SUMOReal front = veh.getPositionOnLane();
+        const SUMOReal back = front - veh.getVehicleType().getLength();
+        if (front >= myPosition && back < myPosition) {
+            myVehiclesOnDet.insert(std::make_pair(&veh, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())));
+        }
+    }
+    return true;
+}
+
+
 bool
 MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                          SUMOReal newPos, SUMOReal newSpeed) {
