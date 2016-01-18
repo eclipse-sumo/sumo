@@ -31,11 +31,7 @@ MSSOTLE2Sensors::MSSOTLE2Sensors(std::string tlLogicID,
 }
 
 MSSOTLE2Sensors::~MSSOTLE2Sensors(void) {
-    //Delete sensors
-    for (MSLaneID_MSE2CollectorMap::iterator sensorsIterator = m_sensorMap.begin(); sensorsIterator != m_sensorMap.end();
-            sensorsIterator++) {
-        delete(sensorsIterator->second);
-    }
+    //Deleting sensors takes place in the detector control
 }
 
 void MSSOTLE2Sensors::buildSensors(
