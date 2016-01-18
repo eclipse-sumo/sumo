@@ -179,20 +179,13 @@ for platform, dllDir in platformDlls:
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
-    if platform == "Win32" and options.sumoExe == "sumo":
+    if (platform == "Win32" and options.sumoExe == "sumo") or (platform == "x64" and options.sumoExe == "meso"):
         try:
             setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
             subprocess.call(
-                ['python', setup], stdout=log, stderr=subprocess.STDOUT)
+                ['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
         except Exception as e:
             print("Warning: Could not create nightly sumo-game.zip! (%s)" % e, file=log)
-    if platform == "x64" and options.sumoExe == "meso":
-        try:
-            setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
-            subprocess.call(
-                ['python', setup, 'internal'], stdout=log, stderr=subprocess.STDOUT)
-        except Exception as e:
-            print("Warning: Could not create nightly sumo-game-internal.zip! (%s)" % e, file=log)
     log.close()
     subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
                     (platform, options.rootDir, options.project, makeAllLog))
