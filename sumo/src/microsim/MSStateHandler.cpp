@@ -187,11 +187,6 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
             SUMOVehicle* v = vc.buildVehicle(p, route, type, true);
             vc.discountStateLoaded(); // already included (see SUMO_TAG_DELAY)
-            // disable pre-insertion rerouting and enable regular routing behavior
-            MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
-            if (routingDevice != 0) {
-                routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
-            }
             v->loadState(attrs, myOffset);
             if (!vc.addVehicle(p->id, v)) {
                 throw ProcessError("Error: Could not build vehicle " + p->id + "!");
@@ -199,6 +194,12 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (!v->hasDeparted()) {
                 // !!! the save did not keep the order in which the vehicles are checked for insertion
                 MSNet::getInstance()->getInsertionControl().add(v);
+            } else {
+                // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
+                MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
+                if (routingDevice != 0) {
+                    routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
+                }
             }
             break;
         }
