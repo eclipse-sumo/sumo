@@ -74,8 +74,6 @@ if "SUMO_HOME" not in env:
         os.path.dirname(os.path.dirname(__file__)))
 env["PYTHON"] = "python"
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
-# this is only a try to fix the links in the test emails
-env["REMOTEDIR_BASE"] = os.path.basename(options.remoteDir)
 compiler = r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
 msvcVersion = "msvc10"
 if "VS100COMNTOOLS" in env:
@@ -166,8 +164,10 @@ for platform, dllDir in platformDlls:
                 elif write or os.path.basename(f) in ["COPYING", "README"]:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
+            dllPath = os.path.join(options.rootDir, dllDir)
+            for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
+                zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
             files_to_zip = (
-                glob.glob(os.path.join(options.rootDir, dllDir, "*.dll")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
