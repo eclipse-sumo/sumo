@@ -48,7 +48,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#define DUMMY_ID "dummy"
 #define MIN_GREEN_TIME 5
 
 // ===========================================================================
@@ -398,7 +397,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         if (STEPS2TIME(minGreenDuration) + patchSeconds < MIN_GREEN_TIME 
                 || STEPS2TIME(minGreenDuration) + patchSeconds + patchSecondsRest < MIN_GREEN_TIME
                 || greenPhases.size() == 0) {
-            if (getID() != DUMMY_ID) {
+            if (getID() != DummyID) {
                 WRITE_WARNING("The traffic light '" + getID() + "' cannot be adapted to a cycle time of " + time2string(cycleTime) + ".");
             }
             // @todo use a multiple of cycleTime ?
@@ -572,7 +571,7 @@ NBOwnTLDef::initNeedsContRelation() const {
         assert(myControlledNodes.size() > 0);
         // we use a dummy node just to maintain const-correctness
         myNeedsContRelation.clear();
-        NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
         dummy.setParticipantsInformation();
         dummy.computeLogicAndConts(0, true);
         myNeedsContRelation = dummy.myNeedsContRelation;

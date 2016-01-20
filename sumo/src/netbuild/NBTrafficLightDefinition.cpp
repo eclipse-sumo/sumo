@@ -52,6 +52,7 @@
 // static members
 // ===========================================================================
 const std::string NBTrafficLightDefinition::DefaultProgramID = "0";
+const std::string NBTrafficLightDefinition::DummyID = "dummy";
 
 // ===========================================================================
 // method definitions
@@ -181,11 +182,13 @@ NBTrafficLightDefinition::collectEdges() {
     // collect edges that are reachable from the outside
     std::set<NBEdge*> reachable;
     while (outer.size() > 0) {
-        std::vector<NBEdge::Connection>& cons = outer.back()->getConnections();
+        NBEdge* from = outer.back();
         outer.pop_back();
+        std::vector<NBEdge::Connection>& cons = from->getConnections();
         for (std::vector<NBEdge::Connection>::iterator k = cons.begin(); k != cons.end(); k++) {
             NBEdge* to = (*k).toEdge;
-            if (reachable.count(to) == 0) {
+            if (reachable.count(to) == 0 &&
+                    from->mayBeTLSControlled((*k).fromLane, to, (*k).toLane)) {
                 reachable.insert(to);
                 outer.push_back(to);
             }
@@ -203,7 +206,8 @@ NBTrafficLightDefinition::collectEdges() {
                 myIncomingEdges.erase(find(myIncomingEdges.begin(), myIncomingEdges.end(), edge));
             }
         }
-        if (reachable.count(edge) == 0 && edge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true) >= 0) {
+        if (reachable.count(edge) == 0 && edge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true) >= 0
+                && getID() != DummyID) {
             WRITE_WARNING("Unreachable edge '" + edge->getID() + "' within tlLogic '" + getID() + "'");
         }
     }
@@ -432,7 +436,7 @@ NBTrafficLightDefinition::needsCont(const NBEdge* fromE, const NBEdge* toE, cons
 void
 NBTrafficLightDefinition::initNeedsContRelation() const {
     if (!amInvalid()) {
-        NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
         dummy.initNeedsContRelation();
         myNeedsContRelation = dummy.myNeedsContRelation;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
@@ -446,7 +450,7 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 bool
 NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
     if (!myRightOnRedConflictsReady) {
-        NBOwnTLDef dummy("dummy", myControlledNodes, 0, TLTYPE_STATIC);
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
         dummy.setParticipantsInformation();
         dummy.computeLogicAndConts(0, true);
         myRightOnRedConflicts = dummy.myRightOnRedConflicts;

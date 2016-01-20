@@ -337,6 +337,9 @@ public:
     virtual void initNeedsContRelation() const;
 
 protected:
+    /// @brief id for temporary definitions
+    static const std::string DummyID;
+
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
      * @return The computed logic
