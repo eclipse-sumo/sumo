@@ -436,6 +436,10 @@ protected:
     mutable RightOnRedConflicts myRightOnRedConflicts;
     mutable bool myRightOnRedConflictsReady;
 
+private:
+    static std::set<NBEdge*> collectReachable(EdgeVector outer, bool checkControlled);
+
+
 };
 
 

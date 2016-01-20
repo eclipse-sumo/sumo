@@ -153,6 +153,25 @@ NBTrafficLightDefinition::setParticipantsInformation() {
     collectLinks();
 }
 
+std::set<NBEdge*> 
+NBTrafficLightDefinition::collectReachable(EdgeVector outer, bool checkControlled) {
+    std::set<NBEdge*> reachable;
+    while (outer.size() > 0) {
+        NBEdge* from = outer.back();
+        outer.pop_back();
+        std::vector<NBEdge::Connection>& cons = from->getConnections();
+        for (std::vector<NBEdge::Connection>::iterator k = cons.begin(); k != cons.end(); k++) {
+            NBEdge* to = (*k).toEdge;
+            if (reachable.count(to) == 0 &&
+                    (!checkControlled || from->mayBeTLSControlled((*k).fromLane, to, (*k).toLane))) {
+                reachable.insert(to);
+                outer.push_back(to);
+            }
+        }
+    }
+    return reachable;
+}
+
 
 void
 NBTrafficLightDefinition::collectEdges() {
@@ -179,21 +198,11 @@ NBTrafficLightDefinition::collectEdges() {
             outer.push_back(edge);
         }
     }
-    // collect edges that are reachable from the outside
-    std::set<NBEdge*> reachable;
-    while (outer.size() > 0) {
-        NBEdge* from = outer.back();
-        outer.pop_back();
-        std::vector<NBEdge::Connection>& cons = from->getConnections();
-        for (std::vector<NBEdge::Connection>::iterator k = cons.begin(); k != cons.end(); k++) {
-            NBEdge* to = (*k).toEdge;
-            if (reachable.count(to) == 0 &&
-                    from->mayBeTLSControlled((*k).fromLane, to, (*k).toLane)) {
-                reachable.insert(to);
-                outer.push_back(to);
-            }
-        }
-    }
+    // collect edges that are reachable from the outside via controlled connections 
+    std::set<NBEdge*> reachable = collectReachable(outer, true);
+    // collect edges that are reachable from the outside regardless of controllability
+    std::set<NBEdge*> reachable2 = collectReachable(outer, false);
+
     const bool uncontrolledWithin = OptionsCont::getOptions().getBool("tls.uncontrolled-within");
     for (EdgeVector::iterator j = myEdgesWithin.begin(); j != myEdgesWithin.end(); ++j) {
         NBEdge* edge = *j;
@@ -206,12 +215,11 @@ NBTrafficLightDefinition::collectEdges() {
                 myIncomingEdges.erase(find(myIncomingEdges.begin(), myIncomingEdges.end(), edge));
             }
         }
-        if (reachable.count(edge) == 0 && edge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true) >= 0
+        if (reachable2.count(edge) == 0 && edge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true) >= 0
                 && getID() != DummyID) {
             WRITE_WARNING("Unreachable edge '" + edge->getID() + "' within tlLogic '" + getID() + "'");
         }
     }
-
 }
 
 
