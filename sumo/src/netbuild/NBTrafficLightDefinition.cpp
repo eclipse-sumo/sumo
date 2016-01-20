@@ -271,6 +271,7 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
     NBNode* incnode = *incoming;
     NBNode* outnode = *outgoing;
     EdgeVector::const_iterator i;
+
     if (incnode != outnode) {
         if (sameNodeOnly) {
             return false;
@@ -289,8 +290,11 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
             if (incnode != outnode2) {
                 continue;
             }
-            bool ret1 = incnode->foes(possProhibitorTo, *i,
-                                      possProhibitedFrom, possProhibitedTo);
+            if (incnode->getDirection(possProhibitedTo, *i) != LINKDIR_STRAIGHT) {
+                continue;
+            }
+            bool ret1 = incnode->foes(possProhibitorFrom, possProhibitorTo,
+                                      possProhibitedTo, *i);
             bool ret2 = incnode->forbids(possProhibitorFrom, possProhibitorTo,
                                          possProhibitedTo, *i,
                                          regardNonSignalisedLowerPriority);
@@ -311,6 +315,9 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
             }
             NBNode* incnode2 = *incoming2;
             if (incnode2 != outnode) {
+                continue;
+            }
+            if (incnode2->getDirection(possProhibitorTo, *i) != LINKDIR_STRAIGHT) {
                 continue;
             }
             bool ret1 = incnode2->foes(possProhibitorTo, *i,
