@@ -295,7 +295,7 @@ class AttributeStore:
 
     def write(self, file, item):
         file.write(" " * INDENT * self.level)
-        file.write(item)
+        file.write(item.encode("UTF-8"))
 
     def attr_string(self, names, values):
         return ' '.join(['%s="%s"' % (n, v) for n, v in zip(names, values) if v != None])
