@@ -128,6 +128,8 @@ MSFrame::fillOptions() {
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
+    oc.doRegister("emission-output.precision", new Option_Integer(OUTPUT_ACCURACY));
+    oc.addDescription("emission-output.precision", "Output", "Write emission values with the given precision (default 2)");
 
     oc.doRegister("battery-output", new Option_FileName());
     oc.addDescription("battery-output", "Output", "Save the battery values of each vehicle");

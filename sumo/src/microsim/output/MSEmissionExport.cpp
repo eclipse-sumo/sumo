@@ -48,8 +48,9 @@
 // method definitions
 // ===========================================================================
 void
-MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
+MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     of.openTag("timestep").writeAttr("time", time2string(timestep));
+    of.setPrecision(precision);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
@@ -72,5 +73,6 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
             of.closeTag();
         }
     }
+    of.setPrecision(OUTPUT_ACCURACY);
     of.closeTag();
 }
