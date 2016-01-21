@@ -60,6 +60,9 @@
         <!-- Save the emission values of each vehicle -->
         <emission-output value="" type="FILE"/>
 
+        <!-- Write emission values with the given precision (default 2) -->
+        <emission-output.precision value="2" type="INT"/>
+
         <!-- Save the battery values of each vehicle -->
         <battery-output value="" type="FILE"/>
 

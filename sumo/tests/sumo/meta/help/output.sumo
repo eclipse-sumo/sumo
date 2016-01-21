@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r19105D
+SUMO Version dev-SVN-r19773D
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -34,6 +34,8 @@ Output Options:
   --netstate-dump.precision INT        Write positions and speeds with the
                                          given precision (default 2)
   --emission-output FILE               Save the emission values of each vehicle
+  --emission-output.precision INT      Write emission values with the given
+                                         precision (default 2)
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
                                          precision (default 2)
