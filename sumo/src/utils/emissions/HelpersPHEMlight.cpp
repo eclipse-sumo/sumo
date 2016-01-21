@@ -40,6 +40,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// idle speed is usually given in rpm (but may depend on electrical consumers). Actual speed depends on the gear so this number is only a rough estimate 
+#define IDLE_SPEED (10 / 3.6)
 
 // ===========================================================================
 // method definitions
@@ -238,7 +240,9 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
     const PHEMCEP* const currCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);
     const double corrSpeed = MAX2((double) 0.0, v);
     const double decelCoast = currCep->GetDecelCoast(corrSpeed, a, slope, 0);
-    if (a < decelCoast) {
+    if (v > IDLE_SPEED && a < decelCoast) {
+        // coasting without power use only works if the engine runs above idle speed and 
+        // the vehicle does not accelerate beyond friction losses
         return 0;
     }
     double power = currCep->CalcPower(corrSpeed, a, slope);
