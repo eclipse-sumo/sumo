@@ -645,7 +645,7 @@ MSLane::setPartialOccupation(MSVehicle* v, SUMOReal leftVehicleLength) {
     myInlappingVehicleEnd = myLength - leftVehicleLength;
     if (v->getLaneChangeModel().isChangingLanes()) {
         MSLane* shadowLane = v->getLaneChangeModel().getShadowLane(this);
-        if (shadowLane != 0) {
+        if (shadowLane != 0 && v->getLaneChangeModel().hasShadowVehicle()) {
             v->getLaneChangeModel().setShadowPartialOccupator(shadowLane);
             shadowLane->myInlappingVehicle = v;
             shadowLane->myInlappingVehicleEnd = myLength - leftVehicleLength;
