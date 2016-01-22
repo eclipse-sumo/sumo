@@ -89,7 +89,7 @@ def runTests(options, env, testLog, svnrev):
     fullOpt = ["-b", env["FILEPREFIX"], "-name", "%sr%s" %
                (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
-    if options.sumoExe == "meso":
+    if options.suffix == "meso":
         runInternalTests.runInternal("", fullOpt, log, console=True)
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
@@ -215,7 +215,9 @@ for platform, dllDir in platformDlls:
             for f in files_to_zip:
                 zipf.write(f, os.path.join(binDir, os.path.basename(f)))
             zipf.close()
-            wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
+            if options.suffix == "":
+                # installers only for the vanilla build
+                wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
         except IOError as ziperr:
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
