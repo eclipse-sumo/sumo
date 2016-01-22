@@ -904,22 +904,20 @@ PositionVector::move2side(SUMOReal amount) {
             if (fabs(extrapolateDev) < POSITION_EPS) {
                 // parallel case, just shift the middle point
                 shape.push_back(me - sideOffset(from, to, amount));
-                continue;
-            }
-            if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
+            } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
                 // counterparallel case, just shift the middle point
                 PositionVector fromMe(from, me);
                 fromMe.extrapolate2D(amount);
                 shape.push_back(fromMe[1]);
-                continue;
-            }
-            Position offsets = sideOffset(from, me, amount);
-            Position offsets2 = sideOffset(me, to, amount);
-            PositionVector l1(from - offsets, me - offsets);
-            PositionVector l2(me - offsets2, to - offsets2);
-            shape.push_back(l1.intersectionPosition2D(l2[0], l2[1], 100));
-            if (shape.back() == Position::INVALID) {
-                throw InvalidArgument("no line intersection");
+            } else {
+                Position offsets = sideOffset(from, me, amount);
+                Position offsets2 = sideOffset(me, to, amount);
+                PositionVector l1(from - offsets, me - offsets);
+                PositionVector l2(me - offsets2, to - offsets2);
+                shape.push_back(l1.intersectionPosition2D(l2[0], l2[1], 100));
+                if (shape.back() == Position::INVALID) {
+                    throw InvalidArgument("no line intersection");
+                }
             }
         }
     }
