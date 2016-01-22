@@ -919,6 +919,8 @@ PositionVector::move2side(SUMOReal amount) {
                     throw InvalidArgument("no line intersection");
                 }
             }
+            // copy original z value
+            shape.back().set(shape.back().x(), shape.back().y(), me.z());
         }
     }
     *this = shape;
