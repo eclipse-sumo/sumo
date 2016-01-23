@@ -60,8 +60,9 @@ with zipfile.ZipFile(inZip) as binZip:
                 osgPlugins = extracted
         elif f.endswith(".dll") or f.endswith("gui.exe"):
             extracted = binZip.extract(f)
-            if os.path.isfile(extracted):
-                os.rename(extracted, os.path.join("dist", os.path.basename(f)))
+            dest = os.path.join("dist", os.path.basename(f))
+            if os.path.isfile(extracted) and not os.path.exists(dest):
+                os.rename(extracted, dest)
 os.chdir("dist")
 if osgPlugins:
     os.rename(osgPlugins, os.path.basename(osgPlugins))
