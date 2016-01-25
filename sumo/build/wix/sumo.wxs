@@ -101,6 +101,7 @@
     <Feature Id='Complete' Title='SUMO' Description='The complete package.'
       Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id='MainProgram' Title='Program' Description='The main executables.' Level='1'>
+        <ComponentGroupRef Id='bin' />
         <ComponentRef Id='MainExecutables' />
         <ComponentRef Id='NetEditExecutable' />
         <ComponentRef Id='EnvironmentBatch' />
