@@ -1,15 +1,8 @@
 XERCES_LIBS = -l$(LIB_XERCES)
 
-MESO_LIBS = ./mesosim/libmesosim.a
-MESOGUI_LIBS = ./mesogui/libmesogui.a
-
-if HAVE_OSG
-OSG_LIBS2 = ./osgview/libosgview.a
-endif
-
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = gui guinetload guisim netedit mesogui $(OSG_DIRS)
+GUI_DIRS = gui guinetload guisim netedit mesogui osgview
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -57,7 +50,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/actions/libmsactions.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 ./microsim/pedestrians/libmicrosimpeds.a \
-$(MESO_LIBS) \
+./mesosim/libmesosim.a \
 ./utils/geom/libgeom.a \
 ./utils/vehicle/libvehicle.a \
 ./utils/shapes/libshapes.a \
@@ -97,8 +90,8 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
-$(MESOGUI_LIBS) \
-$(OSG_LIBS2) \
+./mesogui/libmesogui.a \
+./osgview/libosgview.a \
 $(sumo_LDADD) \
 ./foreign/gl2ps/libgl2ps.a \
 ./foreign/polyfonts/libpolyfonts.a \

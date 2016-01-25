@@ -381,10 +381,7 @@ AC_CHECK_HEADER([osg/Config],
                 [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
                 OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads -losgText" AC_SUBST(OSG_LIBS)
                 ac_enabled="$ac_enabled OSG"],
-                OSG_DIRS="osgview"
-                AC_SUBST([OSG_DIRS])
                 [ac_disabled="$ac_disabled OSG"])
-AM_CONDITIONAL([HAVE_OSG], [test x"$OSG_DIRS" != x])
 
 save_cppflags=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
