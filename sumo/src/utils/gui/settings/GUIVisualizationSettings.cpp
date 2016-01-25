@@ -42,9 +42,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-#ifdef HAVE_INTERNAL
 bool GUIVisualizationSettings::UseMesoSim = false;
-#endif
 
 // ===========================================================================
 // member method definitions
@@ -477,7 +475,6 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     }
 
 
-#ifdef HAVE_INTERNAL
     /// add edge coloring schemes
     edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor::BLACK, "", true));
     scheme = GUIColorScheme("by selection (streetwise)", RGBColor(128, 128, 128, 255), "unselected", true);
@@ -538,51 +535,42 @@ GUIVisualizationSettings::GUIVisualizationSettings()
         scheme.addColor(20, (SUMOReal)1);
         edgeScaler.addScheme(scheme);
     }
-#endif
 
 }
 
 
 size_t
 GUIVisualizationSettings::getLaneEdgeMode() const {
-#ifdef HAVE_INTERNAL
     if (UseMesoSim) {
         return edgeColorer.getActive();
     }
-#endif
     return laneColorer.getActive();
 }
 
 
 size_t
 GUIVisualizationSettings::getLaneEdgeScaleMode() const {
-#ifdef HAVE_INTERNAL
     if (UseMesoSim) {
         return edgeScaler.getActive();
     }
-#endif
     return laneScaler.getActive();
 }
 
 
 GUIColorScheme&
 GUIVisualizationSettings::getLaneEdgeScheme() {
-#ifdef HAVE_INTERNAL
     if (UseMesoSim) {
         return edgeColorer.getScheme();
     }
-#endif
     return laneColorer.getScheme();
 }
 
 
 GUIScaleScheme&
 GUIVisualizationSettings::getLaneEdgeScaleScheme() {
-#ifdef HAVE_INTERNAL
     if (UseMesoSim) {
         return edgeScaler.getScheme();
     }
-#endif
     return laneScaler.getScheme();
 }
 
@@ -623,10 +611,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     streetName.print(dev, "streetName");
     laneColorer.save(dev);
     laneScaler.save(dev);
-#ifdef HAVE_INTERNAL
     edgeColorer.save(dev);
     edgeScaler.save(dev);
-#endif
     dev.closeTag();
     // vehicles
     dev.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
@@ -729,14 +715,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
 
-#ifdef HAVE_INTERNAL
     if (!(edgeColorer == v2.edgeColorer)) {
         return false;
     }
     if (!(edgeScaler == v2.edgeScaler)) {
         return false;
     }
-#endif
     if (!(laneColorer == v2.laneColorer)) {
         return false;
     }

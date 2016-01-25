@@ -40,10 +40,6 @@
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef HAVE_INTERNAL
-#include <mesosim/MEInductLoop.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS

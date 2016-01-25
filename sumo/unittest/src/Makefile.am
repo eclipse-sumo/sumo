@@ -1,8 +1,6 @@
 XERCES_LIBS = -l$(LIB_XERCES)
 
-if INTERNAL
 MESO_LIBS = ../../src/mesosim/libmesosim.a
-endif
 
 if CHECK_MEMORY_LEAKS
 MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a

@@ -1,13 +1,15 @@
 XERCES_LIBS = -l$(LIB_XERCES)
 
-if INTERNAL
 MESO_LIBS = ./mesosim/libmesosim.a
-MESOGUI_LIBS = ./mesogui/libmesogui.a ./osgview/libosgview.a
+MESOGUI_LIBS = ./mesogui/libmesogui.a
+
+if HAVE_OSG
+OSG_LIBS2 = ./osgview/libosgview.a
 endif
 
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = gui guinetload guisim netedit $(GUI_INTERNAL_DIRS)
+GUI_DIRS = gui guinetload guisim netedit mesogui $(OSG_DIRS)
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -96,6 +98,7 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
 $(MESOGUI_LIBS) \
+$(OSG_LIBS2) \
 $(sumo_LDADD) \
 ./foreign/gl2ps/libgl2ps.a \
 ./foreign/polyfonts/libpolyfonts.a \
@@ -106,7 +109,7 @@ $(sumo_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
 
 
-SUBDIRS = foreign utils microsim router od marouter $(INTERNAL_DIRS) \
+SUBDIRS = foreign utils microsim router od marouter mesosim \
 netbuild netwrite netgen netimport netload \
 polyconvert dfrouter duarouter jtrrouter activitygen tools \
 $(TRACI_DIRS) $(GUI_DIRS)

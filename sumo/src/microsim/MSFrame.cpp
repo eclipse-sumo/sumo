@@ -327,7 +327,6 @@ MSFrame::fillOptions() {
 #endif
 #endif
     //
-#ifdef HAVE_INTERNAL
     oc.addOptionSubTopic("Mesoscopic");
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
@@ -353,7 +352,6 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-overtaking", "Mesoscopic", "Enable mesoscopic overtaking");
     oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
     oc.addDescription("meso-recheck", "Mesoscopic", "Time interval for rechecking insertion into the next segment after failure");
-#endif
 
     // add rand options
     RandHelper::insertRandOptions();
@@ -376,7 +374,7 @@ MSFrame::fillOptions() {
     oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.addDescription("disable-textures", "GUI Only", "Do not load background pictures");
 
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
     oc.doRegister("osg-view", new Option_Bool(false));
     oc.addDescription("osg-view", "GUI Only", "Start with an OpenSceneGraph view instead of the regular 2D view");
 #endif
@@ -434,11 +432,9 @@ MSFrame::checkOptions() {
             !oc.isUsableFileList("gui-settings-file")) {
         ok = false;
     }
-#ifdef HAVE_INTERNAL
     if (oc.getBool("meso-junction-control.limited") && !oc.getBool("meso-junction-control")) {
         oc.set("meso-junction-control", "true");
     }
-#endif
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
     if (begin < 0) {
@@ -492,14 +488,12 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
     MSGlobals::gLaneChangeDuration = string2time(oc.getString("lanechange.duration"));
     MSGlobals::gStateLoaded = oc.isSet("load-state");
-#ifdef HAVE_INTERNAL
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
     MSGlobals::gMesoOvertaking = oc.getBool("meso-overtaking");
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gUsingInternalLanes = false;
     }
-#endif
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
 
     DELTA_T = string2time(oc.getString("step-length"));

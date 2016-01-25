@@ -422,10 +422,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     bool mustDrawMarkings = false;
     SUMOReal exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {
-#ifdef HAVE_INTERNAL
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
         exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
-#endif
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     }
@@ -569,9 +567,7 @@ void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
-#ifdef HAVE_INTERNAL
     if (!MSGlobals::gUseMesoSim)
-#endif
         setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {

@@ -44,10 +44,8 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "MSXMLRawOut.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -76,7 +74,6 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
     //en
     bool dump = !MSGlobals::gOmitEmptyEdgesOnDump;
     if (!dump) {
-#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
             while (seg != 0) {
@@ -87,7 +84,6 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
                 seg = seg->getNextSegment();
             }
         } else {
-#endif
             const std::vector<MSLane*>& lanes = edge.getLanes();
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 if (((**lane).getVehicleNumber() != 0)) {
@@ -95,9 +91,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
                     break;
                 }
             }
-#ifdef HAVE_INTERNAL
         }
-#endif
     }
     //en
     const std::vector<MSTransportable*>& persons = edge.getSortedPersons(timestep);
@@ -105,7 +99,6 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
     if (dump || persons.size() > 0 || containers.size() > 0) {
         of.openTag("edge") << " id=\"" << edge.getID() << "\"";
         if (dump) {
-#ifdef HAVE_INTERNAL
             if (MSGlobals::gUseMesoSim) {
                 MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
                 while (seg != 0) {
@@ -113,14 +106,11 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
                     seg = seg->getNextSegment();
                 }
             } else {
-#endif
                 const std::vector<MSLane*>& lanes = edge.getLanes();
                 for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                     writeLane(of, **lane);
                 }
-#ifdef HAVE_INTERNAL
             }
-#endif
         }
         // write persons
         for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {

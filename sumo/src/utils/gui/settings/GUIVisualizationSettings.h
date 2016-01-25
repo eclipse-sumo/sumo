@@ -143,7 +143,6 @@ public:
     /// @name lane visualization settings
     //@{
 
-#ifdef HAVE_INTERNAL
     /// @brief The mesoscopic edge colorer
     GUIColorer edgeColorer;
     /// @brief The mesoscopic edge scaler
@@ -151,7 +150,6 @@ public:
 
     /// @brief this should be set at the same time as MSGlobals::gUseMesoSim
     static bool UseMesoSim;
-#endif
     /// @brief The lane colorer
     GUIColorer laneColorer;
     /// @brief The lane scaler

@@ -51,10 +51,8 @@
 #include <microsim/MSGlobals.h>
 #include "MSTriggeredRerouter.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -79,13 +77,11 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
-#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
             s->addDetector(this);
             continue;
         }
-#endif
         const std::vector<MSLane*>& destLanes = (*j)->getLanes();
         for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
             (*i)->addMoveReminder(this);

@@ -64,9 +64,7 @@
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEVehicleControl.h>
-#endif
 
 #ifdef HAVE_OSG
 #include <osgview/GUIOSGView.h>
@@ -203,9 +201,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             break;
         case MID_LOCATEVEHICLE:
             if (MSGlobals::gUseMesoSim) {
-#ifdef HAVE_INTERNAL
                 static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(ids);
-#endif
             } else {
                 static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
             }

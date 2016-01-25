@@ -308,13 +308,11 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     }
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             if ((*i)->haveRed()) {
                 continue;
             }
         }
-#endif
         if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(),
                                 impatience, decel, waitingTime, collectFoes)) {
             return false;

@@ -90,6 +90,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif
 
+//#define HAVE_DANGEROUS_SOUNDS
 
 // ===========================================================================
 // FOX-declarations
@@ -1347,7 +1348,7 @@ GUIApplicationWindow::checkGamingEvents() {
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_DANGEROUS_SOUNDS // disable user-configurable command execution for public build
     if (myJamSounds.getOverallProb() > 0) {
         // play honking sound if some vehicle is waiting too long
         for (; it != end; ++it) {

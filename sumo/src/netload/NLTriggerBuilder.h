@@ -52,9 +52,7 @@ class MSStoppingPlace;
 class MSCalibrator;
 class MSRouteProbe;
 
-#ifdef HAVE_INTERNAL
 class METriggeredCalibrator;
-#endif
 
 
 // ===========================================================================
@@ -261,7 +259,7 @@ protected:
                                           const std::string& id, MSEdge* edge, SUMOReal pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq, const MSRouteProbe* probe);
-#ifdef HAVE_INTERNAL
+
     /** @brief builds a mesoscopic calibrator
      *
      * Simply calls the METriggeredCalibrator constructor.
@@ -277,7 +275,6 @@ protected:
             const std::string& id, const MSEdge* edge, SUMOReal pos,
             const std::string& file, const std::string& outfile,
             const SUMOTime freq, MSRouteProbe* probe);
-#endif
 
 
     /** @brief builds an rerouter

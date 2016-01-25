@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r19773D
+SUMO Version dev-SVN-r19790D
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -240,6 +240,35 @@ Example Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
+
+Mesoscopic Options:
+  --mesosim                            Enables mesoscopic simulation
+  --meso-edgelength FLOAT              Length of an edge segment in mesoscopic
+                                         simulation
+  --meso-tauff TIME                    Factor for calculating the free-free
+                                         headway time
+  --meso-taufj TIME                    Factor for calculating the free-jam
+                                         headway time
+  --meso-taujf TIME                    Factor for calculating the jam-free
+                                         headway time
+  --meso-taujj TIME                    Factor for calculating the jam-jam
+                                         headway time
+  --meso-jam-threshold FLOAT           Minimum percentage of occupied space to
+                                         consider a segment jammed. A negative
+                                         argument causes thresholds to be
+                                         computed based on edge speed and tauff
+                                         (default)
+  --meso-multi-queue                   Enable multiple queues at edge ends
+  --meso-junction-control              Enable mesoscopic traffic light and
+                                         priority junction handling
+  --meso-junction-control.limited      Enable mesoscopic traffic light and
+                                         priority junction handling for
+                                         saturated links. This prevents faulty
+                                         traffic lights from hindering flow in
+                                         low-traffic situations
+  --meso-overtaking                    Enable mesoscopic overtaking
+  --meso-recheck TIME                  Time interval for rechecking insertion
+                                         into the next segment after failure
 
 Random Number Options:
   --random                             Initialises the random number generator

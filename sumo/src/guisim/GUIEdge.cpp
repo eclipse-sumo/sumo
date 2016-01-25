@@ -60,13 +60,11 @@
 #include "GUIPerson.h"
 #include "GUIContainer.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEVehicleControl.h>
 #include <mesogui/GUIMEVehicle.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -172,7 +170,6 @@ GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = 0;
-#ifdef HAVE_INTERNAL
     ret = new GUIParameterTableWindow(app, *this, 16);
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
@@ -196,10 +193,6 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
 
     // close building
     ret->closeBuilding();
-#else
-    UNUSED_PARAMETER(app);
-    UNUSED_PARAMETER(parent);
-#endif
     return ret;
 }
 
@@ -220,23 +213,19 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     // draw the lanes
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
         }
-#endif
         GUILane* l = dynamic_cast<GUILane*>(*i);
         if (l != 0) {
             l->drawGL(s);
         }
     }
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
             drawMesoVehicles(s);
         }
     }
-#endif
     glPopName();
     // (optionally) draw the name and/or the street name
     const bool drawEdgeName = s.edgeName.show && myFunction == EDGEFUNCTION_NORMAL;
@@ -289,7 +278,6 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-#ifdef HAVE_INTERNAL
 void
 GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     GUIMEVehicleControl* vehicleControl = GUINet::getGUIInstance()->getGUIMEVehicleControl();
@@ -467,8 +455,6 @@ GUIEdge::getSegmentAtPosition(const Position& pos) {
     return MSGlobals::gMesoNet->getSegmentForEdge(*this, lanePos);
 }
 
-
-#endif
 
 
 void

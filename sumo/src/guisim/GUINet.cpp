@@ -63,9 +63,7 @@
 #include <gui/GUIGlobals.h>
 #include "GUINet.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEVehicleControl.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -529,12 +527,10 @@ GUINet::unlock() {
     myLock.unlock();
 }
 
-#ifdef HAVE_INTERNAL
 GUIMEVehicleControl*
 GUINet::getGUIMEVehicleControl() {
     return dynamic_cast<GUIMEVehicleControl*>(myVehicleControl);
 }
-#endif
 
 
 #ifdef HAVE_OSG

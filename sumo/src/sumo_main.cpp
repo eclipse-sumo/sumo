@@ -62,9 +62,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/OutputDevice.h>
 
-#ifdef HAVE_INTERNAL
 #include <mesosim/MEVehicleControl.h>
-#endif
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
@@ -88,15 +86,11 @@ MSNet*
 load(OptionsCont& oc) {
     MSFrame::setMSGlobals(oc);
     MSVehicleControl* vc = 0;
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         vc = new MEVehicleControl();
     } else {
-#endif
         vc = new MSVehicleControl();
-#ifdef HAVE_INTERNAL
     }
-#endif
     MSNet* net = new MSNet(vc, new MSEventControl(),
                            new MSEventControl(), new MSEventControl());
 #ifndef NO_TRACI

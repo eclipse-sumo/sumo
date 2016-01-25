@@ -43,9 +43,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-#ifdef HAVE_INTERNAL
 class MESegment;
-#endif
 class MSBaseVehicle;
 class GUILane;
 
@@ -166,7 +164,6 @@ public:
         MSEdge::removeContainer(c);
     }
 
-#ifdef HAVE_INTERNAL
     unsigned int getVehicleNo() const;
     std::string getVehicleIDs() const;
     SUMOReal getBruttoOccupancy() const;
@@ -191,7 +188,6 @@ public:
 
     void drawMesoVehicles(const GUIVisualizationSettings& s) const;
 
-#endif
 
     /// @brief close this edge for traffic
     void closeTraffic(const GUILane* lane);

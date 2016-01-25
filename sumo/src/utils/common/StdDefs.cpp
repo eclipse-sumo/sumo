@@ -90,9 +90,6 @@ const RGBColor& getLinkColor(const LinkState& ls) {
 
 const std::string getBuildName(const std::string& version) {
     std::string result = version;
-#ifdef HAVE_INTERNAL
-    result += "I";
-#endif
 #ifdef _DEBUG
     result += "D";
 #endif

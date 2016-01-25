@@ -154,6 +154,21 @@
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
     </traci_server>
 
+    <mesoscopic>
+        <mesosim value="false" type="BOOL" help="Enables mesoscopic simulation"/>
+        <meso-edgelength value="98" type="FLOAT" help="Length of an edge segment in mesoscopic simulation"/>
+        <meso-tauff value="1.4" type="TIME" help="Factor for calculating the free-free headway time"/>
+        <meso-taufj value="1.4" type="TIME" help="Factor for calculating the free-jam headway time"/>
+        <meso-taujf value="2" type="TIME" help="Factor for calculating the jam-free headway time"/>
+        <meso-taujj value="2" type="TIME" help="Factor for calculating the jam-jam headway time"/>
+        <meso-jam-threshold value="-1" type="FLOAT" help="Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default)"/>
+        <meso-multi-queue value="true" type="BOOL" help="Enable multiple queues at edge ends"/>
+        <meso-junction-control value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling"/>
+        <meso-junction-control.limited value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations"/>
+        <meso-overtaking value="false" type="BOOL" help="Enable mesoscopic overtaking"/>
+        <meso-recheck value="0" type="TIME" help="Time interval for rechecking insertion into the next segment after failure"/>
+    </mesoscopic>
+
     <random_number>
         <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
         <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>

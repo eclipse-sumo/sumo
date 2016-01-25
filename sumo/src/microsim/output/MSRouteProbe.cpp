@@ -39,10 +39,8 @@
 #include <microsim/MSVehicle.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
-#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
-#endif
 #include "MSRouteProbe.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -61,7 +59,6 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std:
         MSRoute::dictionary(distID, myCurrentRouteDistribution.second, false);
     }
     myLastRouteDistribution = std::make_pair(lastID, MSRoute::distDictionary(lastID));
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         while (seg != 0) {
@@ -70,7 +67,6 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std:
         }
         return;
     }
-#endif
     for (std::vector<MSLane*>::const_iterator it = edge->getLanes().begin(); it != edge->getLanes().end(); ++it) {
         (*it)->addMoveReminder(this);
     }

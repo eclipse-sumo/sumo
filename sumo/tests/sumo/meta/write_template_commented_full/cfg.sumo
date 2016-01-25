@@ -386,6 +386,45 @@
 
     </traci_server>
 
+    <mesoscopic>
+        <!-- Enables mesoscopic simulation -->
+        <mesosim value="false" type="BOOL"/>
+
+        <!-- Length of an edge segment in mesoscopic simulation -->
+        <meso-edgelength value="98" type="FLOAT"/>
+
+        <!-- Factor for calculating the free-free headway time -->
+        <meso-tauff value="1.4" type="TIME"/>
+
+        <!-- Factor for calculating the free-jam headway time -->
+        <meso-taufj value="1.4" type="TIME"/>
+
+        <!-- Factor for calculating the jam-free headway time -->
+        <meso-taujf value="2" type="TIME"/>
+
+        <!-- Factor for calculating the jam-jam headway time -->
+        <meso-taujj value="2" type="TIME"/>
+
+        <!-- Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default) -->
+        <meso-jam-threshold value="-1" type="FLOAT"/>
+
+        <!-- Enable multiple queues at edge ends -->
+        <meso-multi-queue value="true" type="BOOL"/>
+
+        <!-- Enable mesoscopic traffic light and priority junction handling -->
+        <meso-junction-control value="false" type="BOOL"/>
+
+        <!-- Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations -->
+        <meso-junction-control.limited value="false" type="BOOL"/>
+
+        <!-- Enable mesoscopic overtaking -->
+        <meso-overtaking value="false" type="BOOL"/>
+
+        <!-- Time interval for rechecking insertion into the next segment after failure -->
+        <meso-recheck value="0" type="TIME"/>
+
+    </mesoscopic>
+
     <random_number>
         <!-- Initialises the random number generator with the current system time -->
         <random value="false" synonymes="abs-rand" type="BOOL"/>
