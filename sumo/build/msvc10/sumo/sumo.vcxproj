@@ -17,30 +17,6 @@
       <Configuration>Fastbuild</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="InternalDebug|Win32">
-      <Configuration>InternalDebug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="InternalDebug|x64">
-      <Configuration>InternalDebug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="InternalFastbuild|Win32">
-      <Configuration>InternalFastbuild</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="InternalFastbuild|x64">
-      <Configuration>InternalFastbuild</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="InternalRelease|Win32">
-      <Configuration>InternalRelease</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="InternalRelease|x64">
-      <Configuration>InternalRelease</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -64,17 +40,6 @@
     <Import Project="..\Fastbuild.props" />
     <Import Project="..\exe.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Win32.props" />
-    <Import Project="..\exe.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Win32.props" />
-    <Import Project="..\Release.props" />
-    <Import Project="..\exe.props" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Win32.props" />
@@ -92,17 +57,6 @@
     <Import Project="..\Fastbuild.props" />
     <Import Project="..\exe.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\x64.props" />
-    <Import Project="..\exe.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\x64.props" />
-    <Import Project="..\Release.props" />
-    <Import Project="..\exe.props" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\x64.props" />
@@ -114,24 +68,9 @@
     <Import Project="..\x64.props" />
     <Import Project="..\exe.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Win32.props" />
-    <Import Project="..\Fastbuild.props" />
-    <Import Project="..\exe.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\x64.props" />
-    <Import Project="..\Fastbuild.props" />
-    <Import Project="..\exe.props" />
-  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <TargetName Condition="'$(Configuration)'=='InternalRelease'">meso</TargetName>
-    <TargetName Condition="'$(Configuration)'=='InternalDebug'">mesoD</TargetName>
-    <TargetName Condition="'$(Configuration)'=='InternalFastbuild'">mesoF</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
@@ -153,26 +92,6 @@
       <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);$(PYTHON_DEBUG_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
@@ -181,16 +100,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
