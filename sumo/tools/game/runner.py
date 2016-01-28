@@ -150,7 +150,7 @@ class StartDialog(Tkinter.Frame):
 
         # 2 button for each config (start, highscore)
         for row, cfg in enumerate(configs):
-            if "bs3" in cfg and "meso-gui" not in guisimPath:
+            if "bs3" in cfg and not haveOSG:
                 continue
             category = self.category_name(cfg)
             # lambda must make a copy of cfg argument
@@ -382,13 +382,10 @@ def findSumoBinary(guisimBinary):
         guisimPath = guisimBinary
     return guisimPath
 
-guisimPath = findSumoBinary("meso-gui")
-try:
-    subprocess.call([guisimPath, "-Q", "-c", "blub"], stderr=open(os.devnull))
-except OSError:
-    print("meso-gui not found. 3D scenario will not work.")
-    guisimPath = findSumoBinary("sumo-gui")
 
+guisimPath = findSumoBinary("sumo-gui")
+# @todo need to check for OSG here
+haveOSG = True
 
 if options.stereo:
     for m in stereoModes:
