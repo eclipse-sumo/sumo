@@ -301,7 +301,14 @@ def convertGeo(x, y, fromGeo=False):
 def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
     """getDistance2D(double, double, double, double, boolean, boolean) -> double
 
-    Reads two coordinate pairs and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
+    Returns the distance between the two coordinate pairs (x1,y1) and (x2,y2)
+
+    If isGeo=True, coordinates are interpreted as longitude and latitude rather
+    than cartesian coordinates in meters.
+    
+    If isDriving=True, the coordinates are mapped onto the road network and the
+    length of the shortest route in the network is returned. Otherwise, the
+    straight-line distance is returned.
     """
     posType = tc.POSITION_2D
     if isGeo:
