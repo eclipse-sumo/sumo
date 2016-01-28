@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:26:22 2013
+TraCITestClient output file. Date: Thu Jan 28 14:27:30 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:26:22 2013
 
 -> Command sent: <GetVariable>:
   domID=166 varID=255 objID=dummy
-.. Answered with error to command (166), [description: Get Route Variable: unsupported variable specified]
+.. Answered with error to command (166), [description: Get Route Variable: unsupported variable 0xff specified]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]

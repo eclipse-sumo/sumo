@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:27:00 2013
+TraCITestClient output file. Date: Thu Jan 28 14:28:35 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:00 2013
 
 -> Command sent: <GetVariable>:
   domID=170 varID=255 objID=dummy
-.. Answered with error to command (170), [description: Get Edge Variable: unsupported variable specified]
+.. Answered with error to command (170), [description: Get Edge Variable: unsupported variable 0xff specified]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
