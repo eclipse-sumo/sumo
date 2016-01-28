@@ -1204,7 +1204,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                                            arrivalTime, arrivalSpeed,
                                            arrivalTimeBraking, arrivalSpeedBraking,
                                            seen,
-                                           estimateLeaveSpeed(*link, vLinkPass)));
+                                           estimateLeaveSpeed(*link, arrivalSpeed)));
 #ifdef HAVE_INTERNAL_LANES
         if ((*link)->getViaLane() == 0) {
             hadNonInternal = true;
