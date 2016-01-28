@@ -1166,7 +1166,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         // - and unless they are so close that stopping is impossible (i.e. when a green light turns to yellow when close to the junction)
         if (!(*link)->havePriority() && stopDist > cfModel.getMaxDecel() && brakeDist < seen) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
-            arrivalSpeed = cfModel.getMaxDecel() + cfModel.getMaxAccel();
+            arrivalSpeed = MIN2(vLinkPass, cfModel.getMaxDecel() + cfModel.getMaxAccel());
             slowedDownForMinor = true;
         }
         // @note intuitively it would make sense to compare arrivalSpeed with getSpeed() instead of v
