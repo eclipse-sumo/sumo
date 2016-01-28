@@ -2,7 +2,7 @@
 /// @file    MEVehicleControl.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 10. Dec 2003
-/// @version $Id: MEVehicleControl.h 4802 2015-09-24 14:25:21Z erdm_ja $
+/// @version $Id$
 ///
 // The class responsible for building and deletion of vehicles (meso-version)
 /****************************************************************************/

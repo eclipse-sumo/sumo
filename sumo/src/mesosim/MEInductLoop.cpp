@@ -2,7 +2,7 @@
 /// @file    MEInductLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, May 2005
-/// @version $Id: MEInductLoop.cpp 4755 2015-09-11 08:55:53Z behr_mi $
+/// @version $Id$
 ///
 // An induction loop for mesoscopic simulation
 /****************************************************************************/

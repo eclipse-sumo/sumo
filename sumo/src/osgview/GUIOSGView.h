@@ -2,7 +2,7 @@
 /// @file    GUIOSGView.h
 /// @author  Daniel Krajzewicz
 /// @date    19.01.2012
-/// @version $Id: GUIOSGView.h 4755 2015-09-11 08:55:53Z behr_mi $
+/// @version $Id$
 ///
 // An OSG-based 3D view on the simulation
 /****************************************************************************/

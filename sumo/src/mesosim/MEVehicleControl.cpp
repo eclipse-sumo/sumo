@@ -2,7 +2,7 @@
 /// @file    MEVehicleControl.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 10. Dec 2003
-/// @version $Id: MEVehicleControl.cpp 4755 2015-09-11 08:55:53Z behr_mi $
+/// @version $Id$
 ///
 // The class responsible for building and deletion of vehicles (meso-version)
 /****************************************************************************/

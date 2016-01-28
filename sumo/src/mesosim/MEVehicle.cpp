@@ -2,7 +2,7 @@
 /// @file    MEVehicle.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, May 2005
-/// @version $Id: MEVehicle.cpp 4842 2015-10-30 21:59:19Z behr_mi $
+/// @version $Id$
 ///
 // A vehicle from the mesoscopic point of view
 /****************************************************************************/

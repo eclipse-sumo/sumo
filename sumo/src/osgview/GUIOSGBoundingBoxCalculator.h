@@ -3,7 +3,7 @@
 /// @author  Gordon Thomlinson
 /// @author  Michael Behrisch
 /// @date    19.01.2012
-/// @version $Id: GUIOSGBoundingBoxCalculator.h 4755 2015-09-11 08:55:53Z behr_mi $
+/// @version $Id$
 ///
 // Calculates the bounding box of an osg node
 // original source: http://www.vis-sim.com/osg/code/osgcode_bbox1.htm

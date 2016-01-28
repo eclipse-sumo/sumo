@@ -2,7 +2,7 @@
 /// @file    GUIMEInductLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 21.07.2005
-/// @version $Id: GUIMEInductLoop.cpp 4905 2015-12-02 21:18:15Z behr_mi $
+/// @version $Id$
 ///
 // The gui-version of the MEInductLoop
 /****************************************************************************/
