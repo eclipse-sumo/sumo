@@ -164,11 +164,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         MSLane* l = (*j);
         const PositionVector& shape = l->getShape();
         osg::Geode* geode = new osg::Geode();
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
-        deprecated_osg::Geometry* geom = new deprecated_osg::Geometry();
-#else
         osg::Geometry* geom = new osg::Geometry();
-#endif
         geode->addDrawable(geom);
         addTo.addChild(geode);
         osg::Vec3Array* osg_coords = new osg::Vec3Array(shape.size() * 2);
@@ -186,18 +182,18 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         }
         osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
         (*osg_normals)[0] = osg::Vec3(0, 0, 1);
-        geom->setNormalArray(osg_normals);
 #if OSG_MIN_VERSION_REQUIRED(3,2,0)
-        geom->setNormalBinding(deprecated_osg::Geometry::BIND_PER_PRIMITIVE);
+        geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
 #else
+        geom->setNormalArray(osg_normals);
         geom->setNormalBinding(osg::Geometry::BIND_PER_PRIMITIVE);
 #endif
         osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
         (*osg_colors)[0].set(128, 128, 128, 255);
-        geom->setColorArray(osg_colors);
 #if OSG_MIN_VERSION_REQUIRED(3,2,0)
-        geom->setColorBinding(deprecated_osg::Geometry::BIND_OVERALL);
+        geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
 #else
+        geom->setColorArray(osg_colors);
         geom->setColorBinding(osg::Geometry::BIND_OVERALL);
 #endif
         geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, shape.size() * 2));
@@ -220,11 +216,7 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
                                         osgUtil::Tessellator& tessellator) {
     const PositionVector& shape = junction.getJunction().getShape();
     osg::Geode* geode = new osg::Geode();
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
-    deprecated_osg::Geometry* geom = new deprecated_osg::Geometry();
-#else
     osg::Geometry* geom = new osg::Geometry();
-#endif
     geode->addDrawable(geom);
     addTo.addChild(geode);
     osg::Vec3Array* osg_coords = new osg::Vec3Array(shape.size());
@@ -234,18 +226,18 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     }
     osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
     (*osg_normals)[0] = osg::Vec3(0, 0, 1);
-    geom->setNormalArray(osg_normals);
 #if OSG_MIN_VERSION_REQUIRED(3,2,0)
-    geom->setNormalBinding(deprecated_osg::Geometry::BIND_PER_PRIMITIVE);
+    geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
 #else
+    geom->setNormalArray(osg_normals);
     geom->setNormalBinding(osg::Geometry::BIND_PER_PRIMITIVE);
 #endif
     osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
     (*osg_colors)[0].set(128, 128, 128, 255);
-    geom->setColorArray(osg_colors);
 #if OSG_MIN_VERSION_REQUIRED(3,2,0)
-    geom->setColorBinding(deprecated_osg::Geometry::BIND_OVERALL);
+    geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
 #else
+    geom->setColorArray(osg_colors);
     geom->setColorBinding(osg::Geometry::BIND_OVERALL);
 #endif
     geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, shape.size()));
