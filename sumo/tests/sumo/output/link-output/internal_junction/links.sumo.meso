@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 19 16:01:44 2014 by SUMO Version dev-SVN-r17350ID
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <link-output value="linkstate.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<link-output>
+    <timestep id="0.00"/>
+    <timestep id="1.00"/>
+    <timestep id="2.00"/>
+    <timestep id="3.00"/>
+    <timestep id="4.00"/>
+    <timestep id="5.00"/>
+    <timestep id="6.00"/>
+    <timestep id="7.00"/>
+    <timestep id="8.00"/>
+    <timestep id="9.00"/>
+    <timestep id="10.00"/>
+    <timestep id="11.00"/>
+    <timestep id="12.00"/>
+    <timestep id="13.00"/>
+    <timestep id="14.00"/>
+    <timestep id="15.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" impatience="0.00" arrivalTime="17.98" arrivalTimeBraking="17.98" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="16.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" impatience="0.00" arrivalTime="17.98" arrivalTimeBraking="17.98" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="17.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" impatience="0.00" arrivalTime="17.98" arrivalTimeBraking="17.98" leaveTime="18.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="18.00"/>
+    <timestep id="19.00"/>
+    <timestep id="20.00"/>
+    <timestep id="21.00"/>
+    <timestep id="22.00"/>
+    <timestep id="23.00"/>
+    <timestep id="24.00"/>
+    <timestep id="25.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" impatience="0.00" arrivalTime="27.98" arrivalTimeBraking="27.98" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="26.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" impatience="0.00" arrivalTime="27.98" arrivalTimeBraking="27.98" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="27.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" impatience="0.00" arrivalTime="27.98" arrivalTimeBraking="27.98" leaveTime="28.51" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="28.00"/>
+    <timestep id="29.00"/>
+    <timestep id="30.00"/>
+    <timestep id="31.00"/>
+    <timestep id="32.00"/>
+    <timestep id="33.00"/>
+    <timestep id="34.00"/>
+    <timestep id="35.00"/>
+    <timestep id="36.00"/>
+    <timestep id="37.00"/>
+    <timestep id="38.00"/>
+    <timestep id="39.00"/>
+    <timestep id="40.00"/>
+    <timestep id="41.00"/>
+    <timestep id="42.00"/>
+    <timestep id="43.00"/>
+    <timestep id="44.00"/>
+    <timestep id="45.00"/>
+    <timestep id="46.00"/>
+    <timestep id="47.00"/>
+    <timestep id="48.00"/>
+    <timestep id="49.00"/>
+    <timestep id="50.00"/>
+    <timestep id="51.00"/>
+    <timestep id="52.00"/>
+    <timestep id="53.00"/>
+    <timestep id="54.00"/>
+    <timestep id="55.00"/>
+    <timestep id="56.00"/>
+    <timestep id="57.00"/>
+    <timestep id="58.00"/>
+    <timestep id="59.00"/>
+    <timestep id="60.00"/>
+    <timestep id="61.00"/>
+    <timestep id="62.00"/>
+    <timestep id="63.00"/>
+    <timestep id="64.00"/>
+</link-output>
