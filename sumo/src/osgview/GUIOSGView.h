@@ -32,6 +32,7 @@
 #ifdef HAVE_OSG
 
 #include <string>
+#include <osgGA/TerrainManipulator>
 #include <osgViewer/Viewer>
 #include <osg/PositionAttitudeTransform>
 #include <osg/ShapeDrawable>
@@ -195,6 +196,22 @@ public:
     long OnIdle(FXObject* sender, FXSelector sel, void* ptr);
 
 private:
+    class SUMOTerrainManipulator : public osgGA::TerrainManipulator {
+    public:
+        SUMOTerrainManipulator() {
+            setAllowThrow(false);
+        }
+        bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) {
+            return osgGA::TerrainManipulator::performMovementMiddleMouseButton(eventTimeDelta, dx, dy);
+        }
+        bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy) {
+            return osgGA::TerrainManipulator::performMovementLeftMouseButton(eventTimeDelta, dx, dy);
+        }
+        bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) {
+            return osgGA::TerrainManipulator::performMovementRightMouseButton(eventTimeDelta, dx, -dy);
+        }
+    };
+
     class FXOSGAdapter : public osgViewer::GraphicsWindow {
     public:
         FXOSGAdapter(GUISUMOAbstractView* parent, FXCursor* cursor);

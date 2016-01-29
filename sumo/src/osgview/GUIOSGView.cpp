@@ -41,7 +41,6 @@
 #endif
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
-#include <osgGA/TerrainManipulator>
 #include <osgGA/NodeTrackerManipulator>
 #include <osgDB/ReadFile>
 #include <osg/PositionAttitudeTransform>
@@ -152,7 +151,7 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new osgGA::TerrainManipulator()), myLastUpdate(-1) {
+    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1) {
 
     //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
 
