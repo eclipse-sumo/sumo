@@ -368,21 +368,30 @@ if test x"$with_python" != xno; then
     AC_CHECK_HEADER([Python.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
                     [AC_MSG_ERROR([Python.h not found. Please install the devel package.])])
     CPPFLAGS=$save_cppflags
-fi
-AM_CONDITIONAL([WITH_PYTHON], [test x"$with_python" != xno])
-if test x"$with_python" != xno; then
     AC_DEFINE([HAVE_PYTHON], [1], [defined if python is available])
     ac_enabled="$ac_enabled Python"
 else
     ac_disabled="$ac_disabled Python"
 fi
 
-AC_CHECK_HEADER([osg/Config], 
-                [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
-                OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads -losgText" AC_SUBST(OSG_LIBS)
-                ac_enabled="$ac_enabled OSG"],
-                [ac_disabled="$ac_disabled OSG"])
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for OpenSceneGraph
+AC_ARG_WITH([osg], [AS_HELP_STRING([--with-osg],[enable OpenSceneGraph rendering.])])
+if test x"$with_osg" == x; then
+    with_osg=no
+fi
+if test x"$with_osg" != xno; then
+    AC_CHECK_HEADER([osg/Config],
+                    [OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads -losgText" AC_SUBST(OSG_LIBS)],
+                    [AC_MSG_ERROR([osg/Config not found. Please install the devel package.])])
+    AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
+    ac_enabled="$ac_enabled OSG"
+else
+    ac_disabled="$ac_disabled OSG"
+fi
 
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for ffmpeg
 save_cppflags=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
 export CPPFLAGS
@@ -392,10 +401,14 @@ AC_CHECK_HEADER([libavformat/version.h],
                  FFMPEG_LIBS="-lavformat -lavcodec -lavutil -lswscale" AC_SUBST(FFMPEG_LIBS)
                  ac_enabled="$ac_enabled ffmpeg"],
                 [ac_disabled="$ac_disabled ffmpeg"])
+CPPFLAGS=$save_cppflags
 
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  general flags
 AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
+AC_DEFINE_UNQUOTED([HAVE_ENABLED], ["$host$ac_enabled"], [Reporting string for enabled options])
 
 
 dnl ---------------------------------------------
