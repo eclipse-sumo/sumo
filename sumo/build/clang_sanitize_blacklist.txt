@@ -1,1 +1,1 @@
-fun:_Ios_Fmtflags
+fun:*_Ios_Fmtflags*
