@@ -92,8 +92,7 @@ if __name__ == "__main__":
     images = set()
     if len(args) == 0:
         p = readParsePage("Special:AllPages")
-        p = p[p.find("<input type=\"submit\" value=\"Go\" />"):]
-        p = p[p.find("<table "):]
+        p = p[p.find('<ul class="mw-allpages-chunk">'):]
         pages = p.split("<a ")
     else:
         pages = ['href="/wiki/%s"' % a for a in args]
