@@ -534,7 +534,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     if (missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;
-        std::cout << " Enabled features: " << HAVE_ENABLED << std::endl;
+        std::cout << " Build features: " << HAVE_ENABLED << std::endl;
         for (std::vector<std::string>::const_iterator it =
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
@@ -557,7 +557,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     // check whether the help shall be printed
     if (getBool("version")) {
         std::cout << myFullName << std::endl;
-        std::cout << " Enabled features: " << HAVE_ENABLED << std::endl;
+        std::cout << " Build features: " << HAVE_ENABLED << std::endl;
         for (std::vector<std::string>::const_iterator it =
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
