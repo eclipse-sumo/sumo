@@ -9,6 +9,7 @@ historical_report_location:$SUMO_REPORT
 output:\r{REPLACE \n}
 output:[0-9\.]+ms{REPLACE (TIME)}
 output:Version
+output:Build features
 log:[0-9\.]+ms{REPLACE (TIME)}
 logPrefixed:[0-9\.]+ms{REPLACE (TIME)}
 errors:UTFDataFormatException

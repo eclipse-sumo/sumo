@@ -36,26 +36,26 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False):
     root = os.path.abspath(os.path.dirname(__file__))
     env["TEXTTEST_HOME"] = root
     env["ACTIVITYGEN_BINARY"] = os.path.join(
-        root, "..", "bin", "activitygenInt" + suffix)
+        root, "..", "bin", "activitygen" + suffix)
     env["DFROUTER_BINARY"] = os.path.join(
-        root, "..", "bin", "dfrouterInt" + suffix)
+        root, "..", "bin", "dfrouter" + suffix)
     env["DUAROUTER_BINARY"] = os.path.join(
-        root, "..", "bin", "duarouterInt" + suffix)
+        root, "..", "bin", "duarouter" + suffix)
     env["JTRROUTER_BINARY"] = os.path.join(
-        root, "..", "bin", "jtrrouterInt" + suffix)
+        root, "..", "bin", "jtrrouter" + suffix)
     env["NETCONVERT_BINARY"] = os.path.join(
-        root, "..", "bin", "netconvertInt" + suffix)
+        root, "..", "bin", "netconvert" + suffix)
     env["NETGENERATE_BINARY"] = os.path.join(
-        root, "..", "bin", "netgenerateInt" + suffix)
+        root, "..", "bin", "netgenerate" + suffix)
     env["OD2TRIPS_BINARY"] = os.path.join(
-        root, "..", "bin", "od2tripsInt" + suffix)
-    env["SUMO_BINARY"] = os.path.join(root, "..", "bin", "meso" + suffix)
+        root, "..", "bin", "od2trips" + suffix)
+    env["SUMO_BINARY"] = os.path.join(root, "..", "bin", "sumo" + suffix)
     env["POLYCONVERT_BINARY"] = os.path.join(
-        root, "..", "bin", "polyconvertInt" + suffix)
-    env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "meso-gui" + suffix)
+        root, "..", "bin", "polyconvert" + suffix)
+    env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
     env["MAROUTER_BINARY"] = os.path.join(
         root, "..", "bin", "marouter" + suffix)
-    apps = "sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter"
+    apps = "sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter"
     ttBin = 'texttest.py'
     if os.name == "posix":
         if subprocess.call(['which', 'texttest']) == 0:
