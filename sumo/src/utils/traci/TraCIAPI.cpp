@@ -693,9 +693,37 @@ TraCIAPI::InductionLoopScope::getTimeSinceDetection(const std::string& loopID) c
     return myParent.getDouble(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_TIME_SINCE_DETECTION, loopID);
 }
 
-unsigned int
+std::vector<TraCIAPI::InductionLoopScope::VehicleData>
 TraCIAPI::InductionLoopScope::getVehicleData(const std::string& loopID) const {
-    return myParent.getInt(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_DATA, loopID);
+    tcpip::Storage inMsg;
+    myParent.send_commandGetVariable(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_DATA, loopID);
+    myParent.processGET(inMsg, CMD_GET_INDUCTIONLOOP_VARIABLE, TYPE_COMPOUND);
+    std::vector<VehicleData> result;
+    const int components = inMsg.readInt();
+    // number of items
+    inMsg.readUnsignedByte();
+    const int n = inMsg.readInt();
+    for (int i = 0; i < n; ++i) {
+        VehicleData vd;
+
+        inMsg.readUnsignedByte();
+        vd.id = inMsg.readString();
+
+        inMsg.readUnsignedByte();
+        vd.length = inMsg.readDouble();
+
+        inMsg.readUnsignedByte();
+        vd.entryTime = inMsg.readDouble();
+
+        inMsg.readUnsignedByte();
+        vd.leaveTime = inMsg.readDouble();
+
+        inMsg.readUnsignedByte();
+        vd.typeID = inMsg.readString();
+
+        result.push_back(vd);
+    }
+    return result;
 }
 
 

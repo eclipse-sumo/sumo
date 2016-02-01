@@ -680,6 +680,14 @@ TraCITestClient::testAPI() {
     //answerLog << "  vehicle:\n";
     //answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
     //answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
+    answerLog << "  inductionloop:\n";
+    answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
+    answerLog << "    getVehicleData:\n";
+    std::vector<InductionLoopScope::VehicleData> result = inductionloop.getVehicleData("det1");
+    for (int i = 0; i < (int)result.size(); ++i) {
+        const InductionLoopScope::VehicleData& vd = result[i];
+        answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
+    }
     answerLog << "  simulation:\n";
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     answerLog << "  gui:\n";
