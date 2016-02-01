@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Feb  1 08:50:39 2016
+TraCITestClient output file. Date: Mon Feb  1 08:55:40 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -7,6 +7,9 @@ testAPI:
   edge:
     getIDList: e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
     getIDCount: 21
+  vehicle:
+    getIDList: 0
+    getIDCount: 1
   inductionloop:
     getIDList: det1
     getVehicleData:

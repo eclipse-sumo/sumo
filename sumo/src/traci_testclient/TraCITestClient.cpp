@@ -677,9 +677,9 @@ TraCITestClient::testAPI() {
     answerLog << "  edge:\n";
     answerLog << "    getIDList: " << joinToString(edge.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << edge.getIDCount() << "\n";
-    //answerLog << "  vehicle:\n";
-    //answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
-    //answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
+    answerLog << "  vehicle:\n";
+    answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";
