@@ -167,12 +167,12 @@ AGTrip::setVehicleName(std::string name) {
 
 void
 AGTrip::setArr(AGPosition arrival) {
-    myTo = *new AGPosition(arrival.getStreet(), arrival.getPosition());
+    myTo = AGPosition(arrival.getStreet(), arrival.getPosition());
 }
 
 void
 AGTrip::setDep(AGPosition departure) {
-    myFrom = *new AGPosition(departure.getStreet(), departure.getPosition());
+    myFrom = AGPosition(departure.getStreet(), departure.getPosition());
 }
 
 bool

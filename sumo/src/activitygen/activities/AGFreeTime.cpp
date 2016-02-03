@@ -123,7 +123,7 @@ AGFreeTime::possibleTypeOfTrip() {
             val += DAY;
         }
 
-        if (tReady < (*(new AGTime(0, 22, 0))).getTime()) {
+        if (tReady < AGTime(0, 22, 0).getTime()) {
             val += EVENING;
         }
     }
