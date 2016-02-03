@@ -514,6 +514,9 @@ RORouteHandler::closeFlow() {
     }
     if (myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid) == 0) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
+        return;
     }
     if (myVehicleParameter->routeid[0] == '!' && myNet.getRouteDef(myVehicleParameter->routeid) == 0) {
         closeRoute(true);
