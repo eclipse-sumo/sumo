@@ -48,12 +48,12 @@ const int AGFreeTime::DAY = 1;
 const int AGFreeTime::EVENING = 2;
 const int AGFreeTime::NIGHT = 4;
 
-const int AGFreeTime::TB_DAY = (new AGTime(0, 8, 0))->getTime();
-const int AGFreeTime::TE_DAY = (new AGTime(0, 18, 0))->getTime();
-const int AGFreeTime::TB_EVENING = (new AGTime(0, 19, 0))->getTime();
-const int AGFreeTime::TE_EVENING = (new AGTime(0, 23, 59))->getTime();
-const int AGFreeTime::TB_NIGHT = (new AGTime(0, 23, 0))->getTime();
-const int AGFreeTime::TE_NIGHT = (new AGTime(1, 5, 0))->getTime();
+const int AGFreeTime::TB_DAY = AGTime(0, 8, 0).getTime();
+const int AGFreeTime::TE_DAY = AGTime(0, 18, 0).getTime();
+const int AGFreeTime::TB_EVENING = AGTime(0, 19, 0).getTime();
+const int AGFreeTime::TE_EVENING = AGTime(0, 23, 59).getTime();
+const int AGFreeTime::TB_NIGHT = AGTime(0, 23, 0).getTime();
+const int AGFreeTime::TE_NIGHT = AGTime(1, 5, 0).getTime();
 
 
 // ===========================================================================
