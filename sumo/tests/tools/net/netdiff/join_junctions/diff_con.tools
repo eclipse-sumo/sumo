@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <connections version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <!-- Deleted Elements -->
     <delete from="27437972" to="27441189" fromLane="0" toLane="2"/>

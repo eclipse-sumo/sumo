@@ -356,6 +356,7 @@ def xmldiff(source, dest, diff, type, copy_tags):
             print("Dest file %s is missing. Assuming all elements are deleted" % dest)
 
         with open(diff, 'w') as diff_file:
+            diff_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             diff_file.write(root_open)
             if copy_tags:
                 attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
