@@ -7,5 +7,8 @@ subsequent_edge
 # vehicle jumps to an edge not on its route
 offroute_edge
 
+# set position while on an intersection (within the current internal edge)
+junction
+
 # call moveToVTD and also set the speed
 set_speed
