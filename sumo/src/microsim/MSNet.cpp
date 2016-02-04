@@ -268,6 +268,9 @@ MSNet::~MSNet() {
     delete myRouterTTDijkstra;
     delete myRouterTTAStar;
     delete myRouterEffort;
+    if (myPedestrianRouter != 0) {
+        delete myPedestrianRouter;
+    }
     myLanesRTree.second.RemoveAll();
     clearAll();
     if (MSGlobals::gUseMesoSim) {
