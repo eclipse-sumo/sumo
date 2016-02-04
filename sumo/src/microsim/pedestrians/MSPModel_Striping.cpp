@@ -172,6 +172,11 @@ MSPModel_Striping::getPedestrians(const MSLane* lane) {
 
 void
 MSPModel_Striping::cleanupHelper() {
+    for (ActiveLanes::iterator it_lane = myActiveLanes.begin(); it_lane != myActiveLanes.end(); ++it_lane) {
+        for (Pedestrians::iterator it_p = it_lane->second.begin(); it_p != it_lane->second.end(); ++it_p) {
+            delete *it_p;
+        }
+    }
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
     myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
@@ -631,8 +636,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                 for (Pedestrians::iterator it_p = toDelete.begin(); it_p != toDelete.end(); ++it_p) {
                     delete *it_p;
                 }
-            };
-
+            }
         } else {
             moveInDirectionOnLane(pedestrians, lane, currentTime, changedLane, dir);
         }
