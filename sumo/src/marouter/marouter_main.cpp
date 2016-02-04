@@ -174,7 +174,7 @@ writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const
 void
 computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     // build the router
-    SUMOAbstractRouter<ROEdge, ROVehicle>* router;
+    SUMOAbstractRouter<ROEdge, ROVehicle>* router = 0;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     const SUMOTime begin = string2time(oc.getString("begin"));
@@ -275,10 +275,10 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             }
         }
     }
-    // prepare the output
-    net.openOutput(oc.isSet("output-file") ? oc.getString("output-file") : "", "", "");
-    // process route definitions
     try {
+        // prepare the output
+        net.openOutput(oc.isSet("output-file") ? oc.getString("output-file") : "", "", "");
+        // process route definitions
         if (oc.isSet("timeline")) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
