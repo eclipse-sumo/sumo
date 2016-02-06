@@ -20,6 +20,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -113,7 +115,7 @@ def checkWaitingPersons():
         for ped in peds:
             if (traci.person.getWaitingTime(ped) == 1 and
                     traci.person.getNextEdge(ped) in CROSSINGS):
-                print "%s pushes the button" % ped
+                print("%s pushes the button" % ped)
                 return True
     return False
 
