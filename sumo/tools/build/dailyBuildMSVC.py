@@ -89,7 +89,7 @@ def runTests(options, env, testLog, svnrev):
     fullOpt = ["-b", env["FILEPREFIX"], "-name", "%sr%s" %
                (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
-    if options.suffix == "meso":
+    if options.suffix == "extra":
         runInternalTests.runInternal("", fullOpt, log, console=True)
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
