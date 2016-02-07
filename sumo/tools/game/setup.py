@@ -70,7 +70,7 @@ if osgPlugins:
         shutil.copy2(f, ".")
     os.chdir("bs3d")
     subprocess.call([sevenZip, 'x', os.path.join(
-        os.path.dirname(inZip), '..', '..', '3D_Modell_Forschungskreuzung_BS.7z')])
+        os.path.dirname(inZip), '..', '3D_Modell_Forschungskreuzung_BS.7z')])
     os.chdir("..")
 zipf = zipfile.ZipFile(inZip.replace("sumo-", "sumo-game-"), 'w', zipfile.ZIP_DEFLATED)
 
