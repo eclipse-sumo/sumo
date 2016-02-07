@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import subprocess
 import random
 import sys
@@ -132,7 +134,7 @@ def stopAt(vehicleID, edge, pos=None):
             pos = 90.
     traci.vehicle.changeTarget(vehicleID, edge)
     if setting.verbose:
-        print "stopAt", vehicleID, edge, pos
+        print("stopAt", vehicleID, edge, pos)
 #        print vehicleStatus[vehicleID]
 #        print traci.vehicle.getRoute(vehicleID)
     traci.vehicle.setStop(vehicleID, edge, pos)
@@ -203,7 +205,7 @@ def _checkInitialPositions(vehicleID, edge, pos):
 def doStep():
     setting.step += 1
     if setting.verbose:
-        print "step", setting.step
+        print("step", setting.step)
     traci.simulationStep()
     moveNodes = []
     for veh, subs in traci.vehicle.getSubscriptionResults().iteritems():
@@ -232,13 +234,13 @@ def doStep():
                     vehicle.delay -= 1
                 elif setting.breakstep and setting.step >= setting.breakstep and edge != "cyberin":
                     if setting.verbose:
-                        print "broken", vehicleID, edge
+                        print("broken", vehicleID, edge)
                     setting.breakstep = None
                     setting.manager.cyberCarBroken(vehicleID, edge)
                     vehicle.delay = BREAK_DELAY
                 else:
                     if setting.verbose:
-                        print "arrived", vehicleID, edge
+                        print("arrived", vehicleID, edge)
                     vehicle.parking = True
                     setting.manager.cyberCarArrived(vehicleID, edge)
     setting.manager.setNewTargets()

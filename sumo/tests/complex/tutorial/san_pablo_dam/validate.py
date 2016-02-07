@@ -14,6 +14,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import math
@@ -99,7 +101,7 @@ def validate(sumoBinary):
                 tmp += d * d
             err[i] = math.sqrt(tmp / len(obsTimes[i]))
             if verbose:
-                print >> f, "%s %s" % (i, err[i])
+                print("%s %s" % (i, err[i]), file=f)
             errAll += err[i]
             cntAll += 1
     if verbose:

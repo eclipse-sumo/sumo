@@ -15,6 +15,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import os
@@ -37,7 +39,7 @@ class Ddict(dict):
         self.default = default
 
     def __getitem__(self, key):
-        if not self.has_key(key):
+        if key not in self:
             self[key] = self.default()
         return dict.__getitem__(self, key)
 
@@ -61,7 +63,7 @@ for i in range(1, len(data)):
         tt = float(getAttr(data[i], "begin"))  # float(ll[1])
         itt = int(tt)
         if nn > 0:
-            print >> f1, tt, lane, nn, ll[9], ll[11], ll[13], ll[15]
+            print(tt, lane, nn, ll[9], ll[11], ll[13], ll[15], file=f1)
             dd[itt][lane] = nn
 
 f1.close()
@@ -91,14 +93,14 @@ for t in sorted(dd.iterkeys()):
     QVec[vecIndx] = dt2OneHour * qTot
     for lane in range(maxLanes):
         share = 0.0
-        if dd[t].has_key(lane):
+        if lane in dd[t]:
             share = nrm * dd[t][lane]
         s = s + repr(share) + ' '
         xVec[vecIndx, lane] = share
         qVec[vecIndx, lane] = dt2OneHour * dd[t][lane]
 #		print >> f,t,qTot,lane,share
     vecIndx += 1
-    print >> f, s
+    print(s, file=f)
 f.close()
 
 try:
@@ -144,5 +146,5 @@ try:
 #	plt.show()
     plt.close()
 except ImportError:
-    print 'no matplotlib, falling back to gnuplot'
+    print('no matplotlib, falling back to gnuplot')
     os.system('gnuplot do-some-plots.gnu')
