@@ -60,13 +60,16 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False):
     if os.name == "posix":
         if subprocess.call(['which', 'texttest']) == 0:
             ttBin = 'texttest'
-        if subprocess.call(['which', 'python3']) == 0:
-            apps += ',complex.python3,tools.python3'
     elif haveTextTestLib:
         if console:
             ttBin = 'texttestc.py'
         else:
             ttBin += "w"
+    try:
+        subprocess.call(['python3', '-V'])
+        apps += ',complex.python3,tools.python3'
+    except:
+        pass
     if guiTests:
         apps = "sumo.gui"
     subprocess.call("%s %s -a %s" % (ttBin, args, apps), env=os.environ,
