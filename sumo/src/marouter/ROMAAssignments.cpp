@@ -330,11 +330,11 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                     }
                     //                if not lohse:
                     if (newFlow > 0.) {
-                        if (abs(newFlow - oldFlow) / newFlow > tolerance) {
+                        if (fabs(newFlow - oldFlow) / newFlow > tolerance) {
                             unstableEdges++;
                         }
                     } else if (newFlow == 0.) {
-                        if (oldFlow != 0. && (abs(newFlow - oldFlow) / oldFlow > tolerance)) {
+                        if (oldFlow != 0. && (fabs(newFlow - oldFlow) / oldFlow > tolerance)) {
                             unstableEdges++;
                         }
                     } else { // newFlow < 0.

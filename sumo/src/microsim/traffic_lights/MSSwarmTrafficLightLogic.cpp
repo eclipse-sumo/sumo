@@ -323,9 +323,9 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
                     //Calculate the current derivative mean with the old speed points
                     for (int i = 0; i < m_meanSpeedHistory[laneId]->size(); ++i)
                         if (i == 0) {
-                            currentDerivative += abs(meanVehiclesSpeed - m_meanSpeedHistory[laneId]->at(i));
+                            currentDerivative += fabs(meanVehiclesSpeed - m_meanSpeedHistory[laneId]->at(i));
                         } else {
-                            currentDerivative += abs(m_meanSpeedHistory[laneId]->at(i - 1) - m_meanSpeedHistory[laneId]->at(i));
+                            currentDerivative += fabs(m_meanSpeedHistory[laneId]->at(i - 1) - m_meanSpeedHistory[laneId]->at(i));
                         }
                     currentDerivative /= m_meanSpeedHistory[laneId]->size(); //Non weighted mean
                 }
