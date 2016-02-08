@@ -65,7 +65,7 @@ int MSVehicleType::myNextIndex = 0;
 // method definitions
 // ===========================================================================
 MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
-    : myParameter(parameter), myIndex(myNextIndex++), myOriginalType(0) {
+    : myParameter(parameter), myIndex(myNextIndex++), myCarFollowModel(0), myOriginalType(0) {
     assert(getLength() > 0);
     assert(getMaxSpeed() > 0);
 }
