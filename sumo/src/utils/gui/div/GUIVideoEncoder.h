@@ -46,7 +46,7 @@ extern "C"
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
-};
+}
 
 
 class GUIVideoEncoder {
@@ -126,8 +126,8 @@ public:
         myFrame->format = pCodecCtx->pix_fmt;
         myFrame->width  = pCodecCtx->width;
         myFrame->height = pCodecCtx->height;
-        int ret = av_image_alloc(myFrame->data, myFrame->linesize, pCodecCtx->width, pCodecCtx->height,
-                                 pCodecCtx->pix_fmt, 32);
+        av_image_alloc(myFrame->data, myFrame->linesize, pCodecCtx->width, pCodecCtx->height,
+                       pCodecCtx->pix_fmt, 32);
 
         mySwsContext = sws_getContext(pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_RGBA,
                                       pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_YUV420P,

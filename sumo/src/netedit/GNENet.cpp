@@ -709,7 +709,6 @@ void
 GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics
     OptionsCont& oc = OptionsCont::getOptions();
-    NBEdgeCont& ec = myNetBuilder->getEdgeCont();
     NBTrafficLightLogicCont& tllCont = getTLLogicCont();
 
     NBNode* nbn = junction->getNBNode();
