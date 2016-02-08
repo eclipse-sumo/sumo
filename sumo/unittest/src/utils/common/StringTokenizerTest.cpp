@@ -78,8 +78,8 @@ TEST(StringTokenizer, test_method_reinit) {
 TEST(StringTokenizer, test_method_size) {
     StringTokenizer strTok("Hello little World");
     EXPECT_EQ(3,strTok.size()) << "The number of the token is not right.";
-    StringTokenizer *strTok2 = new StringTokenizer("");
-    EXPECT_EQ(0,strTok2->size()) << "The number of the token is not right.";
+    StringTokenizer strTok2("");
+    EXPECT_EQ(0,strTok2.size()) << "The number of the token is not right.";
 }
 
 /* Tests the method front*/
