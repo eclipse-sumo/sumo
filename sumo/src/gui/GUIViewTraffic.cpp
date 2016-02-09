@@ -389,7 +389,7 @@ GUIViewTraffic::checkSnapshots() {
 #ifdef HAVE_FFMPEG
     if (myCurrentVideo != 0) {
         std::string error = makeSnapshot("");
-        if (error != "") {
+        if (error != "" && error != "video") {
             WRITE_WARNING(error);
         }
     }
