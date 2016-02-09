@@ -51,7 +51,20 @@ public class Person {
 	public static SumoCommand getIDList(){
 		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
+	
+	/**
+	 * If the person is walking, returns the next edge on the persons route (including crossing and walkingareas). If there is no further edge or the person is in another stage, returns the empty string.
+	 * 
+	 * @param id
+	 *            a string identifying the person
+	 * @return next edge
+	 */
 
+	public static SumoCommand getNextEdge(String id){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_NEXT_EDGE, id, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRING);
+	}
+	
+	
 	/**
 	 * get speed
 	 * 

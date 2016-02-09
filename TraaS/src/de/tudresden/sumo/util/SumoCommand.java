@@ -304,6 +304,72 @@ public class SumoCommand {
 	}
 	
 	
+	public SumoCommand(Object input1, Object input2, Object[] array, Object response, Object output_type){
+	
+		this.cmd = new Command((Integer) input1);
+		this.input1=(Integer) input1;
+		this.input2=(Integer) input2;
+		
+		cmd.content().writeUnsignedByte((Integer) input2);
+		cmd.content().writeStringASCII("");
+		
+		if((Integer) input1 == Constants.CMD_GET_SIM_VARIABLE && (Integer) input2 == Constants.DISTANCE_REQUEST && array.length == 4){
+			
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(3);	
+			
+			boolean isGeo = (boolean) array[2];
+			boolean isDriving = (boolean) array[3];
+			
+			if(!isGeo){this.cmd.content().writeUnsignedByte(Constants.POSITION_2D);}
+			else{this.cmd.content().writeUnsignedByte(Constants.POSITION_LON_LAT);}
+
+			add_variable(array[0]);
+
+			if(!isGeo){this.cmd.content().writeUnsignedByte(Constants.POSITION_2D);}
+			else{this.cmd.content().writeUnsignedByte(Constants.POSITION_LON_LAT);}
+			
+			add_variable(array[1]);
+
+			if(isDriving){this.cmd.content().writeUnsignedByte(Constants.REQUEST_DRIVINGDIST);}
+			else{this.cmd.content().writeUnsignedByte(Constants.REQUEST_AIRDIST);}
+			
+		}else if ((Integer) input1 == Constants.CMD_GET_SIM_VARIABLE && (Integer) input2 == Constants.DISTANCE_REQUEST && array.length == 5){
+			
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(3);	
+			
+			String edge1 = (String) array[0];
+			
+			cmd.content().writeUnsignedByte(Constants.POSITION_ROADMAP);
+			add_variable(edge1);
+			cmd.content().writeUnsignedByte(0);
+			add_variable(array[1]);
+			
+			String edge2 = (String) array[2];
+			cmd.content().writeUnsignedByte(Constants.POSITION_ROADMAP);
+			add_variable(edge2);
+			cmd.content().writeUnsignedByte(0);
+			add_variable(array[3]);
+
+			boolean isDriving = (boolean) array[4];
+			
+			if(isDriving){this.cmd.content().writeUnsignedByte(Constants.REQUEST_DRIVINGDIST);}
+			else{this.cmd.content().writeUnsignedByte(Constants.REQUEST_AIRDIST);}
+			
+		}
+		
+		this.response = (Integer) response;
+		this.output_type = (Integer) output_type;
+		
+		this.raw = new LinkedList<Object>();
+		this.raw.add(input1);
+		this.raw.add(input2);
+		this.raw.add(input3);
+		this.raw.add(array);
+		
+	}
+
 	public Object[] get_raw(){
 		
 		Object[] output = new Object[this.raw.size()];

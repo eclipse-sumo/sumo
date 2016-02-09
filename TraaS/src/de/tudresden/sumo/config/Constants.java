@@ -37,13 +37,39 @@ public class Constants {
 	/**sets/retrieves abstract parameter*/
 	public static final int VAR_PARAMETER = 0x7e;
 	
+	/**edge index in current route (get: vehicle)*/
+	public static final int VAR_ROUTE_INDEX = 0x69;
+	
+	/**person riding / container being transported*/
+	public static final int STAGE_DRIVING = 0x01;
+	
+	/**person / container stopping*/
+	public static final int STAGE_WAITING = 0x02;
+	
+	/**person walking / container transhiping*/
+	public static final int STAGE_WALKING = 0x00;
+	
+	/**retrieve information regarding the next edge including crossings and walkingAreas (pedestrians only)*/
+	public static final int VAR_NEXT_EDGE = 0xc1;
 	
 	/** how lane changing is performed (set: vehicle)*/
 	public static final int VAR_LANECHANGE_MODE = 0xb6;
 
-	/** maximum speed regarding max speed on the current lane and speed factor (get: vehicle)*/
+	/**maximum speed regarding max speed on the current lane and speed factor (get: vehicle)*/
 	public static final int VAR_ALLOWED_SPEED = 0xb7;
 
+	/**retrieve information regarding the current person/container stage*/
+	public static final int VAR_STAGE = 0xc0;
+	
+	/**retrieve the number of stages (person, container)*/
+	public static final int VAR_NUM_STAGES = 0xc2;
+	
+	/**last step person list (get: edges)*/
+	public static final int LAST_STEP_PERSON_ID_LIST = 0x1a;
+	
+	
+	
+	
 	/** number of vehicles starting to park (get: simulation)*/
 	public static final int VAR_STOP_STARTING_VEHICLES_NUMBER = 0x68;
 
@@ -342,6 +368,7 @@ public class Constants {
 	/**Position in geo-coordinates with altitude*/
 	public static final int POSITION_LON_LAT_ALT = 0x02;
 
+	
 	/**set poi variable*/
 	public static final int CMD_SET_POI_VARIABLE = 0xc7;
 

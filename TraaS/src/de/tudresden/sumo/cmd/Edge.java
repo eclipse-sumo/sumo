@@ -174,6 +174,18 @@ public class Edge {
 	}
 
 	/**
+	 * Returns the ids of the persons on the given edge during the last time step.
+	 * 
+	 * @param edgeID
+	 *            a string identifying the edge
+	 * @return the average speed (in m/s)
+	 */
+
+	public static SumoCommand getLastStepPersonIDs(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_PERSON_ID_LIST, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+
+	/**
 	 * Returns the percentage of time (in %) the detector was occupied by a
 	 * vehicle.
 	 * 

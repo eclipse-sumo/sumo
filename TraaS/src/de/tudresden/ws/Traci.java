@@ -1024,12 +1024,12 @@ public class Traci{
 	}
 
 	@WebMethod(action="Simulation: getDistance2D")
-	public double Simulation_getDistance2D(@WebParam(name = "x1") double x1, @WebParam(name = "y1") double y1, @WebParam(name = "x2") double x2, @WebParam(name = "y2") double y2, @WebParam(name = "isGeo") String isGeo, @WebParam(name = "isDriving") String isDriving){
+	public double Simulation_getDistance2D(@WebParam(name = "x1") double x1, @WebParam(name = "y1") double y1, @WebParam(name = "x2") double x2, @WebParam(name = "y2") double y2, @WebParam(name = "isGeo") boolean isGeo, @WebParam(name = "isDriving") boolean isDriving){
 		return this.helper.getDouble(this.sumo.get_cmd(Simulation.getDistance2D(x1, y1, x2, y2, isGeo, isDriving)));
 	}
 
 	@WebMethod(action="Simulation: Returns the subscription results for the last time step.")
-	public double Simulation_getDistanceRoad(@WebParam(name = "edgeID1") String edgeID1, @WebParam(name = "pos1") double pos1, @WebParam(name = "edgeID2") String edgeID2, @WebParam(name = "pos2") double pos2, @WebParam(name = "isDriving") String isDriving){
+	public double Simulation_getDistanceRoad(@WebParam(name = "edgeID1") String edgeID1, @WebParam(name = "pos1") double pos1, @WebParam(name = "edgeID2") String edgeID2, @WebParam(name = "pos2") double pos2, @WebParam(name = "isDriving") boolean isDriving){
 		return this.helper.getDouble(this.sumo.get_cmd(Simulation.getDistanceRoad(edgeID1, pos1, edgeID2, pos2, isDriving)));
 	}
 

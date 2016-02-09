@@ -403,6 +403,16 @@ public class Vehicle {
 	}
 
 	/**
+	 *  Returns the index of the current edge within the vehicles route or -1 if the vehicle has not yet departed
+	 * @param vehID id of the vehicle
+	 * @return route index
+	 */
+
+	public static SumoCommand getRouteIndex(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTE_INDEX, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
 	 * getShapeClass
 	 * @param vehID id of the vehicle
 	 * @return shape class
@@ -463,6 +473,17 @@ public class Vehicle {
 	}
 
 	/**
+	 *  Returns information in regard to stopping: The returned integer is defined as 1 * stopped + 2 * parking + 4 * personTriggered + 8 * containerTriggered + 16 * isBusStop + 32 * isContainerStop with each of these flags defined as 0 or 1
+	 * @param vehID id of the vehicle
+	 * @return speed in m/s
+	 */
+
+	public static SumoCommand getStopState(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE);
+	}
+	
+	
+	/**
 	 * getTau
 	 * @param vehID id of the vehicle
 	 * @return tau
@@ -513,6 +534,58 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_WIDTH, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	
+	/**
+	 * isStopped
+	 * @param vehID id of the vehicle
+	 * @return stop
+	 */
+
+	public static SumoCommand isStopped(String vehID){
+		return Vehicle.getStopState(vehID);
+	}
+	
+	/**
+	 * Return whether the vehicle is stopped and waiting for a person or container
+	 * @param vehID id of the vehicle
+	 * @return stop
+	 */
+
+	public static SumoCommand isStoppedTriggered(String vehID){
+		return Vehicle.getStopState(vehID);
+	}
+	
+	/**
+	 * Return whether the vehicle is stopped at a container stop
+	 * @param vehID id of the vehicle
+	 * @return stop
+	 */
+
+	public static SumoCommand isAtContainerStop(String vehID){
+		return Vehicle.getStopState(vehID);
+	}
+	
+	/**
+	 * isStoppedParking
+	 * @param vehID id of the vehicle
+	 * @return stop
+	 */
+
+	public static SumoCommand isStoppedParking(String vehID){
+		return Vehicle.getStopState(vehID);
+	}
+	
+	/**
+	 * isAtBusStop
+	 * @param vehID id of the vehicle
+	 * @return stop
+	 */
+
+	public static SumoCommand isAtBusStop(String vehID){
+		return Vehicle.getStopState(vehID);
+	}
+	
+	
 	
 	/**
 	 * Returns whether the Route is valid.
@@ -684,6 +757,7 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_COLOR, vehID, color);
 	}
 
+	
 	/**
 	 * Sets the deceleration of the named vehicle.
 	 * @param vehID id of the vehicle
@@ -883,7 +957,35 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_STOP, vehID, array);
 	}
 
+	/**
+	 * Adds or modifies a bus stop with the given parameters. The duration and the until attribute are in milliseconds.
+	 * @param vehID id of the vehicle
+	 * @param stopID
+	 * @param duration
+	 * @param until
+	 * @param flags
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setBusStop(String vehID, String stopID, int duration, int until, byte flags){
+		return setStop(vehID, stopID, 1, (byte) 0, duration, flags);
+	}
+	
 
+	/**
+	 *  Adds or modifies a container stop with the given parameters. The duration and the until attribute are
+	    in milliseconds.
+
+	 * @param vehID id of the vehicle
+	 * @param stopID
+	 * @param duration
+	 * @param until
+	 * @param flags
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setContainerStop(String vehID, String stopID, int duration, int until, byte flags){
+		return setStop(vehID, stopID, 1, (byte) 0, duration, flags);
+	}
+	
 	/**
 	 * Continue after a stop
 	 * @param vehID vehicle id
