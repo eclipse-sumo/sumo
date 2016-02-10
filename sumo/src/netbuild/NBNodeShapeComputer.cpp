@@ -263,7 +263,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         SUMOReal a2 = radius + closestIntersection(currGeom2, neighGeom2, 100);
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
-                            if (mmin > 100) {
+                            if (mmin > 100 && mmin < 205) {
                                 distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin - 100); //100 + 1.5;
                             }
                         } else if (fabs(a2 - a1) < 10 || farAngleDist < DEG2RAD(135)) {
