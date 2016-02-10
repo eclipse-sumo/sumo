@@ -35,6 +35,7 @@
 #include <map>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include "GNEReferenceCounter.h"
 
 
@@ -115,32 +116,37 @@ public:
     /// @brief return whether the given attribute allows for a combination of discrete values
     static bool discreteCombinableChoices(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief true if an object of type T can be parsed from string
-    template <class T>
+    /// @brief true if a number of type T can be parsed from string
+    template<typename T>
     static bool canParse(const std::string& string) {
-        T tmp;
-        std::istringstream buf(string);
-        buf >> tmp;
-        return !buf.fail() && (size_t)buf.tellg() == string.size();
+        try {
+            parse<T>(string);
+        }
+        catch (NumberFormatException&) {
+            return false;
+        }
+        catch (EmptyData&) {
+            return false;
+        }
+        return true;
     }
 
-    /// @brief parses an object of type T from from string
-    template <class T>
-    static T parse(const std::string& string) {
-        T result;
-        std::istringstream buf(string);
-        buf >> result;
-        return result;
+    /// @brief parses a number of type T from string
+    template<typename T>
+    static T parse(const std::string& string);
+    template<>
+    static int parse(const std::string& string) {
+        return TplConvert::_str2int(string);
+    }
+    template<>
+    static SUMOReal parse(const std::string& string) {
+        return TplConvert::_str2SUMOReal(string);
     }
 
     /// @brief true if a positive number of type T can be parsed from string
-    template <class T>
+    template<typename T>
     static bool isPositive(const std::string& string) {
-        if (canParse<T>(string)) {
-            return parse<T>(string) > 0;
-        } else {
-            return false;
-        }
+        return canParse<T>(string) && parse<T>(string) > 0;
     }
 
     /// @brief true if value is a valid sumo ID

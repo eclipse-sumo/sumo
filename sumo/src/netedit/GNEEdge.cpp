@@ -520,7 +520,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
-                setNumLanes(parse<unsigned int>(value), undoList);
+                setNumLanes((unsigned int)parse<int>(value), undoList);
             }
             break;
         case SUMO_ATTR_SHAPE:
@@ -638,7 +638,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.setLaneWidth(-1, parse<SUMOReal>(value));
             break;
         case SUMO_ATTR_ENDOFFSET:
-            myNBEdge.setEndOffset(-1, parse<unsigned int>(value));
+            myNBEdge.setEndOffset(-1, parse<SUMOReal>(value));
             break;
         case SUMO_ATTR_ALLOW:
             break;  // no edge value
