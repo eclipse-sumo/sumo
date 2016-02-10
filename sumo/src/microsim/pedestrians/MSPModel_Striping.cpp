@@ -1110,6 +1110,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // XXX preferred gap differs between approaching a standing obstacle or a moving obstacle
     const SUMOReal preferredGap = NUMERICAL_EPS;
     SUMOReal xSpeed = MIN2(vMax, MAX2((SUMOReal)0, DIST2SPEED(xDist - preferredGap)));
+    if (xSpeed < NUMERICAL_EPS) {
+        xSpeed = 0.;
+    }
     if (DEBUGCOND(myPerson->getID())) {
         std::cout << " xSpeedPotential=" << xSpeed << "\n";
     }
@@ -1184,7 +1187,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     myRelX += SPEED2DIST(xSpeed * myDir);
     myRelY += SPEED2DIST(ySpeed);
     mySpeed = xSpeed;
-    if (xSpeed > 0) {
+    if (xSpeed >= SUMO_const_haltingSpeed) {
         myWaitingToEnter = false;
         myWaitingTime = 0;
     } else {
