@@ -537,7 +537,7 @@ public:
 
 #ifdef HAVE_INTERNAL_LANES
     /// @todo extension: inner junctions are not filled
-    const MSEdge* getInternalFollowingEdge(MSEdge* followerAfterInternal) const;
+    const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal) const;
 #endif
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
