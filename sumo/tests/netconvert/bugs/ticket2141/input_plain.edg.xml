@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb 10 11:23:40 2016 by SUMO netconvert Version dev-SVN-r19929
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="osNodes.nod.xml"/>
+        <edge-files value="osEdges-uni.edg.xml"/>
+        <type-files value="osTypes.typ.xml"/>
+    </input>
+
+    <output>
+        <output-file value="debug.net.xml"/>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <edge_removal>
+        <keep-edges.explicit value="osgb4000000025305634,osgb4000000025305632,osgb4000000025305633"/>
+    </edge_removal>
+
+</configuration>
+-->
+
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="osgb4000000025305632" from="osgb4000000025275959" to="osgb4000000025275970" priority="0" numLanes="2" speed="13.40" shape="79.00,26.00 69.00,69.00 66.00,97.00 63.00,113.00 60.00,125.00 52.00,150.00 36.00,192.00 33.00,199.00 22.66,224.00 21.00,228.00 20.00,230.00" length="213.38"/>
+    <edge id="osgb4000000025305633" from="osgb4000000025275970" to="osgb4000000025275978" priority="0" numLanes="2" speed="13.40" shape="20.00,230.00 16.00,238.00 11.00,250.00 8.00,259.00 2.00,281.00 1.00,288.00 0.00,303.00 0.00,305.00 2.00,314.00 4.00,325.00 4.00,348.00 3.00,351.00" length="124.90"/>
+    <edge id="osgb4000000025305634" from="osgb4000000025275970" to="osgb4000000025275959" priority="0" numLanes="2" speed="13.40" shape="20.00,230.00 25.00,226.00 27.00,224.00 32.00,219.00 44.00,198.00 55.00,173.00 72.00,127.00 80.00,96.00 82.00,87.00 85.00,77.00 89.66,64.09 92.00,57.00 95.00,42.00 98.00,31.00 103.00,22.00 113.00,8.00 114.00,5.00 115.00,0.00 111.00,0.00 108.00,2.00 104.00,5.00 103.29,5.78 79.00,26.00" length="297.43"/>
+</edges>
