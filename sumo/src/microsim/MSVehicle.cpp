@@ -341,7 +341,7 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     if (myVTDRoute.size() != 0) {
         v->replaceRouteEdges(myVTDRoute, true);
     }
-    v->myCurrEdge += myVTDEdgeOffset;
+    v->myCurrEdge = v->getRoute().begin() + myVTDEdgeOffset;
     if (myVTDPos > myVTDLane->getLength()) {
         myVTDPos = myVTDLane->getLength();
     }

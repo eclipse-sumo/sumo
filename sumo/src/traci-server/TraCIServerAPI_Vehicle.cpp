@@ -1509,8 +1509,9 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
     const MSEdge* prevEdge = u.prevEdge;
     if (u.onRoute) {
         const ConstMSEdgeVector& ev = v.getRoute().getEdges();
-        ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin() + v.getRoutePosition(), ev.end(), prevEdge);
-        routeOffset = (int)std::distance(ev.begin(), prevEdgePos) - v.getRoutePosition();
+        ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin(), ev.end(), prevEdge);
+        routeOffset = (int)std::distance(ev.begin(), prevEdgePos);
+        //std::cout << SIMTIME << "vtdMap vehicle=" << v.getID() << " currLane=" << v.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(ev) << " bestLane=" << bestLane->getID() << " prevEdge=" << prevEdge->getID() << "\n";
     } else {
         edges.push_back(u.prevEdge);
         /*
@@ -1547,7 +1548,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     // get the lanes the vehicle may use
     const std::vector<MSLane*>& bestLaneConts = v.getBestLanesContinuation(v.getLane());
     for (std::vector<MSLane*>::const_iterator i = bestLaneConts.begin(); i != bestLaneConts.end() && bestDistance > POSITION_EPS; ++i) { // yes, we quit if the distance is < 0.1m or so
-        if (*i == 0) { // why is that possible???
+        if (*i == 0) { // vehicle is on an internal lane, see MSVehicle::updateBestLanes
             continue;
         }
         MSEdge& e = (*i)->getEdge();
@@ -1590,7 +1591,9 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     }
     // check position, stuff, we should have the best lane along the route
     lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS), (*lane)->getShape().nearest_offset_to_point2D(pos, false)));
-    routeOffset = lastBestRouteEdge;
+    const ConstMSEdgeVector& ev = v.getRoute().getEdges();
+    routeOffset = (int)std::distance(ev.begin(), v.getCurrentRouteEdge() + lastBestRouteEdge);
+    //std::cout << SIMTIME << "vtdMap_matchingRoutePosition vehicle=" << v.getID() << " currLane=" << v.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(ev) << " lane=" << (*lane)->getID() << " lastBestRouteEdge=" << lastBestRouteEdge << "\n";
 #ifdef DEBUG_VTD
     std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << " best:" << lastBestRouteEdge << std::endl;
 #endif
