@@ -67,7 +67,7 @@ const int VEHPARS_TO_TAZ_SET = 2 << 12;
 const int VEHPARS_FORCE_REROUTE = 2 << 13;
 const int VEHPARS_PERSON_CAPACITY_SET = 2 << 14;
 const int VEHPARS_PERSON_NUMBER_SET = 2 << 15;
-const int VEHPARS_CONTAINER_NUMBER_SET = 2 << 15;
+const int VEHPARS_CONTAINER_NUMBER_SET = 2 << 16;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
