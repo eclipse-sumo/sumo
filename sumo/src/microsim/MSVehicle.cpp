@@ -414,6 +414,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myAmRegisteredAsWaitingForPerson(false),
     myAmRegisteredAsWaitingForContainer(false),
     myHaveToWaitOnNextLink(false),
+    myAngle(0),
     myCachedPosition(Position::INVALID),
     myEdgeWeights(0)
 #ifndef NO_TRACI
@@ -654,7 +655,7 @@ MSVehicle::getRerouteOrigin() const {
 
 
 SUMOReal
-MSVehicle::getAngle() const {
+MSVehicle::computeAngle() const {
     Position p1;
     Position p2;
     if (isParking()) {
@@ -1543,8 +1544,8 @@ MSVehicle::executeMove() {
         }
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
         getLaneChangeModel().prepareStep();
+        myAngle = computeAngle();
     }
-    // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
     return moved;
 }
 
@@ -1820,6 +1821,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             }
         }
     }
+    myAngle = computeAngle();
 }
 
 
@@ -1848,6 +1850,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
         myFurtherLanes.push_back(clane);
         leftLength -= (clane)->setPartialOccupation(this, leftLength);
     }
+    myAngle = computeAngle();
 }
 
 

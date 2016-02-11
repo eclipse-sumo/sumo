@@ -375,9 +375,13 @@ public:
     /** @brief Returns the vehicle's direction in degrees
      * @return The vehicle's current angle
      */
-    SUMOReal getAngle() const;
+    SUMOReal getAngle() const {
+        return myAngle;
+    }
     //@}
 
+    /// @brief compute the current vehicle angle
+    SUMOReal computeAngle() const;
 
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
@@ -1222,6 +1226,9 @@ protected:
     bool myAmRegisteredAsWaitingForContainer;
 
     bool myHaveToWaitOnNextLink;
+
+    /// @brief the angle (@todo consider moving this into myState)
+    SUMOReal myAngle;
 
     mutable Position myCachedPosition;
 

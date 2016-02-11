@@ -287,6 +287,7 @@ MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
     if (continuous) {
         from->lane->myTmpVehicles.insert(from->lane->myTmpVehicles.begin(), vehicle);
         from->dens += vehicle->getVehicleType().getLengthWithGap();
+        vehicle->myAngle = vehicle->computeAngle();
     }
     to->dens += to->hoppedVeh->getVehicleType().getLengthWithGap();
 }
