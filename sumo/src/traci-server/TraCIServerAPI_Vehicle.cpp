@@ -1253,7 +1253,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             // x
             double x = 0;
             double y = 0;
-            double angle = 0;
             double origAngle = 0;
             if (!server.readTypeCheckingDouble(inputStorage, x)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a VTD vehicle must be the x-position given as a double.", outputStorage);
@@ -1276,7 +1275,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 laneNum = -laneNum;
             }
             Position pos(x, y);
-            angle *= -1.;
+            SUMOReal angle = origAngle;
             if (angle >= 180.) {
                 angle = -360. + angle;
             } else if (angle <= -180.) {
@@ -1304,7 +1303,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 SUMOReal maxRouteDistance = 100;
                 // use the best we have
                 if (found && maxRouteDistance > bestDistance) {
-                    server.setVTDControlled(v, lane, lanePos, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+                    server.setVTDControlled(v, lane, lanePos, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                 }
             } else {
                 // case b): vehicle does not follow a pre-fixed route (regard the limiting factor in maxRouteDistance)
@@ -1312,7 +1311,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 SUMOReal maxRouteDistance = 100;
                 // use the best we have
                 if (found && maxRouteDistance > bestDistance) {
-                    server.setVTDControlled(v, lane, lanePos, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+                    server.setVTDControlled(v, lane, lanePos, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle '" + id + "'.", outputStorage);
                 }
@@ -1631,7 +1630,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS), (*lane)->getShape().nearest_offset_to_point2D(pos, false)));
     //std::cout << SIMTIME << " vtdMap_matchingRoutePosition vehicle=" << v.getID() << " currLane=" << v.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
 #ifdef DEBUG_VTD
-    std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << " best:" << lastBestRouteEdge << std::endl;
+    std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << std::endl;
 #endif
     return true;
 }

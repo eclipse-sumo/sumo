@@ -145,7 +145,6 @@ MSVehicle::Influencer::Influencer() :
     myConsiderMaxDeceleration(true),
     myRespectJunctionPriority(true),
     myEmergencyBrakeRedLight(true),
-    myAmVTDControlled(false),
     myLastVTDAccess(-TIME2STEPS(20)),
     myStrategicLC(LC_NOCONFLICT),
     myCooperativeLC(LC_NOCONFLICT),
@@ -334,6 +333,28 @@ MSVehicle::Influencer::setLaneChangeMode(int value) {
 }
 
 
+void 
+MSVehicle::Influencer::setVTDControlled(MSLane* l, SUMOReal pos, SUMOReal angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
+    myVTDLane = l;
+    myVTDPos = pos;
+    myVTDAngle = angle;
+    myVTDEdgeOffset = edgeOffset;
+    myVTDRoute = route;
+    myLastVTDAccess = t;
+}
+
+
+bool 
+MSVehicle::Influencer::isVTDControlled() const {
+    return myLastVTDAccess == MSNet::getInstance()->getCurrentTimeStep();
+}
+
+
+bool 
+MSVehicle::Influencer::isVTDAffected(SUMOTime t) const {
+    return myLastVTDAccess >= t - TIME2STEPS(10);
+}
+
 void
 MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
@@ -347,8 +368,10 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     }
     myVTDLane->forceVehicleInsertion(v, myVTDPos);
     v->updateBestLanes();
-    myAmVTDControlled = false;
+    // inverse of GeomHelper::naviDegree 
+    v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
 }
+
 
 SUMOReal
 MSVehicle::Influencer::implicitSpeedVTD(const MSVehicle* veh, SUMOReal oldSpeed) {
@@ -651,6 +674,11 @@ MSVehicle::getRerouteOrigin() const {
     }
 #endif
     return *myCurrEdge;
+}
+
+void 
+MSVehicle::setAngle(SUMOReal angle) {
+    myAngle = angle;
 }
 
 

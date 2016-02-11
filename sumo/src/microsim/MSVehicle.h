@@ -383,6 +383,9 @@ public:
     /// @brief compute the current vehicle angle
     SUMOReal computeAngle() const;
 
+    /// @brief Set a custom vehicle angle in rad
+    void setAngle(SUMOReal angle);
+
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
         if (veh1->myState.myPos < veh2->myState.myPos) {
@@ -1026,14 +1029,7 @@ public:
             return myOriginalSpeed;
         }
 
-        void setVTDControlled(bool c, MSLane* l, SUMOReal pos, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
-            myAmVTDControlled = c;
-            myVTDLane = l;
-            myVTDPos = pos;
-            myVTDEdgeOffset = edgeOffset;
-            myVTDRoute = route;
-            myLastVTDAccess = t;
-        }
+        void setVTDControlled(MSLane* l, SUMOReal pos, SUMOReal angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t); 
 
         SUMOTime getLastAccessTimeStep() const {
             return myLastVTDAccess;
@@ -1047,14 +1043,9 @@ public:
         /// @brief return the change in longitudinal position that is implicit in the new VTD position
         SUMOReal implicitDeltaPosVTD(const MSVehicle* veh);
 
-        inline bool isVTDControlled() const {
-            return myAmVTDControlled;
-        }
+        bool isVTDControlled() const;
 
-        inline bool isVTDAffected(SUMOTime t) const {
-            return myAmVTDControlled && myLastVTDAccess >= t - TIME2STEPS(10);
-        }
-
+        bool isVTDAffected(SUMOTime t) const;
 
     private:
         /// @brief The velocity time line to apply
@@ -1084,9 +1075,9 @@ public:
         /// @brief Whether red lights are a reason to brake
         bool myEmergencyBrakeRedLight;
 
-        bool myAmVTDControlled;
         MSLane* myVTDLane;
         SUMOReal myVTDPos;
+        SUMOReal myVTDAngle;
         int myVTDEdgeOffset;
         ConstMSEdgeVector myVTDRoute;
         SUMOTime myLastVTDAccess;
