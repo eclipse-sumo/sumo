@@ -828,7 +828,6 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     Position p1 = getPosition();
     const SUMOReal angle = RAD2DEG(getAngle() + PI / 2.);
-    std::cout << SIMTIME << " drawing " << myVehicle.getID() << " angle=" << angle << "\n";
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
         mySeatPositions[0] = myVehicle.getLane()->geometryPositionAtOffset(myVehicle.getPositionOnLane() - myVType.getLength() / 2);
