@@ -10,5 +10,8 @@ offroute_edge
 # set position while on an intersection (within the current internal edge)
 junction
 
+# place vehicle onto an internal lane that is not on the current route
+offroute_junction
+
 # call moveToVTD and also set the speed
 set_speed
