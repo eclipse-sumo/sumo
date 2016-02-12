@@ -104,6 +104,9 @@ public:
     // @brief the utility penalty for oncoming conflicts on stripes (corresponds to meters)
     static const SUMOReal ONCOMING_CONFLICT_PENALTY;
 
+    // @brief the minimum utility that indicates obstruction
+    static const SUMOReal OBSTRUCTION_THRESHOLD;
+
     // @brief the factor by which pedestrian width is reduced when sqeezing past each other
     static const SUMOReal SQUEEZE;
 

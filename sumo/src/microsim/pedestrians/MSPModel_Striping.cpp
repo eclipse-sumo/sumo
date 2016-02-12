@@ -87,6 +87,7 @@ const SUMOReal MSPModel_Striping::LATERAL_PENALTY(-1.); // meters
 const SUMOReal MSPModel_Striping::OBSTRUCTED_PENALTY(-300000.); // meters
 const SUMOReal MSPModel_Striping::INAPPROPRIATE_PENALTY(-20000.); // meters
 const SUMOReal MSPModel_Striping::ONCOMING_CONFLICT_PENALTY(-1000.); // meters
+const SUMOReal MSPModel_Striping::OBSTRUCTION_THRESHOLD(MSPModel_Striping::OBSTRUCTED_PENALTY * 0.5); // despite obstruction, additional utility may have been added
 const SUMOReal MSPModel_Striping::SQUEEZE(0.7);
 const SUMOReal MSPModel_Striping::BLOCKER_LOOKAHEAD(10.0); // meters
 const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
@@ -1030,6 +1031,10 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // forbid stripes which are blocked and also all stripes behind them
     for (int i = 0; i < stripes; ++i) {
         if (distanceTo(obs[i], false) <= 0) {
+            if (i == current) {
+                utility[i] += OBSTRUCTED_PENALTY;
+            }
+            // penalize stripes beyond the blocked one
             if (i < current) {
                 for (int j = 0; j <= i; ++j) {
                     utility[j] += OBSTRUCTED_PENALTY;
@@ -1039,10 +1044,6 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                 for (int j = i; j < stripes; ++j) {
                     utility[j] += OBSTRUCTED_PENALTY;
                 }
-            }
-            if (i == current) {
-                // staying should always be an option
-                utility[i] += INAPPROPRIATE_PENALTY;
             }
         }
     }
@@ -1152,11 +1153,15 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     //}
     const SUMOReal maxYSpeed = MAX2(vMax * LATERAL_SPEED_FACTOR, vMax - xSpeed);
     SUMOReal ySpeed = 0;
-    const SUMOReal yDist = (chosen * stripeWidth) - myRelY;
-    if (fabs(yDist) > NUMERICAL_EPS) {
-        ySpeed = (yDist > 0 ?
-                  MIN2(maxYSpeed, DIST2SPEED(yDist)) :
-                  MAX2(-maxYSpeed, DIST2SPEED(yDist)));
+    SUMOReal yDist = 0;
+    if (utility[next] > OBSTRUCTED_PENALTY && utility[chosen] > OBSTRUCTED_PENALTY) {
+        // don't move laterally if the stripes are blocked
+        yDist = (chosen * stripeWidth) - myRelY;
+        if (fabs(yDist) > NUMERICAL_EPS) {
+            ySpeed = (yDist > 0 ?
+                    MIN2(maxYSpeed, DIST2SPEED(yDist)) :
+                    MAX2(-maxYSpeed, DIST2SPEED(yDist)));
+        }
     }
     // DEBUG
     if DEBUGCOND(myPerson->getID()) {
