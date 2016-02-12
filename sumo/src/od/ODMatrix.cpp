@@ -208,7 +208,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     }
     std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
     size_t vehName = 0;
-    sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
+    sortByBeginTime();
     // recheck begin time
     begin = MAX2(begin, myContainer.front()->begin);
     std::vector<ODCell*>::iterator next = myContainer.begin();
@@ -276,7 +276,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
         return;
     }
     size_t flowName = 0;
-    sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
+    sortByBeginTime();
     // recheck begin time
     for (std::vector<ODCell*>::const_iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         const ODCell* const c = *i;
@@ -604,7 +604,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
 
 void
 ODMatrix::sortByBeginTime() {
-    std::sort(myContainer.begin(), myContainer.end(), by_begin_sorter());
+    std::sort(myContainer.begin(), myContainer.end(), cell_by_begin_comparator());
 }
 
 

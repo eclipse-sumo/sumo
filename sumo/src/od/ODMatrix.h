@@ -337,21 +337,6 @@ private:
     SUMOReal readFactor(LineReader& lr, SUMOReal scale);
 
 
-    /** @class by_begin_sorter
-     * @brief Sorts cells by their start time
-     */
-    class by_begin_sorter {
-    public:
-        /// @brief constructor
-        explicit by_begin_sorter() { }
-
-        /// @brief comparing operator
-        int operator()(const ODCell* const c1, const ODCell* const c2) const {
-            return c1->begin < c2->begin;
-        }
-
-    };
-
 protected:
     /// @brief The loaded cells
     std::vector<ODCell*> myContainer;
@@ -370,13 +355,13 @@ protected:
 
 
     /**
-     * @class cell_by_begin_sorter
+     * @class cell_by_begin_comparator
      * @brief Used for sorting the cells by the begin time they describe
      */
-    class cell_by_begin_sorter {
+    class cell_by_begin_comparator {
     public:
         /// @brief constructor
-        explicit cell_by_begin_sorter() { }
+        explicit cell_by_begin_comparator() { }
 
 
         /** @brief Comparing operator
