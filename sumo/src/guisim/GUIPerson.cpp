@@ -241,7 +241,7 @@ GUIPerson::getCenteringBoundary() const {
     } else {
         b.add(getPosition());
     }
-    b.grow(20);
+    b.grow(MAX2(getVehicleType().getWidth(), getVehicleType().getLength()));
     return b;
 }
 

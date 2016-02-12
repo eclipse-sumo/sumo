@@ -175,7 +175,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
 Boundary
 GUIBusStop::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
-    b.grow(20);
+    b.grow(SUMO_const_laneWidth);
     return b;
 }
 

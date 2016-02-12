@@ -328,7 +328,7 @@ Boundary
 GUIBaseVehicle::getCenteringBoundary() const {
     Boundary b;
     b.add(getPosition());
-    b.grow(20);
+    b.grow(myVehicle.getVehicleType().getLength());
     return b;
 }
 

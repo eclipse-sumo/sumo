@@ -200,7 +200,9 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
 Boundary
 GUIEdge::getCenteringBoundary() const {
     Boundary b = getBoundary();
-    b.grow(20);
+    // ensure that vehicles and persons on the side are drawn even if the edge
+    // is outside the view
+    b.grow(10);
     return b;
 }
 
