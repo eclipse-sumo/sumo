@@ -1,15 +1,15 @@
+sumo/meta/deprecated_option/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
 Error on parsing 'sumo/meta/umlaut/sumo.sumocfg'!
 Traceback (most recent call last):
-  File "/home/behr_mi/sumo/tests/../tools/xml/schemaCheck.py", line 28, in validate
+  File "/home/micha/programming/vabene/SE/extern/sumo/tests/../tools/xml/schemaCheck.py", line 46, in validate
     doc = etree.parse(f)
-  File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
-  File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
-  File "parser.pxi", line 1557, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:79768)
-  File "parser.pxi", line 1457, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:78843)
-  File "parser.pxi", line 997, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:75698)
-  File "parser.pxi", line 564, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:71739)
-  File "parser.pxi", line 645, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:72614)
-  File "parser.pxi", line 585, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71955)
+  File "lxml.etree.pyx", line 3201, in lxml.etree.parse (src/lxml/lxml.etree.c:65033)
+  File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:93221)
+  File "parser.pxi", line 1600, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:93508)
+  File "parser.pxi", line 1500, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:92565)
+  File "parser.pxi", line 1047, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:89449)
+  File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:84831)
+  File "parser.pxi", line 676, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:85936)
+  File "parser.pxi", line 616, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:85258)
 XMLSyntaxError: Input is not proper UTF-8, indicate encoding !
-Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26
-sumo/meta/deprecated_option/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
+Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27
