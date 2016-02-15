@@ -74,7 +74,7 @@ def getWeaklyConnected(net, vclass=None):
                         queue.append(n)
                         edgesLeft.remove(n)
         if component:
-            components.append(component)
+            components.append(sorted(component))
     return components
 
 
@@ -168,7 +168,7 @@ if __name__ == "__main__":
         dist_str_list.append(dist_str)
 
         # Output the distribution of components by edge counts
-        for key, value in sorted(edge_count_dist.iteritems()):
+        for key, value in sorted(edge_count_dist.items()):
             dist_str = "{}\t{}".format(key, value)
             print(dist_str)
             dist_str_list.append(dist_str)
