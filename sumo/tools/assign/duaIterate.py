@@ -455,10 +455,7 @@ def main(args=None):
         optParser.error(
             "Either --trips, --flows, or --routes have to be given!")
     duaBinary = sumolib.checkBinary("duarouter", options.path)
-    if options.mesosim:
-        sumoBinary = sumolib.checkBinary("meso", options.path)
-    else:
-        sumoBinary = sumolib.checkBinary("sumo", options.path)
+    sumoBinary = sumolib.checkBinary("sumo", options.path)
     if options.addweights and options.weightmemory:
         optParser.error(
             "Options --addweights and --weight-memory are mutually exclusive.")
@@ -476,7 +473,7 @@ def main(args=None):
             "Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment variable SUMO_BINARY\n" % sumoBinary)
 
     sumo_args = assign_remaining_args(sumoBinary, 'sumo', remaining_args)
-    dua_args = assign_remaining_args(sumoBinary, 'duarouter', remaining_args)
+    dua_args = assign_remaining_args(duaBinary, 'duarouter', remaining_args)
 
     sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
     log = open("dua.log", "w+")
