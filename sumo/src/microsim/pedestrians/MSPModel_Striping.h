@@ -296,7 +296,12 @@ protected:
         int stripe(const SUMOReal relY) const;
         int otherStripe(const SUMOReal relY) const;
 
-        /// @brief calculate distance to the given obstacle, positive values mean in front of me in walking direction, negative behind me, 0 means overlap
+        /* @brief calculate distance to the given obstacle, 
+         * - non-negative values signify an obstacle in front of ego
+         * the special values DIST_OVERLAP and DIST_BEHIND are used to signify
+         * obstacles that overlap and obstacles behind ego respectively
+         * the result is the same regardless of walking direction
+         */
         SUMOReal distanceTo(const Obstacle& obs, const bool includeMinGap = true) const;
 
         /// @brief replace obstacles in the first vector with obstacles from the second if they are closer to me
