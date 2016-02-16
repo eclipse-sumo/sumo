@@ -367,7 +367,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription("Import O/D-matrices for macroscopic traffic assignment");
-    oc.setApplicationName("marouter", "SUMO marouter Version " + getBuildName(VERSION_STRING));
+    oc.setApplicationName("marouter", "SUMO marouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = 0;
     try {

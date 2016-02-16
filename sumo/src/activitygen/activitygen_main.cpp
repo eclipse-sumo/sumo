@@ -101,7 +101,7 @@ main(int argc, char* argv[]) {
     // give some application descriptions
     oc.setApplicationDescription(
         "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");
-    oc.setApplicationName("activitygen", "SUMO activitygen Version " + getBuildName(VERSION_STRING));
+    oc.setApplicationName("activitygen", "SUMO activitygen Version " VERSION_STRING);
     oc.addCopyrightNotice("Copyright (C) 2010-2012 Technische Universitaet Muenchen");
     int ret = 0;
     RONet* net = 0;

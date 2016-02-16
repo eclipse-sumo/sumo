@@ -267,7 +267,7 @@ GUIApplicationWindow::dependentBuild() {
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
     // set the caption
-    setTitle(MFXUtils::getTitleText(("SUMO " + getBuildName(VERSION_STRING)).c_str()));
+    setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
 
     // start the simulation-thread (it will loop until the application ends deciding by itself whether to perform a step or not)
     myRunThread->start();
@@ -1272,8 +1272,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 setTitle("SUMO Interactive Traffic Light");
             } else {
                 // set simulation name on the caption
-                std::string caption = "SUMO " + getBuildName(VERSION_STRING);
-                setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
+                setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING, ec->myFile.c_str()));
             }
             // set simulation step begin information
             myLCDLabel->setText("-------------");
@@ -1443,7 +1442,7 @@ GUIApplicationWindow::closeAllWindows() {
     // delete the simulation
     myRunThread->deleteSim();
     // reset the caption
-    setTitle(MFXUtils::getTitleText(("SUMO " + getBuildName(VERSION_STRING)).c_str()));
+    setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
     // delete other children
     while (myTrackerWindows.size() != 0) {
         delete myTrackerWindows[0];

@@ -121,7 +121,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("A microscopic road traffic simulation.");
-    oc.setApplicationName("sumo", "SUMO Version " + getBuildName(VERSION_STRING));
+    oc.setApplicationName("sumo", "SUMO Version " VERSION_STRING);
     int ret = 0;
     MSNet* net = 0;
     try {
