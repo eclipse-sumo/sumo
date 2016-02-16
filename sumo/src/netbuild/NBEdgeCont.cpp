@@ -470,6 +470,15 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);
     edge->myTo->replaceIncoming(edge, two, 0);
+    // patch tls
+    std::set<NBTrafficLightDefinition*> fromTLS = edge->myFrom->getControllingTLS();
+    for (std::set<NBTrafficLightDefinition*>::iterator i = fromTLS.begin(); i != fromTLS.end(); ++i) {
+        (*i)->replaceRemoved(edge, -1, one, -1);
+    }
+    std::set<NBTrafficLightDefinition*> toTLS = edge->myTo->getControllingTLS();
+    for (std::set<NBTrafficLightDefinition*>::iterator i = toTLS.begin(); i != toTLS.end(); ++i) {
+        (*i)->replaceRemoved(edge, -1, two, -1);
+    }
     // the edge is now occuring twice in both nodes...
     //  clean up
     edge->myFrom->removeDoubleEdges();
