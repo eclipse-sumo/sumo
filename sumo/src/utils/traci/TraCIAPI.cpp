@@ -715,7 +715,7 @@ TraCIAPI::InductionLoopScope::getVehicleData(const std::string& loopID) const {
     myParent.send_commandGetVariable(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_DATA, loopID);
     myParent.processGET(inMsg, CMD_GET_INDUCTIONLOOP_VARIABLE, TYPE_COMPOUND);
     std::vector<VehicleData> result;
-    const int components = inMsg.readInt();
+    inMsg.readInt(); // components
     // number of items
     inMsg.readUnsignedByte();
     const int n = inMsg.readInt();
