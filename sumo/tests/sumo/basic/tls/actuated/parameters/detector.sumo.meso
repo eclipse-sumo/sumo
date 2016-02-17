@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb 17 10:18:08 2016 by SUMO Version dev-SVN-r19994
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_2si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_2si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_2si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" sampledSeconds="369.59" density="24.64" occupancy="4.11" waitingTime="0.00" speed="4.21" departed="0" arrived="0" entered="20" left="16"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" sampledSeconds="369.59" density="24.64" occupancy="4.11" waitingTime="0.00" speed="4.21" departed="0" arrived="0" entered="20" left="16"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" sampledSeconds="369.59" density="24.64" occupancy="4.11" waitingTime="0.00" speed="4.21" departed="0" arrived="0" entered="20" left="16"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="1104.98" density="73.67" occupancy="12.28" waitingTime="0.00" speed="2.52" departed="0" arrived="0" entered="35" left="29"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="1104.98" density="73.67" occupancy="12.28" waitingTime="0.00" speed="2.52" departed="0" arrived="0" entered="35" left="29"/>
+    <interval begin="0.00" end="180.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="1104.98" density="73.67" occupancy="12.28" waitingTime="0.00" speed="2.52" departed="0" arrived="0" entered="35" left="29"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_2si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_2si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_2si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" sampledSeconds="410.57" density="27.37" occupancy="4.56" waitingTime="0.00" speed="3.70" departed="0" arrived="0" entered="17" left="20"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" sampledSeconds="410.57" density="27.37" occupancy="4.56" waitingTime="0.00" speed="3.70" departed="0" arrived="0" entered="17" left="20"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" sampledSeconds="410.57" density="27.37" occupancy="4.56" waitingTime="0.00" speed="3.70" departed="0" arrived="0" entered="17" left="20"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="1847.73" density="123.18" occupancy="20.53" waitingTime="0.00" speed="1.61" departed="0" arrived="0" entered="39" left="27"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="1847.73" density="123.18" occupancy="20.53" waitingTime="0.00" speed="1.61" departed="0" arrived="0" entered="39" left="27"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="1847.73" density="123.18" occupancy="20.53" waitingTime="0.00" speed="1.61" departed="0" arrived="0" entered="39" left="27"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_2si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_2si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_2si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" sampledSeconds="154.19" density="10.28" occupancy="1.71" waitingTime="0.00" speed="3.83" departed="0" arrived="0" entered="7" left="8"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" sampledSeconds="154.19" density="10.28" occupancy="1.71" waitingTime="0.00" speed="3.83" departed="0" arrived="0" entered="7" left="8"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" sampledSeconds="154.19" density="10.28" occupancy="1.71" waitingTime="0.00" speed="3.83" departed="0" arrived="0" entered="7" left="8"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="3010.55" density="200.70" occupancy="33.45" waitingTime="0.00" speed="0.55" departed="0" arrived="0" entered="15" left="27"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="3010.55" density="200.70" occupancy="33.45" waitingTime="0.00" speed="0.55" departed="0" arrived="0" entered="15" left="27"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="3010.55" density="200.70" occupancy="33.45" waitingTime="0.00" speed="0.55" departed="0" arrived="0" entered="15" left="27"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_2si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_2si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_2si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="89.38" density="16.76" occupancy="2.79" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="6"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="89.38" density="16.76" occupancy="2.79" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="6"/>
+    <interval begin="540.00" end="604.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="89.38" density="16.76" occupancy="2.79" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="6"/>
+</detector>

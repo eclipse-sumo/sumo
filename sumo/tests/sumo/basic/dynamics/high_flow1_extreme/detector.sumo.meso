@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Nov 23 15:27:21 2014 by SUMO Version dev-SVN-r17370I
+<!-- generated on Wed Feb 17 10:18:09 2016 by SUMO Version dev-SVN-r19994
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,7 +17,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,8 +30,8 @@
 -->
 
 <detector>
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1370.41" density="15.74" occupancy="4.72" waitingTime="0.00" speed="30.05" departed="0" arrived="0" entered="426" left="425"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="10615.76" density="121.95" occupancy="36.58" waitingTime="0.00" speed="2.76" departed="48" arrived="0" entered="258" left="283"/>
-    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="2944.20" density="33.82" occupancy="10.15" waitingTime="0.00" speed="13.69" departed="0" arrived="0" entered="415" left="437"/>
-    <interval begin="2700.00" end="3256.00" id="end2_0" sampledSeconds="917.90" density="17.07" occupancy="5.12" waitingTime="0.00" speed="29.74" departed="0" arrived="0" entered="281" left="283"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1372.00" density="15.76" occupancy="4.73" waitingTime="0.00" speed="29.87" departed="0" arrived="423" entered="425" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="9154.42" density="105.16" occupancy="31.55" waitingTime="0.00" speed="5.87" departed="283" arrived="544" entered="283" left="0"/>
+    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1828.44" density="21.00" occupancy="6.30" waitingTime="0.00" speed="23.78" departed="2" arrived="461" entered="437" left="0"/>
+    <interval begin="2700.00" end="3256.00" id="end2_0" sampledSeconds="927.41" density="17.24" occupancy="5.17" waitingTime="0.00" speed="29.66" departed="0" arrived="285" entered="283" left="0"/>
 </detector>

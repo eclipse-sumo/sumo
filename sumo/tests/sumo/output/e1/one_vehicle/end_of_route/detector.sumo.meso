@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  5 14:00:52 2014 by SUMO sumo Version dev-SVN-r16839
+<!-- generated on Wed Feb 17 10:18:10 2016 by SUMO Version dev-SVN-r19994
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -12,7 +12,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -25,5 +25,5 @@
 
 <detector>
     <interval begin="0.00" end="100.00" id="1/1to1/0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="100.00" end="161.00" id="1/1to1/0" sampledSeconds="10.00" density="1.64" occupancy="0.49" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="100.00" end="161.00" id="1/1to1/0" sampledSeconds="10.00" density="1.64" occupancy="0.49" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="1" left="0"/>
 </detector>

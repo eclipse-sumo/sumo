@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/26/14 10:52:23 by SUMO Version dev-SVN-r17385
+<!-- generated on Wed Feb 17 10:59:44 2016 by SUMO Version dev-SVN-r19994
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -19,7 +19,7 @@
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,9 +30,9 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r17385" time="1.00">
+<snapshot version="dev-SVN-r19994" time="1.00">
     <route id="r0" state="1" edges="beg middle end"/>
-    <delay number="1" end="0" depart="0.00" time="0.00"/>
+    <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="type0">
