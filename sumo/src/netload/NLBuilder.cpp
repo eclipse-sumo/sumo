@@ -147,7 +147,7 @@ NLBuilder::build() {
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
         }
-        MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
+        PROGRESS_TIME_MESSAGE(before);
     }
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
@@ -265,7 +265,7 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
             WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;
         }
-        MsgHandler::getMessageInstance()->endProcessMsg(" done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
+        PROGRESS_TIME_MESSAGE(before);
     }
     return true;
 }
