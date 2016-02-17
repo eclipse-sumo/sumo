@@ -9,6 +9,8 @@ log:log.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
+output:done \(.*\)\.{REPLACE done.}
+log:done \(.*\)\.{REPLACE done.}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
