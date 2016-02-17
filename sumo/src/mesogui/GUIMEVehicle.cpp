@@ -32,6 +32,7 @@
 
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -204,7 +205,7 @@ GUIMEVehicle::getColorValue(size_t activeScheme) const {
             }
             return getNumberReroutes();
         case 20:
-            return 0; // invalid gSelected.isSelected(GLO_VEHICLE, getGlID());
+            return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 21:
             return 0; // invalid getBestLaneOffset();
         case 22:
