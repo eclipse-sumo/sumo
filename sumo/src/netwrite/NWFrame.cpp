@@ -35,6 +35,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/common/SysUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NWFrame.h"
@@ -130,12 +131,15 @@ NWFrame::checkOptions() {
 
 void
 NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
+    long before = SysUtils::getCurrentMillis();
+    PROGRESS_BEGIN_MESSAGE("Writing network");
     NWWriter_SUMO::writeNetwork(oc, nb);
     NWWriter_Amitran::writeNetwork(oc, nb);
     NWWriter_MATSim::writeNetwork(oc, nb);
     NWWriter_OpenDrive::writeNetwork(oc, nb);
     NWWriter_DlrNavteq::writeNetwork(oc, nb);
     NWWriter_XML::writeNetwork(oc, nb);
+    PROGRESS_TIME_MESSAGE(before);
 }
 
 
