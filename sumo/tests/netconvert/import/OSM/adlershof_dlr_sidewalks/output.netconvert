@@ -11,33 +11,33 @@ done.
    33 types loaded.
    882 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done.
+Removing self-loops... done (0ms).
 Joining junction clusters... 
-done.
+done (3ms).
  Joined 19 junction cluster(s).
-Removing empty nodes and geometry nodes... done.
+Removing empty nodes and geometry nodes... done (2ms).
    95 nodes removed.
-Moving network to origin... done.
-Computing turning directions... done.
-Sorting nodes' edges... done.
+Moving network to origin... done (2ms).
+Computing turning directions... done (1ms).
+Sorting nodes' edges... done (1ms).
 Computing node shapes... 
-done.
-Computing edge shapes... done.
-Computing node types... done.
-Computing priorities... done.
-Computing approached edges... done.
+done (20ms).
+Computing edge shapes... done (7ms).
+Computing node types... done (1ms).
+Computing priorities... done (0ms).
+Computing approached edges... done (1ms).
 Guessing and setting roundabouts... 
  Guessed 1 roundabout(s).
-done.
-Computing approaching lanes... done.
-Dividing of lanes on approached lanes... done.
-Processing turnarounds... done.
-Rechecking of lane endings... done.
-Assigning nodes to traffic lights... done.
-Computing traffic light control information... done.
-Computing node logics... done.
+done (0ms).
+Computing approaching lanes... done (3ms).
+Dividing of lanes on approached lanes... done (2ms).
+Processing turnarounds... done (0ms).
+Rechecking of lane endings... done (0ms).
+Assigning nodes to traffic lights... done (1ms).
+Computing traffic light control information... done (1ms).
+Computing node logics... done (8ms).
 Computing traffic light logics... 
-done.
+done (0ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -51,4 +51,5 @@ Summary:
   Applied offset     : -395408.93,-5809112.45
   Converted boundary : 0.00,0.00,5580.65,3531.77
 -----------------------------------------------------
+Writing network... done (106ms).
 Success.
