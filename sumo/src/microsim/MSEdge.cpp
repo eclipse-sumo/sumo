@@ -161,6 +161,7 @@ MSEdge::closeBuilding() {
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
     rebuildAllowedLanes();
+    // segment building depends on the finished list of successors (for multi-queue)
     if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
         MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
     }

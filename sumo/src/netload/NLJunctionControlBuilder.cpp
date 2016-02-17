@@ -470,7 +470,8 @@ NLJunctionControlBuilder::closeJunctionLogic() {
 
 
 MSTLLogicControl*
-NLJunctionControlBuilder::buildTLLogics() const {
+NLJunctionControlBuilder::buildTLLogics() {
+    postLoadInitialization(); // must happen after edgeBuilder is finished
     if (!myLogicControl->closeNetworkReading()) {
         throw ProcessError("Traffic lights could not be built.");
     }

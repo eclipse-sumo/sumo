@@ -272,8 +272,6 @@ NLHandler::myEndElement(int element) {
                     to->addIncoming(edge);
                 }
             }
-            //initialise traffic lights
-            myJunctionControlBuilder.postLoadInitialization();
             myNetIsLoaded = true;
             break;
         default:
