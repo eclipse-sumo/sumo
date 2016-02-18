@@ -942,7 +942,7 @@ public:
      *  of this edge to the leftmost lane of myTurnDestination).
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if this edge is controlled by a tls
      */
-    void appendTurnaround(bool noTLSControlled);
+    void appendTurnaround(bool noTLSControlled, bool checkPermissions);
 
 
 
