@@ -10,31 +10,32 @@ Removing empty nodes... done (0ms).
 Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
 Sorting nodes' edges... done (0ms).
-Computing node shapes... done (2ms).
+Computing node shapes... done (3ms).
 Computing edge shapes... done (1ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
-Computing approaching lanes... done (1ms).
+Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
+Assigning nodes to traffic lights... done (1ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
+Computing node logics... done (0ms).
 Computing traffic light logics... 
-done (0ms).
+done (1ms).
  1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 3
-  Priority junctions          : 36
-  Right-before-left junctions : 7
+  Dead-end junctions          : 7
+  Priority junctions          : 34
+  Right-before-left junctions : 2
  Network boundaries:
   Original boundary  : 13.52,52.43,13.55,52.43
   Applied offset     : -399909.35,-5809365.68
   Converted boundary : 0.00,0.00,1173.99,767.38
 -----------------------------------------------------
-Writing network... done (10ms).
+Writing network... done (9ms).
 Success.

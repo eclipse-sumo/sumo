@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:32 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Thu Feb 18 13:52:05 2016 by SUMO netconvert Version dev-SVN-r20012
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,5 +32,5 @@
     <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C"/>
     <node id="E" x="200.00" y="100.00" type="priority"/>
     <node id="N" x="100.00" y="200.00" type="priority"/>
-    <node id="W" x="0.00" y="100.00" type="priority"/>
+    <node id="W" x="0.00" y="100.00" type="dead_end"/>
 </nodes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 12 09:20:02 2016 by SUMO netconvert Version dev-SVN-r19709I
+<!-- generated on Thu Feb 18 13:52:10 2016 by SUMO netconvert Version dev-SVN-r20012
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -4218,12 +4218,8 @@
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="456893988" type="priority" x="3680.12" y="771.22" incLanes="54039583#2_0 38574197#4_0" intLanes="" shape="3679.07,774.36 3682.92,772.97 3683.85,771.12 3683.26,769.21 3680.37,768.53 3678.45,769.09">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="456893989" type="priority" x="3683.65" y="781.05" incLanes="54039583#1_0 38574197#0_0" intLanes="" shape="3683.41,783.73 3685.32,783.15 3687.29,780.98 3686.70,779.07 3684.76,778.10 3680.91,779.48">
-        <request index="0" response="0" foes="0"/>
-    </junction>
+    <junction id="456893988" type="dead_end" x="3680.12" y="771.22" incLanes="54039583#2_0 38574197#4_0" intLanes="" shape="3679.07,774.36 3682.92,772.97 3683.85,771.12 3683.26,769.21 3680.37,768.53 3678.45,769.09"/>
+    <junction id="456893989" type="dead_end" x="3683.65" y="781.05" incLanes="54039583#1_0 38574197#0_0" intLanes="" shape="3683.41,783.73 3685.32,783.15 3687.29,780.98 3686.70,779.07 3684.76,778.10 3680.91,779.48"/>
     <junction id="456893990" type="dead_end" x="3758.40" y="758.06" incLanes="38574190#0_0 38574197#1_0" intLanes="" shape="3758.20,760.74 3760.11,760.14 3758.52,755.34 3756.63,755.99 3755.69,757.85 3756.27,759.77"/>
     <junction id="456893991" type="dead_end" x="3755.18" y="748.21" incLanes="38574190#2_0 38574197#3_0" intLanes="" shape="3754.94,750.89 3756.86,750.32 3755.45,745.54 3753.52,746.10 3752.49,747.98 3753.08,749.90"/>
     <junction id="473482331" type="priority" x="3278.46" y="1222.60" incLanes="-52460499#0_0 -52460499#0_1" intLanes="" shape="3278.42,1222.58 3273.74,1220.08 3283.18,1225.13 3278.51,1222.63">
@@ -6299,7 +6295,6 @@
     <connection from="38568628#0" to="-180239890" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="38568628#0" to="-38568628#0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="38568628#1" to="-38568628#1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="38574197#0" to="54039583#2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="38915289" to="135777010#1" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from="38915289" to="-135777010#0" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="38915289" to="-38915289" fromLane="1" toLane="1" dir="t" state="m"/>
@@ -6384,7 +6379,6 @@
     <connection from="5357888#6" to="5357888#4" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="5357888#6" to="-5357888#3" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="5357888#6" to="-5357888#6" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="54039583#2" to="38574197#0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="59302643" to="-143308566#0" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from="59302643" to="-143308485" fromLane="0" toLane="1" dir="s" state="m"/>
     <connection from="59302643" to="143308566#2" fromLane="0" toLane="1" dir="l" state="m"/>
