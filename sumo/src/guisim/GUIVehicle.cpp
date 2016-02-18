@@ -403,7 +403,6 @@ GUIVehicle::drawBestLanes() const {
             GLHelper::drawLine(s1);
 
             glColor3d(r, g, 0);
-            Position lastPos = shape[-1];
         }
         width = .2;
     }
