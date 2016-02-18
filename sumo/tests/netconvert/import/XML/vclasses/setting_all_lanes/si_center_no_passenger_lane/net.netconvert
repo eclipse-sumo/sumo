@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb 18 11:09:16 2016 by SUMO netconvert Version dev-SVN-r20010
+<!-- generated on Thu Feb 18 12:23:17 2016 by SUMO netconvert Version dev-SVN-r20012
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -51,7 +51,7 @@
         <lane id=":0_4_0" index="0" speed="12.50" length="10.88" shape="511.35,508.25 507.11,508.44 504.08,509.02 502.26,509.99 501.65,511.35"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="12.50" length="22.98" shape="511.35,504.95 503.67,504.43 497.57,503.30 492.69,502.17 488.65,501.65"/>
+        <lane id=":0_5_0" index="0" speed="12.50" length="22.70" shape="511.35,501.65 503.72,501.65 497.62,501.65 492.71,501.65 488.65,501.65"/>
     </edge>
     <edge id=":0_6" function="internal">
         <lane id=":0_6_0" index="0" speed="12.50" length="20.97" shape="511.35,501.65 505.66,500.84 501.60,498.40 499.16,494.34 498.35,488.65"/>
@@ -81,7 +81,7 @@
         <lane id=":0_12_0" index="0" speed="12.50" length="10.88" shape="488.65,491.75 492.89,491.56 495.92,490.98 497.74,490.01 498.35,488.65"/>
     </edge>
     <edge id=":0_13" function="internal">
-        <lane id=":0_13_0" index="0" speed="12.50" length="22.98" shape="488.65,495.05 496.33,495.57 502.43,496.70 507.31,497.83 511.35,498.35"/>
+        <lane id=":0_13_0" index="0" speed="12.50" length="22.70" shape="488.65,498.35 496.28,498.35 502.38,498.35 507.29,498.35 511.35,498.35"/>
     </edge>
     <edge id=":0_14" function="internal">
         <lane id=":0_14_0" index="0" speed="12.50" length="20.97" shape="488.65,498.35 494.34,499.16 498.40,501.60 500.84,505.66 501.65,511.35"/>
@@ -232,7 +232,7 @@
     <connection from="1fi" to="1si" fromLane="1" toLane="2" via=":m1_0_2" dir="s" state="M"/>
     <connection from="1o" to="1fi" fromLane="0" toLane="1" via=":1_0_0" dir="t" state="M"/>
     <connection from="1si" to="3o" fromLane="0" toLane="0" via=":0_12_0" dir="r" state="m"/>
-    <connection from="1si" to="2o" fromLane="1" toLane="0" via=":0_13_0" dir="s" state="m"/>
+    <connection from="1si" to="2o" fromLane="2" toLane="0" via=":0_13_0" dir="s" state="m"/>
     <connection from="1si" to="4o" fromLane="2" toLane="0" via=":0_14_0" dir="l" state="m"/>
     <connection from="1si" to="1o" fromLane="2" toLane="0" via=":0_15_0" dir="t" state="m"/>
     <connection from="2fi" to="2si" fromLane="0" toLane="0" via=":m2_0_0" dir="s" state="M"/>
@@ -240,7 +240,7 @@
     <connection from="2fi" to="2si" fromLane="1" toLane="2" via=":m2_0_2" dir="s" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
     <connection from="2si" to="4o" fromLane="0" toLane="0" via=":0_4_0" dir="r" state="m"/>
-    <connection from="2si" to="1o" fromLane="1" toLane="0" via=":0_5_0" dir="s" state="m"/>
+    <connection from="2si" to="1o" fromLane="2" toLane="0" via=":0_5_0" dir="s" state="m"/>
     <connection from="2si" to="3o" fromLane="2" toLane="0" via=":0_6_0" dir="l" state="m"/>
     <connection from="2si" to="2o" fromLane="2" toLane="0" via=":0_7_0" dir="t" state="m"/>
     <connection from="3fi" to="3si" fromLane="0" toLane="0" via=":m3_0_0" dir="s" state="M"/>
