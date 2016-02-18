@@ -1539,9 +1539,9 @@ NBEdge::recheckLanes() {
         //  using the standard algorithm.
         for (unsigned int i = 0; i < myLanes.size(); i++) {
             if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
-                if (i > 0 && connNumbersPerLane[i - 1] > 1) {
+                if (i > 0 && connNumbersPerLane[i - 1] > 1 && getPermissions(i) == getPermissions(i - 1)) {
                     moveConnectionToLeft(i - 1);
-                } else if (i < myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1) {
+                } else if (i < myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1 && getPermissions(i) == getPermissions(i + 1)) {
                     moveConnectionToRight(i + 1);
                 }
             }
