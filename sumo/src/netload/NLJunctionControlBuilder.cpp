@@ -371,7 +371,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
         // had an error
         return;
     }
-    if (request > 63) {
+    if (request >= SUMO_MAX_CONNECTIONS) {
         // bad request
         myCurrentHasError = true;
         throw InvalidArgument("Junction logic '" + myActiveKey + "' is larger than allowed; recheck the network.");
