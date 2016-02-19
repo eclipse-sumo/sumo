@@ -299,16 +299,6 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             }
             if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
                 state[i1] = 'G';
-            } else if (fromEdges[i1]->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
-                       fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
-                // handle right-on-red conflicts
-                state[i1] = 's';
-                for (unsigned int i2 = 0; i2 < pos; ++i2) {
-                    if (state[i2] == 'G' && !isTurnaround[i2] &&
-                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
-                        myRightOnRedConflicts.insert(std::make_pair(i1, i2));
-                    }
-                }
             }
         }
         //std::cout << " state after finding additional 'G's=" << state << "\n";
@@ -631,20 +621,32 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                                std::vector<bool>& rightTurnConflicts) {
     const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
     for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
-        if (state[i1] != 'G') {
-            continue;
-        }
-        for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
-            if ((state[i2] == 'G' || state[i2] == 'g')) {
-                if (NBNode::rightTurnConflict(
-                            fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
-                    rightTurnConflicts[i1] = true;
+        if (state[i1] == 'G') {
+            for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                if ((state[i2] == 'G' || state[i2] == 'g')) {
+                    if (NBNode::rightTurnConflict(
+                                fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
+                        rightTurnConflicts[i1] = true;
+                    }
+                    if (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true, controlledWithin) || rightTurnConflicts[i1]) {
+                        state[i1] = 'g';
+                        myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
+                        if (!isTurnaround[i1] && !hadGreenMajor[i1]) {
+                            haveForbiddenLeftMover = true;
+                        }
+                    }
                 }
-                if (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true, controlledWithin) || rightTurnConflicts[i1]) {
-                    state[i1] = 'g';
-                    myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
-                    if (!isTurnaround[i1] && !hadGreenMajor[i1]) {
-                        haveForbiddenLeftMover = true;
+            }
+        } 
+        if (state[i1] == 'r') {
+            if (fromEdges[i1]->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
+                    fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
+                // handle right-on-red conflicts
+                state[i1] = 's';
+                for (unsigned int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                    if (state[i2] == 'G' && !isTurnaround[i2] &&
+                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
+                        myRightOnRedConflicts.insert(std::make_pair(i1, i2));
                     }
                 }
             }
