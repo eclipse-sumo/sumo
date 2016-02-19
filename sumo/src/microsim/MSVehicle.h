@@ -1117,6 +1117,9 @@ public:
     SUMOReal getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
                                 const SUMOReal seen, const MSLane* const lane, SUMOReal distToCrossing) const;
 
+    /// @brief get a numerical value for the priority of the  upcoming link
+    static int nextLinkPriority(const std::vector<MSLane*>& conts); 
+
 #endif
 
     /// @name state io

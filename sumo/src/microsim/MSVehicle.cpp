@@ -2111,7 +2111,6 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
     }
-
     // go backward through the lanes
     // track back best lane and compute the best prior lane(s)
     for (std::vector<std::vector<LaneQ> >::reverse_iterator i = myBestLanes.rbegin() + 1; i != myBestLanes.rend(); ++i) {
@@ -2151,10 +2150,14 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     }
                     (*j).bestLaneOffset = bestConnectedNext.bestLaneOffset;
                 }
-                if (clanes[bestThisIndex].length < (*j).length || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) > abs((*j).bestLaneOffset))) {
+                copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
+                if (clanes[bestThisIndex].length < (*j).length 
+                        || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) > abs((*j).bestLaneOffset))
+                        || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset) && 
+                            nextLinkPriority(clanes[bestThisIndex].bestContinuations) < nextLinkPriority((*j).bestContinuations))
+                        ) {
                     bestThisIndex = index;
                 }
-                copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
             }
 
         } else {
@@ -2183,7 +2186,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         // set bestLaneOffset for all lanes
         index = 0;
         for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
-            if ((*j).length < clanes[bestThisIndex].length || ((*j).length == clanes[bestThisIndex].length && abs((*j).bestLaneOffset) > abs(clanes[bestThisIndex].bestLaneOffset))) {
+            if ((*j).length < clanes[bestThisIndex].length 
+                    || ((*j).length == clanes[bestThisIndex].length && abs((*j).bestLaneOffset) > abs(clanes[bestThisIndex].bestLaneOffset)) 
+                    || (nextLinkPriority((*j).bestContinuations)) < nextLinkPriority(clanes[bestThisIndex].bestContinuations)
+                    ) {
                 (*j).bestLaneOffset = bestThisIndex - index;
             } else {
                 (*j).bestLaneOffset = 0;
@@ -2192,6 +2198,22 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
     updateOccupancyAndCurrentBestLane(startLane);
     return;
+}
+
+
+int
+MSVehicle::nextLinkPriority(const std::vector<MSLane*>& conts) {
+    if (conts.size() < 2) {
+        return -1;
+    } else {
+        MSLink* link = MSLinkContHelper::getConnectingLink(*conts[0], *conts[1]);
+        if (link != 0) {
+            return link->havePriority() ? 1 : 0;
+        } else {
+            // disconnected route
+            return -1;
+        }
+    }
 }
 
 
