@@ -357,24 +357,22 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
 
 void 
 NBLoadedSUMOTLDef::collectEdgeVectors(EdgeVector& fromEdges, EdgeVector& toEdges, std::vector<int>& fromLanes) const {
-assert(fromEdges.size() > 0);
-assert(fromEdges.size() == toEdges.size());
-const int size = fromEdges.size();
+    assert(fromEdges.size() > 0);
+    assert(fromEdges.size() == toEdges.size());
+    const int size = (int)fromEdges.size();
 
-for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-    const NBConnection& c = *it;
-    if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
-        if (c.getTLIndex() >= size) {
-            throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
-                    "' with " + toString(size) + " links.");
+    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+        const NBConnection& c = *it;
+        if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
+            if (c.getTLIndex() >= size) {
+                throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
+                        "' with " + toString(size) + " links.");
+            }
+            fromEdges[c.getTLIndex()] = c.getFrom();
+            toEdges[c.getTLIndex()] = c.getTo();
+            fromLanes[c.getTLIndex()] = c.getFromLane();
         }
-
-
-        fromEdges[c.getTLIndex()] = c.getFrom();
-        toEdges[c.getTLIndex()] = c.getTo();
-        fromLanes[c.getTLIndex()] = c.getFromLane();
     }
-}
 }
 
 
