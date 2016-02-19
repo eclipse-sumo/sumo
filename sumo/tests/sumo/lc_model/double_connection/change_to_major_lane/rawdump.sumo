@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 19 09:21:33 2016 by SUMO Version dev-SVN-r20022
+<!-- generated on Fri Feb 19 13:17:08 2016 by SUMO Version dev-SVN-r20022
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -58,50 +58,50 @@
     </timestep>
     <timestep time="4.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="v0" pos="31.10" speed="10.40"/>
             </lane>
-            <lane id="beg_1"/>
         </edge>
     </timestep>
     <timestep time="5.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="v0" pos="44.10" speed="13.00"/>
             </lane>
-            <lane id="beg_1"/>
         </edge>
     </timestep>
     <timestep time="6.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="v0" pos="57.99" speed="13.89"/>
             </lane>
-            <lane id="beg_1"/>
         </edge>
     </timestep>
     <timestep time="7.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="v0" pos="71.88" speed="13.89"/>
             </lane>
-            <lane id="beg_1"/>
         </edge>
     </timestep>
     <timestep time="8.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="v0" pos="85.77" speed="13.89"/>
             </lane>
-            <lane id="beg_1"/>
         </edge>
     </timestep>
     <timestep time="9.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="v0" pos="99.66" speed="13.89"/>
             </lane>
-            <lane id="beg_1"/>
         </edge>
     </timestep>
     <timestep time="10.00">

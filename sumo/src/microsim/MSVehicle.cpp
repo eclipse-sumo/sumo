@@ -2062,6 +2062,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             q.bestContinuations.push_back(cl);
             q.bestLaneOffset = 0;
             q.length = cl->allowsVehicleClass(myType->getVehicleClass()) ? cl->getLength() : 0;
+            q.currentLength = q.length;
             q.allowsContinuation = allowed == 0 || find(allowed->begin(), allowed->end(), cl) != allowed->end();
             q.occupation = 0;
             q.nextOccupation = 0;
@@ -2074,6 +2075,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 if (nextStopLane != 0 && nextStopLane != (*q).lane) {
                     (*q).allowsContinuation = false;
                     (*q).length = nextStopPos;
+                    (*q).currentLength = (*q).length;
                 }
             }
         }
@@ -2135,6 +2137,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
                 LaneQ bestConnectedNext;
                 bestConnectedNext.length = -1;
+                const SUMOReal origLength = (*j).length;
                 if ((*j).allowsContinuation) {
                     for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m) {
                         if ((*m).lane->isApproachedFrom(&cE, (*j).lane)) {
@@ -2191,6 +2194,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     || (nextLinkPriority((*j).bestContinuations)) < nextLinkPriority(clanes[bestThisIndex].bestContinuations)
                     ) {
                 (*j).bestLaneOffset = bestThisIndex - index;
+                if ((nextLinkPriority((*j).bestContinuations)) < nextLinkPriority(clanes[bestThisIndex].bestContinuations)) {
+                    // try to move away from the lower-priority lane before it ends
+                    (*j).length = (*j).currentLength;
+                }
             } else {
                 (*j).bestLaneOffset = 0;
             }

@@ -469,6 +469,8 @@ public:
         MSLane* lane;
         /// @brief The overall length which may be driven when using this lane without a lane change
         SUMOReal length;
+        /// @brief The length which may be driven on this lane
+        SUMOReal currentLength;
         /// @brief The overall vehicle sum on consecutive lanes which can be passed without a lane change
         SUMOReal occupation;
         /// @brief As occupation, but without the first lane
