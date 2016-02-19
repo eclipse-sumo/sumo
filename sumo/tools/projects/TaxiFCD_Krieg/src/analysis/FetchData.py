@@ -42,7 +42,7 @@ withoutEmptyEdges = True
 
 def main():
     print("start program")
-    # multi change pathes (routen müssen immer extra neu erstellt werden wegen
+    # multi change pathes (routen muessen immer extra neu erstellt werden wegen
     # taxiIDpickleList)
     path.simFcd = path.newPath(
         path.main, "simProzessiertFCD/t2MitVerschiedenenLosfahrzeiten/linkspeeds.simulatedRawFCD_-4.dat")
