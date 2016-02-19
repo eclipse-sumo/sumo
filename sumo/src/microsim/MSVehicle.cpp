@@ -2158,6 +2158,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
 
         } else {
+            // only needed in case of disconnected routes
             int bestNextIndex = 0;
             int bestDistToNeeded = (int) clanes.size();
             index = 0;
