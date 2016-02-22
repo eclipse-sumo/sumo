@@ -856,6 +856,10 @@ public:
     /// @}
 
 
+    /// @brief whether the vehicle may safely move to the given lane with regard to upcoming zipper links
+    bool unsafeZipperLinkAhead(const MSLane* lane) const;
+
+
 #ifndef NO_TRACI
     /** @brief Returns the uninfluenced velocity
      *

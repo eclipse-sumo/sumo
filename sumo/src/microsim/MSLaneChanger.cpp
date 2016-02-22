@@ -473,6 +473,13 @@ MSLaneChanger::checkChange(
             }
         }
     }
+    if (blocked == 0 && (state & LCA_WANTS_LANECHANGE)) {
+        // ensure that merging is safe for any upcoming zipper links after changing
+        if (vehicle->unsafeZipperLinkAhead((myCandi + laneOffset)->lane)) {
+            state |= blockedByLeader;
+        }
+    }
+
     if ((state & LCA_BLOCKED) == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && MSGlobals::gLaneChangeDuration > DELTA_T) {
         // ensure that a continuous lane change manoeuvre can be completed
         // before the next turning movement

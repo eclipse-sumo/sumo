@@ -2517,6 +2517,53 @@ MSVehicle::setTentativeLaneAndPosition(MSLane* lane, const SUMOReal pos) {
 }
 
 
+bool 
+MSVehicle::unsafeZipperLinkAhead(const MSLane* lane) const {
+    // consider the zipper link blocked if it close enough and has any approaching vehicles
+    SUMOReal seen = myLane->getLength() - getPositionOnLane();
+    const SUMOReal dist = MIN2(MSLink::ZIPPER_ADAPT_DIST, getCarFollowModel().brakeGap(getSpeed()) + getVehicleType().getMinGap());
+    if (seen < dist) {
+        const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(lane);
+        unsigned int view = 1;
+        MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
+        DriveItemVector::const_iterator di = myLFLinkLanes.begin();
+        while (!lane->isLinkEnd(link) && seen <= dist) {
+            if ((*link)->getState() == LINKSTATE_ZIPPER) {
+                // find the drive item corresponding to this link
+                bool found = false;
+                while (di != myLFLinkLanes.end() && !found) {
+                    if ((*di).myLink != 0) {
+                        const MSLane* diPredLane = (*di).myLink->getApproachingLane();
+                        if (diPredLane != 0) {
+                            if (&diPredLane->getEdge() == &lane->getEdge()) {
+                                found = true;
+                            }
+                        }
+                    }
+                    if (!found) {
+                        di++;
+                    }
+                }
+                if (found) {
+                    const SUMOTime leaveTime = (*link)->getLeaveTime((*di).myArrivalTime, (*di).myArrivalSpeed,
+                             (*di).getLeaveSpeed(), getVehicleType().getLength());
+                    if ((*link)->hasApproachingFoe((*di).myArrivalTime, leaveTime, (*di).myArrivalSpeed, getCarFollowModel().getMaxDecel())) {
+                        return true;
+                    }
+                }
+                // no drive item is found if the vehicle aborts it's request within dist
+            }
+            lane = (*link)->getLane();
+            view++;
+            // ignoring internal lanes here
+            seen += lane->getLength();
+            link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
+        }
+    }
+    return false;
+}
+
+
 #ifndef NO_TRACI
 bool
 MSVehicle::addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOReal endPos, const SUMOTime duration, const SUMOTime until,
@@ -2707,6 +2754,5 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
-
 
 /****************************************************************************/

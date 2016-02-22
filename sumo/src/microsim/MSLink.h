@@ -76,6 +76,9 @@ class OutputDevice;
 class MSLink {
 public:
 
+    // distance to link in m below which adaptation for zipper-merging should take place
+    static const SUMOReal ZIPPER_ADAPT_DIST;
+
     struct LinkLeader {
         LinkLeader(MSVehicle* _veh, SUMOReal _gap, SUMOReal _distToCrossing) :
             vehAndGap(std::make_pair(_veh, _gap)),

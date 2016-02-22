@@ -57,10 +57,10 @@ const SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 // additional caution is needed when approaching a zipper link
 const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
 
+const SUMOReal MSLink::ZIPPER_ADAPT_DIST(100);
+
 // time to link in seconds below which adaptation should take place
 #define ZIPPER_ADAPT_TIME 10
-// distance to link in m below which adaptation should take place
-#define ZIPPER_ADAPT_DIST 100
 
 // ===========================================================================
 // member method definitions
