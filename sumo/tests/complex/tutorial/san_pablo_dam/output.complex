@@ -3,27 +3,27 @@ Parsing edges from 'data/spd-road.edg.xml'... done.
  Import done:
    3 nodes loaded.
    2 edges loaded.
-Removing self-loops... done.
-Removing empty nodes... done.
+Removing self-loops... done ((TIME)).
+Removing empty nodes... done ((TIME)).
    0 nodes removed.
-Moving network to origin... done.
-Computing turning directions... done.
-Sorting nodes' edges... done.
-Computing node shapes... done.
-Computing edge shapes... done.
-Computing node types... done.
-Computing priorities... done.
-Computing approached edges... done.
-Computing approaching lanes... done.
-Dividing of lanes on approached lanes... done.
-Processing turnarounds... done.
-Rechecking of lane endings... done.
-Assigning nodes to traffic lights... done.
-Computing traffic light control information... done.
-Computing node logics... done.
-Computing traffic light logics... done.
+Moving network to origin... done ((TIME)).
+Computing turning directions... done ((TIME)).
+Sorting nodes' edges... done ((TIME)).
+Computing node shapes... done ((TIME)).
+Computing edge shapes... done ((TIME)).
+Computing node types... done ((TIME)).
+Computing priorities... done ((TIME)).
+Computing approached edges... done ((TIME)).
+Computing approaching lanes... done ((TIME)).
+Dividing of lanes on approached lanes... done ((TIME)).
+Processing turnarounds... done ((TIME)).
+Rechecking of lane endings... done ((TIME)).
+Assigning nodes to traffic lights... done ((TIME)).
+Computing traffic light control information... done ((TIME)).
+Computing node logics... done ((TIME)).
+Computing traffic light logics... done ((TIME)).
  0 traffic light(s) computed.
-Building inner edges... done.
+Building inner edges... done ((TIME)).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -35,6 +35,7 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,6039.00,0.00
 -----------------------------------------------------
+Writing network... done ((TIME)).
 Success.
 >> Netbuilding closed with status 0
 data read:  2298 2298
