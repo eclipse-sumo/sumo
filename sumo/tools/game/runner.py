@@ -384,8 +384,7 @@ def findSumoBinary(guisimBinary):
 
 
 guisimPath = findSumoBinary("sumo-gui")
-# @todo need to check for OSG here
-haveOSG = True
+haveOSG = "OSG" in subprocess.check_output(findSumoBinary("sumo"))
 
 if options.stereo:
     for m in stereoModes:

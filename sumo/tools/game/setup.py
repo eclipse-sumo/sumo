@@ -58,7 +58,7 @@ with zipfile.ZipFile(inZip) as binZip:
             extracted = binZip.extract(f)
             if osgPlugins is None:
                 osgPlugins = extracted
-        elif f.endswith(".dll") or f.endswith("gui.exe"):
+        elif f.endswith(".dll") or f.endswith("gui.exe") or f.endswith("sumo.exe"):
             extracted = binZip.extract(f)
             dest = os.path.join("dist", os.path.basename(f))
             if os.path.isfile(extracted) and not os.path.exists(dest):
