@@ -117,12 +117,11 @@ public:
      *
      * @param[in] id The id of the vehicle
      * @param[in] depart The departure time of the vehicle
-     * @param[in] origin The origin district to use for the cell's flows
-     * @param[in] destination The destination district to use for the cell's flows
+     * @param[in] od The origin and destination district to use for the cell's flows
      * @param[in] vehicleType The vehicle type to use for the cell's flows
      */
     void add(const std::string& id, const SUMOTime depart,
-             const std::string& origin, const std::string& destination,
+             const std::pair<const std::string, const std::string>& od,
              const std::string& vehicleType);
 
     /** @brief Helper function for flow and trip output writing the depart
@@ -340,6 +339,9 @@ private:
 protected:
     /// @brief The loaded cells
     std::vector<ODCell*> myContainer;
+
+    /// @brief The loaded cells indexed by origin and destination
+    std::map<const std::pair<const std::string, const std::string>, std::vector<ODCell*> > myShortCut;
 
     /// @brief The districts to retrieve sources/sinks from
     const ODDistrictCont& myDistricts;
