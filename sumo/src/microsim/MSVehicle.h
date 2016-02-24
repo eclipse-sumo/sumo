@@ -856,8 +856,8 @@ public:
     /// @}
 
 
-    /// @brief whether the vehicle may safely move to the given lane with regard to upcoming zipper links
-    bool unsafeZipperLinkAhead(const MSLane* lane) const;
+    /// @brief whether the vehicle may safely move to the given lane with regard to upcoming links
+    bool unsafeLinkAhead(const MSLane* lane) const;
 
 
 #ifndef NO_TRACI

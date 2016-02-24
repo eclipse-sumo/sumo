@@ -2518,17 +2518,21 @@ MSVehicle::setTentativeLaneAndPosition(MSLane* lane, const SUMOReal pos) {
 
 
 bool 
-MSVehicle::unsafeZipperLinkAhead(const MSLane* lane) const {
-    // consider the zipper link blocked if it close enough and has any approaching vehicles
+MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
+    // the following links are unsafe:
+    // - zipper links if they are close enough and have approaching vehicles in the relevant time range
+    // - unprioritized links if the vehicle is currently approaching a prioritzed link and unable to stop in time
     SUMOReal seen = myLane->getLength() - getPositionOnLane();
-    const SUMOReal dist = MIN2(MSLink::ZIPPER_ADAPT_DIST, getCarFollowModel().brakeGap(getSpeed()) + getVehicleType().getMinGap());
+    const SUMOReal dist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
     if (seen < dist) {
         const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(lane);
         unsigned int view = 1;
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
         DriveItemVector::const_iterator di = myLFLinkLanes.begin();
         while (!lane->isLinkEnd(link) && seen <= dist) {
-            if ((*link)->getState() == LINKSTATE_ZIPPER) {
+            if (!lane->getEdge().isInternal() 
+                    && (((*link)->getState() == LINKSTATE_ZIPPER && seen < MSLink::ZIPPER_ADAPT_DIST)
+                        || !(*link)->havePriority())) {
                 // find the drive item corresponding to this link
                 bool found = false;
                 while (di != myLFLinkLanes.end() && !found) {
@@ -2548,14 +2552,16 @@ MSVehicle::unsafeZipperLinkAhead(const MSLane* lane) const {
                     const SUMOTime leaveTime = (*link)->getLeaveTime((*di).myArrivalTime, (*di).myArrivalSpeed,
                              (*di).getLeaveSpeed(), getVehicleType().getLength());
                     if ((*link)->hasApproachingFoe((*di).myArrivalTime, leaveTime, (*di).myArrivalSpeed, getCarFollowModel().getMaxDecel())) {
+                        //std::cout << SIMTIME << " veh=" << getID() << " aborting changeTo=" << Named::getIDSecure(bestLaneConts.front()) << " linkState=" << toString((*link)->getState()) << " seen=" << seen << " dist=" << dist << "\n";
                         return true;
                     }
                 }
                 // no drive item is found if the vehicle aborts it's request within dist
             }
-            lane = (*link)->getLane();
-            view++;
-            // ignoring internal lanes here
+            lane = (*link)->getViaLaneOrLane();
+            if (!lane->getEdge().isInternal()) {
+                view++;
+            }
             seen += lane->getLength();
             link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
         }
