@@ -33,8 +33,9 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
+#include "TraCIConstants.h"
+#include "TraCIServer.h"
 #include "TraCIServerAPI_ArealDetector.h"
 
 #ifdef CHECK_MEMORY_LEAKS

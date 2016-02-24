@@ -34,13 +34,13 @@
 #include <cassert>
 #include <algorithm>
 #include <limits>
-#include "MSRoute.h"
-#include "MSEdge.h"
-#include "MSLane.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "MSEdge.h"
+#include "MSLane.h"
+#include "MSRoute.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,6 +52,9 @@
 // ===========================================================================
 MSRoute::RouteDict MSRoute::myDict;
 MSRoute::RouteDistDict MSRoute::myDistDict;
+#ifdef HAVE_FOX
+FXMutex MSRoute::myDictMutex;
+#endif
 
 
 // ===========================================================================
@@ -106,6 +109,9 @@ void
 MSRoute::release() const {
     myReferenceCounter--;
     if (myReferenceCounter == 0) {
+#ifdef HAVE_FOX
+        FXMutexLock f(myDictMutex);
+#endif
         myDict.erase(myID);
         delete this;
     }
@@ -114,6 +120,9 @@ MSRoute::release() const {
 
 bool
 MSRoute::dictionary(const std::string& id, const MSRoute* route) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDict[id] = route;
         return true;
@@ -124,6 +133,9 @@ MSRoute::dictionary(const std::string& id, const MSRoute* route) {
 
 bool
 MSRoute::dictionary(const std::string& id, RandomDistributor<const MSRoute*>* const routeDist, const bool permanent) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDistDict[id] = std::make_pair(routeDist, permanent);
         return true;
@@ -134,6 +146,9 @@ MSRoute::dictionary(const std::string& id, RandomDistributor<const MSRoute*>* co
 
 const MSRoute*
 MSRoute::dictionary(const std::string& id, MTRand* rng) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     RouteDict::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         RouteDistDict::iterator it2 = myDistDict.find(id);
@@ -148,6 +163,9 @@ MSRoute::dictionary(const std::string& id, MTRand* rng) {
 
 RandomDistributor<const MSRoute*>*
 MSRoute::distDictionary(const std::string& id) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     RouteDistDict::iterator it2 = myDistDict.find(id);
     if (it2 == myDistDict.end()) {
         return 0;
@@ -158,6 +176,9 @@ MSRoute::distDictionary(const std::string& id) {
 
 void
 MSRoute::clear() {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     for (RouteDistDict::iterator i = myDistDict.begin(); i != myDistDict.end(); ++i) {
         delete i->second.first;
     }
@@ -171,6 +192,9 @@ MSRoute::clear() {
 
 void
 MSRoute::checkDist(const std::string& id) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     RouteDistDict::iterator it = myDistDict.find(id);
     if (it != myDistDict.end() && !it->second.second) {
         const std::vector<const MSRoute*>& routes = it->second.first->getVals();
@@ -185,6 +209,9 @@ MSRoute::checkDist(const std::string& id) {
 
 void
 MSRoute::insertIDs(std::vector<std::string>& into) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     into.reserve(myDict.size() + myDistDict.size() + into.size());
     for (RouteDict::const_iterator i = myDict.begin(); i != myDict.end(); ++i) {
         into.push_back((*i).first);
@@ -236,6 +263,9 @@ MSRoute::operator[](unsigned index) const {
 
 void
 MSRoute::dict_saveState(OutputDevice& out) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
     for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
         out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, (*it).second->getID());
         out.writeAttr(SUMO_ATTR_STATE, (*it).second->myAmPermanent);
