@@ -69,7 +69,7 @@ ROMAAssignments::~ROMAAssignments() {
     delete myDefaultVehicle;
 }
 
-// based on the definitions in PTV-Validate and in the VISUM-Köln network
+// based on the definitions in PTV-Validate and in the VISUM-Cologne network
 SUMOReal
 ROMAAssignments::getCapacity(const ROEdge* edge) {
     if (edge->getFunc() == ROEdge::ET_DISTRICT) {
@@ -121,7 +121,7 @@ ROMAAssignments::getCapacity(const ROEdge* edge) {
 }
 
 
-// based on the definitions in PTV-Validate and in the VISUM-Köln network
+// based on the definitions in PTV-Validate and in the VISUM-Cologne network
 SUMOReal
 ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const {
     if (edge->getFunc() == ROEdge::ET_DISTRICT) {

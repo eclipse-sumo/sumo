@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MSDevice_Battery.cpp
 /// @author  Tamas Kurczveil
-/// @author  Pablo Alvarez López
+/// @author  Pablo Alvarez Lopez
 /// @date    20.12.2013
 /// @version $Id$
 ///
@@ -602,7 +602,7 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
 
     // Calculate energy losses:
     // EnergyLoss,Air = 1/2 * rho_air [kg/m^3] * FrontSurfaceArea [m^2] * AirDragCoefficient [-] * v_Veh^2 [m/s] * s [m]
-    //                    ... with rho_air [kg/m^3] = 1,2041 kg/m^3 (at T = 20°C)
+    //                    ... with rho_air [kg/m^3] = 1,2041 kg/m^3 (at T = 20C)
     //                    ... with s [m] = v_Veh [m/s] * 1 [s]
     EnergyLoss += 0.5 * 1.2041 * getFrontSurfaceArea() * getAirDragCoefficient() * fabs(veh.getSpeed() * veh.getSpeed() * veh.getSpeed());
 

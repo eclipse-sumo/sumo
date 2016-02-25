@@ -102,7 +102,7 @@ public:
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
-     * @param[in] slope The road's slope at vehicle's position [°]
+     * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The maximum possible acceleration
      */
     SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const;
@@ -112,7 +112,7 @@ public:
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
-     * @param[in] slope The road's slope at vehicle's position [°]
+     * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const;
