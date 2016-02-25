@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 25 Feb 2016 02:59:32 PM CET by Netedit Version dev-SVN-r20069
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/2172/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="gneJ4" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="SC" from="gneJ2" to="C" priority="1" numLanes="1" speed="13.89" shape="-14.98,42.66 34.83,46.98"/>
+    <edge id="WC" from="gneJ0" to="C" priority="1" numLanes="1" speed="13.89"/>
+</edges>
