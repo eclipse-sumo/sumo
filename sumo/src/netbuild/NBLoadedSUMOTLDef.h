@@ -130,6 +130,9 @@ public:
      */
     void setType(TrafficLightType type);
 
+    /// @brief whether the given index must yield to the foeIndex while turing right on a red light
+    bool rightOnRedConflict(int index, int foeIndex) const;
+
 protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)

@@ -329,7 +329,7 @@ public:
     bool needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const;
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
-    bool rightOnRedConflict(int index, int foeIndex) const;
+    virtual bool rightOnRedConflict(int index, int foeIndex) const;
 
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true
      * This information is a byproduct of NBOwnTLDef::myCompute. All other

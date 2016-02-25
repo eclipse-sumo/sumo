@@ -90,7 +90,9 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     mySubID(programID),
     myOffset(offset),
     myType(type),
-    myNeedsContRelationReady(false) {
+    myNeedsContRelationReady(false),
+    myRightOnRedConflictsReady(false) 
+{
     addNode(junction);
 }
 
@@ -101,7 +103,8 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id, const 
     mySubID(programID),
     myOffset(offset),
     myType(type),
-    myNeedsContRelationReady(false)
+    myNeedsContRelationReady(false),
+    myRightOnRedConflictsReady(false) 
 {}
 
 
