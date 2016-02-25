@@ -862,7 +862,7 @@ NBNode::computeLanes2Lanes() {
         // ensure that all modes have a connection if possible
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             NBEdge* incoming = *i;
-            if (incoming->getConnectionLanes(currentOutgoing).size() > 0) {
+            if (incoming->getConnectionLanes(currentOutgoing).size() > 0 && incoming->getStep() <= NBEdge::LANES2LANES_DONE) {
                 // no connections are needed for pedestrians during this step
                 // no satisfaction is possible if the outgoing edge disallows
                 SVCPermissions unsatisfied = incoming->getPermissions() & currentOutgoing->getPermissions() & ~SVC_PEDESTRIAN;
