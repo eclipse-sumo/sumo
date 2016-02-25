@@ -221,7 +221,7 @@ ROMAAssignments::resetFlows() {
 
 
 void
-ROMAAssignments::incremental(const int numIter) {
+ROMAAssignments::incremental(const int numIter, const bool verbose) {
     SUMOTime lastBegin = -1;
     std::vector<int> intervals;
     int count = 0;
@@ -239,6 +239,9 @@ ROMAAssignments::incremental(const int numIter) {
             end = myMatrix.getCells().begin() + (*(offset + 1));
         }
         const SUMOTime intervalStart = (*(myMatrix.getCells().begin() + (*offset)))->begin;
+        if (verbose) {
+            WRITE_MESSAGE(" starting interval " + time2string(intervalStart));
+        }
         std::map<const ROMAEdge*, SUMOReal> loadedTravelTimes;
         for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
             ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
@@ -247,6 +250,10 @@ ROMAAssignments::incremental(const int numIter) {
             }
         }
         for (int t = 0; t < numIter; t++) {
+            if (verbose) {
+                WRITE_MESSAGE("  starting iteration " + toString(t));
+            }
+            std::string lastOrigin = "";
             for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != end; i++) {
                 ODCell* const c = *i;
                 ConstROEdgeVector edges;
@@ -254,7 +261,12 @@ ROMAAssignments::incremental(const int numIter) {
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
                 const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
                 const SUMOReal intervalLengthInHours = STEPS2TIME(end - begin) / 3600.;
+                if (lastOrigin != c->origin) {
+                    myRouter.setBulkMode(false);
+                }
                 myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, begin, edges);
+                lastOrigin = c->origin;
+                myRouter.setBulkMode(true);
                 SUMOReal costs = 0.;
                 for (ConstROEdgeVector::iterator e = edges.begin(); e != edges.end(); e++) {
                     ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));

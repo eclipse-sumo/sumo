@@ -78,7 +78,7 @@ public:
     void resetFlows();
 
     // @brief incremental method
-    void incremental(const int numIter);
+    void incremental(const int numIter, const bool verbose);
 
     // @brief UE method
     void ue();
