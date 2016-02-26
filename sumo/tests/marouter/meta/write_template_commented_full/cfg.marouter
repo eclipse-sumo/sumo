@@ -90,6 +90,12 @@
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
+        <!-- Aggregate routing queries with the same origin for different vehicle types -->
+        <bulk-routing.vtypes value="false" type="BOOL"/>
+
+        <!-- The number of parallel execution threads used for routing -->
+        <routing-threads value="0" type="INT"/>
+
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
         <weight-period value="3600" type="TIME"/>
 

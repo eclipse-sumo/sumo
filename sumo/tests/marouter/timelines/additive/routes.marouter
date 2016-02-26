@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/12/16 10:33:00 by SUMO marouter Version dev-SVN-r19959
+<!-- generated on 02/26/16 14:52:01 by SUMO marouter Version dev-SVN-r20083
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -441,8 +441,8 @@
     </flow>
     <flow id="82" begin="14400.00" end="18000.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.01250000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
             <route cost="126.08" probability="0.03750000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.01250000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="83" begin="14400.00" end="18000.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
@@ -501,8 +501,8 @@
     </flow>
     <flow id="93" begin="14400.00" end="18000.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.02250000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
             <route cost="97.99" probability="0.02750000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.02250000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="94" begin="14400.00" end="18000.00" number="0" fromTaz="3" toTaz="2" departLane="free" departSpeed="max">
@@ -554,8 +554,8 @@
     <flow id="103" begin="18000.00" end="21600.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
             <route cost="97.99" probability="0.00650000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.01950000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.10400000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.02600000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.09750000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="104" begin="18000.00" end="21600.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -575,7 +575,8 @@
     </flow>
     <flow id="107" begin="18000.00" end="21600.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.13000000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.00650000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.12350000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="108" begin="18000.00" end="21600.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -600,8 +601,8 @@
     </flow>
     <flow id="112" begin="18000.00" end="21600.00" number="0" fromTaz="3" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.04550000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
-            <route cost="126.08" probability="0.08450000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.05200000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.07800000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="113" begin="18000.00" end="21600.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
@@ -626,8 +627,8 @@
     </flow>
     <flow id="117" begin="18000.00" end="21600.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.04550000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.08450000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.05200000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.07800000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="118" begin="18000.00" end="21600.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -652,16 +653,16 @@
     </flow>
     <flow id="122" begin="21600.00" end="25200.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.63000000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
             <route cost="126.08" probability="0.03500000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
             <route cost="126.08" probability="0.03500000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.63000000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="123" begin="21600.00" end="25200.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.52500000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.07000000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
             <route cost="97.99" probability="0.10500000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.07000000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.52500000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="124" begin="21600.00" end="25200.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -676,14 +677,14 @@
     </flow>
     <flow id="126" begin="21600.00" end="25200.00" number="0" fromTaz="1" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.59500000" edges="top1to1/2 1/2to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
-            <route cost="97.99" probability="0.10500000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="97.99" probability="0.07000000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="97.99" probability="0.63000000" edges="top1to1/2 1/2to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="127" begin="21600.00" end="25200.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.52500000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.17500000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.49000000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.21000000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="128" begin="21600.00" end="25200.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -708,15 +709,14 @@
     </flow>
     <flow id="132" begin="21600.00" end="25200.00" number="0" fromTaz="3" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.66500000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
-            <route cost="126.08" probability="0.03500000" edges="right0to2/0 2/0to2/1 2/1to2/2 2/2to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.07000000" edges="right0to2/0 2/0to2/1 2/1to2/2 2/2to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.63000000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="133" begin="21600.00" end="25200.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
+            <route cost="97.99" probability="0.07000000" edges="right0to2/0 2/0to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
             <route cost="97.99" probability="0.63000000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="97.99" probability="0.03500000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="97.99" probability="0.03500000" edges="right0to2/0 2/0to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="134" begin="21600.00" end="25200.00" number="0" fromTaz="3" toTaz="2" departLane="free" departSpeed="max">
@@ -731,14 +731,14 @@
     </flow>
     <flow id="136" begin="21600.00" end="25200.00" number="0" fromTaz="4" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.59500000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
             <route cost="97.99" probability="0.10500000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.59500000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="137" begin="21600.00" end="25200.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.52500000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.17500000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.56000000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.14000000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="138" begin="21600.00" end="25200.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -763,15 +763,15 @@
     </flow>
     <flow id="142" begin="25200.00" end="28800.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.88350000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
-            <route cost="126.08" probability="0.04650000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.09300000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.83700000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="143" begin="25200.00" end="28800.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.65100000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.04650000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.69750000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
             <route cost="97.99" probability="0.18600000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.09300000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="144" begin="25200.00" end="28800.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -786,14 +786,15 @@
     </flow>
     <flow id="146" begin="25200.00" end="28800.00" number="0" fromTaz="1" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.88350000" edges="top1to1/2 1/2to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
-            <route cost="97.99" probability="0.04650000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="97.99" probability="0.09300000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="97.99" probability="0.04650000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="97.99" probability="0.79050000" edges="top1to1/2 1/2to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="147" begin="25200.00" end="28800.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.55800000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.37200000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.60450000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.32550000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="148" begin="25200.00" end="28800.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -818,15 +819,15 @@
     </flow>
     <flow id="152" begin="25200.00" end="28800.00" number="0" fromTaz="3" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.65100000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
-            <route cost="126.08" probability="0.04650000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
             <route cost="126.08" probability="0.23250000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.04650000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.65100000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="153" begin="25200.00" end="28800.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.83700000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="97.99" probability="0.09300000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.04650000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.88350000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="154" begin="25200.00" end="28800.00" number="0" fromTaz="3" toTaz="2" departLane="free" departSpeed="max">
@@ -846,8 +847,8 @@
     </flow>
     <flow id="157" begin="25200.00" end="28800.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.83700000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
             <route cost="69.89" probability="0.09300000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.83700000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="158" begin="25200.00" end="28800.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -877,8 +878,8 @@
     </flow>
     <flow id="163" begin="28800.00" end="32400.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.46900000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.20100000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.23450000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.43550000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="164" begin="28800.00" end="32400.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -929,8 +930,8 @@
     </flow>
     <flow id="173" begin="28800.00" end="32400.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.63650000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="97.99" probability="0.03350000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.06700000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.60300000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="174" begin="28800.00" end="32400.00" number="0" fromTaz="3" toTaz="2" departLane="free" departSpeed="max">
@@ -950,8 +951,8 @@
     </flow>
     <flow id="177" begin="28800.00" end="32400.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.33500000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.33500000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.30150000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.36850000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="178" begin="28800.00" end="32400.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -976,8 +977,8 @@
     </flow>
     <flow id="182" begin="32400.00" end="36000.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.16800000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
-            <route cost="126.08" probability="0.25200000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.18900000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.23100000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="183" begin="32400.00" end="36000.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
@@ -1002,8 +1003,8 @@
     </flow>
     <flow id="187" begin="32400.00" end="36000.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.10500000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.31500000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.14700000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.27300000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="188" begin="32400.00" end="36000.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1033,8 +1034,8 @@
     </flow>
     <flow id="193" begin="32400.00" end="36000.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.37800000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="97.99" probability="0.04200000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.02100000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.39900000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="194" begin="32400.00" end="36000.00" number="0" fromTaz="3" toTaz="2" departLane="free" departSpeed="max">
@@ -1055,8 +1056,8 @@
     </flow>
     <flow id="197" begin="32400.00" end="36000.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.35700000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.06300000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.37800000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.04200000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="198" begin="32400.00" end="36000.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -1106,8 +1107,8 @@
     </flow>
     <flow id="207" begin="36000.00" end="39600.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.30000000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.10000000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.32000000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.08000000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="208" begin="36000.00" end="39600.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1137,8 +1138,8 @@
     </flow>
     <flow id="213" begin="36000.00" end="39600.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.32000000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
             <route cost="97.99" probability="0.08000000" edges="right0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="97.99" probability="0.32000000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="214" begin="36000.00" end="39600.00" number="0" fromTaz="3" toTaz="2" departLane="free" departSpeed="max">
@@ -1185,14 +1186,14 @@
     </flow>
     <flow id="222" begin="39600.00" end="43200.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.38000000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.01900000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.36100000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="223" begin="39600.00" end="43200.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.24700000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.03800000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.09500000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.26600000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.11400000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="224" begin="39600.00" end="43200.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -1212,8 +1213,8 @@
     </flow>
     <flow id="227" begin="39600.00" end="43200.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.09500000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
             <route cost="69.89" probability="0.28500000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.09500000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="228" begin="39600.00" end="43200.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1264,8 +1265,8 @@
     </flow>
     <flow id="237" begin="39600.00" end="43200.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.13300000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.24700000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.22800000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.15200000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="238" begin="39600.00" end="43200.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -1310,14 +1311,13 @@
     </flow>
     <flow id="246" begin="43200.00" end="46800.00" number="0" fromTaz="1" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.36900000" edges="top1to1/2 1/2to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
-            <route cost="97.99" probability="0.04100000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1to2/0 2/0toright0"/>
+            <route cost="97.99" probability="0.41000000" edges="top1to1/2 1/2to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="247" begin="43200.00" end="46800.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.10250000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.30750000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.06150000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.34850000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="248" begin="43200.00" end="46800.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1419,8 +1419,8 @@
     </flow>
     <flow id="267" begin="46800.00" end="50400.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.16100000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.29900000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.18400000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.27600000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="268" begin="46800.00" end="50400.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1521,8 +1521,8 @@
     </flow>
     <flow id="287" begin="50400.00" end="54000.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.42500000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
             <route cost="69.89" probability="0.07500000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.42500000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="288" begin="50400.00" end="54000.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1547,8 +1547,8 @@
     </flow>
     <flow id="292" begin="50400.00" end="54000.00" number="0" fromTaz="3" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.45000000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
-            <route cost="126.08" probability="0.05000000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.02500000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.47500000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="293" begin="50400.00" end="54000.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
@@ -1604,7 +1604,8 @@
     </flow>
     <flow id="303" begin="54000.00" end="57600.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.67000000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.03350000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.63650000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="304" begin="54000.00" end="57600.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -1624,8 +1625,8 @@
     </flow>
     <flow id="307" begin="54000.00" end="57600.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.50250000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.16750000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.53600000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.13400000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="308" begin="54000.00" end="57600.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1670,8 +1671,8 @@
     </flow>
     <flow id="316" begin="54000.00" end="57600.00" number="0" fromTaz="4" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.60300000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
-            <route cost="97.99" probability="0.06700000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.10050000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.56950000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="317" begin="54000.00" end="57600.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
@@ -1702,8 +1703,8 @@
     </flow>
     <flow id="322" begin="57600.00" end="61200.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.81600000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
             <route cost="126.08" probability="0.14400000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.81600000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="323" begin="57600.00" end="61200.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
@@ -1805,15 +1806,15 @@
     </flow>
     <flow id="342" begin="61200.00" end="64800.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.82800000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
             <route cost="126.08" probability="0.09200000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.82800000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="343" begin="61200.00" end="64800.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.73600000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.09200000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.04600000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
             <route cost="97.99" probability="0.09200000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.78200000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="344" begin="61200.00" end="64800.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -1833,8 +1834,8 @@
     </flow>
     <flow id="347" begin="61200.00" end="64800.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.78200000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
             <route cost="69.89" probability="0.13800000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.78200000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="348" begin="61200.00" end="64800.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -1879,14 +1880,14 @@
     </flow>
     <flow id="356" begin="61200.00" end="64800.00" number="0" fromTaz="4" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.82800000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
             <route cost="97.99" probability="0.09200000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.82800000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="357" begin="61200.00" end="64800.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.41400000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.50600000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.46000000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.46000000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="358" begin="61200.00" end="64800.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -1961,7 +1962,8 @@
     </flow>
     <flow id="372" begin="64800.00" end="68400.00" number="0" fromTaz="3" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.71000000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.03550000" edges="right0to2/0 2/0to1/0 1/0to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="126.08" probability="0.67450000" edges="right0to2/0 2/0to1/0 1/0to0/0 0/0to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="373" begin="64800.00" end="68400.00" number="0" fromTaz="3" toTaz="1" departLane="free" departSpeed="max">
@@ -1981,15 +1983,15 @@
     </flow>
     <flow id="376" begin="64800.00" end="68400.00" number="0" fromTaz="4" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.63900000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
-            <route cost="97.99" probability="0.03550000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
             <route cost="97.99" probability="0.03550000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.03550000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.63900000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="377" begin="64800.00" end="68400.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.63900000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.07100000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.03550000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.67450000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="378" begin="64800.00" end="68400.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -2040,8 +2042,8 @@
     </flow>
     <flow id="387" begin="68400.00" end="72000.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.33600000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.14400000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.12000000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.36000000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="388" begin="68400.00" end="72000.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -2091,8 +2093,8 @@
     </flow>
     <flow id="397" begin="68400.00" end="72000.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.24000000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.24000000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.21600000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.26400000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="398" begin="68400.00" end="72000.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -2193,8 +2195,8 @@
     </flow>
     <flow id="417" begin="72000.00" end="75600.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.24500000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
             <route cost="69.89" probability="0.10500000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.24500000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="418" begin="72000.00" end="75600.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">
@@ -2224,9 +2226,9 @@
     </flow>
     <flow id="423" begin="75600.00" end="79200.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.21600000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.05400000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
             <route cost="97.99" probability="0.02700000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.02700000" edges="top0to0/2 0/2to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.18900000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="424" begin="75600.00" end="79200.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -2246,8 +2248,8 @@
     </flow>
     <flow id="427" begin="75600.00" end="79200.00" number="0" fromTaz="1" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.22950000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="69.89" probability="0.04050000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.05400000" edges="top1to1/2 1/2to2/2 2/2to2/1 2/1toright1"/>
+            <route cost="69.89" probability="0.21600000" edges="top1to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="428" begin="75600.00" end="79200.00" number="0" fromTaz="2" toTaz="0" departLane="free" departSpeed="max">
@@ -2392,8 +2394,7 @@
     </flow>
     <flow id="456" begin="79200.00" end="82800.00" number="0" fromTaz="4" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.19800000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
-            <route cost="97.99" probability="0.02200000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.22000000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="457" begin="79200.00" end="82800.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
@@ -2423,14 +2424,14 @@
     </flow>
     <flow id="462" begin="82800.00" end="86400.00" number="0" fromTaz="0" toTaz="3" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="126.08" probability="0.16150000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
-            <route cost="126.08" probability="0.02850000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.01900000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to1/0 1/0to2/0 2/0toright0"/>
+            <route cost="126.08" probability="0.17100000" edges="top0to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0toright0"/>
         </routeDistribution>
     </flow>
     <flow id="463" begin="82800.00" end="86400.00" number="0" fromTaz="0" toTaz="4" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.17100000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
-            <route cost="97.99" probability="0.01900000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.02850000" edges="top0to0/2 0/2to1/2 1/2to1/1 1/1to2/1 2/1toright1"/>
+            <route cost="97.99" probability="0.16150000" edges="top0to0/2 0/2to0/1 0/1to1/1 1/1to2/1 2/1toright1"/>
         </routeDistribution>
     </flow>
     <flow id="464" begin="82800.00" end="86400.00" number="0" fromTaz="1" toTaz="0" departLane="free" departSpeed="max">
@@ -2495,14 +2496,13 @@
     </flow>
     <flow id="476" begin="82800.00" end="86400.00" number="0" fromTaz="4" toTaz="0" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="97.99" probability="0.18050000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
-            <route cost="97.99" probability="0.00950000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2to0/2 0/2totop0"/>
+            <route cost="97.99" probability="0.19000000" edges="right1to2/1 2/1to1/1 1/1to0/1 0/1to0/2 0/2totop0"/>
         </routeDistribution>
     </flow>
     <flow id="477" begin="82800.00" end="86400.00" number="0" fromTaz="4" toTaz="1" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="69.89" probability="0.17100000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
-            <route cost="69.89" probability="0.01900000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.02850000" edges="right1to2/1 2/1to2/2 2/2to1/2 1/2totop1"/>
+            <route cost="69.89" probability="0.16150000" edges="right1to2/1 2/1to1/1 1/1to1/2 1/2totop1"/>
         </routeDistribution>
     </flow>
     <flow id="478" begin="82800.00" end="86400.00" number="0" fromTaz="4" toTaz="2" departLane="free" departSpeed="max">

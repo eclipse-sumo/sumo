@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r18990
+SUMO marouter Version dev-SVN-r20083
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -49,6 +49,10 @@ Processing Options:
   --weights.expand                  Expand weights behind the simulation's end
   --routing-algorithm STR           Select among routing algorithms
                                       ['dijkstra', 'astar', 'CH', 'CHWrapper']
+  --bulk-routing.vtypes             Aggregate routing queries with the same
+                                      origin for different vehicle types
+  --routing-threads INT             The number of parallel execution threads
+                                      used for routing
   --weight-period TIME              Aggregation period for the given weight
                                       files;
                                       triggers rebuilding of Contraction
