@@ -1,0 +1,2 @@
+--no-step-log -e 3600 --net-file=net2.net.xml
+-a=input_routes.rou.xml,input_additional.add.xml --duration-log.statistics

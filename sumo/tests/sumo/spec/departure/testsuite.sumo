@@ -79,6 +79,9 @@ pos_free_3veh_vmax
 # checks using a maximum speed gap (3 vehicles, vmax)
 pos_maxSpeedGap_3veh_vmax
 
+# checks using a maximum speed gap (3 vehicles, vmax)
+pos_last_speed_given
+
 # checks using the default speed (0)
 speed_default
 
@@ -110,10 +113,6 @@ speed_random__lanelimit
 # speed negative
 # speed larger than vehicle's max
 # speed larger than lane's max
-
-
-
-
 
 # checks using the random speed (bounded by veh's vmax)
 speed_random__vehlimit
