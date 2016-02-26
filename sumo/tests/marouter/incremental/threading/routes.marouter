@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02/26/16 14:52:01 by SUMO marouter Version dev-SVN-r20083
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_vm.fma"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="0" begin="0.00" end="86400.00" number="800" type="1" fromTaz="91" toTaz="93" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="289.16" probability="360.00000000" edges="D1 L2 L5 L8 L9 L14 L15 L16 D3"/>
+            <route cost="289.17" probability="440.00000000" edges="D1 L2 L5 L7 L6 L10 L13 L15 L16 D3"/>
+        </routeDistribution>
+    </flow>
+    <flow id="1" begin="0.00" end="86400.00" number="200" type="1" fromTaz="92" toTaz="93" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="286.08" probability="90.00000000" edges="D2 L3 L5 L8 L9 L14 L15 L16 D3"/>
+            <route cost="286.09" probability="110.00000000" edges="D2 L3 L5 L7 L6 L10 L13 L15 L16 D3"/>
+        </routeDistribution>
+    </flow>
+</routes>
