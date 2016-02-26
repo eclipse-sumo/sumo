@@ -2137,7 +2137,6 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
                 LaneQ bestConnectedNext;
                 bestConnectedNext.length = -1;
-                const SUMOReal origLength = (*j).length;
                 if ((*j).allowsContinuation) {
                     for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m) {
                         if ((*m).lane->isApproachedFrom(&cE, (*j).lane)) {

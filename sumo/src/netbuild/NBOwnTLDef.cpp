@@ -643,7 +643,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                     fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
                 // handle right-on-red conflicts
                 state[i1] = 's';
-                for (unsigned int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
                     if (state[i2] == 'G' && !isTurnaround[i2] &&
                             (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
                         myRightOnRedConflicts.insert(std::make_pair(i1, i2));

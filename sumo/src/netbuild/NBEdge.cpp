@@ -1617,7 +1617,6 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     // build connections for miv lanes
     std::vector<int> availableLanes;
     for (int i = 0; i < (int)myLanes.size(); ++i) {
-        const SVCPermissions perms = getPermissions(i);
         if ((getPermissions(i) & SVC_PASSENGER) != 0) {
             availableLanes.push_back(i);
         }
