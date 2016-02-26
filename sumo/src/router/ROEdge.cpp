@@ -290,7 +290,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
     }
 #ifdef HAVE_FOX
     if (myAmParallel) {
-        RONet::getInstance()->lock();
+        RONet::getInstance()->getThreadPool().lock();
     }
 #endif
     std::map<SUMOVehicleClass, ROEdgeVector>::const_iterator i = myClassesSuccessorMap.find(vClass);
@@ -298,7 +298,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         // can use cached value
 #ifdef HAVE_FOX
         if (myAmParallel) {
-            RONet::getInstance()->unlock();
+            RONet::getInstance()->getThreadPool().unlock();
         }
 #endif
         return i->second;
@@ -327,7 +327,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
                                              followers.begin(), followers.end());
 #ifdef HAVE_FOX
         if (myAmParallel) {
-            RONet::getInstance()->unlock();
+            RONet::getInstance()->getThreadPool().unlock();
         }
 #endif
         return myClassesSuccessorMap[vClass];

@@ -419,13 +419,39 @@ public:
     }
 
 #ifdef HAVE_FOX
-    void lock() {
-        myThreadPool.lock();
+    FXWorkerThread::Pool& getThreadPool() {
+        return myThreadPool;
     }
 
-    void unlock() {
-        myThreadPool.unlock();
-    }
+    class WorkerThread : public FXWorkerThread {
+    public:
+        WorkerThread(FXWorkerThread::Pool& pool,
+            SUMOAbstractRouter<ROEdge, ROVehicle>* router)
+            : FXWorkerThread(pool), myRouter(router) {}
+        SUMOAbstractRouter<ROEdge, ROVehicle>& getRouter() const {
+            return *myRouter;
+        }
+        virtual ~WorkerThread() {
+            stop();
+            delete myRouter;
+        }
+    private:
+        SUMOAbstractRouter<ROEdge, ROVehicle>* myRouter;
+    };
+
+    class BulkmodeTask : public FXWorkerThread::Task {
+    public:
+        BulkmodeTask(const bool value) : myValue(value) {}
+        void run(FXWorkerThread* context) {
+            static_cast<WorkerThread*>(context)->getRouter().setBulkMode(myValue);
+        }
+    private:
+        const bool myValue;
+    private:
+        /// @brief Invalidated assignment operator.
+        BulkmodeTask& operator=(const BulkmodeTask&);
+    };
+
 #endif
 
 
@@ -529,22 +555,6 @@ private:
 
 #ifdef HAVE_FOX
 private:
-    class WorkerThread : public FXWorkerThread {
-    public:
-        WorkerThread(FXWorkerThread::Pool& pool,
-                     SUMOAbstractRouter<ROEdge, ROVehicle>* router)
-            : FXWorkerThread(pool), myRouter(router) {}
-        SUMOAbstractRouter<ROEdge, ROVehicle>& getRouter() const {
-            return *myRouter;
-        }
-        virtual ~WorkerThread() {
-            stop();
-            delete myRouter;
-        }
-    private:
-        SUMOAbstractRouter<ROEdge, ROVehicle>* myRouter;
-    };
-
     class RoutingTask : public FXWorkerThread::Task {
     public:
         RoutingTask(ROVehicle* v, const bool removeLoops, MsgHandler* errorHandler)
@@ -557,19 +567,6 @@ private:
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&);
-    };
-
-    class BulkmodeTask : public FXWorkerThread::Task {
-    public:
-        BulkmodeTask(const bool value) : myValue(value) {}
-        void run(FXWorkerThread* context) {
-            static_cast<WorkerThread*>(context)->getRouter().setBulkMode(myValue);
-        }
-    private:
-        const bool myValue;
-    private:
-        /// @brief Invalidated assignment operator.
-        BulkmodeTask& operator=(const BulkmodeTask&);
     };
 
 

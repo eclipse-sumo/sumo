@@ -31,6 +31,7 @@
 #endif
 
 #include <vector>
+#include <algorithm>
 #include <router/ROEdge.h>
 #include <utils/vehicle/RouteCostCalculator.h>
 #include <router/RONet.h>
@@ -175,19 +176,19 @@ ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const SUMOReal f
 
 
 bool
-ROMAAssignments::addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, SUMOReal costs, SUMOReal prob) {
-    RORoute* dup = 0;
-    for (std::vector<RORoute*>::const_iterator p = paths.begin(); p != paths.end(); p++) {
+ROMAAssignments::addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, SUMOReal prob) {
+    std::vector<RORoute*>::iterator p;
+    for (p = paths.begin(); p != paths.end(); p++) {
         if (edges == (*p)->getEdgeVector()) {
-            dup = *p;
             break;
         }
     }
-    if (dup == 0) {
-        paths.push_back(new RORoute(routeId, costs, prob, edges, 0, std::vector<SUMOVehicleParameter::Stop>()));
+    if (p == paths.end()) {
+        paths.push_back(new RORoute(routeId, 0., prob, edges, 0, std::vector<SUMOVehicleParameter::Stop>()));
         return true;
     }
-    dup->addProbability(prob);
+    (*p)->addProbability(prob);
+    std::iter_swap(paths.end() - 1, p);
     return false;
 }
 
@@ -203,7 +204,7 @@ ROMAAssignments::getKPaths(const int kPaths, const SUMOReal penalty) {
             for (ConstROEdgeVector::iterator e = edges.begin(); e != edges.end(); e++) {
                 myPenalties[*e] = penalty;
             }
-            addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0, 0);
+            addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0);
         }
     }
     myPenalties.clear();
@@ -234,9 +235,9 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
     }
     lastBegin = -1;
     for (std::vector<int>::const_iterator offset = intervals.begin(); offset != intervals.end(); offset++) {
-        std::vector<ODCell*>::const_iterator end = myMatrix.getCells().end();
+        std::vector<ODCell*>::const_iterator cellsEnd = myMatrix.getCells().end();
         if (offset != intervals.end() - 1) {
-            end = myMatrix.getCells().begin() + (*(offset + 1));
+            cellsEnd = myMatrix.getCells().begin() + (*(offset + 1));
         }
         const SUMOTime intervalStart = (*(myMatrix.getCells().begin() + (*offset)))->begin;
         if (verbose) {
@@ -254,21 +255,46 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                 WRITE_MESSAGE("  starting iteration " + toString(t));
             }
             std::string lastOrigin = "";
-            for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != end; i++) {
+            int workerIndex = 0;
+            for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != cellsEnd; i++) {
                 ODCell* const c = *i;
+                const SUMOReal linkFlow = c->vehicleNumber / numIter;
+                const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
+#ifdef HAVE_FOX
+                if (myNet.getThreadPool().size() > 0) {
+                    if (lastOrigin != c->origin) {
+                        myNet.getThreadPool().add(new RONet::BulkmodeTask(false), workerIndex);
+                        lastOrigin = c->origin;
+                        myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
+                        myNet.getThreadPool().add(new RONet::BulkmodeTask(true), workerIndex);
+                    } else {
+                        myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
+                    }
+                    continue;
+                }
+#endif
+                if (lastOrigin != c->origin) {
+                    myRouter.setBulkMode(false);
+                    lastOrigin = c->origin;
+                }
                 ConstROEdgeVector edges;
+                myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, begin, edges);
+                myRouter.setBulkMode(true);
+                addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), linkFlow);
+            }
+#ifdef HAVE_FOX
+            if (myNet.getThreadPool().size() > 0) {
+                myNet.getThreadPool().waitAll();
+            }
+#endif
+            for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != cellsEnd; i++) {
+                ODCell* const c = *i;
                 const SUMOReal linkFlow = c->vehicleNumber / numIter;
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
                 const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
                 const SUMOReal intervalLengthInHours = STEPS2TIME(end - begin) / 3600.;
-                if (lastOrigin != c->origin) {
-                    myRouter.setBulkMode(false);
-                }
-                myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, begin, edges);
-                lastOrigin = c->origin;
-                myRouter.setBulkMode(true);
-                SUMOReal costs = 0.;
-                for (ConstROEdgeVector::iterator e = edges.begin(); e != edges.end(); e++) {
+                const ConstROEdgeVector& edges = c->pathsVector.back()->getEdgeVector();
+                for (ConstROEdgeVector::const_iterator e = edges.begin(); e != edges.end(); e++) {
                     ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
                     const SUMOReal newFlow = edge->getFlow(STEPS2TIME(begin)) + linkFlow;
                     edge->setFlow(STEPS2TIME(begin), STEPS2TIME(end), newFlow);
@@ -281,9 +307,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                         }
                     }
                     edge->addTravelTime(travelTime, STEPS2TIME(begin), STEPS2TIME(end));
-                    costs += travelTime;
                 }
-                addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), costs, linkFlow);
             }
         }
         lastBegin = intervalStart;
@@ -372,7 +396,7 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
             ODCell* c = *i;
             ConstROEdgeVector edges;
             myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, 0, edges);
-            newRoute |= addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0, 0);
+            newRoute |= addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0);
         }
         if (!newRoute) {
             break;
@@ -415,3 +439,16 @@ SUMOReal
 ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, SUMOReal t) {
     return e->getTravelTime(v, t);
 }
+
+
+#ifdef HAVE_FOX
+// ---------------------------------------------------------------------------
+// ROMAAssignments::RoutingTask-methods
+// ---------------------------------------------------------------------------
+void
+ROMAAssignments::RoutingTask::run(FXWorkerThread* context) {
+    ConstROEdgeVector edges;
+    static_cast<RONet::WorkerThread*>(context)->getRouter().compute(myAssign.myNet.getEdge(myCell->origin + "-source"), myAssign.myNet.getEdge(myCell->destination + "-sink"), myAssign.myDefaultVehicle, myBegin, edges);
+    myAssign.addRoute(edges, myCell->pathsVector, myCell->origin + myCell->destination + toString(myCell->pathsVector.size()), myLinkFlow);
+}
+#endif
