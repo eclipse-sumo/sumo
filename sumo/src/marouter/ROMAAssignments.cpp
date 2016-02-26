@@ -263,6 +263,10 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
 #ifdef HAVE_FOX
                 if (myNet.getThreadPool().size() > 0) {
                     if (lastOrigin != c->origin) {
+                        workerIndex++;
+                        if (workerIndex == myNet.getThreadPool().size()) {
+                            workerIndex = 0;
+                        }
                         myNet.getThreadPool().add(new RONet::BulkmodeTask(false), workerIndex);
                         lastOrigin = c->origin;
                         myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
