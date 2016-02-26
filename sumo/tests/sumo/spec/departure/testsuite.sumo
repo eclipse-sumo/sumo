@@ -64,8 +64,12 @@ pos_random_3veh
 # checks using a free position (3 vehicles, vmax)
 pos_free_3veh_vmax
 
-# checks using a maximum speed gap (3 vehicles, vmax)
+# departPos="last" departSpeed="15"
 pos_last_speed_given
+
+# departPos="last" departSpeed="max" 
+# (should insert with maximum vehicle speed
+pos_last_speed_max
 
 # checks using the default speed (0)
 speed_default
