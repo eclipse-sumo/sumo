@@ -141,12 +141,8 @@ enum DepartPosDefinition {
     DEPART_POS_FREE,
     /// @brief Back-at-zero position
     DEPART_POS_BASE,
-    /// @brief Simple max-flow insertion by P.Wagner
-    DEPART_POS_PWAG_SIMPLE,
-    /// @brief Generic max-flow insertion by P.Wagner
-    DEPART_POS_PWAG_GENERIC,
-    /// @brief A gap is chosen where the maximum speed may be achieved
-    DEPART_POS_MAX_SPEED_GAP,
+    /// @brief Insert behind the last vehicle as close as possible to still allow the specified departSpeed. Fallback to DEPART_POS_BASE if there is no vehicle on the departLane yet.
+    DEPART_POS_LAST,
     /// @brief If a fixed number of random choices fails, a free position is chosen
     DEPART_POS_RANDOM_FREE,
     /// @brief Tag for the last element in the enum for safe int casting

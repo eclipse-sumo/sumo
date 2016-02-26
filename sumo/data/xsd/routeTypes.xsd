@@ -343,9 +343,7 @@
                     <xsd:enumeration value="random_free"/>
                     <xsd:enumeration value="free"/>
                     <xsd:enumeration value="base"/>
-                    <xsd:enumeration value="pwagSimple"/>
-                    <xsd:enumeration value="pwagGeneric"/>
-                    <xsd:enumeration value="maxSpeedGap"/>
+                    <xsd:enumeration value="last"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
