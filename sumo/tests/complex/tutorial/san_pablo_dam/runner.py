@@ -63,16 +63,13 @@ def genDemand(inputFile, outputFile):
 
 
 def gof(p):
-    para = {'vMax': p[0], 'aMax': p[1], 'bMax': p[2],
-            'lCar': p[3], 'sigA': p[4], 'tTau': p[5]}
-    print('# simulation with:', end=' ')
-    for k, v in para.items():
-        print("%s:%.3f" % (k, v), end=' ')
-    print()
+    para = [('vMax', p[0]), ('aMax', p[1]), ('bMax', p[2]),
+            ('lCar', p[3]), ('sigA', p[4]), ('tTau', p[5])]
+    print('# simulation with:', *["%s:%.3f" % i for i in para])
     fType = open('data/input_types.add.xml', 'w')
     fType.write(('<routes>\n    <vType accel="%(aMax)s" decel="%(bMax)s" id="pass"' +
                  ' length="%(lCar)s" minGap="2.5" maxSpeed="%(vMax)s"' +
-                 ' sigma="%(sigA)s" tau="%(tTau)s" />\n</routes>') % para)
+                 ' sigma="%(sigA)s" tau="%(tTau)s" />\n</routes>') % dict(para))
     fType.close()
     result = validate.validate(checkBinary('sumo'))
     print('#### yields rmse: %.4f' % result)
