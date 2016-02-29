@@ -708,7 +708,7 @@ public:
      * @param[in] mayDefinitelyPass Whether this connection is definitely undistrubed (special case for on-ramps)
      * @todo Check difference between "setConnection" and "addLane2LaneConnection"
      */
-    void setConnection(unsigned int lane, NBEdge* destEdge,
+    bool setConnection(unsigned int lane, NBEdge* destEdge,
                        unsigned int destLane,
                        Lane2LaneInfoType type,
                        bool mayUseSameDestination = false,

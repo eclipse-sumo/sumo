@@ -690,8 +690,7 @@ NBEdge::addLane2LaneConnection(unsigned int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos);
-    return true;
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos);
 }
 
 
@@ -712,7 +711,7 @@ NBEdge::addLane2LaneConnections(unsigned int fromLane,
 }
 
 
-void
+bool
 NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
                       unsigned int destLane, Lane2LaneInfoType type,
                       bool mayUseSameDestination,
@@ -720,7 +719,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
                       bool keepClear,
                       SUMOReal contPos) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
-        return;
+        return false;
     }
     // some kind of a misbehaviour which may occure when the junction's outgoing
     //  edge priorities were not properly computed, what may happen due to
@@ -732,18 +731,15 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
     //  will be refused
     //
     if (!mayUseSameDestination && hasConnectionTo(destEdge, destLane)) {
-        return;
+        return false;
     }
     if (find_if(myConnections.begin(), myConnections.end(), connections_finder(lane, destEdge, destLane)) != myConnections.end()) {
-        return;
+        return true;
     }
-    if (myLanes.size() <= lane) {
-        WRITE_ERROR("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
-        return;
-    }
-    if (destEdge->getNumLanes() <= destLane) {
-        WRITE_ERROR("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
-        return;
+    if (myLanes.size() <= lane || destEdge->getNumLanes() <= destLane) {
+        // problem might be corrigible in post-processing
+        WRITE_WARNING("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
+        return false;
     }
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).toEdge == destEdge && ((*i).fromLane == -1 || (*i).toLane == -1)) {
@@ -772,6 +768,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
             }
         }
     }
+    return true;
 }
 
 

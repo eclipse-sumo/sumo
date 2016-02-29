@@ -138,6 +138,10 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
         nb.compute(oc);
+        // check whether any errors occured
+        if (MsgHandler::getErrorInstance()->wasInformed()) {
+            throw ProcessError();
+        }
         NWFrame::writeNetwork(oc, nb);
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {

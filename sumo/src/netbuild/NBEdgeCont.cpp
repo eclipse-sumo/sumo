@@ -764,10 +764,9 @@ NBEdgeCont::recheckPostProcessConnections() {
     for (std::vector<PostProcessConnection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         NBEdge* from = retrievePossiblySplit((*i).from, true);
         NBEdge* to = retrievePossiblySplit((*i).to, false);
-        if (from != 0 && to != 0) {
-            if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass, (*i).keepClear, (*i).contPos)) {
-                WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
-            }
+        if (from == 0 || to == 0 ||
+                !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass, (*i).keepClear, (*i).contPos)) {
+            WRITE_ERROR("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
         }
     }
     // during loading we also kept some ambiguous connections in hope they might be valid after processing
