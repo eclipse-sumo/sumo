@@ -177,3 +177,7 @@ ticket2087
 # Copy of ticket2087
 ticket2109
 ticket2170
+
+# Small decelerations at high speeds should not trigger a brakelight (test can be considered successful if no signals="8" shows up in fcd.sumo)
+# 
+brakelights
