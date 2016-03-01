@@ -33,6 +33,7 @@ import de.tudresden.ws.container.SumoLink;
 import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
+import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.container.SumoTLSPhase;
@@ -92,6 +93,18 @@ public class CommandProcessor extends Query{
 			double max_y = resp.content().readDouble();
 			
 			output = new SumoBoundingBox(min_x, min_y, max_x, max_y);
+			
+		}else if(sc.input2 == Constants.VAR_STOPSTATE){
+			short s = resp.content().readByte();
+			SumoStopFlags sf = new SumoStopFlags((byte) s);
+			output = sf;
+			
+			if(sc.info.equals("isStopped")){output = sf.stopped;}
+			if(sc.info.equals("isStoppedTriggered")){output = sf.triggered;}
+			if(sc.info.equals("isAtContainerStop")){output = sf.isContainerStop;}
+			if(sc.info.equals("isStoppedParking")){output = sf.getID() == 12;}
+			if(sc.info.equals("isAtBusStop")){output = sf.isBusStop;}
+			
 			
 		}else if(sc.output_type == Constants.TYPE_COMPOUND){
 			

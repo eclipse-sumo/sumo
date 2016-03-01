@@ -25,6 +25,7 @@ import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
+import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.container.SumoTLSPhase;
@@ -43,6 +44,8 @@ public class SumoCommand {
 	public int input1;
 	public int input2;
 	String input3;
+	String info;
+	
 	
 	int response;
 	int output_type;
@@ -69,6 +72,31 @@ public class SumoCommand {
 		this.raw.add(output_type);
 		
 	}
+	
+	//Get Statements
+	public SumoCommand(Object input1, Object input2, Object input3, Object response, Object output_type, String info){
+		
+			this.cmd = new Command((Integer) input1);
+			cmd.content().writeUnsignedByte((Integer) input2);
+			cmd.content().writeStringASCII(String.valueOf(input3));
+			
+			this.input1=(Integer) input1;
+			this.input2=(Integer) input2;
+			this.input3=String.valueOf(input3);
+			this.info=info;
+			
+			this.response = (Integer) response;
+			this.output_type = (Integer) output_type;
+			
+			this.raw = new LinkedList<Object>();
+			this.raw.add(input1);
+			this.raw.add(input2);
+			this.raw.add(input3);
+			this.raw.add(response);
+			this.raw.add(output_type);
+			
+		}
+	
 
 	public SumoCommand(Object input1, Object input2, Object input3, Object[] array, Object response, Object output_type){
 		
@@ -227,6 +255,8 @@ public class SumoCommand {
 				add_variable(array[i]);
 			}
 		}
+		
+		
 		
 		this.raw = new LinkedList<Object>();
 		this.raw.add(input1);
@@ -399,6 +429,8 @@ public class SumoCommand {
 			this.cmd.content().writeUnsignedByte(Constants.POSITION_2D);
 		}else if(input.getClass().equals(SumoPosition3D.class)){
 			this.cmd.content().writeUnsignedByte(Constants.POSITION_3D);
+		}else if(input.getClass().equals(SumoStopFlags.class)){
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_BYTE);
 		}else if(input.getClass().equals(Boolean.class)){
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_UBYTE);
 		}else if(input.getClass().equals(SumoStringList.class)){
@@ -465,8 +497,11 @@ public class SumoCommand {
 				cmd.content().writeStringASCII(s);
 			}
 		
+		}else if(input.getClass().equals(SumoStopFlags.class)){
+			SumoStopFlags sf = (SumoStopFlags) input;
+			this.cmd.content().writeByte(sf.getID());
 		}
-		
+	
 	}
 
 	public Command get_command(){

@@ -42,6 +42,7 @@ import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
+import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.log.Log;
@@ -206,7 +207,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: setStop")
-	public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration, @WebParam(name = "stopType") byte stopType){
+	public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration, @WebParam(name = "stopType") SumoStopFlags stopType){
 		this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration, stopType));
 	}
 	

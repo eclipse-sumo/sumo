@@ -21,6 +21,7 @@ package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoColor;
+import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 
 /**
@@ -479,7 +480,7 @@ public class Vehicle {
 	 */
 
 	public static SumoCommand getStopState(String vehID){
-		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE);
 	}
 	
 	
@@ -542,7 +543,7 @@ public class Vehicle {
 	 */
 
 	public static SumoCommand isStopped(String vehID){
-		return Vehicle.getStopState(vehID);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE, "isStopped");
 	}
 	
 	/**
@@ -552,7 +553,7 @@ public class Vehicle {
 	 */
 
 	public static SumoCommand isStoppedTriggered(String vehID){
-		return Vehicle.getStopState(vehID);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE, "isStoppedTriggered");
 	}
 	
 	/**
@@ -562,7 +563,7 @@ public class Vehicle {
 	 */
 
 	public static SumoCommand isAtContainerStop(String vehID){
-		return Vehicle.getStopState(vehID);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE, "isAtContainerStop");
 	}
 	
 	/**
@@ -572,7 +573,7 @@ public class Vehicle {
 	 */
 
 	public static SumoCommand isStoppedParking(String vehID){
-		return Vehicle.getStopState(vehID);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE, "isStoppedParking");
 	}
 	
 	/**
@@ -582,7 +583,7 @@ public class Vehicle {
 	 */
 
 	public static SumoCommand isAtBusStop(String vehID){
-		return Vehicle.getStopState(vehID);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_STOPSTATE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE, "isAtBusStop");
 	}
 	
 	
@@ -951,9 +952,9 @@ public class Vehicle {
 	 * @param stopType stop type
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, int duration, byte stopType){
+	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, int duration, SumoStopFlags sf){
 
-		Object[] array = new Object[]{edgeID, pos, laneIndex, duration, stopType};
+		Object[] array = new Object[]{edgeID, pos, laneIndex, duration, sf};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_STOP, vehID, array);
 	}
 
@@ -966,8 +967,9 @@ public class Vehicle {
 	 * @param flags
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setBusStop(String vehID, String stopID, int duration, int until, byte flags){
-		return setStop(vehID, stopID, 1, (byte) 0, duration, flags);
+	public static SumoCommand setBusStop(String vehID, String stopID, int duration, int until){
+		SumoStopFlags sf = new SumoStopFlags(false, false, false, true, false);
+    	return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
 	}
 	
 
@@ -982,8 +984,9 @@ public class Vehicle {
 	 * @param flags
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setContainerStop(String vehID, String stopID, int duration, int until, byte flags){
-		return setStop(vehID, stopID, 1, (byte) 0, duration, flags);
+	public static SumoCommand setContainerStop(String vehID, String stopID, int duration, int until){
+		SumoStopFlags sf = new SumoStopFlags(false, false, false, false, true);
+		return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
 	}
 	
 	/**

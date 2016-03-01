@@ -396,7 +396,6 @@ public class Constants {
 	/**waiting time*/	
 	public static final int VAR_WAITING_TIME = 0x7a;
 	
-	/**driver reaction time (get: vehicle types)*/
 	public static final int VAR_TAU = 0x48;
 
 	/**set junction variable*/
