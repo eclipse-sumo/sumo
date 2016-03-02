@@ -1,0 +1,5 @@
+<tazs>
+    <taz id="A.0" edges="A.0 B"/>
+    <taz id="A.50" edges="A.50 B"/>
+    <taz id="B" edges="A.0 A.50 B"/>
+</tazs>
