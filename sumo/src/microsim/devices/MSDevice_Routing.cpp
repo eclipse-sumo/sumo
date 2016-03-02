@@ -236,8 +236,13 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     if (source->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT && dest->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         if (myCachedRoutes.find(key) != myCachedRoutes.end()) {
-            myHolder.replaceRoute(myCachedRoutes[key], true);
-            return myPreInsertionPeriod;
+            if (myCachedRoutes[key]->size() > 2) {
+                myHolder.replaceRoute(myCachedRoutes[key], true);
+                return myPreInsertionPeriod;
+            } else {
+                WRITE_WARNING("No route for vehicle '" + myHolder.getID() + "' found.");
+                return 0;
+            }
         }
     }
     reroute(currentTime, true);
