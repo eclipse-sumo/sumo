@@ -71,7 +71,7 @@ MSVehicleControl::MSVehicleControl() :
     myScale(-1),
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
-    SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_IGNORING);
+    SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     defPedType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
