@@ -325,7 +325,7 @@ combilabel = ''
 
 assignments = {}
 # calculate/read the basic statistics
-for method, vehicles in allvehicles.iteritems():
+for method, vehicles in allvehicles.items():
     getBasicStats(options.verbose, method, vehicles, assignments)
 
 getStatisticsOutput(assignments, options.outputfile)

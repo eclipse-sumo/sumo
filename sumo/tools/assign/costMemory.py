@@ -46,7 +46,7 @@ class CostMemory(handler.ContentHandler):
 
     def __init__(self, cost_attribute, pessimism=0, network_file=None):
         # the cost attribute to parse (i.e. 'traveltime')
-        self.cost_attribute = cost_attribute.decode('utf8')
+        self.cost_attribute = cost_attribute.encode('utf8')
         # the duaIterate iteration index
         self.iteration = None
         # the main data store: for every interval and edge id we store costs and
@@ -84,9 +84,9 @@ class CostMemory(handler.ContentHandler):
             self.current_interval = self.intervals[float(attrs['begin'])]
         if name == 'edge':
             id = attrs['id']
-            if self.cost_attribute in attrs:  # may be missing for some
+            if self.cost_attribute.decode('utf-8') in attrs:  # may be missing for some
                 self.num_loaded += 1
-                cost = float(attrs[self.cost_attribute])
+                cost = float(attrs[self.cost_attribute.decode('utf-8')])
                 if id in self.current_interval:
                     edgeMemory = self.current_interval[id]
                     self.errors.append(edgeMemory.cost - cost)
@@ -114,8 +114,8 @@ class CostMemory(handler.ContentHandler):
         self.iteration = iteration
         self.errors = []
         # mark all edges as unseen
-        for edges in self.intervals.itervalues():
-            for edgeMemory in edges.itervalues():
+        for edges in self.intervals.values():
+            for edgeMemory in edges.values():
                 edgeMemory.seen = False
         # parse costs
         self.num_loaded = 0
@@ -124,8 +124,8 @@ class CostMemory(handler.ContentHandler):
         parser.parse(dumpfile)
         # decay costs of unseen edges
         self.num_decayed = 0
-        for edges in self.intervals.itervalues():
-            for id, edgeMemory in edges.iteritems():
+        for edges in self.intervals.values():
+            for id, edgeMemory in edges.items():
                 if not edgeMemory.seen:
                     edgeMemory.update(
                         self.traveltime_free[id], self.memory_weight, self.new_weight, self.pessimism)
@@ -143,35 +143,36 @@ class CostMemory(handler.ContentHandler):
     def write_costs(self, weight_file):
         with open(weight_file, 'w') as f:
             f.write('<netstats>\n')
-            for start, edge_costs in self.intervals.iteritems():
+            for start, edge_costs in self.intervals.items():
                 f.write('    <interval begin="%d" end="%d">\n' %
                         (start, start + self.interval_length))
-                for id, edgeMemory in edge_costs.iteritems():
+                for id, edgeMemory in edge_costs.items():
                     f.write('        <edge id="%s" %s="%s"/>\n' %
-                            (id, self.cost_attribute, edgeMemory.cost))
+                            (id, self.cost_attribute.decode('utf-8'), edgeMemory.cost))
                 f.write('    </interval>\n')
             f.write('</netstats>\n')
 
     def avg_error(self, values=None):
         if not values:
             values = self.errors
-        if len(values) > 0:
-            return sum(values) / len(values)
+        l = len(list(values))
+        if  l > 0:
+            return (sum(list(values))/l)
         else:
             return 0
 
     def avg_abs_error(self):
-        return self.avg_error(map(abs, self.errors))
+        return self.avg_error(list(map(abs, self.errors)))
 
     def mean_error(self, values=None):
         if not values:
             values = self.errors
         values.sort()
         if values:
-            return values[len(values) / 2]
+            return values[len(values) // 2]
 
     def mean_abs_error(self):
-        return self.mean_error(map(abs, self.errors))
+        return self.mean_error(list(map(abs, self.errors)))
 
     def loaded(self):
         return self.num_loaded

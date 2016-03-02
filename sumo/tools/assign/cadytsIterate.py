@@ -28,7 +28,7 @@ import sys
 import subprocess
 import types
 from datetime import datetime
-from optparse import OptionParser
+from argparse import ArgumentParser
 from duaIterate import call, writeSUMOConf, addGenericOptions
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
@@ -36,56 +36,57 @@ import sumolib
 
 
 def initOptions():
-    optParser = OptionParser()
-    addGenericOptions(optParser)
+    argParser = ArgumentParser()
+    addGenericOptions(argParser)
 
-    optParser.add_option("-r", "--route-alternatives", dest="routes",
+    argParser.add_argument("-r", "--route-alternatives", dest="routes",
                          help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
-    optParser.add_option("-d", "--detector-values", dest="detvals",
+    argParser.add_argument("-d", "--detector-values", dest="detvals",
                          help="adapt to the flow on the given edges", metavar="FILE")
-    optParser.add_option("-c", "--classpath", dest="classpath",
+    argParser.add_argument("-c", "--classpath", dest="classpath",
                          default=os.path.join(os.path.dirname(
                              sys.argv[0]), "..", "contributed", "calibration", "cadytsSumoController.jar"),
                          help="classpath for the calibrator [default: %default]")
-    optParser.add_option("-l", "--last-calibration-step", dest="calibStep",
-                         type="int", default=100, help="last step of the calibration [default: %default]")
-    optParser.add_option("-S", "--demandscale", dest="demandscale",
-                         type="float", default=2., help="scaled demand [default: %default]")
-    optParser.add_option("-F", "--freezeit",  dest="freezeit",
-                         type="int", default=85, help="define the number of iterations for stablizing the results in the DTA-calibration")
-    optParser.add_option("-V", "--varscale",  dest="varscale",
-                         type="float", default=1., help="define variance of the measured traffic flows for the DTA-calibration")
-    optParser.add_option("-P", "--PREPITS",  type="int", dest="PREPITS",
+    argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
+                         type=int, default=100, help="last step of the calibration [default: %default]")
+    argParser.add_argument("-S", "--demandscale", dest="demandscale",
+                         type=float, default=2., help="scaled demand [default: %default]")
+    argParser.add_argument("-F", "--freezeit",  dest="freezeit",
+                         type=int, default=85, help="define the number of iterations for stablizing the results in the DTA-calibration")
+    argParser.add_argument("-V", "--varscale",  dest="varscale",
+                         type=float, default=1., help="define variance of the measured traffic flows for the DTA-calibration")
+    argParser.add_argument("-P", "--PREPITS",  type=int, dest="PREPITS",
                          default=5, help="number of preparatory iterations")
-    optParser.add_option("-W", "--evaluation-prefix", dest="evalprefix", type='string',
+    argParser.add_argument("-W", "--evaluation-prefix", dest="evalprefix",
                          help="prefix of flow evaluation files; only for the calibration with use of detector data")
-    optParser.add_option("-Y", "--bruteforce", action="store_true", dest="bruteforce",
+    argParser.add_argument("-Y", "--bruteforce", action="store_true", dest="bruteforce",
                          default=False, help="fit the traffic counts as accurate as possible")
-    optParser.add_option("-Z", "--mincountstddev", type="float", dest="mincountstddev",
+    argParser.add_argument("-Z", "--mincountstddev", type=float, dest="mincountstddev",
                          default=25., help="minimal traffic count standard deviation")
-    optParser.add_option("-O", "--overridett", action="store_true", dest="overridett",
+    argParser.add_argument("-O", "--overridett", action="store_true", dest="overridett",
                          default=False, help="override depart times according to updated link travel times")
-    optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
+    argParser.add_argument("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
                          default=False, help="No summaries are written by the simulation")
-    optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
+    argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                          default=False, help="No tripinfos are written by the simulation")
-    optParser.add_option("-M", "--matrix-prefix", dest="fmaprefix", type='string',
+    argParser.add_argument("-M", "--matrix-prefix", dest="fmaprefix",
                          help="prefix of OD matrix files in visum format")
-    optParser.add_option("-N", "--clone-postfix", dest="clonepostfix", type='string',
+    argParser.add_argument("-N", "--clone-postfix", dest="clonepostfix",
                          default='-CLONE', help="postfix attached to clone ids")
-    optParser.add_option("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
+    argParser.add_argument("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
                          default=False, help="if entering vehicles are assumed to cross the upstream sensor of their entry link")
-    optParser.add_option("-K", "--cntlastlink", action="store_false", dest="cntlastlink",
+    argParser.add_argument("-K", "--cntlastlink", action="store_false", dest="cntlastlink",
                          default=True, help="if exiting vehicles are assumed to cross the upstream sensor of their exit link")
-    return optParser
+    argParser.add_argument("remaining_args", nargs='*')
+    return argParser
 
 
 def main():
-    optParser = initOptions()
+    argParser = initOptions()
 
-    (options, args) = optParser.parse_args()
+    options = argParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
-        optParser.error(
+        argParser.error(
             "--net-file, --routes and --detector-values have to be given!")
 
     if options.mesosim:

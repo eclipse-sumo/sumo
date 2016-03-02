@@ -122,19 +122,19 @@ class XsdStructure():
         return eleObj
 
     def resolveRefs(self):
-        for ele in self._namedTypes.itervalues():
+        for ele in self._namedTypes.values():
             if ele.type and ele.type in self._namedTypes and not ele.resolved:
                 t = self._namedTypes[ele.type]
                 ele.attributes += t.attributes
                 ele.children += t.children
                 ele.resolved = True
-        for ele in self._namedElements.itervalues():
+        for ele in self._namedElements.values():
             if ele.type and ele.type in self._namedTypes and not ele.resolved:
                 t = self._namedTypes[ele.type]
                 ele.attributes += t.attributes
                 ele.children += t.children
                 ele.resolved = True
-        for ele in self._namedElements.itervalues():
+        for ele in self._namedElements.values():
             newChildren = []
             for child in ele.children:
                 if child.ref:

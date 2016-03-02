@@ -109,7 +109,7 @@ def main(srcRoot, toCheck, err):
     print("%s files checked" % fileNo)
 
     if haveLxml:
-        for scheme in schemes.itervalues():
+        for scheme in schemes.values():
             if scheme.error_log:
                 print(scheme.error_log, file=err)
                 return 1

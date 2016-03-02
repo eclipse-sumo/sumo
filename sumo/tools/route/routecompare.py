@@ -222,7 +222,7 @@ def hungarianDAG(U, V, similarityMatrix):
 def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
     maxSimilarity = 0
     for id1 in routeIDs1:
-        for value in similarityMatrix[id1].itervalues():
+        for value in similarityMatrix[id1].values():
             if value > maxSimilarity:
                 maxSimilarity = value
     U = []
@@ -300,12 +300,12 @@ else:
 match = {}
 totalMatch = 0
 totalIdentical = 0
-for source in routeMatrix1:
+for source in sorted(routeMatrix1):
     if not source in routeMatrix2:
         if options.verbose:
             print("Warning! No routes starting at %s in second route set" % source)
         continue
-    for sink in routeMatrix1[source]:
+    for sink in sorted(routeMatrix1[source]):
         routeIDs1 = routeMatrix1[source][sink]
         if not sink in routeMatrix2[source]:
             if options.verbose:
@@ -336,6 +336,6 @@ for source in routeMatrix1:
         if options.verbose:
             print(source, sink, float(matchVal) / len(routeIDs1) / SCALE, float(identityVal) / len(routeIDs1))
 if options.printmatch:
-    for r2, r1 in match.iteritems():
+    for r2, r1 in sorted(match.items()):
         print(r1, r2)
 print(float(totalMatch) / len(routes1) / SCALE, float(totalIdentical) / len(routes1))

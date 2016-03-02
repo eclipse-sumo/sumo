@@ -23,8 +23,13 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sys
+PY3 = sys.version_info > (3,)
 import os
-import StringIO
+
+if (not PY3):
+    from StringIO  import StringIO
+else:
+    from io import StringIO
 from xml.dom import pulldom
 from xml.dom import Node
 from optparse import OptionParser
@@ -172,11 +177,12 @@ class AttributeStore:
                     if child.nodeType == Node.ELEMENT_NODE:
                         children.compare(child)
                 if tag == TAG_TLL or tag in self.copy_tags:  # see CAVEAT2
-                    child_strings = StringIO.StringIO()
+                    child_strings = StringIO()
                     children.writeDeleted(child_strings)
                     children.writeCreated(child_strings)
                     children.writeChanged(child_strings)
-                    if child_strings.len > 0 or tag in self.copy_tags:
+                    
+                    if len(child_strings.getvalue()) > 0 or tag in self.copy_tags:
                         # there are some changes. Go back and store everything
                         children = AttributeStore(
                             self.type, self.copy_tags, self.level + 1)
@@ -245,14 +251,13 @@ class AttributeStore:
                 comment_end))
         # data loss if two elements with different tags
         # have the same list of attributes and values
-        for value_set in self.idless_deleted.itervalues():
+        for value_set in self.idless_deleted.values():
             self.write_idless(file, value_set, DELETE_ELEMENT)
-
+        
     def writeCreated(self, file):
         self.write_tagids(file, self.ids_created, True)
-        for tag, value_set in self.idless_created.iteritems():
+        for tag, value_set in self.idless_created.items():
             self.write_idless(file, value_set, tag)
-
     def writeChanged(self, file):
         tagids_changed = OrderedMultiSet(
             self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
@@ -262,7 +267,7 @@ class AttributeStore:
         tagids_unchanged = OrderedMultiSet(
             self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_unchanged, False)
-        for tag, value_set in self.idless_copied.iteritems():
+        for tag, value_set in self.idless_copied.items():
             self.write_idless(file, value_set, tag)
 
     def write_idless(self, file, attr_set, tag):
@@ -275,27 +280,32 @@ class AttributeStore:
             tag, id = tagid
             names, values, children = self.id_attrs[tagid]
             attrs = self.attr_string(names, values)
-            child_strings = StringIO.StringIO()
+            child_strings = StringIO()
             if children:
                 # writeDeleted is not supported
                 children.writeCreated(child_strings)
                 children.writeChanged(child_strings)
 
-            if len(attrs) > 0 or child_strings.len > 0 or create or tag in self.copy_tags:
+            if len(attrs) > 0 or len(child_strings.getvalue())> 0 or create or tag in self.copy_tags:
                 close_tag = "/>\n"
-                if child_strings.len > 0:
+                if len(child_strings.getvalue()) > 0:
                     close_tag = ">\n%s" % child_strings.getvalue()
                 self.write(file, '<%s %s %s%s' % (
                     tag,
                     self.id_string(tag, id),
                     attrs,
                     close_tag))
-                if child_strings.len > 0:
+                if len(child_strings.getvalue()) > 0:
                     self.write(file, "</%s>\n" % tag)
 
     def write(self, file, item):
-        file.write(" " * INDENT * self.level)
-        file.write(item.encode("UTF-8"))
+        
+        if (PY3):
+            file.write(item)
+            file.write(" " * INDENT * self.level)
+        else:
+            file.write(" " * INDENT * self.level)
+            file.write(item.encode("UTF-8"))
 
     def attr_string(self, names, values):
         return ' '.join(['%s="%s"' % (n, v) for n, v in zip(names, values) if v != None])
@@ -355,7 +365,7 @@ def xmldiff(source, dest, diff, type, copy_tags):
         elif not have_dest:
             print("Dest file %s is missing. Assuming all elements are deleted" % dest)
 
-        with open(diff, 'w') as diff_file:
+        with open(diff, 'w' ) as diff_file:
             diff_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             diff_file.write(root_open)
             if copy_tags:

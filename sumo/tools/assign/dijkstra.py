@@ -25,7 +25,11 @@ the Free Software Foundation; either version 3 of the License, or
 
 import os
 import sys
-from Queue import PriorityQueue
+try:
+    from Queue import PriorityQueue
+except ImportError:
+    from queue import PriorityQueue
+    
 from collections import defaultdict
 from xml.sax import make_parser, handler
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -45,7 +49,7 @@ class priorityDictionary(dict):
     def smallest(self):
         '''Find smallest item after removing deleted items from heap.'''
         if len(self) == 0:
-            raise IndexError, "smallest of empty priorityDictionary"
+            raise IndexError( "smallest of empty priorityDictionary")
         heap = self.__heap
         while heap[0][1] not in self or self[heap[0][1]] != heap[0][0]:
             lastItem = heap.pop()

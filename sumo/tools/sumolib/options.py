@@ -35,7 +35,7 @@ def get_long_option_names(application):
     for line in output.splitlines():
         m = reprog.search(line)
         if m:
-            result.append(m.group(1))
+            result.append(m.group(1).decode('utf-8'))
     return result
 
 

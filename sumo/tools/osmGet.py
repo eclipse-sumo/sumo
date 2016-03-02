@@ -22,8 +22,12 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import httplib
-import StringIO
+try:
+    import httplib
+    import StringIO
+except ImportError:
+    import http.client
+    from io import StringIO
 import gzip
 import optparse
 from os import path

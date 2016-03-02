@@ -24,6 +24,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
+PY3 = sys.version_info > (3,)
 import csv
 import contextlib
 
@@ -96,8 +97,11 @@ def checkAttributes(out, old, new, ele, tagStack, depth):
         name = "%s_%s" % (ele.name, attr.name)
         if new.get(name, "") != "":
             if depth > 0:
-                out.write(">\n")
-            out.write(row2xml(new, ele.name, "", depth))
+                out.write(str.encode(">\n"))
+            if(PY3):
+                out.write(str.encode(row2xml(new, ele.name, "", depth)))
+            else:
+                out.write(row2xml(new, ele.name, "", depth))
             return True
     return False
 
@@ -126,13 +130,20 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                     present = True
             #print(depth, "seeing", ele.name, changed, tagStack)
             if changed:
-                out.write("/>\n")
+                out.write(str.encode("/>\n"))
                 del tagStack[-1]
                 while len(tagStack) > depth:
-                    out.write("%s</%s>\n" %
+                    if(PY3):
+                        out.write(str.encode("%s</%s>\n" %
+                              ((len(tagStack) - 1) * '    ', tagStack[-1])))
+                    else:
+                        out.write("%s</%s>\n" %
                               ((len(tagStack) - 1) * '    ', tagStack[-1]))
                     del tagStack[-1]
-                out.write(row2xml(new, ele.name, "", depth))
+                if(PY3):
+                    out.write(str.encode(row2xml(new, ele.name, "", depth)))
+                else:
+                    out.write(row2xml(new, ele.name, "", depth))
                 tagStack.append(ele.name)
                 changed = False
             if present and ele.children:
@@ -150,7 +161,10 @@ def writeHierarchicalXml(struct, options):
         lastRow = OrderedDict()
         tagStack = [struct.root.name]
         if options.skip_root:
-            outputf.write('<%s' % struct.root.name)
+            if(PY3):
+                outputf.write(str.encode('<%s' % struct.root.name))
+            else:
+                outputf.write('<%s' % struct.root.name)
         fields = None
         enums = {}
         first = True
@@ -173,9 +187,12 @@ def writeHierarchicalXml(struct, options):
                     first = False
                 checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
                 lastRow = row
-        outputf.write("/>\n")
+        outputf.write(str.encode("/>\n"))
         for idx in range(len(tagStack) - 2, -1, -1):
-            outputf.write("%s</%s>\n" % (idx * '    ', tagStack[idx]))
+            if(PY3):
+                outputf.write(str.encode("%s</%s>\n" % (idx * '    ', tagStack[idx])))
+            else:
+                outputf.write("%s</%s>\n" % (idx * '    ', tagStack[idx]))
 
 
 def main():

@@ -63,7 +63,7 @@ class TurnDefinitions():
         """ Returns all of the turn definitions incoming edges. The result
             will be sorted in alphabetical. """
 
-        sources = self.turn_definitions.keys()
+        sources = list(self.turn_definitions.keys())
         sources.sort()
         return sources
 

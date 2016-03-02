@@ -227,7 +227,7 @@ for inflow in inflows:
             emissions.append((int(t), id, edges))
 # sort emissions
 print("Sorting routes...")
-emissions.sort(sorter(0))
+sorted(emissions, key=sorter(0))
 
 # save emissions
 print("Writing routes...")

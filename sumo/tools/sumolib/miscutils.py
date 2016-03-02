@@ -19,6 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
+PY3 = sys.version_info > (3,)
 import time
 import os
 import math
@@ -192,7 +193,10 @@ class Statistics:
 
     def quartiles(self):
         s = sorted(self.values)
-        return s[len(self.values) / 4], s[len(self.values) / 2], s[3 * len(self.values) / 4]
+        if(PY3):
+            return s[len(self.values) // 4], s[len(self.values) // 2], s[3 * len(self.values) // 4]
+        else:
+            return s[len(self.values) / 4], s[len(self.values) / 2], s[3 * len(self.values) / 4]
 
     def rank(self, fraction):
         if len(self.values) > 0:

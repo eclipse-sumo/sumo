@@ -23,6 +23,7 @@ from __future__ import print_function
 
 import os
 import sys
+PY3 = sys.version_info > (3,)
 import codecs
 from optparse import OptionParser
 from collections import defaultdict
@@ -182,7 +183,7 @@ def missingEdges(areaEdges, edges, missingEdgeOccurences):
 
 def printTop(missingEdgeOccurences, num=1000):
     counts = sorted(
-        [(v, k) for k, v in missingEdgeOccurences.iteritems()], reverse=True)
+        [(v, k) for k, v in missingEdgeOccurences.items()], reverse=True)
     counts.sort(reverse=True)
     for count, edge in counts[:num]:
         print(count, edge)
