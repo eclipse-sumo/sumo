@@ -294,14 +294,17 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
     assert(std::find(cars.begin(), cars.end(), v) != cars.end());
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
     updateDetectorsOnLeave(v, leaveTime, next);
+    myEdge.lock();
     if (v == cars.back()) {
         cars.pop_back();
         if (!cars.empty()) {
+            myEdge.unlock();
             return cars.back();
         }
     } else {
         cars.erase(std::find(cars.begin(), cars.end(), v));
     }
+    myEdge.unlock();
     return 0;
 }
 
@@ -460,6 +463,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     std::vector<MEVehicle*>& cars = myCarQues[nextQueIndex];
     MEVehicle* newLeader = 0; // first vehicle in the current queue
     SUMOTime tleave = MAX2(time + TIME2STEPS(myLength / uspeed) + veh->getStoptime(this), myBlockTimes[nextQueIndex]);
+    myEdge.lock();
     if (cars.empty()) {
         cars.push_back(veh);
         newLeader = veh;
@@ -476,6 +480,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
             cars.insert(cars.begin(), veh);
         }
     }
+    myEdge.unlock();
     if (!isDepart) {
         // regular departs could take place anywhere on the edge so they should not block regular flow
         // the -1 facilitates interleaving of multiple streams

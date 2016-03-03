@@ -303,6 +303,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     if (vehicleControl != 0) {
         // draw the meso vehicles
         vehicleControl->secureVehicles();
+        AbstractMutex::ScopedLocker locker(myLock);
         size_t laneIndex = 0;
         MESegment::Queue queue;
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
