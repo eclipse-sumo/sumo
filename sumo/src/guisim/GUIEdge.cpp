@@ -128,8 +128,25 @@ GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
 Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        ret.add((*i)->getShape().getBoxBoundary());
+    if (getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            ret.add((*i)->getShape().getBoxBoundary());
+        }
+    } else {
+        // take the starting coordinates of all follower edges and the endpoints
+        // of all successor edges
+        for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
+            const std::vector<MSLane*>& lanes = (*it)->getLanes();
+            for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
+                ret.add((*it_lane)->getShape().front());
+            }
+        }
+        for (MSEdgeVector::const_iterator it = myPredecessors.begin(); it != myPredecessors.end(); ++it) {
+            const std::vector<MSLane*>& lanes = (*it)->getLanes();
+            for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
+                ret.add((*it_lane)->getShape().back());
+            }
+        }
     }
     ret.grow(10);
     return ret;
