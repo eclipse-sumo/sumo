@@ -13,9 +13,9 @@ accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass ignoring
+vClass passenger
 emissionclass HBEFA2/P_7_7
-shape 
+shape passenger
 MinGap 2.5
 width 1.8
 color (255, 255, 0, 255)
