@@ -241,7 +241,7 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
                 return myPreInsertionPeriod;
             } else {
                 WRITE_WARNING("No route for vehicle '" + myHolder.getID() + "' found.");
-                return 0;
+                return myPreInsertionPeriod;
             }
         }
     }
