@@ -174,7 +174,7 @@ public class Vehicle {
 	 * @param laneID lane id
 	 * @return the distance
 	 */
-	public static SumoCommand getDrivingDistance(String vehID, String edgeID, double pos, int laneID){
+	public static SumoCommand getDrivingDistance(String vehID, String edgeID, double pos, byte laneID){
 		Object[] array = new Object[]{edgeID, pos, laneID};
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.DISTANCE_REQUEST, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}

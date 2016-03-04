@@ -707,7 +707,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: getDrivingDistance")
-	public double Vehicle_getDrivingDistance(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneID") int laneID){
+	public double Vehicle_getDrivingDistance(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneID") byte laneID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getDrivingDistance(vehID, edgeID, pos, laneID)));
 	}
 
