@@ -24,10 +24,8 @@ import os
 import sys
 try:
     import httplib
-    import StringIO
 except ImportError:
-    import http.client
-    from io import StringIO
+    import http.client as httplib
 import gzip
 import optparse
 from os import path
@@ -53,7 +51,7 @@ def readCompressed(conn, query, filename):
     response = conn.getresponse()
     print(response.status, response.reason)
     if response.status == 200:
-        out = open(path.join(os.getcwd(), filename), "w")
+        out = open(path.join(os.getcwd(), filename), "wb")
         out.write(response.read())
         out.close()
 
