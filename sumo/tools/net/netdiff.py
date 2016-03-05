@@ -23,12 +23,11 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sys
-PY3 = sys.version_info > (3,)
 import os
 
-if (not PY3):
+try:
     from StringIO  import StringIO
-else:
+except ImportError:
     from io import StringIO
 from xml.dom import pulldom
 from xml.dom import Node
