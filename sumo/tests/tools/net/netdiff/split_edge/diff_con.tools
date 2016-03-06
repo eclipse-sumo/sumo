@@ -2,6 +2,6 @@
 <connections version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <!-- Deleted Elements -->
     <!-- Created Elements -->
-    <connection from="gneE0.0" to="gneE0.50" fromLane="0" toLane="0" />
+    <connection from="gneE0.0" fromLane="0" to="gneE0.50" toLane="0" />
     <!-- Changed Elements -->
 </connections>

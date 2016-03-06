@@ -24,7 +24,7 @@ from __future__ import print_function
 
 import sys
 import os
-
+import codecs
 try:
     from StringIO  import StringIO
 except ImportError:
@@ -111,9 +111,9 @@ class AttributeStore:
         self.id_attrs = {}
         # dict from tag to (names, values)-sets, need to preserve order
         # (CAVEAT5)
-        self.idless_deleted = defaultdict(lambda: OrderedMultiSet())
-        self.idless_created = defaultdict(lambda: OrderedMultiSet())
-        self.idless_copied = defaultdict(lambda: OrderedMultiSet())
+        self.idless_deleted = defaultdict(OrderedMultiSet)
+        self.idless_created = defaultdict(OrderedMultiSet)
+        self.idless_copied = defaultdict(OrderedMultiSet)
 
     # getAttribute returns "" if not present
     def getValue(self, node, name):
@@ -149,6 +149,7 @@ class AttributeStore:
         tagid = (tag, id)
         if id != ():
             self.ids_deleted.add(tagid)
+            self.ids_copied.add(tagid)
             self.id_attrs[tagid] = attrs
             if children:
                 for child in xmlnode.childNodes:
@@ -257,14 +258,13 @@ class AttributeStore:
         self.write_tagids(file, self.ids_created, True)
         for tag, value_set in self.idless_created.items():
             self.write_idless(file, value_set, tag)
+
     def writeChanged(self, file):
-        tagids_changed = OrderedMultiSet(
-            self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
+        tagids_changed = self.ids_copied - (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_changed, False)
 
     def writeCopies(self, file, copy_tags):
-        tagids_unchanged = OrderedMultiSet(
-            self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
+        tagids_unchanged = self.ids_copied - (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_unchanged, False)
         for tag, value_set in self.idless_copied.items():
             self.write_idless(file, value_set, tag)
@@ -298,20 +298,15 @@ class AttributeStore:
                     self.write(file, "</%s>\n" % tag)
 
     def write(self, file, item):
-        
-        if (PY3):
-            file.write(item)
-            file.write(" " * INDENT * self.level)
-        else:
-            file.write(" " * INDENT * self.level)
-            file.write(item.encode("UTF-8"))
+        file.write(" " * INDENT * self.level)
+        file.write(item)
 
     def attr_string(self, names, values):
-        return ' '.join(['%s="%s"' % (n, v) for n, v in zip(names, values) if v != None])
+        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v != None])
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
-        return ' '.join(['%s="%s"' % (n, v) for n, v in zip(idattrs, id)])
+        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(idattrs, id))])
 
 
 def parse_args():
@@ -364,7 +359,7 @@ def xmldiff(source, dest, diff, type, copy_tags):
         elif not have_dest:
             print("Dest file %s is missing. Assuming all elements are deleted" % dest)
 
-        with open(diff, 'w' ) as diff_file:
+        with codecs.open(diff, 'w', 'utf-8') as diff_file:
             diff_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             diff_file.write(root_open)
             if copy_tags:
