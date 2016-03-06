@@ -35,13 +35,10 @@ from __future__ import print_function
 import os
 import string
 import sys
-PY3 = sys.version_info > (3,)
-
 try:
     from StringIO import StringIO
 except ImportError:
-    from io import StringIO
-	
+    from io import StringIO	
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from collections import defaultdict
@@ -170,7 +167,7 @@ class RouteReader(handler.ContentHandler):
                 attrs["length"] = str(length - minGap)
                 attrs["minGap"] = str(minGap)
                 self._changed = True
-            for (key, value) in attrs.items():
+            for key, value in sorted(attrs.items()):
                 if key in camelCase:
                     key = camelCase[key]
                     self._changed = True
@@ -234,10 +231,7 @@ class RouteReader(handler.ContentHandler):
                             cleanedEdgeList.insert(i + 1, interEdge)
                             self._changed = True
                             self._addedString += interEdge + " "
-                            if(PY3):
-                                self._routeString = ''.join(cleanedEdgeList)
-                            else:
-                                self._routeString = string.join(cleanedEdgeList)
+                            self._routeString = ' '.join(cleanedEdgeList)
                             doConnectivityTest = True
                             break
                         returnValue = False
