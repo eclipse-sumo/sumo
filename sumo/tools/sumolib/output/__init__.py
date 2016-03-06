@@ -20,7 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import print_function
 from __future__ import absolute_import
 import sys
-PY3 = sys.version_info > (3,)
 import re
 import xml.dom
 from xml.dom import pulldom
@@ -90,14 +89,9 @@ def compound_object(element_name, attrnames):
             else:
                 s = "%s<%s %s>\n" % (
                     initialIndent, element_name, " ".join(fields))
-                if(PY3):
-                    for l in self._child_dict.values():
-                        for c in l:
-                            s += c.toXML(initialIndent + indent)
-                else:
-                    for l in self._child_dict.itervalues():
-                        for c in l:
-                            s += c.toXML(initialIndent + indent)
+                for l in self._child_dict.values():
+                    for c in l:
+                        s += c.toXML(initialIndent + indent)
                 return s + "%s</%s>\n" % (initialIndent, element_name)
 
         def __repr__(self):
