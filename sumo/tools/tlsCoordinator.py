@@ -322,8 +322,8 @@ def main(options):
     with open(options.outfile, 'w') as outf:
         outf.write('<additional>\n')
         for ID, startOffset in sorted(offsetDict.items()):
-            outf.write('    <tlLogic id="%s" programID="0" offset="%s"/>\n' %
-                       (ID, str(startOffset)))
+            outf.write('    <tlLogic id="%s" programID="0" offset="%.2f"/>\n' %
+                       (ID, startOffset))
         outf.write('</additional>\n')
 
     sumo = sumolib.checkBinary('sumo')
