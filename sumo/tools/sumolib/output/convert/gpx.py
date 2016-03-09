@@ -29,9 +29,9 @@ def fcd2gpx(inpFCD, outSTRM, ignored):
 
     outSTRM.write('<?xml version="1.0" encoding="UTF-8"?>\n')
     outSTRM.write('<gpx version="1.0">\n')
-    for vehicle, trackpoints in tracks.items():
+    for vehicle in sorted(tracks):
         outSTRM.write("  <trk><name>%s</name><trkseg>\n" % vehicle)
-        for timestamp, lon, lat in trackpoints:
+        for timestamp, lon, lat in tracks[vehicle]:
             outSTRM.write('    <trkpt lon="%s" lat="%s"><time>%s</time></trkpt>\n' % (
                 lon, lat, timestamp))
         outSTRM.write("  </trkseg></trk>\n")

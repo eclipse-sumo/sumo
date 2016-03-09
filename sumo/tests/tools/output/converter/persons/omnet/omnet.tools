@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mobility_trace.xsd">
-<!-- generated on 2015-09-10 23:09:59.523965 by traceExporter.py -->
+<!-- generated on 2016-03-09 10:16:28.734200 by traceExporter.py -->
 
 <mobility_trace>
   <create><nodeid>0</nodeid><time>10.0</time><type>SimpleNode</type><location><xpos>516.45</xpos><ypos>498.35</ypos></location></create>
@@ -132,10 +132,10 @@
   <waypoint><nodeid>0</nodeid><time>58.0</time><destination><xpos>955.09</xpos><ypos>501.65</ypos></destination><speed>11.11</speed></waypoint>
   <waypoint><nodeid>2</nodeid><time>58.0</time><destination><xpos>827.53</xpos><ypos>498.35</ypos></destination><speed>11.11</speed></waypoint>
   <waypoint><nodeid>1</nodeid><time>58.0</time><destination><xpos>498.35</xpos><ypos>61.37</ypos></destination><speed>11.11</speed></waypoint>
+  <destroy><time>58.0</time><nodeid>3</nodeid></destroy>
   <destroy><time>58.0</time><nodeid>4</nodeid></destroy>
   <destroy><time>58.0</time><nodeid>5</nodeid></destroy>
   <destroy><time>58.0</time><nodeid>6</nodeid></destroy>
-  <destroy><time>58.0</time><nodeid>3</nodeid></destroy>
   <waypoint><nodeid>0</nodeid><time>59.0</time><destination><xpos>943.98</xpos><ypos>501.65</ypos></destination><speed>11.11</speed></waypoint>
   <waypoint><nodeid>2</nodeid><time>59.0</time><destination><xpos>838.64</xpos><ypos>498.35</ypos></destination><speed>11.11</speed></waypoint>
   <waypoint><nodeid>1</nodeid><time>59.0</time><destination><xpos>498.35</xpos><ypos>50.26</ypos></destination><speed>11.11</speed></waypoint>

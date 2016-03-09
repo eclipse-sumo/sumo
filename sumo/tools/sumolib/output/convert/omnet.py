@@ -57,7 +57,7 @@ def fcd2omnet(inpFCD, outSTRM, further):
 
 def _writeMissing(outSTRM, t, vIDm, seen):
     toDel = []
-    for v in vIDm._m:
+    for v in sorted(vIDm._m):
         if v in seen:
             continue
         nid = vIDm.g(v)
