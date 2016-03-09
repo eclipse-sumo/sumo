@@ -56,7 +56,7 @@ class RouteReader(handler.ContentHandler):
                 self._routeString = attrs['edges']
         elif name == 'vType':
             # XXX does not handle child elements
-            print('    <vType %s/>' % (' '.join(['%s="%s"' % (key, value) for key, value in dict(attrs).items()])),
+            print('    <vType %s/>' % (' '.join(['%s="%s"' % (key, value) for key, value in sorted(dict(attrs).items())])),
                   file=self.outfile)
         elif name == 'routes':
             print("""<?xml version="1.0"?>
