@@ -24,23 +24,17 @@ namespace PHEMlightdll
             get { return _eClass; }
             set { _eClass = value; }
         }
-        private string _fClass;
-        public string fClass
+        private string _tClass;
+        public string tClass
         {
-            get { return _fClass; }
-            set { _fClass = value; }
+            get { return _tClass; }
+            set { _tClass = value; }
         }
         private string _sClass;
         public string sClass
         {
             get { return _sClass; }
             set { _sClass = value; }
-        }
-        private string _pClass;
-        public string pClass
-        {
-            get { return _pClass; }
-            set { _pClass = value; }
         }
         private string _Class;
         public string gClass
@@ -127,28 +121,44 @@ namespace PHEMlightdll
             return false;
         }
 
-        //Get fuel Class
-        private bool getfclass(string VEH)
+        //Get technologie Class
+        private bool gettclass(string VEH)
         {
             if (VEH.IndexOf("_" + Constants.strDiesel) > 0)
             {
-                _fClass = Constants.strDiesel;
-                return true;
+                if (VEH.IndexOf("_" + Constants.strHybrid) > 0)
+                {
+                    _tClass = Constants.strDiesel + "_" + Constants.strHybrid;
+                    return true;
+                }
+                else
+                {
+                    _tClass = Constants.strDiesel;
+                    return true;
+                }
+
             }
             else if (VEH.IndexOf("_" + Constants.strGasoline) > 0)
             {
-                _fClass = Constants.strGasoline;
-                return true;
+                if (VEH.IndexOf("_" + Constants.strHybrid) > 0)
+                {
+                    _tClass = Constants.strGasoline + "_" + Constants.strHybrid;
+                    return true;
+                }
+                else
+                {
+                    _tClass = Constants.strGasoline;
+                    return true;
+                }
             }
             else if (VEH.IndexOf("_" + Constants.strCNG) > 0)
             {
-                _fClass = Constants.strCNG;
+                _tClass = Constants.strCNG;
                 return true;
             }
             else if (VEH.IndexOf("_" + Constants.strBEV) > 0)
             {
-                //No fuel class by EV vehicle
-                _fClass = "";
+                _tClass = Constants.strBEV;
                 return true;
             }
             //Should never happens
@@ -156,28 +166,10 @@ namespace PHEMlightdll
             return false;
         }
 
-        //Get propulsion class
-        private bool getpclass(string VEH)
-        {
-            if (VEH.IndexOf("_" + Constants.strHybrid) > 0)
-            {
-                _pClass = Constants.strHybrid;
-                return true;
-            }
-            else if (VEH.IndexOf("_" + Constants.strBEV) > 0)
-            {
-                _pClass = Constants.strBEV;
-                return true;
-            }
-            //default
-            _pClass = "";
-            return false;
-        }
-
         //Get size class
         private bool getsclass(string VEH)
         {
-            if (VEH.IndexOf(Constants.strLKW) > 0)
+            if (VEH.IndexOf(Constants.strLKW) >= 0)
             {
                 if (VEH.IndexOf("_" + Constants.strSII) > 0) 
                 {
@@ -196,7 +188,7 @@ namespace PHEMlightdll
                     return false;
                 }
             }
-            else if (VEH.IndexOf(Constants.strLNF) > 0)
+            else if (VEH.IndexOf(Constants.strLNF) >= 0)
             {
                 if (VEH.IndexOf("_" + Constants.strSIII) > 0)
                 {
@@ -247,20 +239,23 @@ namespace PHEMlightdll
                     return true;
                 }
             }
+            else if (VEH.IndexOf("_" + Constants.strBEV) > 0)
+            {
+                _eClass = "";
+                return true;
+            }
             //Should never happens
             _ErrMsg = "Euro class not defined! (" + VEH + ")";
             return false;
         }
 
-        //Set complet class string
+        //Set complete class string
         public bool setclass(string VEH)
         {
             if (getvclass(VEH)) { _Class = _vClass; } else { return false; }
-            if (getfclass(VEH)) { if (_fClass != "") { _Class = _Class + "_" + fClass; } } else { return false; }
-            if (geteclass(VEH)) { _Class = _Class + "_" + eClass; } else { return false; }
-            if (getpclass(VEH)) _Class = _Class + "_" + pClass;
-            if (getsclass(VEH)) {if (_sClass != "") { _Class = _Class + "_" + sClass; }}
-            else { return false; }
+            if (getsclass(VEH)) { if (_sClass != "") { _Class = _Class + "_" + sClass; } } else { return false; }
+            if (gettclass(VEH)) { _Class = _Class + "_" + tClass; } else { return false; }
+            if (geteclass(VEH)) { if (_eClass != "") { _Class = _Class + "_" + eClass; } } else { return false; }
             return true;
         }
         #endregion

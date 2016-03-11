@@ -57,7 +57,7 @@ namespace PHEMlightdll
         public const string strSII = "II";
         public const string strSIII = "III";
 
-        //Fleetmix
+        //Fleetmix (#ifdefs)
         private const string strAggPC = "PC";
         private const string strAggBUS = "BUS";
         private const string strAggHDV = "HDV";
@@ -67,6 +67,7 @@ namespace PHEMlightdll
                                                                           strAggBUS,
                                                                           strAggTW};
 
+        //Drive train efficiency
         public static double _DRIVE_TRAIN_EFFICIENCY;
         public static double DRIVE_TRAIN_EFFICIENCY
         {
