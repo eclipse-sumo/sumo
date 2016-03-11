@@ -57,7 +57,7 @@ namespace PHEMlightdll
         public const string strSII = "II";
         public const string strSIII = "III";
 
-        //Fleetmix (#ifdefs)
+        //Fleetmix
         private const string strAggPC = "PC";
         private const string strAggBUS = "BUS";
         private const string strAggHDV = "HDV";

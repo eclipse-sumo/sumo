@@ -36,7 +36,8 @@ namespace PHEMlightdll
         }
         #endregion
 
-        #region FleetShares (#ifdefs)
+#if FLEET
+        #region FleetShares
         private Dictionary<string, Dictionary<string, double>> _fleetShares;
         public Dictionary<string, Dictionary<string, double>> FleetShares
         {
@@ -46,6 +47,7 @@ namespace PHEMlightdll
             }
         }
         #endregion
+#endif
 
         //--------------------------------------------------------------------------------------------------
         // Methods 
@@ -65,7 +67,8 @@ namespace PHEMlightdll
         }
         #endregion
 
-        #region GetFleetCEP (#ifdefs)
+#if FLEET
+        #region GetFleetCEP
         public bool GetFleetCEP(string DataPath, string AggClass, Helpers Helper)
         {
             if (!CEPS.ContainsKey(Helper.gClass))
@@ -108,7 +111,7 @@ namespace PHEMlightdll
             return true;
         }
         #endregion
-
+#endif
         //--------------------------------------------------------------------------------------------------
         // Methods 
         //--------------------------------------------------------------------------------------------------
@@ -486,7 +489,8 @@ namespace PHEMlightdll
         }
         #endregion
 
-        #region ReadFleetShares (#ifdefs)
+#if FLEET
+        #region ReadFleetShares
         public bool ReadFleetShares(string DataPath, Helpers Helper)
         {
             //Declaration
@@ -520,7 +524,7 @@ namespace PHEMlightdll
             return true;
         }
         #endregion
-
+#endif
         //--------------------------------------------------------------------------------------------------
         // Functions 
         //--------------------------------------------------------------------------------------------------

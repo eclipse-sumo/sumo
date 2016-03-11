@@ -66,6 +66,7 @@ namespace PHEMlightdll {
     public:
         static std::vector<std::string> AGGREGATED_VEHICLECLASSES;
 
+        //Drive train efficiency
         static double _DRIVE_TRAIN_EFFICIENCY;
         const static double&  getDRIVE_TRAIN_EFFICIENCY();
         static void setDRIVE_TRAIN_EFFICIENCY(const double&  value);

@@ -20,20 +20,15 @@ namespace PHEMlightdll {
         const std::string&  geteClass() const;
         void seteClass(const std::string& value);
     private:
-        std::string _fClass;
+        std::string _tClass;
     public:
-        const std::string&  getfClass() const;
-        void setfClass(const std::string& value);
+        const std::string&  gettClass() const;
+        void settClass(const std::string& value);
     private:
         std::string _sClass;
     public:
         const std::string&  getsClass() const;
         void setsClass(const std::string& value);
-    private:
-        std::string _pClass;
-    public:
-        const std::string&  getpClass() const;
-        void setpClass(const std::string& value);
     private:
         std::string _Class;
     public:
@@ -59,11 +54,8 @@ namespace PHEMlightdll {
     private:
         bool getvclass(const std::string& VEH);
 
-        //Get fuel Class
-        bool getfclass(const std::string& VEH);
-
-        //Get propulsion class
-        bool getpclass(const std::string& VEH);
+        //Get technologie Class
+        bool gettclass(const std::string& VEH);
 
         //Get size class
         bool getsclass(const std::string& VEH);
@@ -71,7 +63,7 @@ namespace PHEMlightdll {
         //Get euro class
         bool geteclass(const std::string& VEH);
 
-        //Set complet class string
+        //Set complete class string
     public:
         bool setclass(const std::string& VEH);
 

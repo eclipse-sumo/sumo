@@ -4,12 +4,13 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include "stringbuilder.h"
 
 //C# TO C++ CONVERTER NOTE: Forward class declarations:
-class CEPHandler;
-class CEP;
-class Helpers;
-class VehicleResult;
+namespace PHEMlightdll { class CEPHandler; }
+namespace PHEMlightdll { class Helpers; }
+namespace PHEMlightdll { class VehicleResult; }
+namespace PHEMlightdll { class CEP; }
 
 
 namespace PHEMlightdll {
@@ -17,7 +18,6 @@ namespace PHEMlightdll {
     private:
         std::string _DataPath;
         CEPHandler* DataInput;
-        CEP* Data;
     public:
         Helpers* Helper;
 

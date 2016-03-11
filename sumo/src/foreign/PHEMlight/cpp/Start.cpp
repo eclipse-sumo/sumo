@@ -1,47 +1,29 @@
-﻿#include "Start.h"
+﻿#include <fstream>
+#include "Start.h"
 #include "CEPHandler.h"
-#include "CEP.h"
 #include "Helpers.h"
+#include "cResult.h"
+#include "CEP.h"
+#include "Constants.h"
 
 
 namespace PHEMlightdll {
 
-    bool Start::CALC_Array(const std::string& VEH, std::vector<double>& Time, std::vector<double>& Velocity, std::vector<double>& Gradient, std::vector<VehicleResult*>& VehicleResultsOrg, bool fleetMix = false, const std::string& PHEMDataV = "V4", const std::string& CommentPref = "c") {
+    bool Start::CALC_Array(const std::string& VEH, std::vector<double>& Time, std::vector<double>& Velocity, std::vector<double>& Gradient, std::vector<VehicleResult*>& VehicleResultsOrg, bool fleetMix, const std::string& PHEMDataV, const std::string& CommentPref) {
         //Declaration
         int i;
         double acc;
         std::vector<VehicleResult*> _VehicleResult;
 
+        //Initialisation
+        Helper->setErrMsg("");
+
         //Borrow
-        Helper->CommentPrefix = CommentPref;
-        Helper->PHEMDataV = PHEMDataV;
-        if ((VEH.rfind("\\")) >= 0) {
-            _DataPath = VEH.substr(0, VEH.rfind("\\"));
-        }
-        else {
-            _DataPath = Assembly::GetExecutingAssembly()->Location->substr(0, Assembly::GetExecutingAssembly()->Location->rfind("\\")) + std::string("\\Default Vehicles\\") + Helper->PHEMDataV;
-        }
+        Helper->setCommentPrefix(CommentPref);
+        Helper->setPHEMDataV(PHEMDataV);
+        _DataPath = VEH.substr(0, VEH.rfind("\\"));
 
-        //Read the vehicle and emission data
-        if (fleetMix) {
-            //Set the vehicle class
-            Helper->gClass = std::string("AggClass_") + VEH;
-
-            //Generate the class
-            DataInput = new CEPHandler();
-
-            //Read the FleetShares
-            if (!DataInput->ReadFleetShares(_DataPath, Helper)) {
-                VehicleResultsOrg.clear();
-                return false;
-            }
-            //Read the vehicle and emission data
-            if (!DataInput->GetFleetCEP(_DataPath, VEH, Helper, Data)) {
-                VehicleResultsOrg.clear();
-                return false;
-            }
-        }
-        else {
+        {
             //Get vehicle string
             if (!Helper->setclass(VEH)) {
                 VehicleResultsOrg.clear();
@@ -52,7 +34,7 @@ namespace PHEMlightdll {
             DataInput = new CEPHandler();
 
             //Read the vehicle and emission data
-            if (!DataInput->GetCEP(_DataPath, Helper, Data)) {
+            if (!DataInput->GetCEP(_DataPath, Helper)) {
                 VehicleResultsOrg.clear();
                 return false;
             }
@@ -64,8 +46,8 @@ namespace PHEMlightdll {
             acc = (Velocity[i] - Velocity[i - 1]) / (Time[i] - Time[i - 1]);
 
             //Calculate and save the data in the List
-            _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->CEPS[Helper->gClass], Time[i - 1], Velocity[i - 1], acc, Gradient[i - 1]));
-            if (Helper->ErrMsg != 0) {
+            _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->getCEPS()[Helper->getgClass()], Time[i - 1], Velocity[i - 1], acc, Gradient[i - 1]));
+            if (Helper->getErrMsg() != "") {
                 VehicleResultsOrg.clear();
                 return false;
             }
@@ -74,41 +56,18 @@ namespace PHEMlightdll {
         return true;
     }
 
-    bool Start::CALC_Single(const std::string& VEH, double Time, double Velocity, double acc, double Gradient, std::vector<VehicleResult*>& VehicleResultsOrg, bool fleetMix = false, const std::string& PHEMDataV = "V4", const std::string& CommentPref = "c") {
+    bool Start::CALC_Single(const std::string& VEH, double Time, double Velocity, double acc, double Gradient, std::vector<VehicleResult*>& VehicleResultsOrg, bool fleetMix, const std::string& PHEMDataV, const std::string& CommentPref) {
         //Declaration
         std::vector<VehicleResult*> _VehicleResult;
         VehicleResultsOrg = _VehicleResult;
 
         //Borrow
-        Helper->CommentPrefix = CommentPref;
-        Helper->PHEMDataV = PHEMDataV;
-        if ((VEH.rfind("\\")) >= 0) {
-            _DataPath = VEH.substr(0, VEH.rfind("\\"));
-        }
-        else {
-            _DataPath = Assembly::GetExecutingAssembly()->Location->substr(0, Assembly::GetExecutingAssembly()->Location->rfind("\\")) + std::string("\\Default Vehicles\\") + Helper->PHEMDataV;
-        }
+        Helper->setCommentPrefix(CommentPref);
+        Helper->setPHEMDataV(PHEMDataV);
+        _DataPath = VEH.substr(0, VEH.rfind("\\"));
 
+        {
         //Read the vehicle and emission data
-        if (fleetMix) {
-            //Set the vehicle class
-            Helper->gClass = std::string("AggClass_") + VEH;
-
-            //Generate the class
-            DataInput = new CEPHandler();
-
-            //Read the FleetShares
-            if (!DataInput->ReadFleetShares(_DataPath, Helper)) {
-                VehicleResultsOrg.clear();
-                return false;
-            }
-            //Read the vehicle and emission data
-            if (!DataInput->GetFleetCEP(_DataPath, VEH, Helper, Data)) {
-                VehicleResultsOrg.clear();
-                return false;
-            }
-        }
-        else {
             //Get vehicle string
             if (!Helper->setclass(VEH)) {
                 VehicleResultsOrg.clear();
@@ -119,14 +78,14 @@ namespace PHEMlightdll {
             DataInput = new CEPHandler();
 
             //Read the vehicle and emission data
-            if (!DataInput->GetCEP(_DataPath, Helper, Data)) {
+            if (!DataInput->GetCEP(_DataPath, Helper)) {
                 VehicleResultsOrg.clear();
                 return false;
             }
         }
 
         //Calculate and save the data in the List
-        _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->CEPS[Helper->gClass], Time, Velocity, acc, Gradient));
+        _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->getCEPS()[Helper->getgClass()], Time, Velocity, acc, Gradient));
         VehicleResultsOrg = _VehicleResult;
         return true;
     }
@@ -140,52 +99,48 @@ namespace PHEMlightdll {
         StringBuilder* allLines = new StringBuilder();
         std::string lineEnding = "\r\n";
 
-        allLines->AppendLine(std::string("Vehicletype: ,") + vehicle);
-        allLines->AppendLine("Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, FC el., CO2, NOx, CO, HC, PM");
-        allLines->AppendLine("[s], [m/s], [%], [m/s^2], [kW], [kW], [-], [-], [g/h], [kWh/h], [g/h], [g/h], [g/h], [g/h], [g/h]");
+        allLines->appendLine(std::string("Vehicletype: ,") + vehicle);
+        allLines->appendLine("Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, FC el., CO2, NOx, CO, HC, PM");
+        allLines->appendLine("[s], [m/s], [%], [m/s^2], [kW], [kW], [-], [-], [g/h], [kWh/h], [g/h], [g/h], [g/h], [g/h], [g/h]");
 
         //Write data
         for (std::vector<VehicleResult*>::const_iterator Result = _VehicleResult.begin(); Result != _VehicleResult.end(); ++Result) {
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->Time.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getTime())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->Speed.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getSpeed())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->Grad.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getGrad())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->Accelaration.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getAccelaration())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->Power.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getPower())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->PPos.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getPPos())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->PNormRated.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getPNormRated())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->PNormDrive.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getPNormDrive())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->EmissionData.FC.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getEmissionData()->getFC())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->EmissionData.FCel.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getEmissionData()->getFCel())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->EmissionData.CO2.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getEmissionData()->getCO2())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->EmissionData.NOx.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getEmissionData()->getNOx())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->EmissionData.CO.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getEmissionData()->getCO())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->EmissionData.HC.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+            allLines->append((*Result)->getEmissionData()->getHC())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-            allLines->Append((*Result)->EmissionData.PM.ToString("0.0000", CultureInfo::InvariantCulture) + lineEnding);
+            allLines->append((*Result)->getEmissionData()->getPM())->append(lineEnding);
         }
 
         // Write the string to a file.
-        if (path.find(".", 0) < 0) {
-            path = path + std::string(".sta");
-        }
         try {
-            StreamWriter* file = new StreamWriter(path);
-            file->WriteLine(allLines);
-            file->Close();
+            std::ofstream file(path);
+            file << allLines->toString();
             return true;
         }
         catch (std::exception& ex) {
@@ -199,57 +154,50 @@ namespace PHEMlightdll {
         }
         StringBuilder* allLines = new StringBuilder();
 
-        if (path.find(".", 0) < 0) {
-            path = path + std::string(".erg");
-        }
-
-        if (!File::Exists(path)) {
-            //Write head
-            allLines->AppendLine("PHEMLight Results");
-            allLines->AppendLine("");
-            allLines->AppendLine("Vehicle, Cycle, Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, FC el., CO2, NOx, CO, HC, PM");
-            allLines->AppendLine("[-], [-], [s], [km/h], [%], [m/s^2], [kW], [kW], [-], [-], [g/km], [kWh/km], [g/km], [g/km], [g/km], [g/km], [g/km]");
-        }
+        //Write head
+        allLines->appendLine("PHEMLight Results");
+        allLines->appendLine("");
+        allLines->appendLine("Vehicle, Cycle, Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, FC el., CO2, NOx, CO, HC, PM");
+        allLines->appendLine("[-], [-], [s], [km/h], [%], [m/s^2], [kW], [kW], [-], [-], [g/km], [kWh/km], [g/km], [g/km], [g/km], [g/km], [g/km]");
 
         //Write data
-        allLines->Append(vehicle + std::string(","));
-        allLines->Append(cycle + std::string(","));
+        allLines->append(vehicle + std::string(","));
+        allLines->append(cycle + std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->Time.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getTime())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->Speed.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getSpeed())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->Grad.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getGrad())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->Accelaration.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getAccelaration())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->Power.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getPower())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->PPos.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getPPos())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->PNormRated.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getPNormRated())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->PNormDrive.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getPNormDrive())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->EmissionData.FC.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getEmissionData()->getFC())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->EmissionData.FCel.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getEmissionData()->getFCel())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->EmissionData.CO2.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getEmissionData()->getCO2())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->EmissionData.NOx.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getEmissionData()->getNOx())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->EmissionData.CO.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getEmissionData()->getCO())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->EmissionData.HC.ToString("0.0000", CultureInfo::InvariantCulture) + std::string(","));
+        allLines->append(_VehicleResult->getEmissionData()->getHC())->append(std::string(","));
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
-        allLines->Append(_VehicleResult->EmissionData.PM.ToString("0.0000", CultureInfo::InvariantCulture));
+        allLines->append(_VehicleResult->getEmissionData()->getPM());
 
         // Write the string to a file.
         try {
-            StreamWriter* file = new StreamWriter(path, true);
-            file->WriteLine(allLines);
-            file->Close();
+            std::ofstream file(path);
+            file << allLines->toString();
             return true;
         }
         catch (std::exception& ex) {
@@ -281,26 +229,26 @@ namespace PHEMlightdll {
 
         //Write data
         for (std::vector<VehicleResult*>::const_iterator Result = _VehicleResult.begin(); Result != _VehicleResult.end(); ++Result) {
-            sum_speed += (*Result)->Speed * 3.6;
-            sum_power += (*Result)->Power;
-            if ((*Result)->PPos > 0) {
-                sum_pPos += (*Result)->PPos;
+            sum_speed += (*Result)->getSpeed() * 3.6;
+            sum_power += (*Result)->getPower();
+            if ((*Result)->getPPos() > 0) {
+                sum_pPos += (*Result)->getPPos();
             }
-            sum_grad += (*Result)->Grad;
-            sum_pNormRated += (*Result)->PNormRated;
-            sum_pNormDrive += (*Result)->PNormDrive;
-            sum_acc += (*Result)->Accelaration;
-            sum_fcel += (*Result)->EmissionData.FCel;
-            sum_fc += (*Result)->EmissionData.FC;
-            sum_cO2 += (*Result)->EmissionData.CO2;
-            sum_nOx += (*Result)->EmissionData.NOx;
-            sum_hC += (*Result)->EmissionData.HC;
-            sum_pM += (*Result)->EmissionData.PM;
-            sum_cO += (*Result)->EmissionData.CO;
+            sum_grad += (*Result)->getGrad();
+            sum_pNormRated += (*Result)->getPNormRated();
+            sum_pNormDrive += (*Result)->getPNormDrive();
+            sum_acc += (*Result)->getAccelaration();
+            sum_fcel += (*Result)->getEmissionData()->getFCel();
+            sum_fc += (*Result)->getEmissionData()->getFC();
+            sum_cO2 += (*Result)->getEmissionData()->getCO2();
+            sum_nOx += (*Result)->getEmissionData()->getNOx();
+            sum_hC += (*Result)->getEmissionData()->getHC();
+            sum_pM += (*Result)->getEmissionData()->getPM();
+            sum_cO += (*Result)->getEmissionData()->getCO();
         }
 
         //Build average
-        sum_time = _VehicleResult[_VehicleResult.size() - 1]->Time - _VehicleResult[0]->Time;
+        sum_time = _VehicleResult[_VehicleResult.size() - 1]->getTime() - _VehicleResult[0]->getTime();
         sum_power /= _VehicleResult.size();
         sum_pPos /= _VehicleResult.size();
         sum_grad /= _VehicleResult.size();
@@ -334,9 +282,9 @@ namespace PHEMlightdll {
         Helper = new Helpers();
     }
 
-    VehicleResult* PHEMLight::CreateVehicleStateData(Helpers* Helper, CEP* currCep, double time, double inputSpeed, double inputAcc, double Gradient = 0) {
+    VehicleResult* PHEMLight::CreateVehicleStateData(Helpers* Helper, CEP* currCep, double time, double inputSpeed, double inputAcc, double Gradient) {
         //Declaration
-        double speed = std::max(inputSpeed, 0);
+        double speed = inputSpeed > 0 ? inputSpeed : 0;
         double acc;
         double P_pos;
 
@@ -361,8 +309,8 @@ namespace PHEMlightdll {
         }
 
         //Calculate the result values (BEV)
-        if (Helper->pClass == Constants->strBEV) {
-            return new VehicleResult(time, speed, Gradient, power, P_pos, P_eng / currCep->RatedPower, P_eng / currCep->DrivingPower, acc, 0, currCep->GetEmission("FC", power, speed, Helper), 0, 0, 0, 0, 0);
+        if (Helper->gettClass() == Constants::strBEV) {
+            return new VehicleResult(time, speed, Gradient, power, P_pos, P_eng / currCep->getRatedPower(), P_eng / currCep->getDrivingPower(), acc, 0, currCep->GetEmission("FC", power, speed, Helper), 0, 0, 0, 0, 0);
         }
 
         //Calculate the decel costing
@@ -370,10 +318,10 @@ namespace PHEMlightdll {
 
         //Calculate the result values (Zero emissions by costing)
         if (acc >= decelCoast) {
-            return new VehicleResult(time, speed, Gradient, power, P_pos, P_eng / currCep->RatedPower, P_eng / currCep->DrivingPower, acc, currCep->GetEmission("FC", power, speed, Helper), 0, currCep->GetCO2Emission(currCep->GetEmission("FC", power, speed, Helper), currCep->GetEmission("CO", power, speed, Helper), currCep->GetEmission("HC", power, speed, Helper), Helper), currCep->GetEmission("NOx", power, speed, Helper), currCep->GetEmission("HC", power, speed, Helper), currCep->GetEmission("PM", power, speed, Helper), currCep->GetEmission("CO", power, speed, Helper));
+            return new VehicleResult(time, speed, Gradient, power, P_pos, P_eng / currCep->getRatedPower(), P_eng / currCep->getDrivingPower(), acc, currCep->GetEmission("FC", power, speed, Helper), 0, currCep->GetCO2Emission(currCep->GetEmission("FC", power, speed, Helper), currCep->GetEmission("CO", power, speed, Helper), currCep->GetEmission("HC", power, speed, Helper), Helper), currCep->GetEmission("NOx", power, speed, Helper), currCep->GetEmission("HC", power, speed, Helper), currCep->GetEmission("PM", power, speed, Helper), currCep->GetEmission("CO", power, speed, Helper));
         }
         else {
-            return new VehicleResult(time, speed, Gradient, power, P_pos, power / currCep->RatedPower, power / currCep->DrivingPower, acc, 0, 0, 0, 0, 0, 0, 0);
+            return new VehicleResult(time, speed, Gradient, power, P_pos, power / currCep->getRatedPower(), power / currCep->getDrivingPower(), acc, 0, 0, 0, 0, 0, 0, 0);
         }
     }
 }

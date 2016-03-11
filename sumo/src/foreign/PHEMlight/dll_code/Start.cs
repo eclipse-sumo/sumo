@@ -72,6 +72,7 @@ namespace PHEMlightdll
             else
                 _DataPath = Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV;
 
+#if FLEET
             //Read the vehicle and emission data
             if (fleetMix) //(#ifdefs)
             {
@@ -95,6 +96,7 @@ namespace PHEMlightdll
                 }
             }
             else
+#endif
             {
                 //Get vehicle string
                 if (!Helper.setclass(VEH))
@@ -161,6 +163,7 @@ namespace PHEMlightdll
                 _DataPath = Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV;
 
             //Read the vehicle and emission data
+#if FLEET
             if (fleetMix) //(#ifdefs)
             {
                 //Set the vehicle class
@@ -183,6 +186,7 @@ namespace PHEMlightdll
                 }
             }
             else
+#endif
             {
                 //Get vehicle string
                 if (!Helper.setclass(VEH))

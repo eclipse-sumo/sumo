@@ -6,9 +6,9 @@
 #include <vector>
 #include <utility>
 
-#include "CEP.h"
-#include "Constants.h"
-#include "Helpers.h"
+//C# TO C++ CONVERTER NOTE: Forward class declarations:
+namespace PHEMlightdll { class CEP; }
+namespace PHEMlightdll { class Helpers; }
 
 
 namespace PHEMlightdll {
@@ -29,16 +29,12 @@ namespace PHEMlightdll {
     public:
         std::map<std::string, CEP*> getCEPS() const;
 
-    private:
-        std::map<std::string, std::map<std::string, double> > _fleetShares;
-    public:
-        const std::map<std::string, std::map<std::string, double> >&  getFleetShares() const;
 
         //--------------------------------------------------------------------------------------------------
         // Methods 
         //--------------------------------------------------------------------------------------------------
 
-        bool GetCEP(const std::string& DataPath, Helpers* Helper, CEP*& Data);
+        bool GetCEP(const std::string& DataPath, Helpers* Helper);
 
         //--------------------------------------------------------------------------------------------------
         // Methods 
@@ -51,22 +47,18 @@ namespace PHEMlightdll {
 
         bool ReadEmissionData(bool readFC, const std::string& DataPath, const std::string& emissionClass, Helpers* Helper, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues);
 
-    public:
-        bool ReadFleetShares(const std::string& DataPath, Helpers* Helper);
-
         //--------------------------------------------------------------------------------------------------
         // Functions 
         //--------------------------------------------------------------------------------------------------
 
         //Split the string
-    private:
         std::vector<std::string> split(const std::string& s, char delim);
 
         //Convert string to double
         double todouble(const std::string& s);
 
         //Convert string to double list
-        std::vector<double> todoubleList(const std::string& s, char delim);
+        std::vector<double> todoubleList(std::vector<std::string>& s);
 
         //Read a line from file
         std::string ReadLine(std::ifstream& s);

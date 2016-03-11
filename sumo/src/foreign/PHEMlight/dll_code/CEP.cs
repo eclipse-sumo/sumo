@@ -185,8 +185,8 @@ namespace PHEMlightdll
             _idlingValueFC = idlingFC * _ratedPower;
         }
         #endregion
-
-        #region ConstrutorForFleetmix (#ifdefs)
+#if FLEET
+        #region ConstrutorForFleetmix
         private CEP(bool heavyVehicle,
                        double vehicleMass,
                        double vehicleLoading,
@@ -236,7 +236,7 @@ namespace PHEMlightdll
 
         }
         #endregion
-
+#endif
         //--------------------------------------------------------------------------------------------------
         // Members 
         //--------------------------------------------------------------------------------------------------
@@ -475,8 +475,8 @@ namespace PHEMlightdll
             return Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
         }
         #endregion
-
-        #region GetNormedEmission (#ifdefs)
+#if FLEET
+        #region GetNormedEmission
         public double GetNormedEmission(string pollutant, double power, double speed, Helpers VehicleClass)
         {
             //Declaration
@@ -528,7 +528,7 @@ namespace PHEMlightdll
             return Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
         }
         #endregion
-
+#endif
         #region GetCO2Emission
         public double GetCO2Emission(double _FC, double _CO, double _HC, Helpers VehicleClass)
         {
@@ -627,7 +627,7 @@ namespace PHEMlightdll
         }
         #endregion
 
-        #region GetGearCoeffecient (#ifdefs)
+        #region GetGearCoeffecient
         public double GetGearCoeffecient(double speed)
         {
             //Declaration
@@ -643,7 +643,7 @@ namespace PHEMlightdll
         }
         #endregion
 
-        #region GetDragCoeffecient (#ifdefs)
+        #region GetDragCoeffecient
         public double GetDragCoeffecient(double nNorm)
         {
             //Declaration
@@ -724,8 +724,8 @@ namespace PHEMlightdll
         //--------------------------------------------------------------------------------------------------
         // Operators for fleetmix
         //--------------------------------------------------------------------------------------------------
-
-        #region AddRangeCeps (#ifdefs)
+#if FLEET
+        #region AddRangeCeps
         public static CEP AddRangeCeps(CEP[] cps, Helpers Helper)
         {
             #region SingleValues
@@ -880,7 +880,7 @@ namespace PHEMlightdll
         }
         #endregion
 
-        #region Operator * (#ifdefs)
+        #region Operator *
         public static CEP operator *(CEP cp1, double d)
         {
             #region SingleValues
@@ -969,7 +969,7 @@ namespace PHEMlightdll
         }
         #endregion
 
-        #region CreatePattern (#ifdefs)
+        #region CreatePattern
         static public List<double> CreatePattern(double min, double max, double increment)
         {
             //Declaration
@@ -997,5 +997,6 @@ namespace PHEMlightdll
             return pattern;
         }
         #endregion
+#endif
     }
 }

@@ -1,7 +1,9 @@
-﻿#include "CEPHandler.h"
+﻿#include <fstream>
+#include <sstream>
+#include "CEPHandler.h"
+#include "CEP.h"
 #include "Helpers.h"
 #include "Constants.h"
-#include "CEP.h"
 
 
 namespace PHEMlightdll {
@@ -14,19 +16,12 @@ namespace PHEMlightdll {
         return _ceps;
     }
 
-    const std::map<std::string, std::map<std::string, double> >& CEPHandler::getFleetShares() const {
-        return _fleetShares;
-    }
-
-    bool CEPHandler::GetCEP(const std::string& DataPath, Helpers* Helper, CEP*& Data) {
+    bool CEPHandler::GetCEP(const std::string& DataPath, Helpers* Helper) {
         if (getCEPS().find(Helper->getgClass()) == getCEPS().end()) {
             if (!Load(DataPath, Helper)) {
-//C# TO C++ CONVERTER WARNING: C# to C++ Converter converted the original 'null' assignment to a call to 'delete', but you should review memory allocation of all pointer variables in the converted code:
-                delete Data;
                 return false;
             }
         }
-        Data = getCEPS()[Helper->getgClass()];
         return true;
     }
 
@@ -119,11 +114,11 @@ namespace PHEMlightdll {
 
         //Open file
         std::string path = DataPath + std::string("\\") + emissionClass + std::string(".PHEMLight.veh");
-        if (!File::Exists(path)) {
+        std::ifstream vehicleReader(path);
+        if (!vehicleReader.good()) {
             Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
             return false;
         }
-        StreamReader* vehicleReader = File::OpenText(path);
 
         // skip header
         ReadLine(vehicleReader);
@@ -258,7 +253,7 @@ namespace PHEMlightdll {
                 continue;
             }
 
-            std::vector<double>& entries = todoubleList(line, ',');
+            std::vector<double>& entries = todoubleList(split(line, ','));
             matrixSpeedInertiaTable.push_back(entries);
         }
 
@@ -267,11 +262,10 @@ namespace PHEMlightdll {
                 continue;
             }
 
-            std::vector<double>& entries = todoubleList(line, ',');
+            std::vector<double>& entries = todoubleList(split(line, ','));
             normedDragTable.push_back(entries);
         }
 
-        vehicleReader->Close();
         return true;
     }
 
@@ -288,15 +282,15 @@ namespace PHEMlightdll {
         }
 
         std::string path = DataPath + std::string("\\") + emissionClass + pollutantExtension + std::string(".csv");
-        if (!File::Exists(path)) {
+        std::ifstream fileReader(path);
+        if (!fileReader.good()) {
             Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
             return false;
         }
-        StreamReader* fileReader = File::OpenText(path);
 
         // read header line for pollutant identifiers
         if ((line = ReadLine(fileReader)) != "") {
-            std::vector<std::string> entries = split(line, ',');
+            std::vector<std::string>& entries = split(line, ',');
             // skip first entry "Pe"
             for (int i = 1; i < entries.size(); i++) {
                 header.push_back(entries[i]);
@@ -312,70 +306,46 @@ namespace PHEMlightdll {
         //readIdlingValues
         line = ReadLine(fileReader);
 
-        std::vector<std::string> stringIdlings = split(line, ',').ToList();
-        stringIdlings.RemoveAt(0);
+        std::vector<std::string> stringIdlings = split(line, ',');
+        stringIdlings.erase(stringIdlings.begin());
 
-        idlingValues = stringIdlings.Select([&] (void* p) {
-            todouble(p);
-        }).Cast<double>().ToList();
+        idlingValues = todoubleList(stringIdlings);
 
         while ((line = ReadLine(fileReader)) != "") {
-            std::vector<double>& vi = todoubleList(line, ',');
+            std::vector<double>& vi = todoubleList(split(line, ','));
             matrix.push_back(vi);
-        }
-        fileReader->Close();
-        return true;
-    }
-
-    bool CEPHandler::ReadFleetShares(const std::string& DataPath, Helpers* Helper) {
-        //Declaration
-        std::string line;
-        std::string path = DataPath + std::string("\\FleetShares.csv");
-        if (!File::Exists(path)) {
-            Helper->setErrMsg(std::string("FleetShares file does not exist! (") + path + std::string(")"));
-            return false;
-        }
-        StreamReader* shareReader = File::OpenText(path);
-
-        _fleetShares = std::map<std::string, std::map<std::string, double> >();
-
-        while ((line = ReadLine(shareReader)) != "") {
-            if (line.substr(0, 1) == Helper->getCommentPrefix()) {
-                continue;
-            }
-
-            std::vector<std::string> splitLine = split(line, ',');
-            std::string aggregateClass = splitLine[0];
-
-            if (FleetShares.find(aggregateClass) == getFleetShares().end()) {
-                getFleetShares().insert(std::make_pair(aggregateClass, std::map<std::string, double>()));
-            }
-
-            std::string subClass = splitLine[1];
-
-            if (FleetShares[aggregateClass].find(subClass) == getFleetShares()[aggregateClass].end()) {
-                getFleetShares()[aggregateClass].insert(std::make_pair(subClass, todouble(splitLine[2])));
-            }
         }
         return true;
     }
 
     std::vector<std::string> CEPHandler::split(const std::string& s, char delim) {
-//C# TO C++ CONVERTER TODO TASK: There is no direct native C++ equivalent to this .NET String method:
-        return s.Split(delim);
+        std::vector<std::string> elems;
+        std::stringstream ss(s);
+        std::string item;
+        while (std::getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
+        return elems;
     }
 
     double CEPHandler::todouble(const std::string& s) {
-        return static_cast<double>(s, CultureInfo::InvariantCulture);
+        std::stringstream ss(s);
+        double item;
+        ss >> item;
+        return item;
     }
 
-    std::vector<double> CEPHandler::todoubleList(const std::string& s, char delim) {
-        return split(s, delim).Select([&] (void* p) {
-            todouble(p);
-        }).Cast<double>().ToList();
+    std::vector<double> CEPHandler::todoubleList(std::vector<std::string>& s) {
+        std::vector<double> result;
+        for (std::vector<std::string>::const_iterator i = s.begin(); i != s.end(); ++i) {
+            result.push_back(todouble(*i));
+        }
+        return result;
     }
 
-    std::string CEPHandler::ReadLine(StreamReader* s) {
-        return s->ReadLine();
+    std::string CEPHandler::ReadLine(std::ifstream& s) {
+        std::string line;
+        std::getline(s, line);
+        return line;
     }
 }

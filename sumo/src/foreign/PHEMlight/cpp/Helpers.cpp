@@ -20,12 +20,12 @@ namespace PHEMlightdll {
         _eClass = value;
     }
 
-    const std::string& Helpers::getfClass() const {
-        return _fClass;
+    const std::string& Helpers::gettClass() const {
+        return _tClass;
     }
 
-    void Helpers::setfClass(const std::string& value) {
-        _fClass = value;
+    void Helpers::settClass(const std::string& value) {
+        _tClass = value;
     }
 
     const std::string& Helpers::getsClass() const {
@@ -34,14 +34,6 @@ namespace PHEMlightdll {
 
     void Helpers::setsClass(const std::string& value) {
         _sClass = value;
-    }
-
-    const std::string& Helpers::getpClass() const {
-        return _pClass;
-    }
-
-    void Helpers::setpClass(const std::string& value) {
-        _pClass = value;
     }
 
     const std::string& Helpers::getgClass() const {
@@ -123,22 +115,34 @@ namespace PHEMlightdll {
         return false;
     }
 
-    bool Helpers::getfclass(const std::string& VEH) {
+    bool Helpers::gettclass(const std::string& VEH) {
         if (VEH.find(std::string("_") + Constants::strDiesel) > 0) {
-            _fClass = Constants::strDiesel;
-            return true;
+            if (VEH.find(std::string("_") + Constants::strHybrid) > 0) {
+                _tClass = Constants::strDiesel + std::string("_") + Constants::strHybrid;
+                return true;
+            }
+            else {
+                _tClass = Constants::strDiesel;
+                return true;
+            }
+
         }
         else if (VEH.find(std::string("_") + Constants::strGasoline) > 0) {
-            _fClass = Constants::strGasoline;
-            return true;
+            if (VEH.find(std::string("_") + Constants::strHybrid) > 0) {
+                _tClass = Constants::strGasoline + std::string("_") + Constants::strHybrid;
+                return true;
+            }
+            else {
+                _tClass = Constants::strGasoline;
+                return true;
+            }
         }
         else if (VEH.find(std::string("_") + Constants::strCNG) > 0) {
-            _fClass = Constants::strCNG;
+            _tClass = Constants::strCNG;
             return true;
         }
         else if (VEH.find(std::string("_") + Constants::strBEV) > 0) {
-            //No fuel class by EV vehicle
-            _fClass = "";
+            _tClass = Constants::strBEV;
             return true;
         }
         //Should never happens
@@ -146,22 +150,8 @@ namespace PHEMlightdll {
         return false;
     }
 
-    bool Helpers::getpclass(const std::string& VEH) {
-        if (VEH.find(std::string("_") + Constants::strHybrid) > 0) {
-            _pClass = Constants::strHybrid;
-            return true;
-        }
-        else if (VEH.find(std::string("_") + Constants::strBEV) > 0) {
-            _pClass = Constants::strBEV;
-            return true;
-        }
-        //default
-        _pClass = "";
-        return false;
-    }
-
     bool Helpers::getsclass(const std::string& VEH) {
-        if (VEH.find(Constants::strLKW) > 0) {
+        if (VEH.find(Constants::strLKW) >= 0) {
             if (VEH.find(std::string("_") + Constants::strSII) > 0) {
                 _sClass = Constants::strSII;
                 return true;
@@ -176,7 +166,7 @@ namespace PHEMlightdll {
                 return false;
             }
         }
-        else if (VEH.find(Constants::strLNF) > 0) {
+        else if (VEH.find(Constants::strLNF) >= 0) {
             if (VEH.find(std::string("_") + Constants::strSIII) > 0) {
                 _sClass = Constants::strSIII;
                 return true;
@@ -215,6 +205,10 @@ namespace PHEMlightdll {
                 return true;
             }
         }
+        else if (VEH.find(std::string("_") + Constants::strBEV) > 0) {
+            _eClass = "";
+            return true;
+        }
         //Should never happens
         _ErrMsg = std::string("Euro class not defined! (") + VEH + std::string(")");
         return false;
@@ -227,26 +221,23 @@ namespace PHEMlightdll {
         else {
             return false;
         }
-        if (getfclass(VEH)) {
-            if (_fClass != "") {
-                _Class = _Class + std::string("_") + getfClass();
+        if (getsclass(VEH)) {
+            if (_sClass != "") {
+                _Class = _Class + std::string("_") + getsClass();
             }
         }
         else {
             return false;
         }
-        if (geteclass(VEH)) {
-            _Class = _Class + std::string("_") + geteClass();
+        if (gettclass(VEH)) {
+            _Class = _Class + std::string("_") + gettClass();
         }
         else {
             return false;
         }
-        if (getpclass(VEH)) {
-            _Class = _Class + std::string("_") + getpClass();
-        }
-        if (getsclass(VEH)) {
-            if (_sClass != "") {
-                _Class = _Class + std::string("_") + getsClass();
+        if (geteclass(VEH)) {
+            if (_eClass != "") {
+                _Class = _Class + std::string("_") + geteClass();
             }
         }
         else {
