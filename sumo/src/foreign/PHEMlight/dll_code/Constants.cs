@@ -18,7 +18,6 @@ namespace PHEMlightdll
         public const double DRIVE_TRAIN_EFFICIENCY_All = 0.9;
         public const double DRIVE_TRAIN_EFFICIENCY_CB = 0.8;
         public const bool calcCB = false;
-        public const double M_PI = 3.1415926535897932384626433832795;
 
         //Fleetmix constants
         public const double SPEED_ROTATIONAL_INCREMENT = 10 / 3.6;

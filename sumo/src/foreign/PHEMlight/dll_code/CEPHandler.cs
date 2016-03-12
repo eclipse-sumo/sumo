@@ -409,8 +409,7 @@ namespace PHEMlightdll
                 if (line.Substring(0, 1) == Helper.CommentPrefix)
                     continue;
 
-                List<double> entries = todoubleList(split(line, ','));
-                matrixSpeedInertiaTable.Add(entries);
+                matrixSpeedInertiaTable.Add(todoubleList(split(line, ',')));
             }
 
             while ((line = ReadLine(vehicleReader)) != null)
@@ -418,8 +417,7 @@ namespace PHEMlightdll
                 if (line.Substring(0, 1) == Helper.CommentPrefix)
                     continue;
 
-                List<double> entries = todoubleList(split(line, ','));
-                normedDragTable.Add(entries);
+                normedDragTable.Add(todoubleList(split(line, ',')));
             }
 
             vehicleReader.Close();
@@ -481,8 +479,7 @@ namespace PHEMlightdll
 
             while ((line = ReadLine(fileReader)) != null)
             {
-                List<double> vi = todoubleList(split(line, ','));
-                matrix.Add(vi);
+                matrix.Add(todoubleList(split(line, ',')));
             }
             fileReader.Close();
             return true;
