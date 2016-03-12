@@ -98,6 +98,7 @@
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\cResult.h" />
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Helpers.h" />
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Start.h" />
+    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\stringbuilder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

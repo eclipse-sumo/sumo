@@ -146,6 +146,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesosim", "y_libmesosi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesogui", "y_libmesogui\y_libmesogui.vcxproj", "{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_phemlight", "zz_foreign_phemlight\zz_foreign_phemlight.vcxproj", "{7C75D510-D70A-11E5-A837-0800200C9A66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -1081,6 +1083,22 @@ Global
 		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Unittest|Win32.Build.0 = Release|Win32
 		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Unittest|x64.ActiveCfg = Release|x64
 		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Unittest|x64.Build.0 = Release|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Debug|Win32.Build.0 = Debug|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Debug|x64.ActiveCfg = Debug|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Debug|x64.Build.0 = Debug|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Release|Win32.ActiveCfg = Release|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Release|Win32.Build.0 = Release|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Release|x64.ActiveCfg = Release|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Release|x64.Build.0 = Release|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Unittest|Win32.ActiveCfg = Release|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Unittest|Win32.Build.0 = Release|Win32
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Unittest|x64.ActiveCfg = Release|x64
+		{7C75D510-D70A-11E5-A837-0800200C9A66}.Unittest|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,5 +49,8 @@
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Start.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\stringbuilder.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
