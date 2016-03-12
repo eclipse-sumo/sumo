@@ -308,7 +308,7 @@ namespace PHEMlightdll {
 
         double iTot = iGear * _axleRatio;
 
-        double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * Constants::M_PI);
+        double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * M_PI);
         double nNorm = (n - _engineIdlingSpeed) / (_engineRatedSpeed - _engineIdlingSpeed);
 
         FindLowerUpperInPattern(lowerIndex, upperIndex, _nNormTable, nNorm);

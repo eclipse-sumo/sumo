@@ -447,6 +447,8 @@ src/foreign/eulerspiral/Makefile
 src/foreign/gl2ps/Makefile
 src/foreign/mersenne/Makefile
 src/foreign/nvwa/Makefile
+src/foreign/PHEMlight/Makefile
+src/foreign/PHEMlight/cpp/Makefile
 src/foreign/polyfonts/Makefile
 src/foreign/rtree/Makefile
 src/foreign/tcpip/Makefile

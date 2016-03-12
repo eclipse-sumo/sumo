@@ -114,7 +114,7 @@ namespace PHEMlightdll {
 
         //Open file
         std::string path = DataPath + std::string("\\") + emissionClass + std::string(".PHEMLight.veh");
-        std::ifstream vehicleReader(path);
+        std::ifstream vehicleReader(path.c_str());
         if (!vehicleReader.good()) {
             Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
             return false;
@@ -253,8 +253,7 @@ namespace PHEMlightdll {
                 continue;
             }
 
-            std::vector<double>& entries = todoubleList(split(line, ','));
-            matrixSpeedInertiaTable.push_back(entries);
+            matrixSpeedInertiaTable.push_back(todoubleList(split(line, ',')));
         }
 
         while ((line = ReadLine(vehicleReader)) != "") {
@@ -262,8 +261,7 @@ namespace PHEMlightdll {
                 continue;
             }
 
-            std::vector<double>& entries = todoubleList(split(line, ','));
-            normedDragTable.push_back(entries);
+            normedDragTable.push_back(todoubleList(split(line, ',')));
         }
 
         return true;
@@ -282,7 +280,7 @@ namespace PHEMlightdll {
         }
 
         std::string path = DataPath + std::string("\\") + emissionClass + pollutantExtension + std::string(".csv");
-        std::ifstream fileReader(path);
+        std::ifstream fileReader(path.c_str());
         if (!fileReader.good()) {
             Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
             return false;
@@ -290,7 +288,7 @@ namespace PHEMlightdll {
 
         // read header line for pollutant identifiers
         if ((line = ReadLine(fileReader)) != "") {
-            std::vector<std::string>& entries = split(line, ',');
+            std::vector<std::string> entries = split(line, ',');
             // skip first entry "Pe"
             for (int i = 1; i < entries.size(); i++) {
                 header.push_back(entries[i]);
@@ -312,8 +310,7 @@ namespace PHEMlightdll {
         idlingValues = todoubleList(stringIdlings);
 
         while ((line = ReadLine(fileReader)) != "") {
-            std::vector<double>& vi = todoubleList(split(line, ','));
-            matrix.push_back(vi);
+            matrix.push_back(todoubleList(split(line, ',')));
         }
         return true;
     }
@@ -335,7 +332,7 @@ namespace PHEMlightdll {
         return item;
     }
 
-    std::vector<double> CEPHandler::todoubleList(std::vector<std::string>& s) {
+    std::vector<double> CEPHandler::todoubleList(const std::vector<std::string>& s) {
         std::vector<double> result;
         for (std::vector<std::string>::const_iterator i = s.begin(); i != s.end(); ++i) {
             result.push_back(todouble(*i));

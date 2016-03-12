@@ -58,7 +58,7 @@ namespace PHEMlightdll {
         double todouble(const std::string& s);
 
         //Convert string to double list
-        std::vector<double> todoubleList(std::vector<std::string>& s);
+        std::vector<double> todoubleList(const std::vector<std::string>& s);
 
         //Read a line from file
         std::string ReadLine(std::ifstream& s);

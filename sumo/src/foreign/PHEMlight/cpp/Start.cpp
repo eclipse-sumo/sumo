@@ -139,7 +139,7 @@ namespace PHEMlightdll {
 
         // Write the string to a file.
         try {
-            std::ofstream file(path);
+            std::ofstream file(path.c_str());
             file << allLines->toString();
             return true;
         }
@@ -196,7 +196,7 @@ namespace PHEMlightdll {
 
         // Write the string to a file.
         try {
-            std::ofstream file(path);
+            std::ofstream file(path.c_str());
             file << allLines->toString();
             return true;
         }
