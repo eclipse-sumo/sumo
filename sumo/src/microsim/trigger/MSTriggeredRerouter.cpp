@@ -319,8 +319,8 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     ConstMSEdgeVector edges;
     MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
         veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-    veh.replaceRouteEdges(edges);
-    if (newArrivalPos != -1) {
+    const bool useNewRoute = veh.replaceRouteEdges(edges);
+    if (useNewRoute && newArrivalPos != -1) {
         // must be called here because replaceRouteEdges may also set the arrivalPos
         veh.setArrivalPos(newArrivalPos);
     }
