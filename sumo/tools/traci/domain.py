@@ -148,7 +148,12 @@ class Domain:
         """
         return self._connection._getSubscriptionResults(self._subscribeResponseID).get(objectID)
 
-    def subscribeContext(self, objectID, domain, dist, varIDs=(tc.ID_LIST,), begin=0, end=2**31 - 1):
+    def subscribeContext(self, objectID, domain, dist, varIDs=None, begin=0, end=2**31 - 1):
+        if varIDs is None:
+            if tc.LAST_STEP_VEHICLE_NUMBER in self._retValFunc:
+                varIDs = (tc.LAST_STEP_VEHICLE_NUMBER,)
+            else:
+                varIDs = (tc.ID_LIST,)
         self._connection._subscribeContext(self._contextID, begin, end, objectID, domain, dist, varIDs)
 
     def getContextSubscriptionResults(self, objectID=None):

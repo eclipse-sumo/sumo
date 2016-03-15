@@ -946,5 +946,14 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
         self._connection._sendExact()
 
+    def subscribe(self, objectID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
+        """subscribe(string, list(integer), double, double) -> None
+
+        Subscribe to one or more object values for the given interval.
+        """
+        Domain.subscribe(self, objectID, varIDs, begin, end)
+
+    def subscribeContext(self, objectID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
+        Domain.subscribeContext(self, objectID, domain, dist, varIDs, begin, end)
 
 VehicleDomain()
