@@ -90,6 +90,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //ret->mkItem("last lane change [s]", true,
     //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
+    ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
     if (getParameter().repetitionNumber < INT_MAX) {
         ret->mkItem("remaining [#]", false, (unsigned int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
@@ -212,6 +213,8 @@ GUIMEVehicle::getColorValue(size_t activeScheme) const {
             return 0; // invalid getAcceleration();
         case 23:
             return 0; // invalid getTimeGap();
+        case 24:
+            return STEPS2TIME(getDepartDelay());
     }
     return 0;
 }
