@@ -58,3 +58,6 @@ off_ramp_preserve_permissions
 
 # no ramp should be guessed when there is a sidewalk
 sidewalks_no_ramp
+
+# build a combined on/off-ramp with user defined connections
+both_user_defined_connections
