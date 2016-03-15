@@ -365,3 +365,9 @@ def clearPending(routeID=""):
                         1 + 4 + len(routeID))
     traci._message.packString(routeID)
     traci._sendExact()
+
+def saveState(fileName):
+    traci._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_SAVE_SIMSTATE, "",
+                        1 + 4 + len(fileName))
+    traci._message.packString(fileName)
+    traci._sendExact()

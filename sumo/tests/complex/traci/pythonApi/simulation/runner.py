@@ -81,6 +81,8 @@ print("distanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0.))
 print("drivingDistanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0., isDriving=True))
 print("clearing pending")
 traci.simulation.clearPending()
+print("save simstate")
+traci.simulation.saveState("state.xml")
 for step in range(6):
     print("step", step)
     traci.simulationStep()

@@ -15,6 +15,7 @@ copy_test_path:input_routes.rou.xml
 [collate_file]
 testclient_out:testclient_out.txt
 net_state:netstate_dump.xml
+simstate:simstate.xml
 detector:detector.xml
 tls_state:tls_state.xml
 vehroutes:vehroutes.xml

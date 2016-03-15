@@ -729,6 +729,9 @@
 // clears the simulation of all not inserted vehicles (set: simulation)
 #define CMD_CLEAR_PENDING_VEHICLES 0x94
 
+// triggers saving simulation state (set: simulation)
+#define CMD_SAVE_SIMSTATE 0x95
+
 // sets/retrieves abstract parameter
 #define VAR_PARAMETER 0x7e
 
