@@ -53,7 +53,7 @@
 MSRoute::RouteDict MSRoute::myDict;
 MSRoute::RouteDistDict MSRoute::myDistDict;
 #ifdef HAVE_FOX
-FXMutex MSRoute::myDictMutex;
+FXMutex MSRoute::myDictMutex(true);
 #endif
 
 
