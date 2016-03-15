@@ -1885,9 +1885,7 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff) {
         for (std::vector<NBEdge::Connection>::iterator j = elv.begin(); j != elv.end(); j++) {
             NBEdge::Connection el = *j;
             assert(el.tlID == "");
-            bool ok = addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
-            assert(ok);
-            UNUSED_PARAMETER(ok); // only used for assertion
+            addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
         }
     }
 }
@@ -2200,7 +2198,7 @@ NBEdge::incLaneNo(unsigned int by) {
     unsigned int newLaneNo = (unsigned int) myLanes.size() + by;
     while (myLanes.size() < newLaneNo) {
         // recompute shapes on last addition
-        const bool recompute = myLanes.size() == newLaneNo - 1;
+        const bool recompute = (myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
         addLane((unsigned int)myLanes.size(), recompute);
     }
 }
@@ -2227,7 +2225,7 @@ NBEdge::decLaneNo(unsigned int by) {
     assert(newLaneNo > 0);
     while (myLanes.size() > newLaneNo) {
         // recompute shapes on last removal
-        const bool recompute = myLanes.size() == newLaneNo + 1;
+        const bool recompute = myLanes.size() == newLaneNo + 1 && myStep < LANES2LANES_USER;
         deleteLane((unsigned int)((int)myLanes.size() - 1), recompute);
     }
 }
