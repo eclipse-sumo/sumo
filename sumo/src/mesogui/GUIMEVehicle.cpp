@@ -129,6 +129,12 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //ret->mkItem("containers", true,
     //            new FunctionBinding<GUIMEVehicle, unsigned int>(this, &GUIMEVehicle::getContainerNumber));
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
+
+    // meso specific values
+    ret->mkItem("event time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getEventTimeSeconds));
+    ret->mkItem("entry time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getLastEntryTimeSeconds));
+    ret->mkItem("block time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getBlockTimeSeconds));
+
     ret->mkItem("", false, "");
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());

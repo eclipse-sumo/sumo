@@ -257,6 +257,20 @@ public:
     }
 
 
+    /// @brief Returns the earliest leave time for the current segment
+    SUMOReal getEventTimeSeconds() const {
+        return STEPS2TIME(getEventTime());
+    }
+
+    /// @brief Returns the entry time for the current segment
+    SUMOReal getLastEntryTimeSeconds() const {
+        return STEPS2TIME(getLastEntryTime());
+    }
+
+    /// @brief Returns the time at which the vehicle was blocked on the current segment
+    SUMOReal getBlockTimeSeconds() const {
+        return STEPS2TIME(getBlockTime());
+    }
 
 
     /// Replaces the current route by the given one
