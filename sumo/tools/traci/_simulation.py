@@ -299,7 +299,6 @@ class SimulationDomain(Domain):
         self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, toType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!dd")
 
-
     def getDistance2D(self, x1, y1, x2, y2, isGeo=False, isDriving=False):
         """getDistance2D(double, double, double, double, boolean, boolean) -> double
 
@@ -325,7 +324,6 @@ class SimulationDomain(Domain):
         self._connection._string += struct.pack("!BddB", posType, x2, y2, distType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "").readDouble()
 
-
     def getDistanceRoad(self, edgeID1, pos1, edgeID2, pos2, isDriving=False):
         """getDistanceRoad(string, double, string, double, boolean) -> double
 
@@ -347,6 +345,12 @@ class SimulationDomain(Domain):
         self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_CLEAR_PENDING_VEHICLES, "",
                             1 + 4 + len(routeID))
         self._connection._packString(routeID)
+        self._connection._sendExact()
+
+    def saveState(self, fileName):
+        self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_SAVE_SIMSTATE, "",
+                            1 + 4 + len(fileName))
+        self._connection.packString(fileName)
         self._connection._sendExact()
 
     def subscribe(self, varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31 - 1):
