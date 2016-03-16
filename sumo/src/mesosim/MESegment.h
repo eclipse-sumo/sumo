@@ -167,14 +167,6 @@ public:
         return myLength;
     }
 
-    /** @brief Returns the maximum allowed speed on the segment in meters per second.
-     *
-     * @return the maximum allowed speed on the segment
-     */
-    inline SUMOReal getMaxSpeed() const {
-        return myMaxSpeed;
-    }
-
     /** @brief Returns the occupany of the segment (the sum of the vehicle lengths + minGaps)
      *
      * @return the occupany of the segment in meters
@@ -431,9 +423,6 @@ private:
 
     /// @brief The segment's length
     const SUMOReal myLength;
-
-    /// @brief The current maximum allowed speed
-    SUMOReal myMaxSpeed;
 
     /// @brief Running number of the segment in the edge
     const unsigned int myIndex;

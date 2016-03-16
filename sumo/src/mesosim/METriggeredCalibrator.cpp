@@ -106,6 +106,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         myEdgeMeanData.reset(); // discard collected values
         if (!mySpeedIsDefault) {
             // if not, reset adaptation values
+            mySegment->getEdge().setMaxSpeed(myDefaultSpeed);
             MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
             const SUMOReal jamThresh = OptionsCont::getOptions().getFloat("meso-jam-threshold");
             while (first != 0) {
@@ -121,7 +122,8 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         return myFrequency;
     }
     // we are active
-    if (!myDidSpeedAdaption && myCurrentStateInterval->v >= 0) {
+    if (!myDidSpeedAdaption && myCurrentStateInterval->v >= 0 && myCurrentStateInterval->v != mySegment->getEdge().getSpeedLimit()) {
+        mySegment->getEdge().setMaxSpeed(myCurrentStateInterval->v);
         MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
         while (first != 0) {
             first->setSpeed(myCurrentStateInterval->v, currentTime, -1);
@@ -236,7 +238,7 @@ METriggeredCalibrator::invalidJam() const {
         return false;
     }
     // maxSpeed reflects the calibration target
-    const bool toSlow = mySegment->getMeanSpeed() < 0.8 * mySegment->getMaxSpeed();
+    const bool toSlow = mySegment->getMeanSpeed() < 0.8 * mySegment->getEdge().getSpeedLimit();
     return toSlow && remainingVehicleCapacity() < maximumInflow();
 }
 
