@@ -29,6 +29,8 @@ detector:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 net_state:<!--{[->]}-->
+simstate:<!--{[->]}-->
+simstate:<snapshot version="[^"]*"{REPLACE <snapshot version="<version>"}
 output:port
 errors:Socket
 
