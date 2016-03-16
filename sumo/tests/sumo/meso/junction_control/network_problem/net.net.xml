@@ -58,7 +58,8 @@
     </edge>
 
     <tlLogic id="gneJ5" type="static" programID="0" offset="0">
-        <phase duration="90" state="r"/>
+        <phase duration="400" state="r"/>
+        <phase duration="3" state="y"/>
         <phase duration="3" state="G"/>
     </tlLogic>
 
