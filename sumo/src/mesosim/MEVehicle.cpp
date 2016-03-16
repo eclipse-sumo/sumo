@@ -120,6 +120,15 @@ MEVehicle::getAverageSpeed() const {
 
 
 SUMOReal
+MEVehicle::estimateLeaveSpeed(const MSLink* link) const {
+    /// @see MSVehicle.cpp::estimateLeaveSpeed
+    const SUMOReal v = getSpeed();
+    return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this),
+            (SUMOReal)sqrt(2 * link->getLength() * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
+}
+
+
+SUMOReal
 MEVehicle::getConservativeSpeed(SUMOTime& earliestArrival) const {
     earliestArrival = MAX2(myEventTime, earliestArrival - DELTA_T); // event times have subsecond resolution
     return mySegment->getLength() / STEPS2TIME(earliestArrival - myLastEntryTime);

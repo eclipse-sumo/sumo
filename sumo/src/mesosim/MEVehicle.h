@@ -40,6 +40,7 @@
 #include "MESegment.h"
 
 class MSLane;
+class MSLink;
 
 // ===========================================================================
 // class definitions
@@ -106,6 +107,9 @@ public:
      * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
      */
     SUMOReal getAverageSpeed() const;
+
+    /// @brief Returns the vehicle's estimated speed after driving accross the link
+    SUMOReal estimateLeaveSpeed(const MSLink* link) const;
 
 
     /** @brief Returns the vehicle's estimated speed taking into account delays
