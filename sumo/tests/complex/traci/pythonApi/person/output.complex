@@ -16,13 +16,13 @@ length 0.215
 MinGap 0.25
 width 0.478
 waiting time 0.0
-{80: '2fi', 86: 241.27777777777777}
+{0: ['horiz']}
 step 3
-{80: '2fi', 86: 242.66666666666666}
+{0: ['horiz']}
 step 4
-{80: '2fi', 86: 244.05555555555554}
+{0: ['horiz']}
 step 5
-{80: '2fi', 86: 245.44444444444443}
+{0: ['horiz']}
 persons ['horiz']
 person count 1
 examining horiz
@@ -44,17 +44,17 @@ recovering from exception after asking for unknown person
 step 6
 getIDList ['horiz']
 step 7
-{80: '2fi', 86: 248.2222222222222}
+{0: ['horiz']}
 step 8
-{80: ':m2_w0', 86: 1.1111111111110858}
+{0: ['horiz']}
 step 9
-{80: ':m2_w0', 86: 2.4999999999999747}
+{0: ['horiz']}
 step 10
-{80: ':m2_w0', 86: 3.8888888888888635}
+{0: ['horiz']}
 step 11
-{80: ':m2_w0', 86: 5.277777777777752}
+{0: ['horiz']}
 step 12
-{80: ':m2_w0', 86: 6.666666666666641}
+{0: ['horiz']}
 :0_w1
 9.97012861603
 :0_c0
