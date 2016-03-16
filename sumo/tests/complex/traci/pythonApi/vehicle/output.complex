@@ -44,8 +44,8 @@ shape passenger
 MinGap 2.5
 width 1.8
 waiting time 0.0
-driving dist 3002.95289395
-driving dist 2D 1098.13130535
+driving dist 2915.24286403
+driving dist 2D 1064.64286403
 {80: '2fi', 86: 9.657135966210626}
 step 3
 {80: '2fi', 86: 15.313460015063175}
@@ -95,8 +95,8 @@ shape bicycle
 MinGap 1.1
 width 1.1
 waiting time 0.0
-driving dist 2980.22862056
-driving dist 2D 1075.40703196
+driving dist 2892.51859065
+driving dist 2D 1041.91859065
 vehicles ['horiz']
 vehicle count 1
 examining bla
@@ -203,8 +203,8 @@ shape passenger
 MinGap 2.5
 width 1.8
 waiting time 0.0
-driving dist 3002.32060554
-driving dist 2D 1097.49901695
+driving dist 2914.61057563
+driving dist 2D 1064.01057563
 leader ('1', 21.526320178424136)
 step 13
 {104: ('1', 21.384402135832485)}

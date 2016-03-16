@@ -229,6 +229,7 @@ MSBaseVehicle::getSlope() const {
 void
 MSBaseVehicle::onDepart() {
     myDeparture = MSNet::getInstance()->getCurrentTimeStep();
+    myDepartPos = getPositionOnLane();
     MSNet::getInstance()->getVehicleControl().vehicleDeparted(*this);
 }
 

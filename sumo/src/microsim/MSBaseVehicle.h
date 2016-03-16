@@ -209,6 +209,12 @@ public:
     }
 
 
+    /** @brief Returns this vehicle's real departure position
+     * @return This vehicle's real departure position
+     */
+    inline SUMOTime getDepartPos() const {
+        return myDepartPos;
+    }
 
     /** @brief Returns this vehicle's desired arrivalPos for its current route
      * (may change on reroute)
@@ -378,10 +384,13 @@ protected:
     /// @brief The real departure time
     SUMOTime myDeparture;
 
-    /// the position on the destination lane where the vehicle stops
+    /// @brief The real depart position
+    SUMOReal myDepartPos;
+
+    /// @brief The position on the destination lane where the vehicle stops
     SUMOReal myArrivalPos;
 
-    /// the position on the destination lane where the vehicle stops
+    /// @brief The destination lane where the vehicle stops
     int myArrivalLane;
 
     /// @brief The number of reroutings

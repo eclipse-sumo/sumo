@@ -201,6 +201,11 @@ public:
      */
     virtual SUMOTime getDeparture() const = 0;
 
+    /** @brief Returns this vehicle's real departure position
+     * @return This vehicle's real departure position
+     */
+    virtual SUMOTime getDepartPos() const = 0;
+
     /** @brief Returns this vehicle's desired arrivalPos for its current route
      * (may change on reroute)
      * @return This vehicle's real arrivalPos

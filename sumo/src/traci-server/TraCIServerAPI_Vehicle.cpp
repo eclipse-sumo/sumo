@@ -391,7 +391,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             case VAR_DISTANCE: {
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                SUMOReal distance = onRoad ? v->getRoute().getDistanceBetween(0, v->getPositionOnLane(), v->getRoute().getEdges()[0],  &v->getLane()->getEdge()) : INVALID_DOUBLE_VALUE;
+                SUMOReal distance = onRoad ? v->getRoute().getDistanceBetween(v->getDepartPos(), v->getPositionOnLane(), v->getRoute().getEdges()[0],  &v->getLane()->getEdge()) : INVALID_DOUBLE_VALUE;
                 if (distance == std::numeric_limits<SUMOReal>::max()) {
                     distance = INVALID_DOUBLE_VALUE;
                 }
