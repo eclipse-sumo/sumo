@@ -681,6 +681,17 @@ MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
 }
 
 
+void
+MSEdge::setMaxSpeed(SUMOReal val) const {
+    if (myLanes != 0) {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            (*i)->setMaxSpeed(val);
+        }
+    }
+}
+
+
+
 std::vector<MSTransportable*>
 MSEdge::getSortedPersons(SUMOTime timestep) const {
     std::vector<MSTransportable*> result(myPersons.begin(), myPersons.end());
