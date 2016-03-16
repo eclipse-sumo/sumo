@@ -376,7 +376,6 @@ MSCalibrator::execute(SUMOTime currentTime) {
 #endif
             vehicle->resetRoutePosition(routeIndex);
             if (myEdge->insertVehicle(*vehicle, currentTime)) {
-                vehicle->onDepart();
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
                     throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
                 }

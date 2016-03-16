@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/10/14 09:43:51 by SUMO Version dev-SVN-r17442
+<!-- generated on Wed Mar 16 09:44:18 2016 by SUMO Version dev-SVN-r20203
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,7 +25,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -111,14 +111,14 @@
 
     <vehicle id="flow_maybe_detour.11" depart="110.00" arrival="317.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.15" depart="150.00" arrival="357.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>

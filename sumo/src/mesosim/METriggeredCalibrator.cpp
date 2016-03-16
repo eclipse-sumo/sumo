@@ -84,7 +84,6 @@ METriggeredCalibrator::~METriggeredCalibrator() {
 bool
 METriggeredCalibrator::tryEmit(MESegment* s, MEVehicle* vehicle) {
     if (s->initialise(vehicle, vehicle->getParameter().depart)) {
-        vehicle->onDepart();
         if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
             throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
         }

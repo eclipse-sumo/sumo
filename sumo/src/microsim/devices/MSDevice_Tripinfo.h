@@ -156,9 +156,6 @@ private:
     /// @brief The lane the vehicle departed at
     std::string myDepartLane;
 
-    /// @brief The position on the lane the vehicle departed at
-    SUMOReal myDepartPos;
-
     /// @brief The speed on departure
     SUMOReal myDepartSpeed;
 

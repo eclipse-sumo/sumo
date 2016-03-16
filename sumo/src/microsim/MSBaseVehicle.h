@@ -212,7 +212,7 @@ public:
     /** @brief Returns this vehicle's real departure position
      * @return This vehicle's real departure position
      */
-    inline SUMOTime getDepartPos() const {
+    inline SUMOReal getDepartPos() const {
         return myDepartPos;
     }
 
@@ -396,12 +396,12 @@ protected:
     /// @brief The number of reroutings
     unsigned int myNumberReroutes;
 
-private:
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1
      */
     static const SUMOTime NOT_YET_DEPARTED;
 
+private:
     /// invalidated assignment operator
     MSBaseVehicle& operator=(const MSBaseVehicle& s);
 

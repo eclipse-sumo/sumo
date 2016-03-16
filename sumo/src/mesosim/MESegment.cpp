@@ -490,8 +490,11 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     veh->setSegment(this, nextQueIndex);
     myOccupancy = MIN2(myCapacity, myOccupancy + veh->getVehicleType().getLengthWithGap());
     addReminders(veh);
-    if (isDepart || myIndex == 0 || afterTeleport) {
-        veh->activateReminders(isDepart ? MSMoveReminder::NOTIFICATION_DEPARTED : MSMoveReminder::NOTIFICATION_JUNCTION);
+    if (isDepart) {
+        veh->onDepart();
+        veh->activateReminders(MSMoveReminder::NOTIFICATION_DEPARTED);
+    } else if (myIndex == 0 || afterTeleport) { 
+        veh->activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
     } else {
         veh->activateReminders(MSMoveReminder::NOTIFICATION_SEGMENT);
     }
