@@ -56,7 +56,6 @@ MEInductLoop::MEInductLoop(const std::string& id,
     MSDetectorFileOutput(id), mySegment(s),
     myPosition(positionInMeters),
     myMeanData(0, mySegment->getLength(), false) {
-    assert(myPosition >= 0 && myPosition <= s->getLength());
     myMeanData.setDescription("inductionLoop_" + id);
     s->addDetector(&myMeanData);
 }
