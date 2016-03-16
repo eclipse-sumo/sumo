@@ -101,6 +101,12 @@ public:
      */
     SUMOReal getSpeed() const;
 
+    /** @brief Returns the vehicle's estimated average speed on the segment assuming no further delays
+     * @return The vehicle's estimated average speed
+     * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
+     */
+    SUMOReal getAverageSpeed() const;
+
 
     /** @brief Returns the vehicle's estimated speed taking into account delays
      * @return The vehicle's estimated speed

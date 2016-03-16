@@ -105,11 +105,16 @@ MEVehicle::getPosition(const SUMOReal offset) const {
 
 SUMOReal
 MEVehicle::getSpeed() const {
-    //if (getWaitingTime() > 0) {
-    //    return 0;
-    //} else {
-    //    return mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime);
-    //}
+    if (getWaitingTime() > 0) {
+        return 0;
+    } else {
+        return getAverageSpeed();
+    }
+}
+
+
+SUMOReal
+MEVehicle::getAverageSpeed() const {
     return mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime);
 }
 

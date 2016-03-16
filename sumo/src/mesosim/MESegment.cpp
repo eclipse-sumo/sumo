@@ -374,7 +374,7 @@ MESegment::isOpen(const MEVehicle* veh) const {
     return (link == 0
             || link->havePriority()
             || limitedControlOverride(link)
-            || link->opened(veh->getEventTime(), veh->getSpeed(), veh->getSpeed(),
+            || link->opened(veh->getEventTime(), veh->getAverageSpeed(), veh->getAverageSpeed(),
                             veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
                             veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime()));
 }
