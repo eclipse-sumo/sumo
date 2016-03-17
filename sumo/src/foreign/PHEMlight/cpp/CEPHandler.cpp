@@ -16,7 +16,7 @@ namespace PHEMlightdll {
         return _ceps;
     }
 
-    bool CEPHandler::GetCEP(const std::string& DataPath, Helpers* Helper) {
+    bool CEPHandler::GetCEP(const std::vector<std::string>& DataPath, Helpers* Helper) {
         if (getCEPS().find(Helper->getgClass()) == getCEPS().end()) {
             if (!Load(DataPath, Helper)) {
                 return false;
@@ -25,7 +25,7 @@ namespace PHEMlightdll {
         return true;
     }
 
-    bool CEPHandler::Load(const std::string& DataPath, Helpers* Helper) {
+    bool CEPHandler::Load(const std::vector<std::string>& DataPath, Helpers* Helper) {
         //Deklaration
         // get string identifier for PHEM emission class
 //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
@@ -82,7 +82,7 @@ namespace PHEMlightdll {
         return true;
     }
 
-    bool CEPHandler::ReadVehicleFile(const std::string& DataPath, const std::string& emissionClass, Helpers* Helper, double& vehicleMass, double& vehicleLoading, double& vehicleMassRot, double& crossArea, double& cWValue, double& f0, double& f1, double& f2, double& f3, double& f4, double& axleRatio, double& auxPower, double& ratedPower, double& engineIdlingSpeed, double& engineRatedSpeed, double& effectiveWheelDiameter, std::vector<double>& transmissionGearRatios, std::string& vehicleMassType, std::string& vehicleFuelType, double& pNormV0, double& pNormP0, double& pNormV1, double& pNormP1, std::vector<std::vector<double> >& matrixSpeedInertiaTable, std::vector<std::vector<double> >& normedDragTable) {
+    bool CEPHandler::ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, double& vehicleMass, double& vehicleLoading, double& vehicleMassRot, double& crossArea, double& cWValue, double& f0, double& f1, double& f2, double& f3, double& f4, double& axleRatio, double& auxPower, double& ratedPower, double& engineIdlingSpeed, double& engineRatedSpeed, double& effectiveWheelDiameter, std::vector<double>& transmissionGearRatios, std::string& vehicleMassType, std::string& vehicleFuelType, double& pNormV0, double& pNormP0, double& pNormV1, double& pNormP1, std::vector<std::vector<double> >& matrixSpeedInertiaTable, std::vector<std::vector<double> >& normedDragTable) {
         vehicleMass = 0;
         vehicleLoading = 0;
         vehicleMassRot = 0;
@@ -113,10 +113,15 @@ namespace PHEMlightdll {
         int dataCount = 0;
 
         //Open file
-        std::string path = DataPath + std::string("\\") + emissionClass + std::string(".PHEMLight.veh");
-        std::ifstream vehicleReader(path.c_str());
+        std::ifstream vehicleReader;
+        for (std::vector<std::string>::const_iterator i = DataPath.begin(); i != DataPath.end(); i++) {
+            vehicleReader.open(((*i) + emissionClass + ".PHEMLight.veh").c_str());
+            if (vehicleReader.good()) {
+                break;
+            }
+        }
         if (!vehicleReader.good()) {
-            Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
+            Helper->setErrMsg("File does not exist! (" + emissionClass + ".PHEMLight.veh)");
             return false;
         }
 
@@ -267,7 +272,7 @@ namespace PHEMlightdll {
         return true;
     }
 
-    bool CEPHandler::ReadEmissionData(bool readFC, const std::string& DataPath, const std::string& emissionClass, Helpers* Helper, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues) {
+    bool CEPHandler::ReadEmissionData(bool readFC, const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues) {
         // declare file stream
         std::string line;
         header = std::vector<std::string>();
@@ -279,10 +284,15 @@ namespace PHEMlightdll {
             pollutantExtension += std::string("_FC");
         }
 
-        std::string path = DataPath + std::string("\\") + emissionClass + pollutantExtension + std::string(".csv");
-        std::ifstream fileReader(path.c_str());
+        std::ifstream fileReader;
+        for (std::vector<std::string>::const_iterator i = DataPath.begin(); i != DataPath.end(); i++) {
+            fileReader.open(((*i) + emissionClass + pollutantExtension + ".csv").c_str());
+            if (fileReader.good()) {
+                break;
+            }
+        }
         if (!fileReader.good()) {
-            Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
+            Helper->setErrMsg("File does not exist! (" + emissionClass + pollutantExtension + ".csv)");
             return false;
         }
 

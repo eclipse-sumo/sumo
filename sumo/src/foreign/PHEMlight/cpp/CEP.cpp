@@ -213,7 +213,7 @@ namespace PHEMlightdll {
         int upperIndex;
         int lowerIndex;
 
-        if (VehicleClass->gettClass() != Constants::strBEV) {
+        if (_fuelType != Constants::strBEV) {
             if (std::abs(speed) <= Constants::ZERO_SPEED_ACCURACY) {
                 if (pollutant == "FC") {
                     return _idlingValueFC;

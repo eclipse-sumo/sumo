@@ -21,7 +21,13 @@ namespace PHEMlightdll {
         //Borrow
         Helper->setCommentPrefix(CommentPref);
         Helper->setPHEMDataV(PHEMDataV);
-        _DataPath = VEH.substr(0, VEH.rfind("\\"));
+        std::vector<std::string> phemPath;
+        if (getenv("PHEMLIGHT_PATH") != 0) {
+            phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
+        }
+        if (getenv("SUMO_HOME") != 0) {
+            phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/");
+        }
 
         {
             //Get vehicle string
@@ -34,7 +40,7 @@ namespace PHEMlightdll {
             DataInput = new CEPHandler();
 
             //Read the vehicle and emission data
-            if (!DataInput->GetCEP(_DataPath, Helper)) {
+            if (!DataInput->GetCEP(phemPath, Helper)) {
                 VehicleResultsOrg.clear();
                 return false;
             }
@@ -64,7 +70,13 @@ namespace PHEMlightdll {
         //Borrow
         Helper->setCommentPrefix(CommentPref);
         Helper->setPHEMDataV(PHEMDataV);
-        _DataPath = VEH.substr(0, VEH.rfind("\\"));
+        std::vector<std::string> phemPath;
+        if (getenv("PHEMLIGHT_PATH") != 0) {
+            phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
+        }
+        if (getenv("SUMO_HOME") != 0) {
+            phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/");
+        }
 
         {
         //Read the vehicle and emission data
@@ -78,7 +90,7 @@ namespace PHEMlightdll {
             DataInput = new CEPHandler();
 
             //Read the vehicle and emission data
-            if (!DataInput->GetCEP(_DataPath, Helper)) {
+            if (!DataInput->GetCEP(phemPath, Helper)) {
                 VehicleResultsOrg.clear();
                 return false;
             }

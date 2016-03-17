@@ -101,12 +101,6 @@ PollutantsInterface::isSilent(const SUMOEmissionClass c) {
 }
 
 
-SUMOReal
-PollutantsInterface::getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) {
-    return myHelpers[c >> 16]->getMaxAccel(c, v, a, slope);
-}
-
-
 SUMOEmissionClass
 PollutantsInterface::getClass(const SUMOEmissionClass base, const std::string& vClass,
                               const std::string& fuel, const std::string& eClass, const double weight) {

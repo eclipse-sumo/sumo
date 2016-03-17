@@ -229,22 +229,6 @@ public:
          */
         virtual SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) const = 0;
 
-        /** @brief Returns the maximum possible acceleration or -1. if the model cannot determine the maximum acceleration.
-         * Default implementation returns always -1.
-         * @param[in] c The vehicle emission class
-         * @param[in] v The vehicle's current velocity
-         * @param[in] a The vehicle's current acceleration
-         * @param[in] slope The road's slope at vehicle's position [deg]
-         * @return The maximum possible acceleration
-         */
-        virtual SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const {
-            UNUSED_PARAMETER(c);
-            UNUSED_PARAMETER(v);
-            UNUSED_PARAMETER(a);
-            UNUSED_PARAMETER(slope);
-            return -1.;
-        }
-
         /** @brief Add all known emission classes of this model to the given container
          * @param[in] list the vector to add to
          */
@@ -309,16 +293,6 @@ public:
      * @return whether it describes a silent vehicle
      */
     static bool isSilent(const SUMOEmissionClass c);
-
-
-    /** @brief Returns the maximum possible acceleration
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's current velocity
-     * @param[in] a The vehicle's current acceleration
-     * @param[in] slope The road's slope at vehicle's position [deg]
-     * @return The maximum possible acceleration
-     */
-    static SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope);
 
 
     /** @brief Returns the emission class fittig the given parameters
