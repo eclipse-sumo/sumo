@@ -24,14 +24,9 @@ from __future__ import print_function
 from __future__ import absolute_import
 import socket
 import time
-try:
-    import traciemb
-    _embedded = True
-except ImportError:
-    _embedded = False
 
 from .domain import _defaultDomains
-from .connection import Connection
+from .connection import Connection, _embedded
 from .exceptions import TraCIException
 from . import _inductionloop, _multientryexit, _trafficlights
 from . import _lane, _vehicle, _vehicletype, _person, _route, _areal
@@ -69,9 +64,8 @@ def init(port=8813, numRetries=10, host="localhost", label="default"):
     label. This method is not thread-safe. It accesses the connection
     pool concurrently.
     """
-    if not _embedded:
-        _connections[label] = connect(port, numRetries, host)
-        switch(label)
+    _connections[label] = connect(port, numRetries, host)
+    switch(label)
     return getVersion()
 
 

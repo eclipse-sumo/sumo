@@ -25,8 +25,12 @@ from __future__ import absolute_import
 import socket
 import struct
 
+try:
+    import traciemb
+    _embedded = True
+except ImportError:
+    _embedded = False
 from . import constants as tc
-from . import _embedded
 from .exceptions import TraCIException, FatalTraCIError
 from .domain import _defaultDomains
 from .storage import Storage
@@ -40,9 +44,10 @@ class Connection:
     together with a list of TraCI commands which are inside.
     """
     def __init__(self, host, port):
-        self._socket = socket.socket()
-        self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self._socket.connect((host, port))
+        if not _embedded:
+            self._socket = socket.socket()
+            self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            self._socket.connect((host, port))
         self._string = bytes()
         self._queue = []
         self._subscriptionMapping = {}
@@ -266,8 +271,9 @@ class Connection:
         return result.readInt(), result.readString()
 
     def close(self):
-        self._queue.append(tc.CMD_CLOSE)
-        self._string += struct.pack("!BB", 1 + 1, tc.CMD_CLOSE)
-        self._sendExact()
-        self._socket.close()
-        del self._socket
+        if not _embedded:
+            self._queue.append(tc.CMD_CLOSE)
+            self._string += struct.pack("!BB", 1 + 1, tc.CMD_CLOSE)
+            self._sendExact()
+            self._socket.close()
+            del self._socket
