@@ -9,6 +9,10 @@ multiple_reroute
 # Vehicles which's route do not take them across the closed edges should not be affected.
 closing_and_dest_prob_and_specialDestinations
 
+# combine closing rerouter with dest_prob rerouter.
+# Vehicles that do not drive through the closed area should not be affected
+closing_and_dest_prob_unaffected
+
 # closing an edge with probability 0.5
 closing_with_prob
 
