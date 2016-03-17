@@ -49,26 +49,30 @@ def _STEPS2TIME(step):
     return step / 1000.
 
 
-def init(port=8813, numRetries=10, host="localhost", label="default"):
-    if _embedded:
-        return getVersion()
+def connect(port=8813, numRetries=10, host="localhost"):
+    """
+    Establish a connection to a TraCI-Server and return the
+    connection object. The connection is not saved in the pool and not
+    accessible via traci.switch. It should be safe to use different
+    connections established by this method in different threads.
+    """
     for wait in range(1, numRetries + 2):
         try:
-            sock = socket.socket()
-            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-            sock.connect((host, port))
-            _connections[""] = _connections[label] = Connection(sock)
-            for domain in _defaultDomains:
-                domain._setConnection(_connections[""])
-            break
+            return Connection(host, port)
         except socket.error:
             time.sleep(wait)
+
+
+def init(port=8813, numRetries=10, host="localhost", label="default"):
+    """
+    Establish a connection to a TraCI-Server and store it under the given
+    label. This method is not thread-safe. It accesses the connection
+    pool concurrently.
+    """
+    if not _embedded:
+        _connections[label] = connect(port, numRetries, host)
+        switch(label)
     return getVersion()
-
-
-def connect(port=8813, numRetries=10, host="localhost", label="default"):
-    init(port, numRetries, host, label)
-    return _connections.get("")
 
 
 def simulationStep(step=0):

@@ -39,8 +39,10 @@ class Connection:
     """Contains the socket, the composed message string
     together with a list of TraCI commands which are inside.
     """
-    def __init__(self, socket):
-        self._socket = socket
+    def __init__(self, host, port):
+        self._socket = socket.socket()
+        self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        self._socket.connect((host, port))
         self._string = bytes()
         self._queue = []
         self._subscriptionMapping = {}
