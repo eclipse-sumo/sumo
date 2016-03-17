@@ -27,7 +27,7 @@ namespace PHEMlightdll {
     private:
         std::map<std::string, CEP*> _ceps;
     public:
-        std::map<std::string, CEP*> getCEPS() const;
+        const std::map<std::string, CEP*>& getCEPS() const;
 
 
         //--------------------------------------------------------------------------------------------------

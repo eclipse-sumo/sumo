@@ -12,7 +12,7 @@ namespace PHEMlightdll {
         _ceps = std::map<std::string, CEP*>();
     }
 
-    std::map<std::string, CEP*> CEPHandler::getCEPS() const {
+    const std::map<std::string, CEP*>& CEPHandler::getCEPS() const {
         return _ceps;
     }
 

@@ -53,7 +53,7 @@ namespace PHEMlightdll {
             acc = (Velocity[i] - Velocity[i - 1]) / (Time[i] - Time[i - 1]);
 
             //Calculate and save the data in the List
-            _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->getCEPS()[Helper->getgClass()], Time[i - 1], Velocity[i - 1], acc, Gradient[i - 1]));
+            _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->getCEPS().find(Helper->getgClass())->second, Time[i - 1], Velocity[i - 1], acc, Gradient[i - 1]));
             if (Helper->getErrMsg() != "") {
                 VehicleResultsOrg.clear();
                 return false;
@@ -98,7 +98,7 @@ namespace PHEMlightdll {
         }
 
         //Calculate and save the data in the List
-        _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->getCEPS()[Helper->getgClass()], Time, Velocity, acc, Gradient));
+        _VehicleResult.push_back(PHEMLight::CreateVehicleStateData(Helper, DataInput->getCEPS().find(Helper->getgClass())->second, Time, Velocity, acc, Gradient));
         VehicleResultsOrg = _VehicleResult;
         return true;
     }
