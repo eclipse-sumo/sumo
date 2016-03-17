@@ -119,13 +119,13 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
     OptionsCont& oc = OptionsCont::getOptions();
+    bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
+    needRerouting |= equippedByDefaultAssignmentOptions(oc, "rerouting", v);
     if (!needRerouting && oc.getFloat("device.rerouting.probability") == 0 && !oc.isSet("device.rerouting.explicit")) {
         // no route computation is modelled
         return;
     }
-    needRerouting |= equippedByDefaultAssignmentOptions(oc, "rerouting", v);
     if (needRerouting) {
         // route computation is enabled
         myWithTaz = oc.getBool("device.rerouting.with-taz");
