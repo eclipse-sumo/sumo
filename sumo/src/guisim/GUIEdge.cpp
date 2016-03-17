@@ -192,7 +192,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
     ret->mkItem("occupancy [%]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
+    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMesoMeanSpeed));
     ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
     ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
     ret->mkItem("vehicle ids", false, getVehicleIDs());
@@ -393,22 +393,6 @@ GUIEdge::getBruttoOccupancy() const {
 
 
 SUMOReal
-GUIEdge::getMeanSpeed() const {
-    SUMOReal v = 0;
-    SUMOReal no = 0;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-        SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
-        v += vehNo * segment->getMeanSpeed();
-        no += vehNo;
-    }
-    if (no == 0) {
-        return getSpeedLimit();
-    }
-    return v / no;
-}
-
-
-SUMOReal
 GUIEdge::getAllowedSpeed() const {
     return (*myLanes)[0]->getSpeedLimit();
 }
@@ -416,7 +400,7 @@ GUIEdge::getAllowedSpeed() const {
 
 SUMOReal
 GUIEdge::getRelativeSpeed() const {
-    return getMeanSpeed() / getAllowedSpeed();
+    return getMesoMeanSpeed() / getAllowedSpeed();
 }
 
 
@@ -438,7 +422,7 @@ GUIEdge::getColorValue(size_t activeScheme) const {
         case 4:
             return getBruttoOccupancy();
         case 5:
-            return getMeanSpeed();
+            return getMesoMeanSpeed();
         case 6:
             return getFlow();
         case 7:
@@ -458,7 +442,7 @@ GUIEdge::getScaleValue(size_t activeScheme) const {
         case 3:
             return getBruttoOccupancy();
         case 4:
-            return getMeanSpeed();
+            return getMesoMeanSpeed();
         case 5:
             return getFlow();
         case 6:

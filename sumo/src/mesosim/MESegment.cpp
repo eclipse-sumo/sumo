@@ -486,7 +486,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         // the -1 facilitates interleaving of multiple streams
         myEntryBlockTime = time + myTau_ff - 1;
     }
-    veh->setEventTime(tleave, tleave > time + TIME2STEPS(myLength / maxSpeedOnEdge));
+    veh->setEventTime(tleave);
     veh->setSegment(this, nextQueIndex);
     myOccupancy = MIN2(myCapacity, myOccupancy + veh->getVehicleType().getLengthWithGap());
     addReminders(veh);
