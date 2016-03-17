@@ -38,6 +38,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/vehicle/AStarRouter.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice.h"
 
@@ -107,6 +108,10 @@ public:
     static bool isEnabled() {
         return !myWithTaz && !myEdgeEfforts.empty();
     }
+
+    /// @brief return the router instance
+    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
+            const MSEdgeVector& prohibited = MSEdgeVector());
 
 #ifdef HAVE_FOX
     static void waitForAll();
@@ -327,6 +332,9 @@ private:
 
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
+
+    /// @brief The router to use by rerouter elements
+    static AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
 
     /// @brief Whether to disturb edge weights dynamically
     static SUMOReal myRandomizeWeightsFactor;

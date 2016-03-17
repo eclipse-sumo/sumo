@@ -61,6 +61,7 @@ SUMOTime MSDevice_Routing::myLastAdaptation = -1;
 bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
+AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* MSDevice_Routing::myRouterWithProhibited = 0;
 SUMOReal MSDevice_Routing::myRandomizeWeightsFactor = 0;
 #ifdef HAVE_FOX
 FXWorkerThread::Pool MSDevice_Routing::myThreadPool;
@@ -387,8 +388,22 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
 }
 
 
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
+MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
+    if (myRouterWithProhibited == 0) {
+        myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+                MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
+    }
+    myRouterWithProhibited->prohibit(prohibited);
+    return *myRouterWithProhibited;
+}
+
+
+
 void
 MSDevice_Routing::cleanup() {
+    delete myRouterWithProhibited;
+    myRouterWithProhibited = 0;
 #ifdef HAVE_FOX
     if (myThreadPool.size() > 0) {
         // we cannot wait for the static destructor to do the cleanup

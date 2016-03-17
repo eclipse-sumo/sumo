@@ -49,6 +49,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include "MSTriggeredRerouter.h"
 
 #include <mesosim/MELoop.h>
@@ -330,7 +331,11 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     // we have a new destination, let's replace the vehicle route (if it is affected)
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
-        MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
+        const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != 0;
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice 
+            ? MSDevice_Routing::getRouterTT(rerouteDef->closed)
+            : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
+        router.compute(
                 veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
         const bool useNewRoute = veh.replaceRouteEdges(edges);
         if (useNewRoute && newArrivalPos != -1) {
