@@ -82,6 +82,14 @@ main(int argc, char** argv) {
     oc.addSynonyme("timeline", "timeline-file");
     oc.addDescription("timeline-file", "Input", "Defines the file to read the driving cycle from.");
 
+    oc.doRegister("timeline-file.skip", new Option_Integer(0));
+    oc.addSynonyme("timeline.skip", "timeline-file.skip");
+    oc.addDescription("timeline-file.skip", "Input", "Skips the firs NUM lines.");
+
+    oc.doRegister("timeline-file.separator", new Option_String(";"));
+    oc.addSynonyme("timeline.separator", "timeline-file.separator");
+    oc.addDescription("timeline-file.separator", "Input", "Defines the entry separator.");
+
     oc.doRegister("netstate-file", 'n', new Option_FileName());
     oc.addSynonyme("netstate", "netstate-file");
     oc.addSynonyme("amitran", "netstate-file");
@@ -160,7 +168,7 @@ main(int argc, char** argv) {
         TrajectoriesHandler handler(oc.getBool("compute-a"), defaultClass, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
-            bool skipFirst = oc.getBool("skip-first");
+            int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
             const bool computeA = oc.getBool("compute-a");
             const bool inKMH = oc.getBool("kmh");
             const bool haveSlope = oc.getBool("have-slope");
@@ -169,11 +177,11 @@ main(int argc, char** argv) {
             LineReader lr(oc.getString("timeline-file"));
             while (lr.hasMore()) {
                 std::string line = lr.readLine();
-                if (skipFirst) {
-                    skipFirst = false;
+                if (skip > 0) {
+                    skip--;
                     continue;
                 }
-                StringTokenizer st(StringUtils::prune(line), ";");
+                StringTokenizer st(StringUtils::prune(line), oc.getString("timeline-file.separator"));
                 if (st.size() < 2) {
                     throw ProcessError("Each line must at least include the time and the speed.");
                 }
