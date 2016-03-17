@@ -327,14 +327,16 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             newEdge = veh.getEdge();
         }
     }
-    // we have a new destination, let's replace the vehicle route
-    ConstMSEdgeVector edges;
-    MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
-        veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-    const bool useNewRoute = veh.replaceRouteEdges(edges);
-    if (useNewRoute && newArrivalPos != -1) {
-        // must be called here because replaceRouteEdges may also set the arrivalPos
-        veh.setArrivalPos(newArrivalPos);
+    // we have a new destination, let's replace the vehicle route (if it is affected)
+    if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
+        ConstMSEdgeVector edges;
+        MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
+                veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+        const bool useNewRoute = veh.replaceRouteEdges(edges);
+        if (useNewRoute && newArrivalPos != -1) {
+            // must be called here because replaceRouteEdges may also set the arrivalPos
+            veh.setArrivalPos(newArrivalPos);
+        }
     }
     return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
 }
