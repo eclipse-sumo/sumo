@@ -31,7 +31,9 @@ public class Constants {
 	public static final int ADD_FULL = 0x85;
 	
 	public static final int CMD_CLEAR_PENDING_VEHICLES = 0x94;
-	   
+	
+	public static final int CMD_SAVE_STATE = 0x95;
+	
 	public static final int VAR_LEADER = 0x68;
 
 	/**sets/retrieves abstract parameter*/

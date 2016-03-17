@@ -225,8 +225,8 @@ public class Simulation {
 	}
 
 	/**
-	 * getDistance2D
-	 */
+	 * Reads two coordinate pairs and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
+     */
 
 	/**
 	 * @param x1 x1
@@ -342,4 +342,14 @@ public class Simulation {
 		return new SumoCommand(Constants.CMD_SET_SIM_VARIABLE, Constants.CMD_CLEAR_PENDING_VEHICLES, "", routeID);
 	}
 
+	/**
+	 * save state
+	 * @param filename
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand saveState(String filename){
+		return new SumoCommand(Constants.CMD_SET_SIM_VARIABLE, Constants.CMD_SAVE_STATE, "", filename);
+	}
+	
 }
