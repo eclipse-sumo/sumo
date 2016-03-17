@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar 17 10:46:35 2016 by SUMO Version dev-SVN-r20217
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow_maybe_detour.0" depart="0.00" arrival="90.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.1" depart="2.00" arrival="92.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.2" depart="4.00" arrival="94.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.3" depart="6.00" arrival="96.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.4" depart="8.00" arrival="98.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.5" depart="10.00" arrival="100.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.6" depart="12.00" arrival="102.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.7" depart="14.00" arrival="104.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.8" depart="16.00" arrival="106.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.9" depart="18.00" arrival="108.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+</routes>

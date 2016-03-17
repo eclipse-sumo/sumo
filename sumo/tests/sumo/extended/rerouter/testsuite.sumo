@@ -30,3 +30,6 @@ disallowed_while_on_internal
 # the route is terminated on an edge, which the vehicle already passed
 terminateRoute_on_jumped_edge
 terminateRoute_on_depart
+
+# reroute vehicles that are already on the rerouter edge when the reouter becomse active
+on_edge_when_activated
