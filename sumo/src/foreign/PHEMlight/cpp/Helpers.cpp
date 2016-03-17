@@ -1,4 +1,4 @@
-#include "Helpers.h"
+﻿#include "Helpers.h"
 #include "Constants.h"
 
 
@@ -73,40 +73,40 @@ namespace PHEMlightdll {
         Constants::setDRIVE_TRAIN_EFFICIENCY(Constants::DRIVE_TRAIN_EFFICIENCY_All);
 
         //Get the vehicle class
-        if ((int)VEH.find(Constants::strPKW) >= 0) {
+        if (VEH.find(Constants::strPKW) != std::string::npos) {
             _vClass = Constants::strPKW;
             return true;
         }
-        else if ((int)VEH.find(Constants::strLNF) >= 0) {
+        else if (VEH.find(Constants::strLNF) != std::string::npos) {
             _vClass = Constants::strLNF;
             return true;
         }
-        else if ((int)VEH.find(Constants::strLKW) >= 0) {
+        else if (VEH.find(Constants::strLKW) != std::string::npos) {
             _vClass = Constants::strLKW;
             return true;
         }
-        else if ((int)VEH.find(Constants::strLSZ) >= 0) {
+        else if (VEH.find(Constants::strLSZ) != std::string::npos) {
             _vClass = Constants::strLSZ;
             return true;
         }
-        else if ((int)VEH.find(Constants::strRB) >= 0) {
+        else if (VEH.find(Constants::strRB) != std::string::npos) {
             _vClass = Constants::strRB;
             return true;
         }
-        else if ((int)VEH.find(Constants::strLB) >= 0) {
+        else if (VEH.find(Constants::strLB) != std::string::npos) {
             _vClass = Constants::strLB;
             Constants::setDRIVE_TRAIN_EFFICIENCY(Constants::DRIVE_TRAIN_EFFICIENCY_CB);
             return true;
         }
-        else if ((int)VEH.find(Constants::strMR2) >= 0) {
+        else if (VEH.find(Constants::strMR2) != std::string::npos) {
             _vClass = Constants::strMR2;
             return true;
         }
-        else if ((int)VEH.find(Constants::strMR4) >= 0) {
+        else if (VEH.find(Constants::strMR4) != std::string::npos) {
             _vClass = Constants::strMR4;
             return true;
         }
-        else if ((int)VEH.find(Constants::strKKR) >= 0) {
+        else if (VEH.find(Constants::strKKR) != std::string::npos) {
             _vClass = Constants::strKKR;
             return true;
         }
@@ -151,7 +151,7 @@ namespace PHEMlightdll {
     }
 
     bool Helpers::getsclass(const std::string& VEH) {
-        if ((int)VEH.find(Constants::strLKW) >= 0) {
+        if (VEH.find(Constants::strLKW) != std::string::npos) {
             if ((int)VEH.find(std::string("_") + Constants::strSII) > 0) {
                 _sClass = Constants::strSII;
                 return true;
@@ -166,7 +166,7 @@ namespace PHEMlightdll {
                 return false;
             }
         }
-        else if ((int)VEH.find(Constants::strLNF) >= 0) {
+        else if (VEH.find(Constants::strLNF) != std::string::npos) {
             if ((int)VEH.find(std::string("_") + Constants::strSIII) > 0) {
                 _sClass = Constants::strSIII;
                 return true;
@@ -180,7 +180,7 @@ namespace PHEMlightdll {
                 return true;
             }
             else {
-                _ErrMsg = std::string("Size class not defined! (") + VEH.substr(VEH.rfind("\\"), VEH.length() - VEH.rfind("\\")) + std::string(")");
+                _ErrMsg = std::string("Size class not defined! (") + VEH.substr((int)VEH.rfind("\\"), VEH.length() - (int)VEH.rfind("\\")) + std::string(")");
                 return false;
             }
         }
