@@ -19,8 +19,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\tools\TrajectoriesHandler.h">
+    <ClInclude Include="..\..\..\src\tools\TrajectoriesHandler.h">
       <Filter>Header-Dateien</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
 </Project>
