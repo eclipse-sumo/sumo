@@ -411,7 +411,7 @@ namespace PHEMlightdll
             int upperIndex;
             int lowerIndex;
 
-            if (VehicleClass.tClass != Constants.strBEV)
+            if (_fuelType != Constants.strBEV)
             {
                 if (Math.Abs(speed) <= Constants.ZERO_SPEED_ACCURACY)
                 {
@@ -581,7 +581,7 @@ namespace PHEMlightdll
 
             double iTot = iGear * _axleRatio;
 
-            double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * Constants.M_PI);
+            double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * M_PI);
             double nNorm = (n - _engineIdlingSpeed) / (_engineRatedSpeed - _engineIdlingSpeed);
 
             FindLowerUpperInPattern(out lowerIndex, out upperIndex, _nNormTable, nNorm);
