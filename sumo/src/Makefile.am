@@ -21,6 +21,7 @@ COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/iodevices/libiodevices.a \
+./foreign/PHEMlight/cpp/libphemlight.a \
 ./foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 $(XERCES_LIBS)

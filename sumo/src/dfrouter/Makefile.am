@@ -23,6 +23,7 @@ dfrouter_LDADD   = ../router/librouter.a \
 ../utils/iodevices/libiodevices.a \
 ../utils/geom/libgeom.a \
 ../utils/emissions/libemissions.a \
+../foreign/PHEMlight/cpp/libphemlight.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) $(FOX_LDFLAGS)
