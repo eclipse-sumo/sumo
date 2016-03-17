@@ -37,3 +37,6 @@ terminateRoute_on_depart
 
 # reroute vehicles that are already on the rerouter edge when the reouter becomse active
 on_edge_when_activated
+
+# vehicles that are equipped with a routing device should use the corresponding edge weights instead of empty-network weights.
+use_routing_device
