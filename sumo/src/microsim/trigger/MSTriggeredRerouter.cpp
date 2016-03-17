@@ -237,10 +237,12 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
     for (std::vector<RerouteInterval>::const_iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
         if (i->begin <= time && i->end > time) {
             if (
-                // affected by closingReroute, possibly combined with destProbReroute (route prob makes no sense)
-                veh.getRoute().containsAnyOf(i->closed) ||
-                // no closingReroute but destProbReroute or routeProbReroute
-                i->edgeProbs.getOverallProb() > 0 || i->routeProbs.getOverallProb() > 0) {
+                // destProbReroute
+                i->edgeProbs.getOverallProb() > 0 || 
+                // routeProbReroute
+                i->routeProbs.getOverallProb() > 0 ||
+                // affected by closingReroute
+                veh.getRoute().containsAnyOf(i->closed)) {
                 return &*i;
             }
         }
@@ -262,22 +264,32 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 }
 
 
+bool
+MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
+                              SUMOReal /*newPos*/, SUMOReal newSpeed) {
+    return notifyEnter(veh, NOTIFICATION_JUNCTION);
+}
+
+
+bool
+MSTriggeredRerouter::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
+                               MSMoveReminder::Notification reason) {
+    return reason == NOTIFICATION_LANE_CHANGE;
+}
+
 
 bool
 MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
-    if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
-        return false;
-    }
     // check whether the vehicle shall be rerouted
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     const MSTriggeredRerouter::RerouteInterval* rerouteDef = getCurrentReroute(time, veh);
     if (rerouteDef == 0) {
-        return false;
+        return true; // an active interval could appear later
     }
 
     SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
     if (RandHelper::rand() > prob) {
-        return false;
+        return false; // XXX another interval could appear later but we would have to track whether the current interval was already tried
     }
 
     // get vehicle params
@@ -288,7 +300,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute != 0) {
         veh.replaceRoute(newRoute);
-        return false;
+        return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
     }
     const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
@@ -324,7 +336,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
         // must be called here because replaceRouteEdges may also set the arrivalPos
         veh.setArrivalPos(newArrivalPos);
     }
-    return false;
+    return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
 }
 
 
