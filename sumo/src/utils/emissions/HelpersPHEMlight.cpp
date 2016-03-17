@@ -89,13 +89,20 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
     }
     myHelper.setCommentPrefix("c");
     myHelper.setPHEMDataV("V4");
-    myHelper.setclass(eClass);
+    if (eClass.substr(0, 4) == "PKW_") {
+        myHelper.setclass("PC_" + eClass.substr(4));
+    } else {
+        myHelper.setclass(eClass);
+    }
     if (!myCEPHandler.GetCEP(phemPath, &myHelper)) {
         myEmissionClassStrings.remove(eClass, index);
         myIndex--;
         throw InvalidArgument("File for PHEM emission class " + eClass + " not found.\n" + myHelper.getErrMsg());
     }
-    myCEPs[index] = myCEPHandler.getCEPS()[eClass];
+    myCEPs[index] = myCEPHandler.getCEPS().find(myHelper.getgClass())->second;
+    if (myHelper.getgClass() != eClass) {
+        myEmissionClassStrings.addAlias(myHelper.getgClass(), index);
+    }
 #endif
     std::string eclower = eClass;
     std::transform(eclower.begin(), eclower.end(), eclower.begin(), tolower);
@@ -114,7 +121,11 @@ HelpersPHEMlight::getClass(const SUMOEmissionClass base, const std::string& vCla
     }
     std::string desc;
     if (vClass == "Passenger") {
+#ifdef INTERNAL_PHEM
         desc = "PKW_";
+#else
+        desc = "PC_";
+#endif
         if (fuel == "Gasoline") {
             desc += "G_";
         } else if (fuel == "Diesel") {
