@@ -1,4 +1,4 @@
-﻿#ifndef PHEMlightSTART
+#ifndef PHEMlightSTART
 #define PHEMlightSTART
 
 #include <string>

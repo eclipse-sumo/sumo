@@ -1,4 +1,4 @@
-﻿#ifndef PHEMlightHELPERS
+#ifndef PHEMlightHELPERS
 #define PHEMlightHELPERS
 
 #include <string>

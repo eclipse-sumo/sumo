@@ -1,4 +1,4 @@
-﻿#define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include "CEP.h"
 #include "Constants.h"

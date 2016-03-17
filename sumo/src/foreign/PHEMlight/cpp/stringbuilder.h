@@ -1,4 +1,4 @@
-﻿#ifndef PHEMlightSTRINGBUILDER
+#ifndef PHEMlightSTRINGBUILDER
 #define PHEMlightSTRINGBUILDER
 
 //----------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-﻿#include <fstream>
+#include <fstream>
 #include <sstream>
 #include "CEPHandler.h"
 #include "CEP.h"

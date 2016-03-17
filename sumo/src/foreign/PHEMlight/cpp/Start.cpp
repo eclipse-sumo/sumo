@@ -1,4 +1,4 @@
-﻿#include <cstdlib>
+#include <cstdlib>
 #include <fstream>
 #include "Start.h"
 #include "CEPHandler.h"

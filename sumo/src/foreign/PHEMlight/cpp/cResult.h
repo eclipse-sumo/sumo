@@ -1,4 +1,4 @@
-﻿#ifndef PHEMlightCRESULT
+#ifndef PHEMlightCRESULT
 #define PHEMlightCRESULT
 
 //C# TO C++ CONVERTER NOTE: Forward class declarations:
