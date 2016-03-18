@@ -226,9 +226,10 @@ public:
      *  if junction control is enabled.
      *
      * @param[in] veh The vehicle in question
+     * @param[in] tlsPenalty Whether the link should be returned for computing tlsPenalty
      * @return The link to use or 0 without junction control
      */
-    MSLink* getLink(const MEVehicle* veh) const;
+    MSLink* getLink(const MEVehicle* veh, bool tlsPenalty=false) const;
 
     /** @brief Returns whether the vehicle may use the next link
      *
@@ -413,6 +414,13 @@ private:
 
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;
+
+protected:
+    /** @brief Returns the penalty time for passing a tls-controlled link (if using gMesoTLSPenalty > 0)
+     * @param[in] veh The vehicle in question
+     * @return The time penalty
+     */
+    SUMOTime getTLSPenalty(const MEVehicle* veh) const;
 
 private:
     /// @brief The microsim edge this segment belongs to

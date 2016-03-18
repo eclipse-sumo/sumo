@@ -338,8 +338,8 @@ MESegment::getNextInsertionTime(SUMOTime earliestEntry) const {
 
 
 MSLink*
-MESegment::getLink(const MEVehicle* veh) const {
-    if (myJunctionControl) {
+MESegment::getLink(const MEVehicle* veh, bool tlsPenalty) const {
+    if (myJunctionControl || tlsPenalty) {
         const MSEdge* const nextEdge = veh->succEdge(1);
         if (nextEdge == 0) {
             return 0;
@@ -370,8 +370,10 @@ MESegment::getLink(const MEVehicle* veh) const {
 
 bool
 MESegment::isOpen(const MEVehicle* veh) const {
-    const MSLink* link = getLink(veh);
+    const bool useTLSPenalty = MSGlobals::gMesoTLSPenalty > 0;
+    const MSLink* link = getLink(veh, useTLSPenalty);
     return (link == 0
+            || (useTLSPenalty && link->isTLSControlled()) // XXX should limited control take precedence over tls penalty?
             || link->havePriority()
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
@@ -462,7 +464,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     }
     std::vector<MEVehicle*>& cars = myCarQues[nextQueIndex];
     MEVehicle* newLeader = 0; // first vehicle in the current queue
-    SUMOTime tleave = MAX2(time + TIME2STEPS(myLength / uspeed) + veh->getStoptime(this), myBlockTimes[nextQueIndex]);
+    SUMOTime tleave = MAX2(time + TIME2STEPS(myLength / uspeed) + veh->getStoptime(this) + getTLSPenalty(veh), myBlockTimes[nextQueIndex]);
     myEdge.lock();
     if (cars.empty()) {
         cars.push_back(veh);
@@ -622,5 +624,16 @@ MESegment::getFlow() const {
     return 3600 * getCarNumber() * getMeanSpeed() / myLength;
 }
 
+
+SUMOTime 
+MESegment::getTLSPenalty(const MEVehicle* veh) const {
+    const bool useTLSPenalty = MSGlobals::gMesoTLSPenalty > 0;
+    const MSLink* link = getLink(veh, useTLSPenalty);
+    if (link != 0 && link->isTLSControlled()) {
+        return link->getMesoTLSPenalty();
+    } else {
+        return 0;
+    }
+}
 
 /****************************************************************************/

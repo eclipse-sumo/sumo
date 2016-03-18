@@ -70,24 +70,26 @@ MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal le
     myLane(succLane),
     myIndex(-1),
     myState(state),
-    myLastStateChange(-1),
+    myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
     myKeepClear(keepClear),
+    myMesoTLSPenalty(0),
     myJunction(0)
 #else
 MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear) :
     myLane(succLane),
     myIndex(-1),
     myState(state),
-    myLastStateChange(-1),
+    myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
     myKeepClear(keepClear),
+    myMesoTLSPenalty(0),
     myJunctionInlane(via),
     myInternalLaneBefore(0),
     myJunction(0)
