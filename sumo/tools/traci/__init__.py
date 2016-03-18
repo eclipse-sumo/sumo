@@ -26,17 +26,13 @@ import socket
 import time
 
 from .domain import _defaultDomains
-from .connection import Connection, _embedded
+from .connection import Connection
 from .exceptions import TraCIException
 from . import _inductionloop, _multientryexit, _trafficlights
 from . import _lane, _vehicle, _vehicletype, _person, _route, _areal
 from . import _poi, _polygon, _junction, _edge, _simulation, _gui
 
 _connections = {}
-
-
-def isEmbedded():
-    return _embedded
 
 
 def _STEPS2TIME(step):
@@ -67,6 +63,10 @@ def init(port=8813, numRetries=10, host="localhost", label="default"):
     _connections[label] = connect(port, numRetries, host)
     switch(label)
     return getVersion()
+
+
+def isEmbedded():
+    return _connections[""].isEmbedded()
 
 
 def simulationStep(step=0):

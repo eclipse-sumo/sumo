@@ -239,6 +239,9 @@ class Connection:
             raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (
                 response, objectID, cmdID, objID))
 
+    def isEmbedded(self):
+        return _embedded
+
     def simulationStep(self, step=0):
         """
         Make a simulation step and simulate up to the given millisecond in sim time.
