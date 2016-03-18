@@ -411,7 +411,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PRIORITY:
             return toString(myNBEdge.getPriority());
         case SUMO_ATTR_LENGTH:
-            return toString(myNBEdge.getLoadedLength());
+            return toString(myNBEdge.getFinalLength());
         case SUMO_ATTR_TYPE:
             return myNBEdge.getTypeID();
         case SUMO_ATTR_SHAPE:

@@ -414,6 +414,8 @@ public:
         return myLoadedLength > 0 ? myLoadedLength : myLength;
     }
 
+    /// @brief length that will be assigned to the lanes in the final network
+    SUMOReal getFinalLength() const; 
 
     /** @brief Returns whether a length was set explicitly
      * @return Wether the edge's length was specified
