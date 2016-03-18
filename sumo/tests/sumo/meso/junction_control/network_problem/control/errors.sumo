@@ -1,4 +1,3 @@
-Warning: Missing yellow phase in tlLogic 'gneJ5', program '0' for tl-index 0 when switching to phase 0
 Warning: Teleporting vehicle 'cb.0'; waited too long, from edge 'b_out':0, time 319.22.
 Warning: Vehicle 'cb.0' teleports beyond arrival edge 'b_out2', time 323.70.
 Warning: Teleporting vehicle 'cb.4'; waited too long, from edge 'b_out':0, time 706.22.

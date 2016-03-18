@@ -129,12 +129,6 @@
         <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
         <bt-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
-
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -416,6 +410,9 @@
 
         <!-- Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations -->
         <meso-junction-control.limited value="false" type="BOOL"/>
+
+        <!-- Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases -->
+        <meso-tls-penalty value="0" type="FLOAT"/>
 
         <!-- Enable mesoscopic overtaking -->
         <meso-overtaking value="false" type="BOOL"/>
