@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 17 10:18:17 2016 by SUMO Version dev-SVN-r19994
+<!-- generated on Fri Mar 18 07:50:54 2016 by SUMO Version dev-SVN-r20247
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -5320,7 +5320,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5377,7 +5377,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5434,7 +5434,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5491,7 +5491,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5548,7 +5548,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5605,7 +5605,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5662,7 +5662,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5719,7 +5719,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="23.61">
+            <edge id="3fi" traveltime="24.28">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5898,7 +5898,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5959,7 +5959,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -6020,7 +6020,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -6081,7 +6081,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -6142,7 +6142,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -6203,7 +6203,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -6264,7 +6264,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.97">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -6325,7 +6325,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="23.61">
+            <edge id="3fi" traveltime="23.29">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
