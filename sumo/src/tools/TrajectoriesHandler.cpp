@@ -49,9 +49,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
+TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const bool computeAForward, const SUMOEmissionClass defaultClass,
         const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
-    : SUMOSAXHandler(""), myComputeA(computeA), myDefaultClass(defaultClass),
+        : SUMOSAXHandler(""), myComputeA(computeA), myComputeAForward(computeAForward), myDefaultClass(defaultClass),
       myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
 
 
@@ -71,7 +71,10 @@ TrajectoriesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VEHICLE:
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, STEPS2TIME(myCurrentTime), attrs.getFloat(SUMO_ATTR_SPEED));
+                SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED);
+                SUMOReal a = INVALID_VALUE;
+                SUMOReal s = INVALID_VALUE;
+                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, STEPS2TIME(myCurrentTime), v, a, s);
             } else {
                 const std::string acId = attrs.getString(SUMO_ATTR_ACTORCONFIG);
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
@@ -98,9 +101,9 @@ TrajectoriesHandler::myStartElement(int element,
                 myEmissionClassByVehicle[id] = myDefaultClass;
             }
             const SUMOEmissionClass c = myEmissionClassByVehicle[id];
-            const SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED) / 100.;
-            const SUMOReal a = attrs.hasAttribute(SUMO_ATTR_ACCELERATION) ? attrs.get<SUMOReal>(SUMO_ATTR_ACCELERATION, id.c_str(), ok) / 1000. : INVALID_VALUE;
-            const SUMOReal s = attrs.hasAttribute(SUMO_ATTR_SLOPE) ? RAD2DEG(asin(attrs.get<SUMOReal>(SUMO_ATTR_SLOPE, id.c_str(), ok) / 10000.)) : INVALID_VALUE;
+            SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED) / 100.;
+            SUMOReal a = attrs.hasAttribute(SUMO_ATTR_ACCELERATION) ? attrs.get<SUMOReal>(SUMO_ATTR_ACCELERATION, id.c_str(), ok) / 1000. : INVALID_VALUE;
+            SUMOReal s = attrs.hasAttribute(SUMO_ATTR_SLOPE) ? RAD2DEG(asin(attrs.get<SUMOReal>(SUMO_ATTR_SLOPE, id.c_str(), ok) / 10000.)) : INVALID_VALUE;
             const SUMOTime time = attrs.getOpt<int>(SUMO_ATTR_TIME, id.c_str(), ok, INVALID_VALUE);
             if (myXMLOut != 0) {
                 writeXMLEmissions(id, c, time, v, a, s);
@@ -118,7 +121,8 @@ TrajectoriesHandler::myStartElement(int element,
 
 const PollutantsInterface::Emissions
 TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionClass c,
-                                      const SUMOReal v, SUMOReal& a, SUMOReal& s) {
+                                      SUMOReal& v, SUMOReal& a, SUMOReal& s) {
+    
     if (myComputeA) {
         if (myLastV.count(id) == 0) {
             a = 0.;
@@ -126,6 +130,9 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
             a = v - myLastV[id];
         }
         myLastV[id] = v;
+        if (myComputeAForward) {
+            v -= a;
+        }
     }
     if (a == INVALID_VALUE) {
         throw ProcessError("Acceleration information is missing; try running with --compute-a.");
@@ -142,22 +149,34 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
 }
 
 
-void
+bool
 TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
                                     const SUMOEmissionClass c,
-                                    const SUMOReal t, const SUMOReal v,
-                                    SUMOReal a, SUMOReal s) {
+                                    SUMOReal t, SUMOReal &v,
+                                    SUMOReal &a, SUMOReal &s) {
+    if (myComputeA && myLastV.count(id) == 0) {
+        myLastV[id] = v;
+        return false;
+    }
+    if (myComputeAForward) {
+        t -= TS;
+    }
     const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
     o << t << ";" << v << ";" << a << ";" << s
       << ";" << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";" << e.NOx << ";" << e.fuel << std::endl;
+    return true;
 }
 
 
-void
+bool
 TrajectoriesHandler::writeXMLEmissions(const std::string id,
                                        const SUMOEmissionClass c,
-                                       const SUMOTime t, const SUMOReal v,
+                                       SUMOTime t, SUMOReal &v,
                                        SUMOReal a, SUMOReal s) {
+    if (myComputeA && myLastV.count(id) == 0) {
+        myLastV[id] = v;
+        return false;
+    }
     if (myCurrentTime != t) {
         if (myCurrentTime != -1) {
             myXMLOut->closeTag();
@@ -170,17 +189,29 @@ TrajectoriesHandler::writeXMLEmissions(const std::string id,
     myXMLOut->writeAttr("CO2", e.CO2).writeAttr("CO", e.CO).writeAttr("HC", e.HC).writeAttr("NOx", e.NOx);
     myXMLOut->writeAttr("PMx", e.PMx).writeAttr("fuel", e.fuel);
     myXMLOut->writeAttr("speed", v).closeTag();
+    return true;
 }
 
 
 void
 TrajectoriesHandler::writeSums(std::ostream& o, const std::string id) {
     o << "CO:" << mySums[id].CO << std::endl
-      << "CO2:" << mySums[id].CO2 << std::endl
-      << "HC:" << mySums[id].HC << std::endl
-      << "NOx:" << mySums[id].NOx << std::endl
-      << "PMx:" << mySums[id].PMx << std::endl
-      << "fuel:" << mySums[id].fuel << std::endl;
+        << "CO2:" << mySums[id].CO2 << std::endl
+        << "HC:" << mySums[id].HC << std::endl
+        << "NOx:" << mySums[id].NOx << std::endl
+        << "PMx:" << mySums[id].PMx << std::endl
+        << "fuel:" << mySums[id].fuel << std::endl;
+}
+
+
+void
+TrajectoriesHandler::writeNormedSums(std::ostream& o, const std::string id, const SUMOReal factor) {
+    o << mySums[id].fuel / factor << ","
+        << mySums[id].CO2 / factor << ","
+        << mySums[id].NOx / factor << ","
+        << mySums[id].CO / factor << ","
+        << mySums[id].HC / factor << ","
+        << mySums[id].PMx / factor << std::endl;
 }
 
 

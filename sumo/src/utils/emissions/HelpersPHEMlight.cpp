@@ -288,6 +288,10 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
 #else
     PHEMlightdll::CEP* currCep = myCEPs.find(c)->second;
     const double decelCoast = currCep->GetDecelCoast(corrSpeed, a, slope);
+    if (a < decelCoast) {
+        // @TODO the IDLE_SPEED fix above should be used here as well, but the current PHEMlight implementation does not.
+        return 0;
+    }
     const double power = currCep->CalcPower(corrSpeed, v == 0.0 ? 0.0 : a, slope);
 #endif
     switch (e) {

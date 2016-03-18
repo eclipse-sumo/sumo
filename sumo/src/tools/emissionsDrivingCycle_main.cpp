@@ -103,6 +103,9 @@ main(int argc, char** argv) {
     oc.doRegister("compute-a", 'a', new Option_Bool(false));
     oc.addDescription("compute-a", "Processing", "If set, the acceleration is computed instead of being read from the file. ");
 
+    oc.doRegister("compute-a.forward", new Option_Bool(false));
+    oc.addDescription("compute-a.forward", "Processing", "If set, the acceleration for time t is computed from v(t+1) - v(t) instead of v(t) - v(t-1). ");
+
     oc.doRegister("skip-first", 's', new Option_Bool(false));
     oc.addDescription("skip-first", "Processing", "If set, the first line of the read file is skipped.");
 
@@ -122,6 +125,10 @@ main(int argc, char** argv) {
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
+
+    oc.doRegister("sum-output", new Option_FileName());
+    oc.addSynonyme("sum", "sum-output");
+    oc.addDescription("sum-output", "Output", "Save the aggregated and normed emission values of each vehicle in CSV");
 
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
@@ -163,16 +170,24 @@ main(int argc, char** argv) {
         } else if (out == 0) {
             out = &std::cout;
         }
+        std::ostream* sumOut = 0;
+        if (oc.isSet("sum-output")) {
+            sumOut = new std::ofstream(oc.getString("sum-output").c_str());
+            (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,CO2,NOx,CO,HC,PM" << std::endl;
+        }
 
         const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
-        TrajectoriesHandler handler(oc.getBool("compute-a"), defaultClass, oc.getFloat("slope"), out, xmlOut);
+        const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
+        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), defaultClass, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
-            const bool computeA = oc.getBool("compute-a");
             const bool inKMH = oc.getBool("kmh");
             const bool haveSlope = oc.getBool("have-slope");
             SUMOReal l = 0;
+            SUMOReal totalA = 0;
+            SUMOReal totalS = 0;
+            int time = 0;
 
             LineReader lr(oc.getString("timeline-file"));
             while (lr.hasMore()) {
@@ -191,19 +206,30 @@ main(int argc, char** argv) {
                     if (inKMH) {
                         v /= 3.6;
                     }
-                    l += v;
-                    const SUMOReal a = !computeA && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                    const SUMOReal s = haveSlope ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                    handler.writeEmissions(*out, "", defaultClass, t, v, a, s);
-                } catch (EmptyData&) {
+                    SUMOReal a = !computeA && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                    SUMOReal s = haveSlope ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                    if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
+                        l += v;
+                        totalA += a;
+                        totalS += s;
+                        time++;
+                    }
+                }
+                catch (EmptyData&) {
                     throw ProcessError("Missing an entry in line '" + line + "'.");
-                } catch (NumberFormatException&) {
+                }
+                catch (NumberFormatException&) {
                     throw ProcessError("Not numeric entry in line '" + line + "'.");
                 }
             }
             if (!quiet) {
-                std::cout << "sums"  << std::endl
-                          << "length:" << l << std::endl;
+                std::cout << "sums" << std::endl
+                    << "length:" << l << std::endl;
+            }
+            if (sumOut != 0) {
+                (*sumOut) << oc.getString("emission-class") << "," << lr.getFileName() << "," << time << ","
+                    << (l / time * 3.6) << "," << (totalS / time) << "," << (totalA / time) << ",";
+                handler.writeNormedSums(*sumOut, "", l);
             }
         }
         if (oc.isSet("netstate-file")) {
