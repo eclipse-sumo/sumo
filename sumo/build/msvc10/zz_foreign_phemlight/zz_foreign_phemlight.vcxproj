@@ -87,18 +87,13 @@
     <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\CEP.cpp" />
     <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\CEPHandler.cpp" />
     <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\Constants.cpp" />
-    <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\cResult.cpp" />
     <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\Helpers.cpp" />
-    <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\Start.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\CEP.h" />
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\CEPHandler.h" />
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Constants.h" />
-    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\cResult.h" />
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Helpers.h" />
-    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Start.h" />
-    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\stringbuilder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

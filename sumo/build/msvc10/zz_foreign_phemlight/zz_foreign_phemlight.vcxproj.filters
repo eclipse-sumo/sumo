@@ -20,13 +20,7 @@
     <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\Constants.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\cResult.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\Helpers.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\foreign\PHEMlight\cpp\Start.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,16 +34,7 @@
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Constants.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\cResult.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Helpers.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\Start.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\foreign\PHEMlight\cpp\stringbuilder.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
