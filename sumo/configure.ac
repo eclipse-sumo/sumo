@@ -11,13 +11,9 @@ AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
 
 AC_LANG([C++])
 
-dnl the debug check has to be made before the program checks
-dnl because it modifies CXXFLAGS
-if test x$CXX = xclang++; then
-    CXXFLAGS="-msse2 $CXXFLAGS"
-else
-    CXXFLAGS="-msse2 -mfpmath=sse $CXXFLAGS"
-fi
+dnl the debug check has to be made before the program checks because it modifies
+dnl CXXFLAGS.
+
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])])
 if test x$enable_debug = xyes; then
     AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
@@ -111,6 +107,14 @@ dnl Platform specific stuff
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 
 case "$host" in
+   x86-*-linux* | ia64-*-linux* | i586-*-linux* | i686-*-linux* | x86_64-*-linux*)
+dnl Make sure we are on architecture that supports SIMD
+   if test x$CXX = xclang++; then
+       CXXFLAGS="-msse2 $CXXFLAGS"
+   else
+       CXXFLAGS="-msse2 -mfpmath=sse $CXXFLAGS"
+   fi
+   ;;
    *-cygwin*)
    AC_DEFINE([HAVE_CYGWIN], [1], [Define if compiling under cygwin])
    AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined (cygwin)])
@@ -392,16 +396,27 @@ fi
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for ffmpeg
-save_cppflags=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
-export CPPFLAGS
-AC_CHECK_HEADER([libavformat/version.h], 
-                [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
-                 AC_DEFINE([HAVE_FFMPEG], [1], [defined if ffmpeg is available])
-                 FFMPEG_LIBS="-lavformat -lavcodec -lavutil -lswscale" AC_SUBST(FFMPEG_LIBS)
-                 ac_enabled="$ac_enabled ffmpeg"],
-                [ac_disabled="$ac_disabled ffmpeg"])
-CPPFLAGS=$save_cppflags
+AC_ARG_WITH([ffmpeg], [AS_HELP_STRING([--with-ffmpeg],[enable ffmpeg-based features.])])
+if test x$with_ffmpeg != xno; then
+  save_cppflags=$CPPFLAGS
+  CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
+  export CPPFLAGS
+  AC_CHECK_HEADER([libavformat/version.h], 
+                  [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
+                   AC_DEFINE([HAVE_FFMPEG], [1], [defined if ffmpeg is available])
+                   FFMPEG_LIBS="-lavformat -lavcodec -lavutil -lswscale" AC_SUBST(FFMPEG_LIBS)
+                   ac_enabled="$ac_enabled ffmpeg"
+                   found_ffmpeg=yes],
+                  [ac_disabled="$ac_disabled ffmpeg"
+                   found_ffmpeg=no])
+  if test x$with_ffmpeg = xyes && test x$found_ffmpeg = xno; then 
+    AC_MSG_ERROR([ffmpeg libraries (libavcodec, libavformat, libavutil, libswscale) not found.])
+  fi
+                
+  CPPFLAGS=$save_cppflags
+else
+  ac_disabled="$ac_disabled ffmpeg"
+fi
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  general flags
