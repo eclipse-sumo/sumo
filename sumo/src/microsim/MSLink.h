@@ -413,7 +413,7 @@ public:
     }
 
     /** @brief Sets the time penalty for passing a tls-controlled link (meso) */
-    SUMOTime setMesoTLSPenalty(SUMOTime penalty) {
+    void setMesoTLSPenalty(const SUMOTime penalty) {
         myMesoTLSPenalty = penalty;
     }
 
