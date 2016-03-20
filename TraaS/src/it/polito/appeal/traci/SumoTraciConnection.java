@@ -224,14 +224,16 @@ public class SumoTraciConnection {
 		if(this.configFile != null){
 		args.add("-c");
 		args.add(configFile);
-		}else{
+		}else if(this.net_file != null && this.route_file != null){
 			
 			args.add("--net-file");
 			args.add(this.net_file);
-			
 			args.add("--route-files");
 			args.add(this.route_file);
 			
+		}else{
+			args.add("--net-file");
+			args.add(this.net_file);
 		}
 		
 		args.add("--remote-port");
