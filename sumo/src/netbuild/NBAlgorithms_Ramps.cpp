@@ -254,19 +254,17 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     NBEdge* first = prev;
     NBEdge* last = prev;
     NBEdge* curr = prev;
-    if (toAdd > 0 && find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
+    if (toAdd > 0) {
         SUMOReal currLength = 0;
         while (curr != 0 && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
-            if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
-                curr->incLaneNo(toAdd);
-                if (curr->getStep() < NBEdge::LANES2LANES_USER) {
-                    curr->invalidateConnections(true);
-                }
-                incremented.insert(curr);
-                moveRampRight(curr, toAdd);
-                currLength += curr->getGeometry().length(); // !!! loaded length?
-                last = curr;
+            curr->incLaneNo(toAdd);
+            if (curr->getStep() < NBEdge::LANES2LANES_USER) {
+                curr->invalidateConnections(true);
             }
+            incremented.insert(curr);
+            moveRampRight(curr, toAdd);
+            currLength += curr->getGeometry().length(); // !!! loaded length?
+            last = curr;
             NBNode* prevN = curr->getFromNode();
             if (prevN->getIncomingEdges().size() == 1) {
                 curr = prevN->getIncomingEdges()[0];
