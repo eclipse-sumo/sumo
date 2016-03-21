@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 21 Mar 2016 08:08:35 AM CET by Netedit Version dev-SVN-r20250
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/optimum/osm/2016-03-18-15-19-31/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-319975948" from="3264787538" to="3264787534" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="123961.00,38249.53 124041.50,38147.68 124211.89,37874.52 124264.28,37790.52 124275.48,37778.92 124332.94,37545.62" allow="delivery bicycle pedestrian"/>
+    <edge id="131892063#3" from="cluster_2061153200_2697471160" to="3264787538" name="南二环路" priority="11" type="highway.trunk" numLanes="2" speed="27.78" shape="123835.04,38254.48 123961.00,38249.53" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="131892063#4" from="3264787538" to="cluster_2697471162_2697471163" name="南二环路" priority="11" type="highway.trunk" numLanes="2" speed="27.78" shape="123961.00,38249.53 123986.58,38248.53" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="131892063#5" from="cluster_2697471162_2697471163" to="3073748915" name="南二环路" priority="11" type="highway.trunk" numLanes="2" speed="27.78" shape="123986.58,38248.53 124015.29,38247.39" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="131892063#6" from="3073748915" to="3073709104" name="南二环路" priority="11" type="highway.trunk" numLanes="2" speed="27.78" shape="124015.29,38247.39 124020.15,38247.21 124046.39,38246.23" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="131892063#7" from="3073709104" to="1450908491" name="南二环路" priority="11" type="highway.trunk" numLanes="2" speed="27.78" shape="124046.39,38246.23 124464.44,38230.75 124525.46,38228.49 124548.51,38227.58 124630.24,38225.30 125139.41,38211.13" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="303069067" from="3073709104" to="3073709117" priority="11" type="highway.trunk" numLanes="2" speed="27.78" shape="124046.39,38246.23 124122.27,38230.49 124172.13,38228.50" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="303075085#0" from="3073748915" to="3290374726" priority="11" type="highway.trunk" numLanes="2" speed="27.78" shape="124015.29,38247.39 124116.82,38222.78 124342.79,38212.73 124420.95,38222.03 124513.57,38215.76" spreadType="center" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="319975948" from="3264787534" to="3264787538" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="124332.94,37545.62 124275.48,37778.92 124264.28,37790.52 124211.89,37874.52 124041.50,38147.68 123961.00,38249.53" allow="delivery bicycle pedestrian"/>
+
+
+</edges>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 21 Mar 2016 08:08:35 AM CET by Netedit Version dev-SVN-r20250
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/optimum/osm/2016-03-18-15-19-31/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-401847.21,-3481829.61" convBoundary="123835.04,37545.62,125139.41,38262.63" origBoundary="115.965060,31.471152,117.419138,32.079758" projParameter="+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1450908491" x="125139.41" y="38211.13" type="unregulated"/>
+    <node id="3073709104" x="124046.39" y="38246.23" type="priority"/>
+    <node id="3073709117" x="124172.13" y="38228.50" type="unregulated"/>
+    <node id="3073748915" x="124015.29" y="38247.39" type="priority"/>
+    <node id="3264787534" x="124332.94" y="37545.62" type="priority"/>
+    <node id="3264787538" x="123961.00" y="38249.53" type="priority"/>
+    <node id="3290374726" x="124513.57" y="38215.76" type="unregulated"/>
+    <node id="cluster_2061153200_2697471160" x="123835.87" y="38262.63" type="unregulated"/>
+    <node id="cluster_2697471162_2697471163" x="123981.18" y="38257.36" type="priority"/>
+</nodes>
