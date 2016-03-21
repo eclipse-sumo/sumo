@@ -95,10 +95,10 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             }
         }
         for (std::set<NBNode*, Named::ComparatorIdLess>::const_iterator i = potOnRamps.begin(); i != potOnRamps.end(); ++i) {
-            buildOnRamp(*i, nc, ec, dc, rampLength, dontSplit, incremented);
+            buildOnRamp(*i, nc, ec, dc, rampLength, dontSplit);
         }
         for (std::set<NBNode*, Named::ComparatorIdLess>::const_iterator i = potOffRamps.begin(); i != potOffRamps.end(); ++i) {
-            buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit, incremented);
+            buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit);
         }
     }
     // check whether on-off ramps are specified
@@ -115,7 +115,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             }
             NBNode* from = e->getFromNode();
             if (from->getIncomingEdges().size() == 2 && from->getOutgoingEdges().size() == 1) {
-                buildOnRamp(from, nc, ec, dc, rampLength, dontSplit, incremented);
+                buildOnRamp(from, nc, ec, dc, rampLength, dontSplit);
             }
             // load edge again to check offramps
             e = ec.retrieve(*i);
@@ -125,7 +125,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             }
             NBNode* to = e->getToNode();
             if (to->getIncomingEdges().size() == 1 && to->getOutgoingEdges().size() == 2) {
-                buildOffRamp(to, nc, ec, dc, rampLength, dontSplit, incremented);
+                buildOffRamp(to, nc, ec, dc, rampLength, dontSplit);
             }
         }
     }
@@ -157,7 +157,7 @@ NBRampsComputer::mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal 
 
 
 void
-NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::set<NBEdge*>& incremented) {
+NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit) {
     NBEdge* potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // compute the number of lanes to append
@@ -166,6 +166,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     NBEdge* first = cont;
     NBEdge* last = cont;
     NBEdge* curr = cont;
+    std::set<NBEdge*> incremented;
     if (toAdd > 0 && find(incremented.begin(), incremented.end(), cont) == incremented.end()) {
         SUMOReal currLength = 0;
         while (curr != 0 && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
@@ -245,7 +246,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
 
 
 void
-NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::set<NBEdge*>& incremented) {
+NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit) {
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
     // compute the number of lanes to append
@@ -254,17 +255,20 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     NBEdge* first = prev;
     NBEdge* last = prev;
     NBEdge* curr = prev;
-    if (toAdd > 0) {
+    std::set<NBEdge*> incremented;
+    if (toAdd > 0 && find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
         SUMOReal currLength = 0;
         while (curr != 0 && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
-            curr->incLaneNo(toAdd);
-            if (curr->getStep() < NBEdge::LANES2LANES_USER) {
-                curr->invalidateConnections(true);
+            if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+                curr->incLaneNo(toAdd);
+                if (curr->getStep() < NBEdge::LANES2LANES_USER) {
+                    curr->invalidateConnections(true);
+                }
+                incremented.insert(curr);
+                moveRampRight(curr, toAdd);
+                currLength += curr->getGeometry().length(); // !!! loaded length?
+                last = curr;
             }
-            incremented.insert(curr);
-            moveRampRight(curr, toAdd);
-            currLength += curr->getGeometry().length(); // !!! loaded length?
-            last = curr;
             NBNode* prevN = curr->getFromNode();
             if (prevN->getIncomingEdges().size() == 1) {
                 curr = prevN->getIncomingEdges()[0];
