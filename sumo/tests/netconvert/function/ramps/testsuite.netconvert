@@ -62,5 +62,8 @@ sidewalks_no_ramp
 # build a combined on/off-ramp with user defined connections
 both_user_defined_connections
 
+# two overlapping on-ramps
+on_overlapping
+
 # two overlapping off-ramps
 off_overlapping
