@@ -24,6 +24,7 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 import sys
 import os
+import datetime
 from optparse import OptionParser
 
 from sumolib.net import readNet
@@ -102,6 +103,8 @@ def computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
 def main(netFile, outFile, radius, useTravelDist, symmetrical):
     net = readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
+        outf.write('<!-- generated on %s by "%s" -->\n' %
+                   (datetime.datetime.now(), os.path.basename(" ".join(sys.argv))))
         outf.write('<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (

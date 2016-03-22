@@ -130,6 +130,7 @@ output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 output:Written configuration to .*{REPLACE Written configuration to <PATH>}
 trips:<!-- generated on
 osmtrips:<!-- generated on
+districts:<!-- generated on
 pois:<!--
 routes:<!-- generated on
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
