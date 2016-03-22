@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 27 Nov 2015 11:20:00 AM CET by Netedit Version dev-SVN-r19444I
+<!-- generated on Tue 22 Mar 2016 03:39:26 PM CET by Netedit Version dev-SVN-r20272
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/cf_model/jam_resolution/bottleneck_zipper/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/cf_model/jam_resolution/bottleneck_zipper/net.net.xml"/>
     </output>
 
     <processing>
@@ -41,7 +41,7 @@
     </edge>
 
     <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
-    <junction id="gneJ1" type="priority" x="400.00" y="0.00" incLanes="beg_0 beg_1" intLanes=":gneJ1_0_0 :gneJ1_0_1" shape="401.50,-0.05 401.50,-3.25 398.50,-6.55 398.50,-0.05">
+    <junction id="gneJ1" type="zipper" x="400.00" y="0.00" incLanes="beg_0 beg_1" intLanes=":gneJ1_0_0 :gneJ1_0_1" shape="401.50,-0.05 401.50,-3.25 398.50,-6.55 398.50,-0.05">
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
