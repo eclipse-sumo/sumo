@@ -516,7 +516,7 @@ MSE2Collector::getEstimateQueueLength() const {
 
 SUMOReal
 MSE2Collector::getCurrentOccupancy() const {
-    return myCurrentOccupancy * (SUMOReal) 100.;
+    return myCurrentOccupancy;
 }
 
 
