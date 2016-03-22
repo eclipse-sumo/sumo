@@ -150,14 +150,23 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
         of.writeAttr(SUMO_ATTR_POSITION, veh.getPositionOnLane());
         of.writeAttr(SUMO_ATTR_SPEED, veh.getSpeed());
         if (!MSGlobals::gUseMesoSim) {
+            const MSVehicle& microVeh = static_cast<const MSVehicle&>(veh);
             // microsim-specific stuff
-            const unsigned int personNumber = static_cast<const MSVehicle&>(veh).getPersonNumber();
+            const unsigned int personNumber = microVeh.getPersonNumber();
             if (personNumber > 0) {
                 of.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);
             }
-            const unsigned int containerNumber = static_cast<const MSVehicle&>(veh).getContainerNumber();
+            const unsigned int containerNumber = microVeh.getContainerNumber();
             if (containerNumber > 0) {
                 of.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
+            }
+            const std::vector<MSTransportable*>& persons = microVeh.getSortedPersons();
+            for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+                writeTransportable(of, *it_p, SUMO_TAG_PERSON);
+            }
+            const std::vector<MSTransportable*>& containers = microVeh.getSortedContainers();
+            for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
+                writeTransportable(of, *it_c, SUMO_TAG_CONTAINER);
             }
         }
         of.closeTag();

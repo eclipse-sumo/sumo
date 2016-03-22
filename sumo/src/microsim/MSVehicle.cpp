@@ -95,6 +95,7 @@
 // static value definitions
 // ===========================================================================
 std::vector<MSLane*> MSVehicle::myEmptyLaneVector;
+std::vector<MSTransportable*> MSVehicle::myEmptyTransportableVector;
 
 
 // ===========================================================================
@@ -2436,6 +2437,36 @@ MSVehicle::addContainer(MSTransportable* container) {
             myStops.front().duration = 0;
         }
     }
+}
+
+
+std::vector<MSTransportable*>
+MSVehicle::getSortedPersons() const {
+    if (myPersonDevice == 0) {
+        return myEmptyTransportableVector;
+    } else {
+        std::vector<MSTransportable*> result = myPersonDevice->getPersons();
+        sort(result.begin(), result.end(), transportable_by_id_sorter());
+        return result;
+    }
+}
+
+
+std::vector<MSTransportable*>
+MSVehicle::getSortedContainers() const {
+    if (myContainerDevice == 0) {
+        return myEmptyTransportableVector;
+    } else {
+        std::vector<MSTransportable*> result = myContainerDevice->getContainers();
+        sort(result.begin(), result.end(), transportable_by_id_sorter());
+        return result;
+    }
+}
+
+
+int
+MSVehicle::transportable_by_id_sorter::operator()(const MSTransportable* const c1, const MSTransportable* const c2) const {
+    return c1->getID() < c2->getID();
 }
 
 

@@ -88,6 +88,17 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 of.writeAttr("signals", toString(microVeh->getSignals()));
             }
             of.closeTag();
+            if (microVeh != 0) {
+                // write persons and containers
+                const std::vector<MSTransportable*>& persons = microVeh->getSortedPersons();
+                for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_p, SUMO_TAG_PERSON, useGeo, elevation);
+                }
+                const std::vector<MSTransportable*>& containers = microVeh->getSortedContainers();
+                for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
+                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
+                }
+            }
         }
     }
     if (MSNet::getInstance()->getPersonControl().hasPersons()) {
