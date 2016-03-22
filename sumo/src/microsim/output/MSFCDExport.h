@@ -67,6 +67,9 @@ public:
      */
     static void write(OutputDevice& of, SUMOTime timestep, bool elevation);
 
+private:
+    /// @brief write transportable
+    static void writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation);
 
 private:
     /// @brief Invalidated copy constructor.

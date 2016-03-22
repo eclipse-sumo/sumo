@@ -114,21 +114,11 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
         }
         // write persons
         for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-            of.openTag(SUMO_TAG_PERSON);
-            of.writeAttr(SUMO_ATTR_ID, (*it_p)->getID());
-            of.writeAttr(SUMO_ATTR_POSITION, (*it_p)->getEdgePos());
-            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree((*it_p)->getAngle()));
-            of.writeAttr("stage", (*it_p)->getCurrentStageDescription());
-            of.closeTag();
+            writeTransportable(of, *it_p, SUMO_TAG_PERSON);
         }
         // write containers
         for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-            of.openTag(SUMO_TAG_CONTAINER);
-            of.writeAttr(SUMO_ATTR_ID, (*it_c)->getID());
-            of.writeAttr(SUMO_ATTR_POSITION, (*it_c)->getEdgePos());
-            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree((*it_c)->getAngle()));
-            of.writeAttr("stage", (*it_c)->getCurrentStageDescription());
-            of.closeTag();
+            writeTransportable(of, *it_c, SUMO_TAG_CONTAINER);
         }
         of.closeTag();
     }
@@ -174,5 +164,15 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
     }
 }
 
+
+void 
+MSXMLRawOut::writeTransportable(OutputDevice& of, const MSTransportable* p, SumoXMLTag tag) {
+    of.openTag(tag);
+    of.writeAttr(SUMO_ATTR_ID, p->getID());
+    of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
+    of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
+    of.writeAttr("stage", p->getCurrentStageDescription());
+    of.closeTag();
+}
 
 /****************************************************************************/
