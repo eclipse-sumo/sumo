@@ -162,8 +162,9 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
         t -= TS;
     }
     const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
-    o << t << ";" << v << ";" << a << ";" << s
-      << ";" << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";" << e.NOx << ";" << e.fuel << std::endl;
+    o << t << ";" << v << ";" << a << ";" << s << ";"
+      << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";"
+      << e.NOx << ";" << e.fuel << ";" << e.electricity << std::endl;
     return true;
 }
 
@@ -187,7 +188,7 @@ TrajectoriesHandler::writeXMLEmissions(const std::string id,
     const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
     myXMLOut->openTag("vehicle").writeAttr("id", id).writeAttr("eclass", PollutantsInterface::getName(c));
     myXMLOut->writeAttr("CO2", e.CO2).writeAttr("CO", e.CO).writeAttr("HC", e.HC).writeAttr("NOx", e.NOx);
-    myXMLOut->writeAttr("PMx", e.PMx).writeAttr("fuel", e.fuel);
+    myXMLOut->writeAttr("PMx", e.PMx).writeAttr("fuel", e.fuel).writeAttr("electricity", e.electricity);
     myXMLOut->writeAttr("speed", v).closeTag();
     return true;
 }
@@ -200,13 +201,15 @@ TrajectoriesHandler::writeSums(std::ostream& o, const std::string id) {
         << "HC:" << mySums[id].HC << std::endl
         << "NOx:" << mySums[id].NOx << std::endl
         << "PMx:" << mySums[id].PMx << std::endl
-        << "fuel:" << mySums[id].fuel << std::endl;
+        << "fuel:" << mySums[id].fuel << std::endl
+        << "electricity:" << mySums[id].electricity << std::endl;
 }
 
 
 void
 TrajectoriesHandler::writeNormedSums(std::ostream& o, const std::string id, const SUMOReal factor) {
     o << mySums[id].fuel / factor << ","
+        << mySums[id].electricity / factor << ","
         << mySums[id].CO2 / factor << ","
         << mySums[id].NOx / factor << ","
         << mySums[id].CO / factor << ","

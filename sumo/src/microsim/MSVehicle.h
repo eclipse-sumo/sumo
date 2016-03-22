@@ -722,9 +722,15 @@ public:
 
 
     /** @brief Returns fuel consumption of the current state
-     * @return The current fuel consumption
-     */
+    * @return The current fuel consumption
+    */
     SUMOReal getFuelConsumption() const;
+
+
+    /** @brief Returns electricity consumption of the current state
+    * @return The current electricity consumption
+    */
+    SUMOReal getElectricityConsumption() const;
 
 
     /** @brief Returns noise emissions of the current state

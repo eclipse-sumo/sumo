@@ -1529,6 +1529,18 @@ MSLane::getFuelConsumption() const {
 
 
 SUMOReal
+MSLane::getElectricityConsumption() const {
+    SUMOReal ret = 0;
+    const MSLane::VehCont& vehs = getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
+        ret += (*i)->getElectricityConsumption();
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+SUMOReal
 MSLane::getHarmonoise_NoiseEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();

@@ -741,9 +741,15 @@ public:
 
 
     /** @brief Returns the sum of last step fuel consumption
-     * @return fuel consumption of vehicles on this lane during the last step
-     */
+    * @return fuel consumption of vehicles on this lane during the last step
+    */
     SUMOReal getFuelConsumption() const;
+
+
+    /** @brief Returns the sum of last step electricity consumption
+    * @return electricity consumption of vehicles on this lane during the last step
+    */
+    SUMOReal getElectricityConsumption() const;
 
 
     /** @brief Returns the sum of last step noise emissions

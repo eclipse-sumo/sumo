@@ -73,7 +73,7 @@ public:
      */
     inline SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
         UNUSED_PARAMETER(slope);
-        if (c == PollutantsInterface::ZERO_EMISSIONS) {
+        if (c == PollutantsInterface::ZERO_EMISSIONS || e == PollutantsInterface::ELEC) {
             return 0.;
         }
         const int index = (c & ~PollutantsInterface::HEAVY_BIT) - 1;

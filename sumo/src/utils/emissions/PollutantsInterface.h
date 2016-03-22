@@ -59,7 +59,7 @@ class PollutantsInterface {
 public:
 
     /// @brief Enumerating all emission types, including fuel
-    enum EmissionType { CO2, CO, HC, FUEL, NO_X, PM_X };
+    enum EmissionType { CO2, CO, HC, FUEL, NO_X, PM_X, ELEC };
 
 
     /**
@@ -73,6 +73,7 @@ public:
         SUMOReal fuel;
         SUMOReal NOx;
         SUMOReal PMx;
+        SUMOReal electricity;
 
         /** @brief Constructor, intializes all members
          * @param[in] co2 initial value for CO2, defaults to 0
@@ -81,9 +82,10 @@ public:
          * @param[in] f   initial value for fuel, defaults to 0
          * @param[in] nox initial value for NOx, defaults to 0
          * @param[in] pmx initial value for PMx, defaults to 0
+         * @param[in] elec initial value for electricity, defaults to 0
          */
-        Emissions(SUMOReal co2 = 0, SUMOReal co = 0, SUMOReal hc = 0, SUMOReal f = 0, SUMOReal nox = 0, SUMOReal pmx = 0)
-            : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx) {
+        Emissions(SUMOReal co2 = 0, SUMOReal co = 0, SUMOReal hc = 0, SUMOReal f = 0, SUMOReal nox = 0, SUMOReal pmx = 0, SUMOReal elec = 0)
+            : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx), electricity(elec) {
         }
 
         /** @brief Add the values of the other struct to this one, scaling the values if needed
@@ -97,6 +99,7 @@ public:
             fuel += scale * a.fuel;
             NOx += scale * a.NOx;
             PMx += scale * a.PMx;
+            electricity += scale * a.electricity;
         }
     };
 
@@ -381,4 +384,3 @@ private:
 #endif
 
 /****************************************************************************/
-

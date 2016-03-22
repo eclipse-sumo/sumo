@@ -169,6 +169,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::NO_X>;
         } else if (measure == "fuel") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::FUEL>;
+        } else if (measure == "electricity") {
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::ELEC>;
         } else if (measure == "noise") {
             op = &ROEdge::getNoiseEffort;
         } else {

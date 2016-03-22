@@ -98,12 +98,14 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOT
         "\" PMx_abs=\"" << OutputDevice::realString(myEmissions.PMx, 6) <<
         "\" NOx_abs=\"" << OutputDevice::realString(myEmissions.NOx, 6) <<
         "\" fuel_abs=\"" << OutputDevice::realString(myEmissions.fuel, 6) <<
+        "\" electricity_abs=\"" << OutputDevice::realString(myEmissions.electricity, 6) <<
         "\"\n            CO_normed=\"" << OutputDevice::realString(normFactor * myEmissions.CO, 6) <<
         "\" CO2_normed=\"" << OutputDevice::realString(normFactor * myEmissions.CO2, 6) <<
         "\" HC_normed=\"" << OutputDevice::realString(normFactor * myEmissions.HC, 6) <<
         "\" PMx_normed=\"" << OutputDevice::realString(normFactor * myEmissions.PMx, 6) <<
         "\" NOx_normed=\"" << OutputDevice::realString(normFactor * myEmissions.NOx, 6) <<
-        "\" fuel_normed=\"" << OutputDevice::realString(normFactor * myEmissions.fuel, 6);
+        "\" fuel_normed=\"" << OutputDevice::realString(normFactor * myEmissions.fuel, 6) <<
+        "\" electricity_normed=\"" << OutputDevice::realString(normFactor * myEmissions.electricity, 6);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
         SUMOReal traveltime = myParent->myMaxTravelTime;
@@ -117,7 +119,8 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOT
             "\" HC_perVeh=\"" << OutputDevice::realString(myEmissions.HC * vehFactor, 6) <<
             "\" PMx_perVeh=\"" << OutputDevice::realString(myEmissions.PMx * vehFactor, 6) <<
             "\" NOx_perVeh=\"" << OutputDevice::realString(myEmissions.NOx * vehFactor, 6) <<
-            "\" fuel_perVeh=\"" << OutputDevice::realString(myEmissions.fuel * vehFactor, 6);
+            "\" fuel_perVeh=\"" << OutputDevice::realString(myEmissions.fuel * vehFactor, 6) <<
+            "\" electricity_perVeh=\"" << OutputDevice::realString(myEmissions.electricity * vehFactor, 6);
     } else if (defaultTravelTime >= 0.) {
         const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
         const SUMOReal speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
@@ -127,7 +130,8 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOT
             "\" HC_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
             "\" PMx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
             "\" NOx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" fuel_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6); // @todo: give correct slope
+            "\" fuel_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
+            "\" electricity_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6); // @todo: give correct slope
     }
     dev << "\"";
     dev.closeTag();

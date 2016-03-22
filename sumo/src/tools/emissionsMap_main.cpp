@@ -81,6 +81,7 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
                 o << v << ";" << a << ";" << s << ";" << "PMx" << ";" << result.PMx << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "NOx" << ";" << result.NOx << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "fuel" << ";" << result.fuel << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "electricity" << ";" << result.electricity << std::endl;
             }
         }
     }

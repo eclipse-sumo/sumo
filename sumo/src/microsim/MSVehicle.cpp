@@ -2393,6 +2393,12 @@ MSVehicle::getFuelConsumption() const {
 
 
 SUMOReal
+MSVehicle::getElectricityConsumption() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, myState.speed(), myAcceleration, getSlope());
+}
+
+
+SUMOReal
 MSVehicle::getHarmonoise_NoiseEmissions() const {
     return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
