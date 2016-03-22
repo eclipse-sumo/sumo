@@ -63,7 +63,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-        if (veh->isOnRoad()) {
+        if (veh->isOnRoad() || veh->isParking()) {
             Position pos = veh->getPosition();
             if (useGeo) {
                 of.setPrecision(GEO_OUTPUT_ACCURACY);
