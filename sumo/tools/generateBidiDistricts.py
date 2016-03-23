@@ -27,8 +27,7 @@ import os
 import datetime
 from optparse import OptionParser
 
-from sumolib.net import readNet
-from sumolib import geomhelper
+import sumolib
 from functools import reduce
 
 
@@ -53,7 +52,7 @@ def parse_args():
 
 def getCandidates(edge, net, radius):
     candidates = []
-    r = min(radius, geomhelper.polyLength(edge.getShape()) / 2)
+    r = min(radius, sumolib.geomhelper.polyLength(edge.getShape()) / 2)
     for x, y in edge.getShape():
         nearby = set()
         for edge2, dist in net.getNeighboringEdges(x, y, r):
@@ -101,10 +100,9 @@ def computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
 
 
 def main(netFile, outFile, radius, useTravelDist, symmetrical):
-    net = readNet(netFile, withConnections=False, withFoes=False)
+    net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
-        outf.write('<!-- generated on %s by "%s" -->\n' %
-                   (datetime.datetime.now(), os.path.basename(" ".join(sys.argv))))
+        sumolib.writeXMLHeader(outf, "$Id$")
         outf.write('<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (

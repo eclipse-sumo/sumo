@@ -22,6 +22,7 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
+import datetime
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
@@ -219,3 +220,11 @@ def _intTime(tStr):
 
 def _laneID2edgeID(laneID):
     return laneID[:laneID.rfind("_")]
+
+def writeXMLHeader(outf, script):
+    outf.write("""<?xml version="1.0"?>
+<!-- generated on %s by %s
+  options: %s
+-->
+""" % (datetime.datetime.now(), script,
+            (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))

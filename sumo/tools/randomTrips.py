@@ -309,13 +309,8 @@ def main(options):
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
-        fouttrips.write("""<?xml version="1.0"?>
-<!-- generated on %s by $Id$
-  options: %s
--->
-<trips>
-""" % (datetime.datetime.now(),
-            (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
+        sumolib.writeXMLHeader(fouttrips, "$Id$")
+        fouttrips.write("<trips>\n")
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s" />\n' %
                             (options.vehicle_class, options.vehicle_class))
