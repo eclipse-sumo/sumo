@@ -910,6 +910,8 @@ GUILane::getColorValue(size_t activeScheme) const {
             // color by average relative speed
             return getMeanSpeed() / myMaxSpeed;
         }
+        case 27:
+            return getElectricityConsumption() / myLength;
     }
     return 0;
 }
@@ -977,6 +979,8 @@ GUILane::getScaleValue(size_t activeScheme) const {
             // scale by average relative speed
             return getMeanSpeed() / myMaxSpeed;
         }
+        case 21:
+            return getElectricityConsumption() / myLength;
     }
     return 0;
 }

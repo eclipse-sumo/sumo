@@ -257,6 +257,9 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
         if (measure == "fuel") {
             value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
+        if (measure == "electricity") {
+            value = PollutantsInterface::compute(c, PollutantsInterface::ELEC, mySpeed, 0, 0) * value; // @todo: give correct slope
+        }
         myEfforts.fillGaps(value, boundariesOverride);
     }
     if (myUsingTTTimeLine) {

@@ -149,6 +149,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getPMxEmissions));
     ret->mkItem("fuel [ml/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getFuelConsumption));
+    ret->mkItem("electricity [kWh/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getElectricityConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getHarmonoise_NoiseEmissions));
     std::ostringstream str;
@@ -368,6 +370,8 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
             return getTimeGap();
         case 24:
             return STEPS2TIME(getDepartDelay());
+        case 26:
+            return getElectricityConsumption();
     }
     return 0;
 }
