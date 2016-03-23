@@ -323,11 +323,13 @@ Position
 PositionVector::getPolygonCenter() const {
     SUMOReal x = 0;
     SUMOReal y = 0;
+    SUMOReal z = 0;
     for (const_iterator i = begin(); i != end(); i++) {
         x += (*i).x();
         y += (*i).y();
+        z += (*i).z();
     }
-    return Position(x / (SUMOReal) size(), y / (SUMOReal) size());
+    return Position(x / (SUMOReal) size(), y / (SUMOReal) size(), z / (SUMOReal)size());
 }
 
 
