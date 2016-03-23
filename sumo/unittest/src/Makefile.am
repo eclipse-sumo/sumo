@@ -57,6 +57,7 @@ $(MESO_LIBS) \
 ../../src/utils/options/liboptions.a \
 ../../src/utils/iodevices/libiodevices.a \
 ../../src/utils/common/FileHelpers.o \
+../../src/foreign/PHEMlight/cpp/libphemlight.a \
 ../../src/foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 $(PYTHON_LIBS) \
