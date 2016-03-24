@@ -2532,8 +2532,12 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
             PositionVector tmp = myGeom;
             // @note this doesn't work well for vissim networks
             //tmp.move2side(MIN2(neededOffset - dist, neededOffset2 - dist2));
-            tmp.move2side(neededOffset - dist);
-            myGeom[i] = tmp[i];
+            try {
+                tmp.move2side(neededOffset - dist);
+                myGeom[i] = tmp[i];
+            } catch (InvalidArgument&) {
+                WRITE_WARNING("Could not avoid overlapping shape at node '" + node->getID() + "' for edge '" + getID() + "'");
+            }
         }
     }
 }
