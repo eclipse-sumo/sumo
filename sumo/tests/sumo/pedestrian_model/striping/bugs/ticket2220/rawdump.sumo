@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar 24 15:14:34 2016 by SUMO Version dev-SVN-r20298
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <end value="10"/>
+    </time>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="NC">
+            <person id="2" pos="0.00" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="NC">
+            <person id="2" pos="1.39" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="NC">
+            <person id="2" pos="2.78" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="NC">
+            <person id="2" pos="4.17" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="NC">
+            <person id="2" pos="5.56" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="NC">
+            <person id="2" pos="6.94" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="NC">
+            <person id="2" pos="8.33" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="NC">
+            <person id="2" pos="9.72" angle="180.00" stage="walking"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="NC">
+            <person id="2" pos="10.00" angle="90.00" stage="waiting for foo"/>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="NC">
+            <person id="2" pos="10.00" angle="90.00" stage="waiting for foo"/>
+        </edge>
+    </timestep>
+</netstate>
