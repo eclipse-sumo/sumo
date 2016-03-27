@@ -135,6 +135,67 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
     myPos(pos), mySpeed(speed) {}
 
 
+
+/* -------------------------------------------------------------------------
+ * methods of MSVehicle::WaitingTime
+ * ----------------------------------------------------------------------- */
+
+MSVehicle::WaitingTimeCollector::WaitingTimeCollector(SUMOTime memory) : myMemorySize(memory){}
+
+MSVehicle::WaitingTimeCollector::WaitingTimeCollector(const WaitingTimeCollector& wt) : myMemorySize(wt.getMemorySize()), myWaitingIntervals(wt.getWaitingIntervals()) {}
+
+MSVehicle::WaitingTimeCollector&
+MSVehicle::WaitingTimeCollector::operator=(const WaitingTimeCollector& wt){
+	myMemorySize = wt.getMemorySize();
+	myWaitingIntervals = wt.getWaitingIntervals();
+	return *this;
+}
+
+MSVehicle::WaitingTimeCollector&
+MSVehicle::WaitingTimeCollector::operator=(SUMOTime t){
+	myWaitingIntervals.clear();
+	passTime(t,true);
+	return *this;
+}
+
+SUMOTime
+MSVehicle::WaitingTimeCollector::cumulatedWaitingTime(SUMOTime memorySpan) const{
+	assert(memorySpan <= myMemorySize);
+	if(memorySpan == -1) memorySpan = myMemorySize;
+	SUMOTime totalWaitingTime = 0;
+	for(waitingIntervalList::const_iterator i = myWaitingIntervals.begin(); i!=myWaitingIntervals.end(); i++){
+		if(i->second >= memorySpan){
+			if(i->first >= memorySpan) break;
+			else totalWaitingTime += memorySpan - i->first;
+		} else {
+			totalWaitingTime += i->second - i->first;
+		}
+	}
+	return totalWaitingTime;
+}
+
+void
+MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting){
+	waitingIntervalList::iterator i = myWaitingIntervals.begin();
+	waitingIntervalList::iterator end = myWaitingIntervals.end();
+	bool startNewInterval = i==end || (i->first != 0);
+	while(i!=end){
+		i->first += dt; i->second += dt; i++;
+	}
+
+	if(!waiting) return;
+
+	else if(!startNewInterval)
+		myWaitingIntervals.begin()->first = 0;
+	else
+		myWaitingIntervals.push_front(std::make_pair(0,dt));
+	return;
+}
+
+
+
+
+
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
@@ -426,6 +487,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                      const MSVehicleType* type, const SUMOReal speedFactor) :
     MSBaseVehicle(pars, route, type, speedFactor),
     myWaitingTime(0),
+    myWaitingTimeCollector(),
     myState(0, 0), //
     myLane(0),
     myLastBestLanesEdge(0),
@@ -1438,11 +1500,14 @@ MSVehicle::executeMove() {
 #endif
     // visit waiting time
     if (vNext <= SUMO_const_haltingSpeed) {
-        myWaitingTime += DELTA_T;
+    	 myWaitingTime += DELTA_T;
+        myWaitingTimeCollector.passTime(DELTA_T, true);
         brakelightsOn = true;
     } else {
-        myWaitingTime = 0;
+    	 myWaitingTime = 0;
+        myWaitingTimeCollector.passTime(DELTA_T, false);
     }
+
     if (brakelightsOn) {
         switchOnSignal(VEH_SIGNAL_BRAKELIGHT);
     } else {

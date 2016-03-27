@@ -98,6 +98,9 @@ public:
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
 
+    /// length of memory for waiting times (in millisecs)
+    static SUMOTime gWaitingTimeMemory;
+
 };
 
 
