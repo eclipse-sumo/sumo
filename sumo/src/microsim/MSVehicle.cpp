@@ -137,7 +137,7 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
 
 
 /* -------------------------------------------------------------------------
- * methods of MSVehicle::WaitingTime
+ * methods of MSVehicle::WaitingTimeCollector
  * ----------------------------------------------------------------------- */
 
 MSVehicle::WaitingTimeCollector::WaitingTimeCollector(SUMOTime memory) : myMemorySize(memory){}
@@ -180,11 +180,19 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting){
 	waitingIntervalList::iterator end = myWaitingIntervals.end();
 	bool startNewInterval = i==end || (i->first != 0);
 	while(i!=end){
-		i->first += dt; i->second += dt; i++;
+		i->first += dt;
+		if(i->first >= myMemorySize) break;
+		i->second += dt; i++;
+	}
+
+	// remove intervals beyond memorySize
+	waitingIntervalList::iterator::difference_type d = std::distance(i,end);
+	while(d > 0) {
+		myWaitingIntervals.pop_back();
+		d--;
 	}
 
 	if(!waiting) return;
-
 	else if(!startNewInterval)
 		myWaitingIntervals.begin()->first = 0;
 	else

@@ -123,7 +123,7 @@ public:
     };
 
 
-    /** @class WaitingTime
+    /** @class WaitingTimeCollector
      * @brief Stores the waiting intervals over the previous seconds (memory is to be specified in ms.).
      */
     class WaitingTimeCollector {
