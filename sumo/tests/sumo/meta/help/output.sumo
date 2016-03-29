@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r20250
+SUMO Version dev-SVN-r20307
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -108,6 +108,9 @@ Processing Options:
                                          a fast road (speed > 69m/s) are
                                          teleported if they are on a
                                          non-continuing lane
+  --waiting-time-memory TIME           Length of time interval, over which
+                                         accumulated waiting time is taken into
+                                         account
   --max-depart-delay TIME              How long vehicles wait for departure
                                          before being skipped, defaults to -1
                                          which means vehicles are never skipped
