@@ -87,6 +87,7 @@ MSFrame::fillOptions() {
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Load road network description from FILE");
+    oc.addXMLDefault("net-file", "net");
 
     oc.doRegister("route-files", 'r', new Option_FileName());
     oc.addSynonyme("route-files", "routes");

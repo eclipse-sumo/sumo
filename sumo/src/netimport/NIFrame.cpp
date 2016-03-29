@@ -62,6 +62,7 @@ NIFrame::fillOptions() {
     oc.doRegister("sumo-net-file", 's', new Option_FileName());
     oc.addSynonyme("sumo-net-file", "sumo-net", true);
     oc.addDescription("sumo-net-file", "Input", "Read SUMO-net from FILE");
+    oc.addXMLDefault("sumo-net-file", "net");
 
     oc.doRegister("node-files", 'n', new Option_FileName());
     oc.addSynonyme("node-files", "xml-node-files", true);

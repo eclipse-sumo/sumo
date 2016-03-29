@@ -31,6 +31,7 @@
 
 #include <string>
 #include <iostream>
+#include <xercesc/framework/XMLPScanToken.hpp>
 #include <xercesc/parsers/SAXParser.hpp>
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/AttributeList.hpp>
@@ -69,6 +70,13 @@ OptionsIO::setArgs(int argc, char** argv) {
 
 void
 OptionsIO::getOptions() {
+    if (myArgC == 2 && myArgV[1][0] != '-') {
+        // special case only one parameter, check who can handle it
+        if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
+            loadConfiguration();
+            return;
+        }
+    }
     // preparse the options
     //  (maybe another configuration file was chosen)
     if (!OptionsParser::parse(myArgC, myArgV)) {
@@ -116,6 +124,29 @@ OptionsIO::loadConfiguration() {
     PROGRESS_DONE_MESSAGE();
 }
 
+
+std::string
+OptionsIO::getRoot(const std::string& filename) {
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    // start the parsing
+    OptionsLoader handler;
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        XERCES_CPP_NAMESPACE::XMLPScanToken token;
+        if (!parser.parseFirst(filename.c_str(), token)) {
+            throw ProcessError("Can not read XML-file '" + filename + "'.");
+        }
+        while (parser.parseNext(token) && handler.getItem() == "");
+        if (handler.errorOccured()) {
+            throw ProcessError("Could not load '" + filename + "'.");
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        throw ProcessError("Could not load '" + filename + "':\n " + TplConvert::_2str(e.getMessage()));
+    }
+    return handler.getItem();
+}
 
 
 /****************************************************************************/

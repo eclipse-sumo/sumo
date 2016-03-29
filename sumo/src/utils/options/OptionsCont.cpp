@@ -131,6 +131,12 @@ OptionsCont::addSynonyme(const std::string& name1, const std::string& name2, boo
 }
 
 
+void
+OptionsCont::addXMLDefault(const std::string& name, const std::string& xmlRoot) {
+    myXMLDefaults[xmlRoot] = name;
+}
+
+
 bool
 OptionsCont::exists(const std::string& name) const {
     return myValues.count(name) > 0;
@@ -254,6 +260,18 @@ OptionsCont::set(const std::string& name, const std::string& value) {
         return false;
     }
     return true;
+}
+
+
+bool
+OptionsCont::setByRootElement(const std::string& root, const std::string& value) {
+    if (myXMLDefaults.count(root) > 0) {
+        return set(myXMLDefaults[root], value);
+    }
+    if (myXMLDefaults.count("") > 0) {
+        return set(myXMLDefaults[""], value);
+    }
+    return false;
 }
 
 
