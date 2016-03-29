@@ -32,6 +32,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 
 def main(bailOut=False):
+    sys.stdout.flush()
     # create an INET, STREAMing socket
     serversocket = socket.socket(
         socket.AF_INET, socket.SOCK_STREAM)
