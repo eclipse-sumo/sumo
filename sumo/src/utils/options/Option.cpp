@@ -159,6 +159,12 @@ Option::resetWritable() {
 }
 
 
+void
+Option::resetDefault() {
+    myHaveTheDefaultValue = true;
+}
+
+
 const std::string&
 Option::getDescription() const {
     return myDescription;

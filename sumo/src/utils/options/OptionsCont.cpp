@@ -264,6 +264,16 @@ OptionsCont::set(const std::string& name, const std::string& value) {
 
 
 bool
+OptionsCont::setDefault(const std::string& name, const std::string& value) {
+    if (set(name, value)) {
+        getSecure(name)->resetDefault();
+        return true;
+    }
+    return false;
+}
+
+
+bool
 OptionsCont::setByRootElement(const std::string& root, const std::string& value) {
     if (myXMLDefaults.count(root) > 0) {
         return set(myXMLDefaults[root], value);
@@ -339,7 +349,11 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                 conv += StringUtils::urlDecode(tmp);
             }
             if (conv != (*i)->getString()) {
+                const bool hadDefault = (*i)->isDefault();
                 (*i)->set(conv);
+                if (hadDefault) {
+                    (*i)->resetDefault();
+                }
             }
         }
     }

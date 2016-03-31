@@ -561,6 +561,27 @@ public:
      */
     bool set(const std::string& name, const std::string& value);
 
+    /** @brief Sets the given value for the named option as new default value
+     *
+     * The option is retrieved from the container, first, what yields in a InvalidArgument
+     *  exception for not known options.
+     *
+     * If the option is not writable (was set before), an error is generated using
+     *  reportDoubleSetting, and false is returned. Otherwise, the option is
+     *  told to set the given value using Option::set. Possible problems herein
+     *  are caught and reported to the error-handler, yielding in returning false.
+     *
+     * If the new value could be set, true is returned.
+     *
+     * @param[in] name The name of the option to set
+     * @param[in] value The value to set
+     * @return Whether the value could be set
+     * @exception InvalidArgument If the option does not exist
+     * @see reportDoubleSetting
+     * @see Option::set(const std::string &)
+     */
+    bool setDefault(const std::string& name, const std::string& value);
+
     /** @brief Sets the given value for the option which can handle the given XML root
      *
      * The option is retrieved from the container, which yields in an InvalidArgument

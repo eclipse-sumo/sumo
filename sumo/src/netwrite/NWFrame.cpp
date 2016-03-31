@@ -118,7 +118,11 @@ NWFrame::checkOptions() {
             && !oc.isSet("matsim-output")
             && !oc.isSet("opendrive-output")
             && !oc.isSet("dlr-navteq-output")) {
-        oc.set("output-file", "net.net.xml");
+        std::string net = "net.net.xml";
+        if (oc.isSet("configuration-file")) {
+            net = FileHelpers::getConfigurationRelative(oc.getString("configuration-file"), net);
+        }
+        oc.setDefault("output-file", net);
     }
     // some outputs need internal lanes
     if (oc.isSet("opendrive-output") && oc.getBool("no-internal-links")) {
