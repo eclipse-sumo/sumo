@@ -48,8 +48,11 @@
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/Boundary.h>
+#include <utils/xml/SUMOSAXReader.h>
+#include <utils/xml/XMLSubSys.h>
 #include <polyconvert/PCLoaderVisum.h>
 #include <polyconvert/PCLoaderDlrNavteq.h>
 #include <polyconvert/PCLoaderXML.h>
@@ -58,8 +61,7 @@
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <polyconvert/PCNetProjectionLoader.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/geom/GeoConvHelper.h>
+#include "pc_typemap.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -288,15 +290,44 @@ main(int argc, char** argv) {
         PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));
 
         // read in the type defaults
+        if (!oc.isSet("type-file")) {
+            const char* sumoPath = std::getenv("SUMO_HOME");
+            if (sumoPath == 0) {
+                WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
+            } else {
+                const std::string path = sumoPath + std::string("/data/typemap/");
+                if (oc.isSet("dlr-navteq-poly-files")) {
+                    oc.set("type-file", path + "navteqPolyconvert.typ.xml");
+                }
+                if (oc.isSet("osm-files")) {
+                    oc.set("type-file", path + "osmPolyconvert.typ.xml");
+                }
+                if (oc.isSet("visum-files")) {
+                    oc.set("type-file", path + "visumPolyconvert.typ.xml");
+                }
+            }
+        }
         PCTypeMap tm(oc);
+        PCTypeDefHandler handler(oc, tm);
         if (oc.isSet("type-file")) {
-            PCTypeDefHandler handler(oc, tm);
             if (!XMLSubSys::runParser(handler, oc.getString("type-file"))) {
                 // something failed
                 throw ProcessError();
             }
+        } else {
+            handler.setFileName("built in type map");
+            SUMOSAXReader* reader = XMLSubSys::getSAXReader(handler);
+            if (oc.isSet("dlr-navteq-poly-files")) {
+                reader->parseString(navteqTypemap);
+            }
+            if (oc.isSet("osm-files")) {
+                reader->parseString(osmTypemap);
+            }
+            if (oc.isSet("visum-files")) {
+                reader->parseString(visumTypemap);
+            }
+            delete reader;
         }
-
         // read in the data
         PCLoaderXML::loadIfSet(oc, toFill, tm); // SUMO-XML
         PCLoaderOSM::loadIfSet(oc, toFill, tm); // OSM-XML

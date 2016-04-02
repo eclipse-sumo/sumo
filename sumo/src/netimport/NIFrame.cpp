@@ -309,11 +309,9 @@ NIFrame::checkOptions() {
         } else {
             const std::string path = sumoPath + std::string("/data/typemap/");
             if (oc.isSet("osm-files")) {
-                oc.unSet("type-files");
                 oc.set("type-files", path + "osmNetconvert.typ.xml");
             }
             if (oc.isSet("opendrive-files")) {
-                oc.unSet("type-files");
                 oc.set("type-files", path + "opendriveNetconvert.typ.xml");
             }
         }
