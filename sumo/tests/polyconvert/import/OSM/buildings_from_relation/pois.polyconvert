@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 24 09:24:46 2015 by SUMO polyconvert Version dev-SVN-r18698I
+<!-- generated on 04/02/16 22:34:21 by SUMO polyconvert Version dev-SVN-r20320
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -8,6 +8,7 @@
     <input>
         <osm-files value="osm.xml"/>
         <osm.keep-full-type value="true"/>
+        <type-file value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo/data/typemap/osmPolyconvert.typ.xml"/>
     </input>
 
     <output>
@@ -35,48 +36,29 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <location netOffset="0.00,0.00" convBoundary="399466.14,5809386.88,401148.73,5810735.08" origBoundary="13.521259,52.425725,13.546188,52.437711" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <poly id="114024899" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="400054.77,5809733.60 400060.38,5809726.42">
-        <param key="highway" value="service"/>
-        <param key="service" value="parking_aisle"/>
-    </poly>
-    <poly id="114033003" type="amenity.parking" color="51,128,255" fill="1" layer="-1.00" shape="400062.20,5809717.58 400056.61,5809712.91 400051.88,5809708.98 400074.05,5809682.51 400078.88,5809686.53 400084.37,5809691.10 400062.20,5809717.58">
+    <poly id="114033003" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="400062.20,5809717.58 400056.61,5809712.91 400051.88,5809708.98 400074.05,5809682.51 400078.88,5809686.53 400084.37,5809691.10 400062.20,5809717.58">
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
         <param key="wheelchair" value="no"/>
     </poly>
-    <poly id="114033007" type="amenity.parking" color="51,128,255" fill="1" layer="-1.00" shape="400066.07,5809721.04 400071.51,5809725.63 400077.25,5809730.46 400099.74,5809703.89 400093.95,5809699.01 400088.57,5809694.47 400066.07,5809721.04">
+    <poly id="114033007" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="400066.07,5809721.04 400071.51,5809725.63 400077.25,5809730.46 400099.74,5809703.89 400093.95,5809699.01 400088.57,5809694.47 400066.07,5809721.04">
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
         <param key="wheelchair" value="no"/>
     </poly>
-    <poly id="114033009" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400071.51,5809725.63 400066.25,5809731.43">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="114033011" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400056.61,5809712.91 400051.44,5809718.80">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="114207232" type="landuse.grass" color="51,128,255" fill="0" layer="-1.00" shape="400056.92,5809598.75 400064.35,5809589.84">
+    <poly id="114207232" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400056.92,5809598.75 400064.35,5809589.84">
         <param key="highway" value="service"/>
         <param key="landuse" value="grass"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="114697179" type="amenity.parking" color="51,128,255" fill="1" layer="-1.00" shape="400017.74,5809767.77 400019.10,5809769.37 400023.23,5809774.27 400032.02,5809764.05 400056.95,5809735.36 400054.77,5809733.60 400049.86,5809729.05 400017.74,5809767.77">
+    <poly id="114697179" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="400017.74,5809767.77 400019.10,5809769.37 400023.23,5809774.27 400032.02,5809764.05 400056.95,5809735.36 400054.77,5809733.60 400049.86,5809729.05 400017.74,5809767.77">
         <param key="access" value="private"/>
         <param key="amenity" value="parking"/>
         <param key="bicycle" value="yes"/>
         <param key="foot" value="yes"/>
         <param key="parking" value="surface"/>
     </poly>
-    <poly id="114949101" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399845.07,5809620.16 399895.15,5809614.04 399929.86,5809609.80 399939.36,5809602.47 399975.90,5809559.16">
-        <param key="bicycle" value="yes"/>
-        <param key="foot" value="yes"/>
-        <param key="highway" value="service"/>
-        <param key="lit" value="yes"/>
-        <param key="maxspeed" value="30"/>
-        <param key="name" value="Albert-Einstein-Straße"/>
-        <param key="vehicle" value="private"/>
-    </poly>
-    <poly id="114952399" type="landuse.grass" color="51,128,255" fill="0" layer="-1.00" shape="400066.36,5809587.42 400072.41,5809580.16 400078.19,5809573.22 400084.07,5809566.17 400091.08,5809557.75">
+    <poly id="114952399" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400066.36,5809587.42 400072.41,5809580.16 400078.19,5809573.22 400084.07,5809566.17 400091.08,5809557.75">
         <param key="bicycle" value="yes"/>
         <param key="foot" value="yes"/>
         <param key="highway" value="service"/>
@@ -85,87 +67,21 @@
         <param key="type" value="multipolygon"/>
         <param key="vehicle" value="private"/>
     </poly>
-    <poly id="115227681" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="400051.69,5809604.01 400056.92,5809598.75">
-        <param key="highway" value="service"/>
-    </poly>
-    <poly id="115227682" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399906.50,5809676.68 399961.43,5809611.84 399979.39,5809588.78 400025.59,5809625.04 400029.74,5809625.88 400033.22,5809624.65 400042.51,5809614.14 400051.69,5809604.01">
-        <param key="highway" value="service"/>
-        <param key="lit" value="yes"/>
-    </poly>
-    <poly id="115466410" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="400031.89,5809648.50 400045.02,5809660.20 400067.13,5809678.38">
-        <param key="highway" value="service"/>
-    </poly>
-    <poly id="115466411" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400025.59,5809625.04 400053.82,5809649.60 400076.04,5809667.90">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="116024345" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400076.17,5809591.32 400064.75,5809605.43">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="122666824" type="amenity.parking" color="51,128,255" fill="1" layer="-1.00" shape="399997.04,5809691.32 399999.96,5809693.86 400004.58,5809697.85 400015.71,5809707.47 400013.17,5809710.22 399992.19,5809733.40 399980.57,5809723.10 399973.91,5809717.01 399991.63,5809697.35 399997.04,5809691.32">
+    <poly id="122666824" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="399997.04,5809691.32 399999.96,5809693.86 400004.58,5809697.85 400015.71,5809707.47 400013.17,5809710.22 399992.19,5809733.40 399980.57,5809723.10 399973.91,5809717.01 399991.63,5809697.35 399997.04,5809691.32">
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
     </poly>
-    <poly id="122666825" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400053.82,5809649.60 400080.62,5809618.97">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="122666827" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400053.82,5809649.60 400045.02,5809660.20">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="122868956" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400004.79,5809678.75 400001.11,5809676.27">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="122868958" type="highway.steps" color="51,128,255" fill="0" layer="-1.00" shape="400008.36,5809681.72 400004.79,5809678.75">
-        <param key="highway" value="steps"/>
-    </poly>
-    <poly id="122868959" type="landuse.meadow" color="51,128,255" fill="1" layer="-1.00" shape="399884.51,5809718.52 399913.69,5809725.25 399927.58,5809706.80 399907.36,5809690.28 399882.69,5809694.96 399880.95,5809697.98 399884.51,5809718.52">
+    <poly id="122868959" type="landuse.meadow" color="194,194,130" fill="1" layer="-3.00" shape="399884.51,5809718.52 399913.69,5809725.25 399927.58,5809706.80 399907.36,5809690.28 399882.69,5809694.96 399880.95,5809697.98 399884.51,5809718.52">
         <param key="landuse" value="meadow"/>
     </poly>
-    <poly id="122868960" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400004.79,5809678.75 399989.91,5809696.07 399991.63,5809697.35">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="122868966" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399961.43,5809611.84 399989.95,5809635.20">
-        <param key="highway" value="service"/>
-        <param key="lit" value="yes"/>
-    </poly>
-    <poly id="127418565" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="399980.57,5809723.10 399978.42,5809726.06 399980.44,5809748.66">
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="128643746" type="highway.footway" color="51,128,255" fill="1" layer="-1.00" shape="400008.36,5809681.72 400007.22,5809682.92 400008.45,5809684.18 399999.96,5809693.86 400004.58,5809697.85 400007.05,5809695.01 400026.22,5809711.19 400032.52,5809707.36 400036.81,5809704.74 400037.41,5809703.49 400009.51,5809680.32 400008.36,5809681.72">
-        <param key="area" value="yes"/>
-        <param key="bicycle" value="yes"/>
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="128643749" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="400022.24,5809717.67 400013.17,5809710.22">
-        <param key="highway" value="service"/>
-    </poly>
-    <poly id="128643750" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400035.16,5809709.67 400032.52,5809707.36">
-        <param key="bicycle" value="yes"/>
-        <param key="highway" value="footway"/>
-    </poly>
-    <poly id="128643753" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="399998.11,5809814.36 400004.37,5809806.30 400020.61,5809786.78 400037.07,5809769.03 400067.64,5809732.61">
-        <param key="highway" value="footway"/>
-        <param key="postal_code" value="12489"/>
-        <param key="surface" value="paving_stones"/>
-    </poly>
-    <poly id="128643757" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399941.67,5809748.81 399934.81,5809740.62">
+    <poly id="128643757" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399941.67,5809748.81 399934.81,5809740.62">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="142575688" type="highway.unclassified" color="51,128,255" fill="0" layer="-1.00" shape="400283.27,5809917.86 400243.22,5809882.11 400204.51,5809849.29 400196.09,5809842.18 400170.94,5809820.93 400137.01,5809791.72 400111.47,5809769.66 400087.39,5809749.28 400078.20,5809740.83 400067.64,5809732.61 400066.25,5809731.43 400060.38,5809726.42 400051.44,5809718.80 400046.17,5809713.16 400044.98,5809711.01 400044.58,5809708.78">
-        <param key="highway" value="unclassified"/>
-        <param key="lit" value="yes"/>
-        <param key="maxspeed" value="50"/>
-        <param key="name" value="Kekuléstraße"/>
-        <param key="postal_code" value="12489"/>
-        <param key="sidewalk" value="both"/>
-        <param key="smoothness" value="excellent"/>
-        <param key="surface" value="asphalt"/>
-        <param key="width" value="6"/>
-    </poly>
-    <poly id="142598675" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399988.94,5809673.34 399992.57,5809669.07 399984.73,5809662.45 399982.62,5809664.93 399977.95,5809661.00">
+    <poly id="142598675" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399988.94,5809673.34 399992.57,5809669.07 399984.73,5809662.45 399982.62,5809664.93 399977.95,5809661.00">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -178,7 +94,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="142598699" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399937.18,5809737.86 399945.99,5809727.62 399932.86,5809716.62 399920.73,5809729.44 399923.61,5809731.27 399913.34,5809743.51 399900.69,5809740.12 399901.34,5809737.65 399898.35,5809735.86 399894.75,5809734.90 399889.53,5809734.87 399889.21,5809736.75 399876.22,5809733.75 399869.96,5809701.14 399872.54,5809700.69 399869.36,5809683.43 399851.50,5809687.18 399864.51,5809748.01 399917.07,5809761.22 399934.81,5809740.62">
+    <poly id="142598699" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399937.18,5809737.86 399945.99,5809727.62 399932.86,5809716.62 399920.73,5809729.44 399923.61,5809731.27 399913.34,5809743.51 399900.69,5809740.12 399901.34,5809737.65 399898.35,5809735.86 399894.75,5809734.90 399889.53,5809734.87 399889.21,5809736.75 399876.22,5809733.75 399869.96,5809701.14 399872.54,5809700.69 399869.36,5809683.43 399851.50,5809687.18 399864.51,5809748.01 399917.07,5809761.22 399934.81,5809740.62">
         <param key="building" value="yes"/>
         <param key="building:colour" value="#aa6957"/>
         <param key="building:levels" value="5"/>
@@ -186,7 +102,7 @@
         <param key="name" value="OWZ - Internationales Gründerzentrum"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="147859763" type="landuse.grass" color="51,128,255" fill="0" layer="-1.00" shape="400227.69,5809744.43 400216.72,5809735.07 400203.75,5809723.99 400157.04,5809684.15 400143.38,5809672.50 400130.69,5809661.68 400108.84,5809643.04 400101.63,5809636.89 400080.62,5809618.97 400064.75,5809605.43 400056.92,5809598.75">
+    <poly id="147859763" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400227.69,5809744.43 400216.72,5809735.07 400203.75,5809723.99 400157.04,5809684.15 400143.38,5809672.50 400130.69,5809661.68 400108.84,5809643.04 400101.63,5809636.89 400080.62,5809618.97 400064.75,5809605.43 400056.92,5809598.75">
         <param key="highway" value="unclassified"/>
         <param key="landuse" value="grass"/>
         <param key="lit" value="yes"/>
@@ -200,7 +116,7 @@
         <param key="type" value="multipolygon"/>
         <param key="width" value="6.5"/>
     </poly>
-    <poly id="148974739" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400006.81,5809754.61 400003.61,5809758.82 400001.61,5809761.46">
+    <poly id="148974739" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400006.81,5809754.61 400003.61,5809758.82 400001.61,5809761.46">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -211,28 +127,28 @@
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974742" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399934.81,5809740.62 399937.18,5809737.86">
+    <poly id="148974742" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399934.81,5809740.62 399937.18,5809737.86">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974743" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399937.18,5809737.86 399943.87,5809746.19">
+    <poly id="148974743" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399937.18,5809737.86 399943.87,5809746.19">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974745" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399941.67,5809748.81 399943.87,5809746.19">
+    <poly id="148974745" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399941.67,5809748.81 399943.87,5809746.19">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974746" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399971.15,5809749.46 399974.70,5809752.52 399978.74,5809756.00 399984.07,5809760.57">
+    <poly id="148974746" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399971.15,5809749.46 399974.70,5809752.52 399978.74,5809756.00 399984.07,5809760.57">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -243,7 +159,7 @@
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974748" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399984.07,5809760.57 399991.05,5809752.48 400001.61,5809761.46">
+    <poly id="148974748" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399984.07,5809760.57 399991.05,5809752.48 400001.61,5809761.46">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -254,7 +170,7 @@
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974749" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399943.87,5809746.19 399954.59,5809733.42 399971.82,5809748.22 399971.15,5809749.46">
+    <poly id="148974749" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399943.87,5809746.19 399954.59,5809733.42 399971.82,5809748.22 399971.15,5809749.46">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -265,40 +181,7 @@
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974800" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399974.70,5809752.52 399976.60,5809750.14 399980.44,5809748.66">
-        <param key="hgv" value="no"/>
-        <param key="highway" value="service"/>
-        <param key="maxheight" value="2.3"/>
-        <param key="maxspeed" value="30"/>
-        <param key="name" value="Rutherfordstraße"/>
-        <param key="oneway" value="yes"/>
-        <param key="postal_code" value="12489"/>
-    </poly>
-    <poly id="148974801" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399978.74,5809756.00 399973.09,5809763.92 399970.53,5809766.80">
-        <param key="covered" value="yes"/>
-        <param key="hgv" value="no"/>
-        <param key="highway" value="service"/>
-        <param key="maxheight" value="2.3"/>
-        <param key="maxspeed" value="30"/>
-        <param key="name" value="Rutherfordstraße"/>
-        <param key="oneway" value="yes"/>
-        <param key="postal_code" value="12489"/>
-    </poly>
-    <poly id="148974802" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399965.87,5809762.95 399968.56,5809760.17 399974.70,5809752.52">
-        <param key="covered" value="yes"/>
-        <param key="hgv" value="no"/>
-        <param key="highway" value="service"/>
-        <param key="maxheight" value="2.3"/>
-        <param key="maxspeed" value="30"/>
-        <param key="name" value="Rutherfordstraße"/>
-        <param key="oneway" value="yes"/>
-        <param key="postal_code" value="12489"/>
-    </poly>
-    <poly id="148974804" type="highway.footway" color="51,128,255" fill="0" layer="-1.00" shape="400003.61,5809758.82 399993.58,5809749.85 399980.44,5809748.66">
-        <param key="highway" value="footway"/>
-        <param key="postal_code" value="12489"/>
-    </poly>
-    <poly id="149641833" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399991.67,5809659.34 399990.08,5809657.43 399989.28,5809655.70 399988.74,5809653.49 399988.98,5809651.53 399990.09,5809648.59 399992.14,5809646.65 399993.97,5809645.53 399996.79,5809644.95 399999.03,5809645.00 400000.99,5809645.82 400002.42,5809646.62">
+    <poly id="149641833" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399991.67,5809659.34 399990.08,5809657.43 399989.28,5809655.70 399988.74,5809653.49 399988.98,5809651.53 399990.09,5809648.59 399992.14,5809646.65 399993.97,5809645.53 399996.79,5809644.95 399999.03,5809645.00 400000.99,5809645.82 400002.42,5809646.62">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -311,7 +194,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641834" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399977.95,5809661.00 399977.12,5809661.98 399969.74,5809655.75 399954.95,5809673.20 399938.50,5809659.31 399937.13,5809660.93 399934.03,5809658.32 399935.38,5809656.74 399932.27,5809654.11 399952.10,5809630.72 399974.57,5809649.67 399974.03,5809650.30 399981.58,5809656.68">
+    <poly id="149641834" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399977.95,5809661.00 399977.12,5809661.98 399969.74,5809655.75 399954.95,5809673.20 399938.50,5809659.31 399937.13,5809660.93 399934.03,5809658.32 399935.38,5809656.74 399932.27,5809654.11 399952.10,5809630.72 399974.57,5809649.67 399974.03,5809650.30 399981.58,5809656.68">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -324,7 +207,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641835" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400007.78,5809640.83 399974.25,5809612.31">
+    <poly id="149641835" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400007.78,5809640.83 399974.25,5809612.31">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -337,7 +220,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641836" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400021.32,5809652.50 400014.90,5809659.88">
+    <poly id="149641836" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400021.32,5809652.50 400014.90,5809659.88">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -350,7 +233,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641842" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400002.42,5809646.62 400007.78,5809640.83">
+    <poly id="149641842" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400002.42,5809646.62 400007.78,5809640.83">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -363,7 +246,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641844" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400006.36,5809670.03 400001.11,5809676.27 399997.82,5809680.19">
+    <poly id="149641844" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400006.36,5809670.03 400001.11,5809676.27 399997.82,5809680.19">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -376,7 +259,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641845" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399981.58,5809656.68 399988.98,5809662.86 399991.67,5809659.34">
+    <poly id="149641845" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399981.58,5809656.68 399988.98,5809662.86 399991.67,5809659.34">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -389,7 +272,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641846" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399997.82,5809680.19 399999.66,5809681.76 399984.08,5809700.13 399985.94,5809701.70 399974.13,5809715.62 399972.52,5809714.26 399963.27,5809725.18 399947.70,5809712.04 399951.18,5809707.92 399945.57,5809703.20 399942.55,5809706.76 399909.79,5809679.14 399925.96,5809660.06 399935.66,5809668.24 399926.78,5809678.72 399926.50,5809678.48 399924.13,5809681.28 399934.05,5809689.65 399936.36,5809686.91 399935.39,5809686.08 399944.23,5809675.65 399953.99,5809683.89 399945.13,5809694.34 399944.84,5809694.10 399942.61,5809696.74 399947.47,5809700.83 399946.95,5809701.44 399952.83,5809706.40 399984.23,5809669.36 399988.94,5809673.34">
+    <poly id="149641846" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399997.82,5809680.19 399999.66,5809681.76 399984.08,5809700.13 399985.94,5809701.70 399974.13,5809715.62 399972.52,5809714.26 399963.27,5809725.18 399947.70,5809712.04 399951.18,5809707.92 399945.57,5809703.20 399942.55,5809706.76 399909.79,5809679.14 399925.96,5809660.06 399935.66,5809668.24 399926.78,5809678.72 399926.50,5809678.48 399924.13,5809681.28 399934.05,5809689.65 399936.36,5809686.91 399935.39,5809686.08 399944.23,5809675.65 399953.99,5809683.89 399945.13,5809694.34 399944.84,5809694.10 399942.61,5809696.74 399947.47,5809700.83 399946.95,5809701.44 399952.83,5809706.40 399984.23,5809669.36 399988.94,5809673.34">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -402,7 +285,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641848" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400014.90,5809659.88 400049.37,5809689.01 400040.85,5809699.08 400006.36,5809670.03">
+    <poly id="149641848" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400014.90,5809659.88 400049.37,5809689.01 400040.85,5809699.08 400006.36,5809670.03">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -415,24 +298,31 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149663226" type="man_made.tower" color="51,128,255" fill="1" layer="-1.00" shape="399925.99,5809593.25 399926.19,5809590.66 399928.46,5809589.22 399930.05,5809589.51 399931.13,5809590.42 399931.67,5809591.81 399931.14,5809593.87 399929.39,5809595.03 399927.43,5809594.80 399925.99,5809593.25">
+    <poly id="149663226" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="399925.99,5809593.25 399926.19,5809590.66 399928.46,5809589.22 399930.05,5809589.51 399931.13,5809590.42 399931.67,5809591.81 399931.14,5809593.87 399929.39,5809595.03 399927.43,5809594.80 399925.99,5809593.25">
         <param key="building" value="yes"/>
         <param key="colour" value="white"/>
         <param key="height" value="20"/>
         <param key="man_made" value="tower"/>
         <param key="roof:colour" value="black"/>
     </poly>
-    <poly id="149663244" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399893.28,5809523.32 399900.82,5809590.70 399910.81,5809589.60">
+    <poly id="149663226#1" type="man_made.tower" color="255,230,230" fill="1" layer="-1.00" shape="399925.99,5809593.25 399926.19,5809590.66 399928.46,5809589.22 399930.05,5809589.51 399931.13,5809590.42 399931.67,5809591.81 399931.14,5809593.87 399929.39,5809595.03 399927.43,5809594.80 399925.99,5809593.25">
+        <param key="building" value="yes"/>
+        <param key="colour" value="white"/>
+        <param key="height" value="20"/>
+        <param key="man_made" value="tower"/>
+        <param key="roof:colour" value="black"/>
+    </poly>
+    <poly id="149663244" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399893.28,5809523.32 399900.82,5809590.70 399910.81,5809589.60">
         <param key="building" value="yes"/>
         <param key="building:parts" value="vertical"/>
         <param key="height" value="10"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149670391" type="landuse.commercial" color="51,128,255" fill="0" layer="-1.00" shape="399719.56,5809975.93 399680.71,5810035.26 399846.56,5810117.47 399847.54,5810119.46 399846.83,5810121.54 399687.96,5810297.61 399466.14,5810094.31 399516.97,5810037.91 399538.53,5809733.24 399638.99,5809740.48 399654.67,5809742.10 399699.52,5809746.75 399747.80,5809755.01 399847.43,5809780.10 399854.70,5809746.97 399842.52,5809608.02 399838.53,5809562.52 399833.63,5809517.62 399880.51,5809513.43 399927.46,5809507.78 399971.30,5809503.87 399993.73,5809501.81 400094.81,5809492.52 400191.19,5809481.56 400283.79,5809472.34 400393.33,5809457.96 400452.20,5809452.83 400494.21,5809445.93 400843.82,5809408.62 400866.06,5809406.38 401001.62,5809392.75 401024.09,5809386.88 401053.89,5809395.34 401077.34,5809406.31 401090.86,5809413.30 401095.83,5809415.87 401121.07,5809432.68 401148.73,5809456.96 401148.52,5809462.40 401081.92,5809543.25 400985.83,5809659.90 401128.53,5809773.42 401103.91,5809813.31 401089.87,5809938.48 401041.71,5809993.15 401039.97,5810007.17 401008.19,5810042.09 400892.58,5810165.99 400880.80,5810182.60 400842.83,5810220.58 400806.60,5810184.07 400662.23,5810339.13 400632.60,5810374.16 400589.02,5810421.36 400575.55,5810436.45 400516.93,5810501.46 400421.54,5810605.90 400407.33,5810622.25 400334.09,5810706.59 400310.19,5810734.10 400302.75,5810735.08 400078.26,5810530.10 400092.43,5810506.75 400188.21,5810394.32 400107.31,5810320.72 400203.67,5810216.67 400190.60,5810204.43 400250.11,5810139.88 400294.83,5810180.77 400301.31,5810173.75 400367.24,5810105.13 400307.82,5810051.22 400290.86,5810032.73 400266.54,5810009.69 400234.89,5809987.18 400146.17,5809932.62 400131.40,5809923.09 400092.76,5809894.25 400158.19,5809818.11 400063.92,5809740.37 400008.05,5809803.87 400003.39,5809820.36 399939.64,5809941.51 399919.32,5809982.39 399918.40,5809983.97">
+    <poly id="149670391" type="landuse.commercial" color="209,209,204" fill="0" layer="-3.00" shape="399719.56,5809975.93 399680.71,5810035.26 399846.56,5810117.47 399847.54,5810119.46 399846.83,5810121.54 399687.96,5810297.61 399466.14,5810094.31 399516.97,5810037.91 399538.53,5809733.24 399638.99,5809740.48 399654.67,5809742.10 399699.52,5809746.75 399747.80,5809755.01 399847.43,5809780.10 399854.70,5809746.97 399842.52,5809608.02 399838.53,5809562.52 399833.63,5809517.62 399880.51,5809513.43 399927.46,5809507.78 399971.30,5809503.87 399993.73,5809501.81 400094.81,5809492.52 400191.19,5809481.56 400283.79,5809472.34 400393.33,5809457.96 400452.20,5809452.83 400494.21,5809445.93 400843.82,5809408.62 400866.06,5809406.38 401001.62,5809392.75 401024.09,5809386.88 401053.89,5809395.34 401077.34,5809406.31 401090.86,5809413.30 401095.83,5809415.87 401121.07,5809432.68 401148.73,5809456.96 401148.52,5809462.40 401081.92,5809543.25 400985.83,5809659.90 401128.53,5809773.42 401103.91,5809813.31 401089.87,5809938.48 401041.71,5809993.15 401039.97,5810007.17 401008.19,5810042.09 400892.58,5810165.99 400880.80,5810182.60 400842.83,5810220.58 400806.60,5810184.07 400662.23,5810339.13 400632.60,5810374.16 400589.02,5810421.36 400575.55,5810436.45 400516.93,5810501.46 400421.54,5810605.90 400407.33,5810622.25 400334.09,5810706.59 400310.19,5810734.10 400302.75,5810735.08 400078.26,5810530.10 400092.43,5810506.75 400188.21,5810394.32 400107.31,5810320.72 400203.67,5810216.67 400190.60,5810204.43 400250.11,5810139.88 400294.83,5810180.77 400301.31,5810173.75 400367.24,5810105.13 400307.82,5810051.22 400290.86,5810032.73 400266.54,5810009.69 400234.89,5809987.18 400146.17,5809932.62 400131.40,5809923.09 400092.76,5809894.25 400158.19,5809818.11 400063.92,5809740.37 400008.05,5809803.87 400003.39,5809820.36 399939.64,5809941.51 399919.32,5809982.39 399918.40,5809983.97">
         <param key="landuse" value="commercial"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="150511198" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399985.04,5809599.69 399990.86,5809604.65 399992.96,5809602.19 399998.81,5809607.17 399996.81,5809609.50 400018.68,5809628.11 400020.64,5809625.82 400026.54,5809630.84 400024.42,5809633.32 400030.17,5809638.21">
+    <poly id="150511198" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399985.04,5809599.69 399990.86,5809604.65 399992.96,5809602.19 399998.81,5809607.17 399996.81,5809609.50 400018.68,5809628.11 400020.64,5809625.82 400026.54,5809630.84 400024.42,5809633.32 400030.17,5809638.21">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -445,7 +335,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="150511203" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399974.25,5809612.31 399968.39,5809607.32 399979.18,5809594.71 399985.04,5809599.69">
+    <poly id="150511203" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399974.25,5809612.31 399968.39,5809607.32 399979.18,5809594.71 399985.04,5809599.69">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -458,7 +348,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="150511205" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400030.17,5809638.21 400036.25,5809643.38 400025.45,5809656.01 400021.32,5809652.50">
+    <poly id="150511205" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400030.17,5809638.21 400036.25,5809643.38 400025.45,5809656.01 400021.32,5809652.50">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -471,7 +361,7 @@
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="164560675" type="building.university" color="51,128,255" fill="1" layer="-1.00" shape="400030.46,5809806.57 400015.82,5809799.57 400039.74,5809771.43 400042.39,5809768.11 400065.52,5809748.01 400074.94,5809756.15 400054.70,5809779.78 400030.46,5809806.57">
+    <poly id="164560675" type="building.university" color="255,230,230" fill="1" layer="-1.00" shape="400030.46,5809806.57 400015.82,5809799.57 400039.74,5809771.43 400042.39,5809768.11 400065.52,5809748.01 400074.94,5809756.15 400054.70,5809779.78 400030.46,5809806.57">
         <param key="addr:housename" value="Haus I"/>
         <param key="building" value="university"/>
         <param key="building:colour" value="darkred"/>
@@ -479,55 +369,24 @@
         <param key="roof:shape" value="flat"/>
         <param key="wheelchair" value="yes"/>
     </poly>
-    <poly id="172014854" type="highway.unclassified" color="51,128,255" fill="0" layer="-1.00" shape="400056.92,5809598.75 399998.71,5809549.37 399991.19,5809541.03 399987.90,5809534.10 399983.08,5809499.73 399981.51,5809478.78">
-        <param key="highway" value="unclassified"/>
-        <param key="lit" value="yes"/>
-        <param key="maxspeed" value="50"/>
-        <param key="name" value="Albert-Einstein-Straße"/>
-        <param key="parking:lane:both" value="parallel"/>
-        <param key="postal_code" value="12489"/>
-        <param key="sidewalk" value="both"/>
-        <param key="smoothness" value="excellent"/>
-        <param key="surface" value="asphalt"/>
-        <param key="width" value="6.5"/>
-    </poly>
-    <poly id="172014857" type="landuse.grass" color="51,128,255" fill="0" layer="-1.00" shape="400064.35,5809589.84 400066.36,5809587.42">
+    <poly id="172014857" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400064.35,5809589.84 400066.36,5809587.42">
         <param key="highway" value="service"/>
         <param key="landuse" value="grass"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="172014860" type="landuse.commercial" color="51,128,255" fill="0" layer="-1.00" shape="400064.35,5809589.84 400035.94,5809565.53 400001.72,5809536.27 399999.12,5809534.23 399998.05,5809532.82 399997.39,5809530.92 399993.73,5809501.81 400094.81,5809492.52 400191.19,5809481.56 400283.79,5809472.34 400393.33,5809457.96 400452.20,5809452.83 400454.51,5809471.65 400378.61,5809560.88">
+    <poly id="172014860" type="landuse.commercial" color="209,209,204" fill="0" layer="-3.00" shape="400064.35,5809589.84 400035.94,5809565.53 400001.72,5809536.27 399999.12,5809534.23 399998.05,5809532.82 399997.39,5809530.92 399993.73,5809501.81 400094.81,5809492.52 400191.19,5809481.56 400283.79,5809472.34 400393.33,5809457.96 400452.20,5809452.83 400454.51,5809471.65 400378.61,5809560.88">
         <param key="landuse" value="commercial"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="172667643" type="landuse.grass" color="51,128,255" fill="1" layer="-1.00" shape="400049.37,5809689.01 400095.43,5809635.43 399991.53,5809546.58 399934.56,5809612.20 399902.91,5809616.46 399909.79,5809679.14 399942.55,5809706.76 399947.70,5809712.04 399963.27,5809725.18 399982.35,5809743.76 399997.09,5809735.26 400026.22,5809711.19 400032.52,5809707.36 400036.81,5809704.74 400037.41,5809703.49 400040.85,5809699.08 400049.37,5809689.01">
+    <poly id="172667643" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="400049.37,5809689.01 400095.43,5809635.43 399991.53,5809546.58 399934.56,5809612.20 399902.91,5809616.46 399909.79,5809679.14 399942.55,5809706.76 399947.70,5809712.04 399963.27,5809725.18 399982.35,5809743.76 399997.09,5809735.26 400026.22,5809711.19 400032.52,5809707.36 400036.81,5809704.74 400037.41,5809703.49 400040.85,5809699.08 400049.37,5809689.01">
         <param key="landuse" value="grass"/>
     </poly>
-    <poly id="26816413" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399980.44,5809748.66 399933.91,5809706.56 399912.10,5809687.29">
-        <param key="highway" value="service"/>
-        <param key="lit" value="yes"/>
-    </poly>
-    <poly id="26816541" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399933.91,5809706.56 399911.91,5809732.36 399883.75,5809726.29 399876.87,5809693.76 399912.10,5809687.29">
-        <param key="highway" value="service"/>
-        <param key="lanes" value="1"/>
-        <param key="lit" value="yes"/>
-        <param key="oneway" value="yes"/>
-    </poly>
-    <poly id="26816553" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399906.50,5809676.68 399902.85,5809677.91">
-        <param key="highway" value="service"/>
-    </poly>
-    <poly id="26816590" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399912.10,5809687.29 399902.85,5809677.91 399895.55,5809673.12 399887.10,5809669.97 399837.09,5809675.36">
-        <param key="highway" value="service"/>
-        <param key="lit" value="yes"/>
-        <param key="smoothness" value="good"/>
-        <param key="surface" value="asphalt"/>
-    </poly>
-    <poly id="30978403" type="amenity.parking" color="51,128,255" fill="1" layer="-1.00" shape="399904.98,5809660.05 399900.44,5809618.79 399846.78,5809624.35 399851.56,5809665.41 399904.98,5809660.05">
+    <poly id="30978403" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="399904.98,5809660.05 399900.44,5809618.79 399846.78,5809624.35 399851.56,5809665.41 399904.98,5809660.05">
         <param key="access" value="permissive"/>
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
     </poly>
-    <poly id="32523727" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="399962.02,5809759.75 399955.12,5809768.23 399937.62,5809753.63 399941.67,5809748.81">
+    <poly id="32523727" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399962.02,5809759.75 399955.12,5809768.23 399937.62,5809753.63 399941.67,5809748.81">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -538,7 +397,7 @@
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="32523890" type="building.yes" color="51,128,255" fill="0" layer="-1.00" shape="400012.93,5809759.94 400017.74,5809763.92 400046.11,5809730.15 400034.23,5809720.23 400005.93,5809754.08 400006.81,5809754.61">
+    <poly id="32523890" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400012.93,5809759.94 400017.74,5809763.92 400046.11,5809730.15 400034.23,5809720.23 400005.93,5809754.08 400006.81,5809754.61">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -549,17 +408,7 @@
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="38507369" type="highway.unclassified" color="51,128,255" fill="0" layer="-1.00" shape="400044.58,5809708.78 400045.26,5809705.60 400047.05,5809702.53 400067.13,5809678.38 400073.74,5809670.69 400076.04,5809667.90 400101.63,5809636.89">
-        <param key="highway" value="unclassified"/>
-        <param key="lit" value="yes"/>
-        <param key="maxspeed" value="50"/>
-        <param key="name" value="Rutherfordstraße"/>
-        <param key="postal_code" value="12489"/>
-        <param key="smoothness" value="excellent"/>
-        <param key="surface" value="asphalt"/>
-        <param key="width" value="6"/>
-    </poly>
-    <poly id="40106791" type="amenity.university" color="51,128,255" fill="1" layer="-1.00" shape="400008.05,5809803.87 400012.96,5809847.41 399977.11,5809919.59 399879.80,5810114.22 400094.56,5810308.54 400119.37,5810281.09 400159.52,5810318.06 400217.55,5810255.57 400173.77,5810217.11 400160.51,5810204.95 400242.66,5810120.54 400301.13,5810173.73 400367.24,5810105.13 400307.82,5810051.22 400290.86,5810032.73 400266.54,5810009.69 400234.89,5809987.18 400146.17,5809932.62 400131.40,5809923.09 400092.76,5809894.25 400158.19,5809818.11 400063.92,5809740.37 400008.05,5809803.87">
+    <poly id="40106791" type="amenity.university" color="237,199,199" fill="1" layer="-1.00" shape="400008.05,5809803.87 400012.96,5809847.41 399977.11,5809919.59 399879.80,5810114.22 400094.56,5810308.54 400119.37,5810281.09 400159.52,5810318.06 400217.55,5810255.57 400173.77,5810217.11 400160.51,5810204.95 400242.66,5810120.54 400301.13,5810173.73 400367.24,5810105.13 400307.82,5810051.22 400290.86,5810032.73 400266.54,5810009.69 400234.89,5809987.18 400146.17,5809932.62 400131.40,5809923.09 400092.76,5809894.25 400158.19,5809818.11 400063.92,5809740.37 400008.05,5809803.87">
         <param key="amenity" value="university"/>
         <param key="name" value="Humboldt-Universität Campus Adlershof"/>
         <param key="name:de" value="Humboldt-Universität Campus Adlershof"/>
@@ -567,53 +416,24 @@
         <param key="website" value="http://www.adlershof.hu-berlin.de"/>
         <param key="wheelchair" value="yes"/>
     </poly>
-    <poly id="81096576" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399980.44,5809748.66 399980.03,5809754.19 399978.74,5809756.00">
-        <param key="hgv" value="no"/>
-        <param key="highway" value="service"/>
-        <param key="maxheight" value="2.3"/>
-        <param key="maxspeed" value="30"/>
-        <param key="name" value="Rutherfordstraße"/>
-        <param key="oneway" value="yes"/>
-        <param key="postal_code" value="12489"/>
-    </poly>
-    <poly id="81096582" type="highway.service" color="51,128,255" fill="0" layer="-1.00" shape="399980.44,5809748.66 399996.91,5809739.07 400022.24,5809717.67 400028.81,5809712.60 400035.16,5809709.67 400044.58,5809708.78">
-        <param key="highway" value="service"/>
-        <param key="lit" value="yes"/>
-        <param key="maxspeed" value="30"/>
-        <param key="name" value="Rutherfordstraße"/>
-        <param key="postal_code" value="12489"/>
-    </poly>
-    <poi id="1302791742" type="amenity.recycling" color="51,128,255" layer="4.00" x="400033.49" y="5809626.94">
+    <poi id="1302791742" type="amenity.recycling" color="237,199,199" layer="4.00" x="400033.49" y="5809626.94">
         <param key="amenity" value="recycling"/>
     </poi>
-    <poi id="1302791743" type="amenity.bicycle_parking" color="51,128,255" layer="4.00" x="400013.05" y="5809608.79">
+    <poi id="1302791743" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" x="400013.05" y="5809608.79">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="1371616238" type="highway.turning_circle" color="51,128,255" layer="4.00" x="399989.95" y="5809635.20">
-        <param key="highway" value="turning_circle"/>
-    </poi>
-    <poi id="1371616241" type="amenity.bicycle_parking" color="51,128,255" layer="4.00" x="400012.91" y="5809705.89">
+    <poi id="1371616241" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" x="400012.91" y="5809705.89">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="1371616242" type="amenity.bicycle_parking" color="51,128,255" layer="4.00" x="399984.68" y="5809636.40">
+    <poi id="1371616242" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" x="399984.68" y="5809636.40">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="317551933" type="amenity.restaurant" color="51,128,255" layer="4.00" x="399952.58" y="5809755.59">
+    <poi id="317551933" type="amenity.restaurant" color="237,199,199" layer="4.00" x="399952.58" y="5809755.59">
         <param key="amenity" value="restaurant"/>
         <param key="contact:phone" value="+49-30-63926055"/>
         <param key="name" value="Caféteria Hummel"/>
         <param key="opening_hours" value="Mo-Fr 09:00-15:00"/>
         <param key="website" value="http://www.abr-berlin.de/"/>
         <param key="wheelchair" value="yes"/>
-    </poi>
-    <poi id="38920751" type="highway.crossing" color="51,128,255" layer="4.00" x="399998.11" y="5809814.36">
-        <param key="crossing" value="unmarked"/>
-        <param key="highway" value="crossing"/>
-        <param key="tactile_paving" value="yes"/>
-    </poi>
-    <poi id="671564318" type="highway.crossing" color="51,128,255" layer="4.00" x="400004.37" y="5809806.30">
-        <param key="crossing" value="unmarked"/>
-        <param key="highway" value="crossing"/>
-        <param key="tactile_paving" value="yes"/>
     </poi>
 </additional>
