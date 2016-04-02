@@ -211,6 +211,10 @@ class TrafficLightsDomain(Domain):
 
 
     def setPhaseDuration(self, tlsID, phaseDuration):
+        """setPhaseDuration(string, integer or float) -> None
+
+        Set the phase duration of the current phase in seconds.
+        """
         self._connection._sendIntCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, int(1000 * phaseDuration))
 
