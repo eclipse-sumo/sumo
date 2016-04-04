@@ -146,58 +146,58 @@ MSVehicle::WaitingTimeCollector::WaitingTimeCollector(const WaitingTimeCollector
 
 MSVehicle::WaitingTimeCollector&
 MSVehicle::WaitingTimeCollector::operator=(const WaitingTimeCollector& wt){
-	myMemorySize = wt.getMemorySize();
-	myWaitingIntervals = wt.getWaitingIntervals();
-	return *this;
+   myMemorySize = wt.getMemorySize();
+   myWaitingIntervals = wt.getWaitingIntervals();
+   return *this;
 }
 
 MSVehicle::WaitingTimeCollector&
 MSVehicle::WaitingTimeCollector::operator=(SUMOTime t){
-	myWaitingIntervals.clear();
-	passTime(t,true);
-	return *this;
+   myWaitingIntervals.clear();
+   passTime(t,true);
+   return *this;
 }
 
 SUMOTime
 MSVehicle::WaitingTimeCollector::cumulatedWaitingTime(SUMOTime memorySpan) const{
-	assert(memorySpan <= myMemorySize);
-	if(memorySpan == -1) memorySpan = myMemorySize;
-	SUMOTime totalWaitingTime = 0;
-	for(waitingIntervalList::const_iterator i = myWaitingIntervals.begin(); i!=myWaitingIntervals.end(); i++){
-		if(i->second >= memorySpan){
-			if(i->first >= memorySpan) break;
-			else totalWaitingTime += memorySpan - i->first;
-		} else {
-			totalWaitingTime += i->second - i->first;
-		}
-	}
-	return totalWaitingTime;
+   assert(memorySpan <= myMemorySize);
+   if(memorySpan == -1) memorySpan = myMemorySize;
+   SUMOTime totalWaitingTime = 0;
+   for(waitingIntervalList::const_iterator i = myWaitingIntervals.begin(); i!=myWaitingIntervals.end(); i++){
+      if(i->second >= memorySpan){
+         if(i->first >= memorySpan) break;
+         else totalWaitingTime += memorySpan - i->first;
+      } else {
+         totalWaitingTime += i->second - i->first;
+      }
+   }
+   return totalWaitingTime;
 }
 
 void
 MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting){
-	waitingIntervalList::iterator i = myWaitingIntervals.begin();
-	waitingIntervalList::iterator end = myWaitingIntervals.end();
-	bool startNewInterval = i==end || (i->first != 0);
-	while(i!=end){
-		i->first += dt;
-		if(i->first >= myMemorySize) break;
-		i->second += dt; i++;
-	}
+   waitingIntervalList::iterator i = myWaitingIntervals.begin();
+   waitingIntervalList::iterator end = myWaitingIntervals.end();
+   bool startNewInterval = i==end || (i->first != 0);
+   while(i!=end){
+      i->first += dt;
+      if(i->first >= myMemorySize) break;
+      i->second += dt; i++;
+   }
 
-	// remove intervals beyond memorySize
-	waitingIntervalList::iterator::difference_type d = std::distance(i,end);
-	while(d > 0) {
-		myWaitingIntervals.pop_back();
-		d--;
-	}
+   // remove intervals beyond memorySize
+   waitingIntervalList::iterator::difference_type d = std::distance(i,end);
+   while(d > 0) {
+      myWaitingIntervals.pop_back();
+      d--;
+   }
 
-	if(!waiting) return;
-	else if(!startNewInterval)
-		myWaitingIntervals.begin()->first = 0;
-	else
-		myWaitingIntervals.push_front(std::make_pair(0,dt));
-	return;
+   if(!waiting) return;
+   else if(!startNewInterval)
+      myWaitingIntervals.begin()->first = 0;
+   else
+      myWaitingIntervals.push_front(std::make_pair(0,dt));
+   return;
 }
 
 
@@ -1477,7 +1477,7 @@ MSVehicle::executeMove() {
 
     // XXX braking due to lane-changing is not registered and due to processing stops is not registered
     //     To avoid casual blinking brake lights at high speeds due to dawdling of the
-    //	   leading vehicle, we don't show brake lights when the deceleration could be caused
+    //      leading vehicle, we don't show brake lights when the deceleration could be caused
     //     by frictional forces and air resistance (i.e. proportional to v^2, coefficient could be adapted further)
     SUMOReal pseudoFriction = (0.05 +  0.005*getSpeed())*getSpeed();
     bool brakelightsOn = vSafe < getSpeed() - ACCEL2SPEED(pseudoFriction);
@@ -1508,11 +1508,11 @@ MSVehicle::executeMove() {
 #endif
     // visit waiting time
     if (vNext <= SUMO_const_haltingSpeed) {
-    	 myWaitingTime += DELTA_T;
+        myWaitingTime += DELTA_T;
         myWaitingTimeCollector.passTime(DELTA_T, true);
         brakelightsOn = true;
     } else {
-    	 myWaitingTime = 0;
+        myWaitingTime = 0;
         myWaitingTimeCollector.passTime(DELTA_T, false);
     }
 

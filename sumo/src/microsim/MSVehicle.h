@@ -155,12 +155,12 @@ public:
 
         // maximal memory time stored
         SUMOTime getMemorySize() const {
-        	return myMemorySize;
+           return myMemorySize;
         }
 
         // maximal memory time stored
         const waitingIntervalList& getWaitingIntervals() const {
-        	return myWaitingIntervals;
+           return myWaitingIntervals;
         }
 
     private:
