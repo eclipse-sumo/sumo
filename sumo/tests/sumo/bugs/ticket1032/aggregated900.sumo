@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04/04/16 15:44:40 by SUMO Version dev-SVN-r20338
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="859.00" id="dump">
+        <edge id="a">
+            <lane id="a_0" sampledSeconds="857.84" traveltime="214.32" density="0.13" occupancy="0.07" waitingTime="0.00" speed="34.99" departed="1" arrived="1" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="b">
+            <lane id="b_0" sampledSeconds="0.43" traveltime="0.00" density="5.02" occupancy="2.51" waitingTime="0.00" speed="35.51" departed="0" arrived="0" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+</meandata>
