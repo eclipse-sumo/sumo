@@ -359,7 +359,7 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
             return getFuelConsumption();
         case 19:
             return getHarmonoise_NoiseEmissions();
-        case 20: // !!! unused!?
+        case 20: 
             if (getNumberReroutes() == 0) {
                 return -1;
             }
