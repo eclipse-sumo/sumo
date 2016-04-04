@@ -251,7 +251,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)200);
     scheme.addColor(RGBColor::RED, (SUMOReal)300);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by accumulated waiting time (% of waiting in 100 secs)", RGBColor::BLUE); // XXX: can we tie the number (100secs) to MSGlobals::gWaitingTimeMemory? (simply importing MSGlobals.h fails (Leo))
+    scheme = GUIColorScheme("by accumulated waiting time", RGBColor::BLUE);
     scheme.addColor(RGBColor::CYAN, (SUMOReal)25);
     scheme.addColor(RGBColor::GREEN, (SUMOReal)50);
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)75);

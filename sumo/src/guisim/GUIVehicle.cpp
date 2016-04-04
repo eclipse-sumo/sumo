@@ -120,7 +120,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getTimeGap));
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
-    ret->mkItem("waiting time (accumulated) [s]", true,
+    ret->mkItem(("waiting time (accumlated, " + time2string(MSGlobals::gWaitingTimeMemory) + "s) [s]").c_str(), true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAccumulatedWaitingSeconds));
     ret->mkItem("impatience", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getImpatience));
