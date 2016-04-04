@@ -119,8 +119,7 @@ MSContainer::MSContainerStage_Driving::getEdgePos(SUMOTime /* now */) const {
 Position
 MSContainer::MSContainerStage_Driving::getPosition(SUMOTime /* now */) const {
     if (myVehicle != 0) {
-        /// @bug this fails while vehicle is driving across a junction
-        return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtOffset(myVehicle->getPositionOnLane());
+        return myVehicle->getPosition();
     }
     return getEdgePosition(myWaitingEdge, myWaitingPos, ROADSIDE_OFFSET);
 }
