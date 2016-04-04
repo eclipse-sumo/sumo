@@ -54,8 +54,7 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/devices/MSDevice_Person.h>
-#include <microsim/devices/MSDevice_Container.h>
+#include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
@@ -194,7 +193,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
 void
 GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const {
     if (myPersonDevice != 0) {
-        const std::vector<MSTransportable*>& ps = myPersonDevice->getPersons();
+        const std::vector<MSTransportable*>& ps = myPersonDevice->getTransportables();
         size_t personIndex = 0;
         for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
@@ -204,7 +203,7 @@ GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& 
         }
     }
     if (myContainerDevice != 0) {
-        const std::vector<MSTransportable*>& cs = myContainerDevice->getContainers();
+        const std::vector<MSTransportable*>& cs = myContainerDevice->getTransportables();
         size_t containerIndex = 0;
         for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
@@ -554,7 +553,7 @@ GUIVehicle::getNaviDegree() const {
 int
 GUIVehicle::getNumPassengers() const {
     if (myPersonDevice != 0) {
-        return (int)myPersonDevice->getPersons().size();
+        return (int)myPersonDevice->size();
     }
     return 0;
 }

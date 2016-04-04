@@ -59,8 +59,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSGlobals.h>
 #include "MSStoppingPlace.h"
-#include "devices/MSDevice_Person.h"
-#include "devices/MSDevice_Container.h"
+#include "devices/MSDevice_Transportable.h"
 #include "MSEdgeWeightsStorage.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSMoveReminder.h"
@@ -958,7 +957,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         loaded &= stop.awaitedContainers.size() == 0;
         if (boarded) {
             if (stop.busstop != 0) {
-                const std::vector<MSTransportable*>& persons = myPersonDevice->getPersons();
+                const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
                 for (std::vector<MSTransportable*>::const_iterator i = persons.begin(); i != persons.end(); ++i) {
                     stop.busstop->removeTransportable(*i);
                 }
@@ -972,7 +971,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         }
         if (loaded) {
             if (stop.containerstop != 0) {
-                const std::vector<MSTransportable*>& containers = myContainerDevice->getContainers();
+                const std::vector<MSTransportable*>& containers = myContainerDevice->getTransportables();
                 for (std::vector<MSTransportable*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
                     stop.containerstop->removeTransportable(*i);
                 }
@@ -2480,10 +2479,10 @@ MSVehicle::getHarmonoise_NoiseEmissions() const {
 void
 MSVehicle::addPerson(MSTransportable* person) {
     if (myPersonDevice == 0) {
-        myPersonDevice = MSDevice_Person::buildVehicleDevices(*this, myDevices);
+        myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
         myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
     }
-    myPersonDevice->addPerson(person);
+    myPersonDevice->addTransportable(person);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered) {
         unsigned int numExpected = (unsigned int) myStops.front().awaitedPersons.size();
         if (numExpected != 0) {
@@ -2502,10 +2501,10 @@ MSVehicle::addPerson(MSTransportable* person) {
 void
 MSVehicle::addContainer(MSTransportable* container) {
     if (myContainerDevice == 0) {
-        myContainerDevice = MSDevice_Container::buildVehicleDevices(*this, myDevices);
+        myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
         myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
     }
-    myContainerDevice->addContainer(container);
+    myContainerDevice->addTransportable(container);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().containerTriggered) {
         unsigned int numExpected = (unsigned int) myStops.front().awaitedContainers.size();
         if (numExpected != 0) {
@@ -2524,7 +2523,7 @@ MSVehicle::getSortedPersons() const {
     if (myPersonDevice == 0) {
         return myEmptyTransportableVector;
     } else {
-        std::vector<MSTransportable*> result = myPersonDevice->getPersons();
+        std::vector<MSTransportable*> result = myPersonDevice->getTransportables();
         sort(result.begin(), result.end(), transportable_by_id_sorter());
         return result;
     }
@@ -2536,7 +2535,7 @@ MSVehicle::getSortedContainers() const {
     if (myContainerDevice == 0) {
         return myEmptyTransportableVector;
     } else {
-        std::vector<MSTransportable*> result = myContainerDevice->getContainers();
+        std::vector<MSTransportable*> result = myContainerDevice->getTransportables();
         sort(result.begin(), result.end(), transportable_by_id_sorter());
         return result;
     }

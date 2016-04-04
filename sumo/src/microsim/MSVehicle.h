@@ -66,8 +66,7 @@ class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
-class MSDevice_Person;
-class MSDevice_Container;
+class MSDevice_Transportable;
 class MSContainer;
 class MSJunction;
 
@@ -1290,10 +1289,10 @@ protected:
     std::list<Stop> myStops;
 
     /// @brief The passengers this vehicle may have
-    MSDevice_Person* myPersonDevice;
+    MSDevice_Transportable* myPersonDevice;
 
     /// @brief The containers this vehicle may have
-    MSDevice_Container* myContainerDevice;
+    MSDevice_Transportable* myContainerDevice;
 
     /// @brief The current acceleration after dawdling in m/s
     SUMOReal myAcceleration;
