@@ -832,10 +832,10 @@ public:
     void addContainer(MSTransportable* container);
 
     /// @brief retrieve riding persons
-    std::vector<MSTransportable*> getSortedPersons() const;
+    const std::vector<MSTransportable*>& getPersons() const;
 
     /// @brief retrieve riding containers
-    std::vector<MSTransportable*> getSortedContainers() const;
+    const std::vector<MSTransportable*>& getContainers() const;
 
     /** @brief Returns the number of persons
      * @return The number of passengers on-board
@@ -1416,18 +1416,6 @@ protected:
                        const SUMOReal seen, DriveProcessItem* const lastLink,
                        const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
                        SUMOReal distToCrossing = -1) const;
-
-    /** @class transportable_by_position_sorter
-     * @brief Sorts transportables by their positions
-     */
-    class transportable_by_id_sorter {
-    public:
-        /// @brief constructor
-        explicit transportable_by_id_sorter() { }
-
-        /// @brief comparing operator
-        int operator()(const MSTransportable* const c1, const MSTransportable* const c2) const;
-    };
 
 
 

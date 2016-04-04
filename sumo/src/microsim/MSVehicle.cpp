@@ -2518,33 +2518,23 @@ MSVehicle::addContainer(MSTransportable* container) {
 }
 
 
-std::vector<MSTransportable*>
-MSVehicle::getSortedPersons() const {
+const std::vector<MSTransportable*>&
+MSVehicle::getPersons() const {
     if (myPersonDevice == 0) {
         return myEmptyTransportableVector;
     } else {
-        std::vector<MSTransportable*> result = myPersonDevice->getTransportables();
-        sort(result.begin(), result.end(), transportable_by_id_sorter());
-        return result;
+        return myPersonDevice->getTransportables();
     }
 }
 
 
-std::vector<MSTransportable*>
-MSVehicle::getSortedContainers() const {
+const std::vector<MSTransportable*>&
+MSVehicle::getContainers() const {
     if (myContainerDevice == 0) {
         return myEmptyTransportableVector;
     } else {
-        std::vector<MSTransportable*> result = myContainerDevice->getTransportables();
-        sort(result.begin(), result.end(), transportable_by_id_sorter());
-        return result;
+        return myContainerDevice->getTransportables();
     }
-}
-
-
-int
-MSVehicle::transportable_by_id_sorter::operator()(const MSTransportable* const c1, const MSTransportable* const c2) const {
-    return c1->getID() < c2->getID();
 }
 
 

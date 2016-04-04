@@ -188,9 +188,9 @@ public:
 
     /** @brief Returns this edge's persons set.
      *  @brief Avoids the creation of new vector as in getSortedPersons
-    	 *
-    	 * @return This edge's persons.
-    	 */
+     *
+     * @return This edge's persons.
+     */
     inline const std::set<MSTransportable*>& getPersons() const {
         return myPersons;
     }

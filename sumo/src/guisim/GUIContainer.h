@@ -113,7 +113,7 @@ public:
     virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
     //@}
 
-    /* @brief set the position of a container while being transporte by a vehicle
+    /* @brief set the position of a container while being transported by a vehicle
      * @note This must be called by the vehicle before the call to drawGl */
     void setPositionInVehicle(const Position& pos) {
         myPositionInVehicle = pos;

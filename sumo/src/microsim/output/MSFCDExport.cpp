@@ -90,11 +90,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             of.closeTag();
             if (microVeh != 0) {
                 // write persons and containers
-                const std::vector<MSTransportable*>& persons = microVeh->getSortedPersons();
+                const std::vector<MSTransportable*>& persons = microVeh->getPersons();
                 for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
                     writeTransportable(of, &microVeh->getLane()->getEdge(), *it_p, SUMO_TAG_PERSON, useGeo, elevation);
                 }
-                const std::vector<MSTransportable*>& containers = microVeh->getSortedContainers();
+                const std::vector<MSTransportable*>& containers = microVeh->getContainers();
                 for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
                     writeTransportable(of, &microVeh->getLane()->getEdge(), *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
                 }

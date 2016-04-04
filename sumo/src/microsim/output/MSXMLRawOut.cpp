@@ -160,11 +160,11 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
             if (containerNumber > 0) {
                 of.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
             }
-            const std::vector<MSTransportable*>& persons = microVeh.getSortedPersons();
+            const std::vector<MSTransportable*>& persons = microVeh.getPersons();
             for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
                 writeTransportable(of, *it_p, SUMO_TAG_PERSON);
             }
-            const std::vector<MSTransportable*>& containers = microVeh.getSortedContainers();
+            const std::vector<MSTransportable*>& containers = microVeh.getContainers();
             for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
                 writeTransportable(of, *it_c, SUMO_TAG_CONTAINER);
             }
