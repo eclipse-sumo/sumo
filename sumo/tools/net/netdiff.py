@@ -67,12 +67,14 @@ PLAIN_TYPES = [
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
 TAG_CROSSING = 'crossing'
+TAG_ROUNDABOUT = 'roundabout'
 
 # see CAVEAT1
 IDATTRS = defaultdict(lambda: ('id',))
 IDATTRS[TAG_TLL] = ('id', 'programID')
 IDATTRS[TAG_CONNECTION] = ('from', 'to', 'fromLane', 'toLane')
 IDATTRS[TAG_CROSSING] = ('node', 'edges')
+IDATTRS[TAG_ROUNDABOUT] = ('edges',)
 IDATTRS['interval'] = ('begin', 'end')
 
 DELETE_ELEMENT = 'delete'  # the xml element for signifying deletes
@@ -253,6 +255,12 @@ class AttributeStore:
             if tag == TAG_CROSSING:
                 delete_element = tag
                 additional = ' discard="true"'
+
+            if tag == TAG_ROUNDABOUT:
+                delete_element = tag
+                additional = ' discard="true"'
+                comment_start, comment_end = (
+                    "<!-- deletion of roundabouts not yet supported. see #2225 ", " -->")
 
             self.write(file, '%s<%s %s%s/>%s\n' % (
                 comment_start,
