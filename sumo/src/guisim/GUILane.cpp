@@ -51,6 +51,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include "GUILane.h"
 #include "GUIEdge.h"
 #include "GUIVehicle.h"
@@ -910,7 +911,11 @@ GUILane::getColorValue(size_t activeScheme) const {
             // color by average relative speed
             return getMeanSpeed() / myMaxSpeed;
         }
-        case 27:
+        case 27: {
+            // color by routing device assumed speed
+            return MSDevice_Routing::getAssumedSpeed(&getEdge());
+        }
+        case 28:
             return getElectricityConsumption() / myLength;
     }
     return 0;

@@ -272,6 +272,12 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, S
 }
 
 
+SUMOReal 
+MSDevice_Routing::getAssumedSpeed(const MSEdge* edge) {
+    return edge->getLength() / getEffort(edge, 0, 0);
+}
+
+
 SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
     if (MSNet::getInstance()->getVehicleControl().getDepartedVehicleNo() == 0) {

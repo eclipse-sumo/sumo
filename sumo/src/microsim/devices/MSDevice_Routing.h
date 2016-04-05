@@ -175,6 +175,9 @@ public:
         mySkipRouting = currentTime;
     }
 
+    /// @brief return current travel speed assumption
+    static SUMOReal getAssumedSpeed(const MSEdge* edge);
+
 
 private:
 #ifdef HAVE_FOX
