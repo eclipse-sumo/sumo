@@ -1943,11 +1943,13 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
     myWaitingTime = 0;
     myLane = enteredLane;
     myAmOnNet = true;
-    // set and activate the new lane's reminders
-    for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
-        addReminder(*rem);
+    if (notification != MSMoveReminder::NOTIFICATION_TELEPORT) {
+        // set and activate the new lane's reminders, teleports already did that at enterLaneAtMove
+        for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
+            addReminder(*rem);
+        }
+        activateReminders(notification);
     }
-    activateReminders(notification);
     // build the list of lanes the vehicle is lapping into
     SUMOReal leftLength = myType->getLength() - pos;
     MSLane* clane = enteredLane;
