@@ -66,11 +66,13 @@ PLAIN_TYPES = [
 
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
+TAG_CROSSING = 'crossing'
 
 # see CAVEAT1
 IDATTRS = defaultdict(lambda: ('id',))
 IDATTRS[TAG_TLL] = ('id', 'programID')
 IDATTRS[TAG_CONNECTION] = ('from', 'to', 'fromLane', 'toLane')
+IDATTRS[TAG_CROSSING] = ('node', 'edges')
 IDATTRS['interval'] = ('begin', 'end')
 
 DELETE_ELEMENT = 'delete'  # the xml element for signifying deletes
@@ -235,19 +237,26 @@ class AttributeStore:
         # data loss if two elements with different tags
         # have the same id
         for tag, id in self.ids_deleted:
+            comment_start, comment_end = ("", "")
             additional = ""
+            delete_element = DELETE_ELEMENT
+
             if self.type == TYPE_TLLOGICS and tag == TAG_CONNECTION:
                 # see CAVEAT4
                 names, values, children = self.id_attrs[(tag, id)]
                 additional = " " + self.attr_string(names, values)
 
-            comment_start, comment_end = ("", "")
             if tag == TAG_TLL:  # see CAVEAT3
                 comment_start, comment_end = (
                     "<!-- implicit via changed node type: ", " -->")
+
+            if tag == TAG_CROSSING:
+                delete_element = tag
+                additional = ' discard="true"'
+
             self.write(file, '%s<%s %s%s/>%s\n' % (
                 comment_start,
-                DELETE_ELEMENT, self.id_string(tag, id), additional,
+                delete_element, self.id_string(tag, id), additional,
                 comment_end))
         # data loss if two elements with different tags
         # have the same list of attributes and values
