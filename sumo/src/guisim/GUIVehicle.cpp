@@ -150,7 +150,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getPMxEmissions));
     ret->mkItem("fuel [ml/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getFuelConsumption));
-    ret->mkItem("electricity [kWh/s]", true,
+    ret->mkItem("electricity [Wh/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getElectricityConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getHarmonoise_NoiseEmissions));

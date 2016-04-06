@@ -173,7 +173,7 @@ main(int argc, char** argv) {
         std::ostream* sumOut = 0;
         if (oc.isSet("sum-output")) {
             sumOut = new std::ofstream(oc.getString("sum-output").c_str());
-            (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,CO2,NOx,CO,HC,PM" << std::endl;
+            (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
         }
 
         const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));

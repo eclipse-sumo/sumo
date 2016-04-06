@@ -232,7 +232,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by electricity consumption", RGBColor::GREEN);
-    scheme.addColor(RGBColor::RED, (SUMOReal)(.005 / 7.5 * 100.));
+    scheme.addColor(RGBColor::RED, (SUMOReal)(1 / 7.5 / 5.));
     laneColorer.addScheme(scheme);
 
 
@@ -337,7 +337,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     vehicleColorer.addScheme(scheme);
     vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
     scheme = GUIColorScheme("by electricity consumption", RGBColor::GREEN);
-    scheme.addColor(RGBColor::RED, (SUMOReal).005);
+    scheme.addColor(RGBColor::RED, (SUMOReal)5);
     vehicleColorer.addScheme(scheme);
 
     /// add person coloring schemes
@@ -492,7 +492,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
         scheme.addColor(10, (SUMOReal)(2));
         laneScaler.addScheme(scheme);
         scheme = GUIScaleScheme("by electricity consumption", 0);
-        scheme.addColor(10, (SUMOReal)(.005 / 7.5 * 100.));
+        scheme.addColor(10, (SUMOReal)(1 / 7.5 / 5.));
         laneScaler.addScheme(scheme);
     }
 
