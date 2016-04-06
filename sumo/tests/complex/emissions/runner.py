@@ -30,8 +30,7 @@ from sumolib import checkBinary
 EDC = checkBinary("emissionsDrivingCycle", os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', "bin"))
 if len(sys.argv) > 2:
-    PHEMLIGHTp = os.path.join(
-        os.environ["SUMO_HOME"], "data", "emissions", sys.argv[2])
+    PHEMLIGHTp = sys.argv[2]
 else:
     PHEMLIGHTp = os.path.join(
         os.environ["SUMO_HOME"], "data", "emissions", "PHEMlight")
@@ -54,6 +53,8 @@ for i, ec in enumerate(emissionClasses):
     sys.stderr.flush()
     call = [EDC, "-e", ec, "-t", drivingCycle, "-o", "tmp.csv",
             "--phemlight-path", PHEMLIGHTp, "--kmh", "--compute-a"]
+    if drivingCycle[-4:] == ".dri":
+        call += ["--timeline-file.skip", "3", "--timeline-file.separator", ","]
     retCode = subprocess.call(call)
     sys.stdout.flush()
     sys.stderr.flush()
