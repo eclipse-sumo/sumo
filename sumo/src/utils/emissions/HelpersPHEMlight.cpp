@@ -280,6 +280,7 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
         }
         power = currCep->CalcPower(corrSpeed, v == 0.0 ? 0.0 : a, slope);
     }
+    const std::string& fuelType = oldCep != 0 ? oldCep->GetVehicleFuelType() : currCep->getFuelType();
     switch (e) {
         case PollutantsInterface::CO:
             return getEmission(oldCep, currCep, "CO", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
@@ -297,7 +298,6 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
         case PollutantsInterface::PM_X:
             return getEmission(oldCep, currCep, "PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
-            std::string fuelType = oldCep != 0 ? oldCep->GetVehicleFuelType() : currCep->getFuelType();
             if (fuelType == "D") { // divide by average diesel density of 836 g/l
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
             } else if (fuelType == "G") { // divide by average gasoline density of 742 g/l
@@ -309,7 +309,7 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
             }
         }
         case PollutantsInterface::ELEC:
-            if (currCep->getFuelType() == "BEV") {
+            if (fuelType == "BEV") {
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;

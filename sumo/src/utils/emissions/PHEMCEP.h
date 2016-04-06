@@ -227,7 +227,7 @@ public:
     /** @brief Getter function to recieve vehicle data from CEP
      * @return fuel type of vehicle
      */
-    std::string GetVehicleFuelType() const {
+    const std::string& GetVehicleFuelType() const {
         return _vehicleFuelType;
     }
 
