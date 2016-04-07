@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define FLEET
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +18,14 @@ namespace PHEMlightdll
         public const double ZERO_SPEED_ACCURACY = 0.5;
         public const double DRIVE_TRAIN_EFFICIENCY_All = 0.9;
         public const double DRIVE_TRAIN_EFFICIENCY_CB = 0.8;
-        public const bool calcCB = false;
 
+        #if FLEET
         //Fleetmix constants
         public const double SPEED_ROTATIONAL_INCREMENT = 10 / 3.6;
         public const double POWER_FC_INCREMENT = 0.1;
         public const double POWER_POLLUTANT_INCREMENT = 0.3;
         public const double NNORM_INCREMENT = 0.05;
+        #endif
 
         //Strings
         public const string HeavyVehicle = "HV";
@@ -43,8 +45,6 @@ namespace PHEMlightdll
         public const string strGasoline = "G";
         public const string strDiesel = "D";
         public const string strCNG = "CNG";
-
-        //Propulsionstrings
         public const string strHybrid = "HEV";
         public const string strBEV = "BEV";
 
@@ -56,7 +56,7 @@ namespace PHEMlightdll
         public const string strSII = "II";
         public const string strSIII = "III";
 
-#if FLEET
+        #if FLEET
         //Fleetmix
         private const string strAggPC = "PC";
         private const string strAggBUS = "BUS";
@@ -66,7 +66,8 @@ namespace PHEMlightdll
                                                                           strAggHDV,
                                                                           strAggBUS,
                                                                           strAggTW};
-#endif
+        #endif
+
         //Drive train efficiency
         public static double _DRIVE_TRAIN_EFFICIENCY;
         public static double DRIVE_TRAIN_EFFICIENCY

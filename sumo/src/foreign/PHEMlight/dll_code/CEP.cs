@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define FLEET
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -185,7 +186,8 @@ namespace PHEMlightdll
             _idlingValueFC = idlingFC * _ratedPower;
         }
         #endregion
-#if FLEET
+
+        #if FLEET
         #region ConstrutorForFleetmix
         private CEP(bool heavyVehicle,
                        double vehicleMass,
@@ -236,7 +238,8 @@ namespace PHEMlightdll
 
         }
         #endregion
-#endif
+        #endif
+
         //--------------------------------------------------------------------------------------------------
         // Members 
         //--------------------------------------------------------------------------------------------------
@@ -411,7 +414,7 @@ namespace PHEMlightdll
             int upperIndex;
             int lowerIndex;
 
-            if (_fuelType != Constants.strBEV)
+            if (VehicleClass.tClass != Constants.strBEV)
             {
                 if (Math.Abs(speed) <= Constants.ZERO_SPEED_ACCURACY)
                 {
@@ -475,7 +478,8 @@ namespace PHEMlightdll
             return Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
         }
         #endregion
-#if FLEET
+
+        #if FLEET
         #region GetNormedEmission
         public double GetNormedEmission(string pollutant, double power, double speed, Helpers VehicleClass)
         {
@@ -528,7 +532,8 @@ namespace PHEMlightdll
             return Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
         }
         #endregion
-#endif
+        #endif
+
         #region GetCO2Emission
         public double GetCO2Emission(double _FC, double _CO, double _HC, Helpers VehicleClass)
         {
@@ -581,7 +586,7 @@ namespace PHEMlightdll
 
             double iTot = iGear * _axleRatio;
 
-            double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * M_PI);
+            double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * Math.PI);
             double nNorm = (n - _engineIdlingSpeed) / (_engineRatedSpeed - _engineIdlingSpeed);
 
             FindLowerUpperInPattern(out lowerIndex, out upperIndex, _nNormTable, nNorm);
@@ -627,6 +632,7 @@ namespace PHEMlightdll
         }
         #endregion
 
+        #if FLEET
         #region GetGearCoeffecient
         public double GetGearCoeffecient(double speed)
         {
@@ -658,6 +664,7 @@ namespace PHEMlightdll
                                         _dragNormTable[upperIndex]);
         }
         #endregion
+        #endif
 
         #region FindLowerUpperInPattern
         private void FindLowerUpperInPattern(out int lowerIndex, out int upperIndex, List<double> pattern, double value)
@@ -724,7 +731,8 @@ namespace PHEMlightdll
         //--------------------------------------------------------------------------------------------------
         // Operators for fleetmix
         //--------------------------------------------------------------------------------------------------
-#if FLEET
+        
+        #if FLEET
         #region AddRangeCeps
         public static CEP AddRangeCeps(CEP[] cps, Helpers Helper)
         {
@@ -997,6 +1005,6 @@ namespace PHEMlightdll
             return pattern;
         }
         #endregion
-#endif
+        #endif
     }
 }

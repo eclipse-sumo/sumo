@@ -1,5 +1,3 @@
-#define _USE_MATH_DEFINES
-#include <cmath>
 #include "CEP.h"
 #include "Constants.h"
 #include "Helpers.h"
@@ -337,24 +335,6 @@ namespace PHEMlightdll {
 
         FindLowerUpperInPattern(lowerIndex, upperIndex, _speedPatternRotational, speed);
         return Interpolate(speed, _speedPatternRotational[lowerIndex], _speedPatternRotational[upperIndex], _speedCurveRotational[lowerIndex], _speedCurveRotational[upperIndex]);
-    }
-
-    double CEP::GetGearCoeffecient(double speed) {
-        //Declaration
-        int upperIndex;
-        int lowerIndex;
-
-        FindLowerUpperInPattern(lowerIndex, upperIndex, _speedPatternRotational, speed);
-        return Interpolate(speed, _speedPatternRotational[lowerIndex], _speedPatternRotational[upperIndex], _gearTransmissionCurve[lowerIndex], _gearTransmissionCurve[upperIndex]);
-    }
-
-    double CEP::GetDragCoeffecient(double nNorm) {
-        //Declaration
-        int upperIndex;
-        int lowerIndex;
-
-        FindLowerUpperInPattern(lowerIndex, upperIndex, _nNormTable, nNorm);
-        return Interpolate(nNorm, _nNormTable[lowerIndex], _nNormTable[upperIndex], _dragNormTable[lowerIndex], _dragNormTable[upperIndex]);
     }
 
     void CEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<double>& pattern, double value) {

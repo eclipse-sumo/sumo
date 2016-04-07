@@ -1,6 +1,7 @@
 #ifndef PHEMlightCEP
 #define PHEMlightCEP
 
+#define _USE_MATH_DEFINES
 #include <string>
 #include <map>
 #include <vector>
@@ -19,6 +20,8 @@ namespace PHEMlightdll {
 
     public:
         CEP(bool heavyVehicle, double vehicleMass, double vehicleLoading, double vehicleMassRot, double crossArea, double cWValue, double f0, double f1, double f2, double f3, double f4, double axleRatio, std::vector<double>& transmissionGearRatios, double auxPower, double ratedPower, double engineIdlingSpeed, double engineRatedSpeed, double effictiveWheelDiameter, double pNormV0, double pNormP0, double pNormV1, double pNormP1, const std::string& vehicelFuelType, std::vector<std::vector<double> >& matrixFC, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<std::vector<double> >& matrixSpeedRotational, std::vector<std::vector<double> >& normedDragTable, double idlingFC, std::vector<double>& idlingPollutants);
+
+
         //--------------------------------------------------------------------------------------------------
         // Members 
         //--------------------------------------------------------------------------------------------------
@@ -113,15 +116,14 @@ namespace PHEMlightdll {
         double CalcEngPower(double power);
 
         double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass);
+
+
         double GetCO2Emission(double _FC, double _CO, double _HC, Helpers* VehicleClass);
 
         double GetDecelCoast(double speed, double acc, double gradient);
 
         double GetRotationalCoeffecient(double speed);
 
-        double GetGearCoeffecient(double speed);
-
-        double GetDragCoeffecient(double nNorm);
 
     private:
         void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<double>& pattern, double value);
@@ -131,6 +133,7 @@ namespace PHEMlightdll {
         //--------------------------------------------------------------------------------------------------
         // Operators for fleetmix
         //--------------------------------------------------------------------------------------------------
+
 
     private:
         void InitializeInstanceFields();

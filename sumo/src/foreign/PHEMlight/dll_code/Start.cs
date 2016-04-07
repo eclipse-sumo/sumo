@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define FLEET
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
@@ -72,9 +73,9 @@ namespace PHEMlightdll
             else
                 _DataPath = Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV;
 
-#if FLEET
             //Read the vehicle and emission data
-            if (fleetMix) //(#ifdefs)
+            #if FLEET
+            if (fleetMix)
             {
                 //Set the vehicle class
                 Helper.gClass = VEH;
@@ -96,7 +97,7 @@ namespace PHEMlightdll
                 }
             }
             else
-#endif
+            #endif
             {
                 //Get vehicle string
                 if (!Helper.setclass(VEH))
@@ -163,8 +164,8 @@ namespace PHEMlightdll
                 _DataPath = Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV;
 
             //Read the vehicle and emission data
-#if FLEET
-            if (fleetMix) //(#ifdefs)
+            #if FLEET
+            if (fleetMix)
             {
                 //Set the vehicle class
                 Helper.gClass = "AggClass_" + VEH;
@@ -186,7 +187,7 @@ namespace PHEMlightdll
                 }
             }
             else
-#endif
+            #endif
             {
                 //Get vehicle string
                 if (!Helper.setclass(VEH))
