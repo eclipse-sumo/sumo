@@ -1,0 +1,249 @@
+Index: CEP.cpp
+===================================================================
+--- CEP.cpp	(revision 20372)
++++ CEP.cpp	(working copy)
+@@ -211,7 +211,7 @@
+         int upperIndex;
+         int lowerIndex;
+ 
+-        if (_fuelType != Constants::strBEV) {
++        if (VehicleClass->gettClass() != Constants::strBEV) {
+             if (std::abs(speed) <= Constants::ZERO_SPEED_ACCURACY) {
+                 if (pollutant == "FC") {
+                     return _idlingValueFC;
+Index: CEP.h
+===================================================================
+--- CEP.h	(revision 20372)
++++ CEP.h	(working copy)
+@@ -11,6 +11,7 @@
+ //C# TO C++ CONVERTER NOTE: Forward class declarations:
+ namespace PHEMlightdll { class Helpers; }
+ 
++#define FLEET
+ 
+ namespace PHEMlightdll {
+     class CEP {
+Index: CEPHandler.cpp
+===================================================================
+--- CEPHandler.cpp	(revision 20371)
++++ CEPHandler.cpp	(working copy)
+@@ -1,5 +1,3 @@
+-#include <fstream>
+-#include <sstream>
+ #include "CEPHandler.h"
+ #include "CEP.h"
+ #include "Helpers.h"
+@@ -12,11 +10,11 @@
+         _ceps = std::map<std::string, CEP*>();
+     }
+ 
+-    const std::map<std::string, CEP*>& CEPHandler::getCEPS() const {
++    std::map<std::string, CEP*> CEPHandler::getCEPS() const {
+         return _ceps;
+     }
+ 
+-    bool CEPHandler::GetCEP(const std::vector<std::string>& DataPath, Helpers* Helper) {
++    bool CEPHandler::GetCEP(const std::string& DataPath, Helpers* Helper) {
+         if (getCEPS().find(Helper->getgClass()) == getCEPS().end()) {
+             if (!Load(DataPath, Helper)) {
+                 return false;
+@@ -25,11 +23,11 @@
+         return true;
+     }
+ 
+-    bool CEPHandler::Load(const std::vector<std::string>& DataPath, Helpers* Helper) {
++    bool CEPHandler::Load(const std::string& DataPath, Helpers* Helper) {
+         //Deklaration
+         // get string identifier for PHEM emission class
+ //C# TO C++ CONVERTER TODO TASK: There is no native C++ equivalent to 'ToString':
+-        std::string emissionRep = Helper->getgClass();
++        std::string emissionRep = Helper->getgClass().ToString();
+ 
+         // to hold everything.
+         std::vector<std::vector<double> > matrixSpeedInertiaTable;
+@@ -82,7 +80,7 @@
+         return true;
+     }
+ 
+-    bool CEPHandler::ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, double& vehicleMass, double& vehicleLoading, double& vehicleMassRot, double& crossArea, double& cWValue, double& f0, double& f1, double& f2, double& f3, double& f4, double& axleRatio, double& auxPower, double& ratedPower, double& engineIdlingSpeed, double& engineRatedSpeed, double& effectiveWheelDiameter, std::vector<double>& transmissionGearRatios, std::string& vehicleMassType, std::string& vehicleFuelType, double& pNormV0, double& pNormP0, double& pNormV1, double& pNormP1, std::vector<std::vector<double> >& matrixSpeedInertiaTable, std::vector<std::vector<double> >& normedDragTable) {
++    bool CEPHandler::ReadVehicleFile(const std::string& DataPath, const std::string& emissionClass, Helpers* Helper, double& vehicleMass, double& vehicleLoading, double& vehicleMassRot, double& crossArea, double& cWValue, double& f0, double& f1, double& f2, double& f3, double& f4, double& axleRatio, double& auxPower, double& ratedPower, double& engineIdlingSpeed, double& engineRatedSpeed, double& effectiveWheelDiameter, std::vector<double>& transmissionGearRatios, std::string& vehicleMassType, std::string& vehicleFuelType, double& pNormV0, double& pNormP0, double& pNormV1, double& pNormP1, std::vector<std::vector<double> >& matrixSpeedInertiaTable, std::vector<std::vector<double> >& normedDragTable) {
+         vehicleMass = 0;
+         vehicleLoading = 0;
+         vehicleMassRot = 0;
+@@ -113,17 +111,12 @@
+         int dataCount = 0;
+ 
+         //Open file
+-        std::ifstream vehicleReader;
+-        for (std::vector<std::string>::const_iterator i = DataPath.begin(); i != DataPath.end(); i++) {
+-            vehicleReader.open(((*i) + emissionClass + ".PHEMLight.veh").c_str());
+-            if (vehicleReader.good()) {
+-                break;
+-            }
+-        }
+-        if (!vehicleReader.good()) {
+-            Helper->setErrMsg("File does not exist! (" + emissionClass + ".PHEMLight.veh)");
++        std::string path = DataPath + std::string("\\") + emissionClass + std::string(".PHEMLight.veh");
++        if (!File::Exists(path)) {
++            Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
+             return false;
+         }
++        StreamReader* vehicleReader = File::OpenText(path);
+ 
+         // skip header
+         ReadLine(vehicleReader);
+@@ -269,10 +262,11 @@
+             normedDragTable.push_back(todoubleList(split(line, ',')));
+         }
+ 
++        vehicleReader->Close();
+         return true;
+     }
+ 
+-    bool CEPHandler::ReadEmissionData(bool readFC, const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues) {
++    bool CEPHandler::ReadEmissionData(bool readFC, const std::string& DataPath, const std::string& emissionClass, Helpers* Helper, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues) {
+         // declare file stream
+         std::string line;
+         header = std::vector<std::string>();
+@@ -284,21 +278,16 @@
+             pollutantExtension += std::string("_FC");
+         }
+ 
+-        std::ifstream fileReader;
+-        for (std::vector<std::string>::const_iterator i = DataPath.begin(); i != DataPath.end(); i++) {
+-            fileReader.open(((*i) + emissionClass + pollutantExtension + ".csv").c_str());
+-            if (fileReader.good()) {
+-                break;
+-            }
+-        }
+-        if (!fileReader.good()) {
+-            Helper->setErrMsg("File does not exist! (" + emissionClass + pollutantExtension + ".csv)");
++        std::string path = DataPath + std::string("\\") + emissionClass + pollutantExtension + std::string(".csv");
++        if (!File::Exists(path)) {
++            Helper->setErrMsg(std::string("File do not exist! (") + path + std::string(")"));
+             return false;
+         }
++        StreamReader* fileReader = File::OpenText(path);
+ 
+         // read header line for pollutant identifiers
+         if ((line = ReadLine(fileReader)) != "") {
+-            std::vector<std::string> entries = split(line, ',');
++            std::vector<std::string>& entries = split(line, ',');
+             // skip first entry "Pe"
+             for (int i = 1; i < entries.size(); i++) {
+                 header.push_back(entries[i]);
+@@ -314,7 +303,7 @@
+         //readIdlingValues
+         line = ReadLine(fileReader);
+ 
+-        std::vector<std::string> stringIdlings = split(line, ',');
++        std::vector<std::string> stringIdlings = split(line, ',').ToList();
+         stringIdlings.erase(stringIdlings.begin());
+ 
+         idlingValues = todoubleList(stringIdlings);
+@@ -322,37 +311,26 @@
+         while ((line = ReadLine(fileReader)) != "") {
+             matrix.push_back(todoubleList(split(line, ',')));
+         }
++        fileReader->Close();
+         return true;
+     }
+ 
+     std::vector<std::string> CEPHandler::split(const std::string& s, char delim) {
+-        std::vector<std::string> elems;
+-        std::stringstream ss(s);
+-        std::string item;
+-        while (std::getline(ss, item, delim)) {
+-            elems.push_back(item);
+-        }
+-        return elems;
++//C# TO C++ CONVERTER TODO TASK: There is no direct native C++ equivalent to this .NET String method:
++        return s.Split(delim).ToList();
+     }
+ 
+     double CEPHandler::todouble(const std::string& s) {
+-        std::stringstream ss(s);
+-        double item;
+-        ss >> item;
+-        return item;
++        return static_cast<double>(s, CultureInfo::InvariantCulture);
+     }
+ 
+-    std::vector<double> CEPHandler::todoubleList(const std::vector<std::string>& s) {
+-        std::vector<double> result;
+-        for (std::vector<std::string>::const_iterator i = s.begin(); i != s.end(); ++i) {
+-            result.push_back(todouble(*i));
+-        }
+-        return result;
++    std::vector<double> CEPHandler::todoubleList(std::vector<std::string>& s) {
++        return s.Select([&] (void* p) {
++            todouble(p);
++        }).Cast<double>().ToList();
+     }
+ 
+-    std::string CEPHandler::ReadLine(std::ifstream& s) {
+-        std::string line;
+-        std::getline(s, line);
+-        return line;
++    std::string CEPHandler::ReadLine(StreamReader* s) {
++        return s->ReadLine();
+     }
+ }
+Index: CEPHandler.h
+===================================================================
+--- CEPHandler.h	(revision 20372)
++++ CEPHandler.h	(working copy)
+@@ -10,6 +10,7 @@
+ namespace PHEMlightdll { class CEP; }
+ namespace PHEMlightdll { class Helpers; }
+ 
++#define FLEET
+ 
+ namespace PHEMlightdll {
+     class CEPHandler {
+@@ -27,7 +28,7 @@
+     private:
+         std::map<std::string, CEP*> _ceps;
+     public:
+-        const std::map<std::string, CEP*>& getCEPS() const;
++        std::map<std::string, CEP*> getCEPS() const;
+ 
+ 
+         //--------------------------------------------------------------------------------------------------
+@@ -34,7 +35,7 @@
+         // Methods 
+         //--------------------------------------------------------------------------------------------------
+ 
+-        bool GetCEP(const std::vector<std::string>& DataPath, Helpers* Helper);
++        bool GetCEP(const std::string& DataPath, Helpers* Helper);
+ 
+ 
+         //--------------------------------------------------------------------------------------------------
+@@ -42,11 +43,11 @@
+         //--------------------------------------------------------------------------------------------------
+ 
+     private:
+-        bool Load(const std::vector<std::string>& DataPath, Helpers* Helper);
++        bool Load(const std::string& DataPath, Helpers* Helper);
+ 
+-        bool ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, double& vehicleMass, double& vehicleLoading, double& vehicleMassRot, double& crossArea, double& cWValue, double& f0, double& f1, double& f2, double& f3, double& f4, double& axleRatio, double& auxPower, double& ratedPower, double& engineIdlingSpeed, double& engineRatedSpeed, double& effectiveWheelDiameter, std::vector<double>& transmissionGearRatios, std::string& vehicleMassType, std::string& vehicleFuelType, double& pNormV0, double& pNormP0, double& pNormV1, double& pNormP1, std::vector<std::vector<double> >& matrixSpeedInertiaTable, std::vector<std::vector<double> >& normedDragTable);
++        bool ReadVehicleFile(const std::string& DataPath, const std::string& emissionClass, Helpers* Helper, double& vehicleMass, double& vehicleLoading, double& vehicleMassRot, double& crossArea, double& cWValue, double& f0, double& f1, double& f2, double& f3, double& f4, double& axleRatio, double& auxPower, double& ratedPower, double& engineIdlingSpeed, double& engineRatedSpeed, double& effectiveWheelDiameter, std::vector<double>& transmissionGearRatios, std::string& vehicleMassType, std::string& vehicleFuelType, double& pNormV0, double& pNormP0, double& pNormV1, double& pNormP1, std::vector<std::vector<double> >& matrixSpeedInertiaTable, std::vector<std::vector<double> >& normedDragTable);
+ 
+-        bool ReadEmissionData(bool readFC, const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues);
++        bool ReadEmissionData(bool readFC, const std::string& DataPath, const std::string& emissionClass, Helpers* Helper, std::vector<std::string>& header, std::vector<std::vector<double> >& matrix, std::vector<double>& idlingValues);
+ 
+ 
+         //--------------------------------------------------------------------------------------------------
+@@ -60,10 +61,10 @@
+         double todouble(const std::string& s);
+ 
+         //Convert string to double list
+-        std::vector<double> todoubleList(const std::vector<std::string>& s);
++        std::vector<double> todoubleList(std::vector<std::string>& s);
+ 
+         //Read a line from file
+-        std::string ReadLine(std::ifstream& s);
++        std::string ReadLine(StreamReader* s);
+     };
+ }
+ 
