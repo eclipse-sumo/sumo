@@ -1,11 +1,11 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- allow follower to catch up to leader-->
-    <vType id="leader"   type="wiedemann" tau="1.0" sigma="0" maxSpeed="70" minGap="0">
-	<carFollowing-Wiedemann/>
+    <vType id="leader"   tau="1.0" sigma="0" maxSpeed="70" minGap="0">
+        <carFollowing-Wiedemann/>
     </vType>
-    <vType id="follower"   type="wiedemann" tau="1.0" sigma="0" maxSpeed="50" minGap="0">
-	<carFollowing-Wiedemann/>
+    <vType id="follower" tau="1.0" sigma="0" maxSpeed="50" minGap="0">
+         <carFollowing-Wiedemann/>
     </vType>
 
 </additional>
