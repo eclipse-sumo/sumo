@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r20307
+SUMO Version svn
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -80,11 +80,11 @@ Output Options:
   --save-state.files FILE              Files for network states
 
 Time Options:
-  -b, --begin TIME                     Defines the begin time;
+  -b, --begin TIME                     Defines the begin time in seconds;
                                          The simulation starts at this time
-  -e, --end TIME                       Defines the end time;
+  -e, --end TIME                       Defines the end time in seconds;
                                          The simulation ends at this time
-  --step-length TIME                   Defines the step duration
+  --step-length TIME                   Defines the step duration in seconds
 
 Processing Options:
   -s, --route-steps TIME               Load routes for the next number of
