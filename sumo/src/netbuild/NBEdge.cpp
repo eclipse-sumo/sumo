@@ -1584,6 +1584,10 @@ NBEdge::recheckLanes() {
                         i = myConnections.erase(i);
                     }
                 }
+            } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
+                    && isTurningDirectionAt(c.toEdge))  {
+                // do not allow sharp rail turns
+                i = myConnections.erase(i);
             } else {
                 ++i;
             }
