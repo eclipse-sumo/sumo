@@ -366,6 +366,15 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions, const std::strin
     // prepare container
     myLength = myFrom->getPosition().distanceTo(myTo->getPosition());
     assert(myGeom.size() >= 2);
+    if (myLanes.size() > noLanes) {
+        // remove connections targeting the removed lanes
+        const EdgeVector& incoming = myFrom->getIncomingEdges();
+        for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
+            for (int lane = noLanes; lane < (int)myLanes.size(); ++lane) {
+                (*i)->removeFromConnections(this, -1, lane);
+            }
+        }
+    }
     myLanes.clear();
     for (unsigned int i = 0; i < noLanes; i++) {
         myLanes.push_back(Lane(this, origID));
