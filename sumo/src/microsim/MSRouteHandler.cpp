@@ -994,12 +994,12 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         if (bs == 0) {
             throw ProcessError("Unknown bus stop '" + bsID + "' for " + description + ".");
         }
-        if (!bs->hasAccess(toEdge)) {
-            throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
-        }
         arrivalPos = bs->getEndLanePosition();
         if (toEdge == 0) {
             toEdge = &bs->getLane().getEdge();
+        }
+        if (!bs->hasAccess(toEdge)) {
+            throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
         }
         arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
