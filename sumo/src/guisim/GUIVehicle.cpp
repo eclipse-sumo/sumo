@@ -505,12 +505,13 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
             }
             backLane = prev;
         }
-        front = lane->getShape().positionAtOffset2D(carriageOffset);
-        back = backLane->getShape().positionAtOffset2D(carriageBackOffset);
+        front = lane->geometryPositionAtOffset(carriageOffset);
+        back = backLane->geometryPositionAtOffset(carriageBackOffset);
         if (front == back) {
             // no place for drawing available
             continue;
         }
+        const SUMOReal drawnCarriageLength = front.distanceTo2D(back);
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
         if (i >= firstPassengerCarriage) {
             computeSeats(front, back, requiredSeats);
@@ -522,10 +523,10 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(-halfWidth + xCornerCut, 0);
             glVertex2d(-halfWidth, yCornerCut);
-            glVertex2d(-halfWidth, carriageLength - yCornerCut);
-            glVertex2d(-halfWidth + xCornerCut, carriageLength);
-            glVertex2d(halfWidth - xCornerCut, carriageLength);
-            glVertex2d(halfWidth, carriageLength - yCornerCut);
+            glVertex2d(-halfWidth, drawnCarriageLength - yCornerCut);
+            glVertex2d(-halfWidth + xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth - xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth, drawnCarriageLength - yCornerCut);
             glVertex2d(halfWidth, yCornerCut);
             glVertex2d(halfWidth - xCornerCut, 0);
             glEnd();
@@ -535,7 +536,6 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
         carriageBackOffset -= carriageLengthWithGap;
         GLHelper::setColor(current);
     }
-    myCarriageLength = front.distanceTo2D(back);
     // restore matrices
     glPushMatrix();
     glTranslated(front.x(), front.y(), getType());
