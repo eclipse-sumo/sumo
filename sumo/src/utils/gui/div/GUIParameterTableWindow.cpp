@@ -160,6 +160,9 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender,
     if (!i->dynamic()) {
         return 1;
     }
+    if (myObject == 0) {
+        return 1;
+    }
 
     GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), i->getSUMORealSourceCopy());
     new FXMenuCommand(p, "Open in new Tracker", 0, p, MID_OPENTRACKER);

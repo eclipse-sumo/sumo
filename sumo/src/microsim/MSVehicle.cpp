@@ -2407,14 +2407,15 @@ MSVehicle::getLeader(SUMOReal dist) const {
     }
     const MSVehicle* lead = 0;
     const MSLane::VehCont& vehs = myLane->getVehiclesSecure();
-    MSLane::VehCont::const_iterator pred = std::find(vehs.begin(), vehs.end(), this) + 1;
-    if (pred != vehs.end()) {
-        lead = *pred;
+    assert(vehs.size() > 0);
+    MSLane::VehCont::const_iterator it = std::find(vehs.begin(), vehs.end(), this);
+    if (it != vehs.end() && it + 1 != vehs.end()) {
+        lead = *(it + 1);
     }
-    myLane->releaseVehicles();
     if (lead != 0) {
         return std::make_pair(lead, lead->getPositionOnLane() - lead->getVehicleType().getLength() - getPositionOnLane() - getVehicleType().getMinGap());
     }
+    myLane->releaseVehicles();
     const SUMOReal seen = myLane->getLength() - getPositionOnLane();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(myLane);
     return myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts);
