@@ -317,7 +317,6 @@ Warning: The traffic light 'GS_1275468904' does not control any links; it will n
 Warning: Could not build program '0' for traffic light 'GS_1275468904'
 Warning: The traffic light 'GS_2425782615' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'GS_2425782615'
-Warning: Connection '148458495_0->148457212#0_0' is only 0.07 short.
 Warning: Connection '196844848_0->25946685#2_0' is only 0.09 short.
 Warning: Connection '196844845_0->29384660#1_0' is only 0.09 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
