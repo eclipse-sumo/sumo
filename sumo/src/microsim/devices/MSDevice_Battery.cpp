@@ -131,8 +131,8 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 
 
 bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal /* newPos */, SUMOReal /* newSpeed */) {
-    // Start vehicleStoppedTimer if the vehicle is stopped (that's mean, speed is < 0.2). In other case reset timer
-    if (veh.getSpeed() < 0.2) {
+    // Start vehicleStoppedTimer if the vehicle is stopped. In other case reset timer
+    if (veh.getSpeed() < SUMO_const_haltingSpeed) {
         // Increase vehicle stopped timer
         increaseVehicleStoppedTimer();
     } else {
@@ -171,9 +171,9 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
         MSChargingStation* ChargingStationPointer = MSNet::getInstance()->getChargingStation(ChargingStationID);
 
         // if the vehicle is almost stopped, or charge in transit is enabled, then charge vehicle
-        if ((veh.getSpeed() < 0.2) || (ChargingStationPointer->getChargeInTransit() == 1)) {
+        if ((veh.getSpeed() < SUMO_const_haltingSpeed) || (ChargingStationPointer->getChargeInTransit() == 1)) {
             // Set Flags Stopped/intransit to
-            if (veh.getSpeed() < 0.2) {
+            if (veh.getSpeed() < SUMO_const_haltingSpeed) {
                 // vehicle ist almost stopped, then is charging stopped
                 ItsChargingStopped = true;
 
@@ -192,7 +192,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
 
             // Only update charging start time if vehicle allow charge in transit, or in other case
             // if the vehicle not allow charge in transit but it's stopped.
-            if (ChargingStationPointer->getChargeInTransit() == 1 || veh.getSpeed() < 0.2) {
+            if (ChargingStationPointer->getChargeInTransit() == 1 || veh.getSpeed() < SUMO_const_haltingSpeed) {
                 // Update Charging start time
                 increaseChargingStartTime();
             }
