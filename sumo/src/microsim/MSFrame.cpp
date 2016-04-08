@@ -218,13 +218,13 @@ MSFrame::fillOptions() {
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
-    oc.addDescription("begin", "Time", "Defines the begin time; The simulation starts at this time");
+    oc.addDescription("begin", "Time", "Defines the begin time in seconds; The simulation starts at this time");
 
     oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time; The simulation ends at this time");
+    oc.addDescription("end", "Time", "Defines the end time in seconds; The simulation ends at this time");
 
     oc.doRegister("step-length", new Option_String("1", "TIME"));
-    oc.addDescription("step-length", "Time", "Defines the step duration");
+    oc.addDescription("step-length", "Time", "Defines the step duration in seconds");
 
     // register the processing options
     oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
