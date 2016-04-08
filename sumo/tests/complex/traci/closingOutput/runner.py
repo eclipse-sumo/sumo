@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -49,7 +51,7 @@ while not step > 100:
     traci.simulationStep()
     vehs = traci.vehicle.getIDList()
     if vehs.index("horiz") < 0 or len(vehs) > 1:
-        print "Something is false"
+        print("Something is false")
     step += 1
 traci.close()
 sumoProcess.wait()

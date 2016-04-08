@@ -6,3 +6,6 @@ adapt
 
 # 50 iterations
 iter50
+
+# multi threaded call of the incremental assignment
+threading

@@ -66,7 +66,10 @@ void MSPModel_Striping::DEBUG_PRINT(const Obstacles& obs) {
 // named (internal) constants
 // ===========================================================================
 
-#define FAR_AWAY 10000
+// distances are comparable with lower values being "more important"
+#define DIST_FAR_AWAY 10000
+#define DIST_BEHIND 1000
+#define DIST_OVERLAP -1
 
 
 // ===========================================================================
@@ -87,6 +90,7 @@ const SUMOReal MSPModel_Striping::LATERAL_PENALTY(-1.); // meters
 const SUMOReal MSPModel_Striping::OBSTRUCTED_PENALTY(-300000.); // meters
 const SUMOReal MSPModel_Striping::INAPPROPRIATE_PENALTY(-20000.); // meters
 const SUMOReal MSPModel_Striping::ONCOMING_CONFLICT_PENALTY(-1000.); // meters
+const SUMOReal MSPModel_Striping::OBSTRUCTION_THRESHOLD(MSPModel_Striping::OBSTRUCTED_PENALTY * 0.5); // despite obstruction, additional utility may have been added
 const SUMOReal MSPModel_Striping::SQUEEZE(0.7);
 const SUMOReal MSPModel_Striping::BLOCKER_LOOKAHEAD(10.0); // meters
 const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
@@ -172,6 +176,11 @@ MSPModel_Striping::getPedestrians(const MSLane* lane) {
 
 void
 MSPModel_Striping::cleanupHelper() {
+    for (ActiveLanes::iterator it_lane = myActiveLanes.begin(); it_lane != myActiveLanes.end(); ++it_lane) {
+        for (Pedestrians::iterator it_p = it_lane->second.begin(); it_p != it_lane->second.end(); ++it_p) {
+            delete *it_p;
+        }
+    }
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
     myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
@@ -442,10 +451,10 @@ MSPModel_Striping::getNeighboringObstacles(const Pedestrians& pedestrians, int e
             if DEBUGCOND(ego.myPerson->getID()) {
                 std::cout << " dist=" << ego.distanceTo(o) << std::endl;
             }
-            if (ego.distanceTo(o) < 0.) {
+            if (ego.distanceTo(o) == DIST_BEHIND) {
                 break;
             }
-            if (ego.distanceTo(o, false) == 0.) {
+            if (ego.distanceTo(o) == DIST_OVERLAP) {
                 obs[p.stripe()] = o;
                 obs[p.otherStripe()] = o;
                 haveBlocker[p.stripe()] = true;
@@ -631,8 +640,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                 for (Pedestrians::iterator it_p = toDelete.begin(); it_p != toDelete.end(); ++it_p) {
                     delete *it_p;
                 }
-            };
-
+            }
         } else {
             moveInDirectionOnLane(pedestrians, lane, currentTime, changedLane, dir);
         }
@@ -682,6 +690,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         }
         if DEBUGCOND(p.myPerson->getID()) {
             std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  currentObs=";
+            gDebugFlag1 = true;
             DEBUG_PRINT(currentObs);
         }
         const MSLane* nextLane = p.myNLI.lane;
@@ -736,7 +745,8 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             p.mergeObstacles(currentObs, arrival);
         }
         p.walk(currentObs, currentTime);
-        if (!p.myWaitingToEnter) {
+        gDebugFlag1 = false;
+        if (!p.myWaitingToEnter && !p.myAmJammed) {
             Obstacle o(p);
             obs[p.stripe()] = o;
             obs[p.otherStripe()] = o;
@@ -747,7 +757,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                         if (c.stripe() == p.stripe() || p.stripe() == c.otherStripe() || p.otherStripe() == c.stripe() || p.otherStripe() == c.otherStripe()) {
                             Obstacle cObs(c);
                             // we check only for real collisions, no min gap violations
-                            if (p.distanceTo(cObs, false) == 0.) {
+                            if (p.distanceTo(cObs, false) == DIST_OVERLAP) {
                                 WRITE_WARNING("Collision of person '" + p.myPerson->getID() + "' and person '" + c.myPerson->getID()
                                               + "', lane='" + lane->getID() + "', time=" + time2string(currentTime) + ".");
                             }
@@ -765,8 +775,8 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 // MSPModel_Striping::Obstacle method definitions
 // ===========================================================================
 MSPModel_Striping::Obstacle::Obstacle(int dir) :
-    xFwd(dir* FAR_AWAY),   // far away when seen in dir
-    xBack(dir* FAR_AWAY),   // far away when seen in dir
+    xFwd(dir* DIST_FAR_AWAY),   // far away when seen in dir
+    xBack(dir* DIST_FAR_AWAY),   // far away when seen in dir
     speed(0),
     description("")
 {}
@@ -946,6 +956,9 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                       << " newDir=" << myDir
                       << "\n";
         }
+        if (myLane == 0) {
+            myRelX = myStage->getArrivalPos();
+        }
         myStage->moveToNextEdge(myPerson, currentTime, normalLane ? 0 : &myLane->getEdge());
         if (myLane != 0) {
             assert(myDir != UNDEFINED_DIRECTION);
@@ -1019,13 +1032,13 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     std::vector<SUMOReal> distance(stripes);
     for (int i = 0; i < stripes; ++i) {
         distance[i] = distanceTo(obs[i]);
-        if (distance[i] <= 0) {
-            utility[i] += INAPPROPRIATE_PENALTY;
-        }
     }
     // forbid stripes which are blocked and also all stripes behind them
     for (int i = 0; i < stripes; ++i) {
-        if (distanceTo(obs[i], false) <= 0) {
+        if (distanceTo(obs[i]) == DIST_OVERLAP) {
+            if (i == current && !myWaitingToEnter) {
+                utility[i] += OBSTRUCTED_PENALTY;
+            }
             if (i < current) {
                 for (int j = 0; j <= i; ++j) {
                     utility[j] += OBSTRUCTED_PENALTY;
@@ -1035,10 +1048,6 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                 for (int j = i; j < stripes; ++j) {
                     utility[j] += OBSTRUCTED_PENALTY;
                 }
-            }
-            if (i == current) {
-                // staying should always be an option
-                utility[i] += INAPPROPRIATE_PENALTY;
             }
         }
     }
@@ -1066,8 +1075,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
             }
         }
         // compute expected distance achievable by staying on this stripe for a time horizon
+        const SUMOReal walkDist = MAX2((SUMOReal)0, distance[i]); // disregard special distance flags
         const SUMOReal lookAhead = obs[i].speed * myDir >= 0 ? LOOKAHEAD_SAMEDIR : LOOKAHEAD_ONCOMING;
-        const SUMOReal expectedDist = MIN2(vMax * LOOKAHEAD_SAMEDIR, distance[i] + obs[i].speed * myDir * lookAhead);
+        const SUMOReal expectedDist = MIN2(vMax * LOOKAHEAD_SAMEDIR, walkDist + obs[i].speed * myDir * lookAhead);
         if (DEBUGCOND(myPerson->getID())) {
             std::cout << " util=" << utility[i] << " exp=" << expectedDist << "\n";
         }
@@ -1106,6 +1116,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // XXX preferred gap differs between approaching a standing obstacle or a moving obstacle
     const SUMOReal preferredGap = NUMERICAL_EPS;
     SUMOReal xSpeed = MIN2(vMax, MAX2((SUMOReal)0, DIST2SPEED(xDist - preferredGap)));
+    if (xSpeed < NUMERICAL_EPS) {
+        xSpeed = 0.;
+    }
     if (DEBUGCOND(myPerson->getID())) {
         std::cout << " xSpeedPotential=" << xSpeed << "\n";
     }
@@ -1125,9 +1138,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                 myAmJammed = true;
             }
             xSpeed = vMax / 4;
-        } else {
-            myAmJammed = false;
         }
+    } else {
+        myAmJammed = false;
     }
     // dawdling
     const SUMOReal dawdle = MIN2(xSpeed, RandHelper::rand() * vMax * dawdling);
@@ -1145,11 +1158,15 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     //}
     const SUMOReal maxYSpeed = MAX2(vMax * LATERAL_SPEED_FACTOR, vMax - xSpeed);
     SUMOReal ySpeed = 0;
-    const SUMOReal yDist = (chosen * stripeWidth) - myRelY;
-    if (fabs(yDist) > NUMERICAL_EPS) {
-        ySpeed = (yDist > 0 ?
-                  MIN2(maxYSpeed, DIST2SPEED(yDist)) :
-                  MAX2(-maxYSpeed, DIST2SPEED(yDist)));
+    SUMOReal yDist = 0;
+    if (utility[next] > OBSTRUCTION_THRESHOLD && utility[chosen] > OBSTRUCTION_THRESHOLD) {
+        // don't move laterally if the stripes are blocked
+        yDist = (chosen * stripeWidth) - myRelY;
+        if (fabs(yDist) > NUMERICAL_EPS) {
+            ySpeed = (yDist > 0 ?
+                    MIN2(maxYSpeed, DIST2SPEED(yDist)) :
+                    MAX2(-maxYSpeed, DIST2SPEED(yDist)));
+        }
     }
     // DEBUG
     if DEBUGCOND(myPerson->getID()) {
@@ -1172,15 +1189,15 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                   << " vMax=" << myStage->getMaxSpeed()
                   << " wTime=" << myStage->getWaitingTime(currentTime)
                   << " jammed=" << myAmJammed
-                  << "\n distance=" << toString(distance)
-                  << " utility=" << toString(utility)
+                  << "\n   distance=" << toString(distance)
+                  << "\n   utility=" << toString(utility)
                   << "\n";
         DEBUG_PRINT(obs);
     }
     myRelX += SPEED2DIST(xSpeed * myDir);
     myRelY += SPEED2DIST(ySpeed);
     mySpeed = xSpeed;
-    if (xSpeed > 0) {
+    if (xSpeed >= SUMO_const_haltingSpeed) {
         myWaitingToEnter = false;
         myWaitingTime = 0;
     } else {
@@ -1256,18 +1273,24 @@ MSPModel_Striping::PState::distanceTo(const Obstacle& obs, const bool includeMin
     // check for overlap
     const SUMOReal maxX = getMaxX(includeMinGap);
     const SUMOReal minX = getMinX(includeMinGap);
-    if ((obs.xFwd > maxX && obs.xBack < maxX) || (obs.xFwd <= maxX && obs.xFwd > minX)) {
-        return 0.;
+    if ((obs.xFwd >= maxX && obs.xBack <= maxX) || (obs.xFwd <= maxX && obs.xFwd >= minX)) {
+        return DIST_OVERLAP;
     }
-    const SUMOReal dist = obs.xFwd <= minX ? obs.xFwd - minX : obs.xBack - maxX;
-    return myDir * dist;
+    if (myDir == FORWARD) {
+        return obs.xFwd < minX ? DIST_BEHIND : obs.xBack - maxX;
+    } else {
+        return obs.xBack > maxX ? DIST_BEHIND : minX - obs.xFwd;
+    }
 }
 
 
 void
 MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2) {
     for (int i = 0; i < (int)into.size(); ++i) {
-        if (fabs(distanceTo(obs2[i], false)) < fabs(distanceTo(into[i], false))) {
+        if (gDebugFlag1) {
+            std::cout << "     i=" << i << " intoDist=" << distanceTo(into[i]) << " obs2Dist=" << distanceTo(obs2[i]) << "\n";
+        }
+        if (distanceTo(obs2[i]) < distanceTo(into[i])) {
             into[i] = obs2[i];
         }
     }

@@ -220,21 +220,17 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myLaneScaleInterpolation = new FXCheckButton(m23, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
         myLaneScaleSettingFrame = new FXVerticalFrame(frame23, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
-#ifdef HAVE_INTERNAL
         if (GUIVisualizationSettings::UseMesoSim) {
             mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
             mySettings->edgeScaler.fill(*myLaneEdgeScaleMode);
             myLaneEdgeColorMode->setNumVisible((int)mySettings->edgeColorer.size());
             myLaneEdgeScaleMode->setNumVisible((int)mySettings->edgeScaler.size());
         } else {
-#endif
             mySettings->laneColorer.fill(*myLaneEdgeColorMode);
             mySettings->laneScaler.fill(*myLaneEdgeScaleMode);
             myLaneEdgeColorMode->setNumVisible((int)mySettings->laneColorer.size());
             myLaneEdgeScaleMode->setNumVisible((int)mySettings->laneScaler.size());
-#ifdef HAVE_INTERNAL
         }
-#endif
 
         new FXHorizontalSeparator(frame2, SEPARATOR_GROOVE | LAYOUT_FILL_X);
         FXMatrix* m22 =
@@ -550,8 +546,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myDither->setCheck(mySettings->dither);
     }
     FXHorizontalFrame* f2 = new FXHorizontalFrame(contentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
-    FXButton* initial = new FXButton(f2, "&Use", NULL, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
-    new FXButton(f2, "&Discard", NULL, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    FXButton* initial = new FXButton(f2, "&OK", NULL, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    new FXButton(f2, "&Cancel", NULL, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     initial->setFocus();
 
     rebuildColorMatrices(false);
@@ -822,17 +818,13 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.gridXSize = (SUMOReal) myGridXSizeDialer->getValue();
     tmpSettings.gridYSize = (SUMOReal) myGridYSizeDialer->getValue();
 
-#ifdef HAVE_INTERNAL
     if (GUIVisualizationSettings::UseMesoSim) {
         tmpSettings.edgeColorer.setActive(myLaneEdgeColorMode->getCurrentItem());
         tmpSettings.edgeScaler.setActive(myLaneEdgeScaleMode->getCurrentItem());
     } else {
-#endif
         tmpSettings.laneColorer.setActive(myLaneEdgeColorMode->getCurrentItem());
         tmpSettings.laneScaler.setActive(myLaneEdgeScaleMode->getCurrentItem());
-#ifdef HAVE_INTERNAL
     }
-#endif
     tmpSettings.laneShowBorders = (myShowLaneBorders->getCheck() != FALSE);
     tmpSettings.showLinkDecals = (myShowLaneDecals->getCheck() != FALSE);
     tmpSettings.showRails = (myShowRails->getCheck() != FALSE);

@@ -19,10 +19,12 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
+from __future__ import absolute_import
 import os
 import subprocess
 import sys
 import random
+sys.path.append(os.path.join(os.environ['SUMO_HOME'] , "tools"))
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
 import traci
@@ -55,4 +57,12 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.inductionloop.getSubscriptionResults(loopID))
+
+for i in range(24):
+    print("step=%s detVehs=%s" % (
+        traci.simulation.getCurrentTime() / 1000.0,
+        traci.inductionloop.getLastStepVehicleIDs(loopID),
+        ))
+    traci.simulationStep()
+
 traci.close()

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 25 Feb 2016 02:59:32 PM CET by Netedit Version dev-SVN-r20069
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/2172/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-15.47,42.66,87.61,52.65" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="C" x="39.03" y="52.40" type="traffic_light_right_on_red" tl="C" shape="40.49,44.51 40.47,52.33 48.09,52.03 48.25,48.99 40.49,44.51"/>
+    <node id="gneJ0" x="-15.47" y="52.65" type="unregulated"/>
+    <node id="gneJ2" x="-14.98" y="42.66" type="unregulated"/>
+    <node id="gneJ4" x="87.61" y="51.54" type="unregulated"/>
+</nodes>

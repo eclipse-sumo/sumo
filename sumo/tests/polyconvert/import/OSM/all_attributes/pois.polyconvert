@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 24 09:24:45 2015 by SUMO polyconvert Version dev-SVN-r18698I
+<!-- generated on 04/02/16 22:34:20 by SUMO polyconvert Version dev-SVN-r20320
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -8,6 +8,7 @@
     <input>
         <osm-files value="osm.xml"/>
         <osm.keep-full-type value="true"/>
+        <type-file value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo/data/typemap/osmPolyconvert.typ.xml"/>
     </input>
 
     <output>
@@ -40,8 +41,8 @@
         <param key="name" value="p0045"/>
         <param key="polygon" value="overpass"/>
     </poly>
-    <poi id="32266935" type="highway.traffic_signals" color="51,128,255" layer="4.00" x="399824.64" y="5809486.66">
+    <poi id="32266935" type="amenity.parking" color="184,184,179" layer="4.00" x="399824.64" y="5809486.66">
+        <param key="amenity" value="parking"/>
         <param key="created_by" value="JOSM"/>
-        <param key="highway" value="traffic_signals"/>
     </poi>
 </additional>

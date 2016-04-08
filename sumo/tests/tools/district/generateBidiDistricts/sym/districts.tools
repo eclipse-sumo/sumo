@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- generated on 2016-03-23 12:27:42.228000 by $Id: randomTrips.py 20166 2016-03-09 09:47:46Z behrisch $
+  options: -o districts.xml <doubleminus>symmetrical net.net.xml
+-->
+<tazs>
+    <taz id="A.0" edges="A.0 B"/>
+    <taz id="A.50" edges="A.50 B"/>
+    <taz id="B" edges="A.0 A.50 B"/>
+</tazs>

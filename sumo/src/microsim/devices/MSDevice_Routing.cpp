@@ -61,6 +61,7 @@ SUMOTime MSDevice_Routing::myLastAdaptation = -1;
 bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
+AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* MSDevice_Routing::myRouterWithProhibited = 0;
 SUMOReal MSDevice_Routing::myRandomizeWeightsFactor = 0;
 #ifdef HAVE_FOX
 FXWorkerThread::Pool MSDevice_Routing::myThreadPool;
@@ -119,13 +120,13 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
     OptionsCont& oc = OptionsCont::getOptions();
+    bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
+    needRerouting |= equippedByDefaultAssignmentOptions(oc, "rerouting", v);
     if (!needRerouting && oc.getFloat("device.rerouting.probability") == 0 && !oc.isSet("device.rerouting.explicit")) {
         // no route computation is modelled
         return;
     }
-    needRerouting |= equippedByDefaultAssignmentOptions(oc, "rerouting", v);
     if (needRerouting) {
         // route computation is enabled
         myWithTaz = oc.getBool("device.rerouting.with-taz");
@@ -236,8 +237,13 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     if (source->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT && dest->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         if (myCachedRoutes.find(key) != myCachedRoutes.end()) {
-            myHolder.replaceRoute(myCachedRoutes[key], true);
-            return myPreInsertionPeriod;
+            if (myCachedRoutes[key]->size() > 2) {
+                myHolder.replaceRoute(myCachedRoutes[key], true);
+                return myPreInsertionPeriod;
+            } else {
+                WRITE_WARNING("No route for vehicle '" + myHolder.getID() + "' found.");
+                return myPreInsertionPeriod;
+            }
         }
     }
     reroute(currentTime, true);
@@ -263,6 +269,12 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, S
         return effort;
     }
     return 0;
+}
+
+
+SUMOReal 
+MSDevice_Routing::getAssumedSpeed(const MSEdge* edge) {
+    return edge->getLength() / getEffort(edge, 0, 0);
 }
 
 
@@ -382,8 +394,22 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
 }
 
 
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
+MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
+    if (myRouterWithProhibited == 0) {
+        myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+                MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
+    }
+    myRouterWithProhibited->prohibit(prohibited);
+    return *myRouterWithProhibited;
+}
+
+
+
 void
 MSDevice_Routing::cleanup() {
+    delete myRouterWithProhibited;
+    myRouterWithProhibited = 0;
 #ifdef HAVE_FOX
     if (myThreadPool.size() > 0) {
         // we cannot wait for the static destructor to do the cleanup

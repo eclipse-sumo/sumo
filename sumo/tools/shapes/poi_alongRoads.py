@@ -67,9 +67,7 @@ def findSucc(connEdgesTmp, edgeList, success=0):
 
 
 def poiAppend(poi_edge, poi_nr, poi_x, poi_y, poi_buf):
-    poi_buf.append("\t<poi id=\"" + str(poi_edge) + "-" + str(poi_nr) +
-                   "\" type=\"default\" color=\"1,0,0\" layer=\"0\" x=\"" + str(poi_x) + "\" y=\"" + str(poi_y) + "\"/>")
-    return
+    poi_buf.append('    <poi id="%s-%s" type="default" color="1,0,0" layer="0" x="%.2f" y="%.2f"/>' % (poi_edge, poi_nr, poi_x, poi_y))
 
 print("Reading net ...")
 net = sumolib.net.readNet(sys.argv[1])

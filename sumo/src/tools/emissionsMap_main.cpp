@@ -81,6 +81,7 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
                 o << v << ";" << a << ";" << s << ";" << "PMx" << ";" << result.PMx << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "NOx" << ";" << result.NOx << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "fuel" << ";" << result.fuel << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "electricity" << ";" << result.electricity << std::endl;
             }
         }
     }
@@ -95,7 +96,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     //  give some application descriptions
     oc.setApplicationDescription("Builds and writes an emissions map.");
-    oc.setApplicationName("emissionsMap", "SUMO emissionsMap Version " + getBuildName(VERSION_STRING));
+    oc.setApplicationName("emissionsMap", "SUMO emissionsMap Version " VERSION_STRING);
     //  add options
     SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Processing");

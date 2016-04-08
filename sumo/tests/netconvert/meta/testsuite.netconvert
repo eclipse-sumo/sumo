@@ -21,3 +21,6 @@ with_log
 
 # Tests check for depending option
 depending_option
+
+# Tests check for detection of network input as single parameter
+implicit_network

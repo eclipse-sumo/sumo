@@ -1,0 +1,5 @@
+Warning: No connection between edge '2-source' and edge '1-sink' found.
+Warning: No route for vehicle 'disconnected' found.
+Warning: Removing vehicle 'disconnected' which has no valid route.
+Warning: No route for vehicle 'disconnected2' found.
+Warning: Removing vehicle 'disconnected2' which has no valid route.

@@ -49,12 +49,11 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include "MSTriggeredRerouter.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -79,13 +78,11 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
-#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
             s->addDetector(this);
             continue;
         }
-#endif
         const std::vector<MSLane*>& destLanes = (*j)->getLanes();
         for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
             (*i)->addMoveReminder(this);
@@ -241,10 +238,12 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
     for (std::vector<RerouteInterval>::const_iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
         if (i->begin <= time && i->end > time) {
             if (
-                // affected by closingReroute, possibly combined with destProbReroute (route prob makes no sense)
-                veh.getRoute().containsAnyOf(i->closed) ||
-                // no closingReroute but destProbReroute or routeProbReroute
-                i->edgeProbs.getOverallProb() > 0 || i->routeProbs.getOverallProb() > 0) {
+                // destProbReroute
+                i->edgeProbs.getOverallProb() > 0 || 
+                // routeProbReroute
+                i->routeProbs.getOverallProb() > 0 ||
+                // affected by closingReroute
+                veh.getRoute().containsAnyOf(i->closed)) {
                 return &*i;
             }
         }
@@ -266,22 +265,32 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 }
 
 
+bool
+MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
+                              SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) {
+    return notifyEnter(veh, NOTIFICATION_JUNCTION);
+}
+
 
 bool
-MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
-    if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
-        return false;
-    }
+MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/,
+                               MSMoveReminder::Notification reason) {
+    return reason == NOTIFICATION_LANE_CHANGE;
+}
+
+
+bool
+MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/) {
     // check whether the vehicle shall be rerouted
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     const MSTriggeredRerouter::RerouteInterval* rerouteDef = getCurrentReroute(time, veh);
     if (rerouteDef == 0) {
-        return false;
+        return true; // an active interval could appear later
     }
 
     SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
     if (RandHelper::rand() > prob) {
-        return false;
+        return false; // XXX another interval could appear later but we would have to track whether the current interval was already tried
     }
 
     // get vehicle params
@@ -292,7 +301,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute != 0) {
         veh.replaceRoute(newRoute);
-        return false;
+        return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
     }
     const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
@@ -319,16 +328,22 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             newEdge = veh.getEdge();
         }
     }
-    // we have a new destination, let's replace the vehicle route
-    ConstMSEdgeVector edges;
-    MSNet::getInstance()->getRouterTT(rerouteDef->closed).compute(
-        veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-    veh.replaceRouteEdges(edges);
-    if (newArrivalPos != -1) {
-        // must be called here because replaceRouteEdges may also set the arrivalPos
-        veh.setArrivalPos(newArrivalPos);
+    // we have a new destination, let's replace the vehicle route (if it is affected)
+    if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
+        ConstMSEdgeVector edges;
+        const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != 0;
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice 
+            ? MSDevice_Routing::getRouterTT(rerouteDef->closed)
+            : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
+        router.compute(
+                veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+        const bool useNewRoute = veh.replaceRouteEdges(edges);
+        if (useNewRoute && newArrivalPos != -1) {
+            // must be called here because replaceRouteEdges may also set the arrivalPos
+            veh.setArrivalPos(newArrivalPos);
+        }
     }
-    return false;
+    return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
 }
 
 

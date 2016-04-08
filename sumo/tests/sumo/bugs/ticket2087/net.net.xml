@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 12 Jan 2016 08:23:07 AM CET by Netedit Version dev-SVN-r19701I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/bugs/ticket2087/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/bugs/ticket2087/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,2.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="beg" from="C" to="E" priority="2">
+        <lane id="beg_0" index="0" speed="13.89" length="2.00" shape="0.00,-1.65 2.00,-1.65"/>
+    </edge>
+    <edge id="end" from="E" to="C" priority="2">
+        <lane id="end_0" index="0" speed="13.89" length="2.00" shape="2.00,1.65 0.00,1.65"/>
+    </edge>
+
+    <junction id="C" type="unregulated" x="0.00" y="0.00" incLanes="end_0" intLanes="" shape="0.00,-0.05 0.00,-3.25 0.00,3.25 0.00,0.05"/>
+    <junction id="E" type="unregulated" x="2.00" y="0.00" incLanes="beg_0" intLanes="" shape="2.00,0.05 2.00,3.25 2.00,-3.25 2.00,-0.05"/>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="end" to="beg" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

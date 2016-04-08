@@ -30,3 +30,8 @@ polyconvert_LDADD   = ../utils/options/liboptions.a \
 ../utils/shapes/libshapes.a \
 $(COMMON_LIBS) \
 $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
+
+BUILT_SOURCES = pc_typemap.h
+EXTRA_DIST = pc_typemap.h
+pc_typemap.h:
+	../../tools/build/typemap.py poly

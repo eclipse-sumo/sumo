@@ -1,0 +1,6 @@
+<routes>
+    <person id="2" depart="0">
+        <walk edges="NC" departPos="0" arrivalPos="10"/>
+        <ride from="NC" to="CE" lines="foo"/>
+    </person>
+</routes>

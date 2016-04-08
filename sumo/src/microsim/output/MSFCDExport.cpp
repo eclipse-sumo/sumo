@@ -63,7 +63,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-        if (veh->isOnRoad()) {
+        if (veh->isOnRoad() || veh->isParking()) {
             Position pos = veh->getPosition();
             if (useGeo) {
                 of.setPrecision(GEO_OUTPUT_ACCURACY);
@@ -88,6 +88,17 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 of.writeAttr("signals", toString(microVeh->getSignals()));
             }
             of.closeTag();
+            if (microVeh != 0) {
+                // write persons and containers
+                const std::vector<MSTransportable*>& persons = microVeh->getPersons();
+                for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_p, SUMO_TAG_PERSON, useGeo, elevation);
+                }
+                const std::vector<MSTransportable*>& containers = microVeh->getContainers();
+                for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
+                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
+                }
+            }
         }
     }
     if (MSNet::getInstance()->getPersonControl().hasPersons()) {
@@ -97,25 +108,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
             const std::vector<MSTransportable*>& persons = (*e)->getSortedPersons(timestep);
             for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-                MSTransportable* p = *it_p;
-                Position pos = p->getPosition();
-                if (useGeo) {
-                    of.setPrecision(GEO_OUTPUT_ACCURACY);
-                    GeoConvHelper::getFinal().cartesian2geo(pos);
-                }
-                of.openTag(SUMO_TAG_PERSON);
-                of.writeAttr(SUMO_ATTR_ID, p->getID());
-                of.writeAttr(SUMO_ATTR_X, pos.x());
-                of.writeAttr(SUMO_ATTR_Y, pos.y());
-                if (elevation) {
-                    of.writeAttr(SUMO_ATTR_Z, pos.z());
-                }
-                of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
-                of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
-                of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
-                of.writeAttr(SUMO_ATTR_EDGE, (*e)->getID());
-                of.writeAttr(SUMO_ATTR_SLOPE, (*e)->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
-                of.closeTag();
+                writeTransportable(of, *e, *it_p, SUMO_TAG_PERSON, useGeo, elevation);
             }
         }
     }
@@ -126,29 +119,33 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
             const std::vector<MSTransportable*>& containers = (*e)->getSortedContainers(timestep);
             for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-                MSTransportable* c = *it_c;
-                Position pos = c->getPosition();
-                if (useGeo) {
-                    of.setPrecision(GEO_OUTPUT_ACCURACY);
-                    GeoConvHelper::getFinal().cartesian2geo(pos);
-                }
-                of.openTag(SUMO_TAG_CONTAINER);
-                of.writeAttr(SUMO_ATTR_ID, c->getID());
-                of.writeAttr(SUMO_ATTR_X, pos.x());
-                of.writeAttr(SUMO_ATTR_Y, pos.y());
-                if (elevation) {
-                    of.writeAttr(SUMO_ATTR_Z, pos.z());
-                }
-                of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(c->getAngle()));
-                of.writeAttr(SUMO_ATTR_SPEED, c->getSpeed());
-                of.writeAttr(SUMO_ATTR_POSITION, c->getEdgePos());
-                of.writeAttr(SUMO_ATTR_EDGE, (*e)->getID());
-                of.writeAttr(SUMO_ATTR_SLOPE, (*e)->getLanes()[0]->getShape().slopeDegreeAtOffset(c->getEdgePos()));
-                of.closeTag();
+                writeTransportable(of, *e, *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
             }
         }
     }
     of.closeTag();
 }
 
+
+void 
+MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation) {
+    Position pos = p->getPosition();
+    if (useGeo) {
+        of.setPrecision(GEO_OUTPUT_ACCURACY);
+        GeoConvHelper::getFinal().cartesian2geo(pos);
+    }
+    of.openTag(tag);
+    of.writeAttr(SUMO_ATTR_ID, p->getID());
+    of.writeAttr(SUMO_ATTR_X, pos.x());
+    of.writeAttr(SUMO_ATTR_Y, pos.y());
+    if (elevation) {
+        of.writeAttr(SUMO_ATTR_Z, pos.z());
+    }
+    of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
+    of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
+    of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
+    of.writeAttr(SUMO_ATTR_EDGE, e->getID());
+    of.writeAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
+    of.closeTag();
+}
 /****************************************************************************/

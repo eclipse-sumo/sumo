@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jan  4 15:38:03 2016 by SUMO netconvert Version dev-SVN-r19670I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="/scr1/sumoI/sumo/data/typemap/opendriveNetconvert.typ.xml"/>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-7793.00,-2175.01" convBoundary="0.00,0.00,173.42,55.89" origBoundary="7793.00,2175.01,7966.42,2230.89" projParameter="!"/>
+
+    <type id="driving" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyEntry" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyExit" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="parking" priority="1" speed="1.39" disallow="pedestrian" width="3.65"/>
+    <type id="special1" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="stop" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+
+    <edge id="-190.0.00" from="146" to="268" priority="1" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
+        <lane id="-190.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="181.95" width="3.20" shape="174.56,4.82 155.02,9.41 67.87,37.49 1.63,60.56"/>
+        <lane id="-190.0.00_1" index="1" disallow="pedestrian" speed="22.22" length="181.95" width="3.20" shape="173.80,1.61 154.13,6.23 66.82,34.36 0.54,57.44"/>
+    </edge>
+
+    <junction id="146" type="unregulated" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.44,0.05 174.92,6.38"/>
+    <junction id="268" type="unregulated" x="0.00" y="55.89" incLanes="-190.0.00_0 -190.0.00_1" intLanes="" shape="2.15,62.07 0.02,55.93"/>
+
+</net>

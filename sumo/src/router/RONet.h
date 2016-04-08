@@ -436,6 +436,35 @@ public:
         return myRoutesOutput;
     }
 
+#ifdef HAVE_FOX
+    FXWorkerThread::Pool& getThreadPool() {
+        return myThreadPool;
+    }
+
+    class WorkerThread : public FXWorkerThread, public RORouterProvider {
+    public:
+        WorkerThread(FXWorkerThread::Pool& pool,
+                     const RORouterProvider& original)
+            : FXWorkerThread(pool), RORouterProvider(original) {}
+        virtual ~WorkerThread() {
+            stop();
+        }
+    };
+
+    class BulkmodeTask : public FXWorkerThread::Task {
+    public:
+        BulkmodeTask(const bool value) : myValue(value) {}
+        void run(FXWorkerThread* context) {
+            static_cast<WorkerThread*>(context)->getVehicleRouter().setBulkMode(myValue);
+        }
+    private:
+        const bool myValue;
+    private:
+        /// @brief Invalidated assignment operator.
+        BulkmodeTask& operator=(const BulkmodeTask&);
+    };
+#endif
+
 
 private:
     void checkFlows(SUMOTime time, MsgHandler* errorHandler);
@@ -529,16 +558,6 @@ private:
 
 #ifdef HAVE_FOX
 private:
-    class WorkerThread : public FXWorkerThread, public RORouterProvider {
-    public:
-        WorkerThread(FXWorkerThread::Pool& pool,
-                     const RORouterProvider& original)
-            : FXWorkerThread(pool), RORouterProvider(original) {}
-        virtual ~WorkerThread() {
-            stop();
-        }
-    };
-
     class RoutingTask : public FXWorkerThread::Task {
     public:
         RoutingTask(RORoutable* v, const bool removeLoops, MsgHandler* errorHandler)
@@ -551,19 +570,6 @@ private:
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&);
-    };
-
-    class BulkmodeTask : public FXWorkerThread::Task {
-    public:
-        BulkmodeTask(const bool value) : myValue(value) {}
-        void run(FXWorkerThread* context) {
-            static_cast<WorkerThread*>(context)->getVehicleRouter().setBulkMode(myValue);
-        }
-    private:
-        const bool myValue;
-    private:
-        /// @brief Invalidated assignment operator.
-        BulkmodeTask& operator=(const BulkmodeTask&);
     };
 
 

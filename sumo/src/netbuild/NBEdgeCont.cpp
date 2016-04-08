@@ -470,6 +470,15 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);
     edge->myTo->replaceIncoming(edge, two, 0);
+    // patch tls
+    std::set<NBTrafficLightDefinition*> fromTLS = edge->myFrom->getControllingTLS();
+    for (std::set<NBTrafficLightDefinition*>::iterator i = fromTLS.begin(); i != fromTLS.end(); ++i) {
+        (*i)->replaceRemoved(edge, -1, one, -1);
+    }
+    std::set<NBTrafficLightDefinition*> toTLS = edge->myTo->getControllingTLS();
+    for (std::set<NBTrafficLightDefinition*>::iterator i = toTLS.begin(); i != toTLS.end(); ++i) {
+        (*i)->replaceRemoved(edge, -1, two, -1);
+    }
     // the edge is now occuring twice in both nodes...
     //  clean up
     edge->myFrom->removeDoubleEdges();
@@ -607,7 +616,7 @@ NBEdgeCont::recheckLanes() {
 void
 NBEdgeCont::appendTurnarounds(bool noTLSControlled) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->appendTurnaround(noTLSControlled);
+        (*i).second->appendTurnaround(noTLSControlled, true);
     }
 }
 
@@ -615,7 +624,7 @@ NBEdgeCont::appendTurnarounds(bool noTLSControlled) {
 void
 NBEdgeCont::appendTurnarounds(const std::set<std::string>& ids, bool noTLSControlled) {
     for (std::set<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        myEdges[*it]->appendTurnaround(noTLSControlled);
+        myEdges[*it]->appendTurnaround(noTLSControlled, false);
     }
 }
 
@@ -755,10 +764,9 @@ NBEdgeCont::recheckPostProcessConnections() {
     for (std::vector<PostProcessConnection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         NBEdge* from = retrievePossiblySplit((*i).from, true);
         NBEdge* to = retrievePossiblySplit((*i).to, false);
-        if (from != 0 && to != 0) {
-            if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass, (*i).keepClear, (*i).contPos)) {
-                WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
-            }
+        if (from == 0 || to == 0 ||
+                !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass, (*i).keepClear, (*i).contPos)) {
+            WRITE_ERROR("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
         }
     }
     // during loading we also kept some ambiguous connections in hope they might be valid after processing

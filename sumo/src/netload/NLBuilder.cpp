@@ -147,7 +147,7 @@ NLBuilder::build() {
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
         }
-        MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
+        PROGRESS_TIME_MESSAGE(before);
     }
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
@@ -163,7 +163,7 @@ NLBuilder::build() {
         EdgeFloatTimeLineRetriever_EdgeEffort eRetriever(myNet);
         std::string measure = myOptions.getString("weight-attribute");
         if (!myOptions.isDefault("weight-attribute")) {
-            if (measure == "CO" || measure == "CO2" || measure == "HC" || measure == "PMx" || measure == "NOx" || measure == "fuel") {
+            if (measure == "CO" || measure == "CO2" || measure == "HC" || measure == "PMx" || measure == "NOx" || measure == "fuel" || measure == "electricity") {
                 measure += "_perVeh";
             }
             retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(measure, true, eRetriever));
@@ -265,7 +265,7 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
             WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;
         }
-        MsgHandler::getMessageInstance()->endProcessMsg(" done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
+        PROGRESS_TIME_MESSAGE(before);
     }
     return true;
 }

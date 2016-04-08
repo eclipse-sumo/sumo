@@ -188,9 +188,9 @@ public:
 
     /** @brief Returns this edge's persons set.
      *  @brief Avoids the creation of new vector as in getSortedPersons
-    	 *
-    	 * @return This edge's persons.
-    	 */
+     *
+     * @return This edge's persons.
+     */
     inline const std::set<MSTransportable*>& getPersons() const {
         return myPersons;
     }
@@ -530,7 +530,7 @@ public:
 
 #ifdef HAVE_INTERNAL_LANES
     /// @todo extension: inner junctions are not filled
-    const MSEdge* getInternalFollowingEdge(MSEdge* followerAfterInternal) const;
+    const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal) const;
 #endif
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
@@ -570,6 +570,10 @@ public:
      */
     SUMOReal getSpeedLimit() const;
 
+    /** @brief Sets a new maximum speed for all lanes (used by TraCI and MSCalibrator)
+     * @param[in] val the new speed in m/s
+     */
+    void setMaxSpeed(SUMOReal val) const;
 
     /** @brief Returns the maximum speed the vehicle may use on this edge
      *
@@ -613,6 +617,15 @@ public:
     void markDelayed() const {
         myAmDelayed = true;
     }
+
+    /// @brief get the mean speed for mesoscopic simulation
+    SUMOReal getMesoMeanSpeed() const;
+
+    /// @brief grant exclusive access to the mesoscopic state
+    virtual void lock() const {}
+
+    /// @brief release exclusive access to the mesoscopic state
+    virtual void unlock() const {};
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise

@@ -102,12 +102,12 @@ public:
      * @param[in] e the type of emission (CO, CO2, ...)
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
-     * @param[in] slope The road's slope at vehicle's position [°]
+     * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     inline SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
         UNUSED_PARAMETER(slope);
-        if (c == HBEFA3_BASE || a < 0.) {
+        if (c == HBEFA3_BASE || a < 0. || e == PollutantsInterface::ELEC) {
             return 0.;
         }
         const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 1;

@@ -42,6 +42,9 @@ tls.discard-simple
 infer_option_street_names
 add_split
 
+# add split at an edge that is controlled by a tls
+add_split_at_tls
+
 # importing a complex network with deprecated vclasses
 adlershof_dlr_deprecated_vclass
 joined_traffic_lights_with_controlledInner

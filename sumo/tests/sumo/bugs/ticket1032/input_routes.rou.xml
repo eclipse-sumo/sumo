@@ -1,0 +1,4 @@
+<routes>'
+    <route id="completeA" edges="a b a b a b a"/>
+    <vehicle id="v.0" depart="0" departSpeed="0" departPos="0" route="completeA"/>
+</routes>

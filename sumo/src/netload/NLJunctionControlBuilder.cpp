@@ -330,6 +330,8 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                                    + "' for traffic light type '" + toString(myLogicType) + "'");
             }
             break;
+        case TLTYPE_INVALID:
+                throw ProcessError("Invalid traffic light type '" + toString(myLogicType) + "'");
     }
     myActivePhases.clear();
     if (tlLogic != 0) {
@@ -369,7 +371,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
         // had an error
         return;
     }
-    if (request > 63) {
+    if (request >= SUMO_MAX_CONNECTIONS) {
         // bad request
         myCurrentHasError = true;
         throw InvalidArgument("Junction logic '" + myActiveKey + "' is larger than allowed; recheck the network.");
@@ -468,7 +470,8 @@ NLJunctionControlBuilder::closeJunctionLogic() {
 
 
 MSTLLogicControl*
-NLJunctionControlBuilder::buildTLLogics() const {
+NLJunctionControlBuilder::buildTLLogics() {
+    postLoadInitialization(); // must happen after edgeBuilder is finished
     if (!myLogicControl->closeNetworkReading()) {
         throw ProcessError("Traffic lights could not be built.");
     }

@@ -40,7 +40,6 @@ if make >> $MAKELOG 2>&1; then
         for f in $PREFIX/sumo/sumo-*.tar.* $PREFIX/sumo/sumo-*.zip; do
           if test $f -nt $PREFIX/sumo/configure; then
             cp $f $NIGHTDIR
-            scp -q $f $REMOTEDIR
           fi
         done
         rsync -rcz $PREFIX/sumo/docs/pydoc $PREFIX/sumo/docs/doxygen $PREFIX/sumo/docs/userdoc $PREFIX/sumo/docs/javadoc $REMOTEDIR
@@ -64,7 +63,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   export TEXTTEST_TMP=$PREFIX/texttesttmp
 #  find $SUMO_BATCH_RESULT -mtime +20 -type f | xargs -r rm
   rm -rf $TEXTTEST_TMP/*
-  if test $FILEPREFIX == meso -o $FILEPREFIX == clangInternal; then
+  if test ${FILEPREFIX::6} == "extra_"; then
     tests/runInternalTests.py "b $FILEPREFIX" &> $TESTLOG
   else
     tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV &> $TESTLOG

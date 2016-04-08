@@ -3,7 +3,7 @@
 /// @author  Gianfilippo Slager
 /// @author  Alessio Bonfietti
 /// @author  Federico Caselli
-/// @date    Feb 2010
+/// @date    2010-02-25
 /// @version $Id$
 ///
 // The class for SOTL sensors of "E2" type
@@ -12,9 +12,10 @@
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
-//   This program is free software; you can redistribute it and/or modify
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
+//   the Free Software Foundation, either version 3 of the License, or
 //   (at your option) any later version.
 //
 /****************************************************************************/
@@ -31,11 +32,7 @@ MSSOTLE2Sensors::MSSOTLE2Sensors(std::string tlLogicID,
 }
 
 MSSOTLE2Sensors::~MSSOTLE2Sensors(void) {
-    //Delete sensors
-    for (MSLaneID_MSE2CollectorMap::iterator sensorsIterator = m_sensorMap.begin(); sensorsIterator != m_sensorMap.end();
-            sensorsIterator++) {
-        delete(sensorsIterator->second);
-    }
+    //Deleting sensors takes place in the detector control
 }
 
 void MSSOTLE2Sensors::buildSensors(

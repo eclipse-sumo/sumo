@@ -56,7 +56,7 @@ class MSCFModelTest : public testing::Test {
 
         virtual void TearDown(){
             delete m;
-//            delete type; // !!! seems to lead to a segfault on linux
+            delete type;
         }
 };
 

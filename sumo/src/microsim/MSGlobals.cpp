@@ -55,14 +55,13 @@ bool MSGlobals::gCheckRoutes;
 SUMOTime MSGlobals::gLaneChangeDuration;
 
 bool MSGlobals::gStateLoaded;
-#ifdef HAVE_INTERNAL
 bool MSGlobals::gUseMesoSim;
 bool MSGlobals::gMesoLimitedJunctionControl;
 bool MSGlobals::gMesoOvertaking;
+SUMOReal MSGlobals::gMesoTLSPenalty;
 MELoop* MSGlobals::gMesoNet;
-#else
-const bool MSGlobals::gUseMesoSim = false;
-#endif
 
+
+SUMOTime MSGlobals::gWaitingTimeMemory;
 /****************************************************************************/
 

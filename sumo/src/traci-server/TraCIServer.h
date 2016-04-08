@@ -39,11 +39,16 @@
 
 #ifndef NO_TRACI
 
+#include <map>
+#include <string>
+#include <set>
+
 #include "TraCIConstants.h"
 
 #define BUILD_TCPIP
 #include <foreign/tcpip/socket.h>
 #include <foreign/tcpip/storage.h>
+#include <utils/common/NamedRTree.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 
@@ -53,15 +58,9 @@
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/options/OptionsCont.h>
-#include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "TraCIException.h"
-#include <utils/common/NamedRTree.h>
-
-#include <map>
-#include <string>
-#include <set>
+#include "TraCIServerAPI_Lane.h"
 
 
 
@@ -109,7 +108,7 @@ public:
     /// @brief process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
 
-    void setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, int edgeOffset, ConstMSEdgeVector route,
+    void setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, SUMOReal angle, int edgeOffset, ConstMSEdgeVector route,
                           SUMOTime t);
 
     void postProcessVTD();

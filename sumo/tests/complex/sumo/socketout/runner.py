@@ -15,6 +15,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
 
 import os
 import subprocess
@@ -31,6 +32,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 
 def main(bailOut=False):
+    sys.stdout.flush()
     # create an INET, STREAMing socket
     serversocket = socket.socket(
         socket.AF_INET, socket.SOCK_STREAM)

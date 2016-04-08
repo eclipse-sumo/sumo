@@ -58,8 +58,9 @@
     </edge>
 
     <tlLogic id="gneJ5" type="static" programID="0" offset="0">
-        <phase duration="90" state="r"/>
-        <phase duration="3" state="G"/>
+        <phase duration="400" state="r"/>
+        <phase duration="3" state="g"/>
+        <phase duration="3" state="y"/>
     </tlLogic>
 
     <junction id="a" type="priority" x="-10.20" y="34.35" incLanes="a_in_0 ca_0" intLanes="" shape="-7.36,32.51 -9.06,29.80 -11.71,29.85 -14.78,35.58 -13.47,37.79 -10.27,37.81">

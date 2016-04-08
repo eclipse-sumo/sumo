@@ -215,6 +215,11 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
         const SUMOReal sourceHalfWidth = myShadowLane->getWidth() / 2.0;
         const SUMOReal targetHalfWidth = myVehicle.getLane()->getWidth() / 2.0;
         if (myLaneChangeCompletion * (sourceHalfWidth + targetHalfWidth) - myVehicle.getVehicleType().getWidth() / 2.0 > sourceHalfWidth) {
+            // removing partial occupator shadows - will be rebuilt in enterLaneAtLaneChange
+            for (std::vector<MSLane*>::const_iterator it = myPartiallyOccupatedByShadow.begin(); it != myPartiallyOccupatedByShadow.end(); ++it) {
+                (*it)->resetPartialOccupation(&myVehicle);
+            }
+            myPartiallyOccupatedByShadow.clear();
             removeLaneChangeShadow(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
         }
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  1 14:00:08 2015 by SUMO netconvert Version dev-SVN-r19465I
+<!-- generated on Wed Jan 20 15:20:03 2016 by SUMO netconvert Version dev-SVN-r19742I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,12 +28,12 @@
 
 <tlLogics version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
-        <phase duration="36" state="GGGggGGGGrrGGGGggg"/>
-        <phase duration="4" state="yyyggyyyyrryyyyggg"/>
+        <phase duration="36" state="GGGggGGGGGGggrrGGG"/>
+        <phase duration="4" state="yyyggyyyyyyggrryyy"/>
         <phase duration="6" state="rrrGGGGGrrrGGrrGGG"/>
         <phase duration="4" state="rrryyyyyrrryyrryyy"/>
-        <phase duration="36" state="rrrGGGGGGGGggrrGGG"/>
-        <phase duration="4" state="rrryyyyyyyyyyrryyy"/>
+        <phase duration="36" state="rrrGGGGGGrrGGGGggg"/>
+        <phase duration="4" state="rrryyyyyyrryyyyyyy"/>
     </tlLogic>
 
     <connection from="27437972" to="27441189" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="0"/>

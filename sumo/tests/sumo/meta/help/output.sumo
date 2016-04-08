@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r19105D
+SUMO Version dev-SVN-r20307
  Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -34,6 +34,8 @@ Output Options:
   --netstate-dump.precision INT        Write positions and speeds with the
                                          given precision (default 2)
   --emission-output FILE               Save the emission values of each vehicle
+  --emission-output.precision INT      Write emission values with the given
+                                         precision (default 2)
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
                                          precision (default 2)
@@ -72,10 +74,6 @@ Output Options:
   --bt-output FILE                     Save bluetooth visibilities into FILE
                                          (in conjunction with device.btreceiver
                                          and device.btsender)
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -110,6 +108,9 @@ Processing Options:
                                          a fast road (speed > 69m/s) are
                                          teleported if they are on a
                                          non-continuing lane
+  --waiting-time-memory TIME           Length of time interval, over which
+                                         accumulated waiting time is taken into
+                                         account
   --max-depart-delay TIME              How long vehicles wait for departure
                                          before being skipped, defaults to -1
                                          which means vehicles are never skipped
@@ -238,6 +239,39 @@ Example Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
+
+Mesoscopic Options:
+  --mesosim                            Enables mesoscopic simulation
+  --meso-edgelength FLOAT              Length of an edge segment in mesoscopic
+                                         simulation
+  --meso-tauff TIME                    Factor for calculating the free-free
+                                         headway time
+  --meso-taufj TIME                    Factor for calculating the free-jam
+                                         headway time
+  --meso-taujf TIME                    Factor for calculating the jam-free
+                                         headway time
+  --meso-taujj TIME                    Factor for calculating the jam-jam
+                                         headway time
+  --meso-jam-threshold FLOAT           Minimum percentage of occupied space to
+                                         consider a segment jammed. A negative
+                                         argument causes thresholds to be
+                                         computed based on edge speed and tauff
+                                         (default)
+  --meso-multi-queue                   Enable multiple queues at edge ends
+  --meso-junction-control              Enable mesoscopic traffic light and
+                                         priority junction handling
+  --meso-junction-control.limited      Enable mesoscopic traffic light and
+                                         priority junction handling for
+                                         saturated links. This prevents faulty
+                                         traffic lights from hindering flow in
+                                         low-traffic situations
+  --meso-tls-penalty FLOAT             Apply scaled time penalties when driving
+                                         across tls controlled junctions based
+                                         on green split instead of checking
+                                         actual phases
+  --meso-overtaking                    Enable mesoscopic overtaking
+  --meso-recheck TIME                  Time interval for rechecking insertion
+                                         into the next segment after failure
 
 Random Number Options:
   --random                             Initialises the random number generator

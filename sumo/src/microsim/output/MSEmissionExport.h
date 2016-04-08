@@ -64,7 +64,7 @@ public:
      * @param[in] timestep The current time step
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void write(OutputDevice& of, SUMOTime timestep);
+    static void write(OutputDevice& of, SUMOTime timestep, int precision);
 
 
 private:

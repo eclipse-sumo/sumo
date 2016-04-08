@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'test'; waited too long (jam), lane='beg_0', time=301.00.
+Warning: Vehicle 'test' ends teleporting on edge 'end', time 301.00.

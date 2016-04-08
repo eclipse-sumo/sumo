@@ -38,6 +38,8 @@
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
+        <bulk-routing.vtypes value="false" type="BOOL" help="Aggregate routing queries with the same origin for different vehicle types"/>
+        <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"/>
         <scale value="1" synonymes="s" type="FLOAT" help="Scales the loaded flows by FLOAT"/>
         <vtype value="" type="STR" help="Defines the name of the vehicle type to use"/>

@@ -105,7 +105,7 @@ def fetchData(taxiId):
                 index = (route[0].index(step.edge) * 2)
 
                 if len(route[2]) > 0 and step.edge == route[2][-1]:
-                    # TODO: Mittelwertbildung ist falsch überarbeiten
+                    # TODO: Mittelwertbildung ist falsch ueberarbeiten
                     values[2][index] = (values[2][index] + step.speed) / 2.0
                     values[2][index + 1] = values[2][index]
                 else:

@@ -35,6 +35,7 @@
 #endif
 
 #include <stdio.h>
+#include <iostream>
 #include <stdexcept>
 
 #define __STDC_CONSTANT_MACROS
@@ -46,7 +47,7 @@ extern "C"
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
-};
+}
 
 
 class GUIVideoEncoder {
@@ -54,9 +55,13 @@ public:
     GUIVideoEncoder(const char* const out_file, const int width, const int height, double frameDelay) {
         av_register_all();
         AVFormatContext* const pFormatCtx = myFormatContext = avformat_alloc_context();
+
         //Guess Format
         pFormatCtx->oformat = av_guess_format(NULL, out_file, NULL);
-        
+        if (pFormatCtx->oformat == 0){
+            throw std::runtime_error("Unknown format!");
+        }
+
         //Open output URL
         if (avio_open(&pFormatCtx->pb, out_file, AVIO_FLAG_READ_WRITE) < 0){
             throw std::runtime_error("Failed to open output file!");
@@ -85,8 +90,8 @@ public:
         pCodecCtx->height = (height / 2) * 2;
         pCodecCtx->time_base.num = 1;  
         pCodecCtx->time_base.den = framerate;  
-        pCodecCtx->bit_rate = 400000;  
-        pCodecCtx->gop_size=250;
+        pCodecCtx->bit_rate = 4000000;  
+        pCodecCtx->gop_size = 250;
         //H264
         //pCodecCtx->me_range = 16;
         //pCodecCtx->max_qdiff = 4;
@@ -126,8 +131,8 @@ public:
         myFrame->format = pCodecCtx->pix_fmt;
         myFrame->width  = pCodecCtx->width;
         myFrame->height = pCodecCtx->height;
-        int ret = av_image_alloc(myFrame->data, myFrame->linesize, pCodecCtx->width, pCodecCtx->height,
-                                 pCodecCtx->pix_fmt, 32);
+        av_image_alloc(myFrame->data, myFrame->linesize, pCodecCtx->width, pCodecCtx->height,
+                       pCodecCtx->pix_fmt, 32);
 
         mySwsContext = sws_getContext(pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_RGBA,
                                       pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_YUV420P,

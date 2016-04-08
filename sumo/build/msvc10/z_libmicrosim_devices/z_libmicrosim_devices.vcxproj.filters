@@ -23,9 +23,6 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Emissions.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Person.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Routing.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -38,10 +35,10 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_BTsender.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Container.h">
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Battery.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Battery.h">
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Transportable.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -58,9 +55,6 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Emissions.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Person.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Routing.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -73,10 +67,10 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_BTsender.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Container.cpp">
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Battery.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Battery.cpp">
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Transportable.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
   </ItemGroup>

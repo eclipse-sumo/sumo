@@ -107,7 +107,6 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
 
 
-
     /** @brief Draws additionally triggered visualisations
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)

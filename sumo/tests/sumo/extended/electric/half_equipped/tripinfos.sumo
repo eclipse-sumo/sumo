@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 15 10:04:03 2016 by SUMO Version dev-SVN-r20188
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <battery-output value="battery.xml"/>
+        <battery-output.precision value="4"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <battery>
+        <device.battery.probability value="0.5"/>
+    </battery>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="flow.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="39.68" departDelay="0.00" arrival="26.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="39.16" duration="26.00" routeLength="1000.00" waitSteps="0" timeLoss="0.45" rerouteNo="0" devices="tripinfo_flow.0" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.2" depart="2.00" departLane="beg_2" departPos="0.00" departSpeed="38.72" departDelay="0.00" arrival="29.00" arrivalLane="beg_1" arrivalPos="1000.00" arrivalSpeed="38.66" duration="27.00" routeLength="1000.00" waitSteps="0" timeLoss="0.45" rerouteNo="0" devices="tripinfo_flow.2 battery_flow.2" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.1" depart="1.00" departLane="beg_1" departPos="0.00" departSpeed="37.33" departDelay="0.00" arrival="29.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="36.14" duration="28.00" routeLength="1000.00" waitSteps="0" timeLoss="0.45" rerouteNo="0" devices="tripinfo_flow.1 battery_flow.1" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.4" depart="4.00" departLane="beg_1" departPos="0.00" departSpeed="39.10" departDelay="0.00" arrival="30.00" arrivalLane="beg_1" arrivalPos="1000.00" arrivalSpeed="38.40" duration="26.00" routeLength="1000.00" waitSteps="0" timeLoss="0.43" rerouteNo="0" devices="tripinfo_flow.4" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.3" depart="3.00" departLane="beg_0" departPos="0.00" departSpeed="40.11" departDelay="0.00" arrival="30.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="39.38" duration="27.00" routeLength="1000.00" waitSteps="0" timeLoss="1.61" rerouteNo="0" devices="tripinfo_flow.3" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.6" depart="6.00" departLane="beg_0" departPos="0.00" departSpeed="39.40" departDelay="0.00" arrival="32.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="38.99" duration="26.00" routeLength="1000.00" waitSteps="0" timeLoss="0.38" rerouteNo="0" devices="tripinfo_flow.6 battery_flow.6" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.5" depart="5.00" departLane="beg_2" departPos="0.00" departSpeed="35.27" departDelay="0.00" arrival="34.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="35.25" duration="29.00" routeLength="1000.00" waitSteps="0" timeLoss="0.45" rerouteNo="0" devices="tripinfo_flow.5 battery_flow.5" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.8" depart="8.00" departLane="beg_1" departPos="0.00" departSpeed="35.31" departDelay="0.00" arrival="36.00" arrivalLane="beg_1" arrivalPos="1000.00" arrivalSpeed="37.29" duration="28.00" routeLength="1000.00" waitSteps="0" timeLoss="0.73" rerouteNo="0" devices="tripinfo_flow.8 battery_flow.8" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.7" depart="7.00" departLane="beg_1" departPos="0.00" departSpeed="36.32" departDelay="0.00" arrival="36.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="35.58" duration="29.00" routeLength="1000.00" waitSteps="0" timeLoss="0.68" rerouteNo="0" devices="tripinfo_flow.7 battery_flow.7" vType="PKW" vaporized=""/>
+    <tripinfo id="flow.9" depart="9.00" departLane="beg_2" departPos="0.00" departSpeed="35.76" departDelay="0.00" arrival="38.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="35.53" duration="29.00" routeLength="1000.00" waitSteps="0" timeLoss="0.59" rerouteNo="0" devices="tripinfo_flow.9" vType="PKW" vaporized=""/>
+</tripinfos>

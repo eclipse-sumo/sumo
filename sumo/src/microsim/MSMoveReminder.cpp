@@ -47,7 +47,6 @@ MSMoveReminder::MSMoveReminder(const std::string& description, MSLane* const lan
 }
 
 
-#ifdef HAVE_INTERNAL
 void
 MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
                                SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
@@ -95,6 +94,5 @@ void
 MSMoveReminder::removeFromVehicleUpdateValues(SUMOVehicle& veh) {
     myLastVehicleUpdateValues.erase(&veh);
 }
-#endif
 /****************************************************************************/
 

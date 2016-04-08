@@ -287,6 +287,7 @@ MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
     if (continuous) {
         from->lane->myTmpVehicles.insert(from->lane->myTmpVehicles.begin(), vehicle);
         from->dens += vehicle->getVehicleType().getLengthWithGap();
+        vehicle->myAngle = vehicle->computeAngle();
     }
     to->dens += to->hoppedVeh->getVehicleType().getLengthWithGap();
 }
@@ -472,6 +473,13 @@ MSLaneChanger::checkChange(
             }
         }
     }
+    if (blocked == 0 && (state & LCA_WANTS_LANECHANGE)) {
+        // ensure that merging is safe for any upcoming zipper links after changing
+        if (vehicle->unsafeLinkAhead((myCandi + laneOffset)->lane)) {
+            state |= blockedByLeader;
+        }
+    }
+
     if ((state & LCA_BLOCKED) == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && MSGlobals::gLaneChangeDuration > DELTA_T) {
         // ensure that a continuous lane change manoeuvre can be completed
         // before the next turning movement

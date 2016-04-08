@@ -5,9 +5,6 @@
     <ConfigurationType>Application</ConfigurationType>
     <TargetName Condition="'$(Configuration)'=='Debug'">$(ProjectName)D</TargetName>
     <TargetName Condition="'$(Configuration)'=='Fastbuild'">$(ProjectName)F</TargetName>
-    <TargetName Condition="'$(Configuration)'=='InternalRelease'">$(ProjectName)Int</TargetName>
-    <TargetName Condition="'$(Configuration)'=='InternalDebug'">$(ProjectName)IntD</TargetName>
-    <TargetName Condition="'$(Configuration)'=='InternalFastbuild'">$(ProjectName)IntF</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <Link>
@@ -22,21 +19,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);ws2_32.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='InternalRelease'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);ws2_32.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='InternalFastbuild'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);ws2_32.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='InternalDebug'">
-    <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>

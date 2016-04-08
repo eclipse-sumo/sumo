@@ -256,7 +256,7 @@ NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge
     assert(e2->getFromNode() == myNode || e2->getToNode() == myNode);
     const SUMOReal angle1 = e1->getAngleAtNodeToCenter(myNode);
     const SUMOReal angle2 = e2->getAngleAtNodeToCenter(myNode);
-    const SUMOReal absDiff = abs(angle1 - angle2);
+    const SUMOReal absDiff = fabs(angle1 - angle2);
 
     // cannot trust the angle difference hence a heuristic:
     if (absDiff < 2 || absDiff > (360 - 2)) {

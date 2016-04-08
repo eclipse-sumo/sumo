@@ -51,6 +51,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include "GUILane.h"
 #include "GUIEdge.h"
 #include "GUIVehicle.h"
@@ -422,10 +423,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     bool mustDrawMarkings = false;
     SUMOReal exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {
-#ifdef HAVE_INTERNAL
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
         exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
-#endif
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     }
@@ -569,9 +568,7 @@ void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
-#ifdef HAVE_INTERNAL
     if (!MSGlobals::gUseMesoSim)
-#endif
         setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
@@ -711,7 +708,9 @@ GUILane::getCenteringBoundary() const {
     Boundary b;
     b.add(myShape[0]);
     b.add(myShape[-1]);
-    b.grow(20);
+    b.grow(10);
+    // ensure that vehicles and persons on the side are drawn even if the edge
+    // is outside the view
     return b;
 }
 
@@ -912,6 +911,12 @@ GUILane::getColorValue(size_t activeScheme) const {
             // color by average relative speed
             return getMeanSpeed() / myMaxSpeed;
         }
+        case 27: {
+            // color by routing device assumed speed
+            return MSDevice_Routing::getAssumedSpeed(&getEdge());
+        }
+        case 28:
+            return getElectricityConsumption() / myLength;
     }
     return 0;
 }
@@ -979,6 +984,8 @@ GUILane::getScaleValue(size_t activeScheme) const {
             // scale by average relative speed
             return getMeanSpeed() / myMaxSpeed;
         }
+        case 21:
+            return getElectricityConsumption() / myLength;
     }
     return 0;
 }

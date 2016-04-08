@@ -794,6 +794,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
     OptionsCont& oc = OptionsCont::getOptions();
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge& e = *(*i).second;
+        GeometryType prevType = OPENDRIVE_GT_UNKNOWN;
         for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
             OpenDriveGeometry& g = *j;
             PositionVector geom;
@@ -815,9 +816,20 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 default:
                     break;
             }
+            if (e.geom.size() > 0 && prevType == OPENDRIVE_GT_LINE) {
+                // remove redundant end point of the previous geometry segment
+                // (the start point of the current segment should have the same value)
+                // this avoids geometry errors due to imprecision
+                if (!e.geom.back().almostSame(geom.front())) {
+                    const int index = (int)(j - e.geometries.begin());
+                    WRITE_WARNING("Mismatched geometry for edge '" + e.id + "' between geometry segments " + toString(index - 1) + " and " + toString(index) + ".");
+                }
+                e.geom.pop_back();
+            }
             for (PositionVector::iterator k = geom.begin(); k != geom.end(); ++k) {
                 e.geom.push_back_noDoublePos(*k);
             }
+            prevType = g.type;
         }
         if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
             e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);

@@ -393,6 +393,7 @@ protected:
 
     };
 
+
 protected:
     /// @brief The id of the logic
     std::string myProgramID;
@@ -417,6 +418,10 @@ protected:
 
     /// @brief An empty lane vector
     static const LaneVector myEmptyLaneVector;
+
+private:
+    /// @brief initialize optional meso penalties
+    void initMesoTLSPenalties();
 
 
 private:

@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 persons = {}
 personsRunning = 0
 
@@ -53,7 +55,7 @@ def evaluate(forTest=False):
         import numpy
         import math
     except ImportError:
-        print "No numpy available, skipping statistics"
+        print("No numpy available, skipping statistics")
         return
     waitTimes = []
     routeTimes = {}
@@ -65,16 +67,16 @@ def evaluate(forTest=False):
         routeTimes[route].append(person.arrive - person.depart)
     waitArray = numpy.array(waitTimes)
     if forTest:
-        print "waiting time (max, mean, dev):", waitArray.max() < 1000, waitArray.mean() < 1000, math.sqrt(waitArray.var()) < 100
+        print("waiting time (max, mean, dev):", waitArray.max() < 1000, waitArray.mean() < 1000, math.sqrt(waitArray.var()) < 100)
     else:
-        print "waiting time (max, mean, dev):", waitArray.max(), waitArray.mean(), math.sqrt(waitArray.var())
+        print("waiting time (max, mean, dev):", waitArray.max(), waitArray.mean(), math.sqrt(waitArray.var()))
 
     for route, times in sorted(routeTimes.iteritems()):
         timeArray = numpy.array(times)
         if forTest:
-            print route, timeArray.max() < 1000, timeArray.mean() < 1000, math.sqrt(timeArray.var()) < 100
+            print(route, timeArray.max() < 1000, timeArray.mean() < 1000, math.sqrt(timeArray.var()) < 100)
         else:
-            print route, timeArray.max(), timeArray.mean(), math.sqrt(timeArray.var())
+            print(route, timeArray.max(), timeArray.mean(), math.sqrt(timeArray.var()))
 
     co2 = 0.
     for line in open("aggregated.xml"):
@@ -85,9 +87,9 @@ def evaluate(forTest=False):
                 co2 += float(line[pos:endpos])
 
     if forTest:
-        print "CO2:", co2 < 10000000
+        print("CO2:", co2 < 10000000)
     else:
-        print "CO2:", co2
+        print("CO2:", co2)
 
 if __name__ == "__main__":
     from pylab import *

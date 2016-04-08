@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 16:45:55 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on Wed 17 Feb 2016 08:13:49 AM CET by SUMO gui Version dev-SVN-r19989
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -12,7 +12,8 @@
     </input>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -22,8 +23,8 @@
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
    <interval begin="0.00" end="39.00" id="instant_beg_0_before" nVehContrib="1" flow="92.31" occupancy="0.92" speed="13.89" length="5.00" nVehEntered="1"/>
    <interval begin="0.00" end="39.00" id="instant_beg_1_before" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="0.00" end="39.00" id="instant_beg_0_at" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="0.00" end="39.00" id="instant_beg_1_at" nVehContrib="1" flow="92.31" occupancy="0.92" speed="13.89" length="5.00" nVehEntered="1"/>
+   <interval begin="0.00" end="39.00" id="instant_beg_0_at" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="1"/>
+   <interval begin="0.00" end="39.00" id="instant_beg_1_at" nVehContrib="1" flow="92.31" occupancy="2.97" speed="4.31" length="5.00" nVehEntered="1"/>
    <interval begin="0.00" end="39.00" id="instant_beg_0_after" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="0.00" end="39.00" id="instant_beg_1_after" nVehContrib="1" flow="92.31" occupancy="0.92" speed="13.89" length="5.00" nVehEntered="1"/>
 </detector>

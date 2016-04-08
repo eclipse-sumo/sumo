@@ -550,6 +550,7 @@ RORouteHandler::closeFlow() {
     }
     if (myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid) == 0) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
+        myVehicleParameter->vtypeid = DEFAULT_VTYPE_ID;
     }
     if (myVehicleParameter->routeid[0] == '!' && myNet.getRouteDef(myVehicleParameter->routeid) == 0) {
         closeRoute(true);
@@ -567,6 +568,8 @@ RORouteHandler::closeFlow() {
         } else {
             myErrorOutput->inform("Another flow with the id '" + myVehicleParameter->id + "' exists.");
         }
+    } else {
+        delete myVehicleParameter;
     }
     myVehicleParameter = 0;
     myInsertStopEdgesAt = -1;

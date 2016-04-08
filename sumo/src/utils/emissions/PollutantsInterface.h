@@ -59,7 +59,7 @@ class PollutantsInterface {
 public:
 
     /// @brief Enumerating all emission types, including fuel
-    enum EmissionType { CO2, CO, HC, FUEL, NO_X, PM_X };
+    enum EmissionType { CO2, CO, HC, FUEL, NO_X, PM_X, ELEC };
 
 
     /**
@@ -73,6 +73,7 @@ public:
         SUMOReal fuel;
         SUMOReal NOx;
         SUMOReal PMx;
+        SUMOReal electricity;
 
         /** @brief Constructor, intializes all members
          * @param[in] co2 initial value for CO2, defaults to 0
@@ -81,9 +82,10 @@ public:
          * @param[in] f   initial value for fuel, defaults to 0
          * @param[in] nox initial value for NOx, defaults to 0
          * @param[in] pmx initial value for PMx, defaults to 0
+         * @param[in] elec initial value for electricity, defaults to 0
          */
-        Emissions(SUMOReal co2 = 0, SUMOReal co = 0, SUMOReal hc = 0, SUMOReal f = 0, SUMOReal nox = 0, SUMOReal pmx = 0)
-            : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx) {
+        Emissions(SUMOReal co2 = 0, SUMOReal co = 0, SUMOReal hc = 0, SUMOReal f = 0, SUMOReal nox = 0, SUMOReal pmx = 0, SUMOReal elec = 0)
+            : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx), electricity(elec) {
         }
 
         /** @brief Add the values of the other struct to this one, scaling the values if needed
@@ -97,6 +99,7 @@ public:
             fuel += scale * a.fuel;
             NOx += scale * a.NOx;
             PMx += scale * a.PMx;
+            electricity += scale * a.electricity;
         }
     };
 
@@ -224,26 +227,10 @@ public:
          * @param[in] e the type of emission (CO, CO2, ...)
          * @param[in] v The vehicle's current velocity
          * @param[in] a The vehicle's current acceleration
-         * @param[in] slope The road's slope at vehicle's position [°]
+         * @param[in] slope The road's slope at vehicle's position [deg]
          * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
          */
         virtual SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) const = 0;
-
-        /** @brief Returns the maximum possible acceleration or -1. if the model cannot determine the maximum acceleration.
-         * Default implementation returns always -1.
-         * @param[in] c The vehicle emission class
-         * @param[in] v The vehicle's current velocity
-         * @param[in] a The vehicle's current acceleration
-         * @param[in] slope The road's slope at vehicle's position [°]
-         * @return The maximum possible acceleration
-         */
-        virtual SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const {
-            UNUSED_PARAMETER(c);
-            UNUSED_PARAMETER(v);
-            UNUSED_PARAMETER(a);
-            UNUSED_PARAMETER(slope);
-            return -1.;
-        }
 
         /** @brief Add all known emission classes of this model to the given container
          * @param[in] list the vector to add to
@@ -311,16 +298,6 @@ public:
     static bool isSilent(const SUMOEmissionClass c);
 
 
-    /** @brief Returns the maximum possible acceleration
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's current velocity
-     * @param[in] a The vehicle's current acceleration
-     * @param[in] slope The road's slope at vehicle's position [°]
-     * @return The maximum possible acceleration
-     */
-    static SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope);
-
-
     /** @brief Returns the emission class fittig the given parameters
      * @param[in] base The base emission class to derive from
      * @param[in] vClass The vehicle class description (like "truck")
@@ -366,7 +343,7 @@ public:
      * @param[in] e the type of emission (CO, CO2, ...)
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
-     * @param[in] slope The road's slope at vehicle's position [°]
+     * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
     static SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope);
@@ -376,7 +353,7 @@ public:
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
-     * @param[in] slope The road's slope at vehicle's position [°]
+     * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
     static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope);
@@ -387,7 +364,7 @@ public:
      * @param[in] e the type of emission (CO, CO2, ...)
      * @param[in] v The vehicle's average velocity
      * @param[in] a The vehicle's average acceleration
-     * @param[in] slope The road's slope at vehicle's position [°]
+     * @param[in] slope The road's slope at vehicle's position [deg]
      * @param{in] tt the time the vehicle travels
      * @return The amount emitted by the given vehicle class [mg]
      */
@@ -407,4 +384,3 @@ private:
 #endif
 
 /****************************************************************************/
-

@@ -53,7 +53,7 @@ public:
      *
      * @param[in] file The file that will be processed
      */
-    TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
+    TrajectoriesHandler(const bool computeA, const bool computeAForward, const SUMOEmissionClass defaultClass,
                         const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
@@ -61,20 +61,22 @@ public:
     ~TrajectoriesHandler();
 
     const PollutantsInterface::Emissions computeEmissions(const std::string id,
-            const SUMOEmissionClass c, const SUMOReal v,
+            const SUMOEmissionClass c, SUMOReal &v,
             SUMOReal& a, SUMOReal& s);
 
-    void writeEmissions(std::ostream& o, const std::string id,
+    bool writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
-                        const SUMOReal t, const SUMOReal v,
-                        SUMOReal a = INVALID_VALUE, SUMOReal s = INVALID_VALUE);
+                        SUMOReal t, SUMOReal &v,
+                        SUMOReal &a, SUMOReal &s);
 
-    void writeXMLEmissions(const std::string id,
+    bool writeXMLEmissions(const std::string id,
                            const SUMOEmissionClass c,
-                           const SUMOTime t, const SUMOReal v,
+                           SUMOTime t, SUMOReal &v,
                            SUMOReal a = INVALID_VALUE, SUMOReal s = INVALID_VALUE);
 
     void writeSums(std::ostream& o, const std::string id);
+
+    void writeNormedSums(std::ostream& o, const std::string id, const SUMOReal factor);
 
 
 protected:
@@ -97,6 +99,7 @@ protected:
 
 private:
     const bool myComputeA;
+    const bool myComputeAForward;
     const SUMOEmissionClass myDefaultClass;
     const SUMOReal myDefaultSlope;
     std::ostream* myStdOut;

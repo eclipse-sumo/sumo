@@ -323,11 +323,13 @@ Position
 PositionVector::getPolygonCenter() const {
     SUMOReal x = 0;
     SUMOReal y = 0;
+    SUMOReal z = 0;
     for (const_iterator i = begin(); i != end(); i++) {
         x += (*i).x();
         y += (*i).y();
+        z += (*i).z();
     }
-    return Position(x / (SUMOReal) size(), y / (SUMOReal) size());
+    return Position(x / (SUMOReal) size(), y / (SUMOReal) size(), z / (SUMOReal)size());
 }
 
 
@@ -904,23 +906,23 @@ PositionVector::move2side(SUMOReal amount) {
             if (fabs(extrapolateDev) < POSITION_EPS) {
                 // parallel case, just shift the middle point
                 shape.push_back(me - sideOffset(from, to, amount));
-                continue;
-            }
-            if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
+            } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
                 // counterparallel case, just shift the middle point
                 PositionVector fromMe(from, me);
                 fromMe.extrapolate2D(amount);
                 shape.push_back(fromMe[1]);
-                continue;
+            } else {
+                Position offsets = sideOffset(from, me, amount);
+                Position offsets2 = sideOffset(me, to, amount);
+                PositionVector l1(from - offsets, me - offsets);
+                PositionVector l2(me - offsets2, to - offsets2);
+                shape.push_back(l1.intersectionPosition2D(l2[0], l2[1], 100));
+                if (shape.back() == Position::INVALID) {
+                    throw InvalidArgument("no line intersection");
+                }
             }
-            Position offsets = sideOffset(from, me, amount);
-            Position offsets2 = sideOffset(me, to, amount);
-            PositionVector l1(from - offsets, me - offsets);
-            PositionVector l2(me - offsets2, to - offsets2);
-            shape.push_back(l1.intersectionPosition2D(l2[0], l2[1], 100));
-            if (shape.back() == Position::INVALID) {
-                throw InvalidArgument("no line intersection");
-            }
+            // copy original z value
+            shape.back().set(shape.back().x(), shape.back().y(), me.z());
         }
     }
     *this = shape;

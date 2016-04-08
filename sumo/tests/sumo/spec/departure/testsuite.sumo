@@ -61,23 +61,15 @@ pos_random
 # checks using a random position (3 vehicles)
 pos_random_3veh
 
-# checks using P. Wagner's "generic" insertion method (3 vehicles, delta t=0)
-pos_pwagGeneric_3veh_dt0
-
-# checks using P. Wagner's "simple" insertion method (3 vehicles, delta t=0)
-pos_pwagSimple_3veh_dt0
-
-# checks using P. Wagner's "generic" insertion method (3 vehicles, delta t=1)
-pos_pwagGeneric_3veh_dt1
-
-# checks using P. Wagner's "simple" insertion method (3 vehicles, delta t=1)
-pos_pwagSimple_3veh_dt1
-
 # checks using a free position (3 vehicles, vmax)
 pos_free_3veh_vmax
 
-# checks using a maximum speed gap (3 vehicles, vmax)
-pos_maxSpeedGap_3veh_vmax
+# departPos="last" departSpeed="15"
+pos_last_speed_given
+
+# departPos="last" departSpeed="max" 
+# (should insert with maximum vehicle speed
+pos_last_speed_max
 
 # checks using the default speed (0)
 speed_default
@@ -110,10 +102,6 @@ speed_random__lanelimit
 # speed negative
 # speed larger than vehicle's max
 # speed larger than lane's max
-
-
-
-
 
 # checks using the random speed (bounded by veh's vmax)
 speed_random__vehlimit

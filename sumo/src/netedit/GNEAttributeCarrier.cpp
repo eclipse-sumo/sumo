@@ -71,6 +71,18 @@ GNEAttributeCarrier::isValidID(const std::string& value) {
     return value.find_first_of(" \t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
 }
 
+
+template<> int
+GNEAttributeCarrier::parse(const std::string& string) {
+    return TplConvert::_str2int(string);
+}
+
+
+template<> SUMOReal
+GNEAttributeCarrier::parse(const std::string& string) {
+    return TplConvert::_str2SUMOReal(string);
+}
+
 // ===========================================================================
 // static methods
 // ===========================================================================

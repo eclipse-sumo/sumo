@@ -226,7 +226,7 @@ public:
      * @exception ProcessError If the traffic lights were not correct
      * @see MSTLLogicControl::closeNetworkReading
      */
-    MSTLLogicControl* buildTLLogics() const;
+    MSTLLogicControl* buildTLLogics();
 
 
     /** @brief Ends the building of a traffic lights logic

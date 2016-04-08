@@ -18,3 +18,4 @@ no_control
 # - the network contains a roundabout. This may lead to dead-lock if junction control is switched off
 # - the network contains a faulty traffic light. This leads to bad flow if junction control is switched on
 network_problem
+tls_coordination

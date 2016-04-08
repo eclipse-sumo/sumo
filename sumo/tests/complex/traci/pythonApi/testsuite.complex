@@ -46,3 +46,6 @@ resume
 
 # test setting and getting of params to all objects which support it
 params
+
+# test setting up multiple connections
+multiconnect

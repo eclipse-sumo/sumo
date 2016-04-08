@@ -1,0 +1,95 @@
+TraCITestClient output file. Date: Thu Feb 11 09:31:55 2016
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=180 objID=veh0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"SC", "CN" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"SC", "CN" ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=180 objID=veh0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"SC", "CN" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"SC", "CN" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=180 objID=veh0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"SC", "CN" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"SC", "CN" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

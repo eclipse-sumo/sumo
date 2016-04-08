@@ -1,0 +1,13 @@
+<add>
+    <rerouter id="rerouterClose" edges="A">
+        <interval begin="5" end="500">
+            <closingReroute id="B" disallow="all"/>
+        </interval>
+    </rerouter>
+
+    <rerouter id="rerouterTerminateInner" edges="B">
+        <interval begin="5" end="500">
+            <destProbReroute id="terminateRoute"/>
+        </interval>
+    </rerouter>
+</add>

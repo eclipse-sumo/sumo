@@ -20,6 +20,9 @@ specified_controlledInner
 # test heuristic for interpreting tls-nodes as signal locations
 guess-signals
 
+# exclude nodes from receiving a traffic light via tls.unset
+guess-signals_unset
+
 # close nodes are set as traffic_light but are acutally unregulated
 with_unregulated
 

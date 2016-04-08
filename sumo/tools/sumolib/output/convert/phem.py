@@ -120,9 +120,9 @@ def vehicleTypes2flt(outSTRM, vtIDm):
     Currently, rather a stub than an implementation. Writes the vehicle ids stored
     in the given "vtIDm" map formatted as a .flt file readable by PHEM.
 
-    The following may be a matter of changes:               
+    The following may be a matter of changes:
     - A default map is assigned to all vehicle types with the same probability 
     """
-    for q in vtIDm._m:
+    for q in sorted(vtIDm._m):
         print("%s,%s,%s" %
               (vtIDm.g(q), "<VEHDIR>\PC\PC_%s.GEN" % q, 1.), file=outSTRM)

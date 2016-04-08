@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 26 Feb 2016 08:32:16 AM CET by Netedit Version dev-SVN-r20083
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/spec/net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/spec/net2.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-500.00,0.00" convBoundary="0.00,0.00,1000.00,0.00" origBoundary="500.00,0.00,1500.00,0.00" projParameter="!"/>
+
+    <edge id=":center_0" function="internal">
+        <lane id=":center_0_0" index="0" speed="27.80" length="0.10" shape="500.00,-1.65 500.00,-1.65"/>
+    </edge>
+
+    <edge id="beg" from="beg" to="center" priority="-1">
+        <lane id="beg_0" index="0" speed="27.80" length="500.00" shape="0.00,-1.65 500.00,-1.65"/>
+    </edge>
+    <edge id="end" from="center" to="end" priority="-1">
+        <lane id="end_0" index="0" speed="27.80" length="500.00" shape="500.00,-1.65 1000.00,-1.65"/>
+    </edge>
+
+    <junction id="beg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0" intLanes=":center_0_0" shape="500.00,-0.05 500.00,-3.25 500.00,-0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="end" type="unregulated" x="1000.00" y="0.00" incLanes="end_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05"/>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" via=":center_0_0" dir="s" state="M"/>
+
+    <connection from=":center_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

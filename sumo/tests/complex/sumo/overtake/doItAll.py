@@ -15,6 +15,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import os
@@ -35,20 +37,20 @@ def generateNet(nLanes=2):
     # writing edge file (for different numbers of lanes!!),
     fp = open('ttDistro.edg.xml', 'w')
     rest = 'numLanes="' + repr(nLanes) + '" speed="40" />'
-    print >> fp, '<edges>'
-    print >> fp, '\t<edge from="node1" id="1to2" to="node2" ' + rest
-    print >> fp, '\t<edge from="node2" id="2to3" to="node3" ' + rest
-    print >> fp, '\t<edge from="node0" id="0to1" to="node1" ' + rest
-    print >> fp, '</edges>'
+    print('<edges>', file=fp)
+    print('\t<edge from="node1" id="1to2" to="node2" ' + rest, file=fp)
+    print('\t<edge from="node2" id="2to3" to="node3" ' + rest, file=fp)
+    print('\t<edge from="node0" id="0to1" to="node1" ' + rest, file=fp)
+    print('</edges>', file=fp)
     fp.close()
 
     fp = open('ttDistro.nod.xml', 'w')
-    print >> fp, '<nodes>'
-    print >> fp, '\t<node id="node0" x="-200.0" y="0.0" />'
-    print >> fp, '\t<node id="node1" x="0.0" y="0.0" />'
-    print >> fp, '\t<node id="node2" x="+9800.0" y="0.0" />'
-    print >> fp, '\t<node id="node3" x="+10000.0" y="0.0" />'
-    print >> fp, '</nodes>'
+    print('<nodes>', file=fp)
+    print('\t<node id="node0" x="-200.0" y="0.0" />', file=fp)
+    print('\t<node id="node1" x="0.0" y="0.0" />', file=fp)
+    print('\t<node id="node2" x="+9800.0" y="0.0" />', file=fp)
+    print('\t<node id="node3" x="+10000.0" y="0.0" />', file=fp)
+    print('</nodes>', file=fp)
     fp.close()
     os.system('%s -n ttDistro.nod.xml -e ttDistro.edg.xml -o %s' % (sumolib.checkBinary("netconvert"),
                                                                     netFile))
@@ -71,17 +73,17 @@ def generateDemand(pin, nLanes):
     # fast passenger cars
     s0 = '\t<vType accel="2.0" decel="5.0" id="fast" length="' + \
         repr(lFast) + '" maxSpeed="' + repr(vFast)
-    print >> fp, s0 + '" sigma="0.8" />'
+    print(s0 + '" sigma="0.8" />', file=fp)
 
     # slow passenger cars
     s0 = '\t<vType accel="2.0" decel="5.0" id="med" length="' + \
         repr(lMed) + '" maxSpeed="' + repr(vMed)
-    print >> fp, s0 + '" sigma="0.8" />'
+    print(s0 + '" sigma="0.8" />', file=fp)
 
     # trucks
     s0 = '\t<vType accel="1.0" decel="4.0" id="truck" length="' + \
         repr(lSlow) + '" maxSpeed="' + repr(vSlow)
-    print >> fp, s0 + '" sigma="0.6" />'
+    print(s0 + '" sigma="0.6" />', file=fp)
 
     # the one and only route...
     fp.write('\t<route id="route01" edges="0to1 1to2 2to3"/>\n')
@@ -113,16 +115,16 @@ def generateDemand(pin, nLanes):
                     else:
                         s = s + ' type="med" departLane="' + \
                             repr(lane) + '" departSpeed="max" />'
-                print >> fp, s
+                print(s, file=fp)
         if vehID >= nMax:
             break
-    print >> fp, '</routes>'
+    print('</routes>', file=fp)
     fp.close()
 
 
 def runSim():
     fp = open(configFile, 'w')
-    print >> fp, """<configuration>
+    print("""<configuration>
     <input>
         <net-file value="%s"/>
         <route-files value="%s"/>
@@ -133,7 +135,7 @@ def runSim():
         <max-depart-delay value="0"/>
         <tripinfo-output value="%s"/>
     </report>
-</configuration>""" % (netFile, routeFile, dumpFile)
+</configuration>""" % (netFile, routeFile, dumpFile), file=fp)
     fp.close()
     os.system('%s -c %s' % (sumolib.checkBinary("sumo"), configFile))
 
@@ -152,7 +154,7 @@ def analyzeData(pp):
             tmp = line.split('depart="')[1]
             t1 = float(tmp.split('"')[0])
             if vNr > n0 and t1 > 0.0:
-                print >>fp, pp, vNr, t1, tT
+                print(pp, vNr, t1, tT, file=fp)
     fp.close()
 
 
@@ -160,23 +162,23 @@ def writeVSSFile():
     # currently not needed.
     # and the vss file,
     fp = open('input_vss.add.xml', 'w')
-    print >> fp, '<additional>'
+    print('<additional>', file=fp)
     s = '\t<variableSpeedSign id="vss" lanes="2to3_0'
     for lane in range(1, maxLanes):
         s = s + ' 2to3_' + repr(lane)
-    print >> fp, s + '" file="laneFlows.vss.xml"/>'
-    print >> fp, '</additional>'
+    print(s + '" file="laneFlows.vss.xml"/>', file=fp)
+    print('</additional>', file=fp)
     fp.close()
 
 # here is "main"
 nLanes = 2
-print "# preparing the simulation..."
+print("# preparing the simulation...")
 generateNet(nLanes)
 for p in range(3, 67, 3):
     generateDemand(0.01 * p, nLanes)
-    print "# running the simulation..."
+    print("# running the simulation...")
     runSim()
-    print "# analyzing the results..."
+    print("# analyzing the results...")
     analyzeData(p)
     break
-print "# All DONE."
+print("# All DONE.")

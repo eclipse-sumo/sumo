@@ -80,7 +80,6 @@ MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& i
 MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id) :
     MSDevice(holder, id),
     myDepartLane(""),
-    myDepartPos(-1),
     myDepartSpeed(-1),
     myWaitingSteps(0),
     myArrivalTime(NOT_ARRIVED),
@@ -117,13 +116,23 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
 }
 
 
+void
+MSDevice_Tripinfo::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
+    // called by meso
+    const SUMOReal vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
+    if (vmax > 0) {
+        myTimeLoss += TIME2STEPS(timeOnLane - (timeOnLane * speed / vmax));
+    }
+    myWaitingSteps += veh.getWaitingTime() / DELTA_T;
+}
+
+
 bool
 MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (!MSGlobals::gUseMesoSim) {
             myDepartLane = static_cast<MSVehicle&>(veh).getLane()->getID();
         }
-        myDepartPos = veh.getPositionOnLane();
         myDepartSpeed = veh.getSpeed();
     }
     return true;
@@ -171,7 +180,7 @@ MSDevice_Tripinfo::computeLengthAndDuration(SUMOReal& routeLength, SUMOTime& dur
         finalPos = myArrivalPos;
     }
     const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
-    routeLength = myHolder.getRoute().getDistanceBetween(myDepartPos, finalPos,
+    routeLength = myHolder.getRoute().getDistanceBetween(myHolder.getDepartPos(), finalPos,
                   myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths) + finalPosOnInternal;
 
     duration = finalTime - myHolder.getDeparture();
@@ -194,7 +203,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.openTag("tripinfo").writeAttr("id", myHolder.getID());
     os.writeAttr("depart", time2string(myHolder.getDeparture()));
     os.writeAttr("departLane", myDepartLane);
-    os.writeAttr("departPos", myDepartPos);
+    os.writeAttr("departPos", myHolder.getDepartPos());
     os.writeAttr("departSpeed", myDepartSpeed);
     os.writeAttr("departDelay", time2string(myHolder.getDepartDelay()));
     os.writeAttr("arrival", time2string(myArrivalTime));

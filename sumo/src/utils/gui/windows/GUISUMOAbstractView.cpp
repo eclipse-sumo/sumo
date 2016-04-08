@@ -286,12 +286,10 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             if (type == GLO_POI || type == GLO_POLYGON) {
                 layer = dynamic_cast<Shape*>(o)->getLayer();
             }
-#ifdef HAVE_INTERNAL
             if (type == GLO_LANE && GUIVisualizationSettings::UseMesoSim) {
                 // do not select lanes in meso mode
                 continue;
             }
-#endif
             // check whether the current object is above a previous one
             if (layer > maxLayer) {
                 idMax = id;
@@ -735,7 +733,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
     FXString ext = FXPath::extension(destFile.c_str());
     const bool useGL2PS = ext == "ps" || ext == "eps" || ext == "pdf" || ext == "svg" || ext == "tex" || ext == "pgf";
 #ifdef HAVE_FFMPEG
-    const bool useVideo = destFile == "" || ext == "h264";
+    const bool useVideo = destFile == "" || ext == "h264" || ext == "hevc";
 #endif
     for (int i = 0; i < 10 && !makeCurrent(); ++i) {
         FXSingleEventThread::sleep(100);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:32 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Thu Feb 18 13:52:05 2016 by SUMO netconvert Version dev-SVN-r20012
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,14 +28,10 @@
 
 <tlLogics version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGgGGgGGGggggr"/>
-        <phase duration="6" state="yyyyygyyyggggr"/>
-        <phase duration="6" state="rrrrrGrrrGGGGr"/>
-        <phase duration="6" state="rrrrryrrryyyyr"/>
-        <phase duration="27" state="GGgGGgGGGrrrrg"/>
-        <phase duration="6" state="yyyyygyyyrrrrg"/>
-        <phase duration="6" state="rrrrrGrrrrrrrG"/>
-        <phase duration="6" state="rrrrryrrrrrrry"/>
+        <phase duration="72" state="GGgGGgGGGgggg"/>
+        <phase duration="6" state="yyyyygyyygggg"/>
+        <phase duration="6" state="rrrrrGrrrGGGG"/>
+        <phase duration="6" state="rrrrryrrryyyy"/>
     </tlLogic>
 
     <connection from="EC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="6"/>
@@ -51,5 +47,4 @@
     <connection from="NC" to="CE" fromLane="2" toLane="1" tl="C" linkIndex="3"/>
     <connection from="NC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="4"/>
     <connection from="NC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="5"/>
-    <connection from="WC" to="CW" fromLane="2" toLane="2" tl="C" linkIndex="13"/>
 </tlLogics>

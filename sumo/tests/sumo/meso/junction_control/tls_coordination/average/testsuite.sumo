@@ -1,0 +1,14 @@
+# deadlock in roundabout
+no_control
+
+# problem at traffic light
+control
+
+# smooth flow
+control.limited
+
+# smooth flow with penalty
+control.limited_tlsPenalty
+
+# smooth flow with penalty
+control.limited_tlsPenalty_scaled

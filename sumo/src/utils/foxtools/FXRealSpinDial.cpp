@@ -459,10 +459,10 @@ FXIMPLEMENT(FXRealSpinDial, FXPacker, FXRealSpinDialMap, ARRAYNUMBER(FXRealSpinD
 // Construct spinner out of two buttons and a text field
 FXRealSpinDial::FXRealSpinDial() {
     flags = (flags | FLAG_ENABLED | FLAG_SHOWN)&~FLAG_UPDATE;
-    textField = (FXRealSpinDialText*) - 1L;
-    dial = (FXDial*) - 1L;
-    upButton = (FXRealSpinDialBtn*) - 1L;
-    downButton = (FXRealSpinDialBtn*) - 1L;
+    textField = 0;
+    dial = 0;
+    upButton = 0;
+    downButton = 0;
     range[0] = -DBL_MAX;
     range[1] = DBL_MAX;
     incr[0] = 0.1;
@@ -1255,10 +1255,10 @@ void FXRealSpinDial::load(FXStream& store) {
 
 // Destruct spinner:- trash it!
 FXRealSpinDial::~FXRealSpinDial() {
-    textField = (FXRealSpinDialText*) - 1L;
-    dial = (FXDial*) - 1L;
-    upButton = (FXRealSpinDialBtn*) - 1L;
-    downButton = (FXRealSpinDialBtn*) - 1L;
+    textField = 0;
+    dial = 0;
+    upButton = 0;
+    downButton = 0;
 }
 
 }

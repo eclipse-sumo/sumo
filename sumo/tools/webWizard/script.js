@@ -293,6 +293,7 @@ on("ready", function(){
     var socket;
     var totalSteps;
     var currentStep;
+    var presentedErrorLog = false;
 
     /**
      * @function
@@ -303,15 +304,21 @@ on("ready", function(){
         // when accessing via file, location.hostname is an empty string, so guess that the server is on localhost
         if(!address)
             address = "localhost";
-
         try {
             socket = new WebSocket("ws://" + address + ":" + PORT);
         } catch(e){
             // connection failed, wait five seconds, then try again
-            setTimeout(connectSocket, 5000);
+	    setTimeout(connectSocket, 5000);
             return;
         }
 
+	socket.onerror = function(error) {
+	    if (presentedErrorLog == false) {
+		window.alert("Socket connection failed. Please open the OSM WebWizard by using osmWebWizard.py or the link in your start menu.");
+		presentedErrorLog = true;
+	    }
+	};
+	
         // whenever the socket closes (e.g. restart) try to reconnect
         socket.addEventListener("close", connectSocket);
         socket.addEventListener("message", function(evt){

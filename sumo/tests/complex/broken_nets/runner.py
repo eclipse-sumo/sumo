@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 
 import os
@@ -200,7 +202,7 @@ def tinyPath(xmlStruct, path, newValue):
         elif newValue == "<duplicate>":
             item.parentNode.insertBefore(item.cloneNode(True), item)
         else:
-            print >> sys.stderr, "Unsupported modification defined"
+            print("Unsupported modification defined", file=sys.stderr)
 
 if sys.argv[1] == "sumo":
     call = [checkBinary('sumo'), "--no-step-log", "--no-duration-log"]
@@ -214,36 +216,36 @@ elif sys.argv[1] == "jtrrouter":
     call = [checkBinary('jtrrouter'), "--no-step-log",
             "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 else:
-    print >> sys.stderr, "Unsupported application defined"
+    print("Unsupported application defined", file=sys.stderr)
 call += sys.argv[2:]
 
 netconvertBinary = checkBinary('netconvert')
 
 # build the correct network, first
-print ">>> Building the correct network"
+print(">>> Building the correct network")
 retcode = subprocess.call(
     [netconvertBinary, "-c", "netconvert.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
-print ">>> Trying the correct network"
+print(">>> Trying the correct network")
 retcode = subprocess.call(
     call + ["-n", "correct.net.xml"], stdout=sys.stdout, stderr=sys.stderr)
 if retcode != 0:
-    print "Error on processing the 'correct' network!"
+    print("Error on processing the 'correct' network!")
     sys.exit()
-print ">>> ok...\n"
+print(">>> ok...\n")
 
 # check broken network processing
-print "Running broken net"
+print("Running broken net")
 for c in changes:
     tree = dom.parse("correct.net.xml")
     tinyPath(tree, c[0], c[1])
     writer = open('mod.net.xml', 'w')
     tree.writexml(writer)
     writer.close()
-    print >> sys.stderr, "------------------ " + c[0] + ":" + c[1]
+    print("------------------ " + c[0] + ":" + c[1], file=sys.stderr)
     sys.stderr.flush()
     retcode = subprocess.call(
         call + ["-n", "mod.net.xml"], stdout=sys.stdout, stderr=sys.stderr)
     sys.stderr.flush()
     sys.stdout.flush()
     if retcode != 1:
-        print >> sys.stderr, " Wrong error code returned (%s)!" % retcode
+        print(" Wrong error code returned (%s)!" % retcode, file=sys.stderr)

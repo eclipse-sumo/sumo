@@ -91,7 +91,7 @@ Boundary
 GUIPolygon::getCenteringBoundary() const {
     Boundary b;
     b.add(myShape.getBoxBoundary());
-    b.grow(10);
+    b.grow(2);
     return b;
 }
 

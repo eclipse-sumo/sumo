@@ -80,7 +80,7 @@ def fcd2ns2mobility(inpFCD, outSTRM, further):
 
 
 def writeNS2activity(outSTRM, vehInfo):
-    for v in vehInfo:
+    for v in sorted(vehInfo):
         i = vehInfo[v]
         print('$ns_ at %s "$g(%s) start"; # SUMO-ID: %s' %
               (i[1], i[0], v), file=outSTRM)

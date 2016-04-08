@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar  1 14:42:41 2016 by SUMO Version dev-SVN-r20113
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.sumo"/>
+        <fcd-output.signals value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="60"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <random_number>
+        <seed value="23"/>
+    </random_number>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00"/>
+    <timestep time="1.00">
+        <vehicle id="veh0" x="5.10" y="-1.65" angle="90.00" type="Dawdler" speed="13.90" pos="5.10" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="veh0" x="18.74" y="-1.65" angle="90.00" type="Dawdler" speed="13.64" pos="18.74" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="5.10" y="-1.65" angle="90.00" type="Follower" speed="12.57" pos="5.10" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="veh0" x="32.31" y="-1.65" angle="90.00" type="Dawdler" speed="13.57" pos="32.31" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="17.67" y="-1.65" angle="90.00" type="Follower" speed="12.57" pos="17.67" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="veh0" x="46.11" y="-1.65" angle="90.00" type="Dawdler" speed="13.81" pos="46.11" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="30.32" y="-1.65" angle="90.00" type="Follower" speed="12.65" pos="30.32" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="veh0" x="59.62" y="-1.65" angle="90.00" type="Dawdler" speed="13.51" pos="59.62" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="43.34" y="-1.65" angle="90.00" type="Follower" speed="13.02" pos="43.34" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="veh0" x="73.24" y="-1.65" angle="90.00" type="Dawdler" speed="13.61" pos="73.24" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="56.17" y="-1.65" angle="90.00" type="Follower" speed="12.83" pos="56.17" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="veh0" x="86.92" y="-1.65" angle="90.00" type="Dawdler" speed="13.68" pos="86.92" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="69.21" y="-1.65" angle="90.00" type="Follower" speed="13.03" pos="69.21" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="veh0" x="100.72" y="-1.65" angle="90.00" type="Dawdler" speed="13.81" pos="100.72" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="82.39" y="-1.65" angle="90.00" type="Follower" speed="13.18" pos="82.39" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="veh0" x="114.57" y="-1.65" angle="90.00" type="Dawdler" speed="13.85" pos="114.57" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="95.77" y="-1.65" angle="90.00" type="Follower" speed="13.38" pos="95.77" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="veh0" x="128.36" y="-1.65" angle="90.00" type="Dawdler" speed="13.79" pos="128.36" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="109.26" y="-1.65" angle="90.00" type="Follower" speed="13.49" pos="109.26" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="veh0" x="141.85" y="-1.65" angle="90.00" type="Dawdler" speed="13.48" pos="141.85" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="122.74" y="-1.65" angle="90.00" type="Follower" speed="13.48" pos="122.74" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="veh0" x="155.53" y="-1.65" angle="90.00" type="Dawdler" speed="13.69" pos="155.53" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="135.95" y="-1.65" angle="90.00" type="Follower" speed="13.22" pos="135.95" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="veh0" x="169.06" y="-1.65" angle="90.00" type="Dawdler" speed="13.52" pos="169.06" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="149.41" y="-1.65" angle="90.00" type="Follower" speed="13.46" pos="149.41" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="veh0" x="182.46" y="-1.65" angle="90.00" type="Dawdler" speed="13.40" pos="182.46" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="162.74" y="-1.65" angle="90.00" type="Follower" speed="13.33" pos="162.74" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="veh0" x="196.36" y="-1.65" angle="90.00" type="Dawdler" speed="13.90" pos="196.36" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="175.97" y="-1.65" angle="90.00" type="Follower" speed="13.23" pos="175.97" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="veh0" x="209.77" y="-1.65" angle="90.00" type="Dawdler" speed="13.41" pos="209.77" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="189.72" y="-1.65" angle="90.00" type="Follower" speed="13.76" pos="189.72" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="veh0" x="223.46" y="-1.65" angle="90.00" type="Dawdler" speed="13.69" pos="223.46" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="203.01" y="-1.65" angle="90.00" type="Follower" speed="13.29" pos="203.01" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="veh0" x="237.02" y="-1.65" angle="90.00" type="Dawdler" speed="13.56" pos="237.02" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="216.60" y="-1.65" angle="90.00" type="Follower" speed="13.58" pos="216.60" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="veh0" x="250.54" y="-1.65" angle="90.00" type="Dawdler" speed="13.52" pos="250.54" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="230.06" y="-1.65" angle="90.00" type="Follower" speed="13.47" pos="230.06" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="veh0" x="264.15" y="-1.65" angle="90.00" type="Dawdler" speed="13.61" pos="264.15" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="243.51" y="-1.65" angle="90.00" type="Follower" speed="13.45" pos="243.51" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="veh0" x="277.86" y="-1.65" angle="90.00" type="Dawdler" speed="13.70" pos="277.86" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="257.05" y="-1.65" angle="90.00" type="Follower" speed="13.54" pos="257.05" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="veh0" x="291.52" y="-1.65" angle="90.00" type="Dawdler" speed="13.66" pos="291.52" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="270.70" y="-1.65" angle="90.00" type="Follower" speed="13.65" pos="270.70" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="veh0" x="305.22" y="-1.65" angle="90.00" type="Dawdler" speed="13.70" pos="305.22" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="284.31" y="-1.65" angle="90.00" type="Follower" speed="13.61" pos="284.31" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="veh0" x="318.79" y="-1.65" angle="90.00" type="Dawdler" speed="13.57" pos="318.79" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="297.97" y="-1.65" angle="90.00" type="Follower" speed="13.66" pos="297.97" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="veh0" x="332.31" y="-1.65" angle="90.00" type="Dawdler" speed="13.52" pos="332.31" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="311.50" y="-1.65" angle="90.00" type="Follower" speed="13.53" pos="311.50" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="veh0" x="345.79" y="-1.65" angle="90.00" type="Dawdler" speed="13.48" pos="345.79" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="324.99" y="-1.65" angle="90.00" type="Follower" speed="13.49" pos="324.99" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="veh0" x="359.61" y="-1.65" angle="90.00" type="Dawdler" speed="13.81" pos="359.61" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="338.45" y="-1.65" angle="90.00" type="Follower" speed="13.46" pos="338.45" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="veh0" x="373.40" y="-1.65" angle="90.00" type="Dawdler" speed="13.79" pos="373.40" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="352.24" y="-1.65" angle="90.00" type="Follower" speed="13.79" pos="352.24" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="veh0" x="386.86" y="-1.65" angle="90.00" type="Dawdler" speed="13.46" pos="386.86" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="366.02" y="-1.65" angle="90.00" type="Follower" speed="13.77" pos="366.02" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="veh0" x="400.55" y="-1.65" angle="90.00" type="Dawdler" speed="13.68" pos="400.55" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="379.46" y="-1.65" angle="90.00" type="Follower" speed="13.45" pos="379.46" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="veh0" x="414.01" y="-1.65" angle="90.00" type="Dawdler" speed="13.46" pos="414.01" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="393.13" y="-1.65" angle="90.00" type="Follower" speed="13.67" pos="393.13" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="veh0" x="427.67" y="-1.65" angle="90.00" type="Dawdler" speed="13.66" pos="427.67" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="406.58" y="-1.65" angle="90.00" type="Follower" speed="13.45" pos="406.58" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="veh0" x="441.42" y="-1.65" angle="90.00" type="Dawdler" speed="13.75" pos="441.42" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="420.24" y="-1.65" angle="90.00" type="Follower" speed="13.65" pos="420.24" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="veh0" x="454.94" y="-1.65" angle="90.00" type="Dawdler" speed="13.52" pos="454.94" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="433.98" y="-1.65" angle="90.00" type="Follower" speed="13.74" pos="433.98" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="veh0" x="468.83" y="-1.65" angle="90.00" type="Dawdler" speed="13.89" pos="468.83" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="447.48" y="-1.65" angle="90.00" type="Follower" speed="13.51" pos="447.48" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="veh0" x="482.40" y="-1.65" angle="90.00" type="Dawdler" speed="13.56" pos="482.40" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="461.37" y="-1.65" angle="90.00" type="Follower" speed="13.89" pos="461.37" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="veh0" x="496.06" y="-1.65" angle="90.00" type="Dawdler" speed="13.66" pos="496.06" lane="1to2_0" slope="0.00" signals="0"/>
+        <vehicle id="veh1" x="474.93" y="-1.65" angle="90.00" type="Follower" speed="13.56" pos="474.93" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="veh1" x="488.59" y="-1.65" angle="90.00" type="Follower" speed="13.66" pos="488.59" lane="1to2_0" slope="0.00" signals="0"/>
+    </timestep>
+    <timestep time="39.00"/>
+    <timestep time="40.00"/>
+    <timestep time="41.00"/>
+    <timestep time="42.00"/>
+    <timestep time="43.00"/>
+    <timestep time="44.00"/>
+    <timestep time="45.00"/>
+    <timestep time="46.00"/>
+    <timestep time="47.00"/>
+    <timestep time="48.00"/>
+    <timestep time="49.00"/>
+    <timestep time="50.00"/>
+    <timestep time="51.00"/>
+    <timestep time="52.00"/>
+    <timestep time="53.00"/>
+    <timestep time="54.00"/>
+    <timestep time="55.00"/>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+</fcd-export>

@@ -13,3 +13,6 @@ errors
 
 # testing cooperative speed adjustments
 speed_assistance
+
+# behavior when approaching a lane that is targeted twice from the same edge
+double_connection

@@ -11,13 +11,9 @@ AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
 
 AC_LANG([C++])
 
-dnl the debug check has to be made before the program checks
-dnl because it modifies CXXFLAGS
-if test x$CXX = xclang++; then
-    CXXFLAGS="-msse2 $CXXFLAGS"
-else
-    CXXFLAGS="-msse2 -mfpmath=sse $CXXFLAGS"
-fi
+dnl the debug check has to be made before the program checks because it modifies
+dnl CXXFLAGS.
+
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])])
 if test x$enable_debug = xyes; then
     AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
@@ -90,19 +86,6 @@ AC_DEFINE([NUMERICAL_EPS], [(SUMOReal)0.001], [defines the epsilon to use on gen
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 AC_DEFINE([GEO_OUTPUT_ACCURACY], [6], [defines the number of digits after the comma in geo-coordinates output])
 
-AM_CONDITIONAL(INTERNAL, test -d $srcdir/src/mesosim)
-m4_syscmd([test -d src/mesosim])
-m4_if(m4_sysval,[0],[
-    AC_DEFINE([HAVE_INTERNAL], [1], [Define to enable internal code.])
-    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/osgview/Makefile])
-    INTERNAL_DIRS="mesosim"
-    AC_SUBST([INTERNAL_DIRS])
-    GUI_INTERNAL_DIRS="mesogui osgview"
-    AC_SUBST([GUI_INTERNAL_DIRS])
-    ac_enabled="$ac_enabled Internal"
-    program_transform_name="s,\$\$,Int,; s,sumoInt,meso,; s,sumo-guiInt,meso-gui,; $program_transform_name"
-])
-
 AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
 AM_CONDITIONAL(TRACI, test x$enable_traci != xno)
 if test x$enable_traci != xno; then
@@ -124,6 +107,14 @@ dnl Platform specific stuff
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 
 case "$host" in
+   x86-*-linux* | ia64-*-linux* | i586-*-linux* | i686-*-linux* | x86_64-*-linux*)
+dnl Make sure we are on architecture that supports SIMD
+   if test x$CXX = xclang++; then
+       CXXFLAGS="-msse2 $CXXFLAGS"
+   else
+       CXXFLAGS="-msse2 -mfpmath=sse $CXXFLAGS"
+   fi
+   ;;
    *-cygwin*)
    AC_DEFINE([HAVE_CYGWIN], [1], [Define if compiling under cygwin])
    AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined (cygwin)])
@@ -381,36 +372,58 @@ if test x"$with_python" != xno; then
     AC_CHECK_HEADER([Python.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
                     [AC_MSG_ERROR([Python.h not found. Please install the devel package.])])
     CPPFLAGS=$save_cppflags
-fi
-AM_CONDITIONAL([WITH_PYTHON], [test x"$with_python" != xno])
-if test x"$with_python" != xno; then
     AC_DEFINE([HAVE_PYTHON], [1], [defined if python is available])
     ac_enabled="$ac_enabled Python"
 else
     ac_disabled="$ac_disabled Python"
 fi
 
-if test -d src/osgview; then
-    AC_CHECK_HEADER([osg/Config], 
-                    [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
-                     OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads -losgText" AC_SUBST(OSG_LIBS)
-                     ac_enabled="$ac_enabled OSG"],
-                    [ac_disabled="$ac_disabled OSG"])
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for OpenSceneGraph
+AC_ARG_WITH([osg], [AS_HELP_STRING([--with-osg],[enable OpenSceneGraph rendering.])])
+if test x"$with_osg" == x; then
+    with_osg=no
+fi
+if test x"$with_osg" != xno; then
+    AC_CHECK_HEADER([osg/Config],
+                    [OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads -losgText" AC_SUBST(OSG_LIBS)],
+                    [AC_MSG_ERROR([osg/Config not found. Please install the devel package.])])
+    AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
+    ac_enabled="$ac_enabled OSG"
+else
+    ac_disabled="$ac_disabled OSG"
 fi
 
-save_cppflags=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
-export CPPFLAGS
-AC_CHECK_HEADER([libavformat/version.h], 
-                [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
-                 AC_DEFINE([HAVE_FFMPEG], [1], [defined if ffmpeg is available])
-                 FFMPEG_LIBS="-lavformat -lavcodec -lavutil -lswscale" AC_SUBST(FFMPEG_LIBS)
-                 ac_enabled="$ac_enabled ffmpeg"],
-                [ac_disabled="$ac_disabled ffmpeg"])
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for ffmpeg
+AC_ARG_WITH([ffmpeg], [AS_HELP_STRING([--with-ffmpeg],[enable ffmpeg-based features.])])
+if test x$with_ffmpeg != xno; then
+  save_cppflags=$CPPFLAGS
+  CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
+  export CPPFLAGS
+  AC_CHECK_HEADER([libavformat/version.h], 
+                  [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
+                   AC_DEFINE([HAVE_FFMPEG], [1], [defined if ffmpeg is available])
+                   FFMPEG_LIBS="-lavformat -lavcodec -lavutil -lswscale" AC_SUBST(FFMPEG_LIBS)
+                   ac_enabled="$ac_enabled ffmpeg"
+                   found_ffmpeg=yes],
+                  [ac_disabled="$ac_disabled ffmpeg"
+                   found_ffmpeg=no])
+  if test x$with_ffmpeg = xyes && test x$found_ffmpeg = xno; then 
+    AC_MSG_ERROR([ffmpeg libraries (libavcodec, libavformat, libavutil, libswscale) not found.])
+  fi
+                
+  CPPFLAGS=$save_cppflags
+else
+  ac_disabled="$ac_disabled ffmpeg"
+fi
 
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  general flags
 AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
+AC_DEFINE_UNQUOTED([HAVE_ENABLED], ["$host$ac_enabled"], [Reporting string for enabled options])
 
 
 dnl ---------------------------------------------
@@ -431,7 +444,6 @@ AC_C_VOLATILE
 
 dnl Checks for library functions.
 AC_FUNC_ERROR_AT_LINE
-AC_FUNC_MALLOC
 AC_FUNC_SELECT_ARGTYPES
 AC_TYPE_SIGNAL
 AC_FUNC_STAT
@@ -450,6 +462,8 @@ src/foreign/eulerspiral/Makefile
 src/foreign/gl2ps/Makefile
 src/foreign/mersenne/Makefile
 src/foreign/nvwa/Makefile
+src/foreign/PHEMlight/Makefile
+src/foreign/PHEMlight/cpp/Makefile
 src/foreign/polyfonts/Makefile
 src/foreign/rtree/Makefile
 src/foreign/tcpip/Makefile
@@ -470,6 +484,9 @@ src/microsim/trigger/Makefile
 src/marouter/Makefile
 src/netbuild/Makefile
 src/netedit/Makefile
+src/mesogui/Makefile 
+src/mesosim/Makefile 
+src/osgview/Makefile
 src/netgen/Makefile
 src/netimport/Makefile
 src/netimport/vissim/Makefile

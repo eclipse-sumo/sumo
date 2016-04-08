@@ -55,7 +55,7 @@ class OptionsLoader : public XERCES_CPP_NAMESPACE::HandlerBase {
 public:
     /** @brief Constructor
      */
-    OptionsLoader();
+    OptionsLoader(const bool routeOnly=false);
 
 
     /** destructor */
@@ -124,6 +124,11 @@ public:
     /** @brief Returns the information whether an error occured */
     bool errorOccured() const;
 
+    /** @brief Returns the last item read */
+    const std::string& getItem() const {
+        return myItem;
+    }
+
 
 private:
     /** @brief Tries to set the named option to the given value
@@ -159,6 +164,9 @@ private:
 
 
 private:
+    /// @brief The information whether only the root element should be parsed
+    bool myRootOnly;
+
     /// @brief The information whether an error occured
     bool myError;
 

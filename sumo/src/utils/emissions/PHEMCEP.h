@@ -103,7 +103,7 @@ public:
     /** @brief Returns the power of used for a vehicle at state v,a, slope and loading
          * @param[in] v The vehicle's average velocity
          * @param[in] a The vehicle's average acceleration
-         * @param[in] slope The road's slope at vehicle's position [°]
+         * @param[in] slope The road's slope at vehicle's position [deg]
     	 * @param{in] vehicleCep vehicles CEP data
          * @param{in] loading vehicle loading [kg]
          * @return The power demand for desired state [kW]
@@ -114,7 +114,7 @@ public:
     /**	 @brief Returns the maximum accelaration for a vehicle at state v,a, slope and loading
          * @param[in] v The vehicle's average velocity
          * @param[in] a The vehicle's average acceleration
-         * @param[in] slope The road's slope at vehicle's position [°]
+         * @param[in] slope The road's slope at vehicle's position [deg]
     	 * @param{in] vehicleCep vehicles CEP data
          * @param{in] loading vehicle loading [kg]
          * @return The maximum accelaration for desired state [kW]
@@ -227,7 +227,7 @@ public:
     /** @brief Getter function to recieve vehicle data from CEP
      * @return fuel type of vehicle
      */
-    std::string GetVehicleFuelType() const {
+    const std::string& GetVehicleFuelType() const {
         return _vehicleFuelType;
     }
 

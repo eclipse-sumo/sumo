@@ -632,7 +632,12 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     }
     if (c.tlID != "" && !bothLeft) {
         assert(myTrafficLights.size() > 0);
-        return (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) || (*myTrafficLights.begin())->needsCont(fromE, toE, otherFromE, otherToE);
+        for (std::set<NBTrafficLightDefinition*>::const_iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
+            if ((*it)->needsCont(fromE, toE, otherFromE, otherToE)) {
+                return true;
+            }
+        }
+        return false;
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
         return mustBrake(fromE, toE, c.fromLane, c.toLane, false);
@@ -652,7 +657,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         removeTrafficLights();
         for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
             (*i)->setParticipantsInformation();
-            (*i)->setTLControllingInformation(ec);
+            (*i)->setTLControllingInformation();
         }
         return;
     }
@@ -751,7 +756,7 @@ NBNode::computeLanes2Lanes() {
                 && in != out
                 && in->isConnectedTo(out)) {
             for (int i = inOffset; i < (int) in->getNumLanes(); ++i) {
-                in->setConnection(i, out, i + 1, NBEdge::L2L_COMPUTED);
+                in->setConnection(i, out, i - inOffset + outOffset + 1, NBEdge::L2L_COMPUTED);
             }
             in->setConnection(inOffset, out, outOffset, NBEdge::L2L_COMPUTED);
             return;
@@ -837,6 +842,29 @@ NBNode::computeLanes2Lanes() {
             return;
         }
     }
+    // special case f):
+    //  one in, one out, same number of lanes
+    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1) {
+        NBEdge* in = myIncomingEdges[0];
+        NBEdge* out = myOutgoingEdges[0];
+        // check if it's not the turnaround
+        if (in->getTurnDestination() == out) {
+            // will be added later or not...
+            return;
+        }
+        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        if (in->getStep() <= NBEdge::LANES2EDGES
+                && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset
+                && in != out
+                && in->isConnectedTo(out)) {
+            for (int i = inOffset; i < (int) in->getNumLanes(); ++i) {
+                in->setConnection(i, out, i - inOffset + outOffset, NBEdge::L2L_COMPUTED);
+            }
+            //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
+            return;
+        }
+    }
 
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
@@ -857,7 +885,7 @@ NBNode::computeLanes2Lanes() {
         // ensure that all modes have a connection if possible
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             NBEdge* incoming = *i;
-            if (incoming->getConnectionLanes(currentOutgoing).size() > 0) {
+            if (incoming->getConnectionLanes(currentOutgoing).size() > 0 && incoming->getStep() <= NBEdge::LANES2LANES_DONE) {
                 // no connections are needed for pedestrians during this step
                 // no satisfaction is possible if the outgoing edge disallows
                 SVCPermissions unsatisfied = incoming->getPermissions() & currentOutgoing->getPermissions() & ~SVC_PEDESTRIAN;
@@ -1202,6 +1230,10 @@ NBNode::removeEdge(NBEdge* edge, bool removeFromConnections) {
             for (i = myAllEdges.begin(); i != myAllEdges.end(); ++i) {
                 (*i)->removeFromConnections(edge);
             }
+        }
+        // invalidate controlled connections for loaded traffic light plans
+        for (std::set<NBTrafficLightDefinition*>::iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {
+            (*i)->replaceRemoved(edge, -1, 0, -1);
         }
     }
 }

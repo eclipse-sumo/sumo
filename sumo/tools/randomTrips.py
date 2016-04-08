@@ -272,7 +272,7 @@ def main(options):
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
         options.intermediate = int(
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
-        print("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of %s in a network with diameter %s." % (
+        print("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of %s in a network with diameter %.2f." % (
             options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     trip_generator = buildTripGenerator(net, options)
@@ -309,13 +309,8 @@ def main(options):
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
-        fouttrips.write("""<?xml version="1.0"?>
-<!-- generated on %s by $Id$
-  options: %s
--->
-<trips>
-""" % (datetime.datetime.now(),
-            (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
+        sumolib.writeXMLHeader(fouttrips, "$Id$")
+        fouttrips.write("<trips>\n")
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s" />\n' %
                             (options.vehicle_class, options.vehicle_class))

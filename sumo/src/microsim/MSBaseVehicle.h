@@ -209,6 +209,12 @@ public:
     }
 
 
+    /** @brief Returns this vehicle's real departure position
+     * @return This vehicle's real departure position
+     */
+    inline SUMOReal getDepartPos() const {
+        return myDepartPos;
+    }
 
     /** @brief Returns this vehicle's desired arrivalPos for its current route
      * (may change on reroute)
@@ -378,21 +384,24 @@ protected:
     /// @brief The real departure time
     SUMOTime myDeparture;
 
-    /// the position on the destination lane where the vehicle stops
+    /// @brief The real depart position
+    SUMOReal myDepartPos;
+
+    /// @brief The position on the destination lane where the vehicle stops
     SUMOReal myArrivalPos;
 
-    /// the position on the destination lane where the vehicle stops
+    /// @brief The destination lane where the vehicle stops
     int myArrivalLane;
 
     /// @brief The number of reroutings
     unsigned int myNumberReroutes;
 
-private:
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1
      */
     static const SUMOTime NOT_YET_DEPARTED;
 
+private:
     /// invalidated assignment operator
     MSBaseVehicle& operator=(const MSBaseVehicle& s);
 

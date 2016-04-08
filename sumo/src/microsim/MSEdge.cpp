@@ -51,11 +51,9 @@
 #include "MSEdgeWeightsStorage.h"
 #include <microsim/devices/MSDevice_Routing.h>
 
-#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MEVehicle.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -118,11 +116,6 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     if (myFunction == EDGEFUNCTION_DISTRICT) {
         myCombinedPermissions = SVCAll;
     }
-#ifdef HAVE_INTERNAL
-    if (MSGlobals::gUseMesoSim && !lanes->empty()) {
-        MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
-    }
-#endif
 }
 
 
@@ -168,6 +161,10 @@ MSEdge::closeBuilding() {
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
     rebuildAllowedLanes();
+    // segment building depends on the finished list of successors (for multi-queue)
+    if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
+        MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
+    }
 }
 
 
@@ -424,7 +421,6 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
             }
         }
     }
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         SUMOReal pos = 0.0;
         switch (pars.departPosProcedure) {
@@ -468,9 +464,6 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
         }
         return result;
     }
-#else
-    UNUSED_PARAMETER(time);
-#endif
     if (checkOnly) {
         switch (v.getParameter().departLaneProcedure) {
             case DEPART_LANE_GIVEN:
@@ -524,7 +517,7 @@ MSEdge::changeLanes(SUMOTime t) {
 
 #ifdef HAVE_INTERNAL_LANES
 const MSEdge*
-MSEdge::getInternalFollowingEdge(MSEdge* followerAfterInternal) const {
+MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
     //@todo to be optimized
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
         MSLane* l = *i;
@@ -546,31 +539,37 @@ MSEdge::getInternalFollowingEdge(MSEdge* followerAfterInternal) const {
 
 
 SUMOReal
+MSEdge::getMesoMeanSpeed() const {
+    SUMOReal v = 0;
+    SUMOReal no = 0;
+    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
+        SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
+        v += vehNo * segment->getMeanSpeed();
+        no += vehNo;
+    }
+    if (no == 0) {
+        return getSpeedLimit();
+    }
+    return v / no;
+}
+
+
+
+SUMOReal
 MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
     assert(minSpeed > 0);
     if (!myAmDelayed) {
         return myEmptyTraveltime;
     }
     SUMOReal v = 0;
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
-        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-        unsigned segments = 0;
-        do {
-            v += first->getMeanSpeed();
-            first = first->getNextSegment();
-            segments++;
-        } while (first != 0);
-        v /= (SUMOReal) segments;
+        v = getMesoMeanSpeed();
     } else {
-#endif
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             v += (*i)->getMeanSpeed();
         }
         v /= (SUMOReal) myLanes->size();
-#ifdef HAVE_INTERNAL
     }
-#endif
     return getLength() / MAX2(minSpeed, v);
 }
 
@@ -683,6 +682,17 @@ MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
     // @note lanes might have different maximum speeds in theory
     return getLanes()[0]->getVehicleMaxSpeed(veh);
 }
+
+
+void
+MSEdge::setMaxSpeed(SUMOReal val) const {
+    if (myLanes != 0) {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            (*i)->setMaxSpeed(val);
+        }
+    }
+}
+
 
 
 std::vector<MSTransportable*>

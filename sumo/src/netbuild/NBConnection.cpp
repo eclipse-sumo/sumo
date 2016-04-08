@@ -109,7 +109,11 @@ bool
 NBConnection::replaceFrom(NBEdge* which, NBEdge* by) {
     if (myFrom == which) {
         myFrom = by;
-        myFromID = myFrom->getID();
+        if (myFrom != 0) {
+            myFromID = myFrom->getID();
+        } else {
+            myFromID = "invalidFrom";
+        }
         return true;
     }
     return false;
@@ -121,7 +125,11 @@ NBConnection::replaceFrom(NBEdge* which, int whichLane,
                           NBEdge* by, int byLane) {
     if (myFrom == which && (myFromLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myFrom = by;
-        myFromID = myFrom->getID();
+        if (myFrom != 0) {
+            myFromID = myFrom->getID();
+        } else {
+            myFromID = "invalidFrom";
+        }
         myFromLane = byLane;
         return true;
     }
@@ -133,7 +141,11 @@ bool
 NBConnection::replaceTo(NBEdge* which, NBEdge* by) {
     if (myTo == which) {
         myTo = by;
-        myToID = myTo->getID();
+        if (myTo != 0) {
+            myToID = myTo->getID();
+        } else {
+            myToID = "invalidTo";
+        }
         return true;
     }
     return false;
@@ -145,7 +157,11 @@ NBConnection::replaceTo(NBEdge* which, int whichLane,
                         NBEdge* by, int byLane) {
     if (myTo == which && (myToLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myTo = by;
-        myToID = myTo->getID();
+        if (myTo != 0) {
+            myToID = myTo->getID();
+        } else {
+            myToID = "invalidTo";
+        }
         myToLane = byLane;
         return true;
     }
@@ -237,6 +253,21 @@ NBConnection::shiftLaneIndex(NBEdge* edge, int offset) {
         myToLane += offset;
     }
 }
+
+
+std::ostream&
+operator<<(std::ostream& os, const NBConnection& c) {
+    os 
+        << "Con(from=" << Named::getIDSecure(c.getFrom())
+        << " fromLane=" << c.getFromLane()
+        << " to=" << Named::getIDSecure(c.getTo())
+        << " toLane=" << c.getToLane()
+        << " tlIndex=" << c.getTLIndex()
+        << ")";
+    return os;
+}
+
+
 
 /****************************************************************************/
 

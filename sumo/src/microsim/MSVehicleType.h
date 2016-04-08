@@ -449,7 +449,7 @@ private:
     /// @brief the running index
     const int myIndex;
 
-    /// @brief ID of the car following model.
+    /// @brief instance of the car following model.
     MSCFModel* myCarFollowModel;
 
     /// @brief The original type

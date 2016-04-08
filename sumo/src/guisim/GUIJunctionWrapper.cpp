@@ -121,7 +121,7 @@ GUIJunctionWrapper::getParameterWindow(GUIMainWindow& /*app*/,
 Boundary
 GUIJunctionWrapper::getCenteringBoundary() const {
     Boundary b = myBoundary;
-    b.grow(20);
+    b.grow(1);
     return b;
 }
 

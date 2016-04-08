@@ -89,6 +89,7 @@ Warning: Ambiguity in turnarounds computation at junction 'cluster_262469634_292
 Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0
 Warning: Found sharp turn with radius 7.15 at the end of edge '-194167259#1'.
 Warning: Found sharp turn with radius 3.54 at the start of edge '-195071823'.
+Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 7.08 at the start of edge '100113532'.
 Warning: Found sharp turn with radius 2.96 at the end of edge '107747047#2'.
 Warning: Found sharp turn with radius 1.05 at the start of edge '108218081'.
@@ -157,15 +158,12 @@ Warning: Found sharp turn with radius 7.07 at the start of edge '286414597'.
 Warning: Found angle of 142.73 degrees at edge '286653196#1', segment 2
 Warning: Found angle of 134.25 degrees at edge '286653196#2', segment 0
 Warning: Found angle of 109.30 degrees at edge '304517627#0', segment 0
-Warning: Found angle of 117.98 degrees at edge '304517627#0', segment 1
-Warning: Found sharp turn with radius 7.50 at the end of edge '304517627#0'.
 Warning: Found sharp turn with radius 3.82 at the start of edge '310184349#1'.
 Warning: Found sharp turn with radius 5.32 at the start of edge '310315479#1'.
 Warning: Found sharp turn with radius 5.47 at the start of edge '311677037'.
 Warning: Found sharp turn with radius 4.12 at the start of edge '312137064'.
 Warning: Found sharp turn with radius 3.24 at the start of edge '312532334#1'.
 Warning: Found sharp turn with radius 5.05 at the start of edge '312868182#1'.
-Warning: Found angle of 132.12 degrees at edge '31619760#0', segment 2
 Warning: Found sharp turn with radius 6.43 at the start of edge '316301061'.
 Warning: Found sharp turn with radius 3.62 at the end of edge '316301061'.
 Warning: Found sharp turn with radius 1.16 at the start of edge '321236118'.
@@ -178,6 +176,7 @@ Warning: Found sharp turn with radius 7.88 at the start of edge '48095234'.
 Warning: Found sharp turn with radius 3.94 at the start of edge '48524801#1'.
 Warning: Found sharp turn with radius 7.39 at the start of edge '48524801#2'.
 Warning: Found angle of 103.60 degrees at edge '51167561#2', segment 0
+Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
 Warning: Found sharp turn with radius 4.85 at the start of edge '54618192#1'.
 Warning: Found angle of 111.03 degrees at edge '54618192#1', segment 1
 Warning: Found sharp turn with radius 6.29 at the end of edge '54618192#1'.

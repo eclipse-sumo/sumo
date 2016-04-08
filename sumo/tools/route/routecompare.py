@@ -222,7 +222,7 @@ def hungarianDAG(U, V, similarityMatrix):
 def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
     maxSimilarity = 0
     for id1 in routeIDs1:
-        for value in similarityMatrix[id1].itervalues():
+        for value in similarityMatrix[id1].values():
             if value > maxSimilarity:
                 maxSimilarity = value
     U = []
@@ -283,7 +283,8 @@ if options.districts:
     parser.setContentHandler(DistrictReader(sources, sinks, edges))
     parser.parse(options.districts)
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
-        for routeID, route in routes.iteritems():
+        for routeID in routes:
+            route = routes[routeID]
             source = sources[route[0]]
             sink = sinks[route[-1]]
             if not source in routeMatrix:
@@ -294,17 +295,18 @@ if options.districts:
 else:
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
         routeMatrix["dummySource"] = {}
-        routeMatrix["dummySource"]["dummySink"] = list(routes.iterkeys())
+        routeMatrix["dummySource"]["dummySink"] = list(routes.keys())
 
 match = {}
 totalMatch = 0
 totalIdentical = 0
-for source in routeMatrix1.iterkeys():
+for source in sorted(routeMatrix1):
     if not source in routeMatrix2:
         if options.verbose:
             print("Warning! No routes starting at %s in second route set" % source)
         continue
-    for sink, routeIDs1 in routeMatrix1[source].iteritems():
+    for sink in sorted(routeMatrix1[source]):
+        routeIDs1 = routeMatrix1[source][sink]
         if not sink in routeMatrix2[source]:
             if options.verbose:
                 print("Warning! No routes starting at %s and ending at %s in second route set" % (source, sink))
@@ -334,6 +336,6 @@ for source in routeMatrix1.iterkeys():
         if options.verbose:
             print(source, sink, float(matchVal) / len(routeIDs1) / SCALE, float(identityVal) / len(routeIDs1))
 if options.printmatch:
-    for r2, r1 in match.iteritems():
+    for r2, r1 in sorted(match.items()):
         print(r1, r2)
 print(float(totalMatch) / len(routes1) / SCALE, float(totalIdentical) / len(routes1))

@@ -110,6 +110,8 @@ private:
      */
     static void writeLane(OutputDevice& of, const MSLane& lane);
 
+    /// @brief write transportable
+    static void writeTransportable(OutputDevice& of, const MSTransportable* p, SumoXMLTag tag);
 
 private:
     /// @brief Invalidated copy constructor.

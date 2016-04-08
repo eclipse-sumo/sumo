@@ -9,6 +9,10 @@ multiple_reroute
 # Vehicles which's route do not take them across the closed edges should not be affected.
 closing_and_dest_prob_and_specialDestinations
 
+# combine closing rerouter with dest_prob rerouter.
+# Vehicles that do not drive through the closed area should not be affected
+closing_and_dest_prob_unaffected
+
 # closing an edge with probability 0.5
 closing_with_prob
 
@@ -30,3 +34,9 @@ disallowed_while_on_internal
 # the route is terminated on an edge, which the vehicle already passed
 terminateRoute_on_jumped_edge
 terminateRoute_on_depart
+
+# reroute vehicles that are already on the rerouter edge when the reouter becomse active
+on_edge_when_activated
+
+# vehicles that are equipped with a routing device should use the corresponding edge weights instead of empty-network weights.
+use_routing_device

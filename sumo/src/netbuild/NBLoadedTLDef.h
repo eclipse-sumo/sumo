@@ -211,7 +211,7 @@ public:
      * @param[in] offset The offset of the plan
      * @param[in] type The algorithm type for the computed traffic light
      */
-    NBLoadedTLDef(const std::string& id,
+    NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id,
                   const std::vector<NBNode*>& junctions, SUMOTime offset,
                   TrafficLightType type);
 
@@ -222,7 +222,7 @@ public:
      * @param[in] offset The offset of the plan
      * @param[in] type The algorithm type for the computed traffic light
      */
-    NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
+    NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, NBNode* junction, SUMOTime offset,
                   TrafficLightType type);
 
 
@@ -231,7 +231,7 @@ public:
      * @param[in] offset The offset of the plan
      * @param[in] type The algorithm type for the computed traffic light
      */
-    NBLoadedTLDef(const std::string& id, SUMOTime offset,
+    NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, SUMOTime offset,
                   TrafficLightType type);
 
 
@@ -300,7 +300,7 @@ public:
      * @param[in] ec The container of edges
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont& ec) const;
+    void setTLControllingInformation() const;
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
@@ -311,6 +311,9 @@ public:
      */
     void remapRemoved(NBEdge* removed,
                       const EdgeVector& incoming, const EdgeVector& outgoing);
+
+    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
+    void initNeedsContRelation() const;
     /// @}
 
 
@@ -319,13 +322,11 @@ protected:
     /// @{
 
     /** @brief Computes the traffic light logic finally in dependence to the type
-     * @param[in] ec The edge container
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls in seconds
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                   unsigned int brakingTimeSeconds);
+    NBTrafficLightLogic* myCompute(unsigned int brakingTimeSeconds);
 
 
     /** @brief Collects the nodes participating in this traffic light
@@ -342,14 +343,12 @@ protected:
 
 
     /** @brief Returns the information whether a connection must brake, given a phase
-     * @param[in] ec The edge control to retrieve edges from
      * @param[in] possProhibited The connection to investigate
      * @param[in] state The state
      * @param[in] strmpos The index of this connection within the masks
      * @return Whether the given connection must brake
      */
-    bool mustBrake(const NBEdgeCont& ec,
-                   const NBConnection& possProhibited,
+    bool mustBrake(const NBConnection& possProhibited,
                    const std::string& state,
                    unsigned int strmpos) const;
 
@@ -371,7 +370,10 @@ private:
      * @param[in] time The time to build the phase for
      * @return The phase of this tls for the given time
      */
-    std::string buildPhaseState(const NBEdgeCont& ec, unsigned int time) const;
+    std::string buildPhaseState(unsigned int time) const;
+
+    // pointer to the NBEdgeCont for checking edges
+    const NBEdgeCont* myEdgeCont;
 
 
 private:

@@ -44,6 +44,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include "MSGlobals.h"
 #include "MSVehicleType.h"
 #include "MSBaseVehicle.h"
 #include "MSLink.h"
@@ -65,8 +66,7 @@ class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
-class MSDevice_Person;
-class MSDevice_Container;
+class MSDevice_Transportable;
 class MSContainer;
 class MSJunction;
 
@@ -119,6 +119,60 @@ public:
         /// the stored speed
         SUMOReal mySpeed;
 
+    };
+
+
+    /** @class WaitingTimeCollector
+     * @brief Stores the waiting intervals over the previous seconds (memory is to be specified in ms.).
+     */
+    class WaitingTimeCollector {
+        friend class MSVehicle;
+
+        typedef std::list<std::pair<SUMOTime, SUMOTime> > waitingIntervalList;
+
+    public:
+        /// Constructor.
+        WaitingTimeCollector(SUMOTime memory = MSGlobals::gWaitingTimeMemory);
+
+        /// Copy constructor.
+        WaitingTimeCollector(const WaitingTimeCollector& wt);
+
+        /// Assignment operator.
+        WaitingTimeCollector& operator=(const WaitingTimeCollector& wt);
+
+        /// Operator !=
+        bool operator!=(const WaitingTimeCollector& wt) const;
+
+        /// Assignment operator (in place!)
+        WaitingTimeCollector& operator=(SUMOTime t);
+
+        // return the waiting time within the last memory millisecs
+        SUMOTime cumulatedWaitingTime(SUMOTime memory=-1) const;
+
+        // process time passing for dt millisecs
+        void passTime(SUMOTime dt, bool waiting);
+
+        // maximal memory time stored
+        SUMOTime getMemorySize() const {
+           return myMemorySize;
+        }
+
+        // maximal memory time stored
+        const waitingIntervalList& getWaitingIntervals() const {
+           return myWaitingIntervals;
+        }
+
+    private:
+        /// the maximal memory to store
+        SUMOTime myMemorySize;
+
+        /// the stored waiting intervals within the last memory milliseconds
+        /// If the current (ongoing) waiting interval has begun at time t - dt (where t is the current time)
+        /// then waitingIntervalList[0]->first = 0., waitingIntervalList[0]->second = dt
+        waitingIntervalList myWaitingIntervals;
+
+        /// append an amount of dt millisecs to the stored waiting times
+        void appendWaitingTime(SUMOTime dt);
     };
 
 
@@ -361,6 +415,16 @@ public:
     }
 
 
+    /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s) within the last t millisecs
+     *
+     * @param[in] t specifies the length of the interval over which the cumulated waiting time is to be summed up (defaults to and must not exceed MSGlobals::gWaitingTimeMemory)
+     * @return The time the vehicle was standing within the last t millisecs
+     */
+    SUMOTime getAccumulatedWaitingTime(SUMOTime t = MSGlobals::gWaitingTimeMemory) const {
+        return myWaitingTimeCollector.cumulatedWaitingTime(t);
+    }
+
+
     /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
      *
      * The value is reset if the vehicle moves faster than 0.1m/s
@@ -372,12 +436,29 @@ public:
     }
 
 
+    /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s) within the last millisecs
+     *
+     * @return The time the vehicle was standing within the last t millisecs
+     */
+
+    SUMOReal getAccumulatedWaitingSeconds() const {
+        return STEPS2TIME(getAccumulatedWaitingTime());
+    }
+
+
     /** @brief Returns the vehicle's direction in degrees
      * @return The vehicle's current angle
      */
-    SUMOReal getAngle() const;
+    SUMOReal getAngle() const {
+        return myAngle;
+    }
     //@}
 
+    /// @brief compute the current vehicle angle
+    SUMOReal computeAngle() const;
+
+    /// @brief Set a custom vehicle angle in rad
+    void setAngle(SUMOReal angle);
 
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
@@ -462,6 +543,8 @@ public:
         MSLane* lane;
         /// @brief The overall length which may be driven when using this lane without a lane change
         SUMOReal length;
+        /// @brief The length which may be driven on this lane
+        SUMOReal currentLength;
         /// @brief The overall vehicle sum on consecutive lanes which can be passed without a lane change
         SUMOReal occupation;
         /// @brief As occupation, but without the first lane
@@ -713,9 +796,15 @@ public:
 
 
     /** @brief Returns fuel consumption of the current state
-     * @return The current fuel consumption
-     */
+    * @return The current fuel consumption
+    */
     SUMOReal getFuelConsumption() const;
+
+
+    /** @brief Returns electricity consumption of the current state
+    * @return The current electricity consumption
+    */
+    SUMOReal getElectricityConsumption() const;
 
 
     /** @brief Returns noise emissions of the current state
@@ -742,6 +831,11 @@ public:
      */
     void addContainer(MSTransportable* container);
 
+    /// @brief retrieve riding persons
+    const std::vector<MSTransportable*>& getPersons() const;
+
+    /// @brief retrieve riding containers
+    const std::vector<MSTransportable*>& getContainers() const;
 
     /** @brief Returns the number of persons
      * @return The number of passengers on-board
@@ -845,6 +939,10 @@ public:
         return (mySignals & which) != 0;
     }
     /// @}
+
+
+    /// @brief whether the vehicle may safely move to the given lane with regard to upcoming links
+    bool unsafeLinkAhead(const MSLane* lane) const;
 
 
 #ifndef NO_TRACI
@@ -1022,14 +1120,7 @@ public:
             return myOriginalSpeed;
         }
 
-        void setVTDControlled(bool c, MSLane* l, SUMOReal pos, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
-            myAmVTDControlled = c;
-            myVTDLane = l;
-            myVTDPos = pos;
-            myVTDEdgeOffset = edgeOffset;
-            myVTDRoute = route;
-            myLastVTDAccess = t;
-        }
+        void setVTDControlled(MSLane* l, SUMOReal pos, SUMOReal angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t); 
 
         SUMOTime getLastAccessTimeStep() const {
             return myLastVTDAccess;
@@ -1043,14 +1134,9 @@ public:
         /// @brief return the change in longitudinal position that is implicit in the new VTD position
         SUMOReal implicitDeltaPosVTD(const MSVehicle* veh);
 
-        inline bool isVTDControlled() const {
-            return myAmVTDControlled;
-        }
+        bool isVTDControlled() const;
 
-        inline bool isVTDAffected(SUMOTime t) const {
-            return myAmVTDControlled && myLastVTDAccess >= t - TIME2STEPS(10);
-        }
-
+        bool isVTDAffected(SUMOTime t) const;
 
     private:
         /// @brief The velocity time line to apply
@@ -1080,9 +1166,9 @@ public:
         /// @brief Whether red lights are a reason to brake
         bool myEmergencyBrakeRedLight;
 
-        bool myAmVTDControlled;
         MSLane* myVTDLane;
         SUMOReal myVTDPos;
+        SUMOReal myVTDAngle;
         int myVTDEdgeOffset;
         ConstMSEdgeVector myVTDRoute;
         SUMOTime myLastVTDAccess;
@@ -1121,6 +1207,9 @@ public:
     /// @brief compute safe speed for following the given leader
     SUMOReal getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
                                 const SUMOReal seen, const MSLane* const lane, SUMOReal distToCrossing) const;
+
+    /// @brief get a numerical value for the priority of the  upcoming link
+    static int nextLinkPriority(const std::vector<MSLane*>& conts); 
 
 #endif
 
@@ -1178,6 +1267,7 @@ protected:
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
     SUMOTime myWaitingTime;
+    WaitingTimeCollector myWaitingTimeCollector;
 
     /// @brief This Vehicles driving state (pos and speed)
     State myState;
@@ -1193,15 +1283,16 @@ protected:
     std::vector<std::vector<LaneQ> > myBestLanes;
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
     static std::vector<MSLane*> myEmptyLaneVector;
+    static std::vector<MSTransportable*> myEmptyTransportableVector;
 
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;
 
     /// @brief The passengers this vehicle may have
-    MSDevice_Person* myPersonDevice;
+    MSDevice_Transportable* myPersonDevice;
 
     /// @brief The containers this vehicle may have
-    MSDevice_Container* myContainerDevice;
+    MSDevice_Transportable* myContainerDevice;
 
     /// @brief The current acceleration after dawdling in m/s
     SUMOReal myAcceleration;
@@ -1222,6 +1313,9 @@ protected:
     bool myAmRegisteredAsWaitingForContainer;
 
     bool myHaveToWaitOnNextLink;
+
+    /// @brief the angle (@todo consider moving this into myState)
+    SUMOReal myAngle;
 
     mutable Position myCachedPosition;
 
@@ -1322,6 +1416,8 @@ protected:
                        const SUMOReal seen, DriveProcessItem* const lastLink,
                        const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
                        SUMOReal distToCrossing = -1) const;
+
+
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

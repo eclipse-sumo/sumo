@@ -89,7 +89,7 @@ def compound_object(element_name, attrnames):
             else:
                 s = "%s<%s %s>\n" % (
                     initialIndent, element_name, " ".join(fields))
-                for l in self._child_dict.itervalues():
+                for l in self._child_dict.values():
                     for c in l:
                         s += c.toXML(initialIndent + indent)
                 return s + "%s</%s>\n" % (initialIndent, element_name)

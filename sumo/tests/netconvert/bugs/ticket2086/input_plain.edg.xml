@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jan  6 08:47:03 2016 by SUMO netconvert Version dev-SVN-r19670I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <dlr-navteq-prefix value="braunschweig_umgebung"/>
+    </input>
+
+    <output>
+        <output-file value="bs_nt.part.net.xml"/>
+        <plain-output-prefix value="bs_nt.part"/>
+    </output>
+
+    <projection>
+        <proj.scale value="5"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+        <ramps.ramp-length value="170"/>
+    </ramp_guessing>
+
+    <edge_removal>
+        <keep-edges.input-file value="/scr2/debug/2086/edges.txt"/>
+    </edge_removal>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-51809012" from="54534765" to="54534779" priority="-4" numLanes="1" speed="13.89" shape="0.00,140.79 134.64,131.37 189.92,131.42"/>
+    <edge id="-51811859" from="54534779" to="54534761" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="-51812270" from="54535534" to="54534761" priority="-4" numLanes="1" speed="13.89" shape="677.72,171.72 371.10,148.58 203.72,91.65"/>
+    <edge id="-717744589" from="54534761" to="806373935" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="-763770254" from="838257708" to="54534779" priority="-1" numLanes="2" speed="13.89" shape="147.32,242.91 171.21,177.76 189.92,131.42"/>
+    <edge id="51809012" from="54534779" to="54534765" priority="-4" numLanes="1" speed="13.89" shape="189.92,131.42 134.64,131.37 0.00,140.79"/>
+    <edge id="51811859" from="54534761" to="54534779" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="51812270" from="54534761" to="54535534" priority="-4" numLanes="1" speed="13.89" shape="203.72,91.65 371.10,148.58 677.72,171.72"/>
+    <edge id="717744589" from="806373935" to="54534761" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="763770254" from="54534779" to="838257708" priority="-1" numLanes="2" speed="13.89" shape="189.92,131.42 171.21,177.76 147.32,242.91"/>
+</edges>

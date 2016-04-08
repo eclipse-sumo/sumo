@@ -1,13 +1,8 @@
 XERCES_LIBS = -l$(LIB_XERCES)
 
-if INTERNAL
-MESO_LIBS = ./mesosim/libmesosim.a
-MESOGUI_LIBS = ./mesogui/libmesogui.a ./osgview/libosgview.a
-endif
-
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = gui guinetload guisim netedit $(GUI_INTERNAL_DIRS)
+GUI_DIRS = gui guinetload guisim netedit mesogui osgview
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -26,6 +21,7 @@ COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/iodevices/libiodevices.a \
+./foreign/PHEMlight/cpp/libphemlight.a \
 ./foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
@@ -55,7 +51,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/actions/libmsactions.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 ./microsim/pedestrians/libmicrosimpeds.a \
-$(MESO_LIBS) \
+./mesosim/libmesosim.a \
 ./utils/geom/libgeom.a \
 ./utils/vehicle/libvehicle.a \
 ./utils/shapes/libshapes.a \
@@ -95,7 +91,8 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
-$(MESOGUI_LIBS) \
+./mesogui/libmesogui.a \
+./osgview/libosgview.a \
 $(sumo_LDADD) \
 ./foreign/gl2ps/libgl2ps.a \
 ./foreign/polyfonts/libpolyfonts.a \
@@ -106,7 +103,7 @@ $(sumo_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
 
 
-SUBDIRS = foreign utils microsim router od marouter $(INTERNAL_DIRS) \
+SUBDIRS = foreign utils microsim router od marouter mesosim \
 netbuild netwrite netgen netimport netload \
 polyconvert dfrouter duarouter jtrrouter activitygen tools \
 $(TRACI_DIRS) $(GUI_DIRS)

@@ -33,25 +33,36 @@ from collections import defaultdict
 
 # http://www.python.org/dev/peps/pep-0326/
 
-
 class _ExtremeType(object):
 
-    def __init__(self, cmpr, rep):
+    def __init__(self, isMax, rep):
         object.__init__(self)
-        self._cmpr = cmpr
+        self._isMax = isMax
         self._rep = rep
 
-    def __cmp__(self, other):
-        if isinstance(other, self.__class__) and\
-           other._cmpr == self._cmpr:
-            return 0
-        return self._cmpr
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and other._isMax == self._isMax
+
+    def __ne__(self, other):
+        return not self == other
+
+    def __gt__(self, other):
+        return self._isMax and not self == other
+
+    def __ge__(self, other):
+        return self._isMax
+
+    def __lt__(self, other):
+        return not self._isMax and not self == other
+
+    def __le__(self, other):
+        return not self._isMax
 
     def __repr__(self):
         return self._rep
 
-uMax = _ExtremeType(1, "uMax")
-uMin = _ExtremeType(-1, "uMin")
+uMax = _ExtremeType(True, "uMax")
+uMin = _ExtremeType(False, "uMin")
 
 # decorator for timing a function
 
@@ -181,7 +192,7 @@ class Statistics:
 
     def quartiles(self):
         s = sorted(self.values)
-        return s[len(self.values) / 4], s[len(self.values) / 2], s[3 * len(self.values) / 4]
+        return s[len(self.values) // 4], s[len(self.values) // 2], s[3 * len(self.values) // 4]
 
     def rank(self, fraction):
         if len(self.values) > 0:

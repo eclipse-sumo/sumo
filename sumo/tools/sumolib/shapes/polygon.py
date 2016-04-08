@@ -71,6 +71,9 @@ class Polygon:
             ret += '</poly>'
         return ret
 
+    def __lt__(self, other):
+        return self.id < other.id
+
 
 class PolygonReader(handler.ContentHandler):
 

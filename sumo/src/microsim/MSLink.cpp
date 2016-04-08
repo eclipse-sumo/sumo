@@ -57,10 +57,10 @@ const SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 // additional caution is needed when approaching a zipper link
 const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
 
+const SUMOReal MSLink::ZIPPER_ADAPT_DIST(100);
+
 // time to link in seconds below which adaptation should take place
 #define ZIPPER_ADAPT_TIME 10
-// distance to link in m below which adaptation should take place
-#define ZIPPER_ADAPT_DIST 100
 
 // ===========================================================================
 // member method definitions
@@ -70,24 +70,26 @@ MSLink::MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal le
     myLane(succLane),
     myIndex(-1),
     myState(state),
-    myLastStateChange(-1),
+    myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
     myKeepClear(keepClear),
+    myMesoTLSPenalty(0),
     myJunction(0)
 #else
 MSLink::MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear) :
     myLane(succLane),
     myIndex(-1),
     myState(state),
-    myLastStateChange(-1),
+    myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),
     myHasFoes(false),
     myAmCont(false),
     myKeepClear(keepClear),
+    myMesoTLSPenalty(0),
     myJunctionInlane(via),
     myInternalLaneBefore(0),
     myJunction(0)
@@ -308,13 +310,11 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     }
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             if ((*i)->haveRed()) {
                 continue;
             }
         }
-#endif
         if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(),
                                 impatience, decel, waitingTime, collectFoes)) {
             return false;
@@ -532,14 +532,31 @@ MSLink::getViaLane() const {
 }
 
 
+bool 
+MSLink::isExitLink() const {
+    /// XXX this only works in networks with internal lanes
+    return MSGlobals::gUsingInternalLanes && myJunctionInlane == 0 && getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL;
+}
+
+
+bool 
+MSLink::isInternalJunctionLink() const {
+    return (MSGlobals::gUsingInternalLanes && myJunctionInlane != 0 && myJunctionInlane->getLogicalPredecessorLane()->getEdge().isInternal());
+}
+
+bool 
+MSLink::fromInternalLane() const {
+    return (MSGlobals::gUsingInternalLanes && (
+                (myJunctionInlane == 0 && getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL)
+                || (myJunctionInlane != 0 && myJunctionInlane->getLogicalPredecessorLane()->getEdge().isInternal())));
+}
+
 MSLink::LinkLeaders
 MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers) const {
     LinkLeaders result;
     //gDebugFlag1 = true;
     // this link needs to start at an internal lane (either an exit link or between two internal lanes)
-    if (MSGlobals::gUsingInternalLanes && (
-                (myJunctionInlane == 0 && getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL)
-                || (myJunctionInlane != 0 && myJunctionInlane->getLogicalPredecessorLane()->getEdge().isInternal()))) {
+    if (fromInternalLane()) {
         //if (gDebugFlag1) std::cout << SIMTIME << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << "\n";
         // this is an exit link
         for (size_t i = 0; i < myFoeLanes.size(); ++i) {
@@ -691,6 +708,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe
     //    << " numFoes=" << collectFoes->size()
     //    << "\n";
     MSLink* foeLink = myFoeLinks[0];
+    const SUMOReal vSafeOrig = vSafe;
     for (std::vector<const SUMOVehicle*>::const_iterator i = collectFoes->begin(); i != collectFoes->end(); ++i) {
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(*i);
         assert(foe != 0);
@@ -717,7 +735,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe
         const SUMOReal follow = ego->getCarFollowModel().followSpeed(
                                     ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel());
         // speed adaption to follow the foe can be spread over secondsToArrival
-        const SUMOReal followInTime = vSafe + (follow - vSafe) / MAX2((SUMOReal)1, secondsToArrival / TS);
+        const SUMOReal followInTime = vSafeOrig + (follow - vSafeOrig) / MAX2((SUMOReal)1, secondsToArrival / TS);
         vSafe = MIN2(vSafe, followInTime);
         //if (gDebugFlag1) std::cout << "    adapting to foe=" << foe->getID()
         //    << " foeDist=" << avi.dist

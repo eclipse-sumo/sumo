@@ -40,9 +40,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-#ifdef HAVE_INTERNAL
 class MELoop;
-#endif
 
 
 // ===========================================================================
@@ -85,7 +83,6 @@ public:
     /// Information whether a state has been loaded
     static bool gStateLoaded;
 
-#ifdef HAVE_INTERNAL
     /** Information whether mesosim shall be used */
     static bool gUseMesoSim;
 
@@ -95,13 +92,14 @@ public:
     /** Information whether overtaking is enabled in the mesoscopic simulation */
     static bool gMesoOvertaking;
 
+    /** scaling factor for macroscopic time penalty when passing tls controlled intersection */
+    static SUMOReal gMesoTLSPenalty;
+
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
-#else
-    /** Information whether mesosim shall be used = constant false */
-    const static bool gUseMesoSim;
 
-#endif
+    /// length of memory for waiting times (in millisecs)
+    static SUMOTime gWaitingTimeMemory;
 
 };
 

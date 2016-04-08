@@ -47,6 +47,7 @@ drivingDistance2D 6.48934198154
 distanceRoad 5131.87880547
 drivingDistanceRoad 5136.7
 clearing pending
+save simstate
 step 0
 {114: [], 116: []}
 step 1

@@ -19,6 +19,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -50,32 +52,32 @@ def generate_routefile():
     pEW = 1. / 11
     pNS = 1. / 30
     with open("data/cross.rou.xml", "w") as routes:
-        print >> routes, """<routes>
+        print("""<routes>
         <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
         <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="7" minGap="3" maxSpeed="25" guiShape="bus"/>
 
         <route id="right" edges="51o 1i 2o 52i" />
         <route id="left" edges="52o 2i 1o 51i" />
-        <route id="down" edges="54o 4i 3o 53i" />"""
+        <route id="down" edges="54o 4i 3o 53i" />""", file=routes)
         lastVeh = 0
         vehNr = 0
         for i in range(N):
             if random.uniform(0, 1) < pWE:
-                print >> routes, '    <vehicle id="right_%i" type="typeWE" route="right" depart="%i" />' % (
-                    vehNr, i)
+                print('    <vehicle id="right_%i" type="typeWE" route="right" depart="%i" />' % (
+                    vehNr, i), file=routes)
                 vehNr += 1
                 lastVeh = i
             if random.uniform(0, 1) < pEW:
-                print >> routes, '    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (
-                    vehNr, i)
+                print('    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (
+                    vehNr, i), file=routes)
                 vehNr += 1
                 lastVeh = i
             if random.uniform(0, 1) < pNS:
-                print >> routes, '    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (
-                    vehNr, i)
+                print('    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (
+                    vehNr, i), file=routes)
                 vehNr += 1
                 lastVeh = i
-        print >> routes, "</routes>"
+        print("</routes>", file=routes)
 
 # The program looks like this
 #    <tlLogic id="0" type="static" programID="0" offset="0">

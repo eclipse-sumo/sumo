@@ -45,10 +45,8 @@ class MSDetectorFileOutput;
 class MSLane;
 class MSEdge;
 
-#ifdef HAVE_INTERNAL
 class MEInductLoop;
 class MESegment;
-#endif
 
 
 // ===========================================================================

@@ -7,7 +7,7 @@
 /// @date    03.04.2010
 /// @version $Id$
 ///
-// Scalable model based on Krauﬂ by Peter Wagner
+// Scalable model based on Krauss by Peter Wagner
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2010-2015 DLR (http://www.dlr.de/) and contributors

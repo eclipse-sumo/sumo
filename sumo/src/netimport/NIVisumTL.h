@@ -38,6 +38,7 @@
 #include <utils/common/SUMOTime.h>
 
 class NBTrafficLightLogicCont;
+class NBEdgeCont;
 
 
 // ===========================================================================
@@ -169,7 +170,7 @@ public:
     SignalGroup& getSignalGroup(const std::string& name);
 
     /// @brief build the traffic light and add it to the given container
-    void build(NBTrafficLightLogicCont& tlc);
+    void build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
 private:
     /// @brief The name of traffic light

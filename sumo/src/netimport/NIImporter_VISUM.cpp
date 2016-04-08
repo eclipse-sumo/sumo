@@ -205,7 +205,7 @@ NIImporter_VISUM::load() {
     }
     // build traffic lights
     for (NIVisumTL_Map::iterator j = myTLS.begin(); j != myTLS.end(); j++) {
-        j->second->build(myNetBuilder.getTLLogicCont());
+        j->second->build(myNetBuilder.getEdgeCont(), myNetBuilder.getTLLogicCont());
     }
     // build district shapes
     for (std::map<NBDistrict*, PositionVector>::const_iterator k = myDistrictShapes.begin(); k != myDistrictShapes.end(); ++k) {

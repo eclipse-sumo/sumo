@@ -239,9 +239,6 @@ private:
 
     };
 
-    /// @brief The position on the lane the vehicle departed at
-    SUMOReal myDepartPos;
-
     /// @brief The currently used route
     const MSRoute* myCurrentRoute;
 

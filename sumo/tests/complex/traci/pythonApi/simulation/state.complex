@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 15 12:32:50 2016 by SUMO Version dev-SVN-r20190
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="36991"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<snapshot version="dev-SVN-r20190" time="6.00">
+    <route id="horizontal" state="1" edges="o"/>
+    <delay number="2" begin="3" end="1" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="horiz" depart="0.00" route="horizontal" type="DEFAULT_VEHTYPE" state="0 0" pos="32.38" speed="9.45"/>
+    <vehicle id="horiz1" depart="5.00" route="horizontal" type="DEFAULT_VEHTYPE" state="5000 0" pos="5.10" speed="0.00"/>
+    <lane id=":0_0_0">
+        <vehicles value=""/>
+    </lane>
+    <lane id=":1_0_0">
+        <vehicles value=""/>
+    </lane>
+    <lane id="2o_0">
+        <vehicles value=""/>
+    </lane>
+    <lane id="o_0">
+        <vehicles value="horiz1 horiz"/>
+    </lane>
+</snapshot>

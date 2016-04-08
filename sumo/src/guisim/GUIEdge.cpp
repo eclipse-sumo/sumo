@@ -60,13 +60,11 @@
 #include "GUIPerson.h"
 #include "GUIContainer.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEVehicleControl.h>
 #include <mesogui/GUIMEVehicle.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -130,8 +128,25 @@ GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
 Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        ret.add((*i)->getShape().getBoxBoundary());
+    if (getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            ret.add((*i)->getShape().getBoxBoundary());
+        }
+    } else {
+        // take the starting coordinates of all follower edges and the endpoints
+        // of all successor edges
+        for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
+            const std::vector<MSLane*>& lanes = (*it)->getLanes();
+            for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
+                ret.add((*it_lane)->getShape().front());
+            }
+        }
+        for (MSEdgeVector::const_iterator it = myPredecessors.begin(); it != myPredecessors.end(); ++it) {
+            const std::vector<MSLane*>& lanes = (*it)->getLanes();
+            for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
+                ret.add((*it_lane)->getShape().back());
+            }
+        }
     }
     ret.grow(10);
     return ret;
@@ -172,13 +187,12 @@ GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = 0;
-#ifdef HAVE_INTERNAL
     ret = new GUIParameterTableWindow(app, *this, 16);
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
     ret->mkItem("occupancy [%]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
+    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMesoMeanSpeed));
     ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
     ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
     ret->mkItem("vehicle ids", false, getVehicleIDs());
@@ -186,7 +200,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
     ret->mkItem("segment index", false, segment->getIndex());
     ret->mkItem("segment length [m]", false, segment->getLength());
-    ret->mkItem("segment allowed speed [m/s]", false, segment->getMaxSpeed());
+    ret->mkItem("segment allowed speed [m/s]", false, segment->getEdge().getSpeedLimit());
     ret->mkItem("segment jam threshold [%]", false, segment->getRelativeJamThreshold());
     ret->mkItem("segment occupancy [%]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getRelativeOccupancy));
     ret->mkItem("segment mean vehicle speed [m/s]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getMeanSpeed));
@@ -196,10 +210,6 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
 
     // close building
     ret->closeBuilding();
-#else
-    UNUSED_PARAMETER(app);
-    UNUSED_PARAMETER(parent);
-#endif
     return ret;
 }
 
@@ -207,7 +217,9 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
 Boundary
 GUIEdge::getCenteringBoundary() const {
     Boundary b = getBoundary();
-    b.grow(20);
+    // ensure that vehicles and persons on the side are drawn even if the edge
+    // is outside the view
+    b.grow(10);
     return b;
 }
 
@@ -220,23 +232,19 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     // draw the lanes
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
         }
-#endif
         GUILane* l = dynamic_cast<GUILane*>(*i);
         if (l != 0) {
             l->drawGL(s);
         }
     }
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
             drawMesoVehicles(s);
         }
     }
-#endif
     glPopName();
     // (optionally) draw the name and/or the street name
     const bool drawEdgeName = s.edgeName.show && myFunction == EDGEFUNCTION_NORMAL;
@@ -289,13 +297,13 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-#ifdef HAVE_INTERNAL
 void
 GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     GUIMEVehicleControl* vehicleControl = GUINet::getGUIInstance()->getGUIMEVehicleControl();
     if (vehicleControl != 0) {
         // draw the meso vehicles
         vehicleControl->secureVehicles();
+        AbstractMutex::ScopedLocker locker(myLock);
         size_t laneIndex = 0;
         MESegment::Queue queue;
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
@@ -385,22 +393,6 @@ GUIEdge::getBruttoOccupancy() const {
 
 
 SUMOReal
-GUIEdge::getMeanSpeed() const {
-    SUMOReal v = 0;
-    SUMOReal no = 0;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-        SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
-        v += vehNo * segment->getMeanSpeed();
-        no += vehNo;
-    }
-    if (no == 0) {
-        return getSpeedLimit();
-    }
-    return v / no;
-}
-
-
-SUMOReal
 GUIEdge::getAllowedSpeed() const {
     return (*myLanes)[0]->getSpeedLimit();
 }
@@ -408,7 +400,7 @@ GUIEdge::getAllowedSpeed() const {
 
 SUMOReal
 GUIEdge::getRelativeSpeed() const {
-    return getMeanSpeed() / getAllowedSpeed();
+    return getMesoMeanSpeed() / getAllowedSpeed();
 }
 
 
@@ -430,7 +422,7 @@ GUIEdge::getColorValue(size_t activeScheme) const {
         case 4:
             return getBruttoOccupancy();
         case 5:
-            return getMeanSpeed();
+            return getMesoMeanSpeed();
         case 6:
             return getFlow();
         case 7:
@@ -450,7 +442,7 @@ GUIEdge::getScaleValue(size_t activeScheme) const {
         case 3:
             return getBruttoOccupancy();
         case 4:
-            return getMeanSpeed();
+            return getMesoMeanSpeed();
         case 5:
             return getFlow();
         case 6:
@@ -467,8 +459,6 @@ GUIEdge::getSegmentAtPosition(const Position& pos) {
     return MSGlobals::gMesoNet->getSegmentForEdge(*this, lanePos);
 }
 
-
-#endif
 
 
 void

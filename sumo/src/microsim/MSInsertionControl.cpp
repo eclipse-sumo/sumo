@@ -146,8 +146,6 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge& edge = *veh->getEdge();
     if (veh->isOnRoad()) {
-        // may have been inserted forcefully already
-        veh->onDepart();
         return 1;
     }
     if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
@@ -155,7 +153,6 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
             && edge.insertVehicle(*veh, time)) {
         // Successful insertion
         checkFlowWait(veh);
-        veh->onDepart();
         return 1;
     }
     if (myMaxDepartDelay >= 0 && time - veh->getParameter().depart > myMaxDepartDelay) {
@@ -267,6 +264,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             } else {
                 // strange: another vehicle with the same id already exists
                 if (MSGlobals::gStateLoaded) {
+                    vehControl.discountStateLoaded();
                     break;
                 }
                 throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");

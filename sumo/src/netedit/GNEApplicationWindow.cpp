@@ -168,7 +168,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
       hadDependentBuild(false),
       myNet(0),
       myUndoList(new GNEUndoList(this)),
-      myTitlePrefix(("NETEDIT " + getBuildName(VERSION_STRING)).c_str()) {
+      myTitlePrefix("NETEDIT " VERSION_STRING) {
     GUIIconSubSys::init(a);
 }
 #ifdef _MSC_VER

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: cp1252 -*-
 """
 @file evacuation.py
 @author  Martin Taraz

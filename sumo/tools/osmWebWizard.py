@@ -91,7 +91,9 @@ BATCH_MODE |= stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
 
 
 def quoted_str(s):
-    if type(s) != str:
+    if type(s) == float:
+        return "%.6f" % s
+    elif type(s) != str:
         return str(s)
     elif '"' in s:
         if os.name == "nt":
@@ -207,7 +209,7 @@ class Builder(object):
                 SUMO_HOME, "tools", "randomTrips.py")
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
-                for opts in randomTripsCalls:
+                for opts in sorted(randomTripsCalls):
                     f.write("python %s %s\n" %
                             (randomTripsPath, " ".join(map(quoted_str, opts))))
 
@@ -379,7 +381,7 @@ if __name__ == "__main__":
             [sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
         if not args.remote:
-            webbrowser.open(
+            webbrowser.open("file://"+
                 os.path.join(os.path.dirname(os.path.abspath(__file__)), "webWizard", "index.html"))
 
         server = SimpleWebSocketServer(

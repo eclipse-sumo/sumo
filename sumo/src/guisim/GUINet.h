@@ -65,9 +65,7 @@ class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
 class MFXMutex;
-#ifdef HAVE_INTERNAL
 class GUIMEVehicleControl;
-#endif
 
 
 // ===========================================================================
@@ -295,14 +293,12 @@ public:
      */
     GUIVehicleControl* getGUIVehicleControl();
 
-#ifdef HAVE_INTERNAL
     /** @brief Returns the vehicle control
      * @return The vehicle control
      * @see MSVehicleControl
      * @see myVehicleControl
      */
     GUIMEVehicleControl* getGUIMEVehicleControl();
-#endif
 
 #ifdef HAVE_OSG
     void updateColor(const GUIVisualizationSettings& s);

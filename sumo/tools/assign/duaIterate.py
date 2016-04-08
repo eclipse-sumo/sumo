@@ -30,7 +30,7 @@ import types
 import shutil
 import glob
 from datetime import datetime
-from optparse import OptionParser
+from argparse import ArgumentParser
 from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
@@ -38,137 +38,138 @@ import sumolib
 from sumolib.options import get_long_option_names
 
 
-def addGenericOptions(optParser):
+def addGenericOptions(argParser):
     # add options which are used by duaIterate and cadytsIterate
-    optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWarnings",
+    argParser.add_argument("-w", "--disable-warnings", action="store_true", dest="noWarnings",
                          default=False, help="disables warnings")
-    optParser.add_option("-n", "--net-file", dest="net",
+    argParser.add_argument("-n", "--net-file", dest="net",
                          help="SUMO network (mandatory)", metavar="FILE")
-    optParser.add_option("-+", "--additional", dest="additional",
+    argParser.add_argument("-+", "--additional", dest="additional",
                          default="", help="Additional files")
-    optParser.add_option("-b", "--begin",
-                         type="int", default=0, help="Set simulation/routing begin [default: %default]")
-    optParser.add_option("-e", "--end",
-                         type="int", help="Set simulation/routing end [default: %default]")
-    optParser.add_option("-R", "--route-steps", dest="routeSteps",
-                         type="int", default=200, help="Set simulation route steps [default: %default]")
-    optParser.add_option("-a", "--aggregation",
-                         type="int", default=900, help="Set main weights aggregation period [default: %default]")
-    optParser.add_option("-m", "--mesosim", action="store_true",
+    argParser.add_argument("-b", "--begin",
+                         type=int, default=0, help="Set simulation/routing begin [default: %default]")
+    argParser.add_argument("-e", "--end",
+                         type=int, help="Set simulation/routing end [default: %default]")
+    argParser.add_argument("-R", "--route-steps", dest="routeSteps",
+                         type=int, default=200, help="Set simulation route steps [default: %default]")
+    argParser.add_argument("-a", "--aggregation",
+                         type=int, default=900, help="Set main weights aggregation period [default: %default]")
+    argParser.add_argument("-m", "--mesosim", action="store_true",
                          default=False, help="Whether mesosim shall be used")
-    optParser.add_option("-p", "--path", help="Path to binaries")
-    optParser.add_option("-y", "--absrand", action="store_true",
+    argParser.add_argument("-p", "--path", help="Path to binaries")
+    argParser.add_argument("-y", "--absrand", action="store_true",
                          default=False, help="use current time to generate random number")
-    optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
+    argParser.add_argument("-I", "--nointernal-link", action="store_true", dest="internallink",
                          default=False, help="not to simulate internal link: true or false")
-    optParser.add_option("-L", "--lanechange-allowed", dest="lanechangeallowed", action="store_true",
+    argParser.add_argument("-L", "--lanechange-allowed", dest="lanechangeallowed", action="store_true",
                          default=False, help="lane change allowed to swap")
-    optParser.add_option("-j", "--meso-junctioncontrol", dest="mesojunctioncontrol", action="store_true",
+    argParser.add_argument("-j", "--meso-junctioncontrol", dest="mesojunctioncontrol", action="store_true",
                          default=False, help="Enable mesoscopic traffic light and priority junciton handling")
-    optParser.add_option("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
+    argParser.add_argument("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
                          default=False, help="Enable multiple queues at edge ends")
-    optParser.add_option("--meso-recheck", dest="mesorecheck", type="int", default=0,
+    argParser.add_argument("--meso-recheck", dest="mesorecheck", type=int, default=0,
                          help="Delay before checking whether a jam is gone. (higher values can lead to a big speed increase)")
-    optParser.add_option("-Q", "--eco-measure", dest="ecomeasure", type="choice",
-                         choices=(
-                             'CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'),
+    argParser.add_argument("-Q", "--eco-measure", dest="ecomeasure",
+                         choices=[
+                             'CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'],
                          help="define the applied eco measure, e.g. fuel, CO2, noise")
-    optParser.add_option("--eager-insert", action="store_true",
+    argParser.add_argument("--eager-insert", action="store_true",
                          default=False, help="eager insertion tests (may slow down the sim considerably)")
-    optParser.add_option("--time-to-teleport", dest="timetoteleport", type="float", default=300,
+    argParser.add_argument("--time-to-teleport", dest="timetoteleport", type=float, default=300,
                          help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
-    optParser.add_option("--time-to-teleport.highways", dest="timetoteleport_highways", type="float", default=0,
+    argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=float, default=0,
                          help="Delay before blocked vehicles are teleported on wrong highway lanes")
-    optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
-                         choices=('grohnde', 'isar', 'None'),
+    argParser.add_argument("--cost-modifier", dest="costmodifier",
+                         choices=['grohnde', 'isar', 'None'],
                          default='None', help="Whether to modify link travel costs of the given routes")
-    optParser.add_option("-7", "--zip", action="store_true",
+    argParser.add_argument("-7", "--zip", action="store_true",
                          default=False, help="zip old iterations using 7zip")
 
 
 def initOptions():
-    optParser = OptionParser(usage="""usage: %prog [options] [sumo--options]
-Any options of the form sumo--long-option-name will be passed to sumo. 
-These must be given after all the other options of %prog
+    argParser = ArgumentParser(
+    description=""" Any options of the form sumo--long-option-name will be passed to sumo. 
+These must be given after all the other options
 example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""")
-    addGenericOptions(optParser)
+    addGenericOptions(argParser)
 
-    optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
+    argParser.add_argument("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                          default=False, help="continues on unbuild routes")
-    optParser.add_option("-t", "--trips",
+    argParser.add_argument("-t", "--trips",
                          help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-r", "--routes",
+    argParser.add_argument("-r", "--routes",
                          help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-F", "--flows",
+    argParser.add_argument("-F", "--flows",
                          help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-A", "--gA",
-                         type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
-    optParser.add_option("-B", "--gBeta",
-                         type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
-    optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
+    argParser.add_argument("-A", "--gA",
+                         type=float, default=.5, help="Sets Gawron's Alpha [default: %default]")
+    argParser.add_argument("-B", "--gBeta",
+                         type=float, default=.9, help="Sets Gawron's Beta [default: %default]")
+    argParser.add_argument("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
                          default=False, help="No summaries are written by the simulation")
-    optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
+    argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                          default=False, help="No tripinfos are written by the simulation")
-    optParser.add_option("--tripinfo-filter", dest="tripinfoFilter",
+    argParser.add_argument("--tripinfo-filter", dest="tripinfoFilter",
                          help="filter tripinfo attributes")
-    optParser.add_option("--inc-start", dest="incStart",
-                         type="float", default=0, help="Start for incrementing scale")
-    optParser.add_option("--inc-max", dest="incMax",
-                         type="float", default=1, help="Maximum for incrementing scale")
-    optParser.add_option("--inc-base", dest="incBase",
-                         type="int", default=-1, help="Give the incrementation base. Negative values disable incremental scaling")
-    optParser.add_option("--incrementation", dest="incValue",
-                         type="int", default=1, help="Give the incrementation")
-    optParser.add_option("--time-inc", dest="timeInc",
-                         type="int", default=0, help="Give the time incrementation")
-    optParser.add_option("-f", "--first-step", dest="firstStep",
-                         type="int", default=0, help="First DUA step [default: %default]")
-    optParser.add_option("-l", "--last-step", dest="lastStep",
-                         type="int", default=50, help="Last DUA step [default: %default]")
-    optParser.add_option("--convergence-iterations", dest="convIt",
-                         type="int", default=10, help="Number of iterations to use for convergence calculation [default: %default]")
-    optParser.add_option("--max-convergence-deviation", dest="convDev",
-                         type="float", help="Maximum relative standard deviation in travel times [default: %default]")
-    optParser.add_option(
+    argParser.add_argument("--inc-start", dest="incStart",
+                         type=float, default=0, help="Start for incrementing scale")
+    argParser.add_argument("--inc-max", dest="incMax",
+                         type=float, default=1, help="Maximum for incrementing scale")
+    argParser.add_argument("--inc-base", dest="incBase",
+                         type=int, default=-1, help="Give the incrementation base. Negative values disable incremental scaling")
+    argParser.add_argument("--incrementation", dest="incValue",
+                         type=int, default=1, help="Give the incrementation")
+    argParser.add_argument("--time-inc", dest="timeInc",
+                         type=int, default=0, help="Give the time incrementation")
+    argParser.add_argument("-f", "--first-step", dest="firstStep",
+                         type=int, default=0, help="First DUA step [default: %default]")
+    argParser.add_argument("-l", "--last-step", dest="lastStep",
+                         type=int, default=50, help="Last DUA step [default: %default]")
+    argParser.add_argument("--convergence-iterations", dest="convIt",
+                         type=int, default=10, help="Number of iterations to use for convergence calculation [default: %default]")
+    argParser.add_argument("--max-convergence-deviation", dest="convDev",
+                         type=float, help="Maximum relative standard deviation in travel times [default: %default]")
+    argParser.add_argument(
         "-D", "--districts", help="use districts as sources and targets", metavar="FILE")
-    optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
-                         choices=('None', 'routesonly', 'detailed'),
+    argParser.add_argument("-x", "--vehroute-file",  dest="routefile",
+                         choices=['None', 'routesonly', 'detailed'],
                          default='None', help="choose the format of the route file")
-    optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
+    argParser.add_argument("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
                          default=False, help="output the last routes")
-    optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
+    argParser.add_argument("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                          default=False, help="save routes with near zero probability")
-    optParser.add_option(
+    argParser.add_argument(
         "--routing-algorithm", default="dijkstra", help="select the routing algorithm")
-    optParser.add_option(
+    argParser.add_argument(
         "--max-alternatives", default=5, help="prune the number of alternatives to INT")
-    optParser.add_option("--skip-first-routing", action="store_true", dest="skipFirstRouting",
+    argParser.add_argument("--skip-first-routing", action="store_true", dest="skipFirstRouting",
                          default=False, help="run simulation with demands before first routing")
-    optParser.add_option("--logit", action="store_true", dest="logit",
+    argParser.add_argument("--logit", action="store_true", dest="logit",
                          default=False, help="use the logit model for route choice")
-    optParser.add_option("-g", "--logitbeta", type="float", dest="logitbeta",
+    argParser.add_argument("-g", "--logitbeta", type=float, dest="logitbeta",
                          default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
-    optParser.add_option("-i", "--logitgamma", type="float", dest="logitgamma",
+    argParser.add_argument("-i", "--logitgamma", type=float, dest="logitgamma",
                          default=1., help="use the c-logit model for route choice")
-    optParser.add_option("-G", "--logittheta", type="float", dest="logittheta",
+    argParser.add_argument("-G", "--logittheta", type=float, dest="logittheta",
                          help="parameter to adapt the cost unit")
-    optParser.add_option("-J", "--addweights", dest="addweights",
+    argParser.add_argument("-J", "--addweights", dest="addweights",
                          help="Additional weightes for duarouter")
-    optParser.add_option("--router-verbose", action="store_true",
+    argParser.add_argument("--router-verbose", action="store_true",
                          default=False, help="let duarouter print some statistics")
-    optParser.add_option("-M", "--external-gawron", action="store_true", dest="externalgawron",
+    argParser.add_argument("-M", "--external-gawron", action="store_true", dest="externalgawron",
                          default=False, help="use the external gawron calculation")
-    optParser.add_option("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
+    argParser.add_argument("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
                          default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")
-    optParser.add_option("--weight-memory", action="store_true", default=False, dest="weightmemory",
+    argParser.add_argument("--weight-memory", action="store_true", default=False, dest="weightmemory",
                          help="smooth edge weights across iterations")
-    optParser.add_option(
-        "--pessimism", default=1, type="float", help="give traffic jams a higher weight")
-    optParser.add_option("--clean-alt", action="store_true", dest="clean_alt",
+    argParser.add_argument(
+        "--pessimism", default=1, type=float, help="give traffic jams a higher weight")
+    argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                          default=False, help="Whether old rou.alt.xml files shall be removed")
-    optParser.add_option("--binary", action="store_true",
+    argParser.add_argument("--binary", action="store_true",
                          default=False, help="Use binary format for intermediate and resulting route files")
-    return optParser
+    argParser.add_argument("remaining_args", nargs='*')
+    return argParser
 
 
 def call(command, log):
@@ -446,21 +447,19 @@ def get_basename(demand_file):
 
 
 def main(args=None):
-    optParser = initOptions()
-
-    options, remaining_args = optParser.parse_args(args=args)
+    argParser = initOptions()
+    
+    options = argParser.parse_args(args=args)
+    
     if not options.net:
-        optParser.error("Option --net-file is mandatory")
+        argParser.error("Option --net-file is mandatory")
     if (not options.trips and not options.routes and not options.flows) or (options.trips and options.routes):
-        optParser.error(
+        argParser.error(
             "Either --trips, --flows, or --routes have to be given!")
     duaBinary = sumolib.checkBinary("duarouter", options.path)
-    if options.mesosim:
-        sumoBinary = sumolib.checkBinary("meso", options.path)
-    else:
-        sumoBinary = sumolib.checkBinary("sumo", options.path)
+    sumoBinary = sumolib.checkBinary("sumo", options.path)
     if options.addweights and options.weightmemory:
-        optParser.error(
+        argParser.error(
             "Options --addweights and --weight-memory are mutually exclusive.")
 
     # make sure BOTH binaries are callable before we start
@@ -475,8 +474,8 @@ def main(args=None):
         sys.exit(
             "Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment variable SUMO_BINARY\n" % sumoBinary)
 
-    sumo_args = assign_remaining_args(sumoBinary, 'sumo', remaining_args)
-    dua_args = assign_remaining_args(sumoBinary, 'duarouter', remaining_args)
+    sumo_args = assign_remaining_args(sumoBinary, 'sumo', options.remaining_args)
+    dua_args = assign_remaining_args(duaBinary, 'duarouter', options.remaining_args)
 
     sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
     log = open("dua.log", "w+")

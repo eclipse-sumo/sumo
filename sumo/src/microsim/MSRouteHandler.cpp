@@ -140,46 +140,47 @@ void
 MSRouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
     SUMORouteHandler::myStartElement(element, attrs);
-    switch (element) {
-        case SUMO_TAG_PERSON:
-            myActivePlan = new MSTransportable::MSTransportablePlan();
-            break;
-        case SUMO_TAG_CONTAINER:
-            myActiveContainerPlan = new MSTransportable::MSTransportablePlan();
-            break;
-        case SUMO_TAG_RIDE: {
-            const std::string pid = myVehicleParameter->id;
-            bool ok = true;
-            MSEdge* from = 0;
-            const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
-            StringTokenizer st(desc);
-            std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
-            MSStoppingPlace* bs = 0;
-            MSEdge* to = 0;
-            if (bsID != "") {
-                bs = MSNet::getInstance()->getBusStop(bsID);
-                if (bs == 0) {
-                    throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
+    try {
+        switch (element) {
+            case SUMO_TAG_PERSON:
+                myActivePlan = new MSTransportable::MSTransportablePlan();
+                break;
+            case SUMO_TAG_CONTAINER:
+                myActiveContainerPlan = new MSTransportable::MSTransportablePlan();
+                break;
+            case SUMO_TAG_RIDE: {
+                const std::string pid = myVehicleParameter->id;
+                bool ok = true;
+                MSEdge* from = 0;
+                const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
+                StringTokenizer st(desc);
+                std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
+                MSStoppingPlace* bs = 0;
+                MSEdge* to = 0;
+                if (bsID != "") {
+                    bs = MSNet::getInstance()->getBusStop(bsID);
+                    if (bs == 0) {
+                        throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
+                    }
+                    to = &bs->getLane().getEdge();
                 }
-                to = &bs->getLane().getEdge();
-            }
-            if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-                const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
-                from = MSEdge::dictionary(fromID);
-                if (from == 0) {
-                    throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
+                if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+                    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
+                    from = MSEdge::dictionary(fromID);
+                    if (from == 0) {
+                        throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
+                    }
+                    if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != from) {
+                        throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination().getID() + ").");
+                    }
+                    if (myActivePlan->empty()) {
+                        myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
+                                                    *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                    }
+                } else if (myActivePlan->empty()) {
+                    throw ProcessError("The start edge for person '" + pid + "' is not known.");
                 }
-                if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != from) {
-                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination().getID() + ").");
-                }
-                if (myActivePlan->empty()) {
-                    myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                                                *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
-                }
-            } else if (myActivePlan->empty()) {
-                throw ProcessError("The start edge for person '" + pid + "' is not known.");
-            }
-            if (to == 0) {
+                if (to == 0) {
                 const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, pid.c_str(), ok);
                 to = MSEdge::dictionary(toID);
                 if (to == 0) {
@@ -370,6 +371,11 @@ MSRouteHandler::myStartElement(int element,
     if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE && element != SUMO_TAG_PARAM) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
+    }
+    } catch (ProcessError&) {
+        delete myVehicleParameter;
+	myVehicleParameter = 0;
+	throw;
     }
 }
 

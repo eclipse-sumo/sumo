@@ -39,6 +39,7 @@
 #include <algorithm>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/Named.h>
 #include "StdDefs.h"
 
 
@@ -149,7 +150,7 @@ inline std::string toString(const typename std::vector<V*>::const_iterator& b, c
         if (it != b) {
             oss << " ";
         }
-        oss << (*it)->getID();
+        oss << Named::getIDSecure(*it);
     }
     return oss.str();
 }

@@ -91,8 +91,12 @@ Boundary
 GUIPointOfInterest::getCenteringBoundary() const {
     Boundary b;
     b.add(x(), y());
-    b.growWidth(myHalfImgWidth);
-    b.growHeight(myHalfImgHeight);
+    if (myImgFile != DEFAULT_IMG_FILE) {
+        b.growWidth(myHalfImgWidth);
+        b.growHeight(myHalfImgHeight);
+    } else {
+        b.grow(3);
+    }
     return b;
 }
 
@@ -109,7 +113,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(x(), y(), getLayer());
     glRotated(-getNaviDegree(), 0, 0, 1);
 
-    if (myImgFile != "") {
+    if (myImgFile != DEFAULT_IMG_FILE) {
         int textureID = GUITexturesHelper::getTextureID(myImgFile);
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,

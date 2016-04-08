@@ -264,8 +264,7 @@ MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
         }
         return getEdgePosition(myWaitingEdge, myWaitingPos, MSPModel::SIDEWALK_OFFSET);
     }
-    /// @bug this fails while vehicle is driving across a junction
-    return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtOffset(myVehicle->getPositionOnLane());
+    return myVehicle->getPosition();
 }
 
 

@@ -22,8 +22,10 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import httplib
-import StringIO
+try:
+    import httplib
+except ImportError:
+    import http.client as httplib
 import gzip
 import optparse
 from os import path
@@ -49,7 +51,7 @@ def readCompressed(conn, query, filename):
     response = conn.getresponse()
     print(response.status, response.reason)
     if response.status == 200:
-        out = open(path.join(os.getcwd(), filename), "w")
+        out = open(path.join(os.getcwd(), filename), "wb")
         out.write(response.read())
         out.close()
 

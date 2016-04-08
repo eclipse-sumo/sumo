@@ -1,119 +1,10 @@
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 3215103784 with 288002013
-Found duplicate nodes. Substituting 3833990688 with 3154046166
-Found duplicate nodes. Substituting 3838777333 with 614184509
-Found duplicate nodes. Substituting 3838777334 with 614184509
-Found duplicate nodes. Substituting 3838777793 with 3838777785
-Found duplicate nodes. Substituting 3838783637 with 614184599
-Found duplicate nodes. Substituting 3838833094 with 3085295807
-Found duplicate nodes. Substituting 3839512743 with 29708252
-Found duplicate nodes. Substituting 3839512744 with 29708252
-Found duplicate nodes. Substituting 3839512747 with 412130876
-Found duplicate nodes. Substituting 3839512752 with 3839512748
-Found duplicate nodes. Substituting 3840781980 with 3823225975
-Found duplicate nodes. Substituting 3840781981 with 3823225975
-Found duplicate nodes. Substituting 3841912982 with 3841912978
-Found duplicate nodes. Substituting 3842566106 with 3842566105
-Found duplicate nodes. Substituting 3844239516 with 3697399470
-Found duplicate nodes. Substituting 3846430857 with 3846428957
-Found duplicate nodes. Substituting 3846596165 with 3846596164
-Found duplicate nodes. Substituting 3846596168 with 3846596167
-Found duplicate nodes. Substituting 3846755660 with 3846755659
-Found duplicate nodes. Substituting 3846755663 with 3846755662
-Found duplicate nodes. Substituting 3846755669 with 3846755668
-Found duplicate nodes. Substituting 3848192368 with 29498347
-Found duplicate nodes. Substituting 3848192375 with 3162905981
-Found duplicate nodes. Substituting 3848192376 with 1586595361
-Found duplicate nodes. Substituting 3848192632 with 2204290428
-Found duplicate nodes. Substituting 3848192920 with 2204290429
-Found duplicate nodes. Substituting 3848193131 with 2204290431
-Found duplicate nodes. Substituting 3848198289 with 281049489
-Found duplicate nodes. Substituting 3848198315 with 2245931531
-Found duplicate nodes. Substituting 3848198343 with 281067176
-Found duplicate nodes. Substituting 3848198377 with 281067179
-Found duplicate nodes. Substituting 3848198387 with 281049378
-Found duplicate nodes. Substituting 3848198393 with 281065984
-Found duplicate nodes. Substituting 3848198399 with 1282183015
-Found duplicate nodes. Substituting 3848198400 with 29789696
-Found duplicate nodes. Substituting 3848198403 with 585263429
-Found duplicate nodes. Substituting 3848198405 with 423340642
-Found duplicate nodes. Substituting 3848198406 with 595702206
-Found duplicate nodes. Substituting 3848198410 with 586614874
-Found duplicate nodes. Substituting 3848198423 with 3481542852
-Found duplicate nodes. Substituting 3848198426 with 281065981
-Found duplicate nodes. Substituting 3848198568 with 281049487
-Found duplicate nodes. Substituting 3848198581 with 281049456
-Found duplicate nodes. Substituting 3848199018 with 975880546
-Found duplicate nodes. Substituting 3848199323 with 281063781
-Found duplicate nodes. Substituting 3848199353 with 281063780
-Found duplicate nodes. Substituting 3848199479 with 281063785
-Found duplicate nodes. Substituting 3848199780 with 29789677
-Found duplicate nodes. Substituting 3848199996 with 29789674
-Found duplicate nodes. Substituting 3848201628 with 656104257
-Found duplicate nodes. Substituting 3848201763 with 2355303231
-Found duplicate nodes. Substituting 3848283829 with 1029614382
-Found duplicate nodes. Substituting 3848283830 with 1029614382
-Found duplicate nodes. Substituting 3855567150 with 2406045216
-Found duplicate nodes. Substituting 3855571344 with 2739070962
-Found duplicate nodes. Substituting 3855571783 with 2739070958
-Found duplicate nodes. Substituting 3855572115 with 3073205361
-Found duplicate nodes. Substituting 3855572134 with 3073205362
-Found duplicate nodes. Substituting 3855572153 with 3073205858
-Found duplicate nodes. Substituting 3855572287 with 3073205363
-Found duplicate nodes. Substituting 3855572303 with 3073205368
-Found duplicate nodes. Substituting 3855572330 with 3073205371
-Found duplicate nodes. Substituting 3855572353 with 3073177272
-Found duplicate nodes. Substituting 3855572476 with 3073205571
-Found duplicate nodes. Substituting 3855572506 with 3073205247
-Found duplicate nodes. Substituting 3855572549 with 3073205252
-Found duplicate nodes. Substituting 3855572666 with 3073205580
-Found duplicate nodes. Substituting 3855572738 with 3073206555
-Found duplicate nodes. Substituting 3855572765 with 3073206267
-Found duplicate nodes. Substituting 3855572799 with 3073205266
-Found duplicate nodes. Substituting 3855572975 with 2739070960
-Found duplicate nodes. Substituting 3855573404 with 2204265195
-Found duplicate nodes. Substituting 3855573442 with 3073206372
-Found duplicate nodes. Substituting 3855573489 with 3073177281
-Found duplicate nodes. Substituting 3855573499 with 2739070961
-Found duplicate nodes. Substituting 3855573559 with 352960004
-Found duplicate nodes. Substituting 3855573909 with 2752290016
-Found duplicate nodes. Substituting 3855574183 with 2752293992
-Found duplicate nodes. Substituting 3855577627 with 3675747406
-Found duplicate nodes. Substituting 3855577774 with 3076113963
-Found duplicate nodes. Substituting 3855577803 with 3676000982
-Found duplicate nodes. Substituting 3855578070 with 787496779
-Found duplicate nodes. Substituting 3855578143 with 3676001113
-Found duplicate nodes. Substituting 3855578667 with 3228997049
-Found duplicate nodes. Substituting 3855578671 with 3228997050
-Found duplicate nodes. Substituting 3855578672 with 611672228
-Found duplicate nodes. Substituting 3860844606 with 682362156
-Found duplicate nodes. Substituting 3861761542 with 3819522958
-Found duplicate nodes. Substituting 3861761544 with 678890373
-Found duplicate nodes. Substituting 3861761552 with 3819522960
-Found duplicate nodes. Substituting 3861761554 with 1187333115
-Found duplicate nodes. Substituting 3861762665 with 2510600485
-Found duplicate nodes. Substituting 3861762675 with 2026465548
-Found duplicate nodes. Substituting 3861762678 with 2026465550
-Found duplicate nodes. Substituting 3861762728 with 3819522965
-Found duplicate nodes. Substituting 3861764462 with 1493300570
-Found duplicate nodes. Substituting 3861765085 with 559839171
-Found duplicate nodes. Substituting 3861765089 with 665535064
-Found duplicate nodes. Substituting 3861765090 with 559839170
-Found duplicate nodes. Substituting 3862784254 with 3862784253
-Found duplicate nodes. Substituting 3862784256 with 3862784255
-Found duplicate nodes. Substituting 3862784258 with 3862784257
-Found duplicate nodes. Substituting 3862784261 with 3862784260
-Found duplicate nodes. Substituting 3862784266 with 3862784265
-Found duplicate nodes. Substituting 3862784270 with 3862784269
-Found duplicate nodes. Substituting 3862784278 with 3862784277
-Found duplicate nodes. Substituting 3872632778 with 612321243
-Found duplicate nodes. Substituting 3874378042 with 3874378041
-Found duplicate nodes. Substituting 3874378043 with 3874378041
-Found duplicate nodes. Substituting 3874733864 with 3874333321
-Found duplicate nodes. Substituting 3874733865 with 3874333321
-Found duplicate nodes. Substituting 3876345178 with 3876345177
-Found duplicate nodes. Substituting 3876345203 with 585467982
+Found duplicate nodes. Substituting 3987794203 with 3987794202
+Found duplicate nodes. Substituting 3997661445 with 3517810193
+Found duplicate nodes. Substituting 4016273048 with 26992494
+Found duplicate nodes. Substituting 4016273049 with 2306772973
 done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Removing duplicate edges... 
@@ -123,70 +14,72 @@ Found duplicate edges. Removing 310058577
 Found duplicate edges. Removing 335703516
 Found duplicate edges. Removing 335703519
 Found duplicate edges. Removing 335703532
-Found duplicate edges. Removing 376961899
 Found duplicate edges. Removing 377118659
 Found duplicate edges. Removing 377494320
+Found duplicate edges. Removing 391385403
 done.
+Adding new type 'highway.service|railway.tram' (first occurence for edge '167272531#0').
 Parsing relations from osm-file 'osm_bbox.osm.xml'... 
 done.
- Removed 1366 traffic lights before loading plain-XML
+ Removed 1494 traffic lights before loading plain-XML
  Import done:
-   35923 nodes loaded.
-   33 types loaded.
-   36207 edges loaded.
+   37203 nodes loaded.
+   34 types loaded.
+   36921 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done.
+Removing self-loops... done (5ms).
 Joining junction clusters... 
-done.
- Joined 711 junction cluster(s).
-Removing empty nodes and geometry nodes... done.
-   25457 nodes removed.
-Moving network to origin... done.
+done (128ms).
+ Joined 721 junction cluster(s).
+Removing empty nodes and geometry nodes... done (1404ms).
+   26635 nodes removed.
+Moving network to origin... done (88ms).
 Computing turning directions... 
-done.
-Guessing and setting on-/off-ramps... done.
-Sorting nodes' edges... done.
+done (27ms).
+Guessing and setting on-/off-ramps... done (40ms).
+Sorting nodes' edges... done (35ms).
 Computing node shapes... 
-done.
-Computing edge shapes... done.
-Computing node types... done.
-Computing priorities... done.
-Computing approached edges... done.
+done (763ms).
+Computing edge shapes... done (335ms).
+Computing node types... done (13ms).
+Computing priorities... done (19ms).
+Computing approached edges... done (25ms).
 Guessing and setting roundabouts... 
  Guessed 9 roundabout(s).
-done.
-Computing approaching lanes... done.
-Dividing of lanes on approached lanes... done.
-Processing turnarounds... done.
-Rechecking of lane endings... done.
-Assigning nodes to traffic lights... done.
-Joining traffic light nodes... done.
-Computing traffic light control information... done.
-Computing node logics... done.
+done (7ms).
+Computing approaching lanes... done (94ms).
+Dividing of lanes on approached lanes... done (67ms).
+Processing turnarounds... done (9ms).
+Rechecking of lane endings... done (10ms).
+Assigning nodes to traffic lights... done (5ms).
+Joining traffic light nodes... done (24ms).
+Computing traffic light control information... done (13ms).
+Computing node logics... done (263ms).
 Computing traffic light logics... 
-done.
- 455 traffic light(s) computed.
+done (44ms).
+ 462 traffic light(s) computed.
 Building inner edges... 
-done.
+done (757ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 299
-  Priority junctions          : 6747
-  Right-before-left junctions : 2441
+  Unregulated junctions       : 304
+  Priority junctions          : 6828
+  Right-before-left junctions : 2455
  Network boundaries:
-  Original boundary  : 13.20,52.45,13.57,52.57
+  Original boundary  : 13.29,52.45,13.57,52.57
   Applied offset     : -384858.11,-5815627.58
-  Converted boundary : 0.00,0.00,12996.54,7685.29
+  Converted boundary : 0.00,0.00,12996.54,7685.60
 -----------------------------------------------------
+Writing network... done (6578ms).
 Success.
-Written configuration to '/home/behr_mi/.texttest/tmp/tools.05Dec173711.23862/tools/projects/evacuation/plain/evacuationArea.netccfg'
-Parsing network projection from '/home/behr_mi/.texttest/tmp/tools.05Dec173711.23862/tools/projects/evacuation/plain/evacuationArea.net.xml'... done.
+Written configuration to '/home/micha/.texttest/tmp/tools.28Feb143017.21825/tools/projects/evacuation/plain/evacuationArea.netccfg'
+Parsing network projection from '/home/micha/.texttest/tmp/tools.28Feb143017.21825/tools/projects/evacuation/plain/evacuationArea.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/home/behr_mi/.texttest/tmp/tools.05Dec173711.23862/tools/projects/evacuation/plain/evacuationArea.polycfg'
+Written configuration to '/home/micha/.texttest/tmp/tools.28Feb143017.21825/tools/projects/evacuation/plain/evacuationArea.polycfg'
 building Evacuation Site
 osm Get
 200 OK

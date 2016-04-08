@@ -107,26 +107,27 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
 
 void
 ODMatrix::add(const std::string& id, const SUMOTime depart,
-              const std::string& origin, const std::string& destination,
+              const std::pair<const std::string, const std::string>& od,
               const std::string& vehicleType) {
     // we start looking from the end because there is a high probability that the input is sorted by time
-    std::vector<ODCell*>::reverse_iterator cell = myContainer.rbegin();
-    for (; cell != myContainer.rend(); ++cell) {
-        if ((*cell)->begin <= depart && (*cell)->end > depart &&
-                (*cell)->origin == origin && (*cell)-> destination == destination &&
-                (*cell)->vehicleType == vehicleType) {
+    std::vector<ODCell*>& odList = myShortCut[od];
+    ODCell* cell = 0;
+    for (std::vector<ODCell*>::const_reverse_iterator c = odList.rbegin(); c != odList.rend(); ++c) {
+        if ((*c)->begin <= depart && (*c)->end > depart && (*c)->vehicleType == vehicleType) {
+            cell = *c;
             break;
         }
     }
-    if (cell == myContainer.rend()) {
+    if (cell == 0) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
-        add(1., intervalIdx * interval, (intervalIdx + 1) * interval, origin, destination, vehicleType);
-        cell = myContainer.rbegin();
+        add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType);
+        cell = myContainer.back();
+        odList.push_back(cell);
     } else {
-        (*cell)->vehicleNumber += 1.;
+        cell->vehicleNumber += 1.;
     }
-    (*cell)->departures[depart].push_back(id);
+    cell->departures[depart].push_back(id);
 }
 
 
@@ -208,7 +209,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     }
     std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
     size_t vehName = 0;
-    sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
+    sortByBeginTime();
     // recheck begin time
     begin = MAX2(begin, myContainer.front()->begin);
     std::vector<ODCell*>::iterator next = myContainer.begin();
@@ -276,7 +277,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
         return;
     }
     size_t flowName = 0;
-    sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
+    sortByBeginTime();
     // recheck begin time
     for (std::vector<ODCell*>::const_iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         const ODCell* const c = *i;
@@ -604,7 +605,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
 
 void
 ODMatrix::sortByBeginTime() {
-    std::sort(myContainer.begin(), myContainer.end(), by_begin_sorter());
+    std::sort(myContainer.begin(), myContainer.end(), cell_by_begin_comparator());
 }
 
 

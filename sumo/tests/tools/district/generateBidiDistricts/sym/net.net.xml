@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 02 Mar 2016 02:54:52 PM CET by Netedit Version dev-SVN-r20119
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/tools/district/generateBidiDistricts/asym/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/tools/district/generateBidiDistricts/asym/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,1600.00,800.00" projParameter="!"/>
+
+    <edge id="A.0" from="gneJ0" to="gneJ2" priority="1">
+        <lane id="A.0_0" index="0" speed="13.89" length="50.00" shape="0.00,-1.65 50.00,-1.65"/>
+    </edge>
+    <edge id="A.50" from="gneJ2" to="gneJ1" priority="1">
+        <lane id="A.50_0" index="0" speed="13.89" length="50.00" shape="50.00,-1.65 100.00,-1.65"/>
+    </edge>
+    <edge id="B" from="gneJ1" to="gneJ0" priority="1">
+        <lane id="B_0" index="0" speed="13.89" length="100.00" shape="100.00,1.65 0.00,1.65"/>
+    </edge>
+
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="B_0" intLanes="" shape="0.00,-0.05 0.00,-3.25 0.00,3.25 0.00,0.05"/>
+    <junction id="gneJ1" type="dead_end" x="100.00" y="0.00" incLanes="A.50_0" intLanes="" shape="100.00,0.05 100.00,3.25 100.00,-3.25 100.00,-0.05"/>
+    <junction id="gneJ2" type="priority" x="50.00" y="0.00" incLanes="A.0_0" intLanes="" shape="50.00,-0.05 50.00,-3.25 50.00,-0.05">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="A.0" to="A.50" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

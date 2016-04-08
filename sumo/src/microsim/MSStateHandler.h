@@ -39,9 +39,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-#ifdef HAVE_INTERNAL
 class MESegment;
-#endif
 
 
 // ===========================================================================
@@ -97,9 +95,7 @@ protected:
 private:
     const SUMOTime myOffset;
     SUMOTime myTime;
-#ifdef HAVE_INTERNAL
     MESegment* mySegment;
-#endif
     std::pair<int, int> myEdgeAndLane;
     unsigned int myQueIndex;
 

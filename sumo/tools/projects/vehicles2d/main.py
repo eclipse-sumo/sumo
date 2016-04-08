@@ -21,9 +21,9 @@ the Free Software Foundation; either version 3 of the License, or
 import sys
 import inspect
 try:
-    import Image
-    import ImageDraw
-    import ImageColor
+    from PIL import Image
+    from PIL import ImageDraw
+    from PIL import ImageColor
     haveImaging = True
 except ImportError:
     print >> sys.stderr, "No imaging"

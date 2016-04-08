@@ -1,8 +1,6 @@
 XERCES_LIBS = -l$(LIB_XERCES)
 
-if INTERNAL
 MESO_LIBS = ../../src/mesosim/libmesosim.a
-endif
 
 if CHECK_MEMORY_LEAKS
 MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a
@@ -59,6 +57,7 @@ $(MESO_LIBS) \
 ../../src/utils/options/liboptions.a \
 ../../src/utils/iodevices/libiodevices.a \
 ../../src/utils/common/FileHelpers.o \
+../../src/foreign/PHEMlight/cpp/libphemlight.a \
 ../../src/foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 $(PYTHON_LIBS) \

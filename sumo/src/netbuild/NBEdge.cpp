@@ -690,8 +690,7 @@ NBEdge::addLane2LaneConnection(unsigned int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos);
-    return true;
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos);
 }
 
 
@@ -712,7 +711,7 @@ NBEdge::addLane2LaneConnections(unsigned int fromLane,
 }
 
 
-void
+bool
 NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
                       unsigned int destLane, Lane2LaneInfoType type,
                       bool mayUseSameDestination,
@@ -720,7 +719,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
                       bool keepClear,
                       SUMOReal contPos) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
-        return;
+        return false;
     }
     // some kind of a misbehaviour which may occure when the junction's outgoing
     //  edge priorities were not properly computed, what may happen due to
@@ -732,18 +731,15 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
     //  will be refused
     //
     if (!mayUseSameDestination && hasConnectionTo(destEdge, destLane)) {
-        return;
+        return false;
     }
     if (find_if(myConnections.begin(), myConnections.end(), connections_finder(lane, destEdge, destLane)) != myConnections.end()) {
-        return;
+        return true;
     }
-    if (myLanes.size() <= lane) {
-        WRITE_ERROR("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
-        return;
-    }
-    if (destEdge->getNumLanes() <= destLane) {
-        WRITE_ERROR("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
-        return;
+    if (myLanes.size() <= lane || destEdge->getNumLanes() <= destLane) {
+        // problem might be corrigible in post-processing
+        WRITE_WARNING("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
+        return false;
     }
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).toEdge == destEdge && ((*i).fromLane == -1 || (*i).toLane == -1)) {
@@ -772,6 +768,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
             }
         }
     }
+    return true;
 }
 
 
@@ -1539,9 +1536,9 @@ NBEdge::recheckLanes() {
         //  using the standard algorithm.
         for (unsigned int i = 0; i < myLanes.size(); i++) {
             if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
-                if (i > 0 && connNumbersPerLane[i - 1] > 1) {
+                if (i > 0 && connNumbersPerLane[i - 1] > 1 && getPermissions(i) == getPermissions(i - 1)) {
                     moveConnectionToLeft(i - 1);
-                } else if (i < myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1) {
+                } else if (i < myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1 && getPermissions(i) == getPermissions(i + 1)) {
                     moveConnectionToRight(i + 1);
                 }
             }
@@ -1617,8 +1614,18 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     // build connections for miv lanes
     std::vector<int> availableLanes;
     for (int i = 0; i < (int)myLanes.size(); ++i) {
+        if ((getPermissions(i) & SVC_PASSENGER) != 0) {
+            availableLanes.push_back(i);
+        }
+    }
+    if (availableLanes.size() > 0) {
+        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
+    }
+    // build connections for miscellaneous further modes (more than bike,peds,bus and without passenger)
+    availableLanes.clear();
+    for (int i = 0; i < (int)myLanes.size(); ++i) {
         const SVCPermissions perms = getPermissions(i);
-        if ((perms & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_BUS)) == 0 || isForbidden(perms)) {
+        if ((perms & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_BUS)) == 0 || (perms & SVC_PASSENGER) != 0 || isForbidden(perms)) {
             continue;
         }
         availableLanes.push_back(i);
@@ -1816,7 +1823,7 @@ NBEdge::computePrioritySum(const std::vector<unsigned int>& priorities) {
 
 
 void
-NBEdge::appendTurnaround(bool noTLSControlled) {
+NBEdge::appendTurnaround(bool noTLSControlled, bool checkPermissions) {
     // do nothing if no turnaround is known
     if (myTurnDestination == 0 || myTo->getType() == NODETYPE_RAIL_CROSSING) {
         return;
@@ -1826,7 +1833,20 @@ NBEdge::appendTurnaround(bool noTLSControlled) {
     if (noTLSControlled && myTo->isTLControlled()) {
         return;
     }
-    setConnection((unsigned int)(myLanes.size() - 1), myTurnDestination, myTurnDestination->getNumLanes() - 1, L2L_VALIDATED);
+    const int fromLane = (int)myLanes.size() - 1;
+    const int toLane = (int)myTurnDestination->getNumLanes() - 1;
+    if (checkPermissions) {
+        if ((getPermissions(fromLane) & myTurnDestination->getPermissions(toLane)) == 0) {
+            // exclude connection if fromLane and toEdge have no common permissions
+            return;
+        }
+        if ((getPermissions(fromLane) & myTurnDestination->getPermissions(toLane)) == SVC_PEDESTRIAN) {
+            // exclude connection if the only commonly permitted class are pedestrians
+            // these connections are later built in NBNode::buildWalkingAreas
+            return;
+        }
+    }
+    setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED);
 }
 
 
@@ -1865,9 +1885,7 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff) {
         for (std::vector<NBEdge::Connection>::iterator j = elv.begin(); j != elv.end(); j++) {
             NBEdge::Connection el = *j;
             assert(el.tlID == "");
-            bool ok = addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
-            assert(ok);
-            UNUSED_PARAMETER(ok); // only used for assertion
+            addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
         }
     }
 }
@@ -2180,7 +2198,7 @@ NBEdge::incLaneNo(unsigned int by) {
     unsigned int newLaneNo = (unsigned int) myLanes.size() + by;
     while (myLanes.size() < newLaneNo) {
         // recompute shapes on last addition
-        const bool recompute = myLanes.size() == newLaneNo - 1;
+        const bool recompute = (myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
         addLane((unsigned int)myLanes.size(), recompute);
     }
 }
@@ -2207,7 +2225,7 @@ NBEdge::decLaneNo(unsigned int by) {
     assert(newLaneNo > 0);
     while (myLanes.size() > newLaneNo) {
         // recompute shapes on last removal
-        const bool recompute = myLanes.size() == newLaneNo + 1;
+        const bool recompute = myLanes.size() == newLaneNo + 1 && myStep < LANES2LANES_USER;
         deleteLane((unsigned int)((int)myLanes.size() - 1), recompute);
     }
 }
@@ -2514,10 +2532,31 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
             PositionVector tmp = myGeom;
             // @note this doesn't work well for vissim networks
             //tmp.move2side(MIN2(neededOffset - dist, neededOffset2 - dist2));
-            tmp.move2side(neededOffset - dist);
-            myGeom[i] = tmp[i];
+            try {
+                tmp.move2side(neededOffset - dist);
+                myGeom[i] = tmp[i];
+            } catch (InvalidArgument&) {
+                WRITE_WARNING("Could not avoid overlapping shape at node '" + node->getID() + "' for edge '" + getID() + "'");
+            }
         }
     }
+}
+
+
+SUMOReal 
+NBEdge::getFinalLength() const {
+    SUMOReal result = getLoadedLength();
+    if (OptionsCont::getOptions().getBool("no-internal-links") && !hasLoadedLength()) {
+        // use length to junction center even if a modified geometry was given
+        PositionVector geom = cutAtIntersection(myGeom);
+        geom.push_back_noDoublePos(getToNode()->getCenter());
+        geom.push_front_noDoublePos(getFromNode()->getCenter());
+        result = geom.length();
+    }
+    if (result <= 0) {
+        result = POSITION_EPS;
+    }
+    return result;
 }
 
 /****************************************************************************/

@@ -1,7 +1,13 @@
 # save 2 states
 save2
+
+# loads state2 from test save2
 load
+
+# loads state from test save2
 load_late_insertion
+
+# loads state from test save2
 load_and_save
 
 # save state for a network with internal links

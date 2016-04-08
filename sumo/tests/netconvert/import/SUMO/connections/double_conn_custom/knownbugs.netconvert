@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 29Feb15:34:16]
+search_string:pass="1"
+trigger_on_absence:1
+search_file:net
+full_description:patching pass fails
+brief_description:see #2174

@@ -107,10 +107,9 @@ public:
 
 
     /** @brief Informs edges about being controlled by a tls
-     * @param[in] ec The container of edges
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont& ec) const;
+    void setTLControllingInformation() const;
     /// @}
 
 
@@ -148,13 +147,11 @@ protected:
     /// @{
 
     /** @brief Computes the traffic light logic finally in dependence to the type
-     * @param[in] ec The edge container
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                   unsigned int brakingTimeSeconds);
+    NBTrafficLightLogic* myCompute(unsigned int brakingTimeSeconds);
 
 
     /** @brief Collects the nodes participating in this traffic light

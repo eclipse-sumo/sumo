@@ -151,7 +151,7 @@ class Connections:
             contains. Incoming edges are sorted alphabetically
             in ascending order. """
 
-        sources = self.connections_map.keys()
+        sources = list(self.connections_map.keys())
         sources.sort()
         return sources
 

@@ -126,14 +126,8 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
             case DEPART_POS_FREE:
                 val = "free";
                 break;
-            case DEPART_POS_PWAG_SIMPLE:
-                val = "pwagSimple";
-                break;
-            case DEPART_POS_PWAG_GENERIC:
-                val = "pwagGeneric";
-                break;
-            case DEPART_POS_MAX_SPEED_GAP:
-                val = "maxSpeedGap";
+            case DEPART_POS_LAST:
+                val = "last";
                 break;
             case DEPART_POS_BASE:
                 val = "base";
@@ -365,12 +359,8 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
         dpd = DEPART_POS_FREE;
     } else if (val == "base") {
         dpd = DEPART_POS_BASE;
-    } else if (val == "pwagSimple") {
-        dpd = DEPART_POS_PWAG_SIMPLE;
-    } else if (val == "pwagGeneric") {
-        dpd = DEPART_POS_PWAG_GENERIC;
-    } else if (val == "maxSpeedGap") {
-        dpd = DEPART_POS_MAX_SPEED_GAP;
+    } else if (val == "last") {
+        dpd = DEPART_POS_LAST;
     } else {
         try {
             pos = TplConvert::_2SUMOReal(val.c_str());
@@ -380,7 +370,7 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
         }
     }
     if (!ok) {
-        error = "Invalid departPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", \"maxSpeedGap\", or a float)";
+        error = "Invalid departPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"last\" or a float)";
     }
     return ok;
 }

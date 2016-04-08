@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 11 Jan 2016 01:36:52 PM CET by Netedit Version dev-SVN-r19701I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/net2.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/2097/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="EC" to="CN" fromLane="0" toLane="0"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1"/>
+    <connection from="EC" to="CS" fromLane="1" toLane="1"/>
+
+    <connection from="NC" to="CW" fromLane="0" toLane="0"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1"/>
+    <connection from="NC" to="CE" fromLane="1" toLane="1"/>
+
+    <connection from="SC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0"/>
+    <connection from="SC" to="CN" fromLane="1" toLane="1"/>
+    <connection from="SC" to="CW" fromLane="1" toLane="1" contPos="4"/>
+
+    <connection from="WC" to="CS" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1"/>
+    <connection from="WC" to="CN" fromLane="1" toLane="1"/>
+
+</connections>

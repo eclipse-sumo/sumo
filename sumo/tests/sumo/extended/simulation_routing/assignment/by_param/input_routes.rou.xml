@@ -1,0 +1,12 @@
+<trips>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="withDevice" sigma="0">
+        <param key="has.rerouting.device" value="true"/>
+    </vType>
+    <route id="r0" edges="beg"/>
+	<vehicle route="r0" id="0" depart="0" from="beg" to="rend" type="withDevice"/>
+	<vehicle route="r0" id="1" depart="20" from="beg" to="rend">
+        <param key="has.rerouting.device" value="true"/>
+    </vehicle>
+	<vehicle route="r0" id="2" depart="40" from="beg" to="rend"/>
+</trips>

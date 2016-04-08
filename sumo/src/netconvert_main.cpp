@@ -104,7 +104,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
-    oc.setApplicationName("netconvert", "SUMO netconvert Version " + getBuildName(VERSION_STRING));
+    oc.setApplicationName("netconvert", "SUMO netconvert Version " VERSION_STRING);
     int ret = 0;
     try {
         XMLSubSys::init();
@@ -138,6 +138,10 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
         nb.compute(oc);
+        // check whether any errors occured
+        if (MsgHandler::getErrorInstance()->wasInformed()) {
+            throw ProcessError();
+        }
         NWFrame::writeNetwork(oc, nb);
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {

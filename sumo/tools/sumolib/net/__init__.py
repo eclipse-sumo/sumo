@@ -130,6 +130,7 @@ class Net:
         self._rtree = None
         self._allLanes = []
         self._origIdx = None
+        self.hasWarnedAboutMissingRTree = False
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -214,6 +215,10 @@ class Net:
                 if d < r:
                     edges.append((e, d))
         except ImportError:
+            if not self.hasWarnedAboutMissingRTree:
+                print("Warning: Module 'rtree' not available. Using brute-force fallback")
+                self.hasWarnedAboutMissingRTree = True
+
             for edge in self._edges:
                 d = sumolib.geomhelper.distancePointToPolygon(
                     (x, y), edge.getShape(includeJunctions))

@@ -17,6 +17,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -33,16 +35,16 @@ import validate
 def buildVSS(obs7file, obs8file, vss):
     t7Times = validate.readTimes(obs7file)
     t8Times = validate.readTimes(obs8file)
-    print 'data read: ', len(t7Times), len(t8Times)
+    print('data read: ', len(t7Times), len(t8Times))
 
     fp = open(vss, 'w')
     lObs8 = 337.5
-    print >> fp, '<vss>'
+    print('<vss>', file=fp)
     for i, t7 in enumerate(t7Times):
         v = lObs8 / (t8Times[i] - t7)
         if i != len(t7Times) - 1 and t7 != t7Times[i + 1]:
-            print >> fp, '    <step time ="%s" speed="%s"/>' % (t7, v)
-    print >> fp, '</vss>'
+            print('    <step time ="%s" speed="%s"/>' % (t7, v), file=fp)
+    print('</vss>', file=fp)
     fp.close()
 
 
@@ -52,29 +54,26 @@ def genDemand(inputFile, outputFile):
     fRou.write('<routes>\n')
     fRou.write('    <route id="route01" edges="1to7 7to8"/>\n')
     for vehID, t in enumerate(t1Times):
-        print >> fRou, '    <vehicle depart="%s" arrivalPos="-1" id="%s" route="route01" type="pass" departSpeed="max" />' % (
-            t, vehID)
-    print >> fRou, '</routes>'
+        print('    <vehicle depart="%s" arrivalPos="-1" id="%s" route="route01" type="pass" departSpeed="max" />' % (
+            t, vehID), file=fRou)
+    print('</routes>', file=fRou)
     fRou.close()
 
 # definition of gof() function to be given to fmin_cobyla() or fmin()
 
 
 def gof(p):
-    para = {'vMax': p[0], 'aMax': p[1], 'bMax': p[2],
-            'lCar': p[3], 'sigA': p[4], 'tTau': p[5]}
-    print '# simulation with:',
-    for k, v in para.items():
-        print "%s:%.3f" % (k, v),
-    print
+    para = [('vMax', p[0]), ('aMax', p[1]), ('bMax', p[2]),
+            ('lCar', p[3]), ('sigA', p[4]), ('tTau', p[5])]
+    print('# simulation with:', *["%s:%.3f" % i for i in para])
     fType = open('data/input_types.add.xml', 'w')
     fType.write(('<routes>\n    <vType accel="%(aMax)s" decel="%(bMax)s" id="pass"' +
                  ' length="%(lCar)s" minGap="2.5" maxSpeed="%(vMax)s"' +
-                 ' sigma="%(sigA)s" tau="%(tTau)s" />\n</routes>') % para)
+                 ' sigma="%(sigA)s" tau="%(tTau)s" />\n</routes>') % dict(para))
     fType.close()
     result = validate.validate(checkBinary('sumo'))
-    print '#### yields rmse: %.4f' % result
-    print >> fpLog, "%s %s" % (" ".join(["%.3f" % pe for pe in p]), result)
+    print('#### yields rmse: %.4f' % result)
+    print("%s %s" % (" ".join(["%.3f" % pe for pe in p]), result), file=fpLog)
     fpLog.flush()
     return result
 
@@ -108,8 +107,8 @@ retcode = subprocess.call([netconvertBinary, "-n", "data/spd-road.nod.xml", "-e"
 try:
     shutil.copy("data/spd-road.net.xml", "net.net.xml")
 except:
-    print "Missing 'spd-road.net.xml'"
-print ">> Netbuilding closed with status %s" % retcode
+    print("Missing 'spd-road.net.xml'")
+print(">> Netbuilding closed with status %s" % retcode)
 sys.stdout.flush()
 # build/check vss
 buildVSS('data/obstimes_1_7.txt',

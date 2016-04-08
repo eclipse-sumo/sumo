@@ -16,6 +16,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -56,20 +58,20 @@ def runSingle(sumoEndTime, traciEndTime):
         traci.simulationStep()
         vehs = traci.vehicle.getIDList()
         if vehs.index("horiz") < 0 or len(vehs) > 1:
-            print "Something is false"
+            print("Something is false")
         step += 1
-    print "Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T)
+    print("Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T))
     traci.close()
     sys.stdout.flush()
 
-print "----------- SUMO ends first -----------"
+print("----------- SUMO ends first -----------")
 sys.stdout.flush()
 for i in range(0, 10):
-    print " Run %s" % i
+    print(" Run %s" % i)
     runSingle(50, 99)
 
-print "----------- TraCI ends first -----------"
+print("----------- TraCI ends first -----------")
 sys.stdout.flush()
 for i in range(0, 10):
-    print " Run %s" % i
+    print(" Run %s" % i)
     runSingle(101, 99)

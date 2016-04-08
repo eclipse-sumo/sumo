@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Dec  9 13:59:01 2015" north="173.36" south="0.00" east="400.00" west="0.00" maxRoad="12" maxJunc="5" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Mon Jan  4 15:25:08 2016" north="173.36" south="0.00" east="400.00" west="0.00" maxRoad="12" maxJunc="5" maxPrg="0"/>
     <road name="" length="8.70" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1337,7 +1337,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="190.06514973" y="76.79090798" hdg="-2.35244681" length="0.00000001"><line/></geometry>
+            <geometry s="0.00000000" x="190.06514973" y="76.79090798" hdg="-2.35244698" length="0.00000001"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -1372,7 +1372,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="190.13586040" y="76.72019729" hdg="-2.35993812" length="0.00000001"><line/></geometry>
+            <geometry s="0.00000000" x="190.13586040" y="76.72019729" hdg="-2.35993604" length="0.00000001"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -1407,7 +1407,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="209.93485028" y="76.79090797" hdg="-0.78913799" length="0.00000001"><line/></geometry>
+            <geometry s="0.00000000" x="209.93485028" y="76.79090797" hdg="-0.78913970" length="0.00000001"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>

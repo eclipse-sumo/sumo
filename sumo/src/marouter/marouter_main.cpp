@@ -172,7 +172,7 @@ writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const
 void
 computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     // build the router
-    SUMOAbstractRouter<ROEdge, ROVehicle>* router;
+    SUMOAbstractRouter<ROEdge, ROVehicle>* router = 0;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     const SUMOTime begin = string2time(oc.getString("begin"));
@@ -250,6 +250,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::NO_X>;
         } else if (measure == "fuel") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::FUEL>;
+        } else if (measure == "electricity") {
+            op = &ROEdge::getEmissionEffort<PollutantsInterface::ELEC>;
         } else if (measure == "noise") {
             op = &ROEdge::getNoiseEffort;
         } else {
@@ -273,10 +275,10 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             }
         }
     }
-    // prepare the output
-    net.openOutput(oc.isSet("output-file") ? oc.getString("output-file") : "", "", "");
-    // process route definitions
     try {
+        // prepare the output
+        net.openOutput(oc.isSet("output-file") ? oc.getString("output-file") : "", "", "");
+        // process route definitions
         if (oc.isSet("timeline")) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
@@ -284,9 +286,16 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
         ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"), net, matrix, *router);
         a.resetFlows();
+#ifdef HAVE_FOX
+	const RORouterProvider provider(router, 0, 0);
+        const int maxNumThreads = oc.getInt("routing-threads");
+        while ((int)net.getThreadPool().size() < maxNumThreads) {
+            new RONet::WorkerThread(net.getThreadPool(), provider);
+        }
+#endif
         const std::string assignMethod = oc.getString("assignment-method");
         if (assignMethod == "incremental") {
-            a.incremental(oc.getInt("max-iterations"));
+            a.incremental(oc.getInt("max-iterations"), oc.getBool("verbose"));
         } else if (assignMethod == "SUE") {
             a.sue(oc.getInt("max-iterations"), oc.getInt("max-inner-iterations"),
                   oc.getInt("paths"), oc.getFloat("paths.penalty"), oc.getFloat("tolerance"), oc.getString("route-choice-method"));
@@ -367,7 +376,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription("Import O/D-matrices for macroscopic traffic assignment");
-    oc.setApplicationName("marouter", "SUMO marouter Version " + getBuildName(VERSION_STRING));
+    oc.setApplicationName("marouter", "SUMO marouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = 0;
     try {

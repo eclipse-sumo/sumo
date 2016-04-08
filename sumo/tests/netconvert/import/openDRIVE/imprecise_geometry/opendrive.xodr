@@ -1,0 +1,66 @@
+<?xml version="1.0" standalone="yes"?>
+<OpenDRIVE>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec 16 08:41:44 2015" north="4.6768900000000003e+03" south="4.1550000000000000e+02" east="1.0040610000000001e+04" west="2.2441999999999999e+02">
+    </header>
+    <road name="" length="1.8229226847689216e+02" id="190" junction="-1">
+        <link>
+            <predecessor elementType="junction" elementId="146" />
+            <successor elementType="junction" elementId="268" />
+        </link>
+        <type s="0.0000000000000000e+00" type="town"/>
+        <planView>
+            <geometry s="0.0000000000000000e+00" x="7.9664230424099997e+03" y="2.1750083145899998e+03" hdg="2.9107644662358712e+00" length="2.0272338576995310e+01">
+                <line/>
+            </geometry>
+            <geometry s="2.0272338576995310e+01" x="7.9466883819400000e+03" y="2.1796462977199999e+03" hdg="2.8703065663422684e+00" length="9.1816862829896749e+01">
+                <line/>
+            </geometry>
+            <geometry s="1.1208920140689206e+02" x="7.8592970823899996e+03" y="2.2078082767500000e+03" hdg="2.8065217700000020e+00" length="7.0203067070000102e+01">
+                <line/>
+            </geometry>
+        </planView>
+        <elevationProfile>
+            <elevation s="0.0000000000000000e+00" a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+        </elevationProfile>
+        <lateralProfile>
+        </lateralProfile>
+        <lanes>
+            <laneSection s="0.0000000000000000e+00">
+                <center>
+                    <lane id="0" type="none" level= "false">
+                        <link>
+                        </link>
+                        <roadMark sOffset="0.0000000000000000e+00" type="solid" weight="standard" color="standard" width="1.3000000000000000e-01" laneChange="none">
+                        </roadMark>
+                    </lane>
+                </center>
+                <right>
+                    <lane id="-1" type="driving" level= "false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="3.2000000000000002e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <roadMark sOffset="0.0000000000000000e+00" type="broken" weight="standard" color="standard" width="1.3000000000000000e-01" laneChange="both">
+                        </roadMark>
+                        <speed sOffset="0.0000000000000000e+00" max="2.2219999999999999e+01"/>
+                    </lane>
+                    <lane id="-2" type="driving" level= "false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="3.2000000000000002e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <roadMark sOffset="0.0000000000000000e+00" type="solid" weight="standard" color="standard" width="1.3000000000000000e-01" laneChange="none">
+                        </roadMark>
+                        <speed sOffset="0.0000000000000000e+00" max="2.2219999999999999e+01"/>
+                    </lane>
+                </right>
+            </laneSection>
+        </lanes>
+        <objects>
+        </objects>
+        <signals>
+        </signals>
+        <surface>
+        </surface>
+    </road>
+    <junction name="" id="268">
+    </junction>
+</OpenDRIVE>

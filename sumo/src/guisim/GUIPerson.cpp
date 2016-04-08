@@ -236,12 +236,8 @@ Boundary
 GUIPerson::getCenteringBoundary() const {
     Boundary b;
     // ensure that the vehicle is drawn, otherwise myPositionInVehicle will not be updated
-    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
-        b.add(getVehicle()->getPosition());
-    } else {
-        b.add(getPosition());
-    }
-    b.grow(20);
+    b.add(getPosition());
+    b.grow(MAX2(getVehicleType().getWidth(), getVehicleType().getLength()));
     return b;
 }
 
@@ -251,7 +247,9 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = getPosition();
-    glTranslated(p1.x(), p1.y(), getType());
+    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
+        p1 = myPositionInVehicle;
+    }
     glRotated(90, 0, 0, 1);
     // XXX use person specific gui settings
     // set person color
@@ -413,9 +411,6 @@ GUIPerson::getEdgePos() const {
 Position
 GUIPerson::getPosition() const {
     AbstractMutex::ScopedLocker locker(myLock);
-    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
-        return myPositionInVehicle;
-    }
     return MSPerson::getPosition();
 }
 

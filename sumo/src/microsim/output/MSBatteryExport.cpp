@@ -2,7 +2,7 @@
 /// @file    MSBatteryExport.cpp
 /// @author  Mario Krumnow
 /// @author  Tamas Kurczveil
-/// @author  Pablo Alvarez López
+/// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
 /// @version $Id$
 ///

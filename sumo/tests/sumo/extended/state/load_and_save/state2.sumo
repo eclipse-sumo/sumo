@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/16/15 12:54:46 by SUMO Version dev-SVN-r18202
+<!-- generated on Tue Jan 12 13:55:49 2016 by SUMO Version dev-SVN-r19709I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,29 +23,37 @@
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r18202" time="10.00">
+<snapshot version="dev-SVN-r19709" time="10.00">
     <route id="r0" state="1" edges="beg middle end"/>
-    <delay number="2" end="0" depart="4.00" time="0.00"/>
+    <delay number="2" begin="2" end="0" depart="4.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE">
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="type0">
         <carFollowing-Krauss sigma="0.00"/>
     </vType>
-    <vehicle id="v0" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="0 1" pos="71.77" speed="13.89"/>
-    <vehicle id="v1" depart="0.00" route="r0" type="DEFAULT_VEHTYPE" state="4000 1" pos="18.70" speed="8.80"/>
-    <lane>
+    <vType id="type1">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vType id="type2">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
+    <vehicle id="v0" depart="0.00" route="r0" type="type1" state="0 1" pos="71.77" speed="13.89"/>
+    <vehicle id="v1" depart="0.00" route="r0" type="type2" state="4000 1" pos="18.70" speed="8.80"/>
+    <lane id="beg_0">
         <vehicles value=""/>
     </lane>
-    <lane>
+    <lane id="end_0">
         <vehicles value=""/>
     </lane>
-    <lane>
+    <lane id="middle_0">
         <vehicles value="v1 v0"/>
     </lane>
 </snapshot>

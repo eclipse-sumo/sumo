@@ -51,21 +51,6 @@
         </Extension>
     </ProgId>
     <!-- End of copy -->
-                <File Id='sumoEXE' Name='sumo.exe' Source='O:\Daten\Sumo\Nightly\sumo.exe' />
-                <File Id='activitygenEXE' Name='activitygen.exe' Source='O:\Daten\Sumo\Nightly\activitygen.exe' />
-                <File Id='dfrouterEXE' Name='dfrouter.exe' Source='O:\Daten\Sumo\Nightly\dfrouter.exe' />
-                <File Id='duarouterEXE' Name='duarouter.exe' Source='O:\Daten\Sumo\Nightly\duarouter.exe' />
-                <File Id='jtrrouterEXE' Name='jtrrouter.exe' Source='O:\Daten\Sumo\Nightly\jtrrouter.exe' />
-                <File Id='marouterEXE' Name='marouter.exe' Source='O:\Daten\Sumo\Nightly\marouter.exe' />
-                <File Id='netconvertEXE' Name='netconvert.exe' Source='O:\Daten\Sumo\Nightly\netconvert.exe' />
-                <File Id='netgenEXE' Name='netgenerate.exe' Source='O:\Daten\Sumo\Nightly\netgenerate.exe' />
-                <File Id='od2tripsEXE' Name='od2trips.exe' Source='O:\Daten\Sumo\Nightly\od2trips.exe' />
-                <File Id='polyconvertEXE' Name='polyconvert.exe' Source='O:\Daten\Sumo\Nightly\polyconvert.exe' />
-                <File Id='foxDLL' Name='FOXDLL-1.6.dll' Source='O:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' />
-                <File Id='pngDLL' Name='libpng15.dll' Source='O:\Daten\Sumo\Nightly\libpng15.dll' />
-                <File Id='gdalDLL' Name='gdal18.dll' Source='O:\Daten\Sumo\Nightly\gdal18.dll' />
-                <File Id='projDLL' Name='proj.dll' Source='O:\Daten\Sumo\Nightly\proj.dll' />
-                <File Id='xercesDLL' Name='xerces-c_3_1.dll' Source='O:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />
               </Component>
               <Component Id='NetEditExecutable' Guid='210F26F3-6040-4A1F-8513-4C75AB016B8B'>
                 <File Id='neteditEXE' Name='netedit.exe' Source='O:\Daten\Sumo\Nightly\netedit.exe' KeyPath='yes'>
@@ -116,6 +101,7 @@
     <Feature Id='Complete' Title='SUMO' Description='The complete package.'
       Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id='MainProgram' Title='Program' Description='The main executables.' Level='1'>
+        <ComponentGroupRef Id='bin' />
         <ComponentRef Id='MainExecutables' />
         <ComponentRef Id='NetEditExecutable' />
         <ComponentRef Id='EnvironmentBatch' />

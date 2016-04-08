@@ -249,7 +249,7 @@ def getFirstGreenOffset(tl, connection):
     if len(tlp) != 1:
         raise RuntimeError("Found %s programs for tl %s" %
                            (len(tlp), connection._tls))
-    phases = tlp.values()[0].getPhases()
+    phases = list(tlp.values())[0].getPhases()
     start = 0
     for state, duration in phases:
         if state[index] in ['G', 'g']:
@@ -321,9 +321,9 @@ def main(options):
 
     with open(options.outfile, 'w') as outf:
         outf.write('<additional>\n')
-        for ID, startOffset in offsetDict.items():
-            outf.write('    <tlLogic id="%s" programID="0" offset="%s"/>\n' %
-                       (ID, str(startOffset)))
+        for ID, startOffset in sorted(offsetDict.items()):
+            outf.write('    <tlLogic id="%s" programID="0" offset="%.2f"/>\n' %
+                       (ID, startOffset))
         outf.write('</additional>\n')
 
     sumo = sumolib.checkBinary('sumo')

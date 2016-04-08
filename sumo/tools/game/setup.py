@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    setup.py
 @author  Michael Behrisch
@@ -27,18 +28,13 @@ import zipfile
 import subprocess
 import tempfile
 
-nightlyDir = r"O:\Daten\Sumo\Nightly"
 for d in ["Program Files", "Program Files (x86)", "Programme"]:
     sevenZip = r'C:\%s\7-Zip\7z.exe' % d
     if os.path.exists(sevenZip):
         break
 
-internal = False
-if "internal" in sys.argv:
-    internal = True
-    sys.argv.remove("internal")
-if len(sys.argv) == 1:
-    sys.argv.append("py2exe")
+inZip = os.path.abspath(sys.argv[1])
+sys.argv[1] = "py2exe"
 
 base = os.path.abspath(os.path.dirname(__file__))
 oldDir = os.getcwd()
@@ -55,27 +51,28 @@ for d in os.listdir(base):
     path = os.path.join(base, d)
     if os.path.isdir(path):
         subprocess.call(['svn', 'export', path, os.path.join("dist", d)])
+osgPlugins = None
+with zipfile.ZipFile(inZip) as binZip:
+    for f in binZip.namelist():
+        if "osgPlugins" in f:
+            extracted = binZip.extract(f)
+            if osgPlugins is None:
+                osgPlugins = extracted
+        elif f.endswith(".dll") or f.endswith("gui.exe") or f.endswith("sumo.exe"):
+            extracted = binZip.extract(f)
+            dest = os.path.join("dist", os.path.basename(f))
+            if os.path.isfile(extracted) and not os.path.exists(dest):
+                os.rename(extracted, dest)
 os.chdir("dist")
-if internal:
-    for dll in glob.glob(os.path.join(nightlyDir, 'bin64', '*.dll')):
-        shutil.copy2(dll, ".")
-    pluginDir = glob.glob(os.path.join(nightlyDir, 'bin64', 'osgPlugins*'))[0]
-    shutil.copytree(pluginDir, os.path.basename(pluginDir))
-    shutil.copy2(os.path.join(nightlyDir, 'bin64', 'meso-gui.exe'), ".")
+if osgPlugins:
+    os.rename(osgPlugins, os.path.basename(osgPlugins))
     for f in glob.glob(os.path.join(base, '..', '..', 'data', '3D', '*')):
         shutil.copy2(f, ".")
     os.chdir("bs3d")
     subprocess.call([sevenZip, 'x', os.path.join(
-        nightlyDir, '..', '3D_Modell_Forschungskreuzung_BS.7z')])
+        os.path.dirname(inZip), '..', '3D_Modell_Forschungskreuzung_BS.7z')])
     os.chdir("..")
-    zipf = zipfile.ZipFile(
-        os.path.join(nightlyDir, "sumo-game-internal.zip"), 'w', zipfile.ZIP_DEFLATED)
-else:
-    for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
-        shutil.copy2(dll, ".")
-    shutil.copy2(os.path.join(nightlyDir, "sumo-gui.exe"), ".")
-    zipf = zipfile.ZipFile(
-        os.path.join(nightlyDir, "sumo-game.zip"), 'w', zipfile.ZIP_DEFLATED)
+zipf = zipfile.ZipFile(inZip.replace("sumo-", "sumo-game-"), 'w', zipfile.ZIP_DEFLATED)
 
 root_len = len(os.path.abspath("."))
 for root, dirs, files in os.walk("."):

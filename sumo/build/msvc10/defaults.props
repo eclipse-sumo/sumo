@@ -3,6 +3,9 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="Exists('$(VS120COMNTOOLS)')">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -21,5 +24,13 @@
     <PreBuildEvent>
       <Command>..\..\..\tools\build\version.py</Command>
     </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="config.props" Condition="Exists('config.props')" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="Exists('$(FFMPEG)')">
+    <Link>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
   </ItemDefinitionGroup>
 </Project>

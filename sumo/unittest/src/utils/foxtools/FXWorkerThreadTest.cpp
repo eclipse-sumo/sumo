@@ -46,19 +46,6 @@ TEST(FXWorkerThread, test_init) {
     FXWorkerThread::Pool g(4);
 }
 
-/* Test adding tasks.*/
-TEST(FXWorkerThread, test_add) {
-    FXWorkerThread::Pool g(4);
-    FXWorkerThread::Task* task1 = new TestTask();
-    FXWorkerThread::Task* task2 = new TestTask();
-    FXWorkerThread::Task* task3 = new TestTask();
-    FXWorkerThread::Task* task4 = new TestTask();
-    g.add(task1);
-    g.add(task2);
-    g.add(task3);
-    g.add(task4);
-}
-
 /* Test retrieving all tasks.*/
 TEST(FXWorkerThread, test_get_all) {
     FXWorkerThread::Pool g(4);

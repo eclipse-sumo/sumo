@@ -2,6 +2,9 @@
 # One detector sampling at 1s, one vehicle driving 10m/s
 one1s_1vehicle_10m_s
 
+# as above but with the detector shifted 1m upstream
+one1s_1vehicle_10m_shifted
+
 # One detector sampling at 10s, one vehicle driving 10m/s
 one10s_1vehicle_10m_s
 

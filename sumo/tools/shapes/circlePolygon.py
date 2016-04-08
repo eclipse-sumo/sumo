@@ -62,8 +62,8 @@ for idx, d in enumerate(args):
     angle = 2 * math.pi / c
     shape = ""
     for i in range(c):
-        shape += "%s,%s " % (math.cos(i * angle) * r + x,
-                             math.sin(i * angle) * r + y)
+        shape += "%.2f,%.2f " % (math.cos(i * angle) * r + x,
+                                 math.sin(i * angle) * r + y)
     print('    <poly id="%s%s" type="%s" color="%s" fill="%i" layer="%s" shape="%s"/>' % (
         options.prefix, idx, options.type, options.color, options.fill, options.layer, shape[:-1]),
         file=output)

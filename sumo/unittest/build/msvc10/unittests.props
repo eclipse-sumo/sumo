@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="Exists('$(VS120COMNTOOLS)')">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Label="UserMacros">
     <XERCES_LIB>$(XERCES)\lib\xerces-c_3.lib</XERCES_LIB>
     <XERCES_DEBUG_LIB>$(XERCES)\lib\xerces-c_3D.lib</XERCES_DEBUG_LIB>

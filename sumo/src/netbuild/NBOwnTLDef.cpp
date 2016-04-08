@@ -48,7 +48,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#define DUMMY_ID "dummy"
 #define MIN_GREEN_TIME 5
 
 // ===========================================================================
@@ -184,7 +183,7 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
 }
 
 NBTrafficLightLogic*
-NBOwnTLDef::myCompute(const NBEdgeCont&, unsigned int brakingTimeSeconds) {
+NBOwnTLDef::myCompute(unsigned int brakingTimeSeconds) {
     return computeLogicAndConts(brakingTimeSeconds);
 }
 
@@ -300,16 +299,6 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             }
             if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
                 state[i1] = 'G';
-            } else if (fromEdges[i1]->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
-                       fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
-                // handle right-on-red conflicts
-                state[i1] = 's';
-                for (unsigned int i2 = 0; i2 < pos; ++i2) {
-                    if (state[i2] == 'G' && !isTurnaround[i2] &&
-                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
-                        myRightOnRedConflicts.insert(std::make_pair(i1, i2));
-                    }
-                }
             }
         }
         //std::cout << " state after finding additional 'G's=" << state << "\n";
@@ -330,14 +319,14 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         for (unsigned int i1 = pos; i1 < pos + crossings.size(); ++i1) {
             state[i1] = 'r';
         }
-
+        const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0;
         if (brakingTime > 0) {
             // build yellow (straight)
             for (unsigned int i1 = 0; i1 < pos; ++i1) {
                 if (state[i1] != 'G' && state[i1] != 'g') {
                     continue;
                 }
-                if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z') && haveForbiddenLeftMover && !rightTurnConflicts[i1]) {
+                if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z') && buildLeftGreenPhase && !rightTurnConflicts[i1]) {
                     continue;
                 }
                 state[i1] = 'y';
@@ -346,7 +335,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             logic->addStep(brakingTime, state);
         }
 
-        if (haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0) {
+        if (buildLeftGreenPhase) {
             // build left green
             for (unsigned int i1 = 0; i1 < pos; ++i1) {
                 if (state[i1] == 'Y' || state[i1] == 'y') {
@@ -383,17 +372,22 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
 
     SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
-        // adapt to cycle time by changing the duration of the green phases
         const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
+        // adapt to cycle time by changing the duration of the green phases
         SUMOTime greenPhaseTime = 0;
+        SUMOTime minGreenDuration = SUMOTime_MAX;
         for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
-            greenPhaseTime += logic->getPhases()[*it].duration;
+            const SUMOTime dur = logic->getPhases()[*it].duration;
+            greenPhaseTime += dur;
+            minGreenDuration = MIN2(minGreenDuration, dur);
         }
         const int patchSeconds = (int)(STEPS2TIME(cycleTime - totalDuration) / greenPhases.size());
         const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) - patchSeconds * (int)greenPhases.size();
         //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
-        if (greenSeconds + patchSeconds < MIN_GREEN_TIME || greenSeconds + patchSeconds + patchSecondsRest < MIN_GREEN_TIME) {
-            if (getID() != DUMMY_ID) {
+        if (STEPS2TIME(minGreenDuration) + patchSeconds < MIN_GREEN_TIME 
+                || STEPS2TIME(minGreenDuration) + patchSeconds + patchSecondsRest < MIN_GREEN_TIME
+                || greenPhases.size() == 0) {
+            if (getID() != DummyID) {
                 WRITE_WARNING("The traffic light '" + getID() + "' cannot be adapted to a cycle time of " + time2string(cycleTime) + ".");
             }
             // @todo use a multiple of cycleTime ?
@@ -401,7 +395,9 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
             for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
                 logic->setPhaseDuration(*it, logic->getPhases()[*it].duration + TIME2STEPS(patchSeconds));
             }
-            logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + TIME2STEPS(patchSecondsRest));
+            if (greenPhases.size() > 0) {
+                logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + TIME2STEPS(patchSecondsRest));
+            }
             totalDuration = logic->getDuration();
         }
     }
@@ -538,7 +534,7 @@ NBOwnTLDef::setParticipantsInformation() {
 
 
 void
-NBOwnTLDef::setTLControllingInformation(const NBEdgeCont&) const {
+NBOwnTLDef::setTLControllingInformation() const {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     for (NBConnectionVector::const_iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); ++j) {
@@ -561,36 +557,25 @@ NBOwnTLDef::replaceRemoved(NBEdge* /*removed*/, int /*removedLane*/,
 
 void
 NBOwnTLDef::initNeedsContRelation() const {
-    if (!myNeedsContRelationReady) {
+    if (!myNeedsContRelationReady && !amInvalid()) {
         assert(myControlledNodes.size() > 0);
-        // there are basically 2 cases for controlling multiple nodes
-        // a) a complex (unjoined) intersection. Here, internal junctions should
-        // not be needed since real nodes are used instead
-        // b) two far-away junctions which shall be coordinated
-        // This is likely to mess up the bestPair computation for each
-        // individual node and thus generate incorrect needsCont data
-        //
-        // Therefore we compute needsCont for individual nodes which doesn't
-        // matter for a) and is better for b)
+        // we use a dummy node just to maintain const-correctness
         myNeedsContRelation.clear();
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+        dummy.setParticipantsInformation();
+        dummy.computeLogicAndConts(0, true);
+        myNeedsContRelation = dummy.myNeedsContRelation;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            NBNode* n = *i;
-            NBOwnTLDef dummy(DUMMY_ID, n, 0, TLTYPE_STATIC);
-            dummy.setParticipantsInformation();
-            dummy.computeLogicAndConts(0, true);
-            myNeedsContRelation.insert(dummy.myNeedsContRelation.begin(), dummy.myNeedsContRelation.end());
-            n->removeTrafficLight(&dummy);
+            (*i)->removeTrafficLight(&dummy);
         }
         myNeedsContRelationReady = true;
     }
-
 }
 
 
 EdgeVector
 NBOwnTLDef::getConnectedOuterEdges(const EdgeVector& incoming) {
     EdgeVector result = incoming;
-    // do not sele
     for (EdgeVector::iterator it = result.begin(); it != result.end();) {
         if ((*it)->getConnections().size() == 0 || (*it)->isInnerEdge()) {
             it = result.erase(it);
@@ -636,20 +621,32 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                                std::vector<bool>& rightTurnConflicts) {
     const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
     for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
-        if (state[i1] != 'G') {
-            continue;
-        }
-        for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
-            if ((state[i2] == 'G' || state[i2] == 'g')) {
-                if (NBNode::rightTurnConflict(
-                            fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
-                    rightTurnConflicts[i1] = true;
+        if (state[i1] == 'G') {
+            for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                if ((state[i2] == 'G' || state[i2] == 'g')) {
+                    if (NBNode::rightTurnConflict(
+                                fromEdges[i1], toEdges[i1], fromLanes[i1], fromEdges[i2], toEdges[i2], fromLanes[i2])) {
+                        rightTurnConflicts[i1] = true;
+                    }
+                    if (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true, controlledWithin) || rightTurnConflicts[i1]) {
+                        state[i1] = 'g';
+                        myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
+                        if (!isTurnaround[i1] && !hadGreenMajor[i1]) {
+                            haveForbiddenLeftMover = true;
+                        }
+                    }
                 }
-                if (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true, controlledWithin) || rightTurnConflicts[i1]) {
-                    state[i1] = 'g';
-                    myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
-                    if (!isTurnaround[i1] && !hadGreenMajor[i1]) {
-                        haveForbiddenLeftMover = true;
+            }
+        } 
+        if (state[i1] == 'r') {
+            if (fromEdges[i1]->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
+                    fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
+                // handle right-on-red conflicts
+                state[i1] = 's';
+                for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                    if (state[i2] == 'G' && !isTurnaround[i2] &&
+                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
+                        myRightOnRedConflicts.insert(std::make_pair(i1, i2));
                     }
                 }
             }

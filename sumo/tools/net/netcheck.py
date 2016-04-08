@@ -40,6 +40,8 @@ def parse_args():
                          default=False, help="List edges which can reach the destination")
     optParser.add_option("-o", "--selection-output",
                          help="Write output to file(s) as a loadable selection")
+    optParser.add_option("--ignore-connections", action="store_true",
+                         default=False, help="Assume full connectivity at each node when computing all connected components")
     optParser.add_option(
         "-l", "--vclass", help="Include only edges allowing VCLASS")
     optParser.add_option("-c", "--component-output",
@@ -54,7 +56,7 @@ def parse_args():
     return options
 
 
-def getWeaklyConnected(net, vclass=None):
+def getWeaklyConnected(net, vclass=None, ignore_connections=False):
     components = []
     edgesLeft = set(net.getEdges())
     queue = list()
@@ -65,16 +67,25 @@ def getWeaklyConnected(net, vclass=None):
             edge = queue.pop(0)
             if vclass is None or edge.allows(vclass):
                 component.add(edge.getID())
-                for n in edge.getOutgoing().iterkeys():
-                    if n in edgesLeft:
-                        queue.append(n)
-                        edgesLeft.remove(n)
-                for n in edge.getIncoming().iterkeys():
-                    if n in edgesLeft:
-                        queue.append(n)
-                        edgesLeft.remove(n)
+                if ignore_connections:
+                    for n in (edge.getFromNode().getOutgoing()
+                            + edge.getFromNode().getIncoming()
+                            + edge.getToNode().getOutgoing()
+                            + edge.getToNode().getIncoming()):
+                        if n in edgesLeft:
+                            queue.append(n)
+                            edgesLeft.remove(n)
+                else:
+                    for n in edge.getOutgoing():
+                        if n in edgesLeft:
+                            queue.append(n)
+                            edgesLeft.remove(n)
+                    for n in edge.getIncoming():
+                        if n in edgesLeft:
+                            queue.append(n)
+                            edgesLeft.remove(n)
         if component:
-            components.append(component)
+            components.append(sorted(component))
     return components
 
 
@@ -91,7 +102,7 @@ def getReachable(net, source_id, options, useIncoming=False):
         new_fringe = []
         for edge in fringe:
             cands = edge.getIncoming() if useIncoming else edge.getOutgoing()
-            for reachable in cands.iterkeys():
+            for reachable in cands:
                 if options.vclass is None or reachable.allows(options.vclass):
                     if not reachable in found:
                         found.add(reachable)
@@ -121,7 +132,7 @@ if __name__ == "__main__":
     elif options.destination:
         getReachable(net, options.destination, options, True)
     else:
-        components = getWeaklyConnected(net, options.vclass)
+        components = getWeaklyConnected(net, options.vclass, options.ignore_connections)
         if len(components) != 1:
             print("Warning! Net is not connected.")
 
@@ -168,7 +179,7 @@ if __name__ == "__main__":
         dist_str_list.append(dist_str)
 
         # Output the distribution of components by edge counts
-        for key, value in sorted(edge_count_dist.iteritems()):
+        for key, value in sorted(edge_count_dist.items()):
             dist_str = "{}\t{}".format(key, value)
             print(dist_str)
             dist_str_list.append(dist_str)

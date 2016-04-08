@@ -347,17 +347,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
     // write the lanes
     const std::vector<NBEdge::Lane>& lanes = e.getLanes();
 
-    SUMOReal length = e.getLoadedLength();
-    if (OptionsCont::getOptions().getBool("no-internal-links") && !e.hasLoadedLength()) {
-        // use length to junction center even if a modified geometry was given
-        PositionVector geom = e.cutAtIntersection(e.getGeometry());
-        geom.push_back_noDoublePos(e.getToNode()->getCenter());
-        geom.push_front_noDoublePos(e.getFromNode()->getCenter());
-        length = geom.length();
-    }
-    if (length <= 0) {
-        length = POSITION_EPS;
-    }
+    const SUMOReal length = e.getFinalLength();
     for (unsigned int i = 0; i < (unsigned int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         writeLane(into, e.getID(), e.getLaneID(i), l.speed,

@@ -70,6 +70,7 @@ dist-doc: doc
 	mv $(distdir)/tests/complex/tutorial $(distdir)/docs
 	rmdir $(distdir)/tests/complex
 	rmdir $(distdir)/tests
+	find docs/doxygen -name "*.png" | xargs rm
 	cp -r docs/pydoc docs/doxygen docs/userdoc docs/javadoc $(distdir)/docs
 	tools/extractTest.py -i -f tests/examples.txt -o $(distdir)/docs
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)

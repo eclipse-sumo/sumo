@@ -170,7 +170,7 @@ public:
      *
      * Should be called after weights / travel times have been loaded.
      *
-     * In the case "weight-attribute" is one of "CO", "CO2", "HC", "NOx", "PMx", or "fuel"
+     * In the case "weight-attribute" is one of "CO", "CO2", "HC", "NOx", "PMx", "fuel", or "electricity"
      *  the proper value (departs/s) is computed and multiplied with the travel time.
      *
      * @param[in] measure The name of the measure to use.

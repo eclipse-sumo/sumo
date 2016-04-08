@@ -99,10 +99,7 @@
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
 
-#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
-#include <utils/iodevices/BinaryInputDevice.h>
-#endif
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
@@ -203,11 +200,9 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myInsertionEvents = insertionEvents;
     myLanesRTree.first = false;
 
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet = new MELoop(string2time(oc.getString("meso-recheck")));
     }
-#endif
     myInstance = this;
 }
 
@@ -273,13 +268,14 @@ MSNet::~MSNet() {
     delete myRouterTTDijkstra;
     delete myRouterTTAStar;
     delete myRouterEffort;
+    if (myPedestrianRouter != 0) {
+        delete myPedestrianRouter;
+    }
     myLanesRTree.second.RemoveAll();
     clearAll();
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
     }
-#endif
     delete myPedestrianRouter;
     myInstance = 0;
 }
@@ -448,12 +444,9 @@ MSNet::simulationStep() {
     // check whether the tls programs need to be switched
     myLogics->check2Switch(myStep);
 
-#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->simulate(myStep);
     } else {
-#endif
-
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();
 
@@ -473,9 +466,7 @@ MSNet::simulationStep() {
         if (MSGlobals::gCheck4Accidents) {
             myEdges->detectCollisions(myStep, STAGE_LANECHANGE);
         }
-#ifdef HAVE_INTERNAL
     }
-#endif
     loadRoutes();
 
     // persons
@@ -604,7 +595,8 @@ MSNet::writeOutput() {
 
     // check emission dumps
     if (OptionsCont::getOptions().isSet("emission-output")) {
-        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep);
+        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep,
+                oc.getInt("emission-output.precision"));
     }
 
     // battery dumps

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb 10 11:23:40 2016 by SUMO netconvert Version dev-SVN-r19929
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="osNodes.nod.xml"/>
+        <edge-files value="osEdges-uni.edg.xml"/>
+        <type-files value="osTypes.typ.xml"/>
+    </input>
+
+    <output>
+        <output-file value="debug.net.xml"/>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <edge_removal>
+        <keep-edges.explicit value="osgb4000000025305634,osgb4000000025305632,osgb4000000025305633"/>
+    </edge_removal>
+
+</configuration>
+-->
+
+<nodes version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-290178.00,-91006.00" convBoundary="0.00,0.00,115.00,351.00" origBoundary="290003.00,90001.00,294997.29,95000.00" projParameter="!"/>
+
+    <node id="osgb4000000025275959" x="79.00" y="26.00" type="priority"/>
+    <node id="osgb4000000025275970" x="20.00" y="230.00" type="priority"/>
+    <node id="osgb4000000025275978" x="3.00" y="351.00" type="unregulated"/>
+</nodes>

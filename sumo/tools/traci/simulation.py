@@ -250,8 +250,7 @@ def convert2D(edgeID, pos, laneIndex=0, toGeo=False):
     traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION,
                         "", 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1 + 1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.POSITION_ROADMAP, len(edgeID)) + edgeID
+    traci._message.packString(edgeID, tc.POSITION_ROADMAP)
     traci._message.string += struct.pack("!dBBB",
                                          pos, laneIndex, tc.TYPE_UBYTE, posType)
     return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!dd")
@@ -264,8 +263,7 @@ def convert3D(edgeID, pos, laneIndex=0, toGeo=False):
     traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION,
                         "", 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1 + 1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.POSITION_ROADMAP, len(edgeID)) + edgeID
+    traci._message.packString(edgeID, tc.POSITION_ROADMAP)
     traci._message.string += struct.pack("!dBBB",
                                          pos, laneIndex, tc.TYPE_UBYTE, posType)
     return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!ddd")
@@ -303,7 +301,14 @@ def convertGeo(x, y, fromGeo=False):
 def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
     """getDistance2D(double, double, double, double, boolean, boolean) -> double
 
-    Reads two coordinate pairs and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
+    Returns the distance between the two coordinate pairs (x1,y1) and (x2,y2)
+
+    If isGeo=True, coordinates are interpreted as longitude and latitude rather
+    than cartesian coordinates in meters.
+    
+    If isDriving=True, the coordinates are mapped onto the road network and the
+    length of the shortest route in the network is returned. Otherwise, the
+    straight-line distance is returned.
     """
     posType = tc.POSITION_2D
     if isGeo:
@@ -330,10 +335,9 @@ def getDistanceRoad(edgeID1, pos1, edgeID2, pos2, isDriving=False):
     traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "",
                         1 + 4 + 1 + 4 + len(edgeID1) + 8 + 1 + 1 + 4 + len(edgeID2) + 8 + 1 + 1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
-    traci._message.string += struct.pack("!Bi",
-                                         tc.POSITION_ROADMAP, len(edgeID1)) + edgeID1
-    traci._message.string += struct.pack("!dBBi", pos1,
-                                         0, tc.POSITION_ROADMAP, len(edgeID2)) + edgeID2
+    traci._message.packString(edgeID1, tc.POSITION_ROADMAP)
+    traci._message.string += struct.pack("!dB", pos1, 0)
+    traci._message.packString(edgeID2, tc.POSITION_ROADMAP)
     traci._message.string += struct.pack("!dBB", pos2, 0, distType)
     return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "").readDouble()
 
@@ -359,6 +363,11 @@ def getSubscriptionResults():
 def clearPending(routeID=""):
     traci._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_CLEAR_PENDING_VEHICLES, "",
                         1 + 4 + len(routeID))
-    traci._message.string += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(routeID)) + str(routeID)
+    traci._message.packString(routeID)
+    traci._sendExact()
+
+def saveState(fileName):
+    traci._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_SAVE_SIMSTATE, "",
+                        1 + 4 + len(fileName))
+    traci._message.packString(fileName)
     traci._sendExact()

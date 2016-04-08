@@ -242,6 +242,7 @@
                 <xsd:element name="routeDistribution" type="vehicleRouteDistributionType"/>
             </xsd:choice>
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="route" type="xsd:string"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
@@ -285,6 +286,7 @@
     <xsd:complexType name="tripType">
         <xsd:sequence>
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
@@ -343,9 +345,7 @@
                     <xsd:enumeration value="random_free"/>
                     <xsd:enumeration value="free"/>
                     <xsd:enumeration value="base"/>
-                    <xsd:enumeration value="pwagSimple"/>
-                    <xsd:enumeration value="pwagGeneric"/>
-                    <xsd:enumeration value="maxSpeedGap"/>
+                    <xsd:enumeration value="last"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
