@@ -227,6 +227,8 @@ enum {
     MID_COPY_CURSOR_GEOPOSITION,
     /// Show object parameter - popup entry
     MID_SHOWPARS,
+    /// Show object type parameter - popup entry
+    MID_SHOWTYPEPARS,
     /// Show TLS phases - popup entry
     MID_SWITCH_OFF,
     MID_SWITCH,

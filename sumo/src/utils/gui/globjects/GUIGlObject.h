@@ -147,6 +147,17 @@ public:
     virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
 
+    /** @brief Returns an own type parameter window (optional)
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     */
+    virtual GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+        return 0;
+    }
+
+
     /** @brief Returns the id of the object as known to microsim
      *
      * @return The id of the object
@@ -259,6 +270,13 @@ protected:
      * @param[in] addSeparator Whether a separator shall be added, too
      */
     void buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true);
+
+
+    /** @brief Builds an entry which allows to open the type parameter window
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
+    void buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true);
 
 
     /** @brief Builds an entry which allows to copy the cursor position

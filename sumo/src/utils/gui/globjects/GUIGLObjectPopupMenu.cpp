@@ -59,6 +59,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION,    GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_GEOPOSITION, GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,                GUIGLObjectPopupMenu::onCmdShowPars),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTYPEPARS,            GUIGLObjectPopupMenu::onCmdShowTypePars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,               GUIGLObjectPopupMenu::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,            GUIGLObjectPopupMenu::onCmdRemoveSelected)
 };
@@ -131,7 +132,15 @@ GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
-    myObject->getParameterWindow(*myApplication, *myParent); // !!! showParameterWindow would be more appropriate
+    myObject->getParameterWindow(*myApplication, *myParent); 
+    return 1;
+}
+
+
+
+long
+GUIGLObjectPopupMenu::onCmdShowTypePars(FXObject*, FXSelector, void*) {
+    myObject->getTypeParameterWindow(*myApplication, *myParent); 
     return 1;
 }
 

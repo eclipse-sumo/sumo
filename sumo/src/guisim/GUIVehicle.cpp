@@ -101,7 +101,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 43);
+        new GUIParameterTableWindow(app, *this, 33);
     // add items
     ret->mkItem("lane [id]", false, myLane->getID());
     ret->mkItem("position [m]", true,
@@ -168,7 +168,18 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, unsigned int>(this, &MSVehicle::getContainerNumber));
 
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
-    ret->mkItem("", false, "");
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
+
+GUIParameterTableWindow*
+GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
+                               GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret =
+        new GUIParameterTableWindow(app, *this, 14);
+    // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
     ret->mkItem("length", false, myType->getLength());
@@ -188,6 +199,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->closeBuilding();
     return ret;
 }
+
+
 
 
 void

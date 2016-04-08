@@ -92,6 +92,9 @@ public:
     /// Called if the parameter of this object shall be shown
     long onCmdShowPars(FXObject*, FXSelector, void*);
 
+    /// Called if the type parameter of this object shall be shown
+    long onCmdShowTypePars(FXObject*, FXSelector, void*);
+
     /// Called if the object shall be added to the list of selected objects
     long onCmdAddSelected(FXObject*, FXSelector, void*);
 

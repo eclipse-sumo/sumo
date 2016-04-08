@@ -120,6 +120,14 @@ public:
      */
     virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
+    /** @brief Returns an own type parameter window 
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     */
+    virtual GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0; 
+
     virtual void drawAction_drawVehicleBlinker(SUMOReal /*length*/) const {}
     virtual void drawAction_drawVehicleBrakeLight(SUMOReal /*length*/) const {}
     virtual void drawAction_drawLinkItems(const GUIVisualizationSettings& /*s*/) const {}

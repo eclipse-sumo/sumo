@@ -316,7 +316,8 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
 
     new FXMenuSeparator(ret);
     //
-    buildShowParamsPopupEntry(ret);
+    buildShowParamsPopupEntry(ret, false);
+    buildShowTypeParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
