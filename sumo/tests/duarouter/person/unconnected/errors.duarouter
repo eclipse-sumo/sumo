@@ -1,4 +1,3 @@
-Warning: No connection between edge 'beg_fwd_connector' and edge 'left_bwd_connector' found.
-Error: No connection found between 'beg' and 'left' for person 'p1'.
-Warning: Discarding person 'p1' because it's plan is empty
+Warning: No connection between edge 'beg_depart_connector' and edge 'left_arrival_connector' found.
+Error: No route for trip in person 'p1'.
 Quitting (on error).

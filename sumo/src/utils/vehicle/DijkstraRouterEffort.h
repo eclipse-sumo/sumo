@@ -67,21 +67,6 @@ class DijkstraRouterEffort : public SUMOAbstractRouter<E, V>, public PF {
 
 public:
     typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
-    /// Constructor
-    DijkstraRouterEffort(size_t noE, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
-        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouterEffort"), myTTOperation(ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
-        for (size_t i = 0; i < noE; i++) {
-            myEdgeInfos.push_back(EdgeInfo(i));
-        }
-    }
-
-    /// Destructor
-    virtual ~DijkstraRouterEffort() { }
-
-    virtual SUMOAbstractRouter<E, V>* clone() const {
-        return new DijkstraRouterEffort<E, V, PF>(myEdgeInfos.size(), myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation);
-    }
 
     /**
      * @struct EdgeInfo
@@ -91,8 +76,8 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(size_t id)
-            : edge(E::dictionary(id)), effort(std::numeric_limits<SUMOReal>::max()), leaveTime(0), prev(0), visited(false) {}
+        EdgeInfo(const E* e)
+            : edge(e), effort(std::numeric_limits<SUMOReal>::max()), leaveTime(0), prev(0), visited(false) {}
 
         /// The current edge
         const E* edge;
@@ -130,6 +115,31 @@ public:
         }
     };
 
+
+    /// Constructor
+    DijkstraRouterEffort(const std::vector<E*>& edges, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
+        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouterEffort"), myTTOperation(ttOperation),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            myEdgeInfos.push_back(EdgeInfo(*i));
+        }
+    }
+
+    DijkstraRouterEffort(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
+        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouterEffort"), myTTOperation(ttOperation),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
+            myEdgeInfos.push_back(*i);
+        }
+    }
+
+    /// Destructor
+    virtual ~DijkstraRouterEffort() { }
+
+    virtual SUMOAbstractRouter<E, V>* clone() {
+        return new DijkstraRouterEffort<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation);
+    }
+
     inline SUMOReal getTravelTime(const E* const e, const V* const v, SUMOReal t) const {
         return (*myTTOperation)(e, v, t);
     }
@@ -149,17 +159,17 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    virtual void compute(const E* from, const E* to, const V* const vehicle,
+    virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
         // check whether from and to can be used
         if (PF::operator()(from, vehicle)) {
             myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on from edge '" + from->getID() + "'.");
-            return;
+            return false;
         }
         if (PF::operator()(to, vehicle)) {
             myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on to edge '" + to->getID() + "'.");
-            return;
+            return false;
         }
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
@@ -168,7 +178,7 @@ public:
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);
                 this->endQuery(1);
-                return;
+                return true;
             }
         } else {
             init();
@@ -193,7 +203,7 @@ public:
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
-                return;
+                return true;
             }
             minimumInfo->visited = true;
             const SUMOReal effort = minimumInfo->effort + this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
@@ -225,6 +235,7 @@ public:
         }
         this->endQuery(num_visited);
         myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+        return false;
     }
 
 

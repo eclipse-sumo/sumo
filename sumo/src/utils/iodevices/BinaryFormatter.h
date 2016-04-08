@@ -264,17 +264,17 @@ template <typename E>
 bool BinaryFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement) {
     if (myXMLStack.empty()) {
         writeStaticHeader(into);
-        const unsigned int numEdges = (const unsigned int)E::dictSize();
+        const unsigned int numEdges = (const unsigned int)E::getAllEdges().size();
         FileHelpers::writeByte(into, BF_LIST);
         FileHelpers::writeInt(into, numEdges);
         for (unsigned int i = 0; i < numEdges; i++) {
             FileHelpers::writeByte(into, BF_STRING);
-            FileHelpers::writeString(into, E::dictionary(i)->getID());
+            FileHelpers::writeString(into, E::getAllEdges()[i]->getID());
         }
         FileHelpers::writeByte(into, BF_LIST);
         FileHelpers::writeInt(into, numEdges);
         for (unsigned int i = 0; i < numEdges; i++) {
-            E* e = E::dictionary(i);
+            E* e = E::getAllEdges()[i];
             FileHelpers::writeByte(into, BF_LIST);
             FileHelpers::writeInt(into, e->getNumSuccessors());
             for (unsigned int j = 0; j < e->getNumSuccessors(); j++) {

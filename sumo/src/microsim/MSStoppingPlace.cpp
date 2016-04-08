@@ -140,6 +140,18 @@ MSStoppingPlace::computeLastFreePos() {
 }
 
 
+bool
+MSStoppingPlace::hasAccess(const MSEdge* edge) const {
+    if (edge == &myLane.getEdge()) {
+        return true;
+    }
+    for (std::multimap<MSLane*, SUMOReal>::const_iterator i = myAccessPos.begin(); i != myAccessPos.end(); ++i) {
+        if (edge == &i->first->getEdge()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/
 

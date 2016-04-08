@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 12 11:03:54 2014 by SUMO duarouter Version dev-SVN-r16857ID
+<!-- generated on 10/17/15 15:00:41 by SUMO duarouter Version dev-SVN-r19082
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -33,6 +33,30 @@
     <vehicle id="1" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
+    <vehicle id="2" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="3" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="4" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="5" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="6" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="7" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="8" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="9" depart="0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
     <vehicle id="10" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
@@ -61,9 +85,6 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="19" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
-    <vehicle id="2" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="20" depart="0.00">
@@ -96,9 +117,6 @@
     <vehicle id="29" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
-    <vehicle id="3" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
     <vehicle id="30" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
@@ -127,9 +145,6 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="39" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
-    <vehicle id="4" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="40" depart="0.00">
@@ -162,9 +177,6 @@
     <vehicle id="49" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
-    <vehicle id="5" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
     <vehicle id="50" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
@@ -193,9 +205,6 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="59" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
-    <vehicle id="6" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="60" depart="0.00">
@@ -228,9 +237,6 @@
     <vehicle id="69" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
-    <vehicle id="7" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
     <vehicle id="70" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
@@ -261,9 +267,6 @@
     <vehicle id="79" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
-    <vehicle id="8" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
     <vehicle id="80" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
@@ -292,9 +295,6 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="89" depart="0.00">
-        <route edges="beg middle end"/>
-    </vehicle>
-    <vehicle id="9" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="90" depart="0.00">

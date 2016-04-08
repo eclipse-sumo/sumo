@@ -601,22 +601,15 @@ MSEdge::dictionary(const std::string& id) {
 }
 
 
-MSEdge*
-MSEdge::dictionary(size_t id) {
-    assert(myEdges.size() > id);
-    return myEdges[id];
-}
-
-
 size_t
 MSEdge::dictSize() {
     return myDict.size();
 }
 
 
-size_t
-MSEdge::numericalDictSize() {
-    return myEdges.size();
+const MSEdgeVector&
+MSEdge::getAllEdges() {
+    return myEdges;
 }
 
 

@@ -276,6 +276,7 @@ MSNet::~MSNet() {
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
     }
+    delete myPedestrianRouter;
     myInstance = 0;
 }
 
@@ -572,7 +573,6 @@ MSNet::clearAll() {
     MSCalibrator::cleanup();
     MSPModel::cleanup();
     MSCModel_NonInteracting::cleanup();
-    PedestrianEdge<MSEdge, MSLane, MSJunction>::cleanup();
 }
 
 
@@ -848,13 +848,13 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
             myRouterTTDijkstra = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
+                MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
             myRouterTTAStar = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
+                MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
         }
     }
     if (myRouterTTDijkstra != 0) {
@@ -872,7 +872,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
     if (myRouterEffort == 0) {
         myRouterEffort = new DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-            MSEdge::numericalDictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
+            MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
     myRouterEffort->prohibit(prohibited);
     return *myRouterEffort;

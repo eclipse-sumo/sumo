@@ -32,6 +32,7 @@
 #endif
 
 #include <utils/vehicle/SUMOAbstractRouter.h>
+#include <router/RORoutable.h>
 
 
 // ===========================================================================
@@ -66,7 +67,7 @@ public:
     /// @brief Destructor
     ~ROJTRRouter();
 
-    virtual SUMOAbstractRouter<ROEdge, ROVehicle>* clone() const {
+    virtual SUMOAbstractRouter<ROEdge, ROVehicle>* clone() {
         return new ROJTRRouter(myUnbuildIsWarningOnly, myAcceptAllDestination, myMaxEdges, myIgnoreClasses, myAllowLoops);
     }
 
@@ -82,7 +83,7 @@ public:
      * @param[in] time The departure time of the vehicle
      * @param[filled] into The list of edges to store the route into
      */
-    void compute(const ROEdge* from, const ROEdge* to, const ROVehicle* const vehicle,
+    bool compute(const ROEdge* from, const ROEdge* to, const ROVehicle* const vehicle,
                  SUMOTime time, ConstROEdgeVector& into);
 
 

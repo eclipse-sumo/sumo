@@ -149,11 +149,11 @@
     <ClCompile Include="..\..\..\src\router\RONet.cpp" />
     <ClCompile Include="..\..\..\src\router\RONetHandler.cpp" />
     <ClCompile Include="..\..\..\src\router\RONode.cpp" />
+    <ClCompile Include="..\..\..\src\router\ROPerson.cpp" />
     <ClCompile Include="..\..\..\src\router\RORoute.cpp" />
     <ClCompile Include="..\..\..\src\router\RORouteDef.cpp" />
     <ClCompile Include="..\..\..\src\router\RORouteHandler.cpp" />
     <ClCompile Include="..\..\..\src\router\ROVehicle.cpp" />
-    <ClCompile Include="..\..\..\src\router\ROVehicleCont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\router\ROAbstractEdgeBuilder.h" />
@@ -165,11 +165,12 @@
     <ClInclude Include="..\..\..\src\router\RONet.h" />
     <ClInclude Include="..\..\..\src\router\RONetHandler.h" />
     <ClInclude Include="..\..\..\src\router\RONode.h" />
+    <ClInclude Include="..\..\..\src\router\ROPerson.h" />
+    <ClInclude Include="..\..\..\src\router\RORoutable.h" />
     <ClInclude Include="..\..\..\src\router\RORoute.h" />
     <ClInclude Include="..\..\..\src\router\RORouteDef.h" />
     <ClInclude Include="..\..\..\src\router\RORouteHandler.h" />
     <ClInclude Include="..\..\..\src\router\ROVehicle.h" />
-    <ClInclude Include="..\..\..\src\router\ROVehicleCont.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

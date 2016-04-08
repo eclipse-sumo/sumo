@@ -691,8 +691,8 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
     } else {
         if (!myAmLoading && myRunThread->simulationAvailable()) {
             const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
-            for (size_t i = 0; i < MSEdge::dictSize(); ++i) {
-                const std::vector<MSLane*>& lanes = MSEdge::dictionary(i)->getLanes();
+            for (MSEdgeVector::const_iterator i = MSEdge::getAllEdges().begin(); i != MSEdge::getAllEdges().end(); ++i) {
+                const std::vector<MSLane*>& lanes = (*i)->getLanes();
                 for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
                     GUILane* lane = dynamic_cast<GUILane*>(*it);
                     assert(lane != 0);

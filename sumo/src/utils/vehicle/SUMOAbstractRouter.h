@@ -74,11 +74,11 @@ public:
         }
     }
 
-    virtual SUMOAbstractRouter* clone() const = 0;
+    virtual SUMOAbstractRouter* clone() = 0;
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    virtual void compute(const E* from, const E* to, const V* const vehicle,
+    virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) = 0;
 
     virtual SUMOReal recomputeCosts(const std::vector<const E*>& edges,

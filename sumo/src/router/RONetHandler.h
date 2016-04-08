@@ -140,18 +140,19 @@ protected:
     void parseConnection(const SUMOSAXAttributes& attrs);
 
 
-    /** @begin Parses a bus stop
-     * Called on the occurence of a "busStop" element
-     * @param[in] attrs The attributes (of the "busStop"-element) to parse
+    /** @begin Parses a stopping place
+     * Called on the occurence of a "busStop", "trainStop" or "containerStop" element
+     * @param[in] attrs The attributes to parse
+     * @param[in] element which kind of stop is to be parsed
      */
-    void parseBusStop(const SUMOSAXAttributes& attrs);
+    void parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTag element);
 
 
-    /** @begin Parses a container stop
-     * Called on the occurence of a "containerStop" element
-     * @param[in] attrs The attributes (of the "containerStop"-element) to parse
+    /** @begin Parses an access point to a train stop
+     * Called on the occurence of an "access" element
+     * @param[in] attrs The attributes to parse
      */
-    void parseContainerStop(const SUMOSAXAttributes& attrs);
+    void parseAccess(const SUMOSAXAttributes& attrs);
 
 
     /** @begin Parses a district and creates a pseudo edge for it
@@ -194,6 +195,9 @@ protected:
 
     /// @brief The currently built edge
     ROEdge* myCurrentEdge;
+
+    /// @brief The currently built stopping place
+    SUMOVehicleParameter::Stop* myCurrentStoppingPlace;
 
     /** @brief An indicator whether the next edge shall be read (internal edges are not read by now) */
     bool myProcess;

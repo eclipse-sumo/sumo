@@ -161,10 +161,12 @@ NLHandler::myStartElement(int element,
                 myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
                 break;
             case SUMO_TAG_BUS_STOP:
-                myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
-                break;
+            case SUMO_TAG_TRAIN_STOP:
             case SUMO_TAG_CONTAINER_STOP:
-                myTriggerBuilder.parseAndBuildContainerStop(myNet, attrs);
+                myTriggerBuilder.parseAndBuildStoppingPlace(myNet, attrs, (SumoXMLTag)element);
+                break;
+            case SUMO_TAG_ACCESS:
+                myTriggerBuilder.addAccess(myNet, attrs);
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 myTriggerBuilder.parseAndBuildChargingStation(myNet, attrs);

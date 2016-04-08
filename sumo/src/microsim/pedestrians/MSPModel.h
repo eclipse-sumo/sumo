@@ -59,9 +59,6 @@ public:
     /// @brief remove state at simulation end
     static void cleanup();
 
-    /// @brief return the appropriate lane to walk on
-    static MSLane* getSidewalk(const MSEdge* edge);
-
     virtual ~MSPModel() {};
 
     /// @brief register the given person as a pedestrian

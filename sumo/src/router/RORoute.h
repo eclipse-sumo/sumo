@@ -76,6 +76,13 @@ public:
             const std::vector<SUMOVehicleParameter::Stop>& stops);
 
 
+    /** @brief Constructor
+     *
+     * @param[in] id The route's id
+     * @param[in] route The list of edges the route is made of
+	 */
+    RORoute(const std::string& id, const ConstROEdgeVector& route);
+
     /** @brief Copy constructor
      *
      * @param[in] src The route to copy
@@ -183,6 +190,16 @@ public:
      */
     const std::vector<SUMOVehicleParameter::Stop>& getStops() const {
         return myStops;
+    }
+
+    /** @brief Adapts the until time of all stops by the given offset
+     */
+    void addStopOffset(const SUMOTime offset) {
+        for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = myStops.begin(); stop != myStops.end(); ++stop) {
+            if (stop->until >= 0) {
+                stop->until += offset;
+            }
+        }
     }
 
 private:

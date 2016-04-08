@@ -47,6 +47,7 @@ class OutputDevice_String;
 class ROEdge;
 class ROLane;
 class RONet;
+class ROPerson;
 class RORoute;
 class RORouteDef;
 
@@ -149,14 +150,10 @@ protected:
     void parseEdges(const std::string& desc, ConstROEdgeVector& into,
                     const std::string& rid);
 
-    /// @brief route a walking person and write the corresponding walk element (return whether sucessful)
-    bool routePedestrian(const SUMOSAXAttributes& attrs, OutputDevice& plan);
+    /// @brief add a routing request for a walking person
+    bool addPersonTrip(const SUMOSAXAttributes& attrs);
 
 protected:
-    /// @brief the router for pedestrians
-    typedef PedestrianRouterDijkstra<ROEdge, ROLane, RONode> ROPedestrianRouterDijkstra;
-    ROPedestrianRouterDijkstra* myPedestrianRouter;
-
     /// @brief The current route
     RONet& myNet;
 
@@ -164,13 +161,10 @@ protected:
     ConstROEdgeVector myActiveRoute;
 
     /// @brief The plan of the current person
-    OutputDevice_String* myActivePlan;
+    ROPerson* myActivePerson;
 
     /// @brief The plan of the current container
     OutputDevice_String* myActiveContainerPlan;
-
-    /// @brief The number of stages in myActivePlan
-    int myActivePlanSize;
 
     /// @brief The number of stages in myActiveContainerPlan
     int myActiveContainerPlanSize;

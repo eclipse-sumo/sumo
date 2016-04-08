@@ -94,8 +94,8 @@ public:
 
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
-    void repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
-                            const ROVehicle& veh) const;
+    bool repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
+                            const ROVehicle& veh, ConstROEdgeVector oldEdges, ConstROEdgeVector& newEdges) const;
 
     /** @brief Adds an alternative to the list of routes
     *
@@ -106,7 +106,10 @@ public:
     const ROEdge* getDestination() const;
 
     const RORoute* getFirstRoute() const {
-        return myAlternatives.front();
+    	if (myAlternatives.empty()) {
+			return 0;
+    	}
+   		return myAlternatives.front();
     }
 
     /** @brief Saves the built route / route alternatives
@@ -136,9 +139,10 @@ public:
      * routes contained in this one
      *
      * @param[in] id The id for the new route definition
+     * @param[in] stopOffset The offset time for "until"-stops defined in the original route
      * @return the new route definition
      */
-    RORouteDef* copy(const std::string& id) const;
+    RORouteDef* copy(const std::string& id, const SUMOTime stopOffset) const;
 
     /** @brief Returns the sum of the probablities of the contained routes */
     SUMOReal getOverallProb() const;

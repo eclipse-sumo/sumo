@@ -143,11 +143,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\vehicle\AStarRouter.h" />
+    <ClInclude Include="..\..\..\src\utils\vehicle\CarEdge.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\CHRouter.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\CHRouterWrapper.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouterEffort.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouterTT.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\GawronCalculator.h" />
+    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalEdge.h" />
+    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalNetwork.h" />
+    <ClInclude Include="..\..\..\src\utils\vehicle\IntermodalRouter.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\LogitCalculator.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\PedestrianRouter.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\RouteCostCalculator.h" />

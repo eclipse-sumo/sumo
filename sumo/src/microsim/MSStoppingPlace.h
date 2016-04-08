@@ -155,6 +155,14 @@ public:
     /// @brief Removes a transportable from this stop
     void removeTransportable(MSTransportable* p);
 
+    /// @brief adds an access point to this stop
+    virtual void addAccess(MSLane* lane, const SUMOReal pos) {
+        myAccessPos.insert(std::make_pair(lane, pos));
+    }
+
+    /// @brief checks whether this stop provides access to the given edge
+    bool hasAccess(const MSEdge* edge) const;
+
 protected:
     /** @brief Computes the last free position on this stop
      *
@@ -190,6 +198,8 @@ protected:
     /// @brief Persons waiting at this stop
     std::vector<MSTransportable*> myWaitingTransportables;
 
+    /// @brief lanes and positions connected to this stop
+    std::multimap<MSLane*, SUMOReal> myAccessPos;
 
 private:
     /// @brief Invalidated copy constructor.

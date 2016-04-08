@@ -300,13 +300,6 @@ public:
         return myCrossingEdges;
     }
 
-    /**@brief Gets the crossed edge ids
-     *@return The list of crossed edge ids in a crossing edge or an empty vector
-     */
-    static const MSEdgeVector& getAllEdges() {
-        return myEdges;
-    }
-
 
     /// @name Access to succeeding/predecessing edges
     /// @{
@@ -642,14 +635,11 @@ public:
     /** @brief Returns the MSEdge associated to the key id if exists, otherwise returns 0. */
     static MSEdge* dictionary(const std::string& id);
 
-    /** @brief Returns the MSEdge at the index */
-    static MSEdge* dictionary(size_t index);
-
     /// @brief Returns the number of edges
     static size_t dictSize();
 
-    /// @brief Returns the number of edges with a numerical id
-    static size_t numericalDictSize();
+    /// @brief Returns all edges with a numerical id
+    static const MSEdgeVector& getAllEdges();
 
     /** @brief Clears the dictionary */
     static void clear();

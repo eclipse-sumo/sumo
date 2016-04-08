@@ -126,7 +126,7 @@ MSPModel_Striping::~MSPModel_Striping() {
 PedestrianState*
 MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime) {
     assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
-    const MSLane* lane = getSidewalk(person->getEdge());
+    const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
     PState* ped = new PState(person, stage, lane);
     myActiveLanes[lane].push_back(ped);
     myNumActivePedestrians++;
@@ -211,20 +211,20 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
     if (myWalkingAreaPaths.size() > 0) {
         return;
     }
-    for (size_t i = 0; i < MSEdge::dictSize(); ++i) {
-        const MSEdge* edge = MSEdge::dictionary(i);
+    for (MSEdgeVector::const_iterator i = MSEdge::getAllEdges().begin(); i != MSEdge::getAllEdges().end(); ++i) {
+        const MSEdge* edge = *i;
         if (edge->isWalkingArea()) {
-            const MSLane* walkingArea = getSidewalk(edge);
+            const MSLane* walkingArea = getSidewalk<MSEdge, MSLane>(edge);
             // build all possible paths across this walkingArea
             // gather all incident lanes
-            std::vector<MSLane*> lanes;
+            std::vector<const MSLane*> lanes;
             const MSEdgeVector& incoming = edge->getIncomingEdges();
             for (int j = 0; j < (int)incoming.size(); ++j) {
-                lanes.push_back(getSidewalk(incoming[j]));
+                lanes.push_back(getSidewalk<MSEdge, MSLane>(incoming[j]));
             }
             const MSEdgeVector& outgoing = edge->getSuccessors();
             for (int j = 0; j < (int)outgoing.size(); ++j) {
-                lanes.push_back(getSidewalk(outgoing[j]));
+                lanes.push_back(getSidewalk<MSEdge, MSLane>(outgoing[j]));
             }
             // build all combinations
             for (int j = 0; j < (int)lanes.size(); ++j) {
@@ -275,7 +275,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
     const MSEdge* currentEdge = &currentLane->getEdge();
     const MSJunction* junction = ped.myDir == FORWARD ? currentEdge->getToJunction() : currentEdge->getFromJunction();
     const MSEdge* nextRouteEdge = ped.myStage->getNextRouteEdge();
-    const MSLane* nextRouteLane = getSidewalk(nextRouteEdge);
+    const MSLane* nextRouteLane = getSidewalk<MSEdge, MSLane>(nextRouteEdge);
     // result values
     const MSLane* nextLane = nextRouteLane;
     MSLink* link = 0;
@@ -319,7 +319,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             }
             if (crossingRoute.size() > 1) {
                 const MSEdge* nextEdge = crossingRoute[1];
-                nextLane = getSidewalk(crossingRoute[1]);
+                nextLane = getSidewalk<MSEdge, MSLane>(crossingRoute[1]);
                 assert((nextEdge->getFromJunction() == junction || nextEdge->getToJunction() == junction));
                 assert(nextLane != prevLane);
                 nextDir = connectedDirection(currentLane, nextLane);

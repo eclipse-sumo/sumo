@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/19/15 15:13:42 by SUMO duarouter Version dev-SVN-r18405
+<!-- generated on 10/17/15 15:00:33 by SUMO duarouter Version dev-SVN-r19082
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -37,6 +37,31 @@
     <vehicle id="1" type="d" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
+    <vType id="v" vClass="vip"/>
+    <vehicle id="2" type="v" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="3" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="4" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="5" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="6" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="7" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="8" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="9" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
     <vehicle id="10" depart="0.00">
         <route edges="left left2end end rend"/>
     </vehicle>
@@ -67,10 +92,6 @@
     <vehicle id="19" depart="0.00">
         <route edges="left left2end end rend"/>
     </vehicle>
-    <vType id="v" vClass="vip"/>
-    <vehicle id="2" type="v" depart="0.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
     <vehicle id="20" depart="0.00">
         <route edges="middle end rend"/>
     </vehicle>
@@ -100,26 +121,5 @@
     </vehicle>
     <vehicle id="29" depart="0.00">
         <route edges="middle end rend"/>
-    </vehicle>
-    <vehicle id="3" depart="0.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-    <vehicle id="4" depart="0.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-    <vehicle id="5" depart="0.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-    <vehicle id="6" depart="0.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-    <vehicle id="7" depart="0.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-    <vehicle id="8" depart="0.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-    <vehicle id="9" depart="0.00">
-        <route edges="beg middle end rend"/>
     </vehicle>
 </routes>

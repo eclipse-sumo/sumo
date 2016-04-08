@@ -75,31 +75,28 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
     return rr;
 }
 
-void
-GUITriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
-                                const std::vector<std::string>& lines,
-                                MSLane* lane,
-                                SUMOReal frompos, SUMOReal topos) {
-
-    GUIBusStop* stop = new GUIBusStop(id, lines, *lane, frompos, topos);
-    if (!net.addBusStop(stop)) {
-        delete stop;
-        throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
-    }
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
-}
 
 void
-GUITriggerBuilder::buildContainerStop(MSNet& net, const std::string& id,
-                                      const std::vector<std::string>& lines,
-                                      MSLane* lane,
-                                      SUMOReal frompos, SUMOReal topos) {
-    GUIContainerStop* stop = new GUIContainerStop(id, lines, *lane, frompos, topos);
-    if (!net.addContainerStop(stop)) {
-        delete stop;
-        throw InvalidArgument("Could not build container stop '" + id + "'; probably declared twice.");
+GUITriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id, const std::vector<std::string>& lines,
+                                      MSLane* lane, SUMOReal frompos, SUMOReal topos, const SumoXMLTag element) {
+    bool success = false;
+    GUIGlObject* o = 0; 
+    if (element == SUMO_TAG_CONTAINER_STOP) {
+        GUIContainerStop* stop = new GUIContainerStop(id, lines, *lane, frompos, topos);
+        success = net.addContainerStop(stop);
+        o = stop;
+        myCurrentStop = stop;
+    } else {
+        GUIBusStop* stop = new GUIBusStop(id, lines, *lane, frompos, topos);
+        success = net.addBusStop(stop);
+        o = stop;
+        myCurrentStop = stop;
     }
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
+    if (!success) {
+        delete o;
+        throw InvalidArgument("Could not build " + toString(element) + " stop '" + id + "'; probably declared twice.");
+    }
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(o);
 }
 
 

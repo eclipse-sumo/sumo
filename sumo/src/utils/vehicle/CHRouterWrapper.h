@@ -73,9 +73,9 @@ public:
 
     /** @brief Constructor
      */
-    CHRouterWrapper(size_t dictSize, bool ignoreErrors, Operation operation, SUMOTime begin, SUMOTime weightPeriod):
+    CHRouterWrapper(const std::vector<E*>& edges, bool ignoreErrors, Operation operation, SUMOTime begin, SUMOTime weightPeriod):
         SUMOAbstractRouter<E, V>(operation, "CHRouterWrapper"),
-        myDictSize(dictSize),
+        myEdges(edges),
         myIgnoreErrors(ignoreErrors),
         myBegin(begin),
         myWeightPeriod(weightPeriod)
@@ -88,20 +88,20 @@ public:
     }
 
 
-    virtual SUMOAbstractRouter<E, V>* clone() const {
-        return new CHRouterWrapper<E, V, PF>(myDictSize, myIgnoreErrors, this->myOperation, myBegin, myWeightPeriod);
+    virtual SUMOAbstractRouter<E, V>* clone() {
+        return new CHRouterWrapper<E, V, PF>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myWeightPeriod);
     }
 
-    void compute(const E* from, const E* to, const V* const vehicle,
+    bool compute(const E* from, const E* to, const V* const vehicle,
                  SUMOTime msTime, std::vector<const E*>& into) {
         const std::pair<const SUMOVehicleClass, const SUMOReal> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
         if (myRouters.count(svc) == 0) {
             // create new router for the given permissions and maximum speed
             // XXX a new router may also be needed if vehicles differ in speed factor
             myRouters[svc] = new CHRouterType(
-                myDictSize, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false);
+                myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false);
         }
-        myRouters[svc]->compute(from, to, vehicle, msTime, into);
+        return myRouters[svc]->compute(from, to, vehicle, msTime, into);
     }
 
 
@@ -126,8 +126,8 @@ private:
 
     RouterMap myRouters;
 
-    /// @brief number of edges with numerical id
-    size_t myDictSize;
+    /// @brief all edges with numerical ids
+    const std::vector<E*>& myEdges;
 
     bool myIgnoreErrors;
 

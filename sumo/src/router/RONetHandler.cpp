@@ -60,7 +60,8 @@ RONetHandler::RONetHandler(RONet& net,
                            ROAbstractEdgeBuilder& eb)
     : SUMOSAXHandler("sumo-network"),
       myNet(net), myCurrentName(),
-      myCurrentEdge(0), myProcess(true), myEdgeBuilder(eb) {}
+      myCurrentEdge(0), myCurrentStoppingPlace(0),
+      myProcess(true), myEdgeBuilder(eb) {}
 
 
 RONetHandler::~RONetHandler() {}
@@ -88,10 +89,12 @@ RONetHandler::myStartElement(int element,
             parseConnection(attrs);
             break;
         case SUMO_TAG_BUS_STOP:
-            parseBusStop(attrs);
-            break;
+        case SUMO_TAG_TRAIN_STOP:
         case SUMO_TAG_CONTAINER_STOP:
-            parseContainerStop(attrs);
+            parseStoppingPlace(attrs, (SumoXMLTag)element);
+            break;
+        case SUMO_TAG_ACCESS:
+            parseAccess(attrs);
             break;
         case SUMO_TAG_TAZ:
             parseDistrict(attrs);
@@ -313,54 +316,48 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
 
 
 void
-RONetHandler::parseBusStop(const SUMOSAXAttributes& attrs) {
+RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTag element) {
     bool ok = true;
-    SUMOVehicleParameter::Stop* stop = new SUMOVehicleParameter::Stop();
+    myCurrentStoppingPlace = new SUMOVehicleParameter::Stop();
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "busStop", ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, toString(element).c_str(), ok);
     // get the lane
-    stop->lane = attrs.get<std::string>(SUMO_ATTR_LANE, "busStop", ok);
+    myCurrentStoppingPlace->lane = attrs.get<std::string>(SUMO_ATTR_LANE, toString(element).c_str(), ok);
     if (!ok) {
         throw ProcessError();
     }
-    const ROEdge* edge = myNet.getEdge(stop->lane.substr(0, stop->lane.rfind("_")));
+    const ROEdge* edge = myNet.getEdgeForLaneID(myCurrentStoppingPlace->lane);
     if (edge == 0) {
-        throw InvalidArgument("Unknown lane '" + stop->lane + "' for bus stop '" + id + "'.");
+        throw InvalidArgument("Unknown lane '" + myCurrentStoppingPlace->lane + "' for " + toString(element) + " '" + id + "'.");
     }
     // get the positions
-    stop->startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    stop->endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
+    myCurrentStoppingPlace->startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    myCurrentStoppingPlace->endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    if (!ok || !SUMORouteHandler::checkStopPos(stop->startPos, stop->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
-        throw InvalidArgument("Invalid position for bus stop '" + id + "'.");
+    if (!ok || !SUMORouteHandler::checkStopPos(myCurrentStoppingPlace->startPos, myCurrentStoppingPlace->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
+        throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
-    myNet.addBusStop(id, stop);
+    if (element == SUMO_TAG_CONTAINER_STOP) {
+        myNet.addContainerStop(id, myCurrentStoppingPlace);
+    } else {
+        myNet.addBusStop(id, myCurrentStoppingPlace);
+    }
 }
 
 
 void
-RONetHandler::parseContainerStop(const SUMOSAXAttributes& attrs) {
+RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    SUMOVehicleParameter::Stop* stop = new SUMOVehicleParameter::Stop();
-    // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "containerStop", ok);
-    // get the lane
-    stop->lane = attrs.get<std::string>(SUMO_ATTR_LANE, "containerStop", ok);
+    const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, "access", ok);
+    const ROEdge* edge = myNet.getEdgeForLaneID(lane);
+    if (edge == 0) {
+        throw InvalidArgument("Unknown lane '" + lane + "' for access.");
+    }
+    const SUMOReal pos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, "access", ok, 0);
     if (!ok) {
         throw ProcessError();
     }
-    const ROEdge* edge = myNet.getEdge(stop->lane.substr(0, stop->lane.rfind("_")));
-    if (edge == 0) {
-        throw InvalidArgument("Unknown lane '" + stop->lane + "' for container stop '" + id + "'.");
-    }
-    // get the positions
-    stop->startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    stop->endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    if (!ok || !SUMORouteHandler::checkStopPos(stop->startPos, stop->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
-        throw InvalidArgument("Invalid position for container stop '" + id + "'.");
-    }
-    myNet.addContainerStop(id, stop);
+    myCurrentStoppingPlace->accessPos.insert(std::make_pair(lane, pos));
 }
 
 

@@ -44,6 +44,9 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSVehicle;
 class MSLink;
 class MSLane;

@@ -38,17 +38,17 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include "RORoutable.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class RORouteDef;
 class OutputDevice;
 class ROEdge;
 class RONet;
+class RORouteDef;
 
-typedef std::vector<const ROEdge*> ConstROEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -57,7 +57,7 @@ typedef std::vector<const ROEdge*> ConstROEdgeVector;
  * @class ROVehicle
  * @brief A vehicle as used by router
  */
-class ROVehicle {
+class ROVehicle : public RORoutable {
 public:
     /** @brief Constructor
      *
@@ -67,7 +67,7 @@ public:
      */
     ROVehicle(const SUMOVehicleParameter& pars,
               RORouteDef* route, const SUMOVTypeParameter* type,
-              const RONet* net);
+              const RONet* net, MsgHandler* errorHandler=0);
 
 
     /// @brief Destructor
@@ -80,57 +80,41 @@ public:
      *
      * @todo Why not return a reference?
      */
-    RORouteDef* getRouteDefinition() const {
+    inline RORouteDef* getRouteDefinition() const {
         return myRoute;
     }
 
 
-    /** @brief Returns the type of the vehicle
+    /** @brief Returns the definition of the vehicle parameter
      *
-     * @return The vehicle's type
-     *
-     * @todo Why not return a reference?
+     * @return The vehicle's parameter
      */
-    const SUMOVTypeParameter* getType() const {
-        return myType;
+    inline const SUMOVehicleParameter& getParameter() const {
+        return myParameter;
     }
 
 
-    /** @brief Returns the id of the vehicle
+    /** @brief Returns the first edge the vehicle takes
      *
-     * @return The id of the vehicle
+     * @return The vehicle's departure edge
      */
-    const std::string& getID() const {
-        return myParameter.id;
-    }
+    const ROEdge* getDepartEdge() const;
 
+
+    void computeRoute(const RORouterProvider& provider,
+                      const bool removeLoops, MsgHandler* errorHandler);
 
     /** @brief Returns the time the vehicle starts at, 0 for triggered vehicles
      *
      * @return The vehicle's depart time
      */
-    SUMOTime getDepartureTime() const {
+    inline SUMOTime getDepartureTime() const {
         return MAX2(SUMOTime(0), myParameter.depart);
     }
 
-    /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles
-     *
-     * @return The vehicle's depart time
-     */
-    SUMOTime getDepart() const {
-        return myParameter.depart;
-    }
 
-    const ConstROEdgeVector& getStopEdges() const {
+    inline const ConstROEdgeVector& getStopEdges() const {
         return myStopEdges;
-    }
-
-    /// @brief Returns the vehicle's maximum speed
-    SUMOReal getMaxSpeed() const;
-
-
-    inline SUMOVehicleClass getVClass() const {
-        return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
     }
 
     /** @brief Returns an upper bound for the speed factor of this vehicle
@@ -142,58 +126,34 @@ public:
     }
 
 
-    /** @brief  Saves the vehicle type if it was not saved before.
-     *
-     * @param[in] os The routes - output device to store the vehicle's description into
-     * @param[in] altos The route alternatives - output device to store the vehicle's description into
-     * @param[in] typeos The types - output device to store the vehicle types into
-     * @exception IOError If something fails (not yet implemented)
-     */
-    void saveTypeAsXML(OutputDevice& os, OutputDevice* const altos,
-                       OutputDevice* const typeos) const;
-
     /** @brief Saves the complete vehicle description.
      *
      * Saves the vehicle itself including the route and stops.
      *
      * @param[in] os The routes or alternatives output device to store the vehicle's description into
+     * @param[in] typeos The types - output device to store types into
      * @param[in] asAlternatives Whether the route shall be saved as route alternatives
      * @param[in] withExitTimes whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    void saveAllAsXML(OutputDevice& os, bool asAlternatives, bool withExitTimes) const;
+    void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
 
-    inline void setRoutingSuccess(const bool val) {
-        myRoutingSuccess = val;
-    }
 
-    inline bool getRoutingSuccess() const {
-        return myRoutingSuccess;
-    }
 private:
     /** @brief Adds a stop to this vehicle
      *
      * @param[in] stopPar the stop paramters
      * @param[in] net     pointer to the network, used for edge retrieval
      */
-    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
+    void addStop(const SUMOVehicleParameter::Stop& stopPar,
+                 const RONet* net, MsgHandler* errorHandler);
 
-
-protected:
-    /// @brief The vehicle's parameter
-    SUMOVehicleParameter myParameter;
-
-    /// @brief The type of the vehicle
-    const SUMOVTypeParameter* const myType;
-
+private:
     /// @brief The route the vehicle takes
     RORouteDef* const myRoute;
 
     /// @brief The edges where the vehicle stops
     ConstROEdgeVector myStopEdges;
-
-    /// @brief Whether the last routing was successful
-    bool myRoutingSuccess;
 
 
 private:
@@ -209,4 +169,3 @@ private:
 #endif
 
 /****************************************************************************/
-

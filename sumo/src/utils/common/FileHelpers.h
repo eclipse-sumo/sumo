@@ -292,7 +292,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
         const unsigned int mask = (1 << bits) - 1;
         unsigned int edgeID;
         in.read((char*) &edgeID, sizeof(int));
-        const E* prev = E::dictionary(edgeID);
+        const E* prev = E::getAllEdges()[edgeID];
         assert(prev != 0);
         edges.push_back(prev);
         size--;
@@ -313,7 +313,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
         }
     } else {
         while (size > 0) {
-            const E* edge = E::dictionary(bitsOrEntry);
+            const E* edge = E::getAllEdges()[bitsOrEntry];
             if (edge == 0) {
                 throw ProcessError("An edge within the route '" + rid + "' is not known!");
             }

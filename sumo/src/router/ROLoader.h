@@ -34,10 +34,10 @@
 #endif
 
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/xml/SAXWeightsHandler.h>
 #include <utils/xml/SUMORouteLoaderControl.h>
+#include "RORoutable.h"
 
 
 // ===========================================================================
@@ -86,7 +86,7 @@ public:
 
     /** @brief Loads routes from all previously build route loaders */
     void processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
-                       RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+                       RONet& net, const RORouterProvider& provider);
 
 protected:
     /** @brief Opens route handler of the given type

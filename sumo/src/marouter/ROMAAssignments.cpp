@@ -452,7 +452,7 @@ ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, 
 void
 ROMAAssignments::RoutingTask::run(FXWorkerThread* context) {
     ConstROEdgeVector edges;
-    static_cast<RONet::WorkerThread*>(context)->getRouter().compute(myAssign.myNet.getEdge(myCell->origin + "-source"), myAssign.myNet.getEdge(myCell->destination + "-sink"), myAssign.myDefaultVehicle, myBegin, edges);
+    static_cast<RONet::WorkerThread*>(context)->getVehicleRouter().compute(myAssign.myNet.getEdge(myCell->origin + "-source"), myAssign.myNet.getEdge(myCell->destination + "-sink"), myAssign.myDefaultVehicle, myBegin, edges);
     myAssign.addRoute(edges, myCell->pathsVector, myCell->origin + myCell->destination + toString(myCell->pathsVector.size()), myLinkFlow);
 }
 #endif

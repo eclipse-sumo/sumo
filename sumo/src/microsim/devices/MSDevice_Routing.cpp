@@ -336,41 +336,41 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
         if (routingAlgorithm == "dijkstra") {
             if (mayHaveRestrictions) {
                 myRouter = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
+                    MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
             } else {
                 myRouter = new DijkstraRouterTT<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
+                    MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
             }
         } else if (routingAlgorithm == "astar") {
             if (mayHaveRestrictions) {
                 typedef AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("device.rerouting.shortest-path-file")) {
-                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::numericalDictSize());
+                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::getAllEdges().size());
                 }
-                myRouter = new AStar(MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, lookup);
+                myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             } else {
                 typedef AStarRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("device.rerouting.shortest-path-file")) {
-                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::numericalDictSize());
+                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::getAllEdges().size());
                 }
-                myRouter = new AStar(MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, lookup);
+                myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             }
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
             if (mayHaveRestrictions) {
                 myRouter = new CHRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, myHolder.getVClass(), weightPeriod, true);
+                    MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, myHolder.getVClass(), weightPeriod, true);
             } else {
                 myRouter = new CHRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, myHolder.getVClass(), weightPeriod, false);
+                    MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, myHolder.getVClass(), weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
             const SUMOTime begin = string2time(oc.getString("begin"));
             const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
             myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort, begin, weightPeriod);
+                MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, begin, weightPeriod);
         } else {
             throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
         }
@@ -398,7 +398,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
     if (myRouterWithProhibited == 0) {
         myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
+                MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
     }
     myRouterWithProhibited->prohibit(prohibited);
     return *myRouterWithProhibited;

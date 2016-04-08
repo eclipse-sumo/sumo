@@ -94,6 +94,13 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
 GUIBusStop::~GUIBusStop() {}
 
 
+void
+GUIBusStop::addAccess(MSLane* lane, const SUMOReal pos) {
+    MSStoppingPlace::addAccess(lane, pos);
+    myAccessCoords.push_back(lane->getShape().positionAtOffset(pos));
+}
+
+
 GUIGLObjectPopupMenu*
 GUIBusStop::getPopUpMenu(GUIMainWindow& app,
                          GUISUMOAbstractView& parent) {
@@ -150,6 +157,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(1.2, -(double)i, 0);
             pfDrawString(myLines[i].c_str());
             glPopMatrix();
+        }
+        for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
+            GLHelper::drawBoxLine(*i, RAD2DEG(myFGSignPos.angleTo2D(*i)) - 90, myFGSignPos.distanceTo2D(*i), .05);
         }
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/09/15 09:16:15 by SUMO duarouter Version dev-SVN-r19275
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0.00">
+        <walk edges="beg" busStop="beg_0"/>
+        <ride busStop="end_0" lines="bus"/>
+        <walk edges="end"/>
+    </person>
+    <person id="p1" depart="0.00">
+        <walk edges="end middle beg"/>
+    </person>
+    <vehicle id="bus.0" depart="0.00" line="bus">
+        <routeDistribution last="0">
+            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
+        </routeDistribution>
+        <stop busStop="beg_0" until="10.00"/>
+        <stop busStop="left_0" until="110.00"/>
+        <stop busStop="end_0" until="210.00"/>
+    </vehicle>
+    <vehicle id="bus.1" depart="300.00" line="bus">
+        <routeDistribution last="0">
+            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
+        </routeDistribution>
+        <stop busStop="beg_0" until="310.00"/>
+        <stop busStop="left_0" until="410.00"/>
+        <stop busStop="end_0" until="510.00"/>
+    </vehicle>
+    <vehicle id="bus.2" depart="600.00" line="bus">
+        <routeDistribution last="0">
+            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
+        </routeDistribution>
+        <stop busStop="beg_0" until="610.00"/>
+        <stop busStop="left_0" until="710.00"/>
+        <stop busStop="end_0" until="810.00"/>
+    </vehicle>
+</routes>
