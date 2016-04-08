@@ -84,11 +84,7 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
     myAmResponsible(false),
     myHasValidLogic(loaded),
     myAmTLSSelected(false) {
-    const double EXTENT = 2;
-    myBoundary = Boundary(
-                     myOrigPos.x() - EXTENT, myOrigPos.y() - EXTENT,
-                     myOrigPos.x() + EXTENT, myOrigPos.y() + EXTENT);
-    myMaxSize = 2 * EXTENT;
+    updateBoundary();
     rebuildCrossings(false);
 }
 
@@ -98,6 +94,19 @@ GNEJunction::~GNEJunction() {
         delete &myNBNode;
     }
     rebuildCrossings(true);
+}
+
+
+void 
+GNEJunction::updateBoundary() {
+    const double EXTENT = 2;
+    myBoundary = Boundary(
+                     myOrigPos.x() - EXTENT, myOrigPos.y() - EXTENT,
+                     myOrigPos.x() + EXTENT, myOrigPos.y() + EXTENT);
+    if (myNBNode.getShape().size() > 0) {
+        myBoundary.add(myNBNode.getShape().getBoxBoundary());
+    }
+    myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
 }
 
 
@@ -201,7 +210,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             setColor(s, true);
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() - 0.05);
-            GLHelper::drawFilledCircle(myMaxSize * selectionScale, 32);
+            GLHelper::drawFilledCircle(4 * selectionScale, 32);
             glPopMatrix();
         }
 

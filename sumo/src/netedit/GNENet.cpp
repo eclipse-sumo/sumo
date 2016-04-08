@@ -1016,6 +1016,9 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
     }
     for (GNEJunctions::const_iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
         it->second->setLogicValid(true);
+        // updated shape
+        it->second->updateBoundary();
+        refreshElement(it->second); 
     }
     myNeedRecompute = false;
 }

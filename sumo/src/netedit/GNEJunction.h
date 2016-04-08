@@ -125,6 +125,10 @@ public:
     }
 
 
+    /** @brief Update the boundary of the junction */
+    void updateBoundary(); 
+
+
     /** @brief marks as first junction in createEdge-mode
      */
     void markAsCreateEdgeSource() {
