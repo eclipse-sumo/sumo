@@ -26,7 +26,7 @@ import socket
 import time
 
 from .domain import _defaultDomains
-from .connection import Connection
+from .connection import Connection, _embedded
 from .exceptions import TraCIException
 from . import _inductionloop, _multientryexit, _trafficlights
 from . import _lane, _vehicle, _vehicletype, _person, _route, _areal
@@ -66,7 +66,7 @@ def init(port=8813, numRetries=10, host="localhost", label="default"):
 
 
 def isEmbedded():
-    return _connections[""].isEmbedded()
+    return _embedded
 
 
 def simulationStep(step=0):
