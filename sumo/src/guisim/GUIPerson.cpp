@@ -250,8 +250,8 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
         p1 = myPositionInVehicle;
     }
+    glTranslated(p1.x(), p1.y(), getType());
     glRotated(90, 0, 0, 1);
-    // XXX use person specific gui settings
     // set person color
     setColor(s);
     // scale
