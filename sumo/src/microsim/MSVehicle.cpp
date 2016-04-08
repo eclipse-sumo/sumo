@@ -2407,6 +2407,7 @@ MSVehicle::getLeader(SUMOReal dist) const {
     }
     const MSVehicle* lead = 0;
     const MSLane::VehCont& vehs = myLane->getVehiclesSecure();
+    assert(vehs.size() > 0);
     MSLane::VehCont::const_iterator pred = std::find(vehs.begin(), vehs.end(), this) + 1;
     if (pred != vehs.end()) {
         lead = *pred;
