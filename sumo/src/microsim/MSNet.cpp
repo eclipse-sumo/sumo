@@ -276,7 +276,7 @@ MSNet::~MSNet() {
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
     }
-    delete myPedestrianRouter;
+//    delete myPedestrianRouter;
     myInstance = 0;
 }
 

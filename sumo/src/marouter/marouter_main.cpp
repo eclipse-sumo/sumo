@@ -69,6 +69,7 @@
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/RORoute.h>
+#include <router/RORoutable.h>
 
 #include "ROMAFrame.h"
 #include "ROMAAssignments.h"
@@ -287,7 +288,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"), net, matrix, *router);
         a.resetFlows();
 #ifdef HAVE_FOX
-	const RORouterProvider provider(router, 0, 0);
+        const RORouterProvider provider(router, 0, 0);
         const int maxNumThreads = oc.getInt("routing-threads");
         while ((int)net.getThreadPool().size() < maxNumThreads) {
             new RONet::WorkerThread(net.getThreadPool(), provider);
@@ -360,10 +361,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         }
         // end the processing
         net.cleanup();
-        delete router;
     } catch (ProcessError&) {
         net.cleanup();
-        delete router;
         throw;
     }
 }

@@ -401,8 +401,8 @@ public:
 
     RouterProvider(const RouterProvider& original)
         : myVehRouter(original.getVehicleRouter().clone()),
-        myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N, V>*>(original.getPedestrianRouter().clone())),
-        myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.getIntermodalRouter().clone())) {}
+        myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.getPedestrianRouter().clone())),
+        myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.getIntermodalRouter().clone())) {}
 
     SUMOAbstractRouter<E, V>& getVehicleRouter() const {
         return *myVehRouter;
