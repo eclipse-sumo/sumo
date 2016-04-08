@@ -61,3 +61,4 @@ geometry.remove
 
 # import lefthand and junctionCornerDetail
 network_attributes
+remove_lane
