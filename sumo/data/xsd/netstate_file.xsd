@@ -43,6 +43,10 @@
     </xsd:element>
     <xsd:element name="vehicle">
         <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
+				<xsd:element minOccurs="0" maxOccurs="unbounded" ref="container"/>
+			</xsd:sequence>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
