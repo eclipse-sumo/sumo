@@ -154,6 +154,8 @@ public:
      * @return The built parameter window
      */
     virtual GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+        UNUSED_PARAMETER(&app);
+        UNUSED_PARAMETER(&parent);
         return 0;
     }
 
