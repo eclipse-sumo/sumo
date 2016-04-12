@@ -12,7 +12,6 @@
                     <xsd:element name="carFollowing-IDMM" type="cfIDMMType"/>
                     <xsd:element name="carFollowing-Krauss" type="cfKraussType"/>
                     <xsd:element name="carFollowing-KraussPS" type="cfKraussType"/>
-                    <xsd:element name="carFollowing-KraussAB" type="cfKraussType"/>
                     <xsd:element name="carFollowing-KraussOrig1" type="cfKraussType"/>
                     <xsd:element name="carFollowing-SmartSK" type="cfSmartType"/>
                     <xsd:element name="carFollowing-Daniel1" type="cfSmartType"/>
@@ -62,6 +61,10 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="delta" type="xsd:float"/>
+        <xsd:attribute name="stepping" type="positiveIntType"/>
+        <xsd:attribute name="adaptTime" type="xsd:float"/>
+        <xsd:attribute name="adaptFactor" type="xsd:float"/>
         <xsd:attribute name="tmp1" type="xsd:float"/>
         <xsd:attribute name="tmp2" type="xsd:float"/>
         <xsd:attribute name="tmp3" type="xsd:float"/>
@@ -467,6 +470,8 @@
                     <xsd:attribute name="to" type="xsd:string" use="required"/>
                     <xsd:attribute name="modes" type="xsd:string"/>
                     <xsd:attribute name="vTypes" type="xsd:string"/>
+                    <xsd:attribute name="departPos" type="departPosType"/>
+                    <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="ride">
@@ -485,7 +490,7 @@
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
-                    <xsd:attribute name="departPos" type="arrivalPosType"/>
+                    <xsd:attribute name="departPos" type="departPosType"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                 </xsd:complexType>
             </xsd:element>
@@ -497,6 +502,7 @@
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="departPos" type="departPosType"/>
+        <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="modes" type="xsd:string"/>
         <xsd:attribute name="vTypes" type="xsd:string"/>
     </xsd:complexType>
