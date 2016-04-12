@@ -133,7 +133,7 @@ public:
      * @param[in] os The routes or alternatives output device to store the vehicle's description into
      * @param[in] typeos The types - output device to store types into
      * @param[in] asAlternatives Whether the route shall be saved as route alternatives
-     * @param[in] withExitTimes whether exit times for the edges shall be written
+     * @param[in] options to find out about defaults and whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
     void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;

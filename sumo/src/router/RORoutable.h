@@ -130,7 +130,11 @@ public:
      */
     void write(OutputDevice& os, OutputDevice* const altos,
                OutputDevice* const typeos, OptionsCont& options) const {
-        saveAsXML(os, typeos, false, options);
+        if (altos == 0 && typeos == 0) {
+            saveAsXML(os, &os, false, options);
+        } else {
+            saveAsXML(os, typeos, false, options);
+        }
         if (altos != 0) {
             saveAsXML(*altos, typeos, true, options);
         }
