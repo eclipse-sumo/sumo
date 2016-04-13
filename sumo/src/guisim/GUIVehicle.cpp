@@ -352,7 +352,7 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
         case 9:
             return getWaitingSeconds();
         case 10:
-            return 100*getAccumulatedWaitingSeconds()/STEPS2TIME(MSGlobals::gWaitingTimeMemory);
+            return getAccumulatedWaitingSeconds();
         case 11:
             return getLastLaneChangeOffset();
         case 12:
