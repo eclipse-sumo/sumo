@@ -1,5 +1,5 @@
-SUMO netconvert Version dev-SVN-r20296
- Copyright (C) 2001-2015 DLR and contributors; http://sumo.dlr.de
+SUMO netconvert Version svn
+ Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
 Usage: netconvert [OPTION]*
