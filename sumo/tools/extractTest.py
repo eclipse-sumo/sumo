@@ -206,8 +206,6 @@ def main(options):
                    "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
             appOptions += ['--save-configuration', '%s.%scfg' %
                            (nameBase, app[:4])]
-            if "meso" in testPath and app == "sumo":
-                app = "meso"
             if app == "netgen":
                 # binary is now called differently but app still has the old
                 # name
