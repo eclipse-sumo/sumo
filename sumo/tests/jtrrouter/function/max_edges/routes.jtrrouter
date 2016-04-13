@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/18/14 14:50:02 by SUMO jtrrouter Version dev-SVN-r16607
+<!-- generated on 04/13/16 08:43:53 by SUMO jtrrouter Version dev-SVN-r20409
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -32,7 +32,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0.0" depart="10.00">
-        <route edges="beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg beg"/>
+        <route edges="beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg beg -beg"/>
     </vehicle>
     <vehicle id="0.1" depart="15.00">
         <route edges="beg -beg beg -beg beg -beg beg beg2left left left2end -middle middle end"/>
