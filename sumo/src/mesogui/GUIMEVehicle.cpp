@@ -198,38 +198,38 @@ GUIMEVehicle::getColorValue(size_t activeScheme) const {
             return getSpeed();
         case 9:
             return getWaitingSeconds();
-        case 10:
-            return 0; // invalid getLastLaneChangeOffset();
         case 11:
-            return getSegment()->getEdge().getVehicleMaxSpeed(this);
+            return 0; // invalid getLastLaneChangeOffset();
         case 12:
-            return 0; // invalid getCO2Emissions();
+            return getSegment()->getEdge().getVehicleMaxSpeed(this);
         case 13:
-            return 0; // invalid getCOEmissions();
+            return 0; // invalid getCO2Emissions();
         case 14:
-            return 0; // invalid getPMxEmissions();
+            return 0; // invalid getCOEmissions();
         case 15:
-            return 0; // invalid  getNOxEmissions();
+            return 0; // invalid getPMxEmissions();
         case 16:
-            return 0; // invalid getHCEmissions();
+            return 0; // invalid  getNOxEmissions();
         case 17:
-            return 0; // invalid getFuelConsumption();
+            return 0; // invalid getHCEmissions();
         case 18:
+            return 0; // invalid getFuelConsumption();
+        case 19:
             return 0; // invalid getHarmonoise_NoiseEmissions();
-        case 19: // !!! unused!?
+        case 20: // !!! unused!?
             if (getNumberReroutes() == 0) {
                 return -1;
             }
             return getNumberReroutes();
-        case 20:
-            return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 21:
-            return 0; // invalid getBestLaneOffset();
+            return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 22:
-            return 0; // invalid getAcceleration();
+            return 0; // invalid getBestLaneOffset();
         case 23:
-            return 0; // invalid getTimeGap();
+            return 0; // invalid getAcceleration();
         case 24:
+            return 0; // invalid getTimeGap();
+        case 25:
             return STEPS2TIME(getDepartDelay());
     }
     return 0;

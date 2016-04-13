@@ -335,10 +335,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)200);
     scheme.addColor(RGBColor::RED, (SUMOReal)300);
     vehicleColorer.addScheme(scheme);
-    vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
     scheme = GUIColorScheme("by electricity consumption", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)5);
     vehicleColorer.addScheme(scheme);
+    vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
     /// add person coloring schemes
     personColorer.addScheme(GUIColorScheme("given person/type color", RGBColor::YELLOW, "", true));

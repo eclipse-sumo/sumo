@@ -386,7 +386,7 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
             return getTimeGap();
         case 25:
             return STEPS2TIME(getDepartDelay());
-        case 27:
+        case 26:
             return getElectricityConsumption();
     }
     return 0;
