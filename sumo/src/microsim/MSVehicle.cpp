@@ -2413,7 +2413,10 @@ MSVehicle::getLeader(SUMOReal dist) const {
         lead = *(it + 1);
     }
     if (lead != 0) {
-        return std::make_pair(lead, lead->getPositionOnLane() - lead->getVehicleType().getLength() - getPositionOnLane() - getVehicleType().getMinGap());
+        std::pair<const MSVehicle* const, SUMOReal> result(lead, 
+                lead->getPositionOnLane() - lead->getVehicleType().getLength() - getPositionOnLane() - getVehicleType().getMinGap());
+        myLane->releaseVehicles();
+        return result;
     }
     myLane->releaseVehicles();
     const SUMOReal seen = myLane->getLength() - getPositionOnLane();
