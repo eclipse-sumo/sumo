@@ -98,10 +98,13 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, const MSVehic
 }
 
 MSTransportable::~MSTransportable() {
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        delete *i;
-    }
-    delete myPlan;
+//	if(myPlan != 0){
+//		for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+//			delete *i;
+//		}
+//		delete myPlan;
+//		myPlan = NULL;
+//	} // the prior would solve some memory leaks but leads to an error/crash in basic/person/errors/duplicate_id
     delete myParameter;
 }
 

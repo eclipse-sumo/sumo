@@ -153,13 +153,20 @@ MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane* const lane,
 
 
 MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() {
+	std::list<TrackerEntry*>::iterator i;
+	for(i= myCurrentData.begin(); i != myCurrentData.end(); i++){
+		delete *i;
+	}
 }
 
 
 void
 MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
     if (afterWrite) {
-        myCurrentData.pop_front();
+    	if(myCurrentData.begin() != myCurrentData.end()){
+//    		delete myCurrentData.front(); // XXX: not allowed, may still be referenced from myTrackedData. Where to delete this? (Leo)
+			myCurrentData.pop_front();
+    	}
     } else {
         myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane, myLaneLength, false)));
     }

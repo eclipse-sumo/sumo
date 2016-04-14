@@ -484,6 +484,9 @@ MSVehicle::~MSVehicle() {
     if (myType->amVehicleSpecific()) {
         delete myType;
     }
+
+    delete myCFVariables;
+
 #ifndef NO_TRACI
     delete myInfluencer;
 #endif

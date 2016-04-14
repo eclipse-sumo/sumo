@@ -68,6 +68,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
 
 
 MSStateHandler::~MSStateHandler() {
+	delete myCurrentVType;
 }
 
 

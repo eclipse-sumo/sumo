@@ -93,7 +93,9 @@ NLDetectorBuilder::NLDetectorBuilder(MSNet& net)
     : myNet(net), myE3Definition(0) {}
 
 
-NLDetectorBuilder::~NLDetectorBuilder() {}
+NLDetectorBuilder::~NLDetectorBuilder() {
+	delete myE3Definition;
+}
 
 
 void

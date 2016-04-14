@@ -70,6 +70,7 @@
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
+#include <microsim/devices/MSDevice_BTsender.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
@@ -573,6 +574,7 @@ MSNet::clearAll() {
     MSCalibrator::cleanup();
     MSPModel::cleanup();
     MSCModel_NonInteracting::cleanup();
+    MSDevice_BTsender::cleanup();
 }
 
 

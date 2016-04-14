@@ -60,6 +60,8 @@ class MSCFModel {
 public:
 
     class VehicleVariables {
+    public:
+    	virtual ~VehicleVariables();
     };
 
     /** @brief Constructor

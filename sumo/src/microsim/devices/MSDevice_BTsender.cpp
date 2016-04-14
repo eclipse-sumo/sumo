@@ -71,6 +71,14 @@ MSDevice_BTsender::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& i
     }
 }
 
+void
+MSDevice_BTsender::cleanup() {
+	std::map<std::string, MSDevice_BTsender::VehicleInformation*>::iterator i;
+	for(i = sVehicles.begin(); i!=sVehicles.end(); i++){
+		delete i->second;
+	}
+}
+
 
 // ---------------------------------------------------------------------------
 // MSDevice_BTsender-methods

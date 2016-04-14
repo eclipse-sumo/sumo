@@ -74,6 +74,11 @@ public:
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
+    /** @brief removes remaining vehicleInformation in sVehicles
+     */
+    static void cleanup();
+
+
     /// for accessing the maps of running/arrived vehicles
     friend class MSDevice_BTreceiver;
 
@@ -174,7 +179,7 @@ public:
         VehicleInformation(const std::string& id) : Named(id), amOnNet(true), haveArrived(false)  {}
 
         /// @brief Destructor
-        ~VehicleInformation() {}
+        virtual ~VehicleInformation() {}
 
         /** @brief Returns the boundary of passed positions
          * @return The positions boundary

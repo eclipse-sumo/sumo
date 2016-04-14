@@ -85,6 +85,21 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
 
 
 MSRouteHandler::~MSRouteHandler() {
+	MSTransportable::MSTransportablePlan::iterator i;
+	if(myActivePlan != 0){
+		for(i=myActivePlan->begin(); i!=myActivePlan->end(); i++){
+			delete *i;
+		}
+		delete myActivePlan;
+		myActivePlan = NULL;
+	}
+	if(myActiveContainerPlan != 0){
+		for(i=myActiveContainerPlan->begin(); i!=myActiveContainerPlan->end(); i++){
+			delete *i;
+		}
+		delete myActiveContainerPlan;
+		myActivePlan = NULL;
+	}
 }
 
 

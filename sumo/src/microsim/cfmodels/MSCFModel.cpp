@@ -52,6 +52,9 @@ MSCFModel::MSCFModel(const MSVehicleType* vtype, const SUMOReal accel,
 MSCFModel::~MSCFModel() {}
 
 
+MSCFModel::VehicleVariables::~VehicleVariables() {}
+
+
 SUMOReal
 MSCFModel::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
