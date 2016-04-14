@@ -184,6 +184,7 @@ Index: CEPHandler.cpp
 -    std::string CEPHandler::ReadLine(std::ifstream& s) {
 -        std::string line;
 -        std::getline(s, line);
+-        line.erase(line.find_last_not_of(" \n\r\t") + 1);
 -        return line;
 +    std::string CEPHandler::ReadLine(StreamReader* s) {
 +        return s->ReadLine();

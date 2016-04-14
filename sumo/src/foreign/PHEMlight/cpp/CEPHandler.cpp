@@ -353,6 +353,7 @@ namespace PHEMlightdll {
     std::string CEPHandler::ReadLine(std::ifstream& s) {
         std::string line;
         std::getline(s, line);
+        line.erase(line.find_last_not_of(" \n\r\t") + 1);
         return line;
     }
 }
