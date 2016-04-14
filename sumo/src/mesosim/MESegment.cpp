@@ -629,7 +629,8 @@ SUMOTime
 MESegment::getTLSPenalty(const MEVehicle* veh) const {
     const bool useTLSPenalty = MSGlobals::gMesoTLSPenalty > 0;
     const MSLink* link = getLink(veh, useTLSPenalty);
-    if (link != 0 && link->isTLSControlled()) {
+    if (link != 0 && link->isTLSControlled() && myNextSegment == 0) {
+        // only apply to the last segment of a tls-controlled edge
         return link->getMesoTLSPenalty();
     } else {
         return 0;
