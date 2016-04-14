@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 13 Apr 2016 12:38:55 PM CEST by Netedit Version dev-SVN-r20417
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/meso/jamming/single_jam_1lane/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/meso/jamming/single_jam_1lane/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1500.00,0.00" origBoundary="-500.00,0.00,2000.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="absBeg" to="C" priority="-1">
+        <lane id="beg_0" index="0" speed="13.89" length="1000.00" shape="0.00,-1.65 1000.00,-1.65"/>
+    </edge>
+    <edge id="end" from="C" to="end" priority="-1">
+        <lane id="end_0" index="0" speed="13.89" length="500.00" shape="1000.00,-1.65 1500.00,-1.65"/>
+    </edge>
+
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="300" state="r"/>
+        <phase duration="3000" state="G"/>
+        <phase duration="3" state="y"/>
+    </tlLogic>
+
+    <junction id="C" type="traffic_light" x="1000.00" y="0.00" incLanes="beg_0" intLanes="" shape="1000.00,-0.05 1000.00,-3.25 1000.00,-0.05">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="absBeg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="end" type="unregulated" x="1500.00" y="0.00" incLanes="end_0" intLanes="" shape="1500.00,-3.25 1500.00,-0.05"/>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" tl="C" linkIndex="0" dir="s" state="o"/>
+
+</net>
