@@ -1,4 +1,4 @@
-﻿cp_norm(drive),NOx,HC,CO,PM,PN,NO
+cp_norm(drive),NOx,HC,CO,PM,PN,NO
 [-],[g/h],[g/h],[g/h],[g/h],[#/h],[g/h]
 Pdrive (Engine)= 19.39067
 idle,0.2311569,0.06580319,1.57672,0.0005531011,3.260417E+12,0.2195989
