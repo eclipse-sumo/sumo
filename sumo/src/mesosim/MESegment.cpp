@@ -339,7 +339,7 @@ MESegment::getNextInsertionTime(SUMOTime earliestEntry) const {
 
 MSLink*
 MESegment::getLink(const MEVehicle* veh, bool tlsPenalty) const {
-    if (myJunctionControl || tlsPenalty) {
+    if (myJunctionControl || (tlsPenalty && myNextSegment == 0)) {
         const MSEdge* const nextEdge = veh->succEdge(1);
         if (nextEdge == 0) {
             return 0;
@@ -629,7 +629,7 @@ SUMOTime
 MESegment::getTLSPenalty(const MEVehicle* veh) const {
     const bool useTLSPenalty = MSGlobals::gMesoTLSPenalty > 0;
     const MSLink* link = getLink(veh, useTLSPenalty);
-    if (link != 0 && link->isTLSControlled() && myNextSegment == 0) {
+    if (link != 0 && link->isTLSControlled()) {
         // only apply to the last segment of a tls-controlled edge
         return link->getMesoTLSPenalty();
     } else {
