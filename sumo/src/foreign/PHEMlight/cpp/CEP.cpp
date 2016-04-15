@@ -36,12 +36,12 @@ namespace PHEMlightdll {
         std::vector<std::vector<double> > normalizedPollutantMeasures;
 
         // init pollutant identifiers
-        for (int i = 0; i < headerLinePollutants.size(); i++) {
+        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
             pollutantIdentifier.push_back(headerLinePollutants[i]);
         }
 
         // initialize measures
-        for (int i = 0; i < headerLinePollutants.size(); i++) {
+        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
             pollutantMeasures.push_back(std::vector<double>());
             normalizedPollutantMeasures.push_back(std::vector<double>());
         }
@@ -50,7 +50,7 @@ namespace PHEMlightdll {
         _speedCurveRotational = std::vector<double>();
         _speedPatternRotational = std::vector<double>();
         _gearTransmissionCurve = std::vector<double>();
-        for (int i = 0; i < matrixSpeedRotational.size(); i++) {
+        for (int i = 0; i < (int)matrixSpeedRotational.size(); i++) {
             if (matrixSpeedRotational[i].size() != 3) {
                 return;
             }
@@ -63,7 +63,7 @@ namespace PHEMlightdll {
         // looping through matrix and assigning values for drag table
         _nNormTable = std::vector<double>();
         _dragNormTable = std::vector<double>();
-        for (int i = 0; i < normedDragTable.size(); i++) {
+        for (int i = 0; i < (int)normedDragTable.size(); i++) {
             if (normedDragTable[i].size() != 2) {
                 return;
             }
@@ -77,7 +77,7 @@ namespace PHEMlightdll {
         _normedCepCurveFC = std::vector<double>();
         _powerPatternFC = std::vector<double>();
         _normalizedPowerPatternFC = std::vector<double>();
-        for (int i = 0; i < matrixFC.size(); i++) {
+        for (int i = 0; i < (int)matrixFC.size(); i++) {
             if (matrixFC[i].size() != 2) {
                 return;
             }
@@ -111,8 +111,8 @@ namespace PHEMlightdll {
         _cepNormalizedCurvePollutants = std::map<std::string, std::vector<double> >();
 
         int headerCount = headerLinePollutants.size();
-        for (int i = 0; i < matrixPollutants.size(); i++) {
-            for (int j = 0; j < matrixPollutants[i].size(); j++) {
+        for (int i = 0; i < (int)matrixPollutants.size(); i++) {
+            for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
                 if (matrixPollutants[i].size() != headerCount + 1) {
                     return;
                 }
@@ -131,7 +131,7 @@ namespace PHEMlightdll {
         _cepCurvePollutants = std::map<std::string, std::vector<double> >();
         _idlingValuesPollutants = std::map<std::string, double>();
 
-        for (int i = 0; i < headerLinePollutants.size(); i++) {
+        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
             _cepCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], pollutantMeasures[i]));
             _cepNormalizedCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], normalizedPollutantMeasures[i]));
             _idlingValuesPollutants.insert(std::make_pair(pollutantIdentifier[i], idlingPollutants[i] * pollutantMultiplyer));

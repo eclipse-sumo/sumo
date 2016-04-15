@@ -184,7 +184,7 @@ public:
     class Walk : public TripItem {
     public:
         Walk(const ConstROEdgeVector& _edges, const std::string& _destStop="")
-            : dur(-1), v(-1), edges(_edges), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), destStop(_destStop) {}
+            : edges(_edges), dur(-1), v(-1), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), destStop(_destStop) {}
         Walk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges,
              const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& _destStop)
             : dur(duration), v(speed), edges(edges), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
@@ -197,8 +197,8 @@ public:
         void saveAsXML(OutputDevice& os) const;
 
     private:
-        const SUMOReal dur, v, dep, arr;
         const ConstROEdgeVector edges;
+        const SUMOReal dur, v, dep, arr;
         const std::string destStop;
 
     private:
