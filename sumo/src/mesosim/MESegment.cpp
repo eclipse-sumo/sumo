@@ -33,6 +33,7 @@
 #include <utils/common/StdDefs.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLinkCont.h>
@@ -81,6 +82,10 @@ MESegment::MESegment(const std::string& id,
     myCapacity(length * parent.getLanes().size()),
     myOccupancy(0.f), 
     myJunctionControl(junctionControl),
+    myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 && myNextSegment == 0 && (
+                parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT ||
+                parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ||
+                parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)),
     myEntryBlockTime(SUMOTime_MIN),
     myLengthGeometryFactor(lengthGeometryFactor),
     myMeanSpeed(speed),
@@ -119,6 +124,7 @@ MESegment::MESegment(const std::string& id):
     myNextSegment(0), myLength(0), myIndex(0),
     myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0),
     myHeadwayCapacity(0), myCapacity(0), myJunctionControl(false),
+    myTLSPenalty(false),
     myLengthGeometryFactor(0)
 {}
 
@@ -339,7 +345,7 @@ MESegment::getNextInsertionTime(SUMOTime earliestEntry) const {
 
 MSLink*
 MESegment::getLink(const MEVehicle* veh, bool tlsPenalty) const {
-    if (myJunctionControl || (tlsPenalty && myNextSegment == 0)) {
+    if (myJunctionControl || tlsPenalty) {
         const MSEdge* const nextEdge = veh->succEdge(1);
         if (nextEdge == 0) {
             return 0;
@@ -370,10 +376,12 @@ MESegment::getLink(const MEVehicle* veh, bool tlsPenalty) const {
 
 bool
 MESegment::isOpen(const MEVehicle* veh) const {
-    const bool useTLSPenalty = MSGlobals::gMesoTLSPenalty > 0;
-    const MSLink* link = getLink(veh, useTLSPenalty);
+    if (myTLSPenalty) {
+        // XXX should limited control take precedence over tls penalty?
+        return true;
+    }
+    const MSLink* link = getLink(veh);
     return (link == 0
-            || (useTLSPenalty && link->isTLSControlled()) // XXX should limited control take precedence over tls penalty?
             || link->havePriority()
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
@@ -627,8 +635,7 @@ MESegment::getFlow() const {
 
 SUMOTime 
 MESegment::getTLSPenalty(const MEVehicle* veh) const {
-    const bool useTLSPenalty = MSGlobals::gMesoTLSPenalty > 0;
-    const MSLink* link = getLink(veh, useTLSPenalty);
+    const MSLink* link = getLink(veh, myTLSPenalty);
     if (link != 0 && link->isTLSControlled()) {
         // only apply to the last segment of a tls-controlled edge
         return link->getMesoTLSPenalty();

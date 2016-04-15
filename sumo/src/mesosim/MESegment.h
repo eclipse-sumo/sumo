@@ -451,6 +451,9 @@ private:
     /// @brief Whether junction control is enabled
     const bool myJunctionControl;
 
+    /// @brief Whether tls penalty is enabled
+    const bool myTLSPenalty;
+
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
     SUMOReal myJamThreshold;
 
