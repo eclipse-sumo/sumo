@@ -1,5 +1,8 @@
 write_trips
 write_routes
+
+# write_routes with some attributes missing
+unfinished
 keep_disconnected
 exitTimes
 

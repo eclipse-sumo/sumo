@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 28 Mar 2013 08:20:56 AM CET by Netedit Version dev-SVN-r13533
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/erdm_ja/debug/cutRoutes/three_split.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/cutRoutes/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,500.00" convBoundary="0.00,0.00,2500.00,1000.00" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
+
+    <edge id="beg2left" from="beg" to="begleft" priority="-1">
+        <lane id="beg2left_0" index="0" speed="13.90" length="498.55" shape="501.65,501.45 501.65,1000.00"/>
+    </edge>
+    <edge id="end" from="end" to="absEnd" priority="-1">
+        <lane id="end_0" index="0" speed="27.80" length="498.55" shape="1501.45,498.35 2000.00,498.35"/>
+    </edge>
+    <edge id="left2end" from="endleft" to="end" priority="-1">
+        <lane id="left2end_0" index="0" speed="13.90" length="498.55" shape="1498.35,1000.00 1498.35,501.45"/>
+    </edge>
+    <edge id="middle" from="beg" to="end" priority="-1">
+        <lane id="middle_0" index="0" speed="27.80" length="990.50" shape="504.75,498.35 1495.25,498.35"/>
+    </edge>
+
+    <junction id="absEnd" type="unregulated" x="2000.00" y="500.00" incLanes="end_0" intLanes="" shape="2000.00,496.75 2000.00,499.95"/>
+    <junction id="beg" type="unregulated" x="500.00" y="500.00" incLanes="" intLanes="" shape="500.05,501.45 503.25,501.45 504.75,499.95 504.75,496.75"/>
+    <junction id="begleft" type="unregulated" x="500.00" y="1000.00" incLanes="beg2left_0" intLanes="" shape="503.25,1000.00 500.05,1000.00"/>
+    <junction id="end" type="priority" x="1500.00" y="500.00" incLanes="left2end_0 middle_0" intLanes="" shape="1496.75,501.45 1499.95,501.45 1501.45,499.95 1501.45,496.75 1495.25,496.75 1495.25,499.95">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
+    </junction>
+    <junction id="endleft" type="unregulated" x="1500.00" y="1000.00" incLanes="" intLanes="" shape="1499.95,1000.00 1496.75,1000.00"/>
+
+    <connection from="left2end" to="end" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
