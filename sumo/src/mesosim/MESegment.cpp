@@ -320,7 +320,7 @@ MESegment::getTimeHeadway(bool predecessorIsFree) {
     if (predecessorIsFree) {
         return free() ? myTau_ff : myTau_fj;
     } else {
-        if (free()) {
+        if (free() || myTLSPenalty) {
             return myTau_jf;
         } else {
             // the gap has to move from the start of the segment to its end
