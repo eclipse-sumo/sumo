@@ -178,6 +178,9 @@ protected:
     static MTRand myParsingRNG;
 
 private:
+    /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
+    void deleteActivePlans();
+
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s);
 

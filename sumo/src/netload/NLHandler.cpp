@@ -996,6 +996,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
 
+    MSLink* link = 0;
     try {
         bool ok = true;
         const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
@@ -1046,7 +1047,6 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             }
         }
         SUMOReal length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
-        MSLink* link = 0;
 
         // build the link
 #ifdef HAVE_INTERNAL_LANES

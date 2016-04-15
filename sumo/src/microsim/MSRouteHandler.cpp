@@ -85,6 +85,10 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
 
 
 MSRouteHandler::~MSRouteHandler() {
+}
+
+void
+MSRouteHandler::deleteActivePlans(){
 	MSTransportable::MSTransportablePlan::iterator i;
 	if(myActivePlan != 0){
 		for(i=myActivePlan->begin(); i!=myActivePlan->end(); i++){
@@ -205,7 +209,8 @@ MSRouteHandler::myStartElement(int element,
             myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, -NUMERICAL_EPS, st.getVector()));
             break;
         }
-        case SUMO_TAG_WALK: {
+        case SUMO_TAG_WALK:
+        try {
             myActiveRoute.clear();
             bool ok = true;
             const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
@@ -268,9 +273,13 @@ MSRouteHandler::myStartElement(int element,
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos));
             myActiveRoute.clear();
-            break;
+        } catch(ProcessError&) {
+        	deleteActivePlans();
+        	throw;
         }
-        case SUMO_TAG_TRANSPORT: {
+        break;
+        case SUMO_TAG_TRANSPORT:
+        try {
             const std::string containerId = myVehicleParameter->id;
             bool ok = true;
             MSEdge* from = 0;
@@ -306,8 +315,12 @@ MSRouteHandler::myStartElement(int element,
                 throw ProcessError("The to edge '" + toID + "' within a transport of container '" + containerId + "' is not known.");
             }
             myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Driving(*to, cs, -NUMERICAL_EPS, st.getVector()));
-            break;
+
+        } catch(ProcessError&) {
+        	deleteActivePlans();
+        	throw;
         }
+        break;
         case SUMO_TAG_TRANSHIP: {
             myActiveRoute.clear();
             bool ok = true;
@@ -526,6 +539,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             type = "trip";
         }
     }
+
+    try {
     if (myActiveRoute.size() == 0) {
         delete myActiveRouteColor;
         myActiveRouteColor = 0;
@@ -577,6 +592,10 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
     myActiveRouteID = "";
     myActiveRouteColor = 0;
     myActiveRouteStops.clear();
+    } catch(ProcessError&) {
+    	delete myVehicleParameter;
+    	throw;
+    }
 }
 
 
@@ -664,8 +683,11 @@ MSRouteHandler::closeVehicle() {
             return;
         }
     }
+
     // get the vehicle's type
     MSVehicleType* vtype = 0;
+
+    try {
     if (myVehicleParameter->vtypeid != "") {
         vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
         if (vtype == 0) {
@@ -688,6 +710,11 @@ MSRouteHandler::closeVehicle() {
         }
     }
     myActiveRouteID = "";
+
+    } catch(ProcessError&) {
+    	delete myVehicleParameter;
+    	throw;
+    }
 
     // try to build the vehicle
     SUMOVehicle* vehicle = 0;
@@ -741,7 +768,10 @@ MSRouteHandler::closeVehicle() {
         if (!MSGlobals::gStateLoaded) {
             // and was not loaded while loading a simulation state
             // -> error
-            throw ProcessError("Another vehicle with the id '" + myVehicleParameter->id + "' exists.");
+        	std::string veh_id = myVehicleParameter->id;
+        	delete myVehicleParameter;
+            myVehicleParameter = 0;
+            throw ProcessError("Another vehicle with the id '" + veh_id + "' exists.");
         } else {
             // ok, it seems to be loaded previously while loading a simulation state
             vehicle = 0;
@@ -759,13 +789,20 @@ MSRouteHandler::closeVehicle() {
 
 void
 MSRouteHandler::closePerson() {
-    if (myActivePlan->size() == 0) {
-        throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
-    }
     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-    if (type == 0) {
-        throw ProcessError("The type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
-    }
+	try {
+		if (myActivePlan->size() == 0) {
+			throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
+		}
+		if (type == 0) {
+			throw ProcessError("The type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
+		}
+	} catch (ProcessError&) {
+		delete myVehicleParameter;
+		myVehicleParameter = 0;
+		deleteActivePlans();
+		throw;
+	}
     MSPerson* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
     // @todo: consider myScale?
     if (myAddVehiclesDirectly || checkLastDepart()) {
@@ -781,8 +818,8 @@ MSRouteHandler::closePerson() {
         // warning already given
         delete person;
     }
-    myVehicleParameter = 0;
-    myActivePlan = 0;
+	myVehicleParameter = 0;
+	myActivePlan = 0;
 }
 
 void

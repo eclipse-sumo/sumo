@@ -149,6 +149,7 @@ MESegment::jamThresholdForSpeed(SUMOReal speed) const {
     // vehicles driving freely at maximum speed should not jam
     // we compute how many vehicles could possible enter the segment until the first vehicle leaves
     // and multiply by the space these vehicles would occupy
+	if(speed==0) return std::numeric_limits<double>::max(); // FIXME: This line is just an adhoc-fix to avoid division by zero (Leo)
     return std::ceil((myLength / (speed * STEPS2TIME(myTau_ff)))) * (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap);
 }
 
@@ -325,7 +326,7 @@ MESegment::getTimeHeadway(bool predecessorIsFree) {
         } else {
             // the gap has to move from the start of the segment to its end
             // this allows jams to clear and move upstream
-            const SUMOTime b = (SUMOTime)(myHeadwayCapacity * (myTau_jf - myTau_jj));
+            const SUMOTime b = (SUMOTime)(myHeadwayCapacity * (myTau_jf - myTau_jj)); // FIXME: unsigned integer overflow (in meso/tau/tau_jj)
             return (SUMOTime)(myTau_jj * getCarNumber() + b);
         }
     }
@@ -339,7 +340,8 @@ MESegment::getNextInsertionTime(SUMOTime earliestEntry) const {
     for (size_t i = 0; i < myCarQues.size(); ++i) {
         earliestLeave = MAX2(earliestLeave, myBlockTimes[i]);
     }
-    return MAX3(earliestEntry, earliestLeave - TIME2STEPS(myLength / myEdge.getSpeedLimit()), myEntryBlockTime);
+    if( myEdge.getSpeedLimit() == 0) return MAX2(earliestEntry, myEntryBlockTime);  // FIXME: This line is just an adhoc-fix to avoid division by zero (Leo)
+    else return MAX3(earliestEntry, earliestLeave - TIME2STEPS(myLength / myEdge.getSpeedLimit()), myEntryBlockTime);
 }
 
 

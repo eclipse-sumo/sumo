@@ -157,6 +157,14 @@ MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() {
 	for(i= myCurrentData.begin(); i != myCurrentData.end(); i++){
 		delete *i;
 	}
+
+	// FIXME: myTrackedData may still hold some undeleted TrackerEntries. When to delete those? (Leo), refers to #2251
+	// code below fails
+
+//	std::map<SUMOVehicle*, TrackerEntry*>::iterator j;
+//	for(j=myTrackedData.begin(); j!=myTrackedData.end();j++){
+//		delete j->second;
+//	}
 }
 
 
@@ -164,7 +172,6 @@ void
 MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
     if (afterWrite) {
     	if(myCurrentData.begin() != myCurrentData.end()){
-//    		delete myCurrentData.front(); // XXX: not allowed, may still be referenced from myTrackedData. Where to delete this? (Leo)
 			myCurrentData.pop_front();
     	}
     } else {
