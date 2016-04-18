@@ -41,133 +41,133 @@ from sumolib.options import get_long_option_names
 def addGenericOptions(argParser):
     # add options which are used by duaIterate and cadytsIterate
     argParser.add_argument("-w", "--disable-warnings", action="store_true", dest="noWarnings",
-                         default=False, help="disables warnings")
+                           default=False, help="disables warnings")
     argParser.add_argument("-n", "--net-file", dest="net",
-                         help="SUMO network (mandatory)", metavar="FILE")
+                           help="SUMO network (mandatory)", metavar="FILE")
     argParser.add_argument("-+", "--additional", dest="additional",
-                         default="", help="Additional files")
+                           default="", help="Additional files")
     argParser.add_argument("-b", "--begin",
-                         type=int, default=0, help="Set simulation/routing begin [default: %default]")
+                           type=int, default=0, help="Set simulation/routing begin [default: %default]")
     argParser.add_argument("-e", "--end",
-                         type=int, help="Set simulation/routing end [default: %default]")
+                           type=int, help="Set simulation/routing end [default: %default]")
     argParser.add_argument("-R", "--route-steps", dest="routeSteps",
-                         type=int, default=200, help="Set simulation route steps [default: %default]")
+                           type=int, default=200, help="Set simulation route steps [default: %default]")
     argParser.add_argument("-a", "--aggregation",
-                         type=int, default=900, help="Set main weights aggregation period [default: %default]")
+                           type=int, default=900, help="Set main weights aggregation period [default: %default]")
     argParser.add_argument("-m", "--mesosim", action="store_true",
-                         default=False, help="Whether mesosim shall be used")
+                           default=False, help="Whether mesosim shall be used")
     argParser.add_argument("-p", "--path", help="Path to binaries")
     argParser.add_argument("-y", "--absrand", action="store_true",
-                         default=False, help="use current time to generate random number")
+                           default=False, help="use current time to generate random number")
     argParser.add_argument("-I", "--nointernal-link", action="store_true", dest="internallink",
-                         default=False, help="not to simulate internal link: true or false")
+                           default=False, help="not to simulate internal link: true or false")
     argParser.add_argument("-L", "--lanechange-allowed", dest="lanechangeallowed", action="store_true",
-                         default=False, help="lane change allowed to swap")
+                           default=False, help="lane change allowed to swap")
     argParser.add_argument("-j", "--meso-junctioncontrol", dest="mesojunctioncontrol", action="store_true",
-                         default=False, help="Enable mesoscopic traffic light and priority junciton handling")
+                           default=False, help="Enable mesoscopic traffic light and priority junciton handling")
     argParser.add_argument("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
-                         default=False, help="Enable multiple queues at edge ends")
+                           default=False, help="Enable multiple queues at edge ends")
     argParser.add_argument("--meso-recheck", dest="mesorecheck", type=int, default=0,
-                         help="Delay before checking whether a jam is gone. (higher values can lead to a big speed increase)")
+                           help="Delay before checking whether a jam is gone. (higher values can lead to a big speed increase)")
     argParser.add_argument("-Q", "--eco-measure", dest="ecomeasure",
-                         choices=[
-                             'CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'],
-                         help="define the applied eco measure, e.g. fuel, CO2, noise")
+                           choices=[
+                               'CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'],
+                           help="define the applied eco measure, e.g. fuel, CO2, noise")
     argParser.add_argument("--eager-insert", action="store_true",
-                         default=False, help="eager insertion tests (may slow down the sim considerably)")
+                           default=False, help="eager insertion tests (may slow down the sim considerably)")
     argParser.add_argument("--time-to-teleport", dest="timetoteleport", type=float, default=300,
-                         help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
+                           help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
     argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=float, default=0,
-                         help="Delay before blocked vehicles are teleported on wrong highway lanes")
+                           help="Delay before blocked vehicles are teleported on wrong highway lanes")
     argParser.add_argument("--cost-modifier", dest="costmodifier",
-                         choices=['grohnde', 'isar', 'None'],
-                         default='None', help="Whether to modify link travel costs of the given routes")
+                           choices=['grohnde', 'isar', 'None'],
+                           default='None', help="Whether to modify link travel costs of the given routes")
     argParser.add_argument("-7", "--zip", action="store_true",
-                         default=False, help="zip old iterations using 7zip")
+                           default=False, help="zip old iterations using 7zip")
 
 
 def initOptions():
     argParser = ArgumentParser(
-    description=""" Any options of the form sumo--long-option-name will be passed to sumo. 
+        description=""" Any options of the form sumo--long-option-name will be passed to sumo. 
 These must be given after all the other options
 example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""")
     addGenericOptions(argParser)
 
     argParser.add_argument("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
-                         default=False, help="continues on unbuild routes")
+                           default=False, help="continues on unbuild routes")
     argParser.add_argument("-t", "--trips",
-                         help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+                           help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
     argParser.add_argument("-r", "--routes",
-                         help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+                           help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
     argParser.add_argument("-F", "--flows",
-                         help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+                           help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
     argParser.add_argument("-A", "--gA",
-                         type=float, default=.5, help="Sets Gawron's Alpha [default: %default]")
+                           type=float, default=.5, help="Sets Gawron's Alpha [default: %default]")
     argParser.add_argument("-B", "--gBeta",
-                         type=float, default=.9, help="Sets Gawron's Beta [default: %default]")
+                           type=float, default=.9, help="Sets Gawron's Beta [default: %default]")
     argParser.add_argument("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
-                         default=False, help="No summaries are written by the simulation")
+                           default=False, help="No summaries are written by the simulation")
     argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
-                         default=False, help="No tripinfos are written by the simulation")
+                           default=False, help="No tripinfos are written by the simulation")
     argParser.add_argument("--tripinfo-filter", dest="tripinfoFilter",
-                         help="filter tripinfo attributes")
+                           help="filter tripinfo attributes")
     argParser.add_argument("--inc-start", dest="incStart",
-                         type=float, default=0, help="Start for incrementing scale")
+                           type=float, default=0, help="Start for incrementing scale")
     argParser.add_argument("--inc-max", dest="incMax",
-                         type=float, default=1, help="Maximum for incrementing scale")
+                           type=float, default=1, help="Maximum for incrementing scale")
     argParser.add_argument("--inc-base", dest="incBase",
-                         type=int, default=-1, help="Give the incrementation base. Negative values disable incremental scaling")
+                           type=int, default=-1, help="Give the incrementation base. Negative values disable incremental scaling")
     argParser.add_argument("--incrementation", dest="incValue",
-                         type=int, default=1, help="Give the incrementation")
+                           type=int, default=1, help="Give the incrementation")
     argParser.add_argument("--time-inc", dest="timeInc",
-                         type=int, default=0, help="Give the time incrementation")
+                           type=int, default=0, help="Give the time incrementation")
     argParser.add_argument("-f", "--first-step", dest="firstStep",
-                         type=int, default=0, help="First DUA step [default: %default]")
+                           type=int, default=0, help="First DUA step [default: %default]")
     argParser.add_argument("-l", "--last-step", dest="lastStep",
-                         type=int, default=50, help="Last DUA step [default: %default]")
+                           type=int, default=50, help="Last DUA step [default: %default]")
     argParser.add_argument("--convergence-iterations", dest="convIt",
-                         type=int, default=10, help="Number of iterations to use for convergence calculation [default: %default]")
+                           type=int, default=10, help="Number of iterations to use for convergence calculation [default: %default]")
     argParser.add_argument("--max-convergence-deviation", dest="convDev",
-                         type=float, help="Maximum relative standard deviation in travel times [default: %default]")
+                           type=float, help="Maximum relative standard deviation in travel times [default: %default]")
     argParser.add_argument(
         "-D", "--districts", help="use districts as sources and targets", metavar="FILE")
     argParser.add_argument("-x", "--vehroute-file",  dest="routefile",
-                         choices=['None', 'routesonly', 'detailed'],
-                         default='None', help="choose the format of the route file")
+                           choices=['None', 'routesonly', 'detailed'],
+                           default='None', help="choose the format of the route file")
     argParser.add_argument("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
-                         default=False, help="output the last routes")
+                           default=False, help="output the last routes")
     argParser.add_argument("-K", "--keep-allroutes", action="store_true", dest="allroutes",
-                         default=False, help="save routes with near zero probability")
+                           default=False, help="save routes with near zero probability")
     argParser.add_argument(
         "--routing-algorithm", default="dijkstra", help="select the routing algorithm")
     argParser.add_argument(
         "--max-alternatives", default=5, help="prune the number of alternatives to INT")
     argParser.add_argument("--skip-first-routing", action="store_true", dest="skipFirstRouting",
-                         default=False, help="run simulation with demands before first routing")
+                           default=False, help="run simulation with demands before first routing")
     argParser.add_argument("--logit", action="store_true", dest="logit",
-                         default=False, help="use the logit model for route choice")
+                           default=False, help="use the logit model for route choice")
     argParser.add_argument("-g", "--logitbeta", type=float, dest="logitbeta",
-                         default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
+                           default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
     argParser.add_argument("-i", "--logitgamma", type=float, dest="logitgamma",
-                         default=1., help="use the c-logit model for route choice")
+                           default=1., help="use the c-logit model for route choice")
     argParser.add_argument("-G", "--logittheta", type=float, dest="logittheta",
-                         help="parameter to adapt the cost unit")
+                           help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", dest="addweights",
-                         help="Additional weightes for duarouter")
+                           help="Additional weightes for duarouter")
     argParser.add_argument("--router-verbose", action="store_true",
-                         default=False, help="let duarouter print some statistics")
+                           default=False, help="let duarouter print some statistics")
     argParser.add_argument("-M", "--external-gawron", action="store_true", dest="externalgawron",
-                         default=False, help="use the external gawron calculation")
+                           default=False, help="use the external gawron calculation")
     argParser.add_argument("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
-                         default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")
+                           default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")
     argParser.add_argument("--weight-memory", action="store_true", default=False, dest="weightmemory",
-                         help="smooth edge weights across iterations")
+                           help="smooth edge weights across iterations")
     argParser.add_argument(
         "--pessimism", default=1, type=float, help="give traffic jams a higher weight")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
-                         default=False, help="Whether old rou.alt.xml files shall be removed")
+                           default=False, help="Whether old rou.alt.xml files shall be removed")
     argParser.add_argument("--binary", action="store_true",
-                         default=False, help="Use binary format for intermediate and resulting route files")
+                           default=False, help="Use binary format for intermediate and resulting route files")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -448,9 +448,9 @@ def get_basename(demand_file):
 
 def main(args=None):
     argParser = initOptions()
-    
+
     options = argParser.parse_args(args=args)
-    
+
     if not options.net:
         argParser.error("Option --net-file is mandatory")
     if (not options.trips and not options.routes and not options.flows) or (options.trips and options.routes):
@@ -474,8 +474,10 @@ def main(args=None):
         sys.exit(
             "Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment variable SUMO_BINARY\n" % sumoBinary)
 
-    sumo_args = assign_remaining_args(sumoBinary, 'sumo', options.remaining_args)
-    dua_args = assign_remaining_args(duaBinary, 'duarouter', options.remaining_args)
+    sumo_args = assign_remaining_args(
+        sumoBinary, 'sumo', options.remaining_args)
+    dua_args = assign_remaining_args(
+        duaBinary, 'duarouter', options.remaining_args)
 
     sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
     log = open("dua.log", "w+")

@@ -1538,7 +1538,8 @@ class ScenarioSet_DemandStep(ScenarioSet):
                     for f2duration in range(self.getInt("f2durationFrom"), self.getInt("f2durationTo"), self.getInt("f2durationStep")):
                         if f1 == 0 and f2begin == 0 and f2end == 0:
                             continue
-                        print("Computing for %s<->%s->%s@%s" % (f1, f2begin, f2end, f2duration))
+                        print("Computing for %s<->%s->%s@%s" %
+                              (f1, f2begin, f2end, f2duration))
                         sID = "DemandStep(%s-%s-%s-%s)" % (f1,
                                                            f2begin, f2end, f2duration)
                         s = getScenario("BasicCross", {}, False)

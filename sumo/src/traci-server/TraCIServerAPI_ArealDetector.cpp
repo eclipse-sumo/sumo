@@ -66,7 +66,7 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
             && variable != VAR_POSITION
             && variable != VAR_LANE_ID
             && variable != VAR_LENGTH) {
-        return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, "Get Areal Detector Variable: unsupported variable " + toHex(variable,2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, "Get Areal Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
 
     // begin response building

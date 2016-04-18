@@ -75,10 +75,13 @@ print("convert2DGeo", traci.simulation.convertGeo(488.65, 501.65))
 print("convertGeo2D", traci.simulation.convertGeo(12, 48, True))
 print("convert2DRoad", traci.simulation.convertRoad(488.65, 501.65))
 print("convertGeoRoad", traci.simulation.convertRoad(12, 48.1, True))
-print("distance2D", traci.simulation.getDistance2D(488.65, 501.65, 498.65, 501.65))
-print("drivingDistance2D", traci.simulation.getDistance2D(488.65, 501.65, 498.65, 501.65, isDriving=True))
+print("distance2D", traci.simulation.getDistance2D(
+    488.65, 501.65, 498.65, 501.65))
+print("drivingDistance2D", traci.simulation.getDistance2D(
+    488.65, 501.65, 498.65, 501.65, isDriving=True))
 print("distanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0.))
-print("drivingDistanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0., isDriving=True))
+print("drivingDistanceRoad", traci.simulation.getDistanceRoad(
+    "o", 0., "2o", 0., isDriving=True))
 print("clearing pending")
 traci.simulation.clearPending()
 print("save simstate")

@@ -49,8 +49,8 @@ Polygon::Polygon(const std::string& id, const std::string& type,
                  SUMOReal layer, SUMOReal angle, const std::string& imgFile) :
     Shape(id, type, color, layer, angle, imgFile),
     myShape(shape),
-    myFill(fill)
-{}
+    myFill(fill) {
+}
 
 
 Polygon::~Polygon() {}

@@ -79,7 +79,7 @@ public:
               unsigned int idx,
               SUMOTime tauff, SUMOTime taufj,
               SUMOTime taujf, SUMOTime taujj,
-              SUMOReal jamThresh, 
+              SUMOReal jamThresh,
               bool multiQueue, bool junctionControl,
               SUMOReal lengthGeometryFactor);
 
@@ -229,7 +229,7 @@ public:
      * @param[in] tlsPenalty Whether the link should be returned for computing tlsPenalty
      * @return The link to use or 0 without junction control
      */
-    MSLink* getLink(const MEVehicle* veh, bool tlsPenalty=false) const;
+    MSLink* getLink(const MEVehicle* veh, bool tlsPenalty = false) const;
 
     /** @brief Returns whether the vehicle may use the next link
      *

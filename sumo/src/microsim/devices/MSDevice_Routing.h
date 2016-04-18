@@ -111,7 +111,7 @@ public:
 
     /// @brief return the router instance
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
-            const MSEdgeVector& prohibited = MSEdgeVector());
+        const MSEdgeVector& prohibited = MSEdgeVector());
 
 #ifdef HAVE_FOX
     static void waitForAll();

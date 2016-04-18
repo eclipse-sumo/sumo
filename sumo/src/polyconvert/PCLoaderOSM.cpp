@@ -356,8 +356,8 @@ PCLoaderOSM::RelationsHandler::RelationsHandler(RelationsMap& additionalWays,
     myRelations(relations),
     myWithAttributes(withAttributes),
     myErrorHandler(errorHandler),
-    myCurrentRelation(0)
-{ }
+    myCurrentRelation(0) {
+}
 
 
 PCLoaderOSM::RelationsHandler::~RelationsHandler() {
@@ -442,8 +442,8 @@ PCLoaderOSM::EdgesHandler::EdgesHandler(const std::map<long long int, PCOSMNode*
     myErrorHandler(errorHandler),
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
-    myAdditionalWays(additionalWays)
-{ }
+    myAdditionalWays(additionalWays) {
+}
 
 
 PCLoaderOSM::EdgesHandler::~EdgesHandler() {

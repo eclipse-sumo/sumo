@@ -254,17 +254,17 @@ private:
 
         /// @brief Destructor
         ~VehicleInformation() {
-        	std::map<std::string, SeenDevice*>::iterator i;
-        	for(i=currentlySeen.begin(); i!=currentlySeen.end(); i++){
-        		delete i->second;
-        	}
-        	std::map<std::string, std::vector<SeenDevice*> >::iterator j;
-        	std::vector<SeenDevice*>::iterator k;
-        	for(j=seen.begin(); j!=seen.end(); j++){
-        		for(k=j->second.begin(); k!=j->second.end(); k++){
-        			delete *k;
-        		}
-        	}
+            std::map<std::string, SeenDevice*>::iterator i;
+            for (i = currentlySeen.begin(); i != currentlySeen.end(); i++) {
+                delete i->second;
+            }
+            std::map<std::string, std::vector<SeenDevice*> >::iterator j;
+            std::vector<SeenDevice*>::iterator k;
+            for (j = seen.begin(); j != seen.end(); j++) {
+                for (k = j->second.begin(); k != j->second.end(); k++) {
+                    delete *k;
+                }
+            }
         }
 
         /// @brief Recognition range of the vehicle

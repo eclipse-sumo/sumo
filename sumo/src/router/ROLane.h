@@ -64,8 +64,8 @@ public:
      * @param[in] permissions Vehicle classes that may pass this lane
      */
     ROLane(const std::string& id, ROEdge* edge, SUMOReal length, SUMOReal maxSpeed, SVCPermissions permissions) :
-        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions)
-    {}
+        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions) {
+    }
 
 
     /// @brief Destructor

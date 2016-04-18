@@ -41,7 +41,8 @@ print("""<routes>
 nodeID = "main-0"
 print('<node id="in" x="-100" y="0"/>', file=nodes)
 print('<node id="%s" x="0" y="0"/>' % nodeID, file=nodes)
-print('<edge id="mainin" from="in" to="%s" numLanes="2" spreadType="center"/>' % nodeID, file=edges)
+print('<edge id="mainin" from="in" to="%s" numLanes="2" spreadType="center"/>' %
+      nodeID, file=edges)
 for row in range(DOUBLE_ROWS):
     nextNodeID = "main%s-%s" % (row, row + 1)
     if row + 1 == DOUBLE_ROWS:
@@ -52,7 +53,8 @@ for row in range(DOUBLE_ROWS):
         row, nodeID, nextNodeID), file=edges)
     nodeID = nextNodeID
 print('<node id="out" x="%s" y="0"/>' % (x + 100), file=nodes)
-print('<edge id="mainout" from="%s" to="out" numLanes="2" spreadType="center"/>' % nodeID, file=edges)
+print('<edge id="mainout" from="%s" to="out" numLanes="2" spreadType="center"/>' %
+      nodeID, file=edges)
 roads = ["road-0"]
 for row in range(DOUBLE_ROWS - 1):
     roads.append("road%s-%s" % (row, row + 1))
@@ -89,7 +91,8 @@ for row in range(DOUBLE_ROWS):
 # footpaths
 y = (SLOTS_PER_ROW + 1) * SLOT_WIDTH
 print('<node id="foot" x="-100" y="%s"/>' % y, file=nodes)
-print('<edge id="footmainin" from="foot" to="foot0" speed="5" spreadType="center"/>', file=edges)
+print(
+    '<edge id="footmainin" from="foot" to="foot0" speed="5" spreadType="center"/>', file=edges)
 for row in range(DOUBLE_ROWS):
     nodeID = "foot%s" % row
     x = row * ROW_DIST + ROW_DIST / 2
@@ -148,15 +151,19 @@ edgeID = "footmain%sto%s" % (DOUBLE_ROWS - 1, DOUBLE_ROWS)
 print('<edge id="%s" from="foot%s" to="foot%s" speed="5" spreadType="center"/>' % (
     edgeID, DOUBLE_ROWS - 1, DOUBLE_ROWS), file=edges)
 print('<node id="footend" x="%s" y="%s"/>' % (x + 100, y), file=nodes)
-print('<edge id="footmainout" from="foot%s" to="footend" speed="5" spreadType="center"/>' % DOUBLE_ROWS, file=edges)
+print('<edge id="footmainout" from="foot%s" to="footend" speed="5" spreadType="center"/>' %
+      DOUBLE_ROWS, file=edges)
 print('<node id="fair" x="%s" y="%s"/>' % (x + 100, y - 10), file=nodes)
-print('<edge id="footfairin" from="fair" to="foot%s" speed="5" spreadType="center"/>' % DOUBLE_ROWS, file=edges)
+print('<edge id="footfairin" from="fair" to="foot%s" speed="5" spreadType="center"/>' %
+      DOUBLE_ROWS, file=edges)
 
 # cybercar (automated bus)
 y = (SLOTS_PER_ROW + 3) * SLOT_WIDTH
 print('<node id="cyber" x="-100" y="%s"/>' % y, file=nodes)
-print('<edge id="cyberin" from="cyber" to="cyber0" numLanes="2" spreadType="center"/>', file=edges)
-print('<edge id="-cyberin" from="cyber0" to="cyber" numLanes="2" spreadType="center"/>', file=edges)
+print(
+    '<edge id="cyberin" from="cyber" to="cyber0" numLanes="2" spreadType="center"/>', file=edges)
+print(
+    '<edge id="-cyberin" from="cyber0" to="cyber" numLanes="2" spreadType="center"/>', file=edges)
 for row in range(DOUBLE_ROWS + 1):
     nodeID = "cyber%s" % row
     x = row * ROW_DIST + ROW_DIST / 2
@@ -173,11 +180,15 @@ for row in range(DOUBLE_ROWS + 1):
             print('<connection from="-cyber%sto%s" to="-%s"/>' % (
                 row, row + 1, edgeID), file=connections)
         else:
-            print('<connection from="%s" to="cyberout"/>' % edgeID, file=connections)
-            print('<connection from="-cyberout" to="-%s"/>' % edgeID, file=connections)
+            print('<connection from="%s" to="cyberout"/>' %
+                  edgeID, file=connections)
+            print('<connection from="-cyberout" to="-%s"/>' %
+                  edgeID, file=connections)
 print('<node id="cyberend" x="%s" y="%s"/>' % (x + 100, y), file=nodes)
-print('<edge id="cyberout" from="cyber%s" to="cyberend" numLanes="2" spreadType="center"/>' % row, file=edges)
-print('<edge id="-cyberout" from="cyberend" to="cyber%s" numLanes="2" spreadType="center"/>' % row, file=edges)
+print('<edge id="cyberout" from="cyber%s" to="cyberend" numLanes="2" spreadType="center"/>' %
+      row, file=edges)
+print('<edge id="-cyberout" from="cyberend" to="cyber%s" numLanes="2" spreadType="center"/>' %
+      row, file=edges)
 
 
 print("</nodes>", file=nodes)
@@ -209,14 +220,17 @@ stops = open("%s.add.xml" % PREFIX, "w")
 print("<additional>", file=stops)
 for row in range(DOUBLE_ROWS):
     edgeID = "cyber%sto%s" % (row, row + 1)
-    print('    <busStop id="%sstop" lane="%s_0"' % (edgeID, edgeID), end=' ', file=stops)
+    print('    <busStop id="%sstop" lane="%s_0"' %
+          (edgeID, edgeID), end=' ', file=stops)
     print('startPos="%s" endPos="%s"/>' % (
         STOP_POS - 2 * CYBER_LENGTH - 1, STOP_POS), file=stops)
 for edge in ["cyberin", "cyberout"]:
-    print('    <busStop id="%sstop" lane="%s_0"' % (edge, edge), end=' ', file=stops)
+    print('    <busStop id="%sstop" lane="%s_0"' %
+          (edge, edge), end=' ', file=stops)
     print('startPos="%s" endPos="%s"/>' % (
         90 - 2 * CYBER_LENGTH - 1, 90), file=stops)
-print('    <edgeData id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="emissions"/>', file=stops)
+print(
+    '    <edgeData id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="emissions"/>', file=stops)
 print("</additional>", file=stops)
 stops.close()
 

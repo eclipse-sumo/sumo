@@ -62,8 +62,8 @@ NBHeightMapper NBHeightMapper::Singleton;
 
 
 NBHeightMapper::NBHeightMapper():
-    myRTree(&Triangle::addSelf), myRaster(0)
-{ }
+    myRTree(&Triangle::addSelf), myRaster(0) {
+}
 
 
 NBHeightMapper::~NBHeightMapper() {

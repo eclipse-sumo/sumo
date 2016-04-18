@@ -274,7 +274,8 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                 if options.verbose:
                     foutpath.write('\n')
     if options.verbose:
-        print('total Number of the used paths for the current matrix:', TotalPath)
+        print(
+            'total Number of the used paths for the current matrix:', TotalPath)
         foutpath.write(
             '\ntotal Number of the used paths for the current matrix:%s' % TotalPath)
         foutpath.close()

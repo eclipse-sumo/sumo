@@ -69,8 +69,8 @@ MSChargingStation::MSChargingStation(const std::string& new_ChargingStationID,
 }
 
 
-MSChargingStation::~MSChargingStation()
-{}
+MSChargingStation::~MSChargingStation() {
+}
 
 
 // GET FUNCTIONS

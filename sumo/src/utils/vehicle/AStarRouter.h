@@ -87,8 +87,8 @@ public:
             traveltime(std::numeric_limits<SUMOReal>::max()),
             heuristicTime(std::numeric_limits<SUMOReal>::max()),
             prev(0),
-            visited(false)
-        {}
+            visited(false) {
+        }
 
         /// The current edge
         const E* edge;

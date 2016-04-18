@@ -44,7 +44,7 @@
 // ===========================================================================
 MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
         SUMOReal dawdle, SUMOReal headwayTime)
-    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel* headwayTime) {
+    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel * headwayTime) {
 }
 
 

@@ -50,8 +50,8 @@ public:
                            const std::map<std::string, std::string>& parameters);
 
     int decideNextPhase(SUMOTime elapsed, const MSPhaseDefinition* stage,
-                           int currentPhaseIndex, int phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
-                           int vehicleCount);
+                        int currentPhaseIndex, int phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
+                        int vehicleCount);
 
     bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
                     const MSPhaseDefinition* stage, int vehicleCount);

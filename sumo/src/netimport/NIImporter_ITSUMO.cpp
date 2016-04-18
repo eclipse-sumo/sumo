@@ -169,7 +169,7 @@ void
 NIImporter_ITSUMO::Handler::myCharacters(int element, const std::string& chars) {
     std::string mc = StringUtils::prune(chars);
     switch (element) {
-            // node parsing
+        // node parsing
         case ITSUMO_TAG_NODE_ID:
             myParameter["id"] = mc;
             break;
@@ -182,11 +182,11 @@ NIImporter_ITSUMO::Handler::myCharacters(int element, const std::string& chars) 
         case ITSUMO_TAG_Y_COORD:
             myParameter["y"] = mc;
             break;
-            // section parsing
+        // section parsing
         case ITSUMO_TAG_SECTION_ID:
             myParameter["sectionID"] = mc;
             break;
-            // laneset parsing
+        // laneset parsing
         case ITSUMO_TAG_LANESET_ID:
             myParameter["lanesetID"] = mc;
             break;
@@ -199,7 +199,7 @@ NIImporter_ITSUMO::Handler::myCharacters(int element, const std::string& chars) 
         case ITSUMO_TAG_END_NODE:
             myParameter["to"] = mc;
             break;
-            // lane parsing
+        // lane parsing
         case ITSUMO_TAG_LANE_ID:
             myParameter["laneID"] = mc;
             break;

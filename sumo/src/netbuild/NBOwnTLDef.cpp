@@ -57,22 +57,22 @@ NBOwnTLDef::NBOwnTLDef(const std::string& id,
                        const std::vector<NBNode*>& junctions, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type),
-    myHaveSinglePhase(false)
-{}
+    myHaveSinglePhase(false) {
+}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type),
-    myHaveSinglePhase(false)
-{}
+    myHaveSinglePhase(false) {
+}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, DefaultProgramID, offset, type),
-    myHaveSinglePhase(false)
-{}
+    myHaveSinglePhase(false) {
+}
 
 
 NBOwnTLDef::~NBOwnTLDef() {}
@@ -384,7 +384,7 @@ NBOwnTLDef::computeLogicAndConts(unsigned int brakingTimeSeconds, bool onlyConts
         const int patchSeconds = (int)(STEPS2TIME(cycleTime - totalDuration) / greenPhases.size());
         const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) - patchSeconds * (int)greenPhases.size();
         //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
-        if (STEPS2TIME(minGreenDuration) + patchSeconds < MIN_GREEN_TIME 
+        if (STEPS2TIME(minGreenDuration) + patchSeconds < MIN_GREEN_TIME
                 || STEPS2TIME(minGreenDuration) + patchSeconds + patchSecondsRest < MIN_GREEN_TIME
                 || greenPhases.size() == 0) {
             if (getID() != DummyID) {
@@ -637,7 +637,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                     }
                 }
             }
-        } 
+        }
         if (state[i1] == 'r') {
             if (fromEdges[i1]->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
                     fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {

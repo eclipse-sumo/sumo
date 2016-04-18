@@ -101,7 +101,7 @@ GUIViewTraffic::GUIViewTraffic(
 #ifdef HAVE_FFMPEG
     , myCurrentVideo(0)
 #endif
-    {}
+{}
 
 
 GUIViewTraffic::~GUIViewTraffic() {

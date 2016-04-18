@@ -268,20 +268,20 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge* removed, int removedLane,
 NBLoadedTLDef::NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id,
                              const std::vector<NBNode*>& junctions, SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type),
-    myEdgeCont(&ec)
-{}
+    myEdgeCont(&ec) {
+}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, NBNode* junction, SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type),
-    myEdgeCont(&ec)
-{}
+    myEdgeCont(&ec) {
+}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, DefaultProgramID, offset, type),
-    myEdgeCont(&ec)
-{}
+    myEdgeCont(&ec) {
+}
 
 
 NBLoadedTLDef::~NBLoadedTLDef() {
@@ -358,11 +358,11 @@ NBLoadedTLDef::myCompute(unsigned int brakingTimeSeconds) {
                 const NBConnection& c2 = *it2;
                 const int i2 = c2.getTLIndex();
                 if (i2 != NBConnection::InvalidTlIndex
-                        && i2 != i1 
-                        && (state[i2] == 'G' || state[i2] == 'g') 
+                        && i2 != i1
+                        && (state[i2] == 'G' || state[i2] == 'g')
                         && c2.getFrom() != 0 && c2.getTo() != 0) {
                     const bool rightTurnConflict = NBNode::rightTurnConflict(
-                            c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
+                                                       c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
                     if (forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin) || rightTurnConflict) {
                         myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
                     }
@@ -532,7 +532,7 @@ NBLoadedTLDef::collectLinks() {
                 if (tst.getFrom()->mayBeTLSControlled(tst.getFromLane(), tst.getTo(), tst.getToLane())) {
                     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
                         NBConnection& c = *it;
-                        if (c.getTLIndex() == NBConnection::InvalidTlIndex 
+                        if (c.getTLIndex() == NBConnection::InvalidTlIndex
                                 && tst.getFrom() == c.getFrom() && tst.getTo() == c.getTo()
                                 && (tst.getFromLane() < 0 || tst.getFromLane() == c.getFromLane())
                                 && (tst.getToLane() < 0 || tst.getToLane() == c.getToLane())) {

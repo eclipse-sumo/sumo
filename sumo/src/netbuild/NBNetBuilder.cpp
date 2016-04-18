@@ -65,8 +65,8 @@
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() :
     myEdgeCont(myTypeCont),
-    myHaveLoadedNetworkWithoutInternalEdges(false)
-{}
+    myHaveLoadedNetworkWithoutInternalEdges(false) {
+}
 
 
 NBNetBuilder::~NBNetBuilder() {}

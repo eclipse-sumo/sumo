@@ -64,7 +64,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file) :
 
 
 SUMORouteHandler::~SUMORouteHandler() {
-	delete myCurrentVType;
+    delete myCurrentVType;
 }
 
 

@@ -174,7 +174,7 @@ public:
     /** @brief Sets the (planned) time at which the vehicle leaves his current cell
      * @param[in] t The leaving time
      */
-    inline void setEventTime(SUMOTime t, bool hasDelay=true) {
+    inline void setEventTime(SUMOTime t, bool hasDelay = true) {
         assert(t > myLastEntryTime);
         if (hasDelay && mySegment != 0) {
             mySegment->getEdge().markDelayed();
@@ -284,7 +284,7 @@ public:
 
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset=0);
+    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction
      * @return true iff the vehicle may drive over the next junction

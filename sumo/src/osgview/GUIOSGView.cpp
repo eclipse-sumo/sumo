@@ -350,21 +350,21 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         const SUMOReal slope = veh->getSlope();
         n->setAttitude(osg::Quat(dir, osg::Vec3(0, 0, 1)) *
                        osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
-/*
-osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
-// path->setLoopMode( osg::AnimationPath::NO_LOOPING );
-osg::AnimationPath::ControlPoint pointA(n->getPosition(), n->getAttitude());
-osg::AnimationPath::ControlPoint pointB(osg::Vec3(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()),
-                                        osg::Quat(dir, osg::Vec3(0, 0, 1)) *
-                                        osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
-path->insert(0.0f, pointA);
-path->insert(0.5f, pointB);
-n->setUpdateCallback(new osg::AnimationPathCallback(path));
-*/
+        /*
+        osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
+        // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
+        osg::AnimationPath::ControlPoint pointA(n->getPosition(), n->getAttitude());
+        osg::AnimationPath::ControlPoint pointB(osg::Vec3(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()),
+                                                osg::Quat(dir, osg::Vec3(0, 0, 1)) *
+                                                osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
+        path->insert(0.0f, pointA);
+        path->insert(0.5f, pointB);
+        n->setUpdateCallback(new osg::AnimationPathCallback(path));
+        */
         const RGBColor& col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(myVisualizationSettings->vehicleColorer.getActive()));
         myVehicles[veh].geom->setColor(osg::Vec4(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
-        myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT|MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
-        myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT|MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
+        myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
+        myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
 

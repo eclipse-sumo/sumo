@@ -54,7 +54,8 @@ def runSingle(traciEndTime, sumoEndTime=None):
     while not step > traciEndTime:
         traci.simulationStep()
         step += 1
-    print("Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" %
+          (traci.simulation.getCurrentTime() / DELTA_T))
     traci.close()
     sys.stdout.flush()
 
@@ -62,7 +63,8 @@ def runSingle(traciEndTime, sumoEndTime=None):
 print("=========== long route ===========")
 fdo = open("input_routes.rou.xml", "w")
 print('<routes>"', file=fdo)
-print('   <route id="horizontal" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>', file=fdo)
+print(
+    '   <route id="horizontal" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>', file=fdo)
 print('   <vehicle id="horiz" route="horizontal" depart="0"/>', file=fdo)
 print('</routes>', file=fdo)
 fdo.close()

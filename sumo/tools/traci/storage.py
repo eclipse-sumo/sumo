@@ -26,6 +26,7 @@ import struct
 
 _DEBUG = False
 
+
 class Storage:
 
     def __init__(self, content):

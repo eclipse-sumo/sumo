@@ -53,6 +53,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_POSITION:                   Storage.readDouble,
 
 
 class InductionLoopDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "inductionloop", tc.CMD_GET_INDUCTIONLOOP_VARIABLE, None,
                         tc.CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE,
@@ -66,14 +67,12 @@ class InductionLoopDomain(Domain):
         """
         return self._getUniversal(tc.VAR_POSITION, loopID)
 
-
     def getLaneID(self, loopID):
         """getLaneID(string) -> string
 
         Returns the id of the lane the loop is on.
         """
         return self._getUniversal(tc.VAR_LANE_ID, loopID)
-
 
     def getLastStepVehicleNumber(self, loopID):
         """getLastStepVehicleNumber(string) -> integer
@@ -82,14 +81,12 @@ class InductionLoopDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, loopID)
 
-
     def getLastStepMeanSpeed(self, loopID):
         """getLastStepMeanSpeed(string) -> double
 
         Returns the mean speed in m/s of vehicles that were on the named induction loop within the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, loopID)
-
 
     def getLastStepVehicleIDs(self, loopID):
         """getLastStepVehicleIDs(string) -> list(string)
@@ -98,14 +95,12 @@ class InductionLoopDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, loopID)
 
-
     def getLastStepOccupancy(self, loopID):
         """getLastStepOccupancy(string) -> double
 
         Returns the percentage of time the detector was occupied by a vehicle.
         """
         return self._getUniversal(tc.LAST_STEP_OCCUPANCY, loopID)
-
 
     def getLastStepMeanLength(self, loopID):
         """getLastStepMeanLength(string) -> double
@@ -114,14 +109,12 @@ class InductionLoopDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_LENGTH, loopID)
 
-
     def getTimeSinceDetection(self, loopID):
         """getTimeSinceDetection(string) -> double
 
         Returns the time in s since last detection.
         """
         return self._getUniversal(tc.LAST_STEP_TIME_SINCE_DETECTION, loopID)
-
 
     def getVehicleData(self, loopID):
         """getVehicleData(string) -> [(veh_id, veh_length, entry_time, exit_time, vType), ...]

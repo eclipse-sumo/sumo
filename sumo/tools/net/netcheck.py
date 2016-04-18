@@ -69,9 +69,9 @@ def getWeaklyConnected(net, vclass=None, ignore_connections=False):
                 component.add(edge.getID())
                 if ignore_connections:
                     for n in (edge.getFromNode().getOutgoing()
-                            + edge.getFromNode().getIncoming()
-                            + edge.getToNode().getOutgoing()
-                            + edge.getToNode().getIncoming()):
+                              + edge.getFromNode().getIncoming()
+                              + edge.getToNode().getOutgoing()
+                              + edge.getToNode().getIncoming()):
                         if n in edgesLeft:
                             queue.append(n)
                             edgesLeft.remove(n)
@@ -110,9 +110,11 @@ def getReachable(net, source_id, options, useIncoming=False):
         fringe = new_fringe
 
     if useIncoming:
-        print("{} of {} edges can reach edge '{}':".format(len(found), len(net.getEdges()), source_id))
+        print("{} of {} edges can reach edge '{}':".format(
+            len(found), len(net.getEdges()), source_id))
     else:
-        print("{} of {} edges are reachable from edge '{}':".format(len(found), len(net.getEdges()), source_id))
+        print("{} of {} edges are reachable from edge '{}':".format(
+            len(found), len(net.getEdges()), source_id))
 
     ids = sorted([e.getID() for e in found])
     if options.selection_output:
@@ -132,7 +134,8 @@ if __name__ == "__main__":
     elif options.destination:
         getReachable(net, options.destination, options, True)
     else:
-        components = getWeaklyConnected(net, options.vclass, options.ignore_connections)
+        components = getWeaklyConnected(
+            net, options.vclass, options.ignore_connections)
         if len(components) != 1:
             print("Warning! Net is not connected.")
 
@@ -186,13 +189,15 @@ if __name__ == "__main__":
 
         # Check for output of components to file
         if options.component_output is not None:
-            print("Writing component output to: {}".format(options.component_output))
+            print("Writing component output to: {}".format(
+                options.component_output))
             with open(options.component_output, 'w') as f:
                 f.write("\n".join(output_str_list))
 
         # Check for output of results summary to file
         if options.results_output is not None:
-            print("Writing results output to: {}".format(options.results_output))
+            print(
+                "Writing results output to: {}".format(options.results_output))
             with open(options.results_output, 'w') as r:
                 r.write(summary_str)
                 r.write("\n".join(dist_str_list))

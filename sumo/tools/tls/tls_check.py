@@ -43,4 +43,5 @@ for tlsID in net1._id2tls:
         prog = tls._programs[prog]
         for i, phase in enumerate(prog._phases):
             if len(phase[0]) != noConnections:
-                print("      Error: phase %s describes %s signals instead of %s." % (i, len(phase[0]), noConnections))
+                print("      Error: phase %s describes %s signals instead of %s." % (
+                    i, len(phase[0]), noConnections))

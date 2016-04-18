@@ -160,7 +160,7 @@ void MSDeterministicHiLevelTrafficLightLogic::choosePolicy(
     // Compute simulus for each policy
     for (unsigned int i = 0; i < getPolicies().size(); i++) {
         SUMOReal stimulus = getPolicies()[i]->computeDesirability(mean_vSpeed_in,
-                          mean_vSpeed_out);
+                            mean_vSpeed_out);
         if (stimulus > maxStimulus) {
             maxStimulus = stimulus;
             index_maxStimulus = i;

@@ -58,26 +58,26 @@ public:
 
         //Guess Format
         pFormatCtx->oformat = av_guess_format(NULL, out_file, NULL);
-        if (pFormatCtx->oformat == 0){
+        if (pFormatCtx->oformat == 0) {
             throw std::runtime_error("Unknown format!");
         }
 
         //Open output URL
-        if (avio_open(&pFormatCtx->pb, out_file, AVIO_FLAG_READ_WRITE) < 0){
+        if (avio_open(&pFormatCtx->pb, out_file, AVIO_FLAG_READ_WRITE) < 0) {
             throw std::runtime_error("Failed to open output file!");
         }
 
         // @todo maybe warn about default and invalid framerates
         int framerate = 25;
         if (frameDelay > 0.) {
-            framerate = (int)(1000./frameDelay);
+            framerate = (int)(1000. / frameDelay);
             if (framerate <= 0) {
                 framerate = 1;
             }
         }
         AVStream* const video_st = avformat_new_stream(pFormatCtx, 0);
-        video_st->time_base.num = 1; 
-        video_st->time_base.den = framerate;  
+        video_st->time_base.num = 1;
+        video_st->time_base.den = framerate;
 
         //Param that must set
         AVCodecContext* const pCodecCtx = video_st->codec;
@@ -85,12 +85,12 @@ public:
         pCodecCtx->codec_id = pFormatCtx->oformat->video_codec;
         pCodecCtx->codec_type = AVMEDIA_TYPE_VIDEO;
         pCodecCtx->pix_fmt = AV_PIX_FMT_YUV420P;
-        pCodecCtx->width = width;  
+        pCodecCtx->width = width;
         // @todo maybe warn about one missing line for odd height
         pCodecCtx->height = (height / 2) * 2;
-        pCodecCtx->time_base.num = 1;  
-        pCodecCtx->time_base.den = framerate;  
-        pCodecCtx->bit_rate = 4000000;  
+        pCodecCtx->time_base.num = 1;
+        pCodecCtx->time_base.den = framerate;
+        pCodecCtx->bit_rate = 4000000;
         pCodecCtx->gop_size = 250;
         //H264
         //pCodecCtx->me_range = 16;
@@ -100,18 +100,18 @@ public:
         pCodecCtx->qmax = 51;
 
         //Optional Param
-        pCodecCtx->max_b_frames=3;
+        pCodecCtx->max_b_frames = 3;
 
         // Set Option
-        AVDictionary *param = 0;
+        AVDictionary* param = 0;
         //H.264
-        if(pCodecCtx->codec_id == AV_CODEC_ID_H264) {
+        if (pCodecCtx->codec_id == AV_CODEC_ID_H264) {
             av_dict_set(&param, "preset", "slow", 0);
             av_dict_set(&param, "tune", "zerolatency", 0);
             //av_dict_set(&param, "profile", "main", 0);
         }
         //H.265
-        if(pCodecCtx->codec_id == AV_CODEC_ID_H265){
+        if (pCodecCtx->codec_id == AV_CODEC_ID_H265) {
             av_dict_set(&param, "preset", "ultrafast", 0);
             av_dict_set(&param, "tune", "zero-latency", 0);
         }
@@ -120,10 +120,10 @@ public:
         //av_dump_format(pFormatCtx, 0, out_file, 1);
 
         AVCodec* const pCodec = avcodec_find_encoder(pCodecCtx->codec_id);
-        if (!pCodec){
+        if (!pCodec) {
             throw std::runtime_error("Can not find encoder!");
         }
-        if (avcodec_open2(pCodecCtx, pCodec, &param) < 0){
+        if (avcodec_open2(pCodecCtx, pCodec, &param) < 0) {
             throw std::runtime_error("Failed to open encoder!");
         }
 
@@ -142,25 +142,27 @@ public:
         myFrameIndex = 0;
     }
 
-    ~GUIVideoEncoder(){
-        AVFormatContext *fmt_ctx = myFormatContext;
+    ~GUIVideoEncoder() {
+        AVFormatContext* fmt_ctx = myFormatContext;
         int ret = 1;
         int got_frame;
         AVPacket enc_pkt;
         if (!(fmt_ctx->streams[0]->codec->codec->capabilities &
-            CODEC_CAP_DELAY))
+                CODEC_CAP_DELAY)) {
             ret = 0;
+        }
         while (ret > 0) {
             enc_pkt.data = NULL;
             enc_pkt.size = 0;
             av_init_packet(&enc_pkt);
-            ret = avcodec_encode_video2 (fmt_ctx->streams[0]->codec, &enc_pkt,
-                NULL, &got_frame);
+            ret = avcodec_encode_video2(fmt_ctx->streams[0]->codec, &enc_pkt,
+                                        NULL, &got_frame);
             av_frame_free(NULL);
-            if (ret < 0)
+            if (ret < 0) {
                 break;
-            if (!got_frame){
-                ret=0;
+            }
+            if (!got_frame) {
+                ret = 0;
                 break;
             }
             /* mux encoded frame */
@@ -172,7 +174,7 @@ public:
             av_write_trailer(fmt_ctx);
 
             //Clean
-            if (fmt_ctx->streams[0]){
+            if (fmt_ctx->streams[0]) {
                 avcodec_close(fmt_ctx->streams[0]->codec);
                 av_freep(&myFrame->data[0]);
                 av_frame_free(&myFrame);
@@ -181,40 +183,40 @@ public:
             avformat_free_context(fmt_ctx);
         }
     }
-    
+
     void writeFrame(uint8_t* buffer) {
         AVStream* const video_st = myFormatContext->streams[0];
         AVCodecContext* const pCodecCtx = video_st->codec;
 
         uint8_t* inData[1] = { buffer }; // RGBA32 have one plane
-        int inLinesize[1] = { 4*pCodecCtx->width }; // RGBA stride
+        int inLinesize[1] = { 4 * pCodecCtx->width }; // RGBA stride
         sws_scale(mySwsContext, inData, inLinesize, 0, pCodecCtx->height,
                   myFrame->data, myFrame->linesize);
 
         av_init_packet(&myPkt);
         myPkt.data = NULL;
         myPkt.size = 0;
-		//PTS
-		myFrame->pts=myFrameIndex;
-		int got_picture=0;
-		//Encode
-		int ret = avcodec_encode_video2(pCodecCtx, &myPkt, myFrame, &got_picture);
-		if (ret < 0) {
+        //PTS
+        myFrame->pts = myFrameIndex;
+        int got_picture = 0;
+        //Encode
+        int ret = avcodec_encode_video2(pCodecCtx, &myPkt, myFrame, &got_picture);
+        if (ret < 0) {
             throw std::runtime_error("Failed to encode!");
-		}
-		if (got_picture==1){
-			myPkt.stream_index = video_st->index;
-			ret = av_write_frame(myFormatContext, &myPkt);
-			av_free_packet(&myPkt);
+        }
+        if (got_picture == 1) {
+            myPkt.stream_index = video_st->index;
+            ret = av_write_frame(myFormatContext, &myPkt);
+            av_free_packet(&myPkt);
             myFrameIndex++;
-		}
+        }
     }
 
 private:
     AVFormatContext* myFormatContext;
     SwsContext* mySwsContext;
     AVFrame* myFrame;
-	AVPacket myPkt;
+    AVPacket myPkt;
     int myFrameIndex;
 
 };

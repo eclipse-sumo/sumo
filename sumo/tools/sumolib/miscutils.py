@@ -33,6 +33,7 @@ from collections import defaultdict
 
 # http://www.python.org/dev/peps/pep-0326/
 
+
 class _ExtremeType(object):
 
     def __init__(self, isMax, rep):

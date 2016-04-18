@@ -61,17 +61,17 @@ public:
     ~TrajectoriesHandler();
 
     const PollutantsInterface::Emissions computeEmissions(const std::string id,
-            const SUMOEmissionClass c, SUMOReal &v,
+            const SUMOEmissionClass c, SUMOReal& v,
             SUMOReal& a, SUMOReal& s);
 
     bool writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
-                        SUMOReal t, SUMOReal &v,
-                        SUMOReal &a, SUMOReal &s);
+                        SUMOReal t, SUMOReal& v,
+                        SUMOReal& a, SUMOReal& s);
 
     bool writeXMLEmissions(const std::string id,
                            const SUMOEmissionClass c,
-                           SUMOTime t, SUMOReal &v,
+                           SUMOTime t, SUMOReal& v,
                            SUMOReal a = INVALID_VALUE, SUMOReal s = INVALID_VALUE);
 
     void writeSums(std::ostream& o, const std::string id);

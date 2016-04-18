@@ -100,7 +100,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_ROUTE_INDEX
             && variable != VAR_PARAMETER
        ) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable,2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -452,7 +452,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != ADD && variable != ADD_FULL && variable != REMOVE
             && variable != VAR_MOVE_TO_VTD && variable != VAR_PARAMETER/* && variable != VAR_SPEED_TIME_LINE && variable != VAR_LANE_TIME_LINE*/
        ) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable " + toHex(variable,2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
@@ -1538,7 +1538,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
 }
 
 
-bool 
+bool
 TraCIServerAPI_Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, SUMOReal& bestDistance, MSLane** lane) {
     if (edge == 0) {
         return false;
@@ -1569,7 +1569,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     routeOffset = 0;
     // routes may be looped which makes routeOffset ambiguous. We first try to
     // find the closest upcoming edge on the route and then look for closer passed edges
-    
+
     // look forward along the route
     const MSEdge* prev = 0;
     UNUSED_PARAMETER(prev); // silence 'unused variable' warning when built without INTERNAL_LANES

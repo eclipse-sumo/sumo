@@ -46,7 +46,7 @@
  * @brief A class that stores a 2D geometrical boundary
  */
 class Boundary
-        : public AbstractPoly {
+    : public AbstractPoly {
 public:
     /// Constructor - the boundary is unset
     Boundary();

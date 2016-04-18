@@ -86,8 +86,8 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
         trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
     }
     if ((modeSet & SVC_PASSENGER) != 0 && trip->getVehicles().empty()) {
-    	pars.id = getID() + "_0";
-    	trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
+        pars.id = getID() + "_0";
+        trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
     }
     myPlan.push_back(trip);
 }
@@ -204,7 +204,7 @@ ROPerson::computeRoute(const RORouterProvider& provider,
             if (vehicles.empty()) {
                 computeIntermodal(provider, trip, 0, errorHandler);
             } else {
-                for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end(); ) {
+                for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end();) {
                     if (!computeIntermodal(provider, trip, *v, errorHandler)) {
                         v = vehicles.erase(v);
                     } else {

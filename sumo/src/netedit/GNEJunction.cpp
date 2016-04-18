@@ -97,7 +97,7 @@ GNEJunction::~GNEJunction() {
 }
 
 
-void 
+void
 GNEJunction::updateBoundary() {
     const double EXTENT = 2;
     myBoundary = Boundary(

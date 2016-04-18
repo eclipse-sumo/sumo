@@ -150,14 +150,14 @@ protected:
         NextLaneInfo(const MSLane* _lane, const MSLink* _link, int _dir) :
             lane(_lane),
             link(_link),
-            dir(_dir)
-        { }
+            dir(_dir) {
+        }
 
         NextLaneInfo() :
             lane(0),
             link(0),
-            dir(UNDEFINED_DIRECTION)
-        { }
+            dir(UNDEFINED_DIRECTION) {
+        }
 
         // @brief the next lane to be used
         const MSLane* lane;
@@ -193,8 +193,8 @@ protected:
             to(_to),
             lane(_walkingArea),
             shape(_shape),
-            length(_shape.length())
-        {}
+            length(_shape.length()) {
+        }
 
         WalkingAreaPath(): from(0), to(0), lane(0) {};
 
@@ -296,7 +296,7 @@ protected:
         int stripe(const SUMOReal relY) const;
         int otherStripe(const SUMOReal relY) const;
 
-        /* @brief calculate distance to the given obstacle, 
+        /* @brief calculate distance to the given obstacle,
          * - non-negative values signify an obstacle in front of ego
          * the special values DIST_OVERLAP and DIST_BEHIND are used to signify
          * obstacles that overlap and obstacles behind ego respectively

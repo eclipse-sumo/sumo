@@ -28,6 +28,7 @@ import re
 import distutils.sysconfig
 from os.path import dirname, join, exists
 
+
 def generateDefaultProps(propsFile):
     print('generating %s ' % propsFile)
     with open(propsFile, "w") as props:
@@ -37,9 +38,12 @@ def generateDefaultProps(propsFile):
 """)
         for platform in ("", "_64"):
             for lib in ("XERCES", "PROJ_GDAL", "FOX16", "OSG", "FFMPEG"):
-                props.write("    <%s%s>$(%s%s)</%s%s>\n" % (3 * (lib, platform)))
-            props.write("    <%s%s_LIB_DIR></%s%s_LIB_DIR>\n" % (2 * ("PYTHON", platform)))
-            props.write("    <%s%s_INCLUDE_DIR></%s%s_INCLUDE_DIR>\n" % (2 * ("PYTHON", platform)))
+                props.write("    <%s%s>$(%s%s)</%s%s>\n" %
+                            (3 * (lib, platform)))
+            props.write("    <%s%s_LIB_DIR></%s%s_LIB_DIR>\n" %
+                        (2 * ("PYTHON", platform)))
+            props.write("    <%s%s_INCLUDE_DIR></%s%s_INCLUDE_DIR>\n" %
+                        (2 * ("PYTHON", platform)))
         props.write("""  </PropertyGroup>
 </Project>
 """)
@@ -54,12 +58,14 @@ else:
     py = "PYTHON"
 libDir = join(sys.prefix, "libs")
 if not exists(libDir):
-    print("Warning, %s not found, keeping config unmodfied!" % libDir, file=sys.stderr)
+    print("Warning, %s not found, keeping config unmodfied!" %
+          libDir, file=sys.stderr)
     sys.exit(1)
 
 propsBak = propsFile + ".bak"
 if exists(propsBak):
-    print("Warning, %s exists and will be overwritten!" % propsBak, file=sys.stderr)
+    print("Warning, %s exists and will be overwritten!" %
+          propsBak, file=sys.stderr)
     os.remove(propsBak)
 os.rename(propsFile, propsBak)
 modified = False

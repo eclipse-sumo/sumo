@@ -135,10 +135,10 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                 while len(tagStack) > depth:
                     if(PY3):
                         out.write(str.encode("%s</%s>\n" %
-                              ((len(tagStack) - 1) * '    ', tagStack[-1])))
+                                             ((len(tagStack) - 1) * '    ', tagStack[-1])))
                     else:
                         out.write("%s</%s>\n" %
-                              ((len(tagStack) - 1) * '    ', tagStack[-1]))
+                                  ((len(tagStack) - 1) * '    ', tagStack[-1]))
                     del tagStack[-1]
                 if(PY3):
                     out.write(str.encode(row2xml(new, ele.name, "", depth)))
@@ -190,7 +190,8 @@ def writeHierarchicalXml(struct, options):
         outputf.write(str.encode("/>\n"))
         for idx in range(len(tagStack) - 2, -1, -1):
             if(PY3):
-                outputf.write(str.encode("%s</%s>\n" % (idx * '    ', tagStack[idx])))
+                outputf.write(
+                    str.encode("%s</%s>\n" % (idx * '    ', tagStack[idx])))
             else:
                 outputf.write("%s</%s>\n" % (idx * '    ', tagStack[idx]))
 

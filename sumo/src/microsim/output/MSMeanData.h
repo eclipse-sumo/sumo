@@ -281,8 +281,8 @@ public:
                 : myNumVehicleEntered(0), myNumVehicleLeft(0), myValues(values) {}
 
             /** @brief Constructor */
-            virtual ~TrackerEntry(){
-            	delete myValues;
+            virtual ~TrackerEntry() {
+                delete myValues;
             }
 
             /// @brief The number of vehicles which entered in the current interval

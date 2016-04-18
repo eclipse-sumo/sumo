@@ -36,7 +36,8 @@ WXS_DEFAULT = os.path.join(
 LICENSE = os.path.join(
     os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
 
-SKIP_FILES = ["osmWebWizard.py", "sumo-gui.exe", "netedit.exe", "start-command-line.bat"]
+SKIP_FILES = ["osmWebWizard.py", "sumo-gui.exe",
+              "netedit.exe", "start-command-line.bat"]
 
 
 def buildFragment(wixBin, sourceDir, targetLabel, tmpDir, log=None):

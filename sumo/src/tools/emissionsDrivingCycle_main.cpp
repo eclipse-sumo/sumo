@@ -214,21 +214,19 @@ main(int argc, char** argv) {
                         totalS += s;
                         time++;
                     }
-                }
-                catch (EmptyData&) {
+                } catch (EmptyData&) {
                     throw ProcessError("Missing an entry in line '" + line + "'.");
-                }
-                catch (NumberFormatException&) {
+                } catch (NumberFormatException&) {
                     throw ProcessError("Not numeric entry in line '" + line + "'.");
                 }
             }
             if (!quiet) {
                 std::cout << "sums" << std::endl
-                    << "length:" << l << std::endl;
+                          << "length:" << l << std::endl;
             }
             if (sumOut != 0) {
                 (*sumOut) << oc.getString("emission-class") << "," << lr.getFileName() << "," << time << ","
-                    << (l / time * 3.6) << "," << (totalS / time) << "," << (totalA / time) << ",";
+                          << (l / time * 3.6) << "," << (totalS / time) << "," << (totalA / time) << ",";
                 handler.writeNormedSums(*sumOut, "", l);
             }
         }

@@ -67,7 +67,7 @@ public:
      */
     ROVehicle(const SUMOVehicleParameter& pars,
               RORouteDef* route, const SUMOVTypeParameter* type,
-              const RONet* net, MsgHandler* errorHandler=0);
+              const RONet* net, MsgHandler* errorHandler = 0);
 
 
     /// @brief Destructor

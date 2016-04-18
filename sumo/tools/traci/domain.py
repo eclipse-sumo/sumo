@@ -31,6 +31,7 @@ from .storage import Storage
 
 _defaultDomains = []
 
+
 class SubscriptionResults:
 
     def __init__(self, valueFunc):
@@ -76,6 +77,7 @@ class SubscriptionResults:
 
 
 class Domain:
+
     def __init__(self, name, cmdGetID, cmdSetID,
                  subscribeID, subscribeResponseID,
                  contextID, contextResponseID,
@@ -107,7 +109,8 @@ class Domain:
         self._connection = connection
 
     def _getUniversal(self, varID, objectID=""):
-        result = self._connection._sendReadOneStringCmd(self._cmdGetID, varID, objectID)
+        result = self._connection._sendReadOneStringCmd(
+            self._cmdGetID, varID, objectID)
         return self._retValFunc[varID](result)
 
     def getIDList(self):
@@ -134,7 +137,8 @@ class Domain:
                 varIDs = (tc.LAST_STEP_VEHICLE_NUMBER,)
             else:
                 varIDs = (tc.ID_LIST,)
-        self._connection._subscribe(self._subscribeID, begin, end, objectID, varIDs)
+        self._connection._subscribe(
+            self._subscribeID, begin, end, objectID, varIDs)
 
     def getSubscriptionResults(self, objectID=None):
         """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -154,7 +158,8 @@ class Domain:
                 varIDs = (tc.LAST_STEP_VEHICLE_NUMBER,)
             else:
                 varIDs = (tc.ID_LIST,)
-        self._connection._subscribeContext(self._contextID, begin, end, objectID, domain, dist, varIDs)
+        self._connection._subscribeContext(
+            self._contextID, begin, end, objectID, domain, dist, varIDs)
 
     def getContextSubscriptionResults(self, objectID=None):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(objectID)
@@ -167,7 +172,8 @@ class Domain:
         self._connection._beginMessage(
             self._cmdGetID, tc.VAR_PARAMETER, objID, 1 + 4 + len(param))
         self._connection._packString(param)
-        result = self._connection._checkResult(self._cmdGetID, tc.VAR_PARAMETER, objID)
+        result = self._connection._checkResult(
+            self._cmdGetID, tc.VAR_PARAMETER, objID)
         return result.readString()
 
     def setParameter(self, objID, param, value):
@@ -176,7 +182,7 @@ class Domain:
         Sets the value of the given parameter to value for the given objID
         """
         self._connection._beginMessage(self._cmdSetID, tc.VAR_PARAMETER, objID,
-                      1 + 4 + 1 + 4 + len(param) + 1 + 4 + len(value))
+                                       1 + 4 + 1 + 4 + len(param) + 1 + 4 + len(value))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
         self._connection._packString(param)
         self._connection._packString(value)

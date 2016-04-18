@@ -112,8 +112,8 @@ ROLoader::ROLoader(OptionsCont& oc, const bool emptyDestinationsAllowed, const b
     myOptions(oc),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
     myLogSteps(logSteps),
-    myLoaders(oc.exists("unsorted-input") && oc.getBool("unsorted-input") ? 0 : DELTA_T)
-{}
+    myLoaders(oc.exists("unsorted-input") && oc.getBool("unsorted-input") ? 0 : DELTA_T) {
+}
 
 
 ROLoader::~ROLoader() {

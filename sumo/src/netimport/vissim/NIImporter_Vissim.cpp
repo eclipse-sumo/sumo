@@ -230,9 +230,9 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::NIVissimXMLHandler_Str
     : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
                         vissimAttrs, VISSIM_ATTR_NOTHING,
                         "vissim - file"),
-    myElemData(elemData),
-    myHierarchyLevel(0),
-    isConnector(false) {
+      myElemData(elemData),
+      myHierarchyLevel(0),
+      isConnector(false) {
     myElemData.clear();
 }
 
@@ -472,8 +472,8 @@ NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::NIVissimXMLHand
     : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
                         vissimAttrs, VISSIM_ATTR_NOTHING,
                         "vissim - file"),
-    myElemData(elemData),
-    myHierarchyLevel(0) {
+      myElemData(elemData),
+      myHierarchyLevel(0) {
     myElemData.clear();
 }
 
@@ -538,8 +538,8 @@ NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::NIV
     : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
                         vissimAttrs, VISSIM_ATTR_NOTHING,
                         "vissim - file"),
-    myElemData(elemData),
-    myHierarchyLevel(0) {
+      myElemData(elemData),
+      myHierarchyLevel(0) {
     myElemData.clear();
 }
 
@@ -596,8 +596,8 @@ NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::NIVissimXM
     : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
                         vissimAttrs, VISSIM_ATTR_NOTHING,
                         "vissim - file"),
-    myElemData(elemData),
-    myHierarchyLevel(0) {
+      myElemData(elemData),
+      myHierarchyLevel(0) {
     myElemData.clear();
 }
 
@@ -627,8 +627,8 @@ NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::NIVissimXML
     : GenericSAXHandler(vissimTags, VISSIM_TAG_NOTHING,
                         vissimAttrs, VISSIM_ATTR_NOTHING,
                         "vissim - file"),
-    myElemData(elemData),
-    myHierarchyLevel(0) {
+      myElemData(elemData),
+      myHierarchyLevel(0) {
     myElemData.clear();
 }
 

@@ -25,9 +25,11 @@ import sys
 
 if len(sys.argv) < 4:
     print("Error: Missing argument(s)")
-    print("Call: CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*")
+    print(
+        "Call: CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*")
     print(" The values within the csv-file are supposed to be divided by ';'.")
-    print(" <VALUENAME>s give the attribute names in order of their appearence within the csv-file .")
+    print(
+        " <VALUENAME>s give the attribute names in order of their appearence within the csv-file .")
     exit()
 
 

@@ -120,7 +120,7 @@ AGAdult::getWorkPosition() const {
     }
 
     else {
-        throw(std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed."));
+        throw (std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed."));
     }
 }
 

@@ -79,6 +79,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH:                Storage.readDouble,
 
 
 class LaneDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "lane", tc.CMD_GET_LANE_VARIABLE, tc.CMD_SET_LANE_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANE_VARIABLE, tc.RESPONSE_SUBSCRIBE_LANE_VARIABLE,
@@ -92,14 +93,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LENGTH, laneID)
 
-
     def getMaxSpeed(self, laneID):
         """getMaxSpeed(string) -> double
 
         Returns the maximum allowed speed on the lane in m/s.
         """
         return self._getUniversal(tc.VAR_MAXSPEED, laneID)
-
 
     def getWidth(self, laneID):
         """getWidth(string) -> double
@@ -108,14 +107,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_WIDTH, laneID)
 
-
     def getAllowed(self, laneID):
         """getAllowed(string) -> list(string)
 
         Returns a list of allowed vehicle classes. An empty list means all vehicles are allowed.
         """
         return self._getUniversal(tc.LANE_ALLOWED, laneID)
-
 
     def getDisallowed(self, laneID):
         """getDisallowed(string) -> list(string)
@@ -124,14 +121,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.LANE_DISALLOWED, laneID)
 
-
     def getLinkNumber(self, laneID):
         """getLinkNumber(string) -> integer
 
         Returns the number of connections to successive lanes.
         """
         return self._getUniversal(tc.LANE_LINK_NUMBER, laneID)
-
 
     def getLinks(self, laneID, extended=False):
         """getLinks(string) -> list((string, bool, bool, bool))
@@ -148,14 +143,12 @@ class LaneDomain(Domain):
             # for downward compatibility
             return [tuple(d[:4]) for d in complete_data]
 
-
     def getShape(self, laneID):
         """getShape(string) -> list((double, double))
 
         List of 2D positions (cartesian) describing the geometry.
         """
         return self._getUniversal(tc.VAR_SHAPE, laneID)
-
 
     def getEdgeID(self, laneID):
         """getEdgeID(string) -> string
@@ -164,14 +157,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.LANE_EDGE_ID, laneID)
 
-
     def getCO2Emission(self, laneID):
         """getCO2Emission(string) -> double
 
         Returns the CO2 emission in mg for the last time step on the given lane.
         """
         return self._getUniversal(tc.VAR_CO2EMISSION, laneID)
-
 
     def getCOEmission(self, laneID):
         """getCOEmission(string) -> double
@@ -180,14 +171,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_COEMISSION, laneID)
 
-
     def getHCEmission(self, laneID):
         """getHCEmission(string) -> double
 
         Returns the HC emission in mg for the last time step on the given lane.
         """
         return self._getUniversal(tc.VAR_HCEMISSION, laneID)
-
 
     def getPMxEmission(self, laneID):
         """getPMxEmission(string) -> double
@@ -196,14 +185,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PMXEMISSION, laneID)
 
-
     def getNOxEmission(self, laneID):
         """getNOxEmission(string) -> double
 
         Returns the NOx emission in mg for the last time step on the given lane.
         """
         return self._getUniversal(tc.VAR_NOXEMISSION, laneID)
-
 
     def getFuelConsumption(self, laneID):
         """getFuelConsumption(string) -> double
@@ -212,14 +199,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_FUELCONSUMPTION, laneID)
 
-
     def getNoiseEmission(self, laneID):
         """getNoiseEmission(string) -> double
 
         Returns the noise emission in db for the last time step on the given lane.
         """
         return self._getUniversal(tc.VAR_NOISEEMISSION, laneID)
-
 
     def getLastStepMeanSpeed(self, laneID):
         """getLastStepMeanSpeed(string) -> double
@@ -228,14 +213,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, laneID)
 
-
     def getLastStepOccupancy(self, laneID):
         """getLastStepOccupancy(string) -> double
 
         Returns the occupancy in % for the last time step on the given lane.
         """
         return self._getUniversal(tc.LAST_STEP_OCCUPANCY, laneID)
-
 
     def getLastStepLength(self, laneID):
         """getLastStepLength(string) -> double
@@ -244,14 +227,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_LENGTH, laneID)
 
-
     def getWaitingTime(self, laneID):
         """getWaitingTime() -> double
 
         .
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, laneID)
-
 
     def getTraveltime(self, laneID):
         """getTraveltime(string) -> double
@@ -260,14 +241,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_CURRENT_TRAVELTIME, laneID)
 
-
     def getLastStepVehicleNumber(self, laneID):
         """getLastStepVehicleNumber(string) -> integer
 
         Returns the total number of vehicles for the last time step on the given lane.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, laneID)
-
 
     def getLastStepHaltingNumber(self, laneID):
         """getLastStepHaltingNumber(string) -> integer
@@ -277,14 +256,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, laneID)
 
-
     def getLastStepVehicleIDs(self, laneID):
         """getLastStepVehicleIDs(string) -> list(string)
 
         Returns the ids of the vehicles for the last time step on the given lane.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, laneID)
-
 
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None
@@ -294,10 +271,9 @@ class LaneDomain(Domain):
         if isinstance(allowedClasses, str):
             allowedClasses = [allowedClasses]
         self._connection._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.LANE_ALLOWED, laneID,
-                            1 + 4 + sum(map(len, allowedClasses)) + 4 * len(allowedClasses))
+                                       1 + 4 + sum(map(len, allowedClasses)) + 4 * len(allowedClasses))
         self._connection._packStringList(allowedClasses)
         self._connection._sendExact()
-
 
     def setDisallowed(self, laneID, disallowedClasses):
         """setDisallowed(string, list) -> None
@@ -307,10 +283,9 @@ class LaneDomain(Domain):
         if isinstance(disallowedClasses, str):
             disallowedClasses = [disallowedClasses]
         self._connection._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.LANE_DISALLOWED, laneID,
-                            1 + 4 + sum(map(len, disallowedClasses)) + 4 * len(disallowedClasses))
+                                       1 + 4 + sum(map(len, disallowedClasses)) + 4 * len(disallowedClasses))
         self._connection._packStringList(disallowedClasses)
         self._connection._sendExact()
-
 
     def setMaxSpeed(self, laneID, speed):
         """setMaxSpeed(string, double) -> None
@@ -319,7 +294,6 @@ class LaneDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID, speed)
-
 
     def setLength(self, laneID, length):
         """setLength(string, double) -> None

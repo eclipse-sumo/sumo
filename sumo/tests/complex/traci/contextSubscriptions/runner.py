@@ -113,16 +113,20 @@ def runSingle(traciEndTime, viewRange, module, objID):
             seen2 += len(near2)
             for v in near1:
                 if v not in near2:
-                    print("timestep %s: %s is missing in subscribed vehicles" % (step, v))
+                    print(
+                        "timestep %s: %s is missing in subscribed vehicles" % (step, v))
             for v in near2:
                 if v not in near1:
-                    print("timestep %s: %s is missing in surrounding vehicles" % (step, v))
+                    print(
+                        "timestep %s: %s is missing in surrounding vehicles" % (step, v))
 
         step += 1
-    print("Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" %
+          (traci.simulation.getCurrentTime() / DELTA_T))
     traci.close()
     sys.stdout.flush()
-    print("uncheck: seen %s vehicles via subscription, %s in surrounding" % (seen1, seen2))
+    print("uncheck: seen %s vehicles via subscription, %s in surrounding" %
+          (seen1, seen2))
     if seen1 == seen2:
         print("Ok: Subscription and computed are same")
     else:

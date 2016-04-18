@@ -60,13 +60,13 @@ public:
      * \brief Calculates the desirability of the policy
      */
     virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
-                                       SUMOReal vehOutMeasure) = 0;
+                                         SUMOReal vehOutMeasure) = 0;
     /**
      * \brief Calculates the desirability of the policy
      */
     virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure,
-                                       SUMOReal vehInDispersionMeasure,
-                                       SUMOReal vehOutDispersionMeasure) = 0;
+                                         SUMOReal vehInDispersionMeasure,
+                                         SUMOReal vehOutDispersionMeasure) = 0;
     virtual std::string getMessage() = 0;
     void setKeyPrefix(std::string val) {
         myKeyPrefix = val;

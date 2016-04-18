@@ -63,8 +63,8 @@ public:
         myQueryVisits(0),
         myNumQueries(0),
         myQueryStartTime(0),
-        myQueryTimeSum(0)
-    { }
+        myQueryTimeSum(0) {
+    }
 
     /// Destructor
     virtual ~SUMOAbstractRouter() {

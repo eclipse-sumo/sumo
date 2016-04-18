@@ -136,7 +136,7 @@ MFXEditableTable::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long
-MFXEditableTable::onLeftBtnClicked(FXObject* , FXSelector , void* ptr) {
+MFXEditableTable::onLeftBtnClicked(FXObject*, FXSelector , void* ptr) {
     FXTablePos* e = (FXTablePos*)ptr;
     int r = e->row;
     int c = e->col;

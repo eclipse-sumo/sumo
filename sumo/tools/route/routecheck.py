@@ -38,7 +38,7 @@ import sys
 try:
     from StringIO import StringIO
 except ImportError:
-    from io import StringIO	
+    from io import StringIO
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from collections import defaultdict
@@ -152,7 +152,8 @@ class RouteReader(handler.ContentHandler):
                 self._changed = True
                 print("Warning: No edges attribute in route " + self._routeID)
         elif self._routeID:
-            print("Warning: This script does not handle nested '%s' elements properly." % name)
+            print(
+                "Warning: This script does not handle nested '%s' elements properly." % name)
         if self._out:
             if name in camelCase:
                 name = camelCase[name]
@@ -218,13 +219,15 @@ class RouteReader(handler.ContentHandler):
                 if self._net.hasEdge(v):
                     cleanedEdgeList.append(v)
                 else:
-                    print("Warning: Unknown edge " + v + " in route " + self._routeID)
+                    print(
+                        "Warning: Unknown edge " + v + " in route " + self._routeID)
                     returnValue = False
             while doConnectivityTest:
                 doConnectivityTest = False
                 for i, v in enumerate(cleanedEdgeList):
                     if i < len(cleanedEdgeList) - 1 and not self._net.isNeighbor(v, cleanedEdgeList[i + 1]):
-                        print("Warning: Route " + self._routeID + " disconnected between " + v + " and " + cleanedEdgeList[i + 1])
+                        print("Warning: Route " + self._routeID +
+                              " disconnected between " + v + " and " + cleanedEdgeList[i + 1])
                         interEdge = self._net.getIntermediateEdge(
                             v, cleanedEdgeList[i + 1])
                         if interEdge != '':

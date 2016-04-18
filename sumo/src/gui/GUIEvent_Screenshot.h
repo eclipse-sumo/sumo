@@ -55,8 +55,8 @@ public:
     GUIEvent_Screenshot(GUISUMOAbstractView* view,
                         const std::string& file)
         : GUIEvent(EVENT_SCREENSHOT),
-          myView(view), myFile(file)
-    { }
+          myView(view), myFile(file) {
+    }
 
     /// destructor
     ~GUIEvent_Screenshot() { }

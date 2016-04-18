@@ -60,7 +60,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
             && variable != VAR_MINGAP && variable != VAR_WIDTH && variable != VAR_COLOR && variable != ID_COUNT
             && variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Get Vehicle Type Variable: unsupported variable " + toHex(variable,2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -184,7 +184,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_COLOR && variable != VAR_PARAMETER
        ) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Change Vehicle Type State: unsupported variable " + toHex(variable,2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Change Vehicle Type State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();

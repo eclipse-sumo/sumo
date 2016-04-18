@@ -105,8 +105,8 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
             onSegment->send(veh, toSegment, leaveTime);
             toSegment->receive(veh, leaveTime, false, ignoreLink);
         } else {
-            WRITE_WARNING("Vehicle '" + veh->getID() + "' ends teleporting on edge '" + toSegment->getEdge().getID() 
-                    + "':" + toString(toSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
+            WRITE_WARNING("Vehicle '" + veh->getID() + "' ends teleporting on edge '" + toSegment->getEdge().getID()
+                          + "':" + toString(toSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
             // this is not quite correct but suffices for interrogation by
             // subsequent methods (veh->getSpeed() needs segment != 0)
             veh->setSegment(myEdges2FirstSegments[veh->getEdge()->getNumericalID()]);
@@ -166,11 +166,11 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
     if (teleSegment != 0) {
         if (!teleporting) {
             // we managed to teleport in a single jump
-            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, from edge '" + onSegment->getEdge().getID() 
-                    + "':" + toString(onSegment->getIndex()) 
-                    + " to edge '" + teleSegment->getEdge().getID() 
-                    + "':" + toString(teleSegment->getIndex()) 
-                    + ", time " + time2string(leaveTime) + ".");
+            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, from edge '" + onSegment->getEdge().getID()
+                          + "':" + toString(onSegment->getIndex())
+                          + " to edge '" + teleSegment->getEdge().getID()
+                          + "':" + toString(teleSegment->getIndex())
+                          + ", time " + time2string(leaveTime) + ".");
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
         }
         changeSegment(veh, leaveTime, teleSegment, true);
@@ -179,8 +179,8 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
         // teleport across the current edge and try insertion later
         if (!teleporting) {
             // announce start of multi-step teleport, arrival will be announced in changeSegment()
-            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, from edge '" + onSegment->getEdge().getID() 
-                    + "':" + toString(onSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
+            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, from edge '" + onSegment->getEdge().getID()
+                          + "':" + toString(onSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
             // remove from current segment
             onSegment->send(veh, 0, leaveTime);

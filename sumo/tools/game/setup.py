@@ -75,7 +75,8 @@ if osgPlugins:
     subprocess.call([sevenZip, 'x', os.path.join(
         os.path.dirname(inZip), '..', '3D_Modell_Forschungskreuzung_BS.7z')])
     os.chdir("..")
-zipf = zipfile.ZipFile(inZip.replace("sumo-", "sumo-game-"), 'w', zipfile.ZIP_DEFLATED)
+zipf = zipfile.ZipFile(
+    inZip.replace("sumo-", "sumo-game-"), 'w', zipfile.ZIP_DEFLATED)
 
 root_len = len(os.path.abspath("."))
 for root, dirs, files in os.walk("."):

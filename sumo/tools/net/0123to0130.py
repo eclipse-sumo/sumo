@@ -267,17 +267,20 @@ def changeFile(fname):
         print("Patching " + fname + " ...")
     if (("_deprecated_" in fname and not "net.netconvert" in fname) or
             (os.path.join('tools', 'net', '0') in fname)):
-        print("Skipping file (looks like intentionally deprecated input): " + fname)
+        print(
+            "Skipping file (looks like intentionally deprecated input): " + fname)
         return
     has_no_destination = False
     if "SUMO_NO_DESTINATION" in open(fname).read():
-        print("Partial conversion (cannot convert SUMO_NO_DESTINATION): " + fname)
+        print(
+            "Partial conversion (cannot convert SUMO_NO_DESTINATION): " + fname)
         has_no_destination = True
     net = NetConverter(fname + ".chg", getBegin(fname), has_no_destination)
     try:
         parse(fname, net)
     except xml.sax._exceptions.SAXParseException:
-        print("Could not parse '%s' maybe it contains non-ascii chars?" % fname)
+        print("Could not parse '%s' maybe it contains non-ascii chars?" %
+              fname)
     if options.inplace:
         os.remove(fname)
         os.rename(fname + ".chg", fname)

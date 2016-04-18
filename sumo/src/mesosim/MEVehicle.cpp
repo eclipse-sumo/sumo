@@ -124,7 +124,7 @@ MEVehicle::estimateLeaveSpeed(const MSLink* link) const {
     /// @see MSVehicle.cpp::estimateLeaveSpeed
     const SUMOReal v = getSpeed();
     return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this),
-            (SUMOReal)sqrt(2 * link->getLength() * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
+                (SUMOReal)sqrt(2 * link->getLength() * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
 }
 
 
@@ -153,9 +153,9 @@ bool
 MEVehicle::hasArrived() const {
     // mySegment may be 0 due to teleporting or arrival
     return myCurrEdge == myRoute->end() - 1 && (
-            (mySegment == 0) 
-            || myEventTime == SUMOTime_MIN
-            || getPositionOnLane() > myArrivalPos - POSITION_EPS);
+               (mySegment == 0)
+               || myEventTime == SUMOTime_MIN
+               || getPositionOnLane() > myArrivalPos - POSITION_EPS);
 }
 
 bool
@@ -278,7 +278,7 @@ MEVehicle::updateDetectorForWriting(MSMoveReminder* rem, SUMOTime currentTime, S
 void
 MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMoveReminder::Notification reason) {
     // segments of the same edge have the same reminder so no cleaning up must take place
-    const bool cleanUp = isLeave && (reason != MSMoveReminder::NOTIFICATION_SEGMENT); 
+    const bool cleanUp = isLeave && (reason != MSMoveReminder::NOTIFICATION_SEGMENT);
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (currentTime != getLastEntryTime()) {
             rem->first->updateDetector(*this, mySegment->getIndex() * mySegment->getLength(),
@@ -316,7 +316,7 @@ MEVehicle::saveState(OutputDevice& out) {
     std::vector<SUMOTime> internals;
     internals.push_back(myDeparture);
     internals.push_back((SUMOTime)distance(myRoute->begin(), myCurrEdge));
-    internals.push_back(mySegment == 0 ? (SUMOTime)-1 : (SUMOTime)mySegment->getIndex());
+    internals.push_back(mySegment == 0 ? (SUMOTime) - 1 : (SUMOTime)mySegment->getIndex());
     internals.push_back((SUMOTime)getQueIndex());
     internals.push_back(myEventTime);
     internals.push_back(myLastEntryTime);

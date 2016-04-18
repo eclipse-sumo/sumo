@@ -86,7 +86,8 @@ for line in fd:
             continue
         if tonode not in nmap[fromnode]:
             if number != 0:
-                print("No connection between from-node '" + fromnode + "' and to-node '" + tonode + "'; skipping")
+                print("No connection between from-node '" + fromnode +
+                      "' and to-node '" + tonode + "'; skipping")
             missing = missing + 1
             missingN = missingN + number
             continue

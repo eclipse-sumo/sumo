@@ -56,8 +56,8 @@ Shape::Shape(const std::string& id, const std::string& type,
     myColor(color),
     myLayer(layer),
     myNaviDegreeAngle(angle),
-    myImgFile(imgFile)
-{}
+    myImgFile(imgFile) {
+}
 
 
 Shape::~Shape() {}

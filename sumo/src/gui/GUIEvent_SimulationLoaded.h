@@ -65,8 +65,8 @@ public:
         : GUIEvent(EVENT_SIMULATION_LOADED),
           myNet(net), myBegin(startTime), myEnd(endTime),
           myFile(file), mySettingsFiles(settingsFiles),
-          myOsgView(osgView)
-    { }
+          myOsgView(osgView) {
+    }
 
     /// destructor
     ~GUIEvent_SimulationLoaded() { }

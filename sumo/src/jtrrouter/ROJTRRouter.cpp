@@ -48,8 +48,8 @@ ROJTRRouter::ROJTRRouter(bool unbuildIsWarningOnly, bool acceptAllDestinations,
     SUMOAbstractRouter<ROEdge, ROVehicle>(0, "JTRRouter"),
     myUnbuildIsWarningOnly(unbuildIsWarningOnly),
     myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
-    myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops)
-{ }
+    myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops) {
+}
 
 
 ROJTRRouter::~ROJTRRouter() {}

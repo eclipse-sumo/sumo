@@ -568,8 +568,9 @@ void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
-    if (!MSGlobals::gUseMesoSim)
+    if (!MSGlobals::gUseMesoSim) {
         setColor(s);
+    }
     // optionally draw inverse markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
         SUMOReal mw = (myHalfLaneWidth + SUMO_const_laneOffset + .01) * scale * (MSNet::getInstance()->lefthand() ? -1 : 1);

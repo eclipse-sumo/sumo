@@ -59,7 +59,7 @@ class NBDistrictCont;
  * @brief A temporary storage for edges imported from Vissim
  */
 class NIVissimEdge
-        : public NIVissimAbstractEdge {
+    : public NIVissimAbstractEdge {
 public:
     /// Constructor
     NIVissimEdge(int id, const std::string& name,

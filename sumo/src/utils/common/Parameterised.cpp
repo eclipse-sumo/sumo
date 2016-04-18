@@ -45,8 +45,8 @@ Parameterised::~Parameterised() {}
 
 
 Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg)
-    : myMap(mapArg)
-{ }
+    : myMap(mapArg) {
+}
 
 
 void

@@ -39,6 +39,7 @@ import xsd
 
 PY3 = sys.version_info > (3,)
 
+
 class NestingHandler(xml.sax.handler.ContentHandler):
 
     """A handler which knows the current nesting of tags"""

@@ -24,6 +24,7 @@ from __future__ import absolute_import
 import sys
 from os.path import dirname, exists, getmtime, join
 
+
 def writeTypeMap(typemapFile, typemap):
     with open(typemapFile, 'w') as f:
         for format, mapFile in sorted(typemap.iteritems()):
@@ -32,6 +33,7 @@ def writeTypeMap(typemapFile, typemap):
                 print('"%s"' %
                       line.replace('"', r'\"').replace('\n', r'\n'), file=f)
             print(";", file=f)
+
 
 def main():
     typemapDir = join(dirname(__file__), '..', '..', 'data', 'typemap')

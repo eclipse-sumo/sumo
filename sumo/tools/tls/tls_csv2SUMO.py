@@ -208,7 +208,8 @@ for keyIndex, key in enumerate(allKeys):
                 l, linkMap[l]), file=sys.stderr)
             sys.exit()
 
-    print('    <tlLogic id="' + key + '" type="static" programID="' + subkey + '" offset="' + offset + '">')
+    print('    <tlLogic id="' + key + '" type="static" programID="' +
+          subkey + '" offset="' + offset + '">')
     for p in params:
         print('        <param key="' + p[0] + '" value="' + p[1] + '"/>')
 

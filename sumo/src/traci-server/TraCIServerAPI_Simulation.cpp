@@ -75,7 +75,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != VAR_STOP_STARTING_VEHICLES_NUMBER && variable != VAR_STOP_STARTING_VEHICLES_IDS
             && variable != VAR_STOP_ENDING_VEHICLES_NUMBER && variable != VAR_STOP_ENDING_VEHICLES_IDS
        ) {
-        return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable,2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -216,7 +216,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
     int variable = inputStorage.readUnsignedByte();
     if (variable != CMD_CLEAR_PENDING_VEHICLES
             && variable != CMD_SAVE_SIMSTATE) {
-        return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable " + toHex(variable,2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();

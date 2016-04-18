@@ -50,6 +50,7 @@ def parse_args():
         options.outfile = options.net + ".taz.xml"
     return options
 
+
 def getCandidates(edge, net, radius):
     candidates = []
     r = min(radius, sumolib.geomhelper.polyLength(edge.getShape()) / 2)
@@ -60,7 +61,9 @@ def getCandidates(edge, net, radius):
         candidates.append(nearby)
     return candidates
 
-ASYM_BIDI_CACHE = {} # edge : opposites
+ASYM_BIDI_CACHE = {}  # edge : opposites
+
+
 def computeBidiTazAsymByRadius(edge, net, radius):
     if not edge in ASYM_BIDI_CACHE:
         candidates = getCandidates(edge, net, radius)
@@ -91,7 +94,8 @@ def computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
         else:
             opposites = computeBidiTazAsymByRadius(edge, net, radius)
             if symmetrical:
-                candidates = reduce(lambda a, b: a.union(b), getCandidates(edge, net, radius))
+                candidates = reduce(
+                    lambda a, b: a.union(b), getCandidates(edge, net, radius))
                 for cand in candidates:
                     if edge in computeBidiTazAsymByRadius(cand, net, radius):
                         opposites.add(cand)
@@ -102,7 +106,8 @@ def computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
 def main(netFile, outFile, radius, useTravelDist, symmetrical):
     net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$")
+        sumolib.writeXMLHeader(
+            outf, "$Id$")
         outf.write('<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (
@@ -112,4 +117,5 @@ def main(netFile, outFile, radius, useTravelDist, symmetrical):
 
 if __name__ == "__main__":
     options = parse_args()
-    main(options.net, options.outfile, options.radius, options.travel_distance, options.symmetrical)
+    main(options.net, options.outfile, options.radius,
+         options.travel_distance, options.symmetrical)

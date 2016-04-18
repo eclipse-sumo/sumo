@@ -174,7 +174,7 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
 }
 
 
-void 
+void
 MSXMLRawOut::writeTransportable(OutputDevice& of, const MSTransportable* p, SumoXMLTag tag) {
     of.openTag(tag);
     of.writeAttr(SUMO_ATTR_ID, p->getID());

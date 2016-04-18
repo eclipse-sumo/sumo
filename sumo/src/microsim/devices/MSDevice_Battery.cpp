@@ -339,8 +339,8 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
 }
 
 
-MSDevice_Battery::~MSDevice_Battery()
-{}
+MSDevice_Battery::~MSDevice_Battery() {
+}
 
 
 // SET FUNCTIONS
@@ -637,7 +637,7 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     EnergyLoss = EnergyLoss / 3600 ; // EnergyLoss[Ws] * 1[h]/3600[s] * 1[k]/1000
 
     // Return calculated energy
-    return(EnergyLoss);
+    return (EnergyLoss);
 }
 
 

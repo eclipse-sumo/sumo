@@ -80,7 +80,7 @@ public:
      *
      * @param[in] id The route's id
      * @param[in] route The list of edges the route is made of
-	 */
+     */
     RORoute(const std::string& id, const ConstROEdgeVector& route);
 
     /** @brief Copy constructor

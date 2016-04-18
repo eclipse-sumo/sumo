@@ -124,7 +124,8 @@ def setAuthors(fullName, removal, add, pattern):
                     print("%s  %s" % (pattern, a), file=out)
                 out.write(line)
             elif add:
-                print("need to add author %s to %s" % (add, fullName), file=log)
+                print("need to add author %s to %s" %
+                      (add, fullName), file=log)
             authors = []
         elif options.fix:
             out.write(line)

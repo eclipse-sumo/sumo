@@ -68,8 +68,8 @@ NBEdgeCont::NBEdgeCont(NBTypeCont& tc) :
     myEdgesSplit(0),
     myVehicleClasses2Keep(0),
     myVehicleClasses2Remove(0),
-    myNeedGeoTransformedPrunningBoundary(false)
-{}
+    myNeedGeoTransformedPrunningBoundary(false) {
+}
 
 
 NBEdgeCont::~NBEdgeCont() {

@@ -414,7 +414,7 @@ public:
         myEmergencyStops++;
     }
 
-    /// @name State I/O 
+    /// @name State I/O
     /// @{
 
     /** @brief Sets the current state variables as loaded from the stream

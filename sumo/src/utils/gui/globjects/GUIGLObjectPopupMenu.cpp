@@ -132,7 +132,7 @@ GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
-    myObject->getParameterWindow(*myApplication, *myParent); 
+    myObject->getParameterWindow(*myApplication, *myParent);
     return 1;
 }
 
@@ -140,7 +140,7 @@ GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdShowTypePars(FXObject*, FXSelector, void*) {
-    myObject->getTypeParameterWindow(*myApplication, *myParent); 
+    myObject->getTypeParameterWindow(*myApplication, *myParent);
     return 1;
 }
 

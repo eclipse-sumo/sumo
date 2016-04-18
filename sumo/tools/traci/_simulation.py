@@ -50,6 +50,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         Storage.readInt,
 
 
 class SimulationDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "simulation", tc.CMD_GET_SIM_VARIABLE, tc.CMD_SET_SIM_VARIABLE,
                         tc.CMD_SUBSCRIBE_SIM_VARIABLE, tc.RESPONSE_SUBSCRIBE_SIM_VARIABLE,
@@ -63,14 +64,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TIME_STEP)
 
-
     def getLoadedNumber(self):
         """getLoadedNumber() -> integer
 
         Returns the number of vehicles which were loaded in this time step.
         """
         return self._getUniversal(tc.VAR_LOADED_VEHICLES_NUMBER)
-
 
     def getLoadedIDList(self):
         """getLoadedIDList() -> list(string)
@@ -79,14 +78,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LOADED_VEHICLES_IDS)
 
-
     def getDepartedNumber(self):
         """getDepartedNumber() -> integer
 
         Returns the number of vehicles which departed (were inserted into the road network) in this time step.
         """
         return self._getUniversal(tc.VAR_DEPARTED_VEHICLES_NUMBER)
-
 
     def getDepartedIDList(self):
         """getDepartedIDList() -> list(string)
@@ -95,14 +92,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_DEPARTED_VEHICLES_IDS)
 
-
     def getArrivedNumber(self):
         """getArrivedNumber() -> integer
 
         Returns the number of vehicles which arrived (have reached their destination and are removed from the road network) in this time step. 
         """
         return self._getUniversal(tc.VAR_ARRIVED_VEHICLES_NUMBER)
-
 
     def getArrivedIDList(self):
         """getArrivedIDList() -> list(string)
@@ -111,14 +106,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
-
     def getParkingStartingVehiclesNumber(self):
         """getParkingStartingVehiclesNumber() -> integer
 
         . 
         """
         return self._getUniversal(tc.VAR_PARKING_STARTING_VEHICLES_NUMBER)
-
 
     def getParkingStartingVehiclesIDList(self):
         """getParkingStartingVehiclesIDList() -> list(string)
@@ -127,14 +120,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PARKING_STARTING_VEHICLES_IDS)
 
-
     def getParkingEndingVehiclesNumber(self):
         """getParkingEndingVehiclesNumber() -> integer
 
         . 
         """
         return self._getUniversal(tc.VAR_PARKING_ENDING_VEHICLES_NUMBER)
-
 
     def getParkingEndingVehiclesIDList(self):
         """getParkingEndingVehiclesIDList() -> list(string)
@@ -143,14 +134,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PARKING_ENDING_VEHICLES_IDS)
 
-
     def getStopStartingVehiclesNumber(self):
         """getStopStartingVehiclesNumber() -> integer
 
         . 
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER)
-
 
     def getStopStartingVehiclesIDList(self):
         """getStopStartingVehiclesIDList() -> list(string)
@@ -159,7 +148,6 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS)
 
-
     def getStopEndingVehiclesNumber(self):
         """getStopEndingVehiclesNumber() -> integer
 
@@ -167,14 +155,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_STOP_ENDING_VEHICLES_NUMBER)
 
-
     def getStopEndingVehiclesIDList(self):
         """getStopEndingVehiclesIDList() -> list(string)
 
         . 
         """
         return self._getUniversal(tc.VAR_STOP_ENDING_VEHICLES_IDS)
-
 
     def getMinExpectedNumber(self):
         """getMinExpectedNumber() -> integer
@@ -188,14 +174,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
-
     def getBusStopWaiting(self):
         """getBusStopWaiting() -> integer
 
         .
         """
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING)
-
 
     def getStartingTeleportNumber(self):
         """getStartingTeleportNumber() -> integer
@@ -204,14 +188,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER)
 
-
     def getStartingTeleportIDList(self):
         """getStartingTeleportIDList() -> list(string)
 
         Returns a list of ids of vehicles which started to teleport in this time step. 
         """
         return self._getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_IDS)
-
 
     def getEndingTeleportNumber(self):
         """getEndingTeleportNumber() -> integer
@@ -220,14 +202,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER)
 
-
     def getEndingTeleportIDList(self):
         """getEndingTeleportIDList() -> list(string)
 
         Returns a list of ids of vehicles which ended to be teleported in this time step. 
         """
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
-
 
     def getDeltaT(self):
         """getDeltaT() -> integer
@@ -236,7 +216,6 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_DELTA_T)
 
-
     def getNetBoundary(self):
         """getNetBoundary() -> ((double, double), (double, double))
 
@@ -244,32 +223,29 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NET_BOUNDING_BOX)
 
-
     def convert2D(self, edgeID, pos, laneIndex=0, toGeo=False):
         posType = tc.POSITION_2D
         if toGeo:
             posType = tc.POSITION_LON_LAT
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION,
-                            "", 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1 + 1)
+                                       "", 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1 + 1)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
         self._connection._packString(edgeID, tc.POSITION_ROADMAP)
         self._connection._string += struct.pack("!dBBB",
-                                             pos, laneIndex, tc.TYPE_UBYTE, posType)
+                                                pos, laneIndex, tc.TYPE_UBYTE, posType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!dd")
-
 
     def convert3D(self, edgeID, pos, laneIndex=0, toGeo=False):
         posType = tc.POSITION_3D
         if toGeo:
             posType = tc.POSITION_LON_LAT_ALT
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION,
-                            "", 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1 + 1)
+                                       "", 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1 + 1)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
         self._connection._packString(edgeID, tc.POSITION_ROADMAP)
         self._connection._string += struct.pack("!dBBB",
-                                             pos, laneIndex, tc.TYPE_UBYTE, posType)
+                                                pos, laneIndex, tc.TYPE_UBYTE, posType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!ddd")
-
 
     def convertRoad(self, x, y, isGeo=False):
         posType = tc.POSITION_2D
@@ -280,11 +256,10 @@ class SimulationDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
         self._connection._string += struct.pack("!Bdd", posType, x, y)
         self._connection._string += struct.pack("!BB",
-                                             tc.TYPE_UBYTE, tc.POSITION_ROADMAP)
+                                                tc.TYPE_UBYTE, tc.POSITION_ROADMAP)
         result = self._connection._checkResult(
             tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "")
         return result.readString(), result.readDouble(), result.read("!B")[0]
-
 
     def convertGeo(self, x, y, fromGeo=False):
         fromType = tc.POSITION_2D
@@ -306,7 +281,7 @@ class SimulationDomain(Domain):
 
         If isGeo=True, coordinates are interpreted as longitude and latitude rather
         than cartesian coordinates in meters.
-        
+
         If isDriving=True, the coordinates are mapped onto the road network and the
         length of the shortest route in the network is returned. Otherwise, the
         straight-line distance is returned.
@@ -321,7 +296,8 @@ class SimulationDomain(Domain):
             tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "", 1 + 4 + 1 + 8 + 8 + 1 + 8 + 8 + 1)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
         self._connection._string += struct.pack("!Bdd", posType, x1, y1)
-        self._connection._string += struct.pack("!BddB", posType, x2, y2, distType)
+        self._connection._string += struct.pack(
+            "!BddB", posType, x2, y2, distType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "").readDouble()
 
     def getDistanceRoad(self, edgeID1, pos1, edgeID2, pos2, isDriving=False):
@@ -333,7 +309,7 @@ class SimulationDomain(Domain):
         if isDriving:
             distType = tc.REQUEST_DRIVINGDIST
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "",
-                            1 + 4 + 1 + 4 + len(edgeID1) + 8 + 1 + 1 + 4 + len(edgeID2) + 8 + 1 + 1)
+                                       1 + 4 + 1 + 4 + len(edgeID1) + 8 + 1 + 1 + 4 + len(edgeID2) + 8 + 1 + 1)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
         self._connection._packString(edgeID1, tc.POSITION_ROADMAP)
         self._connection._string += struct.pack("!dB", pos1, 0)
@@ -343,13 +319,13 @@ class SimulationDomain(Domain):
 
     def clearPending(self, routeID=""):
         self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_CLEAR_PENDING_VEHICLES, "",
-                            1 + 4 + len(routeID))
+                                       1 + 4 + len(routeID))
         self._connection._packString(routeID)
         self._connection._sendExact()
 
     def saveState(self, fileName):
         self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_SAVE_SIMSTATE, "",
-                            1 + 4 + len(fileName))
+                                       1 + 4 + len(fileName))
         self._connection._packString(fileName)
         self._connection._sendExact()
 

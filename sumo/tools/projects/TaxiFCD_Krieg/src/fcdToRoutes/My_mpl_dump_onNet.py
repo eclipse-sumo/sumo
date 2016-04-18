@@ -385,8 +385,10 @@ class WeightsReader(handler.ContentHandler):
                     self._unaggEdge2value1[i], self._unaggEdge2value2[i])
         # norm
         if options.verbose:
-            print("w range: " + str(self._minValue1) + " - " + str(self._maxValue1))
-            print("c range: " + str(self._minValue2) + " - " + str(self._maxValue2))
+            print("w range: " + str(self._minValue1) +
+                  " - " + str(self._maxValue1))
+            print("c range: " + str(self._minValue2) +
+                  " - " + str(self._maxValue2))
         if options.join:
             self.valueDependantNorm(
                 self._edge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1 == "speed")

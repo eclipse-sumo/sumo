@@ -361,7 +361,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     m.lights = new osg::Switch();
     for (SUMOReal offset = -0.3; offset < 0.5; offset += 0.6) {
         osg::Geode* geode = new osg::Geode();
-        osg::ShapeDrawable* right = new osg::ShapeDrawable(new osg::Sphere(osg::Vec3(offset, (type.getLength()-.9)/2., (type.getHeight()-.5)/2.), .1f));
+        osg::ShapeDrawable* right = new osg::ShapeDrawable(new osg::Sphere(osg::Vec3(offset, (type.getLength() - .9) / 2., (type.getHeight() - .5) / 2.), .1f));
         geode->addDrawable(right);
         setShapeState(right);
         right->setColor(osg::Vec4(1.f, .5f, 0.f, .8f));
@@ -380,8 +380,8 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
 
     osg::Geode* geode = new osg::Geode();
     osg::CompositeShape* comp = new osg::CompositeShape();
-    comp->addChild(new osg::Sphere(osg::Vec3(-0.3, (type.getLength()+.8)/2., (type.getHeight()-.5)/2.), .1f));
-    comp->addChild(new osg::Sphere(osg::Vec3(0.3, (type.getLength()+.8)/2., (type.getHeight()-.5)/2.), .1f));
+    comp->addChild(new osg::Sphere(osg::Vec3(-0.3, (type.getLength() + .8) / 2., (type.getHeight() - .5) / 2.), .1f));
+    comp->addChild(new osg::Sphere(osg::Vec3(0.3, (type.getLength() + .8) / 2., (type.getHeight() - .5) / 2.), .1f));
     osg::ShapeDrawable* brake = new osg::ShapeDrawable(comp);
     brake->setColor(osg::Vec4(1.f, 0.f, 0.f, .8f));
     geode->addDrawable(brake);

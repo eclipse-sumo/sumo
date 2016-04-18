@@ -88,8 +88,8 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myKeepRightProbability(0),
     myLeadingBlockerLength(0),
     myLeftSpace(0),
-    myLookAheadSpeed(LOOK_AHEAD_MIN_SPEED)
-{}
+    myLookAheadSpeed(LOOK_AHEAD_MIN_SPEED) {
+}
 
 MSLCM_LC2013::~MSLCM_LC2013() {
     changed(0);

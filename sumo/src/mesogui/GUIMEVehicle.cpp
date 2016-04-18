@@ -52,11 +52,11 @@
 #pragma warning(disable: 4355)
 #endif
 GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                       const MSVehicleType* type, const SUMOReal speedFactor) :
+                           const MSVehicleType* type, const SUMOReal speedFactor) :
     MEVehicle(pars, route, type, speedFactor),
-    GUIBaseVehicle((MSBaseVehicle&)*this),
-    myPos(Position::INVALID)
-{ }
+    GUIBaseVehicle((MSBaseVehicle&) * this),
+    myPos(Position::INVALID) {
+}
 #ifdef _MSC_VER
 #pragma warning(default: 4355)
 #endif
@@ -67,7 +67,7 @@ GUIMEVehicle::~GUIMEVehicle() { }
 
 GUIParameterTableWindow*
 GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
-                               GUISUMOAbstractView&) {
+                                 GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 20);
     // add items
@@ -142,7 +142,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
-                               GUISUMOAbstractView&) {
+                                     GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 10);
     // add items
@@ -167,7 +167,7 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
-Position 
+Position
 GUIMEVehicle::getPosition(const SUMOReal /* offset */) const {
     if (myPos == Position::INVALID && mySegment != 0) {
         // best guess before the actual position is set in GUIEdge::drawMesoVehicles
@@ -178,7 +178,7 @@ GUIMEVehicle::getPosition(const SUMOReal /* offset */) const {
 }
 
 
-SUMOReal 
+SUMOReal
 GUIMEVehicle::getAngle() const {
     return myAngle;
 }
@@ -239,12 +239,12 @@ GUIMEVehicle::getColorValue(size_t activeScheme) const {
 
 void
 GUIMEVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
-   MSRouteIterator i = r.begin();
-   for (; i != r.end(); ++i) { 
-       const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]); 
-       GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), 1.0); 
-       GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration); 
-   } 
+    MSRouteIterator i = r.begin();
+    for (; i != r.end(); ++i) {
+        const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
+        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), 1.0);
+        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+    }
 }
 
 

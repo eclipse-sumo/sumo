@@ -56,8 +56,8 @@ MSJunction::MSJunction(const std::string& id, SumoXMLNodeType type, const Positi
     Named(id),
     myType(type),
     myPosition(position),
-    myShape(shape)
-{}
+    myShape(shape) {
+}
 
 
 MSJunction::~MSJunction() {}

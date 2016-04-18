@@ -127,7 +127,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 }
 
 
-void 
+void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation) {
     Position pos = p->getPosition();
     if (useGeo) {

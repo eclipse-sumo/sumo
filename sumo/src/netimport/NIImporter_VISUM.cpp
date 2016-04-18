@@ -1205,7 +1205,7 @@ NIImporter_VISUM::getEdge(NBNode* FromNode, NBNode* ToNode) {
     EdgeVector::const_iterator i;
     for (i = FromNode->getOutgoingEdges().begin(); i != FromNode->getOutgoingEdges().end(); i++) {
         if (ToNode == (*i)->getToNode()) {
-            return(*i);
+            return (*i);
         }
     }
     //!!!

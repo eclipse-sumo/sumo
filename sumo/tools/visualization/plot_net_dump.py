@@ -142,7 +142,8 @@ def main(args=None):
         for e in colors:
             colors[e] = helpers.getColor(options, colors[e], 1.)
         if options.verbose:
-            print("Color values are between %s and %s" % (minColorValue, maxColorValue))
+            print("Color values are between %s and %s" %
+                  (minColorValue, maxColorValue))
 
         widths = {}
         maxWidthValue = None
@@ -171,7 +172,8 @@ def main(args=None):
             widths[e] = options.minWidth + widths[e] * \
                 (options.maxWidth - options.minWidth)
         if options.verbose:
-            print("Width values are between %s and %s" % (minWidthValue, maxWidthValue))
+            print("Width values are between %s and %s" %
+                  (minWidthValue, maxWidthValue))
 
         fig, ax = helpers.openFigure(options)
         ax.set_aspect("equal", None, 'C')

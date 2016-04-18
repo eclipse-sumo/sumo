@@ -216,7 +216,8 @@ class Net:
                     edges.append((e, d))
         except ImportError:
             if not self.hasWarnedAboutMissingRTree:
-                print("Warning: Module 'rtree' not available. Using brute-force fallback")
+                print(
+                    "Warning: Module 'rtree' not available. Using brute-force fallback")
                 self.hasWarnedAboutMissingRTree = True
 
             for edge in self._edges:

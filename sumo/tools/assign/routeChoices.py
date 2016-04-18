@@ -271,7 +271,8 @@ class vehrouteReader(handler.ContentHandler):
                 # calcuate the probabilites for the new routes
                 if not r.probability:
                     r.probability = 1. / float(len(self._vehObj.routesList))
-                    print('new probability for route', r.label, 'for veh', self._vehObj.label)
+                    print('new probability for route', r.label,
+                          'for veh', self._vehObj.label)
                     self._newroutesList.append(r)
 
             # adjust the probabilites of the existing routes due to the new

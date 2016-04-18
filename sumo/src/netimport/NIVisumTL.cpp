@@ -48,8 +48,8 @@
 NIVisumTL::NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime offset,
                      SUMOTime intermediateTime, bool phaseDefined)
     : myName(name), myCycleTime(cycleTime), myOffset(offset),
-      myIntermediateTime(intermediateTime), myPhaseDefined(phaseDefined)
-{}
+      myIntermediateTime(intermediateTime), myPhaseDefined(phaseDefined) {
+}
 
 
 NIVisumTL::~NIVisumTL() {

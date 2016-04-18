@@ -43,6 +43,7 @@ class Connection:
     """Contains the socket, the composed message string
     together with a list of TraCI commands which are inside.
     """
+
     def __init__(self, host, port):
         if not _embedded:
             self._socket = socket.socket()
@@ -154,7 +155,8 @@ class Connection:
         return result
 
     def _readSubscription(self, result):
-        result.printDebug()  # to enable this you also need to set _DEBUG to True in storage.py
+        # to enable this you also need to set _DEBUG to True in storage.py
+        result.printDebug()
         result.readLength()
         response = result.read("!B")[0]
         isVariableSubscription = response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE
@@ -169,7 +171,8 @@ class Connection:
                 if status:
                     print("Error!", result.readString())
                 elif response in self._subscriptionMapping:
-                    self._subscriptionMapping[response].add(objectID, varID, result)
+                    self._subscriptionMapping[response].add(
+                        objectID, varID, result)
                 else:
                     raise FatalTraCIError(
                         "Cannot handle subscription response %02x for %s." % (response, objectID))
@@ -206,7 +209,7 @@ class Connection:
         else:
             self._string += struct.pack("!Bi", 0, length + 4)
         self._string += struct.pack("!Biii",
-                                       cmdID, begin, end, len(objID)) + objID.encode("latin1")
+                                    cmdID, begin, end, len(objID)) + objID.encode("latin1")
         self._string += struct.pack("!B", len(varIDs))
         for v in varIDs:
             self._string += struct.pack("!B", v)
@@ -229,7 +232,7 @@ class Connection:
         else:
             self._string += struct.pack("!Bi", 0, length + 4)
         self._string += struct.pack("!Biii",
-                                       cmdID, begin, end, len(objID)) + objID.encode("latin1")
+                                    cmdID, begin, end, len(objID)) + objID.encode("latin1")
         self._string += struct.pack("!BdB", domain, dist, len(varIDs))
         for v in varIDs:
             self._string += struct.pack("!B", v)
@@ -250,7 +253,7 @@ class Connection:
         """
         self._queue.append(tc.CMD_SIMSTEP2)
         self._string += struct.pack("!BBi", 1 +
-                                       1 + 4, tc.CMD_SIMSTEP2, step)
+                                    1 + 4, tc.CMD_SIMSTEP2, step)
         result = self._sendExact()
         for subscriptionResults in self._subscriptionMapping.values():
             subscriptionResults.reset()

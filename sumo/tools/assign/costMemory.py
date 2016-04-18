@@ -84,7 +84,8 @@ class CostMemory(handler.ContentHandler):
             self.current_interval = self.intervals[float(attrs['begin'])]
         if name == 'edge':
             id = attrs['id']
-            if self.cost_attribute.decode('utf-8') in attrs:  # may be missing for some
+            # may be missing for some
+            if self.cost_attribute.decode('utf-8') in attrs:
                 self.num_loaded += 1
                 cost = float(attrs[self.cost_attribute.decode('utf-8')])
                 if id in self.current_interval:
@@ -156,8 +157,8 @@ class CostMemory(handler.ContentHandler):
         if not values:
             values = self.errors
         l = len(list(values))
-        if  l > 0:
-            return (sum(list(values))/l)
+        if l > 0:
+            return (sum(list(values)) / l)
         else:
             return 0
 

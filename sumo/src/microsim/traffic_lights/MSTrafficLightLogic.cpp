@@ -306,7 +306,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
                 redDuration[j] = 0;
             }
         }
-    } 
+    }
     /// XXX penalty for wrap-around red phases is underestimated
     for (int j = 0; j < numLinks; ++j) {
         if (redDuration[j] > 0) {

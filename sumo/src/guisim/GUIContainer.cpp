@@ -110,8 +110,8 @@ GUIContainer::GUIContainerPopupMenu::~GUIContainerPopupMenu() {}
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
     MSContainer(pars, vtype, plan),
-    GUIGlObject(GLO_CONTAINER, pars->id)
-{ }
+    GUIGlObject(GLO_CONTAINER, pars->id) {
+}
 
 
 GUIContainer::~GUIContainer() {

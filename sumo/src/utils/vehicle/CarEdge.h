@@ -46,7 +46,7 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    CarEdge(unsigned int numericalID, const E* edge, const SUMOReal pos=-1.) :
+    CarEdge(unsigned int numericalID, const E* edge, const SUMOReal pos = -1.) :
         _IntermodalEdge(edge->getID() + "_car" + toString(pos), numericalID, edge, "!car"),
         myStartPos(pos >= 0 ? pos : 0.) { }
 

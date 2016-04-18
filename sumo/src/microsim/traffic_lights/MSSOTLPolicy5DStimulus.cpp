@@ -59,21 +59,21 @@ SUMOReal MSSOTLPolicy5DStimulus::computeDesirability(SUMOReal vehInMeasure, SUMO
         return -1;
     } else {
         SUMOReal stimulus = getStimCox()
-                          * exp(
-                              -getStimCoxExpIn()
-                              * pow(vehInMeasure - getStimOffsetIn(), 2)
-                              / getStimDivisorIn()
-                              - getStimCoxExpOut()
-                              * pow(vehOutMeasure - getStimOffsetOut(), 2)
-                              / getStimDivisorOut()
-                              - getStimCoxExpDispersionIn()
-                              * pow(vehInDispersionMeasure - getStimOffsetDispersionIn(), 2)
-                              / getStimDivisorDispersionIn()
-                              - getStimCoxExpDispersionOut()
-                              * pow(vehOutDispersionMeasure - getStimOffsetDispersionOut(), 2)
-                              / getStimDivisorDispersionOut()
+                            * exp(
+                                -getStimCoxExpIn()
+                                * pow(vehInMeasure - getStimOffsetIn(), 2)
+                                / getStimDivisorIn()
+                                - getStimCoxExpOut()
+                                * pow(vehOutMeasure - getStimOffsetOut(), 2)
+                                / getStimDivisorOut()
+                                - getStimCoxExpDispersionIn()
+                                * pow(vehInDispersionMeasure - getStimOffsetDispersionIn(), 2)
+                                / getStimDivisorDispersionIn()
+                                - getStimCoxExpDispersionOut()
+                                * pow(vehOutDispersionMeasure - getStimOffsetDispersionOut(), 2)
+                                / getStimDivisorDispersionOut()
 
-                          );
+                            );
         return stimulus;
     }
 }

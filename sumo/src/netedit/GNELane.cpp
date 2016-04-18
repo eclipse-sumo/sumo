@@ -88,8 +88,8 @@ GNELane::GNELane() :
     myParentEdge(*static_cast<GNEEdge*>(0)),
     myIndex(-1),
     mySpecialColor(0),
-    myTLSEditor(0)
-{ }
+    myTLSEditor(0) {
+}
 
 GNELane::~GNELane() {}
 

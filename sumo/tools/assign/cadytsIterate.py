@@ -40,43 +40,43 @@ def initOptions():
     addGenericOptions(argParser)
 
     argParser.add_argument("-r", "--route-alternatives", dest="routes",
-                         help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
+                           help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
     argParser.add_argument("-d", "--detector-values", dest="detvals",
-                         help="adapt to the flow on the given edges", metavar="FILE")
+                           help="adapt to the flow on the given edges", metavar="FILE")
     argParser.add_argument("-c", "--classpath", dest="classpath",
-                         default=os.path.join(os.path.dirname(
-                             sys.argv[0]), "..", "contributed", "calibration", "cadytsSumoController.jar"),
-                         help="classpath for the calibrator [default: %default]")
+                           default=os.path.join(os.path.dirname(
+                               sys.argv[0]), "..", "contributed", "calibration", "cadytsSumoController.jar"),
+                           help="classpath for the calibrator [default: %default]")
     argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
-                         type=int, default=100, help="last step of the calibration [default: %default]")
+                           type=int, default=100, help="last step of the calibration [default: %default]")
     argParser.add_argument("-S", "--demandscale", dest="demandscale",
-                         type=float, default=2., help="scaled demand [default: %default]")
+                           type=float, default=2., help="scaled demand [default: %default]")
     argParser.add_argument("-F", "--freezeit",  dest="freezeit",
-                         type=int, default=85, help="define the number of iterations for stablizing the results in the DTA-calibration")
+                           type=int, default=85, help="define the number of iterations for stablizing the results in the DTA-calibration")
     argParser.add_argument("-V", "--varscale",  dest="varscale",
-                         type=float, default=1., help="define variance of the measured traffic flows for the DTA-calibration")
+                           type=float, default=1., help="define variance of the measured traffic flows for the DTA-calibration")
     argParser.add_argument("-P", "--PREPITS",  type=int, dest="PREPITS",
-                         default=5, help="number of preparatory iterations")
+                           default=5, help="number of preparatory iterations")
     argParser.add_argument("-W", "--evaluation-prefix", dest="evalprefix",
-                         help="prefix of flow evaluation files; only for the calibration with use of detector data")
+                           help="prefix of flow evaluation files; only for the calibration with use of detector data")
     argParser.add_argument("-Y", "--bruteforce", action="store_true", dest="bruteforce",
-                         default=False, help="fit the traffic counts as accurate as possible")
+                           default=False, help="fit the traffic counts as accurate as possible")
     argParser.add_argument("-Z", "--mincountstddev", type=float, dest="mincountstddev",
-                         default=25., help="minimal traffic count standard deviation")
+                           default=25., help="minimal traffic count standard deviation")
     argParser.add_argument("-O", "--overridett", action="store_true", dest="overridett",
-                         default=False, help="override depart times according to updated link travel times")
+                           default=False, help="override depart times according to updated link travel times")
     argParser.add_argument("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
-                         default=False, help="No summaries are written by the simulation")
+                           default=False, help="No summaries are written by the simulation")
     argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
-                         default=False, help="No tripinfos are written by the simulation")
+                           default=False, help="No tripinfos are written by the simulation")
     argParser.add_argument("-M", "--matrix-prefix", dest="fmaprefix",
-                         help="prefix of OD matrix files in visum format")
+                           help="prefix of OD matrix files in visum format")
     argParser.add_argument("-N", "--clone-postfix", dest="clonepostfix",
-                         default='-CLONE', help="postfix attached to clone ids")
+                           default='-CLONE', help="postfix attached to clone ids")
     argParser.add_argument("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
-                         default=False, help="if entering vehicles are assumed to cross the upstream sensor of their entry link")
+                           default=False, help="if entering vehicles are assumed to cross the upstream sensor of their entry link")
     argParser.add_argument("-K", "--cntlastlink", action="store_false", dest="cntlastlink",
-                         default=True, help="if exiting vehicles are assumed to cross the upstream sensor of their exit link")
+                           default=True, help="if exiting vehicles are assumed to cross the upstream sensor of their exit link")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -151,7 +151,8 @@ def main():
         else:
             call(calibrator + ["UPDATE", "-netfile",
                                "dump_%03i_%s.xml" % (step, options.aggregation)], log)
-        print("< Step %s ended (duration: %s)" % (step, datetime.now() - btime))
+        print("< Step %s ended (duration: %s)" %
+              (step, datetime.now() - btime))
         print("------------------\n")
         log.flush()
 

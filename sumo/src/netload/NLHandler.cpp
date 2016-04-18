@@ -81,8 +81,8 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveSeenInternalEdge(false),
     myLefthand(false),
     myNetworkVersion(0),
-    myNetIsLoaded(false)
-{}
+    myNetIsLoaded(false) {
+}
 
 
 NLHandler::~NLHandler() {}

@@ -271,17 +271,21 @@ class Scenario:
         else:
             i = minIdx
             print("!")
-            print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
+            print("  %s %s %s %s" %
+                  (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
             while i > 0 and rel[i] < REL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
                 program[i] = MORNING
                 i = i - 1
-                print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
+                print("  %s %s %s %s" %
+                      (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
             i = minIdx + 1
-            print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
+            print("  %s %s %s %s" %
+                  (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
             while i < len(rel) and rel[i] < REL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
                 program[i] = MORNING
                 i = i + 1
-                print("  %s %s %s %s" % (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
+                print("  %s %s %s %s" %
+                      (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
 
         print(rel)
         print(program)

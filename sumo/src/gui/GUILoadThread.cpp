@@ -168,8 +168,9 @@ GUILoadThread::run() {
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {
         vehControl = new GUIMEVehicleControl();
-    } else
+    } else {
         vehControl = new GUIVehicleControl();
+    }
 
     GUINet* net = 0;
     int simStartTime = 0;

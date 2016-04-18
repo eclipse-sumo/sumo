@@ -68,7 +68,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
 
 
 MSStateHandler::~MSStateHandler() {
-	delete myCurrentVType;
+    delete myCurrentVType;
 }
 
 
@@ -109,11 +109,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_DELAY: {
-            vc.setState(attrs.getInt(SUMO_ATTR_NUMBER), 
-                    attrs.getInt(SUMO_ATTR_BEGIN),
-                    attrs.getInt(SUMO_ATTR_END),
-                    attrs.getFloat(SUMO_ATTR_DEPART), 
-                    attrs.getFloat(SUMO_ATTR_TIME));
+            vc.setState(attrs.getInt(SUMO_ATTR_NUMBER),
+                        attrs.getInt(SUMO_ATTR_BEGIN),
+                        attrs.getInt(SUMO_ATTR_END),
+                        attrs.getFloat(SUMO_ATTR_DEPART),
+                        attrs.getFloat(SUMO_ATTR_TIME));
             break;
         }
         case SUMO_TAG_ROUTE: {

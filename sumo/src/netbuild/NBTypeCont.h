@@ -239,8 +239,8 @@ private:
             oneWay(true), discard(false),
             width(NBEdge::UNSPECIFIED_WIDTH),
             sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH),
-            bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH)
-        { }
+            bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH) {
+        }
 
         /// @brief Constructor
         TypeDefinition(int _numLanes, SUMOReal _speed, int _priority,
@@ -251,8 +251,8 @@ private:
             permissions(_permissions),
             oneWay(_oneWay), discard(false), width(_width),
             sidewalkWidth(_sideWalkWidth),
-            bikeLaneWidth(_bikeLaneWidth)
-        { }
+            bikeLaneWidth(_bikeLaneWidth) {
+        }
 
         /// @brief The number of lanes of an edge
         int numLanes;

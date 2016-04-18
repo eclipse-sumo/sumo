@@ -272,7 +272,7 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, S
 }
 
 
-SUMOReal 
+SUMOReal
 MSDevice_Routing::getAssumedSpeed(const MSEdge* edge) {
     return edge->getLength() / getEffort(edge, 0, 0);
 }
@@ -398,7 +398,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
     if (myRouterWithProhibited == 0) {
         myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
+            MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
     }
     myRouterWithProhibited->prohibit(prohibited);
     return *myRouterWithProhibited;

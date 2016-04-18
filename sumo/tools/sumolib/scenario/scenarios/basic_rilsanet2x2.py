@@ -67,7 +67,8 @@ class Scenario_BasicRiLSANet2x2(Scenario):
         self.netName = self.fullPath(self.NET_FILE)
         # network
         if fileNeedsRebuild(self.fullPath(self.NET_FILE), "netconvert"):
-            print("Network in '%s' needs to be rebuild" % self.fullPath(self.NET_FILE))
+            print("Network in '%s' needs to be rebuild" %
+                  self.fullPath(self.NET_FILE))
             # , Lane(dirs="l", disallowed="pedestrian")]
             lanes = [Lane(dirs="s", allowed="pedestrian"), Lane(
                 dirs="rs", disallowed="pedestrian")]

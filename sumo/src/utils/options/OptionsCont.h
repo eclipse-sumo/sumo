@@ -269,7 +269,7 @@ public:
      * @param[in] name The option name
      * @param[in] xmlRoot The name of the xml root element to handle
      */
-    void addXMLDefault(const std::string& name, const std::string& xmlRoot="");
+    void addXMLDefault(const std::string& name, const std::string& xmlRoot = "");
 
 
     /** @brief Adds a description for an option

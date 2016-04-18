@@ -31,6 +31,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_VIEW_ZOOM:     Storage.readDouble,
 
 class GuiDomain(Domain):
     DEFAULT_VIEW = 'View #0'
+
     def __init__(self):
         Domain.__init__(self, "gui", tc.CMD_GET_GUI_VARIABLE, tc.CMD_SET_GUI_VARIABLE,
                         tc.CMD_SUBSCRIBE_GUI_VARIABLE, tc.RESPONSE_SUBSCRIBE_GUI_VARIABLE,
@@ -44,14 +45,12 @@ class GuiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VIEW_ZOOM, viewID)
 
-
     def getOffset(self, viewID=DEFAULT_VIEW):
         """getOffset(string): -> (double, double)
 
         Returns the x and y offset of the center of the current view.
         """
         return self._getUniversal(tc.VAR_VIEW_OFFSET, viewID)
-
 
     def getSchema(self, viewID=DEFAULT_VIEW):
         """getSchema(string): -> string
@@ -60,14 +59,12 @@ class GuiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VIEW_SCHEMA, viewID)
 
-
     def getBoundary(self, viewID=DEFAULT_VIEW):
         """getBoundary(string): -> ((double, double), (double, double))
 
         Returns the coordinates of the lower left and the upper right corner of the currently visible view.
         """
         return self._getUniversal(tc.VAR_VIEW_BOUNDARY, viewID)
-
 
     def setZoom(self, viewID, zoom):
         """setZoom(string, double) -> None
@@ -76,7 +73,6 @@ class GuiDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID, zoom)
-
 
     def setOffset(self, viewID, x, y):
         """setOffset(string, double, double) -> None
@@ -88,7 +84,6 @@ class GuiDomain(Domain):
         self._connection._string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
         self._connection._sendExact()
 
-
     def setSchema(self, viewID, schemeName):
         """setSchema(string, string) -> None
 
@@ -96,7 +91,6 @@ class GuiDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_SCHEMA, viewID, schemeName)
-
 
     def setBoundary(self, viewID, xmin, ymin, xmax, ymax):
         """setBoundary(string, double, double, double, double) -> None
@@ -106,9 +100,8 @@ class GuiDomain(Domain):
         self._connection._beginMessage(
             tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1 + 8 + 8 + 8 + 8)
         self._connection._string += struct.pack("!Bdddd",
-                                             tc.TYPE_BOUNDINGBOX, xmin, ymin, xmax, ymax)
+                                                tc.TYPE_BOUNDINGBOX, xmin, ymin, xmax, ymax)
         self._connection._sendExact()
-
 
     def screenshot(self, viewID, filename):
         """screenshot(string, string) -> None
@@ -120,7 +113,6 @@ class GuiDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_GUI_VARIABLE, tc.VAR_SCREENSHOT, viewID, filename)
-
 
     def trackVehicle(self, viewID, vehID):
         """trackVehicle(string, string) -> None

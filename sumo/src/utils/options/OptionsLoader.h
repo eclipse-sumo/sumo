@@ -55,7 +55,7 @@ class OptionsLoader : public XERCES_CPP_NAMESPACE::HandlerBase {
 public:
     /** @brief Constructor
      */
-    OptionsLoader(const bool routeOnly=false);
+    OptionsLoader(const bool routeOnly = false);
 
 
     /** destructor */

@@ -59,8 +59,8 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myVehicleControl(vc),
     myMaxDepartDelay(maxDepartDelay),
     myCheckEdgesOnce(checkEdgesOnce),
-    myMaxVehicleNumber(maxVehicleNumber)
-{}
+    myMaxVehicleNumber(maxVehicleNumber) {
+}
 
 
 MSInsertionControl::~MSInsertionControl() {

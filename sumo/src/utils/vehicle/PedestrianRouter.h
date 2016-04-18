@@ -100,8 +100,8 @@ public:
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
         std::vector<const _IntermodalEdge*> intoPed;
         const bool success = myInternalRouter->compute(myPedNet->getDepartEdge(from),
-                                                       myPedNet->getArrivalEdge(to),
-                                                       &trip, msTime, intoPed);
+                             myPedNet->getArrivalEdge(to),
+                             &trip, msTime, intoPed);
         if (success) {
             for (size_t i = 0; i < intoPed.size(); ++i) {
                 if (intoPed[i]->includeInRoute(allEdges)) {
@@ -162,7 +162,7 @@ private:
 // common specializations
 template<class E, class L, class N, class V>
 class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N, V,
-        DijkstraRouterTT<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
+    DijkstraRouterTT<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
 
 
 #endif

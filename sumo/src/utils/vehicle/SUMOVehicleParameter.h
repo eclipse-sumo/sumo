@@ -256,7 +256,7 @@ public:
      * @param[in] tag The "root" tag to write (defaults to vehicle)
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag=SUMO_TAG_VEHICLE) const;
+    void write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag = SUMO_TAG_VEHICLE) const;
 
 
     /** @brief Returns whether the defaults shall be used

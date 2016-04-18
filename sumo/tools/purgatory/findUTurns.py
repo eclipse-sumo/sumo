@@ -58,7 +58,8 @@ class RouteReader(handler.ContentHandler):
         elif name == 'routes':
             if options.repair:
                 print('<routes>')
-            print("   Route  UTurn UTurnFirst UTurnLast  Short", file=sys.stderr)
+            print(
+                "   Route  UTurn UTurnFirst UTurnLast  Short", file=sys.stderr)
         else:
             if options.repair:
                 print('<' + name, end=' ')
@@ -90,25 +91,26 @@ class RouteReader(handler.ContentHandler):
                         routeEnd -= 1
                 lastEdge = edge
             if self._routeCount % 10000 == 0:
-                print("%8i %6i %10i %9i %6i"\
-                                     % (self._routeCount, self._uTurnCount,
-                                        self._uTurnFirst, self._uTurnLast,
-                                        self._short), "\r", end=' ', file=sys.stderr)
+                print("%8i %6i %10i %9i %6i"
+                      % (self._routeCount, self._uTurnCount,
+                         self._uTurnFirst, self._uTurnLast,
+                         self._short), "\r", end=' ', file=sys.stderr)
             if routeEnd - routeStart > 1:
                 if options.repair:
                     print('<vehicle', end=' ')
                     for key in self._vehAttrs.keys():
                         print('%s="%s"' % (key, self._vehAttrs[key]), end=' ')
                     print('>')
-                    print('   <route edges="%s"/>' % ' '.join(route[routeStart:routeEnd]))
+                    print('   <route edges="%s"/>' %
+                          ' '.join(route[routeStart:routeEnd]))
                     print('</vehicle>')
         elif name == 'routes':
             if options.repair:
                 print('</routes>')
-            print("%8i %6i %10i %9i %6i"\
-                                 % (self._routeCount, self._uTurnCount,
-                                    self._uTurnFirst, self._uTurnLast,
-                                    self._short), file=sys.stderr)
+            print("%8i %6i %10i %9i %6i"
+                  % (self._routeCount, self._uTurnCount,
+                     self._uTurnFirst, self._uTurnLast,
+                     self._short), file=sys.stderr)
 
 optParser = OptionParser(usage="usage: %prog [options] <routefile>+")
 optParser.add_option("-r", "--repair", action="store_true", dest="repair",

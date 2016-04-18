@@ -121,7 +121,8 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
                                        (orig_net.getEdge(e).getSpeed() * options.speed_factor))
                                       for e in edges[:fromIndex]]))
                 else:
-                    print("Could not reconstruct new departure time for vehicle '%s'. Using old departure time." % vehicle.id)
+                    print(
+                        "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." % vehicle.id)
                     newDepart = float(vehicle.depart)
             else:
                 exitTimes = vehicle.route[0].exitTimes.split()
@@ -137,10 +138,12 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
                 for stop in vehicle.stop:
                     if stop.busStop:
                         if not busStopEdges:
-                            print("No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
+                            print(
+                                "No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
                             continue
                         if stop.busStop not in busStopEdges:
-                            print("Skipping bus stop '%s', which could not be located." % stop.busStop)
+                            print(
+                                "Skipping bus stop '%s', which could not be located." % stop.busStop)
                             continue
                         if busStopEdges[stop.busStop] in remaining:
                             stops.append(stop)
@@ -158,10 +161,13 @@ def cut_routes(areaEdges, orig_net, options, busStopEdges=None):
     else:
         teleports = ""
 
-    print("Parsed %s vehicles and kept %s routes%s" % (num_vehicles, num_returned, teleports))
+    print("Parsed %s vehicles and kept %s routes%s" %
+          (num_vehicles, num_returned, teleports))
     if too_short > 0:
-        print("Discarded %s routes because they have less than %s edges" % (too_short, options.min_length))
-    print("Number of disconnected routes: %s. Most frequent missing edges:" % multiAffectedRoutes)
+        print("Discarded %s routes because they have less than %s edges" %
+              (too_short, options.min_length))
+    print("Number of disconnected routes: %s. Most frequent missing edges:" %
+          multiAffectedRoutes)
     printTop(missingEdgeOccurences)
 
 

@@ -132,7 +132,7 @@ AGWorkPosition::take(AGAdult* worker) {
         myStatData->workPositions--;
         myAdult = worker;
     } else {
-        throw(std::runtime_error("Work position already occupied. Cannot give it to another adult."));
+        throw (std::runtime_error("Work position already occupied. Cannot give it to another adult."));
     }
 }
 

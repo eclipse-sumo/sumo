@@ -57,8 +57,8 @@ GUIMEVehicleControl::~GUIMEVehicleControl() {
 
 SUMOVehicle*
 GUIMEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                const MSRoute* route, const MSVehicleType* type,
-                                const bool ignoreStopErrors, const bool fromRouteFile) {
+                                  const MSRoute* route, const MSVehicleType* type,
+                                  const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
     if (fromRouteFile) {
         defs->depart += computeRandomDepartOffset();

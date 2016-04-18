@@ -28,6 +28,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TYPE:  Storage.readString,
 
 
 class PolygonDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "polygon", tc.CMD_GET_POLYGON_VARIABLE, tc.CMD_SET_POLYGON_VARIABLE,
                         tc.CMD_SUBSCRIBE_POLYGON_VARIABLE, tc.RESPONSE_SUBSCRIBE_POLYGON_VARIABLE,
@@ -41,7 +42,6 @@ class PolygonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TYPE, polygonID)
 
-
     def getShape(self, polygonID):
         """getShape(string) -> list((double, double))
 
@@ -49,14 +49,12 @@ class PolygonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SHAPE, polygonID)
 
-
     def getColor(self, polygonID):
         """getColor(string) -> (integer, integer, integer, integer)
 
         Returns the rgba color of this polygon.
         """
         return self._getUniversal(tc.VAR_COLOR, polygonID)
-
 
     def setType(self, polygonID, polygonType):
         """setType(string, string) -> None
@@ -68,19 +66,18 @@ class PolygonDomain(Domain):
         self._connection._packString(polygonType)
         self._connection._sendExact()
 
-
     def setShape(self, polygonID, shape):
         """setShape(string, list((double, double))) -> None
 
         Sets the shape (list of 2D-positions) of this polygon.
         """
         self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE,
-                            tc.VAR_SHAPE, polygonID, 1 + 1 + len(shape) * (8 + 8))
-        self._connection._string += struct.pack("!BB", tc.TYPE_POLYGON, len(shape))
+                                       tc.VAR_SHAPE, polygonID, 1 + 1 + len(shape) * (8 + 8))
+        self._connection._string += struct.pack("!BB",
+                                                tc.TYPE_POLYGON, len(shape))
         for p in shape:
             self._connection._string += struct.pack("!dd", p)
         self._connection._sendExact()
-
 
     def setColor(self, polygonID, color):
         """setColor(string, (integer, integer, integer, integer)) -> None
@@ -93,21 +90,21 @@ class PolygonDomain(Domain):
             color[0]), int(color[1]), int(color[2]), int(color[3]))
         self._connection._sendExact()
 
-
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0):
         self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.ADD, polygonID, 1 + 4 + 1 + 4 +
-                            len(polygonType) + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 1 + len(shape) * (8 + 8))
+                                       len(polygonType) + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 1 + len(shape) * (8 + 8))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(polygonType)
         self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
             color[0]), int(color[1]), int(color[2]), int(color[3]))
-        self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, int(fill))
+        self._connection._string += struct.pack("!BB",
+                                                tc.TYPE_UBYTE, int(fill))
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
-        self._connection._string += struct.pack("!BB", tc.TYPE_POLYGON, len(shape))
+        self._connection._string += struct.pack("!BB",
+                                                tc.TYPE_POLYGON, len(shape))
         for p in shape:
             self._connection._string += struct.pack("!dd", *p)
         self._connection._sendExact()
-
 
     def remove(self, polygonID, layer=0):
         self._connection._beginMessage(

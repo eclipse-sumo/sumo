@@ -95,8 +95,8 @@ GUIChargingStation::GUIChargingStation(const std::string& id, const std::vector<
 }
 
 
-GUIChargingStation::~GUIChargingStation()
-{}
+GUIChargingStation::~GUIChargingStation() {
+}
 
 
 GUIParameterTableWindow*

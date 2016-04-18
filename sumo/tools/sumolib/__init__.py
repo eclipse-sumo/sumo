@@ -221,10 +221,11 @@ def _intTime(tStr):
 def _laneID2edgeID(laneID):
     return laneID[:laneID.rfind("_")]
 
+
 def writeXMLHeader(outf, script):
     outf.write("""<?xml version="1.0"?>
 <!-- generated on %s by %s
   options: %s
 -->
 """ % (datetime.datetime.now(), script,
-            (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
+       (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))

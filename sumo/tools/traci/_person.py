@@ -41,8 +41,8 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             Storage.readStringList,
                       }
 
 
-
 class PersonDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
                         tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
@@ -56,14 +56,12 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SPEED, personID)
 
-
     def getPosition(self, personID):
         """getPosition(string) -> (double, double)
 
         Returns the position of the named person within the last step [m,m].
         """
         return self._getUniversal(tc.VAR_POSITION, personID)
-
 
     def getPosition3D(self, personID):
         """getPosition(string) -> (double, double)
@@ -72,14 +70,12 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_POSITION3D, personID)
 
-
     def getAngle(self, personID):
         """getAngle(string) -> double
 
         Returns the angle in degrees of the named person within the last step. 
         """
         return self._getUniversal(tc.VAR_ANGLE, personID)
-
 
     def getRoadID(self, personID):
         """getRoadID(string) -> string
@@ -88,14 +84,12 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ROAD_ID, personID)
 
-
     def getTypeID(self, personID):
         """getTypeID(string) -> string
 
         Returns the id of the type of the named person.
         """
         return self._getUniversal(tc.VAR_TYPE, personID)
-
 
     def getLanePosition(self, personID):
         """getLanePosition(string) -> double
@@ -104,7 +98,6 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
-
     def getColor(self, personID):
         """getColor(string) -> (integer, integer, integer, integer)
 
@@ -112,14 +105,12 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_COLOR, personID)
 
-
     def getLength(self, personID):
         """getLength(string) -> double
 
         Returns the length in m of the given person.
         """
         return self._getUniversal(tc.VAR_LENGTH, personID)
-
 
     def getWaitingTime(self, personID):
         """getWaitingTime() -> double
@@ -129,7 +120,6 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, personID)
 
-
     def getWidth(self, personID):
         """getWidth(string) -> double
 
@@ -137,14 +127,12 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_WIDTH, personID)
 
-
     def getMinGap(self, personID):
         """getMinGap(string) -> double
 
         Returns the offset (gap to front person if halting) of this person.
         """
         return self._getUniversal(tc.VAR_MINGAP, personID)
-
 
     def getNextEdge(self, personID):
         """getNextEdge() -> string

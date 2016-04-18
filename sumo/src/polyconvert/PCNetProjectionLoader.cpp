@@ -93,8 +93,8 @@ PCNetProjectionLoader::load(const std::string& file, int shift) {
 PCNetProjectionLoader::PCNetProjectionLoader(int shift) :
     SUMOSAXHandler("sumo-network"),
     myFoundLocation(false),
-    myShift(shift)
-{}
+    myShift(shift) {
+}
 
 
 PCNetProjectionLoader::~PCNetProjectionLoader() {}

@@ -137,10 +137,12 @@ def verify(vehroutes, edge):
             entryTime, leaveTime = getTimeOnEdge(
                 fr.edges.split(), fr.exitTimes.split(), edge, float(v.depart))
         if entryTime >= t[1] and entryTime < t[2] and not wasRerouted:
-            print("Vehicle '%s' entering at %s was not rerouted; times (%s, %s, %s, %s)" % (v.id, entryTime, t[0], t[1], t[2]))
+            print("Vehicle '%s' entering at %s was not rerouted; times (%s, %s, %s, %s)" % (
+                v.id, entryTime, t[0], t[1], t[2]))
             sys.exit()
         if wasRerouted and (entryTime < t[1] and entryTime >= t[2]):
-            print("Vehicle '%s' entering at %s was rerouted though the rerouter was off; times (%s, %s, %s)" % (v.id, entryTime, t[0], t[1], t[2]))
+            print("Vehicle '%s' entering at %s was rerouted though the rerouter was off; times (%s, %s, %s)" % (
+                v.id, entryTime, t[0], t[1], t[2]))
 
 
 print(">>> Building the network")
@@ -155,11 +157,13 @@ for r in rerouter:
     for edge in edges:
         print(" Checking at edge '%s'" % (edge[0]))
         for t in times:
-            print("  Checking for simulation begin=%s, rerouter starts at %s, ends at %s" % (t[0], t[1], t[2]))
+            print("  Checking for simulation begin=%s, rerouter starts at %s, ends at %s" % (
+                t[0], t[1], t[2]))
             for multi in [True, False]:
                 print("    Checking with multi-referenced routes: %s" % multi)
                 for emb in [True, False]:
-                    print("     Checking with embedded rerouter definition: %s" % emb)
+                    print(
+                        "     Checking with embedded rerouter definition: %s" % emb)
                     writeRoutes(edge[1], multi)
                     writeRerouter(edge[0], t, r, emb)
 
@@ -174,7 +178,8 @@ for r in rerouter:
 
                     wvn = 10 - int((t[0] + 10) / 20)
                     if len(vehroutes) != wvn:
-                        print("Mismatching number of vehicles (%s instead of %s)" % (len(vehroutes), wvn))
+                        print(
+                            "Mismatching number of vehicles (%s instead of %s)" % (len(vehroutes), wvn))
 
                     verify(vehroutes, edge[0])
                     try:

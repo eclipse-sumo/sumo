@@ -40,6 +40,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH:          Storage.readDouble,
 
 
 class VehicleTypeDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "vehicletype", tc.CMD_GET_VEHICLETYPE_VARIABLE, tc.CMD_SET_VEHICLETYPE_VARIABLE,
                         tc.CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, tc.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE,
@@ -53,14 +54,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LENGTH, typeID)
 
-
     def getMaxSpeed(self, typeID):
         """getMaxSpeed(string) -> double
 
         Returns the maximum speed in m/s of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_MAXSPEED, typeID)
-
 
     def getSpeedFactor(self, typeID):
         """getSpeedFactor(string) -> double
@@ -69,14 +68,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SPEED_FACTOR, typeID)
 
-
     def getSpeedDeviation(self, typeID):
         """getSpeedDeviation(string) -> double
 
         Returns the maximum speed deviation of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_SPEED_DEVIATION, typeID)
-
 
     def getAccel(self, typeID):
         """getAccel(string) -> double
@@ -85,14 +82,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ACCEL, typeID)
 
-
     def getDecel(self, typeID):
         """getDecel(string) -> double
 
         Returns the maximum deceleration in m/s^2 of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_DECEL, typeID)
-
 
     def getImperfection(self, typeID):
         """getImperfection(string) -> double
@@ -101,14 +96,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_IMPERFECTION, typeID)
 
-
     def getTau(self, typeID):
         """getTau(string) -> double
 
         Returns the driver's reaction time in s for vehicles of this type.
         """
         return self._getUniversal(tc.VAR_TAU, typeID)
-
 
     def getVehicleClass(self, typeID):
         """getVehicleClass(string) -> string
@@ -117,14 +110,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VEHICLECLASS, typeID)
 
-
     def getEmissionClass(self, typeID):
         """getEmissionClass(string) -> string
 
         Returns the emission class of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_EMISSIONCLASS, typeID)
-
 
     def getShapeClass(self, typeID):
         """getShapeClass(string) -> string
@@ -133,14 +124,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SHAPECLASS, typeID)
 
-
     def getMinGap(self, typeID):
         """getMinGap(string) -> double
 
         Returns the offset (gap to front vehicle if halting) of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_MINGAP, typeID)
-
 
     def getWidth(self, typeID):
         """getWidth(string) -> double
@@ -149,14 +138,12 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_WIDTH, typeID)
 
-
     def getColor(self, typeID):
         """getColor(string) -> (integer, integer, integer, integer)
 
         Returns the color of this type.
         """
         return self._getUniversal(tc.VAR_COLOR, typeID)
-
 
     def setLength(self, typeID, length):
         """setLength(string, double) -> None
@@ -166,7 +153,6 @@ class VehicleTypeDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LENGTH, typeID, length)
 
-
     def setMaxSpeed(self, typeID, speed):
         """setMaxSpeed(string, double) -> None
 
@@ -174,7 +160,6 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MAXSPEED, typeID, speed)
-
 
     def setVehicleClass(self, typeID, clazz):
         """setVehicleClass(string, string) -> None
@@ -184,7 +169,6 @@ class VehicleTypeDomain(Domain):
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_VEHICLECLASS, typeID, clazz)
 
-
     def setSpeedFactor(self, typeID, factor):
         """setSpeedFactor(string, double) -> None
 
@@ -192,7 +176,6 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_FACTOR, typeID, factor)
-
 
     def setSpeedDeviation(self, typeID, deviation):
         """setSpeedDeviation(string, double) -> None
@@ -202,7 +185,6 @@ class VehicleTypeDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_DEVIATION, typeID, deviation)
 
-
     def setEmissionClass(self, typeID, clazz):
         """setEmissionClass(string, string) -> None
 
@@ -210,7 +192,6 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_EMISSIONCLASS, typeID, clazz)
-
 
     def setWidth(self, typeID, width):
         """setWidth(string, double) -> None
@@ -220,7 +201,6 @@ class VehicleTypeDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_WIDTH, typeID, width)
 
-
     def setMinGap(self, typeID, minGap):
         """setMinGap(string, double) -> None
 
@@ -228,7 +208,6 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MINGAP, typeID, minGap)
-
 
     def setShapeClass(self, typeID, clazz):
         """setShapeClass(string, string) -> None
@@ -238,7 +217,6 @@ class VehicleTypeDomain(Domain):
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SHAPECLASS, typeID, clazz)
 
-
     def setAccel(self, typeID, accel):
         """setAccel(string, double) -> None
 
@@ -246,7 +224,6 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_ACCEL, typeID, accel)
-
 
     def setDecel(self, typeID, decel):
         """setDecel(string, double) -> None
@@ -256,7 +233,6 @@ class VehicleTypeDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_DECEL, typeID, decel)
 
-
     def setImperfection(self, typeID, imperfection):
         """setImperfection(string, double) -> None
 
@@ -265,7 +241,6 @@ class VehicleTypeDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_IMPERFECTION, typeID, imperfection)
 
-
     def setTau(self, typeID, tau):
         """setTau(string, double) -> None
 
@@ -273,7 +248,6 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_TAU, typeID, tau)
-
 
     def setColor(self, typeID, color):
         """setColor(string, (integer, integer, integer, integer)) -> None

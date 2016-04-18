@@ -211,8 +211,8 @@ NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
     myGeoms(geoms),
     myStreetNames(streetNames),
     myVersion(0),
-    myFile(file)
-{ }
+    myFile(file) {
+}
 
 
 NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() {}

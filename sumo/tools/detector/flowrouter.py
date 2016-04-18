@@ -174,7 +174,8 @@ class Net:
     def trimNet(self):
         if options.minspeed > 0.0:
             if options.verbose:
-                print("Removing edges with maxspeed < %s," % options.minspeed, end=' ')
+                print("Removing edges with maxspeed < %s," %
+                      options.minspeed, end=' ')
             # The code in the following loop assumes there are still all
             # auxiliary junction edges present.
             for edgeObj in self._edges.values():
@@ -242,7 +243,8 @@ class Net:
                         unlimitedSink += 1
             print(len(self._source.outEdges), "sources,", end=' ')
             print(unlimitedSource, "unlimited")
-            print(len(self._sink.inEdges), "sinks,", unlimitedSink, "unlimited")
+            print(len(self._sink.inEdges), "sinks,",
+                  unlimitedSink, "unlimited")
 
     def splitRoutes(self, stubs, currEdge):
         newStubs = []
@@ -454,11 +456,12 @@ class Net:
             cap = str(edge.startCapacity)
             if edge.startCapacity == sys.maxsize:
                 cap = "inf"
-            print('    <poi id="' + label + \
-                '_f' + flow + 'c' + cap + suffix + '"', end=' ', file=poiOut)
-            print('color = "' + color + '" lane="' + label + '_0"', end=' ', file=poiOut)
-            print(' pos="' + \
-                str(random.random() * edge.length) + '"/>', file=poiOut)
+            print('    <poi id="' + label +
+                  '_f' + flow + 'c' + cap + suffix + '"', end=' ', file=poiOut)
+            print('color = "' + color + '" lane="' +
+                  label + '_0"', end=' ', file=poiOut)
+            print(' pos="' +
+                  str(random.random() * edge.length) + '"/>', file=poiOut)
 
 
 # The class for parsing the XML and CSV input files. The data parsed is

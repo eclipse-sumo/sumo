@@ -239,7 +239,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
         if (i->begin <= time && i->end > time) {
             if (
                 // destProbReroute
-                i->edgeProbs.getOverallProb() > 0 || 
+                i->edgeProbs.getOverallProb() > 0 ||
                 // routeProbReroute
                 i->routeProbs.getOverallProb() > 0 ||
                 // affected by closingReroute
@@ -267,14 +267,14 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 
 bool
 MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
-                              SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) {
+                                SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) {
     return notifyEnter(veh, NOTIFICATION_JUNCTION);
 }
 
 
 bool
 MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/,
-                               MSMoveReminder::Notification reason) {
+                                 MSMoveReminder::Notification reason) {
     return reason == NOTIFICATION_LANE_CHANGE;
 }
 
@@ -332,11 +332,11 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
         const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != 0;
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice 
-            ? MSDevice_Routing::getRouterTT(rerouteDef->closed)
-            : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
+                ? MSDevice_Routing::getRouterTT(rerouteDef->closed)
+                : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
         router.compute(
-                veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+            veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
         const bool useNewRoute = veh.replaceRouteEdges(edges);
         if (useNewRoute && newArrivalPos != -1) {
             // must be called here because replaceRouteEdges may also set the arrivalPos

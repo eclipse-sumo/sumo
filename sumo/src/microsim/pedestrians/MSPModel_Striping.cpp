@@ -775,11 +775,11 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 // MSPModel_Striping::Obstacle method definitions
 // ===========================================================================
 MSPModel_Striping::Obstacle::Obstacle(int dir) :
-    xFwd(dir* DIST_FAR_AWAY),   // far away when seen in dir
-    xBack(dir* DIST_FAR_AWAY),   // far away when seen in dir
+    xFwd(dir * DIST_FAR_AWAY),  // far away when seen in dir
+    xBack(dir * DIST_FAR_AWAY),  // far away when seen in dir
     speed(0),
-    description("")
-{}
+    description("") {
+}
 
 
 MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
@@ -1164,8 +1164,8 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
         yDist = (chosen * stripeWidth) - myRelY;
         if (fabs(yDist) > NUMERICAL_EPS) {
             ySpeed = (yDist > 0 ?
-                    MIN2(maxYSpeed, DIST2SPEED(yDist)) :
-                    MAX2(-maxYSpeed, DIST2SPEED(yDist)));
+                      MIN2(maxYSpeed, DIST2SPEED(yDist)) :
+                      MAX2(-maxYSpeed, DIST2SPEED(yDist)));
         }
     }
     // DEBUG

@@ -79,8 +79,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
       myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
       myHaveReportedAboutTypeOverride(false),
       myHaveWarnedAboutDeprecatedLaneId(false),
-      myKeepEdgeShape(!options.getBool("plain.extend-edge-shape"))
-{}
+      myKeepEdgeShape(!options.getBool("plain.extend-edge-shape")) {
+}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() {}

@@ -45,7 +45,7 @@ namespace FXEX {
  * Seven-segment (eg LCD/watch style) widget
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-        FXSevenSegment : public FXFrame {
+    FXSevenSegment : public FXFrame {
     FXDECLARE(FXSevenSegment)
 
 private:

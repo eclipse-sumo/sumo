@@ -111,8 +111,8 @@ public:
             edge(e),
             traveltime(std::numeric_limits<SUMOReal>::max()),
             prev(0),
-            visited(false)
-        {}
+            visited(false) {
+        }
 
         /// The current edge
         const E* edge;
@@ -475,8 +475,8 @@ public:
             level(0),
             underlyingTotal(0),
             visited(false),
-            traveltime(std::numeric_limits<SUMOReal>::max())
-        {}
+            traveltime(std::numeric_limits<SUMOReal>::max()) {
+        }
 
         /// @brief recompute the contraction priority and report whether it changed
         bool updatePriority(SPTree<CHInfo, CHConnection>* spTree) {

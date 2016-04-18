@@ -402,8 +402,10 @@ for d in nmap1to2:
         runningInLaneNumber = 0
         for n2 in nmap1to2[d]:
             [ni, no] = connectedNodesConnections[n2]
-            print("In: " + ni._id + " " + str(len(ni._incoming)) + " " + str(len(ni._outgoing)))
-            print("Out: " + no._id + " " + str(len(no._incoming)) + " " + str(len(no._outgoing)))
+            print("In: " + ni._id + " " + str(len(ni._incoming)) +
+                  " " + str(len(ni._outgoing)))
+            print("Out: " + no._id + " " + str(len(no._incoming)) +
+                  " " + str(len(no._outgoing)))
             if len(no._incoming) > 0:
                 incomingLaneNo = 0
                 for e in n2._incoming:

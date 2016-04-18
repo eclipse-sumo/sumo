@@ -43,7 +43,7 @@
 MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
                                        SUMOReal dawdle, SUMOReal headwayTime, SUMOReal tauLast, SUMOReal apProb)
     : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle),
-      myTauDecel(decel* headwayTime), myDecelDivTau(decel / headwayTime), myTauLastDecel(decel* tauLast),
+      myTauDecel(decel * headwayTime), myDecelDivTau(decel / headwayTime), myTauLastDecel(decel * tauLast),
       myActionPointProbability(apProb) {
 }
 

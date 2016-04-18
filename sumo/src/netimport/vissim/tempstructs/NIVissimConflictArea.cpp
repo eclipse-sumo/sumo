@@ -57,8 +57,8 @@ NIVissimConflictArea::NIVissimConflictArea(int id,
         const std::string& link1,
         const std::string& link2,
         const std::string& status)
-    : myConflictID(id), myFirstLink(link1), mySecondLink(link2), myStatus(status)
-{}
+    : myConflictID(id), myFirstLink(link1), mySecondLink(link2), myStatus(status) {
+}
 
 
 NIVissimConflictArea::~NIVissimConflictArea() {}

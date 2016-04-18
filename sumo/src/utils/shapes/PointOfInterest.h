@@ -71,8 +71,8 @@ public:
         Shape(id, type, color, layer, angle, imgFile),
         Position(pos),
         myHalfImgWidth(width / 2.0),
-        myHalfImgHeight(height / 2.0)
-    {}
+        myHalfImgHeight(height / 2.0) {
+    }
 
 
     /// @brief Destructor

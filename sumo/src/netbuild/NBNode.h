@@ -131,8 +131,8 @@ public:
      */
     struct Crossing {
         Crossing(const NBNode* _node, const EdgeVector& _edges, SUMOReal _width, bool _priority) :
-            node(_node), edges(_edges), width(_width), priority(_priority), tlLinkNo(-1)
-        {}
+            node(_node), edges(_edges), width(_width), priority(_priority), tlLinkNo(-1) {
+        }
         /// @brief The parent node of this crossing
         const NBNode* node;
         /// @brief The edges being crossed
@@ -161,8 +161,8 @@ public:
         WalkingArea(const std::string& _id, SUMOReal _width) :
             id(_id),
             width(_width),
-            nextCrossing("")
-        {}
+            nextCrossing("") {
+        }
         /// @brief the (edge)-id of this walkingArea
         std::string id;
         /// @brief This lane's width

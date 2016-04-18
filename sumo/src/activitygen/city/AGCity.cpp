@@ -412,13 +412,13 @@ AGCity::getStreet(const std::string& edge) {
         ++it;
     }
     std::cout << "===> ERROR: WRONG STREET EDGE (" << edge << ") given and not found in street set." << std::endl;
-    throw(std::runtime_error("Street not found with edge id " + edge));
+    throw (std::runtime_error("Street not found with edge id " + edge));
 }
 
 const AGStreet&
 AGCity::getRandomStreet() {
     if (streets.empty()) {
-        throw(std::runtime_error("No street found in this city"));
+        throw (std::runtime_error("No street found in this city"));
     }
     return *streets[RandHelper::rand(streets.size())];
 }

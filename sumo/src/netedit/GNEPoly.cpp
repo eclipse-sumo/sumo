@@ -77,8 +77,8 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEAttributeCarrier(SUMO_TAG_POLY),
     myNet(net),
-    myJunction(junction)
-{}
+    myJunction(junction) {
+}
 
 
 GNEPoly::~GNEPoly() { }

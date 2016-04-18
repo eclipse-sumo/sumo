@@ -62,11 +62,13 @@ print("vehIds", traci.edge.getLastStepVehicleIDs(edgeID))
 print("personIds", traci.edge.getLastStepPersonIDs(edgeID))
 print("waiting time", traci.edge.getWaitingTime(edgeID))
 # testing unicode
-print("checking occupancy with unicode id", traci.edge.getLastStepOccupancy(str(edgeID)))
+print("checking occupancy with unicode id",
+      traci.edge.getLastStepOccupancy(str(edgeID)))
 
 traci.edge.adaptTraveltime(edgeID, 42.)
 print("traveltime after adaption", traci.edge.getTraveltime(edgeID))
-print("adaptedTraveltime after adaption", traci.edge.getAdaptedTraveltime(edgeID, 0))
+print("adaptedTraveltime after adaption",
+      traci.edge.getAdaptedTraveltime(edgeID, 0))
 traci.edge.setEffort(edgeID, 1234.)
 print("effort after adaption", traci.edge.getEffort(edgeID, 0))
 traci.edge.setMaxSpeed(edgeID, 23.)

@@ -1393,7 +1393,7 @@ NBEdge::computeAngle() {
                             (myLaneSpreadFunction == LANESPREAD_RIGHT ?
                              myLanes[getNumLanes() - 1].shape
                              : myLanes[getNumLanes() / 2].shape)
-                                : myGeom);
+                            : myGeom);
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
     if ((hasFromShape && (myFrom->getShape().distance(shape[0]) > 2 * POSITION_EPS
@@ -1594,7 +1594,7 @@ NBEdge::recheckLanes() {
                     }
                 }
             } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
-                    && isTurningDirectionAt(c.toEdge))  {
+                       && isTurningDirectionAt(c.toEdge))  {
                 // do not allow sharp rail turns
                 i = myConnections.erase(i);
             } else {
@@ -2556,7 +2556,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
 }
 
 
-SUMOReal 
+SUMOReal
 NBEdge::getFinalLength() const {
     SUMOReal result = getLoadedLength();
     if (OptionsCont::getOptions().getBool("no-internal-links") && !hasLoadedLength()) {

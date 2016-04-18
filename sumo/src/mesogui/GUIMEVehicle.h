@@ -68,7 +68,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-               const MSVehicleType* type, const SUMOReal speedFactor);
+                 const MSVehicleType* type, const SUMOReal speedFactor);
 
 
     /// @brief destructor
@@ -126,13 +126,13 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /** @brief Returns an own type parameter window 
+    /** @brief Returns an own type parameter window
      *
      * @param[in] app The application needed to build the parameter window
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent); 
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 
     /// @brief set position and angle for drawing

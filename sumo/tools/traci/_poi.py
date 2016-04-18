@@ -31,6 +31,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:      Storage.readStringList,
 
 
 class PoiDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "poi", tc.CMD_GET_POI_VARIABLE, tc.CMD_SET_POI_VARIABLE,
                         tc.CMD_SUBSCRIBE_POI_VARIABLE, tc.RESPONSE_SUBSCRIBE_POI_VARIABLE,
@@ -44,7 +45,6 @@ class PoiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TYPE, poiID)
 
-
     def getPosition(self, poiID):
         """getPosition(string) -> (double, double)
 
@@ -52,14 +52,12 @@ class PoiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_POSITION, poiID)
 
-
     def getColor(self, poiID):
         """getColor(string) -> (integer, integer, integer, integer)
 
         Returns the rgba color of the given poi.
         """
         return self._getUniversal(tc.VAR_COLOR, poiID)
-
 
     def setType(self, poiID, poiType):
         """setType(string, string) -> None
@@ -71,7 +69,6 @@ class PoiDomain(Domain):
         self._connection._packString(poiType)
         self._connection._sendExact()
 
-
     def setPosition(self, poiID, x, y):
         """setPosition(string, (double, double)) -> None
 
@@ -81,7 +78,6 @@ class PoiDomain(Domain):
             tc.CMD_SET_POI_VARIABLE, tc.VAR_POSITION, poiID, 1 + 8 + 8)
         self._connection._string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
         self._connection._sendExact()
-
 
     def setColor(self, poiID, color):
         """setColor(string, (integer, integer, integer, integer)) -> None
@@ -94,10 +90,9 @@ class PoiDomain(Domain):
             color[0]), int(color[1]), int(color[2]), int(color[3]))
         self._connection._sendExact()
 
-
     def add(self, poiID, x, y, color, poiType="", layer=0):
         self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1 +
-                            4 + 1 + 4 + len(poiType) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8)
+                                       4 + 1 + 4 + len(poiType) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
         self._connection._packString(poiType)
         self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
@@ -106,9 +101,9 @@ class PoiDomain(Domain):
         self._connection._string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
         self._connection._sendExact()
 
-
     def remove(self, poiID, layer=0):
-        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.REMOVE, poiID, 1 + 4)
+        self._connection._beginMessage(
+            tc.CMD_SET_POI_VARIABLE, tc.REMOVE, poiID, 1 + 4)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
         self._connection._sendExact()
 

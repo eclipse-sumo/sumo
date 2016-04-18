@@ -35,4 +35,4 @@ def fcd2gpsdat(inpFCD, outSTRM, further):
                 date + datetime.timedelta(seconds=int(float(timestep.time))))
             for v in timestep.vehicle:
                 print('%s\t%s\t%s\t%s\t%s\t%.3f' % (v.id, mtime, v.x, v.y,
-                      TAXI_STATUS_FREE_FLOW, float(v.speed) * 3.6), file=outSTRM)
+                                                    TAXI_STATUS_FREE_FLOW, float(v.speed) * 3.6), file=outSTRM)

@@ -26,7 +26,7 @@ import sys
 import os
 import codecs
 try:
-    from StringIO  import StringIO
+    from StringIO import StringIO
 except ImportError:
     from io import StringIO
 from xml.dom import pulldom
@@ -185,7 +185,7 @@ class AttributeStore:
                     children.writeDeleted(child_strings)
                     children.writeCreated(child_strings)
                     children.writeChanged(child_strings)
-                    
+
                     if len(child_strings.getvalue()) > 0 or tag in self.copy_tags:
                         # there are some changes. Go back and store everything
                         children = AttributeStore(
@@ -270,18 +270,20 @@ class AttributeStore:
         # have the same list of attributes and values
         for value_set in self.idless_deleted.values():
             self.write_idless(file, value_set, DELETE_ELEMENT)
-        
+
     def writeCreated(self, file):
         self.write_tagids(file, self.ids_created, True)
         for tag, value_set in self.idless_created.items():
             self.write_idless(file, value_set, tag)
 
     def writeChanged(self, file):
-        tagids_changed = self.ids_copied - (self.ids_deleted | self.ids_created)
+        tagids_changed = self.ids_copied - \
+            (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_changed, False)
 
     def writeCopies(self, file, copy_tags):
-        tagids_unchanged = self.ids_copied - (self.ids_deleted | self.ids_created)
+        tagids_unchanged = self.ids_copied - \
+            (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_unchanged, False)
         for tag, value_set in self.idless_copied.items():
             self.write_idless(file, value_set, tag)
@@ -302,7 +304,7 @@ class AttributeStore:
                 children.writeCreated(child_strings)
                 children.writeChanged(child_strings)
 
-            if len(attrs) > 0 or len(child_strings.getvalue())> 0 or create or tag in self.copy_tags:
+            if len(attrs) > 0 or len(child_strings.getvalue()) > 0 or create or tag in self.copy_tags:
                 close_tag = "/>\n"
                 if len(child_strings.getvalue()) > 0:
                     close_tag = ">\n%s" % child_strings.getvalue()
@@ -372,9 +374,11 @@ def xmldiff(source, dest, diff, type, copy_tags):
         print("Skipping %s due to lack of input files" % diff)
     else:
         if not have_source:
-            print("Source file %s is missing. Assuming all elements are created" % source)
+            print(
+                "Source file %s is missing. Assuming all elements are created" % source)
         elif not have_dest:
-            print("Dest file %s is missing. Assuming all elements are deleted" % dest)
+            print(
+                "Dest file %s is missing. Assuming all elements are deleted" % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
             diff_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')

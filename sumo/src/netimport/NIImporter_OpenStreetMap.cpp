@@ -560,8 +560,8 @@ NIImporter_OpenStreetMap::NodesHandler::NodesHandler(
     myIsInValidNodeTag(false),
     myHierarchyLevel(0),
     myUniqueNodes(uniqueNodes),
-    myImportElevation(importElevation)
-{ }
+    myImportElevation(importElevation) {
+}
 
 
 NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() {}

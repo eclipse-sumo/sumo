@@ -137,7 +137,8 @@ def doTTestForAvg(verbose, tValueAvg, assignments):
                         A.avgWaitTime - B.avgWaitTime) / sdABWaitTime * tempvalue
                 else:
                     avgwaittime = 0.
-                    print('check if the information about veh.waittime exists!')
+                    print(
+                        'check if the information about veh.waittime exists!')
                 freedomdegree = A.totalVeh + B.totalVeh - 2
                 if freedomdegree > 30 and freedomdegree <= 40:
                     freedomdegree = 31

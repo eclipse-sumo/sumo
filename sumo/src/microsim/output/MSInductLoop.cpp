@@ -82,7 +82,7 @@ MSInductLoop::reset() {
 }
 
 
-bool 
+bool
 MSInductLoop::notifyEnter(SUMOVehicle& veh, Notification reason) {
     if (reason == NOTIFICATION_DEPARTED ||
             reason == NOTIFICATION_TELEPORT ||

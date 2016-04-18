@@ -77,7 +77,7 @@ public:
      *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
      */
     virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
-                                       SUMOReal vehOutMeasure);
+                                         SUMOReal vehOutMeasure);
 
     virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
 };

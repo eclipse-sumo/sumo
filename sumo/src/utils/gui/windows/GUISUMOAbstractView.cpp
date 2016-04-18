@@ -114,19 +114,19 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p,
         FXGLVisual* glVis, FXGLCanvas* share)
     : FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
                  LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
-    myApp(&app),
-    myParent(parent),
-    myGrid(&((SUMORTree&)grid)),
-    myChanger(0),
-    myMouseHotspotX(app.getDefaultCursor()->getHotX()),
-    myMouseHotspotY(app.getDefaultCursor()->getHotY()),
-    myPopup(0),
-    myUseToolTips(false),
-    myAmInitialised(false),
-    myViewportChooser(0),
-    myWindowCursorPositionX(getWidth() / 2),
-    myWindowCursorPositionY(getHeight() / 2),
-    myVisualizationChanger(0) {
+      myApp(&app),
+      myParent(parent),
+      myGrid(&((SUMORTree&)grid)),
+      myChanger(0),
+      myMouseHotspotX(app.getDefaultCursor()->getHotX()),
+      myMouseHotspotY(app.getDefaultCursor()->getHotY()),
+      myPopup(0),
+      myUseToolTips(false),
+      myAmInitialised(false),
+      myViewportChooser(0),
+      myWindowCursorPositionX(getWidth() / 2),
+      myWindowCursorPositionY(getHeight() / 2),
+      myVisualizationChanger(0) {
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
@@ -870,9 +870,9 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
                 }
             } else
 #endif
-            if (!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {
-                errorMessage = "Could not save '" + destFile + "'.";
-            }
+                if (!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {
+                    errorMessage = "Could not save '" + destFile + "'.";
+                }
         } catch (InvalidArgument& e) {
             errorMessage = "Could not save '" + destFile + "'.\n" + e.what();
         }

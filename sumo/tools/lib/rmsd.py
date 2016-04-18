@@ -37,7 +37,7 @@ def superpose(nodes1, nodes2, select1, select2):
 
     is_reflection = (det(V) * det(W_trans)) < 0.0
     if is_reflection:
-        V[-1, :] = V[-1,:] * (-1.0)
+        V[-1, :] = V[-1, :] * (-1.0)
 
     optimal_rotation = dot(V, W_trans)
     return dot(array(nodes2) - center2, optimal_rotation) + center1

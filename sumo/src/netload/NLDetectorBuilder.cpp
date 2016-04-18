@@ -94,7 +94,7 @@ NLDetectorBuilder::NLDetectorBuilder(MSNet& net)
 
 
 NLDetectorBuilder::~NLDetectorBuilder() {
-	delete myE3Definition;
+    delete myE3Definition;
 }
 
 

@@ -69,7 +69,8 @@ def writeRouteConf(step, options, file, output):
         <gBeta value="%s"/>
         <gA value="%s"/>
     </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA), file=fd)
-    print('    <random_number><abs-rand value="%s"/></random_number>' % options.absrand, file=fd)
+    print('    <random_number><abs-rand value="%s"/></random_number>' %
+          options.absrand, file=fd)
     print('    <time><begin value="%s"/>' % options.begin, end=' ', file=fd)
     if options.end:
         print('<end value="%s"/>' % options.end, end=' ', file=fd)

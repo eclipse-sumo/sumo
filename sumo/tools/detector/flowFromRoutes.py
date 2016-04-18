@@ -83,7 +83,8 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                             sumSquaredPercent += dev * dev / dFlow / dFlow
                         n += 1
         print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE')
-        print('#', rSum / n, dSum / n, sumAbsDev / n, math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
+        print('#', rSum / n, dSum / n, sumAbsDev / n,
+              math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
 
     def printFlows(self, includeDets):
         if includeDets:

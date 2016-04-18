@@ -54,7 +54,8 @@ def pair2str(p, full=True):
 
 
 def logAddedPair(TLSP, sets, operation):
-    print("added pair %s,%s with operation %s" % (TLSP.otl.getID(), TLSP.tl.getID(), operation))
+    print("added pair %s,%s with operation %s" %
+          (TLSP.otl.getID(), TLSP.tl.getID(), operation))
     for s in sets:
         print("    " + "   ".join([pair2str(p, False) for p in s]))
 

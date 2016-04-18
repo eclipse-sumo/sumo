@@ -177,9 +177,9 @@ NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont& nc, NBEdgeCont& 
         NBCapacity2Lanes capacity2Lanes)
     : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
                         matsimAttrs, MATSIM_ATTR_NOTHING, "matsim - file"),
-    myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
-    myKeepEdgeLengths(keepEdgeLengths), myLanesFromCapacity(lanesFromCapacity),
-    myCapacity2Lanes(capacity2Lanes) {
+      myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
+      myKeepEdgeLengths(keepEdgeLengths), myLanesFromCapacity(lanesFromCapacity),
+      myCapacity2Lanes(capacity2Lanes) {
 }
 
 

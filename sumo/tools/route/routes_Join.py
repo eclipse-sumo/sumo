@@ -132,7 +132,8 @@ def writeVehicle(fdo, route, conts1, conts2, replacements):
 
 
 if len(sys.argv) < 6:
-    print("Usage: " + sys.argv[0] + " <prefix#1> <routes#1> <prefix#2> <routes#2> <mapfile>")
+    print("Usage: " +
+          sys.argv[0] + " <prefix#1> <routes#1> <prefix#2> <routes#2> <mapfile>")
     sys.exit()
 # read mapping
 mmap = {}

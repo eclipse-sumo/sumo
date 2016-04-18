@@ -113,8 +113,8 @@ public:
             arrivalTimeBraking(_arrivalTimeBraking),
             arrivalSpeedBraking(_arrivalSpeedBraking),
             waitingTime(_waitingTime),
-            dist(_dist)
-        {}
+            dist(_dist) {
+        }
 
         /// @brief The time the vehicle's front arrives at the link
         const SUMOTime arrivalTime;

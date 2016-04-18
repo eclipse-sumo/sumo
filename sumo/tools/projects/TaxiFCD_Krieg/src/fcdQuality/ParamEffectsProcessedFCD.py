@@ -77,7 +77,8 @@ def main():
         path.FQvehPickle, path.FQvtypePickle, getVehicleList, False, vtypeDict)
     vehSum = len(vehList)
     if mode == U_FCD:
-        print("load source: ", os.path.basename(path.FQprocessedFCD), "...", end=' ')
+        print("load source: ", os.path.basename(
+            path.FQprocessedFCD), "...", end=' ')
         procFcdDict = readProcessedFCD()
         print("Done!")
 

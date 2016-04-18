@@ -92,7 +92,8 @@ def check(vehID):
     print("width", traci.vehicle.getWidth(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
-    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
+    print(
+        "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
 
 
 def checkOffRoad(vehID):
@@ -195,10 +196,12 @@ print("vehicles", traci.vehicle.getIDList())
 routeTestVeh = "routeTest"
 traci.vehicle.add(routeTestVeh, "horizontal")
 print("step", step())
-print("vehicle '%s' routeID=%s" % (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh)))
+print("vehicle '%s' routeID=%s" %
+      (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh)))
 traci.vehicle.setRouteID(routeTestVeh, "withStop")
 print("step", step())
-print("vehicle '%s' routeID=%s" % (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh)))
+print("vehicle '%s' routeID=%s" %
+      (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh)))
 for i in range(14):
     print("step", step())
     print("vehicle '%s' lane=%s lanePos=%s stopped=%s" % (routeTestVeh,

@@ -24,7 +24,9 @@ from .storage import Storage
 
 _RETURN_VALUE_FUNC = {tc.VAR_EDGES: Storage.readStringList}
 
+
 class RouteDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "route", tc.CMD_GET_ROUTE_VARIABLE, tc.CMD_SET_ROUTE_VARIABLE,
                         tc.CMD_SUBSCRIBE_ROUTE_VARIABLE, tc.RESPONSE_SUBSCRIBE_ROUTE_VARIABLE,
@@ -38,14 +40,13 @@ class RouteDomain(Domain):
         """
         return self._getUniversal(tc.VAR_EDGES, routeID)
 
-
     def add(self, routeID, edges):
         """add(string, list(string)) -> None
 
         Adds a new route with the given id consisting of the given list of edge IDs.
         """
         self._connection._beginMessage(tc.CMD_SET_ROUTE_VARIABLE, tc.ADD, routeID,
-                            1 + 4 + sum(map(len, edges)) + 4 * len(edges))
+                                       1 + 4 + sum(map(len, edges)) + 4 * len(edges))
         self._connection._packStringList(edges)
         self._connection._sendExact()
 

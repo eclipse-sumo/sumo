@@ -80,7 +80,7 @@ void
 GUITriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id, const std::vector<std::string>& lines,
                                       MSLane* lane, SUMOReal frompos, SUMOReal topos, const SumoXMLTag element) {
     bool success = false;
-    GUIGlObject* o = 0; 
+    GUIGlObject* o = 0;
     if (element == SUMO_TAG_CONTAINER_STOP) {
         GUIContainerStop* stop = new GUIContainerStop(id, lines, *lane, frompos, topos);
         success = net.addContainerStop(stop);

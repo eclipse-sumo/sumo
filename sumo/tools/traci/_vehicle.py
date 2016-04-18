@@ -28,6 +28,7 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 
+
 def _readBestLanes(result):
     result.read("!iB")
     nbLanes = result.read("!i")[0]  # Length
@@ -102,7 +103,6 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_DISTANCE:        Storage.readDouble}
 
 
-
 class VehicleDomain(Domain):
 
     DEPART_TRIGGERED = -1
@@ -132,14 +132,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SPEED, vehID)
 
-
     def getSpeedWithoutTraCI(self, vehID):
         """getSpeedWithoutTraCI(string) -> double
 
         .
         """
         return self._getUniversal(tc.VAR_SPEED_WITHOUT_TRACI, vehID)
-
 
     def getPosition(self, vehID):
         """getPosition(string) -> (double, double)
@@ -148,14 +146,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_POSITION, vehID)
 
-
     def getAngle(self, vehID):
         """getAngle(string) -> double
 
         Returns the angle in degrees of the named vehicle within the last step. 
         """
         return self._getUniversal(tc.VAR_ANGLE, vehID)
-
 
     def getRoadID(self, vehID):
         """getRoadID(string) -> string
@@ -164,14 +160,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ROAD_ID, vehID)
 
-
     def getLaneID(self, vehID):
         """getLaneID(string) -> string
 
         Returns the id of the lane the named vehicle was at within the last step.
         """
         return self._getUniversal(tc.VAR_LANE_ID, vehID)
-
 
     def getLaneIndex(self, vehID):
         """getLaneIndex(string) -> integer
@@ -180,7 +174,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANE_INDEX, vehID)
 
-
     def getTypeID(self, vehID):
         """getTypeID(string) -> string
 
@@ -188,14 +181,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TYPE, vehID)
 
-
     def getRouteID(self, vehID):
         """getRouteID(string) -> string
 
         Returns the id of the route of the named vehicle.
         """
         return self._getUniversal(tc.VAR_ROUTE_ID, vehID)
-
 
     def getRouteIndex(self, vehID):
         """getRouteIndex(string) -> int
@@ -205,14 +196,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ROUTE_INDEX, vehID)
 
-
     def getRoute(self, vehID):
         """getRoute(string) -> list(string)
 
         Returns the ids of the edges the vehicle's route is made of.
         """
         return self._getUniversal(tc.VAR_EDGES, vehID)
-
 
     def getLanePosition(self, vehID):
         """getLanePosition(string) -> double
@@ -221,14 +210,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, vehID)
 
-
     def getColor(self, vehID):
         """getColor(string) -> (integer, integer, integer, integer)
 
         Returns the vehicle's rgba color.
         """
         return self._getUniversal(tc.VAR_COLOR, vehID)
-
 
     def getCO2Emission(self, vehID):
         """getCO2Emission(string) -> double
@@ -237,14 +224,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_CO2EMISSION, vehID)
 
-
     def getCOEmission(self, vehID):
         """getCOEmission(string) -> double
 
         Returns the CO emission in mg for the last time step.
         """
         return self._getUniversal(tc.VAR_COEMISSION, vehID)
-
 
     def getHCEmission(self, vehID):
         """getHCEmission(string) -> double
@@ -253,14 +238,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_HCEMISSION, vehID)
 
-
     def getPMxEmission(self, vehID):
         """getPMxEmission(string) -> double
 
         Returns the particular matter emission in mg for the last time step.
         """
         return self._getUniversal(tc.VAR_PMXEMISSION, vehID)
-
 
     def getNOxEmission(self, vehID):
         """getNOxEmission(string) -> double
@@ -269,14 +252,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NOXEMISSION, vehID)
 
-
     def getFuelConsumption(self, vehID):
         """getFuelConsumption(string) -> double
 
         Returns the fuel consumption in ml for the last time step.
         """
         return self._getUniversal(tc.VAR_FUELCONSUMPTION, vehID)
-
 
     def getNoiseEmission(self, vehID):
         """getNoiseEmission(string) -> double
@@ -285,7 +266,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NOISEEMISSION, vehID)
 
-
     def getPersonNumber(self, vehID):
         """getPersonNumber(string) -> integer
 
@@ -293,18 +273,17 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PERSON_NUMBER, vehID)
 
-
     def getAdaptedTraveltime(self, vehID, time, edgeID):
         """getAdaptedTraveltime(string, double, string) -> double
 
         .
         """
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                            tc.VAR_EDGE_TRAVELTIME, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
-        self._connection._string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
+                                       tc.VAR_EDGE_TRAVELTIME, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
+        self._connection._string += struct.pack(
+            "!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
         self._connection._packString(edgeID)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID).readDouble()
-
 
     def getEffort(self, vehID, time, edgeID):
         """getEffort(string, double, string) -> double
@@ -312,15 +291,14 @@ class VehicleDomain(Domain):
         .
         """
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                            tc.VAR_EDGE_EFFORT, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
-        self._connection._string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
+                                       tc.VAR_EDGE_EFFORT, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
+        self._connection._string += struct.pack(
+            "!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
         self._connection._packString(edgeID)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID).readDouble()
 
-
     def isRouteValid(self, vehID):
         return self._getUniversal(tc.VAR_ROUTE_VALID, vehID)
-
 
     def getSignals(self, vehID):
         """getSignals(string) -> integer
@@ -329,14 +307,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SIGNALS, vehID)
 
-
     def getLength(self, vehID):
         """getLength(string) -> double
 
         Returns the length in m of the given vehicle.
         """
         return self._getUniversal(tc.VAR_LENGTH, vehID)
-
 
     def getMaxSpeed(self, vehID):
         """getMaxSpeed(string) -> double
@@ -345,14 +321,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MAXSPEED, vehID)
 
-
     def getAllowedSpeed(self, vehID):
         """getAllowedSpeed(string) -> double
 
         Returns the maximum allowed speed on the current lane regarding speed factor in m/s for this vehicle.
         """
         return self._getUniversal(tc.VAR_ALLOWED_SPEED, vehID)
-
 
     def getVehicleClass(self, vehID):
         """getVehicleClass(string) -> string
@@ -361,14 +335,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VEHICLECLASS, vehID)
 
-
     def getSpeedFactor(self, vehID):
         """getSpeedFactor(string) -> double
 
         Returns the chosen speed factor for this vehicle.
         """
         return self._getUniversal(tc.VAR_SPEED_FACTOR, vehID)
-
 
     def getSpeedDeviation(self, vehID):
         """getSpeedDeviation(string) -> double
@@ -377,14 +349,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SPEED_DEVIATION, vehID)
 
-
     def getEmissionClass(self, vehID):
         """getEmissionClass(string) -> string
 
         Returns the emission class of this vehicle.
         """
         return self._getUniversal(tc.VAR_EMISSIONCLASS, vehID)
-
 
     def getWaitingTime(self, vehID):
         """getWaitingTime() -> double
@@ -394,14 +364,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, vehID)
 
-
     def getWidth(self, vehID):
         """getWidth(string) -> double
 
         Returns the width in m of this vehicle.
         """
         return self._getUniversal(tc.VAR_WIDTH, vehID)
-
 
     def getMinGap(self, vehID):
         """getMinGap(string) -> double
@@ -410,14 +378,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MINGAP, vehID)
 
-
     def getShapeClass(self, vehID):
         """getShapeClass(string) -> string
 
         Returns the shape class of this vehicle.
         """
         return self._getUniversal(tc.VAR_SHAPECLASS, vehID)
-
 
     def getAccel(self, vehID):
         """getAccel(string) -> double
@@ -426,14 +392,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ACCEL, vehID)
 
-
     def getDecel(self, vehID):
         """getDecel(string) -> double
 
         Returns the maximum deceleration possibility in m/s^2 of this vehicle.
         """
         return self._getUniversal(tc.VAR_DECEL, vehID)
-
 
     def getImperfection(self, vehID):
         """getImperfection(string) -> double
@@ -442,7 +406,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_IMPERFECTION, vehID)
 
-
     def getTau(self, vehID):
         """getTau(string) -> double
 
@@ -450,14 +413,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TAU, vehID)
 
-
     def getBestLanes(self, vehID):
         """getBestLanes(string) -> 
 
         Information about the wish to use subsequent edges' lanes.
         """
         return self._getUniversal(tc.VAR_BEST_LANES, vehID)
-
 
     def getLeader(self, vehID, dist=0.):
         """getLeader(string, double) -> (string, double)
@@ -470,7 +431,6 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, dist)
         return _readLeader(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
 
-
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double) -> None
 
@@ -478,8 +438,7 @@ class VehicleDomain(Domain):
         The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
         """
         self._connection._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID,
-                         (tc.VAR_LEADER,), {tc.VAR_LEADER: struct.pack("!Bd", tc.TYPE_DOUBLE, dist)})
-
+                                    (tc.VAR_LEADER,), {tc.VAR_LEADER: struct.pack("!Bd", tc.TYPE_DOUBLE, dist)})
 
     def getDrivingDistance(self, vehID, edgeID, pos, laneID=0):
         """getDrivingDistance(string, string, double, integer) -> double
@@ -487,13 +446,12 @@ class VehicleDomain(Domain):
         .
         """
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST,
-                            vehID, 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1)
+                                       vehID, 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
         self._connection._packString(edgeID, tc.POSITION_ROADMAP)
         self._connection._string += struct.pack("!dBB",
-                                             pos, laneID, tc.REQUEST_DRIVINGDIST)
+                                                pos, laneID, tc.REQUEST_DRIVINGDIST)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
-
 
     def getDrivingDistance2D(self, vehID, x, y):
         """getDrivingDistance2D(string, double, double) -> integer
@@ -503,9 +461,8 @@ class VehicleDomain(Domain):
         self._connection._beginMessage(
             tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1 + 4 + 1 + 8 + 8 + 1)
         self._connection._string += struct.pack("!BiBddB", tc.TYPE_COMPOUND, 2,
-                                             tc.POSITION_2D, x, y, tc.REQUEST_DRIVINGDIST)
+                                                tc.POSITION_2D, x, y, tc.REQUEST_DRIVINGDIST)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
-
 
     def getDistance(self, vehID):
         """getDistance(string) -> double
@@ -513,7 +470,6 @@ class VehicleDomain(Domain):
         Returns the distance to the starting point like an odometer
         """
         return self._getUniversal(tc.VAR_DISTANCE, vehID)
-
 
     def getStopState(self, vehID):
         """getStopState(string) -> integer
@@ -526,13 +482,11 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_STOPSTATE, vehID)
 
-
     def isStopped(self, vehID):
         """isStopped(string) -> bool
         Return whether the vehicle is stopped
         """
         return (self.getStopState(vehID) & 1) == 1
-
 
     def isStoppedParking(self, vehID):
         """isStoppedParking(string) -> bool
@@ -540,13 +494,11 @@ class VehicleDomain(Domain):
         """
         return (self.getStopState(vehID) & 2) == 2
 
-
     def isStoppedTriggered(self, vehID):
         """isStoppedTriggered(string) -> bool
         Return whether the vehicle is stopped and waiting for a person or container
         """
         return (self.getStopState(vehID) & 12) > 0
-
 
     def isAtBusStop(self, vehID):
         """isAtBusStop(string) -> bool
@@ -554,13 +506,11 @@ class VehicleDomain(Domain):
         """
         return (self.getStopState(vehID) & 16) == 16
 
-
     def isAtContainerStop(self, vehID):
         """isAtContainerStop(string) -> bool
         Return whether the vehicle is stopped at a container stop
         """
         return (self.getStopState(vehID) & 32) == 32
-
 
     def setMaxSpeed(self, vehID, speed):
         """setMaxSpeed(string, double) -> None
@@ -570,7 +520,6 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
-
     def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1, flags=STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
         """setStop(string, string, double, integer, integer, integer, double, integer) -> None
 
@@ -578,15 +527,14 @@ class VehicleDomain(Domain):
         in milliseconds.
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP,
-                            vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 4)
+                                       vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 4)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 7)
         self._connection._packString(edgeID)
         self._connection._string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos,
-                                             tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
+                                                tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
         self._connection._string += struct.pack("!BdBi",
-                                             tc.TYPE_DOUBLE, startPos, tc.TYPE_INTEGER, until)
+                                                tc.TYPE_DOUBLE, startPos, tc.TYPE_INTEGER, until)
         self._connection._sendExact()
-
 
     def setBusStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
         """setBusStop(string, string, integer, integer, integer) -> None
@@ -597,7 +545,6 @@ class VehicleDomain(Domain):
         self.setStop(vehID, stopID, duration=duration,
                      until=until, flags=flags | self.STOP_BUS_STOP)
 
-
     def setContainerStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
         """setContainerStop(string, string, integer, integer, integer) -> None
 
@@ -606,7 +553,6 @@ class VehicleDomain(Domain):
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | self.STOP_CONTAINER_STOP)
-
 
     def resume(self, vehID):
         """resume(string) -> None
@@ -618,14 +564,12 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
         self._connection._sendExact()
 
-
     def changeLane(self, vehID, laneIndex, duration):
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4)
         self._connection._string += struct.pack(
             "!BiBBBi", tc.TYPE_COMPOUND, 2, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
         self._connection._sendExact()
-
 
     def slowDown(self, vehID, speed, duration):
         self._connection._beginMessage(
@@ -634,11 +578,9 @@ class VehicleDomain(Domain):
             "!BiBdBi", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, speed, tc.TYPE_INTEGER, duration)
         self._connection._sendExact()
 
-
     def changeTarget(self, vehID, edgeID):
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGETARGET, vehID, edgeID)
-
 
     def setType(self, vehID, typeID):
         """setType(string, string) -> None
@@ -648,7 +590,6 @@ class VehicleDomain(Domain):
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TYPE, vehID, typeID)
 
-
     def setRouteID(self, vehID, routeID):
         """setRouteID(string, string) -> None
 
@@ -656,7 +597,6 @@ class VehicleDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE_ID, vehID, routeID)
-
 
     def setRoute(self, vehID, edgeList):
         """
@@ -673,10 +613,9 @@ class VehicleDomain(Domain):
         if isinstance(edgeList, str):
             edgeList = [edgeList]
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE, vehID,
-                            1 + 4 + sum(map(len, edgeList)) + 4 * len(edgeList))
+                                       1 + 4 + sum(map(len, edgeList)) + 4 * len(edgeList))
         self._connection._packStringList(edgeList)
         self._connection._sendExact()
-
 
     def setAdaptedTraveltime(self, vehID, begTime, endTime, edgeID, time):
         """setAdaptedTraveltime(string, double, string, double) -> None
@@ -684,13 +623,12 @@ class VehicleDomain(Domain):
         .
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
-                            vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
+                                       vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
         self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                             tc.TYPE_INTEGER, endTime)
+                                                tc.TYPE_INTEGER, endTime)
         self._connection._packString(edgeID)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, time)
         self._connection._sendExact()
-
 
     def setEffort(self, vehID, begTime, endTime, edgeID, effort):
         """setEffort(string, double, string, double) -> None
@@ -698,13 +636,12 @@ class VehicleDomain(Domain):
         .
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
-                            vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4)
+                                       vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4)
         self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                             tc.TYPE_INTEGER, endTime)
+                                                tc.TYPE_INTEGER, endTime)
         self._connection._packString(edgeID)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
         self._connection._sendExact()
-
 
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None Reroutes a vehicle. If
@@ -715,19 +652,18 @@ class VehicleDomain(Domain):
         """
         if currentTravelTimes:
             for edge in self._connection.edge.getIDList():
-                self._connection.edge.adaptTraveltime(edge, self._connection.edge.getTraveltime(edge))
+                self._connection.edge.adaptTraveltime(
+                    edge, self._connection.edge.getTraveltime(edge))
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_REROUTE_TRAVELTIME, vehID, 1 + 4)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
         self._connection._sendExact()
-
 
     def rerouteEffort(self, vehID):
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_REROUTE_EFFORT, vehID, 1 + 4)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
         self._connection._sendExact()
-
 
     def setSignals(self, vehID, signals):
         """setSignals(string, integer) -> None
@@ -737,15 +673,13 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SIGNALS, vehID, signals)
 
-
     def moveTo(self, vehID, laneID, pos):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE,
-                            tc.VAR_MOVE_TO, vehID, 1 + 4 + 1 + 4 + len(laneID) + 1 + 8)
+                                       tc.VAR_MOVE_TO, vehID, 1 + 4 + 1 + 4 + len(laneID) + 1 + 8)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
         self._connection._packString(laneID)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
         self._connection._sendExact()
-
 
     def setSpeed(self, vehID, speed):
         """setSpeed(string, double) -> None
@@ -754,7 +688,6 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID, speed)
-
 
     def setColor(self, vehID, color):
         """setColor(string, (integer, integer, integer, integer))
@@ -768,7 +701,6 @@ class VehicleDomain(Domain):
             color[0]), int(color[1]), int(color[2]), int(color[3]))
         self._connection._sendExact()
 
-
     def setLength(self, vehID, length):
         """setLength(string, double) -> None
 
@@ -776,7 +708,6 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LENGTH, vehID, length)
-
 
     def setVehicleClass(self, vehID, clazz):
         """setVehicleClass(string, string) -> None
@@ -786,7 +717,6 @@ class VehicleDomain(Domain):
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_VEHICLECLASS, vehID, clazz)
 
-
     def setSpeedFactor(self, vehID, factor):
         """setSpeedFactor(string, double) -> None
 
@@ -794,7 +724,6 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED_FACTOR, vehID, factor)
-
 
     def setSpeedDeviation(self, vehID, deviation):
         """setSpeedDeviation(string, double) -> None
@@ -804,7 +733,6 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED_DEVIATION, vehID, deviation)
 
-
     def setEmissionClass(self, vehID, clazz):
         """setEmissionClass(string, string) -> None
 
@@ -812,7 +740,6 @@ class VehicleDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EMISSIONCLASS, vehID, clazz)
-
 
     def setWidth(self, vehID, width):
         """setWidth(string, double) -> None
@@ -822,7 +749,6 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_WIDTH, vehID, width)
 
-
     def setMinGap(self, vehID, minGap):
         """setMinGap(string, double) -> None
 
@@ -830,7 +756,6 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MINGAP, vehID, minGap)
-
 
     def setShapeClass(self, vehID, clazz):
         """setShapeClass(string, string) -> None
@@ -840,7 +765,6 @@ class VehicleDomain(Domain):
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SHAPECLASS, vehID, clazz)
 
-
     def setAccel(self, vehID, accel):
         """setAccel(string, double) -> None
 
@@ -848,7 +772,6 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ACCEL, vehID, accel)
-
 
     def setDecel(self, vehID, decel):
         """setDecel(string, double) -> None
@@ -858,7 +781,6 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_DECEL, vehID, decel)
 
-
     def setImperfection(self, vehID, imperfection):
         """setImperfection(string, double) -> None
 
@@ -867,14 +789,13 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_IMPERFECTION, vehID, imperfection)
 
-
     def setTau(self, vehID, tau):
         """setTau(string, double) -> None
 
         Sets the driver's reaction time in s for this vehicle.
         """
-        self._connection._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TAU, vehID, tau)
-
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TAU, vehID, tau)
 
     def setLaneChangeMode(self, vehID, lcm):
         """setLaneChangeMode(string, integer) -> None
@@ -884,7 +805,6 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LANECHANGE_MODE, vehID, lcm)
 
-
     def setSpeedMode(self, vehID, sm):
         """setLaneChangeMode(string, integer) -> None
 
@@ -893,10 +813,9 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEEDSETMODE, vehID, sm)
 
-
     def add(self, vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAULT_VEHTYPE"):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
-                            1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 1)
+                                       1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 1)
         if depart > 0:
             depart *= 1000
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
@@ -904,10 +823,9 @@ class VehicleDomain(Domain):
         self._connection._packString(routeID)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
         self._connection._string += struct.pack("!BdBd",
-                                             tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
+                                                tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
         self._connection._string += struct.pack("!BB", tc.TYPE_BYTE, lane)
         self._connection._sendExact()
-
 
     def addFull(self, vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
                 departLane="0", departPos="base", departSpeed="0",
@@ -928,16 +846,15 @@ class VehicleDomain(Domain):
         self._connection._string += messageString
         self._connection._sendExact()
 
-
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
         '''Remove vehicle with the given ID for the give reason. 
            Reasons are defined in module constants and start with REMOVE_'''
-        self._connection._sendByteCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
-
+        self._connection._sendByteCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
 
     def moveToVTD(self, vehID, edgeID, lane, x, y, angle):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO_VTD,
-                            vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
+                                       vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(edgeID)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, lane)
@@ -954,6 +871,7 @@ class VehicleDomain(Domain):
         Domain.subscribe(self, objectID, varIDs, begin, end)
 
     def subscribeContext(self, objectID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
-        Domain.subscribeContext(self, objectID, domain, dist, varIDs, begin, end)
+        Domain.subscribeContext(
+            self, objectID, domain, dist, varIDs, begin, end)
 
 VehicleDomain()

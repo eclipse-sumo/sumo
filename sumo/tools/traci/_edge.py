@@ -51,6 +51,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME:       Storage.readDouble,
 
 
 class EdgeDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "edge", tc.CMD_GET_EDGE_VARIABLE, tc.CMD_SET_EDGE_VARIABLE,
                         tc.CMD_SUBSCRIBE_EDGE_VARIABLE, tc.RESPONSE_SUBSCRIBE_EDGE_VARIABLE,
@@ -64,10 +65,11 @@ class EdgeDomain(Domain):
         which is valid on the edge at the given time.
         """
         self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
-                            edgeID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, _TIME2STEPS(time))
+                                       edgeID, 1 + 4)
+        self._connection._string += struct.pack(
+            "!Bi", tc.TYPE_INTEGER, _TIME2STEPS(time))
         return self._connection._checkResult(tc.CMD_GET_EDGE_VARIABLE,
-                                  tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
+                                             tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
 
     def getWaitingTime(self, edgeID):
         """getWaitingTime() -> double 
@@ -83,10 +85,11 @@ class EdgeDomain(Domain):
         which is valid on the edge at the given time.
         """
         self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT,
-                            edgeID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, _TIME2STEPS(time))
+                                       edgeID, 1 + 4)
+        self._connection._string += struct.pack(
+            "!Bi", tc.TYPE_INTEGER, _TIME2STEPS(time))
         return self._connection._checkResult(tc.CMD_GET_EDGE_VARIABLE,
-                                  tc.VAR_EDGE_EFFORT, edgeID).readDouble()
+                                             tc.VAR_EDGE_EFFORT, edgeID).readDouble()
 
     def getCO2Emission(self, edgeID):
         """getCO2Emission(string) -> double
@@ -202,9 +205,8 @@ class EdgeDomain(Domain):
         self._connection._beginMessage(
             tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1 + 4 + 1 + 8)
         self._connection._string += struct.pack("!BiBd",
-                                             tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, time)
+                                                tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, time)
         self._connection._sendExact()
-
 
     def setEffort(self, edgeID, effort):
         """setEffort(string, double) -> None
@@ -214,9 +216,8 @@ class EdgeDomain(Domain):
         self._connection._beginMessage(
             tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 8)
         self._connection._string += struct.pack("!BiBd",
-                                             tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, effort)
+                                                tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, effort)
         self._connection._sendExact()
-
 
     def setMaxSpeed(self, edgeID, speed):
         """setMaxSpeed(string, double) -> None

@@ -59,7 +59,7 @@ public:
     /* brief build the pedestrian network (once)
      * @param noE The number of edges in the dictionary of E
      */
-    IntermodalNetwork(const std::vector<E*>& edges, unsigned int numericalID=0) {
+    IntermodalNetwork(const std::vector<E*>& edges, unsigned int numericalID = 0) {
 #ifdef IntermodalRouter_DEBUG_NETWORK
         std::cout << "initIntermodalNetwork\n";
 #endif
@@ -245,12 +245,12 @@ public:
     }
 
     /// @brief Returns the departing Intermodal edge
-    _IntermodalEdge* getDepartEdge(const E* e, const SUMOReal pos=-1.) {
+    _IntermodalEdge* getDepartEdge(const E* e, const SUMOReal pos = -1.) {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in pedestrian network.");
         }
-        const std::vector<_IntermodalEdge*>& splitList = it->second;        
+        const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
         SUMOReal totalLength = 0.;
         while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
@@ -261,12 +261,12 @@ public:
     }
 
     /// @brief Returns the arriving Intermodal edge
-    _IntermodalEdge* getArrivalEdge(const E* e, const SUMOReal pos=-1.) {
+    _IntermodalEdge* getArrivalEdge(const E* e, const SUMOReal pos = -1.) {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myArrivalLookup.find(e);
         if (it == myArrivalLookup.end()) {
             throw ProcessError("Arrival edge '" + e->getID() + "' not found in pedestrian network.");
         }
-        const std::vector<_IntermodalEdge*>& splitList = it->second;        
+        const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
         SUMOReal totalLength = 0.;
         while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {

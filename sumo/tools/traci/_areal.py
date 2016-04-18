@@ -35,6 +35,7 @@ _RETURN_VALUE_FUNC = {tc.JAM_LENGTH_METERS:         Storage.readDouble,
 
 
 class ArealDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "areal", tc.CMD_GET_AREAL_DETECTOR_VARIABLE, None,
                         tc.CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE, tc.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE,
@@ -62,14 +63,12 @@ class ArealDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, detID)
 
-
     def getLastStepVehicleIDs(self, detID):
         """getLastStepVehicleIDs(string) -> list(string)
 
         Returns the list of ids of vehicles that were on the named induction loop in the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
-
 
     def getLastStepOccupancy(self, detID):
         """getLastStepMeanSpeed(string) -> double
@@ -78,14 +77,12 @@ class ArealDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_OCCUPANCY, detID)
 
-
     def getPosition(self, detID):
         """getPosition(string) -> double
 
         Returns the starting position of the detector measured from the beginning of the lane in meters.
         """
         return self._getUniversal(tc.VAR_POSITION, detID)
-
 
     def getLaneID(self, detID):
         """getLaneID(string) -> string
@@ -94,14 +91,12 @@ class ArealDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANE_ID, detID)
 
-
     def getLength(self, detID):
         """getLength(string) -> double
 
         Returns the length of the detector
         """
         return self._getUniversal(tc.VAR_LENGTH, detID)
-
 
     def getLastStepVehicleNumber(self, detID):
         """getLastStepVehicleNumber(string) -> integer

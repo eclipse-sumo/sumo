@@ -28,6 +28,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_POSITION: lambda result: result.read("!dd"),
 
 
 class JunctionDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "junction", tc.CMD_GET_JUNCTION_VARIABLE, tc.CMD_SET_JUNCTION_VARIABLE,
                         tc.CMD_SUBSCRIBE_JUNCTION_VARIABLE, tc.RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE,
@@ -40,7 +41,6 @@ class JunctionDomain(Domain):
         Returns the coordinates of the center of the junction.
         """
         return self._getUniversal(tc.VAR_POSITION, junctionID)
-
 
     def getShape(self, junctionID):
         """getShape(string) -> list((double, double))

@@ -92,8 +92,8 @@ GUIPerson::GUIPersonPopupMenu::GUIPersonPopupMenu(
     GUIMainWindow& app, GUISUMOAbstractView& parent,
     GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations) :
     GUIGLObjectPopupMenu(app, parent, o),
-    myVehiclesAdditionalVisualizations(additionalVisualizations)
-{}
+    myVehiclesAdditionalVisualizations(additionalVisualizations) {
+}
 
 
 GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
@@ -160,8 +160,8 @@ GUIPerson::GUIPersonPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
 GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
     MSPerson(pars, vtype, plan),
     GUIGlObject(GLO_PERSON, pars->id),
-    myPositionInVehicle(Position::INVALID)
-{ }
+    myPositionInVehicle(Position::INVALID) {
+}
 
 
 GUIPerson::~GUIPerson() {

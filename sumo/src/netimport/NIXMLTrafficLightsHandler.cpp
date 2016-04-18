@@ -67,8 +67,8 @@ NIXMLTrafficLightsHandler::NIXMLTrafficLightsHandler(
     myTLLCont(tlCont),
     myEdgeCont(ec),
     myCurrentTL(0),
-    myResetPhases(false)
-{}
+    myResetPhases(false) {
+}
 
 
 NIXMLTrafficLightsHandler::~NIXMLTrafficLightsHandler() {}

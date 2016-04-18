@@ -71,8 +71,8 @@ public:
      */
     SPTree(int maxDepth, bool validatePermissions) :
         myMaxDepth(maxDepth),
-        myValidatePermissions(validatePermissions)
-    { }
+        myValidatePermissions(validatePermissions) {
+    }
 
 
     void init() {

@@ -65,7 +65,8 @@ def evalTimeline(timeline):
             for v in t:
                 s = t[v]
                 if s < 8.9 or s > 9.1:
-                    print(" Mismatching velocity of vehicle %s at time %s (%s)" % (v, ct, s))
+                    print(
+                        " Mismatching velocity of vehicle %s at time %s (%s)" % (v, ct, s))
         ct = ct + 1
 
 print(">>> Building the network (with internal)")
@@ -89,5 +90,6 @@ sys.stdout.flush()
 print(">>> Checking Simulation (network: no internal, simulation: internal)")
 evalTimeline(runSingle(""))
 time.sleep(1)
-print(">>> Checking Simulation (network: no internal, simulation: no internal)")
+print(
+    ">>> Checking Simulation (network: no internal, simulation: no internal)")
 evalTimeline(runSingle("--no-internal-links"))

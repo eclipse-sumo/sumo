@@ -71,12 +71,14 @@ class ConfigReader(handler.ContentHandler):
                 if len(s) == 1:
                     a = s
             if a != "":
-                print('{{Option|-%s {{DT_%s}}}}<br/>' % (a, attrs['type']), end=' ')
+                print('{{Option|-%s {{DT_%s}}}}<br/>' %
+                      (a, attrs['type']), end=' ')
             print('{{Option|--%s {{DT_%s}}}}' % (name, attrs['type']))
             suffix = ""
             if attrs['value']:
                 suffix = "; ''default: '''%s'''''" % attrs['value']
-            print('| style="vertical-align:top" | %s%s' % (attrs['help'], suffix))
+            print('| style="vertical-align:top" | %s%s' %
+                  (attrs['help'], suffix))
         self._level += 1
 
     def endElement(self, name):

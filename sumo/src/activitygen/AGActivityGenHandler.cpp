@@ -113,9 +113,9 @@ AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             case AGEN_TAG_POPULATION:
                 parsePopulation();
                 break;
-                /*case AGEN_TAG_CHILD_ACOMP:
-                    parseChildrenAccompaniment();
-                    break;*/
+            /*case AGEN_TAG_CHILD_ACOMP:
+                parseChildrenAccompaniment();
+                break;*/
             case AGEN_TAG_BRACKET:
                 parseBracket(attrs);
                 break;

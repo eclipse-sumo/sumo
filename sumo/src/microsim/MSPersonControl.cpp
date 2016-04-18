@@ -52,8 +52,8 @@
 MSPersonControl::MSPersonControl():
     myLoadedPersonNumber(0),
     myRunningPersonNumber(0),
-    myJammedPersonNumber(0)
-{}
+    myJammedPersonNumber(0) {
+}
 
 
 MSPersonControl::~MSPersonControl() {

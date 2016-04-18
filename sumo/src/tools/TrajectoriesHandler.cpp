@@ -51,7 +51,7 @@
 // ===========================================================================
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const bool computeAForward, const SUMOEmissionClass defaultClass,
         const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
-        : SUMOSAXHandler(""), myComputeA(computeA), myComputeAForward(computeAForward), myDefaultClass(defaultClass),
+    : SUMOSAXHandler(""), myComputeA(computeA), myComputeAForward(computeAForward), myDefaultClass(defaultClass),
       myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
 
 
@@ -122,7 +122,7 @@ TrajectoriesHandler::myStartElement(int element,
 const PollutantsInterface::Emissions
 TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionClass c,
                                       SUMOReal& v, SUMOReal& a, SUMOReal& s) {
-    
+
     if (myComputeA) {
         if (myLastV.count(id) == 0) {
             a = 0.;
@@ -152,8 +152,8 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
 bool
 TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
                                     const SUMOEmissionClass c,
-                                    SUMOReal t, SUMOReal &v,
-                                    SUMOReal &a, SUMOReal &s) {
+                                    SUMOReal t, SUMOReal& v,
+                                    SUMOReal& a, SUMOReal& s) {
     if (myComputeA && myLastV.count(id) == 0) {
         myLastV[id] = v;
         return false;
@@ -172,7 +172,7 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
 bool
 TrajectoriesHandler::writeXMLEmissions(const std::string id,
                                        const SUMOEmissionClass c,
-                                       SUMOTime t, SUMOReal &v,
+                                       SUMOTime t, SUMOReal& v,
                                        SUMOReal a, SUMOReal s) {
     if (myComputeA && myLastV.count(id) == 0) {
         myLastV[id] = v;
@@ -197,24 +197,24 @@ TrajectoriesHandler::writeXMLEmissions(const std::string id,
 void
 TrajectoriesHandler::writeSums(std::ostream& o, const std::string id) {
     o << "CO:" << mySums[id].CO << std::endl
-        << "CO2:" << mySums[id].CO2 << std::endl
-        << "HC:" << mySums[id].HC << std::endl
-        << "NOx:" << mySums[id].NOx << std::endl
-        << "PMx:" << mySums[id].PMx << std::endl
-        << "fuel:" << mySums[id].fuel << std::endl
-        << "electricity:" << mySums[id].electricity << std::endl;
+      << "CO2:" << mySums[id].CO2 << std::endl
+      << "HC:" << mySums[id].HC << std::endl
+      << "NOx:" << mySums[id].NOx << std::endl
+      << "PMx:" << mySums[id].PMx << std::endl
+      << "fuel:" << mySums[id].fuel << std::endl
+      << "electricity:" << mySums[id].electricity << std::endl;
 }
 
 
 void
 TrajectoriesHandler::writeNormedSums(std::ostream& o, const std::string id, const SUMOReal factor) {
     o << mySums[id].fuel / factor << ","
-        << mySums[id].electricity / factor << ","
-        << mySums[id].CO2 / factor << ","
-        << mySums[id].NOx / factor << ","
-        << mySums[id].CO / factor << ","
-        << mySums[id].HC / factor << ","
-        << mySums[id].PMx / factor << std::endl;
+      << mySums[id].electricity / factor << ","
+      << mySums[id].CO2 / factor << ","
+      << mySums[id].NOx / factor << ","
+      << mySums[id].CO / factor << ","
+      << mySums[id].HC / factor << ","
+      << mySums[id].PMx / factor << std::endl;
 }
 
 

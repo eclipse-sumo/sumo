@@ -33,7 +33,8 @@ import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
 
-PORTS = [sumolib.miscutils.getFreeSocketPort(), sumolib.miscutils.getFreeSocketPort()]
+PORTS = [
+    sumolib.miscutils.getFreeSocketPort(), sumolib.miscutils.getFreeSocketPort()]
 sumoProcess = [subprocess.Popen(
     "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, p), shell=True, stdout=sys.stdout) for p in PORTS]
 conns = [traci.connect(p) for p in PORTS]

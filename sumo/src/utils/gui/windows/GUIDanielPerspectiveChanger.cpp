@@ -54,8 +54,8 @@ GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
     myMouseButtonState(MOUSEBTN_NONE),
     myMoveOnClick(false),
     myZoomBase(viewPort.getCenter()),
-    myDragDelay(0)
-{}
+    myDragDelay(0) {
+}
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}

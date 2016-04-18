@@ -78,8 +78,8 @@ public:
         myEdges(edges),
         myIgnoreErrors(ignoreErrors),
         myBegin(begin),
-        myWeightPeriod(weightPeriod)
-    {}
+        myWeightPeriod(weightPeriod) {
+    }
 
     ~CHRouterWrapper() {
         for (typename RouterMap::iterator i = myRouters.begin(); i != myRouters.end(); ++i) {

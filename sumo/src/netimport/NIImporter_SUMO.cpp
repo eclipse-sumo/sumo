@@ -86,8 +86,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myHaveSeenInternalEdge(false),
       myAmLefthand(false),
       myCornerDetail(0),
-      myLinkDetail(-1)
-{}
+      myLinkDetail(-1) {
+}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() {

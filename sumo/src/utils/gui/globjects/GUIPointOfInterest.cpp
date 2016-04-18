@@ -56,8 +56,8 @@ GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string&
                                        SUMOReal layer, SUMOReal angle, const std::string& imgFile,
                                        SUMOReal width, SUMOReal height) :
     PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
-    GUIGlObject_AbstractAdd("poi", GLO_POI, id)
-{}
+    GUIGlObject_AbstractAdd("poi", GLO_POI, id) {
+}
 
 
 GUIPointOfInterest::~GUIPointOfInterest() {}

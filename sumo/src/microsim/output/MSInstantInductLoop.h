@@ -58,7 +58,7 @@ class OutputDevice;
  * @see MSDetectorFileOutput
  */
 class MSInstantInductLoop
-        : public MSMoveReminder, public MSDetectorFileOutput {
+    : public MSMoveReminder, public MSDetectorFileOutput {
 public:
     /**
      * @brief Constructor.

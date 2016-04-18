@@ -54,7 +54,7 @@ enum {
  * number.  Also supports the 'JUSTIFY_RIGHT' option, for right alignment.
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-        FXLCDLabel : public FXHorizontalFrame {
+    FXLCDLabel : public FXHorizontalFrame {
     FXDECLARE(FXLCDLabel)
 
 protected:

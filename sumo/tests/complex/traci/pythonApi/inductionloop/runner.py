@@ -24,7 +24,7 @@ import os
 import subprocess
 import sys
 import random
-sys.path.append(os.path.join(os.environ['SUMO_HOME'] , "tools"))
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], "tools"))
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
 import traci
@@ -62,7 +62,7 @@ for i in range(24):
     print("step=%s detVehs=%s" % (
         traci.simulation.getCurrentTime() / 1000.0,
         traci.inductionloop.getLastStepVehicleIDs(loopID),
-        ))
+    ))
     traci.simulationStep()
 
 traci.close()

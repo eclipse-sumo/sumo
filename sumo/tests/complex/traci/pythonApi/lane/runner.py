@@ -68,9 +68,11 @@ print("vehIds", traci.lane.getLastStepVehicleIDs(laneID))
 print("waiting time", traci.lane.getWaitingTime(laneID))
 
 traci.lane.setAllowed(laneID, ["taxi"])
-print("after setAllowed", traci.lane.getAllowed(laneID), traci.lane.getDisallowed(laneID))
+print("after setAllowed", traci.lane.getAllowed(
+    laneID), traci.lane.getDisallowed(laneID))
 traci.lane.setDisallowed(laneID, ["bus"])
-print("after setDisallowed", traci.lane.getAllowed(laneID), traci.lane.getDisallowed(laneID))
+print("after setDisallowed", traci.lane.getAllowed(
+    laneID), traci.lane.getDisallowed(laneID))
 traci.lane.setMaxSpeed(laneID, 42.)
 print("after setMaxSpeed", traci.lane.getMaxSpeed(laneID))
 traci.lane.setLength(laneID, 123.)

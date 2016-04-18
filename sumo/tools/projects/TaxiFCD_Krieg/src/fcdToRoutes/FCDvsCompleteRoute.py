@@ -133,17 +133,21 @@ def clacAvg():
     # Zeige Routen bei denen etwas hinzugfuegt wurde
 
     print("len Routen gesamt", len(diffList))
-    print("avg (Absolut) Kanten hinzugefuegt", sum(diffList) / (len(diffList) + 0.0))
-    print("Relavg", sum(diffList) / (len(diffList) + 0.0) / (sum(orgList) / (len(orgList) + 0.0)) * 100, "%")
+    print("avg (Absolut) Kanten hinzugefuegt",
+          sum(diffList) / (len(diffList) + 0.0))
+    print("Relavg", sum(diffList) / (len(diffList) + 0.0) /
+          (sum(orgList) / (len(orgList) + 0.0)) * 100, "%")
     print("avgOrg", sum(orgList) / (len(orgList) + 0.0), " edges")
     print("avgCompleted", sum(compList) / (len(compList) + 0.0), " edges")
 
     print()
-    print("Betrachtung der hinzugefuegten Kanten nur fuer die Taxis bei denen tatsaechlich auch Kanten hinzugefuegt wurden")
+    print(
+        "Betrachtung der hinzugefuegten Kanten nur fuer die Taxis bei denen tatsaechlich auch Kanten hinzugefuegt wurden")
     print("ids (Taxis/Routen)", len(ids))
     print("% der Gesamtrouten", 100.0 * len(ids) / len(diffList))
     print("avg 200 (ids)", sum(diffList200) / (len(diffList200) + 0.0))
-    print("Relavg 200", sum(diffList200) / (len(diffList200) + 0.0) / (sum(orgList200) / (len(orgList200) + 0.0)) * 100, "%")
+    print("Relavg 200", sum(diffList200) / (len(diffList200) + 0.0) /
+          (sum(orgList200) / (len(orgList200) + 0.0)) * 100, "%")
 
 
 def writeOutput():

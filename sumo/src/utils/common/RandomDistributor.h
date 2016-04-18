@@ -60,8 +60,8 @@ public:
      *   older entrys will be removed when adding more than the maximumSize
      */
     RandomDistributor() :
-        myProb(0)
-    {}
+        myProb(0) {
+    }
 
     /// @brief Destructor
     ~RandomDistributor() { }

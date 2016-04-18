@@ -57,6 +57,7 @@ def main(infile, outfile, offset):
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
-        print("Usage: route_departOffset.py <INPUT_FILE> <OUTPUT_FILE> <OFFSET>")
+        print(
+            "Usage: route_departOffset.py <INPUT_FILE> <OUTPUT_FILE> <OFFSET>")
         sys.exit()
     main(sys.argv[1], sys.argv[2], int(sys.argv[3]))

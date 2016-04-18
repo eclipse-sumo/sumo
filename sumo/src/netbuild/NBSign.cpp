@@ -71,8 +71,8 @@ StringBijection<NBSign::SignType> NBSign::SignTypeStrings(
 NBSign::NBSign(SignType type, SUMOReal offset, const std::string label) :
     myType(type),
     myOffset(offset),
-    myLabel(label)
-{ }
+    myLabel(label) {
+}
 
 
 NBSign::~NBSign() {}

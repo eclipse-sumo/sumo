@@ -114,6 +114,7 @@ _RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE:   Storage.readString,
 
 
 class TrafficLightsDomain(Domain):
+
     def __init__(self):
         Domain.__init__(self, "trafficlights", tc.CMD_GET_TL_VARIABLE, tc.CMD_SET_TL_VARIABLE,
                         tc.CMD_SUBSCRIBE_TL_VARIABLE, tc.RESPONSE_SUBSCRIBE_TL_VARIABLE,
@@ -127,14 +128,12 @@ class TrafficLightsDomain(Domain):
         """
         return self._getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
-
     def getCompleteRedYellowGreenDefinition(self, tlsID):
         """getCompleteRedYellowGreenDefinition(string) -> 
 
         .
         """
         return self._getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
-
 
     def getControlledLanes(self, tlsID):
         """getControlledLanes(string) -> c
@@ -143,14 +142,12 @@ class TrafficLightsDomain(Domain):
         """
         return self._getUniversal(tc.TL_CONTROLLED_LANES, tlsID)
 
-
     def getControlledLinks(self, tlsID):
         """getControlledLinks(string) -> list(list(list(string)))
 
         Returns the links controlled by the traffic light, sorted by the signal index and described by giving the incoming, outgoing, and via lane.
         """
         return self._getUniversal(tc.TL_CONTROLLED_LINKS, tlsID)
-
 
     def getProgram(self, tlsID):
         """getProgram(string) -> string
@@ -159,14 +156,12 @@ class TrafficLightsDomain(Domain):
         """
         return self._getUniversal(tc.TL_CURRENT_PROGRAM, tlsID)
 
-
     def getPhase(self, tlsID):
         """getPhase(string) -> integer
 
         .
         """
         return self._getUniversal(tc.TL_CURRENT_PHASE, tlsID)
-
 
     def getNextSwitch(self, tlsID):
         """getNextSwitch(string) -> integer
@@ -175,14 +170,12 @@ class TrafficLightsDomain(Domain):
         """
         return self._getUniversal(tc.TL_NEXT_SWITCH, tlsID)
 
-
     def getPhaseDuration(self, tlsID):
         """getPhaseDuration(string) -> integer
 
         .
         """
         return self._getUniversal(tc.TL_PHASE_DURATION, tlsID)
-
 
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None
@@ -192,14 +185,13 @@ class TrafficLightsDomain(Domain):
         self._connection._sendStringCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, state)
 
-
     def setPhase(self, tlsID, index):
         """setPhase(string, integer) -> None
 
         .
         """
-        self._connection._sendIntCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
-
+        self._connection._sendIntCmd(
+            tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
 
     def setProgram(self, tlsID, programID):
         """setProgram(string, string) -> None
@@ -209,7 +201,6 @@ class TrafficLightsDomain(Domain):
         self._connection._sendStringCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, programID)
 
-
     def setPhaseDuration(self, tlsID, phaseDuration):
         """setPhaseDuration(string, integer or float) -> None
 
@@ -217,7 +208,6 @@ class TrafficLightsDomain(Domain):
         """
         self._connection._sendIntCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, int(1000 * phaseDuration))
-
 
     def setCompleteRedYellowGreenDefinition(self, tlsID, tls):
         """setCompleteRedYellowGreenDefinition(string, ) -> None
@@ -232,21 +222,23 @@ class TrafficLightsDomain(Domain):
             itemNo += 4
         self._connection._beginMessage(
             tc.CMD_SET_TL_VARIABLE, tc.TL_COMPLETE_PROGRAM_RYG, tlsID, length)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, itemNo)
+        self._connection._string += struct.pack("!Bi",
+                                                tc.TYPE_COMPOUND, itemNo)
         # programID
         self._connection._packString(tls._subID)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, 0)  # type
+        # type
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, 0)
         # subitems
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
         # index
         self._connection._string += struct.pack("!Bi",
-                                             tc.TYPE_INTEGER, tls._currentPhaseIndex)
+                                                tc.TYPE_INTEGER, tls._currentPhaseIndex)
         # phaseNo
         self._connection._string += struct.pack("!Bi",
-                                             tc.TYPE_INTEGER, len(tls._phases))
+                                                tc.TYPE_INTEGER, len(tls._phases))
         for p in tls._phases:
             self._connection._string += struct.pack("!BiBiBi", tc.TYPE_INTEGER,
-                                                 p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER, p._duration2)
+                                                    p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER, p._duration2)
             self._connection._packString(p._phaseDef)
         self._connection._sendExact()
 
