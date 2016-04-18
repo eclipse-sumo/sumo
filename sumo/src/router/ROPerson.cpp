@@ -103,11 +103,11 @@ ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::s
 
 
 void
-ROPerson::addWalk(const SUMOReal duration, const SUMOReal speed, const ConstROEdgeVector& edges, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop) {
+ROPerson::addWalk(const ConstROEdgeVector& edges, const SUMOReal duration, const SUMOReal speed, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop) {
     if (myPlan.empty() || myPlan.back()->isStop()) {
         myPlan.push_back(new PersonTrip());
     }
-    myPlan.back()->addTripItem(new Walk(duration, speed, edges, departPos, arrivalPos, busStop));
+    myPlan.back()->addTripItem(new Walk(edges, duration, speed, departPos, arrivalPos, busStop));
 }
 
 

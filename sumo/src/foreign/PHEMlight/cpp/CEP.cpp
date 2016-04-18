@@ -110,7 +110,7 @@ namespace PHEMlightdll {
 
         _cepNormalizedCurvePollutants = std::map<std::string, std::vector<double> >();
 
-        int headerCount = headerLinePollutants.size();
+        int headerCount = (int)headerLinePollutants.size();
         for (int i = 0; i < (int)matrixPollutants.size(); i++) {
             for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
                 if (matrixPollutants[i].size() != headerCount + 1) {
@@ -348,14 +348,14 @@ namespace PHEMlightdll {
         }
 
         if (value >= pattern.back()) {
-            lowerIndex = pattern.size() - 1;
-            upperIndex = pattern.size() - 1;
+            lowerIndex = (int)pattern.size() - 1;
+            upperIndex = (int)pattern.size() - 1;
             return;
         }
 
         // bisection search to find correct position in power pattern	
-        int middleIndex = (pattern.size() - 1) / 2;
-        upperIndex = pattern.size() - 1;
+        int middleIndex = ((int)pattern.size() - 1) / 2;
+        upperIndex = (int)pattern.size() - 1;
         lowerIndex = 0;
 
         while (upperIndex - lowerIndex > 1) {

@@ -194,7 +194,7 @@ RORouteHandler::myStartElement(int element,
                 // XXX allow --repair?
                 myActiveRoute.clear();
                 parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
-                myActivePerson->addWalk(duration, speed, myActiveRoute, departPos, arrivalPos, busStop);
+                myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, busStop);
             } else {
                 addPersonTrip(attrs);
             }
