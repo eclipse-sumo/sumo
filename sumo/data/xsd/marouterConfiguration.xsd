@@ -50,6 +50,8 @@
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="bulk-routing.vtypes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="vtype" type="strOptionType" minOccurs="0"/>
