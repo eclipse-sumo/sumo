@@ -1,2 +1,2 @@
 call %~dp0\testEnv.bat %1
-%TEXTTESTPY% -a od2trips
+start %TEXTTESTPY% -a od2trips

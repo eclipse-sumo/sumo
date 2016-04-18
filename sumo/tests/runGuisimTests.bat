@@ -1,2 +1,2 @@
 call %~dp0\testEnv.bat %1
-%TEXTTESTPY% -a sumo.gui
+start %TEXTTESTPY% -a sumo.gui
