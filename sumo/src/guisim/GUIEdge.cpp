@@ -201,8 +201,8 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment index", false, segment->getIndex());
     ret->mkItem("segment length [m]", false, segment->getLength());
     ret->mkItem("segment allowed speed [m/s]", false, segment->getEdge().getSpeedLimit());
-    ret->mkItem("segment jam threshold [%]", false, segment->getRelativeJamThreshold());
-    ret->mkItem("segment occupancy [%]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getRelativeOccupancy));
+    ret->mkItem("segment jam threshold [%]", false, segment->getRelativeJamThreshold() * 100);
+    ret->mkItem("segment occupancy [%]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getRelativeOccupancy, 100));
     ret->mkItem("segment mean vehicle speed [m/s]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getMeanSpeed));
     ret->mkItem("segment flow [veh/h/lane]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getFlow));
     ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, SUMOReal, size_t>(segment, &MESegment::getCarNumber));
@@ -433,17 +433,41 @@ GUIEdge::setMultiColor(const GUIColorer& c) const {
     const size_t activeScheme = c.getActive();
     mySegmentColors.clear();
     switch (activeScheme) {
-        case 9: // by segments
+        case 9: // alternating segments
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(segment->getIndex() % 2));
             }
             //std::cout << getID() << " scheme=" << c.getScheme().getName() << " schemeCols=" << c.getScheme().getColors().size() << " thresh=" << toString(c.getScheme().getThresholds()) << " segmentColors=" << mySegmentColors.size() << " [0]=" << mySegmentColors[0] << " [1]=" << mySegmentColors[1] <<  "\n";
             return true;
-        case 10: // by jammed state
+        case 10: // by segment jammed state
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(segment->free() ? 0 : 1));
+            }
+            return true;
+        case 11: // by segment occupancy
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                    segment != 0; segment = segment->getNextSegment()) {
+                mySegmentColors.push_back(c.getScheme().getColor(segment->getRelativeOccupancy()));
+            }
+            return true;
+        case 12: // by segment speed
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                    segment != 0; segment = segment->getNextSegment()) {
+                mySegmentColors.push_back(c.getScheme().getColor(segment->getMeanSpeed()));
+            }
+            return true;
+        case 13: // by segment flow
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                    segment != 0; segment = segment->getNextSegment()) {
+                mySegmentColors.push_back(c.getScheme().getColor(3600 * segment->getCarNumber() * segment->getMeanSpeed() / segment->getLength()));
+            }
+            return true;
+        case 14: // by segment relative speed
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                    segment != 0; segment = segment->getNextSegment()) {
+                mySegmentColors.push_back(c.getScheme().getColor(segment->getMeanSpeed() / getAllowedSpeed()));
             }
             return true;
         default:

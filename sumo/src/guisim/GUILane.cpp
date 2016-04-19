@@ -81,7 +81,7 @@ GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
     GUIGlObject(GLO_LANE, id),
     myAmClosed(false) {
     if (MSGlobals::gUseMesoSim) {
-        myShape = splitAtSegments(edge, shape);
+        myShape = splitAtSegments(shape);
         assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
     }
     myShapeRotations.reserve(myShape.size() - 1);
@@ -1049,12 +1049,10 @@ GUILane::closeTraffic(bool rebuildAllowed) {
 
 
 PositionVector 
-GUILane::splitAtSegments(const MSEdge* edge, const PositionVector& shape) {
-    // edge length and MESegments are not yet initialized
+GUILane::splitAtSegments(const PositionVector& shape) {
     assert(MSGlobals::gUseMesoSim);
-    const SUMOReal length = shape.length();
-    int no = MELoop::numSegmentsFor(length, OptionsCont::getOptions().getFloat("meso-edgelength"));
-    const SUMOReal slength = length / no;
+    int no = MELoop::numSegmentsFor(myLength, OptionsCont::getOptions().getFloat("meso-edgelength"));
+    const SUMOReal slength = myLength / no;
     PositionVector result = shape;
     SUMOReal offset = 0;
     for (int i = 0; i < no; ++i) {

@@ -267,7 +267,7 @@ private:
 
 
     /// @brief add intermediate points at segment borders
-    PositionVector splitAtSegments(const MSEdge* edge, const PositionVector& shape);
+    PositionVector splitAtSegments(const PositionVector& shape);
 
 private:
     /// @brief gets the color value according to the current scheme index
