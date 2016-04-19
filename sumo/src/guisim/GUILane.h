@@ -266,6 +266,8 @@ private:
     void drawLane2LaneConnections() const;
 
 
+    /// @brief add intermediate points at segment borders
+    PositionVector splitAtSegments(const MSEdge* edge, const PositionVector& shape);
 
 private:
     /// @brief gets the color value according to the current scheme index
@@ -297,6 +299,9 @@ private:
 
     /// The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
+
+    /// @brief the meso segment index for each geometry segment 
+    std::vector<int> myShapeSegments;
 
     /// @brief Half of lane width, for speed-up
     SUMOReal myHalfLaneWidth;

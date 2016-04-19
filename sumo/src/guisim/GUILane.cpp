@@ -36,6 +36,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Position.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
@@ -52,6 +53,8 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 #include "GUILane.h"
 #include "GUIEdge.h"
 #include "GUIVehicle.h"
@@ -77,6 +80,10 @@ GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, index),
     GUIGlObject(GLO_LANE, id),
     myAmClosed(false) {
+    if (MSGlobals::gUseMesoSim) {
+        myShape = splitAtSegments(edge, shape);
+        assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
+    }
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     myShapeColors.reserve(myShape.size() - 1);
@@ -441,6 +448,16 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     // set lane color
     if (!MSGlobals::gUseMesoSim) {
         setColor(s);
+    } else {
+        myShapeColors.clear();
+        const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)-> getSegmentColors();
+        if (segmentColors.size() > 0) {
+            // apply segment specific shape colors
+            //std::cout << getID() << " shape=" << myShape << " shapeSegs=" << toString(myShapeSegments) << "\n";
+            for (int ii = 0; ii < myShape.size() - 1; ++ii) {
+                myShapeColors.push_back(segmentColors[myShapeSegments[ii]]);
+            }
+        }
     }
     // recognize full transparency and simply don't draw
     GLfloat color[4];
@@ -1028,6 +1045,31 @@ GUILane::closeTraffic(bool rebuildAllowed) {
     if (rebuildAllowed) {
         getEdge().rebuildAllowedLanes();
     }
+}
+
+
+PositionVector 
+GUILane::splitAtSegments(const MSEdge* edge, const PositionVector& shape) {
+    // edge length and MESegments are not yet initialized
+    assert(MSGlobals::gUseMesoSim);
+    const SUMOReal length = shape.length();
+    int no = MELoop::numSegmentsFor(length, OptionsCont::getOptions().getFloat("meso-edgelength"));
+    const SUMOReal slength = length / no;
+    PositionVector result = shape;
+    SUMOReal offset = 0;
+    for (int i = 0; i < no; ++i) {
+        offset += slength;
+        Position pos = shape.positionAtOffset(offset);
+        int index = result.indexOfClosest(pos);
+        if (pos.distanceTo(result[index]) > POSITION_EPS) {
+            index = result.insertAtClosest(pos);
+        }
+        while (myShapeSegments.size() < index) {
+            myShapeSegments.push_back(i);
+        }
+        //std::cout << "splitAtSegments " << getID() << " no=" << no << " i=" << i << " offset=" << offset << " index=" << index << " segs=" << toString(myShapeSegments) << "\n";
+    }
+    return result;
 }
 
 /****************************************************************************/

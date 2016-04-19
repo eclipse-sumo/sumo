@@ -37,6 +37,7 @@
 #include <string>
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/settings/GUIPropertySchemeStorage.h>
 #include <utils/foxtools/MFXMutex.h>
 
 
@@ -46,7 +47,6 @@
 class MESegment;
 class MSBaseVehicle;
 class GUILane;
-
 
 // ===========================================================================
 // class definitions
@@ -176,6 +176,12 @@ public:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
+    /// @brief sets the color according to the current scheme index and some edge function
+    bool setFunctionalColor(size_t activeScheme) const;
+
+    /// @brief sets multiple colors according to the current scheme index and edge function
+    bool setMultiColor(const GUIColorer& c) const;
+
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
 
@@ -202,6 +208,14 @@ public:
 
     /// @brief add a rerouter
     void addRerouter();
+
+    /// @brief return segment colors (meso)
+    const std::vector<RGBColor>& getSegmentColors() const {
+        return mySegmentColors;
+    }
+
+    /// The color of the segments (cached)
+    mutable std::vector<RGBColor> mySegmentColors;
 
 private:
     /// @brief invalidated copy constructor

@@ -250,15 +250,22 @@ MELoop::nextSegment(MESegment* s, MEVehicle* v) {
 }
 
 
+int
+MELoop::numSegmentsFor(const SUMOReal length, const SUMOReal sLength) {
+    int no = (unsigned int)floor(length / sLength + 0.5);
+    if (no == 0) { // assure there is at least one segment
+        return 1;
+    } else {
+        return no;
+    }
+}
+
+
 void
 MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
-    SUMOReal slength = oc.getFloat("meso-edgelength");
     const SUMOReal length = e.getLength();
-    unsigned int no = (unsigned int)floor(length / slength + 0.5);
-    if (no == 0) { // assure there is at least one segment
-        no = 1;
-    }
-    slength = length / (SUMOReal)no;
+    int no = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
+    const SUMOReal slength = length / (SUMOReal)no;
     const SUMOReal lengthGeometryFactor = e.getLanes()[0]->getLengthGeometryFactor();
     MESegment* newSegment = 0;
     MESegment* nextSegment = 0;

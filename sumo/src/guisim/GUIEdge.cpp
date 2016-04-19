@@ -406,7 +406,49 @@ GUIEdge::getRelativeSpeed() const {
 
 void
 GUIEdge::setColor(const GUIVisualizationSettings& s) const {
-    GLHelper::setColor(s.edgeColorer.getScheme().getColor(getColorValue(s.edgeColorer.getActive())));
+    const GUIColorer& c = s.edgeColorer;
+    if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+    }
+}
+
+
+bool
+GUIEdge::setFunctionalColor(size_t activeScheme) const {
+    switch (activeScheme) {
+        case 8: {
+            const PositionVector& shape = getLanes()[0]->getShape();
+            SUMOReal hue = GeomHelper::naviDegree(shape.beginEndAngle()); // [0-360]
+            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+
+bool
+GUIEdge::setMultiColor(const GUIColorer& c) const {
+    const size_t activeScheme = c.getActive();
+    mySegmentColors.clear();
+    switch (activeScheme) {
+        case 9: // by segments
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                    segment != 0; segment = segment->getNextSegment()) {
+                mySegmentColors.push_back(c.getScheme().getColor(segment->getIndex() % 2));
+            }
+            //std::cout << getID() << " scheme=" << c.getScheme().getName() << " schemeCols=" << c.getScheme().getColors().size() << " thresh=" << toString(c.getScheme().getThresholds()) << " segmentColors=" << mySegmentColors.size() << " [0]=" << mySegmentColors[0] << " [1]=" << mySegmentColors[1] <<  "\n";
+            return true;
+        case 10: // by jammed state
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                    segment != 0; segment = segment->getNextSegment()) {
+                mySegmentColors.push_back(c.getScheme().getColor(segment->free() ? 0 : 1));
+            }
+            return true;
+        default:
+            return false;
+    }
 }
 
 
