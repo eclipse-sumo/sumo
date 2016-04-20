@@ -1665,63 +1665,63 @@ TraCIAPI::VehicleScope::getIDCount() const {
 }
 
 SUMOReal
-TraCIAPI::VehicleScope::getSpeed(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED, typeID);
+TraCIAPI::VehicleScope::getSpeed(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED, vehicleID);
 }
 
 TraCIAPI::TraCIPosition
-TraCIAPI::VehicleScope::getPosition(const std::string& typeID) const {
-    return myParent.getPosition(CMD_GET_VEHICLE_VARIABLE, VAR_POSITION, typeID);
+TraCIAPI::VehicleScope::getPosition(const std::string& vehicleID) const {
+    return myParent.getPosition(CMD_GET_VEHICLE_VARIABLE, VAR_POSITION, vehicleID);
 }
 
 SUMOReal
-TraCIAPI::VehicleScope::getAngle(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ANGLE, typeID);
+TraCIAPI::VehicleScope::getAngle(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ANGLE, vehicleID);
 }
 
 std::string
-TraCIAPI::VehicleScope::getRoadID(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_ROAD_ID, typeID);
+TraCIAPI::VehicleScope::getRoadID(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_ROAD_ID, vehicleID);
 }
 
 std::string
-TraCIAPI::VehicleScope::getLaneID(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_LANE_ID, typeID);
+TraCIAPI::VehicleScope::getLaneID(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_LANE_ID, vehicleID);
 }
 
 unsigned int
-TraCIAPI::VehicleScope::getLaneIndex(const std::string& typeID) const {
-    return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_LANE_INDEX, typeID);
+TraCIAPI::VehicleScope::getLaneIndex(const std::string& vehicleID) const {
+    return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_LANE_INDEX, vehicleID);
 }
 
 std::string
-TraCIAPI::VehicleScope::getTypeID(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_TYPE, typeID);
+TraCIAPI::VehicleScope::getvehicleID(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_TYPE, vehicleID);
 }
 
 std::string
-TraCIAPI::VehicleScope::getRouteID(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_ROAD_ID, typeID);
+TraCIAPI::VehicleScope::getRouteID(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_ROAD_ID, vehicleID);
 }
 
 unsigned int
-TraCIAPI::VehicleScope::getRouteIndex(const std::string& typeID) const {
-    return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_INDEX, typeID);
+TraCIAPI::VehicleScope::getRouteIndex(const std::string& vehicleID) const {
+    return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_INDEX, vehicleID);
 }
 
 std::vector<std::string>
-TraCIAPI::VehicleScope::getEdges(const std::string& typeID) const {
-    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, VAR_EDGES, typeID);
+TraCIAPI::VehicleScope::getEdges(const std::string& vehicleID) const {
+    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, VAR_EDGES, vehicleID);
 }
 
 TraCIAPI::TraCIColor
-TraCIAPI::VehicleScope::getColor(const std::string& typeID) const {
-    return myParent.getColor(CMD_GET_VEHICLE_VARIABLE, VAR_COLOR, typeID);
+TraCIAPI::VehicleScope::getColor(const std::string& vehicleID) const {
+    return myParent.getColor(CMD_GET_VEHICLE_VARIABLE, VAR_COLOR, vehicleID);
 }
 
 SUMOReal
-TraCIAPI::VehicleScope::getLanePosition(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_LANEPOSITION, typeID);
+TraCIAPI::VehicleScope::getLanePosition(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_LANEPOSITION, vehicleID);
 }
 
 
@@ -1800,7 +1800,7 @@ TraCIAPI::VehicleScope::remove(const std::string& vehicleID, char reason) const 
 
 
 void
-TraCIAPI::VehicleScope::moveTo(const std::string& typeID, const std::string& laneID, SUMOReal position) const {
+TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& laneID, SUMOReal position) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(2);
@@ -1808,7 +1808,7 @@ TraCIAPI::VehicleScope::moveTo(const std::string& typeID, const std::string& lan
     content.writeString(laneID);
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(position);
-    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MOVE_TO, typeID, content);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MOVE_TO, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
@@ -1837,7 +1837,7 @@ TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string
 
 
 void
-TraCIAPI::VehicleScope::slowDown(const std::string& typeID, SUMOReal speed, int duration) const {
+TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, SUMOReal speed, int duration) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(2);
@@ -1845,17 +1845,17 @@ TraCIAPI::VehicleScope::slowDown(const std::string& typeID, SUMOReal speed, int 
     content.writeDouble(speed);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(duration);
-    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_SLOWDOWN, typeID, content);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_SLOWDOWN, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
 
 void
-TraCIAPI::VehicleScope::setSpeed(const std::string& typeID, SUMOReal speed) const {
+TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, SUMOReal speed) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(speed);
-    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_SPEED, typeID, content);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_SPEED, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
