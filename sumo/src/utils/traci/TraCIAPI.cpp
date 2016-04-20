@@ -1745,10 +1745,10 @@ TraCIAPI::VehicleScope::moveTo(const std::string& typeID, const std::string& lan
 
 
 void 
-TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle) const {
+TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle, bool keepRoute) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(5);
+    content.writeInt(6);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(edgeID);
     content.writeUnsignedByte(TYPE_INTEGER);
@@ -1759,6 +1759,8 @@ TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string
     content.writeDouble(y);
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(angle);
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeByte(keepRoute ? 1 : 0);
     myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MOVE_TO_VTD, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);

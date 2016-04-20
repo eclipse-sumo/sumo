@@ -683,7 +683,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     answerLog << "    moveToVTD, simStep:\n";
-    vehicle.moveToXY("0", "dummy", 0, 2231.61,498.29, 90);
+    vehicle.moveToXY("0", "dummy", 0, 2231.61,498.29, 90, true);
     simulationStep();
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";

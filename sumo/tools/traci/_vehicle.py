@@ -852,15 +852,21 @@ class VehicleDomain(Domain):
         self._connection._sendByteCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
 
-    def moveToVTD(self, vehID, edgeID, lane, x, y, angle):
+    def moveToVTD(self, vehID, edgeID, lane, x, y, angle, keepRoute=True):
+        '''Plance vehicle at the given x,y coordinates and force it's angle to
+        the given value (for drawing). If keepRoute is set, the closest position
+        within the existing route is taken, otherwise the vehicle may move to
+        any edge in the network but it's route than terminates on that edge.
+        edgeID and lane are optional placement hints to resovle ambiguities'''
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO_VTD,
-                                       vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
+                                       vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 1)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
         self._connection._packString(edgeID)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, lane)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, x)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, y)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
+        self._connection._string += struct.pack("!BB", tc.TYPE_BYTE, (1 if keepRoute else 0))
         self._connection._sendExact()
 
     def subscribe(self, objectID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
