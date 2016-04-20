@@ -1743,6 +1743,28 @@ TraCIAPI::VehicleScope::moveTo(const std::string& typeID, const std::string& lan
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
 
+
+void 
+TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(5);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(edgeID);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(lane);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(x);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(y);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(angle);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MOVE_TO_VTD, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+
 void
 TraCIAPI::VehicleScope::slowDown(const std::string& typeID, SUMOReal speed, int duration) const {
     tcpip::Storage content;

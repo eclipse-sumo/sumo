@@ -680,6 +680,13 @@ TraCITestClient::testAPI() {
     answerLog << "  vehicle:\n";
     answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
+    answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
+    answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
+    answerLog << "    moveToVTD, simStep:\n";
+    vehicle.moveToXY("0", "dummy", 0, 2231.61,498.29, 90);
+    simulationStep();
+    answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
+    answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";

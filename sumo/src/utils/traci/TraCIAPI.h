@@ -712,6 +712,7 @@ public:
         SUMOReal getWaitingTime(const std::string& typeID) const;
 
         void moveTo(const std::string& typeID, const std::string& laneID, SUMOReal position) const;
+        void moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle) const;
         void slowDown(const std::string& typeID, SUMOReal speed, int duration) const;
         void setSpeed(const std::string& typeID, SUMOReal speed) const;
 
