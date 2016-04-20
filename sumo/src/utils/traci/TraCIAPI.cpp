@@ -33,7 +33,6 @@
 
 #include "TraCIAPI.h"
 #include <traci-server/TraCIConstants.h>
-#include <utils/common/ToString.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

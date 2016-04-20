@@ -34,8 +34,9 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include <foreign/tcpip/socket.h>
-#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -51,6 +52,11 @@
  * @class TraCIAPI
  * @brief C++ TraCI client API implementation
  */
+
+
+typedef long long int SUMOTime; // <utils/common/SUMOTime.h>
+
+
 class TraCIAPI {
 public:
     /// @name Structures definitions
@@ -827,6 +833,14 @@ protected:
     void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
     /// @}
 
+    template <class T>
+    static inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURACY) {
+        std::ostringstream oss;
+        oss.setf(std::ios::fixed , std::ios::floatfield);
+        oss << std::setprecision(accuracy);
+        oss << t;
+        return oss.str();
+    }
 
 protected:
     /// @brief The socket
