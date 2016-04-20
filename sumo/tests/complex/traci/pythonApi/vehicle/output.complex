@@ -233,7 +233,7 @@ step 19
 {80: '1o', 86: 60.0}
 step 20
 {80: '1o', 86: 80.0}
-speed before moveToVTD 20.0
+speed before moveToXY 20.0
 step 21
 speed after moveToVTD 20.0
 {80: '1o', 86: 6.160000000000026}

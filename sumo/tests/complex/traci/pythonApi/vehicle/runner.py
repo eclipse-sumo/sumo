@@ -172,8 +172,8 @@ print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
-print("speed before moveToVTD", traci.vehicle.getSpeed(vehID))
-traci.vehicle.moveToVTD(vehID, "1o", 0, 482.49, 501.31, 0)
+print("speed before moveToXY", traci.vehicle.getSpeed(vehID))
+traci.vehicle.moveToVTD(vehID, "1o", 0, 482.49, 501.31, 0) # test deprecated method name
 print("step", step())
 print("speed after moveToVTD", traci.vehicle.getSpeed(vehID))
 print(traci.vehicle.getSubscriptionResults(vehID))
@@ -285,11 +285,11 @@ traci.vehicle.moveTo(tele, "1o_0", 40)
 for i in range(3):
     checkOffRoad(tele)
     print("step", step())
-# moveToVTD to off-route edge
+# moveToXY to off-route edge
 moved = "movedVeh"
 traci.vehicle.add(moved, "vertical")
 print("step", step())
-traci.vehicle.moveToVTD(moved, "dummy", 0, 448.99, 491.19, 0, False)
+traci.vehicle.moveToXY(moved, "dummy", 0, 448.99, 491.19, 0, False)
 print("step", step())
 check(moved)
 

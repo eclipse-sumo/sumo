@@ -852,7 +852,7 @@ class VehicleDomain(Domain):
         self._connection._sendByteCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
 
-    def moveToVTD(self, vehID, edgeID, lane, x, y, angle, keepRoute=True):
+    def moveToXY(self, vehID, edgeID, lane, x, y, angle, keepRoute=True):
         '''Plance vehicle at the given x,y coordinates and force it's angle to
         the given value (for drawing). If keepRoute is set, the closest position
         within the existing route is taken, otherwise the vehicle may move to
@@ -868,6 +868,8 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
         self._connection._string += struct.pack("!BB", tc.TYPE_BYTE, (1 if keepRoute else 0))
         self._connection._sendExact()
+
+    moveToVTD = moveToXY # deprecated method name for backwards compatibility
 
     def subscribe(self, objectID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
         """subscribe(string, list(integer), double, double) -> None
