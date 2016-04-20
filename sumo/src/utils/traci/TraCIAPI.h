@@ -37,6 +37,7 @@
 #include <sstream>
 #include <iomanip>
 #include <foreign/tcpip/socket.h>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -737,6 +738,7 @@ public:
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle, bool keepRoute) const;
         void slowDown(const std::string& typeID, SUMOReal speed, int duration) const;
         void setSpeed(const std::string& typeID, SUMOReal speed) const;
+        void remove(const std::string& vehicleID, char reason=REMOVE_VAPORIZED) const;
 
     private:
         /// @brief invalidated copy constructor

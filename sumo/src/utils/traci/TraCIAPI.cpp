@@ -32,7 +32,6 @@
 #endif
 
 #include "TraCIAPI.h"
-#include <traci-server/TraCIConstants.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -1788,6 +1787,18 @@ TraCIAPI::VehicleScope::add(const std::string& vehicleID,
 }
 
 
+void 
+TraCIAPI::VehicleScope::remove(const std::string& vehicleID, char reason) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeUnsignedByte(reason);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, REMOVE, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+
+}
+
+
 void
 TraCIAPI::VehicleScope::moveTo(const std::string& typeID, const std::string& laneID, SUMOReal position) const {
     tcpip::Storage content;
@@ -1801,7 +1812,6 @@ TraCIAPI::VehicleScope::moveTo(const std::string& typeID, const std::string& lan
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
-
 
 void 
 TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle, bool keepRoute) const {

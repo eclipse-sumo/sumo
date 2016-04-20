@@ -695,6 +695,8 @@ TraCITestClient::testAPI() {
     vehicle.add("1", "e_u1");
     simulationStep();
     answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
+    answerLog << "    remove:\n";
+    vehicle.remove("0");
     answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
