@@ -7,6 +7,9 @@ subsequent_edge
 # vehicle jumps to an edge not on its route
 offroute_edge
 
+# old school behavior, vehicle id = VTD_EGO
+offroute_edge_by_id
+
 # set position while on an intersection (within the current internal edge)
 junction
 

@@ -285,6 +285,13 @@ traci.vehicle.moveTo(tele, "1o_0", 40)
 for i in range(3):
     checkOffRoad(tele)
     print("step", step())
+# moveToVTD to off-route edge
+moved = "movedVeh"
+traci.vehicle.add(moved, "vertical")
+print("step", step())
+traci.vehicle.moveToVTD(moved, "dummy", 0, 448.99, 491.19, 0, False)
+print("step", step())
+check(moved)
 
 # done
 traci.close()

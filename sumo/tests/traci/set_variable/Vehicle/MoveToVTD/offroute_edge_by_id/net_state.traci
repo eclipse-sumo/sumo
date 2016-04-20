@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 10:25:50 2016 by SUMO Version dev-SVN-r20497
+<!-- generated on Thu Nov 26 09:16:45 2015 by SUMO Version dev-SVN-r19420I
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="19163"/>
+        <remote-port value="19303"/>
     </traci_server>
 
 </configuration>
@@ -30,7 +30,7 @@
     <timestep time="0.00">
         <edge id="e_m0">
             <lane id="e_m0_0">
-                <vehicle id="veh0" pos="0.00" speed="0.00"/>
+                <vehicle id="VTD_EGO" pos="0.00" speed="0.00"/>
             </lane>
             <lane id="e_m0_1"/>
             <lane id="e_m0_2"/>
@@ -39,7 +39,7 @@
     <timestep time="1.00">
         <edge id="e_m0">
             <lane id="e_m0_0">
-                <vehicle id="veh0" pos="0.80" speed="0.80"/>
+                <vehicle id="VTD_EGO" pos="0.80" speed="0.80"/>
             </lane>
             <lane id="e_m0_1"/>
             <lane id="e_m0_2"/>
@@ -48,7 +48,7 @@
     <timestep time="2.00">
         <edge id="e_m0">
             <lane id="e_m0_0">
-                <vehicle id="veh0" pos="2.40" speed="1.60"/>
+                <vehicle id="VTD_EGO" pos="2.40" speed="1.60"/>
             </lane>
             <lane id="e_m0_1"/>
             <lane id="e_m0_2"/>
@@ -57,7 +57,7 @@
     <timestep time="3.00">
         <edge id="e_m0">
             <lane id="e_m0_0">
-                <vehicle id="veh0" pos="4.80" speed="2.40"/>
+                <vehicle id="VTD_EGO" pos="4.80" speed="2.40"/>
             </lane>
             <lane id="e_m0_1"/>
             <lane id="e_m0_2"/>
@@ -66,7 +66,7 @@
     <timestep time="4.00">
         <edge id="e_m0">
             <lane id="e_m0_0">
-                <vehicle id="veh0" pos="8.00" speed="3.20"/>
+                <vehicle id="VTD_EGO" pos="8.00" speed="3.20"/>
             </lane>
             <lane id="e_m0_1"/>
             <lane id="e_m0_2"/>
@@ -75,7 +75,7 @@
     <timestep time="5.00">
         <edge id="e_vo0">
             <lane id="e_vo0_0">
-                <vehicle id="veh0" pos="270.55" speed="3.20"/>
+                <vehicle id="VTD_EGO" pos="270.55" speed="3.20"/>
             </lane>
             <lane id="e_vo0_1"/>
         </edge>
@@ -83,7 +83,7 @@
     <timestep time="6.00">
         <edge id="e_vo0">
             <lane id="e_vo0_0">
-                <vehicle id="veh0" pos="274.55" speed="4.00"/>
+                <vehicle id="VTD_EGO" pos="274.55" speed="4.00"/>
             </lane>
             <lane id="e_vo0_1"/>
         </edge>
@@ -91,7 +91,7 @@
     <timestep time="7.00">
         <edge id="e_vo0">
             <lane id="e_vo0_0">
-                <vehicle id="veh0" pos="279.35" speed="4.80"/>
+                <vehicle id="VTD_EGO" pos="279.35" speed="4.80"/>
             </lane>
             <lane id="e_vo0_1"/>
         </edge>
@@ -99,7 +99,7 @@
     <timestep time="8.00">
         <edge id="e_vo0">
             <lane id="e_vo0_0">
-                <vehicle id="veh0" pos="284.95" speed="5.60"/>
+                <vehicle id="VTD_EGO" pos="284.95" speed="5.60"/>
             </lane>
             <lane id="e_vo0_1"/>
         </edge>
@@ -107,7 +107,7 @@
     <timestep time="9.00">
         <edge id="e_vo0">
             <lane id="e_vo0_0">
-                <vehicle id="veh0" pos="291.35" speed="6.40"/>
+                <vehicle id="VTD_EGO" pos="291.35" speed="6.40"/>
             </lane>
             <lane id="e_vo0_1"/>
         </edge>
@@ -115,7 +115,7 @@
     <timestep time="10.00">
         <edge id="e_vo0">
             <lane id="e_vo0_0">
-                <vehicle id="veh0" pos="298.55" speed="7.20"/>
+                <vehicle id="VTD_EGO" pos="298.55" speed="7.20"/>
             </lane>
             <lane id="e_vo0_1"/>
         </edge>
@@ -123,7 +123,7 @@
     <timestep time="11.00">
         <edge id="e_vo0">
             <lane id="e_vo0_0">
-                <vehicle id="veh0" pos="306.55" speed="8.00"/>
+                <vehicle id="VTD_EGO" pos="306.55" speed="8.00"/>
             </lane>
             <lane id="e_vo0_1"/>
         </edge>

@@ -437,3 +437,49 @@ step 122
 step 123
 ('veh', 'collider', 'speed', 2.9624540579272436, 'pos', (444.13396686476193, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 44.516033135238104, 'CO2', 1655.9715525238637)
 step 124
+step 125
+step 126
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'routeTest', 'routeTest2', 'triptest', 'victim']
+vehicle count 17
+examining movedVeh
+speed 0.0
+speed w/o traci 0.0
+pos (448.99, 491.75)
+angle 0.0
+road 1si
+lane 1si_0
+laneIndex 0
+type DEFAULT_VEHTYPE
+routeID !movedVeh!var#1
+routeIndex 0
+route ['1si']
+lanePos 197.49
+color (255, 255, 0, 255)
+bestLanes [['1si_0', 237.15, 0.0, 0, 1, ['1si_0']], ['1si_1', 237.15, 0.0, 0, 1, ['1si_1']], ['1si_2', 237.15, 0.0, 0, 1, ['1si_2']]]
+CO2 601.692777778
+CO 6.37156111111
+HC 0.34942
+PMx 0.0212614861111
+NOx 0.83951
+fuel 0.239885513361
+noise 55.9402764101
+traveltime -1001.0
+effort -1001.0
+route valid True
+signals 8
+length 5.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed 13.89
+accel 2.6
+decel 4.5
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA2/P_7_7
+shape passenger
+MinGap 2.5
+width 1.8
+waiting time 0.0
+driving dist -1001.0
+driving dist 2D -1001.0
