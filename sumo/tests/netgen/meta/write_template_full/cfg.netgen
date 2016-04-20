@@ -19,6 +19,7 @@
         <grid.x-length value="100" synonymes="grid-x-length x-length" type="FLOAT" help="The length of horizontal streets; Overrides --grid-length"/>
         <grid.y-length value="100" synonymes="grid-y-length y-length" type="FLOAT" help="The length of vertical streets; Overrides --grid-length"/>
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT" help="The length of streets attached at the boundary; 0 means no streets are attached"/>
+        <grid.alphanumerical-ids value="false" type="BOOL" help="The Ids of generated nodes use letters for the X axis"/>
     </grid_network>
 
     <spider_network>

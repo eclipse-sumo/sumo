@@ -21,6 +21,7 @@ attach
 
 # no internal lanes
 nointernal
+alphanumerical-ids
 
 # Tests processing of errors in input
 errors

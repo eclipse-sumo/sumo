@@ -45,6 +45,9 @@
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT"/>
 
+        <!-- The Ids of generated nodes use letters for the X axis -->
+        <grid.alphanumerical-ids value="false" type="BOOL"/>
+
     </grid_network>
 
     <spider_network>

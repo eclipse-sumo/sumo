@@ -170,12 +170,18 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The length of attached streets must be at least 10m.");
             hadError = true;
         }
+        const bool alphaIDs = oc.getBool("grid.alphanumerical-ids");
+        if (alphaIDs && xNo > 26) {
+            WRITE_ERROR("There must be at most 26 nodes in the x-direction when using alphanumerical ids.");
+            hadError = true;
+        }
+
         if (hadError) {
             throw ProcessError();
         }
         // build if everything's ok
         NGNet* net = new NGNet(nb);
-        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
+        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength, alphaIDs);
         return net;
     }
     // random net
