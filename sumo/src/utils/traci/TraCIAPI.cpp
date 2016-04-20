@@ -1179,7 +1179,7 @@ TraCIAPI::RouteScope::add(const std::string& routeID, const std::vector<std::str
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeStringList(edges);
-    myParent.send_commandSetValue(CMD_SET_ROUTE_VARIABLE, VAR_POSITION, routeID, content);
+    myParent.send_commandSetValue(CMD_SET_ROUTE_VARIABLE, ADD, routeID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_ROUTE_VARIABLE);
 }
@@ -1726,6 +1726,66 @@ TraCIAPI::VehicleScope::getLanePosition(const std::string& typeID) const {
 }
 
 
+void 
+TraCIAPI::VehicleScope::add(const std::string& vehicleID, 
+        const std::string& routeID, 
+        const std::string& typeID, 
+        SUMOTime depart,
+        int departLane, 
+        const std::string& departPos, 
+        SUMOReal departSpeed, 
+        const std::string& arrivalLane,
+        const std::string& arrivalPos, 
+        const std::string& arrivalSpeed,
+        const std::string& fromTaz, 
+        const std::string& toTaz, 
+        const std::string& line, 
+        int personCapacity, 
+        int personNumber) const {
+
+    if (depart == -1) {
+        depart = myParent.simulation.getCurrentTime() / 1000.0;
+    }
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(14);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(routeID);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(typeID);
+
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(toString(depart));
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(toString(departLane));
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(departPos);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(toString(departSpeed));
+
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(arrivalLane);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(arrivalPos);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(arrivalSpeed);
+
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(fromTaz);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(toTaz);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(line);
+
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(personCapacity);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(personNumber);
+
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, ADD_FULL, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
 
 
 void

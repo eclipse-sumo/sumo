@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Apr 20 10:06:39 2016
+TraCITestClient output file. Date: Wed Apr 20 13:13:24 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -7,19 +7,23 @@ testAPI:
   edge:
     getIDList: e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
     getIDCount: 21
+  route:
+    add:
+    getIDList: e_u1 r1
   vehicle:
-    getIDList: 0
-    getIDCount: 1
     getRoadID: e_m3
     getLaneID: e_m3_0
     moveToVTD, simStep:
     getRoadID: e_m4
     getLaneID: e_m4_2
+    add:
+    getIDList: 0 1
+    getIDCount: 2
   inductionloop:
     getIDList: det1
     getVehicleData:
   simulation:
-    getCurrentTime: 6000
+    getCurrentTime: 7000
   gui:
     setScheme: 
     no support for gui commands

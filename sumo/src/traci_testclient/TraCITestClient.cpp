@@ -677,9 +677,13 @@ TraCITestClient::testAPI() {
     answerLog << "  edge:\n";
     answerLog << "    getIDList: " << joinToString(edge.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << edge.getIDCount() << "\n";
+    answerLog << "  route:\n";
+    answerLog << "    add:\n";
+    std::vector<std::string> edges;
+    edges.push_back("e_u1");
+    route.add("e_u1", edges);
+    answerLog << "    getIDList: " << joinToString(route.getIDList(), " ") << "\n";
     answerLog << "  vehicle:\n";
-    answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
-    answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     answerLog << "    moveToVTD, simStep:\n";
@@ -687,6 +691,11 @@ TraCITestClient::testAPI() {
     simulationStep();
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
+    answerLog << "    add:\n";
+    vehicle.add("1", "e_u1");
+    simulationStep();
+    answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";

@@ -717,6 +717,22 @@ public:
         SUMOReal getWidth(const std::string& typeID) const;
         SUMOReal getWaitingTime(const std::string& typeID) const;
 
+        void add(const std::string& vehicleID, 
+                const std::string& routeID, 
+                const std::string& typeID="DEFAULT_VEHTYPE", 
+                SUMOTime depart=-1,
+                int departLane=0, 
+                const std::string& departPos ="base", 
+                SUMOReal departSpeed=0, 
+                const std::string& arrivalLane="current", 
+                const std::string& arrivalPos="max", 
+                const std::string& arrivalSpeed="current",
+                const std::string& fromTaz="", 
+                const std::string& toTaz="", 
+                const std::string& line="", 
+                int personCapacity=0, 
+                int personNumber=0) const;
+
         void moveTo(const std::string& typeID, const std::string& laneID, SUMOReal position) const;
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle, bool keepRoute) const;
         void slowDown(const std::string& typeID, SUMOReal speed, int duration) const;
