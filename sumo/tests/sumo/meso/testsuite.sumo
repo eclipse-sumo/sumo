@@ -11,3 +11,6 @@ teleport
 
 # modelling of jamming and jam resolution
 jamming
+
+# tls_penalty should affect empty-network travel times
+tls_penalty_routing
