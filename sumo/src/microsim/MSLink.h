@@ -254,6 +254,10 @@ public:
      */
     bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, SUMOReal decel) const;
 
+    MSJunction* getJunction() const {
+        return myJunction;
+    }
+
 
     /** @brief Returns the current state of the link
      *

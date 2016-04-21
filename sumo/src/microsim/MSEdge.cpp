@@ -120,8 +120,31 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
 
 
 void MSEdge::recalcCache() {
+    if (myLanes->empty()) {
+        return;
+    }
     myLength = myLanes->front()->getLength();
     myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
+
+    if (MSGlobals::gMesoTLSPenalty > 0) {
+        // add tls penalties to the minimum travel time 
+        SUMOTime minPenalty = -1;
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            MSLane* l = *i;
+            const MSLinkCont& lc = l->getLinkCont();
+            for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
+                MSLink* link = *j;
+                if (minPenalty == -1) {
+                    minPenalty = link->getMesoTLSPenalty();
+                } else {
+                    minPenalty = MIN2(minPenalty, link->getMesoTLSPenalty());
+                }
+            }
+        }
+        if (minPenalty > 0) {
+            myEmptyTraveltime += STEPS2TIME(minPenalty);
+        }
+    }
 }
 
 
@@ -548,7 +571,7 @@ MSEdge::getMesoMeanSpeed() const {
         no += vehNo;
     }
     if (no == 0) {
-        return getSpeedLimit();
+        return getLength() / myEmptyTraveltime; // may include tls-penalty
     }
     return v / no;
 }

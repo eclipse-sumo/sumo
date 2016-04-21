@@ -39,6 +39,7 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
@@ -315,12 +316,23 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         }
     }
     const SUMOReal durationSeconds = STEPS2TIME(duration);
+    std::set<const MSJunction*> controlledJunctions;
     for (int j = 0; j < numLinks; ++j) {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             myLinks[j][k]->setMesoTLSPenalty(TIME2STEPS(MSGlobals::gMesoTLSPenalty * penalty[j] / durationSeconds));
+            controlledJunctions.insert(myLinks[j][k]->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
             //std::cout << " tls=" << getID() << " link=" << j << " penalty=" << penalty[j] / durationSeconds << " durSecs=" << durationSeconds << "\n";
         }
     }
+    // initialize empty-net travel times
+    // XXX refactor after merging sharps (links know their incoming edge)
+    for (std::set<const MSJunction*>::iterator it = controlledJunctions.begin(); it != controlledJunctions.end(); ++it) {
+        const ConstMSEdgeVector incoming = (*it)->getIncoming();
+        for (ConstMSEdgeVector::const_iterator it_e = incoming.begin(); it_e != incoming.end(); ++it_e) {
+            const_cast<MSEdge*>(*it_e)->recalcCache();
+        }
+    }
+
 }
 
 /****************************************************************************/
