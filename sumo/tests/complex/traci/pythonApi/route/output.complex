@@ -2,16 +2,16 @@ Loading configuration... done.
 step 0
 step 1
 step 2
-routes ['horizontal']
-route count 1
+routes ['horizontal', 'vertical']
+route count 2
 examining horizontal
 edges ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
-{0: ['horizontal']}
+{0: ['horizontal', 'vertical']}
 step 3
-{0: ['horizontal']}
+{0: ['horizontal', 'vertical']}
 step 4
-{0: ['horizontal']}
+{0: ['horizontal', 'vertical']}
 step 5
-{0: ['horizontal']}
-routes ['h2', 'horizontal']
+{0: ['horizontal', 'vertical']}
+routes ['h2', 'horizontal', 'vertical']
 edges ['1o']
