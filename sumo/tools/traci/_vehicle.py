@@ -828,7 +828,7 @@ class VehicleDomain(Domain):
         self._connection._sendExact()
 
     def addFull(self, vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
-                departLane="0", departPos="base", departSpeed="0",
+                departLane="first", departPos="base", departSpeed="0",
                 arrivalLane="current", arrivalPos="max", arrivalSpeed="current",
                 fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0):
         messageString = struct.pack("!Bi", tc.TYPE_COMPOUND, 14)

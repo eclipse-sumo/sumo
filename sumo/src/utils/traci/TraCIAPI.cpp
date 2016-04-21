@@ -1729,10 +1729,10 @@ void
 TraCIAPI::VehicleScope::add(const std::string& vehicleID, 
         const std::string& routeID, 
         const std::string& typeID, 
-        SUMOTime depart,
-        int departLane, 
+        std::string depart,
+        const std::string& departLane, 
         const std::string& departPos, 
-        SUMOReal departSpeed, 
+        const std::string& departSpeed, 
         const std::string& arrivalLane,
         const std::string& arrivalPos, 
         const std::string& arrivalSpeed,
@@ -1742,8 +1742,8 @@ TraCIAPI::VehicleScope::add(const std::string& vehicleID,
         int personCapacity, 
         int personNumber) const {
 
-    if (depart == -1) {
-        depart = myParent.simulation.getCurrentTime() / 1000.0;
+    if (depart == "-1") {
+        depart = toString(myParent.simulation.getCurrentTime() / 1000.0);
     }
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
@@ -1754,13 +1754,13 @@ TraCIAPI::VehicleScope::add(const std::string& vehicleID,
     content.writeString(typeID);
 
     content.writeUnsignedByte(TYPE_STRING);
-    content.writeString(toString(depart));
+    content.writeString(depart);
     content.writeUnsignedByte(TYPE_STRING);
-    content.writeString(toString(departLane));
+    content.writeString(departLane);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(departPos);
     content.writeUnsignedByte(TYPE_STRING);
-    content.writeString(toString(departSpeed));
+    content.writeString(departSpeed);
 
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(arrivalLane);
