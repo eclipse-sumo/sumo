@@ -392,7 +392,7 @@ public:
 
 
     /// @brief convert int to string
-    std::string _2str(const int var) {
+    static std::string _2str(const int var) {
         std::ostringstream convert;
         convert << var;
         return convert.str();
@@ -400,7 +400,7 @@ public:
 
 
     /// @brief convert SUMOReal to string
-    std::string _2str(const SUMOReal var) {
+    static std::string _2str(const SUMOReal var) {
         std::ostringstream convert;
         convert << var;
         return convert.str();
@@ -408,7 +408,7 @@ public:
 
 
     /// @brief convert bool to string
-    std::string _2str(const bool var) {
+    static std::string _2str(const bool var) {
         return (var == true? "true" : "false");
     }
 };

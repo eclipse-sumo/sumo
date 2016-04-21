@@ -36,9 +36,6 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <utils/common/SUMOTime.h>
-#include <iostream>
-#include <sstream>
-#include <string>
 
 
 // ===========================================================================
@@ -52,10 +49,7 @@ class SUMOVehicle;
 // ===========================================================================
 /**
  * @class MSDevice_Battery
- * @brief The battery parametereter
- *
- * MSDevice_Battery //COMPLETAR
-
+ * @brief Battery device for electric vehicles
  */
 class MSDevice_Battery : public MSDevice {
 public:
@@ -63,7 +57,6 @@ public:
     * @param[filled] oc The options container to add the options to
     */
     static void insertOptions(OptionsCont& oc);
-
 
     /** @brief Build devices for the given vehicle, if needed
     *
@@ -77,15 +70,13 @@ public:
     */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
-
 public:
     /// @brief Destructor.
     ~MSDevice_Battery();
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
-
-    /** @brief Checks for waiting steps when the vehicle moves     // IMPLEMENTADA!!
+    /** @brief Checks for waiting steps when the vehicle moves
     *
     * @param[in] veh Vehicle that asks this reminder.
     * @param[in] oldPos Position before move.
@@ -94,9 +85,7 @@ public:
     *
     * @return True (always).
     */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                    SUMOReal newPos, SUMOReal newSpeed);
-
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,  SUMOReal newPos, SUMOReal newSpeed);
 
     /** @brief Saves departure info on insertion
     *
@@ -108,7 +97,6 @@ public:
     */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
 
-
     /** @brief Saves arrival info
     *
     * @param[in] veh The leaving vehicle.
@@ -117,11 +105,8 @@ public:
     * @param[in] isLaneChange whether the vehicle changed from the lane
     * @return True if it did not leave the net.
     *
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                 MSMoveReminder::Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
     /// @}
-
-    */
 
     /** @brief Called on writing tripinfo output
     *
@@ -131,7 +116,6 @@ public:
     */
     void generateOutput() const;
 
-
 private:
     /** @brief Constructor
     *
@@ -140,12 +124,9 @@ private:
     * @param[in] period The period with which a new route shall be searched
     * @param[in] preInsertionPeriod The route search period before insertion
     */
-    MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const SUMOReal new_ActBatKap, const SUMOReal new_MaxBatKap, const SUMOReal new_PowerMax, const SUMOReal new_Mass, const SUMOReal new_FrontSurfaceArea, const SUMOReal new_AirDragCoefficient, const SUMOReal new_InternalMomentOfInertia, const SUMOReal new_RadialDragCoefficient, const SUMOReal new_RollDragCoefficient, const SUMOReal new_ConstantPowerIntake, const SUMOReal new_PropulsionEfficiency, const SUMOReal new_RecuperationEfficiency, const SUMOReal new_LastAngle, const SUMOReal new_LastEnergy);
-
+    MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const SUMOReal actualBatteryCapacity, const SUMOReal maximumBatteryCapacity, const SUMOReal powerMax, const SUMOReal mass, const SUMOReal frontSurfaceArea, const SUMOReal airDragCoefficient, const SUMOReal internalMomentOfInertia, const SUMOReal radialDragCoefficient, const SUMOReal rollDragCoefficient, const SUMOReal constantPowerIntake, const SUMOReal propulsionEfficiency, const SUMOReal recuperationEfficiency, const SUMOReal lastAngle, const SUMOReal lastEnergy);
 
 public:
-    // GET FUNCTIONS
-
     /// @brief Get parameter 01, the actual vehicles' Battery Capacity in kWh
     SUMOReal getActualBatteryCapacity() const;
 
@@ -153,40 +134,40 @@ public:
     SUMOReal getMaximumBatteryCapacity() const;
 
     /// @brief Get parameter 03, the maximum power when accelerating
-    inline SUMOReal getMaximumPower() const;
+    SUMOReal getMaximumPower() const;
 
-    /// @brief Get parameter 04, vehicle's Mass
-    inline SUMOReal getMass() const;
+    /// @brief Get parameter 04, vehicle's myMass
+    SUMOReal getMass() const;
 
     /// @brief Get parameter 05, vehicle's front surface Area
-    inline SUMOReal getFrontSurfaceArea() const;
+    SUMOReal getFrontSurfaceArea() const;
 
     /// @brief Get parameter 06, vehicle's drag coefficient
-    inline SUMOReal getAirDragCoefficient() const;
+    SUMOReal getAirDragCoefficient() const;
 
     /// @brief Get parameter 07, vehicles' internal moment of inertia
-    inline SUMOReal getInternalMomentOfInertia() const;
+    SUMOReal getInternalMomentOfInertia() const;
 
     /// @brief Get parameter 08, vehicles' radial friction coefficient
-    inline SUMOReal getRadialDragCoefficient() const;
+    SUMOReal getRadialDragCoefficient() const;
 
     /// @brief Get parameter 09, vehicles' roll friction coefficient
-    inline SUMOReal getRollDragCoefficient() const;
+    SUMOReal getRollDragCoefficient() const;
 
     /// @brief Get parameter 10, vehicles' constant power intake
-    inline SUMOReal getConstantPowerIntake() const;
+    SUMOReal getConstantPowerIntake() const;
 
     /// @brief Get parameter 11, vehicles' Propulsion efficiency
-    inline SUMOReal getPropulsionEfficiency() const;
+    SUMOReal getPropulsionEfficiency() const;
 
     /// @brief Get parameter 12, vehicles' Recuparation efficiency
-    inline SUMOReal getRecuperationEfficiency() const;
+    SUMOReal getRecuperationEfficiency() const;
 
     /// @brief Get parameter 13, vehicles' last angle
-    inline SUMOReal getLastAngle() const;
+    SUMOReal getLastAngle() const;
 
     /// @brief Get parameter 14, vehicles' last Energy
-    inline SUMOReal getLastEnergy() const;
+    SUMOReal getLastEnergy() const;
 
     /// @brief Get parameter 15, true if Vehicle it's charging, false if not.
     bool isChargingStopped() const;
@@ -195,9 +176,9 @@ public:
     bool isChargingInTransit() const;
 
     /// @brief Get parameter 17, charging start time.
-    inline SUMOReal getChargingStartTime() const;
+    SUMOReal getChargingStartTime() const;
 
-    /// @brief Get parameter 18, consum (Strange error with linker)
+    /// @brief Get parameter 18, myConsum (Strange error with linker)
     SUMOReal getConsum() const;
 
     /// @brief Get parameter 19, Charging Station I
@@ -212,158 +193,146 @@ public:
     /// @brief get propulsion energy
     SUMOReal getPropEnergy(SUMOVehicle& veh);
 
-
-    // SET FUNCTIONS
-
     /// @brief Set parameter 01, The actual vehicles' Battery Capacity in kWh
-    inline void setActualBatteryCapacity(const SUMOReal new_ActBatKap);
+    void setActualBatteryCapacity(const SUMOReal actualBatteryCapacity);
 
     /// @brief Set parameter 02, The total vehicles' Battery Capacity in kWh
-    inline void setMaximumBatteryCapacity(const SUMOReal new_MaxBatKap);
+    void setMaximumBatteryCapacity(const SUMOReal maximumBatteryCapacity);
 
     /// @brief Set parameter 03, The maximum power when accelerating
-    inline void setPowerMax(const SUMOReal new_Pmax);
+    void setPowerMax(const SUMOReal new_Pmax);
 
-    /// @brief Set parameter 04, vehicle's Mass
-    inline void setMass(const SUMOReal new_Mass);
+    /// @brief Set parameter 04, vehicle's myMass
+    void setMass(const SUMOReal mass);
 
     /// @brief Set parameter 05, vehicle's front surface Area
-    inline void setFrontSurfaceArea(const SUMOReal new_FrontSurfaceArea);
+    void setFrontSurfaceArea(const SUMOReal frontSurfaceArea);
 
     /// @brief Set parameter 06, vehicle's drag coefficient
-    inline void setAirDragCoefficient(const SUMOReal new_C_Veh);
+    void setAirDragCoefficient(const SUMOReal new_C_Veh);
 
     /// @brief Set parameter 07, vehicles' internal moment of inertia
-    inline void setInternalMomentOfInertia(const SUMOReal new_InternalMomentOfInertia);
+    void setInternalMomentOfInertia(const SUMOReal internalMomentOfInertia);
 
     /// @brief Set parameter 08, Vehicles' radial friction coefficient
-    inline void setRadialDragCoefficient(const SUMOReal new_RadialDragCoefficient);
+    void setRadialDragCoefficient(const SUMOReal radialDragCoefficient);
 
     /// @brief Set parameter 09, vehicles' roll friction coefficient
-    inline void setRollDragCoefficient(const SUMOReal new_RollDragCoefficient);
+    void setRollDragCoefficient(const SUMOReal rollDragCoefficient);
 
     /// @brief Set parameter 10, vehicles' constant power intake
-    inline void setConstantPowerIntake(const SUMOReal new_ConstantPowerIntake);
+    void setConstantPowerIntake(const SUMOReal constantPowerIntake);
 
     /// @brief Set parameter 11, vehicles' Propulsion efficiency
-    inline void setPropulsionEfficiency(const SUMOReal new_PropulsionEfficiency);
+    void setPropulsionEfficiency(const SUMOReal propulsionEfficiency);
 
     /// @brief Set parameter 12, vehicles' Recuparation efficiency
-    inline void setRecuperationEfficiency(const SUMOReal new_RecuperationEfficiency);
+    void setRecuperationEfficiency(const SUMOReal recuperationEfficiency);
 
     /// @brief Set parameter 13, vehicles' last Angle
-    inline void setLastAngle(const SUMOReal new_LastAngle);
+    void setLastAngle(const SUMOReal lastAngle);
 
     /// @brief Set parameter 14, vehicles' last Energy
-    inline void setLastEnergy(const SUMOReal new_LastEnergy);
+    void setLastEnergy(const SUMOReal lastEnergy);
 
     /// @brief Set parameter 17a, reset charging start time
-    inline void resetChargingStartTime();
+    void resetChargingStartTime();
 
     /// @brief Set parameter 17b, increase Charging Start time
-    inline void increaseChargingStartTime();
+    void increaseChargingStartTime();
 
-    /// @brief Set parameter 21a, reset vehicleStopped
-    inline void resetVehicleStoppedTimer();
+    /// @brief Set parameter 21a, reset myVehicleStopped
+    void resetVehicleStoppedTimer();
 
-    /// @brief Set parameter 21a, increase vehicleStopped
-    inline void increaseVehicleStoppedTimer();
+    /// @brief Set parameter 21a, increase myVehicleStopped
+    void increaseVehicleStoppedTimer();
+
+protected:
+    /// @brief Parameter, The actual vehicles's Battery Capacity in kWh
+    /// @condition [myActualBatteryCapacity <= myMaximumBatteryCapacity]
+    SUMOReal myActualBatteryCapacity;
+
+    /// @brief Parameter, The total vehicles's Battery Capacity in kWh
+    /// @condition [myMaximumBatteryCapacity >= 0]
+    SUMOReal myMaximumBatteryCapacity;
+
+    /// @brief Parameter, The Maximum Power when accelerating
+    /// @condition [myPowerMax >= 0]
+    SUMOReal myPowerMax;
+
+    /// @brief Parameter, Vehicle's myMass
+    /// @condition [myMass >= 0]
+    SUMOReal myMass;
+
+    /// @brief Parameter, Vehicle's front surface Area
+    /// @condition [myFrontSurfaceArea >= 0]
+    SUMOReal myFrontSurfaceArea;
+
+    /// @brief Parameter, Vehicle's drag coefficient
+    /// @condition [myAirDragCoefficient >=0]
+    SUMOReal myAirDragCoefficient;
+
+    /// @brief Parameter, Vehicles' internal moment of inertia
+    /// @condition [myInternalMomentOfInertia >= 0]
+    SUMOReal myInternalMomentOfInertia;
+
+    /// @brief Parameter, Vehicles' radial friction coefficient
+    /// @condition [myRadialDragCoefficient >=0]
+    SUMOReal myRadialDragCoefficient;
+
+    /// @brief Parameter, Vehicles' roll friction coefficient
+    /// @condition [myRollDragCoefficient >= 0]
+    SUMOReal myRollDragCoefficient;
+
+    /// @brief Parameter, Vehicles' constant power intake
+    /// @condition [myConstantPowerIntake >= 0]
+    SUMOReal myConstantPowerIntake;
+
+    /// @brief Parameter, Vehicles' propulsion efficiency
+    /// @condition [1 >= myPropulsionEfficiency >= 0]
+    SUMOReal myPropulsionEfficiency;
+
+    /// @brief Parameter, Vehicles' recuparation efficiency
+    /// @condition [1 >= myRecuperationEfficiency >= 0]
+    SUMOReal myRecuperationEfficiency;
+
+    /// @brief Parameter, Vehicles' last angle
+    /// @condition none
+    SUMOReal myLastAngle;
+
+    /// @brief Parameter, Vehicles' last energy
+    /// @condition none
+    SUMOReal myLastEnergy;
+
+    /// @brief Parameter, Flag: Vehicles it's charging stopped
+    /// @condition by default is false.
+    bool myChargingStopped;
+
+    /// @brief Parameter, Flag: Vehicles it's charging in transit
+    /// @condition by default is false.
+    bool myChargingInTransit;
+
+    /// @brief Parameter, Moment, wich the vehicle has beging to charging
+    /// @condition none
+    SUMOReal myChargingStartTime;
+
+    /// @brief Parameter, Vehicle consum during a time step
+    /// @condition by default is 0.
+    SUMOReal myConsum;
+
+    /// @brief Parameter, Vehicle consum during a time step
+    /// @condition by default is "".
+    std::string myActChargingStation;
+
+    /// @brief Parameter, Energy charged in each timestep
+    SUMOReal myEnergyCharged;
+
+    /// @brief Parameter, How many timestep the vehicle is stopped
+    int myVehicleStopped;
 
 private:
-
-    /// @brief Parameter 01, The actual vehicles' Battery Capacity in kWh
-    /// @condition [ActBatKap <= MaxBatKap]
-    SUMOReal ActBatKap;
-
-    /// @brief Parameter 02, The total vehicles' Battery Capacity in kWh
-    /// @condition [MaxBatKap >= 0]
-    SUMOReal MaxBatKap;
-
-    /// @brief Parameter 03, The Maximum Power when accelerating
-    /// @condition [PowerMax >= 0]
-    SUMOReal PowerMax;
-
-    /// @brief Parameter 04, Vehicle's Mass
-    /// @condition [Mass >= 0]
-    SUMOReal Mass;
-
-    /// @brief Parameter 05, Vehicle's front surface Area
-    /// @condition [FrontSurfaceArea >= 0]
-    SUMOReal FrontSurfaceArea;
-
-    /// @brief Parameter 06, Vehicle's drag coefficient
-    /// @condition [AirDragCoefficient >=0]
-    SUMOReal AirDragCoefficient;
-
-    /// @brief Parameter 07, Vehicles' internal moment of inertia
-    /// @condition [InternalMomentOfInertia >= 0]
-    SUMOReal InternalMomentOfInertia;
-
-    /// @brief Parameter 08, Vehicles' radial friction coefficient
-    /// @condition [RadialDragCoefficient >=0]
-    SUMOReal RadialDragCoefficient;
-
-    /// @brief Parameter 09, Vehicles' roll friction coefficient
-    /// @condition [RollDragCoefficient >= 0]
-    SUMOReal RollDragCoefficient;
-
-    /// @brief Parameter 10, Vehicles' constant power intake
-    /// @condition [ConstantPowerIntake >= 0]
-    SUMOReal ConstantPowerIntake;
-
-    /// @brief Parameter 11, Vehicles' propulsion efficiency
-    /// @condition [1 >= PropulsionEfficiency >= 0]
-    SUMOReal PropulsionEfficiency;
-
-    /// @brief Parameter 12, Vehicles' recuparation efficiency
-    /// @condition [1 >= RecuperationEfficiency >= 0]
-    SUMOReal RecuperationEfficiency;
-
-    /// @brief Parameter 13, Vehicles' last angle
-    /// @condition none
-    SUMOReal LastAngle;
-
-    /// @brief Parameter 14, Vehicles' last energy
-    /// @condition none
-    SUMOReal LastEnergy;
-
-    /// @brief Parameter 15, Flag: Vehicles it's charging stopped
-    /// @condition by default is false.
-    bool ItsChargingStopped;
-
-    /// @brief Parameter 16, Flag: Vehicles it's charging in transit
-    /// @condition by default is false.
-    bool ItsChargingInTransit;
-
-    /// @brief Parameter 17, Moment, wich the vehicle has beging to charging
-    /// @condition none
-    SUMOReal ChargingStartTime;
-
-    /// @brief Parameter 18, Vehicle consum during a time step
-    /// @condition by default is 0.
-    SUMOReal Consum;
-
-    /// @brief Parameter 19, Vehicle consum during a time step
-    /// @condition by default is "".
-    std::string actChargingStation;
-
-    /// @brief Parameter 20, Energy charged in each timestep
-    SUMOReal energyCharged;
-
-    /// @brief Parameter 21, How many timestep the vehicle is stopped
-    int vehicleStopped;
-
-
-    /** @brief convert from SUMOReal to String
-     * @param[in] var Variable in SUMOReal format
-    * @return Variable var in String format
-    */
-    std::string SUMOReal_str(const SUMOReal& var);
-
-
     /// @brief Invalidated copy constructor.
     MSDevice_Battery(const MSDevice_Battery&);
-
 
     /// @brief Invalidated assignment operator.
     MSDevice_Battery& operator=(const MSDevice_Battery&);
