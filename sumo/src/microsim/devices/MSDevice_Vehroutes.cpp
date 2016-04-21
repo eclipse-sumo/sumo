@@ -155,10 +155,15 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveRe
 
 void
 MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
+    if (index == 0 && myReplacedRoutes[index].route->size() == 2 &&
+        myReplacedRoutes[index].route->getEdges().front()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT &&
+        myReplacedRoutes[index].route->getEdges().back()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+        return;
+    }
     // check if a previous route shall be written
     os.openTag(SUMO_TAG_ROUTE);
     if (index >= 0) {
-        assert((int) myReplacedRoutes.size() > index);
+        assert((int)myReplacedRoutes.size() > index);
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"";
         if (myReplacedRoutes[index].edge) {
