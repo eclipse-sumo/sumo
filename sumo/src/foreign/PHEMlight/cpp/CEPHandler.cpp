@@ -300,7 +300,7 @@ namespace PHEMlightdll {
         if ((line = ReadLine(fileReader)) != "") {
             std::vector<std::string> entries = split(line, ',');
             // skip first entry "Pe"
-            for (int i = 1; i < entries.size(); i++) {
+            for (int i = 1; i < (int)entries.size(); i++) {
                 header.push_back(entries[i]);
             }
         }

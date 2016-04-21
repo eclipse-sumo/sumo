@@ -290,7 +290,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     // set mesoscopic time penalties
     const Phases& phases = getPhases();
     const int numLinks = (int)phases.front()->getState().size();
-    assert(myLinks.size() >= numLinks);
+    assert((int)myLinks.size() >= numLinks);
     SUMOTime duration = 0;
     std::vector<SUMOReal> redDuration(numLinks, 0);
     std::vector<SUMOReal> penalty(numLinks, 0);

@@ -454,7 +454,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         if (segmentColors.size() > 0) {
             // apply segment specific shape colors
             //std::cout << getID() << " shape=" << myShape << " shapeSegs=" << toString(myShapeSegments) << "\n";
-            for (int ii = 0; ii < myShape.size() - 1; ++ii) {
+            for (int ii = 0; ii < (int)myShape.size() - 1; ++ii) {
                 myShapeColors.push_back(segmentColors[myShapeSegments[ii]]);
             }
         }
@@ -1062,7 +1062,7 @@ GUILane::splitAtSegments(const PositionVector& shape) {
         if (pos.distanceTo(result[index]) > POSITION_EPS) {
             index = result.insertAtClosest(pos);
         }
-        while (myShapeSegments.size() < index) {
+        while ((int)myShapeSegments.size() < index) {
             myShapeSegments.push_back(i);
         }
         //std::cout << "splitAtSegments " << getID() << " no=" << no << " i=" << i << " offset=" << offset << " index=" << index << " segs=" << toString(myShapeSegments) << "\n";
