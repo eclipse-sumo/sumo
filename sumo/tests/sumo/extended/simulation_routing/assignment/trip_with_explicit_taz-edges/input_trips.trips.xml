@@ -1,0 +1,4 @@
+<trips>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+	<trip id="0" depart="0" from="1-source" to="2-sink"/>
+</trips>

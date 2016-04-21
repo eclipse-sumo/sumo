@@ -40,6 +40,9 @@ half_by_name
 # trips as input, districts used
 trip_with_taz
 
+# trips as input, taz-edges used
+trip_with_explicit_taz-edges
+
 # trips as input, districts with explicit source edge
 trip_with_taz_source
 
