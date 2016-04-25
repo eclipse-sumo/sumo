@@ -147,7 +147,22 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
         sink = myRoute->getLastEdge();
     }
     ConstMSEdgeVector edges;
-    const ConstMSEdgeVector stops = getStopEdges();
+    ConstMSEdgeVector stops;
+    if (myParameter->via.size() == 0) {
+        stops = getStopEdges();
+    } else {
+        // via takes precedence over stop edges
+        // XXX check for inconsistencies #2275
+        for (std::vector<std::string>::const_iterator it = myParameter->via.begin(); it != myParameter->via.end(); ++it) {
+            MSEdge* viaEdge = MSEdge::dictionary(*it);
+            assert(viaEdge != 0);
+            if (viaEdge->allowedLanes(getVClass()) == 0) {
+                throw ProcessError("Vehicle '" + getID() + "' is not allowed on any lane of via edge '" + viaEdge->getID() + "'.");
+            }
+            stops.push_back(viaEdge);
+        }
+    }
+
     for (MSRouteIterator s = stops.begin(); s != stops.end(); ++s) {
         if (*s != source) {
             // !!! need to adapt t here
