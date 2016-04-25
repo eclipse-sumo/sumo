@@ -66,6 +66,15 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
         addStop(*s, net, errorHandler);
     }
+    if (pars.via.size() != 0) {
+        // via takes precedence over stop edges
+        // XXX check for inconsistencies #2275
+        myStopEdges.clear();
+        for (std::vector<std::string>::const_iterator it = pars.via.begin(); it != pars.via.end(); ++it) {
+            assert(net->getEdge(*it) != 0);
+            myStopEdges.push_back(net->getEdge(*it));
+        }
+    }
 }
 
 

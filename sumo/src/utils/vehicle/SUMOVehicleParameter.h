@@ -496,6 +496,9 @@ public:
     /// @brief List of the stops the vehicle will make
     std::vector<Stop> stops;
 
+    /// @brief List of the via-edges the vehicle must visit
+    std::vector<std::string> via;
+
     /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
     unsigned int personNumber;
 
