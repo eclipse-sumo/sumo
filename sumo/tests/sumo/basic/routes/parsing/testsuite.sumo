@@ -1,6 +1,5 @@
 # Ordered list of tests in test suite. Add as appropriate
 
-
 # Tests whether the old-style routes can be handled
 old_style
 
@@ -36,3 +35,6 @@ trip
 
 # test whether sume can parse trip input
 trip_via
+
+# test disallowed via edge
+trip_via_invalid
