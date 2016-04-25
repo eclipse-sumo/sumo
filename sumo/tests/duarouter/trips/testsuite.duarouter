@@ -70,6 +70,9 @@ vtypecheck
 # test trip with intermediate edge
 via
 
+# test trip with multiple intermediate edges
+via2
+
 # test trip with intermediate stop
 stop
 
