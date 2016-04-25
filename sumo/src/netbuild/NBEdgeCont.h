@@ -465,6 +465,10 @@ public:
         return myIgnoredEdges.count(id) != 0;
     }
 
+    /// @brief mark the given edge id as ignored
+    void ignore(std::string id) {
+        myIgnoredEdges.insert(id);
+    }
 
     /** @brief Returns whether the edge with the id was deleted explicitly
      */
@@ -516,6 +520,9 @@ public:
     /// @brief mark edge priorities and prohibit turn-arounds for all roundabout edges
     void markRoundabouts();
 
+    /// @brief Returns true if this edge matches one of the removal criteria
+    bool ignoreFilterMatch(NBEdge* edge);
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
@@ -525,9 +532,6 @@ private:
      */
     EdgeVector getGeneratedFrom(const std::string& id) const;
 
-
-    /// @brief Returns true if this edge matches one of the removal criteria
-    bool ignoreFilterMatch(NBEdge* edge);
 
     /// @brief compute the form factor for a loop of edges
     static SUMOReal formFactor(const EdgeVector& loopEdges);

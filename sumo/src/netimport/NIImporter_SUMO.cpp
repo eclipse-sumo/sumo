@@ -162,6 +162,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         ed->builtEdge = myNetBuilder.getEdgeCont().retrieve(ed->id);
     }
     // assign further lane attributes (edges are built)
+    EdgeVector toRemove;
     for (std::map<std::string, EdgeAttrs*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         EdgeAttrs* ed = (*i).second;
         NBEdge* nbe = ed->builtEdge;
@@ -221,6 +222,14 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         if (!nbe->hasLaneSpecificEndOffset() && nbe->getEndOffset(0) != NBEdge::UNSPECIFIED_OFFSET) {
             nbe->setEndOffset(-1, nbe->getEndOffset(0));
         }
+        // check again after permissions are set
+        if (myNetBuilder.getEdgeCont().ignoreFilterMatch(nbe)) {
+            myNetBuilder.getEdgeCont().ignore(nbe->getID());
+            toRemove.push_back(nbe);
+        }
+    }
+    for (EdgeVector::iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
+        myNetBuilder.getEdgeCont().erase(myNetBuilder.getDistrictCont(), *i);
     }
     // insert loaded prohibitions
     for (std::vector<Prohibition>::const_iterator it = myProhibitions.begin(); it != myProhibitions.end(); it++) {
