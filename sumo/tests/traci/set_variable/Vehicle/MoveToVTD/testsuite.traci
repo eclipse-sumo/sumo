@@ -1,6 +1,9 @@
 # set speed implied by the position change
 implicit_speed
 
+# move vehicle onto the rear end of another one
+force_collision
+
 # vehicle skips forward to another edge on its route
 subsequent_edge
 
