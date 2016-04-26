@@ -190,6 +190,20 @@ protected:
     std::vector<SUMOReal> myVSafes;
     bool myDontBrake;
 
+    /// @name user configurable model parameters
+    //@{
+    SUMOReal myStrategicParam;
+    SUMOReal myCooperativeParam;
+    SUMOReal mySpeedGainParam;
+    SUMOReal myKeepRightParam;
+    //@}
+
+    /// @name derived parameters
+    //@{
+    // @brief willingness to encroach on other vehicles laterally (pushing them around)
+    SUMOReal CHANGE_PROB_THRESHOLD_RIGHT;
+    SUMOReal CHANGE_PROB_THRESHOLD_LEFT;
+    //@}
 };
 
 

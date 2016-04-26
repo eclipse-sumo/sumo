@@ -72,8 +72,6 @@
 
 #define ROUNDABOUT_DIST_BONUS (SUMOReal)80.0
 
-#define CHANGE_PROB_THRESHOLD_RIGHT (SUMOReal)2.0
-#define CHANGE_PROB_THRESHOLD_LEFT (SUMOReal)0.2
 #define KEEP_RIGHT_TIME (SUMOReal)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (SUMOReal)2.0 // calibration factor for determining the desire to keep right
 
@@ -88,7 +86,13 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myKeepRightProbability(0),
     myLeadingBlockerLength(0),
     myLeftSpace(0),
-    myLookAheadSpeed(LOOK_AHEAD_MIN_SPEED) {
+    myLookAheadSpeed(LOOK_AHEAD_MIN_SPEED),
+    myStrategicParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 1)),
+    myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
+    mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
+    myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
+    CHANGE_PROB_THRESHOLD_LEFT(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
+    CHANGE_PROB_THRESHOLD_RIGHT(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)) {
 }
 
 MSLCM_LC2013::~MSLCM_LC2013() {
@@ -147,7 +151,7 @@ MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
     for (std::vector<SUMOReal>::const_iterator i = myVSafes.begin(); i != myVSafes.end(); ++i) {
         SUMOReal v = (*i);
         if (v >= min && v <= max) {
-            nVSafe = MIN2(v, nVSafe);
+            nVSafe = MIN2(v * myCooperativeParam + (1 - myCooperativeParam) * wanted, nVSafe);
             gotOne = true;
         } else {
         }
@@ -475,7 +479,7 @@ MSLCM_LC2013::_wantsChange(
         myLookAheadSpeed = MAX2(LOOK_AHEAD_MIN_SPEED,
                                 (LOOK_AHEAD_SPEED_MEMORY * myLookAheadSpeed + (1 - LOOK_AHEAD_SPEED_MEMORY) * myVehicle.getSpeed()));
     }
-    SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT);
+    SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT) * myStrategicParam;
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
 
     // react to a stopped leader on the current lane
@@ -511,8 +515,8 @@ MSLCM_LC2013::_wantsChange(
         }
     }
     if (roundaboutEdgesAhead > 1) {
-        currentDist += roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS;
-        neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS;
+        currentDist += roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS * myCooperativeParam;
+        neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS * myCooperativeParam;
     }
 
     const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
@@ -625,9 +629,14 @@ MSLCM_LC2013::_wantsChange(
     //        << " currentDist=" << currentDist
     //        << "\n";
     //}
-    if (amBlockingFollowerPlusNB()
-            && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
+    const SUMOReal inconvenience = MIN2((SUMOReal)1.0, (laneOffset < 0 
+            ? mySpeedGainProbability / CHANGE_PROB_THRESHOLD_RIGHT 
+            : -mySpeedGainProbability / CHANGE_PROB_THRESHOLD_LEFT));
+    if (amBlockingFollowerPlusNB()
+            && (inconvenience <= myCooperativeParam)
+            //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
+            && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
         req = ret | lca | LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
         if (!cancelRequest(req)) {
             return ret | req;
@@ -720,7 +729,7 @@ MSLCM_LC2013::_wantsChange(
                           << " dProb=" << deltaProb
                           << "\n";
             }
-            if (myKeepRightProbability < -CHANGE_PROB_THRESHOLD_RIGHT) {
+            if (myKeepRightProbability * myKeepRightParam < -CHANGE_PROB_THRESHOLD_RIGHT) {
                 req = ret | lca | LCA_KEEPRIGHT;
                 if (!cancelRequest(req)) {
                     return ret | req;
