@@ -1470,7 +1470,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leader
 
 bool
 MSVehicle::executeMove() {
-    gDebugFlag1 = (getID() == "Costa_1_74");
+    //gDebugFlag1 = (getID() == "disabled");
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gDebugSelectedVehicle == getID()) {
         int bla = 0;
