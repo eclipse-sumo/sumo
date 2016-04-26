@@ -50,6 +50,7 @@
 // static members
 // ===========================================================================
 SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
+SUMOVehicleParserHelper::LCAttrMap SUMOVehicleParserHelper::allowedLCModelAttrs;
 
 
 // ===========================================================================
@@ -265,6 +266,14 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
             throw ProcessError(error);
         }
     }
+    // parse lateral depart position information
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS_LAT)) {
+        ret->setParameter |= VEHPARS_DEPARTPOSLAT_SET;
+        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS_LAT, ret->id.c_str(), ok);
+        if (!SUMOVehicleParameter::parseDepartPosLat(helper, element, ret->id, ret->departPosLat, ret->departPosLatProcedure, error)) {
+            throw ProcessError(error);
+        }
+    }
     // parse depart speed information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
         ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
@@ -432,7 +441,26 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->loadingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_LOADING_DURATION, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LOADING_DURATION;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
+        vtype->maxSpeedLat = attrs.get<SUMOReal>(SUMO_ATTR_MAXSPEED_LAT, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_MAXSPEED_LAT_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_MINGAP_LAT)) {
+        vtype->minGapLat = attrs.get<SUMOReal>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_MINGAP_LAT_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_LATALIGNMENT)) {
+        const std::string alignS = attrs.get<std::string>(SUMO_ATTR_LATALIGNMENT, vtype->id.c_str(), ok);
+        if (SUMOXMLDefinitions::LateralAlignments.hasString(alignS)) {
+            vtype->latAlignment = SUMOXMLDefinitions::LateralAlignments.get(alignS);
+            vtype->setParameter |= VTYPEPARS_LATALIGNMENT_SET;
+        } else {
+            WRITE_ERROR("Unknown lateral alignment '" + alignS + "' when parsing vtype '" + vtype->id + "'");
+            throw ProcessError();
+        }
+    }
     parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, true);
+    parseLCParams(*vtype, vtype->lcModel, attrs);
     if (!ok) {
         delete vtype;
         throw ProcessError();
@@ -560,6 +588,43 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_WIEDEMANN] = wiedemannParams;
     }
     return allowedCFModelAttrs;
+}
+
+
+void
+SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs) {
+    if (allowedLCModelAttrs.size() == 0) {
+        // init static map
+        std::set<SumoXMLAttr> lc2013Params;
+        lc2013Params.insert(SUMO_ATTR_LCA_STRATEGIC_PARAM);
+        lc2013Params.insert(SUMO_ATTR_LCA_COOPERATIVE_PARAM);
+        lc2013Params.insert(SUMO_ATTR_LCA_SPEEDGAIN_PARAM);
+        lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_PARAM);
+        allowedLCModelAttrs[LCM_LC2013] = lc2013Params;
+        allowedLCModelAttrs[LCM_JE2013] = lc2013Params;
+
+        std::set<SumoXMLAttr> sl2015Params = lc2013Params;
+        sl2015Params.insert(SUMO_ATTR_LCA_PUSHY);
+        sl2015Params.insert(SUMO_ATTR_LCA_SUBLANE_PARAM);
+        allowedLCModelAttrs[LCM_SL2015] = sl2015Params;
+
+        std::set<SumoXMLAttr> noParams;
+        allowedLCModelAttrs[LCM_DK2008] = noParams;
+
+        // default model may be either LC2013 or SL2013
+        // we allow both sets (sl2015 is a superset of lc2013Params)
+        allowedLCModelAttrs[LCM_DEFAULT] = sl2015Params; 
+    }
+    bool ok = true;
+    std::set<SumoXMLAttr> allowed = allowedLCModelAttrs[model];
+    for (std::set<SumoXMLAttr>::const_iterator it = allowed.begin(); it != allowed.end(); it++) {
+        if (attrs.hasAttribute(*it)) {
+            into.lcParameter[*it] = attrs.get<SUMOReal>(*it, into.id.c_str(), ok);
+        }
+    }
+    if (!ok) {
+        throw ProcessError();
+    }
 }
 
 

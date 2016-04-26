@@ -55,7 +55,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       emissionClass(PollutantsInterface::getClassByName("unknown", vclass)), color(RGBColor::DEFAULT_COLOR),
       vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
       loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN),
-      cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_LC2013),
+      cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_DEFAULT),
+      maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.12),
       setParameter(0), saved(false), onlyReferenced(false) {
     switch (vclass) {
         case SVC_PEDESTRIAN:
@@ -245,9 +246,6 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_IMGFILE_SET)) {
         dev.writeAttr(SUMO_ATTR_IMGFILE, imgFile);
     }
-    if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
-        dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
-    }
     if (wasSet(VTYPEPARS_PERSON_CAPACITY)) {
         dev.writeAttr(SUMO_ATTR_PERSON_CAPACITY, personCapacity);
     }
@@ -260,11 +258,30 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_LOADING_DURATION)) {
         dev.writeAttr(SUMO_ATTR_LOADING_DURATION, loadingDuration);
     }
-
+    if (wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
+        dev.writeAttr(SUMO_ATTR_MAXSPEED_LAT, maxSpeedLat);
+    }
+    if (wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
+        dev.writeAttr(SUMO_ATTR_LATALIGNMENT, latAlignment);
+    }
+    if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
+        dev.writeAttr(SUMO_ATTR_MINGAP_LAT, minGapLat);
+    }
+    if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET) || lcParameter.size() != 0) {
+        dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
+        std::vector<SumoXMLAttr> attrs;
+        for (SubParams::const_iterator i = lcParameter.begin(); i != lcParameter.end(); ++i) {
+            attrs.push_back(i->first);
+        }
+        std::sort(attrs.begin(), attrs.end());
+        for (std::vector<SumoXMLAttr>::const_iterator i = attrs.begin(); i != attrs.end(); ++i) {
+            dev.writeAttr(*i, lcParameter.find(*i)->second);
+        }
+    }
     if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL) || cfParameter.size() != 0) {
         dev.openTag(cfModel);
         std::vector<SumoXMLAttr> attrs;
-        for (CFParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {
+        for (SubParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {
             attrs.push_back(i->first);
         }
         std::sort(attrs.begin(), attrs.end());
@@ -284,13 +301,23 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
 
 
 SUMOReal
-SUMOVTypeParameter::get(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
+SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
     if (cfParameter.count(attr)) {
         return cfParameter.find(attr)->second;
     } else {
         return defaultValue;
     }
 }
+
+SUMOReal
+SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
+    if (lcParameter.count(attr)) {
+        return lcParameter.find(attr)->second;
+    } else {
+        return defaultValue;
+    }
+}
+
 
 
 SUMOReal

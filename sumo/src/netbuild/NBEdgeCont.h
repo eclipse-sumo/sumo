@@ -442,6 +442,11 @@ public:
                                      NBTrafficLightLogicCont& tlc, EdgeVector edges);
 
 
+    /** @brief Sets opposite lane information for geometrically close edges
+     */
+    void guessOpposites();
+
+
     /** @brief Rechecks whether the lane spread is proper
      *
      * @todo Recheck usage; check whether this is really needed and whether it works at all

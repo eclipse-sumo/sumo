@@ -87,6 +87,10 @@ Time Options:
   --step-length TIME                   Defines the step duration in seconds
 
 Processing Options:
+  --lateral-resolution FLOAT           Defines the resolution in m when
+                                         handling lateral positioning within a
+                                         lane (with -1 all vehicles drive at the
+                                         center of their lane
   -s, --route-steps TIME               Load routes for the next number of
                                          seconds ahead
   --no-internal-links                  Disable (junction) internal links

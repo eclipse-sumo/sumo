@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:44 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -11,7 +11,6 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -27,7 +26,7 @@
 </configuration>
 -->
 
-<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392704.85,-5815104.73" convBoundary="0.00,0.00,259.16,356.63" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

@@ -74,6 +74,12 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
 }
 
 
+SUMOReal 
+MEVehicle::getBackPositionOnLane(const MSLane* lane) const {
+    return getPositionOnLane() - getVehicleType().getLength();
+}
+
+
 SUMOReal
 MEVehicle::getPositionOnLane() const {
 // the following interpolation causes problems with arrivals and calibrators

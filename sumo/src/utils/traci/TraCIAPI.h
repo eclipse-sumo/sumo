@@ -679,6 +679,21 @@ public:
         VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~VehicleScope() {}
 
+
+        struct NextTLSData {
+            /* @brief Constructor */
+            NextTLSData() {}
+            /// @brief The id of the next tls
+            std::string id;
+            /// @brief The tls index of the controlled link 
+            int tlIndex;
+            /// @brief The distance to the tls
+            SUMOReal dist;
+            /// @brief The current state of the tls
+            char state;
+        };
+
+
         std::vector<std::string> getIDList() const;
         unsigned int getIDCount() const;
         SUMOReal getSpeed(const std::string& vehicleID) const;
@@ -694,6 +709,10 @@ public:
         TraCIColor getColor(const std::string& vehicleID) const;
         SUMOReal getLanePosition(const std::string& vehicleID) const;
         unsigned int getSignalStates(const std::string& vehicleID) const;
+        SUMOReal getWaitingTime(const std::string& vehicleID) const;
+        std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
+
+        /* /// not yet implemented 
         SUMOReal getCO2Emissions(const std::string& vehicleID) const;
         SUMOReal getCOEmissions(const std::string& vehicleID) const;
         SUMOReal getHCEmissions(const std::string& vehicleID) const;
@@ -716,7 +735,7 @@ public:
         std::string getShapeClass(const std::string& vehicleID) const;
         SUMOReal getMinGap(const std::string& vehicleID) const;
         SUMOReal getWidth(const std::string& vehicleID) const;
-        SUMOReal getWaitingTime(const std::string& vehicleID) const;
+        */
 
         void add(const std::string& vehicleID, 
                 const std::string& routeID, 

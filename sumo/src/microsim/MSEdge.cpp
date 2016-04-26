@@ -44,9 +44,11 @@
 #include "MSJunction.h"
 #include "MSLane.h"
 #include "MSLaneChanger.h"
+#include "MSLaneChangerSublane.h"
 #include "MSGlobals.h"
 #include "MSNet.h"
 #include "MSVehicle.h"
+#include "MSLeaderInfo.h"
 #include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
 #include <microsim/devices/MSDevice_Routing.h>
@@ -82,6 +84,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myStreetName(streetName),
     myEdgeType(edgeType),
     myPriority(priority),
+    myWidth(0),
     myLength(-1.),
     myEmptyTraveltime(-1.),
     myAmDelayed(false),
@@ -109,12 +112,23 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     myLanes = lanes;
     if (!lanes->empty()) {
         recalcCache();
-        if (myLanes->size() > 1) {
-            myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
-        }
     }
     if (myFunction == EDGEFUNCTION_DISTRICT) {
         myCombinedPermissions = SVCAll;
+    }
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        myWidth += (*i)->getWidth();
+    }
+    if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
+        SUMOReal widthBefore = 0;
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            (*i)->setRightSideOnEdge(widthBefore, (int)mySublaneSides.size());
+            MSLeaderInfo ahead(*i);
+            for (int j = 0; j < ahead.numSublanes(); ++j) {
+                mySublaneSides.push_back(widthBefore + j * MSGlobals::gLateralResolution);
+            }
+            widthBefore += (*i)->getWidth();
+        }
     }
 }
 
@@ -188,6 +202,48 @@ MSEdge::closeBuilding() {
     if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
         MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
     }
+}
+
+
+void 
+MSEdge::buildLaneChanger() {
+    if (!myLanes->empty()) {
+        const bool allowSwap = OptionsCont::getOptions().getBool("lanechange.allow-swap");
+        const bool allowChanging = allowsLaneChanging();
+        if (MSGlobals::gLateralResolution > 0) {
+            // may always initiate sublane-change
+            myLaneChanger = new MSLaneChangerSublane(myLanes, allowChanging, allowSwap);
+        } else {
+            if (MSGlobals::gLaneChangeDuration > 0) {
+                myLaneChanger = new MSLaneChanger(myLanes, allowChanging, allowSwap);
+            } else if (myLanes->size() > 1 || canChangeToOpposite()) {
+                myLaneChanger = new MSLaneChanger(myLanes, allowChanging, allowSwap); 
+            }
+        }
+    }
+}
+
+
+bool 
+MSEdge::allowsLaneChanging() {
+    if (myFunction == EDGEFUNCTION_INTERNAL) {
+        // allow changing only if all links leading to this internal lane have priority
+        // or they are controlled by a traffic light
+        for (std::vector<MSLane*>::const_iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
+            MSLane* pred = (*it)->getLogicalPredecessorLane();
+            MSLink* link = MSLinkContHelper::getConnectingLink(*pred, **it);
+            assert(link != 0);
+            LinkState state = link->getState();
+            if (state == LINKSTATE_MINOR
+                    || state == LINKSTATE_EQUAL
+                    || state == LINKSTATE_STOP
+                    || state == LINKSTATE_ALLWAY_STOP
+                    || state == LINKSTATE_DEADEND) {
+                return false;
+            }
+        }
+    } 
+    return true;
 }
 
 
@@ -780,6 +836,11 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
     return i->second;
 }
 
+
+bool 
+MSEdge::canChangeToOpposite() {
+    return !myLanes->empty() && myLanes->back()->getOpposite() != 0;
+}
 
 /****************************************************************************/
 

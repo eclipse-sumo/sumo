@@ -50,6 +50,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       depart(-1), departProcedure(DEPART_GIVEN),
       departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
       departPos(0), departPosProcedure(DEPART_POS_DEFAULT),
+      departPosLat(0), departPosLatProcedure(DEPART_POSLAT_DEFAULT),
       departSpeed(-1), departSpeedProcedure(DEPART_SPEED_DEFAULT),
       arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
       arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
@@ -371,6 +372,37 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
     }
     if (!ok) {
         error = "Invalid departPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"last\" or a float)";
+    }
+    return ok;
+}
+
+
+bool
+SUMOVehicleParameter::parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
+                                     SUMOReal& pos, DepartPosLatDefinition& dpd, std::string& error) {
+    bool ok = true;
+    if (val == "random") {
+        dpd = DEPART_POSLAT_RANDOM;
+    } else if (val == "random_free") {
+        dpd = DEPART_POSLAT_RANDOM_FREE;
+    } else if (val == "free") {
+        dpd = DEPART_POSLAT_FREE;
+    } else if (val == "right") {
+        dpd = DEPART_POSLAT_RIGHT;
+    } else if (val == "center") {
+        dpd = DEPART_POSLAT_CENTER;
+    } else if (val == "left") {
+        dpd = DEPART_POSLAT_LEFT;
+    } else {
+        try {
+            pos = TplConvert::_2SUMOReal(val.c_str());
+            dpd = DEPART_POSLAT_GIVEN;
+        } catch (...) {
+            ok = false;
+        }
+    }
+    if (!ok) {
+        error = "Invalid departPosLat definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"right\", \"center\", \"left\", or a float)";
     }
     return ok;
 }

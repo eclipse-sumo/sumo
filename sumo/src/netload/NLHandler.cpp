@@ -105,6 +105,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_LANE:
                 addLane(attrs);
                 break;
+            case SUMO_TAG_NEIGH:
+                myEdgeControlBuilder.addNeigh(attrs.getString(SUMO_ATTR_LANE));
+                break;
             case SUMO_TAG_JUNCTION:
                 openJunction(attrs);
                 initJunctionLogic(attrs);
@@ -1030,11 +1033,12 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         assert(fromLane);
         assert(toLane);
 
+        MSTrafficLightLogic* logic = 0;
         int tlLinkIdx = -1;
         if (tlID != "") {
             tlLinkIdx = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
             // make sure that the index is in range
-            MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
+            logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
             if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size())
                     && logic->getLogicType() != "railSignal"
                     && logic->getLogicType() != "railCrossing") {
@@ -1060,22 +1064,22 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             }
             length = via->getLength();
         }
-        link = new MSLink(toLane, via, dir, state, length, keepClear);
+        link = new MSLink(fromLane, toLane, via, dir, state, length, keepClear, logic, tlLinkIdx);
         if (via != 0) {
             via->addIncomingLane(fromLane, link);
         } else {
             toLane->addIncomingLane(fromLane, link);
         }
 #else
-        link = new MSLink(toLane, dir, state, length, keepClear);
+        link = new MSLink(fromLane, toLane, dir, state, length, keepClear, logic, tlLinkIdx);
         toLane->addIncomingLane(fromLane, link);
 #endif
         toLane->addApproachingLane(fromLane, myNetworkVersion < 0.25);
 
         // if a traffic light is responsible for it, inform the traffic light
         // check whether this link is controlled by a traffic light
-        if (tlID != "") {
-            myJunctionControlBuilder.getTLLogic(tlID).addLink(link, fromLane, tlLinkIdx);
+        if (logic != 0) {
+            logic->addLink(link, fromLane, tlLinkIdx);
         }
         // add the link
         fromLane->addLink(link);

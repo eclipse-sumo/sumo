@@ -440,7 +440,7 @@ MSCalibrator::remainingVehicleCapacity(int laneIndex) const {
     }
     assert(laneIndex < (int)myEdge->getLanes().size());
     MSLane* lane = myEdge->getLanes()[laneIndex];
-    MSVehicle* last = lane->getLastVehicle();
+    MSVehicle* last = lane->getLastFullVehicle();
     const SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
     const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
     const SUMOReal spacePerVehicle = vtype->getLengthWithGap() + myEdge->getSpeedLimit() * vtype->getCarFollowModel().getHeadwayTime();

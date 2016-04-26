@@ -162,6 +162,8 @@ Processing Options:
   --offset.y FLOAT                     Adds FLOAT to net y-positions
   --flip-y-axis                        Flips the y-coordinate along zero
   --roundabouts.guess                  Enable roundabout-guessing
+  --opposites.guess                    Enable guessing of opposite direction
+                                         lanes usable for overtaking
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                          nodes and are close to each other

@@ -204,6 +204,11 @@ NBNetBuilder::compute(OptionsCont& oc,
         myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
         PROGRESS_TIME_MESSAGE(before);
     }
+    if (oc.getBool("opposites.guess")) {
+        PROGRESS_BEGIN_MESSAGE("guessing opposite direction edges");
+        myEdgeCont.guessOpposites();
+        PROGRESS_DONE_MESSAGE();
+    }
     //
     if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         before = SysUtils::getCurrentMillis();

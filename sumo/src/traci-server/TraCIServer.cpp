@@ -219,10 +219,10 @@ TraCIServer::wasClosed() {
 
 
 void
-TraCIServer::setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, SUMOReal angle, int edgeOffset, ConstMSEdgeVector route,
-                              SUMOTime t) {
+TraCIServer::setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle, 
+                              int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
     myVTDControlledVehicles[v->getID()] = v;
-    v->getInfluencer().setVTDControlled(l, pos, angle, edgeOffset, route, t);
+    v->getInfluencer().setVTDControlled(l, pos, posLat, angle, edgeOffset, route, t);
 }
 
 

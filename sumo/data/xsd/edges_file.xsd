@@ -28,6 +28,7 @@
         <xsd:sequence>
             <xsd:element name="lane" type="laneType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="split" type="splitType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="neigh" type="neighType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
@@ -59,6 +60,7 @@
 
     <xsd:complexType name="laneType">
         <xsd:sequence>
+            <xsd:element name="neigh" type="neighType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
@@ -91,6 +93,10 @@
     <xsd:complexType name="roundaboutType">
         <xsd:attribute name="nodes" type="xsd:string" use="optional"/>
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="neighType">
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

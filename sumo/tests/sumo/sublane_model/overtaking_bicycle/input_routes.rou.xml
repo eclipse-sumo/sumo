@@ -1,0 +1,12 @@
+<routes>
+    <vType id="bike" vClass="bicycle" latAlignment="right"/>
+    <vType id="car" vClass="passenger" latAlignment="arbitrary"/>
+    <vType id="car2" vClass="passenger" latAlignment="right"/>
+
+    <route id="r0" edges="beg"/>
+
+    <vehicle id="bike" type="bike" route="r0" departPos="20" departPosLat="right" depart="0"/>
+    <vehicle id="car"  type="car"  route="r0" departPos="0"  departPosLat="left" depart="0"/>
+    <vehicle id="car2"  type="car2"  route="r0" departPos="0"  departPosLat="right" depart="2"/>
+
+</routes>

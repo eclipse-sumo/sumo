@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 22 Apr 2016 03:34:01 PM CEST by SUMO gui Version dev-SVN-r20512
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_end_0" departPos="130.50" departSpeed="0.00" departDelay="0.00" arrival="74.00" arrivalLane="end2_0" arrivalPos="198.55" arrivalSpeed="13.26" duration="74.00" routeLength="214.75" waitSteps="50" timeLoss="57.73" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_end_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="76.00" arrivalLane="end2_0" arrivalPos="198.55" arrivalSpeed="13.44" duration="76.00" routeLength="245.25" waitSteps="47" timeLoss="57.79" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>

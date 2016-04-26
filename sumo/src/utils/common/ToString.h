@@ -135,6 +135,30 @@ inline std::string toString<LaneChangeModel>(const LaneChangeModel& model, std::
     return SUMOXMLDefinitions::LaneChangeModels.getString(model);
 }
 
+template <>
+inline std::string toString<LateralAlignment>(const LateralAlignment& latA, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::LateralAlignments.getString(latA);
+}
+
+template <>
+inline std::string toString<LaneChangeAction>(const LaneChangeAction& action, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    std::vector<std::string> strings = SUMOXMLDefinitions::LaneChangeActions.getStrings();
+    bool hadOne = false;
+    std::ostringstream oss;
+    for (std::vector<std::string>::const_iterator it = strings.begin(); it != strings.end(); ++it) {
+        if ((action & SUMOXMLDefinitions::LaneChangeActions.get(*it)) != 0) {
+            if (hadOne) {
+                oss << "|";
+            } else {
+                hadOne = true;
+            }
+            oss << (*it);
+        }
+    }
+    return oss.str();
+}
 
 template <typename V>
 inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy = OUTPUT_ACCURACY) {

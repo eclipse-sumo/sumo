@@ -80,6 +80,9 @@ public:
     /** information Duration of a lane change maneuver */
     static SUMOTime gLaneChangeDuration;
 
+    /** Lateral resolution within a lane */
+    static SUMOReal gLateralResolution;
+
     /// Information whether a state has been loaded
     static bool gStateLoaded;
 

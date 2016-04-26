@@ -110,11 +110,11 @@ GUILane::~GUILane() {
 
 // ------ Vehicle insertion ------
 void
-GUILane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
+GUILane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, SUMOReal posLat,
                             const MSLane::VehCont::iterator& at,
                             MSMoveReminder::Notification notification) {
     AbstractMutex::ScopedLocker locker(myLock);
-    MSLane::incorporateVehicle(veh, pos, speed, at, notification);
+    MSLane::incorporateVehicle(veh, pos, speed, posLat, at, notification);
 }
 
 
@@ -532,6 +532,14 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
+                if (MSGlobals::gLateralResolution > 0) {
+                    // draw sublane-borders
+                    // XXX make configurable
+                    GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
+                    for (SUMOReal offset=-myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
+                        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, offset);
+                    }
+                }
                 drawLinkRules(s, *net);
                 if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                     drawArrows();

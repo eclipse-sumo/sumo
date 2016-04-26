@@ -147,6 +147,13 @@ public:
     /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
     void closeBuilding();
 
+    /// Has to be called after all sucessors and predecessors have been set (after closeBuilding())
+    void buildLaneChanger();
+
+    /* @brief returns whether initizliaing a lane change is permitted on this edge
+     * @note Has to be called after all sucessors and predecessors have been set (after closeBuilding())
+     */
+    bool allowsLaneChanging();
 
     /// @name Access to the edge's lanes
     /// @{
@@ -546,6 +553,18 @@ public:
         return myCombinedPermissions;
     }
 
+    /** @brief Returns the edges's width (sum over all lanes)
+     * @return This edges's width
+     */
+    SUMOReal getWidth() const {
+        return myWidth;
+    }
+
+    /// @brief Returns the right side offsets of this edge's sublanes
+    const std::vector<SUMOReal> getSubLaneSides() const {
+        return mySublaneSides;
+    }
+
     void rebuildAllowedLanes();
 
 
@@ -617,6 +636,13 @@ public:
     void markDelayed() const {
         myAmDelayed = true;
     }
+
+    bool hasLaneChanger() const {
+        return myLaneChanger != 0;
+    }
+
+    /// @brief whether this edge allows changing to the opposite direction edge
+    bool canChangeToOpposite();
 
     /// @brief get the mean speed for mesoscopic simulation
     SUMOReal getMesoMeanSpeed() const;
@@ -721,6 +747,7 @@ protected:
     /// @brief lookup in map and return 0 if not found
     const std::vector<MSLane*>* getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const;
 
+
 protected:
     /// @brief This edge's numerical id
     const int myNumericalID;
@@ -783,6 +810,9 @@ protected:
 
     /// @brief the priority of the edge (used during network creation)
     const int myPriority;
+    
+    /// Edge width [m]
+    SUMOReal myWidth;
 
     /// @brief the length of the edge (cached value for speedup)
     SUMOReal myLength;
@@ -795,6 +825,9 @@ protected:
 
     /// @brief whether this edge belongs to a roundabout
     bool myAmRoundabout;
+
+    /// @brief the right side for each sublane on this edge
+    std::vector<SUMOReal> mySublaneSides;
 
     /// @name Static edge container
     /// @{

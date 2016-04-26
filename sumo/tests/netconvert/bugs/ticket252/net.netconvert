@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/04/15 13:16:54 by SUMO netconvert Version dev-SVN-r19508
+<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -27,7 +26,7 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <offset.x value="-280900"/>
-        <offset.y value="-4.1536e+006"/>
+        <offset.y value="-4.1536e+06"/>
     </processing>
 
     <report>
@@ -37,7 +36,7 @@
 </configuration>
 -->
 
-<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-280900.00,-4153600.00" convBoundary="3913.20,-362.93,4825.63,3443.90" origBoundary="-77.435438,37.501147,-77.424417,37.535409" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

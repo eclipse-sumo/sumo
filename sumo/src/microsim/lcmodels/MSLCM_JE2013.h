@@ -98,10 +98,12 @@ public:
     SUMOReal _patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
                          const MSCFModel& cfModel);
 
-    void changed(int dir);
+    void changed();
 
     void prepareStep();
 
+    /// @brief whether the current vehicles shall be debugged
+    bool debugVehicle() const;
 
 protected:
 
@@ -188,6 +190,20 @@ protected:
     std::vector<SUMOReal> myVSafes;
     bool myDontBrake;
 
+    /// @name user configurable model parameters
+    //@{
+    SUMOReal myStrategicParam;
+    SUMOReal myCooperativeParam;
+    SUMOReal mySpeedGainParam;
+    SUMOReal myKeepRightParam;
+    //@}
+
+    /// @name derived parameters
+    //@{
+    // @brief willingness to encroach on other vehicles laterally (pushing them around)
+    SUMOReal CHANGE_PROB_THRESHOLD_RIGHT;
+    SUMOReal CHANGE_PROB_THRESHOLD_LEFT;
+    //@}
 };
 
 

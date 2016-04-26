@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:22 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Wed Apr 20 15:39:59 2016 by SUMO netconvert Version dev-SVN-r20491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -9,10 +9,6 @@
         <node-files value="input_nodes.nod.xml"/>
         <edge-files value="input_edges.edg.xml"/>
     </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
 
     <processing>
         <speed-in-kmh value="true"/>
@@ -25,7 +21,7 @@
 </configuration>
 -->
 
-<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,50.00" convBoundary="0.00,0.00,50.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 

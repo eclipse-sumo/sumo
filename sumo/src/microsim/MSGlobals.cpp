@@ -54,6 +54,8 @@ bool MSGlobals::gCheckRoutes;
 
 SUMOTime MSGlobals::gLaneChangeDuration;
 
+SUMOReal MSGlobals::gLateralResolution;
+
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
 bool MSGlobals::gMesoLimitedJunctionControl;

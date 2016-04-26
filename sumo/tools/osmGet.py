@@ -66,15 +66,13 @@ optParser.add_option("-t", "--tiles", type="int",
 optParser.add_option(
     "-d", "--output-dir", help="optional output directory (must already exist)")
 optParser.add_option("-a", "--area", type="int", help="area id to retrieve")
-optParser.add_option(
-    "-x", "--polygon", help="calculate bounding box from polygon data in file")
+optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
 
 
 def get(args=None):
     (options, args) = optParser.parse_args(args=args)
     if not options.bbox and not options.area and not options.polygon:
-        optParser.error(
-            "At least one of 'bbox' and 'area' and 'polygon' has to be set.")
+        optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
     if options.oldapi and options.area:
         optParser.error("Only the new API supports 'area'.")
     if options.polygon:
@@ -83,8 +81,7 @@ def get(args=None):
         east = -1e400
         north = -1e400
         for area in sumolib.output.parse_fast(options.polygon, 'poly', ['shape']):
-            coordList = [tuple(map(float, x.split(',')))
-                         for x in area.shape.split()]
+            coordList =[tuple(map(float, x.split(','))) for x in area.shape.split() ]
             for point in coordList:
                 west = min(point[0], west)
                 south = min(point[1], south)
@@ -94,9 +91,10 @@ def get(args=None):
         south, west, north, east = [float(v) for v in options.bbox.split(',')]
         if south > north or west > east:
             optParser.error("Invalid geocoordinates in bbox.")
-
+    
     if options.output_dir:
         options.prefix = path.join(options.output_dir, options.prefix)
+    
 
     if options.oldapi:
         num = options.tiles

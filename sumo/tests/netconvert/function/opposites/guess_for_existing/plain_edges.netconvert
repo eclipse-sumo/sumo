@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Apr 20 15:44:35 2016 by SUMO netconvert Version dev-SVN-r20491
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-VODUGES_beg" from="E" to="W" priority="1" numLanes="1" speed="13.89">
+        <lane index="0">
+            <neigh lane="VODUGES_beg_0"/>
+        </lane>
+    </edge>
+    <edge id="VODUGES_beg" from="W" to="E" priority="1" numLanes="1" speed="13.89">
+        <lane index="0">
+            <neigh lane="-VODUGES_beg_0"/>
+        </lane>
+    </edge>
+</edges>

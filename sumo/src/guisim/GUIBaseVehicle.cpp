@@ -905,6 +905,11 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
             case SVS_RAIL_CARGO:
                 // only SVS_RAIL_CAR has blinkers and brake lights
                 break;
+            case SVS_MOTORCYCLE:
+            case SVS_MOPED:
+                drawAction_drawVehicleBlinker(myCarriageLength);
+                drawAction_drawVehicleBrakeLight(myCarriageLength, true);
+                break;
             default:
                 drawAction_drawVehicleBlinker(myCarriageLength);
                 drawAction_drawVehicleBrakeLight(myCarriageLength);

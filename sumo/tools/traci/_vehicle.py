@@ -57,6 +57,18 @@ def _readLeader(result):
     return None
 
 
+def _readNextTLS(result):
+    result.read("!iB")  # numCompounds, TYPE_INT 
+    numTLS = result.read("!i")[0] 
+    nextTLS = []
+    for i in range(numTLS):
+        result.read("!B")
+        tlsID = result.readString()
+        tlsIndex, dist, state = result.read("!BiBdBB")[1::2]
+        nextTLS.append((tlsID, tlsIndex, dist, chr(state)))
+    return nextTLS
+
+
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
@@ -99,6 +111,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_TAU:             Storage.readDouble,
                       tc.VAR_BEST_LANES:      _readBestLanes,
                       tc.VAR_LEADER:          _readLeader,
+                      tc.VAR_NEXT_TLS:        _readNextTLS,
                       tc.DISTANCE_REQUEST:    Storage.readDouble,
                       tc.VAR_STOPSTATE: lambda result: result.read("!B")[0],
                       tc.VAR_DISTANCE:        Storage.readDouble}
@@ -431,6 +444,14 @@ class VehicleDomain(Domain):
             tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1 + 8)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, dist)
         return _readLeader(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
+
+    def getNextTLS(self, vehID):
+        """getNextTLS(string) -> 
+
+        Return list of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
+        """
+        return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
+
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double) -> None

@@ -153,6 +153,9 @@
     </time>
 
     <processing>
+        <!-- Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane -->
+        <lateral-resolution value="-1" type="FLOAT"/>
+
         <!-- Load routes for the next number of seconds ahead -->
         <route-steps value="200" synonymes="s" type="TIME"/>
 

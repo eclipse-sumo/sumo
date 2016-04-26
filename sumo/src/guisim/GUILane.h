@@ -247,11 +247,12 @@ protected:
      * @param[in] veh The vehicle to be incorporated
      * @param[in] pos The position of the vehicle
      * @param[in] speed The speed of the vehicle
+     * @param[in] posLat The lateral position of the vehicle
      * @param[in] at
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @see MSLane::incorporateVehicle
      */
-    virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
+    virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, SUMOReal posLat,
                                     const MSLane::VehCont::iterator& at,
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 

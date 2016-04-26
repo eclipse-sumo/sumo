@@ -96,6 +96,9 @@ NIXMLEdgesHandler::myStartElement(int element,
         case SUMO_TAG_LANE:
             addLane(attrs);
             break;
+        case SUMO_TAG_NEIGH:
+            myCurrentEdge->getLaneStruct((int)myCurrentEdge->getNumLanes()-1).oppositeID = attrs.getString(SUMO_ATTR_LANE);
+            break;
         case SUMO_TAG_SPLIT:
             addSplit(attrs);
             break;

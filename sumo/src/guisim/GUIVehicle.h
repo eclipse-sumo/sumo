@@ -95,8 +95,8 @@ public:
      */
     void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const;
 
-    void drawAction_drawVehicleBlinker(SUMOReal length) const;
-    void drawAction_drawVehicleBrakeLight(SUMOReal length) const;
+    void drawAction_drawVehicleBlinker(SUMOReal length) const; 
+    void drawAction_drawVehicleBrakeLight(SUMOReal length, bool onlyOne=1) const; 
     void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const;
     void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const;
     void drawAction_drawVehicleBlueLight() const;

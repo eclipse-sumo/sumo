@@ -1,0 +1,3 @@
+Warning: Value of tau=0.50 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='end_0', gap=-1.28', latGap=-1.80, time=57.00 stage=move.
+Warning: Vehicle 'follower' ends teleporting on edge 'rend', time 57.00.

@@ -608,7 +608,23 @@ NBEdgeCont::computeLanes2Edges() {
 void
 NBEdgeCont::recheckLanes() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->recheckLanes();
+        i->second->recheckLanes();
+        // check opposites
+        if (i->second->getNumLanes() > 0) {
+            const std::string& oppositeID = i->second->getLanes().back().oppositeID;
+            if (oppositeID != "" && oppositeID != "-") {
+                const NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
+                if (oppEdge == 0) {
+                    throw ProcessError("Unknown opposite lane '" + oppositeID + "' for edge '" + i->second->getID() + "'!");
+                }
+                if (fabs(oppEdge->getLoadedLength() - i->second->getLoadedLength()) > POSITION_EPS) {
+                    throw ProcessError("Opposite lane '" + oppositeID + "' differs in length from edge '" + i->second->getID() + "'!");
+                }
+                if (oppEdge->getFromNode() != i->second->getToNode() || oppEdge->getToNode() != i->second->getFromNode()) {
+                    throw ProcessError("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + i->second->getID() + "'!");
+                }
+            }
+        }
     }
 }
 
@@ -728,6 +744,36 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
     // delete joined edges
     for (i = edges.begin(); i != edges.end(); i++) {
         extract(dc, *i, true);
+    }
+}
+
+
+void
+NBEdgeCont::guessOpposites() {
+    //@todo magic values
+    const SUMOReal distanceThreshold = 7;
+    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+        NBEdge* edge = i->second;
+        const int numLanes = edge->getNumLanes();
+        if (numLanes > 0) {
+            NBEdge::Lane& lastLane = edge->getLaneStruct(numLanes - 1);
+            if (lastLane.oppositeID == "") {
+                NBEdge* opposite = 0;
+                SUMOReal minOppositeDist = std::numeric_limits<SUMOReal>::max();
+                for (EdgeVector::const_iterator j = edge->getToNode()->getOutgoingEdges().begin(); j != edge->getToNode()->getOutgoingEdges().end(); ++j) {
+                    if ((*j)->getToNode() == edge->getFromNode() && !(*j)->getLanes().empty()) {
+                        const SUMOReal distance = VectorHelper<SUMOReal>::maxValue(lastLane.shape.distances((*j)->getLanes().back().shape));
+                        if (distance < distanceThreshold) {
+                            minOppositeDist = distance;
+                            opposite = *j;
+                        }
+                    }
+                }
+                if (opposite != 0) {
+                    lastLane.oppositeID = opposite->getLaneID(opposite->getNumLanes() - 1);
+                }
+            }
+        }
     }
 }
 

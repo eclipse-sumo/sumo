@@ -226,6 +226,9 @@ MSFrame::fillOptions() {
     oc.doRegister("step-length", new Option_String("1", "TIME"));
     oc.addDescription("step-length", "Time", "Defines the step duration in seconds");
 
+    oc.doRegister("lateral-resolution", new Option_Float(-1));
+    oc.addDescription("lateral-resolution", "Processing", "Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane");
+
     // register the processing options
     oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
     oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
@@ -470,6 +473,9 @@ MSFrame::checkOptions() {
     if (oc.getBool("sloppy-insert")) {
         WRITE_WARNING("The option 'sloppy-insert' is deprecated, because it is now activated by default, see the new option 'eager-insert'.");
     }
+    if (string2time(oc.getString("lanechange.duration")) > 0 && oc.getFloat("lateral-resolution") > 0) {
+        WRITE_ERROR("Only one of the options 'lanechange.duration' or 'lateral-resolution' may be given.");
+    }
     if (oc.getBool("lanechange.allow-swap")) {
         WRITE_WARNING("The option 'lanechange.allow-swap' is deprecated, and will not be supported in future versions of SUMO.");
     }
@@ -500,6 +506,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
     MSGlobals::gLaneChangeDuration = string2time(oc.getString("lanechange.duration"));
+    MSGlobals::gLateralResolution = oc.getFloat("lateral-resolution");
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");

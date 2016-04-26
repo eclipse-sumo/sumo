@@ -111,7 +111,7 @@ protected:
      * @param[in] origNames Whether original names shall be written as parameter
      * @return Whether an internal edge was written
      */
-    static bool writeInternalEdges(OutputDevice& into, const NBNode& n, bool origNames);
+    static bool writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n, bool origNames);
 
 
     /** @brief Writes an edge (<edge ...)
@@ -126,18 +126,20 @@ protected:
 
     /** @brief Writes a lane (<lane ...) of an edge
      * @param[in] into The device to write the edge into
-     * @param[in] lID The ID of the lane
      * @param[in] eID The ID of the edge
+     * @param[in] lID The ID of the lane
+     * @param[in] origID The original ID of the edge in the input
      * @param[in] length Lane's length
      * @param[in] index The index of the lane within the edge
      * @param[in] origNames Whether original names shall be written as parameter
+     * @param[in] oppositeID The ID of the opposite lane for overtaking
      * @param[in] node The node to check for custom shape data
      */
     static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
                           SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
                           SUMOReal endOffset, SUMOReal width, PositionVector shape,
                           const std::string& origID, SUMOReal length, unsigned int index, bool origNames,
-                          const NBNode* node = 0);
+                          const std::string& oppositeID, const NBNode* node = 0);
 
 
     /** @brief Writes a junction (<junction ...)
@@ -194,6 +196,8 @@ private:
     static void writeRoundabout(OutputDevice& into, const std::vector<std::string>& r,
                                 const NBEdgeCont& ec);
 
+    /// @brief retrieve the id of the opposite direction internal lane if it exists
+    static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con);
 
 };
 

@@ -1,0 +1,40 @@
+# vehicles overtaking a bicycle on a single-lane road
+overtaking_bicycle
+
+# like overtaking_bicyle but with severly reduced lateral speed
+maxSpeedLat
+
+# vehicle behavior on a single edge with 2 lanes (default alignment)
+1edge_2lanes
+
+# narrow vehicle behavior on a single edge with 2 lanes
+1edge_2lanes_mopeds
+
+# vehicle behavior on a single edge with 2 lanes (compact alignment)
+1edge_2lanes_compact_cars
+
+# vehicle behavior on a single edge with cars and mopeds
+1edge_2lanes_compact_mixed
+
+# vehicle behavior on a single edge with cars and mopeds (all pushy)
+1edge_2lanes_compact_mixed_pushy
+
+# A vehicle that does not fit into a single lane should drive safely
+extra_wide_vehicle
+
+# a lane has two follower lanes on the next edge and vehicle paths might cross
+lane_split_conflict
+
+# a vehicle must stay in its lane for strategic reasons but can still overtake via sublane-changing
+strategic_stay_and_speedgain
+
+# a vehicle must stay in its lane for strategic reasons but can still overtake via sublane-changing. Both neighboring lanes are prohibited for strategic reasons
+strategic_stay_and_speedgain2
+
+# a vehicle urgently needs to change lanes and pushes a blocker by using a lower minGapLat
+push_for_merge
+
+# a vehicle urgently needs to change lanes but is configured to refrain from pushing 
+# 
+nopush_for_merge
+bugs

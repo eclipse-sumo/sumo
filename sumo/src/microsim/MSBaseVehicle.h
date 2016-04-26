@@ -41,6 +41,10 @@
 #include "MSMoveReminder.h"
 #include "MSVehicleType.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSLane;
 
 // ===========================================================================
 // class definitions
@@ -115,7 +119,7 @@ public:
      * @param[in] nSuccs The number of edge to look forward
      * @return The nSuccs'th following edge in the vehicle's route
      */
-    const MSEdge* succEdge(unsigned int nSuccs) const;
+    const MSEdge* succEdge(int nSuccs) const;
 
     /** @brief Returns the edge the vehicle is currently at
      *
@@ -131,6 +135,20 @@ public:
         return true;
     }
 
+    /** @brief Returns the information whether the front of the vehhicle is on the given lane 
+     * @return Whether the vehicle's front is on that lane
+     */
+    virtual bool isFrontOnLane(const MSLane*) const {
+        return true;
+    }
+
+    /** @brief Get the vehicle's lateral position on the lane
+     * @return The lateral position of the vehicle (in m relative to the
+     * centerline of the lane)
+     */
+    virtual SUMOReal getLateralPositionOnLane() const {
+        return 0;
+    }
 
     /** @brief Returns the starting point for reroutes (usually the current edge)
      *

@@ -83,7 +83,7 @@
 // member method definitions
 // ===========================================================================
 MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
-    MSAbstractLaneChangeModel(v),
+    MSAbstractLaneChangeModel(v, LCM_LC2013),
     mySpeedGainProbability(0),
     myKeepRightProbability(0),
     myLeadingBlockerLength(0),
@@ -92,7 +92,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
 }
 
 MSLCM_LC2013::~MSLCM_LC2013() {
-    changed(0);
+    changed();
 }
 
 
@@ -123,6 +123,8 @@ MSLCM_LC2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
 SUMOReal
 MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
     int state = myOwnState;
+    //gDebugFlag2 = (myVehicle.getID() == "XXI_Aprile_1_452");
+    if (gDebugFlag2) std::cout << SIMTIME << " patchSpeed state=" << state << " myVSafes=" << toString(myVSafes) << "\n";
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
     SUMOReal MAGIC_offset = 1.;
@@ -182,17 +184,19 @@ MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
     }
     if (myVehicle.getLane()->getEdge().getLanes().size() == 1) {
         // remove chaning information if on a road with a single lane
-        changed(0);
+        changed();
     }
     return wanted;
 }
 
 
 void*
-MSLCM_LC2013::inform(void* info, MSVehicle* /* sender */) {
+MSLCM_LC2013::inform(void* info, MSVehicle* sender) {
     Info* pinfo = (Info*) info;
     myVSafes.push_back(pinfo->first);
     myOwnState |= pinfo->second;
+    //gDebugFlag2 = (myVehicle.getID() == "XXI_Aprile_1_452");
+    if (gDebugFlag2) std::cout << SIMTIME << " informed by " << sender->getID() << " speed=" << pinfo->first << " state=" << pinfo->second << "\n";
     delete pinfo;
     return (void*) true;
 }
@@ -366,7 +370,7 @@ MSLCM_LC2013::prepareStep() {
 
 
 void
-MSLCM_LC2013::changed(int dir) {
+MSLCM_LC2013::changed() {
     myOwnState = 0;
     mySpeedGainProbability = 0;
     myKeepRightProbability = 0;
@@ -379,7 +383,6 @@ MSLCM_LC2013::changed(int dir) {
     myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
     myVSafes.clear();
     myDontBrake = false;
-    initLastLaneChangeOffset(dir);
 }
 
 
@@ -439,6 +442,20 @@ MSLCM_LC2013::_wantsChange(
         ret = slowDownForBlocked(firstBlocked, ret);
     }
 
+    //gDebugFlag2 = (myVehicle.getID() == "XXI_Aprile_1_452");
+    if (gDebugFlag2) std::cout << SIMTIME 
+        << " veh=" << myVehicle.getID()
+        << " _wantsChange state=" << myOwnState 
+        << " myVSafes=" << toString(myVSafes) 
+        << " firstBlocked=" << Named::getIDSecure(*firstBlocked)
+        << " lastBlocked=" << Named::getIDSecure(*lastBlocked)
+        << " leader=" << Named::getIDSecure(leader.first)
+        << " leaderGap=" << leader.second
+        << " neighLead=" << Named::getIDSecure(neighLead.first)
+        << " neighLeadGap=" << neighLead.second
+        << " neighFollow=" << Named::getIDSecure(neighFollow.first)
+        << " neighFollowGap=" << neighFollow.second
+        << "\n";
 
     // we try to estimate the distance which is necessary to get on a lane
     //  we have to get on in order to keep our route

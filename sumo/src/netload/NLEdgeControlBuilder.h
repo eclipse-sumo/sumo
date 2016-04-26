@@ -88,10 +88,7 @@ public:
                           const std::string& streetName, const std::string& edgeType, int priority);
 
 
-    /** @brief Adds a lane to the current edge;
-     *
-     * This method throws an ProcessError when the lane is marked to be the depart lane
-     *  and another so marked lane was added before
+    /** @brief Adds a lane to the current edge
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allowed on this lane
@@ -107,6 +104,14 @@ public:
     virtual MSLane* addLane(const std::string& id, SUMOReal maxSpeed,
                             SUMOReal length, const PositionVector& shape,
                             SUMOReal width, SVCPermissions permissions, int index);
+
+
+    /** @brief Adds a neighbor to the current lane
+     *
+     * @param[in] id The lane's id
+     * @see MSLane
+     */
+    virtual void addNeigh(const std::string id);
 
 
     /** @brief Closes the building of an edge;

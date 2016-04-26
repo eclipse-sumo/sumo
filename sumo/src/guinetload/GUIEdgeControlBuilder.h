@@ -89,7 +89,6 @@ public:
 
 
 
-
     /** @brief Builds an edge instance (GUIEdge in this case)
      *
      * Builds an GUIEdge-instance using the given name and the current index

@@ -55,6 +55,8 @@ enum SumoXMLTag {
     SUMO_TAG_EDGE,
     /** begin/end of the description of a single lane */
     SUMO_TAG_LANE,
+    /** begin/end of the description of a neighboring lane */
+    SUMO_TAG_NEIGH,
     /** begin/end of the description of a polygon */
     SUMO_TAG_POI,
     /** begin/end of the description of a polygon */
@@ -315,12 +317,16 @@ enum SumoXMLAttr {
     SUMO_ATTR_DEPART,
     SUMO_ATTR_DEPARTLANE,
     SUMO_ATTR_DEPARTPOS,
+    SUMO_ATTR_DEPARTPOS_LAT,
     SUMO_ATTR_DEPARTSPEED,
     SUMO_ATTR_ARRIVALLANE,
     SUMO_ATTR_ARRIVALPOS,
     SUMO_ATTR_ARRIVALSPEED,
     SUMO_ATTR_ROUTE,
     SUMO_ATTR_MAXSPEED,
+    SUMO_ATTR_MAXSPEED_LAT,
+    SUMO_ATTR_LATALIGNMENT,
+    SUMO_ATTR_MINGAP_LAT,
     SUMO_ATTR_ACCEL,
     SUMO_ATTR_DECEL,
     SUMO_ATTR_VCLASS,
@@ -345,6 +351,13 @@ enum SumoXMLAttr {
     SUMO_ATTR_TMP3,
     SUMO_ATTR_TMP4,
     SUMO_ATTR_TMP5,
+    /* Lane changing model attributes */
+    SUMO_ATTR_LCA_STRATEGIC_PARAM,
+    SUMO_ATTR_LCA_COOPERATIVE_PARAM,
+    SUMO_ATTR_LCA_SPEEDGAIN_PARAM,
+    SUMO_ATTR_LCA_KEEPRIGHT_PARAM,
+    SUMO_ATTR_LCA_SUBLANE_PARAM,
+    SUMO_ATTR_LCA_PUSHY,
     /* route alternatives / distribution attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
@@ -369,6 +382,7 @@ enum SumoXMLAttr {
     /* source definitions */
     SUMO_ATTR_FUNCTION,
     SUMO_ATTR_POSITION,
+    SUMO_ATTR_POSITION_LAT,
     SUMO_ATTR_FREQUENCY,
     SUMO_ATTR_STYLE,
     SUMO_ATTR_FILE,
@@ -746,6 +760,81 @@ enum TrafficLightType {
     TLTYPE_INVALID //< must be the last one
 };
 
+/** @enum LaneChangeAction
+ * @brief The state of a vehicle's lane-change behavior
+ */
+enum LaneChangeAction {
+    /// @name currently wanted lane-change action
+    /// @{
+
+    /// @brief No action desired
+    LCA_NONE = 0,
+    /// @brief Needs to stay on the current lane
+    LCA_STAY = 1 << 0,
+    /// @brief Wants go to the left
+    LCA_LEFT = 1 << 1,
+    /// @brief Wants go to the right
+    LCA_RIGHT = 1 << 2,
+
+    /// @brief The action is needed to follow the route (navigational lc)
+    LCA_STRATEGIC = 1 << 3,
+    /// @brief The action is done to help someone else
+    LCA_COOPERATIVE = 1 << 4,
+    /// @brief The action is due to the wish to be faster (tactical lc)
+    LCA_SPEEDGAIN = 1 << 5,
+    /// @brief The action is due to the default of keeping right "Rechtsfahrgebot"
+    LCA_KEEPRIGHT = 1 << 6,
+    /// @brief The action is due to a TraCI request
+    LCA_TRACI = 1 << 7,
+
+    /// @brief The action is urgent (to be defined by lc-model)
+    LCA_URGENT = 1 << 8,
+
+    /// @}
+
+    /// @name External state
+    /// @{
+
+    /// @brief The vehicle is blocked by left leader
+    LCA_BLOCKED_BY_LEFT_LEADER = 1 << 9,
+    /// @brief The vehicle is blocked by left follower
+    LCA_BLOCKED_BY_LEFT_FOLLOWER = 1 << 10,
+
+    /// @brief The vehicle is blocked by right leader
+    LCA_BLOCKED_BY_RIGHT_LEADER = 1 << 11,
+    /// @brief The vehicle is blocked by right follower
+    LCA_BLOCKED_BY_RIGHT_FOLLOWER = 1 << 12,
+
+    // The vehicle is blocked being overlapping
+    LCA_OVERLAPPING =  1 << 13,
+
+    // The vehicle does not have enough space to complete a continuous lane
+    // change before the next turning movement
+    LCA_INSUFFICIENT_SPACE =  1 << 14,
+
+    // used by the sublane model 
+    LCA_SUBLANE = 1 << 15,
+
+    LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
+    LCA_WANTS_LANECHANGE_OR_STAY = LCA_WANTS_LANECHANGE | LCA_STAY,
+
+    LCA_BLOCKED_LEFT = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_LEFT_FOLLOWER,
+    LCA_BLOCKED_RIGHT = LCA_BLOCKED_BY_RIGHT_LEADER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
+    LCA_BLOCKED_BY_LEADER = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_RIGHT_LEADER,
+    LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
+    LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE,
+
+    LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE)
+
+    // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
+    // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
+  /// @}
+
+};
+
+
+
+
 
 /**
  * @enum LaneChangeModel
@@ -753,11 +842,27 @@ enum TrafficLightType {
 enum LaneChangeModel {
     LCM_DK2008,
     LCM_LC2013,
-    LCM_JE2013
+    LCM_JE2013,
+    LCM_SL2015,
+    LCM_DEFAULT
 };
 
 
 //@}
+//
+/**
+ * @enum LateralAlignment
+ * @brief Numbers representing special SUMO-XML-attribute values
+ * Information how vehicles align themselves within their lane by default
+ */
+enum LateralAlignment {
+    LATALIGN_RIGHT,      // drive on the right side
+    LATALIGN_CENTER,     // drive in the middle
+    LATALIGN_ARBITRARY,  // maintain the current alignment 
+    LATALIGN_NICE,       // align with the closest sublane border
+    LATALIGN_COMPACT,    // align with the rightmost sublane that allows keeping the current speed
+    LATALIGN_LEFT        // drive on the left side
+};
 
 /**
  * @class SUMOXMLDefinitions
@@ -796,6 +901,10 @@ public:
     static StringBijection<LaneChangeModel> LaneChangeModels;
 
     static StringBijection<SumoXMLTag> CarFollowModels;
+
+    static StringBijection<LateralAlignment> LateralAlignments;
+
+    static StringBijection<LaneChangeAction> LaneChangeActions;
     //@}
 
     /// @name Helper functions for ID-string manipulations
@@ -826,6 +935,10 @@ private:
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];
 
     static StringBijection<SumoXMLTag>::Entry carFollowModelValues[];
+
+    static StringBijection<LateralAlignment>::Entry lateralAlignmentValues[];
+
+    static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
 
 };
 

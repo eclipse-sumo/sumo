@@ -485,6 +485,7 @@ MSNet::simulationStep() {
 #endif
     myInserter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
+        //myEdges->patchActiveLanes(); // @note required to detect collisions on lanes that were empty before insertion. wasteful?
         myEdges->detectCollisions(myStep, STAGE_INSERTIONS);
     }
     MSVehicleTransfer::getInstance()->checkInsertions(myStep);

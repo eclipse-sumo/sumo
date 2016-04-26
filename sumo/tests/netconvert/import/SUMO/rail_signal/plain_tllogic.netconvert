@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:36 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<tlLogics version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+<tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <connection from="WC" to="CE" fromLane="0" toLane="0" tl="C" linkIndex="0"/>
     <connection from="WC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="1"/>
 </tlLogics>

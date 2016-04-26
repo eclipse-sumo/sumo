@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:37 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="10860201#0" from="1" to="2" priority="7" type="highway.secondary" numLanes="1" speed="27.78" shape="0.79,-1.45 648.06,349.32" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="10860201#1" from="2" to="1" priority="7" type="highway.secondary" numLanes="1" speed="27.78" shape="646.49,352.22 -0.79,1.45" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
 </edges>

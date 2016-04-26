@@ -19,6 +19,9 @@ ramps
 # Tests for guessing roundabouts
 roundabouts
 
+# Tests for guessing opposites
+opposites
+
 # Tests fpr building left-hand networks
 lefthand
 

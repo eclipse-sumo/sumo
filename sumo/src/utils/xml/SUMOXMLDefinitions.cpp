@@ -50,6 +50,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "net",              SUMO_TAG_NET },
     { "edge",             SUMO_TAG_EDGE },
     { "lane",             SUMO_TAG_LANE },
+    { "neigh",            SUMO_TAG_NEIGH },
     { "poi",              SUMO_TAG_POI },
     { "poly",             SUMO_TAG_POLY },
     { "junction",         SUMO_TAG_JUNCTION },
@@ -247,12 +248,16 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "depart",         SUMO_ATTR_DEPART },
     { "departLane",     SUMO_ATTR_DEPARTLANE },
     { "departPos",      SUMO_ATTR_DEPARTPOS },
+    { "departPosLat",   SUMO_ATTR_DEPARTPOS_LAT },
     { "departSpeed",    SUMO_ATTR_DEPARTSPEED },
     { "arrivalLane",    SUMO_ATTR_ARRIVALLANE },
     { "arrivalPos",     SUMO_ATTR_ARRIVALPOS },
     { "arrivalSpeed",   SUMO_ATTR_ARRIVALSPEED },
     { "route",          SUMO_ATTR_ROUTE },
     { "maxSpeed",       SUMO_ATTR_MAXSPEED },
+    { "maxSpeedLat",    SUMO_ATTR_MAXSPEED_LAT },
+    { "latAlignment",   SUMO_ATTR_LATALIGNMENT },
+    { "minGapLat",      SUMO_ATTR_MINGAP_LAT },
     { "accel",          SUMO_ATTR_ACCEL },
     { "decel",          SUMO_ATTR_DECEL },
     { "vClass",         SUMO_ATTR_VCLASS },
@@ -278,6 +283,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "tmp4",           SUMO_ATTR_TMP4 },
     { "tmp5",           SUMO_ATTR_TMP5 },
 
+    { "lcStrategic",    SUMO_ATTR_LCA_STRATEGIC_PARAM },
+    { "lcCooperative",  SUMO_ATTR_LCA_COOPERATIVE_PARAM },
+    { "lcSpeedGain",    SUMO_ATTR_LCA_SPEEDGAIN_PARAM },
+    { "lcKeepRight",    SUMO_ATTR_LCA_KEEPRIGHT_PARAM },
+    { "lcSublane",      SUMO_ATTR_LCA_SUBLANE_PARAM },
+    { "lcPushy",        SUMO_ATTR_LCA_PUSHY },
+
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
     { "probability",    SUMO_ATTR_PROB },
@@ -301,6 +313,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "function",       SUMO_ATTR_FUNCTION },
     { "pos",            SUMO_ATTR_POSITION },
+    { "posLat",         SUMO_ATTR_POSITION_LAT },
     { "freq",           SUMO_ATTR_FREQUENCY },
     { "style",          SUMO_ATTR_STYLE },
     { "file",           SUMO_ATTR_FILE },
@@ -574,6 +587,8 @@ StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValue
     { "DK2008", LCM_DK2008 },
     { "LC2013", LCM_LC2013 },
     { "JE2013", LCM_JE2013 },
+    { "SL2015", LCM_SL2015 },
+    { "default", LCM_DEFAULT },
 };
 
 StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = {
@@ -587,6 +602,29 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
     { "BKerner",     SUMO_TAG_CF_BKERNER },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN },
+};
+
+StringBijection<LateralAlignment>::Entry SUMOXMLDefinitions::lateralAlignmentValues[] = {
+    { "right",         LATALIGN_RIGHT },
+    { "center",        LATALIGN_CENTER },
+    { "arbitrary",     LATALIGN_ARBITRARY },
+    { "nice",          LATALIGN_NICE },
+    { "compact",       LATALIGN_COMPACT },
+    { "left",          LATALIGN_LEFT }
+};
+
+StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionValues[] = {
+    { "stay",        LCA_STAY },
+    { "left",        LCA_LEFT },
+    { "right",       LCA_RIGHT },
+    { "strategic",   LCA_STRATEGIC },
+    { "cooperative", LCA_COOPERATIVE },
+    { "speedGain",   LCA_SPEEDGAIN },
+    { "keepRaight",  LCA_KEEPRIGHT },
+    { "sublane",     LCA_SUBLANE },
+    { "traci",       LCA_TRACI },
+    { "urgent",      LCA_URGENT },
+    { "blocked",     LCA_BLOCKED }
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
@@ -614,11 +652,16 @@ StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
     SUMOXMLDefinitions::trafficLightTypesVales, TLTYPE_INVALID);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
-    SUMOXMLDefinitions::laneChangeModelValues, LCM_JE2013);
+    SUMOXMLDefinitions::laneChangeModelValues, LCM_DEFAULT);
 
 StringBijection<SumoXMLTag> SUMOXMLDefinitions::CarFollowModels(
     SUMOXMLDefinitions::carFollowModelValues, SUMO_TAG_CF_WIEDEMANN);
 
+StringBijection<LateralAlignment> SUMOXMLDefinitions::LateralAlignments(
+    SUMOXMLDefinitions::lateralAlignmentValues, LATALIGN_LEFT);
+
+StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
+    SUMOXMLDefinitions::laneChangeActionValues, LCA_BLOCKED);
 
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {

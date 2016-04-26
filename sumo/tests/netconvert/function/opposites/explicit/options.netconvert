@@ -1,0 +1,1 @@
+--sumo-net-file input_net.net.xml --edge-files input_edges.edg.xml --plain-output-prefix plain --output net.net.xml

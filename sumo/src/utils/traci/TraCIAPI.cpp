@@ -1724,6 +1724,41 @@ TraCIAPI::VehicleScope::getLanePosition(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_LANEPOSITION, vehicleID);
 }
 
+SUMOReal
+TraCIAPI::VehicleScope::getWaitingTime(const std::string& vehID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_WAITING_TIME, vehID);
+}
+
+
+std::vector<TraCIAPI::VehicleScope::NextTLSData>
+TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
+    tcpip::Storage inMsg;
+    myParent.send_commandGetVariable(CMD_GET_VEHICLE_VARIABLE, VAR_NEXT_TLS, vehID);
+    myParent.processGET(inMsg, CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND);
+    std::vector<NextTLSData> result;
+    inMsg.readInt(); // components
+    // number of items
+    inMsg.readUnsignedByte();
+    const int n = inMsg.readInt();
+    for (int i = 0; i < n; ++i) {
+        NextTLSData d;
+        inMsg.readUnsignedByte();
+        d.id = inMsg.readString();
+
+        inMsg.readUnsignedByte();
+        d.tlIndex = inMsg.readInt();
+
+        inMsg.readUnsignedByte();
+        d.dist = inMsg.readDouble();
+
+        inMsg.readUnsignedByte();
+        d.state = inMsg.readByte();
+
+        result.push_back(d);
+    }
+    return result;
+}
+
 
 void 
 TraCIAPI::VehicleScope::add(const std::string& vehicleID, 
@@ -1752,7 +1787,6 @@ TraCIAPI::VehicleScope::add(const std::string& vehicleID,
     content.writeString(routeID);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(typeID);
-
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(depart);
     content.writeUnsignedByte(TYPE_STRING);

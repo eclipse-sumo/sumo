@@ -68,6 +68,7 @@ const int VEHPARS_FORCE_REROUTE = 2 << 13;
 const int VEHPARS_PERSON_CAPACITY_SET = 2 << 14;
 const int VEHPARS_PERSON_NUMBER_SET = 2 << 15;
 const int VEHPARS_CONTAINER_NUMBER_SET = 2 << 16;
+const int VEHPARS_DEPARTPOSLAT_SET = 2 << 16;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -147,6 +148,32 @@ enum DepartPosDefinition {
     DEPART_POS_RANDOM_FREE,
     /// @brief Tag for the last element in the enum for safe int casting
     DEPART_POS_DEF_MAX
+};
+
+
+/**
+ * @enum DepartPosDefinition
+ * @brief Possible ways to choose the departure position
+ */
+enum DepartPosLatDefinition {
+    /// @brief No information given; use default
+    DEPART_POSLAT_DEFAULT,
+    /// @brief The position is given
+    DEPART_POSLAT_GIVEN,
+    /// @brief At the rightmost side of the lane
+    DEPART_POSLAT_RIGHT,
+    /// @brief At the center of the lane
+    DEPART_POSLAT_CENTER,
+    /// @brief At the leftmost side of the lane
+    DEPART_POSLAT_LEFT,
+    /// @brief The lateral position is chosen randomly
+    DEPART_POSLAT_RANDOM,
+    /// @brief A free lateral position is chosen
+    DEPART_POSLAT_FREE,
+    /// @brief If a fixed number of random choices fails, a free lateral position is chosen
+    DEPART_POSLAT_RANDOM_FREE,
+    /// @brief Tag for the last element in the enum for safe int casting
+    DEPART_POSLAT_DEF_MAX
 };
 
 
@@ -310,6 +337,19 @@ public:
                                SUMOReal& pos, DepartPosDefinition& dpd, std::string& error);
 
 
+    /** @brief Validates a given departPosLat value
+     * @param[in] val The departPosLat value to parse
+     * @param[in] element The name of the type of the parsed element, for building the error message
+     * @param[in] id The id of the parsed element, for building the error message
+     * @param[out] pos The parsed position, if given
+     * @param[out] dpd The parsed departPos definition
+     * @param[out] error Error message, if an error occures
+     * @return Whether the given value is a valid departPos definition
+     */
+    static bool parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
+                               SUMOReal& pos, DepartPosLatDefinition& dpd, std::string& error);
+
+
     /** @brief Validates a given departSpeed value
      * @param[in] val The departSpeed value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -396,8 +436,12 @@ public:
     DepartLaneDefinition departLaneProcedure;
     /// @brief (optional) The position the vehicle shall depart from
     SUMOReal departPos;
+    /// @brief (optional) The lateral position the vehicle shall depart from
+    SUMOReal departPosLat;
     /// @brief Information how the vehicle shall choose the departure position
     DepartPosDefinition departPosProcedure;
+    /// @brief Information how the vehicle shall choose the departure position
+    DepartPosLatDefinition departPosLatProcedure;
     /// @brief (optional) The initial speed of the vehicle
     SUMOReal departSpeed;
     /// @brief Information how the vehicle's initial speed shall be chosen

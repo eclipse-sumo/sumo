@@ -151,6 +151,7 @@ for i in range(6):
         traci.vehicle.resume("1")
     print(traci.vehicle.getSubscriptionResults(vehID))
 check("2")
+print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
 traci.vehicle.setSpeed(vehID, 20)
 print("leader", traci.vehicle.getLeader("2"))

@@ -35,6 +35,10 @@
     <vehicle id="1" type="1" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
+    <vType id="lateralStuff" maxSpeedLat="2.00" latAlignment="compact" minGapLat="0.50"/>
+    <vehicle id="11" type="lateralStuff" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
     <vType id="2">
         <carFollowing-Krauss sigma="1.00"/>
     </vType>

@@ -40,73 +40,6 @@ class MSLane;
 // ===========================================================================
 // used enumeration
 // ===========================================================================
-/** @enum LaneChangeAction
- * @brief A try to store the state of a vehicle's lane-change wish in an int
- */
-enum LaneChangeAction {
-    /// @name currently wanted lane-change action
-    /// @{
-
-    /// @brief No action desired
-    LCA_NONE = 0,
-    /// @brief Needs to stay on the current lane
-    LCA_STAY = 1 << 0,
-    /// @brief Wants go to the left
-    LCA_LEFT = 1 << 1,
-    /// @brief Wants go to the right
-    LCA_RIGHT = 1 << 2,
-
-    /// @brief The action is needed to follow the route (navigational lc)
-    LCA_STRATEGIC = 1 << 3,
-    /// @brief The action is done to help someone else
-    LCA_COOPERATIVE = 1 << 4,
-    /// @brief The action is due to the wish to be faster (tactical lc)
-    LCA_SPEEDGAIN = 1 << 5,
-    /// @brief The action is due to the default of keeping right "Rechtsfahrgebot"
-    LCA_KEEPRIGHT = 1 << 6,
-    /// @brief The action is due to a TraCI request
-    LCA_TRACI = 1 << 7,
-
-    /// @brief The action is urgent (to be defined by lc-model)
-    LCA_URGENT = 1 << 8,
-
-    LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
-    LCA_WANTS_LANECHANGE_OR_STAY = LCA_WANTS_LANECHANGE | LCA_STAY,
-    /// @}
-
-    /// @name External state
-    /// @{
-
-    /// @brief The vehicle is blocked by left leader
-    LCA_BLOCKED_BY_LEFT_LEADER = 1 << 9,
-    /// @brief The vehicle is blocked by left follower
-    LCA_BLOCKED_BY_LEFT_FOLLOWER = 1 << 10,
-
-    /// @brief The vehicle is blocked by right leader
-    LCA_BLOCKED_BY_RIGHT_LEADER = 1 << 11,
-    /// @brief The vehicle is blocked by right follower
-    LCA_BLOCKED_BY_RIGHT_FOLLOWER = 1 << 12,
-
-    // The vehicle is blocked being overlapping
-    LCA_OVERLAPPING =  1 << 13,
-
-    // The vehicle does not have enough space to complete a continuous lane
-    // change before the next turning movement
-    LCA_INSUFFICIENT_SPACE =  1 << 14,
-
-    LCA_BLOCKED_LEFT = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_LEFT_FOLLOWER,
-    LCA_BLOCKED_RIGHT = LCA_BLOCKED_BY_RIGHT_LEADER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
-    LCA_BLOCKED_BY_LEADER = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_RIGHT_LEADER,
-    LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
-    LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE
-
-                  /// @}
-
-};
-
-
-
-
 
 // ===========================================================================
 // class definitions
@@ -180,6 +113,20 @@ public:
 
     };
 
+    struct StateAndDist {
+        // @brief LaneChangeAction flags
+        int state;
+        // @brief lateralDistance
+        SUMOReal latDist;
+        // @brief direction that was checked
+        int dir;
+
+        StateAndDist(int _state, SUMOReal _latDist, int _dir) :
+            state(_state),
+            latDist(_latDist),
+            dir(_dir) {}
+    };
+
     /// @brief init global model parameters
     void static initGlobalOptions(const OptionsCont& oc);
 
@@ -191,8 +138,9 @@ public:
 
     /** @brief Constructor
      * @param[in] v The vehicle this lane-changer belongs to
+     * @param[in] model The type of lane change model
      */
-    MSAbstractLaneChangeModel(MSVehicle& v);
+    MSAbstractLaneChangeModel(MSVehicle& v, const LaneChangeModel model);
 
     /// @brief Destructor
     virtual ~MSAbstractLaneChangeModel();
@@ -201,7 +149,7 @@ public:
         return myOwnState;
     }
 
-    inline void setOwnState(int state) {
+    virtual void setOwnState(int state) {
         myOwnState = state;
     }
 
@@ -220,7 +168,35 @@ public:
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
-        MSVehicle** firstBlocked) = 0;
+        MSVehicle** firstBlocked) {
+        throw ProcessError("Method not implemented by model " + toString(myModel));
+    };
+
+    virtual int wantsChangeSublane(
+        int laneOffset,
+        const MSLeaderDistanceInfo& leaders,
+        const MSLeaderDistanceInfo& followers,
+        const MSLeaderDistanceInfo& blockers,
+        const MSLeaderDistanceInfo& neighLeaders,
+        const MSLeaderDistanceInfo& neighFollowers,
+        const MSLeaderDistanceInfo& neighBlockers,
+        const MSLane& neighLane,
+        const std::vector<MSVehicle::LaneQ>& preb,
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked,
+        SUMOReal& latDist, int& blocked) {
+        throw ProcessError("Method not implemented by model " + toString(myModel));
+    }
+
+    /// @brief update expected speeds for each sublane of the current edge
+    virtual void updateExpectedSublaneSpeeds(const MSLeaderInfo& /*ahead*/, int /*sublaneOffset*/, int /*laneIndex*/) {
+        throw ProcessError("Method not implemented by model " + toString(myModel));
+    }
+
+    /// @brief decide in which direction to move in case both directions are desirable
+    virtual StateAndDist decideDirection(StateAndDist /*sd1*/, StateAndDist /*sd2*/) const {
+        throw ProcessError("Method not implemented by model " + toString(myModel));
+    }
 
     virtual void* inform(void* info, MSVehicle* sender) = 0;
 
@@ -238,7 +214,18 @@ public:
     virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
                                 const MSCFModel& cfModel) = 0;
 
-    virtual void changed(int dir) = 0;
+    /* @brief called once when the primary lane of the vehicle changes (updates
+     * the custom variables of each child implementation */
+    virtual void changed() = 0;
+
+
+    /// @brief whether the current vehicles shall be debugged
+    virtual bool debugVehicle() const {
+        return false;
+    }
+
+    /// @brief called when a vehicle changes between lanes in opposite directions
+    void changedToOpposite();
 
     void unchanged() {
         if (myLastLaneChangeOffset > 0) {
@@ -248,7 +235,7 @@ public:
         }
     }
 
-    /** @brief Returns the lane the vehicles shadow is on during continuouss lane change
+    /** @brief Returns the lane the vehicles shadow is on during continuous/sublane lane change
      * @return The vehicle's shadow lane
      */
     MSLane* getShadowLane() const {
@@ -258,6 +245,18 @@ public:
     /// @brief return the shadow lane for the given lane
     MSLane* getShadowLane(const MSLane* lane) const;
 
+    /// @brief set the shadow lane
+    void setShadowLane(MSLane* lane) {
+        myShadowLane = lane;
+    }
+
+    const std::vector<MSLane*>& getShadowFurtherLanes() const {
+        return myShadowFurtherLanes;
+    }
+
+    const std::vector<SUMOReal>& getShadowFurtherLanesPosLat() const {
+        return myShadowFurtherLanesPosLat;
+    }
 
     inline SUMOTime getLastLaneChangeOffset() const {
         return myLastLaneChangeOffset;
@@ -265,23 +264,16 @@ public:
 
 
     /// @brief return whether the vehicle passed the midpoint of a continuous lane change maneuver
-    inline bool isLaneChangeMidpointPassed() const {
-        return myLaneChangeMidpointPassed;
+    inline bool pastMidpoint() const {
+        return myLaneChangeCompletion >= 0.5;
     }
 
     /// @brief return whether the vehicle passed the midpoint of a continuous lane change maneuver
-    inline SUMOReal getLaneChangeCompletion() const {
-        return myLaneChangeCompletion;
-    }
+    SUMOTime remainingTime() const;
 
     /// @brief return true if the vehicle currently performs a lane change maneuver
     inline bool isChangingLanes() const {
         return myLaneChangeCompletion < (1 - NUMERICAL_EPS);
-    }
-
-    /// @brief return true if the vehicle currently has a shadow vehicle
-    inline bool hasShadowVehicle() const {
-        return myHaveShadow;
     }
 
     /// @brief return the direction of the current lane change maneuver
@@ -289,31 +281,45 @@ public:
         return myLaneChangeDirection;
     }
 
-    /// @brief reset the flag whether a vehicle already moved to false
-    inline bool alreadyMoved() const {
-        return myAlreadyMoved;
+    /// @brief return the direction in which the current shadow lane lies
+    int getShadowDirection() const; 
+
+    /// @brief return the angle offset during a continuous change maneuver
+    SUMOReal getAngleOffset() const; 
+
+    /// @brief return the lateral speed of the current lane change maneuver
+    inline SUMOReal getLateralSpeed() const {
+        return myLateralspeed;
     }
 
     /// @brief reset the flag whether a vehicle already moved to false
-    void resetMoved() {
-        myAlreadyMoved = false;
+    inline bool alreadyChanged() const {
+        return myAlreadyChanged;
+    }
+
+    /// @brief reset the flag whether a vehicle already moved to false
+    void resetChanged() {
+        myAlreadyChanged = false;
     }
 
     /// @brief start the lane change maneuver and return whether it continues
     bool startLaneChangeManeuver(MSLane* source, MSLane* target, int direction);
 
-
-    /* @brief continue the lane change maneuver
-     * @param[in] moved Whether the vehicle has moved to a new lane
+    /* @brief continue the lane change maneuver and return whether the midpoint
+     * was passed in this step
      */
-    void continueLaneChangeManeuver(bool moved);
+    bool updateCompletion();
+
+    /* @brief update lane change shadow after the vehicle moved to a new lane */
+    void updateShadowLane();
 
     /* @brief finish the lane change maneuver
      */
     void endLaneChangeManeuver(const MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_LANE_CHANGE);
 
-    /// @brief remove the shadow copy of a lane change maneuver
-    void removeLaneChangeShadow(const MSMoveReminder::Notification reason, bool notify = true);
+    /* @brief clean up all references to the shadow vehicle
+     */
+    void cleanupShadowLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
     virtual void saveBlockerLength(SUMOReal length) {
@@ -328,10 +334,21 @@ public:
         myNoPartiallyOccupatedByShadow.push_back(lane);
     }
 
+    /// @brief called once when the vehicles primary lane changes
+    void primaryLaneChanged(MSLane* source, MSLane* target, int direction);
+
+    /// @brief set approach information for the shadow vehicle
+    void setShadowApproachingInformation(MSLink* link) const; 
+    void removeShadowApproachingInformation() const; 
+
+    bool isOpposite() const {
+        return myAmOpposite;
+    }
+
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
-    virtual bool predInteraction(const MSVehicle* const leader);
+    virtual bool predInteraction(const std::pair<MSVehicle*, SUMOReal>& leader);
 
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state);
@@ -350,20 +367,25 @@ protected:
     /// @brief direction of the lane change maneuver -1 means right, 1 means left
     int myLaneChangeDirection;
 
-    /// @brief whether myLane has already been set to the target of the lane-change maneuver
-    bool myLaneChangeMidpointPassed;
+    /// @brief The lateral offset during a continuous LaneChangeManeuver
+    SUMOReal myLateralspeed;
 
     /// @brief whether the vehicle has already moved this step
-    bool myAlreadyMoved;
+    bool myAlreadyChanged;
 
-    /// @brief The lane the vehicle shadow is on during a continuous lane change
+    /// @brief A lane that is partially occupied by the front of the vehicle but that is not the primary lane
     MSLane* myShadowLane;
 
-    /// Wether a vehicle shadow exists
-    bool myHaveShadow;
+    /* @brief Lanes that are parially (laterally) occupied by the back of the
+     * vehicle (analogue to MSVehicle::myFurtherLanes) */
+    std::vector<MSLane*> myShadowFurtherLanes;
+    std::vector<SUMOReal> myShadowFurtherLanesPosLat;
 
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
+
+    /// @brief the type of this model
+    const LaneChangeModel myModel;
 
     /// @brief list of lanes where the shadow vehicle is partial occupator
     std::vector<MSLane*> myPartiallyOccupatedByShadow;
@@ -385,6 +407,11 @@ private:
      */
     SUMOTime myLastLaneChangeOffset;
 
+    /// @brief links which are approached by the shadow vehicle
+    mutable std::vector<MSLink*> myApproachedByShadow;
+
+    /// @brief whether the vehicle is driving in the opposite direction
+    bool myAmOpposite;
 
 
 private:

@@ -15,6 +15,7 @@ MSJunction.cpp MSJunction.h \
 MSJunctionControl.cpp MSJunctionControl.h \
 MSJunctionLogic.cpp MSJunctionLogic.h MSLane.cpp MSLane.h \
 MSLaneChanger.cpp MSLaneChanger.h \
+MSLaneChangerSublane.cpp MSLaneChangerSublane.h \
 MSLink.cpp MSLink.h MSLinkCont.cpp MSLinkCont.h \
 MSLogicJunction.cpp MSLogicJunction.h MSMoveReminder.cpp MSMoveReminder.h \
 MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
@@ -23,6 +24,7 @@ MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
 MSRoute.cpp MSRoute.h MSRouteHandler.cpp MSRouteHandler.h \
 MSStoppingPlace.cpp MSStoppingPlace.h \
 MSVehicle.cpp MSVehicle.h \
+MSLeaderInfo.cpp MSLeaderInfo.h \
 MSVehicleContainer.cpp MSVehicleContainer.h \
 MSVehicleControl.cpp MSVehicleControl.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \

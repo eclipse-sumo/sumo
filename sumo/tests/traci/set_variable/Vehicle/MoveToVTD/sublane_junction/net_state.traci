@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Apr 21 09:17:39 2016 by SUMO Version dev-SVN-r20511
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="29153"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="SC">
+            <lane id="SC_0">
+                <vehicle id="veh0" pos="90.95" speed="0.00" posLat="0.00"/>
+            </lane>
+            <lane id="SC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id=":C_10">
+            <lane id=":C_10_0"/>
+            <lane id=":C_10_1">
+                <vehicle id="veh0" pos="12.05" speed="0.00" posLat="0.65"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id=":C_10">
+            <lane id=":C_10_0">
+                <vehicle id="veh0" pos="4.05" speed="0.00" posLat="-1.05"/>
+            </lane>
+            <lane id=":C_10_1"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id=":C_10">
+            <lane id=":C_10_0">
+                <vehicle id="veh0" pos="6.65" speed="2.60" posLat="-0.05"/>
+            </lane>
+            <lane id=":C_10_1"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id=":C_10">
+            <lane id=":C_10_0">
+                <vehicle id="veh0" pos="11.85" speed="5.20" posLat="0.00"/>
+            </lane>
+            <lane id=":C_10_1"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="CN">
+            <lane id="CN_0">
+                <vehicle id="veh0" pos="3.55" speed="7.80" posLat="0.00"/>
+            </lane>
+            <lane id="CN_1"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="CN">
+            <lane id="CN_0">
+                <vehicle id="veh0" pos="13.95" speed="10.40" posLat="0.00"/>
+            </lane>
+            <lane id="CN_1"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="CN">
+            <lane id="CN_0">
+                <vehicle id="veh0" pos="26.95" speed="13.00" posLat="0.00"/>
+            </lane>
+            <lane id="CN_1"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="CN">
+            <lane id="CN_0">
+                <vehicle id="veh0" pos="40.84" speed="13.89" posLat="0.00"/>
+            </lane>
+            <lane id="CN_1"/>
+        </edge>
+    </timestep>
+</netstate>

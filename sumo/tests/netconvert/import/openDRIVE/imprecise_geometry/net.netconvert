@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan  4 15:38:03 2016 by SUMO netconvert Version dev-SVN-r19670I
+<!-- generated on Wed Apr 20 15:44:33 2016 by SUMO netconvert Version dev-SVN-r20491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/opendriveNetconvert.typ.xml"/>
+        <type-files value="/scr1/sharps/data/typemap/opendriveNetconvert.typ.xml"/>
         <opendrive-files value="opendrive.xodr"/>
     </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
 
     <report>
         <xml-validation value="never"/>
@@ -21,7 +17,7 @@
 </configuration>
 -->
 
-<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-7793.00,-2175.01" convBoundary="0.00,0.00,173.42,55.89" origBoundary="7793.00,2175.01,7966.42,2230.89" projParameter="!"/>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 14:41:44 2015 by SUMO netconvert Version dev-SVN-r19444I
+<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -9,10 +9,6 @@
         <node-files value="input_plain.nod.xml"/>
         <edge-files value="input_plain.edg.xml"/>
     </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
 
     <processing>
         <ignore-errors.edge-type value="true"/>
@@ -26,7 +22,7 @@
 </configuration>
 -->
 
-<net version="0.25" junctionCornerDetail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-344429.35,-5690041.96" convBoundary="0.00,0.00,184.82,112.33" origBoundary="12.547925,51.288513,12.885676,51.473444" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

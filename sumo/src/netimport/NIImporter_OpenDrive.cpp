@@ -91,6 +91,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "laneLink",         NIImporter_OpenDrive::OPENDRIVE_TAG_LANELINK },
     { "width",            NIImporter_OpenDrive::OPENDRIVE_TAG_WIDTH },
     { "speed",            NIImporter_OpenDrive::OPENDRIVE_TAG_SPEED },
+    { "elevation",        NIImporter_OpenDrive::OPENDRIVE_TAG_ELEVATION },
 
     { "",                 NIImporter_OpenDrive::OPENDRIVE_TAG_NOTHING }
 };
@@ -839,6 +840,24 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 WRITE_ERROR("Unable to project coordinates for.");
             }
         }
+        // add z-data
+        int k = 0;
+        SUMOReal pos = 0;
+        const SUMOReal length = e.geom.length2D();
+        for (std::vector<OpenDriveElevation>::iterator j = e.elevations.begin(); j != e.elevations.end(); ++j) {
+            const OpenDriveElevation& el = *j;
+            const SUMOReal sNext = (j + 1) == e.elevations.end() ? length : (*(j + 1)).s;
+            while (k < (int)e.geom.size() && pos <= sNext) {
+                if (k > 0) {
+                    pos += e.geom[k - 1].distanceTo2D(e.geom[k]);
+                }
+                const SUMOReal ds = pos - el.s; 
+                const SUMOReal z = el.a + el.b * ds + el.c * ds * ds + el.d * ds * ds * ds;
+                if (z != 0) std::cout << " edge=" << e.id << " k=" << k << " pos=" << pos << " z=" << z << "\n";
+                e.geom[k].add(0, 0, z);
+                k++;
+            }
+        }
     }
 }
 
@@ -1301,6 +1320,15 @@ NIImporter_OpenDrive::myStartElement(int element,
             SUMOReal y = attrs.get<SUMOReal>(OPENDRIVE_ATTR_Y, myCurrentEdge.id.c_str(), ok);
             SUMOReal hdg = attrs.get<SUMOReal>(OPENDRIVE_ATTR_HDG, myCurrentEdge.id.c_str(), ok);
             myCurrentEdge.geometries.push_back(OpenDriveGeometry(length, s, x, y, hdg));
+        }
+        break;
+        case OPENDRIVE_TAG_ELEVATION: {
+            SUMOReal s = attrs.get<SUMOReal>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
+            SUMOReal a = attrs.get<SUMOReal>(OPENDRIVE_ATTR_A, myCurrentEdge.id.c_str(), ok);
+            SUMOReal b = attrs.get<SUMOReal>(OPENDRIVE_ATTR_B, myCurrentEdge.id.c_str(), ok);
+            SUMOReal c = attrs.get<SUMOReal>(OPENDRIVE_ATTR_C, myCurrentEdge.id.c_str(), ok);
+            SUMOReal d = attrs.get<SUMOReal>(OPENDRIVE_ATTR_D, myCurrentEdge.id.c_str(), ok);
+            myCurrentEdge.elevations.push_back(OpenDriveElevation(s, a, b, c, d));
         }
         break;
         case OPENDRIVE_TAG_LINE: {

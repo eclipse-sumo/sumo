@@ -1,0 +1,54 @@
+# Tests whether rerouter works; also tests functioning of vehroutes output
+rerouter
+
+# Tests whether variable speed signs work
+variable_speed_signs
+
+# Tests for dua-inc emissions
+inc-dua
+
+# Tests whether wauts (tls program switches) work
+wauts
+
+# Tests whether stops work
+stops
+
+# "one shot" in-simulation vehicle routing
+simulation_routing
+
+# vehicle removal via vaporizer
+vaporizer
+
+# Tests whether calibrators work
+calibrator
+
+# Tests for HBEFA-based per-vehicle emissions
+device_hbefa
+
+# Tests for HBEFA-based emission computation
+hbefa
+
+# Tests for bus stops
+busses
+
+# test loading of shapes 
+# (relevant for cmd-line sumo since they can be access via TraCI)
+shapes
+
+# test continuous lane change maneuvers (disabled when testing sublane model)
+#continuous_lanechange
+
+# tests functions of the example device
+device_example
+
+# saving and loading simulation state
+state
+
+# tests for bt devices
+device_bt
+
+# tests for battery device and charging station
+electric
+
+# test for using option --max-num-vehicles
+max_num_vehicles

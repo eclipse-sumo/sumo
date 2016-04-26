@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/29/15 23:12:02 by SUMO Version dev-SVN-r19222
+<!-- generated on Thu Nov  5 10:15:30 2015 by SUMO Version dev-SVN-r19265
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -48,19 +48,19 @@
         <vehicle id="v0" x="262.50" y="491.75" angle="90.00" type="slow" speed="5.20" pos="11.60" lane="1si_0" slope="0.00"/>
     </timestep>
     <timestep time="2.50">
-        <vehicle id="v0" x="265.59" y="492.30" angle="86.67" type="slow" speed="6.50" pos="14.85" lane="1si_0" slope="0.00"/>
+        <vehicle id="v0" x="265.59" y="492.28" angle="86.67" type="slow" speed="6.50" pos="14.85" lane="1si_0" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="v0" x="268.88" y="492.85" angle="83.33" type="slow" speed="6.95" pos="18.32" lane="1si_0" slope="0.00"/>
+        <vehicle id="v0" x="268.88" y="492.82" angle="83.33" type="slow" speed="6.95" pos="18.32" lane="1si_0" slope="0.00"/>
     </timestep>
     <timestep time="3.50">
-        <vehicle id="v0" x="272.17" y="493.40" angle="80.00" type="slow" speed="6.95" pos="21.79" lane="1si_1" slope="0.00"/>
+        <vehicle id="v0" x="272.17" y="493.45" angle="80.00" type="slow" speed="6.95" pos="21.79" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="v0" x="275.47" y="493.95" angle="83.33" type="slow" speed="6.95" pos="25.27" lane="1si_1" slope="0.00"/>
+        <vehicle id="v0" x="275.47" y="493.98" angle="83.33" type="slow" speed="6.95" pos="25.27" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="4.50">
-        <vehicle id="v0" x="278.76" y="494.50" angle="86.67" type="slow" speed="6.95" pos="28.74" lane="1si_1" slope="0.00"/>
+        <vehicle id="v0" x="278.76" y="494.52" angle="86.67" type="slow" speed="6.95" pos="28.74" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
         <vehicle id="v0" x="282.06" y="495.05" angle="90.00" type="slow" speed="6.95" pos="32.21" lane="1si_1" slope="0.00"/>
@@ -120,20 +120,20 @@
         <vehicle id="v0" x="341.35" y="495.05" angle="90.00" type="slow" speed="6.95" pos="94.72" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="14.50">
-        <vehicle id="v0" x="344.64" y="495.60" angle="86.67" type="slow" speed="6.95" pos="98.19" lane="1si_1" slope="0.00"/>
+        <vehicle id="v0" x="344.64" y="495.58" angle="86.67" type="slow" speed="6.95" pos="98.19" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="v0" x="347.94" y="496.15" angle="83.33" type="slow" speed="6.95" pos="101.66" lane="1si_1" slope="0.00"/>
+        <vehicle id="v0" x="347.94" y="496.12" angle="83.33" type="slow" speed="6.95" pos="101.66" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="15.50">
-        <vehicle id="v0" x="351.23" y="496.70" angle="80.00" type="slow" speed="6.95" pos="105.13" lane="1si_2" slope="0.00"/>
+        <vehicle id="v0" x="351.23" y="496.75" angle="80.00" type="slow" speed="6.95" pos="105.13" lane="1si_2" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="v0" x="354.53" y="497.25" angle="83.33" type="slow" speed="6.95" pos="108.61" lane="1si_2" slope="0.00"/>
+        <vehicle id="v0" x="354.53" y="497.28" angle="83.33" type="slow" speed="6.95" pos="108.61" lane="1si_2" slope="0.00"/>
         <vehicle id="v1" x="346.36" y="495.05" angle="90.00" type="fast" speed="3.93" pos="100.00" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="16.50">
-        <vehicle id="v0" x="357.82" y="497.80" angle="86.67" type="slow" speed="6.95" pos="112.08" lane="1si_2" slope="0.00"/>
+        <vehicle id="v0" x="357.82" y="497.82" angle="86.67" type="slow" speed="6.95" pos="112.08" lane="1si_2" slope="0.00"/>
         <vehicle id="v1" x="348.23" y="495.05" angle="90.00" type="fast" speed="3.93" pos="101.97" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="17.00">

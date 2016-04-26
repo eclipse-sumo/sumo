@@ -1,0 +1,2 @@
+--no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
+--lateral-resolution 1.1 --tripinfo-output tripinfos.xml

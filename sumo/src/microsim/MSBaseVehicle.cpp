@@ -120,8 +120,8 @@ MSBaseVehicle::getMaxSpeed() const {
 
 
 const MSEdge*
-MSBaseVehicle::succEdge(unsigned int nSuccs) const {
-    if (myCurrEdge + nSuccs < myRoute->end()) {
+MSBaseVehicle::succEdge(int nSuccs) const {
+    if (myCurrEdge + nSuccs < myRoute->end() && std::distance(myCurrEdge, myRoute->begin()) <= nSuccs) {
         return *(myCurrEdge + nSuccs);
     } else {
         return 0;

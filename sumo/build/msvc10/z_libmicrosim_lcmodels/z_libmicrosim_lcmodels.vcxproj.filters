@@ -23,6 +23,9 @@
     <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_LC2013.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_SL2015.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSAbstractLaneChangeModel.h">
@@ -35,6 +38,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_LC2013.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_SL2015.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

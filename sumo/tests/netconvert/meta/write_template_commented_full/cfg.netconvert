@@ -438,6 +438,9 @@
         <!-- Enable roundabout-guessing -->
         <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL"/>
 
+        <!-- Enable guessing of opposite direction lanes usable for overtaking -->
+        <opposites.guess value="false" type="BOOL"/>
+
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
 

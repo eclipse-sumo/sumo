@@ -136,8 +136,10 @@ public:
         SUMOReal endOffset;
         /// @brief This lane's width
         SUMOReal width;
-        /// @brief An original ID, if given (@todo: is only seldom used, should be stored somewhere else, probably)
+        /// @brief An original ID, if given
         std::string origID;
+        /// @brief An opposite lane ID, if given
+        std::string oppositeID;
 
     };
 
@@ -920,11 +922,11 @@ public:
     /// @brief whether lanes differ in speed
     bool hasLaneSpecificSpeed() const;
 
-    /// @brief whether lanes differ in offset
-    bool hasLaneSpecificEndOffset() const;
-
     /// @brief whether lanes differ in width
     bool hasLaneSpecificWidth() const;
+
+    /// @brief whether lanes differ in offset
+    bool hasLaneSpecificEndOffset() const;
 
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges(bool noLeftMovers);

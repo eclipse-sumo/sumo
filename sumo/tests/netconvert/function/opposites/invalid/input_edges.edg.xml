@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="VODUGES_beg" from="W" to="E" priority="1" numLanes="1" speed="13.89">
+	    <neigh lane="invalid"/>
+	</edge>
+</edges>

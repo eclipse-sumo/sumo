@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 12/17/15 14:18:20 by SUMO netconvert Version dev-SVN-r19639
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <opposites.guess value="true"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,30.00" convBoundary="0.00,0.00,200.00,30.00" origBoundary="0.00,-30.00,200.00,0.00" projParameter="!"/>
+
+    <edge id="-VODUGES_beg" from="E" to="W" priority="1">
+        <lane id="-VODUGES_beg_0" index="0" speed="13.89" length="200.00" shape="200.00,31.65 0.00,31.65">
+            <neigh lane="VODUGES_beg_0"/>
+        </lane>
+    </edge>
+    <edge id="VODUGES_beg" from="W" to="E" priority="1">
+        <lane id="VODUGES_beg_0" index="0" speed="13.89" length="200.00" shape="0.00,28.35 200.00,28.35">
+            <neigh lane="-VODUGES_beg_0"/>
+        </lane>
+    </edge>
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="gneE0_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.65 200.00,-1.65"/>
+    </edge>
+    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
+        <lane id="gneE1_0" index="0" speed="13.89" length="200.00" shape="200.00,1.65 0.00,1.65"/>
+    </edge>
+
+    <junction id="E" type="dead_end" x="200.00" y="30.00" incLanes="VODUGES_beg_0" intLanes="" shape="200.00,30.05 200.00,33.25 200.00,26.75 200.00,29.95"/>
+    <junction id="W" type="dead_end" x="0.00" y="30.00" incLanes="-VODUGES_beg_0" intLanes="" shape="0.00,29.95 0.00,26.75 0.00,33.25 0.00,30.05"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="gneE1_0" intLanes="" shape="0.00,-0.05 0.00,-3.25 0.00,3.25 0.00,0.05"/>
+    <junction id="gneJ1" type="dead_end" x="200.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="200.00,0.05 200.00,3.25 200.00,-3.25 200.00,-0.05"/>
+
+</net>

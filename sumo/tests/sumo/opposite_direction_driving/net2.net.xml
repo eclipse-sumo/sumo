@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Apr 22 15:30:10 2016 by SUMO netconvert Version dev-SVN-r20512
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,400.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" speed="13.89" length="5.00" shape="48.35,4.75 48.16,3.39 47.58,2.43 46.61,1.84 45.25,1.65">
+            <neigh lane=":C_5_0"/>
+        </lane>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" speed="13.89" length="10.32" shape="48.35,4.75 48.75,1.95 49.95,-0.05 51.95,-1.25 54.75,-1.65">
+            <neigh lane=":C_2_0"/>
+        </lane>
+    </edge>
+    <edge id=":C_2" function="internal">
+        <lane id=":C_2_0" index="0" speed="13.89" length="5.00" shape="54.75,1.65 53.39,1.84 52.43,2.43 51.84,3.39 51.65,4.75">
+            <neigh lane=":C_1_0"/>
+        </lane>
+    </edge>
+    <edge id=":C_3" function="internal">
+        <lane id=":C_3_0" index="0" speed="13.89" length="9.50" shape="54.75,1.65 45.25,1.65">
+            <neigh lane=":C_4_0"/>
+        </lane>
+    </edge>
+    <edge id=":C_4" function="internal">
+        <lane id=":C_4_0" index="0" speed="13.89" length="9.50" shape="45.25,-1.65 54.75,-1.65">
+            <neigh lane=":C_3_0"/>
+        </lane>
+    </edge>
+    <edge id=":C_5" function="internal">
+        <lane id=":C_5_0" index="0" speed="13.89" length="5.28" shape="45.25,-1.65 48.05,-1.25 50.05,-0.05 50.11,0.05">
+            <neigh lane=":C_0_0"/>
+        </lane>
+    </edge>
+    <edge id=":C_6" function="internal">
+        <lane id=":C_6_0" index="0" speed="13.89" length="5.04" shape="50.11,0.05 51.25,1.95 51.65,4.75"/>
+    </edge>
+    <edge id=":E_0" function="internal">
+        <lane id=":E_0_0" index="0" speed="13.89" length="5.00" shape="198.35,4.75 198.16,3.39 197.57,2.43 196.61,1.84 195.25,1.65"/>
+    </edge>
+    <edge id=":E_1" function="internal">
+        <lane id=":E_1_0" index="0" speed="13.89" length="4.89" shape="198.35,4.75 198.54,1.95 199.12,-0.05"/>
+    </edge>
+    <edge id=":E_3" function="internal">
+        <lane id=":E_3_0" index="0" speed="13.89" length="2.96" shape="199.12,-0.05 200.09,-1.25 201.45,-1.65"/>
+    </edge>
+    <edge id=":E_2" function="internal">
+        <lane id=":E_2_0" index="0" speed="13.89" length="6.20" shape="195.25,-1.65 201.45,-1.65"/>
+    </edge>
+
+    <edge id="-VODUGES_beg" from="C" to="W" priority="1">
+        <lane id="-VODUGES_beg_0" index="0" speed="13.89" length="45.25" shape="45.25,1.65 0.00,1.65">
+            <neigh lane="VODUGES_beg_0"/>
+        </lane>
+    </edge>
+    <edge id="-VODUGES_end" from="E" to="C" priority="1">
+        <lane id="-VODUGES_end_0" index="0" speed="13.89" length="140.50" shape="195.25,1.65 54.75,1.65">
+            <neigh lane="VODUGES_end_0"/>
+        </lane>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="0">
+        <lane id="CN_0" index="0" speed="13.89" length="95.25" shape="51.65,4.75 51.65,100.00">
+            <neigh lane="NC_0"/>
+        </lane>
+    </edge>
+    <edge id="N2E" from="N2" to="E" priority="1">
+        <lane id="N2E_0" index="0" speed="13.89" length="95.25" shape="198.35,100.00 198.35,4.75"/>
+    </edge>
+    <edge id="NC" from="N" to="C" priority="0">
+        <lane id="NC_0" index="0" speed="13.89" length="95.25" shape="48.35,100.00 48.35,4.75">
+            <neigh lane="CN_0"/>
+        </lane>
+    </edge>
+    <edge id="VODUGES_beg" from="W" to="C" priority="1">
+        <lane id="VODUGES_beg_0" index="0" speed="13.89" length="45.25" shape="0.00,-1.65 45.25,-1.65">
+            <neigh lane="-VODUGES_beg_0"/>
+        </lane>
+    </edge>
+    <edge id="VODUGES_end" from="C" to="E" priority="1">
+        <lane id="VODUGES_end_0" index="0" speed="13.89" length="140.50" shape="54.75,-1.65 195.25,-1.65">
+            <neigh lane="-VODUGES_end_0"/>
+        </lane>
+    </edge>
+    <edge id="end2" from="E" to="E2" priority="1">
+        <lane id="end2_0" index="0" speed="13.89" length="198.55" shape="201.45,-1.65 400.00,-1.65"/>
+    </edge>
+
+    <junction id="C" type="priority" x="50.00" y="0.00" incLanes="NC_0 -VODUGES_end_0 VODUGES_beg_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_6_0" shape="46.75,4.75 53.25,4.75 54.75,3.25 54.75,-3.25 45.25,-3.25 45.25,3.25">
+        <request index="0" response="001000" foes="001000" cont="0"/>
+        <request index="1" response="111000" foes="111000" cont="0"/>
+        <request index="2" response="000000" foes="100000" cont="0"/>
+        <request index="3" response="000000" foes="100011" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
+        <request index="5" response="001100" foes="001110" cont="1"/>
+    </junction>
+    <junction id="E" type="priority" x="200.00" y="0.00" incLanes="N2E_0 VODUGES_end_0" intLanes=":E_0_0 :E_3_0 :E_2_0" shape="196.75,4.75 199.95,4.75 201.45,-0.05 201.45,-3.25 195.25,-3.25 195.25,3.25">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="100" foes="100" cont="1"/>
+        <request index="2" response="000" foes="010" cont="0"/>
+    </junction>
+    <junction id="E2" type="unregulated" x="400.00" y="0.00" incLanes="end2_0" intLanes="" shape="400.00,-3.25 400.00,-0.05"/>
+    <junction id="N" type="dead_end" x="50.00" y="100.00" incLanes="CN_0" intLanes="" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00"/>
+    <junction id="N2" type="unregulated" x="200.00" y="100.00" incLanes="" intLanes="" shape="199.95,100.00 196.75,100.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="-VODUGES_beg_0" intLanes="" shape="0.00,-0.05 0.00,-3.25 0.00,3.25 0.00,0.05"/>
+
+    <junction id=":C_6_0" type="internal" x="50.11" y="0.05" incLanes=":C_5_0 -VODUGES_end_0" intLanes=":C_1_0 :C_2_0 :C_3_0"/>
+    <junction id=":E_3_0" type="internal" x="199.12" y="-0.05" incLanes=":E_1_0 VODUGES_end_0" intLanes=":E_2_0"/>
+
+    <connection from="-VODUGES_end" to="CN" fromLane="0" toLane="0" via=":C_2_0" dir="r" state="M"/>
+    <connection from="-VODUGES_end" to="-VODUGES_beg" fromLane="0" toLane="0" via=":C_3_0" dir="s" state="M"/>
+    <connection from="N2E" to="-VODUGES_end" fromLane="0" toLane="0" via=":E_0_0" dir="r" state="M"/>
+    <connection from="N2E" to="end2" fromLane="0" toLane="0" via=":E_1_0" dir="l" state="m"/>
+    <connection from="NC" to="-VODUGES_beg" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="m"/>
+    <connection from="NC" to="VODUGES_end" fromLane="0" toLane="0" via=":C_1_0" dir="l" state="m"/>
+    <connection from="VODUGES_beg" to="VODUGES_end" fromLane="0" toLane="0" via=":C_4_0" dir="s" state="M"/>
+    <connection from="VODUGES_beg" to="CN" fromLane="0" toLane="0" via=":C_5_0" dir="l" state="m"/>
+    <connection from="VODUGES_end" to="end2" fromLane="0" toLane="0" via=":E_2_0" dir="s" state="M"/>
+
+    <connection from=":C_0" to="-VODUGES_beg" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_1" to="VODUGES_end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_2" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_3" to="-VODUGES_beg" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_4" to="VODUGES_end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_5" to="CN" fromLane="0" toLane="0" via=":C_6_0" dir="s" state="m"/>
+    <connection from=":C_6" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":E_0" to="-VODUGES_end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":E_1" to="end2" fromLane="0" toLane="0" via=":E_3_0" dir="s" state="m"/>
+    <connection from=":E_3" to="end2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":E_2" to="end2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

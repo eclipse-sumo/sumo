@@ -115,6 +115,8 @@ ISNAN(T a) {
 /// @brief global utility flags for debugging
 extern bool gDebugFlag1;
 extern bool gDebugFlag2;
+extern bool gDebugFlag3;
+extern bool gDebugFlag4;
 
 extern std::string gDebugSelectedVehicle;
 

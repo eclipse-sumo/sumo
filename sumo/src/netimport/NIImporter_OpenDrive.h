@@ -108,7 +108,8 @@ protected:
         OPENDRIVE_TAG_CONNECTION,
         OPENDRIVE_TAG_LANELINK,
         OPENDRIVE_TAG_WIDTH,
-        OPENDRIVE_TAG_SPEED
+        OPENDRIVE_TAG_SPEED,
+        OPENDRIVE_TAG_ELEVATION
     };
 
 
@@ -232,6 +233,28 @@ protected:
         SUMOReal hdg;
         GeometryType type;
         std::vector<SUMOReal> params;
+    };
+
+    /**
+     * @struct OpenDriveElevation
+     * @brief Coefficients of an elevation profile (3rd degree polynomial)
+     */
+    struct OpenDriveElevation {
+        /** @brief Constructor
+         * @param[in] s The start offset
+         * @param[in] a constant
+         * @param[in] b first order
+         * @param[in] c second order
+         * @param[in] d third order
+         */
+        OpenDriveElevation(SUMOReal _s, SUMOReal _a, SUMOReal _b, SUMOReal _c, SUMOReal _d) : 
+            s(_s), a(_a), b(_b), c(_c), d(_d) {}
+
+        SUMOReal s;
+        SUMOReal a;
+        SUMOReal b;
+        SUMOReal c;
+        SUMOReal d;
     };
 
 
@@ -382,6 +405,7 @@ protected:
         SUMOReal length;
         std::vector<OpenDriveLink> links;
         std::vector<OpenDriveGeometry> geometries;
+        std::vector<OpenDriveElevation> elevations;
         NBNode* from;
         NBNode* to;
         PositionVector geom;

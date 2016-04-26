@@ -48,6 +48,7 @@ class SUMOVehicle;
 class MSVehicle;
 class MSPerson;
 class OutputDevice;
+class MSTrafficLightLogic;
 
 
 // ===========================================================================
@@ -151,7 +152,7 @@ public:
      * @param[in] length The length of this link
      * @param[in] keepClear Whether the junction after this link must be kept clear
      */
-    MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear);
+    MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
 #else
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -161,7 +162,7 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear);
+    MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
 #endif
 
 
@@ -214,6 +215,7 @@ public:
      */
     bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength,
                 SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
+                SUMOReal posLat = 0,
                 std::vector<const SUMOVehicle*>* collectFoes = 0) const;
 
     /** @brief Returns the information whether this link is blocked
@@ -311,6 +313,15 @@ public:
         return myIndex;
     }
 
+    /** @brief Returns the TLS index */
+    inline int getTLIndex() const {
+        return myTLIndex;
+    }
+
+    /** @brief Returns the TLS index */
+    inline const MSTrafficLightLogic* getTLLogic() const {
+        return myLogic;
+    }
 
     /** @brief Returns whether this link is a major link
      * @return Whether the link has a large priority
@@ -327,7 +338,7 @@ public:
     }
 
     inline bool isTLSControlled() const {
-        return myLastStateChange != SUMOTime_MIN;
+        return myLogic != 0;
     }
 
     /** @brief Returns the length of this link
@@ -387,6 +398,9 @@ public:
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
 
+    /// @brief return the internalLaneBefore if it exists and the laneBefore otherwise
+    const MSLane* getLaneBefore() const;
+
     /// @brief return myInternalLaneBefore (always 0 when compiled without internal lanes)
     const MSLane* getInternalLaneBefore() const;
 
@@ -398,6 +412,9 @@ public:
 
     /// @brief erase vehicle from myLinkLeaders of this links junction
     void passedJunction(const MSVehicle* vehicle);
+
+    /// @brief return the link that is parallel to this lane or 0
+    MSLink* getParallelLink(int direction) const;
 
     //// @brief @return whether the foe vehicle is a leader for ego
     bool isLeader(const MSVehicle* ego, const MSVehicle* foe);
@@ -434,15 +451,29 @@ private:
     /// @brief whether fllower could stay behind leader (possibly by braking)
     static bool couldBrakeForLeader(SUMOReal followDist, SUMOReal leaderDist, const MSVehicle* follow, const MSVehicle* leader);
 
+    MSLink* computeParallelLink(int direction);
+
+    bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
+                       bool sameTargetLane, SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime) const;
+
 private:
-    /// @brief The lane (but the internal one) approached by this link
+    /// @brief The lane behind the junction approached by this link
     MSLane* myLane;
+
+    /// @brief The lane approaching this link
+    MSLane* myLaneBefore;
 
     std::map<const SUMOVehicle*, ApproachingVehicleInformation> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
     int myIndex;
+
+    /// @brief the traffic light index
+    const int myTLIndex;
+
+    /// @brief the controlling logic or 0
+    const MSTrafficLightLogic* myLogic;
 
     /// @brief The state of the link
     LinkState myState;
@@ -468,9 +499,10 @@ private:
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used
-    MSLane* const myJunctionInlane;
+    MSLane* const myInternalLane;
 
     /// @brief The preceding junction-internal lane if used
+    // XXX obsolete as this is identical with myLaneBefore
     const MSLane* myInternalLaneBefore;
 
     /* @brief lengths after the crossing point with foeLane
@@ -487,11 +519,15 @@ private:
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
 
+    /* @brief with the same origin lane and the same destination edge that may
+       be in conflict for sublane simulation */
+    std::vector<MSLink*> mySublaneFoeLinks; 
+
     static const SUMOTime myLookaheadTime;
     static const SUMOTime myLookaheadTimeZipper;
 
-
-private:
+    MSLink* myParallelRight;
+    MSLink* myParallelLeft;
     /// invalidated copy constructor
     MSLink(const MSLink& s);
 

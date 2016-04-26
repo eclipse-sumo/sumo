@@ -32,8 +32,10 @@
 #endif
 
 #include "MSEdgeControl.h"
+#include "MSGlobals.h"
 #include "MSEdge.h"
 #include "MSLane.h"
+#include "MSVehicle.h"
 #include <iostream>
 #include <vector>
 
@@ -52,7 +54,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
     // build the usage definitions for lanes
     for (std::vector< MSEdge* >::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         const std::vector<MSLane*>& lanes = (*i)->getLanes();
-        if (lanes.size() == 1) {
+        if (!(*i)->hasLaneChanger()) {
             size_t pos = (*lanes.begin())->getNumericalID();
             myLanes[pos].lane = *(lanes.begin());
             myLanes[pos].firstNeigh = lanes.end();
@@ -134,6 +136,13 @@ MSEdgeControl::executeMovements(SUMOTime t) {
             }
         }
     }
+    if (MSGlobals::gLateralResolution > 0) {
+        // multiple vehicle shadows may have entered an inactive lane and would
+        // not be sorted otherwise
+        for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
+            (*it).lane->sortPartialVehicles();
+        }
+    }
 }
 
 
@@ -150,6 +159,10 @@ MSEdgeControl::changeLanes(SUMOTime t) {
                 const std::vector<MSLane*>& lanes = edge.getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
                     LaneUsage& lu = myLanes[(*i)->getNumericalID()];
+                    //if ((*i)->getID() == "disabled") {
+                    //    std::cout << SIMTIME << " vehicles=" << toString((*i)->getVehiclesSecure()) << "\n";
+                    //    (*i)->releaseVehicles();
+                    //}
                     if ((*i)->getVehicleNumber() > 0 && !lu.amActive) {
                         toAdd.push_back(*i);
                         lu.amActive = true;

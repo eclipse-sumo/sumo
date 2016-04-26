@@ -156,6 +156,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("roundabouts.guess", "guess-roundabouts", true);
     oc.addDescription("roundabouts.guess", "Processing", "Enable roundabout-guessing");
 
+    oc.doRegister("opposites.guess", new Option_Bool(false));
+    oc.addDescription("opposites.guess", "Processing", "Enable guessing of opposite direction lanes usable for overtaking");
+
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 

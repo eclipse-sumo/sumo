@@ -1,0 +1,18 @@
+# load a sumo network and add opposites
+guess_for_existing
+
+# disable opposites for a single edge
+disable
+
+# set opposites for a single edge
+explicit
+
+# explicit one has precedence
+no_overwrite
+
+# try to set invalid opposites
+invalid
+wrong_nodes
+
+# guess opposites for internal lanes
+internal_lanes

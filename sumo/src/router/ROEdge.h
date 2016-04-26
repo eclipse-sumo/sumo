@@ -387,7 +387,7 @@ public:
         if (!edge->getStoredEffort(time, ret)) {
             const SUMOVTypeParameter* const type = veh->getType();
             const SUMOReal vMax = MIN2(type->maxSpeed, edge->mySpeed);
-            const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
+            const SUMOReal accel = type->getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
             ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time)); // @todo: give correct slope
         }
         return ret;

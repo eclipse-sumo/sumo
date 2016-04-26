@@ -214,6 +214,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
+            nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
         }
         nbe->declareConnectionsAsLoaded();
         if (!nbe->hasLaneSpecificWidth() && nbe->getLanes()[0].width != NBEdge::UNSPECIFIED_WIDTH) {
@@ -337,6 +338,9 @@ NIImporter_SUMO::myStartElement(int element,
             break;
         case SUMO_TAG_LANE:
             addLane(attrs);
+            break;
+        case SUMO_TAG_NEIGH:
+            myCurrentLane->oppositeID = attrs.getString(SUMO_ATTR_LANE);
             break;
         case SUMO_TAG_JUNCTION:
             addJunction(attrs);
@@ -467,7 +471,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
         myCustomShapeMaps[nodeID][id] = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     }
-    myCurrentLane = new LaneAttrs;
+    myCurrentLane = new LaneAttrs();
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
