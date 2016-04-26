@@ -1470,7 +1470,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leader
 
 bool
 MSVehicle::executeMove() {
-    //gDebugFlag1 = (getID() == "disabled");
+    gDebugFlag1 = (getID() == "Costa_1_74");
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gDebugSelectedVehicle == getID()) {
         int bla = 0;
@@ -1490,15 +1490,15 @@ MSVehicle::executeMove() {
     for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         MSLink* link = (*i).myLink;
 
-        //if (getID() == "ego") std::cout 
-        //    << SIMTIME 
-        //        << " veh=" << getID() 
-        //        << " link=" << (link == 0 ? "NULL" : link->getViaLaneOrLane()->getID())
-        //        << " req=" << (*i).mySetRequest
-        //        << " vP=" << (*i).myVLinkPass
-        //        << " vW=" << (*i).myVLinkWait
-        //        << " d=" << (*i).myDistance
-        //        << "\n";
+        if (gDebugFlag1) std::cout 
+            << SIMTIME 
+                << " veh=" << getID() 
+                << " link=" << (link == 0 ? "NULL" : link->getViaLaneOrLane()->getID())
+                << " req=" << (*i).mySetRequest
+                << " vP=" << (*i).myVLinkPass
+                << " vW=" << (*i).myVLinkWait
+                << " d=" << (*i).myDistance
+                << "\n";
 
         // the vehicle must change the lane on one of the next lanes
         if (link != 0 && (*i).mySetRequest) {
@@ -1521,12 +1521,24 @@ MSVehicle::executeMove() {
             const bool influencerPrio = (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority());
 #endif
             std::vector<const SUMOVehicle*> collectFoes;
-            const bool opened = yellow || influencerPrio ||
+            bool opened = yellow || influencerPrio ||
                                 link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                              getVehicleType().getLength(), getImpatience(),
                                              getCarFollowModel().getMaxDecel(),
                                              getWaitingTime(), getLateralPositionOnLane(),
                                              ls == LINKSTATE_ZIPPER ? &collectFoes : 0);
+            if (gDebugFlag1) std::cout << "opened=" << opened << "\n";
+            if (opened && getLaneChangeModel().getShadowLane() != 0) {
+                MSLink* parallelLink = (*i).myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+                if (parallelLink != 0) {
+                    opened &= parallelLink->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
+                                             getVehicleType().getLength(), getImpatience(),
+                                             getCarFollowModel().getMaxDecel(),
+                                             getWaitingTime(), getLateralPositionOnLane(),
+                                             ls == LINKSTATE_ZIPPER ? &collectFoes : 0);
+                    if (gDebugFlag1) std::cout << "shadowOpened=" << opened << "\n";
+                }
+            }
             // vehicles should decelerate when approaching a minor link
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont()) {
                 if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {

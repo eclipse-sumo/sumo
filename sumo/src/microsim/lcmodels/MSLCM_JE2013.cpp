@@ -87,11 +87,12 @@
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 //#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
-#define DEBUG_COND (myVehicle.getID() == "disabled")
+//#define DEBUG_COND (myVehicle.getID() == "Pepoli_11_94")
+//#define DEBUG_COND (myVehicle.getID() == "Silvani_7_1240")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
-//#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
+//#define DEBUG_COND (myVehicle.getID() == "Pepoli_11_95" || myVehicle.getID() == "Pepoli_11_94" || myVehicle.getID() == "Pepoli_11_98")
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
-//#define DEBUG_COND true
+#define DEBUG_COND false
 
 // ===========================================================================
 // member method definitions
@@ -494,7 +495,7 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         assert(neighFollow.first != 0);
         MSVehicle* nv = neighFollow.first;
         if (gDebugFlag2) std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
-                                       << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
+                                       << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << " planned=" << plannedSpeed <<  "\n";
 
         // are we fast enough to cut in without any help?
         if (plannedSpeed - nv->getSpeed() >= HELP_OVERTAKE) {
@@ -1007,11 +1008,11 @@ MSLCM_JE2013::_wantsChange(
     //        << " currentDist=" << currentDist
     //        << "\n";
     //}
-    const SUMOReal inconvenience = (laneOffset < 0 
+    const SUMOReal inconvenience = MIN2((SUMOReal)1.0, (laneOffset < 0 
             ? mySpeedGainProbability / CHANGE_PROB_THRESHOLD_RIGHT 
-            : -mySpeedGainProbability / CHANGE_PROB_THRESHOLD_LEFT);
+            : -mySpeedGainProbability / CHANGE_PROB_THRESHOLD_LEFT));
     if (amBlockingFollowerPlusNB()
-            && (inconvenience < myCooperativeParam)
+            && (inconvenience <= myCooperativeParam)
             //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
