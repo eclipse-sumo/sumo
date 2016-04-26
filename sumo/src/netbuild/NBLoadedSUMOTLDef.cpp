@@ -124,7 +124,9 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         }
         NBEdge* edge = c.getFrom();
-        edge->setControllingTLInformation(c, getID());
+        if (edge != 0) {
+            edge->setControllingTLInformation(c, getID());
+        }
     }
 }
 

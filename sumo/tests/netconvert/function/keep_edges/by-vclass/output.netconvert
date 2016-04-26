@@ -18,9 +18,9 @@ Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
+Computing node logics... done (0ms).
 Computing traffic light logics... done (0ms).
- 0 traffic light(s) computed.
+ 1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -32,5 +32,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,2500.00,0.00
 -----------------------------------------------------
-Writing network... done (0ms).
+Writing network... done (1ms).
 Success.
