@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 26 Apr 2016 08:39:38 AM CEST by Netedit Version dev-SVN-r20546
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoID/sumo/tests/netconvert/function/keep_edges/by-vclass2/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,2500.00,500.00" origBoundary="-500.00,0.00,2000.00,500.00" projParameter="!"/>
+
+    <node id="absBeg" x="0.00" y="0.00" type="unregulated"/>
+    <node id="absEnd" x="2000.00" y="0.00" type="priority"/>
+    <node id="beg" x="500.00" y="0.00" type="priority"/>
+    <node id="begleft" x="500.00" y="500.00" type="priority"/>
+    <node id="end" x="1500.00" y="0.00" type="priority"/>
+    <node id="endleft" x="1500.00" y="500.00" type="priority"/>
+    <node id="rabsEnd" x="2500.00" y="0.00" type="unregulated"/>
+</nodes>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 26 Apr 2016 08:39:38 AM CEST by Netedit Version dev-SVN-r20546
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoID/sumo/tests/netconvert/function/keep_edges/by-vclass2/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="beg" from="absBeg" to="beg" priority="-1" numLanes="2" speed="27.80"/>
+    <edge id="beg2left" from="beg" to="begleft" priority="-1" numLanes="2" speed="27.80">
+        <lane index="0" allow="bicycle"/>
+        <lane index="1" disallow="passenger taxi"/>
+    </edge>
+    <edge id="end" from="end" to="absEnd" priority="-1" numLanes="2" speed="27.80"/>
+    <edge id="left" from="begleft" to="endleft" priority="-1" numLanes="2" speed="27.80">
+        <lane index="0" allow="bicycle"/>
+        <lane index="1" disallow="passenger taxi"/>
+    </edge>
+    <edge id="left2end" from="endleft" to="end" priority="-1" numLanes="2" speed="27.80">
+        <lane index="0" allow="bicycle"/>
+        <lane index="1" disallow="passenger taxi"/>
+    </edge>
+    <edge id="middle" from="beg" to="end" priority="-1" numLanes="1" speed="13.90"/>
+    <edge id="rend" from="absEnd" to="rabsEnd" priority="-1" numLanes="2" speed="27.80"/>
+</edges>
