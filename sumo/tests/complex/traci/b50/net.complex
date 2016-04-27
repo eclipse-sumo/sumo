@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Nov 28 07:20:12 2015 by SUMO netconvert Version dev-SVN-r19457
+<!-- generated on Wed Apr 27 08:43:54 2016 by SUMO netconvert Version dev-SVN-r20555
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,14 +10,10 @@
         <edge-files value="input_edges.edg.xml"/>
     </input>
 
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
-
 </configuration>
 -->
 
-<net version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,990.00,700.00" origBoundary="0.00,0.00,990.00,700.00" projParameter="!"/>
 
