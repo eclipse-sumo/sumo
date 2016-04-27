@@ -669,7 +669,7 @@ MSLaneChanger::checkChange(
 
 
 bool 
-MSLaneChanger::changeOpposite(const std::pair<MSVehicle* const, SUMOReal>& leader) {
+MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
     if (!myChangeToOpposite) {
         return false;
     }
@@ -805,11 +805,19 @@ MSLaneChanger::changeOpposite(const std::pair<MSVehicle* const, SUMOReal>& leade
             if (gDebugFlag1) std::cout << "   seen=" << seen << " spaceToOvertake=" << spaceToOvertake << " timeToOvertake=" << timeToOvertake << "\n";
         }
     } else {
+        /// XXX compute sensible distance
+        leader = source->getOppositeLeader(vehicle, 200);
         neighLead = opposite->getOppositeLeader(vehicle, -1);
     }
     
     // compute wish to change
-    const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
+    std::vector<MSVehicle::LaneQ> preb = vehicle->getBestLanes();
+    if (isOpposite && leader.first != 0) {
+        MSVehicle::LaneQ& laneQ = preb[preb.size() - 1];
+        /// XXX compute sensible usable dist
+        laneQ.length -= MIN2(laneQ.length, opposite->getOppositePos(vehicle->getPositionOnLane()) + leader.second / 2);
+        leader.first = 0; // ignore leader
+    }
     std::pair<MSVehicle* const, SUMOReal> neighFollow = opposite->getOppositeFollower(vehicle);
     int state = checkChange(direction, opposite, leader, neighLead, neighFollow, preb);
 

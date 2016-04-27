@@ -87,12 +87,12 @@
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 //#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
-//#define DEBUG_COND (myVehicle.getID() == "Pepoli_11_94")
+#define DEBUG_COND (myVehicle.getID() == "disabled")
 //#define DEBUG_COND (myVehicle.getID() == "Silvani_7_1240")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "Pepoli_11_95" || myVehicle.getID() == "Pepoli_11_94" || myVehicle.getID() == "Pepoli_11_98")
 //#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
-#define DEBUG_COND false
+//#define DEBUG_COND false
 
 // ===========================================================================
 // member method definitions
@@ -720,6 +720,7 @@ MSLCM_JE2013::_wantsChange(
         neighDist = neigh.length;
         currentDist = curr.length;
     }
+    const SUMOReal posOnLane = isOpposite() ? myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() : myVehicle.getPositionOnLane();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
@@ -836,10 +837,10 @@ MSLCM_JE2013::_wantsChange(
         }
     }
 
-    const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
+    const SUMOReal usableDist = (currentDist - posOnLane - best.occupation *  JAM_FACTOR);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const SUMOReal maxJam = MAX2(preb[currIdx + prebOffset].occupation, preb[currIdx].occupation);
-    const SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist - myVehicle.getPositionOnLane() - maxJam);
+    const SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist - posOnLane - maxJam);
 
     if (gDebugFlag2) {
         std::cout << STEPS2TIME(currentTime)
@@ -856,7 +857,7 @@ MSLCM_JE2013::_wantsChange(
     }
 
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
-            && (currentDistDisallows(usableDist, bestLaneOffset, laDist) || isOpposite())) {
+            && (currentDistDisallows(usableDist, bestLaneOffset, laDist))) {
         /// @brief we urgently need to change lanes to follow our route
         ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
     } else {
@@ -936,7 +937,7 @@ MSLCM_JE2013::_wantsChange(
     if ((ret & LCA_URGENT) != 0) {
         // prepare urgent lane change maneuver
         // save the left space
-        myLeftSpace = currentDist - myVehicle.getPositionOnLane();
+        myLeftSpace = currentDist - posOnLane;
         if (changeToBest && abs(bestLaneOffset) > 1) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
             if (gDebugFlag2) {
