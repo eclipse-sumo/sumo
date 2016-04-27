@@ -283,9 +283,10 @@ public:
      *  generate collisions (possibly delayed).
      * @param[in] veh The vehicle to insert
      * @param[in] pos The position at which the vehicle shall be inserted
+     * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @param[in] posLat The lateral position at which the vehicle shall be inserted
      */
-    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos, SUMOReal posLat=0);
+    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos, MSMoveReminder::Notification notification, SUMOReal posLat=0);
     /// @}
 
 
@@ -694,7 +695,7 @@ public:
 
     /// @brief return the follower with the largest missing rear gap among all predecessor lanes (within dist)
     std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(
-        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
+        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist=-1) const;
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const; 
@@ -709,12 +710,12 @@ public:
      * getLeaderOnConsecutive()
      * @param[in] veh The vehicle for which the information shall be computed
      * @param[in] vehPos The vehicle position relative to this lane (may be negative)
-     * @param[in] checkNext Whether lanes after this one shall be checked
+     * @param[in] bestLaneConts The succeding lanes that shall be checked (if any)
      * @param[in] dist Optional distance to override default (ego stopDist)
      * @param[in] checkTmpVehicles Whether myTmpVehicles should be used instead of myVehicles
      * @return
      */
-    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh, const SUMOReal vehPos, bool checkNext, SUMOReal dist=-1, bool checkTmpVehicles=false) const;
+    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector<MSLane*>& bestLaneConts, SUMOReal dist=-1, bool checkTmpVehicles=false) const;
 
     /** @brief Returns the immediate leader and the distance to him
      *
@@ -891,11 +892,18 @@ public:
     /// @brief return the corresponding position on the opposite lane
     SUMOReal getOppositePos(SUMOReal pos) const;
 
-    std::pair<MSVehicle* const, SUMOReal> getOppositeLeader(const MSVehicle* ego) const;
+    std::pair<MSVehicle* const, SUMOReal> getOppositeLeader(const MSVehicle* ego, SUMOReal dist) const;
 
     std::pair<MSVehicle* const, SUMOReal> getOppositeFollower(const MSVehicle* ego) const;
 
-    std::pair<MSVehicle* const, SUMOReal> getFollower(SUMOReal egoPos, SUMOReal egoLength) const;
+
+    /** @brief Find follower vehicle for the given ego vehicle (which may be on the opposite direction lane)
+     * @param[in] ego The ego vehicle
+     * @param[in] egoPos The ego position mapped to the current lane
+     * @param[in] dist The look-back distance when looking at consecutive lanes
+     * @return the follower vehicle and it's gap to ego
+     */
+    std::pair<MSVehicle* const, SUMOReal> getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist) const;
 
     /// @name State saving/loading
     /// @{

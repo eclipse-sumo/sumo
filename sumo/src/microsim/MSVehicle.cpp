@@ -455,7 +455,7 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     if (myVTDPos > myVTDLane->getLength()) {
         myVTDPos = myVTDLane->getLength();
     }
-    myVTDLane->forceVehicleInsertion(v, myVTDPos, myVTDPosLat);
+    myVTDLane->forceVehicleInsertion(v, myVTDPos, MSMoveReminder::NOTIFICATION_TELEPORT, myVTDPosLat);
     v->updateBestLanes();
     // inverse of GeomHelper::naviDegree
     v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
@@ -1383,8 +1383,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         v = MIN2(va, v);
         seenNonInternal += lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL ? 0 : lane->getLength();
         // do not restrict results to the current vehicle to allow caching for the current time step
-        leaderLane = (opposite && lane->getOpposite() != 0) ? lane->getOpposite() : lane;
-        ahead = leaderLane->getLastVehicleInformation(0, 0);
+        leaderLane = lane; // (opposite && lane->getOpposite() != 0) ? lane->getOpposite() : lane;
+        // ignore leaders while overtaking through the opposite direction lane
+        ahead = opposite ? MSLeaderInfo(leaderLane) : leaderLane->getLastVehicleInformation(0, 0);
         seen += lane->getLength();
         vLinkPass = MIN2(estimateSpeedAfterDistance(lane->getLength(), v, cfModel.getMaxAccel()), laneMaxV); // upper bound
         lastLink = &lfLinks.back();
@@ -1770,6 +1771,9 @@ MSVehicle::executeMove() {
             myState.mySpeed = 0;
         }
         const MSLane* oldBackLane = getBackLane();
+        if (getLaneChangeModel().isOpposite()) {
+            passedLanes.clear(); // ignore back occupation
+        }
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
         updateBestLanes();
         // bestLanes need to be updated before lane changing starts
@@ -1938,7 +1942,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
     }
 #endif
 #ifdef HAVE_INTERNAL_LANES
-    if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout()) {
+    if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !getLaneChangeModel().isOpposite()) {
         bool hadVehicle = false;
         SUMOReal seenSpace = -lengthsInFront;
 

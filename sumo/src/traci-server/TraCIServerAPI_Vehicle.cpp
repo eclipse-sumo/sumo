@@ -985,7 +985,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     continue;
                 }
             }
-            l->forceVehicleInsertion(v, position);
+            l->forceVehicleInsertion(v, position, MSMoveReminder::NOTIFICATION_TELEPORT);
         }
         break;
         case VAR_SPEED: {
