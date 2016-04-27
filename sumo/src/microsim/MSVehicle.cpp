@@ -1531,11 +1531,12 @@ MSVehicle::executeMove() {
             if (opened && getLaneChangeModel().getShadowLane() != 0) {
                 MSLink* parallelLink = (*i).myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != 0) {
+                    const SUMOReal shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
+                            myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
                     opened &= parallelLink->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                              getVehicleType().getLength(), getImpatience(),
                                              getCarFollowModel().getMaxDecel(),
-                                             getWaitingTime(), getLateralPositionOnLane(),
-                                             ls == LINKSTATE_ZIPPER ? &collectFoes : 0);
+                                             getWaitingTime(), shadowLatPos, 0);
                     if (gDebugFlag1) std::cout << "shadowOpened=" << opened << "\n";
                 }
             }
