@@ -1092,10 +1092,10 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {
             MSVehicle* veh = myVehicles.back(); // the vehice at the front of the queue
             if (!veh->isStopped() && veh->getLane() == this) {
-                const bool wrongLane = !veh->getLane()->appropriate(veh);
                 const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
-                const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
+                const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && !veh->getLane()->appropriate(veh);
                 if (r1 || r2) {
+                    const bool wrongLane = !veh->getLane()->appropriate(veh);
                     const MSLinkCont::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
                     const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
                     const std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
