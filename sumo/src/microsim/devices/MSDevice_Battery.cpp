@@ -159,13 +159,13 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
             // Set Flags Stopped/intransit to
             if (veh.getSpeed() < SUMO_const_haltingSpeed) {
                 // vehicle ist almost stopped, then is charging stopped
-                myChargingInTransit = true;
+                myChargingStopped = true;
 
                 // therefore isn't charging in transit
                 myChargingInTransit = false;
             } else {
                 // vehicle is moving, and the Charging station allow charge in transit
-                myChargingInTransit = false;
+                myChargingStopped = false;
 
                 // Therefore charge in transit
                 myChargingInTransit = true;
