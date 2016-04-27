@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 22 Apr 2016 03:31:22 PM CEST by SUMO gui Version dev-SVN-r20512
+<!-- generated on Wed 27 Apr 2016 04:05:12 PM CEST by SUMO gui Version dev-SVN-r20565
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
@@ -57,7 +57,7 @@
         <vehicle id="stopped" x="44.98" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="44.98" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="overtaking" x="51.54" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="9.31" pos="6.29" lane=":C_4_0" slope="0.00"/>
+        <vehicle id="overtaking" x="51.54" y="1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="9.31" pos="3.21" lane=":C_3_0" slope="0.00"/>
         <vehicle id="stopped" x="44.98" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="44.98" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
