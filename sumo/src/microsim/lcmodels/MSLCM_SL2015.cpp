@@ -174,7 +174,7 @@ MSLCM_SL2015::wantsChangeSublane(
             neighLane, preb, 
             lastBlocked, firstBlocked, latDist, blocked);
 
-    if ((result & LCA_STAY != 0)) {
+    if ((result & LCA_STAY) != 0) {
         // checkBlocking was not called yet
         assert(latDist == 0);
         myOrigLatDist = 0;
@@ -1971,7 +1971,7 @@ MSLCM_SL2015::keepLatGap(int state,
     /// XXX to be made configurable
     const SUMOReal gapFactor = (state & LCA_STRATEGIC) != 0 ? 0.0: 1.0; 
     const SUMOReal minGap = myVehicle.getVehicleType().getMinGapLat();
-    const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC != 0) && (state & LCA_STAY) != 0);
+    const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
 
     /// XXX todo
     // - compute lateral gap after executing the current maneuver (may be LCA_NONE)
