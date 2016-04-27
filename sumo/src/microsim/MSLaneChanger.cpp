@@ -95,7 +95,7 @@ MSLaneChanger::laneChange(SUMOTime t) {
             updateChanger(haveChanged);
         }
         updateLanes(t);
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         // clean up locks or the gui may hang
         for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
             ce->lane->releaseVehicles();
