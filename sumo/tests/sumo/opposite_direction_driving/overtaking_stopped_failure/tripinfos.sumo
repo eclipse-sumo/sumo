@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 27 16:14:29 2016 by SUMO Version dev-SVN-r20565
+<!-- generated on Wed Apr 27 17:26:13 2016 by SUMO Version dev-SVN-r20568
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,5 +27,5 @@
     <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="12.64" duration="11.00" routeLength="100.00" waitSteps="0" timeLoss="2.91" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="13.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="9.51" duration="13.00" routeLength="200.00" waitSteps="0" timeLoss="3.72" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="23.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.66" duration="23.00" routeLength="200.00" waitSteps="0" timeLoss="7.86" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="25.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.45" duration="25.00" routeLength="160.00" waitSteps="4" timeLoss="12.54" rerouteNo="0" devices="tripinfo_stopped" vType="stopper" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="25.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.45" duration="25.00" routeLength="160.00" waitSteps="4" timeLoss="12.58" rerouteNo="0" devices="tripinfo_stopped" vType="stopper" vaporized=""/>
 </tripinfos>
