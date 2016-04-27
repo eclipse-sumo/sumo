@@ -415,16 +415,18 @@ MSLCM_LC2013::_wantsChange(
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
+    const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
+    const int prebOffset = (checkOpposite ? 0 : laneOffset);
     for (int p = 0; p < (int) preb.size(); ++p) {
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
-            assert(p + laneOffset < (int)preb.size());
+            assert(p + prebOffset < (int)preb.size());
             curr = preb[p];
-            neigh = preb[p + laneOffset];
+            neigh = preb[p + prebOffset];
             currentDist = curr.length;
             neighDist = neigh.length;
             bestLaneOffset = curr.bestLaneOffset;
-            if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) {
-                bestLaneOffset = laneOffset;
+            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0) {
+                bestLaneOffset = prebOffset;
             }
             best = preb[p + bestLaneOffset];
             currIdx = p;
@@ -433,6 +435,15 @@ MSLCM_LC2013::_wantsChange(
     }
     // direction specific constants
     const bool right = (laneOffset == -1);
+    if (isOpposite() && right) {
+        neigh = preb[preb.size() - 1];
+        curr = neigh;
+        bestLaneOffset = -1;
+        curr.bestLaneOffset = -1;
+        neighDist = neigh.length;
+        currentDist = curr.length;
+    }
+    const SUMOReal posOnLane = isOpposite() ? myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() : myVehicle.getPositionOnLane();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
@@ -519,9 +530,9 @@ MSLCM_LC2013::_wantsChange(
         neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS * myCooperativeParam;
     }
 
-    const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
-    const SUMOReal maxJam = MAX2(preb[currIdx + laneOffset].occupation, preb[currIdx].occupation);
-    const SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist - myVehicle.getPositionOnLane() - maxJam);
+    const SUMOReal usableDist = (currentDist - posOnLane - best.occupation *  JAM_FACTOR);
+    const SUMOReal maxJam = MAX2(preb[currIdx + prebOffset].occupation, preb[currIdx].occupation);
+    const SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist - posOnLane - maxJam);
 
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
@@ -572,7 +583,7 @@ MSLCM_LC2013::_wantsChange(
     if ((ret & LCA_URGENT) != 0) {
         // prepare urgent lane change maneuver
         // save the left space
-        myLeftSpace = currentDist - myVehicle.getPositionOnLane();
+        myLeftSpace = currentDist - posOnLane;
         if (changeToBest && abs(bestLaneOffset) > 1) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
             myLeadingBlockerLength = MAX2((SUMOReal)(right ? 20.0 : 40.0), myLeadingBlockerLength);
