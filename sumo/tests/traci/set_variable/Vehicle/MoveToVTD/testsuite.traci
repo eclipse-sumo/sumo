@@ -1,6 +1,9 @@
 # set speed implied by the position change
 implicit_speed
 
+# move vehicle that has not yet departed
+undeparted
+
 # move vehicle onto the rear end of another one
 force_collision
 
