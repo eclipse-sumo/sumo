@@ -10,6 +10,9 @@ ships
 # tesselation and rotation of polygons
 polygon_image
 
+# polygons with params
+polygon_param
+
 # coloring and rotation of POIs
 poi_image
 
