@@ -1462,7 +1462,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
             //  - either the one it's on or one of the next edges
             const ConstMSEdgeVector& ev = v.getRoute().getEdges();
             unsigned int routePosition = v.getRoutePosition();
-            if (v.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+            if (v.isOnRoad() && v.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
                 ++routePosition;
             }
             ConstMSEdgeVector::const_iterator edgePos = std::find(ev.begin() + routePosition, ev.end(), e);
@@ -1525,7 +1525,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
                     langle = lane->getShape().rotationDegreeAtOffset(off);
                 }
             }
-            bool sameEdge = &lane->getEdge() == &v.getLane()->getEdge() && v.getEdge()->getLanes()[0]->getLength() > v.getPositionOnLane() + SPEED2DIST(speed);
+            bool sameEdge = v.isOnRoad() && &lane->getEdge() == &v.getLane()->getEdge() && v.getEdge()->getLanes()[0]->getLength() > v.getPositionOnLane() + SPEED2DIST(speed);
             /*
             const MSEdge* rNextEdge = nextEdge;
             while(rNextEdge==0&&lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
