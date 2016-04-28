@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MSChargingStation.h
 /// @author  Daniel Krajzewicz
-/// @author  Tamas Kurzveil
+/// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
 /// @version $Id$
@@ -31,6 +31,7 @@
 #endif
 
 #include <cassert>
+#include <utils/common/TplConvert.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSStoppingPlace.h>
@@ -46,88 +47,111 @@
 // member method definitions
 // ===========================================================================
 
-MSChargingStation::MSChargingStation(const std::string& new_ChargingStationID,
-                                     const std::vector<std::string>& new_lines,
-                                     MSLane& new_Lane, SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower,
-                                     SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay) :
-    MSStoppingPlace(new_ChargingStationID, new_lines, new_Lane, new_StartPos, new_EndPos),
-    ChrgPower(new_ChrgPower),
-    Efficency(new_Efficency),
-    ChargeInTransit(new_ChargeInTransit),
-    ChargeDelay(new_ChargeDelay) {
-    if (getChrgPower() < 0) {
-        std::cout << std::string("Warning: Charging Station with ID = " + getID() + " doesn't have a valid charging power(" + SUMOReal_str(getChrgPower()) + ").");
-    }
+MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, SUMOReal startPos, SUMOReal endPos, 
+	               SUMOReal chargingPower, SUMOReal efficency, bool chargeInTransit, int chargeDelay) :
+    MSStoppingPlace(chargingStationID, std::vector<std::string>(), lane, startPos, endPos),
+    myChargingPower(0),
+    myEfficiency(0),
+    myChargeInTransit(chargeInTransit),
+    myChargeDelay(0),
+	myChargingVehicle(false) {
+    if (chargingPower < 0)
+        WRITE_WARNING("Parameter 'charging power' for Charging Station with ID = " + getID() + " is invalid (" + TplConvert::_2str(getChargingPower()) + ").")
+    else
+        myChargingPower = chargingPower;
 
-    if (getEfficency() < 0 || getEfficency() > 1) {
-        std::cout << std::string("Warning: Charging Station with ID = " + getID() + " doesn't have a valid Efficency (" + SUMOReal_str(getEfficency()) + ").");
-    }
+    if (efficency < 0 || efficency > 1)
+        WRITE_WARNING("Parameter 'efficiency' for Charging Station with ID = " + getID() + " is invalid (" + TplConvert::_2str(getEfficency()) + ").")
+    else
+        myEfficiency = efficency;
 
-    if (getBeginLanePosition() > getEndLanePosition()) {
-        std::cout << std::string("Warning: Charging Station with ID = " + getID() + " doesn't have a valid range (" + SUMOReal_str(getBeginLanePosition()) + " < " + SUMOReal_str(getEndLanePosition()) + ").");
-    }
+    if (chargeDelay < 0)
+        WRITE_WARNING("Parameter 'charge delay' for Charging Station with ID = " + getID() + " is invalid (" + TplConvert::_2str(getEfficency()) + ").")
+    else
+        myChargeDelay = chargeDelay;
+
+    if (getBeginLanePosition() > getEndLanePosition())
+        WRITE_WARNING("Charging Station with ID = " + getID() + " don't have a valid range (" + TplConvert::_2str(getBeginLanePosition()) + " < " + TplConvert::_2str(getEndLanePosition()) + ").");
 }
 
 
-MSChargingStation::~MSChargingStation() {
-}
-
-
-// GET FUNCTIONS
+MSChargingStation::~MSChargingStation()
+{}
 
 
 SUMOReal
-MSChargingStation::getChrgPower() const {
-    return ChrgPower;
+MSChargingStation::getChargingPower() const {
+    return myChargingPower;
 }
+
 
 SUMOReal
 MSChargingStation::getEfficency() const {
-    return Efficency;
+    return myEfficiency;
 }
 
-SUMOReal
+
+bool
 MSChargingStation::getChargeInTransit() const {
-    return ChargeInTransit;
+    return myChargeInTransit;
 }
+
 
 SUMOReal
 MSChargingStation::getChargeDelay() const {
-    return ChargeDelay;
+    return myChargeDelay;
 }
 
 
-// SET FUNCTIONS
-
-void MSChargingStation::setChrgPower(SUMOReal new_ChrgPower) {
-    ChrgPower = new_ChrgPower;
-
-    if (new_ChrgPower < 0) {
-        std::cout << std::string("Warning: Chargin Station with ID = " + getID() + " doesn't have a valid charging power(" + SUMOReal_str(getChrgPower()) + ").");
-    }
+void 
+MSChargingStation::setChargingPower(SUMOReal chargingPower) {
+    if (chargingPower < 0)
+        WRITE_WARNING("new charging power for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(chargingPower) + ").")
+    else
+        myChargingPower = chargingPower;
 }
 
 
-void MSChargingStation::setEfficency(SUMOReal new_Efficency) {
-    if (new_Efficency < 0 || new_Efficency > 1) {
-        std::cout << std::string("Warning: Chargin Station with ID = " + getID() + " doesn't have a valid Efficency (" + SUMOReal_str(getEfficency()) + ").");
-    }
-
-    Efficency = new_Efficency;
+void 
+MSChargingStation::setEfficency(SUMOReal efficency) {
+    if (efficency < 0 || efficency > 1)
+        WRITE_WARNING("new efficiency for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(efficency) + ").")
+    else
+        myEfficiency = efficency;
 }
 
-bool MSChargingStation::vehicleIsInside(const SUMOReal position) {
-    if ((position >= getBeginLanePosition()) && (position <= getEndLanePosition())) {
+
+void
+MSChargingStation::setChargeInTransit(bool chargeInTransit) {
+        myChargeInTransit = chargeInTransit;
+}
+
+
+void
+MSChargingStation::setChargeDelay(int chargeDelay) {
+    if (chargeDelay < 0)
+        WRITE_WARNING("new charge delay for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(chargeDelay) + ").")
+    else
+        myChargeDelay = chargeDelay;
+}
+
+
+void 
+MSChargingStation::setChargingVehicle(bool value) {
+    myChargingVehicle = value;
+}
+
+
+bool 
+MSChargingStation::vehicleIsInside(const SUMOReal position) const {
+    if ((position >= getBeginLanePosition()) && (position <= getEndLanePosition()))
         return true;
-    } else {
+    else
         return false;
-    }
 }
 
-// Private methods
 
-std::string MSChargingStation::SUMOReal_str(const SUMOReal& var) {
-    std::ostringstream convert;
-    convert << var;
-    return convert.str();
+bool 
+MSChargingStation::isCharging() const {
+	return myChargingVehicle;
 }

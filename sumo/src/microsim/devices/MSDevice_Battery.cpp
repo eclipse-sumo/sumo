@@ -116,13 +116,12 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 
 bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal /* newPos */, SUMOReal /* newSpeed */) {
     // Start vehicleStoppedTimer if the vehicle is stopped. In other case reset timer
-    if (veh.getSpeed() < SUMO_const_haltingSpeed) {
+    if (veh.getSpeed() < SUMO_const_haltingSpeed)
         // Increase vehicle stopped timer
         increaseVehicleStoppedTimer();
-    } else {
+    else
         // Reset vehicle Stopped
         resetVehicleStoppedTimer();
-    }
 
     // Update Energy from the battery
     if (getMaximumBatteryCapacity() != 0) {
@@ -135,13 +134,12 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
         if (getActualBatteryCapacity() < 0) {
             setActualBatteryCapacity(0);
 
-            if (getMaximumBatteryCapacity() > 0) {
-                WRITE_WARNING("Battery of vehicle '" + veh.getID() + "' is depleted.");
-            }
+            // Show  warning if battery is depleted
+            if (getMaximumBatteryCapacity() > 0)
+                WRITE_WARNING("Battery of vehicle '" + veh.getID() + "' is depleted.")
 
-        } else if (getActualBatteryCapacity() > getMaximumBatteryCapacity()) {
+        } else if (getActualBatteryCapacity() > getMaximumBatteryCapacity())
             setActualBatteryCapacity(getMaximumBatteryCapacity());
-        }
 
         setLastAngle(veh.getAngle());
     }
@@ -151,11 +149,8 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
 
     // If vehicle is over a charging station
     if (ChargingStationID != "") {
-        // Declare a pointer to the charging station
-        MSChargingStation* ChargingStationPointer = MSNet::getInstance()->getChargingStation(ChargingStationID);
-
         // if the vehicle is almost stopped, or charge in transit is enabled, then charge vehicle
-        if ((veh.getSpeed() < SUMO_const_haltingSpeed) || (ChargingStationPointer->getChargeInTransit() == 1)) {
+        if ((veh.getSpeed() < SUMO_const_haltingSpeed) || (MSNet::getInstance()->getChargingStation(ChargingStationID)->getChargeInTransit() == 1)) {
             // Set Flags Stopped/intransit to
             if (veh.getSpeed() < SUMO_const_haltingSpeed) {
                 // vehicle ist almost stopped, then is charging stopped
@@ -171,30 +166,31 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
                 myChargingInTransit = true;
             }
 
-            // Set myActChargingStation parameter
-            myActChargingStation = ChargingStationID;
+            // get pointer to charging station
+            myActChargingStation = MSNet::getInstance()->getChargingStation(ChargingStationID);
 
             // Only update charging start time if vehicle allow charge in transit, or in other case
             // if the vehicle not allow charge in transit but it's stopped.
-            if (ChargingStationPointer->getChargeInTransit() == 1 || veh.getSpeed() < SUMO_const_haltingSpeed) {
+            if (myActChargingStation->getChargeInTransit() == true || veh.getSpeed() < SUMO_const_haltingSpeed)
                 // Update Charging start time
                 increaseChargingStartTime();
-            }
 
             // time it takes the vehicle at the station < charging station time delay?
-            if (getChargingStartTime() > ChargingStationPointer->getChargeDelay()) {
-                // Calulate energy charged (Fix);
-                myEnergyCharged = ChargingStationPointer->getChrgPower() * ChargingStationPointer->getEfficency();
+            if (getChargingStartTime() > myActChargingStation->getChargeDelay()) {
+                // Enable charging vehicle
+                myActChargingStation->setChargingVehicle(true);
+
+                // Calulate energy charged
+                myEnergyCharged = myActChargingStation->getChargingPower() * myActChargingStation->getEfficency();
 
                 // Convert from [kWs] to [kWh] (3600s / 1h):
                 myEnergyCharged /= 3600;
 
                 // Update Battery charge
-                if ((myEnergyCharged + getActualBatteryCapacity()) > getMaximumBatteryCapacity()) {
+                if ((myEnergyCharged + getActualBatteryCapacity()) > getMaximumBatteryCapacity())
                     setActualBatteryCapacity(getMaximumBatteryCapacity());
-                } else {
+                else
                     setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
-                }
             }
         }
     }
@@ -202,10 +198,14 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOR
     else {
         // Disable flags
         myChargingInTransit = false;
-        myChargingInTransit = false;
+        myChargingStopped = false;
 
-        // Disable charging station
-        myActChargingStation = "NULL";
+        // Disable charging vehicle
+        if(myActChargingStation != NULL)
+            myActChargingStation->setChargingVehicle(false);
+
+        // Set charging station pointer to NULL
+        myActChargingStation = NULL;
 
         // Set energy charged to 0
         myEnergyCharged = 0.00;
@@ -260,7 +260,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myEnergyCharged(0),                 // Initially the energy charged is zero
     myConsum(0),                        // Initially the Vehicle is stopped and therefore the consum is zero.
     myVehicleStopped(0),                // Initially the vehicle is stopped and the corresponding variable is 0
-    myActChargingStation("NULL") {      // Initially the Vehicle isn'tover a Charging Station
+    myActChargingStation(NULL) {        // Initially the Vehicle isn'tover a Charging Station
 
     if (maximumBatteryCapacity < 0)
         WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter maximum battery capacity (" + TplConvert::_2str(maximumBatteryCapacity) + ").")
@@ -584,14 +584,17 @@ MSDevice_Battery::getChargingStartTime() const {
 }
 
 
-const std::string&
+std::string
 MSDevice_Battery::getChargingStationID() const {
-    return myActChargingStation;
+    if(myActChargingStation!= NULL)
+        return myActChargingStation->getID();
+    else
+        return "NULL";
 }
 
 
 SUMOReal
-MSDevice_Battery::getChrgEnergy() const {
+MSDevice_Battery::getEnergyCharged() const {
     return myEnergyCharged;
 }
 

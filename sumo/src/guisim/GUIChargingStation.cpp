@@ -64,10 +64,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIChargingStation::GUIChargingStation(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                                       SUMOReal frompos, SUMOReal topos, SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay)
-    : MSChargingStation(id, lines, lane, frompos, topos, new_chrgpower, new_efficiency, new_ChargeInTransit, new_ChargeDelay),
-      GUIGlObject_AbstractAdd("chargingStation", GLO_TRIGGER, id) {
+GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, SUMOReal frompos, SUMOReal topos,  SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay) :
+    MSChargingStation(id, lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay),
+    GUIGlObject_AbstractAdd("chargingStation", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(frompos, topos);
     myFGShapeRotations.reserve(myFGShape.size() - 1);
@@ -87,30 +86,25 @@ GUIChargingStation::GUIChargingStation(const std::string& id, const std::vector<
         myFGSignRot = myFGShape.rotationDegreeAtOffset(SUMOReal((myFGShape.length() / 2.)));
         myFGSignRot -= 90;
     }
-
-    chrgpower = new_chrgpower;
-    efficiency = new_efficiency;
-    chargeInTransit = new_ChargeInTransit;
-    chargeDelay = new_ChargeDelay;
 }
 
 
-GUIChargingStation::~GUIChargingStation() {
-}
+GUIChargingStation::~GUIChargingStation()
+{}
 
 
 GUIParameterTableWindow*
-GUIChargingStation::getParameterWindow(GUIMainWindow& app,
-                                       GUISUMOAbstractView&) {
+GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    // Create table items
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 6);
 
     // add items
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("charging power [W]", false, chrgpower);
-    ret->mkItem("charging efficiency []", false, efficiency);
-    ret->mkItem("charge in transit [0/1]", false, chargeInTransit);
-    ret->mkItem("charge delay [s]", false, chargeDelay);
+    ret->mkItem("charging power [W]", false, myChargingPower);
+    ret->mkItem("charging myEfficiency []", false, myEfficiency);
+    ret->mkItem("charge in transit [true/false]", false, myChargeInTransit);
+    ret->mkItem("charge delay [s]", false, myChargeDelay);
 
     // close building
     ret->closeBuilding();
@@ -140,20 +134,57 @@ GUIChargingStation::getCenteringBoundary() const {
 
 void
 GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
-
+	// Draw Charging Station
     glPushName(getGlID());
     glPushMatrix();
     RGBColor blue(114, 210, 252, 255);
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
-    // draw the area
+	RGBColor yellowCharge(255, 180, 0, 255);
+
+    // draw the area depending if the vehicle is charging
     glTranslated(0, 0, getType());
-    GLHelper::setColor(blue);
+	
+    if(myChargingVehicle == true)
+		GLHelper::setColor(yellowCharge);
+    else
+		GLHelper::setColor(blue);
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
 
     // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10) {
+
+        // push charging power matrix
+        glPushMatrix();
+
+        // Traslate End positionof signal
+        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+
+        // Rotate 180 (Eje X -> Mirror)
+        glRotated(180, 1, 0, 0);
+
+        // Rotate again using myBlockIconRotation
+        glRotated(myFGSignRot, 0, 0, 1);
+
+        // Set poligon mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        // set polyfront position on 0,0
+        pfSetPosition(0, 0);
+
+        // Set polyfront scale to 1
+        pfSetScale(1.f);
+
+         // traslate matrix
+        glTranslated(1.2, 0, 0);
+
+        // draw charging power
+        pfDrawString((toString(myChargingPower) + " W").c_str());
+
+        // pop charging power matrix
+        glPopMatrix();
+
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
@@ -162,7 +193,6 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         glScaled(exaggeration, exaggeration, 1);
-        GLHelper::setColor(blue);
         GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
         glTranslated(0, 0, .1);
 
@@ -170,52 +200,15 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
 
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("C", Position(), .1, 1.6, green, myFGSignRot);
+            GLHelper::drawText("C", Position(), .1, 1.6, blue, myFGSignRot);
         }
 
-        /** draw the Sen function IGNORED
-
-        //glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-
-        if (myFGSignRot == 0)
-            glTranslated(0, -1.5, 10);
-        else
-            glTranslated(0, 1.5, 10);
-        //glTranslated(0, (-1)*myFGSignPos.y(), .1);
-        RGBColor green(76, 170, 50, 255);
-
-
-
-        for (double X = 0; X < 5; X+=0.01)
-        {
-            double Y = sin((4*X)-(PI/2))*0.8;
-            glTranslated(0.01, Y, 0);
-            GLHelper::drawFilledCircle(0.05, 9);
-            glTranslated(0, Y*-1, 0);
-        }
-
-        glTranslated(-5, 0, 0);
-
-        for (double X = 0; X > -5; X-=0.01)
-        {
-            double Y = sin((4*X)-(PI/2))*0.8;
-            glTranslated(-0.01, Y, 0);
-            GLHelper::drawFilledCircle(0.05, 9);
-            glTranslated(0, Y*-1, 0);
-        }
-        */
         glTranslated(5, 0, 0);
 
     }
     glPopMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    // there should be no persons on a chargingStation
-    //for (std::vector<MSPerson*>::const_iterator i = myWaitingPersons.begin(); i != myWaitingPersons.end(); ++i) {
-    //    glTranslated(0, 1, 0); // make multiple persons viewable
-    //    static_cast<GUIPerson*>(*i)->drawGL(s);
-    //}
-
 }
 
 /****************************************************************************/

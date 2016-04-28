@@ -101,11 +101,9 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id, const s
 
 
 void
-GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id,
-                                        const std::vector<std::string>& lines,
-                                        MSLane* lane,
-                                        SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower, SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal chargeDelay) {
-    GUIChargingStation* chrg = new GUIChargingStation(id, lines, *lane, frompos, topos, chrgpower, efficiency, chargeInTransit, chargeDelay);
+GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos, 
+                                        SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay) {
+    GUIChargingStation* chrg = new GUIChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
 
     if (!net.addChargingStation(chrg)) {
         delete chrg;

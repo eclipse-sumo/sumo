@@ -74,22 +74,20 @@ class GUIManipulator;
 class GUIChargingStation : public MSChargingStation, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
-     * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the Charging Station
-     * @param[in] lines Names of the bus lines that halt on this bus stop
      * @param[in] lane The lane the charging station is placed on
-     * @param[in] begPos Begin position of the charging station on the lane
-     * @param[in] endPos End position of the charging station on the lane
+     * @param[in] frompos Begin position of the charging station on the lane
+     * @param[in] topos End position of the charging station on the lane
+	 * @param[in] chargingPower energy charged in every timeStep
+	 * @param[in] efficiency efficiency of the charge
+	 * @param[in] chargeInTransit enable or disable charge in transit
+	 * @param[in] chargeDelay delay in the charge
      */
-    GUIChargingStation(const std::string& id,
-                       const std::vector<std::string>& lines, MSLane& lane,
-                       SUMOReal frompos, SUMOReal topos,
-                       SUMOReal new_chrgpower, SUMOReal new_efficiency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
-
+    GUIChargingStation(const std::string& id, MSLane& lane, SUMOReal frompos, SUMOReal topos,
+                       SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay);
 
     /// @brief Destructor
     ~GUIChargingStation();
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -101,9 +99,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
-
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /** @brief Returns an own parameter window
      *
@@ -114,9 +110,7 @@ public:
      * @return The built parameter window (always 0 in this case)
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
-
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -125,26 +119,12 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
-
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
-
-private:
-    /// @brief chrgpower of the Charging Station
-    SUMOReal chrgpower;
-
-    /// @brief efficiency of the Charging Station
-    SUMOReal efficiency;
-
-    /// @brief allow charge in transit
-    SUMOReal chargeInTransit;
-
-    /// @brief charge delay
-    SUMOReal chargeDelay;
 
 private:
     /// @brief The rotations of the shape parts
@@ -162,7 +142,6 @@ private:
     /// @brief The rotation of the sign
     SUMOReal myFGSignRot;
 };
-
 
 #endif
 

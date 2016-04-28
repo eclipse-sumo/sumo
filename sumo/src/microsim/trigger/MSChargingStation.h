@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MSChargingStation.h
 /// @author  Daniel Krajzewicz
-/// @author  Tamas Kurzveil
+/// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
 /// @version $Id$
@@ -57,62 +57,73 @@ class OptionsCont;
 class MSChargingStation : public MSStoppingPlace {
 public:
 
-    // CONSTRUCTORES
+    /// @brief constructor
+    MSChargingStation(const std::string& chargingStationID, MSLane& lane, SUMOReal startPos, SUMOReal endPos, 
+		              SUMOReal chargingPower, SUMOReal efficency, bool chargeInTransit, int chargeDelay);
 
-    MSChargingStation(const std::string& new_ChargingStationID, const std::vector<std::string>& new_lines, MSLane& new_Lane,
-                      SUMOReal new_StartPos, SUMOReal new_EndPos, SUMOReal new_ChrgPower, SUMOReal new_Efficency, SUMOReal new_ChargeInTransit, SUMOReal new_ChargeDelay);
+    /// @brief destructor
+    ~MSChargingStation();
 
-    virtual ~MSChargingStation();
+    /// @brief Get charging station's charging power
+    SUMOReal getChargingPower() const;
 
-    /// @brief Get parameter 01, charging station's charging power
-    SUMOReal getChrgPower() const;
-
-    /// @brief Get parameter 02, efficiency of the charging station
+    /// @brief Get efficiency of the charging station
     SUMOReal getEfficency() const;
 
-    /// @brief Get parameter 03, get chargeInTransit
-    SUMOReal getChargeInTransit() const;
+    /// @brief Get chargeInTransit
+    bool getChargeInTransit() const;
 
-    /// @brief Get parameter 03, get Charge Delay
+    /// @brief Get Charge Delay
     SUMOReal getChargeDelay() const;
 
-    /// @brief Set parameter 05, charging station's charging power
-    inline void setChrgPower(SUMOReal new_ChrgPower);
+    /// @brief Set charging station's charging power
+    void setChargingPower(SUMOReal chargingPower);
 
-    /// @brief Set parameter 06, efficiency of the charging station
-    inline void setEfficency(SUMOReal new_Efficency);
+    /// @brief Set efficiency of the charging station
+    void setEfficency(SUMOReal efficency);
 
+    /// @brief Set charge in transit of the charging station
+    void setChargeInTransit(bool chargeInTransit);
 
-    // OTHER FUNCTIONS
+    /// @brief Set charge delay of the charging station
+    void setChargeDelay(int chargeDelay);
+
+	/// @brief enable or disable charging vehicle
+    void setChargingVehicle(bool value);
 
     /** @brief Check if a vehicle is inside in  the Charge Station
      * @param[in] position Position of vehicle in the LANE
-     * @return TRUE if is between StartPostion and EndPostion
+     * @return true if is between StartPostion and EndPostion
      */
-    bool vehicleIsInside(const SUMOReal position);
+    bool vehicleIsInside(const SUMOReal position) const;
 
+	/// @brief Return true if in the current time step charging station is charging a vehicle
+	bool isCharging() const;
+
+protected:
+
+    /// @brief Charging station's charging power
+    SUMOReal myChargingPower;
+
+    /// @brief Efficiency of the charging station
+    SUMOReal myEfficiency;
+
+    /// @brief Allow charge in transit
+    bool myChargeInTransit;
+
+    /// @brief Charge Delay
+    int myChargeDelay;
+
+	/// @brief Check if in the current TimeStep chargingStation is charging a vehicle
+	bool myChargingVehicle;
 
 private:
 
-    /// @brief Parameter 01, charging station's charging power
-    SUMOReal ChrgPower;
+    /// @brief Invalidated copy constructor.
+    MSChargingStation(const MSChargingStation&);
 
-    /// @brief Parameter 02, efficiency of the charging station
-    SUMOReal Efficency;
-
-    /// @brief Parameter 03, Allow charge in transit
-    SUMOReal ChargeInTransit;
-
-    /// @brief Parameter 03, Charge Delay
-    SUMOReal ChargeDelay;
-
-
-    /** @brief convert from SUMOReal to String
-     * @param[in] var Variable in SUMOReal format
-     * @return Variable var in String format
-     */
-    std::string SUMOReal_str(const SUMOReal& var);
+    /// @brief Invalidated assignment operator.
+    MSChargingStation& operator=(const MSChargingStation&);
 };
 
 #endif
-

@@ -218,16 +218,13 @@ protected:
      *
      * @param[in] net The net the charging Station belongs to
      * @param[in] id The id of the charging Station
-     * @param[in] lines Names of the bus lines that halt on this charging Station
      * @param[in] lane The lane the charging Station is placed on
      * @param[in] frompos Begin position of the charging Station on the lane
      * @param[in] topos End position of the charging Station on the lane
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    virtual void buildChargingStation(MSNet& net,
-                                      const std::string& id, const std::vector<std::string>& lines,
-                                      MSLane* lane, SUMOReal frompos, SUMOReal topos, SUMOReal chrgpower,
-                                      SUMOReal efficiency, SUMOReal chargeInTransit, SUMOReal ChargeDelay);
+    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos, 
+                                      SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int ChargeDelay);
 
     /** @brief builds a microscopic calibrator
      *
