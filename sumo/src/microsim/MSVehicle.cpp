@@ -584,7 +584,12 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
-        myCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);
+        MSRouteIterator newCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);;
+        if (myLane->getEdge().isInternal() && (
+                    (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(myLane->getOutgoingLanes()[0]->getEdge()))) {
+            return false;
+        }
+        myCurrEdge = newCurrEdge;
     }
     // check whether the old route may be deleted (is not used by anyone else)
     newRoute->addReference();

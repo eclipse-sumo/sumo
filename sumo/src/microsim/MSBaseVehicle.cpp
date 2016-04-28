@@ -183,7 +183,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool check) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;
@@ -220,6 +220,16 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit) {
         delete newRoute;
         return false;
     }
+
+    std::string msg;
+    if (check && !hasValidRoute(msg, newRoute)) {
+        WRITE_WARNING("Invalid route replacement for vehicle '" + getID() + "'. " + msg);
+        if (MSGlobals::gCheckRoutes) {
+            delete newRoute;
+            return false;
+        }
+    }
+
     if (!replaceRoute(newRoute, onInit, (int)edges.size() - oldSize)) {
         newRoute->addReference();
         newRoute->release();
@@ -270,18 +280,24 @@ MSBaseVehicle::addContainer(MSTransportable* /*container*/) {
 }
 
 bool
-MSBaseVehicle::hasValidRoute(std::string& msg) const {
-    MSRouteIterator last = myRoute->end() - 1;
+MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
+    MSRouteIterator start = myCurrEdge;
+    if (route == 0) {
+        route = myRoute;
+    } else {
+        start = route->begin();
+    }
+    MSRouteIterator last = route->end() - 1;
     // check connectivity, first
-    for (MSRouteIterator e = myCurrEdge; e != last; ++e) {
+    for (MSRouteIterator e = start; e != last; ++e) {
         if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == 0) {
             msg = "No connection between edge '" + (*e)->getID() + "' and edge '" + (*(e + 1))->getID() + "'.";
             return false;
         }
     }
-    last = myRoute->end();
+    last = route->end();
     // check usable lanes, then
-    for (MSRouteIterator e = myCurrEdge; e != last; ++e) {
+    for (MSRouteIterator e = start; e != last; ++e) {
         if ((*e)->prohibits(this)) {
             msg = "Edge '" + (*e)->getID() + "' prohibits.";
             return false;

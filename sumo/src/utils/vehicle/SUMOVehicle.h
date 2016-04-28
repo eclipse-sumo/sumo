@@ -139,8 +139,18 @@ public:
      */
     virtual const MSEdge* succEdge(int nSuccs) const = 0;
 
-    /// Replaces the current route by the given edges
-    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false) = 0;
+    /** @brief Replaces the current route by the given edges
+     *
+     * It is possible that the new route is not accepted, if a) it does not
+     *  contain the vehicle's current edge, or b) something fails on insertion
+     *  into the routes container (see in-line comments).
+     *
+     * @param[in] edges The new list of edges to pass
+     * @param[in] onInit Whether the vehicle starts with this route
+     * @param[in] check Whether the route should be checked for validity
+     * @return Whether the new route was accepted
+     */
+    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false) = 0;
 
     /// Replaces the current route by the given one
     virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0) = 0;
@@ -156,11 +166,12 @@ public:
      */
     virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false) = 0;
 
-    /** @brief Validates the current route
+    /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
+     * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    virtual bool hasValidRoute(std::string& msg) const = 0;
+    virtual bool hasValidRoute(std::string& msg, const MSRoute* route=0) const = 0;
 
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route

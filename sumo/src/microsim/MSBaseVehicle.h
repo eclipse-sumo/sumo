@@ -187,10 +187,11 @@ public:
      *  into the routes container (see in-line comments).
      *
      * @param[in] edges The new list of edges to pass
-     * @param[in] simTime The time at which the route was replaced
+     * @param[in] onInit Whether the vehicle starts with this route
+     * @param[in] check Whether the route should be checked for validity
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false);
 
 
     /** @brief Returns the vehicle's acceleration
@@ -292,11 +293,12 @@ public:
      */
     virtual void addContainer(MSTransportable* container);
 
-    /** @brief Validates the current route
+    /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
+     * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    bool hasValidRoute(std::string& msg) const;
+    bool hasValidRoute(std::string& msg, const MSRoute* route=0) const;
 
     /** @brief Adds a MoveReminder dynamically
      *
