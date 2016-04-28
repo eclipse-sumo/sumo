@@ -1329,9 +1329,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 keepRoute = (keepRouteFlag > 0);
             }
             // process
-            if (!v->isOnRoad()) {
-                break;
-            }
             std::string origID = edgeID + " " + toString(laneNum);
             if (laneNum < 0) {
                 edgeID = '-' + edgeID;

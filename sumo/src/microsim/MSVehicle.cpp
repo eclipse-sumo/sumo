@@ -446,8 +446,10 @@ MSVehicle::Influencer::isVTDAffected(SUMOTime t) const {
 
 void
 MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
-    v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-    v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
+    if (v->isOnRoad()) {
+        v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+        v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
+    }
     if (myVTDRoute.size() != 0) {
         v->replaceRouteEdges(myVTDRoute, true);
     }
