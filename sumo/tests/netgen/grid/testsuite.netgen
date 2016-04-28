@@ -23,5 +23,8 @@ attach
 nointernal
 alphanumerical-ids
 
+# set alternative defaults
+defaults
+
 # Tests processing of errors in input
 errors

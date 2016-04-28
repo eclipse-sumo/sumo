@@ -71,10 +71,11 @@ public:
 
     /** @brief Sets the default values
      * @param[in] defaultNumLanes The default number of lanes an edge has
+     * @param[in] defaultLaneWidth The default width of lanes 
      * @param[in] defaultSpeed The default speed allowed on an edge
      * @param[in] defaultPriority The default priority of an edge
      */
-    void setDefaults(int defaultNumLanes,
+    void setDefaults(int defaultNumLanes, SUMOReal defaultLaneWidth,
                      SUMOReal defaultSpeed, int defaultPriority);
 
 

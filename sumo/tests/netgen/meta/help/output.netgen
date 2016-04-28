@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r20505
+SUMO netgenerate Version dev-SVN-r20568
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -202,6 +202,7 @@ Processing Options:
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge
+  --default.lanewidth FLOAT            The default width of lanes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
   --default.sidewalk-width FLOAT       The default width of added sidewalks

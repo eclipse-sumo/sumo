@@ -65,6 +65,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("default.lanenumber", "lanenumber", true);
     oc.addDescription("default.lanenumber", "Building Defaults", "The default number of lanes in an edge");
 
+    oc.doRegister("default.lanewidth", new Option_Float(NBEdge::UNSPECIFIED_WIDTH));
+    oc.addSynonyme("default.lanewidth", "lanewidth", true);
+    oc.addDescription("default.lanewidth", "Building Defaults", "The default width of lanes");
+
     oc.doRegister("default.speed", 'S', new Option_Float((SUMOReal) 13.9));
     oc.addSynonyme("default.speed", "speed", true);
     oc.addDescription("default.speed", "Building Defaults", "The default speed on an edge (in m/s)");

@@ -318,6 +318,9 @@
         <!-- The default number of lanes in an edge -->
         <default.lanenumber value="1" synonymes="L lanenumber" type="INT"/>
 
+        <!-- The default width of lanes -->
+        <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
+
         <!-- The default speed on an edge (in m/s) -->
         <default.speed value="13.9" synonymes="S speed" type="FLOAT"/>
 
