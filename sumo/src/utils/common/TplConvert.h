@@ -46,18 +46,38 @@
 // ===========================================================================
 /**
  * TplConvert
- * Some methods that convert 0-terminated char-arrays of any type into
- * other values (numerical/boolean) or into std::strings
+ * Some methods that convert 0-terminated char-arrays of any type into other values (numerical/boolean) or into std::strings
+ * Also convert strings into any type of values (SUMOReal, int, bool...)
  */
 class TplConvert {
 public:
+    /// @name Conversion of basic types and data arrays to String
+    //@{
+    /// @brief convert int to string
+    static inline std::string _2str(const int var) {
+        std::ostringstream convert;
+        convert << var;
+        return convert.str();
+    }
+
+    /// @brief convert SUMOReal to string
+    static inline std::string _2str(const SUMOReal var) {
+        std::ostringstream convert;
+        convert << var;
+        return convert.str();
+    }
+
+    /// @brief convert bool to string
+    static inline std::string _2str(const bool var) {
+        return (var == true? "true" : "false");
+    }
+
     /// @brief converts a 0-terminated char-type array into std::string
     /// @throw an EmptyData - exception if the given pointer is 0 
     template<class E>
     static inline std::string _2str(const E* const data) {
         return _2str(data, getLength(data));
     }
-
 
     /// @brief converts a 0-terminated char array into std::string
     /// @throw an EmptyData - exception if the given pointer is 0 
@@ -67,7 +87,6 @@ public:
         }
         return std::string(data);
     }
-
 
     /// @brief converts a char-type array into std::string considering the given length
     /// @throw an EmptyData - exception if the given pointer is 0
@@ -94,7 +113,6 @@ public:
         return ret;
     }
 
-
     /// @brief converts a char array into std::string considering the given length
     /// @throw an EmptyData - exception if the given pointer is 0 */
     static inline std::string _2str(const char* const data, unsigned length) {
@@ -104,7 +122,26 @@ public:
         return std::string(data, length);
     }
 
+    /// @brief converts a 0-terminated char-type array into std::string
+    /// @return the default value if the data is empty
+    template<class E>
+    static std::string _2strSec(const E* const data, const std::string& def) {
+        return _2strSec(data, getLength(data), def);
+    }
 
+    /// @brief converts a char-type array into std::string considering the given length
+    /// @return returns the default value if the data is empty
+    template<class E>
+    static std::string _2strSec(const E* const data, int length, const std::string& def) {
+        if (data == 0 || length == 0) {
+            return def;
+        }
+        return _2str(data, length);
+    }
+    //@}
+
+    /// @name Conversion to basic type int
+    //@{
     /// @brief converts a char-type array into the integer value described by it
     /// @throw an EmptyData - exception if the given string is empty
     /// @throw a NumberFormatException - exception when the string does not contain an integer
@@ -117,14 +154,12 @@ public:
         return (int)result;
     }
 
-
     /// @brief converts a string into the integer value described by it by calling the char-type converter, which
     /// @throw an EmptyData - exception if the given string is empty
     /// @throw NumberFormatException - exception when the string does not contain an integer
     static int _str2int(const std::string& sData) {
         return _2int(sData.c_str());
     }
-
 
     /// @brief converts a char-type array with a hex value into the integer value described by it
     /// @throw an EmptyData - exception if the given string is empty
@@ -138,7 +173,6 @@ public:
         return (int)result;
     }
 
-
     /// @brief converts a string with a hex value into the integer value described by it by calling the char-type converter
     /// @throw an EmptyData - exception if the given string is empty
     /// @throw a NumberFormatException - exception when the string does not contain an integer
@@ -146,7 +180,19 @@ public:
         return _hex2int(sData.c_str());
     }
 
+    /// @brief converts a 0-terminated char-type array into the integer value described by it
+    /// @return the default value if the data is empty
+    template<class E>
+    static int _2intSec(const E* const data, int def) {
+        if (data == 0 || data[0] == 0) {
+            return def;
+        }
+        return _2int(data);
+    }
+    //@}
 
+    /// @name Conversion to basic type long
+    //@{
     /// @brief converts a char-type array into the long value described by it
     /// @throw an EmptyData - exception if the given string is empty
     /// @throw a NumberFormatException - exception when the string does not contain a long
@@ -179,7 +225,6 @@ public:
         }
         return ret * sgn;
     }
-
 
     /// @brief converts a char-type array with a hex value into the long value described by it
     /// @throw an EmptyData - exception if the given string is empty
@@ -225,7 +270,19 @@ public:
         return ret * sgn;
     }
 
+    /// @brief  converts a 0-terminated char-type array into the long value described by it
+    /// @return the default value if the data is empty
+    template<class E>
+    static long long int _2longSec(const E* const data, long def) {
+        if (data == 0 || data[0] == 0) {
+            return def;
+        }
+        return _2long(data);
+    }
+    //@}
 
+    /// @name Conversion to basic type SUMOReal (Double)
+    //@{
     /// @brief converts a char-type array into the SUMOReal value described by it
     /// @throw an EmptyData - exception if the given string is empty
     /// @throw a NumberFormatException - exception when the string does not contain a SUMOReal
@@ -278,7 +335,6 @@ public:
         }
     }
 
-
     /// @brief converts a string into the SUMOReal value described by it by calling the char-type converter
     /// @throw an EmptyData - exception if the given string is empty
     /// @throw a NumberFormatException - exception when the string does not contain a SUMOReal
@@ -286,7 +342,19 @@ public:
         return _2SUMOReal(sData.c_str());
     }
 
+    /// @brief converts a 0-terminated char-type array into the SUMOReal value described by it
+    /// @return the default value if the data is empty
+    template<class E>
+    static SUMOReal _2SUMORealSec(const E* const data, SUMOReal def) {
+        if (data == 0 || data[0] == 0) {
+            return def;
+        }
+        return _2SUMOReal(data);
+    }
+    //@}
 
+    /// @name Conversion to basic type bool
+    //@{
     /// @brief converts a 0-terminated char-type array into the boolean value described by it
     /// @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on'
     /// @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off'
@@ -308,49 +376,12 @@ public:
         }
     }
 
-    // conversion methods not throwing an exception
-
-    /// @brief converts a 0-terminated char-type array into std::string
-    /// @return the default value if the data is empty */
-    template<class E>
-    static std::string _2strSec(const E* const data,
-                                const std::string& def) {
-        return _2strSec(data, getLength(data), def);
+    /// @brief converts a string into the bool value described by it by calling the char-type converter
+    /// @throw an EmptyData - exception if the given string is empty
+    /// @throw a NumberFormatException - exception when the string does not contain a bool
+    static bool _str2Bool(const std::string& sData) {
+        return _2bool(sData.c_str());
     }
-
-
-    /// @brief converts a 0-terminated char-type array into the integer value described by it
-    /// @return the default value if the data is empty */
-    template<class E>
-    static int _2intSec(const E* const data, int def) {
-        if (data == 0 || data[0] == 0) {
-            return def;
-        }
-        return _2int(data);
-    }
-
-
-    /// @brief  converts a 0-terminated char-type array into the long value described by it
-    /// @return the default value if the data is empty */
-    template<class E>
-    static long long int _2longSec(const E* const data, long def) {
-        if (data == 0 || data[0] == 0) {
-            return def;
-        }
-        return _2long(data);
-    }
-
-
-    /// @brief converts a 0-terminated char-type array into the SUMOReal value described by it
-    /// @return the default value if the data is empty */
-    template<class E>
-    static SUMOReal _2SUMORealSec(const E* const data, SUMOReal def) {
-        if (data == 0 || data[0] == 0) {
-            return def;
-        }
-        return _2SUMOReal(data);
-    }
-
 
     /// @brief converts a 0-terminated char-type array into the SUMOReal value described by it
     /// @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on'
@@ -363,19 +394,7 @@ public:
         }
         return _2bool(data);
     }
-
-
-    /// @brief converts a char-type array into std::string considering the given length
-    /// @return returns the default value if the data is empty
-    template<class E>
-    static std::string _2strSec(const E* const data, int length,
-                                const std::string& def) {
-        if (data == 0 || length == 0) {
-            return def;
-        }
-        return _2str(data, length);
-    }
-
+    //@}
 
     /// @brief returns the length of the string (the position of the 0-character)
     template<class E>
@@ -390,27 +409,6 @@ public:
         return i;
     }
 
-
-    /// @brief convert int to string
-    static std::string _2str(const int var) {
-        std::ostringstream convert;
-        convert << var;
-        return convert.str();
-    }
-
-
-    /// @brief convert SUMOReal to string
-    static std::string _2str(const SUMOReal var) {
-        std::ostringstream convert;
-        convert << var;
-        return convert.str();
-    }
-
-
-    /// @brief convert bool to string
-    static std::string _2str(const bool var) {
-        return (var == true? "true" : "false");
-    }
 };
 
 
