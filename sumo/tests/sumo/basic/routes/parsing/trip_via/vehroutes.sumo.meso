@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 28 15:22:32 2016 by SUMO Version dev-SVN-r20584
+<!-- generated on Thu Apr 28 15:22:21 2016 by SUMO Version dev-SVN-r20584
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
-        <additional-files value="input_districts.taz.xml,input_trips.trips.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
     </output>
-
-    <time>
-        <begin value="0"/>
-    </time>
-
-    <routing>
-        <device.rerouting.probability value="1"/>
-        <device.rerouting.adaptation-weight value="0.4"/>
-    </routing>
 
     <report>
         <xml-validation value="never"/>
@@ -37,9 +28,10 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" arrival="91.00">
+    <vehicle id="0" type="t0" depart="0.00" arrival="127.00">
         <routeDistribution>
-            <route edges="beg2left left left2end end"/>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg left rend"/>
+            <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
