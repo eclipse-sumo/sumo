@@ -20,6 +20,8 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+import sumolib.geomhelper
+
 # taken from sumo/src/utils/common/SUMOVehicleClass.cpp
 SUMO_VEHICLE_CLASSES = (
     "public_emergency",  # deprecated
@@ -121,6 +123,9 @@ class Lane:
             ymax = max(ymax, p[1])
         assert(xmin != xmax or ymin != ymax)
         return (xmin, ymin, xmax, ymax)
+
+    def getClosestLanePos(self, point, perpendicular=False):
+        return sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, self.getShape(), perpendicular)
 
     def getIndex(self):
         return self._edge._lanes.index(self)
