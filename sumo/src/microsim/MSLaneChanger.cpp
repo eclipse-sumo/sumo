@@ -699,7 +699,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
 
     // changing into the opposite direction is always to the left (XXX except for left-hand networkds)
     int direction = vehicle->getLaneChangeModel().isOpposite() ? -1 : 1;
-    std::pair<MSVehicle*, SUMOReal> neighLead(0, -1);
+    std::pair<MSVehicle*, SUMOReal> neighLead((MSVehicle*)0, -1);
 
     // preliminary sanity checks for overtaking space
     if (!isOpposite) {
