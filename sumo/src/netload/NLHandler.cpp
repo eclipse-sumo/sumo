@@ -517,8 +517,9 @@ NLHandler::parseLanes(const std::string& junctionID,
 void
 NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
-    std::string val = attrs.get<std::string>(SUMO_ATTR_VALUE, 0, ok);
+    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+    // circumventing empty string test
+    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
     if (myLastParameterised != 0) {
         myLastParameterised->addParameter(key, val);
     }
