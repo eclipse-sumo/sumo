@@ -4,7 +4,11 @@ Basic
 # Test behaviour when the vehicle is not on the route's starting edge
 FalseEdge
 
+# Test behaviour when the assigned route is disconnected
+disconnected
+
 # Test error on specifying an invalid node (vehicle) id
 InvalidNodeId
 
-
+# Test behaviour when the assigned route cannot be used while the vehicle is already on an intersection
+invalidOnInternal

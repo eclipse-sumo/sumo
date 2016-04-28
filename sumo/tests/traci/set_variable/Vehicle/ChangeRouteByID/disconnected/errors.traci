@@ -1,0 +1,3 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Warning: Invalid route replacement for vehicle 'veh0'. No connection between edge 'e_m6' and edge 'e_o1'.
+Error: Answered with error to command 0xc4: Route replacement failed for veh0

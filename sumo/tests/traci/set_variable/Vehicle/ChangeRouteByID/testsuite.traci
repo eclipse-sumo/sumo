@@ -10,3 +10,5 @@ InvalidNodeId
 # Test error on specifying an invalid route id
 InvalidRouteId
 
+# Test error on specifying the Id of an invalid route
+disconnected
