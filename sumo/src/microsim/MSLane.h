@@ -985,6 +985,11 @@ protected:
     bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim, 
             std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const;
 
+    /// @brief take action upon collision
+    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim, 
+            SUMOReal gap, SUMOReal latGap,
+            std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const;
+
     /// @brief compute maximum braking distance on this lane
     SUMOReal getMaximumBrakeDist() const;
 
@@ -1114,6 +1119,7 @@ private:
 
     /// @brief the action to take on collisions
     static CollisionAction myCollisionAction;
+    static bool myCheckJunctionCollisions;
 
     /**
      * @class vehicle_position_sorter

@@ -438,6 +438,10 @@ public:
         myMesoTLSPenalty = penalty;
     }
 
+    const std::vector<const MSLane*>& getFoeLanes() {
+        return myFoeLanes;
+    }
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(SUMOReal leaderSpeed, SUMOReal followerSpeed, SUMOReal leaderDecel, SUMOReal followerDecel) {

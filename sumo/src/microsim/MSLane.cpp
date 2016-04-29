@@ -86,6 +86,7 @@
 // ===========================================================================
 MSLane::DictType MSLane::myDict;
 MSLane::CollisionAction MSLane::myCollisionAction(MSLane::COLLISION_ACTION_TELEPORT);
+bool MSLane::myCheckJunctionCollisions(false);
 
 // ===========================================================================
 // internal class method definitions
@@ -959,6 +960,30 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             }
         }
     }
+
+    if (myCheckJunctionCollisions && myEdge->isInternal()) {
+        assert(myLinks.size() == 1);
+        //std::cout << SIMTIME << " checkJunctionCollisions " << getID() << "\n";
+        const std::vector<const MSLane*>& foeLanes = myLinks.front()->getFoeLanes(); 
+        for (VehCont::iterator veh = myVehicles.begin(); veh != myVehicles.end(); ++veh) {
+            const MSVehicle* collider = *veh;
+            //std::cout << "   collider " << collider->getID() << "\n";
+            PositionVector colliderBoundary = collider->getBoundingBox();
+            for (std::vector<const MSLane*>::const_iterator it = foeLanes.begin(); it != foeLanes.end(); ++it) {
+                const MSLane* foeLane = *it;
+                //std::cout << "     foeLane " << foeLane->getID() << "\n";
+                MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
+                for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
+                    MSVehicle* victim = (MSVehicle*)*it_veh;
+                    //std::cout << "             victim " << victim->getID() << "\n";
+                    if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
+                        handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
+                    }
+                }
+            }
+        }
+    }
+
     for (std::set<const MSVehicle*>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
         MSVehicle* veh = const_cast<MSVehicle*>(*it);
         MSLane* vehLane = veh->getLane();
@@ -1011,57 +1036,64 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
             // synchroneous lane change maneuver
             return false;
         }
-        std::string prefix;
-        switch (myCollisionAction) {
-            case COLLISION_ACTION_WARN:
-                prefix = "Vehicle '" + collider->getID() + "'; collision with vehicle '" + victim->getID() ;
-                break;
-            case COLLISION_ACTION_TELEPORT:
-                prefix = "Teleporting vehicle '" + collider->getID() + "'; collision with vehicle '" + victim->getID() ;
-                toRemove.insert(collider);
-                toTeleport.insert(collider);
-                break;
-            case COLLISION_ACTION_REMOVE: {
-                prefix = "Removing collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
-                bool removeCollider = true;
-                bool removeVictim = true;
-#ifndef NO_TRACI
-                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer()->isVTDAffected(timestep));
-                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer()->isVTDAffected(timestep));
-                if (removeVictim) {
-                    toRemove.insert(victim);
-                }
-                if (removeCollider) {
-                    toRemove.insert(collider);
-                }
-                if (!removeVictim) {
-                    if (!removeCollider) {
-                        prefix = "Keeping remote-controlled collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
-                    } else {
-                        prefix = "Removing collision participant: vehicle '" + collider->getID() + "', keeping remote-controlled vehicle '" + victim->getID();
-                    }
-                } else if (!removeCollider) {
-                    prefix = "Keeping remote-controlled collision participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
-                }
-#else
-                toRemove.insert(victim);
-                toRemove.insert(collider);
-#endif
-                break;
-            }
-            default:
-                break;
-        }
-        WRITE_WARNING(prefix 
-                + "', lane='" + getID() 
-                + "', gap=" + toString(gap)
-                + (latGap == 0 ? "" : "', latGap=" + toString(latGap))
-                + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) 
-                + " stage=" + stage + ".");
-        MSNet::getInstance()->getVehicleControl().registerCollision();
+        handleCollisionBetween(timestep, stage, collider, victim, gap, latGap, toRemove, toTeleport);
         return true;
     }
     return false;
+}
+
+
+void 
+MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim, 
+        SUMOReal gap, SUMOReal latGap, std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const {
+    std::string prefix;
+    switch (myCollisionAction) {
+        case COLLISION_ACTION_WARN:
+            prefix = "Vehicle '" + collider->getID() + "'; collision with vehicle '" + victim->getID() ;
+            break;
+        case COLLISION_ACTION_TELEPORT:
+            prefix = "Teleporting vehicle '" + collider->getID() + "'; collision with vehicle '" + victim->getID() ;
+            toRemove.insert(collider);
+            toTeleport.insert(collider);
+            break;
+        case COLLISION_ACTION_REMOVE: {
+            prefix = "Removing collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+            bool removeCollider = true;
+            bool removeVictim = true;
+#ifndef NO_TRACI
+            removeVictim = !(victim->hasInfluencer() && victim->getInfluencer()->isVTDAffected(timestep));
+            removeCollider = !(collider->hasInfluencer() && collider->getInfluencer()->isVTDAffected(timestep));
+            if (removeVictim) {
+                toRemove.insert(victim);
+            }
+            if (removeCollider) {
+                toRemove.insert(collider);
+            }
+            if (!removeVictim) {
+                if (!removeCollider) {
+                    prefix = "Keeping remote-controlled collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+                } else {
+                    prefix = "Removing collision participant: vehicle '" + collider->getID() + "', keeping remote-controlled vehicle '" + victim->getID();
+                }
+            } else if (!removeCollider) {
+                prefix = "Keeping remote-controlled collision participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
+            }
+#else
+            toRemove.insert(victim);
+            toRemove.insert(collider);
+#endif
+            break;
+        }
+        default:
+            break;
+    }
+    WRITE_WARNING(prefix 
+            + "', lane='" + getID() 
+            + "', gap=" + toString(gap)
+            + (latGap == 0 ? "" : "', latGap=" + toString(latGap))
+            + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) 
+            + " stage=" + stage + ".");
+    MSNet::getInstance()->getVehicleControl().registerCollision();
 }
 
 
@@ -2417,6 +2449,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
     } else {
         throw ProcessError("Invalid collision.action '" + action + "'.");
     }
+    myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
 }
 
 /****************************************************************************/

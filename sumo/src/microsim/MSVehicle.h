@@ -1080,6 +1080,9 @@ public:
             std::vector<SUMOReal>& furtherLanesPosLat, 
             const std::vector<MSLane*>& passedLanes); 
 
+    /// @brief get bounding rectangle
+    PositionVector getBoundingBox() const;
+
 
     /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes
@@ -1530,6 +1533,9 @@ protected:
 
     // @brief return the lane on which the back of this vehicle resides
     const MSLane* getBackLane() const;
+
+    // @brief get the position of the back bumper;
+    const Position getBackPosition() const;
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

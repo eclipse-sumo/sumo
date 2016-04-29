@@ -250,6 +250,9 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.action", new Option_String("teleport"));
     oc.addDescription("collision.action", "Processing", "How to deal with collisions: [none,warn,teleport,remove]");
 
+    oc.doRegister("collision.check-junctions", new Option_Bool(false));
+    oc.addDescription("collision.check-junctions", "Processing", "Enables collisions checks on junctions");
+
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
 
