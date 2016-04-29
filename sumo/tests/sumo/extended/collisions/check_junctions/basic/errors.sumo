@@ -1,0 +1,21 @@
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
+Warning: Teleporting vehicle 'horizontal.0'; collision with vehicle 'vertical.0', lane=':0_13_0', gap=-1.00, time=2.00 stage=move.
+Warning: Vehicle 'horizontal.0' ends teleporting on edge '2o', time 2.00.
+Warning: Teleporting vehicle 'horizontal.3'; collision with vehicle 'vertical.4', lane=':0_13_0', gap=-1.00, time=18.00 stage=move.
+Warning: Vehicle 'horizontal.3' ends teleporting on edge '2o', time 18.00.
+Warning: Teleporting vehicle 'horizontal.4'; collision with vehicle 'vertical.5', lane=':0_13_0', gap=-1.00, time=22.00 stage=move.
+Warning: Vehicle 'horizontal.4' ends teleporting on edge '2o', time 22.00.
+Warning: Teleporting vehicle 'horizontal.7'; collision with vehicle 'vertical.9', lane=':0_13_0', gap=-1.00, time=38.00 stage=move.
+Warning: Vehicle 'horizontal.7' ends teleporting on edge '2o', time 38.00.
+Warning: Teleporting vehicle 'horizontal.8'; collision with vehicle 'vertical.10', lane=':0_13_0', gap=-1.00, time=42.00 stage=move.
+Warning: Vehicle 'horizontal.8' ends teleporting on edge '2o', time 42.00.
+Warning: Teleporting vehicle 'horizontal.11'; collision with vehicle 'vertical.14', lane=':0_13_0', gap=-1.00, time=58.00 stage=move.
+Warning: Vehicle 'horizontal.11' ends teleporting on edge '2o', time 58.00.
+Warning: Teleporting vehicle 'horizontal.12'; collision with vehicle 'vertical.15', lane=':0_13_0', gap=-1.00, time=62.00 stage=move.
+Warning: Vehicle 'horizontal.12' ends teleporting on edge '2o', time 62.00.
+Warning: Teleporting vehicle 'horizontal.15'; collision with vehicle 'vertical.19', lane=':0_13_0', gap=-1.00, time=78.00 stage=move.
+Warning: Vehicle 'horizontal.15' ends teleporting on edge '2o', time 78.00.
+Warning: Teleporting vehicle 'horizontal.16'; collision with vehicle 'vertical.20', lane=':0_13_0', gap=-1.00, time=82.00 stage=move.
+Warning: Vehicle 'horizontal.16' ends teleporting on edge '2o', time 82.00.
+Warning: Teleporting vehicle 'horizontal.19'; collision with vehicle 'vertical.24', lane=':0_13_0', gap=-1.00, time=98.00 stage=move.
+Warning: Vehicle 'horizontal.19' ends teleporting on edge '2o', time 98.00.
