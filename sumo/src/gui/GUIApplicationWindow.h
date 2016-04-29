@@ -385,10 +385,12 @@ protected:
     /// @name game related things
     /// {
     RandomDistributor<std::string> myJamSounds;
+    RandomDistributor<std::string> myCollisionSounds;
     /// @brief waiting time after which vehicles trigger jam sounds
     SUMOReal myJamSoundTime;
     /// @brief A random number generator used to choose a gaming sound
     static MTRand myGamingRNG;
+    unsigned int myPreviousCollisionNumber;
 
     /// performance indicators
     FXEX::FXLCDLabel* myWaitingTimeLabel;

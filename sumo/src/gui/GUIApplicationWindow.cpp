@@ -196,6 +196,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
       myHaveNotifiedAboutSimEnd(false),
       // game specific
       myJamSoundTime(60),
+      myPreviousCollisionNumber(0),
       myWaitingTime(0),
       myTimeLoss(0) {
     GUIIconSubSys::init(a);
@@ -1260,6 +1261,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                         myRunThread->getBreakpointLock().unlock();
                     }
                     myJamSounds = settings.getEventDistribution("jam");
+                    myCollisionSounds = settings.getEventDistribution("collision");
                     if (settings.getJamSoundTime() > 0) {
                         myJamSoundTime = settings.getJamSoundTime();
                     }
@@ -1361,6 +1363,17 @@ GUIApplicationWindow::checkGamingEvents() {
                     break;
                 }
             }
+        }
+    }
+    if (myCollisionSounds.getOverallProb() > 0) {
+        unsigned int collisions = MSNet::getInstance()->getVehicleControl().getCollisionCount();
+        if (myPreviousCollisionNumber != collisions) {
+            const std::string cmd = myCollisionSounds.get(&myGamingRNG);
+            if (cmd != "") {
+                // yay! fun with dangerous commands... Never use this over the internet
+                SysUtils::runHiddenCommand(cmd);
+            }
+            myPreviousCollisionNumber = collisions;
         }
     }
 #endif
