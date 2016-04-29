@@ -154,6 +154,16 @@ public:
 
 
 public:
+    /** @enum ChangeRequest
+     * @brief Requests set via TraCI
+     */
+    enum CollisionAction {
+        COLLISION_ACTION_NONE,
+        COLLISION_ACTION_WARN,
+        COLLISION_ACTION_TELEPORT,
+        COLLISION_ACTION_REMOVE
+    };
+
     /** @brief Constructor
      *
      * @param[in] id The lane's id
@@ -945,6 +955,12 @@ public:
     }
 #endif
 
+    static void initCollisionOptions(const OptionsCont& oc);
+
+    static bool teleportOnCollision() {
+        return myCollisionAction == COLLISION_ACTION_TELEPORT;
+    }
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange(SUMOTime t);
@@ -966,10 +982,8 @@ protected:
 
 
     /// @brief detect whether there is a collision between the two vehicles
-    bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim) const;
-
-    /// @brief handle collision caused by the given vehicle
-    void handleCollision(SUMOTime timestep, MSVehicle* collider);
+    bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim, 
+            std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief compute maximum braking distance on this lane
     SUMOReal getMaximumBrakeDist() const;
@@ -1098,6 +1112,8 @@ private:
     /// @brief This lane's move reminder
     std::vector< MSMoveReminder* > myMoveReminders;
 
+    /// @brief the action to take on collisions
+    static CollisionAction myCollisionAction;
 
     /**
      * @class vehicle_position_sorter

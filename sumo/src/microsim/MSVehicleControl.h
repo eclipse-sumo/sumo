@@ -266,9 +266,7 @@ public:
     }
 
     /// @brief return the number of teleports (including collisions)
-    unsigned int getTeleportCount() const {
-        return myCollisions + myTeleportsJam + myTeleportsYield + myTeleportsWrongLane;
-    }
+    unsigned int getTeleportCount() const;
 
     /// @brief return the number of emergency stops
     unsigned int getEmergencyStops() const {

@@ -241,11 +241,14 @@ MSFrame::fillOptions() {
     oc.addDescription("ignore-junction-blocker", "Processing", "Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore)");
 #endif
 
+    oc.doRegister("ignore-route-errors", new Option_Bool(false));
+    oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
+
     oc.doRegister("ignore-accidents", new Option_Bool(false));
     oc.addDescription("ignore-accidents", "Processing", "Do not check whether accidents occur");
 
-    oc.doRegister("ignore-route-errors", new Option_Bool(false));
-    oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
+    oc.doRegister("collision.action", new Option_String("teleport"));
+    oc.addDescription("collision.action", "Processing", "How to deal with collisions: [none,warn,teleport,remove]");
 
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
@@ -479,6 +482,9 @@ MSFrame::checkOptions() {
     if (oc.getBool("lanechange.allow-swap")) {
         WRITE_WARNING("The option 'lanechange.allow-swap' is deprecated, and will not be supported in future versions of SUMO.");
     }
+    if (oc.getBool("ignore-accidents")) {
+        WRITE_WARNING("The option 'ignore-accidents' is deprecated. Use 'collision.action none' instead.");
+    }
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.set("verbose", "true");
     }
@@ -517,6 +523,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     }
     MSGlobals::gWaitingTimeMemory = string2time(oc.getString("waiting-time-memory"));
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
+    MSLane::initCollisionOptions(oc);
 
 
     DELTA_T = string2time(oc.getString("step-length"));

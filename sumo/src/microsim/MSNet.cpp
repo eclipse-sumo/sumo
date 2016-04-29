@@ -370,7 +370,7 @@ MSNet::closeSimulation(SUMOTime start) {
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
             << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
 
-        if (myVehicleControl->getTeleportCount() > 0) {
+        if (myVehicleControl->getTeleportCount() > 0 || myVehicleControl->getCollisionCount() > 0) {
             // print optional teleport statistics
             std::vector<std::string> reasons;
             if (myVehicleControl->getCollisionCount() > 0) {
