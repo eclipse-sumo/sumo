@@ -1,0 +1,11 @@
+# ignore collisions
+none
+
+# only warn about collisions
+warn
+
+# teleport the rear vehicle
+teleport
+
+# remove participants of a collision
+remove

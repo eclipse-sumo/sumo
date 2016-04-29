@@ -165,11 +165,14 @@
         <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
         <ignore-junction-blocker value="-1" type="TIME"/>
 
+        <!-- Do not check whether routes are connected -->
+        <ignore-route-errors value="false" type="BOOL"/>
+
         <!-- Do not check whether accidents occur -->
         <ignore-accidents value="false" type="BOOL"/>
 
-        <!-- Do not check whether routes are connected -->
-        <ignore-route-errors value="false" type="BOOL"/>
+        <!-- How to deal with collisions: [none,warn,teleport,remove] -->
+        <collision.action value="teleport" type="STR"/>
 
         <!-- Delay vehicle insertion to stay within the given maximum number -->
         <max-num-vehicles value="-1" type="INT"/>
