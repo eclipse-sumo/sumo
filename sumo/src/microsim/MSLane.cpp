@@ -977,7 +977,10 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     MSVehicle* victim = (MSVehicle*)*it_veh;
                     //std::cout << "             victim " << victim->getID() << "\n";
                     if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
-                        handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
+                        // make a detailed check
+                        if (collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())) {
+                            handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
+                        }
                     }
                 }
             }

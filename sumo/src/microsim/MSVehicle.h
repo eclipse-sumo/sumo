@@ -1083,6 +1083,8 @@ public:
     /// @brief get bounding rectangle
     PositionVector getBoundingBox() const;
 
+    /// @brief get bounding polygon
+    PositionVector getBoundingPoly() const;
 
     /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes

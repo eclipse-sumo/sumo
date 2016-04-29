@@ -70,6 +70,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define DRAW_BOUNDING_BOX
 
 // ===========================================================================
 // FOX callback mapping
@@ -233,6 +234,21 @@ GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& 
             container->drawGL(s);
         }
     }
+#ifdef DRAW_BOUNDING_BOX
+    glPushName(getGlID());
+    glPushMatrix();
+    glTranslated(0, 0, getType());
+    PositionVector boundingBox = getBoundingBox();
+    boundingBox.push_back(boundingBox.front());
+    PositionVector smallBB = getBoundingPoly();
+    glColor3d(0, .8, 0);
+    GLHelper::drawLine(boundingBox);
+    glColor3d(0.5, .8, 0);
+    GLHelper::drawLine(smallBB);
+    //GLHelper::drawBoxLines(getBoundingBox(), 0.5);
+    glPopMatrix();
+    glPopName();
+#endif
 }
 
 

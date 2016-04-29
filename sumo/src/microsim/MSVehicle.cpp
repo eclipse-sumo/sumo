@@ -3111,8 +3111,44 @@ MSVehicle::getBoundingBox() const {
     centerLine.move2side(0.5 * myType->getWidth());
     PositionVector result = centerLine;
     centerLine.move2side(-myType->getWidth());
-    result.append(centerLine, POSITION_EPS);
+    result.append(centerLine.reverse(), POSITION_EPS);
     return result;
+}
+
+
+PositionVector 
+MSVehicle::getBoundingPoly() const {
+    // XXX implement more types
+    switch (myType->getGuiShape()) {
+        case SVS_PASSENGER:
+        case SVS_PASSENGER_SEDAN:
+        case SVS_PASSENGER_HATCHBACK:
+        case SVS_PASSENGER_WAGON:
+        case SVS_PASSENGER_VAN: {
+            PositionVector result;
+            PositionVector centerLine;
+            centerLine.push_back(getPosition());
+            centerLine.push_back(getBackPosition());
+            PositionVector line1 = centerLine;
+            PositionVector line2 = centerLine;
+            line1.move2side(0.3 * myType->getWidth());
+            line2.move2side(0.5 * myType->getWidth());
+            line2.scaleRelative(0.8);
+            result.push_back(line1[0]);
+            result.push_back(line2[0]);
+            result.push_back(line2[1]);
+            result.push_back(line1[1]);
+            line1.move2side(-0.6 * myType->getWidth());
+            line2.move2side(-1.0 * myType->getWidth());
+            result.push_back(line1[1]);
+            result.push_back(line2[1]);
+            result.push_back(line2[0]);
+            result.push_back(line1[0]);
+            return result;
+        }
+        default:
+            return getBoundingBox();
+    }
 }
 
 
