@@ -88,10 +88,14 @@ enum SumoXMLTag {
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
+    /// @brief A variable speed sign over lane
+    SUMO_TAG_VSSLANE,
     /// @brief A calibrator
     SUMO_TAG_CALIBRATOR,
     /// @brief A rerouter
     SUMO_TAG_REROUTER,
+    /// @brief A rerouteredge
+    SUMO_TAG_REROUTEREDGE,
     /// @brief A bus stop
     SUMO_TAG_BUS_STOP,
     /// @brief A train stop (alias for bus stop)
@@ -101,7 +105,7 @@ enum SumoXMLTag {
     /// @brief A container stop
     SUMO_TAG_CONTAINER_STOP,
     /// @brief A Charging Station
-    SUMO_TAG_CHARGING_STATION,	// PABLO #1916 (Renamed all references of SUMO_TAG_CHRG_STN)
+    SUMO_TAG_CHARGING_STATION,	
     /** a vtypeprobe detector */
     SUMO_TAG_VTYPEPROBE,
     /** a routeprobe detector */
@@ -465,6 +469,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_PASS,
     SUMO_ATTR_BUS_STOP,
     SUMO_ATTR_CONTAINER_STOP,
+    SUMO_ATTR_CHARGING_STATION,
     SUMO_ATTR_LINE,
     SUMO_ATTR_LINES,
     SUMO_ATTR_VALUE,
@@ -605,6 +610,10 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_START,
     /* last coordinate of edge shape */
     GNE_ATTR_SHAPE_END,
+    /* block movement of a graphic element*/
+    GNE_ATTR_BLOCK_MOVEMENT,
+    /* parent of an additional element*/
+    GNE_ATTR_PARENT,
     //@}
 
     SUMO_ATTR_TARGETLANE

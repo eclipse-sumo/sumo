@@ -938,8 +938,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.startPos = cs->getBeginLanePosition();
         edge = &l.getEdge();
     } else if (stop.chargingStation != "") {
-        // ok, we have a Charging station
-        MSChargingStation* cs = MSNet::getInstance()->getChargingStation(stop.busstop);
+        // ok, we have a charging station
+        MSChargingStation* cs = MSNet::getInstance()->getChargingStation(stop.chargingStation);
         if (cs != 0) {
             const MSLane& l = cs->getLane();
             stop.lane = l.getID();
@@ -973,7 +973,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     stop.startPos = stop.endPos - POSITION_EPS;
                 }
             } else {
-                WRITE_ERROR("A stop must be placed on a bus stop, a container stop or a lane" + errorSuffix);
+                WRITE_ERROR("A stop must be placed on a bus stop, a charging station, a container stop or a lane" + errorSuffix);
                 return;
             }
         }
