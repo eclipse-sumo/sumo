@@ -965,6 +965,9 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         vehLane->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT, false);
         if (toTeleport.count(veh) > 0) {
             MSVehicleTransfer::getInstance()->add(timestep, veh);
+        } else {
+            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         }
     }
 }
@@ -1018,20 +1021,34 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                 toRemove.insert(collider);
                 toTeleport.insert(collider);
                 break;
-            case COLLISION_ACTION_REMOVE:
-                prefix = "Removing collision participantes: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+            case COLLISION_ACTION_REMOVE: {
+                prefix = "Removing collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+                bool removeCollider = true;
+                bool removeVictim = true;
 #ifndef NO_TRACI
-                if (!(victim->hasInfluencer() && victim->getInfluencer()->isVTDAffected(timestep))) {
+                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer()->isVTDAffected(timestep));
+                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer()->isVTDAffected(timestep));
+                if (removeVictim) {
                     toRemove.insert(victim);
                 }
-                if (!(collider->hasInfluencer() && collider->getInfluencer()->isVTDAffected(timestep))) {
+                if (removeCollider) {
                     toRemove.insert(collider);
+                }
+                if (!removeVictim) {
+                    if (!removeCollider) {
+                        prefix = "Keeping remote-controlled collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+                    } else {
+                        prefix = "Removing collision participant: vehicle '" + collider->getID() + "', keeping remote-controlled vehicle '" + victim->getID();
+                    }
+                } else if (!removeCollider) {
+                    prefix = "Keeping remote-controlled collision participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
                 }
 #else
                 toRemove.insert(victim);
                 toRemove.insert(collider);
 #endif
                 break;
+            }
             default:
                 break;
         }
