@@ -158,14 +158,6 @@ public:
     SUMOTime boardingDuration;
     /// @brief The time a container needs to get loaded on the vehicle
     SUMOTime loadingDuration;
-    /// @brief The vehicle type's maximum lateral speed [m/s]
-    SUMOReal maxSpeedLat;
-    /// @brief The vehicles desired lateral alignment
-    LateralAlignment latAlignment;
-    /// @brief The vehicle type's minimum lateral gap [m]
-    SUMOReal minGapLat;
-
-
 
     /// @name Values for drawing this class' vehicles
     /// @{
@@ -199,6 +191,13 @@ public:
 
     /// @brief The lane-change model to use
     LaneChangeModel lcModel;
+
+    /// @brief The vehicle type's maximum lateral speed [m/s]
+    SUMOReal maxSpeedLat;
+    /// @brief The vehicles desired lateral alignment
+    LateralAlignment latAlignment;
+    /// @brief The vehicle type's minimum lateral gap [m]
+    SUMOReal minGapLat;
 
     /// @brief Information for the router which parameter were set
     int setParameter;

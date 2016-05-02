@@ -143,7 +143,10 @@ public:
     virtual int addLeader(const MSVehicle* veh, SUMOReal gap, SUMOReal latOffset=0, int sublane=-1);
 
     virtual int addLeader(const MSVehicle* veh, bool beyond, SUMOReal latOffset=0) {
-        throw ProcessError("Method not supported\n");
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(beyond);
+        UNUSED_PARAMETER(latOffset);
+        throw ProcessError("Method not supported");
     }
 
     /// @brief discard all information
@@ -184,11 +187,18 @@ public:
     int addFollower(const MSVehicle* veh, const MSVehicle* ego, SUMOReal gap, SUMOReal latOffset=0, int sublane=-1);
 
     virtual int addLeader(const MSVehicle* veh, SUMOReal gap, SUMOReal latOffset=0, int sublane=-1) {
-        throw ProcessError("Method not supported\n");
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(gap);
+        UNUSED_PARAMETER(latOffset);
+        UNUSED_PARAMETER(sublane);
+        throw ProcessError("Method not supported");
     }
 
     virtual int addLeader(const MSVehicle* veh, bool beyond, SUMOReal latOffset=0) {
-        throw ProcessError("Method not supported\n");
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(beyond);
+        UNUSED_PARAMETER(latOffset);
+        throw ProcessError("Method not supported");
     }
 
     /// @brief discard all information

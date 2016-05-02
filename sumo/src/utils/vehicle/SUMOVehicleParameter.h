@@ -436,11 +436,11 @@ public:
     DepartLaneDefinition departLaneProcedure;
     /// @brief (optional) The position the vehicle shall depart from
     SUMOReal departPos;
-    /// @brief (optional) The lateral position the vehicle shall depart from
-    SUMOReal departPosLat;
     /// @brief Information how the vehicle shall choose the departure position
     DepartPosDefinition departPosProcedure;
-    /// @brief Information how the vehicle shall choose the departure position
+    /// @brief (optional) The lateral position the vehicle shall depart from
+    SUMOReal departPosLat;
+    /// @brief Information how the vehicle shall choose the lateral departure position
     DepartPosLatDefinition departPosLatProcedure;
     /// @brief (optional) The initial speed of the vehicle
     SUMOReal departSpeed;

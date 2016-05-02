@@ -1736,7 +1736,6 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
     const bool want1 = ((sd1.state & LCA_WANTS_LANECHANGE) != 0) || ((sd1.state & LCA_SUBLANE) != 0 && (sd1.state & LCA_STAY) != 0);
     const bool want2 = ((sd2.state & LCA_WANTS_LANECHANGE) != 0) || ((sd2.state & LCA_SUBLANE) != 0 && (sd2.state & LCA_STAY) != 0);
     const bool can1 = ((sd1.state & LCA_BLOCKED) == 0);
-    const bool can2 = ((sd2.state & LCA_BLOCKED) == 0);
     if (DEBUG_COND) std::cout << SIMTIME 
         << " veh=" << myVehicle.getID() 
             << " state1=" << toString((LaneChangeAction)sd1.state) 
@@ -1970,7 +1969,6 @@ MSLCM_SL2015::keepLatGap(int state,
 
     /// XXX to be made configurable
     const SUMOReal gapFactor = (state & LCA_STRATEGIC) != 0 ? 0.0: 1.0; 
-    const SUMOReal minGap = myVehicle.getVehicleType().getMinGapLat();
     const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
 
     /// XXX todo

@@ -824,7 +824,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
     bool changingAllowed = (state & LCA_BLOCKED) == 0;
     // change if the vehicle wants to and is allowed to change
     if ((state & LCA_WANTS_LANECHANGE) != 0 && changingAllowed) {
-        const bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(source, opposite, direction);
+        vehicle->getLaneChangeModel().startLaneChangeManeuver(source, opposite, direction);
         /// XXX use a dedicated transformation function
         vehicle->myState.myPos = source->getOppositePos(vehicle->myState.myPos);
         vehicle->myState.myBackPos = source->getOppositePos(vehicle->myState.myBackPos);

@@ -175,6 +175,7 @@ MSAbstractLaneChangeModel::updateCompletion() {
 
 void
 MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notification reason) {
+    UNUSED_PARAMETER(reason);
     myLaneChangeCompletion = 1;
     cleanupShadowLane();
     myNoPartiallyOccupatedByShadow.clear();

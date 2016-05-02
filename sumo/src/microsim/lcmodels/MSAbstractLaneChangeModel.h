@@ -169,6 +169,16 @@ public:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
         MSVehicle** firstBlocked) {
+        UNUSED_PARAMETER(laneOffset);
+        UNUSED_PARAMETER(&msgPass);
+        UNUSED_PARAMETER(blocked);
+        UNUSED_PARAMETER(&leader);
+        UNUSED_PARAMETER(&neighLead);
+        UNUSED_PARAMETER(&neighFollow);
+        UNUSED_PARAMETER(&neighLane);
+        UNUSED_PARAMETER(&preb);
+        UNUSED_PARAMETER(lastBlocked);
+        UNUSED_PARAMETER(firstBlocked);
         throw ProcessError("Method not implemented by model " + toString(myModel));
     };
 
@@ -185,16 +195,34 @@ public:
         MSVehicle** lastBlocked,
         MSVehicle** firstBlocked,
         SUMOReal& latDist, int& blocked) {
+        UNUSED_PARAMETER(laneOffset);
+        UNUSED_PARAMETER(&leaders);
+        UNUSED_PARAMETER(&followers);
+        UNUSED_PARAMETER(&blockers);
+        UNUSED_PARAMETER(&neighLeaders);
+        UNUSED_PARAMETER(&neighFollowers);
+        UNUSED_PARAMETER(&neighBlockers);
+        UNUSED_PARAMETER(&neighLane);
+        UNUSED_PARAMETER(&preb);
+        UNUSED_PARAMETER(lastBlocked);
+        UNUSED_PARAMETER(firstBlocked);
+        UNUSED_PARAMETER(latDist);
+        UNUSED_PARAMETER(blocked);
         throw ProcessError("Method not implemented by model " + toString(myModel));
     }
 
     /// @brief update expected speeds for each sublane of the current edge
-    virtual void updateExpectedSublaneSpeeds(const MSLeaderInfo& /*ahead*/, int /*sublaneOffset*/, int /*laneIndex*/) {
+    virtual void updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublaneOffset, int laneIndex) {
+        UNUSED_PARAMETER(&ahead);
+        UNUSED_PARAMETER(sublaneOffset);
+        UNUSED_PARAMETER(laneIndex);
         throw ProcessError("Method not implemented by model " + toString(myModel));
     }
 
     /// @brief decide in which direction to move in case both directions are desirable
-    virtual StateAndDist decideDirection(StateAndDist /*sd1*/, StateAndDist /*sd2*/) const {
+    virtual StateAndDist decideDirection(StateAndDist sd1, StateAndDist sd2) const {
+        UNUSED_PARAMETER(sd1);
+        UNUSED_PARAMETER(sd2);
         throw ProcessError("Method not implemented by model " + toString(myModel));
     }
 
