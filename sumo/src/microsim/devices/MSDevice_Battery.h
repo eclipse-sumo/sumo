@@ -96,16 +96,6 @@ public:
     * @see MSMoveReminder::Notification
     */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
-
-    /** @brief Saves arrival info
-    *
-    * @param[in] veh The leaving vehicle.
-    * @param[in] lastPos Position on the lane when leaving.
-    * @param[in] isArrival whether the vehicle arrived at its destination
-    * @param[in] isLaneChange whether the vehicle changed from the lane
-    * @return True if it did not leave the net.
-    *
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
     /// @}
 
     /** @brief Called on writing tripinfo output
