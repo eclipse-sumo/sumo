@@ -2290,7 +2290,9 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
         leftLength -= (clane)->setPartialOccupation(this);
     }
     myState.myBackPos = -leftLength;
-    getLaneChangeModel().updateShadowLane();
+    if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
+        getLaneChangeModel().updateShadowLane();
+    }
     myAngle = computeAngle();
     if (getLaneChangeModel().isOpposite()) {
         myAngle += M_PI;
