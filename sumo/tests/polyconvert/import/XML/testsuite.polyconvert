@@ -7,3 +7,6 @@ invalid_geo
 # using lon lat attributes
 lonlat
 default_fill
+
+# do not fill by default
+default_nofill
