@@ -79,7 +79,7 @@
 //#define DEBUG_CONTEXT
 //#define DEBUG_OPPOSITE
 #define DEBUG_COND (getID() == "disabled")
-#define DEBUG_COND2(obj) ((obj)->getID() == "disabled")
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled")
 
 // ===========================================================================
 // static member definitions
