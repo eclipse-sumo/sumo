@@ -2,7 +2,7 @@
 /// @file    MSLCM_SL2015.h
 /// @author  Jakob Erdmann
 /// @date    Tue, 06.10.2015
-/// @version $Id: MSLCM_SL2015.h 18095 2015-03-17 09:39:00Z namdre $
+/// @version $Id$
 ///
 // A lane change model for heterogeneous traffic (based on sub-lanes)
 /****************************************************************************/

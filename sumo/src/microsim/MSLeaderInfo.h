@@ -2,7 +2,7 @@
 /// @file    MSLeaderInfo.h
 /// @author  Jakob Erdmann
 /// @date    Oct 2015
-/// @version $Id: MSLeaderInfo.h 18095 2015-03-17 09:39:00Z behrisch $
+/// @version $Id$
 ///
 // Information about vehicles ahead (may be multiple vehicles if
 // lateral-resolution is active)

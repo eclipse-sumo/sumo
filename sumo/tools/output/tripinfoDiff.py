@@ -4,7 +4,7 @@
 @file    vehrouteDiff.py
 @author  Jakob Erdmann
 @date    2016-15-04
-@version $Id: tripinfoDiff.py 20433 2016-04-13 08:00:14Z namdre $
+@version $Id$
 
 Compute differences between two tripinfo-output files
 

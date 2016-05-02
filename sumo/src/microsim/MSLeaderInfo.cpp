@@ -2,7 +2,7 @@
 /// @file    MSLeaderInfo.cpp
 /// @author  Jakob Erdmann
 /// @date    Oct 2015
-/// @version $Id: MSLeaderInfo.cpp 18663 2015-08-19 13:02:24Z namdre $
+/// @version $Id$
 ///
 // Information about vehicles ahead (may be multiple vehicles if
 // lateral-resolution is active)

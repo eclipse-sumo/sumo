@@ -3,7 +3,7 @@
 @file    route2trips.py
 @author  Jakob Erdmann
 @date    2015-08-05
-@version $Id: route2sel.py 18900 2015-09-22 11:15:29Z namdre $
+@version $Id$
 
 This script converts SUMO routes into a visualization of depart and arrival counts
 

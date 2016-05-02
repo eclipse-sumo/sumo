@@ -2,7 +2,7 @@
 /// @file    MSLaneChangerSublane.cpp
 /// @author  Jakob Erdmann
 /// @date    Oct 2015
-/// @version $Id: MSLaneChangerSublane.cpp 19043 2015-10-07 13:56:04Z namdre $
+/// @version $Id$
 ///
 // Performs sub-lane changing of vehicles
 /****************************************************************************/
