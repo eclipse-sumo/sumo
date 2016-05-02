@@ -121,15 +121,17 @@ class Edge:
         assert(xmin != xmax or ymin != ymax)
         return (xmin, ymin, xmax, ymax)
 
-    def getClosestLaneAndPos(self, point, perpendicular=False):
+    def getClosestLanePosDist(self, point, perpendicular=False):
         minDist = 1e400
-        idx = None
+        minIdx = None
+        minPos = None
         for i, l in enumerate(self._lanes):
-            dist = l.getClosestLanePos(point, perpendicular)
+            pos, dist = l.getClosestLanePosAndDist(point, perpendicular)
             if dist < minDist:
                 minDist = dist
-                idx = i
-        return idx, minDist
+                minIdx = i
+                minPos = pos
+        return minIdx, minPos, minDist
 
     def getSpeed(self):
         return self._speed

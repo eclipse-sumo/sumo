@@ -124,8 +124,8 @@ class Lane:
         assert(xmin != xmax or ymin != ymax)
         return (xmin, ymin, xmax, ymax)
 
-    def getClosestLanePos(self, point, perpendicular=False):
-        return sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, self.getShape(), perpendicular)
+    def getClosestLanePosAndDist(self, point, perpendicular=False):
+        return sumolib.geomhelper.polygonOffsetAndDistanceToPoint(point, self.getShape(), perpendicular)
 
     def getIndex(self):
         return self._edge._lanes.index(self)
