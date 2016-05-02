@@ -2220,10 +2220,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
                         } else {
                             agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
                         }
-#ifdef DEBUG_CONTEXT
-                        if (DEBUG_COND2(ego)) std::cout << " (2) added veh=" << Named::getIDSecure(v) << " agap=" << agap << " next=" << next->getID() << "\n";
-#endif
                         result.addFollower(v, ego, agap, 0, i);
+#ifdef DEBUG_CONTEXT
+                        if (DEBUG_COND2(ego)) std::cout << " (2) added veh=" << Named::getIDSecure(v) << " agap=" << agap << " next=" << next->getID() << " result=" << result.toString() << "\n";
+#endif
                     }
                 }
                 if ((*it).length < dist) {
