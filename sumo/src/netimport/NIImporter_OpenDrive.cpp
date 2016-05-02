@@ -853,7 +853,6 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 }
                 const SUMOReal ds = pos - el.s; 
                 const SUMOReal z = el.a + el.b * ds + el.c * ds * ds + el.d * ds * ds * ds;
-                if (z != 0) std::cout << " edge=" << e.id << " k=" << k << " pos=" << pos << " z=" << z << "\n";
                 e.geom[k].add(0, 0, z);
                 k++;
             }
