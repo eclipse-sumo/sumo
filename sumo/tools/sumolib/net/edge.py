@@ -195,4 +195,8 @@ class Edge:
         return False
 
     def __repr__(self):
-        return '<edge id="%s" from="%s" to="%s"/>' % (self._id, self._from.getID(), self._to.getID())
+        if self.getFunction() == '':
+            return '<edge id="%s" from="%s" to="%s"/>' % (self._id, self._from.getID(), self._to.getID())
+        else:
+            return '<edge id="%s" function="%s"/>' % (self._id, self.getFunction())
+        

@@ -25,7 +25,7 @@ class Node:
 
     """ Nodes from a sumo network """
 
-    def __init__(self, id, type, coord, incLanes):
+    def __init__(self, id, type, coord, incLanes, intLanes=None):
         self._id = id
         self._type = type
         self._coord = coord
@@ -34,6 +34,8 @@ class Node:
         self._foes = {}
         self._prohibits = {}
         self._incLanes = incLanes
+        self._intLanes = intLanes
+        
 
     def getID(self):
         return self._id
@@ -49,6 +51,9 @@ class Node:
 
     def getIncoming(self):
         return self._incoming
+    
+    def getInternal(self):
+        return self._intLanes
 
     def setFoes(self, index, foes, prohibits):
         self._foes[index] = foes
@@ -81,3 +86,22 @@ class Node:
 
     def getType(self):
         return self._type
+    
+    def getConnections(self, source=None, target=None):
+        incoming = list(self.getIncoming())
+        if source:
+            incoming = [source]
+        conns = []
+        for e in incoming:
+            for l in e.getLanes():
+                all_outgoing = l.getOutgoing()
+                outgoing = []
+                if target:
+                    for o in all_outgoing:
+                        if o.getTo() == target:
+                            outgoing.append(o)
+                else: 
+                    outgoing = all_outgoing
+                conns.extend(outgoing)
+        return conns
+

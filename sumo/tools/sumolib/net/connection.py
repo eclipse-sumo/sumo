@@ -32,7 +32,7 @@ class Connection:
 
     """edge connection for a sumo network"""
 
-    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink, state):
+    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink, state, viaLaneID=None):
         self._from = fromEdge
         self._to = toEdge
         self._fromLane = fromLane
@@ -41,6 +41,7 @@ class Connection:
         self._tls = tls
         self._tlLink = tllink
         self._state = state
+        self._via = viaLaneID
 
     def __str__(self):
         return '<connection from="%s" to="%s" fromLane="%s" toLane="%s" %sdirection="%s">' % (
@@ -63,6 +64,9 @@ class Connection:
 
     def getToLane(self):
         return self._toLane
+    
+    def getViaLaneID(self):
+        return self._via
 
     def getDirection(self):
         return self._direction
@@ -75,6 +79,9 @@ class Connection:
 
     def getJunctionIndex(self):
         return self._from.getToNode().getLinkIndex(self)
+    
+    def getJunction(self):
+        return self._from.getToNode()
 
     def getState(self):
         return self._state

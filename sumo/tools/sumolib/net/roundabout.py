@@ -22,8 +22,12 @@ the Free Software Foundation; either version 3 of the License, or
 
 class Roundabout:
 
-    def __init__(self, nodes):
+    def __init__(self, nodes, edges):
         self._nodes = nodes
+        self._edges = edges
 
     def getNodes(self):
         return self._nodes
+
+    def getEdges(self):
+        return self._edges

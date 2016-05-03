@@ -26,6 +26,7 @@ from __future__ import absolute_import
 import os
 import sys
 import math
+import re
 from xml.sax import saxutils, parse, handler
 from copy import copy
 from itertools import *
@@ -129,6 +130,7 @@ class Net:
         self._roundabouts = []
         self._rtree = None
         self._allLanes = []
+        self._id2lane = []
         self._origIdx = None
         self.hasWarnedAboutMissingRTree = False
 
@@ -138,17 +140,17 @@ class Net:
         self._location["origBoundary"] = origBoundary
         self._location["projParameter"] = projParameter
 
-    def addNode(self, id, type=None, coord=None, incLanes=None):
+    def addNode(self, id, type=None, coord=None, incLanes=None, intLanes=None):
         if id is None:
             return None
         if id not in self._id2node:
-            n = node.Node(id, type, coord, incLanes)
+            n = node.Node(id, type, coord, incLanes, intLanes)
             self._nodes.append(n)
             self._id2node[id] = n
-        self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes)
+        self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes, intLanes)
         return self._id2node[id]
 
-    def setAdditionalNodeInfo(self, node, type, coord, incLanes):
+    def setAdditionalNodeInfo(self, node, type, coord, incLanes, intLanes):
         if coord != None and node._coord == None:
             node._coord = coord
             self._ranges[0][0] = min(self._ranges[0][0], coord[0])
@@ -157,6 +159,8 @@ class Net:
             self._ranges[1][1] = max(self._ranges[1][1], coord[1])
         if incLanes != None and node._incLanes == None:
             node._incLanes = incLanes
+        if intLanes != None and node._intLanes == None:
+            node._intLanes = intLanes
         if type != None and node._type == None:
             node._type = type
 
@@ -169,17 +173,17 @@ class Net:
             self._id2edge[id] = e
         return self._id2edge[id]
 
-    def addLane(self, edge, speed, length, allow=None, disallow=None):
+    def addLane(self, edge, speed, length, allow=None, disallow=None):            
         return lane.Lane(edge, speed, length, allow, disallow)
-
-    def addRoundabout(self, nodes):
-        r = roundabout.Roundabout(nodes)
+    
+    def addRoundabout(self, nodes, edges):
+        r = roundabout.Roundabout(nodes, edges)
         self._roundabouts.append(r)
         return r
 
-    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state):
+    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state, viaLaneID=None):
         conn = connection.Connection(
-            fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state)
+            fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state, viaLaneID)
         fromEdge.addOutgoing(conn)
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)
@@ -195,6 +199,19 @@ class Net:
 
     def getEdge(self, id):
         return self._id2edge[id]
+    
+    
+    def getLane(self, laneID):
+        p = re.compile("^(:)?(-)?([^\W_]+)((#\d+)?(_\d+)?)(_\d+)?$")
+        g = p.match(laneID).groups("")
+        edge_id = g[0] + g[1] + g[2] + g[3]
+        lane_index = g[6][1:]
+        
+        for e in self._edges:
+            if e.getID() == edge_id:
+                return e.getLane(int(lane_index))
+            
+        return None
 
     def _initRTree(self, shapeList, includeJunctions=True):
         import rtree
@@ -422,8 +439,11 @@ class NetReader(handler.ContentHandler):
                 self._currentShape = ""
         if name == 'junction':
             if attrs['id'][0] != ':':
+                intLanes=None
+                if self._withInternal:
+                    intLanes= attrs["intLanes"].split(" ")
                 self._currentNode = self._net.addNode(attrs['id'], attrs['type'], (float(
-                    attrs['x']), float(attrs['y'])), attrs['incLanes'].split(" "))
+                    attrs['x']), float(attrs['y'])), attrs['incLanes'].split(" "), intLanes)
         if name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
@@ -451,29 +471,36 @@ class NetReader(handler.ContentHandler):
                     tllink = -1
                 toEdge = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = toEdge._lanes[tolane]
+                viaLaneID=attrs['via']            
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[
                                         self._currentLane], tolane,
-                                        attrs['dir'], tl, tllink, attrs['state'])
-        if name == 'connection' and self._withConnections and attrs['from'][0] != ":":
-            fromEdgeID = attrs['from']
-            toEdgeID = attrs['to']
-            if not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
-                    self._net._crossings_and_walkingAreas):
-                fromEdge = self._net.getEdge(fromEdgeID)
-                toEdge = self._net.getEdge(toEdgeID)
-                fromLane = fromEdge.getLane(int(attrs['fromLane']))
-                toLane = toEdge.getLane(int(attrs['toLane']))
-                if 'tl' in attrs and attrs['tl'] != "":
-                    tl = attrs['tl']
-                    tllink = int(attrs['linkIndex'])
-                    tls = self._net.addTLS(tl, fromLane, toLane, tllink)
-                    fromEdge.setTLS(tls)
-                else:
-                    tl = ""
-                    tllink = -1
-                self._net.addConnection(
-                    fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl,
-                    tllink, attrs['state'])
+                                        attrs['dir'], tl, tllink, attrs['state'], viaLaneID)
+        if name == 'connection' and self._withConnections: # and attrs['from'][0] != ":":
+                fromEdgeID = attrs['from']
+                toEdgeID = attrs['to']
+                if not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
+                        self._net._crossings_and_walkingAreas):
+                    fromEdge = self._net.getEdge(fromEdgeID)
+                    toEdge = self._net.getEdge(toEdgeID)
+                    fromLane = fromEdge.getLane(int(attrs['fromLane']))
+                    toLane = toEdge.getLane(int(attrs['toLane']))
+                    if 'tl' in attrs and attrs['tl'] != "":
+                        tl = attrs['tl']
+                        tllink = int(attrs['linkIndex'])
+                        tls = self._net.addTLS(tl, fromLane, toLane, tllink)
+                        fromEdge.setTLS(tls)
+                    else:
+                        tl = ""
+                        tllink = -1
+                    try:
+                        viaLaneID=attrs['via']
+                    except KeyError:
+                        viaLaneID = ''
+                        
+                    self._net.addConnection(
+                        fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl,
+                        tllink, attrs['state'], viaLaneID)
+            
         # 'row-logic' is deprecated!!!
         if self._withFoes and name == 'ROWLogic':
             self._currentNode = attrs['id']
@@ -483,14 +510,14 @@ class NetReader(handler.ContentHandler):
         if name == 'request' and self._withFoes:
             self._currentNode.setFoes(
                 int(attrs['index']), attrs["foes"], attrs["response"])
-        if self._withPhases and name == 'tlLogic':  # tl-logic is deprecated!!!
+        if self._withPhases and name == 'tlLogic':  # tl-logic is deprecated!!! NOTE: nevertheless, this is still used by netconvert... (Leo)
             self._currentProgram = self._net.addTLSProgram(
                 attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
         if self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
                 attrs['state'], int(attrs['duration']))
         if name == 'roundabout':
-            self._net.addRoundabout(attrs['nodes'].split())
+            self._net.addRoundabout(attrs['nodes'].split(), attrs['edges'].split())
         if name == 'param':
             if self._currentLane != None:
                 self._currentLane.setParam(attrs['key'], attrs['value'])
