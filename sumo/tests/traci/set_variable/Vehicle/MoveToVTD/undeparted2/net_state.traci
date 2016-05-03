@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Apr 28 17:03:32 2016 by SUMO Version dev-SVN-r20584
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+    </output>
+
+    <processing>
+        <max-num-vehicles value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="13553"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00"/>
+    <timestep time="1.00"/>
+    <timestep time="2.00"/>
+    <timestep time="3.00"/>
+    <timestep time="4.00"/>
+    <timestep time="5.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0"/>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2">
+                <vehicle id="veh0" pos="23.00" speed="8.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0"/>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2">
+                <vehicle id="veh0" pos="31.80" speed="8.80"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0"/>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2">
+                <vehicle id="veh0" pos="41.40" speed="9.60"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0"/>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2">
+                <vehicle id="veh0" pos="51.80" speed="10.40"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0"/>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2">
+                <vehicle id="veh0" pos="63.00" speed="11.20"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0"/>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2">
+                <vehicle id="veh0" pos="75.00" speed="12.00"/>
+            </lane>
+        </edge>
+    </timestep>
+</netstate>

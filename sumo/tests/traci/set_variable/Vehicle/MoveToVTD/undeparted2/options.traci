@@ -1,0 +1,1 @@
+--no-step-log --net-file net.net.xml --netstate-dump netstate_dump.xml --route-files routes.rou.xml --max-num-vehicles 0

@@ -4,6 +4,9 @@ implicit_speed
 # move vehicle that has not yet departed
 undeparted
 
+# move vehicle that has not yet departed, vehicle reaches the end of its route soon afterwards
+undeparted2
+
 # move vehicle onto the rear end of another one
 force_collision
 
