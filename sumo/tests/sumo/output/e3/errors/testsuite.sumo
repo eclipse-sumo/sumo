@@ -1,8 +1,15 @@
-# id is missing
-id_missing
+# detector don't have entry/exit detectors
+entryexit_empty
+
+
+# id is duplicated
+id_duplicated
 
 # id is empty
 id_empty
+
+# id is missing
+id_missing
 
 
 # lane is missing (entry)
