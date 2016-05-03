@@ -163,8 +163,13 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, SU
     //      - shadow vehicle must be created/moved to the other lane if the vehicle intersects it
     // 3) updated dens of all lanes that hold the vehicle or its shadow
     const int direction = vehicle->getLateralPositionOnLane() < 0 ? -1 : 1;
-    ChangerIt to = from + direction;
-    const bool changedToNewLane = fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth() && mayChange(direction);
+    ChangerIt to = from;
+    if (mayChange(direction)) {
+        to = from + direction;
+    } else {
+        /// XXX assert(false);
+    }
+    const bool changedToNewLane = to != from && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth() && mayChange(direction);
     if (changedToNewLane) {
         vehicle->myState.myPosLat -= direction * 0.5 * (from->lane->getWidth() + to->lane->getWidth());
         to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
