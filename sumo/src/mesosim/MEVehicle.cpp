@@ -75,7 +75,7 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
 
 
 SUMOReal 
-MEVehicle::getBackPositionOnLane(const MSLane* lane) const {
+MEVehicle::getBackPositionOnLane(const MSLane* /* lane */) const {
     return getPositionOnLane() - getVehicleType().getLength();
 }
 

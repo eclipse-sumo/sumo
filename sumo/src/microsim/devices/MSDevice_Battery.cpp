@@ -257,13 +257,13 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myLastEnergy(lastEnergy),           // Limit not needed
     myChargingStopped(false),           // Initially vehicle don't charge stopped 
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
+    myConsum(0),                        // Initially the vehicle is stopped and therefore the consum is zero.
+    myActChargingStation(NULL),         // Initially the vehicle isn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
-    myConsum(0),                        // Initially the Vehicle is stopped and therefore the consum is zero.
-    myVehicleStopped(0),                // Initially the vehicle is stopped and the corresponding variable is 0
-    myActChargingStation(NULL) {        // Initially the Vehicle isn'tover a Charging Station
+    myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0
 
     if (maximumBatteryCapacity < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter maximum battery capacity (" + TplConvert::_2str(maximumBatteryCapacity) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter maximum battery capacity (" + TplConvert::_2str(maximumBatteryCapacity) + ").")
     else
         myMaximumBatteryCapacity = maximumBatteryCapacity;    
 
@@ -275,52 +275,52 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
         myActualBatteryCapacity = actualBatteryCapacity;                                
 
     if (powerMax < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter maximum power (" + TplConvert::_2str(powerMax) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter maximum power (" + TplConvert::_2str(powerMax) + ").")
     else
         myPowerMax = powerMax;                                    
 
     if (mass < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter mass (" + TplConvert::_2str(mass) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter mass (" + TplConvert::_2str(mass) + ").")
     else
         myMass = mass;                                                
 
     if (frontSurfaceArea < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter front surface Area (" + TplConvert::_2str(frontSurfaceArea) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter front surface Area (" + TplConvert::_2str(frontSurfaceArea) + ").")
     else
         myFrontSurfaceArea = frontSurfaceArea;                        
 
     if (airDragCoefficient < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter drag coefficient (" + TplConvert::_2str(airDragCoefficient) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter drag coefficient (" + TplConvert::_2str(airDragCoefficient) + ").")
     else
         myAirDragCoefficient = airDragCoefficient;                   
     
     if (internalMomentOfInertia < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter internal moment of insertia (" + TplConvert::_2str(internalMomentOfInertia) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter internal moment of insertia (" + TplConvert::_2str(internalMomentOfInertia) + ").")
     else
         myInternalMomentOfInertia = internalMomentOfInertia;        
     
     if (radialDragCoefficient < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter radial friction coefficient (" + TplConvert::_2str(radialDragCoefficient) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter radial friction coefficient (" + TplConvert::_2str(radialDragCoefficient) + ").")
     else
         myRadialDragCoefficient = radialDragCoefficient;            
     
     if (rollDragCoefficient < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter roll friction coefficient (" + TplConvert::_2str(rollDragCoefficient) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter roll friction coefficient (" + TplConvert::_2str(rollDragCoefficient) + ").")
     else
         myRollDragCoefficient = rollDragCoefficient;                
     
     if (constantPowerIntake < 0)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter constant power intake (" + TplConvert::_2str(constantPowerIntake) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter constant power intake (" + TplConvert::_2str(constantPowerIntake) + ").")
     else
         myConstantPowerIntake = constantPowerIntake;                
     
     if (propulsionEfficiency < 0 || propulsionEfficiency > 1)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter propulsion efficiency (" + TplConvert::_2str(propulsionEfficiency) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter propulsion efficiency (" + TplConvert::_2str(propulsionEfficiency) + ").")
     else
         myPropulsionEfficiency = propulsionEfficiency; 
    
     if (recuperationEfficiency < 0 || recuperationEfficiency > 1)
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' don't have a valid value for parameter Recuparation efficiency (" + TplConvert::_2str(recuperationEfficiency) + ").")
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter Recuparation efficiency (" + TplConvert::_2str(recuperationEfficiency) + ").")
     else
          myRecuperationEfficiency = recuperationEfficiency;     
 }
