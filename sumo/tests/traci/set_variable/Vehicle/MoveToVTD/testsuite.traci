@@ -13,6 +13,9 @@ subsequent_edge
 # vehicle jumps to an edge not on its route
 offroute_edge
 
+# vehicle jumps to an edge not on its route twice
+offroute_edge2
+
 # old school behavior, vehicle id = VTD_EGO
 offroute_edge_by_id
 
