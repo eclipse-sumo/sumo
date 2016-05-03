@@ -21,8 +21,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import sys
 import re
-import xml.dom
-from xml.dom import pulldom
+import xml.etree.cElementTree as ET
 from collections import namedtuple, defaultdict
 from keyword import iskeyword
 from functools import reduce
@@ -127,12 +126,11 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={}):
     if isinstance(element_names, str):
         element_names = [element_names]
     elementTypes = {}
-    xml_doc = pulldom.parse(xmlfile)
-    for event, parsenode in xml_doc:
-        if event == pulldom.START_ELEMENT and parsenode.localName in element_names:
-            xml_doc.expandNode(parsenode)
+    for event, parsenode in ET.iterparse(xmlfile):
+        if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, elementTypes,
-                                       parsenode.localName, element_attrs, attr_conversions)
+                                       parsenode.tag, element_attrs, attr_conversions)
+            parsenode.clear()
 
 
 _NO_CHILDREN = defaultdict(lambda: [])
@@ -143,8 +141,7 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
     if not element_name in elementTypes:
         # initialized the compound_object type from the first encountered #
         # element
-        attrnames = element_attrs.get(element_name,
-                                      [node.attributes.item(i).localName for i in range(node.attributes.length)])
+        attrnames = element_attrs.get(element_name, node.keys())
         if len(attrnames) != len(set(attrnames)):
             raise Exception(
                 "non-unique attributes %s for element '%s'" % (attrnames, element_name))
@@ -152,17 +149,14 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
         elementTypes[element_name] = compound_object(element_name, attrnames)
     # prepare children
     child_dict = _NO_CHILDREN  # conserve space by reusing singleton
-    child_elements = [
-        c for c in node.childNodes if c.nodeType == xml.dom.Node.ELEMENT_NODE]
-    if child_elements:
+    if len(node) > 0:
         child_dict = defaultdict(lambda: [])
-        for c in child_elements:
-            child_dict[c.localName].append(_get_compound_object(
-                c, elementTypes, c.localName, element_attrs, attr_conversions))
+        for c in node:
+            child_dict[c.tag].append(_get_compound_object(
+                c, elementTypes, c.tag, element_attrs, attr_conversions))
     attrnames = elementTypes[element_name]._fields
     return elementTypes[element_name](
-        [(attr_conversions.get(a, _IDENTITY)(node.getAttribute(a))
-          if node.hasAttribute(a) else None) for a in attrnames],
+        [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict)
 
 
