@@ -1343,7 +1343,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
 
             Position vehPos = v->getPosition();
-            v->getBestLanes();
 #ifdef DEBUG_VTD
             std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << v->getLane()->getID() << std::endl;
             std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
@@ -1500,7 +1499,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
             while (nextEdge != 0 && nextEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
                 nextEdge = nextEdge->getSuccessors()[0]; // should be only one for an internal edge
             }
-            if (prevEdgePos != ev.end()) {
+            if (prevEdgePos != ev.end() && (prevEdgePos + 1) != ev.end()) {
                 onRoute = *(prevEdgePos + 1) == nextEdge;
             }
 #ifdef DEBUG_VTD_ANGLE
