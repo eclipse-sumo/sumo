@@ -70,6 +70,9 @@ public:
     /// Adds a single vehicle
     void add(SUMOVehicle* veh);
 
+    /// Removes a single vehicle
+    void remove(SUMOVehicle* veh);
+
     /// Adds a container with vehicles departing at the given time
     void add(SUMOTime time, const VehicleVector& cont);
 

@@ -299,6 +299,14 @@ MSInsertionControl::descheduleDeparture(SUMOVehicle* veh) {
     myAbortedEmits.insert(veh);
 }
 
+
+void
+MSInsertionControl::alreadyDeparted(SUMOVehicle* veh) {
+    myPendingEmits.erase(std::remove(myPendingEmits.begin(), myPendingEmits.end(), veh), myPendingEmits.end() ); 
+    myAllVeh.remove(veh);
+}
+
+
 void
 MSInsertionControl::clearPendingVehicles(std::string& route) {
     //clear out the refused vehicle list, deleting the vehicles entirely

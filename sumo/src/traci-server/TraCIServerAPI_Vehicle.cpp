@@ -1384,6 +1384,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 // use the best we have
                 server.setVTDControlled(v, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+                if (!v->isOnRoad()) {
+                    MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
+
+                }
             } else {
                 if (!keepRoute) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle '" + id + "'.", outputStorage);

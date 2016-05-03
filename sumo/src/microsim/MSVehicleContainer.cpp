@@ -101,6 +101,19 @@ MSVehicleContainer::add(SUMOVehicle* veh) {
 
 
 void
+MSVehicleContainer::remove(SUMOVehicle* veh) {
+    // check whether a new item shall be added or the vehicle may be
+    //  added to an existing list
+    VehicleHeap::iterator i =
+        find_if(array.begin() + 1, array.begin() + currentSize + 1, DepartFinder(veh->getParameter().depart));
+    if (!(currentSize == 0 || i == array.begin() + currentSize + 1)) {
+        // remove vehicle from an existing heap-item
+        (*i).second.erase(std::remove((*i).second.begin(), (*i).second.end(), veh), (*i).second.end()); 
+    }
+}
+
+
+void
 MSVehicleContainer::add(SUMOTime time, const VehicleVector& cont) {
     VehicleHeap::iterator j =
         find_if(array.begin() + 1, array.begin() + currentSize + 1,

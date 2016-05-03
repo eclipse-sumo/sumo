@@ -132,8 +132,10 @@ public:
      */
     int getPendingFlowCount() const;
 
+    /// @brief stops trying to emit the given vehicle (because it already departed)
+    void alreadyDeparted(SUMOVehicle* veh);
 
-    /// @brief stops trying to emit the given vehicle
+    /// @brief stops trying to emit the given vehicle (and delete it)
     void descheduleDeparture(SUMOVehicle* veh);
 
 
