@@ -23,7 +23,6 @@ from __future__ import print_function
 
 import os
 import sys
-PY3 = sys.version_info > (3,)
 import codecs
 from optparse import OptionParser
 from collections import defaultdict
