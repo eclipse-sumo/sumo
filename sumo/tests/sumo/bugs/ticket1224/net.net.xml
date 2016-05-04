@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mi 04 Mai 2016 13:53:30 CEST by Netedit Version dev-SVN-r20635
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="400.00,400.00,1200.00,400.00" origBoundary="0.00,0.00,1600.00,800.00" projParameter="!"/>
+
+    <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1">
+        <lane id="1/1to2/1_0" index="0" speed="10.00" length="400.00" shape="400.00,398.35 800.00,398.35"/>
+    </edge>
+    <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1">
+        <lane id="2/1to1/1_0" index="0" speed="10.00" length="400.00" shape="800.00,401.65 400.00,401.65"/>
+    </edge>
+    <edge id="2/1to3/1" from="2/1" to="3/1" priority="-1">
+        <lane id="2/1to3/1_0" index="0" speed="10.00" length="400.00" shape="800.00,398.35 1200.00,398.35"/>
+    </edge>
+    <edge id="3/1to2/1" from="3/1" to="2/1" priority="-1">
+        <lane id="3/1to2/1_0" index="0" speed="10.00" length="400.00" shape="1200.00,401.65 800.00,401.65"/>
+    </edge>
+
+    <junction id="1/1" type="priority" x="400.00" y="400.00" incLanes="2/1to1/1_0" intLanes="" shape="400.00,399.95 400.00,396.75 400.00,403.25 400.00,400.05">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="2/1" type="priority" x="800.00" y="400.00" incLanes="3/1to2/1_0 1/1to2/1_0" intLanes="" shape="800.00,403.25 800.00,396.75 800.00,403.25">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="3/1" type="priority" x="1200.00" y="400.00" incLanes="2/1to3/1_0" intLanes="" shape="1200.00,400.05 1200.00,403.25 1200.00,396.75 1200.00,399.95">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="1/1to2/1" to="2/1to3/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2/1to1/1" to="1/1to2/1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="2/1to3/1" to="3/1to2/1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="3/1to2/1" to="2/1to1/1" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

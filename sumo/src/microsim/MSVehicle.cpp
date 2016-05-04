@@ -1027,7 +1027,9 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 myAmRegisteredAsWaitingForContainer = true;
             }
             stop.duration -= DELTA_T;
-            return 0;
+
+            // decelerate
+            return getCarFollowModel().stopSpeed(this, getSpeed(), stop.endPos - myState.pos());
         }
     } else {
         // is the next stop on the current lane?
@@ -1526,7 +1528,7 @@ MSVehicle::executeMove() {
 #ifdef DEBUG_EXEC_MOVE
         if (DEBUG_COND) std::cout 
             << SIMTIME 
-                << " veh=" << getID() 
+                << " veh=" << getID()
                 << " link=" << (link == 0 ? "NULL" : link->getViaLaneOrLane()->getID())
                 << " req=" << (*i).mySetRequest
                 << " vP=" << (*i).myVLinkPass

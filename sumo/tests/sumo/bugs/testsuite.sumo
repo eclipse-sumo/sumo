@@ -186,3 +186,6 @@ ticket1032
 
 # meandata with teleports
 ticket1452
+
+# testing stopping to the point: vehicle should come to halt exactly at pos=25
+ticket1224

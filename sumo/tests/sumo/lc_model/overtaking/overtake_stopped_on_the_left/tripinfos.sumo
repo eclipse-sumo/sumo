@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug  4 13:46:01 2014 by SUMO sumo Version dev-SVN-r16824
+<!-- generated on Wed May  4 13:56:48 2016 by SUMO Version dev-SVN-r20637
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,7 +16,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -25,5 +25,5 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="overtaking" depart="10.00" departLane="beg_0" departPos="2698.50" departSpeed="36.00" departDelay="0.00" arrival="19.00" arrivalLane="beg_1" arrivalPos="2998.50" arrivalSpeed="36.00" duration="9.00" routeLength="300.00" waitSteps="0" timeLoss="0.12" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="stopped" depart="0.00" departLane="beg_0" departPos="2698.50" departSpeed="36.00" departDelay="0.00" arrival="118.00" arrivalLane="beg_0" arrivalPos="2998.50" arrivalSpeed="15.60" duration="118.00" routeLength="300.00" waitSteps="101" timeLoss="109.53" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="beg_0" departPos="2698.50" departSpeed="36.00" departDelay="0.00" arrival="118.00" arrivalLane="beg_0" arrivalPos="2998.50" arrivalSpeed="15.60" duration="118.00" routeLength="300.00" waitSteps="101" timeLoss="109.43" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
