@@ -528,6 +528,9 @@ public:
     /// @brief Returns true if this edge matches one of the removal criteria
     bool ignoreFilterMatch(NBEdge* edge);
 
+    /// @brief ensure that all edge ids are integers
+    int mapToNumericalIDs();
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *

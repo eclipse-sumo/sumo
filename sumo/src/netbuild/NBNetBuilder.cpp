@@ -242,6 +242,16 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
+
+    // remap ids if wished
+    if (oc.getBool("numerical-ids")) {
+        int numChangedEdges = myEdgeCont.mapToNumericalIDs();
+        int numChangedNodes = myNodeCont.mapToNumericalIDs();
+        if (numChangedEdges + numChangedNodes > 0) {
+            WRITE_MESSAGE("Remapped " + toString(numChangedEdges) + " edge IDs and " + toString(numChangedNodes) + " node IDs.");
+        }
+    }
+
     //
     if (oc.exists("geometry.max-angle")) {
         myEdgeCont.checkGeometries(

@@ -327,6 +327,9 @@ public:
         mySplit.insert(node);
     }
 
+    /// @brief ensure that all node ids are integers
+    int mapToNumericalIDs();
+
 private:
     /// @name Helper methods for for joining nodes
     /// @{
