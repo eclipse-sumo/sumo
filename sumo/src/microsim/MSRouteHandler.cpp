@@ -739,12 +739,18 @@ MSRouteHandler::closeVehicle() {
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
                 const MSEdge* const firstEdge = vehicle->getRoute().getEdges()[0];
-                static_cast<MSVehicle*>(vehicle)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], myVehicleParameter->departPos);
+                if (!MSGlobals::gUseMesoSim) {
+                    // position will be checked against person position later
+                    static_cast<MSVehicle*>(vehicle)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], myVehicleParameter->departPos);
+                }
                 vehControl.addWaiting(*route->begin(), vehicle);
                 vehControl.registerOneWaitingForPerson();
             } else if (myVehicleParameter->departProcedure == DEPART_CONTAINER_TRIGGERED) {
                 const MSEdge* const firstEdge = vehicle->getRoute().getEdges()[0];
-                static_cast<MSVehicle*>(vehicle)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], myVehicleParameter->departPos);
+                if (!MSGlobals::gUseMesoSim) {
+                    // position will be checked against container position later
+                    static_cast<MSVehicle*>(vehicle)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], myVehicleParameter->departPos);
+                }
                 vehControl.addWaiting(*route->begin(), vehicle);
                 vehControl.registerOneWaitingForContainer();
             } else {
