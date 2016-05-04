@@ -23,6 +23,9 @@ attach
 nointernal
 alphanumerical-ids
 
+# Copy of alphanumerical-ids
+numerical_ids
+
 # set alternative defaults
 defaults
 

@@ -41,3 +41,6 @@ xerces_bug_1947
 bicycle_lanes
 bus_lanes
 intersection_with_crossings
+
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+numerical_ids

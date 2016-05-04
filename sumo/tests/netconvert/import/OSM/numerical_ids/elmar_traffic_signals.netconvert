@@ -1,0 +1,49 @@
+# Generated on Wed May  4 12:12:29 2016 by SUMO netconvert Version dev-SVN-r20635
+# Format matches Extraction version: V6.0 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml"/>
+#         <osm-files value="osm.xml"/>
+#     </input>
+# 
+#     <output>
+#         <output-file value="net.net.xml"/>
+#         <plain-output-prefix value="plain"/>
+#         <dlr-navteq-output value="elmar_output"/>
+#     </output>
+# 
+#     <projection>
+#         <proj.utm value="true"/>
+#     </projection>
+# 
+#     <ramp_guessing>
+#         <ramps.guess value="true"/>
+#     </ramp_guessing>
+# 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <junctions.join value="true"/>
+#     </processing>
+# 
+#     <report>
+#         <verbose value="true"/>
+#         <xml-validation value="never"/>
+#     </report>
+# 
+# </configuration>
+# 
+#
+#Traffic signal related to LINK_ID and NODE_ID with location relative to driving direction.
+#column format like pointcollection.
+#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK -1-keineAngabe
+#RELATREC_ID	POICOL_TYPE	DESCRIPTION	LONGITUDE	LATITUDE	LINK_ID
+27445076	12	LSA;NODEIDS#261599791#;LOCATION#-1#;	1352015	5242682	27445076
+27445017	12	LSA;NODEIDS#261599791#;LOCATION#-1#;	1352015	5242682	27445017
+27445171	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	27445171
+27445167	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	27445167
+-24214694	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	-24214694
+27445016	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	27445016
+27445066	12	LSA;NODEIDS#94487954#;LOCATION#-1#;	1354525	5242572	27445066

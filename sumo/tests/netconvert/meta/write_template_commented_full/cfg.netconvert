@@ -381,6 +381,9 @@
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
+        <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
+        <numerical-ids value="false" type="BOOL"/>
+
         <!-- Removes vehicle class restrictions from imported edges -->
         <dismiss-vclasses value="false" type="BOOL"/>
 

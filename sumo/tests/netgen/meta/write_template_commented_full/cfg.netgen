@@ -240,6 +240,9 @@
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
+        <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
+        <numerical-ids value="false" type="BOOL"/>
+
         <!-- Disables building turnarounds -->
         <no-turnarounds value="false" type="BOOL"/>
 

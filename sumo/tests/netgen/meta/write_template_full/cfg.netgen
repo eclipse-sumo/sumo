@@ -98,6 +98,7 @@
 
     <processing>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
+        <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>

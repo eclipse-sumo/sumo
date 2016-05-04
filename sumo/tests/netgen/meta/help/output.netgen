@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r20568
+SUMO netgenerate Version dev-SVN-r20635
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -153,6 +153,9 @@ Unregulated Nodes Options:
 
 Processing Options:
   --no-internal-links                  Omits internal links
+  --numerical-ids                      Remaps alphanumerical IDs of nodes and
+                                         edges to ensure that all IDs are
+                                         integers
   --no-turnarounds                     Disables building turnarounds
   --no-turnarounds.tls                 Disables building turnarounds at
                                          tls-controlled junctions
