@@ -130,7 +130,6 @@ class Net:
         self._roundabouts = []
         self._rtree = None
         self._allLanes = []
-        self._id2lane = []
         self._origIdx = None
         self.hasWarnedAboutMissingRTree = False
 
@@ -150,7 +149,7 @@ class Net:
         self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes, intLanes)
         return self._id2node[id]
 
-    def setAdditionalNodeInfo(self, node, type, coord, incLanes, intLanes):
+    def setAdditionalNodeInfo(self, node, type, coord, incLanes, intLanes=None):
         if coord != None and node._coord == None:
             node._coord = coord
             self._ranges[0][0] = min(self._ranges[0][0], coord[0])
@@ -176,7 +175,7 @@ class Net:
     def addLane(self, edge, speed, length, allow=None, disallow=None):            
         return lane.Lane(edge, speed, length, allow, disallow)
     
-    def addRoundabout(self, nodes, edges):
+    def addRoundabout(self, nodes, edges=None):
         r = roundabout.Roundabout(nodes, edges)
         self._roundabouts.append(r)
         return r
@@ -475,7 +474,7 @@ class NetReader(handler.ContentHandler):
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[
                                         self._currentLane], tolane,
                                         attrs['dir'], tl, tllink, attrs['state'], viaLaneID)
-        if name == 'connection' and self._withConnections: # and attrs['from'][0] != ":":
+        if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
                 fromEdgeID = attrs['from']
                 toEdgeID = attrs['to']
                 if not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in

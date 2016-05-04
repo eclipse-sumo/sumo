@@ -22,7 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 
 class Roundabout:
 
-    def __init__(self, nodes, edges):
+    def __init__(self, nodes, edges=None):
         self._nodes = nodes
         self._edges = edges
 
