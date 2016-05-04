@@ -1,0 +1,2 @@
+--dlr-navteq-output=elmar_output -e input_plain.edg.xml -n input_plain.nod.xml
+--numerical-ids

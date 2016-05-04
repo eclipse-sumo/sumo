@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 04 May 2016 12:22:58 PM CEST by Netedit Version dev-SVN-r20635
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="5.12,37.61,71.95,51.66" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="1" from="1" to="2" priority="1" shape="5.12,40.32 36.81,51.66 71.95,37.61">
+        <lane id="1_0" index="0" speed="13.89" length="70.25" shape="5.67,38.77 36.78,49.90 71.34,36.08"/>
+    </edge>
+
+    <junction id="1" type="unregulated" x="5.12" y="40.32" incLanes="" intLanes="" shape="5.13,40.27 6.21,37.26"/>
+    <junction id="2" type="unregulated" x="71.95" y="37.61" incLanes="1_0" intLanes="" shape="70.74,34.59 71.93,37.56"/>
+
+</net>

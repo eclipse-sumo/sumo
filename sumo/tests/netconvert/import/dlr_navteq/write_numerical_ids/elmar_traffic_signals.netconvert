@@ -1,0 +1,30 @@
+# Generated on Wed May  4 12:24:56 2016 by SUMO netconvert Version dev-SVN-r20635
+# Format matches Extraction version: V6.0 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <node-files value="input_plain.nod.xml"/>
+#         <edge-files value="input_plain.edg.xml"/>
+#     </input>
+# 
+#     <output>
+#         <dlr-navteq-output value="elmar_output"/>
+#     </output>
+# 
+#     <processing>
+#         <numerical-ids value="true"/>
+#     </processing>
+# 
+#     <report>
+#         <xml-validation value="never"/>
+#     </report>
+# 
+# </configuration>
+# 
+#
+#Traffic signal related to LINK_ID and NODE_ID with location relative to driving direction.
+#column format like pointcollection.
+#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK -1-keineAngabe
+#RELATREC_ID	POICOL_TYPE	DESCRIPTION	LONGITUDE	LATITUDE	LINK_ID
