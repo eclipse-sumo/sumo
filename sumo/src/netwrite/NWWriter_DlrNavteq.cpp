@@ -38,6 +38,7 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/ToString.h>
+#include <utils/common/IDSupplier.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -115,6 +116,14 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
         device << n->getID() << "\t0\t1\t" << pos.x() << "\t" << pos.y() << "\n";
     }
     // write "internal" nodes
+    std::vector<std::string> avoid;
+    const bool numericalIDs = oc.getBool("numerical-ids");
+    if (numericalIDs) {
+        avoid = nc.getAllNames();
+        std::vector<std::string> avoid2 = ec.getAllNames();
+        avoid.insert(avoid.end(), avoid2.begin(), avoid2.end());
+    }
+    IDSupplier idSupplier("", avoid);
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
         const PositionVector& geom = e->getGeometry();
@@ -123,7 +132,11 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             if (internalNodeID == UNDEFINED ||
                     (nc.retrieve(internalNodeID) != 0)) {
                 // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
-                internalNodeID += "_geometry";
+                if (numericalIDs) {
+                    internalNodeID = idSupplier.getNext();
+                } else {
+                    internalNodeID += "_geometry";
+                }
             }
             device << internalNodeID << "\t1\t" << geom.size() - 2;
             for (size_t ii = 1; ii < geom.size() - 1; ++ii) {
