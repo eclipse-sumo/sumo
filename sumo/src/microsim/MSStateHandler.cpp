@@ -93,6 +93,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
             }
         }
     }
+    out.close();
 }
 
 
