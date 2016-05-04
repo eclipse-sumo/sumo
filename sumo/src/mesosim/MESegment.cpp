@@ -140,6 +140,27 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
         // compute based on specified percentage
         myJamThreshold = jamThresh * myCapacity;
     }
+
+    // update coefficients for the jam-jam headway function
+    // this function models the effect that "empty space" needs to move
+    // backwards through the downstream segment before the upstream segment may
+    // send annother vehicle
+    // the headway function f(x) depends on the number of vehicles in the
+    // downstream segment x
+    // f is a linear function that passes through the following fixed points:
+    // f(n_jam_threshold) = myTau_jf (for continuity)
+    // f(myHeadwayCapacity) = myTau_jj & myHeadwayCapacity
+
+    const SUMOReal n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
+    // solving f(x) = a * x + b 
+    myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(myTau_jf)) / (myHeadwayCapacity - n_jam_threshold);
+    myB = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - myA);
+
+    // note that the original Eissfeldt model (p. 69) used different fixed points
+    // f(n_jam_threshold) = n_jam_threshold * myTau_jj
+    // f(myHeadwayCapacity) = myTau_jf * myHeadwayCapacity
+    //
+    // However, this systematically underestimates the backpropagation speed of the jam front (see #2244)
 }
 
 
@@ -328,8 +349,7 @@ MESegment::getTimeHeadway(bool predecessorIsFree) {
         } else {
             // the gap has to move from the start of the segment to its end
             // this allows jams to clear and move upstream
-            const SUMOTime b = (SUMOTime)(myHeadwayCapacity * (myTau_jf - myTau_jj)); // FIXME: unsigned integer overflow (in meso/tau/tau_jj)
-            return (SUMOTime)(myTau_jj * getCarNumber() + b);
+            return TIME2STEPS(myA * getCarNumber() + myB);
         }
     }
 }

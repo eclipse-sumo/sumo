@@ -438,6 +438,9 @@ private:
     /// @brief The time headway parameters, see the Eissfeldt thesis
     const SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
 
+    /// @brief slope and axis offset for the jam-jam headway function
+    SUMOReal myA, myB;
+
     /// @brief The capacity of the segment in number of cars, used only in time headway calculation
     /// This parameter has only an effect if tau_jf != tau_jj, which is not(!) the case per default
     const SUMOReal myHeadwayCapacity;

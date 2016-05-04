@@ -352,7 +352,7 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-taufj", "Mesoscopic", "Factor for calculating the free-jam headway time");
     oc.doRegister("meso-taujf", new Option_String("2", "TIME"));
     oc.addDescription("meso-taujf", "Mesoscopic", "Factor for calculating the jam-free headway time");
-    oc.doRegister("meso-taujj", new Option_String("2", "TIME"));
+    oc.doRegister("meso-taujj", new Option_String("1.4", "TIME"));
     oc.addDescription("meso-taujj", "Mesoscopic", "Factor for calculating the jam-jam headway time");
     oc.doRegister("meso-jam-threshold", new Option_Float(-1));
     oc.addDescription("meso-jam-threshold", "Mesoscopic",
