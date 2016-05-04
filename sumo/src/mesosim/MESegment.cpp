@@ -135,7 +135,7 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     }
     if (jamThresh < 0) {
         // compute based on speed
-        myJamThreshold = jamThresholdForSpeed(myEdge.getSpeedLimit());
+        myJamThreshold = jamThresholdForSpeed(myEdge.getSpeedLimit(), jamThresh);
     } else {
         // compute based on specified percentage
         myJamThreshold = jamThresh * myCapacity;
@@ -144,14 +144,15 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
 
 
 SUMOReal
-MESegment::jamThresholdForSpeed(SUMOReal speed) const {
+MESegment::jamThresholdForSpeed(SUMOReal speed, SUMOReal jamThresh) const {
     // vehicles driving freely at maximum speed should not jam
     // we compute how many vehicles could possible enter the segment until the first vehicle leaves
     // and multiply by the space these vehicles would occupy
+    // the jamThresh parameter is scale the resulting value
     if (speed == 0) {
         return std::numeric_limits<double>::max();    // FIXME: This line is just an adhoc-fix to avoid division by zero (Leo)
     }
-    return std::ceil((myLength / (speed * STEPS2TIME(myTau_ff)))) * (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap);
+    return std::ceil((myLength / (-jamThresh * speed * STEPS2TIME(myTau_ff)))) * (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap);
 }
 
 
@@ -227,7 +228,7 @@ MESegment::hasSpaceFor(const MEVehicle* veh, SUMOTime entryTime, bool init) cons
     // - initial insertions should not cause additional jamming
     if (init) {
         // inserted vehicle should be able to continue at the current speed
-        return newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false));
+        return newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false), -1);
     }
     // maintain propper spacing between inflow from different lanes
     return entryTime >= myEntryBlockTime;

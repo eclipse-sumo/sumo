@@ -409,8 +409,8 @@ private:
      */
     void recomputeJamThreshold(SUMOReal jamThresh);
 
-    /// @brief compute jam threshold for the given speed
-    SUMOReal jamThresholdForSpeed(SUMOReal speed) const;
+    /// @brief compute jam threshold for the given speed and jam-threshold option
+    SUMOReal jamThresholdForSpeed(SUMOReal speed, SUMOReal jamThresh) const;
 
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;

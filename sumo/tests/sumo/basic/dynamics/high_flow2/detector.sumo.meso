@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 17 10:18:09 2016 by SUMO Version dev-SVN-r19994
+<!-- generated on Wed May  4 14:07:15 2016 by SUMO Version dev-SVN-r20642
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,7 @@
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-jam-threshold value="-0.9"/>
         <meso-junction-control value="true"/>
     </mesoscopic>
 
@@ -30,10 +31,10 @@
 -->
 
 <detector>
-    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3025.17" density="34.73" occupancy="8.68" waitingTime="0.00" speed="29.37" departed="314" arrived="0" entered="608" left="916"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3025.17" density="34.73" occupancy="8.68" waitingTime="0.00" speed="29.37" departed="314" arrived="0" entered="608" left="916"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="4843.10" density="55.61" occupancy="13.90" waitingTime="0.00" speed="25.68" departed="1113" arrived="0" entered="172" left="1285"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="4843.10" density="55.61" occupancy="13.90" waitingTime="0.00" speed="25.68" departed="1113" arrived="0" entered="172" left="1285"/>
-    <interval begin="1800.00" end="2608.00" id="beg2_0" sampledSeconds="2338.45" density="29.91" occupancy="7.48" waitingTime="0.00" speed="31.28" departed="2" arrived="0" entered="750" left="758"/>
-    <interval begin="1800.00" end="2608.00" id="beg2_1" sampledSeconds="2338.45" density="29.91" occupancy="7.48" waitingTime="0.00" speed="31.28" departed="2" arrived="0" entered="750" left="758"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3451.38" density="39.63" occupancy="9.91" waitingTime="0.00" speed="27.73" departed="159" arrived="0" entered="833" left="986"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3451.38" density="39.63" occupancy="9.91" waitingTime="0.00" speed="27.73" departed="159" arrived="0" entered="833" left="986"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="5740.47" density="65.91" occupancy="16.48" waitingTime="0.00" speed="21.68" departed="1148" arrived="0" entered="139" left="1286"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="5740.47" density="65.91" occupancy="16.48" waitingTime="0.00" speed="21.68" departed="1148" arrived="0" entered="139" left="1286"/>
+    <interval begin="1800.00" end="2600.00" id="beg2_0" sampledSeconds="2447.93" density="31.62" occupancy="7.90" waitingTime="0.00" speed="29.90" departed="2" arrived="0" entered="750" left="759"/>
+    <interval begin="1800.00" end="2600.00" id="beg2_1" sampledSeconds="2447.93" density="31.62" occupancy="7.90" waitingTime="0.00" speed="29.90" departed="2" arrived="0" entered="750" left="759"/>
 </detector>

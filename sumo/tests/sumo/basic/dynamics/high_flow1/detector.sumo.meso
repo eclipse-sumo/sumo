@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 17 10:18:09 2016 by SUMO Version dev-SVN-r19994
+<!-- generated on Wed May  4 13:22:10 2016 by SUMO Version dev-SVN-r20642
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,7 @@
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-jam-threshold value="-0.9"/>
         <meso-junction-control value="true"/>
     </mesoscopic>
 
@@ -30,7 +31,7 @@
 -->
 
 <detector>
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1740.73" density="20.00" occupancy="10.00" waitingTime="0.00" speed="27.98" departed="0" arrived="502" entered="505" left="0"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2028.51" density="23.30" occupancy="11.65" waitingTime="0.00" speed="27.26" departed="0" arrived="572" entered="572" left="0"/>
-    <interval begin="1800.00" end="2021.00" id="end2_0" sampledSeconds="464.36" density="21.72" occupancy="10.86" waitingTime="0.00" speed="26.00" departed="0" arrived="126" entered="123" left="0"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1854.40" density="21.30" occupancy="10.65" waitingTime="0.00" speed="27.23" departed="0" arrived="521" entered="523" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2184.59" density="25.09" occupancy="12.55" waitingTime="0.00" speed="26.55" departed="0" arrived="599" entered="600" left="0"/>
+    <interval begin="1800.00" end="1911.00" id="end2_0" sampledSeconds="310.37" density="28.91" occupancy="14.45" waitingTime="0.00" speed="24.42" departed="0" arrived="80" entered="77" left="0"/>
 </detector>
