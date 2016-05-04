@@ -1,30 +1,22 @@
-Warning: Teleporting vehicle 'ba.4'; waited too long, from edge 'bc':0, time 379.06.
-Warning: Vehicle 'ba.4' ends teleporting on edge 'a_out':0, time 384.23.
-Warning: Teleporting vehicle 'ba.5'; waited too long, from edge 'bc':0, time 681.06.
-Warning: Vehicle 'ba.5' ends teleporting on edge 'a_out':0, time 686.23.
-Warning: Teleporting vehicle 'ba.6'; waited too long, from edge 'bc':0, time 983.06.
-Warning: Vehicle 'ba.6' ends teleporting on edge 'a_out':0, time 988.23.
-Warning: Teleporting vehicle 'ba.7'; waited too long, from edge 'bc':0, time 1285.06.
-Warning: Vehicle 'ba.7' ends teleporting on edge 'a_out':0, time 1290.23.
-Warning: Teleporting vehicle 'ba.10'; waited too long, from edge 'bc':0, time 1667.67.
-Warning: Vehicle 'ba.10' ends teleporting on edge 'a_out':0, time 1672.85.
-Warning: Teleporting vehicle 'cb.20'; waited too long, from edge 'c_in':0, time 1681.67.
-Warning: Vehicle 'cb.20' ends teleporting on edge 'ab':0, time 1685.09.
-Warning: Teleporting vehicle 'ac.17'; waited too long, from edge 'a_in':0, time 1985.68.
-Warning: Vehicle 'ac.17' ends teleporting on edge 'c_out':0, time 1995.47.
-Warning: Teleporting vehicle 'ba.12'; waited too long, from edge 'bc':0, time 1997.68.
-Warning: Vehicle 'ba.12' ends teleporting on edge 'a_out':0, time 2002.85.
-Warning: Teleporting vehicle 'ba.13'; waited too long, from edge 'bc':0, time 2299.68.
-Warning: Vehicle 'ba.13' ends teleporting on edge 'a_out':0, time 2304.85.
-Warning: Teleporting vehicle 'cb.23'; waited too long, from edge 'c_in':0, time 2313.68.
-Warning: Vehicle 'cb.23' ends teleporting on edge 'ab':0, time 2317.09.
-Warning: Teleporting vehicle 'ba.15'; waited too long, from edge 'bc':0, time 2630.68.
-Warning: Teleporting vehicle 'cb.18'; waited too long, from edge 'ca':0, time 2634.68.
-Warning: Vehicle 'ba.15' teleports beyond arrival edge 'a_out', time 2640.44.
-Warning: Vehicle 'cb.18' ends teleporting on edge 'b_out':0, time 2639.27.
-Warning: Teleporting vehicle 'cb.30'; waited too long, from edge 'c_in':0, time 3033.08.
-Warning: Teleporting vehicle 'ac.22'; waited too long, from edge 'ab':0, time 3035.48.
-Warning: Vehicle 'cb.30' ends teleporting on edge 'b_out':0, time 3041.08.
-Warning: Vehicle 'ac.22' ends teleporting on edge 'c_out':0, time 3041.22.
-Warning: Teleporting vehicle 'cb.96'; waited too long, from edge 'ca':0, time 5653.28.
-Warning: Vehicle 'cb.96' ends teleporting on edge 'b_out':0, time 5657.87.
+Warning: Teleporting vehicle 'ba.5'; waited too long, from edge 'bc':0, time 354.81.
+Warning: Vehicle 'ba.5' ends teleporting on edge 'a_out':0, time 359.98.
+Warning: Teleporting vehicle 'cb.13'; waited too long, from edge 'c_in':0, time 363.23.
+Warning: Vehicle 'cb.13' ends teleporting on edge 'ab':0, time 366.65.
+Warning: Teleporting vehicle 'ba.7'; waited too long, from edge 'bc':0, time 674.53.
+Warning: Teleporting vehicle 'cb.9'; waited too long, from edge 'ca':0, time 677.66.
+Warning: Vehicle 'ba.7' ends teleporting on edge 'a_out':0, time 679.70.
+Warning: Vehicle 'cb.9' ends teleporting on edge 'b_out':0, time 682.25.
+Warning: Teleporting vehicle 'ac.17'; waited too long, from edge 'a_in':0, time 1019.79.
+Warning: Teleporting vehicle 'cb.18'; waited too long, from edge 'c_in':0, time 1027.22.
+Warning: Teleporting vehicle 'ac.12'; waited too long, from edge 'ab':0, time 1028.80.
+Warning: Vehicle 'ac.17' ends teleporting on edge 'c_out':0, time 1029.59.
+Warning: Vehicle 'ac.12' ends teleporting on edge 'c_out':0, time 1034.53.
+Warning: Vehicle 'cb.18' ends teleporting on edge 'b_out':0, time 1035.22.
+Warning: Teleporting vehicle 'cb.98'; waited too long, from edge 'c_in':0, time 2971.68.
+Warning: Vehicle 'cb.98' ends teleporting on edge 'b_out':0, time 2979.68.
+Warning: Teleporting vehicle 'cb.94'; waited too long, from edge 'ca':0, time 2983.43.
+Warning: Vehicle 'cb.94' ends teleporting on edge 'b_out':0, time 2988.02.
+Warning: Teleporting vehicle 'ac.98'; waited too long, from edge 'a_in':0, time 2993.02.
+Warning: Teleporting vehicle 'ac.92'; waited too long, from edge 'ab':0, time 2993.61.
+Warning: Vehicle 'ac.92' ends teleporting on edge 'c_out':0, time 2999.35.
+Warning: Vehicle 'ac.98' ends teleporting on edge 'c_out':0, time 3002.81.
