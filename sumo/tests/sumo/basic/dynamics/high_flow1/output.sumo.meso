@@ -2,20 +2,20 @@ Loading net-file from 'motorway.net.xml'... done (1ms).
 Loading additional-files from 'input_additional.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 1905.00
+Simulation ended at time: 1911.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 792ms
- Real time factor: 2405.3
- UPS: 281684.343434
+ Duration: 81ms
+ Real time factor: 23592.6
+ UPS: 1603753.086420
 Vehicles: 
- Inserted: 2304 (Loaded: 3600)
+ Inserted: 1200
  Running: 0
  Waiting: 0
 Statistics (avg):
- RouteLength: 2858.74
- Duration: 96.83
+ RouteLength: 2994.79
+ Duration: 108.25
  WaitingTime: 0.00
- TimeLoss: 16.05
- DepartDelay: 1.69
+ TimeLoss: 24.04
+ DepartDelay: -0.25
 
