@@ -117,9 +117,9 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
     mySublaneParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 1)),
     myPushy(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHY, 0)),
-    CHANGE_PROB_THRESHOLD_LEFT(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
-    CHANGE_PROB_THRESHOLD_RIGHT(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
-    SPEED_LOSS_PROP_THRESHOLD(-0.01 + (1 - mySublaneParam)) 
+    myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
+    myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
+    mySpeedLossProbThreshold(-0.01 + (1 - mySublaneParam)) 
 {
     if (MSGlobals::gLateralResolution <= 0) {
         throw ProcessError("laneChangeModel 'MSLCM_SL2015' is only meant to be used when simulating with '--lateral-resoluion' > 0");
@@ -1078,8 +1078,8 @@ MSLCM_SL2015::_wantsChangeSublane(
     //        << "\n";
     //}
     const SUMOReal inconvenience = (latLaneDist < 0 
-            ? -mySpeedGainProbabilityRight / CHANGE_PROB_THRESHOLD_RIGHT 
-            : -mySpeedGainProbabilityLeft / CHANGE_PROB_THRESHOLD_LEFT);
+            ? -mySpeedGainProbabilityRight / myChangeProbThresholdRight 
+            : -mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
     if (laneOffset != 0
             && amBlockingFollowerPlusNB()
             && (inconvenience < myCooperativeParam)
@@ -1248,7 +1248,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                 vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
-            const SUMOReal deltaProb = (CHANGE_PROB_THRESHOLD_RIGHT
+            const SUMOReal deltaProb = (myChangeProbThresholdRight
                                         * STEPS2TIME(DELTA_T)
                                         * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability += TS * deltaProb;
@@ -1270,7 +1270,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                           << " speedGainL=" << mySpeedGainProbabilityLeft
                           << "\n";
             }
-            if (myKeepRightProbability * myKeepRightParam > MAX2(CHANGE_PROB_THRESHOLD_RIGHT, mySpeedGainProbabilityLeft)) {
+            if (myKeepRightProbability * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)) {
                 ret |= LCA_KEEPRIGHT;
                 assert(myVehicle.getLane()->getIndex() > neighLane.getIndex());
                 if (!cancelRequest(ret)) {
@@ -1290,7 +1290,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << "\n";
         }
 
-        if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(CHANGE_PROB_THRESHOLD_RIGHT, mySpeedGainProbabilityLeft)
+        if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
                 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { 
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret)) {
@@ -1312,7 +1312,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << "\n";
         }
 
-        if (latDist > 0 && mySpeedGainProbabilityLeft > CHANGE_PROB_THRESHOLD_LEFT && 
+        if (latDist > 0 && mySpeedGainProbabilityLeft > myChangeProbThresholdLeft && 
                 // if we leave our lane, we should be able to stay in the new
                 // lane for some time
                 (stayInLane || neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > SPEED_GAIN_MIN_SECONDS)) { 
@@ -1357,8 +1357,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                     << " myCanChangeFully=" << myCanChangeFully
                     << " prevState=" << toString((LaneChangeAction)myPreviousState)
                     << "\n";
-        if ((latDist < 0 && mySpeedGainProbabilityRight < SPEED_LOSS_PROP_THRESHOLD)
-                || (latDist > 0 && mySpeedGainProbabilityLeft < SPEED_LOSS_PROP_THRESHOLD)) {
+        if ((latDist < 0 && mySpeedGainProbabilityRight < mySpeedLossProbThreshold)
+                || (latDist > 0 && mySpeedGainProbabilityLeft < mySpeedLossProbThreshold)) {
             // do not risk losing speed
             latDist = 0;
         }
@@ -1847,7 +1847,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                                            &myVehicle, myVehicle.getSpeed(), cld.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 myVSafes.push_back(vSafe);
                 if (vSafe < myVehicle.getSpeed()) {
-                    mySpeedGainProbabilityRight += TS * CHANGE_PROB_THRESHOLD_LEFT / 3;
+                    mySpeedGainProbabilityRight += TS * myChangeProbThresholdLeft / 3;
                 }
                 if (gDebugFlag2) {
                     std::cout << SIMTIME
