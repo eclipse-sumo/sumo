@@ -90,11 +90,11 @@ MSLeaderInfo::addLeader(const MSVehicle* veh, bool beyond, SUMOReal latOffset) {
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
                 && (!beyond || myVehicles[sublane] == 0)) {
-            myVehicles[sublane] = veh;
-            myHasVehicles = true;
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
             }
+            myVehicles[sublane] = veh;
+            myHasVehicles = true;
         }
     }
     return myFreeSublanes;
@@ -205,12 +205,12 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, SUMOReal gap, SUMOReal lat
     if (sublane >= 0) {
         // sublane is already given
         if (gap < myDistances[sublane]) {
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
-            myHasVehicles = true;
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
             }
+            myVehicles[sublane] = veh;
+            myDistances[sublane] = gap;
+            myHasVehicles = true;
         }
         return myFreeSublanes;
     }
@@ -219,12 +219,12 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, SUMOReal gap, SUMOReal lat
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
                 && gap < myDistances[sublane]) {
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
-            myHasVehicles = true;
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
             }
+            myVehicles[sublane] = veh;
+            myDistances[sublane] = gap;
+            myHasVehicles = true;
         }
     }
     return myFreeSublanes;
@@ -283,9 +283,6 @@ MSCriticalFollowerDistanceInfo::~MSCriticalFollowerDistanceInfo() { }
 
 int 
 MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicle* ego, SUMOReal gap, SUMOReal latOffset, int sublane) {
-    //if (SIMTIME == 31 && gDebugFlag1 && veh != 0 && veh->getID() == "cars.8") {
-    //    std::cout << " BREAKPOINT\n";
-    //}
     if (veh == 0) {
         return myFreeSublanes;
     }
@@ -314,13 +311,13 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     if (sublane >= 0) {
         // sublane is already given
         if (missingGap > myMissingGaps[sublane]) {
+            if (myVehicles[sublane] == 0) {
+                myFreeSublanes--;
+            }
             myVehicles[sublane] = veh;
             myDistances[sublane] = gap;
             myMissingGaps[sublane] = missingGap;
             myHasVehicles = true;
-            if (myVehicles[sublane] == 0) {
-                myFreeSublanes--;
-            }
         }
         return myFreeSublanes;
     }
@@ -329,13 +326,13 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
                 && missingGap > myMissingGaps[sublane]) {
+            if (myVehicles[sublane] == 0) {
+                myFreeSublanes--;
+            }
             myVehicles[sublane] = veh;
             myDistances[sublane] = gap;
             myMissingGaps[sublane] = missingGap;
             myHasVehicles = true;
-            if (myVehicles[sublane] == 0) {
-                myFreeSublanes--;
-            }
         }
     }
     return myFreeSublanes;
