@@ -86,6 +86,7 @@
 
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_EXEC_MOVE
+//#define DEBUG_FURTHER
 #define DEBUG_COND (getID() == "disabled")
 
 #define BUS_STOP_OFFSET 0.5
@@ -787,6 +788,9 @@ MSVehicle::computeAngle() const {
     if (getLaneChangeModel().isChangingLanes()) {
         result += DEG2RAD(getLaneChangeModel().getAngleOffset());
     }
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) std::cout << SIMTIME << " computeAngle veh=" << getID() << " p1=" << p1 << " p2=" << p2 << " angle=" << result << "\n";
+#endif
     return result;
 }
 
@@ -802,6 +806,9 @@ MSVehicle::getBackPosition() const {
             // special case where the target lane has no predecessor
             return myLane->geometryPositionAtOffset(0, posLat);
         } else {
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) std::cout << "    getBackPosition veh=" << getID() << " myLane=" << myLane->getID() << " further=" << toString(myFurtherLanes) << " myFurtherLanesPosLat=" << toString(myFurtherLanesPosLat) << "\n";
+#endif
             return myFurtherLanes.size() > 0 && !getLaneChangeModel().isChangingLanes()
                 ? myFurtherLanes.back()->geometryPositionAtOffset(getBackPositionOnLane(myFurtherLanes.back()), -myFurtherLanesPosLat.back())
                 : myLane->geometryPositionAtOffset(0, posLat);
@@ -1802,7 +1809,9 @@ MSVehicle::executeMove() {
         getLaneChangeModel().prepareStep();
         myAngle = computeAngle();
     }
-    //if (getID() == "disabled") std::cout << SIMTIME << " executeMove finished veh=" << getID() << " lane=" << myLane->getID() << " myPos=" << getPositionOnLane() << " myPosLat=" << getLateralPositionOnLane() << "\n";
+#ifdef DEBUG_EXEC_MOVE
+    if (DEBUG_COND) std::cout << SIMTIME << " executeMove finished veh=" << getID() << " lane=" << myLane->getID() << " myPos=" << getPositionOnLane() << " myPosLat=" << getLateralPositionOnLane() << "\n";
+#endif
     if (getLaneChangeModel().isOpposite()) {
         // transform back to the opposite-direction lane
         if (myLane->getOpposite() == 0) {
@@ -1834,13 +1843,14 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<SU
                 const std::vector<MSLane*>& passedLanes) {
 
     // XXX only reset / set the values that were changed
-    if (getID() == "disabled") std::cout << SIMTIME 
+#ifdef DEBUG_FURTHER
+    if (DEBUG_COND) std::cout << SIMTIME 
         << " updateFurtherLanes oldFurther=" << toString(furtherLanes) 
             << " oldFurtherPosLat=" << toString(furtherLanesPosLat) 
             << " passed=" << toString(passedLanes) 
             << "\n";
+#endif
     for (std::vector<MSLane*>::iterator i = furtherLanes.begin(); i != furtherLanes.end(); ++i) {
-        if (getID() == "disabled") std::cout << SIMTIME << " updateFurtherLanes \n";
         (*i)->resetPartialOccupation(this);
     }
     const MSLane* firstOldFurther = furtherLanes.size() > 0 ? furtherLanes.front() : 0;
@@ -1855,7 +1865,9 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<SU
             if (*i != firstOldFurther) {
                 furtherLanesPosLat.insert(furtherLanesPosLat.begin(), myState.myPosLat);
             }
-            if (getID() == "disabled") std::cout << SIMTIME << " updateFurtherLanes \n";
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) std::cout << SIMTIME << " updateFurtherLanes \n";
+#endif
             leftLength -= (*i)->setPartialOccupation(this);
             ++i;
         }
@@ -1864,17 +1876,31 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<SU
     assert(furtherLanesPosLat.size() >= furtherLanes.size());
     furtherLanesPosLat.erase(furtherLanesPosLat.begin() + furtherLanes.size(), furtherLanesPosLat.end());
     assert(furtherLanesPosLat.size() == furtherLanes.size());
-    if (getID() == "disabled") std::cout 
+#ifdef DEBUG_FURTHER
+    if (DEBUG_COND) std::cout 
         << " newFurther=" << toString(furtherLanes) 
             << " newFurtherPosLat=" << toString(furtherLanesPosLat) 
             << " newBackPos=" << result 
             << "\n";
+#endif
     return result;
 }
 
 
 SUMOReal 
 MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
+#ifdef DEBUG_FURTHER
+    //if (DEBUG_COND) std::cout << SIMTIME 
+    //    << " getBackPositionOnLane veh=" << getID() 
+    //    << " lane=" << Named::getIDSecure(lane) 
+    //    << " myLane=" << myLane->getID()
+    //    << " further=" << toString(myFurtherLanes)
+    //    << " furtherPosLat=" << toString(myFurtherLanesPosLat)
+    //    << " shadowLane=" << Named::getIDSecure(getLaneChangeModel().getShadowLane())
+    //    << " shadowFurther=" << toString(getLaneChangeModel().getShadowFurtherLanes())
+    //    << " shadowFurtherPosLat=" << toString(getLaneChangeModel().getShadowFurtherLanesPosLat())
+    //    << "\n";
+#endif
     if (lane == myLane 
             || lane == getLaneChangeModel().getShadowLane()) {
         if (getLaneChangeModel().isOpposite()) {
@@ -2240,11 +2266,15 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
         }
         if (lane != 0) {
-            if (getID() == "disabled") std::cout << SIMTIME << " enterLaneAtLaneChange \n";
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) std::cout << SIMTIME << " enterLaneAtLaneChange \n";
+#endif
             myFurtherLanes[i]->resetPartialOccupation(this);
             myFurtherLanes[i] = lane;
             myFurtherLanesPosLat[i] = myState.myPosLat;
-            if (getID() == "disabled") std::cout << SIMTIME << " enterLaneAtLaneChange \n";
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) std::cout << SIMTIME << " enterLaneAtLaneChange \n";
+#endif
             leftLength -= (lane)->setPartialOccupation(this);
         } else {
             // keep the old values, but ensure there is no shadow
@@ -2253,7 +2283,9 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             }
         }
     }
-    if (gDebugFlag4) std::cout << SIMTIME << " enterLaneAtLaneChange new furtherLanes=" << toString(myFurtherLanes) << "\n";
+#ifdef DEBUG_FURTHER
+    if (DEBUG_COND) std::cout << SIMTIME << " enterLaneAtLaneChange new furtherLanes=" << toString(myFurtherLanes) << "\n";
+#endif
     myAngle = computeAngle();
 }
 
@@ -2323,7 +2355,9 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
         // @note. In case of lane change, myFurtherLanes and partial occupation
         // are handled in enterLaneAtLaneChange()
         for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
-            if (getID() == "disabled") std::cout << SIMTIME << " leaveLane \n";
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) std::cout << SIMTIME << " leaveLane \n";
+#endif
             (*i)->resetPartialOccupation(this);
         }
         myFurtherLanes.clear();
@@ -2988,6 +3022,11 @@ MSVehicle::getCenterOnEdge(const MSLane* lane) const {
         assert(myFurtherLanes.size() == myFurtherLanesPosLat.size());
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
             if (myFurtherLanes[i] == lane) {
+#ifdef DEBUG_FURTHER
+                if (DEBUG_COND) std::cout << "    getCenterOnEdge veh=" << getID() << " lane=" << lane->getID() << " i=" << i << " furtherLat=" << myFurtherLanesPosLat[i] 
+                    << " result=" << lane->getRightSideOnEdge() + myFurtherLanesPosLat[i] + 0.5 * lane->getWidth()
+                    << "\n";
+#endif
                 return lane->getRightSideOnEdge() + myFurtherLanesPosLat[i] + 0.5 * lane->getWidth();
             }
         }
@@ -3015,15 +3054,28 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
     } else {
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
             if (myFurtherLanes[i] == lane) {
-                //if (DEBUG_COND) std::cout << "    getLatOffset veh=" << getID() << " lane=" << lane->getID() << " i=" << i << " posLat=" << myState.myPosLat << " furtherLat=" << myFurtherLanesPosLat[i] << "\n";
+#ifdef DEBUG_FURTHER
+                if (DEBUG_COND) std::cout << "    getLatOffset veh=" << getID() << " lane=" << lane->getID() << " i=" << i << " posLat=" << myState.myPosLat << " furtherLat=" << myFurtherLanesPosLat[i] << "\n";
+#endif
                 return myFurtherLanesPosLat[i] - myState.myPosLat;
             }
         }
-        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(getLaneChangeModel().getShadowFurtherLanes()) << "\n";
+#ifdef DEBUG_FURTHER
+        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(getLaneChangeModel().getShadowFurtherLanes()) << "\n";
+#endif
         const std::vector<MSLane*>& shadowFurther = getLaneChangeModel().getShadowFurtherLanes();
         for (int i = 0; i < (int)shadowFurther.size(); ++i) {
-            //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
             if (shadowFurther[i] == lane) {
+#ifdef DEBUG_FURTHER
+                if (DEBUG_COND) std::cout << "    getLatOffset veh=" << getID() 
+                    << " shadowLane=" << Named::getIDSecure(getLaneChangeModel().getShadowLane())
+                        << " lane=" << lane->getID() 
+                        << " i=" << i 
+                        << " posLat=" << myState.myPosLat 
+                        << " shadowPosLat=" << getLatOffset(getLaneChangeModel().getShadowLane())
+                        << " shadowFurtherLat=" << getLaneChangeModel().getShadowFurtherLanesPosLat()[i] 
+                        <<  "\n";
+#endif
                 return getLatOffset(getLaneChangeModel().getShadowLane()) + myState.myPosLat - getLaneChangeModel().getShadowFurtherLanesPosLat()[i];
             }
         }
