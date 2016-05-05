@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07/07/15 11:12:25 by SUMO marouter Version dev-SVN-r18530
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <route-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <flow-output value="routes.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="1" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="2" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="3" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="4" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="5" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="6" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="7" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="8" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="9" depart="0.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="10" depart="1.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+    <vehicle id="11" depart="2.79" type="DEFAULT_VEHTYPE" departLane="free" departSpeed="max">
+        <param key="from" value="1"/>
+        <param key="to" value="2"/>
+    </vehicle>
+</routes>
