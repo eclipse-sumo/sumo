@@ -305,6 +305,10 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         bool haveOutput = false;
         OutputDevice* dev = net.getRouteOutput();
         if (dev != 0) {
+            std::vector<std::string> tazParamKeys;
+            if (oc.isSet("taz-param")) {
+                tazParamKeys = oc.getStringVector("taz-param");
+            }
             int num = 0;
             for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
                 const ODCell* const c = *i;
@@ -332,6 +336,12 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                                 (*j)->writeXMLDefinition(*dev, 0, true, false);
                             }
                             dev->closeTag();
+                            if (!tazParamKeys.empty()) {
+                                dev->openTag(SUMO_TAG_PARAM).writeAttr(SUMO_ATTR_KEY, tazParamKeys[0]).writeAttr(SUMO_ATTR_VALUE, c->origin).closeTag();
+                                if (tazParamKeys.size() > 1) {
+                                    dev->openTag(SUMO_TAG_PARAM).writeAttr(SUMO_ATTR_KEY, tazParamKeys[1]).writeAttr(SUMO_ATTR_VALUE, c->destination).closeTag();
+                                }
+                            }
                             dev->closeTag();
                         }
                     }
