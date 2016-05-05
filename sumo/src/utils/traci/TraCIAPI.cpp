@@ -641,6 +641,7 @@ TraCIAPI::GUIScope::setBoundary(const std::string& viewID, SUMOReal xmin, SUMORe
 void
 TraCIAPI::GUIScope::screenshot(const std::string& viewID, const std::string& filename) const {
     tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
     content.writeString(filename);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_SCREENSHOT, viewID, content);
     tcpip::Storage inMsg;
@@ -650,6 +651,7 @@ TraCIAPI::GUIScope::screenshot(const std::string& viewID, const std::string& fil
 void
 TraCIAPI::GUIScope::trackVehicle(const std::string& viewID, const std::string& vehID) const {
     tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
     content.writeString(vehID);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_TRACK_VEHICLE, viewID, content);
     tcpip::Storage inMsg;
