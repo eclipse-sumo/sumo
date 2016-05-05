@@ -132,6 +132,9 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("weight-adaption", new Option_Float(0.));
     oc.addDescription("weight-adaption", "Input", "The travel time influence of prior intervals");
 
+    oc.doRegister("taz-param", new Option_String());
+    oc.addDescription("taz-param", "Input", "Parameter key(s) defining source (and sink) taz");
+
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");

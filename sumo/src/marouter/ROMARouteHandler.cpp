@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include <od/ODMatrix.h>
 #include "ROMARouteHandler.h"
@@ -46,6 +47,9 @@
 ROMARouteHandler::ROMARouteHandler(ODMatrix& matrix) :
     SUMOSAXHandler(""),
     myMatrix(matrix) {
+    if (OptionsCont::getOptions().isSet("taz-param")) {
+        myTazParamKeys = OptionsCont::getOptions().getStringVector("taz-param");
+    }
 }
 
 
@@ -57,9 +61,24 @@ void
 ROMARouteHandler::myStartElement(int element,
                                  const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
-        SUMOVehicleParameter* parameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
-        std::pair<const std::string, const std::string> od = std::make_pair(parameter->fromTaz, parameter->toTaz);
-        myMatrix.add(parameter->id, parameter->depart, od, parameter->vtypeid);
+        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+    } else if (element == SUMO_TAG_PARAM && !myTazParamKeys.empty()) {
+        if (attrs.getString(SUMO_ATTR_KEY) == myTazParamKeys[0]) {
+            myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_VALUE);
+        }
+        if (myTazParamKeys.size() > 1 && attrs.getString(SUMO_ATTR_KEY) == myTazParamKeys[1]) {
+            myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_VALUE);
+        }
+    }
+}
+
+
+void
+ROMARouteHandler::myEndElement(int element) {
+    if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
+        std::pair<const std::string, const std::string> od = std::make_pair(myVehicleParameter->fromTaz, myVehicleParameter->toTaz);
+        myMatrix.add(myVehicleParameter->id, myVehicleParameter->depart, od, myVehicleParameter->vtypeid);
+        delete myVehicleParameter;
     }
 }
 

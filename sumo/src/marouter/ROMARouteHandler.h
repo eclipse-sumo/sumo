@@ -71,12 +71,18 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+    void myEndElement(int element);
     //@}
 
 
-protected:
-    /// @brief The current route
+private:
+    /// @brief The matrix to fill
     ODMatrix& myMatrix;
+    /// @brief The keys for reading taz
+    std::vector<std::string> myTazParamKeys;
+    /// @brief The current vehicle parameters
+    SUMOVehicleParameter* myVehicleParameter;
 
 private:
     /// @brief Invalidated copy constructor
