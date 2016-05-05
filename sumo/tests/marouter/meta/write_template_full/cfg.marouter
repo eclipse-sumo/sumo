@@ -20,6 +20,7 @@
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <weight-adaption value="0" type="FLOAT" help="The travel time influence of prior intervals"/>
+        <taz-param value="" type="STR" help="Parameter key(s) defining source (and sink) taz"/>
     </input>
 
     <output>

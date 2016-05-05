@@ -48,6 +48,9 @@
         <!-- The travel time influence of prior intervals -->
         <weight-adaption value="0" type="FLOAT"/>
 
+        <!-- Parameter key(s) defining source (and sink) taz -->
+        <taz-param value="" type="STR"/>
+
     </input>
 
     <output>

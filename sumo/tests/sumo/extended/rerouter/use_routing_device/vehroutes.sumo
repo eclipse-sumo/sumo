@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 17 15:08:48 2016 by SUMO Version dev-SVN-r20230
+<!-- generated on Thu May  5 21:49:42 2016 by SUMO Version dev-SVN-r20655
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -38,6 +38,7 @@
             <route replacedOnEdge="" replacedAtTime="2.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.2" depart="8.00" arrival="215.00">
@@ -45,6 +46,7 @@
             <route replacedOnEdge="" replacedAtTime="5.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.3" depart="14.00" arrival="221.00">
@@ -52,6 +54,7 @@
             <route replacedOnEdge="" replacedAtTime="9.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.4" depart="16.00" arrival="223.00">
@@ -59,6 +62,7 @@
             <route replacedOnEdge="" replacedAtTime="9.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.5" depart="24.00" arrival="231.00">
@@ -66,6 +70,7 @@
             <route replacedOnEdge="" replacedAtTime="17.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.6" depart="26.00" arrival="233.00">
@@ -73,6 +78,7 @@
             <route replacedOnEdge="" replacedAtTime="17.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.7" depart="28.00" arrival="235.00">
@@ -80,6 +86,7 @@
             <route replacedOnEdge="" replacedAtTime="17.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.8" depart="30.00" arrival="239.00">
@@ -87,6 +94,7 @@
             <route replacedOnEdge="" replacedAtTime="17.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="rerouting_device.9" depart="38.00" arrival="245.00">
@@ -94,6 +102,7 @@
             <route replacedOnEdge="" replacedAtTime="31.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="obstruction" type="slow" depart="0.00" arrival="499.00">
@@ -105,6 +114,7 @@
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="no_device.0" depart="2.00" arrival="541.00">

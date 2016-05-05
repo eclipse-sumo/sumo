@@ -1,4 +1,4 @@
-SUMO marouter Version svn
+SUMO marouter Version dev-SVN-r20655
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -27,6 +27,8 @@ Input Options:
                                       edge weight
   --weight-adaption FLOAT           The travel time influence of prior
                                       intervals
+  --taz-param STR                   Parameter key(s) defining source (and sink)
+                                      taz
 
 Output Options:
   --output-prefix STR               Prefix which is applied to all output
