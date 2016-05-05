@@ -282,6 +282,12 @@ MSDevice_Vehroutes::generateOutput() const {
             od.closeTag();
         }
     }
+    for (std::map<std::string, std::string>::const_iterator j = myHolder.getParameter().getMap().begin(); j != myHolder.getParameter().getMap().end(); ++j) {
+        od.openTag(SUMO_TAG_PARAM);
+        od.writeAttr(SUMO_ATTR_KEY, (*j).first);
+        od.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+        od.closeTag();
+    }
     od.closeTag();
     od.lf();
     if (mySorted) {
