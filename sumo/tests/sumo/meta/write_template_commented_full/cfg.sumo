@@ -409,7 +409,7 @@
         <meso-taujf value="2" type="TIME"/>
 
         <!-- Factor for calculating the jam-jam headway time -->
-        <meso-taujj value="2" type="TIME"/>
+        <meso-taujj value="1.4" type="TIME"/>
 
         <!-- Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default) -->
         <meso-jam-threshold value="-1" type="FLOAT"/>
