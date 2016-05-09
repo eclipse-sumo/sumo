@@ -225,7 +225,8 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool che
     if (check && !hasValidRoute(msg, newRoute)) {
         WRITE_WARNING("Invalid route replacement for vehicle '" + getID() + "'. " + msg);
         if (MSGlobals::gCheckRoutes) {
-            delete newRoute;
+            newRoute->addReference();
+            newRoute->release();
             return false;
         }
     }
