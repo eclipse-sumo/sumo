@@ -297,13 +297,13 @@ main(int argc, char** argv) {
             } else {
                 const std::string path = sumoPath + std::string("/data/typemap/");
                 if (oc.isSet("dlr-navteq-poly-files")) {
-                    oc.set("type-file", path + "navteqPolyconvert.typ.xml");
+                    oc.setDefault("type-file", path + "navteqPolyconvert.typ.xml");
                 }
                 if (oc.isSet("osm-files")) {
-                    oc.set("type-file", path + "osmPolyconvert.typ.xml");
+                    oc.setDefault("type-file", path + "osmPolyconvert.typ.xml");
                 }
                 if (oc.isSet("visum-files")) {
-                    oc.set("type-file", path + "visumPolyconvert.typ.xml");
+                    oc.setDefault("type-file", path + "visumPolyconvert.typ.xml");
                 }
             }
         }
