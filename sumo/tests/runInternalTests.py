@@ -71,7 +71,7 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False):
     except:
         pass
     if guiTests:
-        apps = "sumo.gui"
+        apps += "sumo.meso.gui"
     subprocess.call("%s %s -a %s" % (ttBin, args, apps), env=os.environ,
                     stdout=out, stderr=out, shell=True)
 

@@ -92,12 +92,12 @@ def runTests(options, env, testLog, svnrev):
                (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
-        runInternalTests.runInternal("", fullOpt, log, console=True)
+        runInternalTests.runInternal("", fullOpt, log, True, True)
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-    subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
-                    stdout=log, stderr=subprocess.STDOUT, shell=True)
+        subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
+                        stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
