@@ -1,11 +1,10 @@
-# Generated on Wed May  4 12:12:29 2016 by SUMO netconvert Version dev-SVN-r20635
+# Generated on Mon May  9 10:46:38 2016 by SUMO netconvert Version dev-SVN-r20660
 # Format matches Extraction version: V6.0 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
 # <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 # 
 #     <input>
-#         <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml"/>
 #         <osm-files value="osm.xml"/>
 #     </input>
 # 
