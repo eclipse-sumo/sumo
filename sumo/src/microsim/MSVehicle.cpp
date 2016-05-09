@@ -1027,9 +1027,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 myAmRegisteredAsWaitingForContainer = true;
             }
             stop.duration -= DELTA_T;
-
-            // decelerate
-            return getCarFollowModel().stopSpeed(this, getSpeed(), stop.endPos - myState.pos());
+            return 0;
         }
     } else {
         // is the next stop on the current lane?
