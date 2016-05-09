@@ -7,10 +7,16 @@
         <additional-files value="input_routes.rou.xml"/>
     </input>
 
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
     <report>
         <no-step-log value="true"/>
     </report>
 
-        <step-length value="0.1"/>
+    <gui_only>
         <gui-settings-file value="settings.xml"/>
+    </gui_only>
+
 </configuration>
