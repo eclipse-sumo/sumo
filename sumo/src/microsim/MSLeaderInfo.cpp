@@ -142,7 +142,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, SUMOReal latOffset, int& rightmo
 const MSVehicle*
 MSLeaderInfo::operator[](int sublane) const {
     assert(sublane >= 0);
-    assert(sublane < myVehicles.size());
+    assert(sublane < (int)myVehicles.size());
     return myVehicles[sublane];
 }
 
@@ -241,7 +241,7 @@ MSLeaderDistanceInfo::clear() {
 CLeaderDist
 MSLeaderDistanceInfo::operator[](int sublane) const {
     assert(sublane >= 0);
-    assert(sublane < myVehicles.size());
+    assert(sublane < (int)myVehicles.size());
     return std::make_pair(myVehicles[sublane], myDistances[sublane]);
 }
 

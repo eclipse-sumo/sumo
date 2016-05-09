@@ -6,6 +6,7 @@
 namespace PHEMlightdll {
 
     CEP::CEP(bool heavyVehicle, double vehicleMass, double vehicleLoading, double vehicleMassRot, double crossArea, double cWValue, double f0, double f1, double f2, double f3, double f4, double axleRatio, std::vector<double>& transmissionGearRatios, double auxPower, double ratedPower, double engineIdlingSpeed, double engineRatedSpeed, double effictiveWheelDiameter, double pNormV0, double pNormP0, double pNormV1, double pNormP1, const std::string& vehicelFuelType, std::vector<std::vector<double> >& matrixFC, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<std::vector<double> >& matrixSpeedRotational, std::vector<std::vector<double> >& normedDragTable, double idlingFC, std::vector<double>& idlingPollutants) {
+        transmissionGearRatios.size(); // just to make the compiler happy about the unused parameter
         InitializeInstanceFields();
         _resistanceF0 = f0;
         _resistanceF1 = f1;
@@ -113,7 +114,7 @@ namespace PHEMlightdll {
         int headerCount = (int)headerLinePollutants.size();
         for (int i = 0; i < (int)matrixPollutants.size(); i++) {
             for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
-                if (matrixPollutants[i].size() != headerCount + 1) {
+                if ((int)matrixPollutants[i].size() != headerCount + 1) {
                     return;
                 }
 
