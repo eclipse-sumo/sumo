@@ -82,11 +82,14 @@
 
     <xsd:complexType name="processingType">
         <xsd:all>
+            <xsd:element name="lateral-resolution" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-junction-blocker" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="ignore-accidents" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-route-errors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-accidents" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="collision.action" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="collision.check-junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport" type="timeOptionType" minOccurs="0"/>

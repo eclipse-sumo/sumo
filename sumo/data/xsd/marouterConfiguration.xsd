@@ -28,6 +28,7 @@
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weight-adaption" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="taz-param" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
