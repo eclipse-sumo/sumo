@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May  9 13:58:38 2016 by SUMO Version dev-SVN-r20661
+<!-- generated on Mon May  9 16:38:29 2016 by SUMO Version dev-SVN-r20666
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_end_0" departPos="130.50" departSpeed="0.00" departDelay="0.00" arrival="74.00" arrivalLane="end2_0" arrivalPos="198.55" arrivalSpeed="13.26" duration="74.00" routeLength="214.75" waitSteps="50" timeLoss="57.73" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_end_0" departPos="130.50" departSpeed="0.00" departDelay="0.00" arrival="74.00" arrivalLane="end2_0" arrivalPos="198.55" arrivalSpeed="13.26" duration="74.00" routeLength="214.75" waitSteps="0" timeLoss="6.76" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_end_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="76.00" arrivalLane="end2_0" arrivalPos="198.55" arrivalSpeed="13.44" duration="76.00" routeLength="245.25" waitSteps="47" timeLoss="57.79" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
