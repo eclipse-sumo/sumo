@@ -916,9 +916,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 
 
 SUMOReal
-GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s) const {
+GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, SUMOReal factor) const {
     /// @note should look normal-sized at zoom 1000
-    return (constantSize && !s.drawForSelecting) ? MAX2((SUMOReal)exaggeration, exaggeration * 20 / s.scale) : exaggeration;
+    return (constantSize && !s.drawForSelecting) ? MAX2((SUMOReal)exaggeration, exaggeration * factor / s.scale) : exaggeration;
 }
 
 /****************************************************************************/

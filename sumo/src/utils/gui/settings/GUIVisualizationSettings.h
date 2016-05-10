@@ -106,7 +106,7 @@ struct GUIVisualizationSizeSettings {
     }
 
     /// @brief return the drawing size including exaggeration and constantSize values
-    SUMOReal getExaggeration(const GUIVisualizationSettings& s) const;
+    SUMOReal getExaggeration(const GUIVisualizationSettings& s, SUMOReal factor=20) const;
 };
 
 

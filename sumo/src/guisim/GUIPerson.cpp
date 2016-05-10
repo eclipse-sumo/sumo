@@ -255,7 +255,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     // set person color
     setColor(s);
     // scale
-    const SUMOReal upscale = s.personSize.getExaggeration(s);
+    const SUMOReal upscale = s.personSize.getExaggeration(s, 80);
     glScaled(upscale, upscale, 1);
     switch (s.personQuality) {
         case 0:
