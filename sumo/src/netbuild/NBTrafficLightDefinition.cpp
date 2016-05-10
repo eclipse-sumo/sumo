@@ -470,7 +470,8 @@ NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
     if (!myRightOnRedConflictsReady) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
         dummy.setParticipantsInformation();
-        dummy.computeLogicAndConts(0, true);
+        NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
+        delete tllDummy;
         myRightOnRedConflicts = dummy.myRightOnRedConflicts;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
             (*i)->removeTrafficLight(&dummy);

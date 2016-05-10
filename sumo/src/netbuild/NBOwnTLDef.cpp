@@ -563,7 +563,8 @@ NBOwnTLDef::initNeedsContRelation() const {
         myNeedsContRelation.clear();
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
         dummy.setParticipantsInformation();
-        dummy.computeLogicAndConts(0, true);
+        NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
+        delete tllDummy;
         myNeedsContRelation = dummy.myNeedsContRelation;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
             (*i)->removeTrafficLight(&dummy);
