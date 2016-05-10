@@ -442,6 +442,9 @@ public:
         return myFoeLanes;
     }
 
+    /// @brief initialize parallel links (to be called after all links are loaded)
+    void initParallelLinks();
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(SUMOReal leaderSpeed, SUMOReal followerSpeed, SUMOReal leaderDecel, SUMOReal followerDecel) {

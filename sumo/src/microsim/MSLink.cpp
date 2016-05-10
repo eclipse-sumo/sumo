@@ -80,8 +80,8 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState 
     myAmCont(false),
     myKeepClear(keepClear),
     myMesoTLSPenalty(0),
-    myParallelRight(computeParallelLink(-1)),
-    myParallelLeft(computeParallelLink(1)), 
+    myParallelRight(0),
+    myParallelLeft(0), 
     myJunction(0)
 #else
 MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic* logic, int tlIndex) :
@@ -98,10 +98,10 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myAmCont(false),
     myKeepClear(keepClear),
     myInternalLane(via),
-    myMesoTLSPenalty(0),
     myInternalLaneBefore(0),
-    myParallelLeft(computeParallelLink(1)), 
-    myParallelRight(computeParallelLink(-1)),
+    myMesoTLSPenalty(0),
+    myParallelRight(0),
+    myParallelLeft(0), 
     myJunction(0)
 #endif
 {}
@@ -830,6 +830,12 @@ MSLink::couldBrakeForLeader(SUMOReal followDist, SUMOReal leaderDist, const MSVe
                followDist - leaderDist > follow->getSpeed() - follow->getCarFollowModel().getMaxDecel() - leader->getSpeed());
 }
 
+
+void 
+MSLink::initParallelLinks() {
+    myParallelRight = computeParallelLink(-1);
+    myParallelLeft = computeParallelLink(1); 
+}
 
 /****************************************************************************/
 

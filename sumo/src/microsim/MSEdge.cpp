@@ -169,6 +169,7 @@ MSEdge::closeBuilding() {
         myAllowed[0]->push_back(*i);
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
+            (*j)->initParallelLinks();
             MSLane* toL = (*j)->getLane();
             if (toL != 0) {
                 MSEdge& to = toL->getEdge();
