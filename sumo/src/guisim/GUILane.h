@@ -301,7 +301,7 @@ private:
     /// The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
 
-    /// @brief the meso segment index for each geometry segment 
+    /// @brief the meso segment index for each geometry segment
     std::vector<int> myShapeSegments;
 
     /// @brief Half of lane width, for speed-up

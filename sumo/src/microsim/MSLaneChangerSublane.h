@@ -78,7 +78,7 @@ protected:
     bool startChangeSublane(MSVehicle* vehicle, ChangerIt& from, SUMOReal latDist);
 
     /// @brief get leaders for ego on the given lane
-    MSLeaderDistanceInfo getLeaders(const ChangerIt& target, const MSVehicle* ego) const; 
+    MSLeaderDistanceInfo getLeaders(const ChangerIt& target, const MSVehicle* ego) const;
 
     typedef MSAbstractLaneChangeModel::StateAndDist StateAndDist;
     /// @brief helper function that calls checkChangeSublane and sets blocker information

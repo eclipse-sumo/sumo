@@ -129,10 +129,10 @@ protected:
      * @param[in] lane The lane the charging station is placed on
      * @param[in] frompos Begin position of the charging station on the lane
      * @param[in] topos End position of the charging station on the lane
-	 * @param[in] chargingPower energy charged in every timeStep
-	 * @param[in] efficiency efficiency of the charge
-	 * @param[in] chargeInTransit enable or disable charge in transit
-	 * @param[in] chargeDelay delay in the charge
+     * @param[in] chargingPower energy charged in every timeStep
+     * @param[in] efficiency efficiency of the charge
+     * @param[in] chargeInTransit enable or disable charge in transit
+     * @param[in] chargeDelay delay in the charge
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,

@@ -358,7 +358,7 @@ NLTriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id,
 
 
 void
-NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos, 
+NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos,
                                        SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int ChargeDelay) {
     MSChargingStation* chargingStation = new MSChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, ChargeDelay);
 

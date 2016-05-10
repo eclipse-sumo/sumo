@@ -152,7 +152,7 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     // f(myHeadwayCapacity) = myTau_jj & myHeadwayCapacity
 
     const SUMOReal n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
-    // solving f(x) = a * x + b 
+    // solving f(x) = a * x + b
     myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(myTau_jf)) / (myHeadwayCapacity - n_jam_threshold);
     myB = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - myA);
 

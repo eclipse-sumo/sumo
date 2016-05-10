@@ -302,7 +302,7 @@ MSInsertionControl::descheduleDeparture(SUMOVehicle* veh) {
 
 void
 MSInsertionControl::alreadyDeparted(SUMOVehicle* veh) {
-    myPendingEmits.erase(std::remove(myPendingEmits.begin(), myPendingEmits.end(), veh), myPendingEmits.end() ); 
+    myPendingEmits.erase(std::remove(myPendingEmits.begin(), myPendingEmits.end(), veh), myPendingEmits.end());
     myAllVeh.remove(veh);
 }
 

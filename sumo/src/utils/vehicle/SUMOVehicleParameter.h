@@ -347,7 +347,7 @@ public:
      * @return Whether the given value is a valid departPos definition
      */
     static bool parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
-                               SUMOReal& pos, DepartPosLatDefinition& dpd, std::string& error);
+                                  SUMOReal& pos, DepartPosLatDefinition& dpd, std::string& error);
 
 
     /** @brief Validates a given departSpeed value

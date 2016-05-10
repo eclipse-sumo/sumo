@@ -1223,7 +1223,7 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
 }
 
 
-int 
+int
 NBNodeCont::mapToNumericalIDs() {
     IDSupplier idSupplier("", getAllNames());
     std::vector<NBNode*> toChange;

@@ -568,7 +568,7 @@ StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] 
     { "r",      LINKDIR_RIGHT },
     { "L",      LINKDIR_PARTLEFT },
     { "R",      LINKDIR_PARTRIGHT },
-    { "invalid",LINKDIR_NODIR }
+    { "invalid", LINKDIR_NODIR }
 };
 
 

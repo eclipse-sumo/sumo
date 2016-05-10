@@ -1089,7 +1089,7 @@ class Vessel():
                                                              xx_stroke, yy_stroke),
                                                          omega=omega,
                                                          scale_fraction=10)
-                    print ("here")
+                    print("here")
                     print 'xx, yy', xx, yy
                     print 'xx_stroke, yy_stroke', xx_stroke, yy_stroke
                     print trajectory
@@ -1621,13 +1621,13 @@ class AdAStar():
         #        print
         #        print self.iteration_step, 'open closed'
 
-        print (self.vessel,
-               self.current_node_copy.x_coord,
-               self.current_node_copy.y_coord,
-               self.current_node_copy.sector_id,
-               self.vessel.r,
-               self.vessel.r * math.pi
-               )
+        print(self.vessel,
+              self.current_node_copy.x_coord,
+              self.current_node_copy.y_coord,
+              self.current_node_copy.sector_id,
+              self.vessel.r,
+              self.vessel.r * math.pi
+              )
 
         # draw nodes in open and closed list
         self.draw_open_closed(step)

@@ -580,7 +580,7 @@ public:
         void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
         std::map<std::string, std::map<int, TraCIValue> > getSubscriptionResults();
         std::map<int, TraCIValue> getSubscriptionResults(const std::string& objID);
-       
+
     private:
         /// @brief invalidated copy constructor
         SimulationScope(const SimulationScope& src);
@@ -696,7 +696,7 @@ public:
             NextTLSData() {}
             /// @brief The id of the next tls
             std::string id;
-            /// @brief The tls index of the controlled link 
+            /// @brief The tls index of the controlled link
             int tlIndex;
             /// @brief The distance to the tls
             SUMOReal dist;
@@ -723,7 +723,7 @@ public:
         SUMOReal getWaitingTime(const std::string& vehicleID) const;
         std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
 
-        /* /// not yet implemented 
+        /* /// not yet implemented
         SUMOReal getCO2Emissions(const std::string& vehicleID) const;
         SUMOReal getCOEmissions(const std::string& vehicleID) const;
         SUMOReal getHCEmissions(const std::string& vehicleID) const;
@@ -748,27 +748,27 @@ public:
         SUMOReal getWidth(const std::string& vehicleID) const;
         */
 
-        void add(const std::string& vehicleID, 
-                const std::string& routeID, 
-                const std::string& typeID="DEFAULT_VEHTYPE", 
-                std::string depart="-1",
-                const std::string& departLane="first", 
-                const std::string& departPos ="base", 
-                const std::string& departSpeed="0", 
-                const std::string& arrivalLane="current", 
-                const std::string& arrivalPos="max", 
-                const std::string& arrivalSpeed="current",
-                const std::string& fromTaz="", 
-                const std::string& toTaz="", 
-                const std::string& line="", 
-                int personCapacity=0, 
-                int personNumber=0) const;
+        void add(const std::string& vehicleID,
+                 const std::string& routeID,
+                 const std::string& typeID = "DEFAULT_VEHTYPE",
+                 std::string depart = "-1",
+                 const std::string& departLane = "first",
+                 const std::string& departPos = "base",
+                 const std::string& departSpeed = "0",
+                 const std::string& arrivalLane = "current",
+                 const std::string& arrivalPos = "max",
+                 const std::string& arrivalSpeed = "current",
+                 const std::string& fromTaz = "",
+                 const std::string& toTaz = "",
+                 const std::string& line = "",
+                 int personCapacity = 0,
+                 int personNumber = 0) const;
 
         void moveTo(const std::string& vehicleID, const std::string& laneID, SUMOReal position) const;
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle, bool keepRoute) const;
         void slowDown(const std::string& vehicleID, SUMOReal speed, int duration) const;
         void setSpeed(const std::string& vehicleID, SUMOReal speed) const;
-        void remove(const std::string& vehicleID, char reason=REMOVE_VAPORIZED) const;
+        void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -881,7 +881,7 @@ protected:
     void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
     /// @}
 
-    void readSubscription(tcpip::Storage &inMsg);
+    void readSubscription(tcpip::Storage& inMsg);
 
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURACY) {

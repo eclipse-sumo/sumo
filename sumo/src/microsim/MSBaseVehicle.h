@@ -135,7 +135,7 @@ public:
         return true;
     }
 
-    /** @brief Returns the information whether the front of the vehhicle is on the given lane 
+    /** @brief Returns the information whether the front of the vehhicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */
     virtual bool isFrontOnLane(const MSLane*) const {
@@ -298,7 +298,7 @@ public:
      * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    bool hasValidRoute(std::string& msg, const MSRoute* route=0) const;
+    bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const;
 
     /** @brief Adds a MoveReminder dynamically
      *

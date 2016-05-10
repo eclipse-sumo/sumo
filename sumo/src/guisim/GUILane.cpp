@@ -536,7 +536,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     // draw sublane-borders
                     // XXX make configurable
                     GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
-                    for (SUMOReal offset=-myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
+                    for (SUMOReal offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
                         GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, offset);
                     }
                 }
@@ -1056,7 +1056,7 @@ GUILane::closeTraffic(bool rebuildAllowed) {
 }
 
 
-PositionVector 
+PositionVector
 GUILane::splitAtSegments(const PositionVector& shape) {
     assert(MSGlobals::gUseMesoSim);
     int no = MELoop::numSegmentsFor(myLength, OptionsCont::getOptions().getFloat("meso-edgelength"));

@@ -89,8 +89,8 @@ GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, SUMO
 }
 
 
-GUIChargingStation::~GUIChargingStation()
-{}
+GUIChargingStation::~GUIChargingStation() {
+}
 
 
 GUIParameterTableWindow*
@@ -134,21 +134,22 @@ GUIChargingStation::getCenteringBoundary() const {
 
 void
 GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
-	// Draw Charging Station
+    // Draw Charging Station
     glPushName(getGlID());
     glPushMatrix();
     RGBColor blue(114, 210, 252, 255);
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
-	RGBColor yellowCharge(255, 180, 0, 255);
+    RGBColor yellowCharge(255, 180, 0, 255);
 
     // draw the area depending if the vehicle is charging
     glTranslated(0, 0, getType());
-	
-    if(myChargingVehicle == true)
-		GLHelper::setColor(yellowCharge);
-    else
-		GLHelper::setColor(blue);
+
+    if (myChargingVehicle == true) {
+        GLHelper::setColor(yellowCharge);
+    } else {
+        GLHelper::setColor(blue);
+    }
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
 
@@ -176,7 +177,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Set polyfront scale to 1
         pfSetScale(1.f);
 
-         // traslate matrix
+        // traslate matrix
         glTranslated(1.2, 0, 0);
 
         // draw charging power

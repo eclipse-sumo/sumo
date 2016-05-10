@@ -312,7 +312,7 @@ protected:
 
     /// @brief Parameter, Pointer to current charging station in which vehicle is placed
     /// @condition by default is NULL.
-    MSChargingStation *myActChargingStation;
+    MSChargingStation* myActChargingStation;
 
     /// @brief Parameter, Energy charged in each timestep
     SUMOReal myEnergyCharged;

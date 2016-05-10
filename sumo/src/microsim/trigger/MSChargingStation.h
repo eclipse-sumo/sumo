@@ -58,8 +58,8 @@ class MSChargingStation : public MSStoppingPlace {
 public:
 
     /// @brief constructor
-    MSChargingStation(const std::string& chargingStationID, MSLane& lane, SUMOReal startPos, SUMOReal endPos, 
-		              SUMOReal chargingPower, SUMOReal efficency, bool chargeInTransit, int chargeDelay);
+    MSChargingStation(const std::string& chargingStationID, MSLane& lane, SUMOReal startPos, SUMOReal endPos,
+                      SUMOReal chargingPower, SUMOReal efficency, bool chargeInTransit, int chargeDelay);
 
     /// @brief destructor
     ~MSChargingStation();
@@ -88,7 +88,7 @@ public:
     /// @brief Set charge delay of the charging station
     void setChargeDelay(int chargeDelay);
 
-	/// @brief enable or disable charging vehicle
+    /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
 
     /** @brief Check if a vehicle is inside in  the Charge Station
@@ -97,8 +97,8 @@ public:
      */
     bool vehicleIsInside(const SUMOReal position) const;
 
-	/// @brief Return true if in the current time step charging station is charging a vehicle
-	bool isCharging() const;
+    /// @brief Return true if in the current time step charging station is charging a vehicle
+    bool isCharging() const;
 
 protected:
 
@@ -114,8 +114,8 @@ protected:
     /// @brief Charge Delay
     int myChargeDelay;
 
-	/// @brief Check if in the current TimeStep chargingStation is charging a vehicle
-	bool myChargingVehicle;
+    /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
+    bool myChargingVehicle;
 
 private:
 

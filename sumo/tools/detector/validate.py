@@ -123,7 +123,7 @@ if options.validation:
     print("simIn: %s simOut: %s" % (countIn, countOut))
 
 for det, vals in dets.iteritems():
-    print ("Plotting", det, 'totaldet', totals[det], 'totalSim', totalSim[det])
+    print("Plotting", det, 'totaldet', totals[det], 'totalSim', totalSim[det])
     plt.bar(*(zip(*vals)[:2]))  # select first and second entry (time and flow)
     if det in sims:
         plt.plot(*(zip(*sims[det])[:2]))

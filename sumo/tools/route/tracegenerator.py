@@ -59,7 +59,7 @@ if __name__ == "__main__":
         optParser.exit("missing input or output")
 
     if options.verbose:
-        print ("Reading net ...")
+        print("Reading net ...")
     net = sumolib.net.readNet(options.net)
     net2 = None
     if options.net2:
@@ -68,7 +68,7 @@ if __name__ == "__main__":
         net2.move(-net2.getLocationOffset()[0], -net2.getLocationOffset()[1])
 
     if options.verbose:
-        print ("Reading routes ...")
+        print("Reading routes ...")
 
     f = open(options.output, "w")
     for route in sumolib.output.parse_fast(options.routes, "vehicle", ["id", "edges"]):

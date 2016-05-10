@@ -310,10 +310,10 @@ public:
     }
 
     /// @brief return the direction in which the current shadow lane lies
-    int getShadowDirection() const; 
+    int getShadowDirection() const;
 
     /// @brief return the angle offset during a continuous change maneuver
-    SUMOReal getAngleOffset() const; 
+    SUMOReal getAngleOffset() const;
 
     /// @brief return the lateral speed of the current lane change maneuver
     inline SUMOReal getLateralSpeed() const {
@@ -366,8 +366,8 @@ public:
     void primaryLaneChanged(MSLane* source, MSLane* target, int direction);
 
     /// @brief set approach information for the shadow vehicle
-    void setShadowApproachingInformation(MSLink* link) const; 
-    void removeShadowApproachingInformation() const; 
+    void setShadowApproachingInformation(MSLink* link) const;
+    void removeShadowApproachingInformation() const;
 
     bool isOpposite() const {
         return myAmOpposite;

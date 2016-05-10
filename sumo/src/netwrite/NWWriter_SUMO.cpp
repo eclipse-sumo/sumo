@@ -219,7 +219,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 }
 
 
-std::string 
+std::string
 NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con) {
     const NBEdge::Lane& succ = con.toEdge->getLanes()[con.toLane];
     const NBEdge::Lane& pred = from->getLanes()[con.fromLane];
@@ -234,7 +234,7 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
             const NBEdge::Connection& conOpp = *it_c;
             if (succOpp != from && // turnaround
                     succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID &&
-                    predOpp == conOpp.toEdge && 
+                    predOpp == conOpp.toEdge &&
                     predOpp->getLaneID(conOpp.toLane) == pred.oppositeID) {
                 return conOpp.getInternalLaneID();
             }

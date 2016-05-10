@@ -23,11 +23,13 @@ from collections import defaultdict
 from sumolib.output import parse_fast
 from sumolib.miscutils import Statistics
 
+
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option("--subpart", help="Restrict counts to routes that contain the given consecutive edge sequence")
+    optParser.add_option(
+        "--subpart", help="Restrict counts to routes that contain the given consecutive edge sequence")
     options, args = optParser.parse_args()
     try:
         options.routefile, = args
@@ -39,16 +41,18 @@ def parse_args():
         options.subpart = options.subpart.split(',')
     return options
 
+
 def hasSubpart(edges, subpart):
     for i in range(len(edges)):
         if edges[i:i + len(subpart)] == subpart:
             return True
     return False
 
+
 def main():
     options = parse_args()
-    departCounts = defaultdict(lambda : 0)
-    arrivalCounts = defaultdict(lambda : 0)
+    departCounts = defaultdict(lambda: 0)
+    arrivalCounts = defaultdict(lambda: 0)
 
     for route in parse_fast(options.routefile, 'route', ['edges']):
         edges = route.edges.split()
@@ -62,7 +66,7 @@ def main():
             continue
         departCounts[edges[0]] += 1
         arrivalCounts[edges[-1]] += 1
-  
+
     # warn about potentially missing edges
     for trip in parse_fast(options.routefile, 'trip', ['id', 'fromTaz', 'toTaz']):
         if options.subpart is not None:
@@ -95,7 +99,7 @@ def main():
         allEdges.update(arrivalCounts.keys())
         for e in sorted(list(allEdges)):
             outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"/>\n' % (e,
-                departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e]))
+                                                                                          departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e]))
         outf.write("   </interval>\n")
         outf.write("</edgedata>\n")
 

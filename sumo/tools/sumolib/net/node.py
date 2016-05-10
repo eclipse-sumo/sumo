@@ -35,7 +35,6 @@ class Node:
         self._prohibits = {}
         self._incLanes = incLanes
         self._intLanes = intLanes
-        
 
     def getID(self):
         return self._id
@@ -51,7 +50,7 @@ class Node:
 
     def getIncoming(self):
         return self._incoming
-    
+
     def getInternal(self):
         return self._intLanes
 
@@ -86,7 +85,7 @@ class Node:
 
     def getType(self):
         return self._type
-    
+
     def getConnections(self, source=None, target=None):
         incoming = list(self.getIncoming())
         if source:
@@ -100,8 +99,7 @@ class Node:
                     for o in all_outgoing:
                         if o.getTo() == target:
                             outgoing.append(o)
-                else: 
+                else:
                     outgoing = all_outgoing
                 conns.extend(outgoing)
         return conns
-

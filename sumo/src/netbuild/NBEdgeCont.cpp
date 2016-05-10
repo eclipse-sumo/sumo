@@ -1091,7 +1091,7 @@ NBEdgeCont::guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed,
 }
 
 
-int 
+int
 NBEdgeCont::mapToNumericalIDs() {
     IDSupplier idSupplier("", getAllNames());
     EdgeVector toChange;

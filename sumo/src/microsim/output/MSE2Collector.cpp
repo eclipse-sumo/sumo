@@ -318,8 +318,8 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
         if ((*(*i)->firstStandingVehicle)->getLane() != myLane) {
             // vehicle is partial occupator, discount the length that is not on
             // this lane
-            jamLengthInMeters -= ((*(*i)->firstStandingVehicle)->getVehicleType().getLengthWithGap() - 
-                    (myLane->getLength() - (*(*i)->firstStandingVehicle)->getBackPositionOnLane(myLane)));
+            jamLengthInMeters -= ((*(*i)->firstStandingVehicle)->getVehicleType().getLengthWithGap() -
+                                  (myLane->getLength() - (*(*i)->firstStandingVehicle)->getBackPositionOnLane(myLane)));
         }
         unsigned jamLengthInVehicles = (unsigned) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics

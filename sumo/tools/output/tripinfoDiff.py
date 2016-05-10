@@ -47,7 +47,8 @@ def write_diff(orig, new, out, earliest_out=None):
                 arrivalDiff = float(v.arrival) - float(vOrig.arrival)
                 timeLossDiff = float(v.timeLoss) - float(vOrig.timeLoss)
                 durationDiff = float(v.duration) - float(vOrig.duration)
-                routeLengthDiff = float(v.routeLength) - float(vOrig.routeLength)
+                routeLengthDiff = float(v.routeLength) - \
+                    float(vOrig.routeLength)
 
                 durations.add(float(v.duration), v.id)
                 origDurations.add(float(vOrig.duration), v.id)

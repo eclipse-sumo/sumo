@@ -247,7 +247,7 @@ protected:
          * @param[in] c second order
          * @param[in] d third order
          */
-        OpenDriveElevation(SUMOReal _s, SUMOReal _a, SUMOReal _b, SUMOReal _c, SUMOReal _d) : 
+        OpenDriveElevation(SUMOReal _s, SUMOReal _a, SUMOReal _b, SUMOReal _c, SUMOReal _d) :
             s(_s), a(_a), b(_b), c(_c), d(_d) {}
 
         SUMOReal s;

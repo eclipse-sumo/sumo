@@ -58,8 +58,8 @@ def _readLeader(result):
 
 
 def _readNextTLS(result):
-    result.read("!iB")  # numCompounds, TYPE_INT 
-    numTLS = result.read("!i")[0] 
+    result.read("!iB")  # numCompounds, TYPE_INT
+    numTLS = result.read("!i")[0]
     nextTLS = []
     for i in range(numTLS):
         result.read("!B")
@@ -451,7 +451,6 @@ class VehicleDomain(Domain):
         Return list of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
-
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double) -> None
@@ -888,10 +887,11 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, x)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, y)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
-        self._connection._string += struct.pack("!BB", tc.TYPE_BYTE, (1 if keepRoute else 0))
+        self._connection._string += struct.pack(
+            "!BB", tc.TYPE_BYTE, (1 if keepRoute else 0))
         self._connection._sendExact()
 
-    moveToVTD = moveToXY # deprecated method name for backwards compatibility
+    moveToVTD = moveToXY  # deprecated method name for backwards compatibility
 
     def subscribe(self, objectID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
         """subscribe(string, list(integer), double, double) -> None

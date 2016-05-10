@@ -100,20 +100,20 @@ public:
     class AnyVehicleIterator {
     public:
         AnyVehicleIterator(
-                const MSLane* lane,
-                int i1,
-                int i2,
-                const int i1End,
-                const int i2End,
-                bool downstream=true) :
+            const MSLane* lane,
+            int i1,
+            int i2,
+            const int i1End,
+            const int i2End,
+            bool downstream = true) :
             myLane(lane),
             myI1(i1),
             myI2(i2),
             myI1End(i1End),
             myI2End(i2End),
             myDownstream(downstream),
-            myDirection(downstream ? 1 : -1)
-        {}
+            myDirection(downstream ? 1 : -1) {
+        }
 
         bool operator== (AnyVehicleIterator const& other) const {
             return (myI1 == other.myI1
@@ -126,7 +126,9 @@ public:
             return !(*this == other);
         }
 
-        const MSVehicle* operator->() { return **this; }
+        const MSVehicle* operator->() {
+            return **this;
+        }
 
         const MSVehicle* operator*();
 
@@ -150,7 +152,7 @@ public:
         /// @brief index delta
         int myDirection;
 
-    };            
+    };
 
 
 public:
@@ -296,7 +298,7 @@ public:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @param[in] posLat The lateral position at which the vehicle shall be inserted
      */
-    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos, MSMoveReminder::Notification notification, SUMOReal posLat=0);
+    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos, MSMoveReminder::Notification notification, SUMOReal posLat = 0);
     /// @}
 
 
@@ -310,7 +312,7 @@ public:
      * @param[in] v The vehicle which laps into this lane
      * @return This lane's length
      */
-    SUMOReal setPartialOccupation(MSVehicle* v); 
+    SUMOReal setPartialOccupation(MSVehicle* v);
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
@@ -327,10 +329,10 @@ public:
      * @param[in] allowCached Whether the cached value may be used
      * @return Information about the last vehicles
      */
-    const MSLeaderInfo& getLastVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, SUMOReal minPos=0, bool allowCached=true) const;
+    const MSLeaderInfo& getLastVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, SUMOReal minPos = 0, bool allowCached = true) const;
 
     /// @brief analogue to getLastVehicleInformation but in the upstream direction
-    const MSLeaderInfo& getFirstVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, bool onlyFrontOnLane, SUMOReal maxPos=std::numeric_limits<SUMOReal>::max(), bool allowCached=true) const;
+    const MSLeaderInfo& getFirstVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, bool onlyFrontOnLane, SUMOReal maxPos = std::numeric_limits<SUMOReal>::max(), bool allowCached = true) const;
 
     /// @}
 
@@ -434,7 +436,7 @@ public:
 
     /* @brief fit the given lane position to a visibly suitable geometry position
      * and return the coordinates */
-    inline const Position geometryPositionAtOffset(SUMOReal offset, SUMOReal lateralOffset=0) const {
+    inline const Position geometryPositionAtOffset(SUMOReal offset, SUMOReal lateralOffset = 0) const {
         return myShape.positionAtOffset(interpolateLanePosToGeometryPos(offset), lateralOffset);
     }
 
@@ -705,10 +707,10 @@ public:
 
     /// @brief return the follower with the largest missing rear gap among all predecessor lanes (within dist)
     std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(
-        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist=-1) const;
+        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist = -1) const;
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
-    MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const; 
+    MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const;
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
     SUMOReal getMissingRearGap(SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
@@ -725,7 +727,7 @@ public:
      * @param[in] checkTmpVehicles Whether myTmpVehicles should be used instead of myVehicles
      * @return
      */
-    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector<MSLane*>& bestLaneConts, SUMOReal dist=-1, bool checkTmpVehicles=false) const;
+    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector<MSLane*>& bestLaneConts, SUMOReal dist = -1, bool checkTmpVehicles = false) const;
 
     /** @brief Returns the immediate leader and the distance to him
      *
@@ -754,7 +756,7 @@ public:
 
     /// @brief Returns the immediate leaders and the distance to them (as getLeaderOnConsecutive but for the sublane case)
     void getLeadersOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle* ego,
-                const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const; 
+                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const;
 
     /** @brief Returns the most dangerous leader and the distance to him
      *
@@ -982,13 +984,13 @@ protected:
 
 
     /// @brief detect whether there is a collision between the two vehicles
-    bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim, 
-            std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const;
+    bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
+                                std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief take action upon collision
-    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim, 
-            SUMOReal gap, SUMOReal latGap,
-            std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const;
+    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
+                                SUMOReal gap, SUMOReal latGap,
+                                std::set<const MSVehicle*>& toRemove, std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief compute maximum braking distance on this lane
     SUMOReal getMaximumBrakeDist() const;
@@ -1017,7 +1019,7 @@ protected:
     int myIndex;
 
     /** @brief The lane's vehicles.
-        This container holds all vehicles that have their front (longitudinally) 
+        This container holds all vehicles that have their front (longitudinally)
         and their center (laterally) on this lane.
         These are the vehicles that this lane is 'responsibly' for (i.e. when executing movements)
 
@@ -1030,7 +1032,7 @@ protected:
     VehCont myVehicles;
 
     /** @brief The lane's partial vehicles.
-        This container holds all vehicles that are partially on this lane but which are 
+        This container holds all vehicles that are partially on this lane but which are
         in myVehicles of another lane.
         Reasons for partial occupancie include the following
         - the back is still on this lane during regular movement
@@ -1129,8 +1131,8 @@ private:
     public:
         /// @brief Constructor
         explicit vehicle_position_sorter(const MSLane* lane) :
-            myLane(lane)
-        { }
+            myLane(lane) {
+        }
 
 
         /** @brief Comparing operator
@@ -1152,8 +1154,8 @@ private:
     public:
         /// @brief Constructor
         explicit vehicle_natural_position_sorter(const MSLane* lane) :
-            myLane(lane)
-        { }
+            myLane(lane) {
+        }
 
 
         /** @brief Comparing operator

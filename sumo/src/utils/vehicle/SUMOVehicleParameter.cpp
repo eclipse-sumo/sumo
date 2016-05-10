@@ -379,7 +379,7 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
 
 bool
 SUMOVehicleParameter::parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
-                                     SUMOReal& pos, DepartPosLatDefinition& dpd, std::string& error) {
+                                        SUMOReal& pos, DepartPosLatDefinition& dpd, std::string& error) {
     bool ok = true;
     if (val == "random") {
         dpd = DEPART_POSLAT_RANDOM;

@@ -141,7 +141,7 @@ void MSEdge::recalcCache() {
     myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
 
     if (MSGlobals::gMesoTLSPenalty > 0) {
-        // add tls penalties to the minimum travel time 
+        // add tls penalties to the minimum travel time
         SUMOTime minPenalty = -1;
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             MSLane* l = *i;
@@ -206,7 +206,7 @@ MSEdge::closeBuilding() {
 }
 
 
-void 
+void
 MSEdge::buildLaneChanger() {
     if (!myLanes->empty()) {
         const bool allowSwap = OptionsCont::getOptions().getBool("lanechange.allow-swap");
@@ -218,14 +218,14 @@ MSEdge::buildLaneChanger() {
             if (MSGlobals::gLaneChangeDuration > 0) {
                 myLaneChanger = new MSLaneChanger(myLanes, allowChanging, allowSwap);
             } else if (myLanes->size() > 1 || canChangeToOpposite()) {
-                myLaneChanger = new MSLaneChanger(myLanes, allowChanging, allowSwap); 
+                myLaneChanger = new MSLaneChanger(myLanes, allowChanging, allowSwap);
             }
         }
     }
 }
 
 
-bool 
+bool
 MSEdge::allowsLaneChanging() {
     if (myFunction == EDGEFUNCTION_INTERNAL) {
         // allow changing only if all links leading to this internal lane have priority
@@ -243,7 +243,7 @@ MSEdge::allowsLaneChanging() {
                 return false;
             }
         }
-    } 
+    }
     return true;
 }
 
@@ -838,7 +838,7 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
 }
 
 
-bool 
+bool
 MSEdge::canChangeToOpposite() {
     return !myLanes->empty() && myLanes->back()->getOpposite() != 0;
 }

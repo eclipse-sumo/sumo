@@ -60,12 +60,12 @@ if not options.output or not options.net1 or not options.net2:
 
 # read networks
 if options.verbose:
-    print ("Reading net#1...")
+    print("Reading net#1...")
 net1 = sumolib.net.readNet(options.net1)
 net1.move(-net1.getLocationOffset()[0], -net1.getLocationOffset()[1])
 
 if options.verbose:
-    print ("Reading net#2...")
+    print("Reading net#2...")
 net2 = sumolib.net.readNet(options.net2)
 net2.move(-net2.getLocationOffset()[0], -net2.getLocationOffset()[1])
 

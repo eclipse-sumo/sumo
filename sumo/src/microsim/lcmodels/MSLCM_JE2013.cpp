@@ -109,16 +109,15 @@ MSLCM_JE2013::MSLCM_JE2013(MSVehicle& v) :
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
-    myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam))
-{
+    myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)) {
     if (DEBUG_COND) {
-        std::cout << SIMTIME 
-            << " create lcModel veh=" << myVehicle.getID()
-            << " lcStrategic=" << myStrategicParam
-            << " lcCooperative=" << myCooperativeParam
-            << " lcSpeedGain=" << mySpeedGainParam
-            << " lcKeepRight=" << myKeepRightParam
-            << "\n";
+        std::cout << SIMTIME
+                  << " create lcModel veh=" << myVehicle.getID()
+                  << " lcStrategic=" << myStrategicParam
+                  << " lcCooperative=" << myCooperativeParam
+                  << " lcSpeedGain=" << mySpeedGainParam
+                  << " lcKeepRight=" << myKeepRightParam
+                  << "\n";
     }
 }
 
@@ -127,7 +126,7 @@ MSLCM_JE2013::~MSLCM_JE2013() {
 }
 
 
-bool 
+bool
 MSLCM_JE2013::debugVehicle() const {
     return DEBUG_COND;
 }
@@ -1009,9 +1008,9 @@ MSLCM_JE2013::_wantsChange(
     //        << " currentDist=" << currentDist
     //        << "\n";
     //}
-    const SUMOReal inconvenience = MIN2((SUMOReal)1.0, (laneOffset < 0 
-            ? mySpeedGainProbability / myChangeProbThresholdRight 
-            : -mySpeedGainProbability / myChangeProbThresholdLeft));
+    const SUMOReal inconvenience = MIN2((SUMOReal)1.0, (laneOffset < 0
+                                        ? mySpeedGainProbability / myChangeProbThresholdRight
+                                        : -mySpeedGainProbability / myChangeProbThresholdLeft));
     if (amBlockingFollowerPlusNB()
             && (inconvenience <= myCooperativeParam)
             //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
@@ -1049,9 +1048,9 @@ MSLCM_JE2013::_wantsChange(
 
     // followSpeed returns the speed after accelerating for TS but we are
     // interested in the speed after 1s
-    const SUMOReal correctedSpeed = (myVehicle.getSpeed() 
-            + myVehicle.getCarFollowModel().getMaxAccel() 
-            - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
+    const SUMOReal correctedSpeed = (myVehicle.getSpeed()
+                                     + myVehicle.getCarFollowModel().getMaxAccel()
+                                     - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
 
     SUMOReal thisLaneVSafe = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     SUMOReal neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);

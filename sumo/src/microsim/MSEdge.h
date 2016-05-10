@@ -810,7 +810,7 @@ protected:
 
     /// @brief the priority of the edge (used during network creation)
     const int myPriority;
-    
+
     /// Edge width [m]
     SUMOReal myWidth;
 

@@ -78,10 +78,10 @@ public:
      * @param[in] lane The lane the charging station is placed on
      * @param[in] frompos Begin position of the charging station on the lane
      * @param[in] topos End position of the charging station on the lane
-	 * @param[in] chargingPower energy charged in every timeStep
-	 * @param[in] efficiency efficiency of the charge
-	 * @param[in] chargeInTransit enable or disable charge in transit
-	 * @param[in] chargeDelay delay in the charge
+     * @param[in] chargingPower energy charged in every timeStep
+     * @param[in] efficiency efficiency of the charge
+     * @param[in] chargeInTransit enable or disable charge in transit
+     * @param[in] chargeDelay delay in the charge
      */
     GUIChargingStation(const std::string& id, MSLane& lane, SUMOReal frompos, SUMOReal topos,
                        SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay);

@@ -121,7 +121,8 @@ def sorter(idx):
             return 0
 
 
-optParser = optparse.OptionParser(usage="%prog <VISSIM_NETWORK> <test directory>")
+optParser = optparse.OptionParser(
+    usage="%prog <VISSIM_NETWORK> <test directory>")
 optParser.add_option(
     "-o", "--output", default="out", help="output filename prefix")
 optParser.add_option(

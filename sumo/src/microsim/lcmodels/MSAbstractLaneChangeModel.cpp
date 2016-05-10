@@ -121,7 +121,7 @@ MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
 }
 
 
-    
+
 bool
 MSAbstractLaneChangeModel::predInteraction(const std::pair<MSVehicle*, SUMOReal>& leader) {
     if (leader.first == 0) {
@@ -189,8 +189,10 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
     if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
         // initialize shadow lane
         const SUMOReal overlap = myVehicle.getLateralOverlap();
-        if (myVehicle.getID() == "disabled") std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << myVehicle.getLateralPositionOnLane() << " overlap=" << overlap << "\n";
-        if (overlap > NUMERICAL_EPS || 
+        if (myVehicle.getID() == "disabled") {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << myVehicle.getLateralPositionOnLane() << " overlap=" << overlap << "\n";
+        }
+        if (overlap > NUMERICAL_EPS ||
                 // "reserve" target lane even when there is no overlap yet
                 (isChangingLanes() && myLaneChangeCompletion < 0.5)) {
             const int shadowDirection = myVehicle.getLateralPositionOnLane() < 0 ? -1 : 1;
@@ -207,13 +209,16 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
 void
 MSAbstractLaneChangeModel::cleanupShadowLane() {
     if (myShadowLane != 0) {
-        if (myVehicle.getID() == "disabled") 
+        if (myVehicle.getID() == "disabled") {
             std::cout << SIMTIME << " cleanupShadowLane\n";
+        }
         myShadowLane->resetPartialOccupation(&myVehicle);
         myShadowLane = 0;
     }
     for (std::vector<MSLane*>::const_iterator it = myShadowFurtherLanes.begin(); it != myShadowFurtherLanes.end(); ++it) {
-        if (myVehicle.getID() == "disabled") std::cout << SIMTIME << " cleanupShadowLane2\n";
+        if (myVehicle.getID() == "disabled") {
+            std::cout << SIMTIME << " cleanupShadowLane2\n";
+        }
         (*it)->resetPartialOccupation(&myVehicle);
     }
     myShadowFurtherLanes.clear();
@@ -240,7 +245,9 @@ MSAbstractLaneChangeModel::initLastLaneChangeOffset(int dir) {
 void
 MSAbstractLaneChangeModel::updateShadowLane() {
     if (myShadowLane != 0) {
-        if (gDebugFlag4) std::cout << SIMTIME << " updateShadowLane\n";
+        if (gDebugFlag4) {
+            std::cout << SIMTIME << " updateShadowLane\n";
+        }
         myShadowLane->resetPartialOccupation(&myVehicle);
     }
     myShadowLane = getShadowLane(myVehicle.getLane());
@@ -265,21 +272,21 @@ MSAbstractLaneChangeModel::updateShadowLane() {
     } else {
         if (isChangingLanes() && myVehicle.getLateralOverlap() > NUMERICAL_EPS) {
             WRITE_WARNING("Vehicle '" + myVehicle.getID() + "' could not finish continuous lane change (lane disappeared) time=" +
-                    time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                          time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             endLaneChangeManeuver();
         }
     }
-    if (gDebugFlag4) std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID() 
-        << " newShadowLane=" << Named::getIDSecure(myShadowLane)
-        << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " passed=" << toString(passed)
-        << "\n";
+    if (gDebugFlag4) std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID()
+                                   << " newShadowLane=" << Named::getIDSecure(myShadowLane)
+                                   << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " passed=" << toString(passed)
+                                   << "\n";
     myVehicle.updateFurtherLanes(myShadowFurtherLanes, myShadowFurtherLanesPosLat, passed);
-    if (gDebugFlag4) std::cout 
-        << "\n   after:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << "\n";
+    if (gDebugFlag4) std::cout
+                << "\n   after:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << "\n";
 }
 
 
-int 
+int
 MSAbstractLaneChangeModel::getShadowDirection() const {
     if (isChangingLanes()) {
         if (pastMidpoint()) {
@@ -296,26 +303,26 @@ MSAbstractLaneChangeModel::getShadowDirection() const {
 }
 
 
-SUMOReal 
+SUMOReal
 MSAbstractLaneChangeModel::getAngleOffset() const {
     const SUMOReal angleOffset = 60 / STEPS2TIME(MSGlobals::gLaneChangeDuration) * (pastMidpoint() ? 1 - myLaneChangeCompletion : myLaneChangeCompletion);
     return myLaneChangeDirection * angleOffset;
 }
 
 
-SUMOTime 
+SUMOTime
 MSAbstractLaneChangeModel::remainingTime() const {
     return (SUMOTime)((1. - myLaneChangeCompletion) * MSGlobals::gLaneChangeDuration);
 }
 
 
-void 
+void
 MSAbstractLaneChangeModel::setShadowApproachingInformation(MSLink* link) const {
     //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " @=" << &myVehicle << " set shadow approaching=" << link->getViaLaneOrLane()->getID() << "\n";
     myApproachedByShadow.push_back(link);
 }
 
-void 
+void
 MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
     for (std::vector<MSLink*>::iterator it = myApproachedByShadow.begin(); it != myApproachedByShadow.end(); ++it) {
         //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " @=" << &myVehicle << " remove shadow approaching=" << (*it)->getViaLaneOrLane()->getID() << "\n";
@@ -325,7 +332,7 @@ MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
 }
 
 
-void 
+void
 MSAbstractLaneChangeModel::changedToOpposite() {
     myAmOpposite = !myAmOpposite;
     myAlreadyChanged = true;

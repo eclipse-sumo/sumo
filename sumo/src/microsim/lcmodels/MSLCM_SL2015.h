@@ -70,17 +70,17 @@ public:
      * This method gets the information about the surrounding vehicles
      * and whether another lane may be more preferable */
     int wantsChangeSublane(int laneOffset,
-            const MSLeaderDistanceInfo& leaders,
-            const MSLeaderDistanceInfo& followers,
-            const MSLeaderDistanceInfo& blockers,
-            const MSLeaderDistanceInfo& neighLeaders,
-            const MSLeaderDistanceInfo& neighFollowers,
-            const MSLeaderDistanceInfo& neighBlockers,
-            const MSLane& neighLane,
-            const std::vector<MSVehicle::LaneQ>& preb,
-            MSVehicle** lastBlocked,
-            MSVehicle** firstBlocked,
-            SUMOReal& latDist, int& blocked);
+                           const MSLeaderDistanceInfo& leaders,
+                           const MSLeaderDistanceInfo& followers,
+                           const MSLeaderDistanceInfo& blockers,
+                           const MSLeaderDistanceInfo& neighLeaders,
+                           const MSLeaderDistanceInfo& neighFollowers,
+                           const MSLeaderDistanceInfo& neighBlockers,
+                           const MSLane& neighLane,
+                           const std::vector<MSVehicle::LaneQ>& preb,
+                           MSVehicle** lastBlocked,
+                           MSVehicle** firstBlocked,
+                           SUMOReal& latDist, int& blocked);
 
     void* inform(void* info, MSVehicle* sender);
 
@@ -192,7 +192,7 @@ protected:
 
 
     /// @brief update expected speeds for each sublane of the current edge
-    void updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublaneOffset, int laneIndex); 
+    void updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublaneOffset, int laneIndex);
 
     /// @brief decide in which direction to move in case both directions are desirable
     StateAndDist decideDirection(StateAndDist sd1, StateAndDist sd2) const;
@@ -211,62 +211,62 @@ protected:
     /// @brief get the slowest vehicle in the given info
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
 
-    /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance 
+    /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance
     int checkBlocking(const MSLane& neighLane, SUMOReal& latDist, int laneOffset,
-                const MSLeaderDistanceInfo& leaders,
-                const MSLeaderDistanceInfo& followers,
-                const MSLeaderDistanceInfo& blockers,
-                const MSLeaderDistanceInfo& neighLeaders,
-                const MSLeaderDistanceInfo& neighFollowers,
-                const MSLeaderDistanceInfo& neighBlockers,
-                std::vector<CLeaderDist>* collectLeadBlockers = 0,
-                std::vector<CLeaderDist>* collectFollowBlockers = 0,
-                bool saveOriginalLatDist = true); 
+                      const MSLeaderDistanceInfo& leaders,
+                      const MSLeaderDistanceInfo& followers,
+                      const MSLeaderDistanceInfo& blockers,
+                      const MSLeaderDistanceInfo& neighLeaders,
+                      const MSLeaderDistanceInfo& neighFollowers,
+                      const MSLeaderDistanceInfo& neighBlockers,
+                      std::vector<CLeaderDist>* collectLeadBlockers = 0,
+                      std::vector<CLeaderDist>* collectFollowBlockers = 0,
+                      bool saveOriginalLatDist = true);
 
     /// @brief check whether any of the vehicles overlaps with ego
-    static int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles, 
-            SUMOReal latDist, SUMOReal foeOffset, bool leaders, LaneChangeAction blockType,
-            std::vector<CLeaderDist>* collectBlockers = 0); 
+    static int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
+                                     SUMOReal latDist, SUMOReal foeOffset, bool leaders, LaneChangeAction blockType,
+                                     std::vector<CLeaderDist>* collectBlockers = 0);
 
     /// @brief return whether the given intervals overlap
-    static bool overlap(SUMOReal right, SUMOReal left, SUMOReal right2, SUMOReal left2); 
+    static bool overlap(SUMOReal right, SUMOReal left, SUMOReal right2, SUMOReal left2);
 
     /// @brief compute lane change action from desired lateral distance
     static LaneChangeAction getLCA(int state, SUMOReal latDist);
 
     /// @brief compute strategic lane change actions
-    int checkStrategicChange(int ret, 
-            int laneOffset,
-            const std::vector<MSVehicle::LaneQ>& preb,
-            const MSLeaderDistanceInfo& leaders,
-            const MSLeaderDistanceInfo& neighLeaders,
-            int currIdx,
-            int bestLaneOffset,
-            bool changeToBest,
-            int lcaCounter,
-            SUMOReal currentDist,
-            SUMOReal neighDist,
-            SUMOReal laDist,
-            int roundaboutEdgesAhead
-            );
+    int checkStrategicChange(int ret,
+                             int laneOffset,
+                             const std::vector<MSVehicle::LaneQ>& preb,
+                             const MSLeaderDistanceInfo& leaders,
+                             const MSLeaderDistanceInfo& neighLeaders,
+                             int currIdx,
+                             int bestLaneOffset,
+                             bool changeToBest,
+                             int lcaCounter,
+                             SUMOReal currentDist,
+                             SUMOReal neighDist,
+                             SUMOReal laDist,
+                             int roundaboutEdgesAhead
+                            );
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
-    int keepLatGap(int state, 
-                const MSLeaderDistanceInfo& leaders,
-                const MSLeaderDistanceInfo& followers,
-                const MSLeaderDistanceInfo& blockers,
-                const MSLeaderDistanceInfo& neighLeaders,
-                const MSLeaderDistanceInfo& neighFollowers,
-                const MSLeaderDistanceInfo& neighBlockers,
-                const MSLane& neighLane,
-                int laneOffset, 
-                SUMOReal& latDist, 
-                int& blocked);
+    int keepLatGap(int state,
+                   const MSLeaderDistanceInfo& leaders,
+                   const MSLeaderDistanceInfo& followers,
+                   const MSLeaderDistanceInfo& blockers,
+                   const MSLeaderDistanceInfo& neighLeaders,
+                   const MSLeaderDistanceInfo& neighFollowers,
+                   const MSLeaderDistanceInfo& neighBlockers,
+                   const MSLane& neighLane,
+                   int laneOffset,
+                   SUMOReal& latDist,
+                   int& blocked);
 
 
     /// @brief check remaining lateral gaps for the given foe vehicles
-    void updateGaps(const MSLeaderDistanceInfo& others, SUMOReal foeOffset, SUMOReal newCenter, SUMOReal gapFactor, 
-            SUMOReal& surplusGapRight, SUMOReal& surplusGapLeft) const; 
+    void updateGaps(const MSLeaderDistanceInfo& others, SUMOReal foeOffset, SUMOReal newCenter, SUMOReal gapFactor,
+                    SUMOReal& surplusGapRight, SUMOReal& surplusGapLeft) const;
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
@@ -286,7 +286,7 @@ protected:
      * determining urgency of strategic lane changes */
     SUMOReal myLookAheadSpeed;
 
-    /// @brief speed adaptation requests by ego and surrounding vehicles 
+    /// @brief speed adaptation requests by ego and surrounding vehicles
     std::vector<SUMOReal> myVSafes;
 
     /// @brief expected travel speeds on all sublanes on the current edge(!)

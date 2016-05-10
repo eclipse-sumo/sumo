@@ -96,7 +96,7 @@ def quoted_str(s):
     elif type(s) != str:
         return str(s)
     elif '"' in s:
-        if os.name == "nt": 
+        if os.name == "nt":
             return s.replace('"', '\\"')
         else:
             return "'%s'" % s
@@ -204,7 +204,7 @@ class Builder(object):
                 else:
                     self.routenames.append(self.files["trips"])
 
-            # create a batch file for reproducing calls to randomTrips.py 
+            # create a batch file for reproducing calls to randomTrips.py
             randomTripsPath = os.path.join(
                 SUMO_HOME, "tools", "randomTrips.py")
             batchFile = "build.bat"
@@ -351,7 +351,8 @@ class OSMImporterWebSocket(WebSocket):
                 self.report("Recovering")
         os.chdir(builder.origDir)
 
-parser = ArgumentParser(description="OSM Web Wizard for SUMO - Websocket Server")
+parser = ArgumentParser(
+    description="OSM Web Wizard for SUMO - Websocket Server")
 parser.add_argument("--remote", action="store_true",
                     help="In remote mode, SUMO GUI will not be automatically opened instead a zip file will be generated.")
 parser.add_argument("--testing", action="store_true",

@@ -428,8 +428,7 @@ TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add)
     return c;
 }
 
-void TraCIAPI::readSubscription(tcpip::Storage &inMsg)
-{
+void TraCIAPI::readSubscription(tcpip::Storage& inMsg) {
     std::string objectID = inMsg.readString();
     int variableCount = inMsg.readUnsignedByte();
 
@@ -444,33 +443,32 @@ void TraCIAPI::readSubscription(tcpip::Storage &inMsg)
             TraCIValue v;
 
             switch (type) {
-            case TYPE_DOUBLE:
-                v.scalar = inMsg.readDouble();
-                break;
-            case TYPE_STRING:
-                v.string = inMsg.readString();
-                break;
-            case POSITION_3D:
-                v.position.x = inMsg.readDouble();
-                v.position.y = inMsg.readDouble();
-                v.position.z = inMsg.readDouble();
-                break;
-            case TYPE_COLOR:
-                v.color.r = inMsg.readUnsignedByte();
-                v.color.g = inMsg.readUnsignedByte();
-                v.color.b = inMsg.readUnsignedByte();
-                v.color.a = inMsg.readUnsignedByte();
-                break;
+                case TYPE_DOUBLE:
+                    v.scalar = inMsg.readDouble();
+                    break;
+                case TYPE_STRING:
+                    v.string = inMsg.readString();
+                    break;
+                case POSITION_3D:
+                    v.position.x = inMsg.readDouble();
+                    v.position.y = inMsg.readDouble();
+                    v.position.z = inMsg.readDouble();
+                    break;
+                case TYPE_COLOR:
+                    v.color.r = inMsg.readUnsignedByte();
+                    v.color.g = inMsg.readUnsignedByte();
+                    v.color.b = inMsg.readUnsignedByte();
+                    v.color.a = inMsg.readUnsignedByte();
+                    break;
 
-            // TODO Other data types
+                // TODO Other data types
 
-            default:
-                throw tcpip::SocketException("Unimplemented subscription type: " + toString(type));
+                default:
+                    throw tcpip::SocketException("Unimplemented subscription type: " + toString(type));
             }
 
             subscribedValues[objectID][variableID] = v;
-        }
-        else {
+        } else {
             throw tcpip::SocketException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
         }
 
@@ -483,11 +481,11 @@ TraCIAPI::simulationStep(SUMOTime time) {
     send_commandSimulationStep(time);
     tcpip::Storage inMsg;
     check_resultState(inMsg, CMD_SIMSTEP2);
-   
+
     subscribedValues.clear();
     int numSubs = inMsg.readInt();
     while (numSubs > 0) {
-        check_commandGetResult(inMsg, 0,-1,true);
+        check_commandGetResult(inMsg, 0, -1, true);
         readSubscription(inMsg);
         numSubs--;
     }
@@ -1337,8 +1335,7 @@ std::map<int, TraCIAPI::TraCIValue>
 TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) {
     if (myParent.subscribedValues.find(objID) != myParent.subscribedValues.end()) {
         return myParent.subscribedValues[objID];
-    }
-    else {
+    } else {
         throw; // Something?
     }
 }
@@ -1842,22 +1839,22 @@ TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
 }
 
 
-void 
-TraCIAPI::VehicleScope::add(const std::string& vehicleID, 
-        const std::string& routeID, 
-        const std::string& typeID, 
-        std::string depart,
-        const std::string& departLane, 
-        const std::string& departPos, 
-        const std::string& departSpeed, 
-        const std::string& arrivalLane,
-        const std::string& arrivalPos, 
-        const std::string& arrivalSpeed,
-        const std::string& fromTaz, 
-        const std::string& toTaz, 
-        const std::string& line, 
-        int personCapacity, 
-        int personNumber) const {
+void
+TraCIAPI::VehicleScope::add(const std::string& vehicleID,
+                            const std::string& routeID,
+                            const std::string& typeID,
+                            std::string depart,
+                            const std::string& departLane,
+                            const std::string& departPos,
+                            const std::string& departSpeed,
+                            const std::string& arrivalLane,
+                            const std::string& arrivalPos,
+                            const std::string& arrivalSpeed,
+                            const std::string& fromTaz,
+                            const std::string& toTaz,
+                            const std::string& line,
+                            int personCapacity,
+                            int personNumber) const {
 
     if (depart == "-1") {
         depart = toString(myParent.simulation.getCurrentTime() / 1000.0);
@@ -1903,7 +1900,7 @@ TraCIAPI::VehicleScope::add(const std::string& vehicleID,
 }
 
 
-void 
+void
 TraCIAPI::VehicleScope::remove(const std::string& vehicleID, char reason) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_BYTE);
@@ -1929,7 +1926,7 @@ TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& 
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
 
-void 
+void
 TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle, bool keepRoute) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);

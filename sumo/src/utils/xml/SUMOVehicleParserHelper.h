@@ -109,7 +109,7 @@ public:
                                    bool fromVType = false);
 
     /// @brief Parses lane change model attributes
-    static void parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs); 
+    static void parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs);
 
     /** @brief Closes parsing of the vehicle type
      * @return The resulting vehicle type parameter

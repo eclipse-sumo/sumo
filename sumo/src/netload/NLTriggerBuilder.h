@@ -223,7 +223,7 @@ protected:
      * @param[in] topos End position of the charging Station on the lane
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos, 
+    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos,
                                       SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int ChargeDelay);
 
     /** @brief builds a microscopic calibrator

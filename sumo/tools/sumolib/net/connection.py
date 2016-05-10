@@ -64,7 +64,7 @@ class Connection:
 
     def getToLane(self):
         return self._toLane
-    
+
     def getViaLaneID(self):
         return self._via
 
@@ -79,7 +79,7 @@ class Connection:
 
     def getJunctionIndex(self):
         return self._from.getToNode().getLinkIndex(self)
-    
+
     def getJunction(self):
         return self._from.getToNode()
 

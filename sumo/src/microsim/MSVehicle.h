@@ -122,7 +122,7 @@ public:
             return myPosLat;
         }
 
-        /// back Position of this state 
+        /// back Position of this state
         SUMOReal backPos() const {
             return myBackPos;
         }
@@ -384,21 +384,21 @@ public:
     SUMOReal getRightSideOnLane() const;
 
     /// @brief return the amount by which the vehicle extends laterally outside it's primary lane
-    SUMOReal getLateralOverlap() const; 
+    SUMOReal getLateralOverlap() const;
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
      * (or its current edge if lane == 0)
      * @return The lateral position of the vehicle (in m distance between right
      * side of vehicle and ride side of edge
      */
-    SUMOReal getRightSideOnEdge(const MSLane* lane=0) const;
+    SUMOReal getRightSideOnEdge(const MSLane* lane = 0) const;
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
      * (or its current edge if lane == 0)
      * @return The lateral position of the vehicle (in m distance between center
      * of vehicle and ride side of edge
      */
-    SUMOReal getCenterOnEdge(const MSLane* lane=0) const;
+    SUMOReal getCenterOnEdge(const MSLane* lane = 0) const;
 
     /** @brief Get the offset that that must be added to interpret
      * myState.myPosLat for the given lane
@@ -458,7 +458,7 @@ public:
     }
 
 
-    /** @brief Returns the information whether the front of the vehicle is on the given lane 
+    /** @brief Returns the information whether the front of the vehicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */
     bool isFrontOnLane(const MSLane* lane) const;
@@ -582,7 +582,7 @@ public:
      * all cfmodels work (some of them require veh->getLane() to return a valid lane)
      * Once the vehicle is sucessfully inserted the lane is set again (see enterLaneAtInsertion)
      */
-    void setTentativeLaneAndPosition(MSLane* lane, SUMOReal pos, SUMOReal posLat=0);
+    void setTentativeLaneAndPosition(MSLane* lane, SUMOReal pos, SUMOReal posLat = 0);
 
     /** @brief Update when the vehicle enters a new lane in the laneChange step.
      *
@@ -1076,9 +1076,9 @@ public:
 
 
     /// @brief update a vector of further lanes and return the new backPos
-    SUMOReal updateFurtherLanes(std::vector<MSLane*>& furtherLanes, 
-            std::vector<SUMOReal>& furtherLanesPosLat, 
-            const std::vector<MSLane*>& passedLanes); 
+    SUMOReal updateFurtherLanes(std::vector<MSLane*>& furtherLanes,
+                                std::vector<SUMOReal>& furtherLanesPosLat,
+                                const std::vector<MSLane*>& passedLanes);
 
     /// @brief get bounding rectangle
     PositionVector getBoundingBox() const;
@@ -1209,7 +1209,7 @@ public:
             return myOriginalSpeed;
         }
 
-        void setVTDControlled(MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t); 
+        void setVTDControlled(MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
 
         SUMOTime getLastAccessTimeStep() const {
             return myLastVTDAccess;
@@ -1288,7 +1288,7 @@ public:
      * @return Reference to this vehicle's speed influencer
      */
     Influencer& getInfluencer();
-    
+
     const Influencer* getInfluencer() const;
 
     bool hasInfluencer() const {
@@ -1528,9 +1528,9 @@ protected:
      * @param[in,out] the safe velocity for arriving at the next link
      */
     void adaptToLeaders(const MSLeaderInfo& ahead,
-                       SUMOReal latOffset,
-                       const SUMOReal seen, DriveProcessItem* const lastLink,
-                       const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass) const;
+                        SUMOReal latOffset,
+                        const SUMOReal seen, DriveProcessItem* const lastLink,
+                        const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass) const;
 
 
     // @brief return the lane on which the back of this vehicle resides

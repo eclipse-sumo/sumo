@@ -50,14 +50,13 @@
 // ===========================================================================
 // MSLeaderInfo member method definitions
 // ===========================================================================
-MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, SUMOReal latOffset) : 
+MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, SUMOReal latOffset) :
     myWidth(lane->getWidth()),
     myVehicles(MAX2(1, int(ceil(myWidth / MSGlobals::gLateralResolution))), (MSVehicle*)0),
     myFreeSublanes((int)myVehicles.size()),
     egoRightMost(-1),
     egoLeftMost(-1),
-    myHasVehicles(false)
-{ 
+    myHasVehicles(false) {
     if (ego != 0) {
         getSubLanes(ego, latOffset, egoRightMost, egoLeftMost);
         // filter out sublanes not of interest to ego
@@ -70,7 +69,7 @@ MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, SUMOReal la
 MSLeaderInfo::~MSLeaderInfo() { }
 
 
-int 
+int
 MSLeaderInfo::addLeader(const MSVehicle* veh, bool beyond, SUMOReal latOffset) {
     if (veh == 0) {
         return myFreeSublanes;
@@ -83,7 +82,7 @@ MSLeaderInfo::addLeader(const MSVehicle* veh, bool beyond, SUMOReal latOffset) {
             myHasVehicles = true;
         }
         return myFreeSublanes;
-    } 
+    }
     // map center-line based coordinates into [0, myWidth] coordinates
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
@@ -101,7 +100,7 @@ MSLeaderInfo::addLeader(const MSVehicle* veh, bool beyond, SUMOReal latOffset) {
 }
 
 
-void 
+void
 MSLeaderInfo::clear() {
     myVehicles.assign(myVehicles.size(), (MSVehicle*)0);
     myFreeSublanes = (int)myVehicles.size();
@@ -112,7 +111,7 @@ MSLeaderInfo::clear() {
 }
 
 
-void 
+void
 MSLeaderInfo::getSubLanes(const MSVehicle* veh, SUMOReal latOffset, int& rightmost, int& leftmost) const {
     if (myVehicles.size() == 1) {
         // speedup for the simple case
@@ -126,7 +125,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, SUMOReal latOffset, int& rightmo
     const SUMOReal rightVehSide = MAX2((SUMOReal)0,  vehCenter - vehHalfWidth);
     const SUMOReal leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
     rightmost = (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution);
-    leftmost = MIN2((int)myVehicles.size() - 1,(int)floor(leftVehSide / MSGlobals::gLateralResolution));
+    leftmost = MIN2((int)myVehicles.size() - 1, (int)floor(leftVehSide / MSGlobals::gLateralResolution));
     //if (veh->getID() == "car2") std::cout << SIMTIME << " veh=" << veh->getID()
     //    << std::setprecision(10)
     //    << " posLat=" << veh->getLateralPositionOnLane()
@@ -181,16 +180,16 @@ MSLeaderInfo::hasStoppedVehicle() const {
 // ===========================================================================
 
 
-MSLeaderDistanceInfo::MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, SUMOReal latOffset) : 
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, SUMOReal latOffset) :
     MSLeaderInfo(lane, ego, latOffset),
-    myDistances(myVehicles.size(), std::numeric_limits<SUMOReal>::max())
-{ }
+    myDistances(myVehicles.size(), std::numeric_limits<SUMOReal>::max()) {
+}
 
 
 MSLeaderDistanceInfo::~MSLeaderDistanceInfo() { }
 
 
-int 
+int
 MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, SUMOReal gap, SUMOReal latOffset, int sublane) {
     //if (SIMTIME == 31 && gDebugFlag1 && veh != 0 && veh->getID() == "cars.8") {
     //    std::cout << " BREAKPOINT\n";
@@ -231,7 +230,7 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, SUMOReal gap, SUMOReal lat
 }
 
 
-void 
+void
 MSLeaderDistanceInfo::clear() {
     MSLeaderInfo::clear();
     myDistances.assign(myVehicles.size(), std::numeric_limits<SUMOReal>::max());
@@ -272,16 +271,16 @@ MSLeaderDistanceInfo::toString() const {
 // ===========================================================================
 
 
-MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, SUMOReal latOffset) : 
+MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, SUMOReal latOffset) :
     MSLeaderDistanceInfo(lane, ego, latOffset),
-    myMissingGaps(myVehicles.size(), -std::numeric_limits<SUMOReal>::max())
-{ }
+    myMissingGaps(myVehicles.size(), -std::numeric_limits<SUMOReal>::max()) {
+}
 
 
 MSCriticalFollowerDistanceInfo::~MSCriticalFollowerDistanceInfo() { }
 
 
-int 
+int
 MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicle* ego, SUMOReal gap, SUMOReal latOffset, int sublane) {
     if (veh == 0) {
         return myFreeSublanes;
@@ -289,16 +288,16 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     const SUMOReal requiredGap = veh->getCarFollowModel().getSecureGap(veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
     const SUMOReal missingGap = requiredGap - gap;
     //if (gDebugFlag1) {
-    //    std::cout << "   addFollower veh=" << veh->getID() 
-    //        << " ego=" << ego->getID() 
-    //        << " gap=" << gap 
-    //        << " reqGap=" << requiredGap 
-    //        << " missingGap=" << missingGap 
-    //        << " latOffset=" << latOffset 
-    //        << " sublane=" << sublane 
+    //    std::cout << "   addFollower veh=" << veh->getID()
+    //        << " ego=" << ego->getID()
+    //        << " gap=" << gap
+    //        << " reqGap=" << requiredGap
+    //        << " missingGap=" << missingGap
+    //        << " latOffset=" << latOffset
+    //        << " sublane=" << sublane
     //        << "\n";
     //    if (sublane > 0) {
-    //        std::cout 
+    //        std::cout
     //            << "        dists[s]=" << myDistances[sublane]
     //            << " gaps[s]=" << myMissingGaps[sublane]
     //            << "\n";
@@ -307,7 +306,7 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     if (myVehicles.size() == 1) {
         // speedup for the simple case
         sublane = 0;
-    } 
+    }
     if (sublane >= 0) {
         // sublane is already given
         if (missingGap > myMissingGaps[sublane]) {
@@ -339,7 +338,7 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
 }
 
 
-void 
+void
 MSCriticalFollowerDistanceInfo::clear() {
     MSLeaderDistanceInfo::clear();
     myMissingGaps.assign(myVehicles.size(), -std::numeric_limits<SUMOReal>::max());

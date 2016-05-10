@@ -386,7 +386,7 @@ MSVehicleControl::getQuota(SUMOReal frac) const {
     return base;
 }
 
-unsigned int 
+unsigned int
 MSVehicleControl::getTeleportCount() const {
     return (MSLane::teleportOnCollision() ? myCollisions : 0) + myTeleportsJam + myTeleportsYield + myTeleportsWrongLane;
 }

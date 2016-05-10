@@ -187,7 +187,7 @@ public:
             : edges(_edges), dur(-1), v(-1), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), destStop(_destStop) {}
         Walk(const ConstROEdgeVector& edges, const SUMOReal duration, const SUMOReal speed,
              const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& _destStop)
-             : edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+            : edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         const ROEdge* getOrigin() const {
             return edges.front();
         }

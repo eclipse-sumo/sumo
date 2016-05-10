@@ -182,7 +182,7 @@ public:
     /// @brief The enum-representation of the car-following model to use
     SumoXMLTag cfModel;
 
-    /// @brief sub-model parameters 
+    /// @brief sub-model parameters
     typedef std::map<SumoXMLAttr, SUMOReal> SubParams;
     /// @brief Car-following parameter
     SubParams cfParameter;

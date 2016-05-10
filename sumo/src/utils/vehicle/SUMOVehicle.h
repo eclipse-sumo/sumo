@@ -171,7 +171,7 @@ public:
      * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    virtual bool hasValidRoute(std::string& msg, const MSRoute* route=0) const = 0;
+    virtual bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const = 0;
 
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
@@ -213,7 +213,7 @@ public:
      */
     virtual bool isOnRoad() const = 0;
 
-    /** @brief Returns the information whether the front of the vehhicle is on the given lane 
+    /** @brief Returns the information whether the front of the vehhicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */
     virtual bool isFrontOnLane(const MSLane*) const = 0;

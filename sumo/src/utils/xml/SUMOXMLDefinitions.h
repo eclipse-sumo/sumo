@@ -105,7 +105,7 @@ enum SumoXMLTag {
     /// @brief A container stop
     SUMO_TAG_CONTAINER_STOP,
     /// @brief A Charging Station
-    SUMO_TAG_CHARGING_STATION,	
+    SUMO_TAG_CHARGING_STATION,
     /** a vtypeprobe detector */
     SUMO_TAG_VTYPEPROBE,
     /** a routeprobe detector */
@@ -821,7 +821,7 @@ enum LaneChangeAction {
     // change before the next turning movement
     LCA_INSUFFICIENT_SPACE =  1 << 14,
 
-    // used by the sublane model 
+    // used by the sublane model
     LCA_SUBLANE = 1 << 15,
 
     LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
@@ -835,9 +835,9 @@ enum LaneChangeAction {
 
     LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE)
 
-    // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
-    // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
-  /// @}
+                         // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
+                         // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
+                         /// @}
 
 };
 
@@ -867,7 +867,7 @@ enum LaneChangeModel {
 enum LateralAlignment {
     LATALIGN_RIGHT,      // drive on the right side
     LATALIGN_CENTER,     // drive in the middle
-    LATALIGN_ARBITRARY,  // maintain the current alignment 
+    LATALIGN_ARBITRARY,  // maintain the current alignment
     LATALIGN_NICE,       // align with the closest sublane border
     LATALIGN_COMPACT,    // align with the rightmost sublane that allows keeping the current speed
     LATALIGN_LEFT        // drive on the left side

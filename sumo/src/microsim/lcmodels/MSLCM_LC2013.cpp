@@ -128,7 +128,9 @@ SUMOReal
 MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
     int state = myOwnState;
     //gDebugFlag2 = (myVehicle.getID() == "XXI_Aprile_1_452");
-    if (gDebugFlag2) std::cout << SIMTIME << " patchSpeed state=" << state << " myVSafes=" << toString(myVSafes) << "\n";
+    if (gDebugFlag2) {
+        std::cout << SIMTIME << " patchSpeed state=" << state << " myVSafes=" << toString(myVSafes) << "\n";
+    }
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
     SUMOReal MAGIC_offset = 1.;
@@ -200,7 +202,9 @@ MSLCM_LC2013::inform(void* info, MSVehicle* sender) {
     myVSafes.push_back(pinfo->first);
     myOwnState |= pinfo->second;
     //gDebugFlag2 = (myVehicle.getID() == "XXI_Aprile_1_452");
-    if (gDebugFlag2) std::cout << SIMTIME << " informed by " << sender->getID() << " speed=" << pinfo->first << " state=" << pinfo->second << "\n";
+    if (gDebugFlag2) {
+        std::cout << SIMTIME << " informed by " << sender->getID() << " speed=" << pinfo->first << " state=" << pinfo->second << "\n";
+    }
     delete pinfo;
     return (void*) true;
 }
@@ -458,19 +462,19 @@ MSLCM_LC2013::_wantsChange(
     }
 
     //gDebugFlag2 = (myVehicle.getID() == "XXI_Aprile_1_452");
-    if (gDebugFlag2) std::cout << SIMTIME 
-        << " veh=" << myVehicle.getID()
-        << " _wantsChange state=" << myOwnState 
-        << " myVSafes=" << toString(myVSafes) 
-        << " firstBlocked=" << Named::getIDSecure(*firstBlocked)
-        << " lastBlocked=" << Named::getIDSecure(*lastBlocked)
-        << " leader=" << Named::getIDSecure(leader.first)
-        << " leaderGap=" << leader.second
-        << " neighLead=" << Named::getIDSecure(neighLead.first)
-        << " neighLeadGap=" << neighLead.second
-        << " neighFollow=" << Named::getIDSecure(neighFollow.first)
-        << " neighFollowGap=" << neighFollow.second
-        << "\n";
+    if (gDebugFlag2) std::cout << SIMTIME
+                                   << " veh=" << myVehicle.getID()
+                                   << " _wantsChange state=" << myOwnState
+                                   << " myVSafes=" << toString(myVSafes)
+                                   << " firstBlocked=" << Named::getIDSecure(*firstBlocked)
+                                   << " lastBlocked=" << Named::getIDSecure(*lastBlocked)
+                                   << " leader=" << Named::getIDSecure(leader.first)
+                                   << " leaderGap=" << leader.second
+                                   << " neighLead=" << Named::getIDSecure(neighLead.first)
+                                   << " neighLeadGap=" << neighLead.second
+                                   << " neighFollow=" << Named::getIDSecure(neighFollow.first)
+                                   << " neighFollowGap=" << neighFollow.second
+                                   << "\n";
 
     // we try to estimate the distance which is necessary to get on a lane
     //  we have to get on in order to keep our route
@@ -641,9 +645,9 @@ MSLCM_LC2013::_wantsChange(
     //        << "\n";
     //}
 
-    const SUMOReal inconvenience = MIN2((SUMOReal)1.0, (laneOffset < 0 
-            ? mySpeedGainProbability / myChangeProbThresholdRight 
-            : -mySpeedGainProbability / myChangeProbThresholdLeft));
+    const SUMOReal inconvenience = MIN2((SUMOReal)1.0, (laneOffset < 0
+                                        ? mySpeedGainProbability / myChangeProbThresholdRight
+                                        : -mySpeedGainProbability / myChangeProbThresholdLeft));
     if (amBlockingFollowerPlusNB()
             && (inconvenience <= myCooperativeParam)
             //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp

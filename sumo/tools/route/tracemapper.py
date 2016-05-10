@@ -44,11 +44,11 @@ if __name__ == "__main__":
         optParser.exit("missing input or output")
 
     if options.verbose:
-        print ("Reading net ...")
+        print("Reading net ...")
     net = sumolib.net.readNet(options.net)
 
     if options.verbose:
-        print ("Reading traces ...")
+        print("Reading traces ...")
 
     f = open(options.output, "w")
     with open(options.trace) as traces:

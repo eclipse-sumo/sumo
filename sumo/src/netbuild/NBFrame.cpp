@@ -90,7 +90,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");
 
-    oc.doRegister("numerical-ids", new Option_Bool(false)); 
+    oc.doRegister("numerical-ids", new Option_Bool(false));
     oc.addDescription("numerical-ids", "Processing", "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers");
 
     if (!forNetgen) {

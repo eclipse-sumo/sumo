@@ -129,7 +129,7 @@ public:
     virtual GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
     virtual void drawAction_drawVehicleBlinker(SUMOReal /*length*/) const {}
-    virtual void drawAction_drawVehicleBrakeLight(SUMOReal length, bool onlyOne=false) const {
+    virtual void drawAction_drawVehicleBrakeLight(SUMOReal length, bool onlyOne = false) const {
         UNUSED_PARAMETER(length);
         UNUSED_PARAMETER(onlyOne);
     }

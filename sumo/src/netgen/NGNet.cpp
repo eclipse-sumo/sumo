@@ -95,7 +95,7 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
             std::string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
             if (alphaIDs) {
                 nodeID = toString(char('A' + ix)) + toString(iy);
-            } 
+            }
             NGNode* node = new NGNode(nodeID, ix, iy);
             node->setX(ix * spaceX + attachLength);
             node->setY(iy * spaceY + attachLength);

@@ -615,7 +615,8 @@ VAR_LANECHANGE_MODE = 0xb6
 # (get: vehicle)
 VAR_ALLOWED_SPEED = 0xb7
 
-# position (1D lateral position relative to center of the current lane) (get: vehicle)
+# position (1D lateral position relative to center of the current lane)
+# (get: vehicle)
 VAR_LANEPOSITION_LAT = 0xb8
 
 # get/set prefered lateral alignment within the lane (vehicle)

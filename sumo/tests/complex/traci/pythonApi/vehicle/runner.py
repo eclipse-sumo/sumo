@@ -175,7 +175,8 @@ print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 print("speed before moveToXY", traci.vehicle.getSpeed(vehID))
-traci.vehicle.moveToVTD(vehID, "1o", 0, 482.49, 501.31, 0) # test deprecated method name
+traci.vehicle.moveToVTD(vehID, "1o", 0, 482.49, 501.31,
+                        0)  # test deprecated method name
 print("step", step())
 print("speed after moveToVTD", traci.vehicle.getSpeed(vehID))
 print(traci.vehicle.getSubscriptionResults(vehID))

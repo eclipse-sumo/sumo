@@ -461,7 +461,7 @@ private:
     MSLink* computeParallelLink(int direction);
 
     bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                       bool sameTargetLane, SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime) const;
+                      bool sameTargetLane, SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime) const;
 
 private:
     /// @brief The lane behind the junction approached by this link
@@ -525,7 +525,7 @@ private:
 
     /* @brief with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */
-    std::vector<MSLink*> mySublaneFoeLinks; 
+    std::vector<MSLink*> mySublaneFoeLinks;
 
     static const SUMOTime myLookaheadTime;
     static const SUMOTime myLookaheadTimeZipper;

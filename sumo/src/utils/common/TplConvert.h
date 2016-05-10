@@ -69,18 +69,18 @@ public:
 
     /// @brief convert bool to string
     static inline std::string _2str(const bool var) {
-        return (var == true? "true" : "false");
+        return (var == true ? "true" : "false");
     }
 
     /// @brief converts a 0-terminated char-type array into std::string
-    /// @throw an EmptyData - exception if the given pointer is 0 
+    /// @throw an EmptyData - exception if the given pointer is 0
     template<class E>
     static inline std::string _2str(const E* const data) {
         return _2str(data, getLength(data));
     }
 
     /// @brief converts a 0-terminated char array into std::string
-    /// @throw an EmptyData - exception if the given pointer is 0 
+    /// @throw an EmptyData - exception if the given pointer is 0
     static inline std::string _2str(const char* const data) {
         if (data == 0) {
             throw EmptyData();

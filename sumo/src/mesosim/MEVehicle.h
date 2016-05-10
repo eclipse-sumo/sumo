@@ -73,7 +73,7 @@ public:
      */
     SUMOReal getBackPositionOnLane(const MSLane* lane) const;
 
- 
+
     /** @brief Returns the vehicle's direction in degrees
      * @return The vehicle's current angle
      */
