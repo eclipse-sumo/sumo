@@ -1572,6 +1572,16 @@ MSVehicle::executeMove() {
                                              getVehicleType().getLength(), getImpatience(),
                                              getCarFollowModel().getMaxDecel(),
                                              getWaitingTime(), shadowLatPos, 0);
+#ifdef DEBUG_EXEC_MOVE
+                    if (DEBUG_COND) std::cout 
+                        << SIMTIME 
+                            << " veh=" << getID()
+                            << " shadowLane=" << getLaneChangeModel().getShadowLane()->getID()
+                            << " shadowDir=" << getLaneChangeModel().getShadowDirection()
+                            << " parallelLink=" << (parallelLink == 0 ? "NULL" : parallelLink->getViaLaneOrLane()->getID())
+                            << " opened=" << opened
+                            << "\n";
+#endif
                 }
             }
             // vehicles should decelerate when approaching a minor link
