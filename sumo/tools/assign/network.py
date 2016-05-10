@@ -48,7 +48,7 @@ class Net(sumolib.net.Net):
         self._detectedLinkCounts = 0.
         self._detectedEdges = []
 
-    def addNode(self, id, type=None, coord=None, incLanes=None):
+    def addNode(self, id, type=None, coord=None, incLanes=None, intLanes=None):
         if id not in self._id2node:
             node = Vertex(id, coord, incLanes)
             self._nodes.append(node)
