@@ -718,6 +718,15 @@ TraCITestClient::testAPI() {
 
     answerLog << "  simulation:\n";
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
+    answerLog << "    subscribe to vehicle 1:\n";
+    std::vector<int> vars;
+    vars.push_back(VAR_ROAD_ID);
+    vars.push_back(VAR_LANEPOSITION);
+    simulation.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "1", 0, TIME2STEPS(100), vars);
+    simulationStep();
+    answerLog << "    subscription results:\n";
+    std::map<int, TraCIValue> result3 = simulation.getSubscriptionResults("1");
+    answerLog << "      roadID=" << result3[VAR_ROAD_ID].string << " pos=" << result3[VAR_LANEPOSITION].scalar << "\n";
 
     answerLog << "  gui:\n";
     try {

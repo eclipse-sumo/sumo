@@ -90,7 +90,14 @@ public:
         double xMax, yMax, zMax;
     };
 
-
+    struct TraCIValue {
+        union {
+            double scalar;
+            TraCIPosition position;
+            TraCIColor color;
+        };
+        std::string string;
+    };
 
     class TraCIPhase {
     public:
@@ -570,6 +577,10 @@ public:
         TraCIBoundary getNetBoundary() const;
         unsigned int getMinExpectedNumber() const;
 
+        void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+        std::map<std::string, std::map<int, TraCIValue> > getSubscriptionResults();
+        std::map<int, TraCIValue> getSubscriptionResults(const std::string& objID);
+       
     private:
         /// @brief invalidated copy constructor
         SimulationScope(const SimulationScope& src);
@@ -870,6 +881,8 @@ protected:
     void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
     /// @}
 
+    void readSubscription(tcpip::Storage &inMsg);
+
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURACY) {
         std::ostringstream oss;
@@ -883,7 +896,7 @@ protected:
     /// @brief The socket
     tcpip::Socket* mySocket;
 
-
+    std::map<std::string, std::map<int, TraCIValue> > subscribedValues;
 };
 
 

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Apr 21 09:17:14 2016
+TraCITestClient output file. Date: Tue May 10 12:34:19 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -28,12 +28,18 @@ testAPI:
     getVehicleData:
   simulation:
     getCurrentTime: 7000
+    subscribe to vehicle 1:
+    subscription results:
+      roadID=e_u1 pos=6.73
   gui:
     setScheme: 
     no support for gui commands
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=1  #variables=2
+      VariableID=80      ok=1 valueDataType=12 string value: e_u1
+      VariableID=86      ok=1 valueDataType=11 Double value: 6.73
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: ]

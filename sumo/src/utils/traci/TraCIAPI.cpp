@@ -428,12 +428,69 @@ TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add)
     return c;
 }
 
+void TraCIAPI::readSubscription(tcpip::Storage &inMsg)
+{
+    std::string objectID = inMsg.readString();
+    int variableCount = inMsg.readUnsignedByte();
+
+    while (variableCount > 0) {
+
+        int variableID = inMsg.readUnsignedByte();
+        int status = inMsg.readUnsignedByte();
+        int type = inMsg.readUnsignedByte();
+
+        if (status == RTYPE_OK) {
+
+            TraCIValue v;
+
+            switch (type) {
+            case TYPE_DOUBLE:
+                v.scalar = inMsg.readDouble();
+                break;
+            case TYPE_STRING:
+                v.string = inMsg.readString();
+                break;
+            case POSITION_3D:
+                v.position.x = inMsg.readDouble();
+                v.position.y = inMsg.readDouble();
+                v.position.z = inMsg.readDouble();
+                break;
+            case TYPE_COLOR:
+                v.color.r = inMsg.readUnsignedByte();
+                v.color.g = inMsg.readUnsignedByte();
+                v.color.b = inMsg.readUnsignedByte();
+                v.color.a = inMsg.readUnsignedByte();
+                break;
+
+            // TODO Other data types
+
+            default:
+                throw tcpip::SocketException("Unimplemented subscription type: " + toString(type));
+            }
+
+            subscribedValues[objectID][variableID] = v;
+        }
+        else {
+            throw tcpip::SocketException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
+        }
+
+        variableCount--;
+    }
+}
 
 void
 TraCIAPI::simulationStep(SUMOTime time) {
     send_commandSimulationStep(time);
     tcpip::Storage inMsg;
     check_resultState(inMsg, CMD_SIMSTEP2);
+   
+    subscribedValues.clear();
+    int numSubs = inMsg.readInt();
+    while (numSubs > 0) {
+        check_commandGetResult(inMsg, 0,-1,true);
+        readSubscription(inMsg);
+        numSubs--;
+    }
 }
 
 
@@ -1262,6 +1319,29 @@ TraCIAPI::SimulationScope::getMinExpectedNumber() const {
     return myParent.getInt(CMD_GET_SIM_VARIABLE, VAR_MIN_EXPECTED_VEHICLES, "");
 }
 
+void
+TraCIAPI::SimulationScope::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) {
+    myParent.send_commandSubscribeObjectVariable(domID, objID, beginTime, endTime, vars);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, domID);
+    myParent.check_commandGetResult(inMsg, domID);
+    myParent.readSubscription(inMsg);
+}
+
+std::map<std::string, std::map<int, TraCIAPI::TraCIValue> >
+TraCIAPI::SimulationScope::getSubscriptionResults() {
+    return myParent.subscribedValues;
+}
+
+std::map<int, TraCIAPI::TraCIValue>
+TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) {
+    if (myParent.subscribedValues.find(objID) != myParent.subscribedValues.end()) {
+        return myParent.subscribedValues[objID];
+    }
+    else {
+        throw; // Something?
+    }
+}
 
 
 // ---------------------------------------------------------------------------
