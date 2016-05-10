@@ -89,7 +89,7 @@
 //#define DEBUG_FURTHER
 #define DEBUG_COND (getID() == "disabled")
 
-#define BUS_STOP_OFFSET 0.5
+#define STOPPING_PLACE_OFFSET 0.5
 
 #define CRLL_LOOK_AHEAD 5
 
@@ -1034,27 +1034,28 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         if (stop.edge == myCurrEdge) {
             // get the stopping position
             SUMOReal endPos = stop.endPos;
-            bool busStopsMustHaveSpace = true;
+            bool useStoppingPlace = false;
+            bool fitsOnStoppingPlace = true;
             if (stop.busstop != 0) {
+                useStoppingPlace = true;
                 // on bus stops, we have to wait for free place if they are in use...
                 endPos = stop.busstop->getLastFreePos(*this);
                 // at least half the bus has to fit on non-empty bus stops
                 if (endPos != stop.busstop->getEndLanePosition() && endPos - myType->getLength() / 2. < stop.busstop->getBeginLanePosition()) {
-                    busStopsMustHaveSpace = false;
+                    fitsOnStoppingPlace = false;
                 }
             }
-            bool containerStopsMustHaveSpace = true;
             // if the stop is a container stop we check if the vehicle fits into the last free position of the stop
             if (stop.containerstop != 0) {
+                useStoppingPlace = true;
                 // on container stops, we have to wait for free place if they are in use...
                 endPos = stop.containerstop->getLastFreePos(*this);
                 if (endPos != stop.containerstop->getEndLanePosition() && endPos - myType->getLength() / 2. < stop.containerstop->getBeginLanePosition()) {
-                    containerStopsMustHaveSpace = false;
+                    fitsOnStoppingPlace = false;
                 }
             }
-            // we use the same offset for container stops as for bus stops. we might have to change it at some point!
-            if (myState.pos() + getVehicleType().getMinGap() >= endPos - BUS_STOP_OFFSET && busStopsMustHaveSpace
-                    && containerStopsMustHaveSpace && myLane == stop.lane) {
+            const SUMOReal reachedThreshold = (useStoppingPlace ? endPos - STOPPING_PLACE_OFFSET : stop.startPos) - NUMERICAL_EPS;
+            if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
@@ -1077,7 +1078,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 }
             }
             // decelerate
-            return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos());
+            return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos() + NUMERICAL_EPS);
         }
     }
     return currentVelocity;
@@ -1211,7 +1212,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()) {
             // we are approaching a stop on the edge; must not drive further
             const Stop& stop = *myStops.begin();
-            const SUMOReal endPos = stop.busstop == 0 ? stop.endPos : stop.busstop->getLastFreePos(*this);
+            const SUMOReal endPos = (stop.busstop == 0 ? stop.endPos : stop.busstop->getLastFreePos(*this)) + NUMERICAL_EPS;
             myStopDist = seen + endPos - lane->getLength();
             const SUMOReal stopSpeed = cfModel.stopSpeed(this, getSpeed(), myStopDist);
             if (lastLink != 0) {

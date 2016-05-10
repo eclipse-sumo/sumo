@@ -110,7 +110,8 @@ MSCFModel::maximumSafeStopSpeed(SUMOReal gap) const {
     if (gap <= 0) {
         return 0;
     } else if (gap <= ACCEL2SPEED(myDecel)) {
-        return gap;
+        // workaround for #2310
+        return MIN2(ACCEL2SPEED(myDecel), DIST2SPEED(gap));
     }
     const SUMOReal g = gap;
     const SUMOReal b = ACCEL2SPEED(myDecel);

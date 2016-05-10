@@ -104,6 +104,9 @@ MSCFModel_KraussOrig1::dawdle(SUMOReal speed) const {
 SUMOReal MSCFModel_KraussOrig1::vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal /* predMaxDecel */) const {
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
+    } else if (predSpeed == 0 &&  gap <= ACCEL2SPEED(myDecel)) {
+        // workaround for #2310
+        return MIN2(ACCEL2SPEED(myDecel), DIST2SPEED(gap));
     }
     SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel
                                 + sqrt(
