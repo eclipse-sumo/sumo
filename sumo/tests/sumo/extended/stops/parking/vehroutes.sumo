@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:16:00 by SUMO sumo Version 0.17.0
+<!-- generated on Tue May 10 08:25:07 2016 by SUMO Version dev-SVN-r20678
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -11,11 +11,13 @@
     </input>
 
     <output>
+        <fcd-output value="fcd.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -27,7 +29,7 @@
         <route edges="1to2 out"/>
     </vehicle>
 
-    <vehicle id="veh0" type="Car" depart="1.00" arrival="56.00">
+    <vehicle id="veh0" type="Car" depart="1.00" arrival="57.00">
         <route edges="1to2 out"/>
     </vehicle>
 

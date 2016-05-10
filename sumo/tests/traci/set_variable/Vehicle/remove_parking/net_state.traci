@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/30/14 11:24:36 by SUMO sumo Version dev-SVN-r16440
+<!-- generated on Tue May 10 09:46:13 2016 by SUMO Version dev-SVN-r20679
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="13783"/>
+        <remote-port value="22640"/>
     </traci_server>
 
 </configuration>
@@ -254,6 +254,7 @@
                 <vehicle id="veh5" pos="0.00" speed="0.00"/>
                 <vehicle id="veh4" pos="8.00" speed="3.20"/>
                 <vehicle id="veh3" pos="28.80" speed="6.40"/>
+                <vehicle id="veh2" pos="50.00" speed="0.75"/>
                 <vehicle id="veh1" pos="108.80" speed="12.80"/>
                 <vehicle id="veh0" pos="168.00" speed="16.00"/>
             </lane>
@@ -318,9 +319,7 @@
                 <vehicle id="veh4" pos="36.00" speed="7.20"/>
                 <vehicle id="veh1" pos="184.80" speed="16.80"/>
             </lane>
-            <lane id="e_m0_1">
-                <vehicle id="veh2" pos="50.00" speed="0.00"/>
-            </lane>
+            <lane id="e_m0_1"/>
             <lane id="e_m0_2"/>
         </edge>
     </timestep>
@@ -331,7 +330,7 @@
                 <vehicle id="veh4" pos="44.00" speed="8.00"/>
             </lane>
             <lane id="e_m0_1">
-                <vehicle id="veh2" pos="50.80" speed="0.80"/>
+                <vehicle id="veh2" pos="50.00" speed="0.00"/>
             </lane>
             <lane id="e_m0_2"/>
         </edge>

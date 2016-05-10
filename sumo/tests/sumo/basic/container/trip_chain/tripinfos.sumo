@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May  9 16:37:13 2016 by SUMO Version dev-SVN-r20666
+<!-- generated on Tue May 10 08:24:52 2016 by SUMO Version dev-SVN-r20678
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,14 +25,14 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="198.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="148.00" routeLength="467.98" waitSteps="2" timeLoss="11.82" rerouteNo="0" devices="tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="200.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="150.00" routeLength="467.98" waitSteps="2" timeLoss="13.68" rerouteNo="0" devices="tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" vaporized=""/>
     <containerinfo id="container0" depart="0.00">
         <stop arrival="0.00"/>
         <tranship arrival="54.00"/>
-        <transport depart="156.00" arrival="175.00"/>
-        <tranship arrival="226.00"/>
-        <stop arrival="246.00"/>
-        <transport depart="247.00" arrival="292.00"/>
+        <transport depart="157.00" arrival="177.00"/>
+        <tranship arrival="228.00"/>
+        <stop arrival="248.00"/>
+        <transport depart="249.00" arrival="294.00"/>
     </containerinfo>
-    <tripinfo id="car0" depart="247.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="247.00" arrival="292.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="45.00" routeLength="252.00" waitSteps="1" timeLoss="5.75" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="car0" depart="249.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="249.00" arrival="294.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="45.00" routeLength="252.00" waitSteps="1" timeLoss="5.75" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
