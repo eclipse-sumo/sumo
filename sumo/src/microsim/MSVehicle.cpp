@@ -1669,7 +1669,7 @@ MSVehicle::executeMove() {
     }
 #endif
     // visit waiting time
-    if (vNext <= SUMO_const_haltingSpeed) {
+    if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
         myWaitingTime += DELTA_T;
         myWaitingTimeCollector.passTime(DELTA_T, true);
         brakelightsOn = true;
