@@ -659,6 +659,17 @@ GUIVehicle::selectBlockingFoes() const {
         std::vector<const MSPerson*> blockingPersons;
         dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
                            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
+        if (getLaneChangeModel().getShadowLane() != 0) {
+            MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+            if (parallelLink != 0) {
+                const SUMOReal shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
+                        myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
+                parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                        getVehicleType().getLength(), getImpatience(),
+                        getCarFollowModel().getMaxDecel(),
+                        getWaitingTime(), shadowLatPos, &blockingFoes);
+            }
+        }
         for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
             gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
         }
