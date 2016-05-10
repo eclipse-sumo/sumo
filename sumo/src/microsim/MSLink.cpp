@@ -79,9 +79,9 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState 
     myHasFoes(false),
     myAmCont(false),
     myKeepClear(keepClear),
-    myParallelLeft(computeParallelLink(1)), 
-    myParallelRight(computeParallelLink(-1)),
     myMesoTLSPenalty(0),
+    myParallelRight(computeParallelLink(-1)),
+    myParallelLeft(computeParallelLink(1)), 
     myJunction(0)
 #else
 MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic* logic, int tlIndex) :

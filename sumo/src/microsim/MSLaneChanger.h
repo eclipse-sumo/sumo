@@ -58,7 +58,7 @@ public:
     MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChanging, bool allowSwap);
 
     /// Destructor.
-    ~MSLaneChanger();
+    virtual ~MSLaneChanger();
 
     /// Start lane-change-process for all vehicles on the edge'e lanes.
     void laneChange(SUMOTime t);

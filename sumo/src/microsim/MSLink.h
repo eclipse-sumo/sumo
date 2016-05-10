@@ -517,9 +517,6 @@ private:
     std::vector<std::pair<SUMOReal, SUMOReal> > myLengthsBehindCrossing;
 #endif
 
-    /// @brief the junction to which this link belongs
-    MSJunction* myJunction;
-
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
 
@@ -532,6 +529,10 @@ private:
 
     MSLink* myParallelRight;
     MSLink* myParallelLeft;
+
+    /// @brief the junction to which this link belongs
+    MSJunction* myJunction;
+
     /// invalidated copy constructor
     MSLink(const MSLink& s);
 
