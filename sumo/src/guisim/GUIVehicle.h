@@ -154,9 +154,6 @@ private:
      */
     MSLane* getPreviousLane(MSLane* current, int& furtherIndex) const;
 
-    /// @brief return the current angle in navigational degrees
-    SUMOReal getNaviDegree() const;
-
     /// @brief return the number of passengers
     int getNumPassengers() const;
 

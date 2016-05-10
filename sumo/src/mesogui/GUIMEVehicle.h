@@ -76,18 +76,20 @@ public:
 
 
     /** @brief Return current position (x/y, cartesian)
-     *
-     * If the vehicle's myLane is 0, Position::INVALID.
-     * @param[in] offset optional offset in longitudinal direction
-     * @return The current position (in cartesian coordinates)
-     * @see myLane
-     */
-    Position getPosition(const SUMOReal offset = 0) const;
+    *
+    * @note implementation of abstract method does not work otherwise
+    */
+    Position getPosition(const SUMOReal offset = 0) const {
+        return MEVehicle::getPosition(offset);
+    }
 
-    /** @brief Returns the vehicle's direction in degrees
-     * @return The vehicle's current angle
-     */
-    SUMOReal getAngle() const;
+    /** @brief Return current angle
+    *
+    * @note implementation of abstract method does not work otherwise
+    */
+    SUMOReal getAngle() const {
+        return MEVehicle::getAngle();
+    }
 
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
@@ -112,11 +114,6 @@ public:
     /// @brief adds the blocking foes to the current selection
     void selectBlockingFoes() const;
 
-    inline void setSegment(MESegment* s, size_t idx = 0) {
-        MEVehicle::setSegment(s, idx);
-        myPos = Position::INVALID;
-    }
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -133,21 +130,6 @@ public:
      * @return The built parameter window
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-
-    /// @brief set position and angle for drawing
-    void setPositionAndAngle(const Position& pos, SUMOReal angle) {
-        myPos = pos;
-        myAngle = angle;
-    }
-
-private:
-
-    /// @brief the position for drawing
-    Position myPos;
-
-    /// @brief the angle for drawing
-    SUMOReal myAngle;
 
 };
 

@@ -117,7 +117,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getSpeed));
     ret->mkItem("angle [degree]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getNaviDegree));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIBaseVehicle::getNaviDegree));
     ret->mkItem("slope [degree]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getSlope));
     if (getChosenSpeedFactor() != 1) {
@@ -583,12 +583,6 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     glTranslated(front.x(), front.y(), getType());
     glRotated(angle, 0, 0, 1);
     glPushMatrix();
-}
-
-
-SUMOReal
-GUIVehicle::getNaviDegree() const {
-    return GeomHelper::naviDegree(getAngle());
 }
 
 

@@ -54,8 +54,7 @@
 GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                            const MSVehicleType* type, const SUMOReal speedFactor) :
     MEVehicle(pars, route, type, speedFactor),
-    GUIBaseVehicle((MSBaseVehicle&) * this),
-    myPos(Position::INVALID) {
+    GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
 #ifdef _MSC_VER
 #pragma warning(default: 4355)
@@ -75,7 +74,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment [#]", false, getSegment()->getIndex());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getSpeed));
-    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getAngle));
+    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIBaseVehicle::getNaviDegree));
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getWaitingSeconds));
     if (getChosenSpeedFactor() != 1) {
@@ -164,23 +163,6 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-Position
-GUIMEVehicle::getPosition(const SUMOReal /* offset */) const {
-    if (myPos == Position::INVALID && mySegment != 0) {
-        // best guess before the actual position is set in GUIEdge::drawMesoVehicles
-        return mySegment->getEdge().getLanes().front()->geometryPositionAtOffset(getPositionOnLane() + mySegment->getLength());
-    } else {
-        return myPos;
-    }
-}
-
-
-SUMOReal
-GUIMEVehicle::getAngle() const {
-    return myAngle;
 }
 
 

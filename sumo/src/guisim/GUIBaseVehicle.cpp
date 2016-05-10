@@ -822,11 +822,11 @@ GUIBaseVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s,
 
 
 void
-GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
+GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const SUMOReal angle) const {
     glPushName(getGlID());
     glPushMatrix();
-    Position p1 = getPosition();
-    const SUMOReal angle = RAD2DEG(getAngle() + PI / 2.);
+    Position p1 = pos;
+    const SUMOReal degAngle = RAD2DEG(angle + PI / 2.);
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
         mySeatPositions[0] = myVehicle.getLane()->geometryPositionAtOffset(myVehicle.getPositionOnLane() - myVType.getLength() / 2);
@@ -834,7 +834,7 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
         mySeatPositions[0] = p1;
     }
     glTranslated(p1.x(), p1.y(), getType());
-    glRotated(angle, 0, 0, 1);
+    glRotated(degAngle, 0, 0, 1);
     // set lane color
     setColor(s);
     // scale
@@ -964,7 +964,7 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     */
     glTranslated(0, MIN2(myVType.getLength() / 2, SUMOReal(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
-    glRotated(-angle, 0, 0, 1);
+    glRotated(-degAngle, 0, 0, 1);
     glScaled(1 / upscale, 1 / upscale, 1);
     drawName(Position(0, 0), s.scale,
              myVType.getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
@@ -976,6 +976,12 @@ GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     glPopName();
     drawAction_drawPersonsAndContainers(s);
+}
+
+
+void
+GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
+    drawOnPos(s, getPosition(), getAngle());
 }
 
 
