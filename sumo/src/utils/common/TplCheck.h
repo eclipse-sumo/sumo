@@ -43,8 +43,9 @@
 class TplCheck {
 public:
     /// @brief check if a String can be parsed into a int
-    /// @ToDo check Oveflorws
-    static bool _checkInt(const std::string &data) {
+    /// @ToDo check overflows
+    static bool _str2int(const std::string &data) {
+        // Data empty does't mean 0
         if(data.size() == 0)
             return false;
         for(int i = 0; i < data.size(); i++)
@@ -54,8 +55,8 @@ public:
     }
 
     /// @brief check if a String can be parsed into a SUMOReal
-    /// @ToDo check Oveflorws
-    static bool _checkSUMOReal(const std::string &data) {
+    /// @ToDo check overflows
+    static bool _str2SUMOReal(const std::string &data) {
         bool dot = false;
         if(data.size() == 0)
             return false;
@@ -69,17 +70,20 @@ public:
     }
     
     /// @brief check if a String can be parsed into a Bool
-    /// @ToDo check other posibilities (positive, negative, +, -,...)
-    static bool _checkBool(const std::string &data) {
-        if(data == "true" || data == "false" || data == "1" || data == "0")
+    static bool _str2bool(const std::string &data) {
+        std::string dataToLower = data;
+        std::transform(s.begin(), dataToLower.end(), dataToLower.begin(), ::tolower);
+        if(data == "1" || data == "yes" || data == "true"  || data == "on"  || data == "x" || data == "t" || 
+           data == "0" || data == "no"  || data == "false" || data == "off" || data == "-" || data == "f")
             return true;
         else
             return false;
     }
 
     /// @brief check if a String can be parsed into a SUMOTime
-    /// @ToDo check other posibilities (positive, negative, +, -,...)
-    static bool _checkSUMOTime(const std::string &data) {
+    /// @ToDo check overflows
+    static bool _str2SUMOTime(const std::string &data) {
+        // Data empty does't mean 0
         if(data.size() == 0)
             return false;
         for(int i = 0; i < data.size(); i++)
