@@ -552,6 +552,10 @@ public:
 
 
 
+    /// @brief {object->{variable->value}}
+    typedef std::map<int, TraCIValue> TraCIValues;
+    typedef std::map<std::string, TraCIValues> SubscribedValues;
+    typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
 
 
     /** @class SimulationScope
@@ -577,9 +581,14 @@ public:
         TraCIBoundary getNetBoundary() const;
         unsigned int getMinExpectedNumber() const;
 
-        void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-        std::map<std::string, std::map<int, TraCIValue> > getSubscriptionResults();
-        std::map<int, TraCIValue> getSubscriptionResults(const std::string& objID);
+        void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
+        void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, SUMOReal range, const std::vector<int>& vars) const;
+
+        SubscribedValues getSubscriptionResults();
+        TraCIValues getSubscriptionResults(const std::string& objID);
+
+        SubscribedContextValues getContextSubscriptionResults();
+        SubscribedValues getContextSubscriptionResults(const std::string& objID);
 
     private:
         /// @brief invalidated copy constructor
@@ -876,12 +885,17 @@ protected:
      */
     void check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId = false, std::string* acknowledgement = 0) const;
 
-    void check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType = -1, bool ignoreCommandId = false) const;
+    /** @brief Validates the result state of a command
+     * @return The command Id
+     */
+    int check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType = -1, bool ignoreCommandId = false) const;
 
     void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
     /// @}
 
-    void readSubscription(tcpip::Storage& inMsg);
+    void readVariableSubscription(tcpip::Storage &inMsg);
+    void readContextSubscription(tcpip::Storage &inMsg);
+    void readVariables(tcpip::Storage &inMsg, const std::string &objectID, int variableCount, SubscribedValues& into);
 
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURACY) {
@@ -896,7 +910,8 @@ protected:
     /// @brief The socket
     tcpip::Socket* mySocket;
 
-    std::map<std::string, std::map<int, TraCIValue> > subscribedValues;
+    SubscribedValues mySubscribedValues;
+    SubscribedContextValues mySubscribedContextValues;
 };
 
 

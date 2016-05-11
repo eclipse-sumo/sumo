@@ -718,15 +718,26 @@ TraCITestClient::testAPI() {
 
     answerLog << "  simulation:\n";
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
-    answerLog << "    subscribe to vehicle 1:\n";
+    answerLog << "    subscribe to road and pos of vehicle '1':\n";
     std::vector<int> vars;
     vars.push_back(VAR_ROAD_ID);
     vars.push_back(VAR_LANEPOSITION);
     simulation.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "1", 0, TIME2STEPS(100), vars);
     simulationStep();
     answerLog << "    subscription results:\n";
-    std::map<int, TraCIValue> result3 = simulation.getSubscriptionResults("1");
+    TraCIValues result3 = simulation.getSubscriptionResults("1");
     answerLog << "      roadID=" << result3[VAR_ROAD_ID].string << " pos=" << result3[VAR_LANEPOSITION].scalar << "\n";
+
+    answerLog << "    subscribe to vehicles around edge 'e_u1':\n";
+    std::vector<int> vars2;
+    vars2.push_back(VAR_LANEPOSITION);
+    simulation.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
+    simulationStep();
+    answerLog << "    context subscription results:\n";
+    SubscribedValues result4 = simulation.getContextSubscriptionResults("e_u1");
+    for (SubscribedValues::iterator it = result4.begin(); it != result4.end(); ++it) {
+        answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION].scalar << "\n";
+    }
 
     answerLog << "  gui:\n";
     try {
