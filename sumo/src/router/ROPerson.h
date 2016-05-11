@@ -37,6 +37,8 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include "RORoutable.h"
+#include "RORouteDef.h"
+#include "ROVehicle.h"
 
 
 // ===========================================================================
@@ -44,7 +46,6 @@
 // ===========================================================================
 class OutputDevice;
 class ROEdge;
-class ROVehicle;
 
 
 // ===========================================================================
@@ -221,6 +222,10 @@ public:
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
+                delete *it;
+            }
+            for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
+                delete (*it)->getRouteDefinition();
                 delete *it;
             }
         }

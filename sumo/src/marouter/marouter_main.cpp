@@ -321,6 +321,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                         (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
                         (*j)->writeXMLDefinition(*dev, 0, true, false);
+                        delete *j;
                     }
                     dev->closeTag();
                     dev->closeTag();
@@ -334,6 +335,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                             for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                                 (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
                                 (*j)->writeXMLDefinition(*dev, 0, true, false);
+                                delete *j;
                             }
                             dev->closeTag();
                             if (!tazParamKeys.empty()) {

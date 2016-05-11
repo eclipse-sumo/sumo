@@ -94,6 +94,24 @@ RONet::RONet()
 
 
 RONet::~RONet() {
+    for (RoutablesMap::iterator routables = myRoutables.begin(); routables != myRoutables.end(); ++routables) {
+        for (std::deque<RORoutable*>::iterator r = routables->second.begin(); r != routables->second.end(); ++r) {
+            const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(*r);
+            // delete routes and the vehicle
+            if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
+                if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+                    delete veh->getRouteDefinition();
+                }
+            }
+            delete *r;
+        }
+    }
+    for (std::map<std::string, SUMOVehicleParameter::Stop*>::iterator it = myBusStops.begin(); it != myBusStops.end(); ++it) {
+        delete it->second;
+    }
+    for (std::map<std::string, SUMOVehicleParameter::Stop*>::iterator it = myContainerStops.begin(); it != myContainerStops.end(); ++it) {
+        delete it->second;
+    }
     myNodes.clear();
     myEdges.clear();
     myVehicleTypes.clear();

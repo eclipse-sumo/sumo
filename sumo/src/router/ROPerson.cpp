@@ -80,6 +80,7 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
         pars.setParameter |= VEHPARS_VTYPE_SET;
         SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
         if (type == 0) {
+            delete trip;
             throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + getID() + "' is not known.");
         }
         pars.id = getID() + "_" + toString(trip->getVehicles().size());
