@@ -590,6 +590,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
             if (routables->second.empty()) {
                 myRoutables.erase(routables);
             }
+            delete r;
         }
         if (containerTime == minTime) {
             myRoutesOutput->writePreformattedTag(container->second);
