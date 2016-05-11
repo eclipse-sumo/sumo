@@ -29,7 +29,7 @@ from sumolib.net import readNet
 from sumolib.miscutils import Colorgen
 
 
-def parse_args():
+def parse_args(args):
     USAGE = "Usage: " + sys.argv[0] + " <netfile> <routefile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
@@ -43,7 +43,7 @@ def parse_args():
         "-l", "--layer", default=100, help="layer for generated polygons")
     optParser.add_option("--geo", action="store_true",
                          default=False, help="write polgyons with geo-coordinates")
-    options, args = optParser.parse_args()
+    options, args = optParser.parse_args(args=args)
     try:
         options.net, options.routefile = args
         options.colorgen = Colorgen(
@@ -67,8 +67,8 @@ def generate_poly(net, id, color, layer, geo, edges, outf):
         id, color, layer, shapeString, geoFlag))
 
 
-def main():
-    options = parse_args()
+def main(args):
+    options = parse_args(args)
     net = readNet(options.net)
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
@@ -78,4 +78,4 @@ def main():
         outf.write('</polygons>\n')
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
