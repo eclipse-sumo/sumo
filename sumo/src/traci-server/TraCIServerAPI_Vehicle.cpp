@@ -993,6 +993,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     continue;
                 }
             }
+            if (!v->isOnRoad()) {
+                MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
+
+            }
             l->forceVehicleInsertion(v, position, MSMoveReminder::NOTIFICATION_TELEPORT);
         }
         break;
