@@ -137,7 +137,7 @@ except traci.TraCIException:
     print("recovering from exception after asking for unknown vehicle")
 traci.vehicle.add("1", "horizontal")
 traci.vehicle.setStop(
-    "1", "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
+    "1", "2fi", pos=50.0, laneIndex=0, duration=1000, flags=1)
 check("1")
 traci.vehicle.changeTarget("1", "4fi")
 print("routeID", traci.vehicle.getRouteID(vehID))
