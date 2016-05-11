@@ -88,6 +88,9 @@ MSVehicleTransfer::remove(MSVehicle* veh) {
             break;
         }
     }
+    if (veh->getLane() != 0) {
+        myParkingVehicles[veh->getLane()].erase(veh);
+    }
 }
 
 
