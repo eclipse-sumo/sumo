@@ -713,11 +713,13 @@ MSLCM_SL2015::prepareStep() {
             // copy old values
             assert(myLastEdge != 0);
             if (myLastEdge->getSubLaneSides().size() == myExpectedSublaneSpeeds.size()) {
-                int subLaneShift = computeSublaneShift(myLastEdge, currEdge);
-                for (int i = 0; i < (int)myExpectedSublaneSpeeds.size(); ++i) {
-                    int newI = i + subLaneShift;
-                    if (newI > 0 && newI < (int)newExpectedSpeeds.size()) {
-                        newExpectedSpeeds[newI] = myExpectedSublaneSpeeds[i];
+                const int subLaneShift = computeSublaneShift(myLastEdge, currEdge);
+                if (subLaneShift < std::numeric_limits<int>::max()) {
+                    for (int i = 0; i < (int)myExpectedSublaneSpeeds.size(); ++i) {
+                        const int newI = i + subLaneShift;
+                        if (newI > 0 && newI < (int)newExpectedSpeeds.size()) {
+                            newExpectedSpeeds[newI] = myExpectedSublaneSpeeds[i];
+                        }
                     }
                 }
             }
@@ -732,7 +734,6 @@ MSLCM_SL2015::prepareStep() {
 int
 MSLCM_SL2015::computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge) {
     // find the first lane that targets the new edge
-    int shift = std::numeric_limits<int>::max();
     int prevShift = 0;
     const std::vector<MSLane*>& lanes = prevEdge->getLanes();
     for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
@@ -756,7 +757,7 @@ MSLCM_SL2015::computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge)
         MSLeaderInfo ahead(lane);
         prevShift -= ahead.numSublanes();
     }
-    return shift;
+    return std::numeric_limits<int>::max();
 }
 
 
