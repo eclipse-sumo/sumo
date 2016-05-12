@@ -433,9 +433,9 @@ void
 TraCIAPI::readVariables(tcpip::Storage &inMsg, const std::string &objectID, int variableCount, SubscribedValues& into) {
     while (variableCount > 0) {
 
-        int variableID = inMsg.readUnsignedByte();
-        int status = inMsg.readUnsignedByte();
-        int type = inMsg.readUnsignedByte();
+        const int variableID = inMsg.readUnsignedByte();
+        const int status = inMsg.readUnsignedByte();
+        const int type = inMsg.readUnsignedByte();
 
         if (status == RTYPE_OK) {
 
@@ -477,16 +477,16 @@ TraCIAPI::readVariables(tcpip::Storage &inMsg, const std::string &objectID, int 
 
 void
 TraCIAPI::readVariableSubscription(tcpip::Storage &inMsg) {
-    std::string objectID = inMsg.readString();
-    int variableCount = inMsg.readUnsignedByte();
+    const std::string objectID = inMsg.readString();
+    const int variableCount = inMsg.readUnsignedByte();
     readVariables(inMsg, objectID, variableCount, mySubscribedValues);
 }
 
 void
 TraCIAPI::readContextSubscription(tcpip::Storage &inMsg) {
-    std::string contextID = inMsg.readString();
-    int contextDomain = inMsg.readUnsignedByte();
-    int variableCount = inMsg.readUnsignedByte();
+    const std::string contextID = inMsg.readString();
+    inMsg.readUnsignedByte(); // context domain
+    const int variableCount = inMsg.readUnsignedByte();
     int numObjects = inMsg.readInt();
 
     while (numObjects > 0) {
