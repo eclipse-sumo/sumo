@@ -277,6 +277,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         }
     }
     try {
+        const RORouterProvider provider(router, 0, 0);
         // prepare the output
         net.openOutput(oc.isSet("output-file") ? oc.getString("output-file") : "", "", "");
         // process route definitions
@@ -288,7 +289,6 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"), net, matrix, *router);
         a.resetFlows();
 #ifdef HAVE_FOX
-        const RORouterProvider provider(router, 0, 0);
         const int maxNumThreads = oc.getInt("routing-threads");
         while ((int)net.getThreadPool().size() < maxNumThreads) {
             new RONet::WorkerThread(net.getThreadPool(), provider);
@@ -375,6 +375,11 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         // end the processing
         net.cleanup();
     } catch (ProcessError&) {
+        for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
+            for (std::vector<RORoute*>::const_iterator j = (*i)->pathsVector.begin(); j != (*i)->pathsVector.end(); ++j) {
+                delete *j;
+            }
+        }
         net.cleanup();
         throw;
     }
