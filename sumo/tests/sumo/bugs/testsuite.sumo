@@ -189,3 +189,7 @@ ticket1452
 
 # testing stopping to the point: vehicle should come to halt exactly at pos=25
 ticket1224
+
+# program crash when overtaking is combined with continuous lanechange
+# 
+ticket2316
