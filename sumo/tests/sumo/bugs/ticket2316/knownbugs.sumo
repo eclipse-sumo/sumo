@@ -1,0 +1,14 @@
+
+[Reported by leonhard at 12Mai13:24:54]
+search_string:\d
+search_file:exitcode
+ignore_other_errors:1
+bug_system:trac
+bug_id:2316
+
+[Reported by leonhard at 12Mai13:27:34]
+search_string:[1-9]
+search_file:exitcode
+ignore_other_errors:1
+bug_system:trac
+bug_id:2316
