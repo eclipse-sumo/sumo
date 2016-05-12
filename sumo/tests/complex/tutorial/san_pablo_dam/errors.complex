@@ -53,8 +53,8 @@ Warning: Teleporting vehicle '412'; collision with vehicle '411', lane='1to7_0',
 Warning: Teleporting vehicle '410'; collision with vehicle '409', lane='1to7_0', gap=-0.14, time=25733.00 stage=move.
 Warning: Vehicle '390' teleports beyond arrival edge '7to8', time 25745.00.
 Warning: Vehicle '392' teleports beyond arrival edge '7to8', time 25753.00.
-Warning: Vehicle '400' teleports beyond arrival edge '7to8', time 25760.00.
 Warning: Vehicle '391' teleports beyond arrival edge '7to8', time 25760.00.
+Warning: Vehicle '400' teleports beyond arrival edge '7to8', time 25760.00.
 Warning: Vehicle '402' teleports beyond arrival edge '7to8', time 25772.00.
 Warning: Vehicle '412' teleports beyond arrival edge '7to8', time 25782.00.
 Warning: Vehicle '410' teleports beyond arrival edge '7to8', time 25784.00.
@@ -232,8 +232,8 @@ Warning: Vehicle '1058' teleports beyond arrival edge '7to8', time 27497.00.
 Warning: Vehicle '1034' teleports beyond arrival edge '7to8', time 27501.00.
 Warning: Vehicle '1063' teleports beyond arrival edge '7to8', time 27503.00.
 Warning: Vehicle '1039' teleports beyond arrival edge '7to8', time 27506.00.
-Warning: Vehicle '1068' teleports beyond arrival edge '7to8', time 27506.00.
 Warning: Vehicle '1051' teleports beyond arrival edge '7to8', time 27506.00.
+Warning: Vehicle '1068' teleports beyond arrival edge '7to8', time 27506.00.
 Warning: Vehicle '1070' teleports beyond arrival edge '7to8', time 27519.00.
 Warning: Vehicle '1049' teleports beyond arrival edge '7to8', time 27520.00.
 Warning: Vehicle '1060' ends teleporting on edge '7to8', time 27521.00.
