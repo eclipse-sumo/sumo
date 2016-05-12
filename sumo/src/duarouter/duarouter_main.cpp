@@ -184,11 +184,11 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         }
     }
-    net.openOutput(filename, altFilename, oc.getString("vtype-output"));
     RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter));
     // process route definitions
     try {
+        net.openOutput(filename, altFilename, oc.getString("vtype-output"));
         loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                              string2time(oc.getString("route-steps")), net, provider);
         // end the processing
