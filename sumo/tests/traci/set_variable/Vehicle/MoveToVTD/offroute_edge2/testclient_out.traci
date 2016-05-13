@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue May  3 08:35:42 2016
+TraCITestClient output file. Date: Fri May 13 13:08:45 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -21,7 +21,7 @@ TraCITestClient output file. Date: Tue May  3 08:35:42 2016
   domID=164 varID=84 objID=VTD_EGO
 .. Command acknowledged (164), [description: ]
   CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ 
-"EC", "CW" ]
+"WC", "CS" ]
 
 -> Command sent: <SetValue>:
   domID=196 varID=180 objID=VTD_EGO
@@ -31,7 +31,7 @@ TraCITestClient output file. Date: Tue May  3 08:35:42 2016
   domID=164 varID=84 objID=VTD_EGO
 .. Command acknowledged (164), [description: ]
   CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ 
-"EC", "CW" ]
+"WC", "CS" ]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -40,7 +40,7 @@ TraCITestClient output file. Date: Tue May  3 08:35:42 2016
   domID=164 varID=84 objID=VTD_EGO
 .. Command acknowledged (164), [description: ]
   CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ 
-"WC", "CE" ]
+"EC", "CW" ]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]

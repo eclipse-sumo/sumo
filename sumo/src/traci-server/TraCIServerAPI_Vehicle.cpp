@@ -1548,7 +1548,9 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
                                      lane->getParameter("origId", "") == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
-            maxDist = MAX2(maxDist, dist);
+            if (dist < 1000) {
+                maxDist = MAX2(maxDist, dist);
+            }
 
         }
     }
