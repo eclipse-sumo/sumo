@@ -2,7 +2,7 @@
 /// @file    TplCheck.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2016
-/// @version $Id: TplCheck.h 20584 2016-04-28 11:32:24Z palcraft $
+/// @version $Id$
 ///
 // Some methods for check type of dates
 /****************************************************************************/
