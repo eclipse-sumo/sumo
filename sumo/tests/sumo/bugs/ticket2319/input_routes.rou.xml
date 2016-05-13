@@ -1,0 +1,12 @@
+<routes>
+    <vType id="car" sigma="0" length="5"/>
+    <vType id="truck" sigma="0" length="30"/>
+    <route id="r0" edges="beg1 end"/>
+    <route id="r1" edges="beg2 end"/>
+    <vehicle id="v0" type="truck" route="r1" depart="0" departLane="2" departPos="-10">
+        <stop lane="end_2" endPos="3" duration="0"/>
+        <stop lane="end_1" endPos="4" duration="0"/>
+    </vehicle>
+    <!-- target lane end_0 has no prececessor within the route of v1 -->
+    <vehicle id="v1" type="car" route="r0" depart="0" departLane="0" arrivalLane="0" departPos="-30"/>
+</routes>

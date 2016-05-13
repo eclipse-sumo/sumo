@@ -1,0 +1,7 @@
+
+[Reported by leonhard at 13Mai15:15:50]
+search_string:teleporting
+search_file:errors
+ignore_other_errors:1
+bug_system:trac
+bug_id:2319

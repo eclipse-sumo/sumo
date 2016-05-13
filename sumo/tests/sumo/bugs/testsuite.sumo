@@ -1,3 +1,6 @@
+# (Copy of overtake_stopped_on_the_left) with subsecond step-length
+ticket2126_subsecond
+
 # platform dependent bug related to lanechanging and maybe floating point
 lanechange
 
@@ -172,6 +175,9 @@ ticket1591
 ticket1641
 ticket1698
 ticket1804
+
+# Deadlock when lanechange requested by long vehicle while occupying a junction (Copy of ticket1804)
+ticket2319
 ticket1861
 ticket1861b
 ticket1869
@@ -193,6 +199,3 @@ ticket1224
 # program crash when overtaking is combined with continuous lanechange
 # 
 ticket2316
-
-# (Copy of overtake_stopped_on_the_left with subsecond step-length). Should be approved manually when ticket is fixed.
-ticket2126_subsecond
