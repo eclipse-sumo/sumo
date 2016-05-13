@@ -1529,7 +1529,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
                     // a SmartDB, running at :49_2 delivers off=~9.24 while dist>24.?
                     dist = 1000.;
                 } else {
-                    langle = lane->getShape().rotationDegreeAtOffset(off);
+                    langle = GeomHelper::naviDegree(lane->getShape().rotationDegreeAtOffset(off));
                 }
             }
             bool sameEdge = v.isOnRoad() && &lane->getEdge() == &v.getLane()->getEdge() && v.getEdge()->getLanes()[0]->getLength() > v.getPositionOnLane() + SPEED2DIST(speed);

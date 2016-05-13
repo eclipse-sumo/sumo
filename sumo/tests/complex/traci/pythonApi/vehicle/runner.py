@@ -292,7 +292,7 @@ for i in range(3):
 moved = "movedVeh"
 traci.vehicle.add(moved, "vertical")
 print("step", step())
-traci.vehicle.moveToXY(moved, "dummy", 0, 448.99, 491.19, 0, False)
+traci.vehicle.moveToXY(moved, "dummy", 0, 448.99, 491.19, 90, False)
 print("step", step())
 check(moved)
 

@@ -450,7 +450,7 @@ examining movedVeh
 speed 0.0
 speed w/o traci 0.0
 pos (448.99, 491.75)
-angle 0.0
+angle 90.0
 road 1si
 lane 1si_0
 laneIndex 0
