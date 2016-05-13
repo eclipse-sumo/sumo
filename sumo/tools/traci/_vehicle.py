@@ -132,6 +132,12 @@ class VehicleDomain(Domain):
     STOP_CONTAINER_TRIGGERED = 4
     STOP_BUS_STOP = 8
     STOP_CONTAINER_STOP = 16
+    
+    DEPART_LANE_RANDOM = -2
+    DEPART_LANE_FREE = -3
+    DEPART_LANE_ALLOWED_FREE = -4
+    DEPART_LANE_BEST_FREE = -5
+    DEPART_LANE_FIRST_ALLOWED = -6
 
     def __init__(self):
         Domain.__init__(self, "vehicle", tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_SET_VEHICLE_VARIABLE,
@@ -834,7 +840,8 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEEDSETMODE, vehID, sm)
 
-    def add(self, vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAULT_VEHTYPE"):
+    def add(self, vehID, routeID, depart=DEPART_NOW, pos=0, speed=0,
+            lane=DEPART_LANE_FIRST_ALLOWED, typeID="DEFAULT_VEHTYPE"):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
                                        1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 1)
         if depart > 0:
@@ -845,7 +852,7 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
         self._connection._string += struct.pack("!BdBd",
                                                 tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
-        self._connection._string += struct.pack("!BB", tc.TYPE_BYTE, lane)
+        self._connection._string += struct.pack("!Bb", tc.TYPE_BYTE, lane)
         self._connection._sendExact()
 
     def addFull(self, vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
