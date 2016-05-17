@@ -559,7 +559,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            return isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH;
+            return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH);
             break;
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
@@ -582,7 +582,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
             break;
         case SUMO_ATTR_WIDTH:
-            return isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH;
+            return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH);
             break;
         case SUMO_ATTR_ENDOFFSET:
             return canParse<SUMOReal>(value);
