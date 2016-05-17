@@ -117,6 +117,8 @@ def main(args=None):
         times = hw._edge2value
 
     for t in times:
+        if options.verbose:
+            print("Processing timestep %s" % t)
         colors = {}
         maxColorValue = None
         minColorValue = None
