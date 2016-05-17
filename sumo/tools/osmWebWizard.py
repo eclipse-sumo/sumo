@@ -346,6 +346,7 @@ class OSMImporterWebSocket(WebSocket):
 
                 self.sendMessage(unicode("zip " + data))
         except:
+            print(traceback.format_exc())
             # reset 'Generate Scenario' button
             while self.steps > 0:
                 self.report("Recovering")
