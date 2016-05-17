@@ -743,7 +743,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
             if ((myCurrentEdge->myCyclewayType & WAY_BOTH) != 0) {
                 // now we have some info on directionality
-                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType & !WAY_UNKNOWN);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType & ~WAY_UNKNOWN);
             }
         } else if (key.size() > 6 && StringUtils::startsWith(key, "busway:")) {
             // handle special busway keys
