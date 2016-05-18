@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/18/16 15:20:15 by SUMO Version dev-SVN-r20731
+<!-- generated on Wed May 18 22:20:20 2016 by SUMO Version dev-SVN-r20743
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
         <transport depart="157.00" arrival="177.00"/>
         <tranship arrival="228.00"/>
         <stop arrival="248.00"/>
-        <transport depart="249.00" arrival="294.00"/>
+        <transport depart="248.00" arrival="293.00"/>
     </containerinfo>
-    <tripinfo id="car0" depart="249.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="249.00" arrival="294.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="45.00" routeLength="252.00" waitSteps="1" timeLoss="5.75" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="car0" depart="248.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="248.00" arrival="293.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="45.00" routeLength="252.00" waitSteps="1" timeLoss="5.75" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
