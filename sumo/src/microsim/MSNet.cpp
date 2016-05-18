@@ -476,11 +476,12 @@ MSNet::simulationStep() {
     if (myPersonControl != 0 && myPersonControl->hasPersons()) {
         myPersonControl->checkWaitingPersons(this, myStep);
     }
-    // insert vehicles
-    myInserter->determineCandidates(myStep);    // containers
-    if (myContainerControl != 0) {
+    // containers
+    if (myContainerControl != 0 && myContainerControl->hasContainers()) {
         myContainerControl->checkWaitingContainers(this, myStep);
     }
+    // insert vehicles
+    myInserter->determineCandidates(myStep);
     myInsertionEvents->execute(myStep);
 #ifdef HAVE_FOX
     MSDevice_Routing::waitForAll();
