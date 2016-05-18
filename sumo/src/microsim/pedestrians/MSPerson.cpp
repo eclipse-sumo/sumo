@@ -367,114 +367,6 @@ MSPerson::MSPersonStage_Driving::endEventOutput(const MSTransportable& p, SUMOTi
 
 
 /* -------------------------------------------------------------------------
- * MSPerson::MSPersonStage_Waiting - methods
- * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination,
-        SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
-    MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
-                               pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "person stopping at " + destination.getID()), WAITING),
-    myWaitingDuration(duration),
-    myWaitingUntil(until),
-    myActType(actType) {
-}
-
-
-MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
-
-
-const MSEdge*
-MSPerson::MSPersonStage_Waiting::getEdge() const {
-    return &myDestination;
-}
-
-
-const MSEdge*
-MSPerson::MSPersonStage_Waiting::getFromEdge() const {
-    return &myDestination;
-}
-
-
-SUMOReal
-MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime /* now */) const {
-    return myArrivalPos;
-}
-
-
-SUMOTime
-MSPerson::MSPersonStage_Waiting::getUntil() const {
-    return myWaitingUntil;
-}
-
-
-Position
-MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myArrivalPos, MSPModel::SIDEWALK_OFFSET);
-}
-
-
-SUMOReal
-MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myArrivalPos) + M_PI / 2;
-}
-
-
-void
-MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
-    previous->getEdge()->addPerson(person);
-    myWaitingStart = now;
-    const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
-    net->getPersonControl().setWaitEnd(until, person);
-}
-
-
-void
-MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("stop").writeAttr("arrival", time2string(myArrived)).closeTag();
-}
-
-
-void
-MSPerson::MSPersonStage_Waiting::routeOutput(OutputDevice& os) const {
-    os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination().getID());
-    if (myWaitingDuration >= 0) {
-        os.writeAttr(SUMO_ATTR_DURATION, time2string(myWaitingDuration));
-    }
-    if (myWaitingUntil >= 0) {
-        os.writeAttr(SUMO_ATTR_UNTIL, time2string(myWaitingUntil));
-    }
-    os.closeTag();
-}
-
-
-void
-MSPerson::MSPersonStage_Waiting::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actstart " + myActType)
-    .writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-
-void
-MSPerson::MSPersonStage_Waiting::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actend " + myActType).writeAttr("agent", p.getID())
-    .writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-
-SUMOTime
-MSPerson::MSPersonStage_Waiting::getWaitingTime(SUMOTime now) const {
-    return now - myWaitingStart;
-}
-
-
-SUMOReal
-MSPerson::MSPersonStage_Waiting::getSpeed() const {
-    return 0;
-}
-
-
-
-
-/* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan)
@@ -511,17 +403,6 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
 }
 
 
-void
-MSPerson::routeOutput(OutputDevice& os) const {
-    MSTransportable::MSTransportablePlan::const_iterator i = myPlan->begin();
-    if ((*i)->getStageType() == WAITING && getDesiredDepart() == static_cast<MSPersonStage_Waiting*>(*i)->getUntil()) {
-        ++i;
-    }
-    for (; i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os);
-    }
-}
-
 const std::string&
 MSPerson::getNextEdge() const {
 //    if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
@@ -539,6 +420,7 @@ MSPerson::getNextEdge() const {
     }
     return StringUtils::emptyString;
 }
+
 
 const MSEdge*
 MSPerson::getNextEdgePtr() const {

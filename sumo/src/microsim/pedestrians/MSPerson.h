@@ -308,88 +308,6 @@ public:
 
     };
 
-    /**
-     * A "real" stage performing a waiting over the specified time
-     */
-    class MSPersonStage_Waiting : public MSTransportable::Stage {
-    public:
-        /// constructor
-        MSPersonStage_Waiting(const MSEdge& destination,
-                              SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType);
-
-        /// destructor
-        ~MSPersonStage_Waiting();
-
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-        const MSEdge* getFromEdge() const;
-        SUMOReal getEdgePos(SUMOTime now) const;
-        SUMOTime getUntil() const;
-
-        ///
-        Position getPosition(SUMOTime now) const;
-
-        SUMOReal getAngle(SUMOTime now) const;
-
-        SUMOTime getWaitingTime(SUMOTime now) const;
-
-        SUMOReal getSpeed() const;
-
-        std::string getStageDescription() const {
-            return "waiting (" + myActType + ")";
-        }
-
-        /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
-
-        /** @brief Called on writing tripinfo output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void tripInfoOutput(OutputDevice& os) const;
-
-        /** @brief Called on writing vehroute output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void routeOutput(OutputDevice& os) const;
-
-        /** @brief Called for writing the events output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-    private:
-        /// the time the person is waiting
-        SUMOTime myWaitingDuration;
-
-        /// the time until the person is waiting
-        SUMOTime myWaitingUntil;
-
-        /// the time the person is waiting
-        SUMOTime myWaitingStart;
-
-        /// @brief The type of activity
-        std::string myActType;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSPersonStage_Waiting(const MSPersonStage_Waiting&);
-
-        /// @brief Invalidated assignment operator.
-        MSPersonStage_Waiting& operator=(const MSPersonStage_Waiting&);
-
-    };
-
 public:
     /// constructor
     MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
@@ -400,13 +318,6 @@ public:
     /* @brief proceeds to the next step of the route,
      * @return Whether the persons plan continues  */
     bool proceed(MSNet* net, SUMOTime time);
-
-    /** @brief Called on writing vehroute output
-     *
-     * @param[in] os The stream to write the information into
-     * @exception IOError not yet implemented
-     */
-    void routeOutput(OutputDevice& os) const;
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const;

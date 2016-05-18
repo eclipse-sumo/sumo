@@ -67,8 +67,6 @@ class CState;
 
 class MSContainer : public MSTransportable {
 public:
-    /// @brief the offset for computing container positions when standing at an edge
-    static const SUMOReal ROADSIDE_OFFSET;
 
 
     /**
@@ -181,108 +179,6 @@ public:
 
         /// @brief Invalidated assignment operator.
         MSContainerStage_Driving& operator=(const MSContainerStage_Driving&);
-
-    };
-
-    /**
-     * A "real" stage performing a waiting over the specified time
-     * A container is in this stage if it is not on a ride or waiting for a ride, e.g.
-     * if it is stored, or if gets filled or emptied.
-     */
-    class MSContainerStage_Waiting : public MSTransportable::Stage {
-    public:
-        /// constructor
-        MSContainerStage_Waiting(const MSEdge& destination,
-                                 SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType);
-
-        /// destructor
-        ~MSContainerStage_Waiting();
-
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-
-        /// Returns the current edge
-        const MSEdge* getFromEdge() const;
-
-        SUMOReal getEdgePos(SUMOTime now) const;
-
-        /// Returns time until the container waits
-        SUMOTime getUntil() const;
-
-        Position getPosition(SUMOTime now) const;
-
-        /// @brief the angle of the edge minus 90deg
-        SUMOReal getAngle(SUMOTime now) const;
-
-        SUMOTime getWaitingTime(SUMOTime now) const;
-
-        /// Returns the speed of the container which is always zero in that stage
-        SUMOReal getSpeed() const;
-
-        /// Returns the current stage description as a string
-        std::string getStageDescription() const {
-            return "waiting (" + myActType + ")";
-        }
-
-        /* @brief returns the container stop at which the container is waiting
-         *
-         * this method was added to have a method 'getDepartContainerStop'
-         * for MSContainer.
-         */
-        MSStoppingPlace* getDepartContainerStop() const;
-
-        /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
-
-        /** @brief Called on writing tripinfo output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void tripInfoOutput(OutputDevice& os) const;
-
-        /** @brief Called on writing vehroute output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void routeOutput(OutputDevice& os) const;
-
-        /** @brief Called for writing the events output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
-
-    private:
-        /// the time the container is waiting
-        SUMOTime myWaitingDuration;
-
-        /// the time until the container is waiting
-        SUMOTime myWaitingUntil;
-
-        /// the time the container started waiting
-        SUMOTime myWaitingStart;
-
-        /// @brief The type of activity
-        std::string myActType;
-
-        /// @brief the container stop at which the container is waiting
-        MSStoppingPlace* myCurrentContainerStop;
-
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSContainerStage_Waiting(const MSContainerStage_Waiting&);
-
-        /// @brief Invalidated assignment operator.
-        MSContainerStage_Waiting& operator=(const MSContainerStage_Waiting&);
 
     };
 
@@ -426,13 +322,6 @@ public:
     /* @brief proceeds to the next step of the route,
      * @return Whether the persons plan continues  */
     bool proceed(MSNet* net, SUMOTime time);
-
-    /** @brief Called on writing vehroute output
-     *
-     * @param[in] os The stream to write the information into
-     * @exception IOError not yet implemented
-     */
-    void routeOutput(OutputDevice& os) const;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -49,11 +49,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-/* -------------------------------------------------------------------------
- * static member definitions
- * ----------------------------------------------------------------------- */
-const SUMOReal MSContainer::ROADSIDE_OFFSET(3);
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -189,102 +184,6 @@ MSContainer::MSContainerStage_Driving::endEventOutput(const MSTransportable& con
 }
 
 
-
-/* -------------------------------------------------------------------------
- * MSContainer::MSContainerStage_Waiting - methods
- * ----------------------------------------------------------------------- */
-MSContainer::MSContainerStage_Waiting::MSContainerStage_Waiting(const MSEdge& destination,
-        SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType) :
-    MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
-                               pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "container stopping at " + destination.getID()), WAITING),
-    myWaitingDuration(duration),
-    myWaitingUntil(until),
-    myActType(actType) {
-}
-
-MSContainer::MSContainerStage_Waiting::~MSContainerStage_Waiting() {}
-
-const MSEdge*
-MSContainer::MSContainerStage_Waiting::getEdge() const {
-    return &myDestination;
-}
-
-const MSEdge*
-MSContainer::MSContainerStage_Waiting::getFromEdge() const {
-    return &myDestination;
-}
-
-SUMOReal
-MSContainer::MSContainerStage_Waiting::getEdgePos(SUMOTime /* now */) const {
-    return myArrivalPos;
-}
-
-SUMOTime
-MSContainer::MSContainerStage_Waiting::getUntil() const {
-    return myWaitingUntil;
-}
-
-Position
-MSContainer::MSContainerStage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myArrivalPos, ROADSIDE_OFFSET);
-}
-
-SUMOReal
-MSContainer::MSContainerStage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myArrivalPos) + M_PI;
-}
-
-SUMOTime
-MSContainer::MSContainerStage_Waiting::getWaitingTime(SUMOTime now) const {
-    return now - myWaitingStart;
-}
-
-SUMOReal
-MSContainer::MSContainerStage_Waiting::getSpeed() const {
-    return 0;
-}
-
-MSStoppingPlace*
-MSContainer::MSContainerStage_Waiting::getDepartContainerStop() const {
-    return myCurrentContainerStop;
-}
-
-void
-MSContainer::MSContainerStage_Waiting::proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous) {
-    previous->getEdge()->addContainer(container);
-    myWaitingStart = now;
-    const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
-    net->getContainerControl().setWaitEnd(until, container);
-}
-
-void
-MSContainer::MSContainerStage_Waiting::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("stop").writeAttr("arrival", time2string(myArrived)).closeTag();
-}
-
-void
-MSContainer::MSContainerStage_Waiting::routeOutput(OutputDevice& os) const {
-    os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination().getID());
-    if (myWaitingDuration >= 0) {
-        os.writeAttr(SUMO_ATTR_DURATION, time2string(myWaitingDuration));
-    }
-    if (myWaitingUntil >= 0) {
-        os.writeAttr(SUMO_ATTR_UNTIL, time2string(myWaitingUntil));
-    }
-    os.closeTag();
-}
-
-void
-MSContainer::MSContainerStage_Waiting::beginEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actstart " + myActType)
-    .writeAttr("agent", container.getID()).writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-void
-MSContainer::MSContainerStage_Waiting::endEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actend " + myActType).writeAttr("agent", container.getID())
-    .writeAttr("link", getEdge()->getID()).closeTag();
-}
 
 /* -------------------------------------------------------------------------
  * MSContainer::MSContainerStage_Tranship - methods
@@ -436,18 +335,4 @@ MSContainer::proceed(MSNet* net, SUMOTime time) {
         return false;
     }
 }
-
-
-void
-MSContainer::routeOutput(OutputDevice& os) const {
-    MSTransportablePlan::const_iterator i = myPlan->begin();
-    if ((*i)->getStageType() == WAITING && getDesiredDepart() == static_cast<MSContainerStage_Waiting*>(*i)->getUntil()) {
-        ++i;
-    }
-    for (; i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os);
-    }
-}
-
-
 /****************************************************************************/

@@ -66,13 +66,10 @@ public:
     virtual ~MSContainerControl();
 
     /// adds a single container, returns false if an id clash occured
-    bool add(const std::string& id, MSTransportable* container);
+    bool add(MSTransportable* container);
 
     /// removes a single container
     virtual void erase(MSTransportable* container);
-
-    /// sets the arrival time for a waiting container
-    void setDeparture(SUMOTime time, MSTransportable* container);
 
     /// sets the arrival time for a waiting container
     void setWaitEnd(SUMOTime time, MSTransportable* container);

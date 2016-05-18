@@ -75,11 +75,10 @@ public:
 
 
     /** @brief Adds a single person, returns false if an id clash occured
-     * @param[in] id The id of the person
      * @param[in] person The person to add
      * @return Whether the person could be added (none with the same id existed before)
      */
-    bool add(const std::string& id, MSPerson* person);
+    bool add(MSPerson* person);
 
 
     /** @brief Returns the named person, if existing
@@ -91,9 +90,6 @@ public:
 
     /// removes a single person
     virtual void erase(MSTransportable* person);
-
-    /// sets the arrival time for a waiting or walking person
-    void setDeparture(SUMOTime time, MSPerson* person);
 
     /// sets the arrival time for a waiting or walking person
     void setWaitEnd(SUMOTime time, MSTransportable* person);

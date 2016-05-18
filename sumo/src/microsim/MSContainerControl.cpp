@@ -60,9 +60,12 @@ MSContainerControl::~MSContainerControl() {
 
 
 bool
-MSContainerControl::add(const std::string& id, MSTransportable* container) {
-    if (myContainers.find(id) == myContainers.end()) {
-        myContainers[id] = container;
+MSContainerControl::add(MSTransportable* container) {
+    const SUMOVehicleParameter& param = container->getParameter();
+    if (myContainers.find(param.id) == myContainers.end()) {
+        myContainers[param.id] = container;
+        const SUMOTime step = param.depart % DELTA_T == 0 ? param.depart : (param.depart / DELTA_T + 1) * DELTA_T;
+        myWaiting4Departure[step].push_back(container);
         return true;
     }
     return false;
@@ -94,21 +97,8 @@ MSContainerControl::erase(MSTransportable* container) {
 
 
 void
-MSContainerControl::setDeparture(const SUMOTime time, MSTransportable* container) {
-    const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
-    if (myWaiting4Departure.find(step) == myWaiting4Departure.end()) {
-        myWaiting4Departure[step] = ContainerVector();
-    }
-    myWaiting4Departure[step].push_back(container);
-}
-
-
-void
 MSContainerControl::setWaitEnd(const SUMOTime time, MSTransportable* container) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
-    if (myWaitingUntil.find(step) == myWaitingUntil.end()) {
-        myWaitingUntil[step] = ContainerVector();
-    }
     myWaitingUntil[step].push_back(container);
 }
 

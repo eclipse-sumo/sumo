@@ -61,7 +61,9 @@ void
 GUIPersonControl::insertPersonIDs(std::vector<GUIGlID>& into) {
     into.reserve(myPersons.size());
     for (std::map<std::string, MSTransportable*>::const_iterator it = myPersons.begin(); it != myPersons.end(); ++it) {
-        into.push_back(static_cast<const GUIPerson*>((*it).second)->getGlID());
+        if (it->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {
+            into.push_back(static_cast<const GUIPerson*>(it->second)->getGlID());
+        }
     }
 }
 
