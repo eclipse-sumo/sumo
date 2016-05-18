@@ -87,6 +87,7 @@
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_EXEC_MOVE
 //#define DEBUG_FURTHER
+//#define DEBUG_BESTLANES
 #define DEBUG_COND (getID() == "disabled")
 
 #define STOPPING_PLACE_OFFSET 0.5
@@ -2434,6 +2435,11 @@ MSVehicle::getBestLanes() const {
 
 void
 MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
+#ifdef DEBUG_BESTLANES
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " updateBestLanes veh=" << getID() << " startLane1=" << Named::getIDSecure(startLane) << " myLane=" << Named::getIDSecure(myLane) << "\n";
+    }
+#endif
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gDebugSelectedVehicle == getID()) {
         int bla = 0;
@@ -2605,6 +2611,15 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
     }
+#ifdef DEBUG_BESTLANES
+    if (DEBUG_COND) {
+        std::cout << "   last edge:\n"; 
+        std::vector<LaneQ>& laneQs = myBestLanes.back();
+        for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
+            std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
+        }
+    }
+#endif
     // go backward through the lanes
     // track back best lane and compute the best prior lane(s)
     for (std::vector<std::vector<LaneQ> >::reverse_iterator i = myBestLanes.rbegin() + 1; i != myBestLanes.rend(); ++i) {
@@ -2653,6 +2668,15 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     bestThisIndex = index;
                 }
             }
+#ifdef DEBUG_BESTLANES
+            if (DEBUG_COND) {
+                std::cout << "   edge=" << cE.getID() << "\n"; 
+                std::vector<LaneQ>& laneQs = clanes;
+                for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
+                    std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
+                }
+            }
+#endif
 
         } else {
             // only needed in case of disconnected routes
@@ -2695,6 +2719,11 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         }
     }
     updateOccupancyAndCurrentBestLane(startLane);
+#ifdef DEBUG_BESTLANES
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << getID() << " bestCont=" << toString(getBestLanesContinuation()) << "\n"; 
+    }
+#endif
     return;
 }
 
