@@ -79,6 +79,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveWarnedAboutDeprecatedLanes(false),
     myLastParameterised(0),
     myHaveSeenInternalEdge(false),
+    myHaveSeenNeighs(false),
     myLefthand(false),
     myNetworkVersion(0),
     myNetIsLoaded(false) {
@@ -107,6 +108,7 @@ NLHandler::myStartElement(int element,
                 break;
             case SUMO_TAG_NEIGH:
                 myEdgeControlBuilder.addNeigh(attrs.getString(SUMO_ATTR_LANE));
+                myHaveSeenNeighs = true;
                 break;
             case SUMO_TAG_JUNCTION:
                 openJunction(attrs);

@@ -109,6 +109,10 @@ public:
         return myHaveSeenInternalEdge;
     }
 
+    bool haveSeenNeighs() const {
+        return myHaveSeenNeighs;
+    }
+
     bool lefthand() const {
         return myLefthand;
     }
@@ -331,6 +335,9 @@ protected:
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
+
+    /// @brief whether the loaded network contains explicit neighbor lanes
+    bool myHaveSeenNeighs;
 
     /// @brief whether the loaded network was built for left hand traffic
     bool myLefthand;

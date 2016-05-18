@@ -217,6 +217,7 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
                      std::vector<SUMOTime> stateDumpTimes,
                      std::vector<std::string> stateDumpFiles,
                      bool hasInternalLinks,
+                     bool hasNeighs,
                      bool lefthand,
                      SUMOReal version) {
     myEdges = edges;
@@ -235,6 +236,7 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
         mySimBeginMillis = SysUtils::getCurrentMillis();
     }
     myHasInternalLinks = hasInternalLinks;
+    myHasNeighs = hasNeighs;
     myHasElevation = checkElevation();
     myLefthand = lefthand;
     myVersion = version;
