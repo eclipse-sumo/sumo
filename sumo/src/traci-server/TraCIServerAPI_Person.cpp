@@ -75,7 +75,9 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
         if (variable == ID_LIST) {
             std::vector<std::string> ids;
             for (MSPersonControl::constVehIt i = c.loadedPersonsBegin(); i != c.loadedPersonsEnd(); ++i) {
-                ids.push_back((*i).first);
+                if (i->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {
+                    ids.push_back(i->first);
+                }
             }
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(ids);

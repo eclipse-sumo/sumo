@@ -115,7 +115,9 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
         std::vector<std::string> ids;
         MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
         for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
-            ids.push_back(i->first);
+            if ((*i).second->isOnRoad() || (*i).second->isParking()) {
+                ids.push_back((*i).first);
+            }
         }
         if (variable == ID_LIST) {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);

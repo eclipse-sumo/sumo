@@ -122,9 +122,6 @@ public:
          */
         SUMOReal getSpeed() const;
 
-        /// @brief returns the container stop from which the container departs
-        MSStoppingPlace* getDepartContainerStop() const;
-
         /// @brief assign a vehicle to the container
         void setVehicle(SUMOVehicle* v) {
             myVehicle = v;
@@ -162,9 +159,6 @@ public:
 
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
-
-        /// @brief The container stop from which the container departs
-        MSStoppingPlace* myDepartContainerStop;
 
         SUMOReal myWaitingPos;
 
@@ -229,9 +223,6 @@ public:
             return "tranship";
         }
 
-        /// @brief returns the container stop from which the container departs
-        MSStoppingPlace* getDepartContainerStop() const;
-
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
@@ -290,9 +281,6 @@ public:
 
         /// @brief the depart position
         SUMOReal myDepartPos;
-
-        /// @brief The container stop from which the container departs
-        MSStoppingPlace* myDepartContainerStop;
 
         /// @brief the speed of the container
         SUMOReal mySpeed;

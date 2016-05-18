@@ -73,7 +73,6 @@ MSPersonControl::add(MSPerson* person) {
         const SUMOTime step = param.depart % DELTA_T == 0 ? param.depart : (param.depart / DELTA_T + 1) * DELTA_T;
         myWaiting4Departure[step].push_back(person);
         myLoadedPersonNumber++;
-        myRunningPersonNumber++;
         return true;
     }
     return false;
@@ -128,7 +127,9 @@ MSPersonControl::checkWaitingPersons(MSNet* net, const SUMOTime time) {
         const PersonVector& persons = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (size_t i = 0; i < persons.size(); ++i) {
-            if (!persons[i]->proceed(net, time)) {
+            if (persons[i]->proceed(net, time)) {
+                myRunningPersonNumber++;
+            } else {
                 erase(persons[i]);
             }
         }

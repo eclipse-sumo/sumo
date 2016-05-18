@@ -157,11 +157,6 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
     return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "transport";
 }
 
-MSStoppingPlace*
-MSContainer::MSContainerStage_Driving::getDepartContainerStop() const {
-    return myDepartContainerStop;
-}
-
 void
 MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os) const {
     os.openTag("transport").writeAttr("depart", time2string(myDeparted)).writeAttr("arrival", time2string(myArrived)).closeTag();
@@ -256,10 +251,6 @@ MSContainer::MSContainerStage_Tranship::getSpeed() const {
     return myContainerState->getSpeed(*this);
 }
 
-MSStoppingPlace*
-MSContainer::MSContainerStage_Tranship::getDepartContainerStop() const {
-    return myDepartContainerStop;
-}
 
 void
 MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os) const {
