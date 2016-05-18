@@ -83,6 +83,7 @@ GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
     if (MSGlobals::gUseMesoSim) {
         myShape = splitAtSegments(shape);
         assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
+        assert(myShapeSegments.size() == myShape.size());
     }
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
@@ -450,7 +451,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         setColor(s);
     } else {
         myShapeColors.clear();
-        const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)-> getSegmentColors();
+        const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)->getSegmentColors();
         if (segmentColors.size() > 0) {
             // apply segment specific shape colors
             //std::cout << getID() << " shape=" << myShape << " shapeSegs=" << toString(myShapeSegments) << "\n";
@@ -1073,7 +1074,10 @@ GUILane::splitAtSegments(const PositionVector& shape) {
         while ((int)myShapeSegments.size() < index) {
             myShapeSegments.push_back(i);
         }
-        //std::cout << "splitAtSegments " << getID() << " no=" << no << " i=" << i << " offset=" << offset << " index=" << index << " segs=" << toString(myShapeSegments) << "\n";
+        //std::cout << "splitAtSegments " << getID() << " no=" << no << " i=" << i << " offset=" << offset << " index=" << index << " segs=" << toString(myShapeSegments) << " resultSize=" << result.size() << " result=" << toString(result) << "\n";
+    }
+    while ((int)myShapeSegments.size() < result.size()) {
+        myShapeSegments.push_back(no - 1);
     }
     return result;
 }
