@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 10 08:24:51 2016 by SUMO Version dev-SVN-r20678
+<!-- generated on 05/18/16 15:20:14 by SUMO Version dev-SVN-r20731
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -26,15 +26,13 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <containerinfo id="container0" depart="0.00">
-        <stop arrival="0.00"/>
         <tranship arrival="54.00"/>
         <transport depart="155.00" arrival="175.00"/>
     </containerinfo>
     <tripinfo id="truck0" depart="50.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="0.00" arrival="198.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="148.00" routeLength="447.98" waitSteps="2" timeLoss="13.12" rerouteNo="0" devices="tripinfo_truck0 container_truck0" vType="truck" vaporized=""/>
     <containerinfo id="container1" depart="0.00">
-        <stop arrival="0.00"/>
         <tranship arrival="54.00"/>
         <transport depart="253.00" arrival="273.00"/>
     </containerinfo>
-    <tripinfo id="truck1" depart="55.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="5.00" arrival="296.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="241.00" routeLength="447.98" waitSteps="92" timeLoss="106.11" rerouteNo="0" devices="tripinfo_truck1 container_truck1" vType="truck" vaporized=""/>
+    <tripinfo id="truck1" depart="55.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="5.00" arrival="296.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="241.00" routeLength="447.98" waitSteps="92" timeLoss="106.12" rerouteNo="0" devices="tripinfo_truck1 container_truck1" vType="truck" vaporized=""/>
 </tripinfos>

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Nov 22 10:19:58 2013
+TraCITestClient output file. Date: Wed May 18 15:17:58 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -8,7 +8,7 @@ TraCITestClient output file. Date: Fri Nov 22 10:19:58 2013
   domID=164 varID=0 objID=x
 .. Command acknowledged (164), [description: ]
   CommandID=180  VariableID=0  ObjectID=x valueDataType=14 string list value: [ 
-"h" ]
+"h", "h1" ]
 
 -> Command sent: <SetValue>:
   domID=203 varID=148 objID=x
