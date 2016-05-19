@@ -734,8 +734,11 @@ MSLCM_LC2013::_wantsChange(
     if (myVehicle.getSpeed() > myLookAheadSpeed) {
         myLookAheadSpeed = myVehicle.getSpeed();
     } else {
+    	// memory decay factor for this time step
+    	const SUMOReal memoryFactor = 1. - (1. - LOOK_AHEAD_SPEED_MEMORY)*TS;
+    	assert(memoryFactor > 0.);
         myLookAheadSpeed = MAX2(LOOK_AHEAD_MIN_SPEED,
-                                (LOOK_AHEAD_SPEED_MEMORY * myLookAheadSpeed + (1 - LOOK_AHEAD_SPEED_MEMORY) * myVehicle.getSpeed()));
+                                (memoryFactor * myLookAheadSpeed + (1 - memoryFactor) * myVehicle.getSpeed()));
     }
     SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT) * myStrategicParam;
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
