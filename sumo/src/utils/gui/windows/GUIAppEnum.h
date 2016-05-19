@@ -148,8 +148,14 @@ enum {
     //@}
 
 
-    // Clear simulation settings
+    /// Clear simulation output
     MID_CLEARMESSAGEWINDOW,
+    /// Show network statistics
+    MID_SHOWNETSTATS,
+    /// Show vehicle statistics
+    MID_SHOWVEHSTATS,
+    /// Show person statistics
+    MID_SHOWPERSONSTATS,
 
 
     /// @name Common View Settings - IDs

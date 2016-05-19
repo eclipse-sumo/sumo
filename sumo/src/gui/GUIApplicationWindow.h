@@ -232,6 +232,9 @@ public:
     /// @brief Called on menu commands from the Locator menu
     long onCmdLocate(FXObject*, FXSelector, void*);
 
+    /// @brief Called on commands from the statistic buttons
+    long onCmdShowStats(FXObject*, FXSelector, void*);
+
     /// @brief Called on an event from the loading thread
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
 
@@ -318,6 +321,9 @@ protected:
     FXMenuPane* myFileMenu, *myEditMenu, *mySelectByPermissions, *mySettingsMenu,
                 *myLocatorMenu, *myControlMenu,
                 *myWindowsMenu, *myHelpMenu;
+
+    /// Buttons showing and running values and triggering statistic windows
+    FXButton* myNetStatButton, *myVehStatButton, *myPedStatButton;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow* myMessageWindow;

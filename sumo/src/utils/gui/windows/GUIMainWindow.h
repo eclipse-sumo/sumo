@@ -129,7 +129,6 @@ protected:
     FXLabel* myCartesianCoordinate, *myGeoCoordinate;
     FXHorizontalFrame* myCartesianFrame, *myGeoFrame;
 
-
     /// The gl-visual used
     FXGLVisual* myGLVisual;
 
