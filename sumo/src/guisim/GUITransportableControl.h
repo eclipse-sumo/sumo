@@ -1,12 +1,12 @@
 /****************************************************************************/
-/// @file    GUIPersonControl.h
+/// @file    GUITransportableControl.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 13.06.2012
 /// @version $Id$
 ///
-// GUI-version of the person control for building gui persons
+// GUI-version of the transportable control for building gui persons and containers
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2012-2016 DLR (http://www.dlr.de/) and contributors
@@ -19,8 +19,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIPersonControl_h
-#define GUIPersonControl_h
+#ifndef GUITransportableControl_h
+#define GUITransportableControl_h
 
 
 // ===========================================================================
@@ -39,17 +39,17 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/** @class GUIPersonControl
- * @brief GUI-version of the person control for building gui persons
+/** @class GUITransportableControl
+ * @brief GUI-version of the transportable control for building gui persons and containers
  */
-class GUIPersonControl : public MSTransportableControl {
+class GUITransportableControl : public MSTransportableControl {
 public:
     /// constructor
-    GUIPersonControl();
+    GUITransportableControl();
 
 
     /// destructor
-    virtual ~GUIPersonControl();
+    virtual ~GUITransportableControl();
 
 
     /** @brief Builds a new person
@@ -58,6 +58,13 @@ public:
      * @param[in] plan This person's plan
      */
     virtual MSTransportable* buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
+
+    /** @brief Builds a new container
+    * @param[in] pars The parameter
+    * @param[in] vtype The type (reusing vehicle type container here)
+    * @param[in] plan This container's plan
+    */
+    virtual MSTransportable* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
 
     /** @brief Returns the list of all known persons by gl-id
      * @param[fill] into The list to fill with vehicle ids

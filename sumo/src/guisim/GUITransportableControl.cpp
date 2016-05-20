@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIPersonControl.cpp
+/// @file    GUITransportableControl.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
@@ -33,8 +33,9 @@
 #include <vector>
 #include <algorithm>
 #include "GUINet.h"
-#include "GUIPersonControl.h"
+#include "GUIContainer.h"
 #include "GUIPerson.h"
+#include "GUITransportableControl.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -44,21 +45,27 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPersonControl::GUIPersonControl() {}
+GUITransportableControl::GUITransportableControl() {}
 
 
-GUIPersonControl::~GUIPersonControl() {
+GUITransportableControl::~GUITransportableControl() {
 }
 
 
 MSTransportable*
-GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
+GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new GUIPerson(pars, vtype, plan);
 }
 
 
+MSTransportable*
+GUITransportableControl::buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
+    return new GUIContainer(pars, vtype, plan);
+}
+
+
 void
-GUIPersonControl::insertPersonIDs(std::vector<GUIGlID>& into) {
+GUITransportableControl::insertPersonIDs(std::vector<GUIGlID>& into) {
     into.reserve(myTransportables.size());
     for (std::map<std::string, MSTransportable*>::const_iterator it = myTransportables.begin(); it != myTransportables.end(); ++it) {
         if (it->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {

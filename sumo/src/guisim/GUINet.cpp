@@ -53,8 +53,7 @@
 #include <microsim/MSJunctionControl.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
-#include <guisim/GUIPersonControl.h>
-#include <guisim/GUIContainerControl.h>
+#include <guisim/GUITransportableControl.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
@@ -124,7 +123,7 @@ GUINet::getBoundary() const {
 MSTransportableControl&
 GUINet::getPersonControl() {
     if (myPersonControl == 0) {
-        myPersonControl = new GUIPersonControl();
+        myPersonControl = new GUITransportableControl();
     }
     return *myPersonControl;
 }
@@ -133,7 +132,7 @@ GUINet::getPersonControl() {
 MSTransportableControl&
 GUINet::getContainerControl() {
     if (myContainerControl == 0) {
-        myContainerControl = new GUIContainerControl();
+        myContainerControl = new GUITransportableControl();
     }
     return *myContainerControl;
 }
