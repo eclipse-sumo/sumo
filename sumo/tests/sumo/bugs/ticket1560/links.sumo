@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 10 08:25:31 2016 by SUMO Version dev-SVN-r20678
+<!-- generated on 05/20/16 14:21:06 by SUMO Version dev-SVN-r20765
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -143,5 +143,4 @@
     <timestep id="69.00"/>
     <timestep id="70.00"/>
     <timestep id="71.00"/>
-    <timestep id="72.00"/>
 </link-output>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 10 08:25:27 2016 by SUMO Version dev-SVN-r20678
+<!-- generated on 05/20/16 14:20:59 by SUMO Version dev-SVN-r20765
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -533,69 +533,66 @@
         <vehicle id="stopped2" x="49.99" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="49.99" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="108.00">
-        <vehicle id="stopped" x="57.98" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="57.98" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="59.39" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="1.43" pos="59.39" lane="VODUGES_beg_0" slope="0.00"/>
         <vehicle id="stopped2" x="49.99" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="49.99" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="109.00">
-        <vehicle id="stopped" x="60.08" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="2.10" pos="60.08" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="62.90" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="3.51" pos="62.90" lane="VODUGES_beg_0" slope="0.00"/>
         <vehicle id="stopped2" x="49.99" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="49.99" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="110.00">
-        <vehicle id="stopped" x="63.60" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="3.53" pos="63.60" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="50.00" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="50.00" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="67.83" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="4.93" pos="67.83" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="51.35" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="1.36" pos="51.35" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="111.00">
-        <vehicle id="stopped" x="68.82" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="5.22" pos="68.82" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="51.86" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="1.86" pos="51.86" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="74.46" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="6.63" pos="74.46" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="54.57" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="3.22" pos="54.57" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="112.00">
-        <vehicle id="stopped" x="76.22" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="7.40" pos="76.22" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="55.06" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="3.20" pos="55.06" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="83.27" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="8.81" pos="83.27" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="59.12" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="4.55" pos="59.12" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="113.00">
-        <vehicle id="stopped" x="85.04" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="8.82" pos="85.04" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="59.83" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="4.77" pos="59.83" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="93.50" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.23" pos="93.50" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="65.24" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="6.12" pos="65.24" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="114.00">
-        <vehicle id="stopped" x="95.67" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.63" pos="95.67" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="67.17" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="7.35" pos="67.17" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="105.54" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.04" pos="105.54" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="73.95" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="8.70" pos="73.95" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="115.00">
-        <vehicle id="stopped" x="108.35" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.68" pos="108.35" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="75.88" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="8.70" pos="75.88" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="118.87" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.33" pos="118.87" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="84.00" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.06" pos="84.00" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="116.00">
-        <vehicle id="stopped" x="121.08" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.73" pos="121.08" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="86.76" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.89" pos="86.76" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="131.61" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.73" pos="131.61" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="96.24" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.24" pos="96.24" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="117.00">
-        <vehicle id="stopped" x="134.87" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.79" pos="134.87" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="99.14" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.38" pos="99.14" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="145.39" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.79" pos="145.39" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="109.03" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.78" pos="109.03" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="118.00">
-        <vehicle id="stopped" x="148.31" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.44" pos="148.31" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="113.02" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.88" pos="113.02" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="158.83" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.44" pos="158.83" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="122.91" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.88" pos="122.91" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="119.00">
-        <vehicle id="stopped" x="160.91" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.60" pos="160.91" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="125.80" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.78" pos="125.80" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="171.44" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.60" pos="171.44" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="135.68" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.78" pos="135.68" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="120.00">
-        <vehicle id="stopped" x="174.61" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.70" pos="174.61" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="139.62" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.82" pos="139.62" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="185.14" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.70" pos="185.14" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="149.50" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.82" pos="149.50" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="121.00">
-        <vehicle id="stopped" x="188.42" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.81" pos="188.42" lane="VODUGES_beg_0" slope="0.00"/>
-        <vehicle id="stopped2" x="153.18" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.57" pos="153.18" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped" x="198.95" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.81" pos="198.95" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="163.07" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.57" pos="163.07" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="122.00">
-        <vehicle id="stopped2" x="166.37" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.19" pos="166.37" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="176.25" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.19" pos="176.25" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="123.00">
-        <vehicle id="stopped2" x="179.37" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.00" pos="179.37" lane="VODUGES_beg_0" slope="0.00"/>
+        <vehicle id="stopped2" x="189.26" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.00" pos="189.26" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
-    <timestep time="124.00">
-        <vehicle id="stopped2" x="192.35" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.97" pos="192.35" lane="VODUGES_beg_0" slope="0.00"/>
-    </timestep>
-    <timestep time="125.00"/>
+    <timestep time="124.00"/>
 </fcd-export>

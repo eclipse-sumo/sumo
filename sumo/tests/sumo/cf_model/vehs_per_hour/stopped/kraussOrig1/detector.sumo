@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 10 08:25:22 2016 by SUMO Version dev-SVN-r20678
+<!-- generated on 05/20/16 15:37:54 by SUMO Version dev-SVN-r20765
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -96,7 +96,7 @@
    <interval begin="804.00" end="816.00" id="end3_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="816.00" end="828.00" id="end3_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="828.00" end="840.00" id="end3_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="840.00" end="852.00" id="end3_0" nVehContrib="4" flow="1200.00" occupancy="25.73" speed="7.37" length="5.00" nVehEntered="4"/>
+   <interval begin="840.00" end="852.00" id="end3_0" nVehContrib="4" flow="1200.00" occupancy="25.62" speed="7.39" length="5.00" nVehEntered="4"/>
    <interval begin="852.00" end="864.00" id="end3_0" nVehContrib="6" flow="1800.00" occupancy="19.29" speed="13.84" length="5.00" nVehEntered="6"/>
    <interval begin="864.00" end="876.00" id="end3_0" nVehContrib="8" flow="2400.00" occupancy="16.47" speed="19.12" length="5.00" nVehEntered="8"/>
    <interval begin="876.00" end="888.00" id="end3_0" nVehContrib="7" flow="2100.00" occupancy="12.47" speed="23.48" length="5.00" nVehEntered="7"/>

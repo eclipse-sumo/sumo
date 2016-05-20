@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 10 08:25:07 2016 by SUMO Version dev-SVN-r20678
+<!-- generated on 05/20/16 14:20:29 by SUMO Version dev-SVN-r20765
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,8 +30,8 @@
         <route edges="1fi 1si 1o 1fi 1si" exitTimes="25.00 136.00 181.00 204.00 221.00"/>
     </vehicle>
 
-    <vehicle id="stop_as_well" depart="10.00" arrival="239.00">
-        <route edges="1fi 1si 1o 1fi 1si" exitTimes="35.00 155.00 200.00 222.00 239.00"/>
+    <vehicle id="stop_as_well" depart="10.00" arrival="237.00">
+        <route edges="1fi 1si 1o 1fi 1si" exitTimes="35.00 153.00 198.00 220.00 237.00"/>
     </vehicle>
 
 </routes>
