@@ -69,6 +69,8 @@ public:
 
     virtual ~MSLCM_LC2013();
 
+    bool debugVehicle() const;
+
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
      * This method gets the information about the surrounding vehicles

@@ -90,8 +90,10 @@
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
-
-//#define DEBUG_COND (myVehicle.getID() == "overtaking")
+//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 2_28658400") // get's stuck in scenario VMM_muc at time t=28760
+//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_20381538") // get's stuck in scenario VMM_muc around time t=20470
+//#define DEBUG_COND (myVehicle.getID() == "type1.32" || myVehicle.getID() == "type1.26") // ticket676 t=90
+//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_20381538") // VMM_muc t=20490 (with conservative slowDownForBlocked)
 #define DEBUG_COND false
 
 // ===========================================================================
@@ -125,6 +127,12 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
 
 MSLCM_LC2013::~MSLCM_LC2013() {
     changed();
+}
+
+
+bool
+MSLCM_LC2013::debugVehicle() const {
+    return DEBUG_COND;
 }
 
 
@@ -375,9 +383,9 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                              &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
             if (targetSpeed < myVehicle.getSpeed()) {
                 // slow down smoothly to follow leader
-                const SUMOReal decel = ACCEL2SPEED(MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
-                                                        MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds)));
-                const SUMOReal nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - decel);
+                const SUMOReal decel = MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
+                                                        MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
+                const SUMOReal nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - ACCEL2SPEED(decel));
 #ifdef DEBUG_INFORMER
                 if(DEBUG_COND){
                 	std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
@@ -473,7 +481,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             if ((neededGap - neighFollow.second) / remainingSeconds < (plannedSpeed - nv->getSpeed())) {
 #ifdef DEBUG_INFORMER
             	if(DEBUG_COND){
-            		std::cout << " wants to cut in before  nv=" << nv->getID() << " without any help neededGap=" << neededGap << "\n";
+            		std::cout << " wants to cut in before  nv=" << nv->getID() << " without any help." <<"\nneededGap = " << neededGap << "\n";
             	}
 #endif
                 // follower might even accelerate but not to much
@@ -1176,6 +1184,7 @@ int
 MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*blocked) != 0) {
+    	// XXX: don't we need to take care of possibly different lane-geometries, here? (Leo)
         SUMOReal gap = (*blocked)->getPositionOnLane() - (*blocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_SLOW_DOWN
     	if(DEBUG_COND){
