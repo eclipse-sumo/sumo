@@ -47,7 +47,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
-#include <microsim/MSPersonControl.h>
+#include <microsim/MSTransportableControl.h>
 
 #include "GUISUMOViewParent.h"
 #include "GUILoadThread.h"
@@ -1336,7 +1336,7 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
         }
     }
     myVehStatButton->setText(toString(running).c_str());
-    myPedStatButton->setText(toString(myRunThread->getNet().getPersonControl().getRunningPersonNumber()).c_str());
+    myPedStatButton->setText(toString(myRunThread->getNet().getPersonControl().getRunningNumber()).c_str());
     if (myAmGaming) {
         checkGamingEvents();
     }

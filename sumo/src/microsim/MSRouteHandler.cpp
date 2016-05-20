@@ -43,8 +43,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSLane.h>
 #include "MSRouteHandler.h"
-#include "MSPersonControl.h"
-#include "MSContainerControl.h"
+#include "MSTransportableControl.h"
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
@@ -810,7 +809,7 @@ MSRouteHandler::closePerson() {
         deleteActivePlans();
         throw;
     }
-    MSPerson* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
+    MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
     // @todo: consider myScale?
     if (myAddVehiclesDirectly || checkLastDepart()) {
         if (MSNet::getInstance()->getPersonControl().add(person)) {
@@ -837,7 +836,7 @@ MSRouteHandler::closeContainer() {
     if (type == 0) {
         throw ProcessError("The type '" + myVehicleParameter->vtypeid + "' for container '" + myVehicleParameter->id + "' is not known.");
     }
-    MSContainer* container = MSNet::getInstance()->getContainerControl().buildContainer(myVehicleParameter, type, myActiveContainerPlan);
+    MSTransportable* container = MSNet::getInstance()->getContainerControl().buildContainer(myVehicleParameter, type, myActiveContainerPlan);
     // @todo: consider myScale?
     if (myAddVehiclesDirectly || checkLastDepart()) {
         if (MSNet::getInstance()->getContainerControl().add(container)) {

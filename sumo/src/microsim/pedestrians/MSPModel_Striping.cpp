@@ -38,7 +38,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSGlobals.h>
-#include <microsim/MSPersonControl.h>
+#include <microsim/MSTransportableControl.h>
 #include "MSPModel_Striping.h"
 
 

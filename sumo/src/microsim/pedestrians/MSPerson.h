@@ -216,7 +216,7 @@ public:
      * A "real" stage performing the travelling by a transport system
      * The given route will be chosen. The travel time is computed by the simulation
      */
-    class MSPersonStage_Driving : public MSTransportable::Stage {
+    class MSPersonStage_Driving : public MSTransportable::Stage_Driving {
     public:
         /// constructor
         MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
@@ -228,37 +228,8 @@ public:
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
 
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-        const MSEdge* getFromEdge() const;
-        SUMOReal getEdgePos(SUMOTime now) const;
-
-        ///
-        Position getPosition(SUMOTime now) const;
-
-        SUMOReal getAngle(SUMOTime now) const;
-
+        /// @brief returns the stage description as a string
         std::string getStageDescription() const;
-
-        /// Whether the person waits for a vehicle of the line specified.
-        bool isWaitingFor(const std::string& line) const;
-
-        /// @brief Whether the person waits for a vehicle
-        bool isWaiting4Vehicle() const;
-
-        /// @brief The vehicle the person is riding or 0
-        SUMOVehicle* getVehicle() const {
-            return myVehicle;
-        }
-
-        /// @brief time spent waiting for a ride
-        SUMOTime getWaitingTime(SUMOTime now) const;
-
-        SUMOReal getSpeed() const;
-
-        void setVehicle(SUMOVehicle* v) {
-            myVehicle = v;
-        }
 
         /** @brief Called on writing tripinfo output
          *
@@ -273,39 +244,6 @@ public:
          * @exception IOError not yet implemented
          */
         virtual void routeOutput(OutputDevice& os) const;
-
-        /** @brief Called for writing the events output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-    private:
-        /// the lines  to choose from
-        const std::set<std::string> myLines;
-
-        /// @brief The taken vehicle
-        SUMOVehicle* myVehicle;
-
-        SUMOReal myWaitingPos;
-        /// @brief The time since which this person is waiting for a ride
-        SUMOTime myWaitingSince;
-        const MSEdge* myWaitingEdge;
-        Position myStopWaitPos;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSPersonStage_Driving(const MSPersonStage_Driving&);
-
-        /// @brief Invalidated assignment operator.
-        MSPersonStage_Driving& operator=(const MSPersonStage_Driving&);
-
     };
 
 public:
@@ -324,6 +262,20 @@ public:
 
     /// @brief returns the next edge ptr if this person is walking and the pedestrian model allows it
     const MSEdge* getNextEdgePtr() const;
+
+    /** @brief Called on writing tripinfo output
+    *
+    * @param[in] os The stream to write the information into
+    * @exception IOError not yet implemented
+    */
+    virtual void tripInfoOutput(OutputDevice& os) const;
+
+    /** @brief Called on writing vehroute output
+    *
+    * @param[in] os The stream to write the information into
+    * @exception IOError not yet implemented
+    */
+    virtual void routeOutput(OutputDevice& os) const;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -74,7 +74,7 @@ public:
      * A container is in this stage if it is on a ride or if its waiting for a ride.
      * The given route will be chosen. The travel time is computed by the simulation
      */
-    class MSContainerStage_Driving : public MSTransportable::Stage {
+    class MSContainerStage_Driving : public MSTransportable::Stage_Driving {
     public:
         /// constructor
         MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
@@ -86,46 +86,8 @@ public:
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
 
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-        const MSEdge* getFromEdge() const;
-        SUMOReal getEdgePos(SUMOTime now) const;
-
-        ///
-        Position getPosition(SUMOTime now) const;
-
-        /// @brief the angle of the vehicle or the angle of the edge + 90deg
-        SUMOReal getAngle(SUMOTime now) const;
-
         /// @brief returns the stage description as a string
         std::string getStageDescription() const;
-
-        /// Whether the container waits for a vehicle of the line specified.
-        bool isWaitingFor(const std::string& line) const;
-
-        /// @brief The vehicle the person is riding or 0
-        SUMOVehicle* getVehicle() const {
-            return myVehicle;
-        }
-
-        /// @brief Whether the container waits for a vehicle
-        bool isWaiting4Vehicle() const;
-
-        /// @brief time spent waiting for a ride
-        SUMOTime getWaitingTime(SUMOTime now) const;
-
-        /** @brief the speed of the container
-         *
-         * If the container is still waiting for a ride zero will be returned.
-         * If the container is on a ride the speed of the corresponding vehicle
-         * will be returned.
-         */
-        SUMOReal getSpeed() const;
-
-        /// @brief assign a vehicle to the container
-        void setVehicle(SUMOVehicle* v) {
-            myVehicle = v;
-        }
 
         /** @brief Called on writing tripinfo output
          *
@@ -140,40 +102,6 @@ public:
          * @exception IOError not yet implemented
          */
         virtual void routeOutput(OutputDevice& os) const;
-
-        /** @brief Called for writing the events output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const;
-
-    private:
-        /// the lines  to choose from
-        const std::set<std::string> myLines;
-
-        /// @brief The taken vehicle
-        SUMOVehicle* myVehicle;
-
-        SUMOReal myWaitingPos;
-
-        /// @brief The time since which this container is waiting for a ride
-        SUMOTime myWaitingSince;
-
-        const MSEdge* myWaitingEdge;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSContainerStage_Driving(const MSContainerStage_Driving&);
-
-        /// @brief Invalidated assignment operator.
-        MSContainerStage_Driving& operator=(const MSContainerStage_Driving&);
-
     };
 
     /**
@@ -309,7 +237,21 @@ public:
 
     /* @brief proceeds to the next step of the route,
      * @return Whether the persons plan continues  */
-    bool proceed(MSNet* net, SUMOTime time);
+    virtual bool proceed(MSNet* net, SUMOTime time);
+
+    /** @brief Called on writing tripinfo output
+    *
+    * @param[in] os The stream to write the information into
+    * @exception IOError not yet implemented
+    */
+    virtual void tripInfoOutput(OutputDevice& os) const;
+
+    /** @brief Called on writing vehroute output
+    *
+    * @param[in] os The stream to write the information into
+    * @exception IOError not yet implemented
+    */
+    virtual void routeOutput(OutputDevice& os) const;
 
 private:
     /// @brief Invalidated copy constructor.

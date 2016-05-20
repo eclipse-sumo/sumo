@@ -40,7 +40,7 @@
 #include "MSLane.h"
 #include "MSContainer.h"
 #include "microsim/MSStoppingPlace.h"
-#include "MSContainerControl.h"
+#include "MSTransportableControl.h"
 #include "MSInsertionControl.h"
 #include "MSVehicle.h"
 #include "MSCModel_NonInteracting.h"
@@ -57,11 +57,11 @@
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge& destination,
         MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
-    : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
-      myVehicle(0) {}
+    : MSTransportable::Stage_Driving(destination, toStop, arrivalPos, lines) {}
 
 
 MSContainer::MSContainerStage_Driving::~MSContainerStage_Driving() {}
+
 
 void
 MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous) {
@@ -87,95 +87,23 @@ MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* cont
     }
 }
 
-const MSEdge*
-MSContainer::MSContainerStage_Driving::getEdge() const {
-    if (myVehicle != 0) {
-        return myVehicle->getEdge();
-    }
-    return myWaitingEdge;
-}
-
-
-const MSEdge*
-MSContainer::MSContainerStage_Driving::getFromEdge() const {
-    return myWaitingEdge;
-}
-
-
-SUMOReal
-MSContainer::MSContainerStage_Driving::getEdgePos(SUMOTime /* now */) const {
-    if (myVehicle != 0) {
-        // vehicle may already have passed the lane (check whether this is correct)
-        return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
-    }
-    return myWaitingPos;
-}
-
-Position
-MSContainer::MSContainerStage_Driving::getPosition(SUMOTime /* now */) const {
-    if (myVehicle != 0) {
-        return myVehicle->getPosition();
-    }
-    return getEdgePosition(myWaitingEdge, myWaitingPos, ROADSIDE_OFFSET);
-}
-
-SUMOReal
-MSContainer::MSContainerStage_Driving::getAngle(SUMOTime /* now */) const {
-    if (myVehicle != 0) {
-        MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
-        if (veh != 0) {
-            return veh->getAngle();
-        } else {
-            return 0;
-        }
-    }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2.;
-}
-
-bool
-MSContainer::MSContainerStage_Driving::isWaitingFor(const std::string& line) const {
-    return myLines.count(line) > 0;
-}
-
-bool
-MSContainer::MSContainerStage_Driving::isWaiting4Vehicle() const {
-    return myVehicle == 0;
-}
-
-SUMOTime
-MSContainer::MSContainerStage_Driving::getWaitingTime(SUMOTime now) const {
-    return isWaiting4Vehicle() ? now - myWaitingSince : 0;
-}
-
-SUMOReal
-MSContainer::MSContainerStage_Driving::getSpeed() const {
-    return myVehicle == 0 ? 0 : myVehicle->getSpeed();
-}
 
 std::string
 MSContainer::MSContainerStage_Driving::getStageDescription() const {
     return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "transport";
 }
 
+
 void
 MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os) const {
     os.openTag("transport").writeAttr("depart", time2string(myDeparted)).writeAttr("arrival", time2string(myArrived)).closeTag();
 }
 
+
 void
 MSContainer::MSContainerStage_Driving::routeOutput(OutputDevice& os) const {
     os.openTag("transport").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination().getID());
     os.writeAttr(SUMO_ATTR_LINES, myLines).closeTag();
-}
-
-void
-MSContainer::MSContainerStage_Driving::beginEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", container.getID()).writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-void
-MSContainer::MSContainerStage_Driving::endEventOutput(const MSTransportable& container, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", container.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
@@ -201,7 +129,6 @@ void
 MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, Stage* previous) {
     previous->getEdge()->removeContainer(container);
     myRouteStep = myRoute.end() - 1;   //define that the container is already on its destination edge
-    MSNet::getInstance()->getContainerControl().setTranship(container);
     myDepartPos = previous->getEdgePos(now);
     myContainerState = MSCModel_NonInteracting::getModel()->add(container, this, now);
     (*myRouteStep)->addContainer(container);
@@ -283,7 +210,6 @@ bool
 MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removeContainer(container);
     if (myRouteStep == myRoute.end() - 1) {
-        MSNet::getInstance()->getContainerControl().unsetTranship(container);
         if (myDestinationStop != 0) {
             myDestinationStop->addTransportable(container);    //jakob
         }
@@ -310,8 +236,10 @@ MSContainer::MSContainer(const SUMOVehicleParameter* pars, const MSVehicleType* 
     : MSTransportable(pars, vtype, plan) {
 }
 
+
 MSContainer::~MSContainer() {
 }
+
 
 bool
 MSContainer::proceed(MSNet* net, SUMOTime time) {
@@ -326,4 +254,27 @@ MSContainer::proceed(MSNet* net, SUMOTime time) {
         return false;
     }
 }
+
+
+void
+MSContainer::tripInfoOutput(OutputDevice& os) const {
+    os.openTag("containerinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
+    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+        (*i)->tripInfoOutput(os);
+    }
+    os.closeTag();
+}
+
+
+void
+MSContainer::routeOutput(OutputDevice& os) const {
+    os.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, getID()).writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
+    os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+        (*i)->routeOutput(os);
+    }
+    os.closeTag();
+    os.lf();
+}
+
 /****************************************************************************/

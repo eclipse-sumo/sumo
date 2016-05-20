@@ -4,7 +4,6 @@ libmicrosim_a_SOURCES = MSBitSetLogic.h \
 MSBaseVehicle.cpp MSBaseVehicle.h \
 MSCModel_NonInteracting.h MSCModel_NonInteracting.cpp \
 MSContainer.cpp MSContainer.h \
-MSContainerControl.cpp MSContainerControl.h \
 MSEdge.cpp MSEdge.h MSEdgeControl.cpp MSEdgeControl.h \
 MSEdgeWeightsStorage.cpp MSEdgeWeightsStorage.h \
 MSEventControl.cpp MSEventControl.h \
@@ -19,7 +18,6 @@ MSLaneChangerSublane.cpp MSLaneChangerSublane.h \
 MSLink.cpp MSLink.h MSLinkCont.cpp MSLinkCont.h \
 MSLogicJunction.cpp MSLogicJunction.h MSMoveReminder.cpp MSMoveReminder.h \
 MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
-MSPersonControl.cpp MSPersonControl.h \
 MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
 MSRoute.cpp MSRoute.h MSRouteHandler.cpp MSRouteHandler.h \
 MSStoppingPlace.cpp MSStoppingPlace.h \
@@ -30,7 +28,8 @@ MSVehicleControl.cpp MSVehicleControl.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \
 MSVehicleType.cpp MSVehicleType.h \
 MSStateHandler.h MSStateHandler.cpp \
-MSTransportable.h MSTransportable.cpp
+MSTransportable.h MSTransportable.cpp \
+MSTransportableControl.h MSTransportableControl.cpp
 
 SUBDIRS = actions cfmodels devices lcmodels logging output pedestrians \
 traffic_lights trigger

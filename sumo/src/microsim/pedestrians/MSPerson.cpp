@@ -42,7 +42,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include "MSPerson.h"
-#include <microsim/MSPersonControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
 #include "MSPModel.h"
@@ -135,7 +135,6 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         }
         return;
     }
-    MSNet::getInstance()->getPersonControl().setWalking(person);
     if (previous->getEdgePos(now) >= 0) {
         myDepartPos = previous->getEdgePos(now);
         if (myWalkingTime > 0) {
@@ -196,7 +195,6 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
     ((MSEdge*)getEdge())->removePerson(person);
     //std::cout << SIMTIME << " moveToNextEdge person=" << person->getID() << "\n";
     if (myRouteStep == myRoute.end() - 1) {
-        MSNet::getInstance()->getPersonControl().unsetWalking(person);
         if (myDestinationStop != 0) {
             myDestinationStop->addTransportable(person);
         }
@@ -224,63 +222,10 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
         MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
-    : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
-      myVehicle(0) {}
+    : MSTransportable::Stage_Driving(destination, toStop, arrivalPos, lines) {}
 
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
-
-
-const MSEdge*
-MSPerson::MSPersonStage_Driving::getEdge() const {
-    if (myVehicle != 0) {
-        return myVehicle->getEdge();
-    }
-    return myWaitingEdge;
-}
-
-
-const MSEdge*
-MSPerson::MSPersonStage_Driving::getFromEdge() const {
-    return myWaitingEdge;
-}
-
-
-SUMOReal
-MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime /* now */) const {
-    if (isWaiting4Vehicle()) {
-        return myWaitingPos;
-    }
-    // vehicle may already have passed the lane (check whether this is correct)
-    return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
-}
-
-
-Position
-MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
-    if (isWaiting4Vehicle()) {
-        if (myStopWaitPos != Position::INVALID) {
-            return myStopWaitPos;
-        }
-        return getEdgePosition(myWaitingEdge, myWaitingPos, MSPModel::SIDEWALK_OFFSET);
-    }
-    return myVehicle->getPosition();
-}
-
-
-SUMOReal
-MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
-    if (!isWaiting4Vehicle()) {
-        MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
-        if (veh != 0) {
-            return veh->getAngle();
-        } else {
-            return 0;
-        }
-    }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2.;
-}
-
 
 
 void
@@ -310,30 +255,6 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
 }
 
 
-bool
-MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string& line) const {
-    return myLines.count(line) > 0;
-}
-
-
-bool
-MSPerson::MSPersonStage_Driving::isWaiting4Vehicle() const {
-    return myVehicle == 0;
-}
-
-
-SUMOTime
-MSPerson::MSPersonStage_Driving::getWaitingTime(SUMOTime now) const {
-    return isWaiting4Vehicle() ? now - myWaitingSince : 0;
-}
-
-
-SUMOReal
-MSPerson::MSPersonStage_Driving::getSpeed() const {
-    return isWaiting4Vehicle() ? 0 : myVehicle->getSpeed();
-}
-
-
 std::string
 MSPerson::MSPersonStage_Driving::getStageDescription() const {
     return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "driving";
@@ -350,18 +271,6 @@ void
 MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     os.openTag("ride").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination().getID());
     os.writeAttr(SUMO_ATTR_LINES, myLines).closeTag();
-}
-
-
-void
-MSPerson::MSPersonStage_Driving::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-
-void
-MSPerson::MSPersonStage_Driving::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
@@ -432,5 +341,28 @@ MSPerson::getNextEdgePtr() const {
     }
     return 0;
 }
+
+
+void
+MSPerson::tripInfoOutput(OutputDevice& os) const {
+    os.openTag("personinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
+    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+        (*i)->tripInfoOutput(os);
+    }
+    os.closeTag();
+}
+
+
+void
+MSPerson::routeOutput(OutputDevice& os) const {
+    os.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, getID()).writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
+    os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+        (*i)->routeOutput(os);
+    }
+    os.closeTag();
+    os.lf();
+}
+
 /****************************************************************************/
 

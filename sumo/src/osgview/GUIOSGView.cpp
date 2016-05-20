@@ -73,7 +73,7 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSJunctionControl.h>
-#include <microsim/MSPersonControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <utils/common/RGBColor.h>
@@ -386,7 +386,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myCameraManipulator->setByInverseMatrix(m);
     }
 
-    for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedPersonsBegin(); it != MSNet::getInstance()->getPersonControl().loadedPersonsEnd(); ++it) {
+    for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedBegin(); it != MSNet::getInstance()->getPersonControl().loadedEnd(); ++it) {
         MSTransportable* person = (*it).second;
         // XXX if not departed: continue
         if (myPersons.find(person) == myPersons.end()) {

@@ -32,7 +32,7 @@
 #endif
 
 #include <vector>
-#include <microsim/MSContainerControl.h>
+#include <microsim/MSTransportableControl.h>
 
 
 // ===========================================================================
@@ -41,7 +41,7 @@
 /** @class GUIContainerControl
  * @brief GUI-version of the container control for building gui containers
  */
-class GUIContainerControl : public MSContainerControl {
+class GUIContainerControl : public MSTransportableControl {
 public:
     /// constructor
     GUIContainerControl();
@@ -56,7 +56,7 @@ public:
      * @param[in] vtype The type (reusing vehicle type container here)
      * @param[in] plan This container's plan
      */
-    virtual MSContainer* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
+    virtual MSTransportable* buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
 
 };
 

@@ -70,8 +70,7 @@ class MSEdgeControl;
 class MSJunctionControl;
 class MSInsertionControl;
 class SUMORouteLoaderControl;
-class MSPersonControl;
-class MSContainerControl;
+class MSTransportableControl;
 class MSVehicle;
 class MSRoute;
 class MSLane;
@@ -317,7 +316,7 @@ public:
      * @see MSPersonControl
      * @see myPersonControl
      */
-    virtual MSPersonControl& getPersonControl();
+    virtual MSTransportableControl& getPersonControl();
 
     /** @brief Returns the container control
      *
@@ -327,7 +326,7 @@ public:
      * @see MSContainerControl
      * @see myContainerControl
      */
-    virtual MSContainerControl& getContainerControl();
+    virtual MSTransportableControl& getContainerControl();
 
 
     /** @brief Returns the edge control
@@ -669,10 +668,10 @@ protected:
 
     /// @brief Controls vehicle building and deletion; @see MSVehicleControl
     MSVehicleControl* myVehicleControl;
-    /// @brief Controls person building and deletion; @see MSPersonControl
-    MSPersonControl* myPersonControl;
-    /// @brief Controls container building and deletion; @see MSContainerControl
-    MSContainerControl* myContainerControl;
+    /// @brief Controls person building and deletion; @see MSTransportableControl
+    MSTransportableControl* myPersonControl;
+    /// @brief Controls container building and deletion; @see MSTransportableControl
+    MSTransportableControl* myContainerControl;
     /// @brief Controls edges, performs vehicle movement; @see MSEdgeControl
     MSEdgeControl* myEdges;
     /// @brief Controls junctions, realizes right-of-way rules; @see MSJunctionControl

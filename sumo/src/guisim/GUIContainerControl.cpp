@@ -50,7 +50,7 @@ GUIContainerControl::~GUIContainerControl() {
 }
 
 
-MSContainer*
+MSTransportable*
 GUIContainerControl::buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new GUIContainer(pars, vtype, plan);
 }

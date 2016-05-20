@@ -231,7 +231,7 @@ public:
      * @see MSPersonControl
      * @see myPersonControl
      */
-    MSPersonControl& getPersonControl();
+    MSTransportableControl& getPersonControl();
 
 
     /** @brief Returns the container control
@@ -242,7 +242,7 @@ public:
      * @see MSContainerControl
      * @see myContainerControl
      */
-    MSContainerControl& getContainerControl();
+    MSTransportableControl& getContainerControl();
 
 
     /** Returns the gl-id of the traffic light that controls the given link

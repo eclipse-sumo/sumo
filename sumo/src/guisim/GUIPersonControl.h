@@ -33,7 +33,7 @@
 #endif
 
 #include <vector>
-#include <microsim/MSPersonControl.h>
+#include <microsim/MSTransportableControl.h>
 
 
 // ===========================================================================
@@ -42,7 +42,7 @@
 /** @class GUIPersonControl
  * @brief GUI-version of the person control for building gui persons
  */
-class GUIPersonControl : public MSPersonControl {
+class GUIPersonControl : public MSTransportableControl {
 public:
     /// constructor
     GUIPersonControl();
@@ -57,7 +57,7 @@ public:
      * @param[in] vtype The type (reusing vehicle type container here)
      * @param[in] plan This person's plan
      */
-    virtual MSPerson* buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
+    virtual MSTransportable* buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const;
 
     /** @brief Returns the list of all known persons by gl-id
      * @param[fill] into The list to fill with vehicle ids

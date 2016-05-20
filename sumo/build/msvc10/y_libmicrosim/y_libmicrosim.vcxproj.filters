@@ -64,9 +64,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSNoLogicJunction.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSPersonControl.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSRightOfWayJunction.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -103,9 +100,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSContainer.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSContainerControl.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSCModel_NonInteracting.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -113,6 +107,9 @@
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSTransportable.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\MSTransportableControl.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSLaneChangerSublane.cpp">
@@ -180,9 +177,6 @@
     <ClInclude Include="..\..\..\src\microsim\MSNoLogicJunction.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSPersonControl.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSRightOfWayJunction.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -219,13 +213,13 @@
     <ClInclude Include="..\..\..\src\microsim\MSContainer.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSContainerControl.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSCModel_NonInteracting.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSTransportable.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\MSTransportableControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSStoppingPlace.h">

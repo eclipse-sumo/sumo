@@ -51,7 +51,7 @@ GUIPersonControl::~GUIPersonControl() {
 }
 
 
-MSPerson*
+MSTransportable*
 GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new GUIPerson(pars, vtype, plan);
 }
@@ -59,8 +59,8 @@ GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleT
 
 void
 GUIPersonControl::insertPersonIDs(std::vector<GUIGlID>& into) {
-    into.reserve(myPersons.size());
-    for (std::map<std::string, MSTransportable*>::const_iterator it = myPersons.begin(); it != myPersons.end(); ++it) {
+    into.reserve(myTransportables.size());
+    for (std::map<std::string, MSTransportable*>::const_iterator it = myTransportables.begin(); it != myTransportables.end(); ++it) {
         if (it->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {
             into.push_back(static_cast<const GUIPerson*>(it->second)->getGlID());
         }

@@ -35,8 +35,8 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"
-#include "MSContainerControl.h"
-#include "MSPersonControl.h"
+#include <microsim/pedestrians/MSPerson.h>
+#include "MSTransportableControl.h"
 #include "MSTransportable.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -154,7 +154,6 @@ MSTransportable::Stage_Waiting::getAngle(SUMOTime /* now */) const {
 
 void
 MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
-
     myWaitingStart = now;
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     if (dynamic_cast<MSPerson*>(transportable) != 0) {
@@ -218,6 +217,106 @@ MSTransportable::Stage_Waiting::getSpeed() const {
 
 
 /* -------------------------------------------------------------------------
+* MSTransportable::Stage_Driving - methods
+* ----------------------------------------------------------------------- */
+MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
+    MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
+    : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
+    myVehicle(0), myStopWaitPos(Position::INVALID) {}
+
+
+MSTransportable::Stage_Driving::~Stage_Driving() {}
+
+
+const MSEdge*
+MSTransportable::Stage_Driving::getEdge() const {
+    if (myVehicle != 0) {
+        return myVehicle->getEdge();
+    }
+    return myWaitingEdge;
+}
+
+
+const MSEdge*
+MSTransportable::Stage_Driving::getFromEdge() const {
+    return myWaitingEdge;
+}
+
+
+SUMOReal
+MSTransportable::Stage_Driving::getEdgePos(SUMOTime /* now */) const {
+    if (isWaiting4Vehicle()) {
+        return myWaitingPos;
+    }
+    // vehicle may already have passed the lane (check whether this is correct)
+    return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
+}
+
+
+Position
+MSTransportable::Stage_Driving::getPosition(SUMOTime /* now */) const {
+    if (isWaiting4Vehicle()) {
+        if (myStopWaitPos != Position::INVALID) {
+            return myStopWaitPos;
+        }
+        return getEdgePosition(myWaitingEdge, myWaitingPos, ROADSIDE_OFFSET);
+    }
+    return myVehicle->getPosition();
+}
+
+
+SUMOReal
+MSTransportable::Stage_Driving::getAngle(SUMOTime /* now */) const {
+    if (!isWaiting4Vehicle()) {
+        MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
+        if (veh != 0) {
+            return veh->getAngle();
+        } else {
+            return 0;
+        }
+    }
+    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2.;
+}
+
+
+bool
+MSTransportable::Stage_Driving::isWaitingFor(const std::string& line) const {
+    return myLines.count(line) > 0;
+}
+
+
+bool
+MSTransportable::Stage_Driving::isWaiting4Vehicle() const {
+    return myVehicle == 0;
+}
+
+
+SUMOTime
+MSTransportable::Stage_Driving::getWaitingTime(SUMOTime now) const {
+    return isWaiting4Vehicle() ? now - myWaitingSince : 0;
+}
+
+
+SUMOReal
+MSTransportable::Stage_Driving::getSpeed() const {
+    return isWaiting4Vehicle() ? 0 : myVehicle->getSpeed();
+}
+
+
+void
+MSTransportable::Stage_Driving::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
+    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
+}
+
+
+void
+MSTransportable::Stage_Driving::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
+    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
+}
+
+
+
+/* -------------------------------------------------------------------------
  * MSTransportable - methods
  * ----------------------------------------------------------------------- */
 MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportablePlan* plan)
@@ -274,22 +373,6 @@ MSTransportable::getWaitingSeconds() const {
 SUMOReal
 MSTransportable::getSpeed() const {
     return (*myStep)->getSpeed();
-}
-
-
-void
-MSTransportable::tripInfoOutput(OutputDevice& os) const {
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->tripInfoOutput(os);
-    }
-}
-
-
-void
-MSTransportable::routeOutput(OutputDevice& os) const {
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os);
-    }
 }
 
 

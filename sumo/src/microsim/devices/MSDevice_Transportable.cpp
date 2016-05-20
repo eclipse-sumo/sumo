@@ -35,9 +35,8 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/pedestrians/MSPerson.h>
-#include <microsim/MSPersonControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/MSContainer.h>
-#include <microsim/MSContainerControl.h>
 #include "MSDevice_Transportable.h"
 
 #ifdef CHECK_MEMORY_LEAKS

@@ -30,7 +30,7 @@
 
 #ifndef NO_TRACI
 
-#include <microsim/MSPersonControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -70,11 +70,11 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     tempMsg.writeUnsignedByte(RESPONSE_GET_PERSON_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    MSPersonControl& c = MSNet::getInstance()->getPersonControl();
+    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
     if (variable == ID_LIST || variable == ID_COUNT) {
         if (variable == ID_LIST) {
             std::vector<std::string> ids;
-            for (MSPersonControl::constVehIt i = c.loadedPersonsBegin(); i != c.loadedPersonsEnd(); ++i) {
+            for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
                 if (i->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {
                     ids.push_back(i->first);
                 }
@@ -168,7 +168,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
-    MSPersonControl& c = MSNet::getInstance()->getPersonControl();
+    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
     std::string id = inputStorage.readString();
     MSTransportable* p = c.get(id);
     if (p == 0) {

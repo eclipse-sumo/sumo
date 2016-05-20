@@ -105,7 +105,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSBaseVehicle.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSCModel_NonInteracting.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSContainer.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSContainerControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdge.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeWeightsStorage.cpp" />
@@ -127,13 +126,13 @@
     <ClCompile Include="..\..\..\src\microsim\MSMoveReminder.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSNet.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSNoLogicJunction.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSPersonControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRightOfWayJunction.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRoute.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRouteHandler.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSStateHandler.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSStoppingPlace.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSTransportable.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSTransportableControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicle.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicleContainer.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicleControl.cpp" />
@@ -145,7 +144,6 @@
     <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\MSCModel_NonInteracting.h" />
     <ClInclude Include="..\..\..\src\microsim\MSContainer.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSContainerControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdge.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeWeightsStorage.h" />
@@ -167,13 +165,13 @@
     <ClInclude Include="..\..\..\src\microsim\MSMoveReminder.h" />
     <ClInclude Include="..\..\..\src\microsim\MSNet.h" />
     <ClInclude Include="..\..\..\src\microsim\MSNoLogicJunction.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSPersonControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRightOfWayJunction.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRoute.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRouteHandler.h" />
     <ClInclude Include="..\..\..\src\microsim\MSStateHandler.h" />
     <ClInclude Include="..\..\..\src\microsim\MSStoppingPlace.h" />
     <ClInclude Include="..\..\..\src\microsim\MSTransportable.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSTransportableControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicle.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleContainer.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleControl.h" />
