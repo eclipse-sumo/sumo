@@ -37,6 +37,9 @@ stop_duration
 # car triggered by containers
 triggered
 
+# car triggered by containers
+triggeredParking
+
 # container waiting for a car for a transport
 waiting_container
 
