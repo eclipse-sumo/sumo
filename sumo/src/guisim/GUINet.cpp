@@ -224,7 +224,6 @@ void
 GUINet::guiSimulationStep() {
     GLObjectValuePassConnector<SUMOReal>::updateAll();
     GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >::updateAll();
-    GUIParameterTableWindow::updateAll();
 }
 
 
