@@ -221,6 +221,9 @@ protected:
     /// @brief The number of transportables waiting for vehicles
     unsigned int myWaitingForVehicleNumber;
 
+    /// @brief whether a new transportable waiting for a vehicle has been added in the last step
+    bool myHaveNewWaiting;
+
 };
 
 

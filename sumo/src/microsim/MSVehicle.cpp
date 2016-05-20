@@ -1214,7 +1214,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         // process stops
-        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()) {
+        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached) {
             // we are approaching a stop on the edge; must not drive further
             const Stop& stop = *myStops.begin();
             const SUMOReal endPos = (stop.busstop == 0 ? stop.endPos : stop.busstop->getLastFreePos(*this)) + NUMERICAL_EPS;

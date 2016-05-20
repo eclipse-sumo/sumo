@@ -54,7 +54,8 @@ MSTransportableControl::MSTransportableControl():
     myLoadedNumber(0),
     myRunningNumber(0),
     myJammedNumber(0),
-    myWaitingForVehicleNumber(0) {
+    myWaitingForVehicleNumber(0),
+    myHaveNewWaiting(false) {
 }
 
 
@@ -117,6 +118,7 @@ MSTransportableControl::setWaitEnd(const SUMOTime time, MSTransportable* transpo
 
 void
 MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
+    myHaveNewWaiting = false;
     while (myWaiting4Departure.find(time) != myWaiting4Departure.end()) {
         const TransportableVector& transportables = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
@@ -146,6 +148,7 @@ void
 MSTransportableControl::addWaiting(const MSEdge* const edge, MSTransportable* transportable) {
     myWaiting4Vehicle[edge].push_back(transportable);
     myWaitingForVehicleNumber++;
+    myHaveNewWaiting = true;
 }
 
 
@@ -235,7 +238,7 @@ MSTransportableControl::hasTransportables() const {
 
 bool
 MSTransportableControl::hasNonWaiting() const {
-    return !myWaiting4Departure.empty() || myWaitingForVehicleNumber < myRunningNumber;
+    return !myWaiting4Departure.empty() || myWaitingForVehicleNumber < myRunningNumber || myHaveNewWaiting;
 }
 
 

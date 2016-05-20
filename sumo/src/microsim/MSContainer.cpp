@@ -268,8 +268,10 @@ MSContainer::tripInfoOutput(OutputDevice& os) const {
 
 void
 MSContainer::routeOutput(OutputDevice& os) const {
-    os.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, getID()).writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
-    os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    os.openTag(SUMO_TAG_CONTAINER).writeAttr(SUMO_ATTR_ID, getID()).writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
+    if (myStep == myPlan->end()) {
+        os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    }
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
         (*i)->routeOutput(os);
     }
