@@ -205,7 +205,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 // insert vehicle into the net
                 if (atDest || !tryEmit(mySegment, vehicle)) {
                     //std::cout << "F ";
-                    delete vehicle;
+                    MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
                     break;
                 }
                 //std::cout << "I ";
