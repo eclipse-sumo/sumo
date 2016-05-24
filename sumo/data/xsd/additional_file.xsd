@@ -29,6 +29,7 @@
             <xsd:element name="busStop" type="stoppingPlaceType" minOccurs="0"/>
             <xsd:element name="trainStop" type="stoppingPlaceType" minOccurs="0"/>
             <xsd:element name="containerStop" type="stoppingPlaceType" minOccurs="0"/>
+            <xsd:element name="chargingStation" type="chargingStationType" minOccurs="0"/>
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
 
@@ -251,6 +252,18 @@
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="startPos" type="xsd:float"/>
+        <xsd:attribute name="endPos" type="xsd:float"/>
+        <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="power" type="xsd:float" use="optional"/>
+        <xsd:attribute name="efficiency" type="xsd:float" use="optional"/>
+        <xsd:attribute name="chargeInTransit" type="xsd:float" use="optional"/>
+        <xsd:attribute name="chargeDelay" type="xsd:int" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="chargingStationType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="startPos" type="xsd:float"/>
