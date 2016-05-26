@@ -459,6 +459,9 @@ TraCIAPI::readVariables(tcpip::Storage &inMsg, const std::string &objectID, int 
                     v.color.b = inMsg.readUnsignedByte();
                     v.color.a = inMsg.readUnsignedByte();
                     break;
+                case TYPE_INTEGER:
+                    v.scalar = inMsg.readInt();
+                    break;
 
                 // TODO Other data types
 
