@@ -739,6 +739,13 @@ TraCITestClient::testAPI() {
         answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION].scalar << "\n";
     }
 
+    answerLog << "  person:\n";
+    answerLog << "    getIDList: " << joinToString(person.getIDList(), " ") << "\n";
+    answerLog << "    getRoadID: " << person.getRoadID("p0") << "\n";
+    answerLog << "    getTypeID: " << person.getTypeID("p0") << "\n";
+    answerLog << "    getWaitingTime: " << person.getWaitingTime("p0") << "\n";
+    answerLog << "    getNextEdge: " << person.getNextEdge("p0") << "\n";
+
     answerLog << "  gui:\n";
     try {
         answerLog << "    setScheme: \n";

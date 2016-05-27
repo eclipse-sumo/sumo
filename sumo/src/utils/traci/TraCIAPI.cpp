@@ -51,7 +51,7 @@ TraCIAPI::TraCIAPI()
     : edge(*this), gui(*this), inductionloop(*this),
       junction(*this), lane(*this), multientryexit(*this), poi(*this),
       polygon(*this), route(*this), simulation(*this), trafficlights(*this),
-      vehicletype(*this), vehicle(*this),
+      vehicletype(*this), vehicle(*this), person(*this),
       mySocket(0) {}
 #ifdef _MSC_VER
 #pragma warning(default: 4355)
@@ -2030,6 +2030,49 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, SUMOReal speed) c
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
 
+// ---------------------------------------------------------------------------
+// // TraCIAPI::PersonScope-methods
+//  ---------------------------------------------------------------------------
+
+std::vector<std::string>
+TraCIAPI::PersonScope::getIDList() const {  
+    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, ID_LIST, "");
+}
+
+unsigned int
+TraCIAPI::PersonScope::getIDCount() const { 
+    return myParent.getInt(CMD_GET_PERSON_VARIABLE, ID_COUNT, "");
+}
+
+SUMOReal
+TraCIAPI::PersonScope::getSpeed(const std::string& typeID) const {    
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_SPEED, typeID);
+}
+
+TraCIAPI::TraCIPosition
+TraCIAPI::PersonScope::getPosition(const std::string& typeID) const {    
+    return myParent.getPosition(CMD_GET_PERSON_VARIABLE, VAR_POSITION, typeID);
+}
+
+std::string
+TraCIAPI::PersonScope::getRoadID(const std::string& typeID) const {  
+    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_ROAD_ID, typeID);
+}
+
+std::string
+TraCIAPI::PersonScope::getTypeID(const std::string& typeID) const {  
+    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_TYPE, typeID);
+}
+
+SUMOReal
+TraCIAPI::PersonScope::getWaitingTime(const std::string& typeID) const {        
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_WAITING_TIME, typeID);
+}
+
+std::string
+TraCIAPI::PersonScope::getNextEdge(const std::string& typeID) const {        
+    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_NEXT_EDGE, typeID);
+}
 
 
 /****************************************************************************/

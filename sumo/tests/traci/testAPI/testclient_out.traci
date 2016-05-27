@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed May 11 07:39:54 2016
+TraCITestClient output file. Date: Fri May 27 12:40:37 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -34,6 +34,12 @@ testAPI:
     subscribe to vehicles around edge 'e_u1':
     context subscription results:
       vehicle=1 pos=10.65
+  person:
+    getIDList: p0
+    getRoadID: e_m3
+    getTypeID: DEFAULT_PEDTYPE
+    getWaitingTime: 0.00
+    getNextEdge: e_m4
   gui:
     setScheme: 
     no support for gui commands

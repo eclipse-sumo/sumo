@@ -788,6 +788,33 @@ public:
 
     };
 
+    /** @class PersonScope     
+     * * @brief Scope for interaction with vehicles     
+     * */        
+    class PersonScope : public TraCIScopeWrapper {  
+    public:         
+        PersonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
+        virtual ~PersonScope() {}
+
+        std::vector<std::string> getIDList() const;
+        unsigned int getIDCount() const;
+        SUMOReal getSpeed(const std::string& typeID) const;
+        TraCIPosition getPosition(const std::string& typeID) const;
+        std::string getRoadID(const std::string& typeID) const; 
+        std::string getTypeID(const std::string& typeID) const; 
+        SUMOReal getWaitingTime(const std::string& typeID) const; 
+        std::string getNextEdge(const std::string& typeID) const;
+
+     private:        
+        /// @brief invalidated copy constructor
+        PersonScope(const PersonScope& src);
+
+        /// @brief invalidated assignment operator
+        PersonScope& operator=(const PersonScope& src);
+    };
+
+
+
 public:
     /// @brief Scope for interaction with edges
     EdgeScope edge;
@@ -815,6 +842,8 @@ public:
     VehicleTypeScope vehicletype;
     /// @brief Scope for interaction with vehicles
     VehicleScope vehicle;
+    /// @brief Scope for interaction with persons    
+    PersonScope person;
 
 
 protected:
