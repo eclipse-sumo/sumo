@@ -199,3 +199,6 @@ ticket2316
 
 # Deadlock when lanechange requested by long vehicle while occupying a junction (Copy of ticket1804)
 ticket2319
+
+# wrong computation of angle if back reaches out of net
+ticket2360

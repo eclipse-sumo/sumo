@@ -1,0 +1,8 @@
+<routes>
+    <vType id="t0" sigma="0" length="30"/>
+    <route id="r1" edges="beg2 end"/>
+    <vehicle id="v0" type="t0" route="r1" depart="0" departLane="2" departPos="-10">
+        <stop lane="end_2" endPos="3" duration="0"/>
+        <stop lane="end_1" endPos="4" duration="0"/>
+    </vehicle>
+</routes>
