@@ -1,0 +1,2 @@
+--no-step-log --net-file=motorway.net.xml --routes=input_routes.rou.xml
+--lateral-resolution 0.32 --tripinfo-output tripinfos.xml

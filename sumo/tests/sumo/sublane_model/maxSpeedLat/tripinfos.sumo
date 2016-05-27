@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 17 Feb 2016 04:15:40 PM CET by SUMO gui Version dev-SVN-r19996
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="41.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalSpeed="13.71" duration="41.00" routeLength="500.00" waitSteps="0" timeLoss="4.34" rerouteNo="0" devices="tripinfo_car" vType="car" vaporized=""/>
+    <tripinfo id="car2" depart="3.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="1.00" arrival="52.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalSpeed="12.82" duration="49.00" routeLength="500.00" waitSteps="0" timeLoss="12.14" rerouteNo="0" devices="tripinfo_car2" vType="car2" vaporized=""/>
+    <tripinfo id="bike" depart="0.00" departLane="beg_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="94.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalSpeed="5.49" duration="94.00" routeLength="480.00" waitSteps="0" timeLoss="7.37" rerouteNo="0" devices="tripinfo_bike" vType="bike" vaporized=""/>
+</tripinfos>

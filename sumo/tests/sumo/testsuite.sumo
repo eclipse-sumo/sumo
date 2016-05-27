@@ -28,3 +28,5 @@ opposite_direction_driving
 
 # demonstration and regression tests for known bugs
 bugs
+
+sublane_model

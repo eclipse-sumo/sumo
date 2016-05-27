@@ -1,0 +1,12 @@
+<routes>
+    <vType id="car" vClass="passenger"/>
+    <vType id="wide_car" vClass="passenger" latAlignment="left" width="4" speedFactor="1.5"/>
+
+    <route id="r0" edges="beg"/>
+
+    <vehicle id="car"  type="car"  route="r0" departPos="0"  departPosLat="center" depart="0" departLane="0">
+        <stop lane="beg_0" endPos="100" duration="5"/>
+    </vehicle>
+    <vehicle id="wide"  type="wide_car"  route="r0" departPos="0"  departPosLat="left" depart="2" departLane="1"/>
+
+</routes>
