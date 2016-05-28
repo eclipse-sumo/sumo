@@ -65,7 +65,7 @@
         <prefix value="" type="STR" help="Sets STR as default prefix"/>
         <type value="unknown" type="STR" help="Sets STR as default type"/>
         <fill value="true" type="BOOL" help="Fills polygons by default"/>
-        <layer value="-1" type="INT" help="Sets INT as default layer"/>
+        <layer value="-1" type="FLOAT" help="Sets FLOAT as default layer"/>
         <discard value="false" type="BOOL" help="Sets default action to discard"/>
     </building_defaults>
 

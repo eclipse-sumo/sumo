@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/27/16 15:42:48 by SUMO polyconvert Version dev-SVN-r20788
+<!-- generated on 05/28/16 07:07:56 by SUMO polyconvert Version dev-SVN-r20788
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -17,10 +17,6 @@
         <proj.scale value="0"/>
     </projection>
 
-    <building_defaults>
-        <fill value="false"/>
-    </building_defaults>
-
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
@@ -30,5 +26,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="test" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="0.00,0.00 10.00,0.00 10.00,10.00"/>
+    <poi id="32266935" type="unknown" color="51,128,255" layer="-1.00" lane="1" pos="52.43"/>
 </additional>

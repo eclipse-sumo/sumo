@@ -1,4 +1,4 @@
-SUMO polyconvert Version svn
+SUMO polyconvert Version dev-SVN-r20783
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -82,7 +82,7 @@ Building Defaults Options:
   --prefix STR                     Sets STR as default prefix
   --type STR                       Sets STR as default type
   --fill                           Fills polygons by default
-  --layer INT                      Sets INT as default layer
+  --layer FLOAT                    Sets FLOAT as default layer
   --discard                        Sets default action to discard
 
 Report Options:

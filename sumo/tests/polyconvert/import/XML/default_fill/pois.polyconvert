@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 21 14:37:47 2015 by SUMO polyconvert Version dev-SVN-r18890I
+<!-- generated on 05/27/16 15:42:48 by SUMO polyconvert Version dev-SVN-r20788
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -30,7 +30,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,10.00,10.00" origBoundary="0.00,0.00,10.00,10.00" projParameter="!"/>
-
     <poly id="test" type="unknown" color="51,128,255" fill="1" layer="-1.00" shape="0.00,0.00 10.00,0.00 10.00,10.00"/>
 </additional>
