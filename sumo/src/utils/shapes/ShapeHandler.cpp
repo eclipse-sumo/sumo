@@ -53,8 +53,8 @@
 // method definitions
 // ===========================================================================
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc) :
-    SUMOSAXHandler(file),
-    myShapeContainer(sc) {}
+    SUMOSAXHandler(file), myShapeContainer(sc),
+    myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false) {}
 
 
 ShapeHandler::~ShapeHandler() {}
@@ -66,10 +66,12 @@ ShapeHandler::myStartElement(int element,
     try {
         switch (element) {
             case SUMO_TAG_POLY:
-                addPoly(attrs);
+                myDefaultLayer = Shape::DEFAULT_LAYER;
+                addPoly(attrs, false, false);
                 break;
             case SUMO_TAG_POI:
-                addPOI(attrs);
+                myDefaultLayer = (SUMOReal)GLO_POI;
+                addPOI(attrs, false, false);
                 break;
             default:
                 break;
@@ -82,28 +84,36 @@ ShapeHandler::myStartElement(int element,
 
 
 void
-ShapeHandler::addPOI(const SUMOSAXAttributes& attrs) {
+ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
     const SUMOReal INVALID_POSITION(-1000000);
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     SUMOReal x = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
-    SUMOReal y = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
+    const SUMOReal y = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
     SUMOReal lon = attrs.getOpt<SUMOReal>(SUMO_ATTR_LON, id.c_str(), ok, INVALID_POSITION);
     SUMOReal lat = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAT, id.c_str(), ok, INVALID_POSITION);
-    SUMOReal lanePos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_POSITION);
-    SUMOReal layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_POI);
-    std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
-    std::string laneID = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, "");
-    RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : RGBColor::RED;
-    SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+    const SUMOReal lanePos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_POSITION);
+    const SUMOReal layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    const std::string laneID = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, "");
+    const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : myDefaultColor;
+    const SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
     }
-    SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
-    SUMOReal height = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
+    const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
+    const SUMOReal height = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
     if (!ok) {
         return;
+    }
+    const GeoConvHelper& gch = useProcessing ? GeoConvHelper::getProcessing() : GeoConvHelper::getFinal();
+    if (useProcessing && gch.usingGeoProjection()) {
+        if (lat == INVALID_POSITION || lon == INVALID_POSITION) {
+            lon = x;
+            lat = y;
+            x = INVALID_POSITION;
+        }
     }
     Position pos(x, y);
     if (x == INVALID_POSITION || y == INVALID_POSITION) {
@@ -113,47 +123,64 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs) {
         } else {
             // try computing x,y from lon,lat
             if (lat == INVALID_POSITION || lon == INVALID_POSITION) {
-                WRITE_ERROR("Either (x,y), (lon,lat) or (lane,pos) must be specified for poi '" + id + "'.");
+                WRITE_ERROR("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '" + id + "'.");
                 return;
-            } else if (!GeoConvHelper::getFinal().usingGeoProjection()) {
-                WRITE_ERROR("(lon, lat) is specified for poi '" + id + "' but no geo-conversion is specified for the network.");
+            } else if (!gch.usingGeoProjection()) {
+                WRITE_ERROR("(lon, lat) is specified for PoI '" + id + "' but no geo-conversion is specified for the network.");
                 return;
             }
             pos.set(lon, lat);
-            GeoConvHelper::getFinal().x2cartesian_const(pos);
+            bool success = true;
+            if (useProcessing) {
+                success = GeoConvHelper::getProcessing().x2cartesian(pos);
+            } else {
+                success = GeoConvHelper::getFinal().x2cartesian_const(pos);
+            }
+            if (!success) {
+                WRITE_ERROR("Unable to project coordinates for PoI '" + id + "'.");
+                return;
+            }
         }
     }
-    if (!myShapeContainer.addPOI(id, type, color, layer, angle, imgFile, pos, width, height)) {
+    if (!myShapeContainer.addPOI(id, type, color, layer, angle, imgFile, pos, width, height, ignorePruning)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
 }
 
 
 void
-ShapeHandler::addPoly(const SUMOSAXAttributes& attrs) {
+ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     // get the id, report an error if not given or empty...
     if (!ok) {
         return;
     }
-    SUMOReal layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, Shape::DEFAULT_LAYER);
-    bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, false);
-    std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, Shape::DEFAULT_TYPE);
-    std::string colorStr = attrs.get<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok);
-    RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
+    const SUMOReal layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
+    const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, myDefaultFill);
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, Shape::DEFAULT_TYPE);
+    const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : myDefaultColor;
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     if (attrs.getOpt<bool>(SUMO_ATTR_GEO, id.c_str(), ok, false)) {
-        for (int i = 0; i < (int) shape.size(); i++) {
-            GeoConvHelper::getFinal().x2cartesian_const(shape[i]);
+        bool success = true;
+        for (int i = 0; i < (int)shape.size(); i++) {
+            if (useProcessing) {
+                success &= GeoConvHelper::getProcessing().x2cartesian(shape[i]);
+            } else {
+                success &= GeoConvHelper::getFinal().x2cartesian_const(shape[i]);
+            }
+        }
+        if (!success) {
+            WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+            return;
         }
     }
-    SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+    const SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
     }
-    if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
+    if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, fill, ignorePruning)) {
         WRITE_ERROR("Polygon '" + id + "' already exists.");
     }
 }
@@ -170,4 +197,16 @@ ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh)
     }
     return true;
 }
+
+
+void
+ShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, const SUMOReal layer, const bool fill) {
+    myPrefix = prefix;
+    myDefaultColor = color;
+    myDefaultLayer = layer;
+    myDefaultFill = fill;
+}
+
+
+
 /****************************************************************************/

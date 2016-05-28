@@ -37,9 +37,9 @@
 #include <vector>
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/PointOfInterest.h>
+#include <utils/shapes/ShapeContainer.h>
 #include <utils/geom/Boundary.h>
 #include <utils/common/UtilExceptions.h>
-using namespace SUMO;
 
 
 // ===========================================================================
@@ -49,7 +49,7 @@ using namespace SUMO;
  * @class PCPolyContainer
  * @brief A storage for loaded polygons and pois
  */
-class PCPolyContainer {
+class PCPolyContainer : public ShapeContainer {
 public:
     /** @brief Constructor
      * @param[in] prune Whether added polygons/pois shall be pruned
@@ -66,77 +66,39 @@ public:
 
     /** @brief Adds a polygon to the storage
      *
-     * If pruning if enabled, "ignorePruning" is false and the polygon lies outside
+     * If pruning is enabled, "ignorePruning" is false and the polygon lies outside
      *  the pruning boundary, or if the polygon's name is within the names of
      *  objects to discard, the polygon is deleted and false is returned.
      *
      * Afterwards it is tested whether a polygon with the same name is already stored.
      *  If so, an error message is printed, the polygon is deleted and false is returned, otherwise true.
      *
-     * @param[in] id The id of the polygon to add
      * @param[in] poly The polygon to add
-     * @param[in] layer The layer the polygon shall be located within
      * @param[in] ignorePruning Whether the polygon shall be kept, even though it would be pruned
      * @return Whether the polygon could be added
      */
-    bool insert(const std::string& id, Polygon* poly, int layer,
-                bool ignorePruning = false);
+    bool add(SUMO::Polygon* poly, bool ignorePruning = false);
 
 
     /** @brief Adds a poi to the storage
      *
-     * If pruning if enabled, "ignorePruning" is false and the poi lies outside
+     * If pruning is enabled, "ignorePruning" is false and the poi lies outside
      *  the pruning boundary, or if the poi's name is within the names of
      *  objects to discard, the poi is deleted and false is returned.
      *
      * Afterwards it is tested whether a poi with the same name is already stored.
      *  If so, an error message is printed, the poi is deleted and false is returned, otherwise true.
      *
-     * @param[in] id The id of the poi to add
      * @param[in] poly The poi to add
-     * @param[in] layer The layer the poi shall be located within
      * @param[in] ignorePruning Whether the poi shall be kept, even though it would be pruned
      * @return Whether the poi could be added
      */
-    bool insert(const std::string& id, PointOfInterest* poi, int layer,
-                bool ignorePruning = false);
+    bool add(PointOfInterest* poi, bool ignorePruning = false);
 
 
-    /** @brief Returns the number of stored polygons
-     * @return How many polygons were added before
-     */
-    unsigned int getNoPolygons() {
-        return (unsigned int) myPolyCont.size();
-    }
+    void addLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos);
 
-
-    /** @brief Returns the number of stored pois
-     * @return How many pois were added before
-     */
-    unsigned int getNoPOIs() {
-        return (unsigned int) myPOICont.size();
-    }
-
-
-    /** @brief Removes all stored objects (polygons and pois)
-     *
-     * All items are deleted
-     */
-    void clear();
-
-
-    /** @brief Reports how many polygons and pois were added */
-    void report();
-
-
-    /** @brief Returns the information whether a polygon with the given key is in the container
-     * @param[in] id The id of the polygon to get the information about
-     * @return Whether the named polygon was added before
-     */
-    bool containsPolygon(const std::string& kidey);
-
-
-    /** @brief Saves the stored polygons into the given file
+    /** @brief Saves the stored polygons and pois into the given file
      * @param[in] file The name of the file to write stored objects' definitions into
      * @param[in] useGeo Whether to write output in geo-coordinates
      * @exception IOError If the file could not be opened
@@ -155,26 +117,12 @@ public:
     int getEnumIDFor(const std::string& key);
 
 
-public:
-    /** @brief Definition of a container of polygons, accessed by the string key */
-    typedef std::map<std::string, Polygon*> PolyCont;
-    /** @brief The polygon container, accessed by the polygons' ids */
-    PolyCont myPolyCont;
-
-    /** @brief Definition of a container of pois, accessed by the string key */
-    typedef std::map<std::string, PointOfInterest*> POICont;
-    /** @brief The poi container, accessed by the pois' ids */
-    POICont myPOICont;
+private:
+    /// @brief An id to pos map for lane pos specs
+    std::map<std::string, std::pair<std::string, SUMOReal> > myLanePosPois;
 
     /// @brief An id to int map for proper enumeration
     std::map<std::string, int> myIDEnums;
-
-    /// @brief A map from polygons to the layers they are located in
-    std::map<Polygon*, int> myPolyLayerMap;
-
-    /// @brief A map from pois to the layers they are located in
-    std::map<PointOfInterest*, int> myPOILayerMap;
-
 
     /// @brief The boundary that described the rectangle within which an object must be in order to be kept
     Boundary myPruningBoundary;

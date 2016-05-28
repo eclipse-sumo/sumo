@@ -79,7 +79,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     std::string prefix = oc.getString("prefix");
     std::string type = oc.getString("type");
     RGBColor color = RGBColor::parseColor(oc.getString("color"));
-    int layer = oc.getInt("layer");
+    SUMOReal layer = oc.getFloat("layer");
     std::string idField = oc.getString("shapefile.id-column");
     bool useRunningID = oc.getBool("shapefile.use-running-id");
     // start parsing
@@ -151,8 +151,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
                 }
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, (SUMOReal)layer);
-                if (toFill.insert(id, poi, layer)) {
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer);
+                if (toFill.add(poi)) {
                     parCont.push_back(poi);
                 }
             }
@@ -168,8 +168,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon* poly = new Polygon(id, type, color, shape, fill, (SUMOReal)layer);
-                if (toFill.insert(id, poly, layer)) {
+                SUMO::Polygon* poly = new SUMO::Polygon(id, type, color, shape, fill, layer);
+                if (toFill.add(poly)) {
                     parCont.push_back(poly);
                 }
             }
@@ -185,8 +185,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon* poly = new Polygon(id, type, color, shape, fill, (SUMOReal)layer);
-                if (toFill.insert(id, poly, layer)) {
+                SUMO::Polygon* poly = new SUMO::Polygon(id, type, color, shape, fill, layer);
+                if (toFill.add(poly)) {
                     parCont.push_back(poly);
                 }
             }
@@ -200,8 +200,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, (SUMOReal)layer);
-                    if (toFill.insert(tid, poi, layer)) {
+                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, layer);
+                    if (toFill.add(poi)) {
                         parCont.push_back(poi);
                     }
                 }
@@ -221,8 +221,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    Polygon* poly = new Polygon(tid, type, color, shape, fill, (SUMOReal)layer);
-                    if (toFill.insert(tid, poly, layer)) {
+                    SUMO::Polygon* poly = new SUMO::Polygon(tid, type, color, shape, fill, layer);
+                    if (toFill.add(poly)) {
                         parCont.push_back(poly);
                     }
                 }
@@ -242,8 +242,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    Polygon* poly = new Polygon(tid, type, color, shape, fill, (SUMOReal)layer);
-                    if (toFill.insert(tid, poly, layer)) {
+                    SUMO::Polygon* poly = new SUMO::Polygon(tid, type, color, shape, fill, layer);
+                    if (toFill.add(poly)) {
                         parCont.push_back(poly);
                     }
                 }

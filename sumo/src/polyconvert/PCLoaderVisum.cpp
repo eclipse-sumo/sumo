@@ -234,7 +234,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             std::string type = typemap[catid];
             // patch the values
             bool discard = oc.getBool("discard");
-            int layer = oc.getInt("layer");
+            SUMOReal layer = oc.getFloat("layer");
             RGBColor color;
             if (tm.has(type)) {
                 const PCTypeMap::TypeDef& def = tm.get(type);
@@ -249,8 +249,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 color = c;
             }
             if (!discard) {
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, (SUMOReal)layer);
-                toFill.insert(id, poi, layer);
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer);
+                toFill.add(poi);
             }
         }
 
@@ -262,7 +262,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             if (!first && lastID != id) {
                 // we have parsed a polygon completely
                 RGBColor color;
-                int layer = oc.getInt("layer");
+                SUMOReal layer = oc.getFloat("layer");
                 bool discard = oc.getBool("discard");
                 if (tm.has(polyType)) {
                     const PCTypeMap::TypeDef& def = tm.get(polyType);
@@ -277,8 +277,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     color = c;
                 }
                 if (!discard) {
-                    Polygon* poly = new Polygon(id, type, color, vec, false, (SUMOReal)layer);
-                    toFill.insert(id, poly, 1);
+                    SUMO::Polygon* poly = new SUMO::Polygon(id, type, color, vec, false, layer);
+                    toFill.add(poly);
                 }
                 vec.clear();
             }
@@ -307,7 +307,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             // patch the values
             std::string type = "district";
             bool discard = oc.getBool("discard");
-            int layer = oc.getInt("layer");
+            SUMOReal layer = oc.getFloat("layer");
             RGBColor color;
             if (tm.has(type)) {
                 const PCTypeMap::TypeDef& def = tm.get(type);
@@ -323,15 +323,15 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             }
             if (!discard) {
                 if (teilflaechen[flaechenelemente[area]].size() > 0) {
-                    Polygon* poly = new Polygon(id, type, color, teilflaechen[flaechenelemente[area]], false, (SUMOReal)layer);
-                    toFill.insert(id, poly, layer);
+                    SUMO::Polygon* poly = new SUMO::Polygon(id, type, color, teilflaechen[flaechenelemente[area]], false, layer);
+                    toFill.add(poly);
                 } else {
                     Position pos(x, y);
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, (SUMOReal)layer);
-                    toFill.insert(id, poi, layer);
+                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer);
+                    toFill.add(poi);
                 }
             }
         }

@@ -89,8 +89,8 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 // ---------------------------------------------------------------------------
 PCLoaderXML::PCLoaderXML(PCPolyContainer& toFill,
                          PCTypeMap& tm, OptionsCont& oc)
-    : SUMOSAXHandler("xml-poi-definition"),
-      myCont(toFill), myTypeMap(tm), myOptions(oc) {}
+    : ShapeHandler("xml-poi-definition", toFill),
+      myTypeMap(tm), myOptions(oc) {}
 
 
 PCLoaderXML::~PCLoaderXML() {}
@@ -102,120 +102,38 @@ PCLoaderXML::myStartElement(int element,
     if (element != SUMO_TAG_POI && element != SUMO_TAG_POLY) {
         return;
     }
-    if (element == SUMO_TAG_POI) {
-        bool ok = true;
-        // get the id, report an error if not given or empty...
-        std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-        SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok);
-        SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok);
-        std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, myOptions.getString("type"));
-        if (!ok) {
-            return;
+    bool ok = true;
+    // get the id, report an error if not given or empty...
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, myOptions.getString("type"));
+    if (!ok) {
+        return;
+    }
+    // patch the values
+    bool discard = myOptions.getBool("discard");
+    if (myTypeMap.has(type)) {
+        const PCTypeMap::TypeDef& def = myTypeMap.get(type);
+        discard = def.discard;
+        setDefaults(def.prefix, def.color, def.layer, def.allowFill);
+    } else {
+        setDefaults(myOptions.getString("prefix"), RGBColor::parseColor(myOptions.getString("color")),
+            myOptions.getFloat("layer"), myOptions.getBool("fill"));
+    }
+    if (!discard) {
+        if (element == SUMO_TAG_POI) {
+            addPOI(attrs, myOptions.isInStringVector("prune.keep-list", id), true);
         }
-        Position pos(x, y);
-        if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-            WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
-        }
-        // patch the values
-        bool discard = myOptions.getBool("discard");
-        SUMOReal layer = (SUMOReal)myOptions.getInt("layer");
-        RGBColor color;
-        if (myTypeMap.has(type)) {
-            const PCTypeMap::TypeDef& def = myTypeMap.get(type);
-            id = def.prefix + id;
-            type = def.id;
-            color = def.color;
-            discard = def.discard;
-            layer = (SUMOReal)def.layer;
-        } else {
-            id = myOptions.getString("prefix") + id;
-            color = RGBColor::parseColor(myOptions.getString("color"));
-        }
-        layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
-        if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-            color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
-        }
-        SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
-        std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
-        if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
-            imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
-        }
-        SUMOReal imgWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
-        SUMOReal imgHeight = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
-        if (!ok) {
-            return;
-        }
-        if (!discard) {
-            bool ignorePrunning = false;
-            if (OptionsCont::getOptions().isInStringVector("prune.keep-list", id)) {
-                ignorePrunning = true;
-            }
-            PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer, angle, imgFile, imgWidth, imgHeight);
-            myCont.insert(id, poi, (int)layer, ignorePrunning);
+        if (element == SUMO_TAG_POLY) {
+            addPoly(attrs, myOptions.isInStringVector("prune.keep-list", id), true);
         }
     }
-    if (element == SUMO_TAG_POLY) {
-        bool discard = myOptions.getBool("discard");
-        SUMOReal layer = (SUMOReal)myOptions.getInt("layer");
-        bool ok = true;
-        std::string id = attrs.getOpt<std::string>(SUMO_ATTR_ID, myCurrentID.c_str(), ok, "");
-        std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, myOptions.getString("type"));
-        bool fill = myOptions.getBool("fill");
-        if (!ok) {
-            return;
-        }
-        RGBColor color;
-        if (myTypeMap.has(type)) {
-            const PCTypeMap::TypeDef& def = myTypeMap.get(type);
-            id = def.prefix + id;
-            type = def.id;
-            color = def.color;
-            discard = def.discard;
-            layer = (SUMOReal)def.layer;
-            fill = def.allowFill;
-        } else {
-            id = myOptions.getString("prefix") + id;
-            color = RGBColor::parseColor(myOptions.getString("color"));
-        }
-        layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
-        if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-            color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
-        }
-        SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
-        std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
-        if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
-            imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
-        }
-        fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, fill);
-        if (!ok) {
-            return;
-        }
-        if (!discard) {
-            bool ignorePrunning = false;
-            if (OptionsCont::getOptions().isInStringVector("prune.keep-list", id)) {
-                ignorePrunning = true;
-            }
-            myCurrentID = id;
-            myCurrentType = type;
-            myCurrentColor = color;
-            myCurrentIgnorePrunning = ignorePrunning;
-            myCurrentLayer = layer;
-            PositionVector pshape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok);
-            if (!ok) {
-                return;
-            }
-            PositionVector shape;
-            for (PositionVector::const_iterator i = pshape.begin(); i != pshape.end(); ++i) {
-                Position pos((*i));
-                if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-                    WRITE_WARNING("Unable to project coordinates for polygon '" + myCurrentID + "'.");
-                }
-                shape.push_back(pos);
-            }
-            Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, fill, layer, angle, imgFile);
-            myCont.insert(myCurrentID, poly, (int)myCurrentLayer, myCurrentIgnorePrunning);
-        }
-    }
+}
+
+
+Position
+PCLoaderXML::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
+    static_cast<PCPolyContainer&>(myShapeContainer).addLanePos(poiID, laneID, lanePos);
+    return Position::INVALID;
 }
 
 

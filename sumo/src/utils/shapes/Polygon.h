@@ -37,7 +37,12 @@
 #include <utils/common/Parameterised.h>
 #include "Shape.h"
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class OutputDevice;
+
 
 // we need to put this into a namespace to avoid clashing with wingdi.h::Polygon function
 namespace SUMO {

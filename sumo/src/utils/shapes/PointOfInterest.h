@@ -83,12 +83,12 @@ public:
     /// @name Getter
     /// @{
 
-    /// @brief Returns whether the image width of the POI
+    /// @brief Returns the image width of the POI
     inline SUMOReal getWidth() const {
         return myHalfImgWidth * 2.0;
     }
 
-    /// @brief Returns whether the image hidth of the POI
+    /// @brief Returns the image height of the POI
     inline SUMOReal getHeight() const {
         return myHalfImgHeight * 2.0;
     }
@@ -114,20 +114,25 @@ public:
     /* @brief POI definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, bool geo = false, const SUMOReal zOffset = 0.) {
+    void writeXML(OutputDevice& out, const bool geo = false, const SUMOReal zOffset = 0., const std::string laneID = "", const SUMOReal pos = 0.) {
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
         out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
         out.writeAttr(SUMO_ATTR_COLOR, getColor());
         out.writeAttr(SUMO_ATTR_LAYER, getLayer() + zOffset);
-        if (geo) {
-            Position pos(*this);
-            GeoConvHelper::getFinal().cartesian2geo(pos);
-            out.writeAttr(SUMO_ATTR_LON, pos.x());
-            out.writeAttr(SUMO_ATTR_LAT, pos.y());
+        if (laneID != "") {
+            out.writeAttr(SUMO_ATTR_LANE, laneID);
+            out.writeAttr(SUMO_ATTR_POSITION, pos);
         } else {
-            out.writeAttr(SUMO_ATTR_X, x());
-            out.writeAttr(SUMO_ATTR_Y, y());
+            if (geo) {
+                Position pos(*this);
+                GeoConvHelper::getFinal().cartesian2geo(pos);
+                out.writeAttr(SUMO_ATTR_LON, pos.x());
+                out.writeAttr(SUMO_ATTR_LAT, pos.y());
+            } else {
+                out.writeAttr(SUMO_ATTR_X, x());
+                out.writeAttr(SUMO_ATTR_Y, y());
+            }
         }
         if (getNaviDegree() != Shape::DEFAULT_ANGLE) {
             out.writeAttr(SUMO_ATTR_ANGLE, getNaviDegree());

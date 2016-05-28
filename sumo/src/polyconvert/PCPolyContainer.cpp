@@ -61,13 +61,13 @@ PCPolyContainer::PCPolyContainer(bool prune,
 
 
 PCPolyContainer::~PCPolyContainer() {
-    clear();
+    myPolygons.clear();
+    myPOIs.clear();
 }
 
 
 bool
-PCPolyContainer::insert(const std::string& id, Polygon* poly,
-                        int layer, bool ignorePruning) {
+PCPolyContainer::add(SUMO::Polygon* poly, bool ignorePruning) {
     // check whether the polygon lies within the wished area
     //  - if such an area was given
     if (myDoPrune && !ignorePruning) {
@@ -78,26 +78,16 @@ PCPolyContainer::insert(const std::string& id, Polygon* poly,
         }
     }
     // check whether the polygon was named to be a removed one
-    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id) != myRemoveByNames.end()) {
+    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), poly->getID()) != myRemoveByNames.end()) {
         delete poly;
         return false;
     }
-    //
-    PolyCont::iterator i = myPolyCont.find(id);
-    if (i != myPolyCont.end()) {
-        WRITE_ERROR("Polygon '" + id + "' could not be added.");
-        delete poly;
-        return false;
-    }
-    myPolyCont[id] = poly;
-    myPolyLayerMap[poly] = layer;
-    return true;
+    return ShapeContainer::add(poly);
 }
 
 
 bool
-PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
-                        int layer, bool ignorePruning) {
+PCPolyContainer::add(PointOfInterest* poi, bool ignorePruning) {
     // check whether the poi lies within the wished area
     //  - if such an area was given
     if (myDoPrune && !ignorePruning) {
@@ -107,50 +97,17 @@ PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
         }
     }
     // check whether the polygon was named to be a removed one
-    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id) != myRemoveByNames.end()) {
+    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), poi->getID()) != myRemoveByNames.end()) {
         delete poi;
         return false;
     }
-    //
-    POICont::iterator i = myPOICont.find(id);
-    if (i != myPOICont.end()) {
-        WRITE_ERROR("POI '" + id + "' could not be added.");
-        delete poi;
-        return false;
-    }
-    myPOICont[id] = poi;
-    myPOILayerMap[poi] = layer;
-    return true;
-}
-
-
-bool
-PCPolyContainer::containsPolygon(const std::string& id) {
-    return myPolyCont.find(id) != myPolyCont.end();
+    return ShapeContainer::add(poi);
 }
 
 
 void
-PCPolyContainer::clear() {
-    // polys
-    for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); i++) {
-        delete(*i).second;
-    }
-    myPolyCont.clear();
-    myPolyLayerMap.clear();
-    // pois
-    for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); i++) {
-        delete(*i).second;
-    }
-    myPOICont.clear();
-    myPOILayerMap.clear();
-}
-
-
-void
-PCPolyContainer::report() {
-    WRITE_MESSAGE("   " + toString(getNoPolygons()) + " polygons loaded.");
-    WRITE_MESSAGE("   " + toString(getNoPOIs()) + " pois loaded.");
+PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
+    myLanePosPois[poiID] = std::make_pair(laneID, lanePos);
 }
 
 
@@ -165,17 +122,22 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     out.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
     if (useGeo) {
         out.setPrecision(GEO_OUTPUT_ACCURACY);
-    } else {
+    } else if (gch.usingGeoProjection()) {
         GeoConvHelper::writeLocation(out);
     }
     // write polygons
-    for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
+    for (std::map<std::string, SUMO::Polygon*>::const_iterator i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); ++i) {
         i->second->writeXML(out, useGeo);
     }
     // write pois
     const SUMOReal zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
-    for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {
-        i->second->writeXML(out, useGeo, zOffset);
+    for (std::map<std::string, PointOfInterest*>::const_iterator i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); ++i) {
+        std::map<std::string, std::pair<std::string, SUMOReal> >::const_iterator it = myLanePosPois.find(i->first);
+        if (it == myLanePosPois.end()) {
+            i->second->writeXML(out, useGeo, zOffset);
+        } else {
+            i->second->writeXML(out, useGeo, zOffset, it->second.first, it->second.second);
+        }
     }
     out.close();
 }
@@ -183,13 +145,7 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
 
 int
 PCPolyContainer::getEnumIDFor(const std::string& key) {
-    if (myIDEnums.find(key) == myIDEnums.end()) {
-        myIDEnums[key] = 0;
-        return 0;
-    } else {
-        myIDEnums[key] = myIDEnums[key] + 1;
-        return myIDEnums[key];
-    }
+    return myIDEnums[key]++;
 }
 
 

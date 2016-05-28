@@ -62,26 +62,16 @@ bool
 ShapeContainer::addPolygon(const std::string& id, const std::string& type,
                            const RGBColor& color, SUMOReal layer,
                            SUMOReal angle, const std::string& imgFile,
-                           const PositionVector& shape, bool fill) {
-    Polygon* p = new Polygon(id, type, color, shape, fill, layer, angle, imgFile);
-    if (!myPolygons.add(id, p)) {
-        delete p;
-        return false;
-    }
-    return true;
+                           const PositionVector& shape, bool fill, bool ignorePruning) {
+    return add(new SUMO::Polygon(id, type, color, shape, fill, layer, angle, imgFile), ignorePruning);
 }
 
 
 bool
 ShapeContainer::addPOI(const std::string& id, const std::string& type,
                        const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
-                       const Position& pos, SUMOReal width, SUMOReal height) {
-    PointOfInterest* p = new PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height);
-    if (!myPOIs.add(id, p)) {
-        delete p;
-        return false;
-    }
-    return true;
+                       const Position& pos, SUMOReal width, SUMOReal height, bool ignorePruning) {
+    return add(new PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height), ignorePruning);
 }
 
 
@@ -109,11 +99,32 @@ ShapeContainer::movePOI(const std::string& id, const Position& pos) {
 
 void
 ShapeContainer::reshapePolygon(const std::string& id, const PositionVector& shape) {
-    Polygon* p = myPolygons.get(id);
+    SUMO::Polygon* p = myPolygons.get(id);
     if (p != 0) {
         p->setShape(shape);
     }
 }
+
+
+bool
+ShapeContainer::add(SUMO::Polygon* poly, bool /* ignorePruning */) {
+    if (!myPolygons.add(poly->getID(), poly)) {
+        delete poly;
+        return false;
+    }
+    return true;
+}
+
+
+bool
+ShapeContainer::add(PointOfInterest* poi, bool /* ignorePruning */) {
+    if (!myPOIs.add(poi->getID(), poi)) {
+        delete poi;
+        return false;
+    }
+    return true;
+}
+
 
 /****************************************************************************/
 

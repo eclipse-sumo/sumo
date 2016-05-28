@@ -39,7 +39,6 @@
 #include "NBHeightMapper.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/RGBColor.h>
-#include <polyconvert/PCPolyContainer.h>
 
 #ifdef HAVE_GDAL
 #include <ogrsf_frmts.h>
