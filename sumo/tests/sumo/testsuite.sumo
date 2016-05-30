@@ -25,8 +25,7 @@ lc_model
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
 opposite_direction_driving
+sublane_model
 
 # demonstration and regression tests for known bugs
 bugs
-
-sublane_model
