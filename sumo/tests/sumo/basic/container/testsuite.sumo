@@ -43,6 +43,12 @@ triggeredParking
 # car triggered by containers (on departure and at stop)
 triggeredDepartParking
 
+# triggered stop cannot be fulfilled due to capacity
+triggeredParkingNoCapacity
+
+# car triggered by containers (on departure and at stop) with a waiting container
+triggeredParkingWait
+
 # container waiting for a car for a transport
 waiting_container
 

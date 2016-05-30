@@ -1,0 +1,2 @@
+Warning: Vehicle 'v1' ignores container triggered stop on lane 'beg_0' due to capacity constraints.
+Warning: Container 'c1' aborted waiting for a transport that will never come.
