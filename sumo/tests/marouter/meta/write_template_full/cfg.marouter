@@ -26,6 +26,7 @@
     <output>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output" type="FILE" help="Write flow definitions with route distributions to FILE"/>
+        <vtype-output value="" type="FILE" help="Write used vehicle types into separate FILE"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
         <netload-output value="" type="FILE" help="Writes edge loads and final costs into FILE"/>
         <all-pairs-output value="" type="FILE" help="Writes complete distance matrix into FILE"/>

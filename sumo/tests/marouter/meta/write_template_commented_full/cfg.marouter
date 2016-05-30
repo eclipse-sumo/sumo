@@ -60,6 +60,9 @@
         <!-- Write flow definitions with route distributions to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
 
+        <!-- Write used vehicle types into separate FILE -->
+        <vtype-output value="" type="FILE"/>
+
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
 
