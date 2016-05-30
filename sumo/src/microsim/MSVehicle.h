@@ -227,6 +227,7 @@ public:
     /// @brief Destructor.
     virtual ~MSVehicle();
 
+    typedef Named::NamedLikeComparatorIdLess<MSVehicle> ComparatorIdLess;
 
 
     /// @name insertion/removal

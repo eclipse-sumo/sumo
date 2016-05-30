@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include <iostream>
 #include <string>
 #include <set>
 
@@ -76,6 +77,7 @@ public:
 
 
     /// @brief Function-object for stable sorting in containers
+    // @note Numbers of different lenghts will not be ordered by alphanumerical sorting
     struct ComparatorIdLess {
         bool operator()(Named* const a, Named* const b) const {
             return a->getID() < b->getID();
@@ -83,6 +85,7 @@ public:
     };
 
     /// @brief Function-object for stable sorting of objects acting like Named without being derived (SUMOVehicle)
+    // @note Numbers of different lenghts will not be ordered by alphanumerical sorting
     template <class NamedLike>
     struct NamedLikeComparatorIdLess {
         bool operator()(const NamedLike* const a, const NamedLike* const b) const {
