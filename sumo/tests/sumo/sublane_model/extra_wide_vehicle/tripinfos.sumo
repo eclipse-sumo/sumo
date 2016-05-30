@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May  9 16:38:39 2016 by SUMO Version dev-SVN-r20666
+<!-- generated on Mon 30 May 2016 02:44:46 PM CEST by SUMO gui Version dev-SVN-r20814
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -27,6 +27,4 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="52.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalSpeed="13.30" duration="52.00" routeLength="500.00" waitSteps="0" timeLoss="9.96" rerouteNo="0" devices="tripinfo_car" vType="car" vaporized=""/>
-    <tripinfo id="wide" depart="2.00" departLane="beg_1" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="54.00" arrivalLane="beg_1" arrivalPos="500.00" arrivalSpeed="16.21" duration="52.00" routeLength="500.00" waitSteps="3" timeLoss="27.57" rerouteNo="0" devices="tripinfo_wide" vType="wide_car" vaporized=""/>
 </tripinfos>
