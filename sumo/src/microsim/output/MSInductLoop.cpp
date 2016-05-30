@@ -319,16 +319,16 @@ MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos) {
 
 
 std::vector<MSInductLoop::VehicleData>
-MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const {
+MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
     SUMOReal t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
     for (VehicleDataCont::const_iterator i = myVehicleDataCont.begin(); i != myVehicleDataCont.end(); ++i) {
-        if ((*i).entryTimeM >= t) {
+        if ((*i).entryTimeM >= t || (leaveTime && (*i).leaveTimeM >= t)) {
             ret.push_back(*i);
         }
     }
     for (VehicleDataCont::const_iterator i = myLastVehicleDataCont.begin(); i != myLastVehicleDataCont.end(); ++i) {
-        if ((*i).entryTimeM >= t) {
+        if ((*i).entryTimeM >= t || (leaveTime && (*i).leaveTimeM >= t)) {
             ret.push_back(*i);
         }
     }

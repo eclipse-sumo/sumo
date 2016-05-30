@@ -112,7 +112,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
                 tempMsg.writeDouble(il->getTimestepsSinceLastDetection());
                 break;
             case LAST_STEP_VEHICLE_DATA: {
-                std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
+                std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T, true);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
                 unsigned int cnt = 0;

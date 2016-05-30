@@ -59,9 +59,10 @@ for step in range(3, 6):
     print(traci.inductionloop.getSubscriptionResults(loopID))
 
 for i in range(24):
-    print("step=%s detVehs=%s" % (
+    print("step=%s detVehs=%s vehData=%s" % (
         traci.simulation.getCurrentTime() / 1000.0,
         traci.inductionloop.getLastStepVehicleIDs(loopID),
+        traci.inductionloop.getVehicleData(loopID),
     ))
     traci.simulationStep()
 
