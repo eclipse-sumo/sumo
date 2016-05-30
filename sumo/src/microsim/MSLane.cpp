@@ -928,7 +928,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     if (myVehicles.size() == 0 || myCollisionAction == COLLISION_ACTION_NONE) {
         return;
     }
-    std::set<const MSVehicle*, MSVehicle::ComparatorIdLess> toRemove;
+    std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess> toRemove;
     std::set<const MSVehicle*> toTeleport;
     if (MSGlobals::gLateralResolution <= 0 && MSGlobals::gLaneChangeDuration <= 0) {
         // no sublanes
@@ -1006,7 +1006,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         }
     }
 
-    for (std::set<const MSVehicle*, MSVehicle::ComparatorIdLess>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
+    for (std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
         MSVehicle* veh = const_cast<MSVehicle*>(*it);
         MSLane* vehLane = veh->getLane();
         vehLane->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT, false);
@@ -1022,7 +1022,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 
 bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
-                               std::set<const MSVehicle*, MSVehicle::ComparatorIdLess>& toRemove, 
+                               std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove, 
                                std::set<const MSVehicle*>& toTeleport) const {
     assert(collider->isFrontOnLane(this));
 #ifndef NO_TRACI
@@ -1068,7 +1068,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
 
 void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
-                               SUMOReal gap, SUMOReal latGap, std::set<const MSVehicle*, MSVehicle::ComparatorIdLess>& toRemove, 
+                               SUMOReal gap, SUMOReal latGap, std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove, 
                                std::set<const MSVehicle*>& toTeleport) const {
     std::string prefix;
     switch (myCollisionAction) {

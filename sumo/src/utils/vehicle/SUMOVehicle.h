@@ -35,6 +35,7 @@
 #include <vector>
 #include <typeinfo>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/Named.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -64,6 +65,8 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
  */
 class SUMOVehicle {
 public:
+    typedef Named::NamedLikeComparatorIdLess<SUMOVehicle> ComparatorIdLess;
+
     /// @brief Destructor
     virtual ~SUMOVehicle() {}
 
