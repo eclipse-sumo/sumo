@@ -188,7 +188,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter));
     // process route definitions
     try {
-        net.openOutput(filename, altFilename, oc.getString("vtype-output"));
+        net.openOutput(oc, altFilename);
         loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                              string2time(oc.getString("route-steps")), net, provider);
         // end the processing

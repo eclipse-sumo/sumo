@@ -50,6 +50,7 @@
 #include <utils/common/ToString.h>
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/iodevices/OutputDevice_String.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -279,7 +280,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     try {
         const RORouterProvider provider(router, 0, 0);
         // prepare the output
-        net.openOutput(oc.isSet("output-file") ? oc.getString("output-file") : "", "", "");
+        net.openOutput(oc);
         // process route definitions
         if (oc.isSet("timeline")) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
@@ -309,46 +310,64 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             if (oc.isSet("taz-param")) {
                 tazParamKeys = oc.getStringVector("taz-param");
             }
+            std::map<SUMOTime, std::string> sortedOut;
+            SUMOTime lastEnd = -1;
             int num = 0;
             for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
                 const ODCell* const c = *i;
                 if (c->departures.empty()) {
-                    dev->openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
-                    dev->writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
-                    dev->writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
-                    matrix.writeDefaultAttrs(*dev, oc.getBool("ignore-vehicle-type"), c);
-                    dev->openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+                    OutputDevice_String od(dev->isBinary(), 1);
+                    od.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
+                    od.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
+                    od.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
+                    matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
+                    od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                     for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                         (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                        (*j)->writeXMLDefinition(*dev, 0, true, false);
+                        (*j)->writeXMLDefinition(od, 0, true, false);
                     }
-                    dev->closeTag();
-                    dev->closeTag();
+                    od.closeTag();
+                    od.closeTag();
+                    sortedOut[c->begin] += od.getString();
                 } else {
                     for (std::map<SUMOTime, std::vector<std::string> >::const_iterator deps = c->departures.begin(); deps != c->departures.end(); ++deps) {
                         const std::string routeDistId = c->origin + "_" + c->destination + "_" + time2string(c->begin) + "_" + time2string(c->end);
                         for (std::vector<std::string>::const_iterator id = deps->second.begin(); id != deps->second.end(); ++id) {
-                            dev->openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, *id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
-                            matrix.writeDefaultAttrs(*dev, oc.getBool("ignore-vehicle-type"), c);
-                            dev->openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+                            OutputDevice_String od(dev->isBinary(), 1);
+                            od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, *id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
+                            matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
+                            od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                             for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                                 (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                                (*j)->writeXMLDefinition(*dev, 0, true, false);
+                                (*j)->writeXMLDefinition(od, 0, true, false);
                             }
-                            dev->closeTag();
+                            od.closeTag();
                             if (!tazParamKeys.empty()) {
-                                dev->openTag(SUMO_TAG_PARAM).writeAttr(SUMO_ATTR_KEY, tazParamKeys[0]).writeAttr(SUMO_ATTR_VALUE, c->origin).closeTag();
+                                od.openTag(SUMO_TAG_PARAM).writeAttr(SUMO_ATTR_KEY, tazParamKeys[0]).writeAttr(SUMO_ATTR_VALUE, c->origin).closeTag();
                                 if (tazParamKeys.size() > 1) {
-                                    dev->openTag(SUMO_TAG_PARAM).writeAttr(SUMO_ATTR_KEY, tazParamKeys[1]).writeAttr(SUMO_ATTR_VALUE, c->destination).closeTag();
+                                    od.openTag(SUMO_TAG_PARAM).writeAttr(SUMO_ATTR_KEY, tazParamKeys[1]).writeAttr(SUMO_ATTR_VALUE, c->destination).closeTag();
                                 }
                             }
-                            dev->closeTag();
+                            od.closeTag();
+                            sortedOut[deps->first] += od.getString();
                         }
                     }
                 }
                 for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                     delete *j;
                 }
+                if (lastEnd >= 0 && lastEnd <= c->begin) {
+                    for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
+                        (*dev) << desc->second;
+                    }
+                    sortedOut.clear();
+                }
+                if (c->end > lastEnd) {
+                    lastEnd = c->end;
+                }
+            }
+            for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
+                (*dev) << desc->second;
             }
             haveOutput = true;
         }

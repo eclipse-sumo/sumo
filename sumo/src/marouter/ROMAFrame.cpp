@@ -83,6 +83,9 @@ ROMAFrame::addImportOptions() {
     oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "Write flow definitions with route distributions to FILE");
 
+    oc.doRegister("vtype-output", new Option_FileName());
+    oc.addDescription("vtype-output", "Output", "Write used vehicle types into separate FILE");
+
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
     oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
