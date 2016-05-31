@@ -80,4 +80,11 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.edge.getSubscriptionResults(edgeID))
+for step in range(10):
+    traci.simulationStep()
+    print("3si count=%s meanSpeed=%s travelTime=%s" % (
+        traci.edge.getLastStepVehicleNumber("3si"),
+        traci.edge.getLastStepMeanSpeed("3si"),
+        traci.edge.getTraveltime("3si")))
+
 traci.close()

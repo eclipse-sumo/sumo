@@ -4,4 +4,8 @@
    <person id="p0" depart="0">
        <walk edges="2fi 2si 1o" departPos="-10"/>
    </person>
+   <vType id="slow" sigma="0" maxSpeed="3"/>
+   <vehicle id="veh2" type="slow" depart="6" departSpeed="max">
+       <route edges="3si"/>
+   </vehicle>
 </routes>
