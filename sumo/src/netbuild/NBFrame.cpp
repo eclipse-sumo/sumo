@@ -190,6 +190,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("speed.factor", new Option_Float(1));
         oc.addDescription("speed.factor", "Processing", "Modifies all edge speeds by multiplying by FLOAT");
+
+        oc.doRegister("speed.minimum", new Option_Float());
+        oc.addDescription("speed.minimum", "Processing", "Modifies all edge speeds to at least FLOAT");
     }
 
     oc.doRegister("junctions.corner-detail", new Option_Integer(0));

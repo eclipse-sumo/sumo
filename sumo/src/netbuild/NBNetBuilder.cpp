@@ -289,11 +289,12 @@ NBNetBuilder::compute(OptionsCont& oc,
     if (oc.exists("speed.offset")) {
         const SUMOReal speedOffset = oc.getFloat("speed.offset");
         const SUMOReal speedFactor = oc.getFloat("speed.factor");
-        if (speedOffset != 0 || speedFactor != 1) {
+        if (speedOffset != 0 || speedFactor != 1 || oc.isSet("speed.minimum")) {
+            const SUMOReal speedMin = oc.isSet("speed.minimum") ? oc.getFloat("speed.minimum") : -std::numeric_limits<SUMOReal>::infinity();
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
             for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-                (*i).second->setSpeed(-1, (*i).second->getSpeed() * speedFactor + speedOffset);
+                (*i).second->setSpeed(-1, MAX2((*i).second->getSpeed() * speedFactor + speedOffset, speedMin));
             }
             PROGRESS_TIME_MESSAGE(before);
         }
