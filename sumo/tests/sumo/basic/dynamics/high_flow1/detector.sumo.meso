@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  4 13:22:10 2016 by SUMO Version dev-SVN-r20642
+<!-- generated on Tue May 31 12:55:28 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,8 +16,9 @@
     </processing>
 
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
+        <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -31,7 +32,7 @@
 -->
 
 <detector>
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1854.40" density="21.30" occupancy="10.65" waitingTime="0.00" speed="27.23" departed="0" arrived="521" entered="523" left="0"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2184.59" density="25.09" occupancy="12.55" waitingTime="0.00" speed="26.55" departed="0" arrived="599" entered="600" left="0"/>
-    <interval begin="1800.00" end="1911.00" id="end2_0" sampledSeconds="310.37" density="28.91" occupancy="14.45" waitingTime="0.00" speed="24.42" departed="0" arrived="80" entered="77" left="0"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1454.47" density="16.71" occupancy="8.35" waitingTime="0.00" speed="34.78" departed="0" arrived="522" entered="524" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="1694.57" density="19.47" occupancy="9.73" waitingTime="0.00" speed="34.29" departed="0" arrived="601" entered="601" left="0"/>
+    <interval begin="1800.00" end="1903.00" id="end2_0" sampledSeconds="214.62" density="21.54" occupancy="10.77" waitingTime="0.00" speed="34.36" departed="0" arrived="77" entered="75" left="0"/>
 </detector>

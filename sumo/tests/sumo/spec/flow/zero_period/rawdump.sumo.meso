@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:09:44 by SUMO sumo Version 0.17.0
+<!-- generated on Tue May 31 12:55:26 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,8 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -34,15 +35,15 @@
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="beg">
-            <vehicle id="f1.9" pos="0.00" speed="12.84"/>
-            <vehicle id="f1.8" pos="0.00" speed="13.65"/>
-            <vehicle id="f1.7" pos="0.00" speed="14.58"/>
-            <vehicle id="f1.6" pos="0.00" speed="15.64"/>
-            <vehicle id="f1.5" pos="0.00" speed="16.87"/>
-            <vehicle id="f1.4" pos="0.00" speed="18.31"/>
-            <vehicle id="f1.3" pos="0.00" speed="20.02"/>
-            <vehicle id="f1.2" pos="0.00" speed="22.08"/>
-            <vehicle id="f1.1" pos="0.00" speed="24.61"/>
+            <vehicle id="f1.9" pos="0.00" speed="14.32"/>
+            <vehicle id="f1.8" pos="0.00" speed="15.14"/>
+            <vehicle id="f1.7" pos="0.00" speed="16.05"/>
+            <vehicle id="f1.6" pos="0.00" speed="17.09"/>
+            <vehicle id="f1.5" pos="0.00" speed="18.26"/>
+            <vehicle id="f1.4" pos="0.00" speed="19.60"/>
+            <vehicle id="f1.3" pos="0.00" speed="21.16"/>
+            <vehicle id="f1.2" pos="0.00" speed="22.99"/>
+            <vehicle id="f1.1" pos="0.00" speed="25.17"/>
             <vehicle id="f1.0" pos="0.00" speed="27.80"/>
         </edge>
     </timestep>

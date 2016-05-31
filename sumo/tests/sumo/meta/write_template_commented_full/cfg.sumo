@@ -399,11 +399,11 @@
         <!-- Length of an edge segment in mesoscopic simulation -->
         <meso-edgelength value="98" type="FLOAT"/>
 
-        <!-- Factor for calculating the free-free headway time -->
-        <meso-tauff value="1.4" type="TIME"/>
+        <!-- Factor for calculating the net free-free headway time -->
+        <meso-tauff value="1.13" type="TIME"/>
 
-        <!-- Factor for calculating the free-jam headway time -->
-        <meso-taufj value="1.4" type="TIME"/>
+        <!-- Factor for calculating the net free-jam headway time -->
+        <meso-taufj value="1.13" type="TIME"/>
 
         <!-- Factor for calculating the jam-free headway time -->
         <meso-taujf value="2" type="TIME"/>

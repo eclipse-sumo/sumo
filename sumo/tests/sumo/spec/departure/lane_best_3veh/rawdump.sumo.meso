@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:09:25 by SUMO sumo Version 0.17.0
+<!-- generated on Tue May 31 12:55:24 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,8 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -34,8 +35,8 @@
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="beg">
-            <vehicle id="3" pos="0.00" speed="22.08"/>
-            <vehicle id="2" pos="0.00" speed="24.61"/>
+            <vehicle id="3" pos="0.00" speed="22.99"/>
+            <vehicle id="2" pos="0.00" speed="25.17"/>
             <vehicle id="1" pos="0.00" speed="27.80"/>
         </edge>
     </timestep>

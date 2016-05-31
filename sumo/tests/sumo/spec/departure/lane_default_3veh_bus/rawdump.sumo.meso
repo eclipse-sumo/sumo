@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov  3 13:20:24 2014 by SUMO Version dev-SVN-r17232ID
+<!-- generated on Tue May 31 12:55:23 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -35,36 +35,36 @@
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="beg">
-            <vehicle id="3" pos="0.00" speed="22.07"/>
-            <vehicle id="2" pos="0.00" speed="24.59"/>
+            <vehicle id="3" pos="0.00" speed="22.98"/>
+            <vehicle id="2" pos="0.00" speed="25.15"/>
             <vehicle id="1" pos="0.00" speed="27.78"/>
         </edge>
     </timestep>
     <timestep time="1.00">
         <edge id="beg">
-            <vehicle id="3" pos="0.00" speed="22.07"/>
-            <vehicle id="2" pos="0.00" speed="24.59"/>
+            <vehicle id="3" pos="0.00" speed="22.98"/>
+            <vehicle id="2" pos="0.00" speed="25.15"/>
             <vehicle id="1" pos="0.00" speed="27.78"/>
         </edge>
     </timestep>
     <timestep time="2.00">
         <edge id="beg">
-            <vehicle id="3" pos="0.00" speed="22.07"/>
-            <vehicle id="2" pos="0.00" speed="24.59"/>
+            <vehicle id="3" pos="0.00" speed="22.98"/>
+            <vehicle id="2" pos="0.00" speed="25.15"/>
             <vehicle id="1" pos="0.00" speed="27.78"/>
         </edge>
     </timestep>
     <timestep time="3.00">
         <edge id="beg">
-            <vehicle id="3" pos="0.00" speed="22.07"/>
-            <vehicle id="2" pos="0.00" speed="24.59"/>
+            <vehicle id="3" pos="0.00" speed="22.98"/>
+            <vehicle id="2" pos="0.00" speed="25.15"/>
             <vehicle id="1" pos="0.00" speed="27.78"/>
         </edge>
     </timestep>
     <timestep time="4.00">
         <edge id="beg">
-            <vehicle id="3" pos="0.00" speed="22.07"/>
-            <vehicle id="2" pos="0.00" speed="24.59"/>
+            <vehicle id="3" pos="0.00" speed="22.98"/>
+            <vehicle id="2" pos="0.00" speed="24.10"/>
             <vehicle id="1" pos="100.00" speed="27.78"/>
         </edge>
     </timestep>

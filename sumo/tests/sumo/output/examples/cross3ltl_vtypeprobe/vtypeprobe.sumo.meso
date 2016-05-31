@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/30/14 00:00:12 by SUMO Version dev-SVN-r17387
+<!-- generated on Tue May 31 12:55:34 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -18,7 +18,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -44,7 +44,7 @@
         <vehicle id="always_left.0" pos="0.00" x="0.00" y="498.35" speed="11.11"/>
         <vehicle id="always_right.0" pos="0.00" x="501.65" y="0.00" speed="11.11"/>
         <vehicle id="horizontal.0" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
-        <vehicle id="vertical.0" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.0" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="110.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="82.83" x="82.83" y="498.35" speed="11.11"/>
@@ -54,7 +54,7 @@
         <vehicle id="horizontal.0" pos="82.83" x="917.17" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.1" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
         <vehicle id="vertical.0" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.1" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.1" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="120.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="165.67" x="165.67" y="498.35" speed="11.11"/>
@@ -68,7 +68,7 @@
         <vehicle id="horizontal.2" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
         <vehicle id="vertical.0" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.1" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.2" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.2" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="130.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="0.00" x="251.50" y="491.75" speed="13.89"/>
@@ -86,7 +86,7 @@
         <vehicle id="vertical.0" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.1" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.2" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.3" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.3" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="140.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
@@ -108,7 +108,7 @@
         <vehicle id="vertical.1" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.2" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.3" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.4" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.4" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="150.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
@@ -129,12 +129,12 @@
         <vehicle id="horizontal.3" pos="165.67" x="834.33" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.4" pos="82.83" x="917.17" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.5" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
-        <vehicle id="vertical.0" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
+        <vehicle id="vertical.0" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
         <vehicle id="vertical.1" pos="118.58" x="508.25" y="370.08" speed="13.89"/>
         <vehicle id="vertical.2" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.3" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.4" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.5" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.5" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="160.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="195.46" x="501.65" y="706.81" speed="11.11"/>
@@ -159,12 +159,12 @@
         <vehicle id="horizontal.5" pos="82.83" x="917.17" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.6" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
         <vehicle id="vertical.0" pos="195.46" x="501.65" y="706.81" speed="11.11"/>
-        <vehicle id="vertical.1" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
+        <vehicle id="vertical.1" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
         <vehicle id="vertical.2" pos="118.58" x="508.25" y="370.08" speed="13.89"/>
         <vehicle id="vertical.3" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.4" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.5" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.6" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.6" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="170.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
@@ -193,12 +193,12 @@
         <vehicle id="horizontal.7" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
         <vehicle id="vertical.0" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.1" pos="195.46" x="501.65" y="706.81" speed="11.11"/>
-        <vehicle id="vertical.2" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
+        <vehicle id="vertical.2" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
         <vehicle id="vertical.3" pos="118.58" x="508.25" y="370.08" speed="13.89"/>
         <vehicle id="vertical.4" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.5" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.6" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.7" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.7" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="180.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="390.92" x="501.65" y="902.27" speed="11.11"/>
@@ -231,12 +231,12 @@
         <vehicle id="vertical.0" pos="390.92" x="501.65" y="902.27" speed="11.11"/>
         <vehicle id="vertical.1" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.2" pos="195.46" x="501.65" y="706.81" speed="11.11"/>
-        <vehicle id="vertical.3" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
+        <vehicle id="vertical.3" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
         <vehicle id="vertical.4" pos="118.58" x="508.25" y="370.08" speed="13.89"/>
         <vehicle id="vertical.5" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.6" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.7" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.8" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.8" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="190.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="0.00" x="498.35" y="1000.00" speed="11.11"/>
@@ -273,12 +273,12 @@
         <vehicle id="vertical.1" pos="390.92" x="501.65" y="902.27" speed="11.11"/>
         <vehicle id="vertical.2" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.3" pos="195.46" x="501.65" y="706.81" speed="11.11"/>
-        <vehicle id="vertical.4" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
+        <vehicle id="vertical.4" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
         <vehicle id="vertical.5" pos="118.58" x="508.25" y="370.08" speed="13.89"/>
         <vehicle id="vertical.6" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.7" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.8" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.9" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.9" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
     </timestep>
     <timestep time="200.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" pos="165.67" x="498.35" y="834.33" speed="11.11"/>
@@ -314,13 +314,13 @@
         <vehicle id="horizontal.7" pos="0.00" x="748.50" y="508.25" speed="13.89"/>
         <vehicle id="horizontal.8" pos="165.67" x="834.33" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.9" pos="82.83" x="917.17" y="501.65" speed="11.11"/>
-        <vehicle id="vertical.0" pos="165.67" x="498.35" y="834.33" speed="11.11"/>
+        <vehicle id="vertical.0" pos="82.83" x="498.35" y="917.17" speed="11.11"/>
         <vehicle id="vertical.1" pos="0.00" x="498.35" y="1000.00" speed="11.11"/>
-        <vehicle id="vertical.10" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.10" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
         <vehicle id="vertical.2" pos="390.92" x="501.65" y="902.27" speed="11.11"/>
         <vehicle id="vertical.3" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.4" pos="195.46" x="501.65" y="706.81" speed="11.11"/>
-        <vehicle id="vertical.5" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
+        <vehicle id="vertical.5" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
         <vehicle id="vertical.6" pos="118.58" x="508.25" y="370.08" speed="13.89"/>
         <vehicle id="vertical.7" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.8" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
@@ -364,14 +364,14 @@
         <vehicle id="horizontal.8" pos="0.00" x="748.50" y="508.25" speed="13.89"/>
         <vehicle id="horizontal.9" pos="165.67" x="834.33" y="501.65" speed="11.11"/>
         <vehicle id="vertical.0" pos="0.00" x="491.75" y="748.50" speed="13.89"/>
-        <vehicle id="vertical.1" pos="165.67" x="498.35" y="834.33" speed="11.11"/>
+        <vehicle id="vertical.1" pos="82.83" x="498.35" y="917.17" speed="11.11"/>
         <vehicle id="vertical.10" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
-        <vehicle id="vertical.11" pos="0.00" x="501.65" y="0.00" speed="9.35"/>
+        <vehicle id="vertical.11" pos="0.00" x="501.65" y="0.00" speed="9.65"/>
         <vehicle id="vertical.2" pos="0.00" x="498.35" y="1000.00" speed="11.11"/>
         <vehicle id="vertical.3" pos="390.92" x="501.65" y="902.27" speed="11.11"/>
         <vehicle id="vertical.4" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.5" pos="195.46" x="501.65" y="706.81" speed="11.11"/>
-        <vehicle id="vertical.6" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
+        <vehicle id="vertical.6" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
         <vehicle id="vertical.7" pos="118.58" x="508.25" y="370.08" speed="13.89"/>
         <vehicle id="vertical.8" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.9" pos="165.67" x="501.65" y="165.67" speed="11.11"/>

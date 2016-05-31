@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 19 15:53:55 2014 by SUMO Version dev-SVN-r17350ID
+<!-- generated on Tue May 31 12:55:34 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -51,7 +51,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -63,7 +63,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -75,7 +75,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -87,7 +87,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -99,7 +99,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -111,7 +111,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -123,7 +123,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -135,7 +135,7 @@
             <vehicle id="horizontal.0" pos="0.00" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.0" pos="0.00" speed="11.11"/>
         </edge>
     </timestep>
@@ -147,7 +147,7 @@
             <vehicle id="horizontal.0" pos="82.83" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.0" pos="0.00" speed="8.95"/>
             <vehicle id="always_right.0" pos="82.83" speed="11.11"/>
         </edge>
     </timestep>
@@ -159,7 +159,7 @@
             <vehicle id="horizontal.0" pos="82.83" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
+            <vehicle id="vertical.0" pos="0.00" speed="8.95"/>
             <vehicle id="always_right.0" pos="82.83" speed="11.11"/>
         </edge>
     </timestep>
@@ -173,7 +173,7 @@
             <vehicle id="horizontal.0" pos="82.83" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
             <vehicle id="always_right.0" pos="82.83" speed="11.11"/>
@@ -189,7 +189,7 @@
             <vehicle id="horizontal.0" pos="82.83" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
             <vehicle id="always_right.0" pos="82.83" speed="11.11"/>
@@ -205,7 +205,7 @@
             <vehicle id="horizontal.0" pos="82.83" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
             <vehicle id="always_right.0" pos="82.83" speed="11.11"/>
@@ -221,7 +221,7 @@
             <vehicle id="horizontal.0" pos="82.83" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
             <vehicle id="always_right.0" pos="82.83" speed="11.11"/>
@@ -237,7 +237,7 @@
             <vehicle id="horizontal.0" pos="82.83" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
             <vehicle id="always_right.0" pos="82.83" speed="11.11"/>
@@ -253,7 +253,7 @@
             <vehicle id="horizontal.0" pos="165.67" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
             <vehicle id="always_right.0" pos="165.67" speed="11.11"/>
@@ -269,7 +269,7 @@
             <vehicle id="horizontal.0" pos="165.67" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="82.83" speed="11.11"/>
             <vehicle id="always_right.0" pos="165.67" speed="11.11"/>
@@ -285,7 +285,7 @@
             <vehicle id="horizontal.0" pos="165.67" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="9.65"/>
             <vehicle id="always_right.1" pos="0.00" speed="11.11"/>
             <vehicle id="vertical.0" pos="165.67" speed="11.11"/>
             <vehicle id="always_right.0" pos="165.67" speed="11.11"/>
@@ -301,7 +301,7 @@
             <vehicle id="horizontal.0" pos="165.67" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="0.00" speed="9.35"/>
+            <vehicle id="vertical.1" pos="0.00" speed="8.95"/>
             <vehicle id="always_right.1" pos="82.83" speed="11.11"/>
             <vehicle id="vertical.0" pos="165.67" speed="11.11"/>
             <vehicle id="always_right.0" pos="165.67" speed="11.11"/>
@@ -317,7 +317,7 @@
             <vehicle id="horizontal.0" pos="165.67" speed="11.11"/>
         </edge>
         <edge id="3fi">
-            <vehicle id="vertical.1" pos="82.83" speed="11.11"/>
+            <vehicle id="vertical.1" pos="0.00" speed="8.95"/>
             <vehicle id="always_right.1" pos="82.83" speed="11.11"/>
             <vehicle id="vertical.0" pos="165.67" speed="11.11"/>
             <vehicle id="always_right.0" pos="165.67" speed="11.11"/>

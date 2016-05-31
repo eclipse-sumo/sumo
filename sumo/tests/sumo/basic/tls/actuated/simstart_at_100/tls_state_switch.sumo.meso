@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  7 15:32:24 2014 by SUMO Version dev-SVN-r17292I
+<!-- generated on Tue May 31 12:55:27 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,7 +17,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -123,4 +123,20 @@
     <tlsstate time="10519.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
     <tlsstate time="10525.00" id="0" programID="0" phase="3" state="rryyrrrrrryyrrrr"/>
     <tlsstate time="10529.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="10538.00" id="0" programID="0" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="10542.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="10548.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="10552.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="10561.00" id="0" programID="0" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsstate time="10565.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsstate time="10571.00" id="0" programID="0" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsstate time="10575.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="10584.00" id="0" programID="0" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="10588.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="10594.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="10598.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="10607.00" id="0" programID="0" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsstate time="10611.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsstate time="10617.00" id="0" programID="0" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsstate time="10621.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
 </tls-switch-states>

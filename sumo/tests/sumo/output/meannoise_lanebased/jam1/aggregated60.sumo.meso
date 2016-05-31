@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 19 15:53:55 2014 by SUMO Version dev-SVN-r17350ID
+<!-- generated on Tue May 31 12:55:34 2016 by SUMO Version dev-SVN-r20823
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -35,6 +35,6 @@
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="600.00" end="660.00" id="dump_60">
         <edge id="2/1to1/1" sampledSeconds="780.00" noise="0.00" traveltime="8000.00"/>
-        <edge id="3/1to2/1" sampledSeconds="420.00" noise="0.00" traveltime="7736.70"/>
+        <edge id="3/1to2/1" sampledSeconds="420.00" noise="0.00" traveltime="7733.44"/>
     </interval>
 </meandata>

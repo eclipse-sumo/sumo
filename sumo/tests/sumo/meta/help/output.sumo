@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r20597
+SUMO Version dev-SVN-r20823
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -251,9 +251,9 @@ Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
   --meso-edgelength FLOAT              Length of an edge segment in mesoscopic
                                          simulation
-  --meso-tauff TIME                    Factor for calculating the free-free
+  --meso-tauff TIME                    Factor for calculating the net free-free
                                          headway time
-  --meso-taufj TIME                    Factor for calculating the free-jam
+  --meso-taufj TIME                    Factor for calculating the net free-jam
                                          headway time
   --meso-taujf TIME                    Factor for calculating the jam-free
                                          headway time
