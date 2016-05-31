@@ -465,6 +465,9 @@
         <!-- Modifies all edge speeds by multiplying by FLOAT -->
         <speed.factor value="1" type="FLOAT"/>
 
+        <!-- Modifies all edge speeds to at least FLOAT -->
+        <speed.minimum value="" type="FLOAT"/>
+
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="0" type="INT"/>
 
