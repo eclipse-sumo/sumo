@@ -54,6 +54,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define DEFAULT_VEH_LENGHT_WITH_GAP 7.5f
+
 // ===========================================================================
 // static member defintion
 // ===========================================================================
@@ -78,7 +80,8 @@ MESegment::MESegment(const std::string& id,
     myTau_fj((SUMOTime)(taufj / parent.getLanes().size())), // Eissfeldt p. 90 and 151 ff.
     myTau_jf((SUMOTime)(taujf / parent.getLanes().size())),
     myTau_jj((SUMOTime)(taujj / parent.getLanes().size())),
-    myHeadwayCapacity(length / 7.5f * parent.getLanes().size())/* Eissfeldt p. 69 */,
+    myTau_length(speed * parent.getLanes().size() / TIME2STEPS(1) ),
+    myHeadwayCapacity(length / DEFAULT_VEH_LENGHT_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
     myOccupancy(0.f),
     myJunctionControl(junctionControl),
@@ -121,7 +124,7 @@ MESegment::MESegment(const std::string& id):
     Named(id),
     myEdge(myDummyParent), // arbitrary edge needed to supply the needed reference
     myNextSegment(0), myLength(0), myIndex(0),
-    myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0),
+    myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0), myTau_length(1),
     myHeadwayCapacity(0), myCapacity(0), myJunctionControl(false),
     myTLSPenalty(false),
     myLengthGeometryFactor(0) {
@@ -340,9 +343,9 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 
 
 SUMOTime
-MESegment::getTimeHeadway(bool predecessorIsFree) {
+MESegment::getTimeHeadway(bool predecessorIsFree, SUMOReal leaderLength) {
     if (predecessorIsFree) {
-        return free() ? myTau_ff : myTau_fj;
+        return (free() ? myTau_ff : myTau_fj) + (SUMOTime)(leaderLength / myTau_length);
     } else {
         if (free() || myTLSPenalty) {
             return myTau_jf;
@@ -440,7 +443,7 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
     MEVehicle* lc = removeCar(veh, time, next); // new leaderCar
     myBlockTimes[veh->getQueIndex()] = time;
     if (!isInvalid(next)) {
-        myBlockTimes[veh->getQueIndex()] += next->getTimeHeadway(free());
+        myBlockTimes[veh->getQueIndex()] += next->getTimeHeadway(free(), veh->getVehicleType().getLengthWithGap());
     }
     if (lc != 0) {
         lc->setEventTime(MAX2(lc->getEventTime(), myBlockTimes[veh->getQueIndex()]));

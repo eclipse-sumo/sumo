@@ -346,10 +346,10 @@ MSFrame::fillOptions() {
     oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
     oc.addDescription("meso-edgelength", "Mesoscopic", "Length of an edge segment in mesoscopic simulation");
-    oc.doRegister("meso-tauff", new Option_String("1.4", "TIME"));
-    oc.addDescription("meso-tauff", "Mesoscopic", "Factor for calculating the free-free headway time");
-    oc.doRegister("meso-taufj", new Option_String("1.4", "TIME"));
-    oc.addDescription("meso-taufj", "Mesoscopic", "Factor for calculating the free-jam headway time");
+    oc.doRegister("meso-tauff", new Option_String("1.13", "TIME"));
+    oc.addDescription("meso-tauff", "Mesoscopic", "Factor for calculating the net free-free headway time");
+    oc.doRegister("meso-taufj", new Option_String("1.13", "TIME"));
+    oc.addDescription("meso-taufj", "Mesoscopic", "Factor for calculating the net free-jam headway time");
     oc.doRegister("meso-taujf", new Option_String("2", "TIME"));
     oc.addDescription("meso-taujf", "Mesoscopic", "Factor for calculating the jam-free headway time");
     oc.doRegister("meso-taujj", new Option_String("1.4", "TIME"));

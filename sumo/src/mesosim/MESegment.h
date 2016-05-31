@@ -393,7 +393,7 @@ private:
 
     bool overtake();
 
-    SUMOTime getTimeHeadway(bool predecessorIsFree);
+    SUMOTime getTimeHeadway(bool predecessorIsFree, SUMOReal leaderLength);
 
     void setSpeedForQueue(SUMOReal newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);
@@ -437,6 +437,8 @@ private:
 
     /// @brief The time headway parameters, see the Eissfeldt thesis
     const SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
+    /// @brief Headway paramter for computing gross time headyway from net time heawdway, length and edge speed
+    const SUMOReal myTau_length;
 
     /// @brief slope and axis offset for the jam-jam headway function
     SUMOReal myA, myB;
