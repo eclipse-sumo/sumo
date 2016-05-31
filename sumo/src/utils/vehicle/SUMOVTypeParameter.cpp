@@ -54,7 +54,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       speedFactor(1.0), speedDev(0.0),
       emissionClass(PollutantsInterface::getClassByName("unknown", vclass)), color(RGBColor::DEFAULT_COLOR),
       vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
-      loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN),
+      loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
       cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_DEFAULT),
       maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.12),
       setParameter(0), saved(false), onlyReferenced(false) {
@@ -97,6 +97,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.4;
             height = 2.4;
             shape = SVS_TRUCK;
+            osgFile = "car-microcargo-citrus.obj";
             personCapacity = 2;
             containerCapacity = 1;
             break;
@@ -106,6 +107,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.55;
             height = 4.;
             shape = SVS_TRUCK_SEMITRAILER;
+            osgFile = "car-microcargo-citrus.obj";
             personCapacity = 2;
             containerCapacity = 2;
             break;
@@ -115,6 +117,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.5;
             height = 3.4;
             shape = SVS_BUS;
+            osgFile = "car-minibus-citrus.obj";
             personCapacity = 85;
             break;
         case SVC_COACH:
@@ -123,6 +126,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.6;
             height = 4.;
             shape = SVS_BUS_COACH;
+            osgFile = "car-minibus-citrus.obj";
             personCapacity = 70;
             break;
         case SVC_TRAM:
