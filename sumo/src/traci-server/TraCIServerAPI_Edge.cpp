@@ -247,13 +247,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             }
             break;
             case LAST_STEP_MEAN_SPEED: {
-                SUMOReal sum = 0;
-                const std::vector<MSLane*>& lanes = e->getLanes();
-                for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getMeanSpeed();
-                }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(sum / (SUMOReal) lanes.size());
+                tempMsg.writeDouble(e->getMeanSpeed());
             }
             break;
             case LAST_STEP_OCCUPANCY: {

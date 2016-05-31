@@ -623,7 +623,7 @@ MSEdge::getMesoMeanSpeed() const {
     SUMOReal v = 0;
     SUMOReal no = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-        SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
+        const SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
         v += vehNo * segment->getMeanSpeed();
         no += vehNo;
     }
@@ -633,6 +633,21 @@ MSEdge::getMesoMeanSpeed() const {
     return v / no;
 }
 
+
+SUMOReal
+MSEdge::getMeanSpeed() const {
+    SUMOReal v = 0;
+    SUMOReal no = 0;
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        const SUMOReal vehNo = (SUMOReal) (*i)->getVehicleNumber();
+        v += vehNo * (*i)->getMeanSpeed();
+        no += vehNo;
+    }
+    if (no == 0) {
+        return getSpeedLimit();
+    }
+    return v / no;
+}
 
 
 SUMOReal
@@ -645,10 +660,7 @@ MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
     if (MSGlobals::gUseMesoSim) {
         v = getMesoMeanSpeed();
     } else {
-        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            v += (*i)->getMeanSpeed();
-        }
-        v /= (SUMOReal) myLanes->size();
+        v = getMeanSpeed();
     }
     return getLength() / MAX2(minSpeed, v);
 }

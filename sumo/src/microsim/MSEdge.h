@@ -647,6 +647,9 @@ public:
     /// @brief get the mean speed for mesoscopic simulation
     SUMOReal getMesoMeanSpeed() const;
 
+    /// @brief get the mean speed 
+    SUMOReal getMeanSpeed() const;
+
     /// @brief grant exclusive access to the mesoscopic state
     virtual void lock() const {}
 
