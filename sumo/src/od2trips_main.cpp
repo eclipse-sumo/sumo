@@ -268,13 +268,13 @@ main(int argc, char** argv) {
         // load the matrix
         ODMatrix matrix(districts);
         matrix.loadMatrix(oc);
-        if (matrix.getNoLoaded() == 0) {
+        if (matrix.getNumLoaded() == 0) {
             throw ProcessError("No vehicles loaded.");
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
             throw ProcessError("Loading failed.");
         }
-        WRITE_MESSAGE(toString(matrix.getNoLoaded()) + " vehicles loaded.");
+        WRITE_MESSAGE(toString(matrix.getNumLoaded()) + " vehicles loaded.");
         // apply a curve if wished
         if (oc.isSet("timeline")) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
@@ -298,8 +298,8 @@ main(int argc, char** argv) {
         if (!haveOutput) {
             throw ProcessError("No output file given.");
         }
-        WRITE_MESSAGE(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
-        WRITE_MESSAGE(toString(matrix.getNoWritten()) + " vehicles written.");
+        WRITE_MESSAGE(toString(matrix.getNumDiscarded()) + " vehicles discarded.");
+        WRITE_MESSAGE(toString(matrix.getNumWritten()) + " vehicles written.");
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());

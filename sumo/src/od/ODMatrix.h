@@ -105,8 +105,9 @@ public:
      * @param[in] origin The origin district to use for the cell's flows
      * @param[in] destination The destination district to use for the cell's flows
      * @param[in] vehicleType The vehicle type to use for the cell's flows
+     * @return whether the cell could be added
      */
-    void add(SUMOReal vehicleNumber, SUMOTime begin,
+    bool add(SUMOReal vehicleNumber, SUMOTime begin,
              SUMOTime end, const std::string& origin, const std::string& destination,
              const std::string& vehicleType);
 
@@ -119,8 +120,9 @@ public:
      * @param[in] depart The departure time of the vehicle
      * @param[in] od The origin and destination district to use for the cell's flows
      * @param[in] vehicleType The vehicle type to use for the cell's flows
+     * @return whether the vehicle could be added
      */
-    void add(const std::string& id, const SUMOTime depart,
+    bool add(const std::string& id, const SUMOTime depart,
              const std::pair<const std::string, const std::string>& od,
              const std::string& vehicleType);
 
@@ -184,7 +186,7 @@ public:
      *
      * @return The number of loaded vehicles
      */
-    SUMOReal getNoLoaded() const;
+    SUMOReal getNumLoaded() const;
 
 
     /** @brief Returns the number of written vehicles
@@ -193,7 +195,7 @@ public:
      *
      * @return The number of written vehicles
      */
-    SUMOReal getNoWritten() const;
+    SUMOReal getNumWritten() const;
 
 
     /** @brief Returns the number of discarded vehicles
@@ -202,7 +204,7 @@ public:
      *
      * @return The number of discarded vehicles
      */
-    SUMOReal getNoDiscarded() const;
+    SUMOReal getNumDiscarded() const;
 
 
     /** @brief Splits the stored cells dividing them on the given time line
@@ -336,7 +338,7 @@ private:
     SUMOReal readFactor(LineReader& lr, SUMOReal scale);
 
 
-protected:
+private:
     /// @brief The loaded cells
     std::vector<ODCell*> myContainer;
 
@@ -346,14 +348,17 @@ protected:
     /// @brief The districts to retrieve sources/sinks from
     const ODDistrictCont& myDistricts;
 
+    /// @brief The missing districts already warned about
+    std::set<const std::string> myMissingDistricts;
+
     /// @brief Number of loaded vehicles
-    SUMOReal myNoLoaded;
+    SUMOReal myNumLoaded;
 
     /// @brief Number of written vehicles
-    SUMOReal myNoWritten;
+    SUMOReal myNumWritten;
 
     /// @brief Number of discarded vehicles
-    SUMOReal myNoDiscarded;
+    SUMOReal myNumDiscarded;
 
 
     /**

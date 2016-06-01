@@ -456,14 +456,14 @@ main(int argc, char** argv) {
         matrix.loadMatrix(oc);
         ROMARouteHandler handler(matrix);
         matrix.loadRoutes(oc, handler);
-        if (matrix.getNoLoaded() == 0) {
+        if (matrix.getNumLoaded() == 0) {
             throw ProcessError("No vehicles loaded.");
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
             throw ProcessError("Loading failed.");
         }
         MsgHandler::getErrorInstance()->clear();
-        WRITE_MESSAGE(toString(matrix.getNoLoaded()) + " vehicles loaded.");
+        WRITE_MESSAGE(toString(matrix.getNumLoaded()) + " vehicles loaded.");
 
         // build routes and parse the incremental rates if the incremental method is choosen.
         try {

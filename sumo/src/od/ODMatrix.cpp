@@ -60,7 +60,7 @@
 // method definitions
 // ===========================================================================
 ODMatrix::ODMatrix(const ODDistrictCont& dc)
-    : myDistricts(dc), myNoLoaded(0), myNoWritten(0), myNoDiscarded(0) {}
+    : myDistricts(dc), myNumLoaded(0), myNumWritten(0), myNumDiscarded(0) {}
 
 
 ODMatrix::~ODMatrix() {
@@ -71,41 +71,49 @@ ODMatrix::~ODMatrix() {
 }
 
 
-void
+bool
 ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
               SUMOTime end, const std::string& origin, const std::string& destination,
               const std::string& vehicleType) {
-    myNoLoaded += vehicleNumber;
+    myNumLoaded += vehicleNumber;
     if (myDistricts.get(origin) == 0 && myDistricts.get(destination) == 0) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+        myMissingDistricts.insert(origin);
+        myMissingDistricts.insert(destination);
+        return false;
     } else if (myDistricts.get(origin) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
-        myNoDiscarded += vehicleNumber;
+        myNumDiscarded += vehicleNumber;
+        myMissingDistricts.insert(origin);
+        return false;
     } else if (myDistricts.get(destination) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
-        myNoDiscarded += vehicleNumber;
-    } else {
-        if (myDistricts.get(origin)->sourceNumber() == 0) {
-            WRITE_ERROR("District '" + origin + "' has no source.");
-            myNoDiscarded += vehicleNumber;
-        } else if (myDistricts.get(destination)->sinkNumber() == 0) {
-            WRITE_ERROR("District '" + destination + "' has no sink.");
-            myNoDiscarded += vehicleNumber;
-        } else {
-            ODCell* cell = new ODCell();
-            cell->begin = begin;
-            cell->end = end;
-            cell->origin = origin;
-            cell->destination = destination;
-            cell->vehicleType = vehicleType;
-            cell->vehicleNumber = vehicleNumber;
-            myContainer.push_back(cell);
-        }
+        myNumDiscarded += vehicleNumber;
+        myMissingDistricts.insert(destination);
+        return false;
     }
+    if (myDistricts.get(origin)->sourceNumber() == 0) {
+        WRITE_ERROR("District '" + origin + "' has no source.");
+        myNumDiscarded += vehicleNumber;
+        return false;
+    } else if (myDistricts.get(destination)->sinkNumber() == 0) {
+        WRITE_ERROR("District '" + destination + "' has no sink.");
+        myNumDiscarded += vehicleNumber;
+        return false;
+    }
+    ODCell* cell = new ODCell();
+    cell->begin = begin;
+    cell->end = end;
+    cell->origin = origin;
+    cell->destination = destination;
+    cell->vehicleType = vehicleType;
+    cell->vehicleNumber = vehicleNumber;
+    myContainer.push_back(cell);
+    return true;
 }
 
 
-void
+bool
 ODMatrix::add(const std::string& id, const SUMOTime depart,
               const std::pair<const std::string, const std::string>& od,
               const std::string& vehicleType) {
@@ -119,15 +127,21 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
         }
     }
     if (cell == 0) {
-        const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
-        const int intervalIdx = (int)(depart / interval);
-        add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType);
-        cell = myContainer.back();
-        odList.push_back(cell);
+        if (myMissingDistricts.count(od.first) == 0 && myMissingDistricts.count(od.second) == 0) {
+            const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
+            const int intervalIdx = (int)(depart / interval);
+            if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)){
+                cell = myContainer.back();
+                odList.push_back(cell);
+            } else {
+                return false;
+            }
+        }
     } else {
         cell->vehicleNumber += 1.;
     }
     cell->departures[depart].push_back(id);
+    return true;
 }
 
 
@@ -246,7 +260,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
         }
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
             if (t >= begin) {
-                myNoWritten++;
+                myNumWritten++;
                 dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
                 dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
                 writeDefaultAttrs(dev, noVtype, i->cell);
@@ -465,20 +479,20 @@ ODMatrix::readO(LineReader& lr, SUMOReal scale,
 
 
 SUMOReal
-ODMatrix::getNoLoaded() const {
-    return myNoLoaded;
+ODMatrix::getNumLoaded() const {
+    return myNumLoaded;
 }
 
 
 SUMOReal
-ODMatrix::getNoWritten() const {
-    return myNoWritten;
+ODMatrix::getNumWritten() const {
+    return myNumWritten;
 }
 
 
 SUMOReal
-ODMatrix::getNoDiscarded() const {
-    return myNoDiscarded;
+ODMatrix::getNumDiscarded() const {
+    return myNumDiscarded;
 }
 
 
