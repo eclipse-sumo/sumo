@@ -127,15 +127,16 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
         }
     }
     if (cell == 0) {
-        if (myMissingDistricts.count(od.first) == 0 && myMissingDistricts.count(od.second) == 0) {
-            const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
-            const int intervalIdx = (int)(depart / interval);
-            if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)){
-                cell = myContainer.back();
-                odList.push_back(cell);
-            } else {
-                return false;
-            }
+        if (myMissingDistricts.count(od.first) > 0 || myMissingDistricts.count(od.second) > 0) {
+            return false;
+        }
+        const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
+        const int intervalIdx = (int)(depart / interval);
+        if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)) {
+            cell = myContainer.back();
+            odList.push_back(cell);
+        } else {
+            return false;
         }
     } else {
         cell->vehicleNumber += 1.;

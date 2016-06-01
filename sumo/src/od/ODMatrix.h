@@ -39,6 +39,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <set>
 #include <string>
 #include <utils/common/SUMOTime.h>
 #include "ODCell.h"
@@ -349,7 +350,7 @@ private:
     const ODDistrictCont& myDistricts;
 
     /// @brief The missing districts already warned about
-    std::set<const std::string> myMissingDistricts;
+    std::set<std::string> myMissingDistricts;
 
     /// @brief Number of loaded vehicles
     SUMOReal myNumLoaded;

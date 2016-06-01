@@ -213,10 +213,11 @@ ROMAAssignments::getKPaths(const int kPaths, const SUMOReal penalty) {
 
 void
 ROMAAssignments::resetFlows() {
+    const SUMOReal begin = STEPS2TIME(MIN2(myBegin, myMatrix.getCells().front()->begin));
     for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
         ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
-        edge->setFlow(STEPS2TIME(myBegin), STEPS2TIME(myEnd), 0.);
-        edge->setHelpFlow(STEPS2TIME(myBegin), STEPS2TIME(myEnd), 0.);
+        edge->setFlow(begin, STEPS2TIME(myEnd), 0.);
+        edge->setHelpFlow(begin, STEPS2TIME(myEnd), 0.);
     }
 }
 
