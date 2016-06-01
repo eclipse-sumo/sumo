@@ -315,6 +315,12 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             int num = 0;
             for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
                 const ODCell* const c = *i;
+                if (lastEnd >= 0 && lastEnd <= c->begin) {
+                    for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
+                        (*dev) << desc->second;
+                    }
+                    sortedOut.clear();
+                }
                 if (c->departures.empty()) {
                     OutputDevice_String od(dev->isBinary(), 1);
                     od.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
@@ -355,12 +361,6 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 }
                 for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                     delete *j;
-                }
-                if (lastEnd >= 0 && lastEnd <= c->begin) {
-                    for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
-                        (*dev) << desc->second;
-                    }
-                    sortedOut.clear();
                 }
                 if (c->end > lastEnd) {
                     lastEnd = c->end;
