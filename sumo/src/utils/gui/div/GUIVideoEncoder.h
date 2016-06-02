@@ -111,7 +111,7 @@ public:
             //av_dict_set(&param, "profile", "main", 0);
         }
         //H.265
-        if (pCodecCtx->codec_id == AV_CODEC_ID_H265) {
+        if (pCodecCtx->codec_id == AV_CODEC_ID_HEVC) {
             av_dict_set(&param, "preset", "ultrafast", 0);
             av_dict_set(&param, "tune", "zero-latency", 0);
         }
