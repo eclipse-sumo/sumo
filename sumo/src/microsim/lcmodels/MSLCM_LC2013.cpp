@@ -67,22 +67,17 @@
 #define HELP_OVERTAKE  (SUMOReal)(10.0 / 3.6)
 #define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
 
+#define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
 #define URGENCY (SUMOReal)2.0
-
-#define ROUNDABOUT_DIST_BONUS (SUMOReal)80.0
 
 #define KEEP_RIGHT_TIME (SUMOReal)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (SUMOReal)2.0 // calibration factor for determining the desire to keep right
-
-#define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
-
+#define ROUNDABOUT_DIST_BONUS (SUMOReal)80.0
 
 
 // ===========================================================================
 // debug defines
 // ===========================================================================
-//#define DEBUG_VEHICLE_GUI_SELECTION 1
-
 //#define DEBUG_PATCH_SPEED
 //#define DEBUG_INFORMED
 //#define DEBUG_INFORMER
@@ -90,11 +85,8 @@
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
-//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 2_28658400") // get's stuck in scenario VMM_muc at time t=28760
-//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_20381538") // get's stuck in scenario VMM_muc around time t=20470
-//#define DEBUG_COND (myVehicle.getID() == "type1.32" || myVehicle.getID() == "type1.26") // ticket676 t=90
-//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_20381538") // VMM_muc t=20490 (with conservative slowDownForBlocked)
-#define DEBUG_COND false
+
+#define DEBUG_COND (myVehicle.getID() == "disabled")
 
 // ===========================================================================
 // member method definitions
@@ -192,6 +184,21 @@ MSLCM_LC2013::wantsChange(
 SUMOReal
 MSLCM_LC2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
     const SUMOReal newSpeed = _patchSpeed(min, wanted, max, cfModel);
+
+#ifdef DEBUG_PATCH_SPEED
+    if (DEBUG_COND) {
+        const std::string patched = (wanted != newSpeed ? " patched=" + toString(newSpeed) : "");
+        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                  << " veh=" << myVehicle.getID()
+                  << " lane=" << myVehicle.getLane()->getID()
+                  << " pos=" << myVehicle.getPositionOnLane()
+                  << " v=" << myVehicle.getSpeed()
+                  << " wanted=" << wanted
+                  << patched
+                  << "\n\n";
+    }
+#endif
+
     return newSpeed;
 }
 
@@ -211,7 +218,7 @@ MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
         SUMOReal space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
-            std::cout << time << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
 #endif
         if (space > 0) {

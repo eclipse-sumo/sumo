@@ -42,7 +42,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-//#define DEBUG_VEHICLE_GUI_SELECTION 1
 
 // ===========================================================================
 // variable definitions
@@ -50,19 +49,13 @@
 // 80km/h will be the threshold for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER (SUMOReal)14.
 
-// VARIANT_1 (lf*2)
-//#define LOOK_FORWARD_FAR  30.
-//#define LOOK_FORWARD_NEAR 10.
-
 #define LOOK_FORWARD_RIGHT (SUMOReal)10.
 #define LOOK_FORWARD_LEFT  (SUMOReal)20.
 
 #define JAM_FACTOR (SUMOReal)1.
-//#define JAM_FACTOR 2. // VARIANT_8 (makes vehicles more focused but also more "selfish")
 
 #define LCA_RIGHT_IMPATIENCE (SUMOReal)-1.
 #define CUT_IN_LEFT_SPEED_THRESHOLD (SUMOReal)27.
-#define MAX_ONRAMP_LENGTH (SUMOReal)200.
 
 #define LOOK_AHEAD_MIN_SPEED (SUMOReal)0.0
 #define LOOK_AHEAD_SPEED_MEMORY (SUMOReal)0.9
@@ -73,17 +66,16 @@
 #define HELP_OVERTAKE  (SUMOReal)(10.0 / 3.6)
 #define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
 
-#define KEEP_RIGHT_HEADWAY (SUMOReal)2.0
-
+#define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
 #define URGENCY (SUMOReal)2.0
-
-#define ROUNDABOUT_DIST_BONUS (SUMOReal)100.0
 
 #define KEEP_RIGHT_TIME (SUMOReal)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (SUMOReal)7.0 // calibration factor for determining the desire to keep right
+#define ROUNDABOUT_DIST_BONUS (SUMOReal)100.0
 
-#define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
 
+#define KEEP_RIGHT_HEADWAY (SUMOReal)2.0
+#define MAX_ONRAMP_LENGTH (SUMOReal)200.
 #define TURN_LANE_DIST (SUMOReal)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 // ===========================================================================
@@ -97,13 +89,7 @@
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
-//#define DEBUG_COND (myVehicle.getID() == "1501_27271428" || myVehicle.getID() == "1502_27270000")
 #define DEBUG_COND (myVehicle.getID() == "disabled")
-//#define DEBUG_COND (myVehicle.getID() == "Silvani_7_1240")
-//#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
-//#define DEBUG_COND (myVehicle.getID() == "Pepoli_11_95" || myVehicle.getID() == "Pepoli_11_94" || myVehicle.getID() == "Pepoli_11_98")
-//#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
-//#define DEBUG_COND false
 
 // ===========================================================================
 // member method definitions
@@ -222,16 +208,12 @@ MSLCM_JE2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
 
 SUMOReal
 MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
-
-    const SUMOReal time = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-
     int state = myOwnState;
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND){
         std::cout << SIMTIME << " patchSpeed state=" << state << " myVSafes=" << toString(myVSafes) << "\n";
     }
 #endif
-
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
     SUMOReal MAGIC_offset = 1.;
     //   if we want to change and have a blocking leader and there is enough room for him in front of us
@@ -239,7 +221,7 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
         SUMOReal space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
-            std::cout << time << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
 #endif
         if (space > 0) { // XXX space > -MAGIC_offset
