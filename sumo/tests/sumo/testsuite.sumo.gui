@@ -25,5 +25,11 @@ lc_model
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
 
+# testing opposite-direction driving
+opposite_direction_driving
+
+# testing the sublane model
+sublane_model
+
 # Tests for GUI features
 gui
