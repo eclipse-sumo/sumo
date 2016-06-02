@@ -191,7 +191,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
-    ret->mkItem("occupancy [%]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getBruttoOccupancy, 100.));
+    ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getBruttoOccupancy, 100.));
     ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMesoMeanSpeed));
     ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
     ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
@@ -202,7 +202,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment length [m]", false, segment->getLength());
     ret->mkItem("segment allowed speed [m/s]", false, segment->getEdge().getSpeedLimit());
     ret->mkItem("segment jam threshold [%]", false, segment->getRelativeJamThreshold() * 100);
-    ret->mkItem("segment occupancy [%]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getRelativeOccupancy, 100));
+    ret->mkItem("segment brutto occupancy [%]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getRelativeOccupancy, 100));
     ret->mkItem("segment mean vehicle speed [m/s]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getMeanSpeed));
     ret->mkItem("segment flow [veh/h/lane]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getFlow));
     ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, SUMOReal, size_t>(segment, &MESegment::getCarNumber));
