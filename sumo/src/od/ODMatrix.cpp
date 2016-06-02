@@ -117,6 +117,11 @@ bool
 ODMatrix::add(const std::string& id, const SUMOTime depart,
               const std::pair<const std::string, const std::string>& od,
               const std::string& vehicleType) {
+    if (myMissingDistricts.count(od.first) > 0 || myMissingDistricts.count(od.second) > 0) {
+        myNumLoaded += 1.;
+        myNumDiscarded += 1.;
+        return false;
+    }
     // we start looking from the end because there is a high probability that the input is sorted by time
     std::vector<ODCell*>& odList = myShortCut[od];
     ODCell* cell = 0;
@@ -127,9 +132,6 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
         }
     }
     if (cell == 0) {
-        if (myMissingDistricts.count(od.first) > 0 || myMissingDistricts.count(od.second) > 0) {
-            return false;
-        }
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
         if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)) {
@@ -139,6 +141,7 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
             return false;
         }
     } else {
+        myNumLoaded += 1.;
         cell->vehicleNumber += 1.;
     }
     cell->departures[depart].push_back(id);

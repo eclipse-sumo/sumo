@@ -403,9 +403,9 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
     writePreferences(into, preferred);
     // some further information
     if (speed == 0) {
-        WRITE_WARNING("Lane #" + toString(index) + " of edge '" + eID + "' has a maximum velocity of 0.");
+        WRITE_WARNING("Lane '" + lID + "' has a maximum allowed speed of 0.");
     } else if (speed < 0) {
-        throw ProcessError("Negative velocity (" + toString(speed) + " on edge '" + eID + "' lane#" + toString(index) + ".");
+        throw ProcessError("Negative allowed speed (" + toString(speed) + ") on lane '" + lID + "', use --speed.minimum to prevent this.");
     }
     if (endOffset > 0) {
         length = length - endOffset;
