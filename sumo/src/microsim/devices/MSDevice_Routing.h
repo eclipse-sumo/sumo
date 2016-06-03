@@ -62,7 +62,7 @@ class MSLane;
  * The routing-device system consists of in-vehicle devices that perform a routing
  *  and a simulation-wide (static) methods for colecting edge weights.
  *
- * The edge weights container "myEdgeEfforts" is pre-initialised as soon as one
+ * The edge weights container "myEdgeSpeeds" is pre-initialised as soon as one
  *  device is built and is kept updated via an event that adapts it to the current
  *  mean speed on the simulated network's edges.
  *
@@ -106,7 +106,7 @@ public:
 
     /// @brief returns whether any routing actions take place
     static bool isEnabled() {
-        return !myWithTaz && !myEdgeEfforts.empty();
+        return !myWithTaz && !myEdgeSpeeds.empty();
     }
 
     /// @brief return the router instance
@@ -315,8 +315,8 @@ private:
     /// @brief The weights adaptation/overwriting command
     static Command* myEdgeWeightSettingCommand;
 
-    /// @brief The container of edge efforts
-    static std::vector<SUMOReal> myEdgeEfforts;
+    /// @brief The container of edge speeds
+    static std::vector<SUMOReal> myEdgeSpeeds;
 
     /// @brief Information which weight prior edge efforts have
     static SUMOReal myAdaptationWeight;
