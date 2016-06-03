@@ -666,6 +666,13 @@ MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
 }
 
 
+SUMOReal
+MSEdge::getRoutingSpeed() const {
+    return MSDevice_Routing::getAssumedSpeed(this);
+}
+
+
+
 bool
 MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
     DictType::iterator it = myDict.find(id);

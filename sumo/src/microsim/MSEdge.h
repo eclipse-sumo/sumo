@@ -461,6 +461,10 @@ public:
         return MSNet::getInstance()->getTravelTime(edge, veh, time);
     }
 
+    /** @brief Returns the averaged speed used by the routing device
+     */
+    SUMOReal getRoutingSpeed() const;
+
 
     /// @name Methods releated to vehicle insertion
     /// @{

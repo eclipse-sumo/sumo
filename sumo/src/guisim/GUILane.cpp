@@ -724,7 +724,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 13);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 14);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
@@ -732,6 +732,7 @@ GUILane::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("street name", false, myEdge->getStreetName());
     ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getStoredEdgeTravelTime));
     ret->mkItem("loaded weight", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getLoadedEdgeWeight));
+    ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, SUMOReal>(myEdge, &MSEdge::getRoutingSpeed));
     ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getBruttoOccupancy, 100.));
     ret->mkItem("netto occupancy [%]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getNettoOccupancy, 100.));
     ret->mkItem("edge type", false, myEdge->getEdgeType());
@@ -955,7 +956,7 @@ GUILane::getColorValue(size_t activeScheme) const {
         }
         case 27: {
             // color by routing device assumed speed
-            return MSDevice_Routing::getAssumedSpeed(&getEdge());
+            return myEdge->getRoutingSpeed();
         }
         case 28:
             return getElectricityConsumption() / myLength;

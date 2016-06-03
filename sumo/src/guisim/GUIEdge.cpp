@@ -194,6 +194,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getBruttoOccupancy, 100.));
     ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMesoMeanSpeed));
     ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
+    ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, SUMOReal>(this, &MSEdge::getRoutingSpeed));
     ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
     ret->mkItem("vehicle ids", false, getVehicleIDs());
     // add segment items
@@ -415,7 +416,7 @@ GUIEdge::setColor(const GUIVisualizationSettings& s) const {
 bool
 GUIEdge::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
-        case 8: {
+        case 9: {
             const PositionVector& shape = getLanes()[0]->getShape();
             SUMOReal hue = GeomHelper::naviDegree(shape.beginEndAngle()); // [0-360]
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
@@ -432,38 +433,38 @@ GUIEdge::setMultiColor(const GUIColorer& c) const {
     const size_t activeScheme = c.getActive();
     mySegmentColors.clear();
     switch (activeScheme) {
-        case 9: // alternating segments
+        case 10: // alternating segments
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(segment->getIndex() % 2));
             }
             //std::cout << getID() << " scheme=" << c.getScheme().getName() << " schemeCols=" << c.getScheme().getColors().size() << " thresh=" << toString(c.getScheme().getThresholds()) << " segmentColors=" << mySegmentColors.size() << " [0]=" << mySegmentColors[0] << " [1]=" << mySegmentColors[1] <<  "\n";
             return true;
-        case 10: // by segment jammed state
+        case 11: // by segment jammed state
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(segment->free() ? 0 : 1));
             }
             return true;
-        case 11: // by segment occupancy
+        case 12: // by segment occupancy
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(segment->getRelativeOccupancy()));
             }
             return true;
-        case 12: // by segment speed
+        case 13: // by segment speed
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(segment->getMeanSpeed()));
             }
             return true;
-        case 13: // by segment flow
+        case 14: // by segment flow
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(3600 * segment->getCarNumber() * segment->getMeanSpeed() / segment->getLength()));
             }
             return true;
-        case 14: // by segment relative speed
+        case 15: // by segment relative speed
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(c.getScheme().getColor(segment->getMeanSpeed() / getAllowedSpeed()));
@@ -492,6 +493,8 @@ GUIEdge::getColorValue(size_t activeScheme) const {
             return getFlow();
         case 7:
             return getRelativeSpeed();
+        case 8:
+            return getRoutingSpeed();
     }
     return 0;
 }
