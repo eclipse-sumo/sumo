@@ -66,6 +66,7 @@
 
 #define HELP_OVERTAKE  (SUMOReal)(10.0 / 3.6)
 #define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
+//#define MIN_FALLBEHIND  (SUMOReal)(5.0 / 3.6)
 
 #define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
 #define URGENCY (SUMOReal)2.0
@@ -380,7 +381,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake?
-                || myLeftSpace < overtakeDist
+                || myLeftSpace - myLeadingBlockerLength < overtakeDist
                 // not enough time to overtake?
                 || dv * remainingSeconds < overtakeDist) {
             // cannot overtake
