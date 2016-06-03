@@ -274,7 +274,7 @@ TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position pos) {
     for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
         const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
         for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
-            const SUMOReal newDistance = (*itLane)->getShape().distance(pos);
+            const SUMOReal newDistance = (*itLane)->getShape().distance2D(pos);
             if (newDistance < minDistance) {
                 minDistance = newDistance;
                 result.first = (*itLane);

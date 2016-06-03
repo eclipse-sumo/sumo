@@ -724,8 +724,8 @@ NBNode::computeNodeShape(SUMOReal mismatchThreshold) {
             tmp.push_back_noDoublePos(tmp[0]); // need closed shape
             if (mismatchThreshold >= 0
                     && !tmp.around(myPosition)
-                    && tmp.distance(myPosition) > mismatchThreshold) {
-                WRITE_WARNING("Shape for junction '" + myID + "' has distance " + toString(tmp.distance(myPosition)) + " to its given position");
+                    && tmp.distance2D(myPosition) > mismatchThreshold) {
+                WRITE_WARNING("Shape for junction '" + myID + "' has distance " + toString(tmp.distance2D(myPosition)) + " to its given position");
             }
         }
     } catch (InvalidArgument&) {
@@ -2497,8 +2497,8 @@ NBNode::getCenter() const {
     **/
     PositionVector tmp = myPoly;
     tmp.closePolygon();
-    //std::cout << getID() << " around=" << tmp.around(myPosition) << " dist=" << tmp.distance(myPosition) << "\n";
-    if (tmp.size() < 3 || tmp.around(myPosition) || tmp.distance(myPosition) < POSITION_EPS) {
+    //std::cout << getID() << " around=" << tmp.around(myPosition) << " dist=" << tmp.distance2D(myPosition) << "\n";
+    if (tmp.size() < 3 || tmp.around(myPosition) || tmp.distance2D(myPosition) < POSITION_EPS) {
         return myPosition;
     } else {
         return myPoly.getPolygonCenter();

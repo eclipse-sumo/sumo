@@ -1396,9 +1396,9 @@ NBEdge::computeAngle() {
                             : myGeom);
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
-    if ((hasFromShape && (myFrom->getShape().distance(shape[0]) > 2 * POSITION_EPS
+    if ((hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
                           || myFrom->getShape().around(shape[-1])))
-            || (hasToShape && (myTo->getShape().distance(shape[-1]) > 2 * POSITION_EPS
+            || (hasToShape && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
                                || myTo->getShape().around(shape[0])))) {
         fromCenter = myFrom->getPosition();
         toCenter = myTo->getPosition();
@@ -2538,8 +2538,8 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
         const int i2 = (node == myTo ? 0 : -1);
         const SUMOReal dist = myGeom[i].distanceTo2D(node->getPosition());
         const SUMOReal neededOffset = (getTotalWidth() + getNumLanes() * SUMO_const_laneOffset) / 2;
-        const SUMOReal dist2 = MIN2(myGeom.distance(other->getGeometry()[i2]),
-                                    other->getGeometry().distance(myGeom[i]));
+        const SUMOReal dist2 = MIN2(myGeom.distance2D(other->getGeometry()[i2]),
+                                    other->getGeometry().distance2D(myGeom[i]));
         const SUMOReal neededOffset2 = neededOffset + (other->getTotalWidth() + other->getNumLanes() * SUMO_const_laneOffset) / 2;
         if (dist < neededOffset && dist2 < neededOffset2) {
             PositionVector tmp = myGeom;

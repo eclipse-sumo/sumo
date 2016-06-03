@@ -394,7 +394,7 @@ TraCIServerAPI_Lane::StoringVisitor::add(const MSLane* const l) const {
         case CMD_GET_VEHICLE_VARIABLE: {
             const MSLane::VehCont& vehs = l->getVehiclesSecure();
             for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                if (myShape.distance((*j)->getPosition()) <= myRange) {
+                if (myShape.distance2D((*j)->getPosition()) <= myRange) {
                     myIDs.insert((*j)->getID());
                 }
             }
@@ -402,13 +402,13 @@ TraCIServerAPI_Lane::StoringVisitor::add(const MSLane* const l) const {
         }
         break;
         case CMD_GET_EDGE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance(myShape[0]) <= myRange) {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myIDs.insert(l->getEdge().getID());
             }
         }
         break;
         case CMD_GET_LANE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance(myShape[0]) <= myRange) {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myIDs.insert(l->getID());
             }
         }

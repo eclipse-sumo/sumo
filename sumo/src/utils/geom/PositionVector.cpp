@@ -721,7 +721,7 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
     // XXX this duplicates most of the code in nearest_offset_to_point2D. It should be refactored
     if (extend) {
         PositionVector extended = *this;
-        const SUMOReal dist = 2 * distance(p);
+        const SUMOReal dist = 2 * distance2D(p);
         extended.extrapolate(dist);
         return extended.transformToVectorCoordinates(p) - Position(dist, 0);
     }
@@ -950,13 +950,13 @@ PositionVector::distances(const PositionVector& s, bool perpendicular) const {
     std::vector<SUMOReal> ret;
     const_iterator i;
     for (i = begin(); i != end(); i++) {
-        const SUMOReal dist = s.distance(*i, perpendicular);
+        const SUMOReal dist = s.distance2D(*i, perpendicular);
         if (dist != GeomHelper::INVALID_OFFSET) {
             ret.push_back(dist);
         }
     }
     for (i = s.begin(); i != s.end(); i++) {
-        const SUMOReal dist = distance(*i, perpendicular);
+        const SUMOReal dist = distance2D(*i, perpendicular);
         if (dist != GeomHelper::INVALID_OFFSET) {
             ret.push_back(dist);
         }
@@ -966,7 +966,7 @@ PositionVector::distances(const PositionVector& s, bool perpendicular) const {
 
 
 SUMOReal
-PositionVector::distance(const Position& p, bool perpendicular) const {
+PositionVector::distance2D(const Position& p, bool perpendicular) const {
     if (size() == 0) {
         return std::numeric_limits<double>::max();
     } else if (size() == 1) {

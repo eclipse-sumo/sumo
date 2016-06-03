@@ -289,10 +289,10 @@ public:
      */
     std::vector<SUMOReal> distances(const PositionVector& s, bool perpendicular = false) const;
 
-    /* @brief closest distance to point p
+    /* @brief closest 2D-distance to point p
      * (or -1 if perpendicular is true and the point is beyond this vector)
      */
-    SUMOReal distance(const Position& p, bool perpendicular = false) const;
+    SUMOReal distance2D(const Position& p, bool perpendicular = false) const;
 
     void push_back_noDoublePos(const Position& p);
     void push_front_noDoublePos(const Position& p);

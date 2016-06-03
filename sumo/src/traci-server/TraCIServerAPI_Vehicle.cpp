@@ -1373,15 +1373,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (found && maxRouteDistance > bestDistance) {
                 // optionally compute lateral offset
                 if (MSGlobals::gLateralResolution > 0) {
-                    const SUMOReal perpDist = lane->getShape().distance(pos, true);
+                    const SUMOReal perpDist = lane->getShape().distance2D(pos, true);
                     if (perpDist != GeomHelper::INVALID_OFFSET) {
                         // XXX ensure it stays on the road?
                         lanePosLat = perpDist;
                         // figure out whether the offset is to the left or to the right
                         PositionVector tmp = lane->getShape();
                         tmp.move2side(-lanePosLat); // moved to left
-                        //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance(pos) << "\n";
-                        if (tmp.distance(pos) > perpDist) {
+                        //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";
+                        if (tmp.distance2D(pos) > perpDist) {
                             lanePosLat = -perpDist;
                         }
                     }
@@ -1524,7 +1524,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, const std::string& origID, c
             SUMOReal langle = 180.;
             SUMOReal dist = 1000.;
             if (off >= 0) {
-                dist = lane->getShape().distance(pos);
+                dist = lane->getShape().distance2D(pos);
                 if (dist > lane->getLength()) { // this is a workaround
                     // a SmartDB, running at :49_2 delivers off=~9.24 while dist>24.?
                     dist = 1000.;
@@ -1630,7 +1630,7 @@ TraCIServerAPI_Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, 
     bool newBest = false;
     for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
         MSLane* candidateLane = *k;
-        const SUMOReal dist = candidateLane->getShape().distance(pos); // get distance
+        const SUMOReal dist = candidateLane->getShape().distance2D(pos); // get distance
 #ifdef DEBUG_VTD
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
 #endif
