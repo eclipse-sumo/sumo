@@ -17,3 +17,9 @@ search_file:errors
 ignore_other_errors:1
 bug_system:trac
 bug_id:2370
+
+[Reported by leonhard at 03Jun08:16:57]
+search_string:State was written at a different time
+search_file:errors
+bug_system:trac
+bug_id:2370
