@@ -152,6 +152,20 @@ public:
     MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
 
 
+    /** @brief Sets the information about a vehicle lapping into this lane
+     *
+     * This vehicle is added to myVehicles and may be distinguished from regular
+     * vehicles by the disparity between this lane and v->getLane()
+     * @param[in] v The vehicle which laps into this lane
+     * @return This lane's length
+     */
+    SUMOReal setPartialOccupation(MSVehicle* v);
+
+    /** @brief Removes the information about a vehicle lapping into this lane
+     * @param[in] v The vehicle which laps into this lane
+     */
+    void resetPartialOccupation(MSVehicle* v);
+
 
     /// @name inherited from GUIGlObject
     //@{

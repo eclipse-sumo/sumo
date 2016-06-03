@@ -175,6 +175,20 @@ GUILane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 }
 
 
+SUMOReal
+GUILane::setPartialOccupation(MSVehicle* v) {
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSLane::setPartialOccupation(v);
+}
+
+
+void
+GUILane::resetPartialOccupation(MSVehicle* v) {
+    AbstractMutex::ScopedLocker locker(myLock);
+    MSLane::resetPartialOccupation(v);
+}
+
+
 // ------ Drawing methods ------
 void
 GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {

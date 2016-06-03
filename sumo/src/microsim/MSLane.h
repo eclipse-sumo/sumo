@@ -312,12 +312,12 @@ public:
      * @param[in] v The vehicle which laps into this lane
      * @return This lane's length
      */
-    SUMOReal setPartialOccupation(MSVehicle* v);
+    virtual SUMOReal setPartialOccupation(MSVehicle* v);
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
      */
-    void resetPartialOccupation(MSVehicle* v);
+    virtual void resetPartialOccupation(MSVehicle* v);
 
     /** @brief Returns the last vehicles on the lane
      *

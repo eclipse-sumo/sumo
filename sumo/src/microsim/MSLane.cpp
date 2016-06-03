@@ -207,7 +207,6 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 }
 
 
-
 SUMOReal
 MSLane::setPartialOccupation(MSVehicle* v) {
 #ifdef DEBUG_CONTEXT
@@ -1775,6 +1774,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         if (nextLane == 0) {
             break;
         }
+        nextLane->getVehiclesSecure(); // lock against running sim when called from GUI for time gap coloring
         MSVehicle* leader = nextLane->getLastAnyVehicle();
         if (leader != 0) {
 #ifdef DEBUG_CONTEXT
@@ -1782,8 +1782,11 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
                 std::cout << "    found leader " << leader->getID() << " on nextLane=" << nextLane->getID() << "\n";
             }
 #endif
-            return std::make_pair(leader, seen + leader->getBackPositionOnLane(nextLane) - veh.getVehicleType().getMinGap());
+            const SUMOReal dist = seen + leader->getBackPositionOnLane(nextLane) - veh.getVehicleType().getMinGap();
+            nextLane->releaseVehicles();
+            return std::make_pair(leader, dist);
         }
+        nextLane->releaseVehicles();
         if (nextLane->getVehicleMaxSpeed(&veh) < speed) {
             dist = veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh));
         }
