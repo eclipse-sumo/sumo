@@ -202,3 +202,6 @@ ticket2319
 
 # wrong computation of angle if back reaches out of net
 ticket2360
+
+# information on missing load-state file is not displayed
+ticket2370
