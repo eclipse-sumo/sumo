@@ -65,8 +65,7 @@
 #define HELP_DECEL_FACTOR (SUMOReal)1.0
 
 #define HELP_OVERTAKE  (SUMOReal)(10.0 / 3.6)
-#define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
-//#define MIN_FALLBEHIND  (SUMOReal)(5.0 / 3.6)
+#define MIN_FALLBEHIND  (SUMOReal)(7.0 / 3.6)
 
 #define RELGAIN_NORMALIZATION_MIN_SPEED (SUMOReal)10.0
 #define URGENCY (SUMOReal)2.0

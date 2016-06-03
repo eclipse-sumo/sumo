@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 29 07:49:48 2014 by SUMO sumo Version dev-SVN-r16786
+<!-- generated on Fri Jun  3 17:02:28 2016 by SUMO Version dev-SVN-r20868
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -13,7 +13,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -58,25 +58,26 @@
     <tlsstate time="318.00" id="0" programID="actuated_additional" phase="2" state="rrGGrrrrrrGGrrrr"/>
     <tlsstate time="324.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
     <tlsstate time="328.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsstate time="376.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsstate time="380.00" id="0" programID="actuated_additional" phase="6" state="rrrrrrGGrrrrrrGG"/>
-    <tlsstate time="386.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsstate time="390.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
-    <tlsstate time="401.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsstate time="405.00" id="0" programID="actuated_additional" phase="2" state="rrGGrrrrrrGGrrrr"/>
-    <tlsstate time="411.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsstate time="415.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsstate time="443.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsstate time="447.00" id="0" programID="actuated_additional" phase="6" state="rrrrrrGGrrrrrrGG"/>
-    <tlsstate time="453.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsstate time="457.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
-    <tlsstate time="462.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsstate time="466.00" id="0" programID="actuated_additional" phase="2" state="rrGGrrrrrrGGrrrr"/>
-    <tlsstate time="472.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsstate time="476.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsstate time="481.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsstate time="485.00" id="0" programID="actuated_additional" phase="6" state="rrrrrrGGrrrrrrGG"/>
-    <tlsstate time="491.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsstate time="495.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
-    <tlsstate time="500.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsstate time="375.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="379.00" id="0" programID="actuated_additional" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="385.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="389.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="398.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsstate time="402.00" id="0" programID="actuated_additional" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsstate time="408.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsstate time="412.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="432.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="436.00" id="0" programID="actuated_additional" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="442.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="446.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="453.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsstate time="457.00" id="0" programID="actuated_additional" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsstate time="463.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsstate time="467.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="472.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="476.00" id="0" programID="actuated_additional" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="482.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="486.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="491.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsstate time="495.00" id="0" programID="actuated_additional" phase="2" state="rrGGrrrrrrGGrrrr"/>
 </tls-switch-states>
