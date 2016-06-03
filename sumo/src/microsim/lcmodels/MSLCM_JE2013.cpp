@@ -596,7 +596,8 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                              nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
             const SUMOReal vsafe = MAX2(neighNewSpeed, nv->getCarFollowModel().followSpeed(
                                             nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
-            assert(vsafe <= vsafe1);
+            // the following assertion cannot be guaranteed because the CFModel handles small gaps differently, see MSCFModel::maximumSafeStopSpeed
+            // assert(vsafe <= vsafe1);
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
 #ifdef DEBUG_INFORMER
             if(DEBUG_COND){

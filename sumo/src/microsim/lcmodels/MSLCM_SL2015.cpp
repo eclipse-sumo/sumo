@@ -576,7 +576,8 @@ MSLCM_SL2015::informFollower(int blocked,
                                              nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
             const SUMOReal vsafe = MAX2(neighNewSpeed, nv->getCarFollowModel().followSpeed(
                                             nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
-            assert(vsafe <= vsafe1);
+            // the following assertion cannot be guaranteed because the CFModel handles small gaps differently, see MSCFModel::maximumSafeStopSpeed
+            // assert(vsafe <= vsafe1);
             msg(neighFollow, vsafe, dir | LCA_AMBLOCKINGFOLLOWER);
             if (gDebugFlag2) {
                 std::cout << " wants to cut in before nv=" << nv->getID()

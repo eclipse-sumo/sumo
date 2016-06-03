@@ -1038,7 +1038,7 @@ GUIApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 
 long
-GUIApplicationWindow::onCmdShowStats(FXObject*, FXSelector sel, void*) {
+GUIApplicationWindow::onCmdShowStats(FXObject*, FXSelector, void*) {
     if (myMDIClient->numChildren() > 0) {
         GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
         GUINet::getGUIInstance()->getParameterWindow(*this, *w->getView());
