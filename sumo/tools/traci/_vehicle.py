@@ -592,6 +592,11 @@ class VehicleDomain(Domain):
         self._connection._sendExact()
 
     def changeLane(self, vehID, laneIndex, duration):
+        """changeLane(string, int, int) -> None
+
+        Forces a lane change to the lane with the given index; if successful,
+        the lane will be chosen for the given amount of time (in ms). 
+        """
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4)
         self._connection._string += struct.pack(
@@ -599,6 +604,11 @@ class VehicleDomain(Domain):
         self._connection._sendExact()
 
     def slowDown(self, vehID, speed, duration):
+        """slowDown(string, double, int) -> None
+
+        Changes the speed smoothly to the given value over the given amount
+        of time in ms (can also be used to increase speed). 
+        """
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SLOWDOWN, vehID, 1 + 4 + 1 + 8 + 1 + 4)
         self._connection._string += struct.pack(
@@ -606,6 +616,10 @@ class VehicleDomain(Domain):
         self._connection._sendExact()
 
     def changeTarget(self, vehID, edgeID):
+        """changeTarget(string, string) -> None
+
+        The vehicle's destination edge is set to the given edge id. The route is rebuilt. 
+        """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGETARGET, vehID, edgeID)
 
@@ -647,7 +661,9 @@ class VehicleDomain(Domain):
     def setAdaptedTraveltime(self, vehID, begTime, endTime, edgeID, time):
         """setAdaptedTraveltime(string, double, string, double) -> None
 
-        .
+        Inserts the information about the travel time of edge "edgeID" valid
+        from begin time to end time into the vehicle's internal edge weights
+        container. .
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
                                        vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
@@ -660,7 +676,9 @@ class VehicleDomain(Domain):
     def setEffort(self, vehID, begTime, endTime, edgeID, effort):
         """setEffort(string, double, string, double) -> None
 
-        .
+        Inserts the information about the effort of edge "edgeID" valid from
+        begin time to end time into the vehicle's internal edge weights
+        container.
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
                                        vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4)
@@ -811,7 +829,7 @@ class VehicleDomain(Domain):
     def setImperfection(self, vehID, imperfection):
         """setImperfection(string, double) -> None
 
-        .
+        Sets the driver imperfection sigma.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_IMPERFECTION, vehID, imperfection)
@@ -842,6 +860,9 @@ class VehicleDomain(Domain):
 
     def add(self, vehID, routeID, depart=DEPART_NOW, pos=0, speed=0,
             lane=DEPART_LANE_FIRST_ALLOWED, typeID="DEFAULT_VEHTYPE"):
+        """
+        Add a new vehicle (old style)
+        """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
                                        1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 1)
         if depart > 0:
@@ -859,6 +880,9 @@ class VehicleDomain(Domain):
                 departLane="first", departPos="base", departSpeed="0",
                 arrivalLane="current", arrivalPos="max", arrivalSpeed="current",
                 fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0):
+        """
+        Add a new vehicle (new style with all possible parameters)
+        """
         messageString = struct.pack("!Bi", tc.TYPE_COMPOUND, 14)
         if depart is None:
             depart = str(self._connection.simulation.getCurrentTime() / 1000.)
@@ -901,13 +925,18 @@ class VehicleDomain(Domain):
     moveToVTD = moveToXY  # deprecated method name for backwards compatibility
 
     def subscribe(self, objectID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
-        """subscribe(string, list(integer), double, double) -> None
+        """subscribe(string, list(integer), int, int) -> None
 
         Subscribe to one or more object values for the given interval.
         """
         Domain.subscribe(self, objectID, varIDs, begin, end)
 
     def subscribeContext(self, objectID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
+        """subscribe(string, int, double, list(integer), int, int) -> None
+
+        Subscribe to one or more object values of the given domain around the
+        given objectID in a given radius
+        """
         Domain.subscribeContext(
             self, objectID, domain, dist, varIDs, begin, end)
 
