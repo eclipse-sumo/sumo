@@ -323,7 +323,8 @@ MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
 
 void*
 MSLCM_LC2013::inform(void* info, MSVehicle* sender) {
-    Info* pinfo = (Info*) info;
+    UNUSED_PARAMETER(sender);
+    Info* pinfo = (Info*)info;
     myVSafes.push_back(pinfo->first);
     myOwnState |= pinfo->second;
 #ifdef DEBUG_INFORMED

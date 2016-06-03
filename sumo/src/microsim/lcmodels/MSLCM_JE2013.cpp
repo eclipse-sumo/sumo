@@ -378,6 +378,7 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
 
 void*
 MSLCM_JE2013::inform(void* info, MSVehicle* sender) {
+    UNUSED_PARAMETER(sender);
     Info* pinfo = (Info*) info;
     if (pinfo->first >= 0) {
         myVSafes.push_back(pinfo->first);
@@ -789,9 +790,8 @@ MSLCM_JE2013::_wantsChange(
     }
     const SUMOReal posOnLane = isOpposite() ? myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() : myVehicle.getPositionOnLane();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
-    const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
+    const int mLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
-    const int myLcaCounter = (right ? LCA_MLEFT : LCA_MRIGHT);
     const bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
     // keep information about being a leader/follower
     int ret = (myOwnState & 0xffff0000);
@@ -1045,10 +1045,10 @@ MSLCM_JE2013::_wantsChange(
         const SUMOReal remainingSeconds = ((ret & LCA_TRACI) == 0 ?
                                            MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
                                            myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
-        const SUMOReal plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
+        const SUMOReal plannedSpeed = informLeader(msgPass, blocked, mLca, neighLead, remainingSeconds);
         if (plannedSpeed >= 0) {
             // maybe we need to deal with a blocking follower
-            informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+            informFollower(msgPass, blocked, mLca, neighFollow, remainingSeconds, plannedSpeed);
         }
 
 #ifdef DEBUG_WANTS_CHANGE
