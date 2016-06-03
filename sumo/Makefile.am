@@ -17,6 +17,15 @@ doxygen:
 	mkdir docs/doxygen
 	doxygen sumo.doxyconf &> doxygen.log
 
+lcov:
+	rm -rf docs/lcov
+	mkdir docs/lcov
+	lcov -d . -c --output-file docs/lcov/lcov.info
+	genhtml -o docs/lcov/html docs/lcov/lcov.info
+
+lcov-reset:
+	lcov -d . -z
+
 userdoc:
 	tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION) && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
 
