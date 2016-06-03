@@ -2858,9 +2858,9 @@ MSVehicle::getLeader(SUMOReal dist) const {
         myLane->releaseVehicles();
         return result;
     }
-    myLane->releaseVehicles();
     const SUMOReal seen = myLane->getLength() - getPositionOnLane();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(myLane);
+    myLane->releaseVehicles();
     return myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts);
 }
 
