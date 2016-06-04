@@ -76,6 +76,11 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   rsync -rL $SUMO_REPORT $REMOTEDIR
 fi
 
+if test -e $PREFIX/sumo/src/sumo_main.gcda; then
+  make lcov >> $TESTLOG 2>&1 || (echo "make lcov failed"; tail -10 $TESTLOG)
+#  rsync -rcz $PREFIX/sumo/docs/lcov $REMOTEDIR # this would currently copy around 3GiB
+fi
+
 echo "--" >> $STATUSLOG
 basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
