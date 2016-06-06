@@ -69,6 +69,14 @@ MSDevice::insertOptions(OptionsCont& oc) {
 }
 
 
+bool
+MSDevice::checkOptions(OptionsCont& oc) {
+    bool ok = true;
+    ok &= MSDevice_Routing::checkOptions(oc);
+    return ok;
+}
+
+
 void
 MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Vehroutes::buildVehicleDevices(v, into);

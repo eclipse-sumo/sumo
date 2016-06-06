@@ -491,6 +491,7 @@ MSFrame::checkOptions() {
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.set("verbose", "true");
     }
+    ok &= MSDevice::checkOptions(oc);
     return ok;
 }
 

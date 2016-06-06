@@ -80,6 +80,11 @@ public:
      */
     static void insertOptions(OptionsCont& oc);
 
+    /** @brief checks MSDevice_Routing-options
+     * @param[filled] oc The options container with the user-defined options
+     */
+    static bool checkOptions(OptionsCont& oc);
+
 
     /** @brief Build devices for the given vehicle, if needed
      *
@@ -326,6 +331,15 @@ private:
 
     /// @brief Information when the last edge weight adaptation occured
     static SUMOTime myLastAdaptation;
+
+    /// @brief The number of steps for averaging edge speeds (ring-buffer)
+    static int myAdaptationSteps;
+
+    /// @brief The current index in the pastEdgeSpeed ring-buffer
+    static int myAdaptationStepsIndex;
+
+    /// @brief The container of edge speeds
+    static std::vector<std::vector<SUMOReal> > myPastEdgeSpeeds;
 
     /// @brief whether taz shall be used at initial rerouting
     static bool myWithTaz;

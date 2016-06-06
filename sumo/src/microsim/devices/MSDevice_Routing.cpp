@@ -54,8 +54,11 @@
 // static member variables
 // ===========================================================================
 std::vector<SUMOReal> MSDevice_Routing::myEdgeSpeeds;
+std::vector<std::vector<SUMOReal> > MSDevice_Routing::myPastEdgeSpeeds;
 Command* MSDevice_Routing::myEdgeWeightSettingCommand = 0;
 SUMOReal MSDevice_Routing::myAdaptationWeight;
+int MSDevice_Routing::myAdaptationSteps;
+int MSDevice_Routing::myAdaptationStepsIndex = 0;
 SUMOTime MSDevice_Routing::myAdaptationInterval = -1;
 SUMOTime MSDevice_Routing::myLastAdaptation = -1;
 bool MSDevice_Routing::myWithTaz;
@@ -88,7 +91,11 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.rerouting.adaptation-weight", new Option_Float(.5));
     oc.addSynonyme("device.rerouting.adaptation-weight", "device.routing.adaptation-weight", true);
-    oc.addDescription("device.rerouting.adaptation-weight", "Routing", "The weight of prior edge weights");
+    oc.addDescription("device.rerouting.adaptation-weight", "Routing", "The weight of prior edge weights for exponential moving average");
+
+    oc.doRegister("device.rerouting.adaptation-steps", new Option_Integer(0));
+    oc.addSynonyme("device.rerouting.adaptation-steps", "device.routing.adaptation-steps", true);
+    oc.addDescription("device.rerouting.adaptation-steps", "Routing", "The number of steps for moving average weight of prior edge weights");
 
     oc.doRegister("device.rerouting.adaptation-interval", new Option_String("1", "TIME"));
     oc.addSynonyme("device.rerouting.adaptation-interval", "device.routing.adaptation-interval", true);
@@ -114,7 +121,18 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     myEdgeWeightSettingCommand = 0;
     myEdgeSpeeds.clear();
     myAdaptationInterval = -1;
+    myAdaptationSteps = -1;
     myLastAdaptation = -1;
+}
+
+
+bool
+MSDevice_Routing::checkOptions(OptionsCont& oc) {
+    if (oc.getInt("device.rerouting.adaptation-steps") > 0 && !oc.isDefault("device.rerouting.adaptation-weight")) {
+        WRITE_ERROR("Only one of the options 'device.rerouting.adaptation-steps' or 'device.rerouting.adaptation-weight' may be given.");
+        return false;
+    }
+    return true;
 }
 
 
@@ -134,17 +152,24 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         const SUMOTime prePeriod = string2time(oc.getString("device.rerouting.pre-period"));
         // initialise edge efforts if not done before
         if (myEdgeSpeeds.size() == 0) {
+            myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
             const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
             const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
             const SUMOReal currentSecond = SIMTIME;
             for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
                 while ((*i)->getNumericalID() >= (int)myEdgeSpeeds.size()) {
                     myEdgeSpeeds.push_back(0);
+                    if (myAdaptationSteps > 0) {
+                        myPastEdgeSpeeds.push_back(std::vector<SUMOReal>());
+                    }
                 }
                 if (useLoaded) {
                     myEdgeSpeeds[(*i)->getNumericalID()] = (*i)->getLength() / MSNet::getTravelTime(*i, 0, currentSecond);
                 } else {
                     myEdgeSpeeds[(*i)->getNumericalID()] = (*i)->getMeanSpeed();
+                }
+                if (myAdaptationSteps > 0) {
+                    myPastEdgeSpeeds[(*i)->getNumericalID()] = std::vector<SUMOReal>(myAdaptationSteps, myEdgeSpeeds[(*i)->getNumericalID()]);
                 }
             }
             myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
@@ -290,13 +315,25 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
         it->second->release();
     }
     myCachedRoutes.clear();
-    const SUMOReal newWeightFactor = (SUMOReal)(1. - myAdaptationWeight);
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-    for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        const int id = (*i)->getNumericalID();
-        const SUMOReal currSpeed = (*i)->getMeanSpeed();
-        if (currSpeed != myEdgeSpeeds[id]) {
-            myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+    if (myAdaptationSteps > 0) {
+        // moving average
+        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            const int id = (*i)->getNumericalID();
+            const SUMOReal currSpeed = (*i)->getMeanSpeed();
+            myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
+            myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
+        }
+        myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
+    } else {
+        // exponential moving average
+        const SUMOReal newWeightFactor = (SUMOReal)(1. - myAdaptationWeight);
+        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            const int id = (*i)->getNumericalID();
+            const SUMOReal currSpeed = (*i)->getMeanSpeed();
+            if (currSpeed != myEdgeSpeeds[id]) {
+                myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+            }
         }
     }
     myLastAdaptation = currentTime + DELTA_T; // because we run at the end of the time step

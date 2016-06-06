@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r20823
+SUMO Version dev-SVN-r20889
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -163,6 +163,9 @@ Routing Options:
                                          be rerouted
   --device.rerouting.pre-period TIME   The rerouting period before depart
   --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
+                                         for exponential moving average
+  --device.rerouting.adaptation-steps INT  The number of steps for moving
+                                         average weight of prior edge weights
   --device.rerouting.adaptation-interval TIME  The interval for updating the
                                          edge weights
   --device.rerouting.with-taz          Use zones (districts) as routing start-
