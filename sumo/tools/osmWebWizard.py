@@ -247,6 +247,7 @@ class Builder(object):
         self.filename("config", ".sumocfg")
         opts = [sumo, "-n", self.files["net"], "--gui-settings-file", self.files["guisettings"],
                 "--duration-log.statistics",
+                "--device.rerouting.adaptation-steps", "180",
                 "-v", "--no-step-log", "--save-configuration", self.files["config"], "--ignore-route-errors"]
 
         if self.data["vehicles"]:
