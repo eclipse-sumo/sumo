@@ -7,6 +7,5 @@ routes_explicite_routes
 # whether the devices are properly assigned
 assignment
 
-# test initializing the rerouting device weights with loaded edge weights
-init_with_loaded_weights
+# various tests for computing edge weights during routing
 weights

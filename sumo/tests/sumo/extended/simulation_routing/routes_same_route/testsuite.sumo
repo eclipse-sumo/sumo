@@ -6,7 +6,3 @@ initial_longer
 
 # as initial longer but starting close to the junction
 close_to_junction
-randomized_weights
-
-# using option --device.rerouting.output
-weight_output

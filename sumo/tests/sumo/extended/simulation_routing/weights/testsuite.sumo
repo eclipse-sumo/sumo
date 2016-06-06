@@ -1,2 +1,10 @@
 # Ordered list of tests in test suite. Add as appropriate
 
+# test initializing the rerouting device weights with loaded edge weights
+init_with_loaded_weights
+
+# using option --device.rerouting.output
+weight_output
+
+# randomization to break symmetry
+randomized_weights
