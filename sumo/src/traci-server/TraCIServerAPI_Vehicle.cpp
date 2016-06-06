@@ -1393,9 +1393,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
                 }
             } else {
-                if (!keepRoute) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle '" + id + "'.", outputStorage);
-                } // @note else, silently ignore failure to map
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle '" + id + "' distance to road is " + toString(bestDistance) + ".", outputStorage);
             }
         }
         break;

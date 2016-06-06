@@ -13,6 +13,9 @@ force_collision
 # vehicle skips forward to another edge on its route
 subsequent_edge
 
+# could not find a suitable edge in range
+failed
+
 # vehicle jumps to an edge not on its route
 offroute_edge
 
@@ -21,6 +24,9 @@ offroute_edge2
 
 # old school behavior, vehicle id = VTD_EGO
 offroute_edge_by_id
+
+# vehicle jumps to an edge not on its route
+offroute_failed
 
 # set position while on an intersection (within the current internal edge)
 junction
