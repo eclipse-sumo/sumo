@@ -9,3 +9,4 @@ assignment
 
 # test initializing the rerouting device weights with loaded edge weights
 init_with_loaded_weights
+weights
