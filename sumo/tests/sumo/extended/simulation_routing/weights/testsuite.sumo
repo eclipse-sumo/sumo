@@ -6,5 +6,8 @@ init_with_loaded_weights
 # using option --device.rerouting.output
 weight_output
 
+# average over a fixed window instead of exponential average
+weight_average_steps
+
 # randomization to break symmetry
 randomized_weights
