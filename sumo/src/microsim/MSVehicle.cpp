@@ -569,8 +569,10 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 // ------------ interaction with the route
 bool
 MSVehicle::hasArrived() const {
-    return myCurrEdge == myRoute->end() - 1 && (myStops.empty() || myStops.front().edge != myCurrEdge)
-           && myState.myPos > myArrivalPos - POSITION_EPS;
+    return (myCurrEdge == myRoute->end() - 1 
+            && (myStops.empty() || myStops.front().edge != myCurrEdge)
+            && myState.myPos > myArrivalPos - POSITION_EPS
+            && (myInfluencer == 0 || !myInfluencer->isVTDControlled()));
 }
 
 
