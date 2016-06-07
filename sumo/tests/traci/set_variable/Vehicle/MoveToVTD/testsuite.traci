@@ -28,6 +28,9 @@ offroute_edge_by_id
 # vehicle jumps to an edge not on its route
 offroute_failed
 
+# vehicle is mapped to a position outside the network
+leave_net
+
 # set position while on an intersection (within the current internal edge)
 junction
 
