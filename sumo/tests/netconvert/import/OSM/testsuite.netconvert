@@ -1,6 +1,9 @@
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
 adlershof_dlr_discard-tls
+
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+adlershof_orig_names
 eichstaett
 
 # In this scenario, two nodes with the same coordinates start the shape of an edge. The scenario also tests traffic signals and isolated roads.
