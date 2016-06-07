@@ -2123,6 +2123,9 @@ NBEdge::append(NBEdge* e) {
     myGeom.append(e->myGeom);
     for (unsigned int i = 0; i < myLanes.size(); i++) {
         myLanes[i].shape.append(e->myLanes[i].shape);
+        if (myLanes[i].origID != e->myLanes[i].origID) {
+            myLanes[i].origID += " " + e->myLanes[i].origID;
+        }
     }
     // recompute length
     myLength += e->myLength;

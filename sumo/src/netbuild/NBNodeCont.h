@@ -51,7 +51,6 @@
 class NBDistrict;
 class OptionsCont;
 class OutputDevice;
-class NBJoinedEdgesMap;
 
 
 // ===========================================================================
@@ -215,12 +214,11 @@ public:
      * The node is removed from the list of tls-controlled nodes.
      * @param[in, opt. changed] dc The district container needed if a node shall be removed
      * @param[in, opt. changed] ec The edge container needed for joining edges
-     * @param[in, opt. changed] je The map of joined edges (changes are stored here)
      * @param[in, opt. changed] tlc The traffic lights container to remove nodes from
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
      * @return The number of removed nodes
      */
-    unsigned int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBJoinedEdgesMap& je,
+    unsigned int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                      NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
     /// @}
 

@@ -21,6 +21,4 @@ NBSign.cpp NBSign.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \
 NBLoadedSUMOTLDef.cpp NBLoadedSUMOTLDef.h \
-NBNetBuilder.cpp NBNetBuilder.h \
-NBJoinedEdgesMap.cpp NBJoinedEdgesMap.h
-
+NBNetBuilder.cpp NBNetBuilder.h
