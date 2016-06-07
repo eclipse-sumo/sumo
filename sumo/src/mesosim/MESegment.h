@@ -345,7 +345,7 @@ public:
     /** @brief return whether this segment is considered free as opposed to jammed
      */
     inline bool free() const {
-        return myOccupancy <= myJamThreshold;
+        return (myOccupancy <= myJamThreshold) || myTLSPenalty;
     }
 
     /// @brief return the remaining physical space on this segment

@@ -347,7 +347,7 @@ MESegment::getTimeHeadway(bool predecessorIsFree, SUMOReal leaderLength) {
     if (predecessorIsFree) {
         return (free() ? myTau_ff : myTau_fj) + (SUMOTime)(leaderLength / myTau_length);
     } else {
-        if (free() || myTLSPenalty) {
+        if (free()) {
             return myTau_jf;
         } else {
             // the gap has to move from the start of the segment to its end
