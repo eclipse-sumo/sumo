@@ -648,9 +648,6 @@ public:
     /// @brief whether this edge allows changing to the opposite direction edge
     bool canChangeToOpposite();
 
-    /// @brief get the mean speed for mesoscopic simulation
-    SUMOReal getMesoMeanSpeed() const;
-
     /// @brief get the mean speed 
     SUMOReal getMeanSpeed() const;
 

@@ -619,32 +619,27 @@ MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
 
 
 SUMOReal
-MSEdge::getMesoMeanSpeed() const {
-    SUMOReal v = 0;
-    SUMOReal no = 0;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-        const SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
-        v += vehNo * segment->getMeanSpeed();
-        no += vehNo;
-    }
-    if (no == 0) {
-        return getLength() / myEmptyTraveltime; // may include tls-penalty
-    }
-    return v / no;
-}
-
-
-SUMOReal
 MSEdge::getMeanSpeed() const {
     SUMOReal v = 0;
     SUMOReal no = 0;
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        const SUMOReal vehNo = (SUMOReal) (*i)->getVehicleNumber();
-        v += vehNo * (*i)->getMeanSpeed();
-        no += vehNo;
-    }
-    if (no == 0) {
-        return getSpeedLimit();
+    if (MSGlobals::gUseMesoSim) {
+        for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
+            const SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
+            v += vehNo * segment->getMeanSpeed();
+            no += vehNo;
+        }
+        if (no == 0) {
+            return getLength() / myEmptyTraveltime; // may include tls-penalty
+        }
+    } else {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            const SUMOReal vehNo = (SUMOReal) (*i)->getVehicleNumber();
+            v += vehNo * (*i)->getMeanSpeed();
+            no += vehNo;
+        }
+        if (no == 0) {
+            return getSpeedLimit();
+        }
     }
     return v / no;
 }
@@ -656,13 +651,7 @@ MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
     if (!myAmDelayed) {
         return myEmptyTraveltime;
     }
-    SUMOReal v = 0;
-    if (MSGlobals::gUseMesoSim) {
-        v = getMesoMeanSpeed();
-    } else {
-        v = getMeanSpeed();
-    }
-    return getLength() / MAX2(minSpeed, v);
+    return getLength() / MAX2(minSpeed, getMeanSpeed());
 }
 
 

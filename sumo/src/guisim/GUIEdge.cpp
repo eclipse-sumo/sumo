@@ -192,7 +192,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
     ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMesoMeanSpeed));
+    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
     ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
     ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, SUMOReal>(this, &MSEdge::getRoutingSpeed));
     ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
@@ -400,7 +400,7 @@ GUIEdge::getAllowedSpeed() const {
 
 SUMOReal
 GUIEdge::getRelativeSpeed() const {
-    return getMesoMeanSpeed() / getAllowedSpeed();
+    return getMeanSpeed() / getAllowedSpeed();
 }
 
 
@@ -488,7 +488,7 @@ GUIEdge::getColorValue(size_t activeScheme) const {
         case 4:
             return getBruttoOccupancy();
         case 5:
-            return getMesoMeanSpeed();
+            return getMeanSpeed();
         case 6:
             return getFlow();
         case 7:
@@ -510,7 +510,7 @@ GUIEdge::getScaleValue(size_t activeScheme) const {
         case 3:
             return getBruttoOccupancy();
         case 4:
-            return getMesoMeanSpeed();
+            return getMeanSpeed();
         case 5:
             return getFlow();
         case 6:
