@@ -263,6 +263,16 @@ MEVehicle::mayProceed() const {
 }
 
 
+SUMOReal 
+MEVehicle::getCurrentTLSPenaltySeconds() const {
+    if (mySegment == 0) {
+        return 0;
+    } else {
+        return STEPS2TIME(mySegment->getTLSPenalty(this));
+    }
+}
+
+
 void
 MEVehicle::updateDetectorForWriting(MSMoveReminder* rem, SUMOTime currentTime, SUMOTime exitTime) {
     for (MoveReminderCont::iterator i = myMoveReminders.begin(); i != myMoveReminders.end(); ++i) {

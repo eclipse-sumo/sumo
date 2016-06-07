@@ -382,6 +382,12 @@ public:
         return myLengthGeometryFactor;
     }
 
+    /** @brief Returns the penalty time for passing a tls-controlled link (if using gMesoTLSPenalty > 0)
+     * @param[in] veh The vehicle in question
+     * @return The time penalty
+     */
+    SUMOTime getTLSPenalty(const MEVehicle* veh) const;
+
 private:
     /** @brief Updates data of all detectors for a leaving vehicle
      *
@@ -414,13 +420,6 @@ private:
 
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;
-
-protected:
-    /** @brief Returns the penalty time for passing a tls-controlled link (if using gMesoTLSPenalty > 0)
-     * @param[in] veh The vehicle in question
-     * @return The time penalty
-     */
-    SUMOTime getTLSPenalty(const MEVehicle* veh) const;
 
 private:
     /// @brief The microsim edge this segment belongs to

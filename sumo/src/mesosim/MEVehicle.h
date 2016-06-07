@@ -288,6 +288,9 @@ public:
         return STEPS2TIME(getBlockTime());
     }
 
+    /// @brief Returns the delay that is accrued due to option --meso-tls-penalty
+    SUMOReal getCurrentTLSPenaltySeconds() const; 
+
 
     /// Replaces the current route by the given one
     bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0);
