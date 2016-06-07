@@ -147,7 +147,6 @@
     <ClCompile Include="..\..\..\src\netbuild\NBFrame.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBHeightMapper.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBHelpers.cpp" />
-    <ClCompile Include="..\..\..\src\netbuild\NBJoinedEdgesMap.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBLoadedSUMOTLDef.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBLoadedTLDef.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBNetBuilder.cpp" />
@@ -178,7 +177,6 @@
     <ClInclude Include="..\..\..\src\netbuild\NBHeightMapper.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBHelpers.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBFrame.h" />
-    <ClInclude Include="..\..\..\src\netbuild\NBJoinedEdgesMap.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBLinkPossibilityMatrix.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBLoadedSUMOTLDef.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBLoadedTLDef.h" />
