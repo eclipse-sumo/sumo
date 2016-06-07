@@ -221,7 +221,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     if (myAdditionallyDrawn.size() > 0) {
         glTranslated(0, 0, -.01);
         GUINet::getGUIInstance()->lock();
-        for (std::map<GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
+        for (std::map<const GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
             (i->first)->drawGLAdditional(this, *myVisualizationSettings);
         }
         GUINet::getGUIInstance()->unlock();

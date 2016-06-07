@@ -40,6 +40,7 @@
 #include <utils/common/MsgHandler.h>
 #include "GUIAppEnum.h"
 #include "GUIMainWindow.h"
+#include "GUIGlChildWindow.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -184,6 +185,14 @@ GUIMainWindow::getInstance() {
     throw ProcessError("A GUIMainWindow instance was not yet constructed.");
 }
 
+
+GUISUMOAbstractView* 
+GUIMainWindow::getActiveView() const {
+    GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
+    if (w != 0) {
+        return w->getView();
+    }
+}
 
 /****************************************************************************/
 

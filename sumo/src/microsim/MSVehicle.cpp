@@ -446,6 +446,7 @@ MSVehicle::Influencer::isVTDAffected(SUMOTime t) const {
 
 void
 MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
+    const bool wasOnRoad = v->isOnRoad();
     if (v->isOnRoad()) {
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
@@ -457,8 +458,16 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     if (myVTDPos > myVTDLane->getLength()) {
         myVTDPos = myVTDLane->getLength();
     }
-    myVTDLane->forceVehicleInsertion(v, myVTDPos, MSMoveReminder::NOTIFICATION_TELEPORT, myVTDPosLat);
-    v->updateBestLanes();
+    if (fabs(myVTDPosLat) < 0.5 * myVTDLane->getWidth()) {
+        myVTDLane->forceVehicleInsertion(v, myVTDPos, MSMoveReminder::NOTIFICATION_TELEPORT, myVTDPosLat);
+        v->updateBestLanes();
+        if (!wasOnRoad) {
+            v->drawOutsideNetwork(false);
+        }
+    } else {
+        v->setVTDState(myVTDLane, myVTDPos, myVTDPosLat);
+        v->drawOutsideNetwork(true);
+    }
     // inverse of GeomHelper::naviDegree
     v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
 }
@@ -3443,6 +3452,16 @@ MSVehicle::influenceChangeDecision(int state) {
     }
     return state;
 }
+
+
+void 
+MSVehicle::setVTDState(MSLane* lane, SUMOReal pos, SUMOReal posLat) {
+    myCachedPosition = Position::INVALID;
+    myLane = lane;
+    myState.myPos = pos;
+    myState.myPosLat = posLat;
+}
+
 #endif
 
 

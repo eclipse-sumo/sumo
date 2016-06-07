@@ -45,6 +45,7 @@
 // class declarations
 // ===========================================================================
 class GUIEvent;
+class GUISUMOAbstractView;
 
 
 // ===========================================================================
@@ -109,6 +110,9 @@ public:
     virtual void sendBlockingEvent(GUIEvent* event) {
         UNUSED_PARAMETER(event);
     }
+
+    /** @brief get the active view or 0 */
+    GUISUMOAbstractView* getActiveView() const;
 
 protected:
     std::vector<FXMDIChild*> mySubWindows;

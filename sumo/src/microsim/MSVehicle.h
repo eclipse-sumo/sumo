@@ -1297,6 +1297,9 @@ public:
     /// @brief allow TraCI to influence a lane change decision
     int influenceChangeDecision(int state);
 
+    /// @brief sets position outside the road network
+    void setVTDState(MSLane* lane, SUMOReal pos, SUMOReal posLat);
+
     /// @brief compute safe speed for following the given leader
     SUMOReal getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
                                 const SUMOReal seen, const MSLane* const lane, SUMOReal distToCrossing) const;
@@ -1356,6 +1359,9 @@ protected:
     /** @brief Returns the list of still pending stop edges
      */
     const ConstMSEdgeVector getStopEdges() const;
+
+    /// @brief register vehicle for drawing while outside the network
+    virtual void drawOutsideNetwork(bool /*add*/) const {};
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
     SUMOTime myWaitingTime;

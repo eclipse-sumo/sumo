@@ -691,5 +691,20 @@ GUIVehicle::selectBlockingFoes() const {
     }
 }
 
+
+void 
+GUIVehicle::drawOutsideNetwork(bool add) const {
+    GUIMainWindow* mw = GUIMainWindow::getInstance();
+    GUISUMOAbstractView* view = mw->getActiveView();
+    if (view != 0) {
+        std::cout << SIMTIME << " drawOutsideNetwork veh=" << getID() << " add=" << add << "\n";
+        if (add) {
+            view->addAdditionalGLVisualisation(this);
+        } else {
+            view->removeAdditionalGLVisualisation(this);
+        }
+    }
+}
+
 /****************************************************************************/
 

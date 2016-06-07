@@ -136,6 +136,10 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+protected:
+    /// @brief register vehicle for drawing while outside the network
+    void drawOutsideNetwork(bool /*add*/) const;
+
 private:
 
     /* @brief draw train with individual carriages. The number of carriages is
