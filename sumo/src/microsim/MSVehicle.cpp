@@ -581,7 +581,7 @@ MSVehicle::hasArrived() const {
     return (myCurrEdge == myRoute->end() - 1 
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
             && myState.myPos > myArrivalPos - POSITION_EPS
-            && (myInfluencer == 0 || !myInfluencer->isVTDControlled()));
+            && !isRemoteControlled());
 }
 
 
@@ -1545,7 +1545,7 @@ MSVehicle::executeMove() {
     SUMOReal vSafeMinDist = 0;
     myHaveToWaitOnNextLink = false;
 
-    assert(myLFLinkLanes.size() != 0 || (myInfluencer != 0 && myInfluencer->isVTDControlled()));
+    assert(myLFLinkLanes.size() != 0 || isRemoteControlled());
     DriveItemVector::iterator i;
     for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         MSLink* link = (*i).myLink;
@@ -1731,7 +1731,7 @@ MSVehicle::executeMove() {
     myAcceleration = SPEED2ACCEL(vNext - myState.mySpeed);
     SUMOReal deltaPos = SPEED2DIST(vNext);
 #ifndef NO_TRACI
-    if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
+    if (isRemoteControlled()) {
         deltaPos = myInfluencer->implicitDeltaPosVTD(this);
     }
 #endif
@@ -3463,6 +3463,12 @@ MSVehicle::setVTDState(MSLane* lane, SUMOReal pos, SUMOReal posLat) {
 }
 
 #endif
+
+bool
+MSVehicle::isRemoteControlled() const {
+    return myInfluencer != 0 && myInfluencer->isVTDControlled();
+}
+
 
 
 void

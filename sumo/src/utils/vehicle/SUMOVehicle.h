@@ -226,6 +226,12 @@ public:
      */
     virtual bool isParking() const = 0;
 
+    /** @brief Returns the information whether the vehicle is fully controlled
+     * via TraCI
+     * @return Whether the vehicle is remote-controlled
+     */
+    virtual bool isRemoteControlled() const = 0;
+
     /** @brief Returns this vehicle's real departure time
      * @return This vehicle's real departure time
      */

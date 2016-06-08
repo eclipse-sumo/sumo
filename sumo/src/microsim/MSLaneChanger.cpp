@@ -252,7 +252,7 @@ MSLaneChanger::change() {
     }
 
 #ifndef NO_TRACI
-    if (vehicle->hasInfluencer() && vehicle->getInfluencer().isVTDControlled()) {
+    if (vehicle->isRemoteControlled()) {
         return false; // !!! temporary; just because it broke, here
     }
 #endif

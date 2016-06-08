@@ -135,6 +135,14 @@ public:
         return true;
     }
 
+    /** @brief Returns the information whether the vehicle is fully controlled
+     * via TraCI
+     * @return Whether the vehicle is remote-controlled
+     */
+    virtual bool isRemoteControlled() const {
+        return false;
+    }
+
     /** @brief Returns the information whether the front of the vehhicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */
