@@ -526,6 +526,7 @@ MSLaneChanger::checkChangeWithinEdge(
 
     std::pair<MSVehicle* const, SUMOReal> neighLead = getRealLeader(myCandi + laneOffset);
     std::pair<MSVehicle* const, SUMOReal> neighFollow = getRealFollower(myCandi + laneOffset);
+    assert(neighLead->first != neighFollow->first);
     ChangerIt target = myCandi + laneOffset;
     return checkChange(laneOffset, target->lane, leader, neighLead, neighFollow, preb);
 }

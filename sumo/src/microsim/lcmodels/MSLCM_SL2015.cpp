@@ -69,7 +69,7 @@
 #define HELP_DECEL_FACTOR (SUMOReal)1.0
 
 #define HELP_OVERTAKE  (SUMOReal)(10.0 / 3.6)
-#define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
+#define MIN_FALLBEHIND  (SUMOReal)(7.0 / 3.6)
 
 #define KEEP_RIGHT_HEADWAY (SUMOReal)2.0
 
@@ -437,7 +437,7 @@ MSLCM_SL2015::informLeader(int blocked,
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake? (we will start to brake when approaching a dead end)
-                || myLeftSpace - myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed()) < overtakeDist
+                || myLeftSpace - myLeadingBlockerLength - myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed()) < overtakeDist
                 // not enough time to overtake?
                 || dv * remainingSeconds < overtakeDist) {
             // cannot overtake
@@ -1648,6 +1648,21 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, SUMOReal& latDist, int lane
                                              (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_LEFT_LEADER), collectLeadBlockers);
             blocked |= checkBlockingVehicles(&myVehicle, neighFollowers, myOrigLatDist, neighLane.getRightSideOnEdge(), false,
                                              (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER), collectFollowBlockers);
+        }
+    }
+    if (collectFollowBlockers != 0 && collectLeadBlockers != 0) {
+        // prevent vehicles from being classified as leader and follower simultaneously
+        for (std::vector<CLeaderDist>::iterator it = collectFollowBlockers->begin(); it != collectFollowBlockers->end();) {
+            for (std::vector<CLeaderDist>::const_iterator it2 = collectLeadBlockers->begin(); it2 != collectLeadBlockers->end(); ++it2) {
+                if ((*it2).first == (*it).first) {
+                    if (gDebugFlag2) {
+                        std::cout << "    removed follower " << (*it).first->getID() << " because it is already a leader\n";
+                    }
+                    it = collectFollowBlockers->erase(it);
+                } else {
+                    ++it;
+                }
+            }
         }
     }
     return blocked;
