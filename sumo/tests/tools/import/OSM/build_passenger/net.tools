@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 27 08:38:22 2016 by SUMO netconvert Version dev-SVN-r20555
+<!-- generated on Wed Jun  8 08:25:52 2016 by SUMO netconvert Version dev-SVN-r20907
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.27Apr083821.17027/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.08Jun082551.5624/tools/import/OSM/build_passenger/net.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
     </output>
@@ -1105,7 +1104,7 @@
     </edge>
     <edge id="-142575659#2" from="38919880" to="cluster_1560224191_1560224195_2697454310_443598395" name="Carl-Scheele-Straße" priority="5" type="highway.unclassified" shape="1333.96,633.84 1334.18,644.05 1335.48,649.27 1338.72,653.98 1346.58,659.46 1380.50,683.12 1463.83,724.03 1497.76,740.69 1508.99,743.27 1518.78,743.19 1604.40,740.63">
         <lane id="-142575659#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="296.79" shape="1335.72,639.20 1335.82,643.83 1337.01,648.58 1339.91,652.80 1347.52,658.11 1381.34,681.69 1464.56,722.55 1498.32,739.12 1509.17,741.62 1518.75,741.55 1599.31,739.13">
-            <param key="origId" value="142575659"/>
+            <param key="origId" value="142575659 142575659 71028774"/>
         </lane>
     </edge>
     <edge id="-142575673#1" from="1560223943" to="1560223905" name="Friedrich-Wöhler-Straße" priority="5" type="highway.unclassified" shape="1293.14,626.99 1284.22,625.25 1239.30,621.56 1179.14,617.16">
@@ -1444,10 +1443,10 @@
     </edge>
     <edge id="16942869" from="1906766909" to="cluster_1560223510_1906766907" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" spreadType="center" shape="924.46,359.46 1006.85,348.06 1024.39,345.95">
         <lane id="16942869_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="91.29" shape="924.54,357.78 1006.64,346.42 1014.96,345.42">
-            <param key="origId" value="16942869"/>
+            <param key="origId" value="16942869 142575669"/>
         </lane>
         <lane id="16942869_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="91.29" shape="924.85,361.07 1007.06,349.70 1015.31,348.71">
-            <param key="origId" value="16942869"/>
+            <param key="origId" value="16942869 142575669"/>
         </lane>
     </edge>
     <edge id="172014854#0" from="294168972" to="1560223382" name="Albert-Einstein-Straße" priority="5" type="highway.unclassified" shape="1708.11,409.71 1649.90,360.32 1642.37,351.99 1639.09,345.05 1634.26,310.68 1632.70,289.74">
@@ -1457,10 +1456,10 @@
     </edge>
     <edge id="176039655" from="cluster_1560223510_1906766907" to="1906766898" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" spreadType="center" shape="1024.39,345.95 1040.17,344.43 1106.32,335.79">
         <lane id="176039655_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="78.01" shape="1028.01,343.95 1039.98,342.79 1105.27,334.26">
-            <param key="origId" value="176039655"/>
+            <param key="origId" value="176039655 224769559"/>
         </lane>
         <lane id="176039655_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="78.01" shape="1028.33,347.23 1040.36,346.07 1105.88,337.51">
-            <param key="origId" value="176039655"/>
+            <param key="origId" value="176039655 224769559"/>
         </lane>
     </edge>
     <edge id="180239842" from="1906766909" to="1906766934" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="925.04,362.71 900.03,365.06 721.50,396.41 645.00,412.96 611.88,424.48 597.01,433.69">
@@ -1473,10 +1472,10 @@
     </edge>
     <edge id="180239843" from="cluster_1560223510_1906766907" to="1906766909" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" spreadType="center" shape="1024.90,355.79 1006.26,357.77 925.24,366.00">
         <lane id="180239843_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="91.40" shape="1016.34,358.36 1006.43,359.42 925.41,367.64">
-            <param key="origId" value="180239843"/>
+            <param key="origId" value="180239843 180239847"/>
         </lane>
         <lane id="180239843_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="91.40" shape="1015.99,355.08 1006.09,356.13 925.08,364.36">
-            <param key="origId" value="180239843"/>
+            <param key="origId" value="180239843 180239847"/>
         </lane>
     </edge>
     <edge id="180239858#0" from="1906766898" to="cluster_1560223510_1906766907" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" spreadType="center" shape="1107.45,342.26 1066.53,349.96 1041.35,353.55 1024.90,355.79">
@@ -1529,7 +1528,7 @@
     </edge>
     <edge id="190083616" from="2007005037" to="1560223404" name="Wegedornstraße" priority="6" type="highway.tertiary" shape="1456.66,118.44 1459.28,149.30 1467.18,239.06 1471.71,284.54 1472.01,287.89 1472.40,292.01 1473.33,303.32">
         <lane id="190083616_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="174.34" shape="1458.30,118.30 1460.92,149.16 1468.83,238.90 1473.35,284.38 1473.65,287.74 1474.05,291.92">
-            <param key="origId" value="190083616"/>
+            <param key="origId" value="190083616 143308570 239335494"/>
         </lane>
     </edge>
     <edge id="190083618#0" from="59992997" to="1560223404" name="Wegedornstraße" priority="7" type="highway.secondary" shape="1477.43,373.83 1474.08,327.26 1473.93,322.17 1473.33,303.32">
@@ -1556,13 +1555,13 @@
     </edge>
     <edge id="206579057" from="2165987554" to="cluster_492462300_671564296" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="925.09,530.68 943.28,522.75 980.16,512.36 997.39,511.03">
         <lane id="206579057_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.18" shape="924.92,527.16 942.17,519.64 979.58,509.09 984.00,508.75">
-            <param key="origId" value="206579057"/>
+            <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
         <lane id="206579057_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.18" shape="926.23,530.18 943.28,522.75 980.16,512.36 984.42,512.03">
-            <param key="origId" value="206579057"/>
+            <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
         <lane id="206579057_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.18" shape="927.55,533.21 944.39,525.87 980.74,515.62 984.83,515.31">
-            <param key="origId" value="206579057"/>
+            <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
     </edge>
     <edge id="206579061" from="2007005083" to="2165987550" name="Hermann-Dorner-Allee" priority="5" type="highway.unclassified">
@@ -1604,18 +1603,18 @@
     </edge>
     <edge id="22917250" from="21540770" to="32266899" priority="13" type="highway.motorway" spreadType="center" shape="582.88,513.91 669.19,499.12 755.80,479.20 795.60,467.13 843.13,449.20 880.91,430.69 915.29,411.03 936.55,395.32 950.38,385.72 968.93,371.30 995.68,345.38 1021.32,316.75 1051.28,275.30 1075.28,232.50 1078.93,224.53 1097.68,183.65 1111.01,141.13 1121.41,98.14 1129.44,57.91 1134.11,3.27">
         <lane id="22917250_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="831.55" shape="582.33,510.65 668.54,495.89 754.95,476.01 794.54,464.00 841.82,446.17 879.37,427.77 913.49,408.26 934.62,392.64 948.43,383.06 966.77,368.81 993.30,343.10 1018.75,314.68 1048.50,273.52 1072.33,231.00 1075.93,223.16 1094.59,182.46 1107.83,140.24 1118.19,97.43 1126.17,57.45 1130.82,2.99">
-            <param key="origId" value="22917250"/>
+            <param key="origId" value="22917250 22762378 152466382"/>
         </lane>
         <lane id="22917250_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="831.55" shape="582.88,513.91 669.19,499.12 755.80,479.20 795.60,467.13 843.13,449.20 880.91,430.69 915.29,411.03 936.55,395.32 950.38,385.72 968.93,371.30 995.68,345.38 1021.32,316.75 1051.28,275.30 1075.28,232.50 1078.93,224.53 1097.68,183.65 1111.01,141.13 1121.41,98.14 1129.44,57.91 1134.11,3.27">
-            <param key="origId" value="22917250"/>
+            <param key="origId" value="22917250 22762378 152466382"/>
         </lane>
         <lane id="22917250_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="831.55" shape="583.44,517.16 669.84,502.36 756.65,482.39 796.67,470.26 844.44,452.23 882.46,433.60 917.10,413.80 938.47,398.00 952.34,388.38 971.10,373.80 998.06,347.67 1023.89,318.83 1054.07,277.08 1078.22,233.99 1081.93,225.91 1100.76,184.83 1114.19,142.01 1124.64,98.85 1132.71,58.38 1137.40,3.55">
-            <param key="origId" value="22917250"/>
+            <param key="origId" value="22917250 22762378 152466382"/>
         </lane>
     </edge>
     <edge id="239335494#0" from="1560223404" to="2007005037" name="Wegedornstraße" priority="6" type="highway.tertiary" shape="1473.33,303.32 1472.40,292.01 1472.01,287.89 1471.71,284.54 1467.18,239.06 1459.28,149.30 1456.66,118.44">
         <lane id="239335494#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="174.33" shape="1470.76,292.19 1470.37,288.05 1470.07,284.70 1465.54,239.21 1457.64,149.45 1455.01,118.58">
-            <param key="origId" value="239335494"/>
+            <param key="origId" value="239335494 143308570 190083616"/>
         </lane>
     </edge>
     <edge id="24214694#0" from="1560223686" to="1560223635" name="Wegedornstraße" priority="7" type="highway.secondary" shape="1489.36,497.53 1488.28,486.32 1486.72,470.25">
@@ -1687,7 +1686,7 @@
     </edge>
     <edge id="71028774#0" from="cluster_1560224191_1560224195_2697454310_443598395" to="38919880" name="Carl-Scheele-Straße" priority="5" type="highway.unclassified" shape="1604.40,740.63 1518.78,743.19 1508.99,743.27 1497.76,740.69 1463.83,724.03 1380.50,683.12 1346.58,659.46 1338.72,653.98 1335.48,649.27 1334.18,644.05 1333.96,633.84">
         <lane id="71028774#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="302.04" shape="1599.41,742.43 1518.81,744.84 1508.81,744.92 1497.20,742.25 1463.10,725.51 1379.66,684.54 1345.63,660.82 1337.53,655.16 1333.95,649.96 1332.53,644.27 1332.42,639.27">
-            <param key="origId" value="71028774"/>
+            <param key="origId" value="71028774 142575659 142575659"/>
         </lane>
     </edge>
     <edge id="71028777#0" from="1560592828" to="cluster_1560224191_1560224195_2697454310_443598395" name="Carl-Scheele-Straße" priority="5" type="highway.unclassified" shape="1773.58,753.83 1758.10,739.35 1752.47,737.23 1615.32,740.47">
