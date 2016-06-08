@@ -55,5 +55,8 @@ sublane_junction
 # place vehicle onto an internal lane that is not on the current route (with sublane precision)
 sublane_offroute_junction
 
-# vehicle jumps outside the road network
+# vehicle gets position outside the road network but is mapped onto the edge of the road
 sublane_offroad
+
+# vehicle jumps outside the road network
+sublane_offroad_mode2

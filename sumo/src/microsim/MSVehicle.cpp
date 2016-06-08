@@ -458,7 +458,7 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     if (myVTDPos > myVTDLane->getLength()) {
         myVTDPos = myVTDLane->getLength();
     }
-    if (fabs(myVTDPosLat) < 0.5 * myVTDLane->getWidth()) {
+    if (fabs(myVTDPosLat) < 0.5 * (myVTDLane->getWidth() + v->getVehicleType().getWidth())) {
         myVTDLane->forceVehicleInsertion(v, myVTDPos, MSMoveReminder::NOTIFICATION_TELEPORT, myVTDPosLat);
         v->updateBestLanes();
         if (!wasOnRoad) {

@@ -1377,14 +1377,16 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (MSGlobals::gLateralResolution > 0 || mayLeaveNetwork) {
                     const SUMOReal perpDist = lane->getShape().distance2D(pos, true);
                     if (perpDist != GeomHelper::INVALID_OFFSET) {
-                        // XXX ensure it stays on the road?
                         lanePosLat = perpDist;
+                        if (!mayLeaveNetwork) {
+                            lanePosLat = MIN2(lanePosLat, 0.5 * (lane->getWidth() + v->getVehicleType().getWidth() - MSGlobals::gLateralResolution));
+                        }
                         // figure out whether the offset is to the left or to the right
                         PositionVector tmp = lane->getShape();
                         tmp.move2side(-lanePosLat); // moved to left
                         //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";
                         if (tmp.distance2D(pos) > perpDist) {
-                            lanePosLat = -perpDist;
+                            lanePosLat = -lanePosLat;
                         }
                     }
                 }
