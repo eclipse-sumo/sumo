@@ -1081,8 +1081,9 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
         // if a traffic light is responsible for it, inform the traffic light
         // check whether this link is controlled by a traffic light
-        if (logic != 0) {
-            logic->addLink(link, fromLane, tlLinkIdx);
+        // we can not reuse logic here because it might be an inactive one
+        if (tlID != "") {
+            myJunctionControlBuilder.getTLLogic(tlID).addLink(link, fromLane, tlLinkIdx);
         }
         // add the link
         fromLane->addLink(link);
