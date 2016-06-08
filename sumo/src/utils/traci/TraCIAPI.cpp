@@ -217,8 +217,25 @@ TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID
     mySocket->sendExact(outMsg);
 }
 
-
-
+void
+TraCIAPI::send_commandMoveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const SUMOReal x, const SUMOReal y, const SUMOReal angle, const int keepRoute) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(6);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(edgeID);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(lane);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(x);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(y);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(angle);
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeByte(keepRoute);
+    send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MOVE_TO_VTD, vehicleID, content);
+}
 
 void
 TraCIAPI::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId, std::string* acknowledgement) const {
@@ -1984,23 +2001,8 @@ TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& 
 }
 
 void
-TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, int lane, SUMOReal x, SUMOReal y, SUMOReal angle, bool keepRoute) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(6);
-    content.writeUnsignedByte(TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(TYPE_INTEGER);
-    content.writeInt(lane);
-    content.writeUnsignedByte(TYPE_DOUBLE);
-    content.writeDouble(x);
-    content.writeUnsignedByte(TYPE_DOUBLE);
-    content.writeDouble(y);
-    content.writeUnsignedByte(TYPE_DOUBLE);
-    content.writeDouble(angle);
-    content.writeUnsignedByte(TYPE_BYTE);
-    content.writeByte(keepRoute ? 1 : 0);
-    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MOVE_TO_VTD, vehicleID, content);
+TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const SUMOReal x, const SUMOReal y, const SUMOReal angle, const int keepRoute) const {
+    myParent.send_commandMoveToXY(vehicleID, edgeID, lane, x, y, angle, keepRoute);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
