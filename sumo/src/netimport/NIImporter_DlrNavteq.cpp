@@ -332,7 +332,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         geoms.insert(geoms.begin(), from->getPosition());
         geoms.push_back(to->getPosition());
         e = new NBEdge(id, from, to, "", speed, numLanes, priority,
-                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, "", LANESPREAD_CENTER);
+                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, id, LANESPREAD_CENTER);
     }
     // add vehicle type information to the edge
     if (myVersion < 6.0) {

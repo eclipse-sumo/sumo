@@ -201,7 +201,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
-    init(nolanes, false, "");
+    init(nolanes, false, id);
 }
 
 
