@@ -12,6 +12,9 @@ priority
 
 # import street names from _names.txt
 street_names
+
+# import original ids
+orig_names
 write_numerical_ids
 
 # tests for input data generated with gdfExtractor version 3.1

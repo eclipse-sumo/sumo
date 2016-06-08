@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 06/08/16 10:48:21 by SUMO netconvert Version dev-SVN-r20907
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <output.original-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.scale value="5"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-328248.16,-5789366.94" convBoundary="0.00,0.00,39850.14,20618.00" origBoundary="1248456.000000,5223889.000000,1306826.000000,5241834.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="1" from="1" to="0" priority="0" spreadType="center">
+        <lane id="1_0" index="0" speed="55.56" length="22852.39" shape="39850.24,3.30 17012.19,665.04">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1_1" index="1" speed="55.56" length="22852.39" shape="39850.14,0.00 17012.10,661.75">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1_2" index="2" speed="55.56" length="22852.39" shape="39850.05,-3.30 17012.00,658.45">
+            <param key="origId" value="1"/>
+        </lane>
+    </edge>
+    <edge id="2" from="2" to="0" priority="0" spreadType="center">
+        <lane id="2_0" index="0" speed="55.56" length="17016.60" shape="-0.11,1219.98 17002.48,658.74">
+            <param key="origId" value="2"/>
+        </lane>
+        <lane id="2_1" index="1" speed="55.56" length="17016.60" shape="-0.00,1223.28 17002.58,662.04">
+            <param key="origId" value="2"/>
+        </lane>
+        <lane id="2_2" index="2" speed="55.56" length="17016.60" shape="0.11,1226.57 17002.69,665.34">
+            <param key="origId" value="2"/>
+        </lane>
+    </edge>
+    <edge id="4" from="4" to="0" priority="0" spreadType="center" shape="17632.47,20618.00 17417.81,13770.92 17007.34,661.88">
+        <lane id="4_0" index="0" speed="33.33" length="19965.90" shape="17630.82,20618.05 17416.16,13770.97 17005.89,668.34">
+            <param key="origId" value="4 3"/>
+        </lane>
+        <lane id="4_1" index="1" speed="33.33" length="19965.90" shape="17634.12,20617.95 17419.46,13770.87 17009.19,668.24">
+            <param key="origId" value="4 3"/>
+        </lane>
+    </edge>
+
+    <junction id="0" type="unregulated" x="17007.34" y="661.88" incLanes="4_0 4_1 1_0 1_1 1_2 2_0 2_1 2_2" intLanes="" shape="17004.29,668.39 17010.79,668.19 17012.24,666.64 17011.96,656.85 17002.42,657.14 17002.75,666.94"/>
+    <junction id="1" type="unregulated" x="39850.14" y="0.00" incLanes="" intLanes="" shape="39850.00,-4.90 39850.28,4.90"/>
+    <junction id="2" type="unregulated" x="0.00" y="1223.28" incLanes="" intLanes="" shape="0.16,1228.17 -0.16,1218.38"/>
+    <junction id="4" type="unregulated" x="17632.47" y="20618.00" incLanes="" intLanes="" shape="17635.72,20617.90 17629.22,20618.10"/>
+
+</net>
