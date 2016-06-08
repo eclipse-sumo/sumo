@@ -699,6 +699,7 @@ MSLCM_LC2013::_wantsChange(
     if (isOpposite() && right) {
         neigh = preb[preb.size() - 1];
         curr = neigh;
+        best = neigh;
         bestLaneOffset = -1;
         curr.bestLaneOffset = -1;
         neighDist = neigh.length;
@@ -817,6 +818,7 @@ MSLCM_LC2013::_wantsChange(
                 		  << " currentDist=" << currentDist
                 		  << " usableDist=" << usableDist
                 		  << " bestLaneOffset=" << bestLaneOffset
+                		  << " best.occupation=" << best.occupation
                 		  << " best.length=" << best.length
                 		  << " maxJam=" << maxJam
                 		  << " neighLeftPlace=" << neighLeftPlace
@@ -986,7 +988,7 @@ MSLCM_LC2013::_wantsChange(
                                         : -mySpeedGainProbability / myChangeProbThresholdLeft));
     if (amBlockingFollowerPlusNB()
             && (inconvenience <= myCooperativeParam)
-            //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
+            //&& ((myOwnState & lcaCounter) == 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 #ifdef DEBUG_WANTS_CHANGE
     	if(DEBUG_COND){
@@ -994,7 +996,7 @@ MSLCM_LC2013::_wantsChange(
                       << " veh=" << myVehicle.getID()
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
-                      // << (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
+                      // << (((myOwnState & lcaCounter) != 0) ? " (counter)" : "")
                       << "\n";
         }
 #endif

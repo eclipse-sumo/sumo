@@ -925,7 +925,7 @@ MSLCM_JE2013::_wantsChange(
                 		  << " currentDist=" << currentDist
                 		  << " usableDist=" << usableDist
                 		  << " bestLaneOffset=" << bestLaneOffset
-                		  << " best.occupation=" << best.length
+                		  << " best.occupation=" << best.occupation
                 		  << " best.length=" << best.length
                 		  << " maxJam=" << maxJam
                 		  << " neighLeftPlace=" << neighLeftPlace
