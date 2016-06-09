@@ -1424,6 +1424,22 @@ NBEdge::computeAngle() {
 }
 
 
+SUMOReal 
+NBEdge::getShapeStartAngle() const {
+    const SUMOReal angleLookahead = MIN2(myGeom.length2D() / 2, ANGLE_LOOKAHEAD);
+    const Position referencePosStart = myGeom.positionAtOffset2D(angleLookahead);
+    return GeomHelper::legacyDegree(myGeom.front().angleTo2D(referencePosStart), true);
+}
+
+
+SUMOReal
+NBEdge::getShapeEndAngle() const {
+    const SUMOReal angleLookahead = MIN2(myGeom.length2D() / 2, ANGLE_LOOKAHEAD);
+    const Position referencePosEnd = myGeom.positionAtOffset2D(myGeom.length() - angleLookahead);
+    return GeomHelper::legacyDegree(referencePosEnd.angleTo2D(myGeom.back()), true);
+}
+
+
 bool
 NBEdge::hasPermissions() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
@@ -1897,7 +1913,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     //  the importance by 2 due to the possibility to leave the junction
     //  faster from this lane
     EdgeVector tmp(*outgoing);
-    sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
+    sort(tmp.begin(), tmp.end(), NBContHelper::straightness_sorter(this));
     i = find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
     unsigned int dist = (unsigned int) distance(outgoing->begin(), i);
     MainDirections mainDirections(*outgoing, this, myTo, dist);

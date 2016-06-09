@@ -374,6 +374,7 @@ public:
 
 
     /** @brief Returns the angle at the start of the edge
+     * (relative to the node shape center)
      * The angle is computed in computeAngle()
      * @return This edge's start angle
      */
@@ -383,12 +384,29 @@ public:
 
 
     /** @brief Returns the angle at the end of the edge
+     * (relative to the node shape center)
      * The angle is computed in computeAngle()
      * @return This edge's end angle
      */
     inline SUMOReal getEndAngle() const {
         return myEndAngle;
     }
+
+    /** @brief Returns the angle at the start of the edge
+     * (only using edge shape)
+     * @return This edge's start angle
+     */
+    SUMOReal getShapeStartAngle() const;
+
+
+    /** @brief Returns the angle at the end of the edge
+     * (only using edge shape)
+     * The angle is computed in computeAngle()
+     * @return This edge's end angle
+     */
+    SUMOReal getShapeEndAngle() const; 
+
+
 
 
     /// @brief get the angle as measure from the start to the end of this edge
