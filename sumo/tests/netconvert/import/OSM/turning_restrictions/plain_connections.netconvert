@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  9 10:28:15 2016 by SUMO netconvert Version dev-SVN-r20932
+<!-- generated on Thu Jun  9 13:49:43 2016 by SUMO netconvert Version dev-SVN-r20938
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,6 +10,7 @@
     </input>
 
     <output>
+        <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
 
@@ -46,14 +47,14 @@
     <connection from="-105" to="205" fromLane="0" toLane="0"/>
     <connection from="-105" to="205" fromLane="1" toLane="1"/>
     <connection from="-105" to="106" fromLane="1" toLane="1"/>
+    <connection from="-105" to="106" fromLane="2" toLane="2"/>
     <connection from="-105" to="-204" fromLane="2" toLane="2"/>
     <connection from="-105" to="105" fromLane="2" toLane="2"/>
 
     <connection from="-106" to="-204" fromLane="0" toLane="0"/>
-    <connection from="-106" to="105" fromLane="0" toLane="0"/>
-    <connection from="-106" to="105" fromLane="1" toLane="1"/>
+    <connection from="-106" to="105" fromLane="0" toLane="1"/>
+    <connection from="-106" to="105" fromLane="1" toLane="2"/>
     <connection from="-106" to="205" fromLane="1" toLane="1"/>
-    <connection from="-106" to="105" fromLane="2" toLane="2"/>
     <connection from="-106" to="205" fromLane="2" toLane="2"/>
     <connection from="-106" to="106" fromLane="2" toLane="2"/>
 
