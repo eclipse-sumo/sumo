@@ -1212,6 +1212,9 @@ private:
     void divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes,
                                     const std::vector<unsigned int>* priorities);
 
+    /// @brief add some straight connections
+    void addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<unsigned int>* priorities); 
+
     /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
     std::vector<unsigned int>* prepareEdgePriorities(
@@ -1454,6 +1457,33 @@ public:
     private:
         /// @brief invalidated assignment operator
         connections_finder& operator=(const connections_finder& s);
+
+    };
+
+
+    /**
+     * @class connections_conflict_finder
+     */
+    class connections_conflict_finder {
+    public:
+        /// constructor
+        connections_conflict_finder(int fromLane, NBEdge* const edge2find, bool checkRight) : 
+            myFromLane(fromLane), myEdge2Find(edge2find), myCheckRight(checkRight) { }
+
+        bool operator()(const Connection& c) const {
+            return (((myCheckRight && c.fromLane < myFromLane) || (!myCheckRight && c.fromLane > myFromLane))
+                    && c.fromLane >= 0 // already assigned
+                    && c.toEdge == myEdge2Find);
+        }
+
+    private:
+        int myFromLane;
+        NBEdge* const myEdge2Find;
+        bool myCheckRight;
+
+    private:
+        /// @brief invalidated assignment operator
+        connections_conflict_finder& operator=(const connections_conflict_finder& s);
 
     };
 

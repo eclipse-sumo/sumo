@@ -1710,8 +1710,6 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     resultingLanes.reserve(numOutgoing);
     SUMOReal sumResulting = 0.; // the sum of resulting lanes
     SUMOReal minResulting = 10000.; // the least number of lanes to reach an edge
-    const NBEdge* maxPrioEdge = 0;
-    int maxPrio = 0;
     for (int i = 0; i < numOutgoing; i++) {
         // res will be the number of lanes which are meant to reach the
         //  current outgoing edge
@@ -1728,10 +1726,6 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
         if (minResulting > res && res > 0) {
             // prevent minResulting from becoming 0
             minResulting = res;
-        }
-        if (maxPrio < (*priorities)[i]) {
-            maxPrio = (*priorities)[i];
-            maxPrioEdge = (*outgoing)[i];
         }
     }
     // compute the number of virtual edges
@@ -1752,7 +1746,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
         }
     }
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) std::cout << "   prioSum=" << prioSum << " sumResulting=" << sumResulting << " minResulting=" << minResulting << " numVirtual=" << numVirtual << " availLanes=" << toString(availableLanes) << " resLanes=" << toString(resultingLanes) << " transition=" << toString(transition) << " maxPrioEdge=" << Named::getIDSecure(maxPrioEdge) << "\n";
+    if (DEBUGCOND) std::cout << "   prioSum=" << prioSum << " sumResulting=" << sumResulting << " minResulting=" << minResulting << " numVirtual=" << numVirtual << " availLanes=" << toString(availableLanes) << " resLanes=" << toString(resultingLanes) << " transition=" << toString(transition) << "\n";
 #endif
 
     // assign lanes to edges
@@ -1802,45 +1796,82 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
             if (DEBUGCOND) std::cout << "     request connection from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
 #endif
         }
-        const LinkDirection dir = myTo->getDirection(this, target);
-        if (target == maxPrioEdge && (dir == LINKDIR_STRAIGHT || dir == LINKDIR_PARTLEFT || dir == LINKDIR_PARTRIGHT)) {
-            // ensure sufficient connections for the main direction
-            int numConsToTarget = (int)count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true));
-            int targetLanes = (int)target->getNumLanes();
-            if (target->getPermissions(0) == SVC_PEDESTRIAN) {
-                --targetLanes;
-            }
-            const int numDesiredConsToTarget = MIN2(targetLanes, (int)availableLanes.size());
-#ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) std::cout << "  checking extra lanes for maxPrioEdge=" << maxPrioEdge->getID() << " cons=" << numConsToTarget << " desired=" << numDesiredConsToTarget << "\n";
-#endif
-            std::vector<int>::const_iterator it_avail = availableLanes.begin();
-            while (numConsToTarget < numDesiredConsToTarget && it_avail != availableLanes.end()) {
-                const int fromIndex = *it_avail;
-                if (
-                        // not yet connected
-                        (count_if(myConnections.begin(), myConnections.end(), connections_finder(fromIndex, target, -1)) == 0)
-                        // matching permissions
-                        && ((getPermissions(fromIndex) & target->getPermissions()) != 0)
-                        // more than pedestrians
-                        && ((getPermissions(fromIndex) & target->getPermissions()) != SVC_PEDESTRIAN)
-                        ) {
-                    // prevent same-edge conflicts
-                    if (
-                            // no outgoing connections to the right from further left
-                            ((it_avail + 1) == availableLanes.end() || count_if(myConnections.begin(), myConnections.end(), connections_finder(*(it_avail + 1), target, -1, true)) == 0) 
-                            // no outgoing connections to the leftight from further right
-                            && (it_avail == availableLanes.begin() || count_if(myConnections.begin(), myConnections.end(), connections_finder(*(it_avail - 1), target, -1, true)) == 0)) {
-#ifdef DEBUG_CONNECTION_GUESSING
-                        if (DEBUGCOND) std::cout << "     request additional connection from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
-#endif
-                        myConnections.push_back(Connection(fromIndex, target, -1));
-                        numConsToTarget++;
-                    }
-                }
-                ++it_avail;
+    }
+
+    addStraightConnections(outgoing, availableLanes, priorities);
+}
+
+
+void 
+NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<unsigned int>* priorities) {
+    // ensure sufficient straight connections for the (hightest-priority straight target)
+    const int numOutgoing = (int) outgoing->size();
+    NBEdge* target = 0;
+    NBEdge* rightOfTarget = 0;
+    NBEdge* leftOfTarget = 0;
+    int maxPrio = 0;
+    for (int i = 0; i < numOutgoing; i++) {
+        if (maxPrio < (*priorities)[i]) {
+            const LinkDirection dir = myTo->getDirection(this, (*outgoing)[i]);
+            if (dir == LINKDIR_STRAIGHT) {
+                maxPrio = (*priorities)[i];
+                target = (*outgoing)[i];
+                rightOfTarget = i == 0 ? outgoing->back() : (*outgoing)[i - 1];
+                leftOfTarget = i + 1 == numOutgoing ? outgoing->front() : (*outgoing)[i + 1];
             }
         }
+    }
+    if (target == 0) {
+        return;
+    }
+    int numConsToTarget = (int)count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true));
+    int targetLanes = (int)target->getNumLanes();
+    if (target->getPermissions(0) == SVC_PEDESTRIAN) {
+        --targetLanes;
+    }
+    const int numDesiredConsToTarget = MIN2(targetLanes, (int)availableLanes.size());
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) std::cout << "  checking extra lanes for target=" << target->getID() << " maxPrioEdge=" << maxPrioEdge->getID() << " cons=" << numConsToTarget << " desired=" << numDesiredConsToTarget << "\n";
+#endif
+    std::vector<int>::const_iterator it_avail = availableLanes.begin();
+    while (numConsToTarget < numDesiredConsToTarget && it_avail != availableLanes.end()) {
+        const int fromIndex = *it_avail;
+        if (
+                // not yet connected
+                (count_if(myConnections.begin(), myConnections.end(), connections_finder(fromIndex, target, -1)) == 0)
+                // matching permissions
+                && ((getPermissions(fromIndex) & target->getPermissions()) != 0)
+                // more than pedestrians
+                && ((getPermissions(fromIndex) & target->getPermissions()) != SVC_PEDESTRIAN)
+           ) {
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) std::cout << "    candidate from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+#endif
+            // prevent same-edge conflicts
+            if (
+                    // no outgoing connections to the right from further left
+                    ((it_avail + 1) == availableLanes.end() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, rightOfTarget, false)) == 0) 
+                    // no outgoing connections to the left from further right
+                    && (it_avail == availableLanes.begin() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, leftOfTarget, true)) == 0)) {
+#ifdef DEBUG_CONNECTION_GUESSING
+                if (DEBUGCOND) std::cout << "     request additional connection from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+#endif
+                myConnections.push_back(Connection(fromIndex, target, -1));
+                numConsToTarget++;
+            } else {
+#ifdef DEBUG_CONNECTION_GUESSING
+                if (DEBUGCOND) std::cout 
+                    << "     fail check1=" 
+                        << ((it_avail + 1) == availableLanes.end() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, rightOfTarget, false)) == 0) 
+                        << " check2=" << (it_avail == availableLanes.begin() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, leftOfTarget, true)) == 0) 
+                        << " rightOfTarget=" << rightOfTarget->getID()
+                        << " leftOfTarget=" << leftOfTarget->getID()
+                        << "\n";
+#endif
+
+            }
+        }
+        ++it_avail;
     }
 }
 
