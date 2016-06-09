@@ -59,8 +59,7 @@
 #endif // CHECK_MEMORY_LEAKS
 
 //#define DEBUG_CONNECTION_GUESSING
-#define DEBUGID "disabled"
-#define DEBUGCOND false
+#define DEBUGCOND true
 
 // ===========================================================================
 // static members
@@ -118,13 +117,18 @@ NBEdge::ToEdgeConnectionsAdder::execute(const unsigned int lane, const unsigned 
  * NBEdge::MainDirections-methods
  * ----------------------------------------------------------------------- */
 NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing,
-                                       NBEdge* parent, NBNode* to) {
+                                       NBEdge* parent, NBNode* to, int indexOfStraightest) {
     if (outgoing.size() == 0) {
         return;
     }
     // check whether the right turn has a higher priority
     assert(outgoing.size() > 0);
-    if (NBNode::isTrafficLight(to->getType())) {
+    const LinkDirection straightestDir = to->getDirection(parent, outgoing[indexOfStraightest]);
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) std::cout << " MainDirections edge=" << parent->getID() << " straightest=" << outgoing[indexOfStraightest]->getID() << " dir=" << toString(straightestDir) << "\n";
+#endif
+    if (NBNode::isTrafficLight(to->getType()) && 
+            (straightestDir == LINKDIR_STRAIGHT || straightestDir == LINKDIR_PARTLEFT || straightestDir == LINKDIR_PARTRIGHT)) {
         myDirs.push_back(MainDirections::DIR_FORWARD);
         return;
     }
@@ -1860,11 +1864,11 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     // when the right turning direction has not a higher priority, divide
     //  the importance by 2 due to the possibility to leave the junction
     //  faster from this lane
-    MainDirections mainDirections(*outgoing, this, myTo);
     EdgeVector tmp(*outgoing);
     sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
     i = find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
     unsigned int dist = (unsigned int) distance(outgoing->begin(), i);
+    MainDirections mainDirections(*outgoing, this, myTo, dist);
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) std::cout << "  prepareEdgePriorities " << getID() 
         << " outgoing=" << toString(*outgoing) 

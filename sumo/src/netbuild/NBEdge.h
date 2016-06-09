@@ -1158,7 +1158,7 @@ private:
     public:
         /// constructor
         MainDirections(const EdgeVector& outgoing,
-                       NBEdge* parent, NBNode* to);
+                       NBEdge* parent, NBNode* to, int indexOfStraightest);
 
         /// destructor
         ~MainDirections();

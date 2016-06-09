@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  9 10:28:15 2016 by SUMO netconvert Version dev-SVN-r20932
+<!-- generated on Thu Jun  9 10:58:05 2016 by SUMO netconvert Version dev-SVN-r20932
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -2536,12 +2536,12 @@
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
     <tlLogic id="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" type="static" programID="0" offset="0">
-        <phase duration="36" state="GGGgGGggrrrr"/>
-        <phase duration="4" state="yyygyyggrrrr"/>
-        <phase duration="6" state="rrrGrrGGrrrr"/>
-        <phase duration="4" state="rrryrryyrrrr"/>
-        <phase duration="36" state="GrrrrrrrGGGg"/>
-        <phase duration="4" state="yrrrrrrryyyy"/>
+        <phase duration="36" state="GGGgGGggrrr"/>
+        <phase duration="4" state="yyygyyggrrr"/>
+        <phase duration="6" state="rrrGrrGGrrr"/>
+        <phase duration="4" state="rrryrryyrrr"/>
+        <phase duration="36" state="GrrrrrrrGGg"/>
+        <phase duration="4" state="yrrrrrrryyy"/>
     </tlLogic>
 
     <junction id="1292264830" type="priority" x="4422.99" y="509.31" incLanes="24214694#3_0 24214694#3_1 -114949101#0_0 -24214694#4_0 -24214694#4_1" intLanes="" shape="4417.10,514.36 4429.74,513.14 4431.37,511.40 4430.45,504.96 4428.83,503.68 4416.18,504.89">
@@ -4502,18 +4502,17 @@
         <request index="17" response="000000100001100001" foes="000000100001100001"/>
     </junction>
     <junction id="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" type="traffic_light" x="3963.91" y="431.35" incLanes="180239858#0_0 180239858#0_1 180239858#0_2 245105008#0_0 245105007_0 16942869_0 16942869_1 16942869_2 245105013_0 -206579064#2_0 -206579064#2_1 -206579064#2_2" intLanes="" shape="3971.86,437.84 3968.90,416.83 3947.70,416.92 3945.70,416.93 3936.49,419.70 3938.70,441.46 3939.35,442.54 3941.00,443.67 3956.31,437.28 3970.13,439.53">
-        <request index="0" response="000000000000" foes="100001000000"/>
-        <request index="1" response="000000000000" foes="011111000000"/>
-        <request index="2" response="000000000000" foes="011111000000"/>
-        <request index="3" response="011000110000" foes="011000110000"/>
-        <request index="4" response="000000000000" foes="011000001000"/>
-        <request index="5" response="000000000000" foes="011000001000"/>
-        <request index="6" response="000000000111" foes="111000000111"/>
-        <request index="7" response="000100000110" foes="000100000110"/>
-        <request index="8" response="000000000110" foes="000010000110"/>
-        <request index="9" response="000001110110" foes="000001111110"/>
-        <request index="10" response="000001110110" foes="000001111110"/>
-        <request index="11" response="000001000001" foes="000001000001"/>
+        <request index="0" response="00000000000" foes="10001000000"/>
+        <request index="1" response="00000000000" foes="01111000000"/>
+        <request index="2" response="00000000000" foes="01111000000"/>
+        <request index="3" response="01000110000" foes="01000110000"/>
+        <request index="4" response="00000000000" foes="01000001000"/>
+        <request index="5" response="00000000000" foes="01000001000"/>
+        <request index="6" response="00000000111" foes="11000000111"/>
+        <request index="7" response="00100000110" foes="00100000110"/>
+        <request index="8" response="00000000110" foes="00010000110"/>
+        <request index="9" response="00001110110" foes="00001111110"/>
+        <request index="10" response="00001000001" foes="00001000001"/>
     </junction>
     <junction id="cluster_1560223635_1787023433_294169342" type="priority" x="4426.88" y="549.69" incLanes="24214694#0_0 24214694#0_1 26816590#2_0 -24214694#3_0 -24214694#3_1 142575658#2_0 142575658#2_1" intLanes="" shape="4422.29,568.18 4434.93,566.96 4436.35,565.30 4435.66,558.83 4432.17,538.30 4419.53,539.52 4418.17,540.91 4417.45,551.58">
         <request index="0" response="0000000000000000" foes="1000010000100000"/>
@@ -5238,9 +5237,8 @@
     <connection from="-206579063#2" to="-206579063#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="-206579063#2" to="206579063#1" fromLane="1" toLane="2" dir="t" state="m"/>
     <connection from="-206579064#2" to="180239847" fromLane="1" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" linkIndex="8" dir="r" state="o"/>
-    <connection from="-206579064#2" to="224769559" fromLane="1" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" linkIndex="9" dir="l" state="o"/>
-    <connection from="-206579064#2" to="224769559" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" linkIndex="10" dir="l" state="o"/>
-    <connection from="-206579064#2" to="206579064#2" fromLane="2" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" linkIndex="11" dir="t" state="o"/>
+    <connection from="-206579064#2" to="224769559" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" linkIndex="9" dir="l" state="o"/>
+    <connection from="-206579064#2" to="206579064#2" fromLane="2" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585712_493585714_57343510" linkIndex="10" dir="t" state="o"/>
     <connection from="-207517673" to="143308695#1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-207517673" to="143308521#2" fromLane="0" toLane="1" dir="s" state="m"/>
     <connection from="-207517673" to="-143308521#1" fromLane="0" toLane="1" dir="l" state="m"/>
