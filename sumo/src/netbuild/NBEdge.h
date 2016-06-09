@@ -1436,16 +1436,20 @@ public:
     class connections_finder {
     public:
         /// constructor
-        connections_finder(int fromLane, NBEdge* const edge2find, int lane2find) : myFromLane(fromLane), myEdge2Find(edge2find), myLane2Find(lane2find) { }
+        connections_finder(int fromLane, NBEdge* const edge2find, int lane2find, bool invertEdge2find=false) : 
+            myFromLane(fromLane), myEdge2Find(edge2find), myLane2Find(lane2find), myInvertEdge2find(invertEdge2find) { }
 
         bool operator()(const Connection& c) const {
-            return (c.fromLane == myFromLane || myFromLane == -1) && c.toEdge == myEdge2Find && (c.toLane == myLane2Find || myLane2Find == -1);
+            return ((c.fromLane == myFromLane || myFromLane == -1) 
+                    && ((!myInvertEdge2find && c.toEdge == myEdge2Find) || (myInvertEdge2find && c.toEdge != myEdge2Find))
+                    && (c.toLane == myLane2Find || myLane2Find == -1));
         }
 
     private:
         int myFromLane;
         NBEdge* const myEdge2Find;
         int myLane2Find;
+        bool myInvertEdge2find;
 
     private:
         /// @brief invalidated assignment operator
