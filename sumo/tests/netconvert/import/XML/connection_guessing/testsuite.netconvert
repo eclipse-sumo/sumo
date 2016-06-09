@@ -5,6 +5,9 @@ test1
 # complete 4-arm intersection with 2 lanes for every edge and priority for the vertical streams
 4arm_2lane_prio_vert
 
+# complete 4-arm intersection with 2 lanes for every incoming edge, 1 lane for every outgoing edge and priority for the vertical streams
+4arm_2lane1_prio_vert
+
 # complete 4-arm intersection with 3 lanes for every edge and priority for the vertical streams
 4arm_3lane_prio_vert
 
