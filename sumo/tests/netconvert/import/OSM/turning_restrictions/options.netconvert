@@ -1,1 +1,1 @@
- --osm-files osm.xml --plain-output plain
+ --osm-files osm.xml --plain-output plain -o net.net.xml
