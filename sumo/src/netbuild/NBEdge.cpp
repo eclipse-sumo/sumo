@@ -1754,9 +1754,10 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     ToEdgeConnectionsAdder adder(transition);
     Bresenham::compute(&adder, static_cast<unsigned int>(availableLanes.size()), numVirtual);
     const std::map<NBEdge*, std::vector<unsigned int> >& l2eConns = adder.getBuiltConnections();
-    for (std::map<NBEdge*, std::vector<unsigned int> >::const_iterator i = l2eConns.begin(); i != l2eConns.end(); ++i) {
-        NBEdge* target = (*i).first;
-        const std::vector<unsigned int> lanes = (*i).second;
+    for (EdgeVector::const_iterator i = outgoing->begin(); i != outgoing->end(); ++i) {
+        NBEdge* target = (*i);
+        assert(l2eConns.find(target) != l2eConns.end());
+        const std::vector<unsigned int> lanes = (l2eConns.find(target))->second;
         for (std::vector<unsigned int>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             const int fromIndex = availableLanes[*j];
             if ((getPermissions(fromIndex) & target->getPermissions()) == 0) {
@@ -1831,7 +1832,7 @@ NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int
     }
     const int numDesiredConsToTarget = MIN2(targetLanes, (int)availableLanes.size());
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) std::cout << "  checking extra lanes for target=" << target->getID() << " maxPrioEdge=" << maxPrioEdge->getID() << " cons=" << numConsToTarget << " desired=" << numDesiredConsToTarget << "\n";
+    if (DEBUGCOND) std::cout << "  checking extra lanes for target=" << target->getID() << " cons=" << numConsToTarget << " desired=" << numDesiredConsToTarget << "\n";
 #endif
     std::vector<int>::const_iterator it_avail = availableLanes.begin();
     while (numConsToTarget < numDesiredConsToTarget && it_avail != availableLanes.end()) {
@@ -1928,6 +1929,15 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     }
     if (NBNode::isTrafficLight(myTo->getType())) {
         (*priorities)[dist] += 1;
+    } else {
+        // try to ensure separation of left turns
+        if (mainDirections.includes(MainDirections::DIR_RIGHTMOST) && mainDirections.includes(MainDirections::DIR_LEFTMOST)) {
+            (*priorities)[0] /= 4;
+            (*priorities)[(int)priorities->size() - 1] /=2;
+#ifdef DEBUG_CONNECTION_GUESSING
+        if (DEBUGCOND) std::cout << "   priorities6=" << toString(*priorities) << "\n";
+#endif
+        }
     }
     if (mainDirections.includes(MainDirections::DIR_FORWARD)) {
         if (myLanes.size() > 2) {

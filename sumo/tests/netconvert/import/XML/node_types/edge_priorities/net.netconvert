@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:05 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Jun  9 14:47:35 2016 by SUMO netconvert Version dev-SVN-r20942
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
         <lane id=":0_0_0" index="0" speed="11.11" length="7.85" shape="495.05,508.05 494.86,505.25 494.28,503.25 493.31,502.05 491.95,501.65"/>
     </edge>
     <edge id=":0_1" function="internal">
-        <lane id=":0_1_0" index="0" speed="11.11" length="16.10" shape="498.35,508.05 498.35,502.84 498.35,498.86 498.35,495.44 498.35,491.95"/>
+        <lane id=":0_1_0" index="0" speed="11.11" length="16.51" shape="495.05,508.05 495.57,502.77 496.70,498.79 497.83,495.42 498.35,491.95"/>
     </edge>
     <edge id=":0_2" function="internal">
         <lane id=":0_2_0" index="0" speed="11.11" length="15.64" shape="498.35,508.05 498.96,503.81 500.78,500.77 503.81,498.96 508.05,498.35"/>
@@ -56,7 +56,7 @@
         <lane id=":0_8_0" index="0" speed="11.11" length="7.85" shape="504.95,491.95 505.14,494.75 505.72,496.75 506.69,497.95 508.05,498.35"/>
     </edge>
     <edge id=":0_9" function="internal">
-        <lane id=":0_9_0" index="0" speed="11.11" length="16.10" shape="501.65,491.95 501.65,497.16 501.65,501.14 501.65,504.56 501.65,508.05"/>
+        <lane id=":0_9_0" index="0" speed="11.11" length="16.51" shape="504.95,491.95 504.43,497.23 503.30,501.21 502.17,504.58 501.65,508.05"/>
     </edge>
     <edge id=":0_10" function="internal">
         <lane id=":0_10_0" index="0" speed="11.11" length="15.64" shape="501.65,491.95 501.04,496.19 499.22,499.23 496.19,501.04 491.95,501.65"/>
@@ -171,12 +171,12 @@
     <connection from="2fi" to="2o" fromLane="1" toLane="0" via=":0_7_0" dir="t" state="m"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
     <connection from="3fi" to="2o" fromLane="0" toLane="0" via=":0_8_0" dir="r" state="m"/>
-    <connection from="3fi" to="4o" fromLane="1" toLane="0" via=":0_9_0" dir="s" state="m"/>
+    <connection from="3fi" to="4o" fromLane="0" toLane="0" via=":0_9_0" dir="s" state="m"/>
     <connection from="3fi" to="1o" fromLane="1" toLane="0" via=":0_10_0" dir="l" state="m"/>
     <connection from="3fi" to="3o" fromLane="1" toLane="0" via=":0_11_0" dir="t" state="m"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" via=":3_0_0" dir="t" state="M"/>
     <connection from="4fi" to="1o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="m"/>
-    <connection from="4fi" to="3o" fromLane="1" toLane="0" via=":0_1_0" dir="s" state="m"/>
+    <connection from="4fi" to="3o" fromLane="0" toLane="0" via=":0_1_0" dir="s" state="m"/>
     <connection from="4fi" to="2o" fromLane="1" toLane="0" via=":0_2_0" dir="l" state="m"/>
     <connection from="4fi" to="4o" fromLane="1" toLane="0" via=":0_3_0" dir="t" state="m"/>
     <connection from="4o" to="4fi" fromLane="0" toLane="1" via=":4_0_0" dir="t" state="M"/>
