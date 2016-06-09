@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Jun  9 10:28:15 2016 by SUMO netconvert Version dev-SVN-r20932
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -1247,11 +1246,12 @@
         <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="56231397" type="priority" x="496.50" y="825.23" z="35.62" incLanes="143308590#1_0 143308590#1_1 143308535_0 143308535_1" intLanes="" shape="500.31,829.50,35.62 501.84,823.18,35.62 500.57,820.81,35.62 494.17,819.69,35.62 492.47,820.77,35.62 490.77,827.05,35.62 492.19,828.99,35.62 498.48,830.60,35.62">
-        <request index="0" response="00000" foes="00000"/>
-        <request index="1" response="00000" foes="11000"/>
-        <request index="2" response="00000" foes="11000"/>
-        <request index="3" response="00110" foes="00110"/>
-        <request index="4" response="00110" foes="00110"/>
+        <request index="0" response="000000" foes="011000"/>
+        <request index="1" response="000000" foes="111000"/>
+        <request index="2" response="000000" foes="111000"/>
+        <request index="3" response="000111" foes="000111"/>
+        <request index="4" response="000111" foes="000111"/>
+        <request index="5" response="000110" foes="000110"/>
     </junction>
     <junction id="56231597" type="priority" x="636.55" y="818.99" z="34.82" incLanes="148974804_0 -81096582_0 127418565_0 -26816413#0_0 148974800_0" intLanes="" shape="644.94,820.75,34.82 645.12,818.76,34.82 644.92,817.87,34.82 641.65,812.25,34.82 636.89,811.56,34.82 634.89,811.74,34.82 633.92,812.22,34.82 629.55,817.04,34.82 630.86,820.23,34.82 632.27,823.57,34.82 634.66,822.89,34.82 637.85,823.12,34.82">
         <request index="0" response="000000000" foes="100010000"/>
@@ -1571,7 +1571,8 @@
     <connection from="143308532#1" to="143308532#2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="143308532#2" to="143308532#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308532#2" to="143308532#3" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="143308535" to="143308542#0" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="143308535" to="143308542#0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="143308535" to="143308542#0" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="143308535" to="143308581" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="143308538" to="143308532#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308538" to="143308532#0" fromLane="0" toLane="1" dir="s" state="M"/>

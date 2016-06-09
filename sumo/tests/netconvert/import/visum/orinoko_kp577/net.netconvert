@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:29 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Jun  8 16:48:25 2016 by SUMO netconvert Version dev-SVN-r20924
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1017,7 +1017,7 @@
     <connection from="905006119" to="905006120" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="905006119" to="-905006119" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="905006120" to="905006042" fromLane="0" toLane="0" tl="1560" linkIndex="11" dir="r" state="o"/>
-    <connection from="905006120" to="545285126" fromLane="1" toLane="0" tl="1560" linkIndex="10" dir="s" state="o"/>
+    <connection from="905006120" to="545285126" fromLane="0" toLane="0" tl="1560" linkIndex="10" dir="s" state="o"/>
     <connection from="905006120" to="53091615" fromLane="1" toLane="0" tl="1560" linkIndex="9" dir="l" state="o"/>
     <connection from="905006120" to="-905006120" fromLane="1" toLane="0" dir="t" state="m"/>
     <connection from="905006352" to="-905005626" fromLane="0" toLane="0" dir="r" state="m"/>

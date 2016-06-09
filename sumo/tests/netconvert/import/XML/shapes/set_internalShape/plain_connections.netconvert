@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:05 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Jun  9 09:40:27 2016 by SUMO netconvert Version dev-SVN-r20932
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -41,7 +41,8 @@
     <connection from="EC" to="CE" fromLane="2" toLane="2"/>
 
     <connection from="NC" to="CW" fromLane="0" toLane="0"/>
-    <connection from="NC" to="CE" fromLane="1" toLane="1"/>
+    <connection from="NC" to="CW" fromLane="1" toLane="1"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="1"/>
     <connection from="NC" to="CE" fromLane="2" toLane="2"/>
     <connection from="NC" to="CN" fromLane="2" toLane="2"/>
 
@@ -52,7 +53,7 @@
     <connection from="WC" to="CN" fromLane="2" toLane="2"/>
     <connection from="WC" to="CW" fromLane="2" toLane="2"/>
 
-    <customShape id=":C_12_0" shape="88.65,98.35 100.78,99.16 102.64,100.05"/>
-    <customShape id=":C_17_0" shape="102.64,100.05 104.87,106.60 104.99,111.22"/>
-    <customShape id=":C_9_1" shape="88.65,95.05 100.00,80.00 111.35,95.05"/>
+    <customShape id=":C_10_1" shape="88.65,95.05 100.00,80.00 111.35,95.05"/>
+    <customShape id=":C_13_0" shape="88.65,98.35 100.78,99.16 102.64,100.05"/>
+    <customShape id=":C_18_0" shape="102.64,100.05 104.87,106.60 104.99,111.22"/>
 </connections>

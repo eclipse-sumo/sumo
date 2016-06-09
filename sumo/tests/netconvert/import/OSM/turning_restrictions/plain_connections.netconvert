@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Jun  9 10:28:15 2016 by SUMO netconvert Version dev-SVN-r20932
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -51,9 +50,10 @@
     <connection from="-105" to="105" fromLane="2" toLane="2"/>
 
     <connection from="-106" to="-204" fromLane="0" toLane="0"/>
-    <connection from="-106" to="105" fromLane="0" toLane="1"/>
-    <connection from="-106" to="105" fromLane="1" toLane="2"/>
+    <connection from="-106" to="105" fromLane="0" toLane="0"/>
+    <connection from="-106" to="105" fromLane="1" toLane="1"/>
     <connection from="-106" to="205" fromLane="1" toLane="1"/>
+    <connection from="-106" to="105" fromLane="2" toLane="2"/>
     <connection from="-106" to="205" fromLane="2" toLane="2"/>
     <connection from="-106" to="106" fromLane="2" toLane="2"/>
 

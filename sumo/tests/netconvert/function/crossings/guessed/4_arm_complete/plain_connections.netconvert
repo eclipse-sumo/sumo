@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:38 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Jun  8 16:31:05 2016 by SUMO netconvert Version dev-SVN-r20924
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -29,6 +29,7 @@
 
 <connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="EC" to="CN" fromLane="2" toLane="2"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2"/>
     <connection from="EC" to="CW" fromLane="3" toLane="3"/>
     <connection from="EC" to="CS" fromLane="3" toLane="3"/>
 
@@ -43,6 +44,7 @@
     <connection from="SC" to="CW" fromLane="3" toLane="3"/>
 
     <connection from="WC" to="CS" fromLane="2" toLane="2"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2"/>
     <connection from="WC" to="CE" fromLane="3" toLane="3"/>
     <connection from="WC" to="CN" fromLane="3" toLane="3"/>
 

@@ -31,6 +31,8 @@
 	<connection from="ErnstRuska3O" to="ErnstRuska4O" fromLane="1" toLane="1"/>
 	<connection from="ErnstRuska3O" to="VolmerN" fromLane="1" toLane="0"/>
 
+	<connection from="AltglienickerBreitN" to="ErnstRuska5O" fromLane="0" toLane="0"/>
+	<connection from="AltglienickerBreitN" to="ErnstRuska4W" fromLane="1" toLane="1"/>
 
 
 </connections>
