@@ -1439,7 +1439,7 @@ public:
         connections_finder(int fromLane, NBEdge* const edge2find, int lane2find) : myFromLane(fromLane), myEdge2Find(edge2find), myLane2Find(lane2find) { }
 
         bool operator()(const Connection& c) const {
-            return c.fromLane == myFromLane && c.toEdge == myEdge2Find && c.toLane == myLane2Find;
+            return (c.fromLane == myFromLane || myFromLane == -1) && c.toEdge == myEdge2Find && (c.toLane == myLane2Find || myLane2Find == -1);
         }
 
     private:
