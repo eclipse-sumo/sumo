@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 09Jun10:18:47]
+search_string:<connection from="3" to="-4" fromLane="1" toLane="1" dir="s" state="m"/>
+search_file:net
+full_description:some straight connections missing
+brief_description:see #1219
