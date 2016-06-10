@@ -80,7 +80,7 @@ if test -e $PREFIX/sumo/src/sumo_main.gcda; then
   tests/runInternalTests.py --gui "b $FILEPREFIX" &>> $TESTLOG
   $SIP_HOME/tests/runTests.sh -b $FILEPREFIX &>> $TESTLOG
   make lcov >> $TESTLOG 2>&1 || (echo "make lcov failed"; tail -10 $TESTLOG)
-#  rsync -rcz $PREFIX/sumo/docs/lcov $REMOTEDIR # this would currently copy around 3GiB
+  rsync -rcz $PREFIX/sumo/docs/lcov $REMOTEDIR
 fi
 
 echo "--" >> $STATUSLOG
