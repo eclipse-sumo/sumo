@@ -1379,7 +1379,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     if (perpDist != GeomHelper::INVALID_OFFSET) {
                         lanePosLat = perpDist;
                         if (!mayLeaveNetwork) {
-                            lanePosLat = MIN2(lanePosLat, 0.5 * (lane->getWidth() + v->getVehicleType().getWidth() - MSGlobals::gLateralResolution));
+                            lanePosLat = MIN2(lanePosLat, (SUMOReal)0.5 * (lane->getWidth() + v->getVehicleType().getWidth() - MSGlobals::gLateralResolution));
                         }
                         // figure out whether the offset is to the left or to the right
                         PositionVector tmp = lane->getShape();
