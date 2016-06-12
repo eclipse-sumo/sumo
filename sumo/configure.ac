@@ -35,7 +35,7 @@ fi
 
 AC_ARG_ENABLE([coverage], [AS_HELP_STRING([--enable-coverage],[enable compilation of gcov coverage code [default=no].])])
 if test x$enable_coverage = xyes; then
-    CXXFLAGS="-fprofile-arcs -ftest-coverage $CXXFLAGS"
+    CXXFLAGS="-fprofile-arcs -ftest-coverage $CXXFLAGS -O0"
     ac_enabled="$ac_enabled Coverage"
 else
     ac_disabled="$ac_disabled Coverage"

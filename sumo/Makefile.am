@@ -20,7 +20,7 @@ doxygen:
 lcov:
 	rm -rf docs/lcov
 	mkdir docs/lcov
-	lcov -d . -c --output-file docs/lcov/lcov.info
+	lcov -d . -c --no-external --output-file docs/lcov/lcov.info
 	genhtml -o docs/lcov/html docs/lcov/lcov.info
 
 lcov-reset:
