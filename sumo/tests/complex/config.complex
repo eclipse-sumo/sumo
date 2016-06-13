@@ -74,7 +74,6 @@ results:0.00101
 tripinfo:0.0101
 
 [batch_extra_version]
-gcc4:perf
 gcc4_64:perf
 msvc12Win32:perf
 msvc12x64:perf
