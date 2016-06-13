@@ -1652,8 +1652,8 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, SUMOReal& latDist, int lane
     }
     if (collectFollowBlockers != 0 && collectLeadBlockers != 0) {
         // prevent vehicles from being classified as leader and follower simultaneously
-        for (std::vector<CLeaderDist>::iterator it = collectFollowBlockers->begin(); it != collectFollowBlockers->end();) {
-            for (std::vector<CLeaderDist>::const_iterator it2 = collectLeadBlockers->begin(); it2 != collectLeadBlockers->end(); ++it2) {
+        for (std::vector<CLeaderDist>::const_iterator it2 = collectLeadBlockers->begin(); it2 != collectLeadBlockers->end(); ++it2) {
+            for (std::vector<CLeaderDist>::iterator it = collectFollowBlockers->begin(); it != collectFollowBlockers->end();) {
                 if ((*it2).first == (*it).first) {
                     if (gDebugFlag2) {
                         std::cout << "    removed follower " << (*it).first->getID() << " because it is already a leader\n";
