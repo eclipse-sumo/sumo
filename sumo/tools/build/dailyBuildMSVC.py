@@ -68,11 +68,15 @@ def repositoryUpdate(options, repoLogFile):
     return svnrev
 
 
-def runTests(options, env, testLog, svnrev):
+def runTests(options, env, svnrev, debugSuffix=""):
     if options.no_tests:
         return
+    prefix = env["FILEPREFIX"] + debugSuffix
+    env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, prefix + "batch_result")
+    env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
+    testLog = os.path.join(options.remoteDir, prefix + "test.log")
     env["TEXTTEST_TMP"] = os.path.join(
-        options.rootDir, env["FILEPREFIX"] + "texttesttmp")
+        options.rootDir, prefix + "texttesttmp")
     env["TEXTTEST_HOME"] = os.path.join(options.rootDir, options.testsDir)
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
@@ -80,7 +84,7 @@ def runTests(options, env, testLog, svnrev):
     for name in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", "netgenerate",
                  "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen",
                  "emissionsDrivingCycle", "emissionsMap"]:
-        binary = os.path.join(options.rootDir, options.binDir, name + ".exe")
+        binary = os.path.join(options.rootDir, options.binDir, name + debugSuffix + ".exe")
         if name == "sumo-gui":
             if os.path.exists(binary):
                 env["GUISIM_BINARY"] = binary
@@ -88,7 +92,7 @@ def runTests(options, env, testLog, svnrev):
             env[name.upper() + "_BINARY"] = binary
     log = open(testLog, 'w')
     # provide more information than just the date:
-    fullOpt = ["-b", env["FILEPREFIX"], "-name", "%sr%s" %
+    fullOpt = ["-b", prefix, "-name", "%sr%s" %
                (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
@@ -117,8 +121,6 @@ optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"trunk\sumo\
 optParser.add_option("-m", "--remote-dir", dest="remoteDir",
                      default=r"O:\Daten\Sumo\daily",
                      help="directory to move the results to")
-optParser.add_option("-a", "--add-build-config-prefix", dest="addConf",
-                     help="prefix of an additional configuration to build")
 optParser.add_option("-l", "--add-solution", dest="addSln",
                      default=r"trunk\sumo\build\msvc10\tools.sln",
                      help="path to an additional solution to build")
@@ -165,10 +167,6 @@ for platform, dllDir in platformDlls:
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
     statusLog = prefix + "status.log"
-    testLog = prefix + "test.log"
-    env["SUMO_BATCH_RESULT"] = os.path.join(
-        options.rootDir, env["FILEPREFIX"] + "batch_result")
-    env["SUMO_REPORT"] = prefix + "report"
     binDir = "sumo-svn/bin/"
 
     for f in [makeLog, makeAllLog] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
@@ -178,9 +176,6 @@ for platform, dllDir in platformDlls:
             pass
     subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
                     (platform, options.rootDir, options.project, makeLog))
-    if options.addConf:
-        subprocess.call(compiler + " /rebuild %sRelease|%s %s\\%s /out %s" %
-                        (options.addConf, platform, options.rootDir, options.project, makeLog))
     if options.addSln:
         subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.addSln, makeLog))
@@ -236,13 +231,14 @@ for platform, dllDir in platformDlls:
     log.close()
     subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
                     (platform, options.rootDir, options.project, makeAllLog))
-    if options.addConf:
-        subprocess.call(compiler + " /rebuild %sDebug|%s %s\\%s /out %s" %
-                        (options.addConf, platform, options.rootDir, options.project, makeAllLog))
     if options.addSln:
         subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.addSln, makeAllLog))
-    runTests(options, env, testLog, svnrev)
+    runTests(options, env, svnrev)
     log = open(statusLog, 'w')
     status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
     log.close()
+runTests(options, env, svnrev, "D")
+log = open(prefix + "Dstatus.log", 'w')
+status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
+log.close()
