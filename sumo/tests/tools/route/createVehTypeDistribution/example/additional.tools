@@ -1,0 +1,14 @@
+<additional>
+  <vTypeDistribution ID="exampleDist">
+    <vType ID="exampleDist0" carFollowModel="Krauss" class="passenger" length="5.037" probability="1" sigma="0.547" tau="0.863"/>
+    <vType ID="exampleDist1" carFollowModel="Krauss" class="passenger" length="4.656" probability="1" sigma="0.534" tau="0.787"/>
+    <vType ID="exampleDist2" carFollowModel="Krauss" class="passenger" length="5.386" probability="1" sigma="0.519" tau="0.968"/>
+    <vType ID="exampleDist3" carFollowModel="Krauss" class="passenger" length="4.882" probability="1" sigma="0.538" tau="0.843"/>
+    <vType ID="exampleDist4" carFollowModel="Krauss" class="passenger" length="5.249" probability="1" sigma="0.698" tau="0.818"/>
+    <vType ID="exampleDist5" carFollowModel="Krauss" class="passenger" length="4.829" probability="1" sigma="0.377" tau="0.857"/>
+    <vType ID="exampleDist6" carFollowModel="Krauss" class="passenger" length="4.657" probability="1" sigma="0.156" tau="0.784"/>
+    <vType ID="exampleDist7" carFollowModel="Krauss" class="passenger" length="4.705" probability="1" sigma="0.756" tau="0.807"/>
+    <vType ID="exampleDist8" carFollowModel="Krauss" class="passenger" length="4.720" probability="1" sigma="0.090" tau="0.807"/>
+    <vType ID="exampleDist9" carFollowModel="Krauss" class="passenger" length="5.052" probability="1" sigma="0.258" tau="0.773"/>
+  </vTypeDistribution>
+</additional>
