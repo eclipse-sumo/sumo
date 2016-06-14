@@ -22,4 +22,3 @@ route2poly
 # Cut down routes from a large scenario to a sub-scenario
 cut_routes
 routeStats
-createVehTypeDistribution
