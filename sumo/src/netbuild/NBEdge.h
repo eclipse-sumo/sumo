@@ -1228,18 +1228,18 @@ private:
     /** divides the lanes on the outgoing edges */
     void divideOnEdges(const EdgeVector* outgoing);
     void divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes,
-                                    const std::vector<unsigned int>* priorities);
+                                    const std::vector<int>* priorities);
 
     /// @brief add some straight connections
-    void addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<unsigned int>* priorities); 
+    void addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities); 
 
     /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
-    std::vector<unsigned int>* prepareEdgePriorities(
+    std::vector<int>* prepareEdgePriorities(
         const EdgeVector* outgoing);
 
     /** computes the sum of the given list's entries (sic!) */
-    static unsigned int computePrioritySum(const std::vector<unsigned int>& priorities);
+    static int computePrioritySum(const std::vector<int>& priorities);
 
 
     /// @name Setting and getting connections

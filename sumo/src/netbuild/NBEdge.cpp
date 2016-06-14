@@ -1645,7 +1645,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     }
     // precompute edge priorities; needed as some kind of assumptions for
     //  priorities of directions (see preparePriorities)
-    std::vector<unsigned int>* priorities = prepareEdgePriorities(outgoing);
+    std::vector<int>* priorities = prepareEdgePriorities(outgoing);
     // compute the indices of lanes that should have connections (excluding
     // forbidden lanes and pedestrian lanes that will be connected via walkingAreas)
 
@@ -1715,10 +1715,10 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
 
 
 void
-NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<unsigned int>* priorities) {
+NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities) {
     //std::cout << "divideSelectedLanesOnEdges " << getID() << " out=" << toString(*outgoing) << " prios=" << toString(*priorities) << " avail=" << toString(availableLanes) << "\n";
     // compute the sum of priorities (needed for normalisation)
-    unsigned int prioSum = computePrioritySum(*priorities);
+    int prioSum = computePrioritySum(*priorities);
     // compute the resulting number of lanes that should be used to
     //  reach the following edge
     const int numOutgoing = (int) outgoing->size();
@@ -1820,7 +1820,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
 
 
 void 
-NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<unsigned int>* priorities) {
+NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities) {
     // ensure sufficient straight connections for the (hightest-priority straight target)
     const int numOutgoing = (int) outgoing->size();
     NBEdge* target = 0;
@@ -1893,10 +1893,10 @@ NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int
 }
 
 
-std::vector<unsigned int>*
+std::vector<int>*
 NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     // copy the priorities first
-    std::vector<unsigned int>* priorities = new std::vector<unsigned int>();
+    std::vector<int>* priorities = new std::vector<int>();
     if (outgoing->size() == 0) {
         return priorities;
     }
@@ -1973,11 +1973,11 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
 }
 
 
-unsigned int
-NBEdge::computePrioritySum(const std::vector<unsigned int>& priorities) {
-    unsigned int sum = 0;
-    for (std::vector<unsigned int>::const_iterator i = priorities.begin(); i != priorities.end(); i++) {
-        sum += (int) * i;
+int
+NBEdge::computePrioritySum(const std::vector<int>& priorities) {
+    int sum = 0;
+    for (std::vector<int>::const_iterator i = priorities.begin(); i != priorities.end(); i++) {
+        sum += *i;
     }
     return sum;
 }

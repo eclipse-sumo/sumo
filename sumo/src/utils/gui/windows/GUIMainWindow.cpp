@@ -192,6 +192,7 @@ GUIMainWindow::getActiveView() const {
     if (w != 0) {
         return w->getView();
     }
+    return 0;
 }
 
 /****************************************************************************/
