@@ -1250,7 +1250,8 @@ void
 GUIDialog_ViewSettings::rebuildList() {
     myDecalsTable->clearItems();
     // set table attributes
-    myDecalsTable->setTableSize(10, 7);
+    const int numRows = MAX2((int)10, (int)myDecals->size() + 1);
+    myDecalsTable->setTableSize(numRows, 7);
     myDecalsTable->setColumnText(0, "picture file");
     myDecalsTable->setColumnText(1, "center x");
     myDecalsTable->setColumnText(2, "center y");
