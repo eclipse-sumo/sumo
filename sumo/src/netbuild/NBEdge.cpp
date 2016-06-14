@@ -1748,7 +1748,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     //  a virtual edge is used as a replacement for a real edge from now on
     //  it shall allow to divide the existing lanes on this structure without
     //  regarding the structure of outgoing edges
-    const int numVirtual = (int)(sumResulting / minResulting + 0.5);
+    int numVirtual = 0;
     // compute the transition from virtual to real edges
     EdgeVector transition;
     transition.reserve(numOutgoing);
@@ -1756,7 +1756,8 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
         // tmpNo will be the number of connections from this edge
         //  to the next edge
         assert(i < (int)resultingLanes.size());
-        const SUMOReal tmpNum = resultingLanes[i] / minResulting;
+        const int tmpNum = (int)std::ceil(resultingLanes[i] / minResulting);
+        numVirtual += tmpNum;
         for (SUMOReal j = 0; j < tmpNum; j++) {
             transition.push_back((*outgoing)[i]);
         }
