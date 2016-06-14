@@ -315,24 +315,29 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 void
 GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
-    undoList->p_begin("delete lane");
     GNEEdge* edge = &lane->getParentEdge();
-    const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
-    const bool sidewalk = laneAttrs.permissions == SVC_PEDESTRIAN;
-    undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false), true);
-    if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(lane->getGlID());
-        undoList->add(new GNEChange_Selection(std::set<GUIGlID>(), deselected, true), true);
+    if (edge->getNBEdge()->getNumLanes() == 1) {
+        // remove the whole edge instead
+        deleteEdge(edge, undoList);
+    } else {
+        undoList->p_begin("delete lane");
+        const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
+        const bool sidewalk = laneAttrs.permissions == SVC_PEDESTRIAN;
+        undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false), true);
+        if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+            std::set<GUIGlID> deselected;
+            deselected.insert(lane->getGlID());
+            undoList->add(new GNEChange_Selection(std::set<GUIGlID>(), deselected, true), true);
+        }
+        if (sidewalk) {
+            edge->getSource()->removeFromCrossings(edge, undoList);
+            edge->getDest()->removeFromCrossings(edge, undoList);
+            edge->getSource()->setLogicValid(false, undoList);
+            edge->getDest()->setLogicValid(false, undoList);
+        }
+        requireRecompute();
+        undoList->p_end();
     }
-    if (sidewalk) {
-        edge->getSource()->removeFromCrossings(edge, undoList);
-        edge->getDest()->removeFromCrossings(edge, undoList);
-        edge->getSource()->setLogicValid(false, undoList);
-        edge->getDest()->setLogicValid(false, undoList);
-    }
-    requireRecompute();
-    undoList->p_end();
 }
 
 
