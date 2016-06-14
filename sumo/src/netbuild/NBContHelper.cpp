@@ -307,17 +307,19 @@ NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge
                               || (e1->getToNode() == myNode && e2->getToNode() == myNode));
         if (sameDir) {
             // put edges that allow pedestrians on the 'outside', but be aware if both allow / disallow
+            const bool e1Peds = (e1->getPermissions() & SVC_PEDESTRIAN) != 0;
+            const bool e2Peds = (e2->getPermissions() & SVC_PEDESTRIAN) != 0;
             if (e1->getToNode() == myNode) {
-                if ((e1->getPermissions() & SVC_PEDESTRIAN) != 0) {
-                    if ((e2->getPermissions() & SVC_PEDESTRIAN) == 0) {
-                        return true;
-                    }
+                if (e1Peds && !e2Peds) {                   
+                    return true;                    
+                } else if (!e1Peds && e2Peds) {
+                    return false;
                 }
             } else {
-                if ((e1->getPermissions() & SVC_PEDESTRIAN) == 0) {
-                    if ((e2->getPermissions() & SVC_PEDESTRIAN) != 0) {
-                        return true;
-                    }
+                if (!e1Peds && e2Peds) {
+                    return true;
+                } else if (e1Peds && !e2Peds) {
+                     return false;
                 }
             }
             // break ties to ensure strictly weak ordering
