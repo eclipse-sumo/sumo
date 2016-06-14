@@ -2,6 +2,7 @@
 """
 @file    createVehTypeDistribution.py
 @author  Mirko Barthauer (Technische Universitaet Braunschweig, Institut fuer Verkehr und Stadtbauwesen)
+@author  Jakob.Erdmann@dlr.de
 @date    2016-06-09
 @version $Id$
 
@@ -119,9 +120,10 @@ def get_options(args=None):
     argParser.add_argument(
         "-n", "--name", dest="vehDistName", default="vehDist", help="alphanumerical ID used for the created vehicle type distribution")
     argParser.add_argument(
-        "-v", "--vehicle-count", type=int, default=100, dest="vehicleCount", help="number of members per vehicle type distribution")
+        "-s", "--size", type=int, default=100, dest="vehicleCount", help="number of vTypes in the distribution")
     argParser.add_argument(
         "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for numeric attribute values")    
+    argParser.add_argument("--seed", type=int, help="random seed", default=42)
     
     options = argParser.parse_args()
     return options
@@ -178,6 +180,8 @@ def readConfigFile(filePath):
     return result    
 
 def main(options):  
+    if options.seed:
+        random.seed(options.seed)
     vTypeParameters = readConfigFile(options.configFile)
     useExistingFile = False
     if os.path.exists(options.outputFile):
