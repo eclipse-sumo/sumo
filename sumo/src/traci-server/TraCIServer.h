@@ -108,7 +108,7 @@ public:
     /// @brief process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
 
-    void setVTDControlled(MSVehicle* v, MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle,
+    void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle,
                           int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
     void postProcessVTD();

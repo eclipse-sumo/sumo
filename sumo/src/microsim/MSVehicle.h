@@ -1213,7 +1213,7 @@ public:
             return myOriginalSpeed;
         }
 
-        void setVTDControlled(MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
+        void setVTDControlled(Position xyPos, MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
 
         SUMOTime getLastAccessTimeStep() const {
             return myLastVTDAccess;
@@ -1259,6 +1259,7 @@ public:
         /// @brief Whether red lights are a reason to brake
         bool myEmergencyBrakeRedLight;
 
+        Position myVTDXYPos;
         MSLane* myVTDLane;
         SUMOReal myVTDPos;
         SUMOReal myVTDPosLat;
@@ -1303,7 +1304,7 @@ public:
     int influenceChangeDecision(int state);
 
     /// @brief sets position outside the road network
-    void setVTDState(MSLane* lane, SUMOReal pos, SUMOReal posLat);
+    void setVTDState(Position xyPos);
 
     /// @brief compute safe speed for following the given leader
     SUMOReal getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,

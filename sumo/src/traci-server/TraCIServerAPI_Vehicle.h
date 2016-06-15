@@ -84,7 +84,7 @@ private:
 
 
     static const std::map<std::string, std::vector<MSLane*> >& getOrBuildVTDMap();
-    static bool vtdMap(const Position& pos, const std::string& origID, const SUMOReal angle, MSVehicle& v, TraCIServer& server,
+    static bool vtdMap(const Position& pos, SUMOReal maxRouteDistance, const std::string& origID, const SUMOReal angle, MSVehicle& v, TraCIServer& server,
                        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 
     static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& v,
