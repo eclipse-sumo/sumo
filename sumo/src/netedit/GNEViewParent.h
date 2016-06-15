@@ -41,13 +41,17 @@
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUISUMOAbstractView;
 class GNENet;
 class GNEApplicationWindow;
+class GNEInspectorFrame;
+class GNESelectorFrame;
+class GNEConnectorFrame;
+class GNETLSEditorFrame;
+class GNEAdditionalFrame;
 
 // ===========================================================================
 // class declarations
@@ -63,11 +67,11 @@ class GNEApplicationWindow;
  * The rest of the window is a canvas that contains the display itself
  */
 class GNEViewParent : public GUIGlChildWindow {
-    // FOX-declarations
+    /// @brief FOX-declaration
     FXDECLARE(GNEViewParent)
 
 public:
-    /** @brief Constructor
+    /**@brief Constructor
      * also builds the view and calls create()
      *
      * @param[in] p The MDI-pane this window is shown within
@@ -85,14 +89,40 @@ public:
      */
     GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                   const FXString& name, GNEApplicationWindow* parentWindow,
-                  FXGLCanvas* share, GNENet* net,
+                  FXGLCanvas* share, GNENet* net, GNEUndoList *undoList,
                   FXIcon* ic = NULL, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
-
 
     /// @brief Destructor
     ~GNEViewParent();
 
+    /// @brief get frame for GNE_MODE_INSPECT
+    GNEInspectorFrame* getInspectorFrame() const;
 
+    /// @brief get frame for GNE_MODE_SELECT
+    GNESelectorFrame* getSelectorFrame() const;
+
+    /// @brief get frame for GNE_MODE_CONNECT
+    GNEConnectorFrame* getConnectorFrame() const;
+
+    /// @brief get frame for GNE_MODE_TLS
+    GNETLSEditorFrame* getTLSEditorFrame() const;
+
+    /// @brief get frame for GNE_MODE_ADDITIONAL
+    GNEAdditionalFrame* getAdditionalFrame() const;
+
+    /// @brief show frames area if at least a GNEFrame is showed
+    /// @note this function is called in GNEFrame::Show();
+    void showFramesArea();
+
+    /// @brief hide frames area if all GNEFrames are hidden
+    /// @note this function is called in GNEFrame::Show();
+    void hideFramesArea();
+
+    /// @brief get width of the Frames Area
+    int getFramesAreaWidth();
+
+    /// @name FOX-callbacks
+    /// @{
     /// @brief Called if the user wants to make a snapshot (screenshot)
     long onCmdMakeSnapshot(FXObject* sender, FXSelector, void*);
 
@@ -102,22 +132,44 @@ public:
     /// @brief locator-callback
     long onCmdLocate(FXObject*, FXSelector, void*);
 
-    /// @brief handle keys
+    /// @brief Called when user press a key
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
+
+    /// @brief Called when user releases a key
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
+    /// @}
 
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
     bool isSelected(GUIGlObject* o) const;
 
 protected:
     /// @brief FOX needs this
-    GNEViewParent() { }
-
+    GNEViewParent() {}
 
 private:
-
-    // frame to hold myView and myAttributePanel
+    /// @brief frame to hold myView and myAttributePanel
     FXHorizontalFrame* myViewArea;
+
+    /// @brief frame to hold GNEFrames
+    FXHorizontalFrame* myFramesArea;
+
+    /// @brief Splitter to divide ViewNet und GNEFrames
+    FXSplitter *myFramesSplitter;
+
+    /// @brief the panel for GNE_MODE_INSPECT
+    GNEInspectorFrame* myInspectorFrame;
+
+    /// @brief the panel for GNE_MODE_SELECT
+    GNESelectorFrame* mySelectorFrame;
+
+    /// @brief the panel for GNE_MODE_CONNECT
+    GNEConnectorFrame* myConnectorFrame;
+
+    /// @brief the panel for GNE_MODE_TLS
+    GNETLSEditorFrame* myTLSEditorFrame;
+
+    /// @brief the panel for GNE_MODE_ADDITIONAL
+    GNEAdditionalFrame* myAdditionalFrame;
 };
 
 

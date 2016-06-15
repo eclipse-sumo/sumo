@@ -68,21 +68,31 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 }
 
 
-void GNEChange_Attribute::undo() {
+void
+GNEChange_Attribute::undo() {
     myAC->setAttribute(myKey, myOrigValue);
 }
 
 
-void GNEChange_Attribute::redo() {
+void
+GNEChange_Attribute::redo() {
     myAC->setAttribute(myKey, myNewValue);
 }
 
 
-FXString GNEChange_Attribute::undoName() const {
+bool
+GNEChange_Attribute::trueChange() {
+    return myOrigValue != myNewValue;
+}
+
+
+FXString
+GNEChange_Attribute::undoName() const {
     return ("Undo change " + myAC->getDescription() + " attribute").c_str();
 }
 
 
-FXString GNEChange_Attribute::redoName() const {
+FXString
+GNEChange_Attribute::redoName() const {
     return ("Redo change " + myAC->getDescription() + " attribute").c_str();
 }

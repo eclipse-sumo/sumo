@@ -30,15 +30,13 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
+#include "GNENetElement.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUIGLObjectPopupMenu;
-class GNETLSEditor;
+class GNETLSEditorFrame;
 class PositionVector;
 
 // ===========================================================================
@@ -51,83 +49,72 @@ class PositionVector;
  * editor (hence inheritance from FXDelegator)
  */
 class GNEInternalLane : public GUIGlObject, public FXDelegator {
-    // FOX-declarations
+    /// @brief FOX-declaration
     FXDECLARE(GNEInternalLane)
 
 public:
 
-    /** @brief Constructor
+    /**@brief Constructor
      * @param[in] editor The editor to notify about changes
      * @param[in] id The id of this internal lane
      * @param[in] shape The shape of the lane
      * @param[in] tlIndex The tl-index of the lane
      */
-    GNEInternalLane(GNETLSEditor* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
+    GNEInternalLane(GNETLSEditorFrame* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
 
     /// @brief Destructor
-    virtual ~GNEInternalLane() ;
+    virtual ~GNEInternalLane();
 
     /// @name inherited from GUIGlObject
-    //@{
-
-    /** @brief Returns an own popup-menu
+    /// @{
+    /**@brief Returns an own popup-menu
      *
      * @param[in] app The application needed to build the popup-menu
      * @param[in] parent The parent window needed to build the popup-menu
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent) ;
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /** @brief Returns an own parameter window
+    /**@brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent) ;
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /** @brief Returns the boundary to which the view shall be centered in order to show the object
+    /**@brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const ;
+    Boundary getCenteringBoundary() const;
 
-    /** @brief Draws the object
+    /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const ;
-    //@}
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
 
     /// @brief set the linkState (controls drawing color)
-    void setLinkState(LinkState state) {
-        myState = state;
-        myOrigState = state;
-    }
+    void setLinkState(LinkState state);
 
     /// @brief whether link state has been modfied
-    inline LinkState getLinkState() {
-        return (LinkState)myState;
-    }
-
+    LinkState getLinkState() const;
 
     /// @brief multiplexes message to two targets
     long onDefault(FXObject*, FXSelector, void*);
 
-
-    inline int getTLIndex() const {
-        return myTlIndex;
-    }
+    /// @brief get Traffic Light index
+    int getTLIndex() const;
 
     /// @brief long names for link states
     static const StringBijection<FXuint> LinkStateNames;
 
-    // @brief return the color for each linkstate
+    /// @brief return the color for each linkstate
     static RGBColor colorForLinksState(FXuint state);
 
 protected:
@@ -135,18 +122,17 @@ protected:
     GNEInternalLane();
 
 private:
-
     /// @brief the shape of the edge
     const PositionVector myShape;
 
     /// @name computed only once (for performance) in updateGeometry()
-    //@{
+    /// @{
     /// The rotations of the shape parts
     std::vector<SUMOReal> myShapeRotations;
 
     /// The lengths of the shape parts
     std::vector<SUMOReal> myShapeLengths;
-    //@}
+    /// @}
 
     /// @brief the state of the link (used for visualization)
     FXuint myState;
@@ -159,7 +145,7 @@ private:
     FXDataTarget stateTarget;
 
     /// @brief the editor to inform about changes
-    GNETLSEditor* myEditor;
+    GNETLSEditorFrame* myEditor;
 
     /// @brief the tl-index of this lane
     int myTlIndex;
@@ -167,11 +153,11 @@ private:
     /// @brief the created popup
     GUIGLObjectPopupMenu* myPopup;
 
+    /// @brief linkstates names values
     static StringBijection<FXuint>::Entry linkStateNamesValues[];
 
 private:
-
-    // @brief return the color for each linkstate
+    /// @brief return the color for each linkstate
     static const std::string& longNameForLinkState(FXuint state);
 
     /// @brief Invalidated copy constructor.
@@ -179,7 +165,6 @@ private:
 
     /// @brief Invalidated assignment operator.
     GNEInternalLane& operator=(const GNEInternalLane&);
-
 };
 
 

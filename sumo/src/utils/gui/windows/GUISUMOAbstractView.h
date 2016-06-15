@@ -1,11 +1,11 @@
 /****************************************************************************/
-/// @file    GUISUMOAbstractView.h
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @author  Andreas Gaubatz
-/// @date    Sept 2002
-/// @version $Id$
+///@brief @file    GUISUMOAbstractView.h
+///@brief @author  Daniel Krajzewicz
+///@brief @author  Jakob Erdmann
+///@brief @author  Michael Behrisch
+///@brief @author  Andreas Gaubatz
+///@brief @date    Sept 2002
+///@brief @version $Id$
 ///
 // The base class for a view
 /****************************************************************************/
@@ -82,18 +82,16 @@ class GUIVisualizationSettings;
 class GUISUMOAbstractView : public FXGLCanvas {
     FXDECLARE(GUISUMOAbstractView)
 public:
-    /// constructor
-    GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app,
-                        GUIGlChildWindow* parent, const SUMORTree& grid,
-                        FXGLVisual* glVis, FXGLCanvas* share);
+    ///@brief constructor
+    GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share);
 
-    /// destructor
+    ///@brief destructor
     virtual ~GUISUMOAbstractView();
 
-    /// builds the view toolbars
+    ///@brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow&) { }
 
-    /// recenters the view
+    ///@brief recenters the view
     virtual void recenterView();
 
     /** @brief centers to the chosen artifact
@@ -104,146 +102,140 @@ public:
      */
     virtual void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist = 20);
 
-    /// centers to the chosen artifact
+    ///@brief centers to the chosen artifact
     void centerTo(const Boundary& bound);
 
-    /// applies the given viewport settings
+    ///@brief applies the given viewport settings
     virtual void setViewport(const Position& lookFrom, const Position& lookAt);
 
-    /// meter-to-pixels conversion method
+    ///@brief meter-to-pixels conversion method
     SUMOReal m2p(SUMOReal meter) const;
 
-    /// pixels-to-meters conversion method
+    ///@brief pixels-to-meters conversion method
     SUMOReal p2m(SUMOReal pixel) const;
 
-    /// Returns the information whether rotation is allowd
-//    bool allowRotation() const;
+    ///@brief Returns the information whether rotation is allowd
+    ///@note disabled
+    //bool allowRotation() const;
 
-    /// Returns the gl-id of the object under the given coordinates
+    ///@brief Returns the gl-id of the object under the given coordinates
     void setWindowCursorPosition(FXint x, FXint y);
 
-    /// A reimplementation due to some internal reasons
+    ///@brief A reimplementation due to some internal reasons
     FXbool makeCurrent();
 
-    /// returns true, if the edit button was pressed
+    ///@brief returns true, if the edit button was pressed
     bool isInEditMode();
 
-    GUIPerspectiveChanger& getChanger() const {
-        return *myChanger;
-    }
+    ///@brief get changer
+    GUIPerspectiveChanger& getChanger() const;
 
+    ///@brief get visible boundary
     Boundary getVisibleBoundary() const;
 
+    ///@brief mouse functions
+    //@{
     virtual long onConfigure(FXObject*, FXSelector, void*);
     virtual long onPaint(FXObject*, FXSelector, void*);
     virtual long onLeftBtnPress(FXObject*, FXSelector, void*);
     virtual long onLeftBtnRelease(FXObject*, FXSelector, void*);
-    virtual long onMiddleBtnPress(FXObject*, FXSelector, void*) {
-        return 1;
-    }
-    virtual long onMiddleBtnRelease(FXObject*, FXSelector, void*) {
-        return 1;
-    }
+    virtual long onMiddleBtnPress(FXObject*, FXSelector, void*);
+    virtual long onMiddleBtnRelease(FXObject*, FXSelector, void*);
     virtual long onRightBtnPress(FXObject*, FXSelector, void*);
     virtual long onRightBtnRelease(FXObject*, FXSelector, void*);
+    virtual long onDoubleClicked(FXObject*, FXSelector, void*);
     virtual long onMouseWheel(FXObject*, FXSelector, void*);
     virtual long onMouseMove(FXObject*, FXSelector, void*);
     virtual long onMouseLeft(FXObject*, FXSelector, void*);
+    //@}
 
+    ///@brief keyboard functions
+    //@{
     virtual long onKeyPress(FXObject* o, FXSelector sel, void* data);
     virtual long onKeyRelease(FXObject* o, FXSelector sel, void* data);
+    //@}
 
-
+    //@brief open object dialog
     virtual void openObjectDialog();
 
-    /// A method that updates the tooltip
+    ///@brief A method that updates the tooltip
     void updateToolTip();
 
-
-    /// @name Dealing with snapshots
-    /// @{
-
+    ///@brief @name Dealing with snapshots
+    ///@{
     /** @brief Sets the snapshot time to file map
      * @param[in] snaps The snapshots to take at certain times
      */
     void setSnapshots(std::map<SUMOTime, std::string> snaps);
 
-
     /** @brief Takes a snapshots and writes it into the given file
      *
      * The format to use is determined from the extension.
-     * If compiled with ffmpeg and a video format is requested it will instantiate
-     * a video encoder.
+     * If compiled with ffmpeg and a video format is requested it will instantiate a video encoder.
      * @param[in] destFile The name of the file to write the snapshot into
      * @return The error message, if an error occcured; "" otherwise
      */
     std::string makeSnapshot(const std::string& destFile);
 
+    ///@brief Adds a frame to a video snapshot which will be initialized if neccessary
+    virtual void saveFrame(const std::string& destFile, FXColor* buf);
 
-    /** @brief Adds a frame to a video snapshot which will be initialized if neccessary
-     */
-    virtual void saveFrame(const std::string& destFile, FXColor* buf) {
-        UNUSED_PARAMETER(destFile);
-        UNUSED_PARAMETER(buf);
-    }
-
-
-    /** @brief Ends a video snapshot
-     */
+    ///@brief Ends a video snapshot
     virtual void endSnapshot() {}
 
-
-    /** @brief Checks whether it is time for a snapshot
-     */
+    ///@brief Checks whether it is time for a snapshot
     virtual void checkSnapshots();
 
-    /// @brief get the current simulation time
-    virtual SUMOTime getCurrentTimeStep() const {
-        return 0;
-    }
-    /// @}
+    ///@brief get the current simulation time
+    virtual SUMOTime getCurrentTimeStep() const;
+    ///@}
 
-
-    /// @brief get the viewport and create it on first access
+    ///@brief get the viewport and create it on first access
     GUIDialog_EditViewport* getViewportEditor();
 
+    ///@brief show viewport editor
     virtual void showViewportEditor();
 
+    ///@brief show viewsscheme editor
     void showViewschemeEditor();
+
+    ///@brief show tool tips
     void showToolTips(bool val);
-    virtual bool setColorScheme(const std::string&) {
-        return true;
-    }
 
-    GUIVisualizationSettings* getVisualisationSettings() const {
-        return myVisualizationSettings;
-    }
+    ///@brief set color scheme
+    virtual bool setColorScheme(const std::string&);
 
-    void remove(GUIDialog_EditViewport*) {
-        myViewportChooser = 0;
-    }
+    ///@brief get visualitation settings
+    GUIVisualizationSettings* getVisualisationSettings() const;
 
-    void remove(GUIDialog_ViewSettings*) {
-        myVisualizationChanger = 0;
-    }
+    ///@brief remove viewport
+    void remove(GUIDialog_EditViewport*);
 
+    ///@brief remove view settings
+    void remove(GUIDialog_ViewSettings*);
 
+    ///@brief get grid width
     // @todo: check why this is here
     SUMOReal getGridWidth() const;
+
+    ///@brief get grid Height
     // @todo: check why this is here
     SUMOReal getGridHeight() const;
 
-    virtual void startTrack(int /*id*/) { }
-    virtual void stopTrack() { }
-    virtual int getTrackedID() const {
-        return -1;
-    }
+    ///@brief star track
+    virtual void startTrack(int /*id*/);
 
-    virtual void onGamingClick(Position /*pos*/) { }
+    ///@brief stop track
+    virtual void stopTrack();
 
-    /// @name Additional visualisations
-    /// @{
+    ///@brief get tracked id
+    virtual int getTrackedID() const;
 
+    ///@brief on gaming click
+    virtual void onGamingClick(Position /*pos*/);
+
+    ///@brief @name Additional visualisations
+    ///@{
     /** @brief Adds an object to call its additional visualisation method
      * @param[in] which The object to add
      * @return Always true
@@ -251,205 +243,188 @@ public:
      */
     bool addAdditionalGLVisualisation(const GUIGlObject* const which);
 
-
     /** @brief Removes an object from the list of objects that show additional things
      * @param[in] which The object to remoe
      * @return True if the object was known, false otherwise
      * @see GUIGlObject::drawGLAdditional
      */
     bool removeAdditionalGLVisualisation(const GUIGlObject* const which);
-    /// @}
 
+    /** @brief Check if an object is added in the additional GL visualitation
+     * @param[in] which The object to check
+     * @see GUIGlObject::drawGLAdditional
+     */
+    bool isAdditionalGLVisualisationEnabled(GUIGlObject* const which) const;
+    ///@}
 
-    /// @brief destoys the popup
+    ///@brief destoys the popup
     void destroyPopup();
 
-
 public:
-
-    /** @struct Decal
-     * @brief A decal (an image) that can be shown
-     */
+    ///@struct Decal
+    ///@brief A decal (an image) that can be shown
     struct Decal {
-        /// @brief Constructor
-        Decal()
-            : filename(), centerX(0), centerY(0), centerZ(0),
-              width(0), height(0), altitude(0), rot(0), tilt(0), roll(0), layer(0),
-              initialised(false), skip2D(false), glID(-1), image(0) { }
+        ///@brief Constructor
+        Decal();
 
-        /// @brief The path to the file the image is located at
+        ///@brief The path to the file the image is located at
         std::string filename;
-        /// @brief The center of the image in x-direction (net coordinates, in m)
+        ///@brief The center of the image in x-direction (net coordinates, in m)
         SUMOReal centerX;
-        /// @brief The center of the image in y-direction (net coordinates, in m)
+        ///@brief The center of the image in y-direction (net coordinates, in m)
         SUMOReal centerY;
-        /// @brief The center of the image in z-direction (net coordinates, in m)
+        ///@brief The center of the image in z-direction (net coordinates, in m)
         SUMOReal centerZ;
-        /// @brief The width of the image (net coordinates in x-direction, in m)
+        ///@brief The width of the image (net coordinates in x-direction, in m)
         SUMOReal width;
-        /// @brief The height of the image (net coordinates in y-direction, in m)
+        ///@brief The height of the image (net coordinates in y-direction, in m)
         SUMOReal height;
-        /// @brief The altitude of the image (net coordinates in z-direction, in m)
+        ///@brief The altitude of the image (net coordinates in z-direction, in m)
         SUMOReal altitude;
-        /// @brief The rotation of the image in the ground plane (in degrees)
+        ///@brief The rotation of the image in the ground plane (in degrees)
         SUMOReal rot;
-        /// @brief The tilt of the image to the ground plane (in degrees)
+        ///@brief The tilt of the image to the ground plane (in degrees)
         SUMOReal tilt;
-        /// @brief The roll of the image to the ground plane (in degrees)
+        ///@brief The roll of the image to the ground plane (in degrees)
         SUMOReal roll;
-        /// @brief The layer of the image
+        ///@brief The layer of the image
         SUMOReal layer;
-        /// @brief Whether this image was initialised (inserted as a texture)
+        ///@brief Whether this image was initialised (inserted as a texture)
         bool initialised;
-        /// @brief Whether this image should be skipped in 2D-views
+        ///@brief Whether this image should be skipped in 2D-views
         bool skip2D;
-        /// @brief The gl-id of the texture that holds this image
+        ///@brief The gl-id of the texture that holds this image
         int glID;
-        /// @brief The image pointer for later cleanup
+        ///@brief The image pointer for later cleanup
         FXImage* image;
     };
 
-
 public:
+    ///@brief get coloring schemes combo
     FXComboBox& getColoringSchemesCombo();
 
-
-    /** @brief Returns the cursor's x/y position within the network
-     * @return The cursor's x/y position within the network
-     */
+    ///@brief Returns the cursor's x/y position within the network
     Position getPositionInformation() const;
 
-    void addDecals(const std::vector<Decal>& decals) {
-        myDecals.insert(myDecals.end(), decals.begin(), decals.end());
-    }
+    ///@brief add decals
+    void addDecals(const std::vector<Decal>& decals);
 
+    ///@brief get visualisation settings
+    GUIVisualizationSettings* getVisualisationSettings();
 
-    GUIVisualizationSettings* getVisualisationSettings() {
-        return myVisualizationSettings;
-    }
-
-    /** @brief Returns the delay of the parent application
-     * @return delay in milliseconds
-     */
+    ///@brief Returns the delay of the parent application
     SUMOReal getDelay() const;
 
-    /** @brief Sets the delay of the parent application
-     */
+    /// @brief Sets the delay of the parent application
     void setDelay(SUMOReal delay);
 
 protected:
-    /// performs the painting of the simulation
+    ///@brief performs the painting of the simulation
     void paintGL();
 
+    ///@brief update position information
     void updatePositionInformation() const;
 
+    ///@brief paint GL
+    virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/);
 
-    virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/) {
-        return 0;
-    }
+    ///@brief doInit
+    virtual void doInit();
 
-    virtual void doInit() { }
-
-    /// paints a grid
+    ///@brief paints a grid
     void paintGLGrid();
 
-    /** brief Draws the size legend
-     *
-     * Draws a line with ticks, and the length information.
-     */
+    ///@briefDraws a line with ticks, and the length information.
     void displayLegend();
 
-
-    /// returns the id of the object under the cursor using GL_SELECT
+    ///@brief returns the id of the object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();
 
-    /// returns the id of the object at position using GL_SELECT
+    ///@brief returns the id of the object at position using GL_SELECT
     GUIGlID getObjectAtPosition(Position pos);
 
-    /// returns the ids of the object at position within the given (rectangular) radius using GL_SELECT
+    ///@brief returns the ids of the object at position within the given (rectangular) radius using GL_SELECT
     std::vector<GUIGlID> getObjectsAtPosition(Position pos, SUMOReal radius);
 
-    /// returns the ids of all objects in the given boundary
+    ///@brief returns the ids of all objects in the given boundary
     std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound);
 
-    /// invokes the tooltip for the given object
+    ///@brief invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);
 
-
 protected:
-    /** @brief check whether we can read image data or position with gdal
-     */
+    ///@brief check whether we can read image data or position with gdal
     FXImage* checkGDALImage(Decal& d);
 
-    /** @brief Draws the stored decals
-     */
+    ///@brief Draws the stored decals
     void drawDecals();
 
-    // applies gl-transformations to fit the Boundary given by myChanger onto
-    // the canvas. If fixRatio is true, this boundary will be enlarged to
-    // prevent anisotropic stretching. (this should be set to false when doing
-    // selections)
+    ///@brief applies gl-transformations to fit the Boundary given by myChanger onto the canvas. 
+    /// If fixRatio is true, this boundary will be enlarged to prevent anisotropic stretching. 
+    /// (this should be set to false when doing selections)
     void applyGLTransform(bool fixRatio = true);
 
 protected:
-    /// @brief The application
+    ///@brief The application
     GUIMainWindow* myApp;
 
-    /// @brief The parent window
+    ///@brief The parent window
     GUIGlChildWindow* myParent;
 
-    /// @brief The visualization speed-up
+    ///@brief The visualization speed-up
     SUMORTree* myGrid;
 
-    /// @brief The perspective changer
+    ///@brief The perspective changer
     GUIPerspectiveChanger* myChanger;
 
-    /// @brief Information whether too-tip informations shall be generated
+    ///@brief Information whether too-tip informations shall be generated
     bool myInEditMode;
 
-    /// @brief Offset to the mouse-hotspot from the mouse position
+    ///@brief Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
 
-    /// @brief The current popup-menu
+    ///@brief The current popup-menu
     GUIGLObjectPopupMenu* myPopup;
 
+    ///@brief visualization settings
     GUIVisualizationSettings* myVisualizationSettings;
 
+    ///@brief use tool tips
     bool myUseToolTips;
 
-    /// Internal information whether doInit() was called
+    ///@brief Internal information whether doInit() was called
     bool myAmInitialised;
 
+    ///@brief viewport chooser
     GUIDialog_EditViewport* myViewportChooser;
 
-    /// @brief Position of the cursor relative to the window
+    ///@brief Position of the cursor relative to the window
     FXint myWindowCursorPositionX, myWindowCursorPositionY;
 
+    ///@brief Visualization changer
     GUIDialog_ViewSettings* myVisualizationChanger;
 
-
-    /// @name Optionally shown decals
-    /// @{
-
-    /// @brief The list of decals to show
+    ///@brief @name Optionally shown decals
+    ///@{
+    ///@brief The list of decals to show
     std::vector<Decal> myDecals;
 
-    /// @brief The mutex to use before accessing the decals list in order to avoid thread conficts
+    ///@brief The mutex to use before accessing the decals list in order to avoid thread conficts
     MFXMutex myDecalsLock;
-    /// @}
+    ///@}
 
-
+    ///@brief Snapshots
     std::map<SUMOTime, std::string> mySnapshots;
 
+    ///@brief poly draw lock
     mutable MFXMutex myPolyDrawLock;
 
-    /// @brief List of objects for which GUIGlObject::drawGLAdditional is called
+    ///@brief List of objects for which GUIGlObject::drawGLAdditional is called
     std::map<const GUIGlObject*, int> myAdditionallyDrawn;
 
-
 protected:
+    ///@brief empty constructor
     GUISUMOAbstractView() { }
-
 };
 
 

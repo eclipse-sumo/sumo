@@ -52,7 +52,7 @@
 #include "GNEChange_Attribute.h"
 #include "GNEViewNet.h"
 #include "GNEInternalLane.h"
-#include "GNETLSEditor.h"
+#include "GNETLSEditorFrame.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,7 +65,7 @@
 /// @note: msvc10 does not approve of allocating empty arrays
 /*
 FXDEFMAP(GNEInternalLane) GNEInternalLaneMap[]= {
-    //FXMAPFUNC(SEL_COMMAND,  MID_GNE_PHASE_DURATION,     GNETLSEditor::onDefault),
+    //FXMAPFUNC(SEL_COMMAND,  MID_GNE_PHASE_DURATION,     GNETLSEditorFrame::onDefault),
 };
 */
 
@@ -95,7 +95,7 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEInternalLane::GNEInternalLane(GNETLSEditor* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
+GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GUIGlObject(editor == 0 ? GLO_JUNCTION : GLO_TLLOGIC, id),
     myShape(shape),
     myState(state),
@@ -161,6 +161,25 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopName();
     glPopMatrix();
+}
+
+
+void
+GNEInternalLane::setLinkState(LinkState state) {
+    myState = state;
+    myOrigState = state;
+}
+
+
+LinkState
+GNEInternalLane::getLinkState() const{
+    return (LinkState)myState;
+}
+
+
+int
+GNEInternalLane::getTLIndex() const {
+    return myTlIndex;
 }
 
 

@@ -75,6 +75,8 @@ enum {
     MID_OPEN_NETWORK,
     /// Load additional file with poi and polygons
     MID_OPEN_SHAPES,
+	/// Load additional file with additional elements	
+    MID_OPEN_ADDITIONALS,								
     /// Reload the previously loaded simulation
     MID_RELOAD,
     /// Loads a file previously loaded
@@ -175,6 +177,10 @@ enum {
     MID_LOCATEPERSON,
     /// Locate TLS - button
     MID_LOCATETLS,
+    /// Locate BusStop - button
+    MID_LOCATEADDITIONAL_BUSSTOP,
+    /// Locate ChargingStation - button
+    MID_LOCATEADDITIONAL_CHARGINGSTATION,
     /// Locate addtional structure - button
     MID_LOCATEADD,
     /// Locate poi - button
@@ -386,6 +392,9 @@ enum {
     /** mode has changed */
     MID_GNE_MODE_CHANGE,
 
+    /** mode has changed */
+    MID_GNE_MODEADDITIONAL_CHANGE,
+
     /** mode for adding edges */
     MID_GNE_MODE_CREATE_EDGE,
     /** mode for moving things */
@@ -400,10 +409,34 @@ enum {
     MID_GNE_MODE_CONNECT,
     /** mode for editing tls */
     MID_GNE_MODE_TLS,
+    /** mode for editing additional */
+    MID_GNE_MODE_ADDITIONAL,
 
     /// selector match box messages
     MID_GNE_SELMB_TAG,
     MID_GNE_SELMB_STRING,
+    
+    /// additional match box messages
+    MID_GNE_MODE_ADDITIONAL_ITEM,
+    MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT,
+    MID_GNE_MODE_ADDITIONAL_FORCEPOSITION,
+    MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT,
+    MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL,
+
+    /// Inspector attribute dialog
+    MID_GNE_MODE_INSPECT_ACCEPT,
+    MID_GNE_MODE_INSPECT_CANCEL,
+    MID_GNE_MODE_INSPECT_RESET,
+
+    /// Variable Speed Signal dialog
+    MID_GNE_VARIABLESPEEDSIGNAL_ADDROW,
+    MID_GNE_VARIABLESPEEDSIGNAL_REMOVEROW,
+    MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE,
+
+    /// Additional dialogs
+    MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,
+    MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,
+    MID_GNE_MODE_ADDITIONALDIALOG_RESET,
 
     /// processing menu messages
     MID_GNE_COMPUTE_JUNCTIONS,
@@ -439,10 +472,41 @@ enum {
     MID_GNE_SAVE_PLAIN_XML,
     MID_GNE_SAVE_JOINED,
     MID_GNE_SAVE_POIS,
+    MID_GNE_SAVE_ADDITIONALS,
     /** insert contents of another network */
     MID_GNE_INSERT_NETWORK,
     /** attribute edited */
     MID_GNE_SET_ATTRIBUTE,
+    /** netEdit attribute blocking */
+    MID_GNE_SET_BLOCKING,
+    /** netEdit add row */
+    MID_GNE_ADDROW,
+    /** netEdit remove row */
+    MID_GNE_REMOVEROW,
+    /** netEdit add set */
+    MID_GNE_ADDSET,
+    /** netEdit remove set */
+    MID_GNE_REMOVESET,
+    /** netEdit search additionalSet */
+    MID_GNE_SEARCHADDITIONALSET,
+    /** netEdit select additionalSet */
+    MID_GNE_SELECTADDITIONALSET,
+    /** netEdit search edge */
+    MID_GNE_SEARCHEDGE,
+    /** netEdit select edge */
+    MID_GNE_SELECTEDGE,
+    /** netEdit clear selection of edges */
+    MID_GNE_CLEAREDGESELECTION,
+    /** netEdit invert selection of edges */
+    MID_GNE_INVERTEDGESELECTION,
+    /** netEdit search lane */
+    MID_GNE_SEARCHLANE,
+    /** netEdit select lane */
+    MID_GNE_SELECTLANE,
+    /** netEdit clear selection of lanes */
+    MID_GNE_CLEARLANESELECTION,
+    /** netEdit invert selection of lanes */
+    MID_GNE_INVERTLANESELECTION,
     /** open edit dialog */
     MID_GNE_OPEN_ATTRIBUTE_EDITOR,
     /** split an edge */

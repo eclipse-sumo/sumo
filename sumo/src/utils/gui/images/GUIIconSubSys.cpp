@@ -118,6 +118,9 @@
 #include "undo.xpm"
 #include "redo.xpm"
 #include "netedit.xpm"
+#include "lock.xpm"
+#include "add.xpm"
+#include "remove.xpm"
 
 #include "cut.xpm"
 #include "ext.xpm"
@@ -151,6 +154,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[ICON_OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
     myIcons[ICON_OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
+	myIcons[ICON_OPEN_ADDITIONALS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[ICON_RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[ICON_SAVE] = new FXXPMIcon(a, filesave_xpm);
     myIcons[ICON_CLOSE] = 0;//new FXXPMIcon(a, close);
@@ -231,6 +235,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_UNDO]    = new FXXPMIcon(a, undo_xpm);
     myIcons[ICON_REDO]    = new FXXPMIcon(a, redo_xpm);
     myIcons[ICON_NETEDIT] = new FXXPMIcon(a, netedit_xpm);
+    myIcons[ICON_LOCK]    = new FXXPMIcon(a, lock_xpm);
+    myIcons[ICON_ADD]     = new FXXPMIcon(a, add_xpm);
+    myIcons[ICON_REMOVE]  = new FXXPMIcon(a, remove_xpm);
 
     myIcons[ICON_EXT]    = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);

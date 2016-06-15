@@ -846,7 +846,6 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     return 1;
 }
 
-
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
     getApp()->beginWaitCursor();

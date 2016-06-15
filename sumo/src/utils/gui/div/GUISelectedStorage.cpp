@@ -107,7 +107,7 @@ GUISelectedStorage::isSelected(GUIGlObjectType type, GUIGlID id) {
         case GLO_NETWORK:
             return false;
         case GLO_ADDITIONAL:
-            return isSelected(GLO_TRIGGER, id) || isSelected(GLO_DETECTOR, id);
+            return isSelected(GLO_TRIGGER, id) || isSelected(GLO_DETECTOR, id) || mySelections[GLO_ADDITIONAL].isSelected(id);
         default:
             return mySelections[type].isSelected(id);
     }

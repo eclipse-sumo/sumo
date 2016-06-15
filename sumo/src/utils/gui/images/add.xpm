@@ -1,0 +1,38 @@
+/* XPM */
+static const char *add_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"30 30 2 1 ",
+". c #1BBE07",
+"O c None",
+/* pixels */
+"OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OO..........................OO",
+"OO..........................OO",
+"OO..........................OO",
+"OO..........................OO",
+"OO..........................OO",
+"OO..........................OO",
+"OO..........................OO",
+"OO..........................OO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOO........OOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+};

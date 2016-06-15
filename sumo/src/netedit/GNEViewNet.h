@@ -44,22 +44,24 @@
 // enum
 // ===========================================================================
 enum EditMode {
-    /** placeholder mode */
+    ///@brief placeholder mode
     GNE_MODE_DUMMY,
-    /** mode for creating new edges */
+    ///@brief mode for creating new edges
     GNE_MODE_CREATE_EDGE,
-    /** mode for moving things */
+    ///@brief mode for moving things
     GNE_MODE_MOVE,
-    /** mode for deleting things */
+    ///@brief mode for deleting things
     GNE_MODE_DELETE,
-    /** mode for inspecting object attributes */
+    ///@brief mode for inspecting object attributes
     GNE_MODE_INSPECT,
-    /** mode for selecting objects */
+    ///@brief mode for selecting objects
     GNE_MODE_SELECT,
-    /** mode for connecting lanes */
+    ///@brief mode for connecting lanes
     GNE_MODE_CONNECT,
-    /** mode for editing tls */
-    GNE_MODE_TLS
+    ///@brief mode for editing tls
+    GNE_MODE_TLS,
+    ///@brief Mode for editing additionals
+    GNE_MODE_ADDITIONAL
 };
 
 // ===========================================================================
@@ -71,10 +73,7 @@ class GNEEdge;
 class GNELane;
 class GNEViewParent;
 class GNEUndoList;
-class GNEInspector;
-class GNESelector;
-class GNEConnector;
-class GNETLSEditor;
+class GNEAdditional;
 class GNEPoly;
 
 // ===========================================================================
@@ -85,31 +84,46 @@ class GNEPoly;
  * Microsocopic view at the simulation
  */
 class GNEViewNet : public GUISUMOAbstractView {
-    // FOX-declarations
+    /// @brief FOX-declaration
     FXDECLARE(GNEViewNet)
 
 public:
     /* @brief constructor
+     * @param[in] tmpParent temporal FXFrame parent so that we can add items to view area in the desired order
+     * @param[in] actualParent FXFrame parent of GNEViewNet
+     * @param[in] app main windows
+     * @param[in] viewParent viewParent of this viewNet
+     * @param[in] net traffic net
+     * @param[in] undoList pointer to UndoList modul
+     * @param[in] glVis a reference to GLVisuals
+     * @param[in] share a reference to FXCanvas
      * @param[in] toolbar A reference to the parents toolbar
      */
-    GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent,
-               GUIMainWindow& app, GNEViewParent* viewParent, GNENet* net, FXGLVisual* glVis,
-               FXGLCanvas* share, FXToolBar* toolBar);
+    GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app, 
+               GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList, 
+               FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar);
 
-    /// destructor
+    /// @brief destructor
     virtual ~GNEViewNet();
 
-    /// builds the view toolbars
+    /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow&);
 
-
+    /// @brief set color schieme 
     bool setColorScheme(const std::string& name);
 
-
-    /// overloaded handlers
+    /// @brief overloaded handlers
     /// @{
+    /// @brief called when user press mouse's left button
     long onLeftBtnPress(FXObject*, FXSelector, void*);
+
+    /// @brief called when user releases mouse's left button
     long onLeftBtnRelease(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press mouse's left button two times
+    long onDoubleClicked(FXObject*, FXSelector, void* ptr);
+
+    /// @brief called when user moves mouse
     long onMouseMove(FXObject*, FXSelector, void*);
     /// @}
 
@@ -152,106 +166,100 @@ public:
     /// @brief replace node by geometry
     long onCmdNodeReplace(FXObject*, FXSelector, void*);
 
-    /** @brief sets edit mode (from hotkey)
-     * @param[in] selid An id MID_GNE_MODE_<foo> as defined in GUIAppEnum
-     */
+    /// @brief sets edit mode (from hotkey)
+    /// @param[in] selid An id MID_GNE_MODE_<foo> as defined in GUIAppEnum
     void setEditModeFromHotkey(FXushort selid);
 
-    // abort current edition operation
+    /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
 
-    // handle del keypress
+    /// @brief handle del keypress
     void hotkeyDel();
 
-    // handle enter keypress
+    /// @brief handle enter keypress
     void hotkeyEnter();
 
-    // store the position where a popup-menu was requested
+    /// @brief store the position where a popup-menu was requested
     void markPopupPosition();
 
-    // @brief get the net object
-    GNENet* getNet() {
-        return myNet;
-    };
+    /// @brief get the net object
+    GNEViewParent* getViewParent() const;
 
+    /// @brief get the net object
+    GNENet* getNet() const;
+
+    /// @brief get the undoList object
+    GNEUndoList* getUndoList() const;
+
+    /// @brief get the current edit mode
+    EditMode getCurrentEditMode() const;
+
+    /// @brief check if lock icon should be visible
+    bool showLockIcon() const;
+
+    /// @brief set staturBar text
     void setStatusBarText(const std::string& text);
 
-    /* @brief whether inspection, selection and inversion should apply to edges
-     * or to lanes */
-    bool selectEdges() {
-        return mySelectEdges->getCheck() != 0;
-    }
+    /// @brief whether inspection, selection and inversion should apply to edges or to lanes
+    bool selectEdges();
 
-    /* @brief whether to autoselect nodes
-     * or to lanes */
-    bool autoSelectNodes() {
-        return myExtendToEdgeNodes->getCheck() != 0;
-    }
+    /// @brief whether to autoselect nodes or to lanes
+    bool autoSelectNodes();
 
-    GNESelector* getSelector() {
-        return mySelector;
-    }
-
-
-    void setSelectionScaling(SUMOReal selectionScale) {
-        myVisualizationSettings->selectionScale = selectionScale;
-    }
+    /// @brief set selection scaling
+    void setSelectionScaling(SUMOReal selectionScale);
 
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
-    GNETLSEditor* getTLSEditor() {
-        return myTLSEditor;
-    }
-
-    bool changeAllPhases() const {
-        return myChangeAllPhases->getCheck() != FALSE;
-    }
+    /// @brief change all phases
+    bool changeAllPhases() const;
 
 protected:
-    int doPaintGL(int mode, const Boundary& bound);
-
-    /// called after some features are already initialized
-    void doInit();
-
     /// @brief FOX needs this
     GNEViewNet() {}
 
+    /// @brief do paintGL
+    int doPaintGL(int mode, const Boundary& bound);
+
+    /// @brief called after some features are already initialized
+    void doInit();
+
 private:
-    // we are not responsible for deletion
+    /// @brief view parent
+    GNEViewParent* myViewParent;
+
+    /// @brief we are not responsible for deletion
     GNENet* myNet;
 
-    // the current edit mode
+    /// @brief the current edit mode
     EditMode myEditMode;
 
-    // the previous edit mode used for toggling
+    /// @brief the previous edit mode used for toggling
     EditMode myPreviousEditMode;
 
+    /// @brief menu check to select only edges
     FXMenuCheck* mySelectEdges;
+
+    /// @brief menu check to extend to edge nodes
     FXMenuCheck* myExtendToEdgeNodes;
+
+    /// @brief menu check to set change all phases
     FXMenuCheck* myChangeAllPhases;
 
     /// @name the state-variables of the create-edge state-machine
     // @{
-    /* @brief source junction for new edge
-    * 0 if no edge source is selected
-    * an existing (or newly created) junction otherwise
-    */
+    /// @brief source junction for new edge 0 if no edge source is selected an existing (or newly created) junction otherwise
     GNEJunction* myCreateEdgeSource;
 
-    /* @brief whether the endpoint for a created edge should be set as the new
-     * source
-     */
+    /// @brief whether the endpoint for a created edge should be set as the new source
     FXMenuCheck* myChainCreateEdge;
     FXMenuCheck* myAutoCreateOppositeEdge;
     // @}
 
     /// @name the state-variables of the move state-machine
     // @{
-    /* @brief the Junction to be moved
-     * 0 if nothing is grabbed
-     * otherwise the junction being moved
-     */
+    /// @brief the Junction to be moved.
     GNEJunction* myJunctionToMove;
 
     /// @brief the edge of which geometry is being moved
@@ -259,6 +267,12 @@ private:
 
     /// @brief the poly of which geometry is being moved
     GNEPoly* myPolyToMove;
+
+    /// @brief the stoppingPlace element which shape is being moved
+    GNEAdditional* myAdditionalToMove;
+
+    /// @brief variable to save the firstposition of the additional before move
+    Position myAdditionalFirstPosition;
 
     /// @brief position from which to move edge geometry
     Position myMoveSrc;
@@ -270,51 +284,42 @@ private:
     FXMenuCheck* myWarnAboutMerge;
     // @}
 
-    /// @name state-variables of inspect-mode
-    //
-    /// @name state-variables of select-mode
+    /// @name state-variables of inspect-mode and select-mode
     // @{
-    // @brief whether we have started rectangle-selection
+    /// @brief whether we have started rectangle-selection
     bool myAmInRectSelect;
-    // @brief corner of the rectangle-selection
+
+    /// @brief firstcorner of the rectangle-selection
     Position mySelCorner1;
+
+    /// @brief second corner of the rectangle-selection
     Position mySelCorner2;
     // @}
 
-    //@name toolbar related stuff
-    //@{
+    /// @name toolbar related stuff
+    /// @{
     /// @brief a reference to the toolbar in myParent
     FXToolBar* myToolbar;
+
     /// @brief combo box for selecting the  edit mode
     FXComboBox* myEditModesCombo;
 
-    /** @brief since we cannot switch on strings we map the mode names to an enum
-     */
+    /// @brief since we cannot switch on strings we map the mode names to an enum
     StringBijection<EditMode> myEditModeNames;
-
-    //@}
+    StringBijection<EditMode> myEditAdditionalModeNames;
+    /// @}
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
 
-    // @brief the panel for GNE_MODE_INSPECT
-    GNEInspector* myInspector;
-
-    // @brief the panel for GNE_MODE_SELECT
-    GNESelector* mySelector;
-
-    // @brief the panel for GNE_MODE_CONNECT
-    GNEConnector* myConnector;
-
-    // @brief the panel for GNE_MODE_TLS
-    GNETLSEditor* myTLSEditor;
-
+    /// @brief Poput spot
     Position myPopupSpot;
 
+    /// @brief current polygon
     GNEPoly* myCurrentPoly;
 
 private:
-    // set edit mode
+    /// @brief set edit mode
     void setEditMode(EditMode mode);
 
     /// @brief adds controls for setting the edit mode
@@ -329,8 +334,7 @@ private:
     /// @brief delete all currently selected edges
     void deleteSelectedEdges();
 
-    /** @brief try to merge moved junction with another junction in that spot
-     * return true if merging did take place */
+    /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* moved);
 
     /// @brief try to retrieve an edge at the given position
@@ -348,6 +352,11 @@ private:
     /// @brief remove the currently edited polygon
     void removeCurrentPoly();
 
+    /// @brief Invalidated copy constructor.
+    GNEViewNet(const GNEViewNet&);
+
+    /// @brief Invalidated assignment operator.
+    GNEViewNet& operator=(const GNEViewNet&);
 };
 
 

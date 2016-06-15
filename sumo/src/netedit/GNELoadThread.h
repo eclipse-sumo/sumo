@@ -54,25 +54,24 @@ class GUIEvent;
  */
 class GNELoadThread : public FXSingleEventThread {
 public:
-    /// constructor
+    /// @brief constructor
     GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq,
                   FXEX::FXThreadEvent& ev);
 
-    /// destructor
+    /// @brief destructor
     virtual ~GNELoadThread();
 
-    /** starts the thread
-        the thread ends after the net has been loaded */
+    /// @brief starts the thread. The thread ends after the net has been loaded
     FXint run();
 
-    /** @brief begins the loading of a netconvert configuration or a a network
+    /**@brief begins the loading of a netconvert configuration or a a network
      * @param[in] file The network or configuration-file to be loaded
      * @param[in] isNet whether file is a network file
      * @param[in] optionsReady whether options are already initialized
      */
     void loadConfigOrNet(const std::string& file, bool isNet, bool optionsReady = false, bool newNet = false);
 
-    /// Retrieves messages from the loading module
+    /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
 
     /// @brief clears and initializes the OptionsCont
@@ -82,10 +81,10 @@ public:
     static void setDefaultOptions(OptionsCont& oc);
 
 protected:
+    /// @brief init options
     bool initOptions();
 
-
-    /** @brief Closes the loading process
+    /**@brief Closes the loading process
      *
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
@@ -93,21 +92,22 @@ protected:
     void submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
 
 protected:
-    /// the parent window to inform about the loading
+    /// @brief the parent window to inform about the loading
     MFXInterThreadEventClient* myParent;
 
-    /// the path to load the simulation from
+    /// @brief the path to load the simulation from
     std::string myFile;
 
-    /** @brief The instances of message retriever encapsulations
-        Needed to be deleted from the handler later on */
+    /// @brief @brief The instances of message retriever encapsulations Needed to be deleted from the handler later on
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
+    /// @brief event Queue
     MFXEventQue<GUIEvent*>& myEventQue;
 
+    /// @brief event throw
     FXEX::FXThreadEvent& myEventThrow;
 
-    /// Information whether only the network shall be loaded
+    /// @brief Information whether only the network shall be loaded
     bool myLoadNet;
 
     /// @brief if true, options will not be read from myFile

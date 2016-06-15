@@ -47,6 +47,8 @@
 #include "GNEChange_Lane.h"
 #include "GNEJunction.h"
 #include "GNELane.h"
+#include "GNEAdditional.h"
+#include "GNEAdditionalSet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -63,15 +65,14 @@ const SUMOReal GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 // members methods
 // ===========================================================================
 GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
-    GUIGlObject(GLO_EDGE, nbe.getID()),
-    GNEAttributeCarrier(SUMO_TAG_EDGE),
+    GNENetElement(net, nbe.getID(), GLO_EDGE, SUMO_TAG_EDGE),
     myNBEdge(nbe) ,
     myOrigShape(nbe.getInnerGeometry()),
     myLanes(0),
-    myNet(net),
     myAmResponsible(false),
     myWasSplit(wasSplit),
     myConnectionStatus(loaded ? LOADED : GUESSED) {
+    // Create lanes
     int numLanes = myNBEdge.getNumLanes();
     myLanes.reserve(numLanes);
     for (int i = 0; i < numLanes; i++) {
@@ -91,7 +92,14 @@ GNEEdge::~GNEEdge() {
     if (myAmResponsible) {
         delete &myNBEdge;
     }
+    // Remove all references to this edge in their additionals
+    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+        (*i)->removeEdgeReference();
 }
+
+
+void
+GNEEdge::updateGeometry() {}
 
 
 Boundary
@@ -210,6 +218,11 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
         geom[-1].add(delta);
     }
     setGeometry(geom, false);
+}
+
+NBEdge*
+GNEEdge::getNBEdge() {
+    return &myNBEdge;
 }
 
 
@@ -350,7 +363,7 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 void
 GNEEdge::setGeometry(PositionVector geom, bool inner) {
     myNBEdge.setGeometry(geom, inner);
-    updateLaneGeometries();
+    updateLaneGeometriesAndAdditionals();
     getSource()->invalidateShape();
     getDest()->invalidateShape();
     myNet->refreshElement(this);
@@ -358,10 +371,17 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
 
 
 void
-GNEEdge::updateLaneGeometries() {
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+GNEEdge::updateLaneGeometriesAndAdditionals() {
+    // Update geometry of lanes
+    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i)
         (*i)->updateGeometry();
-    }
+    // Update geometry of additionals vinculated to this edge
+    for (AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i)
+        (*i)->updateGeometry();
+    // Update geometry of additionalSets vinculated to this edge
+    for (AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i)
+        (*i)->updateGeometry();
+
 }
 
 
@@ -394,6 +414,18 @@ GNEEdge::getLaneGlIDs() {
         result.insert(myLanes[i]->getGlID());
     }
     return result;
+}
+
+
+const std::vector<GNELane*>&
+GNEEdge::getLanes() {
+    return myLanes;
+}
+
+
+bool
+GNEEdge::wasSplit() {
+    return myWasSplit;
 }
 
 
@@ -593,6 +625,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void
+GNEEdge::setResponsible(bool newVal) {
+    myAmResponsible = newVal;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -715,6 +752,9 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         myLanes[i]->setIndex(i);
     }
+    // Add references to this lane in additionalSets
+    for(std::list<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++)
+        (*i)->addLaneChild(lane);
     /* while technically correct, this looks ugly
     getSource()->invalidateShape();
     getDest()->invalidateShape();
@@ -731,6 +771,9 @@ GNEEdge::removeLane(GNELane* lane) {
     if (lane == 0) {
         lane = myLanes.back();
     }
+    // Remove additionalSets vinculated with this Lane
+    for(std::list<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++)
+        (*i)->removeLaneChild(lane);
     myNBEdge.deleteLane(lane->getIndex());
     lane->decRef("GNEEdge::removeLane");
     myLanes.erase(myLanes.begin() + lane->getIndex());
@@ -777,5 +820,66 @@ GNEEdge::setMicrosimID(const std::string& newID) {
     }
 }
 
+
+bool
+GNEEdge::addAdditional(GNEAdditional *additional) {
+    // Check if additional already exists before insertion
+    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+        if((*i) == additional)
+            return false;
+    // Insert it and retur true
+    myAdditionals.push_back(additional);
+    return true;
+}
+    
+
+bool
+GNEEdge::removeAdditional(GNEAdditional *additional) {
+    // search additional and remove it
+    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+        if((*i) == additional) {
+            myAdditionals.erase(i);
+            return true;
+        }
+    // If additional wasn't found, return false
+    return false;
+}
+
+
+std::list<GNEAdditional*>
+GNEEdge::getAdditionals() {
+    return myAdditionals;
+}
+
+
+bool
+GNEEdge::addAdditionalSet(GNEAdditionalSet *additionalSet) {
+    // Check if additionalSet already exists before insertion
+    for(AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
+        if((*i) == additionalSet)
+            return false;
+    // Insert it and retur true
+    myAdditionalSets.push_back(additionalSet);
+    return true;
+}
+    
+
+bool
+GNEEdge::removeAdditionalSet(GNEAdditionalSet *additionalSet) {
+    // search additionalSet and remove it
+    for(AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
+        if((*i) == additionalSet) {
+            myAdditionalSets.erase(i);
+            return true;
+        }
+    // If additionalSet wasn't found, return false
+    return false;
+}
+
+
+const std::list<GNEAdditionalSet*> &
+GNEEdge::getAdditionalSets() {
+    return myAdditionalSets;
+}
 
 /****************************************************************************/

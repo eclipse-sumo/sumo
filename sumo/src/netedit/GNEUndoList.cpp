@@ -65,10 +65,21 @@ FXDEFMAP(GNEUndoList) GNEUndoListMap[] = {
     FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_REDO,       GNEUndoList::p_onUpdRedo)
 };
 
+
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
 FXIMPLEMENT_ABSTRACT(GNEUndoList, FXUndoList, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
+
+
+// ===========================================================================
+// member method definitions
+// ===========================================================================
+
+GNEUndoList::GNEUndoList(GNEApplicationWindow* parent) : 
+    FXUndoList(), 
+    myParent(parent) {
+}
 
 
 void
@@ -160,3 +171,31 @@ GNEUndoList::p_onUpdRedo(FXObject* sender, FXSelector, void*) {
     return 1;
 }
 
+
+bool 
+GNEUndoList::hasCommandGroup() const {
+    return myCommandGroups.size() != 0;
+}
+
+
+GNEUndoList::CommandGroup::CommandGroup(std::string description) : 
+    myDescription(description) {
+}
+
+
+const std::string& 
+GNEUndoList::CommandGroup::getDescription() {
+    return myDescription;
+}
+
+
+FXString 
+GNEUndoList::CommandGroup::undoName() const {
+    return ("Undo " + myDescription).c_str();
+}
+
+
+FXString 
+GNEUndoList::CommandGroup::redoName() const {
+    return ("Redo " + myDescription).c_str();
+}

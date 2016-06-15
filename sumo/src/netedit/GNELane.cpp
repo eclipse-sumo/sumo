@@ -51,12 +51,13 @@
 #include "GNELane.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
-#include "GNETLSEditor.h"
+#include "GNETLSEditorFrame.h"
 #include "GNEInternalLane.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
 #include "GNEViewNet.h"
+#include "GNEViewParent.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -73,8 +74,7 @@ FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 // method definitions
 // ===========================================================================
 GNELane::GNELane(GNEEdge& edge, const int index) :
-    GUIGlObject(GLO_LANE, edge.getNBEdge()->getLaneID(index)),
-    GNEAttributeCarrier(SUMO_TAG_LANE),
+    GNENetElement(edge.getNet(), edge.getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(edge),
     myIndex(index),
     mySpecialColor(0),
@@ -83,15 +83,19 @@ GNELane::GNELane(GNEEdge& edge, const int index) :
 }
 
 GNELane::GNELane() :
-    GUIGlObject(GLO_LANE, "dummyConstructorGNELane"),
-    GNEAttributeCarrier(SUMO_TAG_LANE),
+    GNENetElement(NULL, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(*static_cast<GNEEdge*>(0)),
     myIndex(-1),
     mySpecialColor(0),
     myTLSEditor(0) {
 }
 
-GNELane::~GNELane() {}
+
+GNELane::~GNELane() {
+    // Remove all references to this lane in their additionals
+    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+        (*i)->removeLaneReference();                                                                                       
+}
 
 
 void
@@ -228,7 +232,6 @@ GNELane::drawLane2LaneConnections() const {
     glPopMatrix();
 }
 
-
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
@@ -294,8 +297,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         if (myParentEdge.getDest()->isLogicValid() && s.scale > 3) {
             drawArrows();
         }
-
     }
+
     glPopName();
 }
 
@@ -374,7 +377,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             new FXMenuCommand(ret, "Duplicate lane", 0, &parent, MID_GNE_DUPLICATE_LANE);
         }
     } else if (editMode == GNE_MODE_TLS) {
-        myTLSEditor = static_cast<GNEViewNet&>(parent).getTLSEditor();
+        myTLSEditor = static_cast<GNEViewNet&>(parent).getViewParent()->getTLSEditorFrame();
         if (myTLSEditor->controlsEdge(myParentEdge)) {
             new FXMenuCommand(ret, "Select state for all links from this edge:", 0, 0, 0);
             const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
@@ -390,9 +393,12 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         mc->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
     }
     // buildShowParamsPopupEntry(ret, false);
+    new FXMenuSeparator(ret);
     const SUMOReal pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
     const SUMOReal height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
-    new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), 0, 0, 0);
+    new FXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), 0, 0, 0);
+    new FXMenuCommand(ret, ("Length pos: " + toString(getPositionRelativeToShapeLenght(pos))).c_str(), 0, 0, 0);
+    new FXMenuCommand(ret, ("Height: " + toString(height)).c_str(), 0, 0, 0);
     // new FXMenuSeparator(ret);
     // buildPositionCopyEntry(ret, false);
 
@@ -464,12 +470,109 @@ GNELane::updateGeometry() {
             myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
         }
     }
+    // Update geometry of additionals vinculated with this lane
+    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+        (*i)->updateGeometry();
+    // Update geometry of additionalSets vinculated to this lane
+    for (AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i)
+        (*i)->updateGeometry();
+}
+
+unsigned int
+GNELane::getIndex() const {
+    return myIndex;
 }
 
 void
 GNELane::setIndex(unsigned int index) {
     myIndex = index;
     setMicrosimID(myParentEdge.getNBEdge()->getLaneID(index));
+}
+
+
+SUMOReal
+GNELane::getSpeed() const {
+    return myParentEdge.getNBEdge()->getLaneSpeed(myIndex);
+}
+
+
+SUMOReal
+GNELane::getLaneParametricLenght() const  {
+    return myParentEdge.getNBEdge()->getLoadedLength();
+}
+
+
+SUMOReal
+GNELane::getLaneShapeLenght() const {
+    return getShape().length();
+}
+
+
+SUMOReal
+GNELane::getPositionRelativeToParametricLenght(SUMOReal position) const {
+    return (position * getLaneShapeLenght()) / getLaneParametricLenght();
+}
+
+
+SUMOReal
+GNELane::getPositionRelativeToShapeLenght(SUMOReal position) const {
+    return (position * getLaneParametricLenght()) / getLaneShapeLenght();
+}
+
+
+void
+GNELane::addAdditional(GNEAdditional *additional) {
+    myAdditionals.push_back(additional);
+}
+
+
+bool
+GNELane::removeAdditional(GNEAdditional *additional) {
+    // Find and remove stoppingPlace
+    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if(*i == additional) {
+            myAdditionals.erase(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+
+std::list<GNEAdditional*>
+GNELane::getAdditionals() {
+    return myAdditionals;
+}
+
+
+bool
+GNELane::addAdditionalSet(GNEAdditionalSet *additionalSet) {
+    // Check if additionalSet already exists before insertion
+    for(AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
+        if((*i) == additionalSet)
+            return false;
+    // Insert it and retur true
+    myAdditionalSets.push_back(additionalSet);
+    return true;
+}
+    
+
+bool
+GNELane::removeAdditionalSet(GNEAdditionalSet *additionalSet) {
+    // search additionalSet and remove it
+    for(AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
+        if((*i) == additionalSet) {
+            myAdditionalSets.erase(i);
+            return true;
+        }
+    // If additionalSet wasn't found, return false
+    return false;
+}
+
+
+const std::list<GNEAdditionalSet*> &
+GNELane::getAdditionalSets() {
+    return myAdditionalSets;
 }
 
 
@@ -537,8 +640,13 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return value == toString(myIndex);
         default:
             throw InvalidArgument("lane attribute '" + toString(key) + "' not allowed");
-
     }
+}
+
+
+void
+GNELane::setSpecialColor(const RGBColor* color) {
+    mySpecialColor = color;
 }
 
 // ===========================================================================
@@ -710,6 +818,9 @@ GNELane::onDefault(FXObject* obj, FXSelector sel, void* data) {
     return 1;
 }
 
-
+GNEEdge&
+GNELane::getParentEdge() {
+    return myParentEdge;
+};
 
 /****************************************************************************/

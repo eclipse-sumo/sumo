@@ -41,18 +41,19 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPerspectiveChanger::GUIPerspectiveChanger(
-    GUISUMOAbstractView& callBack,
-    const Boundary& viewPort) :
+GUIPerspectiveChanger::GUIPerspectiveChanger( GUISUMOAbstractView& callBack, const Boundary& viewPort) :
     myCallback(callBack),
-    myViewPort(viewPort) {}
+    myViewPort(viewPort) {
+}
 
 
-GUIPerspectiveChanger::~GUIPerspectiveChanger() {}
+GUIPerspectiveChanger::~GUIPerspectiveChanger() {
+}
 
 
 void
-GUIPerspectiveChanger::onLeftBtnPress(void*) {}
+GUIPerspectiveChanger::onLeftBtnPress(void*) {
+}
 
 
 bool
@@ -62,7 +63,8 @@ GUIPerspectiveChanger::onLeftBtnRelease(void*) {
 
 
 void
-GUIPerspectiveChanger::onRightBtnPress(void*) {}
+GUIPerspectiveChanger::onRightBtnPress(void*) {
+}
 
 
 bool
@@ -70,23 +72,32 @@ GUIPerspectiveChanger::onRightBtnRelease(void*) {
     return false;
 }
 
+void 
+GUIPerspectiveChanger::onDoubleClicked(void* data) {
+}
+
 
 void
-GUIPerspectiveChanger::onMouseWheel(void*) {}
+GUIPerspectiveChanger::onMouseWheel(void*) {
+}
 
 
 void
-GUIPerspectiveChanger::onMouseMove(void*) {}
+GUIPerspectiveChanger::onMouseMove(void*) {
+}
+
 
 long
 GUIPerspectiveChanger::onKeyPress(void*) {
     return 0;
 }
 
+
 long
 GUIPerspectiveChanger::onKeyRelease(void*) {
     return 0;
 }
+
 
 FXint
 GUIPerspectiveChanger::getMouseXPosition() const {
@@ -97,6 +108,21 @@ GUIPerspectiveChanger::getMouseXPosition() const {
 FXint
 GUIPerspectiveChanger::getMouseYPosition() const {
     return myMouseYPosition;
+}
+
+
+Boundary
+GUIPerspectiveChanger::getViewport(bool fixRatio) {
+    if (fixRatio)
+        return patchedViewPort();
+    else
+        return myViewPort;         
+}
+
+
+void
+GUIPerspectiveChanger::setViewport(const Boundary& viewPort) {
+    myViewPort = viewPort;
 }
 
 

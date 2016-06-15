@@ -20,6 +20,7 @@
 #ifndef GNEChange_Edge_h
 #define GNEChange_Edge_h
 
+
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -50,7 +51,7 @@ class GNEChange_Edge : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Edge)
 
 public:
-    /** @brief Constructor for creating/deleting an edge
+    /**@brief Constructor for creating/deleting an edge
      * @param[in] net The net on which to apply changes
      * @param[in] edge The edge to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
@@ -60,14 +61,24 @@ public:
     /// @brief Destructor
     ~GNEChange_Edge();
 
+    /// @name inherited from GNEChange
+    /// @{
+    /// @brief get undo Name
     FXString undoName() const;
+
+    /// @brief get Redo name
     FXString redoName() const;
+
+    /// @brief undo action
     void undo();
+
+    /// @brief redo action
     void redo();
+    /// @}
 
 
 private:
-    /** @brief full information regarding the edge that is to be created/deleted
+    /**@brief full information regarding the edge that is to be created/deleted
      * we assume shared responsibility for the pointer (via reference counting)
      */
     GNEEdge* myEdge;

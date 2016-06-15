@@ -278,6 +278,9 @@ public:
     /// @brief the current NETEDIT mode (temporary)
     int editMode;
 
+    /// @brief the current NETEDIT additional mode (temporary)
+    int editAdditionalMode;
+
     /// @brief the current selection scaling in NETEDIT (temporary)
     SUMOReal selectionScale;
 

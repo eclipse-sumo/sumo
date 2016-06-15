@@ -21,6 +21,7 @@ netedit_SOURCES = netedit_main.cpp \
 GNEApplicationWindow.h GNEApplicationWindow.cpp \
 GNELoadThread.h GNELoadThread.cpp \
 GNENet.h GNENet.cpp \
+GNENetElement.h GNENetElement.cpp \
 GNEEdge.h GNEEdge.cpp \
 GNELane.h GNELane.cpp \
 GNEInternalLane.h GNEInternalLane.cpp \
@@ -32,6 +33,7 @@ GNEViewNet.h GNEViewNet.cpp \
 GNEViewParent.h GNEViewParent.cpp \
 GNEDialog_About.h GNEDialog_About.cpp \
 GNEDialog_Wizard.h GNEDialog_Wizard.cpp \
+GNEAdditionalDialog.h GNEAdditionalDialog.cpp \
 GNEChange.h GNEChange.cpp \
 GNEChange_Junction.h GNEChange_Junction.cpp \
 GNEChange_Edge.h GNEChange_Edge.cpp \
@@ -40,12 +42,32 @@ GNEChange_Connection.h GNEChange_Connection.cpp \
 GNEChange_Attribute.h GNEChange_Attribute.cpp \
 GNEChange_TLS.h GNEChange_TLS.cpp \
 GNEChange_Selection.h GNEChange_Selection.cpp \
+GNEChange_Additional.h GNEChange_Additional.cpp \
 GNEUndoList.h GNEUndoList.cpp \
 GNEAttributeCarrier.h GNEAttributeCarrier.cpp \
-GNEInspector.h GNEInspector.cpp \
-GNESelector.h GNESelector.cpp \
-GNEConnector.h GNEConnector.cpp \
-GNETLSEditor.h GNETLSEditor.cpp \
+GNEFrame.h GNEFrame.cpp \
+GNEInspectorFrame.h GNEInspectorFrame.cpp \
+GNESelectorFrame.h GNESelectorFrame.cpp \
+GNEConnectorFrame.h GNEConnectorFrame.cpp \
+GNETLSEditorFrame.h GNETLSEditorFrame.cpp \
+GNEAdditionalFrame.h GNEAdditionalFrame.cpp \
+GNEAdditionalHandler.h GNEAdditionalHandler.cpp \
+GNEAdditional.h GNEAdditional.cpp \
+GNEAdditionalSet.h GNEAdditionalSet.cpp \
+GNEChargingStation.h GNEChargingStation.cpp \
+GNEStoppingPlace.h GNEStoppingPlace.cpp \
+GNEBusStop.h GNEBusStop.cpp \
+GNEDetector.h GNEDetector.cpp \
+GNEDetectorE1.h GNEDetectorE1.cpp \
+GNEDetectorE2.h GNEDetectorE2.cpp \
+GNEDetectorE3.h GNEDetectorE3.cpp \
+GNEDetectorEntry.h GNEDetectorEntry.cpp \
+GNEDetectorExit.h GNEDetectorExit.cpp \
+GNERerouter.h GNERerouter.cpp \
+GNERerouterDialog.h GNERerouterDialog.cpp \
+GNERouteProbe.h GNERouteProbe.cpp \
+GNEVariableSpeedSignal.h GNEVariableSpeedSignal.cpp \
+GNEVariableSpeedSignalDialog.h GNEVariableSpeedSignalDialog.cpp \
 GNEReferenceCounter.h \
 GNEEvent_NetworkLoaded.h
 

@@ -31,13 +31,7 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utility>
-#include <utils/gui/globjects/GUIPolygon.h>
-#include <utils/xml/SUMOSAXHandler.h>
-
-#include "GNEAttributeCarrier.h"
-
+#include "GNENetElement.h"
 
 // ===========================================================================
 // class declarations
@@ -56,35 +50,37 @@ class GeoConvHelper;
  */
 class GNEPoly : public GUIPolygon, public GNEAttributeCarrier {
 
-    //friend class GNEChange_POI;
+    /// @brief declare friend class
+    //friend class GNEChange_POI
+
 public:
     class GNEPolyHandler : public SUMOSAXHandler {
     public:
-
+        /// @brief constructor
         GNEPolyHandler(GNENet* net);
-        virtual ~GNEPolyHandler();
-        /// @name inherited from GenericSAXHandler
-        //@{
 
-        /** @brief Called on the opening of a tag;
+        /// @brief
+        virtual ~GNEPolyHandler();
+
+        /// @name inherited from GenericSAXHandler
+        /// @{
+        /**@brief Called on the opening of a tag;
          *
          * @param[in] element ID of the currently opened element
          * @param[in] attrs Attributes within the currently opened element
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        virtual void myStartElement(int element,
-                                    const SUMOSAXAttributes& attrs);
+        virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
-
-        /** @brief Called when a closing tag occurs
+        /**@brief Called when a closing tag occurs
          *
          * @param[in] element ID of the currently opened element
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
         virtual void myEndElement(int element);
-        //@}
+        /// @}
 
         int getNumLoaded() {
             return myNumLoaded;
@@ -104,19 +100,19 @@ public:
     };
 
 public:
-    /** @brief Constructor
+    /**@brief Constructor
      */
     GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
             const RGBColor& color, SUMOReal layer,
             SUMOReal angle = 0, const std::string& imgFile = "");
 
     /// @brief Destructor
-    virtual ~GNEPoly() ;
+    virtual ~GNEPoly();
 
     /// @name inherited from GUIGlObject
-    //@{
+    /// @{
 
-    /** @brief Returns an own popup-menu
+    /**@brief Returns an own popup-menu
      *
      * @param[in] app The application needed to build the popup-menu
      * @param[in] parent The parent window needed to build the popup-menu
@@ -124,20 +120,20 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent) ;
+                                       GUISUMOAbstractView& parent);
 
 
-    /** @brief Draws the object
+    /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const ;
-    //@}
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
 
 
     /// @brief draw the polygon and also little movement handles
 
-    /** @brief change the polygon geometry without registering undo/redo
+    /**@brief change the polygon geometry 
      * It is up to the Polygon to decide whether an new geometry node should be
      * generated or an existing node should be moved
      * @param[in] oldPos The origin of the mouse movement
@@ -163,8 +159,8 @@ public:
     //void registerMove(GNEUndoList *undoList);
 
 
-    //@name inherited from GNEAttributeCarrier
-    //@{
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
@@ -175,7 +171,7 @@ public:
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     bool isValid(SumoXMLAttr key, const std::string& value);
-    //@}
+    /// @}
 
     /// @brief load POIs from file
     static void loadFromFile(const std::string& file, GNENet* net);

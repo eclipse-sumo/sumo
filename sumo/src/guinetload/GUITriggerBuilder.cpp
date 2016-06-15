@@ -103,14 +103,14 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id, const s
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos,
                                         SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay) {
-    GUIChargingStation* chrg = new GUIChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
+    GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
 
-    if (!net.addChargingStation(chrg)) {
-        delete chrg;
+    if (!net.addChargingStation(chargingStation)) {
+        delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }
 
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(chrg);
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(chargingStation);
 }
 
 MSCalibrator*

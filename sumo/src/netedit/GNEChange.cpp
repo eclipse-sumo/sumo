@@ -49,4 +49,33 @@ GNEChange::GNEChange(GNENet* net, bool forward) :
     myNet(net),
     myForward(forward) {}
 
+
+GNEChange::~GNEChange() {};
+
+
+FXuint
+GNEChange::size() const {
+    return 1;
+}
+
+
+FXString
+GNEChange::undoName() const {
+    return "Undo";
+}
+
+
+FXString
+GNEChange::redoName() const {
+    return "Redo";
+}
+
+
+void
+GNEChange::undo() {};
+
+
+void
+GNEChange::redo() {};
+
 /****************************************************************************/

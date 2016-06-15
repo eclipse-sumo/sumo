@@ -53,82 +53,73 @@ class GNEApplicationWindow;
  * @class  GNEUndoList
  */
 class GNEUndoList : public FXUndoList {
+    /// @brief FOX declaration
     FXDECLARE_ABSTRACT(GNEUndoList)
 
-
 public:
-    /// constructor
-    /* be aware that "parent" may be not fully initialized when stored here,
-    so don't call any methods on it. */
-    GNEUndoList(GNEApplicationWindow* parent) : FXUndoList(), myParent(parent) {}
+    /// @brief constructor
+    /// @note be aware that "parent" may be not fully initialized when stored here, so don't call any methods on it.
+    GNEUndoList(GNEApplicationWindow* parent);
 
-    /**
-     * Begin undo command sub-group. This begins a new group of commands that
+    /**@brief Begin undo command sub-group. This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
-     * matching end() after recording the sub-commands.  The new sub-group
+     * matching end() after recording the sub-commands. The new sub-group
      * will be appended to its parent group's undo list when end() is called.
      */
     void p_begin(const std::string& description);
 
-    /**
-     * End undo command sub-group.  If the sub-group is still empty, it will
+    /**@brief End undo command sub-group.  If the sub-group is still empty, it will
      * be deleted; otherwise, the sub-group will be added as a new command
      * into parent group.
      * A matching begin() must have been called previously.
      */
     void p_end();
 
-    /**
-     * clears the undo list (implies abort)
-     */
+    /// @brief clears the undo list (implies abort)
     void p_clear();
 
-    /**
-     * @brief reverts and discards ALL active command groups
-     */
+    /// @brief reverts and discards ALL active command groups
     void p_abort();
 
-    /**
-     * @brief undo the last command group
-     */
+    /// @brief undo the last command group
     void undo();
 
-    /**
-     * @brief redo the last command group
-     */
+    /// @brief redo the last command group
     void redo();
 
-    /**
-     * @brief special method, avoid empty changes, always execute
-     */
+    /// @brief special method, avoid empty changes, always execute
     void p_add(GNEChange_Attribute* cmd);
-
-
+    
+    /// @name FOX-callbacks
+    /// @{
+    /// @brief event after Undo
     long p_onUpdUndo(FXObject*, FXSelector, void*);
+
+    /// @brief event after Redo
     long p_onUpdRedo(FXObject*, FXSelector, void*);
+    /// @}
 
-
-    bool hasCommandGroup() const {
-        return myCommandGroups.size() != 0;
-    }
+    /// @brief Check if undoList has command group
+    bool hasCommandGroup() const;
 
 private:
-
+    /// @brief class CommandGroup
     class CommandGroup : public FXCommandGroup {
     public:
-        CommandGroup(std::string description) : myDescription(description) {}
+        /// @brief Constructor
+        CommandGroup(std::string description);
 
-        const std::string& getDescription() {
-            return myDescription;
-        }
-        FXString undoName() const {
-            return ("Undo " + myDescription).c_str();
-        }
-        FXString redoName() const {
-            return ("Redo " + myDescription).c_str();
-        }
+        /// @brief get description
+        const std::string& getDescription();
+
+        /// @brief get undo Name
+        FXString undoName() const;
+
+        /// @brief get redo name
+        FXString redoName() const;
 
     private:
+        /// @brief description of command
         const std::string myDescription;
     };
 

@@ -383,7 +383,6 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("keep-nodes-unregulated.district-nodes", "keep-unregulated.district-nodes");
     oc.addDescription("keep-nodes-unregulated.district-nodes", "Unregulated Nodes", "Do not regulate district nodes");
 
-
     // ramp guessing options
     if (!forNetgen) {
         oc.doRegister("ramps.guess", new Option_Bool(false));

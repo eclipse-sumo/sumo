@@ -30,20 +30,18 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <vector>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include "GNEAttributeCarrier.h"
+#include "GNENetElement.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUIGLObjectPopupMenu;
 class PositionVector;
-class GNETLSEditor;
+class GNETLSEditorFrame;
 class GNEEdge;
 class GNENet;
+class GNEAdditional;
+class GNEAdditionalSet;
 
 // ===========================================================================
 // class definitions
@@ -53,97 +51,152 @@ class GNENet;
  * @brief This lane is powered by an underlying GNEEdge and basically knows how
  * to draw itself
  */
-class GNELane : public GUIGlObject, public GNEAttributeCarrier, public FXDelegator {
-    // FOX-declarations
+class GNELane : public GNENetElement, public FXDelegator {
+    /// @brief FOX-declaration
     FXDECLARE(GNELane)
 
 public:
-    /** @brief Constructor
+    /// @brief Definition of the additionals list
+    typedef std::list<GNEAdditional*> AdditionalList;
+
+    /// @brief Definition of the additionalSets list
+    typedef std::list<GNEAdditionalSet*> AdditionalSetList;
+
+
+    /**@brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
      * @param[in] the edge this lane belongs to
      * @param[in] the index of this lane
      */
     GNELane(GNEEdge& edge, const int index);
 
-
     /// @brief Destructor
-    virtual ~GNELane() ;
-
+    ~GNELane();
 
     /// @name inherited from GUIGlObject
-    //@{
-    /** @brief Returns the name of the parent object (if any)
-     * @return This object's parent id
-     */
+    /// @{
+    // @brief Returns the name of the parent object (if any)
+    // @return This object's parent id
     const std::string& getParentName() const;
 
-    /** @brief Returns an own popup-menu
+    /**@brief Returns an own popup-menu
      *
      * @param[in] app The application needed to build the popup-menu
      * @param[in] parent The parent window needed to build the popup-menu
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent) ;
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-
-    /** @brief Returns an own parameter window
+    /**@brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent) ;
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /// @brief multiplexes message to two targets
     long onDefault(FXObject*, FXSelector, void*);
 
-    /** @brief Returns underlying parent edge
-     *
+    /**@brief Returns underlying parent edge
      * @return The underlying GNEEdge
      */
-    GNEEdge& getParentEdge() {
-        return myParentEdge;
-    };
+    GNEEdge& getParentEdge();
 
-
-    /** @brief Returns the boundary to which the view shall be centered in order to show the object
+    /**@brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const ;
+    Boundary getCenteringBoundary() const;
 
-
-    /** @brief Draws the object
+    /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const ;
-    //@}
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
 
+    /// @brief returns the shape of the lane
     const PositionVector& getShape() const;
+
+    /// @brief returns the vector with the shape rotations
     const std::vector<SUMOReal>& getShapeRotations() const;
+
+    /// @brief returns the vector with the shape lengths
     const std::vector<SUMOReal>& getShapeLengths() const;
 
-    ///@brief returns the boundry (including lanes)
+    /// @brief returns the boundry (including lanes)
     Boundary getBoundary() const;
 
-    ///@brief update pre-computed geometry information
+    /// @brief update pre-computed geometry information
     //  @note: must be called when geometry changes (i.e. junction moved)
     void updateGeometry();
 
-    unsigned int getIndex() const {
-        return myIndex;
-    }
+    /// @brief returns the index of the lane
+    unsigned int getIndex() const;
 
+    /// @nrief returns the current speed of lane
+    SUMOReal getSpeed() const;
+
+    /* @brief method for setting the index of the lane
+     * @param[in] index The new index of lane
+     */
     void setIndex(unsigned int index);
 
-    //@name inherited from GNEAttributeCarrier
-    //@{
+    /// @brief returns the parameteric length of the lane
+    /// @note is the same as their Edge parent
+    SUMOReal getLaneParametricLenght() const;
+
+    /// @brief returns the length of the lane's shape
+    SUMOReal getLaneShapeLenght() const;
+
+    /* @brief returns the relative position of an element in the lane's shape depending of the parametric lenght
+     *        Examples: Lane with Parametric lenght = 100 and Shape lenght = 250. Position 50 returns 125, Position 80 returns 200
+     * @param[in] position to calculate their relative position in the lane's shape [0 < position < LaneParametricLenght()]
+     * @return the relative position in the lane's shape
+     */
+    SUMOReal getPositionRelativeToParametricLenght(SUMOReal position) const;
+
+    /* @brief returns the relative position of an element in the lane's shape depending of the shape's lenght
+     *        Examples: Lane with Parametric lenght = 100 and Shape lenght = 250. Position = 100 returns 40, Position 220 returns 88
+     * @param[in] position to calculate their relative position in the lane's shape [0 < position < LaneShapeLenght]
+     * @return the relative position in the lane's shape
+     */
+    SUMOReal getPositionRelativeToShapeLenght(SUMOReal position) const;
+
+    /* @brief method for adding a reference of a additional element placed in this lane
+     * @param[in] additional Pointer to additional element
+     */
+    void addAdditional(GNEAdditional *additional);
+
+    /* @brief method for remove a reference of a additional element placed in this lane
+     * @param[in] additional Pointer to additional element previously added
+       @return true if additional element was sucesfully removed, flase in other case
+     */
+    bool removeAdditional(GNEAdditional *additional);
+
+    /// @brief method to obtain a list of additional elements associated to this lane
+    /// @return set with all additional elements
+    std::list<GNEAdditional*> getAdditionals();
+
+    /// @brief add GNEAdditionalSet to this lane
+    bool addAdditionalSet(GNEAdditionalSet *additionalSet);
+
+    /// @brief remove GNEAdditionalSet from this lane
+    bool removeAdditionalSet(GNEAdditionalSet *additionalSet);
+
+    /// @brief return list of additionalSets associated with this lane
+    const std::list<GNEAdditionalSet*> &getAdditionalSets();
+
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
@@ -153,37 +206,55 @@ public:
      */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
+    /* @brief method for checking if the key and their correspond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value asociated to key key
+     * @return true if the value is valid, false in other case
+     */
     bool isValid(SumoXMLAttr key, const std::string& value);
-    //@}
+    /// @}
 
-    void setSpecialColor(const RGBColor* color) {
-        mySpecialColor = color;
-    }
+    /* @brief method for setting the special color of the lane
+     * @param[in] color Pointer to new special color
+     */
+    void setSpecialColor(const RGBColor* Color2);
 
 protected:
     /// @brief FOX needs this
     GNELane();
 
-private:
-    /// The Edge that to which this lane belongs
+    /// @brief The Edge that to which this lane belongs
     GNEEdge& myParentEdge;
 
-    /// The index of this lane
+    /// @brief The index of this lane
     int myIndex;
 
     /// @name computed only once (for performance) in updateGeometry()
-    //@{
-    /// The rotations of the shape parts
+    /// @{
+    /// @brief The rotations of the shape parts
     std::vector<SUMOReal> myShapeRotations;
 
-    /// The lengths of the shape parts
+    /// @brief The lengths of the shape parts
     std::vector<SUMOReal> myShapeLengths;
-    //@}
+    /// @}
+
+    /// @brief list with the additonals vinculated with this lane
+    AdditionalList myAdditionals;
+
+    /// @brief list with the additonalSets vinculated with this lane
+    AdditionalSetList myAdditionalSets;
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
 
+    /// @brief The color of the shape parts (cached)
+    mutable std::vector<RGBColor> myShapeColors;
+
+    /// @brief the tls-editor for setting multiple links in TLS-mode
+    GNETLSEditorFrame* myTLSEditor;
+
 private:
+    /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
@@ -192,17 +263,25 @@ private:
     /// @brief Invalidated assignment operator.
     GNELane& operator=(const GNELane&);
 
-    //@brief draw lane markings
+    /// @brief draw lane markings
     void drawMarkings(const bool& selectedEdge, SUMOReal scale) const;
 
-    // drawing methods
+    /// @brief draw link Number
     void drawLinkNo() const;
+
+    /// @brief draw TLS Link Number
     void drawTLSLinkNo() const;
+
+    /// @brief draw link rules
     void drawLinkRules() const;
+
+    /// @brief draw arrows
     void drawArrows() const;
+
+    /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;
 
-    // @brief return value for lane coloring according to the given scheme
+    /// @brief return value for lane coloring according to the given scheme
     SUMOReal getColorValue(size_t activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
@@ -217,17 +296,9 @@ private:
     /// @brief whether to draw this lane as a waterways
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
-    /* @brief draw crossties for railroads
-     * @todo: XXX This duplicates the code of GUILane::drawCrossties and needs to be */
+    /// @brief draw crossties for railroads
+    /// @todo: XXX This duplicates the code of GUILane::drawCrossties and needs to be
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
-
-
-    /// The color of the shape parts (cached)
-    mutable std::vector<RGBColor> myShapeColors;
-
-    /// @brief the tls-editor for setting multiple links in TLS-mode
-    GNETLSEditor* myTLSEditor;
-
 };
 
 

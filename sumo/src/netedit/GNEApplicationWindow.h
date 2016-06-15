@@ -69,96 +69,141 @@ class GUIParameterTableWindow;
  */
 class GNEApplicationWindow :
     public GUIMainWindow, public MFXInterThreadEventClient {
-    // FOX-declarations
+    /// @brief FOX-declaration
     FXDECLARE(GNEApplicationWindow)
 
 public:
 
-    /** @brief Constructor
+    /**@brief Constructor
      * @param[in] a The FOX application
      * @param[in] configPattern The pattern used for loading configurations
      */
     GNEApplicationWindow(FXApp* a, const std::string& configPattern);
 
-
     /// @brief Destructor
     virtual ~GNEApplicationWindow();
-
 
     /// @brief Creates the main window (required by FOX)
     virtual void create();
 
-
-    /// Detaches the tool/menu bar
+    /// @brief detaches the tool/menu bar
     virtual void detach();
 
-
+    /// @brief load net on startup
     void loadOnStartup();
 
-
+    /// @brief build dependent
     void dependentBuild();
 
+    /// @brief set text of the statusBar
     void setStatusBarText(const std::string&);
-
 
     /// @name Inter-thread event handling
     /// @{
-
+    /// @brief called when an event occured
     virtual void eventOccured();
+
+    /// @brief handle event of type Network loaded
     void handleEvent_NetworkLoaded(GUIEvent* e);
+
+    /// @brief hanlde event of type message
     void handleEvent_Message(GUIEvent* e);
     /// @}
 
-
-
     /// @name FOX-callbacks
     /// @{
+    /// @brief called when the command/FXCall new network is executed
     long onCmdNewNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall open configuration is executed
     long onCmdOpenConfiguration(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall open network is executed
     long onCmdOpenNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall open foreign is executed
     long onCmdOpenForeign(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall open shapes is executed
     long onCmdOpenShapes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall open additionals is executed
+    long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall open recent is executed
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall close is executed
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu commands from the Locator menu
+    /// @brief called when the command/FXCall locate is executed
     long onCmdLocate(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save additionals is executed
+    long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save network is executed
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the upadte/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall reload is executed
     long onUpdReload(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save as plain xml is executed
     long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save joined is executed
     long onCmdSaveJoined(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save pois is executed
     long onCmdSavePois(FXObject*, FXSelector, void*);
 
-    /// @brief handle keys
+    /// @brief called when a key is pressed
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
+
+    /// @brief called when a key is released
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
 
-    /** @brief Called by FOX if the application shall be closed
+    /**@brief Called by FOX if the application shall be closed
         Called either by FileMenu->Quit, the normal close-menu or SIGINT  */
     long onCmdQuit(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall edit chosen is executed
     long onCmdEditChosen(FXObject*, FXSelector, void*);
 
-    /// Opens the application settings menu
+    /// @brief Opens the application settings menu
     long onCmdAppSettings(FXObject*, FXSelector, void*);
-    /// Toggle gaming mode
+
+    /// @brief called when the command/FXCall toogle gaming mode is executed
     long onCmdGaming(FXObject*, FXSelector, void*);
 
-    /// Shows the about dialog
+    /// @brief called when the command/FXCall show about dialog is executed
     long onCmdAbout(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall new view is executed
     long onCmdNewView(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall on update open executed
     long onUpdOpen(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall clear message windows is executed
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall load thread is executed
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
-    /// Somebody wants our clipped text
+
+    /// @brief called when the command/FXCall clipboard request is executed
     long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user hits an edit-mode hotkey
@@ -189,22 +234,20 @@ public:
     long onCmdOptions(FXObject*, FXSelector, void*);
     /// @}
 
+    /// @brief get build OpenGL Canvas
     FXGLCanvas* getBuildGLCanvas() const;
 
-    /// pure virtual but we don't need it
-    SUMOTime getCurrentSimTime() const {
-        return 0;
-    }
+    /// @brief get current simulation time (pure virtual but we don't need it)
+    SUMOTime getCurrentSimTime() const;
 
+    /// @brief get default cursor
     FXCursor* getDefaultCursor();
 
-    GNEUndoList* getUndoList() {
-        return myUndoList;
-    }
+    /// @brief get pointer to undoList
+    GNEUndoList* getUndoList();
 
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
-
 
 protected:
     /// FOX needs this for static members
@@ -213,19 +256,19 @@ protected:
     /// Builds the menu bar
     virtual void fillMenuBar();
 
-    /** the name of the simulation */
+    /// @brief the name of the simulation
     std::string myName;
 
-    /** the thread that loads the network */
+    /// @brief the thread that loads the network
     GNELoadThread* myLoadThread;
 
-    /// The current view number
+    /// @brief The current view number
     size_t myViewNumber;
 
-    /// information whether the gui is currently loading and the load-options shall be greyed out
+    /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading;
 
-    /// the submenus
+    /// @brief the submenus
     FXMenuPane* myFileMenu,
                 *myEditMenu,
                 *myLocatorMenu,
@@ -233,50 +276,51 @@ protected:
                 *myWindowsMenu,
                 *myHelpMenu;
 
-    /// A window to display messages, warnings and error in
+    /// @brief A window to display messages, warnings and error in
     GUIMessageWindow* myMessageWindow;
 
-    /// The splitter that divides the main window into vies and the log window
+    /// @brief The splitter that divides the main window into view and the log window
     FXSplitter* myMainSplitter;
 
-    /// for some menu detaching fun
+    /// @brief for some menu detaching fun
     FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
                     *myToolBarDrag4, *myToolBarDrag5,
                     *myMenuBarDrag;
 
-    /// List of got requests
+    /// @brief List of got requests
     MFXEventQue<GUIEvent*> myEvents;
 
-    /// The menu used for the MDI-windows
+    /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu;
 
-    /// The application menu bar
+    /// @brief The application menu bar
     FXMenuBar* myMenuBar;
 
-    /// The application tool bar
+    /// @brief The application tool bar
     FXToolBar* myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
 
-    /// io-event with the load-thread
+    /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
 
-    /// List of recent config files
+    /// @brief List of recent config files
     FXRecentFiles myRecentConfigs;
 
-    /// List of recent nets
+    /// @brief List of recent nets
     FXRecentFiles myRecentNets;
 
-    /// Input file pattern
+    /// @brief Input file pattern
     std::string myConfigPattern;
 
+    /// @brief check if had dependent build
     bool hadDependentBuild;
 
-    /// we are responsible for the net
+    /// @brief we are responsible for the net
     GNENet* myNet;
 
-    /// the one and only undo list
+    /// @brief the one and only undo list
     GNEUndoList* myUndoList;
 
-    /// the prefix for the window title
+    /// @brief the prefix for the window title
     const FXString myTitlePrefix;
 
     /**
@@ -287,34 +331,42 @@ protected:
      */
     class GNEShapeHandler : public ShapeHandler {
     public:
-        GNEShapeHandler(const std::string& file, GNENet* net, ShapeContainer& sc) :
-            ShapeHandler(file, sc),
-            myNet(net) {}
+        /**@brief Constructor
+         * @param[in] file file with the shapes
+         * @param[in] net network in which add shapes
+         * @param[in] ShapeContainer reference to ShapeContainer
+         */
+        GNEShapeHandler(const std::string& file, GNENet* net, ShapeContainer& sc);
 
         /// @brief Destructor
-        virtual ~GNEShapeHandler() {}
+        virtual ~GNEShapeHandler();
 
+        /**@brief get lane position
+         * @param[in] poi poi ID
+         * @param[in] laneID lane ID
+         * @param[in] SlanePos position in the lane
+         */
         Position getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos);
 
     private:
+        /// @brief pointer of the net
         GNENet* myNet;
     };
 
 private:
-    /** starts to load a netimport configuration or a network */
+    /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool optionsReady = false, bool newNet = false);
 
-    /** this method closes all windows and deletes the current simulation */
+    /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
-    /** opens a new simulation display */
+    /// @brief opens a new simulation display */
     GUISUMOAbstractView* openNewView();
 
-    // @brief convenience method
+    /// @brief convenience method
     GNEViewNet* getView();
 
-    /* @brief warns about unsaved changes and gives the user the option to abort
-     */
+    /// @brief warns about unsaved changes and gives the user the option to abort
     bool continueWithUnsavedChanges();
 };
 

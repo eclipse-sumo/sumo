@@ -77,7 +77,7 @@
     <ClCompile Include="..\..\..\src\guisim\GUIChargingStation.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\guisim\GUIBaseVehicle.cpp">
+    <ClCompile Include="..\..\..\src\guisim\GUIChargingStation.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\guisim\GUITransportableControl.cpp">
@@ -151,7 +151,7 @@
     <ClInclude Include="..\..\..\src\guisim\GUIChargingStation.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\guisim\GUIBaseVehicle.h">
+    <ClInclude Include="..\..\..\src\guisim\GUIChargingStation.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUITransportableControl.h">

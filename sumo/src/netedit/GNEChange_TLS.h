@@ -20,6 +20,7 @@
 #ifndef GNEChange_TLS_h
 #define GNEChange_TLS_h
 
+
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -50,7 +51,7 @@ class GNEChange_TLS : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_TLS)
 
 public:
-    /** @brief Constructor for creating/deleting an edge
+    /**@brief Constructor for creating/deleting an edge
      * @param[in] junction The junction to which the traffic light belong
      * @param[in] tlDef The traffic light definition (may be 0 on creation)
      * @param[in] forward Whether to create/delete (true/false)
@@ -61,10 +62,20 @@ public:
     /// @brief Destructor
     ~GNEChange_TLS();
 
+    /// @name inherited from GNEChange
+    /// @{
+    /// @brief get undo Name
     FXString undoName() const;
+
+    /// @brief get Redo name
     FXString redoName() const;
+
+    /// @brief undo action
     void undo();
+
+    /// @brief redo action
     void redo();
+    /// @}
 
 
 private:
@@ -76,6 +87,7 @@ private:
      * since it is hard to track by which NBnodes a tlDef is used (may be more than one). */
     NBTrafficLightDefinition* myTlDef;
 
+    /// @brief check if forceInsert is enabled
     bool myForceInsert;
 };
 

@@ -46,6 +46,7 @@ enum GUIIcon {
     ICON_OPEN_CONFIG,
     ICON_OPEN_NET,
     ICON_OPEN_SHAPES,
+	ICON_OPEN_ADDITIONALS,	
     ICON_RELOAD,
     ICON_SAVE,
     ICON_CLOSE,
@@ -136,9 +137,11 @@ enum GUIIcon {
     ICON_UNDO,
     ICON_REDO,
     ICON_NETEDIT,
+    ICON_LOCK,
+    ICON_ADD,
+    ICON_REMOVE,
 
     ICON_MAX
-
 };
 
 

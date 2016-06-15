@@ -128,6 +128,7 @@ GNELoadThread::run() {
     }
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
+
     netBuilder->applyOptions(oc);
 
     if (myNewNet) {
@@ -137,8 +138,9 @@ GNELoadThread::run() {
         NILoader nl(*netBuilder);
         try {
             nl.load(oc);
+
             if (!myLoadNet) {
-                WRITE_MESSAGE("Performing initial computatation ...\n");
+                WRITE_MESSAGE("Performing initial computation ...\n");
                 // perform one-time processing (i.e. edge removal)
                 netBuilder->compute(oc);
                 // @todo remove one-time processing options!
@@ -213,8 +215,10 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
     oc.addDescription("disable-textures", "Visualisation", "");
+
     oc.doRegister("gui-settings-file", new Option_FileName());
     oc.addDescription("gui-settings-file", "Visualisation", "Load visualisation settings from FILE");
+
     oc.doRegister("registry-viewport", new Option_Bool(false));
     oc.addDescription("registry-viewport", "Visualisation", "Load current viewport from registry");
 

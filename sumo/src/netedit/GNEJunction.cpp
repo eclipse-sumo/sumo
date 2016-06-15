@@ -48,7 +48,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBAlgorithms.h>
-#include "tlslogo.cpp"
+#include "GNELogo_TLS.cpp"
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNECrossing.h"
@@ -74,17 +74,15 @@ bool GNEJunction::TLSDecalInitialized = false;
 // method definitions
 // ===========================================================================
 GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
-    GUIGlObject(GLO_JUNCTION, nbn.getID()),
-    GNEAttributeCarrier(SUMO_TAG_JUNCTION),
+    GNENetElement(net, nbn.getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION),
     myNBNode(nbn),
     myOrigPos(nbn.getPosition()),
     myAmCreateEdgeSource(false),
-    myNet(net),
     myLogicStatus(loaded ? LOADED : GUESSED),
     myAmResponsible(false),
     myHasValidLogic(loaded),
     myAmTLSSelected(false) {
-    updateBoundary();
+    updateGeometry();
     rebuildCrossings(false);
 }
 
@@ -98,7 +96,7 @@ GNEJunction::~GNEJunction() {
 
 
 void
-GNEJunction::updateBoundary() {
+GNEJunction::updateGeometry() {
     const double EXTENT = 2;
     myBoundary = Boundary(
                      myOrigPos.x() - EXTENT, myOrigPos.y() - EXTENT,
@@ -217,7 +215,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         if (s.editMode == GNE_MODE_TLS && myNBNode.isTLControlled() && !myAmTLSSelected) {
             // decorate in tls mode
             if (!TLSDecalInitialized) {
-                FXImage* i = new FXGIFImage(myNet->getApp(), tlslogo, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+                FXImage* i = new FXGIFImage(myNet->getApp(), GNELogo_TLS, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
                 TLSDecalGlID = GUITexturesHelper::add(i);
                 TLSDecalInitialized = true;
                 delete i;
@@ -241,6 +239,34 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         drawName(myNBNode.getPosition(), s.scale, s.junctionName);
     }
     glPopName();
+}
+
+Boundary
+GNEJunction::getBoundary() const {
+    return myBoundary;
+}
+
+
+NBNode* 
+GNEJunction::getNBNode() const {
+    return &myNBNode;
+}
+
+void
+GNEJunction::markAsCreateEdgeSource() {
+    myAmCreateEdgeSource = true;
+}
+
+
+void
+GNEJunction::unMarkAsCreateEdgeSource() {
+    myAmCreateEdgeSource = false;
+}
+
+
+void
+GNEJunction::selectTLS(bool selected) {
+    myAmTLSSelected = selected;
 }
 
 
@@ -361,6 +387,18 @@ GNEJunction::removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
 }
 
 
+bool
+GNEJunction::isLogicValid() {
+    return myHasValidLogic;
+}
+
+
+void
+GNEJunction::resetDecal() {
+    TLSDecalInitialized = false;
+}
+
+
 std::string
 GNEJunction::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -457,6 +495,12 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
     }
+}
+
+
+void
+GNEJunction::setResponsible(bool newVal) {
+    myAmResponsible = newVal;
 }
 
 // ===========================================================================

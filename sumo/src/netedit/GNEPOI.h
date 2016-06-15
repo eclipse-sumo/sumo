@@ -31,13 +31,7 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utility>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/xml/SUMOSAXHandler.h>
-
-#include "GNEAttributeCarrier.h"
-
+#include "GNENetElement.h"
 
 // ===========================================================================
 // class declarations
@@ -56,34 +50,34 @@ class GeoConvHelper;
  */
 class GNEPOI : public GUIPointOfInterest, public GNEAttributeCarrier {
 
+    /// @brief declare friend class
     //friend class GNEChange_POI;
 
 public:
-    /** @brief Constructor
-     */
+    /// @brief Constructor
     GNEPOI(const std::string& id, const std::string& type,
            const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
            const Position& pos, SUMOReal width, SUMOReal height);
 
-
     /// @brief Destructor
-    virtual ~GNEPOI() ;
+    virtual ~GNEPOI();
 
-
-    /** @brief reposition the node at pos and informs the edges
+    /**@brief reposition the node at pos and informs the edges
      * @param[in] pos The new position
      * @note: those operations are not added to the undoList. This is handled in
      * registerMove to avoids merging lots of tiny movements
      */
     //void move(Position pos);
 
-
     /// @brief registers completed movement with the undoList
     //void registerMove(GNEUndoList *undoList);
 
-
-    //@name inherited from GNEAttributeCarrier
-    //@{
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
@@ -93,8 +87,13 @@ public:
      */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
+    /* @brief method for checking if the key and their correspond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value asociated to key key
+     * @return true if the value is valid, false in other case
+     */
     bool isValid(SumoXMLAttr key, const std::string& value);
-    //@}
+    /// @}
 
     /// @brief save POIs to file
     static void saveToFile(const std::string& file);
@@ -106,8 +105,8 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPOI& operator=(const GNEPOI&);
 
+    /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
 };
 
 
