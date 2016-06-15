@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 16:46:01 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on 06/15/16 13:15:50 by SUMO Version dev-SVN-r20951
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -12,7 +12,8 @@
     </input>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -20,10 +21,18 @@
 -->
 
 <instantE1>
-    <instantOut id="instant_beg_0_before" time="17.22" state="enter" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
-    <instantOut id="instant_beg_0_before" time="17.58" state="leave" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
-    <instantOut id="instant_beg_1_at" time="33.64" state="enter" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
-    <instantOut id="instant_beg_1_at" time="34.00" state="leave" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
-    <instantOut id="instant_beg_1_after" time="35.22" state="enter" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
-    <instantOut id="instant_beg_1_after" time="35.58" state="leave" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
+    <instantOut id="instant_beg_0_before" time="9.02" state="enter" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="instant_beg_0_before" time="9.38" state="leave" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
+    <instantOut id="instant_beg_0_at" time="16.22" state="enter" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="instant_beg_0_at" time="16.58" state="leave" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
+    <instantOut id="instant_beg_0_before" time="21.53" state="enter" vehID="v1" speed="13.89" length="7.10" type="truck" gap="12.15"/>
+    <instantOut id="instant_beg_0_before" time="22.00" state="stay" vehID="v1" speed="13.89" length="7.10" type="truck"/>
+    <instantOut id="instant_beg_0_before" time="22.04" state="leave" vehID="v1" speed="13.89" length="7.10" type="truck" occupancy="0.51"/>
+    <instantOut id="instant_beg_0_at" time="28.73" state="enter" vehID="v1" speed="13.89" length="7.10" type="truck" gap="12.15"/>
+    <instantOut id="instant_beg_0_at" time="29.00" state="stay" vehID="v1" speed="13.89" length="7.10" type="truck"/>
+    <instantOut id="instant_beg_0_at" time="29.00" state="leave" vehID="v1" speed="13.89" length="7.10" type="truck"/>
+    <instantOut id="instant_beg_1_after" time="30.62" state="enter" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="instant_beg_1_after" time="30.98" state="leave" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
+    <instantOut id="instant_beg_1_after" time="43.13" state="enter" vehID="v1" speed="13.89" length="7.10" type="truck" gap="12.15"/>
+    <instantOut id="instant_beg_1_after" time="43.64" state="leave" vehID="v1" speed="13.89" length="7.10" type="truck" occupancy="0.51"/>
 </instantE1>

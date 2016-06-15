@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 16:35:38 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on 06/15/16 05:11:44 by SUMO Version dev-SVN-r20951
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,8 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -28,9 +29,9 @@
 -->
 
 <instantE1>
-    <instantOut id="beg_end" time="23.84" state="enter" vehID="leader" speed="20.00" length="5.00" type="leader"/>
-    <instantOut id="beg_end" time="24.00" state="stay" vehID="leader" speed="20.00" length="5.00" type="leader"/>
-    <instantOut id="beg_end" time="24.09" state="leave" vehID="leader" speed="20.00" length="5.00" type="leader" occupancy="0.25"/>
-    <instantOut id="beg_end" time="24.66" state="enter" vehID="follower" speed="20.29" length="5.00" type="follower" gap="0.56"/>
-    <instantOut id="beg_end" time="24.91" state="leave" vehID="follower" speed="20.29" length="5.00" type="follower" occupancy="0.25"/>
+    <instantOut id="beg_end" time="23.34" state="enter" vehID="leader" speed="20.00" length="5.00" type="leader"/>
+    <instantOut id="beg_end" time="23.50" state="stay" vehID="leader" speed="20.00" length="5.00" type="leader"/>
+    <instantOut id="beg_end" time="23.59" state="leave" vehID="leader" speed="20.00" length="5.00" type="leader" occupancy="0.25"/>
+    <instantOut id="beg_end" time="24.16" state="enter" vehID="follower" speed="20.29" length="5.00" type="follower" gap="0.56"/>
+    <instantOut id="beg_end" time="24.41" state="leave" vehID="follower" speed="20.29" length="5.00" type="follower" occupancy="0.25"/>
 </instantE1>
