@@ -138,9 +138,6 @@ public:
     /// @brief Called on menu File->Load Shapes
     long onCmdOpenShapes(FXObject*, FXSelector, void*);
 
-	/// @brief Called on menu File->Load Shapes
-    long onCmdOpenAdditionals(FXObject*, FXSelector, void*);	
-
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
 
