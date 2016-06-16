@@ -537,6 +537,8 @@ enum {
     MID_GNE_SET_TEMPLATE,
     /** copy template*/
     MID_GNE_COPY_TEMPLATE,
+    /** remove template*/
+    MID_GNE_REMOVE_TEMPLATE,
     /** select dead end lanes */
     MID_GNE_SELECT_DEAD_ENDS,
     /** select lanes that have no connection leading to it */

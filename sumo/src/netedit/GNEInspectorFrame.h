@@ -71,6 +71,12 @@ public:
         /// @brief show attribute
         void hiddeAttribute();
 
+        /// @brief get current tag
+        SumoXMLTag getTag() const; 
+
+        /// @brief get current Attr    
+        SumoXMLAttr getAttr() const;
+
         /// @brief try to set new attribute value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
@@ -129,13 +135,10 @@ public:
 
     public:
         /// @brief constructor
-        AttrEditor(FXApp* app, SumoXMLAttr attr, GNEAttributeCarrier* AC);
+        AttrEditor(AttrInput *attrInputParent, FXTextField *textFieldAttr);
 
-        /// @brief call when user press button Accept
-        long onCmdAccept(FXObject*, FXSelector, void*);
-
-        /// @brief call when user press button cancel
-        long onCmdCancel(FXObject*, FXSelector, void*);
+        /// @brief destructor
+        ~AttrEditor();
 
         /// @brief call when user press button reset
         long onCmdReset(FXObject*, FXSelector, void*);
@@ -145,20 +148,29 @@ public:
         AttrEditor() {}
 
     private:
-        /// @brief pointer to GNEInspectorFrame parent
-        GNEInspectorFrame *myInspectorFrameParent;
+        /// @brief Pointer to AttrInput parent
+        AttrInput *myAttrInputParent;
 
-        /// @brief current tag
-        SumoXMLTag myTag; 
+        // @brief Pointer to TexField in which write attribute
+        FXTextField *myTextFieldAttr;
 
-        /// @brief current Attr    
-        SumoXMLAttr myAttr;
+        // @brief Matrix in that CheckBoxs will be inserted
+        FXMatrix* myCheckBoxMatrix;
 
-        /// @brief pointer to label
-        FXLabel* myLabel;
+        /// @brief vector of CheckBoxs
+        std::vector<FXCheckButton*> myVectorOfCheckBox;
 
-        /// @brief pointer to checkBox
-        FXCheckButton *myCheckBox;
+        /// @brief frame for the buttons
+        FXHorizontalFrame *frameButtons;
+
+        /// @brief Button Accept
+        FXButton *myAcceptButton;
+
+        /// @brief Button Cancel
+        FXButton *myCancelButton;
+
+        /// @brief Button Reset
+        FXButton *myResetButton;
     };
 
 public:
@@ -180,8 +192,8 @@ public:
     /// @brief Inspect the given multi-selection
     void inspect(const std::vector<GNEAttributeCarrier*>& ACs);
 
-    /// @brief update attributes
-    void updateAttributes(const std::vector<GNEAttributeCarrier*>& ACs);
+    /// @brief get current ACs
+    const std::vector<GNEAttributeCarrier*> &getACs() const;
 
     /// @brief get the template edge (to copy attributes from)
     GNEEdge* getEdgeTemplate() const;
