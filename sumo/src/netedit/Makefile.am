@@ -1,4 +1,4 @@
-EXTRA_DIST = netedit64.ico tlslogo.cpp
+EXTRA_DIST = netedit64.ico GNELogo_TLS.cpp
 
 XERCES_LIBS = -l$(LIB_XERCES)
 
