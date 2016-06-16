@@ -54,6 +54,9 @@ public:
     /// the window shall be closed when the simulation has ended
     static bool gQuitOnEnd;
 
+    /// the simulation shall reload when it has ended (demo)
+    static bool gDemoAutoReload;
+
 };
 
 #endif

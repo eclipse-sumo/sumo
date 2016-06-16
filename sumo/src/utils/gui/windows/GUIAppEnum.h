@@ -309,6 +309,10 @@ enum {
 
     /// Close simulation at end - Option
     MID_QUITONSIMEND,
+    /// Start simulation when loaded - Option
+    MID_AUTOSTART,
+    /// Demo mode - Option
+    MID_DEMO,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,
     /// Locate links in messages - Option

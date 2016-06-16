@@ -39,11 +39,13 @@
 // ===========================================================================
 // static member variables definitions
 // ===========================================================================
-bool GUIGlobals::gQuitOnEnd;
+bool GUIGlobals::gRunAfterLoad = false;
 
 
-bool GUIGlobals::gRunAfterLoad;
+bool GUIGlobals::gQuitOnEnd = false;
 
+
+bool GUIGlobals::gDemoAutoReload = false;
 
 
 /****************************************************************************/

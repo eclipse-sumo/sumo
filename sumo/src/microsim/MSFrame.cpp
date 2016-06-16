@@ -390,6 +390,9 @@ MSFrame::fillOptions() {
     oc.doRegister("start", 'S', new Option_Bool(false));
     oc.addDescription("start", "GUI Only", "Start the simulation after loading");
 
+    oc.doRegister("demo", 'D', new Option_Bool(false));
+    oc.addDescription("demo", "GUI Only", "Restart the simulation after ending (demo mode)");
+
     oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.addDescription("disable-textures", "GUI Only", "Do not load background pictures");
 

@@ -498,7 +498,7 @@ GUIApplicationWindow::fillMenuBar() {
                       GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
     new FXMenuCheck(myLocatorMenu,
-                    "Show Internal Structures\t\tShow internal junctions and streets in locator Dialog.",
+                    "Show Internal Structures\t\tShow internal junctions and streets in locator dialog.",
                     this, MID_LISTINTERNAL);
     // build control menu
     myControlMenu = new FXMenuPane(this);
@@ -1360,11 +1360,13 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     if (GUIGlobals::gQuitOnEnd) {
         closeAllWindows();
         getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
+    } else if (GUIGlobals::gDemoAutoReload) {
+        onCmdReload(0, 0, 0);
     } else if (!myHaveNotifiedAboutSimEnd) {
         // build the text
         const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
-                                 ".\nReason: " + MSNet::getStateMessage(ec->getReason()) +
-                                 "\nDo you want to close all open files and views?";
+            ".\nReason: " + MSNet::getStateMessage(ec->getReason()) +
+            "\nDo you want to close all open files and views?";
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, "Simulation ended", "%s", text.c_str());
         if (answer == 1) { //1:yes, 2:no, 4:esc
             closeAllWindows();

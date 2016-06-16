@@ -45,11 +45,13 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdQuitOnEnd),
-    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdAllowTextures),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATELINKS,     GUIDialog_AppSettings::onCmdLocateLinks),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND, MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_AUTOSTART,       GUIDialog_AppSettings::onCmdSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_DEMO,            GUIDialog_AppSettings::onCmdSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_LOCATELINKS,     GUIDialog_AppSettings::onCmdSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND, MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
 };
 
 FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYNUMBER(GUIDialog_AppSettingsMap))
@@ -61,13 +63,19 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     : FXDialogBox(parent, "Application Settings"),
       myAppQuitOnEnd(GUIGlobals::gQuitOnEnd),
+      myAppAutoStart(GUIGlobals::gRunAfterLoad),
+      myAppDemo(GUIGlobals::gDemoAutoReload),
       myAllowTextures(GUITexturesHelper::texturesAllowed()),
       myLocateLinks(GUIMessageWindow::locateLinksEnabled()) {
     FXCheckButton* b = 0;
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
-    b = new FXCheckButton(f1, "Quit on Simulation End", this , MID_QUITONSIMEND);
+    b = new FXCheckButton(f1, "Quit on Simulation End", this, MID_QUITONSIMEND);
     b->setCheck(myAppQuitOnEnd);
-    b = new FXCheckButton(f1, "Locate elements when clicking on messages", this , MID_LOCATELINKS);
+    b = new FXCheckButton(f1, "Autostart Simulation on Load and Reload", this, MID_AUTOSTART);
+    b->setCheck(myAppAutoStart);
+    b = new FXCheckButton(f1, "Reload Simulation after finish (Demo mode)", this, MID_DEMO);
+    b->setCheck(myAppDemo);
+    b = new FXCheckButton(f1, "Locate elements when clicking on messages", this, MID_LOCATELINKS);
     b->setCheck(myLocateLinks);
     new FXHorizontalSeparator(f1, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     b = new FXCheckButton(f1, "Allow Textures", this , MID_ALLOWTEXTURES);
@@ -86,6 +94,9 @@ GUIDialog_AppSettings::~GUIDialog_AppSettings() {}
 long
 GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
     GUIGlobals::gQuitOnEnd = myAppQuitOnEnd;
+    GUIGlobals::gRunAfterLoad = myAppAutoStart;
+    GUIGlobals::gDemoAutoReload = myAppDemo;
+    GUIGlobals::gRunAfterLoad = myAppAutoStart;
     GUITexturesHelper::allowTextures(myAllowTextures);
     GUIMessageWindow::enableLocateLinks(myLocateLinks);
     destroy();
@@ -101,22 +112,24 @@ GUIDialog_AppSettings::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GUIDialog_AppSettings::onCmdQuitOnEnd(FXObject*, FXSelector, void*) {
-    myAppQuitOnEnd = !myAppQuitOnEnd;
-    return 1;
-}
-
-
-long
-GUIDialog_AppSettings::onCmdAllowTextures(FXObject*, FXSelector, void*) {
-    myAllowTextures = !myAllowTextures;
-    return 1;
-}
-
-
-long
-GUIDialog_AppSettings::onCmdLocateLinks(FXObject*, FXSelector, void*) {
-    myLocateLinks = !myLocateLinks;
+GUIDialog_AppSettings::onCmdSelect(FXObject*, FXSelector sel, void*) {
+    switch (FXSELID(sel)) {
+    case MID_QUITONSIMEND:
+        myAppQuitOnEnd = !myAppQuitOnEnd;
+        break;
+    case MID_AUTOSTART:
+        myAppAutoStart = !myAppAutoStart;
+        break;
+    case MID_DEMO:
+        myAppDemo = !myAppDemo;
+        break;
+    case MID_LOCATELINKS:
+        myLocateLinks = !myLocateLinks;
+        break;
+    case MID_ALLOWTEXTURES:
+        myAllowTextures = !myAllowTextures;
+        break;
+    }
     return 1;
 }
 
