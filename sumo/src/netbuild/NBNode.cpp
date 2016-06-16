@@ -789,13 +789,13 @@ NBNode::computeLanes2Lanes() {
                 std::swap(in1, in2);
                 std::swap(in1Offset, in2Offset);
             }
-            in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::L2L_VALIDATED, true, true);
-            in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::L2L_VALIDATED, true, true);
+            in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::L2L_VALIDATED, true);
+            in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::L2L_VALIDATED, true);
             return;
         }
     }
     // special case c):
-    //  one in, two out, the incoming has the same number of lanes as the sum of the outgoing
+    //  one in, two out, the incoming has the same number of lanes or only 1 lane less than the sum of the outgoing lanes
     //  --> highway off-ramp
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 2) {
         NBEdge* in = myIncomingEdges[0];
@@ -804,33 +804,8 @@ NBNode::computeLanes2Lanes() {
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         int out1Offset = MAX2(0, out1->getFirstNonPedestrianLaneIndex(FORWARD, true));
         int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        if (in->getNumLanes() - inOffset == out2->getNumLanes() + out1->getNumLanes() - out1Offset - out2Offset
-                && (in->getStep() <= NBEdge::LANES2EDGES)
-                && in != out1
-                && in != out2
-                && in->isConnectedTo(out1)
-                && in->isConnectedTo(out2)) {
-            // for internal: check which one is the rightmost
-            if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
-                std::swap(out1, out2);
-                std::swap(out1Offset, out2Offset);
-            }
-            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::L2L_VALIDATED, true, true);
-            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::L2L_VALIDATED, false, true);
-            return;
-        }
-    }
-    // special case g):
-    //  one in, two out, the incoming has 1 less lane than the sum of the outgoing
-    //  --> highway off-ramp
-    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 2) {
-        NBEdge* in = myIncomingEdges[0];
-        NBEdge* out1 = myOutgoingEdges[0];
-        NBEdge* out2 = myOutgoingEdges[1];
-        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        int out1Offset = MAX2(0, out1->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        if (in->getNumLanes() - inOffset == out2->getNumLanes() + out1->getNumLanes() - out1Offset - out2Offset - 1
+        const int deltaLaneSum = (out2->getNumLanes() + out1->getNumLanes() - out1Offset - out2Offset) - (in->getNumLanes() - inOffset);
+        if ((deltaLaneSum == 0 || deltaLaneSum == 1)
                 && (in->getStep() <= NBEdge::LANES2EDGES)
                 && in != out1
                 && in != out2
@@ -844,8 +819,8 @@ NBNode::computeLanes2Lanes() {
                 std::swap(out1, out2);
                 std::swap(out1Offset, out2Offset);
             }
-            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::L2L_VALIDATED, true, false);
-            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset - 1, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::L2L_VALIDATED, false, false);
+            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::L2L_VALIDATED, true);
+            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset - deltaLaneSum, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::L2L_VALIDATED, false);
             return;
         }
     }
