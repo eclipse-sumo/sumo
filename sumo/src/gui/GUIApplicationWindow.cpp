@@ -1552,6 +1552,16 @@ GUIApplicationWindow::setStatusBarText(const std::string& text) {
 
 
 void
+GUIApplicationWindow::addRecentFile(const std::string& f, const bool isNet) {
+    if (isNet) {
+        myRecentNets.appendFile(f.c_str());
+    } else {
+        myRecentConfigs.appendFile(f.c_str());
+    }
+}
+
+
+void
 GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
     time -= DELTA_T; // synchronize displayed time with netstate output
     if (time < 0) {

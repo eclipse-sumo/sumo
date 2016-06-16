@@ -103,7 +103,9 @@ public:
 
     void dependentBuild();
 
-    void setStatusBarText(const std::string&);
+    void setStatusBarText(const std::string& text);
+
+    void addRecentFile(const std::string& f, const bool isNet);
 
     FXGLCanvas* getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;
