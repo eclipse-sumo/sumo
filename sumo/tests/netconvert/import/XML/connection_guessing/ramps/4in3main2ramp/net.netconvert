@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 14 Jun 2016 04:34:35 PM CEST by Netedit Version dev-SVN-r20966
+<!-- generated on Wed 15 Jun 2016 02:09:41 PM CEST by Netedit Version dev-SVN-r20967
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
@@ -28,16 +28,16 @@
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <edge id="CE" from="C" to="E" priority="1">
+    <edge id="CE" from="C" to="E" priority="2">
         <lane id="CE_0" index="0" speed="27.78" length="100.00" shape="111.28,91.75 200.00,91.75"/>
         <lane id="CE_1" index="1" speed="27.78" length="100.00" shape="111.28,95.05 200.00,95.05"/>
         <lane id="CE_2" index="2" speed="27.78" length="100.00" shape="111.28,98.35 200.00,98.35"/>
     </edge>
-    <edge id="CN" from="C" to="S" priority="2">
-        <lane id="CN_0" index="0" speed="13.89" length="141.42" shape="107.38,85.62 196.50,-3.50"/>
-        <lane id="CN_1" index="1" speed="13.89" length="141.42" shape="109.71,87.96 198.83,-1.17"/>
+    <edge id="CS" from="C" to="S" priority="1">
+        <lane id="CS_0" index="0" speed="13.89" length="141.42" shape="107.38,85.62 196.50,-3.50"/>
+        <lane id="CS_1" index="1" speed="13.89" length="141.42" shape="109.71,87.96 198.83,-1.17"/>
     </edge>
-    <edge id="WC" from="W" to="C" priority="1">
+    <edge id="WC" from="W" to="C" priority="2">
         <lane id="WC_0" index="0" speed="27.78" length="100.00" shape="0.00,88.45 98.50,88.45"/>
         <lane id="WC_1" index="1" speed="27.78" length="100.00" shape="0.00,91.75 98.50,91.75"/>
         <lane id="WC_2" index="2" speed="27.78" length="100.00" shape="0.00,95.05 98.50,95.05"/>
@@ -52,11 +52,11 @@
         <request index="4" response="00000" foes="00000"/>
     </junction>
     <junction id="E" type="unregulated" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="200.00,90.15 200.00,99.95"/>
-    <junction id="S" type="unregulated" x="200.00" y="0.00" incLanes="CN_0 CN_1" intLanes="" shape="195.37,-4.63 199.96,-0.04"/>
+    <junction id="S" type="unregulated" x="200.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="195.37,-4.63 199.96,-0.04"/>
     <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,86.85"/>
 
-    <connection from="WC" to="CN" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="WC" to="CN" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from="WC" to="CE" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="WC" to="CE" fromLane="2" toLane="1" dir="s" state="M"/>
     <connection from="WC" to="CE" fromLane="3" toLane="2" dir="s" state="M"/>

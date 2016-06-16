@@ -26,7 +26,7 @@
 -->
 
 <edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="CE" from="C" to="E" priority="1" numLanes="3" speed="27.78"/>
-    <edge id="CN" from="C" to="S" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="WC" from="W" to="C" priority="1" numLanes="4" speed="27.78"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="4" speed="27.78"/>
+    <edge id="CE" from="C" to="E" priority="2" numLanes="3" speed="27.78"/>
+    <edge id="CS" from="C" to="S" priority="1" numLanes="2" speed="13.89"/>
 </edges>
