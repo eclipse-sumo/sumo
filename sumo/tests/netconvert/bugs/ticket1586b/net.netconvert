@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Jun 16 10:38:56 2016 by SUMO netconvert Version dev-SVN-r20975
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -73,14 +73,14 @@
     <junction id="gneJ4" type="unregulated" x="299.61" y="2.48" incLanes="" intLanes="" shape="299.61,2.53 299.48,9.03"/>
     <junction id="gneJ5" type="unregulated" x="294.58" y="35.08" incLanes="" intLanes="" shape="294.57,35.13 293.72,41.57"/>
 
-    <connection from="beg" to="middle" fromLane="0" toLane="2" pass="1" via=":gneJ0_2_0" dir="s" state="M"/>
-    <connection from="beg" to="middle" fromLane="1" toLane="3" pass="1" via=":gneJ0_2_1" dir="s" state="M"/>
-    <connection from="beg2" to="middle" fromLane="0" toLane="0" pass="1" via=":gneJ0_0_0" dir="r" state="M"/>
-    <connection from="beg2" to="middle" fromLane="1" toLane="1" pass="1" via=":gneJ0_0_1" dir="r" state="M"/>
-    <connection from="middle" to="end2" fromLane="0" toLane="0" pass="1" via=":gneJ1_0_0" dir="r" state="M"/>
-    <connection from="middle" to="end2" fromLane="1" toLane="1" pass="1" via=":gneJ1_0_1" dir="r" state="M"/>
-    <connection from="middle" to="end" fromLane="2" toLane="0" pass="1" via=":gneJ1_2_0" dir="s" state="M"/>
-    <connection from="middle" to="end" fromLane="3" toLane="1" pass="1" via=":gneJ1_2_1" dir="s" state="M"/>
+    <connection from="beg" to="middle" fromLane="0" toLane="2" via=":gneJ0_2_0" dir="s" state="M"/>
+    <connection from="beg" to="middle" fromLane="1" toLane="3" via=":gneJ0_2_1" dir="s" state="M"/>
+    <connection from="beg2" to="middle" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="r" state="M"/>
+    <connection from="beg2" to="middle" fromLane="1" toLane="1" via=":gneJ0_0_1" dir="r" state="M"/>
+    <connection from="middle" to="end2" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="r" state="M"/>
+    <connection from="middle" to="end2" fromLane="1" toLane="1" via=":gneJ1_0_1" dir="r" state="M"/>
+    <connection from="middle" to="end" fromLane="2" toLane="0" via=":gneJ1_2_0" dir="s" state="M"/>
+    <connection from="middle" to="end" fromLane="3" toLane="1" via=":gneJ1_2_1" dir="s" state="M"/>
 
     <connection from=":gneJ0_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ0_0" to="middle" fromLane="1" toLane="1" dir="s" state="M"/>
