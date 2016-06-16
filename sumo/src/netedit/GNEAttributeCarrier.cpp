@@ -428,7 +428,6 @@ GNEAttributeCarrier::isFloat(SumoXMLAttr attr) {
     myNumericalFloatAttrs.insert(SUMO_ATTR_ENDPOS);
     myNumericalFloatAttrs.insert(SUMO_ATTR_CHARGINGPOWER);
     myNumericalFloatAttrs.insert(SUMO_ATTR_EFFICIENCY);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_POSITION);
     myNumericalFloatAttrs.insert(SUMO_ATTR_LENGTH);
     myNumericalFloatAttrs.insert(SUMO_ATTR_HALTING_SPEED_THRESHOLD);
     myNumericalFloatAttrs.insert(SUMO_ATTR_JAM_DIST_THRESHOLD);
@@ -455,7 +454,7 @@ GNEAttributeCarrier::isBool(SumoXMLAttr attr) {
 
 bool
 GNEAttributeCarrier::isString(SumoXMLAttr attr) {
-    return !isNumerical(attr) && !isBool(attr) && !isFloat(attr);
+    return (!isNumerical(attr) && !isBool(attr) && !isFloat(attr));
 }
 
 

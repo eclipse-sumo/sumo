@@ -54,17 +54,14 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY_TEMPLATE,   GNEInspectorFrame::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TEMPLATE,    GNEInspectorFrame::onCmdSetTemplate),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_COPY_TEMPLATE,   GNEInspectorFrame::onUpdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING,    GNEInspectorFrame::onCmdSetBlocking),
 };
 
-/*
-FXDEFMAP(GNEInspectorFrame::AttrPanel) AttrPanelMap[]= {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING,  GNEInspectorFrame::AttrPanel::onCmdSetBlocking),
-};
-*/
 
 FXDEFMAP(GNEInspectorFrame::AttrInput) AttrInputMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,         GNEInspectorFrame::AttrInput::onCmdSetAttribute),
@@ -77,14 +74,13 @@ FXDEFMAP(GNEInspectorFrame::AttrEditor) AttrEditorMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame, FXScrollWindow, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
-//FXIMPLEMENT(GNEInspectorFrame::AttrPanel, FXVerticalFrame, AttrPanelMap, ARRAYNUMBER(AttrPanelMap))
 FXIMPLEMENT(GNEInspectorFrame::AttrInput, FXMatrix, AttrInputMap, ARRAYNUMBER(AttrInputMap))
 FXIMPLEMENT(GNEInspectorFrame::AttrEditor, FXDialogBox, AttrEditorMap, ARRAYNUMBER(AttrEditorMap))
-
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GNEInspectorFrame::GNEInspectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     GNEFrame(parent, viewNet, "Inspector"),
     myEdgeTemplate(0) {
@@ -373,6 +369,7 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
             myButtonCombinableChoices->show();
             // Show string with the values
             myTextFieldStrings->setText(value.c_str());
+            myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->show();
         } else {
             // fill comboBox
@@ -386,14 +383,17 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
     } else if(GNEAttributeCarrier::isFloat(myAttr)) {
         // show TextField for real values
         myTextFieldReal->setText(value.c_str());
+        myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         myTextFieldReal->show();
     } else if(GNEAttributeCarrier::isInt(myAttr)) {
         // Show textField for int attributes
         myTextFieldInt->setText(value.c_str());
+        myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->show();
     } else {
         // In any other case, show value as String
         myTextFieldStrings->setText(value.c_str());
+        myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         myTextFieldStrings->show();
     }
     // Show AttrInput
