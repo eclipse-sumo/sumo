@@ -539,8 +539,8 @@ GNELane::removeAdditional(GNEAdditional *additional) {
 }
 
 
-std::list<GNEAdditional*>
-GNELane::getAdditionals() {
+const std::list<GNEAdditional*> &
+GNELane::getAdditionals() const{
     return myAdditionals;
 }
 

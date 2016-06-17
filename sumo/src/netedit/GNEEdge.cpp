@@ -846,8 +846,8 @@ GNEEdge::removeAdditional(GNEAdditional *additional) {
 }
 
 
-std::list<GNEAdditional*>
-GNEEdge::getAdditionals() {
+const std::list<GNEAdditional*> &
+GNEEdge::getAdditionals() const{
     return myAdditionals;
 }
 

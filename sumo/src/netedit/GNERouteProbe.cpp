@@ -121,13 +121,13 @@ GNERouteProbe::updateGeometry() {
     myShape.clear();
 
     // get lanes of edge
-    std::vector<GNELane*> lanes = myEdge->getLanes();
+    GNELane* firstLane = myEdge->getLanes().at(0);
 
     // Save number of lanes
-    numberOfLanes = lanes.size();
+    numberOfLanes = myEdge->getLanes().size();
 
     // Get shape of lane parent
-    myShape.push_back(lanes[0]->getShape().positionAtOffset(5));
+    myShape.push_back(firstLane->getShape().positionAtOffset(5));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -136,13 +136,13 @@ GNERouteProbe::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(lanes[0]->getShape().rotationDegreeAtOffset(5) * -1);
+    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(5) * -1);
 
     // Set offset of the block icon
     myBlockIconOffset = Position(1.1, -3.06);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(lanes[0]);
+    setBlockIconRotation(firstLane);
 }
 
 

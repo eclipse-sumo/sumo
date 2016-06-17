@@ -222,7 +222,7 @@ public:
     bool removeAdditional(GNEAdditional *additional);
 
     /// @brief return list of additionals associated with this edge
-    std::list<GNEAdditional*> getAdditionals();
+    const std::list<GNEAdditional*> &getAdditionals() const;
 
     /// @brief add GNEAdditionalSet to this edge
     bool addAdditionalSet(GNEAdditionalSet *additionalSet);

@@ -180,7 +180,7 @@ public:
 
     /// @brief method to obtain a list of additional elements associated to this lane
     /// @return set with all additional elements
-    std::list<GNEAdditional*> getAdditionals();
+    const std::list<GNEAdditional*> &getAdditionals() const;
 
     /// @brief add GNEAdditionalSet to this lane
     bool addAdditionalSet(GNEAdditionalSet *additionalSet);

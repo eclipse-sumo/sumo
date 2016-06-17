@@ -257,18 +257,17 @@ public:
      * @param[in] type The GUI-type of the objects with the given ids
      * @throws InvalidArgument if any given id does not match the declared type
      */
-    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(
-                                      const std::set<GUIGlID>& ids, GUIGlObjectType type);
+    std::list<GNEAttributeCarrier*> retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType type);
 
     /**@brief return all edges
      * @param[in] onlySelected Whether to return only selected edges
      * */
-    std::vector<GNEEdge*> retrieveEdges(bool onlySelected = false);
+    std::list<GNEEdge*> retrieveEdges(bool onlySelected = false);
 
     /**@brief return all lanes
      * @param[in] onlySelected Whether to return only selected lanes
      * */
-    std::vector<GNELane*> retrieveLanes(bool onlySelected = false);
+    std::list<GNELane*> retrieveLanes(bool onlySelected = false);
 
     /**@brief get lane by id
      * @param[in] id The id of the desired lane
@@ -280,7 +279,7 @@ public:
     /**@brief return all junctions
      * @param[in] onlySelected Whether to return only selected junctions
      * */
-    std::vector<GNEJunction*> retrieveJunctions(bool onlySelected = false);
+    std::list<GNEJunction*> retrieveJunctions(bool onlySelected = false);
 
     /**@brief save the network
      * @param[in] oc The OptionsCont which knows how and where to save
@@ -407,7 +406,7 @@ public:
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
      * @return vector with pointers to additionals.
      */
-    std::vector<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING);
+    std::list<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING);
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals

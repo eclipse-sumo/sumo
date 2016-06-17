@@ -980,8 +980,8 @@ GNEAdditionalFrame::additionalSet::showList(SumoXMLTag type) {
     myType = type;
     mySetLabel->setText(("Type of set: " + toString(myType)).c_str());
     myList->clearItems();
-    std::vector<GNEAdditional*> vectorOfAdditionalSets = myViewNet->getNet()->getAdditionals(myType);
-    for(std::vector<GNEAdditional*>::iterator i = vectorOfAdditionalSets.begin(); i != vectorOfAdditionalSets.end(); i++)
+    const std::list<GNEAdditional*> &listOfAdditionalSets = myViewNet->getNet()->getAdditionals(myType);
+    for(std::list<GNEAdditional*>::const_iterator i = listOfAdditionalSets.begin(); i != listOfAdditionalSets.end(); i++)
         myList->appendItem((*i)->getID().c_str());
     show();
 }
@@ -1047,8 +1047,8 @@ GNEAdditionalFrame::edges::getIdsSelected() const {
 void
 GNEAdditionalFrame::edges::showList(std::string search) {
     myList->clearItems();
-    std::vector<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
-    for(std::vector<GNEEdge*>::iterator i = vectorOfEdges.begin(); i != vectorOfEdges.end(); i++)
+    std::list<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
+    for(std::list<GNEEdge*>::iterator i = vectorOfEdges.begin(); i != vectorOfEdges.end(); i++)
         if((*i)->getID().find(search) != std::string::npos)
             myList->appendItem((*i)->getID().c_str());
     show();
@@ -1143,8 +1143,8 @@ GNEAdditionalFrame::lanes::getIdsSelected() const {
 void
 GNEAdditionalFrame::lanes::showList(std::string search) {
     myList->clearItems();
-    std::vector<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
-    for(std::vector<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++)
+    std::list<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
+    for(std::list<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++)
         if((*i)->getID().find(search) != std::string::npos)
             myList->appendItem((*i)->getID().c_str());
     show();
