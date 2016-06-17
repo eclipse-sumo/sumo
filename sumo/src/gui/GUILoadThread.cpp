@@ -126,8 +126,9 @@ GUILoadThread::run() {
                 myFile = oc.getString("net-file");
                 myLoadNet = true;
             }
-            myParent->setStatusBarText("Loading '" + myFile + "'.");
-            myParent->addRecentFile(myFile, myLoadNet);
+            myEventQue.add(new GUIEvent_Message("Loading '" + myFile + "'."));
+            myEventThrow.signal();
+            myParent->addRecentFile(FXPath::absolute(myFile.c_str()), myLoadNet);
         }
         myTitle = myFile;
         // within gui-based applications, nothing is reported to the console

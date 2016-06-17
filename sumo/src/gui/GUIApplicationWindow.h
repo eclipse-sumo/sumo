@@ -105,7 +105,7 @@ public:
 
     void setStatusBarText(const std::string& text);
 
-    void addRecentFile(const std::string& f, const bool isNet);
+    void addRecentFile(const FX::FXString& f, const bool isNet);
 
     FXGLCanvas* getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;

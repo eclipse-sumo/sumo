@@ -1214,6 +1214,7 @@ GUIApplicationWindow::eventOccured() {
             case EVENT_MESSAGE_OCCURED:
             case EVENT_WARNING_OCCURED:
             case EVENT_ERROR_OCCURED:
+            case EVENT_STATUS_OCCURED:
                 handleEvent_Message(e);
                 break;
             case EVENT_SIMULATION_ENDED:
@@ -1349,7 +1350,11 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
 void
 GUIApplicationWindow::handleEvent_Message(GUIEvent* e) {
     GUIEvent_Message* ec = static_cast<GUIEvent_Message*>(e);
-    myMessageWindow->appendMsg(ec->getOwnType(), ec->getMsg());
+    if (ec->getOwnType() == EVENT_STATUS_OCCURED) {
+        setStatusBarText(ec->getMsg());
+    } else {
+        myMessageWindow->appendMsg(ec->getOwnType(), ec->getMsg());
+    }
 }
 
 
@@ -1552,11 +1557,11 @@ GUIApplicationWindow::setStatusBarText(const std::string& text) {
 
 
 void
-GUIApplicationWindow::addRecentFile(const std::string& f, const bool isNet) {
+GUIApplicationWindow::addRecentFile(const FX::FXString& f, const bool isNet) {
     if (isNet) {
-        myRecentNets.appendFile(f.c_str());
+        myRecentNets.appendFile(f);
     } else {
-        myRecentConfigs.appendFile(f.c_str());
+        myRecentConfigs.appendFile(f);
     }
 }
 

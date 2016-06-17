@@ -46,6 +46,11 @@
 class GUIEvent_Message : public GUIEvent {
 public:
     /// constructor
+    GUIEvent_Message(const std::string& msg)
+        : GUIEvent(EVENT_STATUS_OCCURED), myMsg(msg) {
+    }
+
+    /// constructor
     GUIEvent_Message(MsgHandler::MsgType type, const std::string& msg)
         : GUIEvent(EVENT_MESSAGE_OCCURED), myMsg(msg) {
         switch (type) {

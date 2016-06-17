@@ -55,6 +55,9 @@ enum GUIEventType {
     /// send when a error occured
     EVENT_ERROR_OCCURED,
 
+    /// send when a status change occured
+    EVENT_STATUS_OCCURED,
+
     /** @brief Send when the simulation is over;
         The reason and the time step are stored within the event */
     EVENT_SIMULATION_ENDED,
