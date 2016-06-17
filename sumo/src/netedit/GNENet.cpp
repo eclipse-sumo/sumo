@@ -602,13 +602,12 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) {
 
 GNEEdge*
 GNENet::retrieveEdge(const std::string& id, bool failHard) {
-    for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); ++it) {
-        if (it->second->getID() == id) {
-            return it->second;
-        }
-    }
+    GNEEdges::const_iterator i = myEdges.find(id);
+    // If edge was fund
+    if(i != myEdges.end())
+        return i->second;
     // If edge wasn't found
-    if (failHard)
+    else if (failHard)
         throw UnknownElement("Edge " + id);
     else
         return 0;
