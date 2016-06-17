@@ -812,7 +812,7 @@ GUILane::getLoadedEdgeWeight() const {
     if (!ews.knowsEffort(myEdge)) {
         return -1;
     } else {
-        SUMOReal value(0);
+        SUMOReal value(-1);
         ews.retrieveExistingEffort(myEdge, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
         return value;
     }
