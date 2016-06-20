@@ -57,6 +57,7 @@ GNEAdditionalSet.h GNEAdditionalSet.cpp \
 GNEChargingStation.h GNEChargingStation.cpp \
 GNEStoppingPlace.h GNEStoppingPlace.cpp \
 GNEBusStop.h GNEBusStop.cpp \
+GNEContainerStop.h GNEContainerStop.cpp \
 GNEDetector.h GNEDetector.cpp \
 GNEDetectorE1.h GNEDetectorE1.cpp \
 GNEDetectorE2.h GNEDetectorE2.cpp \
