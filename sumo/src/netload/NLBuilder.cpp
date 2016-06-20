@@ -201,6 +201,10 @@ NLBuilder::build() {
             return false;
         }
     }
+    // optionally switch off traffic lights
+    if (myOptions.getBool("tls.all-off")) {
+        myNet.getTLSControl().switchOffAll();
+    }
     WRITE_MESSAGE("Loading done.");
     return true;
 }

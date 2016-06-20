@@ -144,7 +144,6 @@ public:
         void addLink(MSLink* link, MSLane* lane, int pos);
 
 
-
     private:
         /// @brief The currently used program
         MSTrafficLightLogic* myCurrentProgram;
@@ -374,6 +373,9 @@ public:
      * @return A pair containing the current time and the current phases of the named tls
      */
     std::pair<SUMOTime, MSPhaseDefinition> getPhaseDef(const std::string& tlid) const;
+
+    /// @brief switch all logic variants to 'off'
+    void switchOffAll();
 
 
 

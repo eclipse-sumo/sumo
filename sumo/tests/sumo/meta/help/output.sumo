@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r20990
+SUMO Version dev-SVN-r20996
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -74,10 +74,6 @@ Output Options:
   --bt-output FILE                     Save bluetooth visibilities into FILE
                                          (in conjunction with device.btreceiver
                                          and device.btsender)
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -138,6 +134,7 @@ Processing Options:
                                          (default 0)
   --lanechange.overtake-right          Whether overtaking on the right on
                                          motorways is permitted
+  --tls.all-off                        Switches off all traffic lights.
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for

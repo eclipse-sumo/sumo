@@ -129,12 +129,6 @@
         <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
         <bt-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
-
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -218,6 +212,9 @@
 
         <!-- Whether overtaking on the right on motorways is permitted -->
         <lanechange.overtake-right value="false" type="BOOL"/>
+
+        <!-- Switches off all traffic lights. -->
+        <tls.all-off value="false" type="BOOL"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;] -->
         <pedestrian.model value="striping" type="STR"/>

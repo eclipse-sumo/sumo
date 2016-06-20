@@ -841,6 +841,12 @@ MSTLLogicControl::getPhaseDef(const std::string& tlid) const {
 }
 
 
+void
+MSTLLogicControl::switchOffAll() {
+    for (std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
+        (*i).second->addLogic("off",  new MSOffTrafficLightLogic(*this, (*i).first), true, true);
+    }
+}
 
 /****************************************************************************/
 

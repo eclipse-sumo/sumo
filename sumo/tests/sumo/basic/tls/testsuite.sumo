@@ -15,6 +15,9 @@ begin100
 # switch tls off
 off
 
+# switch all tls off with option
+all_off
+
 # Tests for error handling
 errors
 
