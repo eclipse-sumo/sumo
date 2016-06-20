@@ -457,6 +457,13 @@ MSFrame::checkOptions() {
             !oc.isUsableFileList("gui-settings-file")) {
         ok = false;
     }
+    if (oc.getBool("demo") && !oc.getBool("start")) {
+        oc.set("start", "true");
+    }
+    if (oc.getBool("demo") && oc.getBool("quit-on-end")) {
+        WRITE_ERROR("You can either restart or quit on end.");
+        ok = false;
+    }
     if (oc.getBool("meso-junction-control.limited") && !oc.getBool("meso-junction-control")) {
         oc.set("meso-junction-control", "true");
     }
