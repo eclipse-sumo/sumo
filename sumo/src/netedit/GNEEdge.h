@@ -62,10 +62,10 @@ public:
     typedef std::vector<GNELane*> LaneVector;
 
     /// @brief Definition of the additionals list
-    typedef std::list<GNEAdditional*> AdditionalList;
+    typedef std::vector<GNEAdditional*> AdditionalVector;
 
     /// @brief Definition of the additionalSets list
-    typedef std::list<GNEAdditionalSet*> AdditionalSetList;
+    typedef std::vector<GNEAdditionalSet*> AdditionalSetVector;
 
     /**@brief Constructor.
      * @param[in] nbe The represented edge
@@ -222,7 +222,7 @@ public:
     bool removeAdditional(GNEAdditional *additional);
 
     /// @brief return list of additionals associated with this edge
-    const std::list<GNEAdditional*> &getAdditionals() const;
+    const std::vector<GNEAdditional*> &getAdditionals() const;
 
     /// @brief add GNEAdditionalSet to this edge
     bool addAdditionalSet(GNEAdditionalSet *additionalSet);
@@ -231,7 +231,7 @@ public:
     bool removeAdditionalSet(GNEAdditionalSet *additionalSet);
 
     /// @brief return list of additionalSets associated with this edge
-    const std::list<GNEAdditionalSet*> &getAdditionalSets();
+    const std::vector<GNEAdditionalSet*> &getAdditionalSets();
 
     // the radius in which to register clicks for geometry nodes
     static const SUMOReal SNAP_RADIUS;
@@ -256,10 +256,10 @@ protected:
     std::string myConnectionStatus;
 
     /// @brief list with the additonals vinculated with this edge
-    AdditionalList myAdditionals;
+    AdditionalVector myAdditionals;
 
     /// @brief list with the additonalSets vinculated with this edge
-    AdditionalSetList myAdditionalSets;
+    AdditionalSetVector myAdditionalSets;
 
 private:
     /// @brief set attribute after validation

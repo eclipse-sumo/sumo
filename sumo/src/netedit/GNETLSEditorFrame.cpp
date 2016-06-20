@@ -627,8 +627,8 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
         } else {
             // if the edge is selected, apply changes to all lanes of all selected edges
             if (gSelected.isSelected(GLO_EDGE, edge.getGlID())) {
-                std::list<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges(true);
-                for (std::list<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
+                std::vector<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges(true);
+                for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
                     for (GNEEdge::LaneVector::const_iterator it_lane = (*it)->getLanes().begin(); it_lane != (*it)->getLanes().end(); it_lane++) {
                         fromIDs.insert((*it_lane)->getMicrosimID());
                     }
@@ -636,8 +636,8 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
             }
             // if the lane is selected, apply changes to all selected lanes
             if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
-                std::list<GNELane*> lanes = myViewNet->getNet()->retrieveLanes(true);
-                for (std::list<GNELane*>::iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+                std::vector<GNELane*> lanes = myViewNet->getNet()->retrieveLanes(true);
+                for (std::vector<GNELane*>::iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     fromIDs.insert((*it_lane)->getMicrosimID());
                 }
             }

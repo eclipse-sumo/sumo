@@ -280,8 +280,8 @@ long
 GNEConnectorFrame::onCmdSelectDeadEnds(FXObject*, FXSelector, void*) {
     std::vector<GUIGlID> selectIDs;
     // every edge knows its outgoing connections so we can look at each edge in isolation
-    const std::list<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges();
-    for (std::list<GNEEdge*>::const_iterator edge_it = edges.begin(); edge_it != edges.end(); edge_it++) {
+    const std::vector<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges();
+    for (std::vector<GNEEdge*>::const_iterator edge_it = edges.begin(); edge_it != edges.end(); edge_it++) {
         const GNEEdge::LaneVector& lanes = (*edge_it)->getLanes();
         for (GNEEdge::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
             if ((*edge_it)->getNBEdge()->getConnectionsFromLane((*it_lane)->getIndex()).size() == 0) {
@@ -299,8 +299,8 @@ GNEConnectorFrame::onCmdSelectDeadStarts(FXObject*, FXSelector, void*) {
     GNENet* net = myViewNet->getNet();
     std::set<GUIGlID> selectIDs;
     // every edge knows only its outgoing connections so we look at whole junctions
-    const std::list<GNEJunction*> junctions = net->retrieveJunctions();
-    for (std::list<GNEJunction*>::const_iterator junction_it = junctions.begin(); junction_it != junctions.end(); junction_it++) {
+    const std::vector<GNEJunction*> junctions = net->retrieveJunctions();
+    for (std::vector<GNEJunction*>::const_iterator junction_it = junctions.begin(); junction_it != junctions.end(); junction_it++) {
         // first collect all outgoing lanes
         const EdgeVector& outgoing = (*junction_it)->getNBNode()->getOutgoingEdges();
         for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
@@ -334,8 +334,8 @@ long
 GNEConnectorFrame::onCmdSelectConflicts(FXObject*, FXSelector, void*) {
     std::vector<GUIGlID> selectIDs;
     // conflicts happen per edge so we can look at each edge in isolation
-    const std::list<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges();
-    for (std::list<GNEEdge*>::const_iterator edge_it = edges.begin(); edge_it != edges.end(); edge_it++) {
+    const std::vector<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges();
+    for (std::vector<GNEEdge*>::const_iterator edge_it = edges.begin(); edge_it != edges.end(); edge_it++) {
         NBEdge* nbe = (*edge_it)->getNBEdge();
         const EdgeVector destinations = nbe->getConnectedEdges();
         const std::vector<NBEdge::Connection>& connections = nbe->getConnections();
@@ -361,8 +361,8 @@ GNEConnectorFrame::onCmdSelectConflicts(FXObject*, FXSelector, void*) {
 long
 GNEConnectorFrame::onCmdSelectPass(FXObject*, FXSelector, void*) {
     std::vector<GUIGlID> selectIDs;
-    const std::list<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges();
-    for (std::list<GNEEdge*>::const_iterator edge_it = edges.begin(); edge_it != edges.end(); edge_it++) {
+    const std::vector<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges();
+    for (std::vector<GNEEdge*>::const_iterator edge_it = edges.begin(); edge_it != edges.end(); edge_it++) {
         GNEEdge* edge = *edge_it;
         NBEdge* nbe = edge->getNBEdge();
         const std::vector<NBEdge::Connection>& connections = nbe->getConnections();

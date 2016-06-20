@@ -783,9 +783,9 @@ GNELane*
 GNEAdditionalHandler::getLane(const SUMOSAXAttributes& attrs, SumoXMLTag triggerType, const std::string& triggerId) {
     bool ok = true;
     std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANE, triggerId.c_str(), ok);
-    std::list<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes();
+    std::vector<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes();
     // Iterate over lanes and return lane if is founded
-    for(std::list<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++)
+    for(std::vector<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++)
         if((*i)->getID() == objectid)
             return (*i);
     // if lane wasn't founded throw exception and return null

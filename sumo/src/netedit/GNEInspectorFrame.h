@@ -190,10 +190,10 @@ public:
     void hide();
 
     /// @brief Inspect the given multi-selection
-    void inspect(const std::list<GNEAttributeCarrier*>& ACs);
+    void inspect(const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief get current list of ACs
-    const std::list<GNEAttributeCarrier*> &getACs() const;
+    const std::vector<GNEAttributeCarrier*> &getACs() const;
 
     /// @brief get the template edge (to copy attributes from)
     GNEEdge* getEdgeTemplate() const;
@@ -222,7 +222,7 @@ private:
     FXGroupBox* myGroupBoxForAttributes;
 
     /// @brief list of Attribute inputs
-    std::list<GNEInspectorFrame::AttrInput*> listOfAttrInput;
+    std::vector<GNEInspectorFrame::AttrInput*> vectorOfAttrInput;
 
     /// @brief groupBox for templates
     FXGroupBox* myGroupBoxForTemplates;
@@ -246,7 +246,7 @@ private:
     GNEAdditional *myAdditional;
 
     /// @brief the multi-selection currently being inspected
-    std::list<GNEAttributeCarrier*> myACs;
+    std::vector<GNEAttributeCarrier*> myACs;
 };
 
 

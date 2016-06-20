@@ -93,7 +93,7 @@ GNELane::GNELane() :
 
 GNELane::~GNELane() {
     // Remove all references to this lane in their additionals
-    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
         (*i)->removeLaneReference();                                                                                       
 }
 
@@ -471,10 +471,10 @@ GNELane::updateGeometry() {
         }
     }
     // Update geometry of additionals vinculated with this lane
-    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
         (*i)->updateGeometry();
     // Update geometry of additionalSets vinculated to this lane
-    for (AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i)
+    for (AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i)
         (*i)->updateGeometry();
 }
 
@@ -529,7 +529,7 @@ GNELane::addAdditional(GNEAdditional *additional) {
 bool
 GNELane::removeAdditional(GNEAdditional *additional) {
     // Find and remove stoppingPlace
-    for(AdditionalList::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
         if(*i == additional) {
             myAdditionals.erase(i);
             return true;
@@ -539,7 +539,7 @@ GNELane::removeAdditional(GNEAdditional *additional) {
 }
 
 
-const std::list<GNEAdditional*> &
+const std::vector<GNEAdditional*> &
 GNELane::getAdditionals() const{
     return myAdditionals;
 }
@@ -548,7 +548,7 @@ GNELane::getAdditionals() const{
 bool
 GNELane::addAdditionalSet(GNEAdditionalSet *additionalSet) {
     // Check if additionalSet already exists before insertion
-    for(AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
+    for(AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
         if((*i) == additionalSet)
             return false;
     // Insert it and retur true
@@ -560,7 +560,7 @@ GNELane::addAdditionalSet(GNEAdditionalSet *additionalSet) {
 bool
 GNELane::removeAdditionalSet(GNEAdditionalSet *additionalSet) {
     // search additionalSet and remove it
-    for(AdditionalSetList::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
+    for(AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
         if((*i) == additionalSet) {
             myAdditionalSets.erase(i);
             return true;
@@ -570,7 +570,7 @@ GNELane::removeAdditionalSet(GNEAdditionalSet *additionalSet) {
 }
 
 
-const std::list<GNEAdditionalSet*> &
+const std::vector<GNEAdditionalSet*> &
 GNELane::getAdditionalSets() {
     return myAdditionalSets;
 }

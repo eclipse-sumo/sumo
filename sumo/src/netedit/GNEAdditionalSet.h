@@ -177,12 +177,12 @@ protected:
 
 
     /// @brief typedef for containers
-    typedef std::list<GNEAdditional*> childAdditionals;
-    typedef std::list<edgeChild> childEdges;
-    typedef std::list<laneChild> childLanes;
+    typedef std::vector<GNEAdditional*> childAdditionals;
+    typedef std::vector<edgeChild> childEdges;
+    typedef std::vector<laneChild> childLanes;
 
     /// @brief list of additional childs (Position and rotations is derived from additional)
-    std::list<GNEAdditional*> myChildAdditionals;
+    std::vector<GNEAdditional*> myChildAdditionals;
 
     /// @brief map of child edges and their positions and rotation
     childEdges myChildEdges;

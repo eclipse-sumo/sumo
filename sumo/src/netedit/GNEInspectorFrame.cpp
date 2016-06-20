@@ -91,7 +91,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXComposite* parent, GNEViewNet* viewNet):
 
     // Create AttrInput
     for(int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++)
-        listOfAttrInput.push_back(new AttrInput(myGroupBoxForAttributes, this));
+        vectorOfAttrInput.push_back(new AttrInput(myGroupBoxForAttributes, this));
 
     // Create groupBox for templates
     myGroupBoxForTemplates = new FXGroupBox(myContentFrame, "templates", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
@@ -143,7 +143,7 @@ GNEInspectorFrame::hide() {
 
 
 void
-GNEInspectorFrame::inspect(const std::list<GNEAttributeCarrier*>& ACs) {
+GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
     // Assing ACS to myACs
     myACs = ACs;
 
@@ -159,14 +159,14 @@ GNEInspectorFrame::inspect(const std::list<GNEAttributeCarrier*>& ACs) {
         myGroupBoxForAttributes->show();
 
         // Hide all AttrInput
-        for(std::list<GNEInspectorFrame::AttrInput*>::iterator i = listOfAttrInput.begin(); i != listOfAttrInput.end(); i++)
+        for(std::vector<GNEInspectorFrame::AttrInput*>::iterator i = vectorOfAttrInput.begin(); i != vectorOfAttrInput.end(); i++)
            (*i)->hiddeAttribute();
         
         // Gets attributes of element
         const std::vector<SumoXMLAttr>& attrs = myACs.front()->getAttrs();
         
         // Declare iterator over AttrImput
-        std::list<GNEInspectorFrame::AttrInput*>::iterator itAttrs = listOfAttrInput.begin();
+        std::vector<GNEInspectorFrame::AttrInput*>::iterator itAttrs = vectorOfAttrInput.begin();
 
         // Iterate over attributes
         for (std::vector<SumoXMLAttr>::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
@@ -177,7 +177,7 @@ GNEInspectorFrame::inspect(const std::list<GNEAttributeCarrier*>& ACs) {
             }
             // Declare a set of occuring values and insert attribute's values of item
             std::set<std::string> occuringValues;
-            for (std::list<GNEAttributeCarrier*>::const_iterator it_ac = myACs.begin(); it_ac != myACs.end(); it_ac++) {
+            for (std::vector<GNEAttributeCarrier*>::const_iterator it_ac = myACs.begin(); it_ac != myACs.end(); it_ac++) {
                 occuringValues.insert((*it_ac)->getAttribute(*it));
             }
             // get current value
@@ -258,7 +258,7 @@ GNEInspectorFrame::setEdgeTemplate(GNEEdge* tpl) {
 
 long
 GNEInspectorFrame::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
-    for (std::list<GNEAttributeCarrier*>::iterator it = myACs.begin(); it != myACs.end(); it++) {
+    for (std::vector<GNEAttributeCarrier*>::iterator it = myACs.begin(); it != myACs.end(); it++) {
         GNEEdge* edge = dynamic_cast<GNEEdge*>(*it);
         assert(edge);
         edge->copyTemplate(myEdgeTemplate, myViewNet->getUndoList());
@@ -303,7 +303,7 @@ GNEInspectorFrame::onCmdSetBlocking(FXObject*, FXSelector, void*) {
 }
  
 
-const std::list<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*> &
 GNEInspectorFrame::getACs() const {
     return myACs;
 }
@@ -474,7 +474,7 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void* dat
             myInspectorFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
         // Set all attributes
-        for (std::list<GNEAttributeCarrier*>::const_iterator it_ac = myInspectorFrameParent->getACs().begin(); it_ac != myInspectorFrameParent->getACs().end(); it_ac++)
+        for (std::vector<GNEAttributeCarrier*>::const_iterator it_ac = myInspectorFrameParent->getACs().begin(); it_ac != myInspectorFrameParent->getACs().end(); it_ac++)
             (*it_ac)->setAttribute(myAttr, newVal, myInspectorFrameParent->getViewNet()->getUndoList());
         if (myInspectorFrameParent->getACs().size() > 1) {
             myInspectorFrameParent->getViewNet()->getUndoList()->p_end();

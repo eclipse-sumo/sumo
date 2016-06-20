@@ -920,16 +920,16 @@ GNEAdditionalFrame::editorParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 std::string
 GNEAdditionalFrame::getIdsSelected(const FXList* list) {
     // Obtain Id's of list
-    std::string listOfIds;
+    std::string vectorOfIds;
     for (int i = 0; i < list->getNumItems(); i++) {
         if (list->isItemSelected(i)) {
-            if (listOfIds.size() > 0) {
-                listOfIds += " ";
+            if (vectorOfIds.size() > 0) {
+                vectorOfIds += " ";
             }
-            listOfIds += (list->getItem(i)->getText()).text();
+            vectorOfIds += (list->getItem(i)->getText()).text();
         }
     }
-    return listOfIds;
+    return vectorOfIds;
 }
 
 
@@ -980,8 +980,8 @@ GNEAdditionalFrame::additionalSet::showList(SumoXMLTag type) {
     myType = type;
     mySetLabel->setText(("Type of set: " + toString(myType)).c_str());
     myList->clearItems();
-    const std::list<GNEAdditional*> &listOfAdditionalSets = myViewNet->getNet()->getAdditionals(myType);
-    for(std::list<GNEAdditional*>::const_iterator i = listOfAdditionalSets.begin(); i != listOfAdditionalSets.end(); i++)
+    const std::vector<GNEAdditional*> &vectorOfAdditionalSets = myViewNet->getNet()->getAdditionals(myType);
+    for(std::vector<GNEAdditional*>::const_iterator i = vectorOfAdditionalSets.begin(); i != vectorOfAdditionalSets.end(); i++)
         myList->appendItem((*i)->getID().c_str());
     show();
 }
@@ -1047,8 +1047,8 @@ GNEAdditionalFrame::edges::getIdsSelected() const {
 void
 GNEAdditionalFrame::edges::showList(std::string search) {
     myList->clearItems();
-    std::list<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
-    for(std::list<GNEEdge*>::iterator i = vectorOfEdges.begin(); i != vectorOfEdges.end(); i++)
+    std::vector<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
+    for(std::vector<GNEEdge*>::iterator i = vectorOfEdges.begin(); i != vectorOfEdges.end(); i++)
         if((*i)->getID().find(search) != std::string::npos)
             myList->appendItem((*i)->getID().c_str());
     show();
@@ -1143,8 +1143,8 @@ GNEAdditionalFrame::lanes::getIdsSelected() const {
 void
 GNEAdditionalFrame::lanes::showList(std::string search) {
     myList->clearItems();
-    std::list<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
-    for(std::list<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++)
+    std::vector<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
+    for(std::vector<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++)
         if((*i)->getID().find(search) != std::string::npos)
             myList->appendItem((*i)->getID().c_str());
     show();

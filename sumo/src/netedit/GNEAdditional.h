@@ -30,7 +30,6 @@
 #include <config.h>
 #endif
 
-#include <list>
 #include <string>
 #include <vector>
 #include <utils/geom/PositionVector.h>

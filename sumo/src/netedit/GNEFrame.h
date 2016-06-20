@@ -30,7 +30,6 @@
 #endif
 
 #include <fx.h>
-#include <list>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <utils/foxtools/FXRealSpinDial.h>

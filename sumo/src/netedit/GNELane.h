@@ -56,11 +56,11 @@ class GNELane : public GNENetElement, public FXDelegator {
     FXDECLARE(GNELane)
 
 public:
-    /// @brief Definition of the additionals list
-    typedef std::list<GNEAdditional*> AdditionalList;
+    /// @brief Definition of the additionals vector
+    typedef std::vector<GNEAdditional*> AdditionalVector;
 
-    /// @brief Definition of the additionalSets list
-    typedef std::list<GNEAdditionalSet*> AdditionalSetList;
+    /// @brief Definition of the additionalSets vector
+    typedef std::vector<GNEAdditionalSet*> AdditionalSetVector;
 
 
     /**@brief Constructor
@@ -180,7 +180,7 @@ public:
 
     /// @brief method to obtain a list of additional elements associated to this lane
     /// @return set with all additional elements
-    const std::list<GNEAdditional*> &getAdditionals() const;
+    const std::vector<GNEAdditional*> &getAdditionals() const;
 
     /// @brief add GNEAdditionalSet to this lane
     bool addAdditionalSet(GNEAdditionalSet *additionalSet);
@@ -189,7 +189,7 @@ public:
     bool removeAdditionalSet(GNEAdditionalSet *additionalSet);
 
     /// @brief return list of additionalSets associated with this lane
-    const std::list<GNEAdditionalSet*> &getAdditionalSets();
+    const std::vector<GNEAdditionalSet*> &getAdditionalSets();
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -239,10 +239,10 @@ protected:
     /// @}
 
     /// @brief list with the additonals vinculated with this lane
-    AdditionalList myAdditionals;
+    AdditionalVector myAdditionals;
 
     /// @brief list with the additonalSets vinculated with this lane
-    AdditionalSetList myAdditionalSets;
+    AdditionalSetVector myAdditionalSets;
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
