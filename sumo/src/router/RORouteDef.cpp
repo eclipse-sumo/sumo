@@ -244,7 +244,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         const ConstROEdgeVector& targets = mandatory.size() > oldEdges.size() ? mandatory : oldEdges;
         newEdges.push_back(*(targets.begin()));
         ConstROEdgeVector::iterator nextMandatory = mandatory.begin() + 1;
-        size_t lastMandatory = 0;
+        int lastMandatory = 0;
         for (ConstROEdgeVector::const_iterator i = targets.begin() + 1;
                 i != targets.end() && nextMandatory != mandatory.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i, &veh)) {
@@ -263,7 +263,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     // we would then need to decide whether we have found a good
                     // tradeoff between faithfulness to the input data and detour-length
                     ConstROEdgeVector edges;
-                    if (last == newEdges[lastMandatory] || !router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges)) {
+                    if (lastMandatory >= newEdges.size() || last == newEdges[lastMandatory] || !router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges)) {
                         mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
                         return false;
                     }
