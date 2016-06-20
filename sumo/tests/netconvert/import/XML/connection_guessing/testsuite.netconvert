@@ -37,6 +37,7 @@ bike_lane_ends
 
 # the lane which allows passenger and bicycle should have connections to all following lanes (passenger-only lanes as well as bike lane)
 bike_lane_starts
+3arm_bike_lane
 
 # special case a)
 case_a_with_sidewalk
