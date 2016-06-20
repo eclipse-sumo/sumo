@@ -126,7 +126,7 @@ MSCalibrator::init() {
 
 
 MSCalibrator::~MSCalibrator() {
-    if (myCurrentStateInterval != myIntervals.end()) {
+    if (myIntervals.size() > 0 && myCurrentStateInterval != myIntervals.end()) {
         writeXMLOutput();
     }
     for (std::vector<VehicleRemover*>::iterator it = myVehicleRemovers.begin(); it != myVehicleRemovers.end(); ++it) {
