@@ -213,16 +213,12 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         if (oldEdges.back()->prohibits(&veh)) {
             // option repair.to is in effect
             const std::string& backID = oldEdges.back()->getID();
-            for (ConstROEdgeVector::reverse_iterator i = oldEdges.rbegin(); i != oldEdges.rend();) {
-                if ((*i)->prohibits(&veh)) {
-                    ++i;
-                    oldEdges.erase(i.base());
-                } else {
-                    WRITE_MESSAGE("Changing invalid destination edge '" + backID
-                                  + "' to edge '" + (*i)->getID() + "' for vehicle '" + veh.getID() + "'.");
-                    break;
-                }
+            // oldEdges cannot get empty here, otherwise we would have left the stage when checking "from"
+            while (oldEdges.back()->prohibits(&veh)) {
+                oldEdges.pop_back();
             }
+            WRITE_MESSAGE("Changing invalid destination edge '" + backID
+                          + "' to edge '" + oldEdges.back()->getID() + "' for vehicle '" + veh.getID() + "'.");
         }
         if (mandatory.size() < 2 || oldEdges.back() != mandatory.back()) {
             mandatory.push_back(oldEdges.back());
@@ -276,7 +272,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             }
             if (*i == *nextMandatory) {
                 nextMandatory++;
-                lastMandatory = newEdges.size() - 1;
+                lastMandatory = (int)newEdges.size() - 1;
             }
         }
     }
