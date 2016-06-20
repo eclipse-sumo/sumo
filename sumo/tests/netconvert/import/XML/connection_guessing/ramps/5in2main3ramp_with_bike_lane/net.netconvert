@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 20 Jun 2016 01:50:14 PM CEST by Netedit Version dev-SVN-r21003
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/ramps/5in2main3ramp_with_bike_lane/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/ramps/5in2main3ramp_with_bike_lane/net.netconvert"/>
+        <plain-output-prefix value=""/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="CE" from="C" to="E" priority="2">
+        <lane id="CE_0" index="0" disallow="bicycle" speed="13.89" length="100.00" shape="107.98,95.05 200.00,95.05"/>
+        <lane id="CE_1" index="1" disallow="bicycle" speed="13.89" length="100.00" shape="107.98,98.35 200.00,98.35"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="1">
+        <lane id="CS_0" index="0" allow="bicycle" speed="13.89" length="141.42" width="1.00" shape="104.85,85.04 194.94,-5.06"/>
+        <lane id="CS_1" index="1" disallow="bicycle" speed="13.89" length="141.42" shape="106.40,86.60 196.50,-3.50"/>
+        <lane id="CS_2" index="2" disallow="bicycle" speed="13.89" length="141.42" shape="108.73,88.93 198.83,-1.17"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2">
+        <lane id="WC_0" index="0" allow="bicycle" speed="13.89" length="100.00" width="1.00" shape="0.00,86.25 98.50,86.25"/>
+        <lane id="WC_1" index="1" disallow="bicycle" speed="13.89" length="100.00" shape="0.00,88.45 98.50,88.45"/>
+        <lane id="WC_2" index="2" disallow="bicycle" speed="13.89" length="100.00" shape="0.00,91.75 98.50,91.75"/>
+        <lane id="WC_3" index="3" disallow="bicycle" speed="13.89" length="100.00" shape="0.00,95.05 98.50,95.05"/>
+        <lane id="WC_4" index="4" disallow="bicycle" speed="13.89" length="100.00" shape="0.00,98.35 98.50,98.35"/>
+    </edge>
+
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="WC_0 WC_1 WC_2 WC_3 WC_4" intLanes="" shape="107.98,99.95 107.98,93.45 109.87,90.06 104.49,84.69 98.50,85.75 98.50,99.95">
+        <request index="0" response="00000" foes="00000"/>
+        <request index="1" response="00000" foes="00000"/>
+        <request index="2" response="00000" foes="00000"/>
+        <request index="3" response="00000" foes="00000"/>
+        <request index="4" response="00000" foes="00000"/>
+    </junction>
+    <junction id="E" type="unregulated" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes="" shape="200.00,93.45 200.00,99.95"/>
+    <junction id="S" type="unregulated" x="200.00" y="0.00" incLanes="CS_0 CS_1 CS_2" intLanes="" shape="194.59,-5.41 199.96,-0.04"/>
+    <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,85.75"/>
+
+    <connection from="WC" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="WC" to="CS" fromLane="2" toLane="2" dir="r" state="M"/>
+    <connection from="WC" to="CE" fromLane="3" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to="CE" fromLane="4" toLane="1" dir="s" state="M"/>
+
+</net>

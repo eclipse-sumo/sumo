@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 20 Jun 2016 01:50:21 PM CEST by Netedit Version dev-SVN-r21003
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/ramps/5in2main3ramp_with_bike_lane/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/ramps/5in2main3ramp_with_bike_lane/net.netconvert"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/ramps/5in2main3ramp_with_bike_lane/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="WC" to="CS" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="1"/>
+    <connection from="WC" to="CS" fromLane="2" toLane="2"/>
+    <connection from="WC" to="CE" fromLane="3" toLane="0"/>
+    <connection from="WC" to="CE" fromLane="4" toLane="1"/>
+
+</connections>
