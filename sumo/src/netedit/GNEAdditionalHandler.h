@@ -150,6 +150,12 @@ public:
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs);
+
+    /**@brief Parses his values and builds routeProbe
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
+    void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs);
     /// @}
 
     /// @name building methods
@@ -282,7 +288,10 @@ public:
      * @param[in] pos The position on the edge the calibrator lies at
      * @param[in] file The file to read the flows from
      * @param[in] blocked set initial blocking state of item
+     * @return true if was sucesfully created, false in other case
      * @todo Is the position correct/needed
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
     static bool buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& file, const std::string& outfile, const SUMOTime freq, bool blocked);
 
@@ -294,6 +303,7 @@ public:
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
      * @param[in] blocked set initial blocking state of item
+     * @return true if was sucesfully created, false in other case
      */
     static bool buildRerouter(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, bool blocked);
 
@@ -305,6 +315,8 @@ public:
      * @param[in] file The file to read the routeprobe definitions from
      * @param[in] begin The time at which to start generating output
      * @param[in] blocked set initial blocking state of item
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
     static bool buildRouteProbe(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, int freq, const std::string& file, int begin, bool blocked);
 
@@ -315,10 +327,21 @@ public:
      * @param[in] file Name of the file to read the speeds to set from
      * @param[in] blocked set initial blocking state of item
      * @return true if was sucesfully created, false in other case
-     * @exception ProcessError If the XML definition file is errornous
-     * @see GNELaneSpeedTrigger
+     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
     static bool buildVariableSpeedSignal(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, bool blocked);
+
+    /**@brief Builds a vaporizer (lane speed trigger)
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] id The id of the lane speed trigger
+     * @param[in] edge edge in which tis vaporizer is placed
+     * @param[in] startTime time in which this vaporizer start
+     * @param[in] end time in which this vaporizer ends
+     * @param[in] blocked set initial blocking state of item
+     * @return true if was sucesfully created, false in other case
+     * @exception ProcessError If the XML definition file is errornous
+     */
+    static bool buildVaporizer(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOTime startTime, SUMOTime end, bool blocked);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from
@@ -327,15 +350,6 @@ public:
      * @todo Recheck usage of the helper class
      */
     std::string getFileName(const SUMOSAXAttributes& attrs, const std::string& base, const bool allowEmpty = false);
-
-    /**@brief Returns the lane defined by attribute "lane"
-     * @param[in] attrs The attributes to obtain the lane id from
-     * @param[in] tt The trigger type (for user output)
-     * @param[in] tid The trigger id (for user output)
-     * @return The named lane if it is known
-     * @exception InvalidArgument If the named lane does not exist or a lane is not named
-     */
-    GNELane* getLane(const SUMOSAXAttributes& attrs, SumoXMLTag triggerType, const std::string& triggerId);
 
     /**@brief extracts the position, checks whether it shall be mirrored and checks whether it is within the lane.
      * @param[in] attrs The attributes to obtain the position from
