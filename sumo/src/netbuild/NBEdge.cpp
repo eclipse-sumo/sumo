@@ -2237,9 +2237,7 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
         case EDGE2EDGES: {
             // the following edge must be connected
             const EdgeVector& conn = getConnectedEdges();
-            if (find(conn.begin(), conn.end(), possContinuation)
-                    == conn.end()) {
-
+            if (find(conn.begin(), conn.end(), possContinuation) == conn.end()) {
                 return false;
             }
         }
@@ -2254,7 +2252,8 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
             }
             // all lanes must go to the possible continuation
             std::vector<int> conns = getConnectionLanes(possContinuation);
-            if (conns.size() != myLanes.size()) {
+            const int offset = MAX2(0, getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true));
+            if (conns.size() != myLanes.size() - offset) {
                 return false;
             }
         }
