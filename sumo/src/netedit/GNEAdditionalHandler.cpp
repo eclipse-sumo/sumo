@@ -48,6 +48,7 @@
 #include "GNEVariableSpeedSignal.h"
 #include "GNERouteProbe.h"
 #include "GNECalibrator.h"
+#include "GNEContainerStop.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -73,6 +74,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         switch (element) {
             case SUMO_TAG_BUS_STOP:
                 parseAndBuildBusStop(attrs);
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                parseAndBuildContainerStop(attrs);
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 parseAndBuildChargingStation(attrs);
@@ -253,6 +257,35 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs) {
             throw InvalidArgument("Invalid position for " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "'.");
         else
             buildBusStop(myViewNet, id, lane, startPos, endPos, lines, false);
+    } catch (InvalidArgument& e) {
+        WRITE_ERROR(e.what());
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    // Check if parsing of id was correct
+    if (!ok) {
+        throw ProcessError();
+    }
+    // get positions
+    SUMOReal startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    SUMOReal endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, 10);
+    // get lines
+    std::vector<std::string> lines;
+    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    try {
+        // get the lane
+        GNELane* lane = getLane(attrs, SUMO_TAG_BUS_STOP, id);
+        // Check position and build busStp
+        if(!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, friendlyPos))
+            throw InvalidArgument("Invalid position for " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "'.");
+        else
+            buildContainerStop(myViewNet, id, lane, startPos, endPos, lines, false);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
@@ -459,6 +492,19 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
             else
                 return false;
         }
+        case SUMO_TAG_CONTAINER_STOP: {
+            // get own attributes of containerStop
+            GNELane *lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
+            SUMOReal startPos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_STARTPOS]);
+            SUMOReal endPos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_ENDPOS]);
+            std::vector<std::string> lines;
+            SUMOSAXAttributes::parseStringVector(values[SUMO_ATTR_LINES], lines);
+            // Build containerStop
+            if(lane)
+                return buildContainerStop(viewNet, id, lane, startPos, endPos, lines, blocked);
+            else
+                return false;
+        }
         case SUMO_TAG_CHARGING_STATION: {
             // get own attributes of chargingStation
             GNELane *lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
@@ -605,12 +651,26 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
     }
 }
 
+
 bool
 GNEAdditionalHandler::buildBusStop(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_BUS_STOP, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
         GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, lines, blocked);
         viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), busStop, true), true);
+        viewNet->getUndoList()->p_end();
+        return true;
+    } else
+        throw InvalidArgument("Could not build " + toString(SUMO_TAG_BUS_STOP) + "'" + id + "' in netEdit; probably declared twice.");
+}
+
+
+bool
+GNEAdditionalHandler::buildContainerStop(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked) {
+    if (viewNet->getNet()->getAdditional(SUMO_TAG_BUS_STOP, id) == NULL) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
+        GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, lines, blocked);
+        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), containerStop, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else

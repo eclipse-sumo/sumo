@@ -249,6 +249,13 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, "10"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LINES, ""));
                 break;
+            case SUMO_TAG_CONTAINER_STOP:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTPOS, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, "10"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LINES, ""));
+                break;
             case SUMO_TAG_CHARGING_STATION:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
@@ -341,6 +348,7 @@ GNEAttributeCarrier::allowedTags() {
         myAllowedTags.push_back(SUMO_TAG_LANE);
         myAllowedTags.push_back(SUMO_TAG_CONNECTION);
         myAllowedTags.push_back(SUMO_TAG_BUS_STOP);
+        myAllowedTags.push_back(SUMO_TAG_CONTAINER_STOP);
         myAllowedTags.push_back(SUMO_TAG_CHARGING_STATION);
         myAllowedTags.push_back(SUMO_TAG_E1DETECTOR);
         myAllowedTags.push_back(SUMO_TAG_E2DETECTOR);
@@ -375,6 +383,7 @@ GNEAttributeCarrier::allowedAdditionalTags() {
     // define on first access
     if (myAllowedAdditionalTags.empty()) {
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_CONTAINER_STOP);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
         myAllowedAdditionalTags.push_back(SUMO_TAG_E1DETECTOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_E2DETECTOR);
@@ -491,7 +500,6 @@ GNEAttributeCarrier::isUnique(SumoXMLAttr attr) {
 }
 
 
-
 bool
 GNEAttributeCarrier::isDiscrete(SumoXMLTag tag, SumoXMLAttr attr) {
     if(discreteChoices(tag, attr).size() > 0)
@@ -528,19 +536,16 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
     if (myDiscreteChoices.empty()) {
         std::vector<std::string> choices;
         choices = SUMOXMLDefinitions::NodeTypes.getStrings();
-        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
-            if (*it != toString(NODETYPE_DEAD_END_DEPRECATED)) {
+        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it)
+            if (*it != toString(NODETYPE_DEAD_END_DEPRECATED))
                 myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TYPE].push_back(*it);
-            }
-        }
 
         myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("true");
         myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("false");
 
         choices = SUMOXMLDefinitions::LaneSpreadFunctions.getStrings();
-        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
+        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it)
             myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_SPREADTYPE].push_back(*it);
-        }
 
         choices = SumoVehicleClassStrings.getStrings();
         for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
@@ -643,6 +648,12 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_STARTPOS] = "The begin position on the lane (the lower position on the lane) in meters";
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_ENDPOS] = "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m";
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_LINES] = "meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes";
+        // container Stop
+        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ID] = "ID (Must be unique)";
+        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_LANE] = "The name of the lane the container stop shall be located at";
+        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_STARTPOS] = "The begin position on the lane (the lower position on the lane) in meters";
+        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ENDPOS] = "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m";
+        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_LINES] = "meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes";
         // Charging Station
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_ID] = "ID (Must be unique)";
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_LANE] = "Lane of the charging station location";
@@ -766,7 +777,6 @@ template<> std::vector<int>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     std::cout << "FINISH" << std::endl;
     
-
     // Write warning if attribute don't have a default value and return a empty value to avoid warnings
     WRITE_WARNING("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' don't have a default value");
     return std::vector<int>();
@@ -776,7 +786,6 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 template<> std::vector<SUMOReal>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     std::cout << "FINISH" << std::endl;
-    
 
     // Write warning if attribute don't have a default value and return a empty value to avoid warnings
     WRITE_WARNING("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' don't have a default value");

@@ -103,6 +103,12 @@ public:
      */
     void parseAndBuildBusStop(const SUMOSAXAttributes& attrs);
 
+    /**@brief Parses his values and builds a container stop
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
+    void parseAndBuildContainerStop(const SUMOSAXAttributes& attrs);
+
     /**@brief Parses his values and builds a charging station
      * @param[in] attrs SAXattributes which define the trigger
      * @exception InvalidArgument If a parameter (lane/position) is not valid
@@ -170,6 +176,19 @@ public:
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
     static bool buildBusStop(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked);
+
+    /**@brief Builds a container stop
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] id The id of the container stop
+     * @param[in] lane The lane the container stop is placed on
+     * @param[in] startPos Begin position of the container stop on the lane
+     * @param[in] endPos End position of the container stop on the lane
+     * @param[in] lines Names of the bus lines that halt on this container stop
+     * @param[in] blocked set initial blocking state of item
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the container stop can not be added to the net (is duplicate)
+     */
+    static bool buildContainerStop(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked);
 
     /**@brief Builds a charging Station
      * @param[in] viewNet viewNet in which element will be inserted
