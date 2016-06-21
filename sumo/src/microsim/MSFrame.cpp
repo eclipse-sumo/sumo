@@ -457,7 +457,7 @@ MSFrame::checkOptions() {
             !oc.isUsableFileList("gui-settings-file")) {
         ok = false;
     }
-    if (oc.getBool("demo") && !oc.getBool("start")) {
+    if (oc.getBool("demo") && oc.isDefault("start")) {
         oc.set("start", "true");
     }
     if (oc.getBool("demo") && oc.getBool("quit-on-end")) {
