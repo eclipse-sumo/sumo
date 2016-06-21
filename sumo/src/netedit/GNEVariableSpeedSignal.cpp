@@ -2,7 +2,7 @@
 /// @file    GNEVariableSpeedSignal.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id: GNEVariableSpeedSignal.cpp 19861 2016-02-01 09:08:47Z palcraft $
+/// @version $Id$
 ///
 ///
 /****************************************************************************/

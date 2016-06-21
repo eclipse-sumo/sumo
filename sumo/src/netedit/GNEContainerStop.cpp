@@ -2,7 +2,7 @@
 /// @file    GNEContainerStop.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id: GNEContainerStop.cpp 20975 2016-06-15 13:02:40Z palcraft $
+/// @version $Id$
 ///
 /// A lane area vehicles can halt at (GNE version)
 /****************************************************************************/

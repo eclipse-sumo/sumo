@@ -2,7 +2,7 @@
 /// @file    GNENetElement.cpp
 /// @author  Pablo Álvarez López
 /// @date    Jun 2016
-/// @version $Id: GNENetElement.cpp 20472 2016-04-15 15:36:45Z palcraft $
+/// @version $Id$
 ///
 // A abstract class for netElements
 /****************************************************************************/

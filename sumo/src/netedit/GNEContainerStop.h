@@ -2,7 +2,7 @@
 /// @file    GNEContainerStop.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id: GNEContainerStop.h 20975 2016-06-15 13:02:40Z palcraft $
+/// @version $Id$
 ///
 /// A class for visualizing busStop geometry (adapted from GUILaneWrapper)
 /****************************************************************************/

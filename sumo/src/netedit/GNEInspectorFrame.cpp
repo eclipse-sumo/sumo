@@ -2,7 +2,7 @@
 /// @file    GNEInspectorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNEInspectorFrame.cpp 20474 2016-04-16 09:10:57Z palcraft $
+/// @version $Id$
 ///
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/

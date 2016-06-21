@@ -2,7 +2,7 @@
 /// @file    GNECalibrator.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id: GNECalibrator.h 19790 2016-01-25 11:59:12Z palcraft $
+/// @version $Id$
 ///
 ///
 /****************************************************************************/

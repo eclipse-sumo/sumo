@@ -2,7 +2,7 @@
 /// @file    GNEAdditionalDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id: GNEAdditionalDialog.h 20472 2016-04-15 15:36:45Z palcraft $
+/// @version $Id$
 ///
 /// A abstract class for editing additional elements
 /****************************************************************************/

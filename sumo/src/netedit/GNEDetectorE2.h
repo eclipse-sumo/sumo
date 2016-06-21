@@ -2,7 +2,7 @@
 /// @file    GNEDetectorE2.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id: GNEDetectorE2.h 19790 201-601-25 11:59:12Z palcraft $
+/// @version $Id$
 ///
 ///
 /****************************************************************************/

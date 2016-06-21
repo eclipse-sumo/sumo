@@ -2,7 +2,7 @@
 /// @file    GNERerouterDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id: GNERerouterDialog.cpp 20472 2016-04-15 15:36:45Z palcraft $
+/// @version $Id$
 ///
 /// Dialog for edit rerouters
 /****************************************************************************/

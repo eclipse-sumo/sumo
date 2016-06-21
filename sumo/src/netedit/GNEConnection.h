@@ -2,7 +2,7 @@
 /// @file    GNEConnection.h
 /// @author  Pablo Álvarez López
 /// @date    Jun 2016
-/// @version $Id: GNEConnection.h 20785 2016-05-24 10:51:45Z palcraft $
+/// @version $Id$
 ///
 // A class for represent connections between Lanes
 /****************************************************************************/

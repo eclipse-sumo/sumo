@@ -2,7 +2,7 @@
 /// @file    GNEVariableSpeedSignalDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id: GNEVariableSpeedSignalDialog.cpp 20472 2016-04-15 15:36:45Z palcraft $
+/// @version $Id$
 ///
 /// A class for edit phases of Variable Speed Signals
 /****************************************************************************/

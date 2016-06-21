@@ -2,7 +2,7 @@
 /// @file    GNEFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id: GNEFrame.h 20819 2016-05-30 15:06:19Z palcraft $
+/// @version $Id$
 ///
 /// Abstract class for lateral frames in NetEdit
 /****************************************************************************/

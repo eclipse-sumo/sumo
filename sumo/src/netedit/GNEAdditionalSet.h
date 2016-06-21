@@ -2,7 +2,7 @@
 /// @file    GNEAdditionalSet.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2016
-/// @version $Id: GNEAdditionalSet.h 19909 2016-02-08 12:22:59Z palcraft $
+/// @version $Id$
 ///
 /// A abstract class for representation of additionalSet elements
 /****************************************************************************/

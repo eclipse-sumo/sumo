@@ -2,7 +2,7 @@
 /// @file    GNEVaporizer.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id: GNEVaporizer.cpp 19861 2016-02-01 09:08:47Z palcraft $
+/// @version $Id$
 ///
 ///
 /****************************************************************************/

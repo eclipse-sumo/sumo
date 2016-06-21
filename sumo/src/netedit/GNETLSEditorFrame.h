@@ -2,7 +2,7 @@
 /// @file    GNETLSEditorFrame.h
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id: GNETLSEditorFrame.h 20785 2016-05-24 10:51:45Z palcraft $
+/// @version $Id$
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/

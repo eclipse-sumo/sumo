@@ -2,7 +2,7 @@
 /// @file    GNEConnectorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id: GNEConnectorFrame.cpp 20472 2016-04-15 15:36:45Z palcraft $
+/// @version $Id$
 ///
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/

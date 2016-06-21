@@ -2,7 +2,7 @@
 /// @file    GNESelectorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id: GNESelectorFrame.cpp 20474 2016-04-16 09:10:57Z palcraft $
+/// @version $Id$
 ///
 // The Widget for modifying selections of network-elements
 // (some elements adapted from GUIDialog_GLChosenEditor)

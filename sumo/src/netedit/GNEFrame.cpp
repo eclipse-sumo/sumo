@@ -2,7 +2,7 @@
 /// @file    GNEFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id: GNEFrame.cpp 20831 2016-05-31 15:13:48Z palcraft $
+/// @version $Id$
 ///
 /// The Widget for add additional elements
 /****************************************************************************/

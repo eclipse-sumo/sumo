@@ -6,7 +6,7 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id: GUIChargingStation.cpp 18861 2015-09-18 19:12:57Z namdre $
+/// @version $Id$
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/

@@ -6,7 +6,7 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id: GUIChargingStation.h 18762 2015-09-01 16:27:09Z behrisch $
+/// @version $Id$
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
