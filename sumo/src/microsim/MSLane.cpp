@@ -2139,7 +2139,13 @@ MSLane::vehicle_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const 
 
 int
 MSLane::vehicle_natural_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const {
-    return v1->getBackPositionOnLane(myLane) < v2->getBackPositionOnLane(myLane);
+    const SUMOReal pos1 = v1->getBackPositionOnLane(myLane);
+    const SUMOReal pos2 = v2->getBackPositionOnLane(myLane);
+    if (pos1 != pos2) {
+        return pos1 < pos2;
+    } else {
+        return v1->getLateralPositionOnLane() < v2->getLateralPositionOnLane();
+    }
 }
 
 MSLane::by_connections_to_sorter::by_connections_to_sorter(const MSEdge* const e) :
