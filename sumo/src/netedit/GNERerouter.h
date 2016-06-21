@@ -251,6 +251,9 @@ public:
     /// @note: must be called when geometry changes (i.e. lane moved)
     void updateGeometry();
 
+    /// @brief Returns position of Rerouter in view
+    Position getPositionInView() const;
+
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
 

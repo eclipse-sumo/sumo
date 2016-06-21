@@ -66,6 +66,9 @@ public:
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
+    /// @brief Returns position of StoppingPlace in view
+    Position getPositionInView() const;
+
     /**@brief change the position of the StoppingPlace geometry 
      * @param[in] posx new position of StoppingPlaceover lane
      * @param[in] posy unused
@@ -176,9 +179,6 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief Invalidate return position of additional
-    const Position &getPositionInView() const;
 
     /// @brief Invalidate set new position in the view
     void setPosition(const Position &pos);

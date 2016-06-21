@@ -118,12 +118,6 @@ void
 GNEAdditional::openAdditionalDialog() {}
 
 
-const Position&
-GNEAdditional::getPositionInView() const {
-    return myPosition;
-}
-
-
 GNEViewNet*
 GNEAdditional::getViewNet() const {
     return myViewNet;

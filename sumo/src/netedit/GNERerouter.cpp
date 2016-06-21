@@ -412,6 +412,12 @@ GNERerouter::updateGeometry() {
 }
 
 
+Position 
+GNERerouter::getPositionInView() const {
+    return myPosition;
+}
+
+
 void 
 GNERerouter::openAdditionalDialog() {
     GNERerouterDialog rerouterDialog(this);

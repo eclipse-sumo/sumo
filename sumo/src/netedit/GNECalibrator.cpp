@@ -115,6 +115,12 @@ GNECalibrator::updateGeometry() {
 }
 
 
+Position 
+GNECalibrator::getPositionInView() const {
+    return myPosition;
+}
+
+
 void
 GNECalibrator::writeAdditional(OutputDevice& device) {
     // Write parameters

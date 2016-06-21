@@ -68,6 +68,9 @@ public:
     /// @note: must be called when geometry changes (i.e. lane moved)
     void updateGeometry();
 
+    /// @brief Returns position of RouteProbe in view
+    Position getPositionInView() const;
+
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */

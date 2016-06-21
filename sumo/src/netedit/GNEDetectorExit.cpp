@@ -116,6 +116,12 @@ GNEDetectorExit::updateGeometry() {
 }
 
 
+Position 
+GNEDetectorExit::getPositionInView() const {
+    return myLane->getShape().positionAtOffset(myPosition.x());
+}
+
+
 void
 GNEDetectorExit::writeAdditional(OutputDevice& device) {
     // Write parameters

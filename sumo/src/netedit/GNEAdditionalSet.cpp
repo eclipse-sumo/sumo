@@ -110,7 +110,6 @@ GNEAdditionalSet::addAdditionalChild(GNEAdditional *additional) {
             return false;
     // If wasn't found, insert it
     myChildAdditionals.push_back(additional);
-    updateConnections();
     return true;
 }
 
@@ -189,13 +188,11 @@ GNEAdditionalSet::updateConnections() {
 
     // Iterate over additonals
     for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
-        // If shape isn't empty, calculate middle point.
-        if((*i)->getShape().size() > 0) {
-            Position PositionOfChild = (*i)->getShape()[0];
-            SUMOReal angleBetweenParentAndChild = myPosition.angleTo2D(PositionOfChild);
-            SUMOReal distancieBetweenParentAndChild = myPosition.distanceTo2D(PositionOfChild);
-            myConnectionMiddlePosition[*i] = Position(myPosition.x() + cos(angleBetweenParentAndChild) * distancieBetweenParentAndChild, myPosition.y());
-        }
+        Position PositionOfChild = (*i)->getPositionInView();
+        SUMOReal angleBetweenParentAndChild = myPosition.angleTo2D(PositionOfChild);
+        SUMOReal distancieBetweenParentAndChild = myPosition.distanceTo2D(PositionOfChild);
+        // Calculate middle point
+        myConnectionMiddlePosition[*i] = Position(myPosition.x() + cos(angleBetweenParentAndChild) * distancieBetweenParentAndChild, myPosition.y());
     }
 
     // Iterate over eges
@@ -235,28 +232,28 @@ void
 GNEAdditionalSet::drawConnections() const {
     // Iterate over list of additionals
     for(childAdditionals::const_iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
-        // Draw only if additional GL Visualitation of child is enabled
-        if(myViewNet->isAdditionalGLVisualisationEnabled(*i) && ((*i)->getShape().size() > 0)) {
-            // Add a draw matrix
-            glPushMatrix();
-            // Set color of the base
-            GLHelper::setColor(RGBColor(255, 235, 0, 255));
-            // Draw Line
-            GLHelper::drawLine(myPosition, myConnectionMiddlePosition.at(*i));
-            GLHelper::drawLine(myConnectionMiddlePosition.at(*i), (*i)->getPositionInView());
-            // Pop draw matrix
-            glPopMatrix();
-        }
+        // Add a draw matrix
+        glPushMatrix();
+        // traslate in the Z axis
+        glTranslated(0, 0, getType() - 0.01);
+        // Set color of the base
+        GLHelper::setColor(RGBColor(255, 235, 0, 255));
+        // Draw Line
+        GLHelper::drawLine(myPosition, myConnectionMiddlePosition.at(*i));
+        GLHelper::drawLine(myConnectionMiddlePosition.at(*i), (*i)->getPositionInView());
+        // Pop draw matrix
+        glPopMatrix();
     }
     // Iterate over edges
     for(childEdges::const_iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-        //if(this->myViewNet->getNet()->getV
         // Add a draw matrix
         glPushMatrix();
+        // traslate in the Z axis
+        glTranslated(0, 0, getType() - 0.01);
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0, 255));
         // Calculate middle point between lanes
-/*** INTRODUCIR COMO PARAMETRO EN VEZ DE CALCULARLO **/
+/*** FOR DISTANCE PARAMETER!! **/
         Position middlePoint((i->positionsOverLanes.front().x() + i->positionsOverLanes.back().x()) / 2, (i->positionsOverLanes.front().y() + i->positionsOverLanes.back().y()) / 2); 
         // Draw Line
         GLHelper::drawLine(myPosition, myConnectionMiddlePosition.at(i->edge));
@@ -268,6 +265,8 @@ GNEAdditionalSet::drawConnections() const {
     for(childLanes::const_iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         // Add a draw matrix
         glPushMatrix();
+        // traslate in the Z axis
+        glTranslated(0, 0, getType() - 0.01);
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0, 255));
         // Draw Line
@@ -291,4 +290,43 @@ GNEAdditionalSet::getNumberOfAdditionalChilds() const {
     return myChildAdditionals.size();
 }
 
+
+
+std::vector<std::string> 
+GNEAdditionalSet::getAdditionalChildIds() const {
+    // Declare and resize vector
+    std::vector<std::string> vectorOfAdditionalsIds;
+    vectorOfAdditionalsIds.resize(myChildAdditionals.size());
+    // Save Ids
+    for(int i = 0; i < myChildAdditionals.size(); i++)
+        vectorOfAdditionalsIds[i] = myChildAdditionals.at(i)->getID();
+
+    return vectorOfAdditionalsIds;
+}
+
+
+std::vector<std::string> 
+GNEAdditionalSet::getEdgeChildIds() const {
+    // Declare and resize vector
+    std::vector<std::string> vectorOfEdgesIds;
+    vectorOfEdgesIds.resize(myChildEdges.size());
+    // Save Ids
+    for(int i = 0; i < myChildEdges.size(); i++)
+        vectorOfEdgesIds[i] = myChildEdges.at(i).edge->getID();
+
+    return vectorOfEdgesIds;
+}
+
+
+std::vector<std::string> 
+GNEAdditionalSet::getLaneChildIds() const {
+    // Declare and resize vector
+    std::vector<std::string> vectorOfLanesIds;
+    vectorOfLanesIds.resize(myChildLanes.size());
+    // Save Ids
+    for(int i = 0; i < myChildLanes.size(); i++)
+        vectorOfLanesIds[i] = myChildLanes.at(i).lane->getID();
+
+    return vectorOfLanesIds;
+}
 /****************************************************************************/

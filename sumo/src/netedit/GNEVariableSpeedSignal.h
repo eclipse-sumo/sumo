@@ -61,6 +61,9 @@ public:
     /// @note: must be called when geometry changes (i.e. lane moved)
     void updateGeometry();
 
+    /// @brief Returns position of Variable Speed Signal in view
+    Position getPositionInView() const;
+
     /// @brief open GNEVariableSpeedSignalDialog
     void openAdditionalDialog();
 

@@ -90,12 +90,12 @@ public:
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     virtual void updateGeometry() = 0;
 
+    /// @brief Returns position of additional in view
+    virtual Position getPositionInView() const = 0;
+
     /// @brief open Additional Dialog
     /// @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSignal)
     virtual void openAdditionalDialog();
-
-    /// @brief Returns position of additional in view
-    const Position &getPositionInView() const;
 
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;

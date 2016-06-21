@@ -84,6 +84,12 @@ GNEStoppingPlace::~GNEStoppingPlace() {
 }
 
 
+Position 
+GNEStoppingPlace::getPositionInView() const {
+    return myLane->getShape().positionAtOffset(myPosition.x());
+}
+
+
 void
 GNEStoppingPlace::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList) {
     // Due a stoppingplace is placed over an lane ignore Warning of posy

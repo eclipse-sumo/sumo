@@ -123,6 +123,12 @@ GNEVariableSpeedSignal::updateGeometry() {
 }
 
 
+Position 
+GNEVariableSpeedSignal::getPositionInView() const {
+    return myPosition;
+}
+
+
 void 
 GNEVariableSpeedSignal::openAdditionalDialog() {
     GNEVariableSpeedSignalDialog variableSpeedSignalDialog(this);
@@ -141,7 +147,14 @@ GNEVariableSpeedSignal::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList
 
 void
 GNEVariableSpeedSignal::writeAdditional(OutputDevice& device) {
-
+    // Write parameters
+    device.openTag(getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    device.writeAttr(SUMO_ATTR_LANES, joinToString(getLaneChildIds(), " ").c_str());
+    if(!myFilename.empty())
+        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    // Close tag
+    device.closeTag();
 }
 
 

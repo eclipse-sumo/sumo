@@ -66,6 +66,9 @@ public:
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
+    /// @brief Returns position of additional in view
+    virtual Position getPositionInView() const = 0;
+
     /**@brief change the position of the additional geometry 
      * @param[in] posx new x position of additional over lane
      * @param[in] posy unused

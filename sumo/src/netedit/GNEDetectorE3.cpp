@@ -124,6 +124,12 @@ GNEDetectorE3::updateGeometry() {
 }
 
 
+Position 
+GNEDetectorE3::getPositionInView() const {
+    return myPosition;
+}
+
+
 void
 GNEDetectorE3::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList) {
     // if item isn't blocked

@@ -75,6 +75,11 @@ public:
     //  @note: must be called when geometry changes (i.e. lane moved)
     virtual void updateGeometry() = 0;
 
+    /**@brief writte additionalSet element into a xml file
+     * @param[in] device device in which write parameters of additionalSet element
+     */
+    virtual void writeAdditional(OutputDevice& device) = 0;
+
     /**@brief add additional element to this set
      * @param[in] additionalSet pointer to GNEadditionalSet element to add
      * @return true if was sucesfully added, false in other case
@@ -112,14 +117,18 @@ public:
      * @return true if was sucesfully removed, false in other case
      */
     bool removeLaneChild(GNELane *lane);
-
-    /**@brief writte additionalSet element into a xml file
-     * @param[in] device device in which write parameters of additionalSet element
-     */
-    virtual void writeAdditional(OutputDevice& device) = 0;
     
     /// @brief get number of childs of this additionalSet
     int getNumberOfAdditionalChilds() const;
+
+    /// @brief get ids of additional childs
+    std::vector<std::string> getAdditionalChildIds() const;
+
+    /// @brief get ids of edge childs
+    std::vector<std::string> getEdgeChildIds() const;
+
+    /// @brief get ids of lane childs
+    std::vector<std::string> getLaneChildIds() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -163,18 +172,19 @@ public:
     /// @}
 
 protected:
+    /// @brief struct for edge childs
     struct edgeChild {
         GNEEdge *edge;
         std::vector<Position> positionsOverLanes;
         std::vector<SUMOReal> rotationsOverLanes;
     };
 
+    /// @brief struct for lane childs
     struct laneChild {
         GNELane *lane;
         Position positionOverLane;
         SUMOReal rotationOverLane;
     };
-
 
     /// @brief typedef for containers
     typedef std::vector<GNEAdditional*> childAdditionals;

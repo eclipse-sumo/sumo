@@ -118,6 +118,16 @@ GNEVaporizer::updateGeometry() {
 }
 
 
+Position 
+GNEVaporizer::getPositionInView() const {
+    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(myPosition.x());
+    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(myPosition.x());
+
+    // return Middle point
+    return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+}
+
+
 void
 GNEVaporizer::moveAdditional(SUMOReal, SUMOReal, GNEUndoList*) {
     // This additional cannot be moved

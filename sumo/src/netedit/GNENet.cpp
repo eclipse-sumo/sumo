@@ -1034,6 +1034,8 @@ GNENet::insertAdditional(GNEAdditional* additional) {
     else {
         myAdditionals[additional->getID()] = additional;
         myGrid.addAdditionalGLObject(additional);
+        if(additional->getAdditionalSetParent() != NULL)
+            additional->getAdditionalSetParent()->addAdditionalChild(additional);
     }
 }
 
@@ -1047,6 +1049,8 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     else {
         myAdditionals.erase(positionToRemove);
         myGrid.removeAdditionalGLObject(additional);
+        if(additional->getAdditionalSetParent() != NULL)
+            additional->getAdditionalSetParent()->removeAdditionalChild(additional);
     }
 }
 
