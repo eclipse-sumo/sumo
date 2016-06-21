@@ -96,7 +96,7 @@ def runTests(options, env, svnrev, debugSuffix=""):
                (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
-        runInternalTests.runInternal("", fullOpt, log, True, True)
+        runInternalTests.runInternal(debugSuffix, fullOpt, log, True, True)
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
@@ -240,5 +240,5 @@ for platform, dllDir in platformDlls:
     log.close()
 runTests(options, env, svnrev, "D")
 log = open(prefix + "Dstatus.log", 'w')
-status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
+status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
 log.close()
