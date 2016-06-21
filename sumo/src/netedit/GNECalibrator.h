@@ -33,6 +33,12 @@
 #include "GNEAdditional.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNERouteProbe;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -122,6 +128,9 @@ protected:
 
     /// @brief output of calibrator
     std::string myOutput;
+
+    /// @brief pointer to RouteProbe
+    GNERouteProbe* myRouteProbe;
 
 private:
     /// @brief set attribute after validation

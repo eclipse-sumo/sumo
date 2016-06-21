@@ -621,7 +621,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
         case SUMO_TAG_CALIBRATOR: {
             // get own attributes of calibrator
             GNELane *lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
-            SUMOReal pos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_POSITION]);
+            // Currently unused SUMOReal pos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_POSITION]);
+            SUMOReal pos = 0;
             std::string file = values[SUMO_ATTR_FILE];
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             SUMOTime freq = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_FREQUENCY]);

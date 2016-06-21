@@ -69,7 +69,8 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* v
     GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, NULL, blocked),
     myEdge(edge),
     myFrequency(frequency),
-    myOutput(output) {
+    myOutput(output),
+    myRouteProbe(NULL) /** change this in the future **/ {
     // Update geometry;
     updateGeometry();
     // Set Colors
@@ -212,6 +213,11 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             return toString(myFrequency);
         case SUMO_ATTR_OUTPUT:
             return myOutput;
+        case SUMO_ATTR_ROUTEPROBE:
+            if(myRouteProbe)
+                return myRouteProbe->getID();
+            else
+                return "";
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -230,6 +236,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_OUTPUT:
+        case SUMO_ATTR_ROUTEPROBE:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -251,6 +258,11 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
         case SUMO_ATTR_OUTPUT:
             return isValidFileValue(value);
+        case SUMO_ATTR_ROUTEPROBE:
+            if(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL)
+                return true;
+            else
+                return false;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -276,6 +288,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_OUTPUT:
             myOutput = value;
+            break;
+        case SUMO_ATTR_ROUTEPROBE:
+            myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
