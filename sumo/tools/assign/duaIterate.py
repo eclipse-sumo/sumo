@@ -163,7 +163,7 @@ example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo."""
     argParser.add_argument("--weight-memory", action="store_true", default=False, dest="weightmemory",
                            help="smooth edge weights across iterations")
     argParser.add_argument(
-        "--pessimism", default=1, type=float, help="give traffic jams a higher weight")
+        "--pessimism", default=1, type=float, help="give traffic jams a higher weight when using option --weight-memory")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                            default=False, help="Whether old rou.alt.xml files shall be removed")
     argParser.add_argument("--binary", action="store_true",
