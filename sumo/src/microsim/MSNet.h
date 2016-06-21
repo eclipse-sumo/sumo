@@ -318,6 +318,12 @@ public:
      */
     virtual MSTransportableControl& getPersonControl();
 
+    /** @brief Returns whether persons are simulated
+     */
+    bool hasPersons() const {
+        return myPersonControl != 0;
+    }
+
     /** @brief Returns the container control
      *
      * If the container control does not exist, yet, it is created.
@@ -327,6 +333,12 @@ public:
      * @see myContainerControl
      */
     virtual MSTransportableControl& getContainerControl();
+
+    /** @brief Returns whether containers are simulated
+    */
+    bool hasContainers() const {
+        return myContainerControl != 0;
+    }
 
 
     /** @brief Returns the edge control

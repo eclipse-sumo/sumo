@@ -97,13 +97,6 @@ public:
     void patchActiveLanes();
 
 
-    /** @brief Returns the number of active lanes as indicator for the GUI.
-     */
-    int getNumActiveLanes() {
-        return (int)myActiveLanes.size();
-    }
-
-
     /// @name Interfaces for longitudinal vehicle movement
     /// @{
 

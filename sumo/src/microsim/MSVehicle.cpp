@@ -1008,10 +1008,11 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
     if (stop.reached) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
-        bool boarded = MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop);
+        MSNet* const net = MSNet::getInstance();
+        bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop);
         boarded &= stop.awaitedPersons.size() == 0;
         // load containers
-        bool loaded = MSNet::getInstance()->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop);
+        bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop);
         loaded &= stop.awaitedContainers.size() == 0;
         if (boarded) {
             if (stop.busstop != 0) {
@@ -2886,8 +2887,9 @@ MSVehicle::getLeader(SUMOReal dist) const {
     }
     const SUMOReal seen = myLane->getLength() - getPositionOnLane();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(myLane);
+    std::pair<const MSVehicle* const, SUMOReal> result = myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts);
     myLane->releaseVehicles();
-    return myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts);
+    return result;
 }
 
 

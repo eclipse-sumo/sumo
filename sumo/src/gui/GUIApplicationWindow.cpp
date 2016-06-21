@@ -245,15 +245,11 @@ GUIApplicationWindow::dependentBuild() {
             new FXHorizontalFrame(myStatusbar, LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN,
                                   0, 0, 20, 0, 0, 0, 0, 0, 0, 0);
         myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", 0, LAYOUT_CENTER_Y);
-        myNetStatButton = new FXButton(myStatusbar, "Open network statistics.",
-            GUIIconSubSys::getIcon(ICON_GREENEDGE), this, MID_SHOWNETSTATS);
-        myNetStatButton->setText("-");
-        myVehStatButton = new FXButton(myStatusbar, "Open vehicle statistics.",
-            GUIIconSubSys::getIcon(ICON_GREENVEHICLE), this, MID_SHOWVEHSTATS);
-        myVehStatButton->setText("-");
-        myPedStatButton = new FXButton(myStatusbar, "Open personn statistics.",
-            GUIIconSubSys::getIcon(ICON_GREENPERSON), this, MID_SHOWPERSONSTATS);
-        myPedStatButton->setText("-");
+        myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(ICON_GREENVEHICLE), this, MID_SHOWVEHSTATS));
+        myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(ICON_GREENPERSON), this, MID_SHOWPERSONSTATS));
+        myStatButtons.back()->hide();
+        myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(ICON_GREENEDGE), this, MID_SHOWVEHSTATS));
+        myStatButtons.back()->hide();
     }
 
     // make the window a mdi-window
@@ -1305,9 +1301,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             }
             // set simulation step begin information
             myLCDLabel->setText("-------------");
-            myNetStatButton->setText("-");
-            myVehStatButton->setText("-");
-            myPedStatButton->setText("-");
+            for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
+                (*it)->setText("-");
+            }
         }
     }
     getApp()->endWaitCursor();
@@ -1323,20 +1319,30 @@ void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     updateChildren();
     updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
-    myNetStatButton->setText(toString(myRunThread->getNet().getEdgeControl().getNumActiveLanes()).c_str());
     const unsigned int running = myRunThread->getNet().getVehicleControl().getRunningVehicleNo();
     const unsigned int backlog = myRunThread->getNet().getInsertionControl().getWaitingVehicleNo();
     if (backlog > running) {
-        if (myVehStatButton->getIcon() == GUIIconSubSys::getIcon(ICON_GREENVEHICLE)) {
-            myVehStatButton->setIcon(GUIIconSubSys::getIcon(ICON_YELLOWVEHICLE));
+        if (myStatButtons.front()->getIcon() == GUIIconSubSys::getIcon(ICON_GREENVEHICLE)) {
+            myStatButtons.front()->setIcon(GUIIconSubSys::getIcon(ICON_YELLOWVEHICLE));
         }
     } else {
-        if (myVehStatButton->getIcon() == GUIIconSubSys::getIcon(ICON_YELLOWVEHICLE)) {
-            myVehStatButton->setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
+        if (myStatButtons.front()->getIcon() == GUIIconSubSys::getIcon(ICON_YELLOWVEHICLE)) {
+            myStatButtons.front()->setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
         }
     }
-    myVehStatButton->setText(toString(running).c_str());
-    myPedStatButton->setText(toString(myRunThread->getNet().getPersonControl().getRunningNumber()).c_str());
+    myStatButtons.front()->setText(toString(running).c_str());
+    if (myRunThread->getNet().hasPersons()) {
+        if (!myStatButtons[1]->shown()) {
+            myStatButtons[1]->show();
+        }
+        myStatButtons[1]->setText(toString(myRunThread->getNet().getPersonControl().getRunningNumber()).c_str());
+    }
+    if (myRunThread->getNet().hasContainers()) {
+        if (!myStatButtons[2]->shown()) {
+            myStatButtons[2]->show();
+        }
+        myStatButtons[2]->setText(toString(myRunThread->getNet().getContainerControl().getRunningNumber()).c_str());
+    }
     if (myAmGaming) {
         checkGamingEvents();
     }
@@ -1494,9 +1500,12 @@ void
 GUIApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     myLCDLabel->setText("-------------");
-    myNetStatButton->setText("-");
-    myVehStatButton->setText("-");
-    myPedStatButton->setText("-");
+    for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
+        (*it)->setText("-");
+        if (it != myStatButtons.begin()) {
+            (*it)->hide();
+        }
+    }
     // remove trackers and other external windows
     size_t i;
     for (i = 0; i < mySubWindows.size(); ++i) {

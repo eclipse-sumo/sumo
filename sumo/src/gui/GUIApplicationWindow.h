@@ -325,7 +325,7 @@ protected:
                 *myWindowsMenu, *myHelpMenu;
 
     /// Buttons showing and running values and triggering statistic windows
-    FXButton* myNetStatButton, *myVehStatButton, *myPedStatButton;
+    std::vector<FXButton*> myStatButtons;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow* myMessageWindow;
