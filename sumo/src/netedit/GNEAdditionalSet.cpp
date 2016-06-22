@@ -291,6 +291,17 @@ GNEAdditionalSet::getNumberOfAdditionalChilds() const {
 }
 
 
+int 
+GNEAdditionalSet::getNumberOfEdgeChilds() const {
+    return myChildEdges.size();
+}
+
+
+int 
+GNEAdditionalSet::getNumberOfLaneChilds() const {
+    return myChildLanes.size();
+}
+
 
 std::vector<std::string> 
 GNEAdditionalSet::getAdditionalChildIds() const {

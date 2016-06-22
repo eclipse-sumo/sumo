@@ -223,18 +223,9 @@ GNERouteProbe::setBegin(int begin) {
 }
 
 
-GUIParameterTableWindow*
-GNERouteProbe::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    /** NOT YET SUPPORTED **/
-    // Ignore Warning
-    UNUSED_PARAMETER(parent);
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 2);
-    // add items
-    ret->mkItem("id", false, getID());
-    /** @TODO complet with the rest of parameters **/
-    // close building
-    ret->closeBuilding();
-    return ret;
+const std::string&
+GNERouteProbe::getParentName() const {
+    return myEdge->getMicrosimID();
 }
 
 

@@ -67,11 +67,14 @@ public:
     void moveAdditional(SUMOReal, SUMOReal, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved)
+    /// @note: must be called when geometry c6hanges (i.e. lane moved)
     void updateGeometry();
 
     /// @brief Returns position of Calibrator in view
     Position getPositionInView() const;
+
+    /// @brief open Calibrator Dialog
+    void openAdditionalDialog();
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
@@ -80,14 +83,9 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    /// @brief Returns the name of the parent object
+    /// @return This object's parent id
+    const std::string& getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

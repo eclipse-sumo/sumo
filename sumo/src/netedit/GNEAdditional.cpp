@@ -49,8 +49,9 @@
 
 #include "GNEAdditional.h"
 #include "GNELane.h"
-#include "GNEUndoList.h"
+#include "GNEEdge.h"
 #include "GNENet.h"
+#include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNELogo_Lock.cpp"
 #include "GNELogo_Empty.cpp"
@@ -174,13 +175,13 @@ GNEAdditional::getLane() const {
 
 void 
 GNEAdditional::removeEdgeReference() {
-    std::cout << "WARNING: Calling virtual function removeEdgeReference() of class GNEAdditional. Implement removeEdgeReference() in additional child to avoid errors" << std::endl;
+    throw InvalidArgument("Calling virtual function removeEdgeReference() of class GNEAdditional. Implement removeEdgeReference() in additional child to avoid errors");
 }
 
 
 void 
 GNEAdditional::removeLaneReference() {
-    std::cout << "WARNING: Calling virtual function removeLaneReference() of class GNEAdditional. Implement removeLaneReference() in additional child to avoid errors" << std::endl;
+    throw InvalidArgument("Calling virtual function removeLaneReference() of class GNEAdditional. Implement removeLaneReference() in additional child to avoid errors");
 }
 
 
@@ -193,38 +194,83 @@ GNEAdditional::getParentName() const {
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    // build header
     buildPopupHeader(ret, app);
+    // build menu command for center button
     buildCenterPopupEntry(ret);
+    // buld menu commands for names
     new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " name to clipboard").c_str(), 0, ret, MID_COPY_NAME);
     new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " typed name to clipboard").c_str(), 0, ret, MID_COPY_TYPED_NAME);
+    // build menu command selection
     buildSelectionPopupEntry(ret);
+    // build menu command copy cursor position to clipboard 
     buildPositionCopyEntry(ret, false);
-    // buildShowParamsPopupEntry(ret, false);
-    // Show positions
-/*** REIMPLEMENT IN CHILDS **
-    if(getLane() != 0) {
-        const SUMOReal innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("inner position: " + toString(innerPos)).c_str(), 0, 0, 0);
-        if(myShape.size() > 0) {
-            const SUMOReal lanePos = myLane->getShape().nearest_offset_to_point2D(myShape[0]);
-            new FXMenuCommand(ret, ("lane position: " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
+    buildShowParamsPopupEntry(ret, false);
+    // get attributes
+    std::vector<SumoXMLAttr> attributes = getAttrs();
+    // Show position parameters
+    if(std::find(attributes.begin(), attributes.end(), SUMO_ATTR_LANE) != attributes.end()) {
+        // If additional own an lane as attribute, get lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(getParentName(), false);
+        if(lane) {
+            // Show menu command inner position
+            const SUMOReal innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
+            new FXMenuCommand(ret, ("inner position: " + toString(innerPos)).c_str(), 0, 0, 0);
+            // If shape isn't empty, show menu command lane position
+            if(myShape.size() > 0) {
+                const SUMOReal lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
+                new FXMenuCommand(ret, ("lane position: " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
+            }
         }
-    } else
-        new FXMenuCommand(ret, ("position: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
+        else
+            throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their lane as a ParentName()");
+    }else if(std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
+        // If additional own an edge as attribute, get lane
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getParentName(), false);
+        if(edge) {
+            // Show menu command inner position
+            const SUMOReal innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
+            new FXMenuCommand(ret, ("inner position: " + toString(innerPos)).c_str(), 0, 0, 0);
+            // If shape isn't empty, show menu command edge position
+            if(myShape.size() > 0) {
+                const SUMOReal edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
+                new FXMenuCommand(ret, ("edge position: " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
+            }
+        }
+        else
+            throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their edge as a ParentName()");
+    }else
+        new FXMenuCommand(ret, ("position in view: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
     // Show childs (if this is is an additionalSet)
     GNEAdditionalSet* additionalSet = dynamic_cast<GNEAdditionalSet*>(this);
     if(additionalSet) {
         new FXMenuSeparator(ret);
-        new FXMenuCommand(ret, ("number of childs: " + toString(additionalSet->getNumberOfChilds())).c_str(), 0, 0, 0);
+        if(additionalSet->getNumberOfAdditionalChilds() > 0)
+            new FXMenuCommand(ret, ("number of additional childs: " + toString(additionalSet->getNumberOfAdditionalChilds())).c_str(), 0, 0, 0);
+        else if(additionalSet->getNumberOfEdgeChilds() > 0)
+            new FXMenuCommand(ret, ("number of edge childs: " + toString(additionalSet->getNumberOfEdgeChilds())).c_str(), 0, 0, 0);
+        else if(additionalSet->getNumberOfLaneChilds() > 0)
+            new FXMenuCommand(ret, ("number of lane childs: " + toString(additionalSet->getNumberOfLaneChilds())).c_str(), 0, 0, 0);
     }
-    // new FXMenuSeparator(ret);
-    // buildPositionCopyEntry(ret, false);
+    new FXMenuSeparator(ret);
     // let the GNEViewNet store the popup position
     dynamic_cast<GNEViewNet&>(parent).markPopupPosition();
-**/
     return ret;
 }
 
+
+GUIParameterTableWindow*
+GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // Ignore Warning
+    UNUSED_PARAMETER(parent);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 2);
+    // add items
+    ret->mkItem("id", false, getID());
+    /** @TODO complet with the rest of parameters **/
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
 
 
 Boundary

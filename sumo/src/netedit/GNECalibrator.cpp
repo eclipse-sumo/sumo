@@ -55,6 +55,7 @@
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
 #include "GNERouteProbe.h"
+#include "GNECalibratorDialog.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -121,6 +122,11 @@ GNECalibrator::getPositionInView() const {
     return myPosition;
 }
 
+void 
+GNECalibrator::openAdditionalDialog() {
+    GNECalibratorDialog calibratorDialog(this);
+}
+
 
 void
 GNECalibrator::writeAdditional(OutputDevice& device) {
@@ -136,18 +142,9 @@ GNECalibrator::writeAdditional(OutputDevice& device) {
 }
 
 
-GUIParameterTableWindow*
-GNECalibrator::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    /** NOT YET SUPPORTED **/
-    // Ignore Warning
-    UNUSED_PARAMETER(parent);
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 2);
-    // add items
-    ret->mkItem("id", false, getID());
-    /** @TODO complet with the rest of parameters **/
-    // close building
-    ret->closeBuilding();
-    return ret;
+const std::string&
+GNECalibrator::getParentName() const {
+    return myEdge->getMicrosimID();
 }
 
 

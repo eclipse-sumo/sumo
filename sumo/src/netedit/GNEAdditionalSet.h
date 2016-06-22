@@ -118,8 +118,14 @@ public:
      */
     bool removeLaneChild(GNELane *lane);
     
-    /// @brief get number of childs of this additionalSet
+    /// @brief get number of additional childs of this additionalSet
     int getNumberOfAdditionalChilds() const;
+
+    /// @brief get number of edge childs of this additionalSet
+    int getNumberOfEdgeChilds() const;
+
+        /// @brief get number of lane childs of this additionalSet
+    int getNumberOfLaneChilds() const;
 
     /// @brief get ids of additional childs
     std::vector<std::string> getAdditionalChildIds() const;
@@ -140,14 +146,9 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
+    /// @brief Returns the name of the parent object
+    /// @return This object's parent id
+    virtual const std::string& getParentName() const = 0;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

@@ -144,7 +144,7 @@ public:
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
-    virtual const std::string& getParentName() const;
+    virtual const std::string& getParentName() const = 0;
 
     /**@brief Returns an own popup-menu
      *
@@ -162,7 +162,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      *

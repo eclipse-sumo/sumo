@@ -286,21 +286,6 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-GUIParameterTableWindow*
-GNEBusStop::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    /** NOT YET SUPPORTED **/
-    // Ignore Warning
-    UNUSED_PARAMETER(parent);
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 2);
-    // add items
-    ret->mkItem("id", false, getID());
-    /** @TODO complet with the rest of parameters **/
-    // close building
-    ret->closeBuilding();
-    return ret;
-}
-
-
 std::string
 GNEBusStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -312,17 +297,8 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
             return toString(myStartPos);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPos);
-        case SUMO_ATTR_LINES: {
-            // Convert myLines vector into String with the schema "line1 line2 ... lineN"
-            std::string myLinesStr;
-            for(std::vector<std::string>::const_iterator i = myLines.begin(); i != myLines.end(); i++) {
-                if((*i) != myLines.back())
-                    myLinesStr += (*i) + " ";
-                else
-                    myLinesStr += (*i);
-            }
-            return myLinesStr;
-        }
+        case SUMO_ATTR_LINES:
+            return joinToString(myLines, " ");
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
