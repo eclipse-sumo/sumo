@@ -280,8 +280,7 @@ GNEVariableSpeedSignal::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_LANES:
-            /** completar **/
-            return "";
+            return joinToString(getLaneChildIds(), " ");
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -320,8 +319,18 @@ GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-        case SUMO_ATTR_LANES:
-            /** completar **/
+        case SUMO_ATTR_LANES: {
+            std::vector<std::string> laneIds;
+            SUMOSAXAttributes::parseStringVector(value, laneIds);
+            // Empty Lanes aren't valid
+            if(laneIds.empty())
+                return false;
+            // Iterate over parsed lanes
+            for(int i = 0; i < laneIds.size(); i++)
+                if(myViewNet->getNet()->retrieveLane(laneIds.at(i), false) == NULL)
+                    return false;
+            return true;
+        }
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         default:
@@ -336,9 +345,22 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value) 
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
             throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
-        case SUMO_ATTR_LANES:
-            /** completar **/
+        case SUMO_ATTR_LANES: {
+            // Declare variables
+            std::vector<std::string> laneIds;
+            std::vector<GNELane*> lanes;
+            GNELane *lane;
+            SUMOSAXAttributes::parseStringVector(value, laneIds);
+            // Iterate over parsed lanes and obtain pointer to lanes
+            for(int i = 0; i < laneIds.size(); i++) {
+                lane = myViewNet->getNet()->retrieveLane(laneIds.at(i), false);
+                if(lane)
+                    lanes.push_back(lane);
+            }
+            // Set new childs
+            setLaneChilds(lanes);
             break;
+        }
         case SUMO_ATTR_POSITION:
             bool ok;
             myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];

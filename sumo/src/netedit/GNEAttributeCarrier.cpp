@@ -473,6 +473,7 @@ GNEAttributeCarrier::isList(SumoXMLAttr attr) {
     if (myListAttrs.empty()) {
         myListAttrs.insert(SUMO_ATTR_LINES);
         myListAttrs.insert(SUMO_ATTR_EDGES);
+        myListAttrs.insert(SUMO_ATTR_LANES);
     }
     return myListAttrs.count(attr) == 1;
 }

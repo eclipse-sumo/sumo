@@ -130,6 +130,14 @@ public:
     /// @brief get ids of lane childs
     std::vector<std::string> getLaneChildIds() const;
 
+    /// @brief set edge childs
+    /// @note preexisting edge childs will be erased
+    void setEdgeChilds(std::vector<GNEEdge*> edges);
+
+     /// @brief set lane childs
+    /// @note preexisting lane childs will be erased
+    void setLaneChilds(std::vector<GNELane*> lanes);
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own parameter window

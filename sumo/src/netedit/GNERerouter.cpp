@@ -588,7 +588,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_EDGES:
-            /** completar **/
+            return joinToString(getEdgeChildIds(), " ");
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -633,8 +633,18 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-        case SUMO_ATTR_EDGES:
-            /** completar **/
+        case SUMO_ATTR_EDGES: {
+            std::vector<std::string> edgeIds;
+            SUMOSAXAttributes::parseStringVector(value, edgeIds);
+            // Empty Edges aren't valid
+            if(edgeIds.empty())
+                return false;
+            // Iterate over parsed edges
+            for(int i = 0; i < edgeIds.size(); i++)
+                if(myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false) == NULL)
+                    return false;
+            return true;
+        }
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_PROB:
@@ -653,9 +663,22 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
             throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
-        case SUMO_ATTR_EDGES:
-            /** completar **/
+        case SUMO_ATTR_EDGES: {
+            // Declare variables
+            std::vector<std::string> edgeIds;
+            std::vector<GNEEdge*> edges;
+            GNEEdge *edge;
+            SUMOSAXAttributes::parseStringVector(value, edgeIds);
+            // Iterate over parsed edges and obtain pointer to edges
+            for(int i = 0; i < edgeIds.size(); i++) {
+                edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
+                if(edge)
+                    edges.push_back(edge);
+            }
+            // Set new childs
+            setEdgeChilds(edges);
             break;
+        }
         case SUMO_ATTR_POSITION:
             bool ok;
             myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];

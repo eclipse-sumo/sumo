@@ -253,7 +253,7 @@ GNEAdditionalSet::drawConnections() const {
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0, 255));
         // Calculate middle point between lanes
-/*** FOR DISTANCE PARAMETER!! **/
+/*** @todo ADD DISTANCE AS PARAMETER **/
         Position middlePoint((i->positionsOverLanes.front().x() + i->positionsOverLanes.back().x()) / 2, (i->positionsOverLanes.front().y() + i->positionsOverLanes.back().y()) / 2); 
         // Draw Line
         GLHelper::drawLine(myPosition, myConnectionMiddlePosition.at(i->edge));
@@ -329,4 +329,39 @@ GNEAdditionalSet::getLaneChildIds() const {
 
     return vectorOfLanesIds;
 }
+
+
+void 
+GNEAdditionalSet::setEdgeChilds(std::vector<GNEEdge*> edges) {
+    // First remove all existent edges
+    for(childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++)
+        i->edge->removeAdditionalSet(this);
+    // clear edge childs vector 
+    myChildEdges.clear();
+    // Iterate over vector of new edges
+    for(std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
+        (*i)->addAdditional(this);
+        addEdgeChild(*i);
+    }
+    // Update geometry
+    updateGeometry();
+}
+
+
+void 
+GNEAdditionalSet::setLaneChilds(std::vector<GNELane*> lanes) {
+    // First remove all existent lanes
+    for(childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++)
+        i->lane->removeAdditionalSet(this);
+    // clear lane childs vector 
+    myChildLanes.clear();
+    // Iterate over vector of new lanes
+    for(std::vector<GNELane*>::iterator i = lanes.begin(); i != lanes.end(); i++) {
+        (*i)->addAdditional(this);
+        addLaneChild(*i);
+    }
+    // Update geometry
+    updateGeometry();
+}
+
 /****************************************************************************/
