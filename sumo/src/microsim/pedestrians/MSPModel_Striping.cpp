@@ -646,14 +646,14 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
         }
         // advance to the next lane / arrive at destination
         sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
-        for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end();) {
-            PState* p = *it;
-            if (p->myDir != dir) {
-                ++it;
-            } else if (p->distToLaneEnd() < 0) {
+        // can't use iterators because we do concurrent modification
+        for (int i = 0; i < pedestrians.size(); i++) {
+            PState* const p = pedestrians[i];
+            if (p->myDir == dir && p->distToLaneEnd() < 0) {
                 // moveToNextLane may trigger re-insertion (for consecutive
                 // walks) so erase must be called first
-                it = pedestrians.erase(it);
+                pedestrians.erase(pedestrians.begin() + i);
+                i--;
                 p->moveToNextLane(currentTime);
                 if (p->myLane != 0) {
                     changedLane.insert(p->myPerson);
@@ -662,8 +662,6 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     delete p;
                     myNumActivePedestrians--;
                 }
-            } else {
-                ++it;
             }
         }
     }
