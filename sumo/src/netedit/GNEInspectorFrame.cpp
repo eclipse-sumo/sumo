@@ -437,7 +437,7 @@ GNEInspectorFrame::AttrInput::onCmdOpenAttributeEditor(FXObject*, FXSelector, vo
 
 
 long
-GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void* data) {
+GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     // First, obtain the string value of the new attribute depending of their type
@@ -580,7 +580,7 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput *attrInputParent, FXTextFiel
 GNEInspectorFrame::AttrEditor::~AttrEditor() {}
 
 long
-GNEInspectorFrame::AttrEditor::onCmdReset(FXObject*, FXSelector, void* data) {
+GNEInspectorFrame::AttrEditor::onCmdReset(FXObject*, FXSelector, void*) {
     // Obtain vector with the choices
     const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myAttrInputParent->getTag(), myAttrInputParent->getAttr());
     // Get old value

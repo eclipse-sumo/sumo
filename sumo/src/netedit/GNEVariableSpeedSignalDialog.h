@@ -69,16 +69,16 @@ public:
     long onCmdRemoveRow(FXObject*, FXSelector, void*);
 
     /// @brief event called after press accept button
-    long onCmdAccept(FXObject* sender, FXSelector sel, void* ptr);
+    long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @brief event called after press cancel button
-    long onCmdCancel(FXObject* sender, FXSelector sel, void* ptr);
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @brief event called after press cancel button
     long onCmdReset(FXObject*, FXSelector, void*);
 
     /// @brief event called after press add row button
-    long onCmdAddRow(FXObject* sender, FXSelector sel, void* data);
+    long onCmdAddRow(FXObject*, FXSelector, void*);
     /// @}
 
 protected:

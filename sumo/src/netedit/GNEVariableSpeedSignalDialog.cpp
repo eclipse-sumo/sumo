@@ -124,7 +124,7 @@ GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
 
 
 long 
-GNEVariableSpeedSignalDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* ptr) {
+GNEVariableSpeedSignalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Save new data in Variable Speed Signal edited
     myVariableSpeedSignalParent->setVariableSpeedSignalValues(myVSSValues);
     // Stop Modal with positive out
@@ -134,7 +134,7 @@ GNEVariableSpeedSignalDialog::onCmdAccept(FXObject* sender, FXSelector sel, void
 
 
 long
-GNEVariableSpeedSignalDialog::onCmdCancel(FXObject* sender, FXSelector sel, void* ptr) {
+GNEVariableSpeedSignalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal with negative out
     getApp()->stopModal(this,FALSE);
     return 1;
@@ -151,7 +151,7 @@ GNEVariableSpeedSignalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 long
-GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject* sender, FXSelector sel, void* data) {
+GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
     SUMOTime time;
     SUMOReal speed;
@@ -186,7 +186,7 @@ GNEVariableSpeedSignalDialog::fillTable() {
     // clear table
     myDataList->clearItems();
     // set number of rows
-    myDataList->setTableSize(myVSSValues.size(), 3);
+    myDataList->setTableSize(int(myVSSValues.size()), 3);
     // Configure list
     myDataList->setVisibleColumns(3);
     myDataList->setColumnWidth(0, dialogWidth * 0.35);

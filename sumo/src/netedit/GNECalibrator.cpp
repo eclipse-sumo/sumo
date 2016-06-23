@@ -154,12 +154,11 @@ void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     glPushName(getGlID());
-    SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
 
     glPushName(getGlID());
-    for (size_t i = 0; i < myShape.size(); ++i) {
+    for (int i = 0; i < myShape.size(); ++i) {
         const Position& pos = myShape[i];
         SUMOReal rot = myShapeRotations[i];
         glPushMatrix();

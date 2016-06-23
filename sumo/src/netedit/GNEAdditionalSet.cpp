@@ -197,8 +197,6 @@ GNEAdditionalSet::updateConnections() {
 
     // Iterate over eges
     for(childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-        // Calculate middle position in the edge
-        int numLanes = i->edge->getLanes().size();
         // clear position of lanes and rotations
         i->positionsOverLanes.clear();
         i->rotationsOverLanes.clear();
@@ -287,19 +285,19 @@ GNEAdditionalSet::writeAdditionalChildrens(OutputDevice& device, const std::stri
 
 int 
 GNEAdditionalSet::getNumberOfAdditionalChilds() const {
-    return myChildAdditionals.size();
+    return int(myChildAdditionals.size());
 }
 
 
 int 
 GNEAdditionalSet::getNumberOfEdgeChilds() const {
-    return myChildEdges.size();
+    return int(myChildEdges.size());
 }
 
 
 int 
 GNEAdditionalSet::getNumberOfLaneChilds() const {
-    return myChildLanes.size();
+    return int(myChildLanes.size());
 }
 
 

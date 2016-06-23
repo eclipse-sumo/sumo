@@ -121,7 +121,7 @@ public:
     long onLeftBtnRelease(FXObject*, FXSelector, void*);
 
     /// @brief called when user press mouse's left button two times
-    long onDoubleClicked(FXObject*, FXSelector, void* ptr);
+    long onDoubleClicked(FXObject*, FXSelector, void*);
 
     /// @brief called when user moves mouse
     long onMouseMove(FXObject*, FXSelector, void*);

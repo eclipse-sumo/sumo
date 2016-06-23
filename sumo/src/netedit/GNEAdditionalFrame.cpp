@@ -745,7 +745,7 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
         if(GNEAttributeCarrier::getDefinition(myAdditional, attr).size()> maxSizeColumnDefinitions)
-            maxSizeColumnDefinitions = GNEAttributeCarrier::getDefinition(myAdditional, attr).size();
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditional, attr).size());
     }
     // Iterate over vector of additional parameters list
     for(int i = 0; i < myIndexParameterList; i++) {
@@ -769,7 +769,7 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
         if(GNEAttributeCarrier::getDefinition(myAdditional, attr).size()> maxSizeColumnDefinitions)
-            maxSizeColumnDefinitions = GNEAttributeCarrier::getDefinition(myAdditional, attr).size();
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditional, attr).size());
     }
     // Set size of column
     header->setItemJustify(2, JUSTIFY_CENTER_X);

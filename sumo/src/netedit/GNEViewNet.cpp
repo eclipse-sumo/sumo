@@ -679,10 +679,9 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
 
 
 long
-GNEViewNet::onDoubleClicked(FXObject* obj, FXSelector sel, void* data) {
+GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
     // If current edit mode is INSPECT or ADDITIONAL
     if(myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL) {
-        FXEvent* e = (FXEvent*) data;
         setFocus();
         // interpret object under curser
         if (makeCurrent()) {

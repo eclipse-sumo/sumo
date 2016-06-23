@@ -194,10 +194,10 @@ void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     glPushName(getGlID());
-    SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     /*-
+    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+
     // draw shape
     glColor3ub(255, 216, 0);
     glPushMatrix();

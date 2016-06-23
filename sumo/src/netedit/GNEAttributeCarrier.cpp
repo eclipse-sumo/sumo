@@ -725,7 +725,7 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
     int higherNumber = 0;
     for(std::vector<SumoXMLTag>::const_iterator i = allowedTags().begin(); i != allowedTags().end(); i++)
         if(allowedAttributes(*i).size() > higherNumber)
-            higherNumber = allowedAttributes(*i).size();
+            higherNumber = int(allowedAttributes(*i).size());
     return higherNumber;
 }
 

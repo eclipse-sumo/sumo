@@ -124,7 +124,7 @@ GNERouteProbe::updateGeometry() {
     GNELane* firstLane = myEdge->getLanes().at(0);
 
     // Save number of lanes
-    numberOfLanes = myEdge->getLanes().size();
+    numberOfLanes = int(myEdge->getLanes().size());
 
     // Get shape of lane parent
     myShape.push_back(firstLane->getShape().positionAtOffset(5));
