@@ -557,17 +557,18 @@ NBOwnTLDef::replaceRemoved(NBEdge* /*removed*/, int /*removedLane*/,
 
 void
 NBOwnTLDef::initNeedsContRelation() const {
-    if (!myNeedsContRelationReady && !amInvalid()) {
-        assert(myControlledNodes.size() > 0);
-        // we use a dummy node just to maintain const-correctness
-        myNeedsContRelation.clear();
-        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
-        dummy.setParticipantsInformation();
-        NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
-        delete tllDummy;
-        myNeedsContRelation = dummy.myNeedsContRelation;
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+    if (!myNeedsContRelationReady) {
+        if (myControlledNodes.size() > 0) {
+            // we use a dummy node just to maintain const-correctness
+            myNeedsContRelation.clear();
+            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+            dummy.setParticipantsInformation();
+            NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
+            delete tllDummy;
+            myNeedsContRelation = dummy.myNeedsContRelation;
+            for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+                (*i)->removeTrafficLight(&dummy);
+            }
         }
         myNeedsContRelationReady = true;
     }
