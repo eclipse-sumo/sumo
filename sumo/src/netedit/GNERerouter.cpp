@@ -435,7 +435,9 @@ GNERerouter::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList)
 
 
 void
-GNERerouter::writeAdditional(OutputDevice& device) {
+GNERerouter::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
+    // Ignore warning
+    UNUSED_PARAMETER(currentDirectory);
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

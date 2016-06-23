@@ -558,12 +558,16 @@ GNENet::save(OptionsCont& oc) {
 
 void
 GNENet::saveAdditionals(const std::string &filename) {
+    // Extract path of filename
+    std::string path = filename;
+    while(!path.empty() && path.back() != '\\')
+        path.pop_back();
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i)
         // Only write additional if don't belong to another additionalSet
         if(i->second->getAdditionalSetParent() == NULL)
-            i->second->writeAdditional(device);
+            i->second->writeAdditional(device, path);
     device.close();
 }
 

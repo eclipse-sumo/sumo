@@ -78,7 +78,7 @@ public:
     /**@brief writte additionalSet element into a xml file
      * @param[in] device device in which write parameters of additionalSet element
      */
-    virtual void writeAdditional(OutputDevice& device) = 0;
+    virtual void writeAdditional(OutputDevice& device, const std::string &currentDirectory) = 0;
 
     /**@brief add additional element to this set
      * @param[in] additionalSet pointer to GNEadditionalSet element to add
@@ -220,8 +220,11 @@ protected:
     /// @note must be called at end of function drawGl(...) of additionalSet
     void drawConnections() const;
 
-    /// @brief write children of this additionalSet
-    void writeAdditionalChildrens(OutputDevice& device);
+    /**@brief writte children of this additionalSet
+     * @param[in] device device in which write parameters of additional element
+     * @param[in] currentDirectory current directory in which this additional are writted
+     */
+    void writeAdditionalChildrens(OutputDevice& device, const std::string &currentDirectory);
 
 private:
     /// @brief set attribute after validation

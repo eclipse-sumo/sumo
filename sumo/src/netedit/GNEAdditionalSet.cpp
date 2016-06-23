@@ -279,9 +279,9 @@ GNEAdditionalSet::drawConnections() const {
 
 
 void
-GNEAdditionalSet::writeAdditionalChildrens(OutputDevice& device) {
+GNEAdditionalSet::writeAdditionalChildrens(OutputDevice& device, const std::string &currentDirectory) {
     for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++)
-        (*i)->writeAdditional(device);
+        (*i)->writeAdditional(device, currentDirectory);
 }
 
 

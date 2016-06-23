@@ -76,14 +76,21 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
+     * @param[in] currentDirectory current directory in which this additional are writted
      */
-    void writeAdditional(OutputDevice& device);
+    void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
 
     /// @brief get filename of rerouter
     std::string getFilename() const;
 
+    /// @brief get values of variable speed signal
+    std::map<SUMOTime, SUMOReal> getVariableSpeedSignalValues() const;
+
     /// @brief set filename of rerouter
     void setFilename(std::string filename);
+
+    /// @brief set values of variable speed signal
+    void setVariableSpeedSignalValues(const std::map<SUMOTime, SUMOReal> &vssValues);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -124,6 +131,9 @@ public:
 protected:
     /// @brief filename of rerouter
     std::string myFilename;
+
+    /// @brief values of variable speed signal
+    std::map<SUMOTime, SUMOReal> myVSSValues;
 
 private:
     /// @brief variable to save variableSpeedSignal icon

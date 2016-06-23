@@ -73,8 +73,9 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
+     * @param[in] currentDirectory current directory in which this additional are writted
      */
-    void writeAdditional(OutputDevice& device);
+    void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
 
     /// @brief get edge in which the RouteProbe is placed
     GNEEdge* getEdge() const;

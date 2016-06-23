@@ -1222,7 +1222,6 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         return 1;
     }
     std::string filename = file.text();
-    // XXX Not yet implemented
     getApp()->beginWaitCursor();
     try {
         myNet->saveAdditionals(filename);

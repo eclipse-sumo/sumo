@@ -142,7 +142,9 @@ GNEBusStop::updateGeometry() {
 
 
 void
-GNEBusStop::writeAdditional(OutputDevice& device) {
+GNEBusStop::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
+    // Ignore warning
+    UNUSED_PARAMETER(currentDirectory);
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

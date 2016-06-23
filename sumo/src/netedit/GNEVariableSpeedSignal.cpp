@@ -146,13 +146,29 @@ GNEVariableSpeedSignal::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList
 
 
 void
-GNEVariableSpeedSignal::writeAdditional(OutputDevice& device) {
+GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANES, joinToString(getLaneChildIds(), " ").c_str());
-    if(!myFilename.empty())
+    if(!myFilename.empty()) {
+        // Write filename attribute
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
+        // Save values in a different file
+        OutputDevice& deviceVSS = OutputDevice::getDevice(currentDirectory + myFilename);
+        deviceVSS.openTag("VSS");
+        for (std::map<SUMOTime, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
+            // Open VSS tag
+            deviceVSS.openTag(SUMO_TAG_STEP);
+            // Write TimeSTep
+            deviceVSS.writeAttr(SUMO_ATTR_TIME, i->first);
+            // Write speed
+            deviceVSS.writeAttr(SUMO_ATTR_SPEED, i->second);
+            // Close VSS tag
+            deviceVSS.closeTag();
+        }
+        deviceVSS.close();
+    }
     // Close tag
     device.closeTag();
 }
@@ -164,9 +180,21 @@ GNEVariableSpeedSignal::getFilename() const {
 }
 
 
+std::map<SUMOTime, SUMOReal> 
+GNEVariableSpeedSignal::getVariableSpeedSignalValues() const {
+    return myVSSValues;
+}
+
+
 void 
 GNEVariableSpeedSignal::setFilename(std::string filename) {
     myFilename = filename;
+}
+
+
+void 
+GNEVariableSpeedSignal::setVariableSpeedSignalValues(const std::map<SUMOTime, SUMOReal> &vssValues) {
+    myVSSValues = vssValues;
 }
 
 

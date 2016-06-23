@@ -123,7 +123,9 @@ GNEDetectorExit::getPositionInView() const {
 
 
 void
-GNEDetectorExit::writeAdditional(OutputDevice& device) {
+GNEDetectorExit::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
+    // Ignore warning
+    UNUSED_PARAMETER(currentDirectory);
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());

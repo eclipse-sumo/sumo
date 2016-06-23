@@ -77,7 +77,7 @@ public:
     /**@brief writte additionalSet element into a xml file
      * @param[in] device device in which write parameters of additionalSet element
      */
-    void writeAdditional(OutputDevice& device);
+    void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
 
     /// @name inherited from GUIGlObject
     /// @{

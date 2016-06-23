@@ -30,6 +30,8 @@
 #include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/TplCheck.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+
 #include "GNEVariableSpeedSignalDialog.h"
 #include "GNEVariableSpeedSignal.h"
 
@@ -47,6 +49,7 @@ FXDEFMAP(GNEVariableSpeedSignalDialog) GNERerouterDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, GNEVariableSpeedSignalDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_RESET,  GNEVariableSpeedSignalDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VARIABLESPEEDSIGNAL_ADDROW,   GNEVariableSpeedSignalDialog::onCmdAddRow),
+    FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_VARIABLESPEEDSIGNAL_REMOVEROW,   GNEVariableSpeedSignalDialog::onCmdRemoveRow),
 };
 
 // Object implementation
@@ -67,31 +70,27 @@ GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSigna
     GNEAdditionalDialog(variableSpeedSignalParent, dialogWidth, dialogHeight),
     myVariableSpeedSignalParent(variableSpeedSignalParent) {
 
-    // List with the data
+    // create List with the data
     myDataList = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGNAL_REMOVEROW, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myDataList->setEditable(false);
 
-    // Configure list
-    myDataList->setTableSize(4, 3);
-    myDataList->setVisibleColumns(3);
-    myDataList->setColumnWidth(0, dialogWidth * 0.35);
-    myDataList->setColumnWidth(1, dialogWidth * 0.35);
-    myDataList->setColumnWidth(2, (dialogWidth * 0.3) - 10);
-    myDataList->setColumnText(0, "timeStep");
-    myDataList->setColumnText(1, "speed");
-    myDataList->setColumnText(2, "remove");
-    myDataList->getRowHeader()->setWidth(0);
-
-    // Horizontal frame for row elements
+    // create Horizontal frame for row elements
     myRowFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_FILL_X);
 
-    // Text field with step
+    // create Text field with step
     myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X);
 
-    // Text field with speed
+    // create Text field with speed
     myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X);
 
-    // Button for insert row
+    // create Button for insert row
     myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGNAL_ADDROW);
+
+    // Get values of variable speed signal
+    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();
+    
+    // Fill table
+    fillTable();
         
     // Execute additional dialog (To make it modal)
     execute();
@@ -109,12 +108,25 @@ GNEVariableSpeedSignalDialog::onCMDInsertRow(FXObject*, FXSelector, void*) {
 
 long 
 GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-    return 1;
+    // Iterate over rows to find the row to erase
+    for(int i = 0; i < myDataList->getNumRows(); i++)
+        if(myDataList->getItem(i, 2)->isSelected()) {
+            // Remove element of table and map
+// @todo IMPLEMENT _2SUMOTIme
+            myVSSValues.erase(TplConvert::_2int(myDataList->getItem(i, 0)->getText().text()));
+            myDataList->removeRows(i);
+            // refill table
+            fillTable();
+            return 1;
+        }
+    return 0;
 }
 
 
 long 
 GNEVariableSpeedSignalDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* ptr) {
+    // Save new data in Variable Speed Signal edited
+    myVariableSpeedSignalParent->setVariableSpeedSignalValues(myVSSValues);
     // Stop Modal with positive out
     getApp()->stopModal(this,TRUE);
     return 1;
@@ -131,29 +143,77 @@ GNEVariableSpeedSignalDialog::onCmdCancel(FXObject* sender, FXSelector sel, void
 
 long
 GNEVariableSpeedSignalDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // Get old values
+    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();
+    fillTable();
     return 1;
 }
 
 
 long
 GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject* sender, FXSelector sel, void* data) {
+    // Declare variables for time and speed
+    SUMOTime time;
+    SUMOReal speed;
 
+    // Get Time
     if(TplCheck::_str2SUMOTime(myRowStep->getText().text()) == false)
         return 0;
+    else
+// @toDo IMPLEMENT _str2Time TO TIME
+        time = TplConvert::_str2int(myRowStep->getText().text());
 
+    // get SPeed
     if(TplCheck::_str2SUMOReal(myRowSpeed->getText().text()) == false)
         return 0;
+    else
+        speed = TplConvert::_str2SUMOReal(myRowSpeed->getText().text());
+    
+    // Set new time and their speed if don't exist already
+    if(myVSSValues.find(time) == myVSSValues.end())
+        myVSSValues[time] = speed;
+    else
+        return false;
 
+    // Ffill table
     fillTable();
-
     return 1;
 }
 
 
 void
-GNEVariableSpeedSignalDialog::fillTable()
-{
-
+GNEVariableSpeedSignalDialog::fillTable() {
+    // clear table
+    myDataList->clearItems();
+    // set number of rows
+    myDataList->setTableSize(myVSSValues.size(), 3);
+    // Configure list
+    myDataList->setVisibleColumns(3);
+    myDataList->setColumnWidth(0, dialogWidth * 0.35);
+    myDataList->setColumnWidth(1, dialogWidth * 0.35);
+    myDataList->setColumnWidth(2, (dialogWidth * 0.3) - 10);
+    myDataList->setColumnText(0, "timeStep");
+    myDataList->setColumnText(1, "speed (km/h)");
+    myDataList->setColumnText(2, "remove");
+    myDataList->getRowHeader()->setWidth(0);
+    // Declare index for rows and pointer to FXTableItem
+    int indexRow = 0;
+    FXTableItem *item = 0;
+    // iterate over values
+    for(std::map<SUMOTime, SUMOReal>::iterator i = myVSSValues.begin(); i != myVSSValues.end(); i++) {
+        // Set time
+        item = new FXTableItem(toString(i->first).c_str());
+        myDataList->setItem (indexRow, 0, item);
+        // Set speed
+        item = new FXTableItem(toString(i->second).c_str());
+        myDataList->setItem (indexRow, 1, item);
+        // set remove
+        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+        myDataList->setItem (indexRow, 2, item);
+        // Update index
+        indexRow++;
+    }
 }
 
 /****************************************************************************/

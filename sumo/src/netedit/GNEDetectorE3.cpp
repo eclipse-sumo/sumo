@@ -141,7 +141,9 @@ GNEDetectorE3::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoLis
 
 
 void
-GNEDetectorE3::writeAdditional(OutputDevice& device) {
+GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
+    // Ignore warning
+    UNUSED_PARAMETER(currentDirectory);
     // Only save E3 if have Entry/Exits
     if(getNumberOfAdditionalChilds() > 0) {
         // Write parameters
@@ -152,7 +154,8 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) {
             device.writeAttr(SUMO_ATTR_FILE, myFilename);
         device.writeAttr(SUMO_ATTR_X, myPosition.x());
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
-        writeAdditionalChildrens(device);
+        // Write childs of this element
+        writeAdditionalChildrens(device, currentDirectory);
         // Close tag
         device.closeTag();
     }

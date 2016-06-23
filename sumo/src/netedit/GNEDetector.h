@@ -78,8 +78,9 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
+     * @param[in] currentDirectory current directory in which this additional are writted
      */
-    virtual void writeAdditional(OutputDevice& device) = 0;
+    virtual void writeAdditional(OutputDevice& device, const std::string &currentDirectory) = 0;
 
     /// @brief Returns pointer to Lane of detector
     GNELane* getLane() const;

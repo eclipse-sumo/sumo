@@ -65,19 +65,19 @@ public:
     /// @brief event after press insert button
     long onCMDInsertRow(FXObject*, FXSelector, void*);
 
-    /// @brief event after press remove row
+    /// @brief event called after press remove row
     long onCmdRemoveRow(FXObject*, FXSelector, void*);
 
-    /// @brief event after press accept button
+    /// @brief event called after press accept button
     long onCmdAccept(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief event after press cancel button
+    /// @brief event called after press cancel button
     long onCmdCancel(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief event after press cancel button
+    /// @brief event called after press cancel button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief event after press add row button
+    /// @brief event called after press add row button
     long onCmdAddRow(FXObject* sender, FXSelector sel, void* data);
     /// @}
 
@@ -88,8 +88,8 @@ protected:
     /// @brief Pointer to Variable Speed Signal
     GNEVariableSpeedSignal *myVariableSpeedSignalParent;
 
-    /// @brief Map with the temporal VSSData
-    std::map<SUMOTime, SUMOReal> myVSSData;
+    /// @brief Map with the temporal VSSValues
+    std::map<SUMOTime, SUMOReal> myVSSValues;
 
     /// @brief Table with the data
     FXTable *myDataList;
