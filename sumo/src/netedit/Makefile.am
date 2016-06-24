@@ -1,4 +1,12 @@
-EXTRA_DIST = netedit64.ico GNELogo_TLS.cpp
+EXTRA_DIST = netedit64.ico \
+GNELogo_E1.cpp          GNELogo_Rerouter.cpp \
+GNELogo_E2.cpp          GNELogo_RerouterSelected.cpp \
+GNELogo_E3.cpp          GNELogo_RouteProbe.cpp \
+GNELogo_E3Selected.cpp  GNELogo_RouteProbeSelected.cpp \
+GNELogo_Empty.cpp       GNELogo_TLS.cpp \
+GNELogo_Entry.cpp       GNELogo_VariableSpeedSignal.cpp \
+GNELogo_Exit.cpp        GNELogo_VariableSpeedSignalSelected.cpp \
+GNELogo_Lock.cpp
 
 XERCES_LIBS = -l$(LIB_XERCES)
 
