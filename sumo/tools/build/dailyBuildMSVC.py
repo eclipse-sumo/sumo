@@ -96,7 +96,7 @@ def runTests(options, env, svnrev, debugSuffix=""):
                (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
-        runInternalTests.runInternal(debugSuffix, fullOpt, log, True, True)
+        runInternalTests.runInternal(debugSuffix, fullOpt, log, True, True, debugSuffix=="")
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
