@@ -62,8 +62,8 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event after press insert button
-    long onCMDInsertRow(FXObject*, FXSelector, void*);
+    /// @brief event called after press add row button
+    long onCmdAddRow(FXObject*, FXSelector, void*);
 
     /// @brief event called after press remove row
     long onCmdRemoveRow(FXObject*, FXSelector, void*);
@@ -76,9 +76,6 @@ public:
 
     /// @brief event called after press cancel button
     long onCmdReset(FXObject*, FXSelector, void*);
-
-    /// @brief event called after press add row button
-    long onCmdAddRow(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -94,8 +91,8 @@ protected:
     /// @brief Table with the data
     FXTable *myDataList;
 
-    /// @brief Text field with data
-    FXLabel *myRowLabel;
+    /// @brief Horizontal frame for row elements
+    FXHorizontalFrame *myRowFrame;
 
     /// @bbriefie Text field with step
     FXTextField *myRowStep;
@@ -106,12 +103,9 @@ protected:
     /// @brief Button for insert row
     FXButton *myAddRow;
 
-    /// @brief Horizontal frame for row elements
-    FXHorizontalFrame *myRowFrame;
-
 private:
-    /// @brif reffill table
-    void fillTable();
+    /// @brief update data table
+    void updateTable();
 
     /// @brief Invalidated copy constructor.
     GNEVariableSpeedSignalDialog(const GNEVariableSpeedSignalDialog&);

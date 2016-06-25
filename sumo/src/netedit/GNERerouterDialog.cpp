@@ -50,11 +50,6 @@ FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
 FXIMPLEMENT(GNERerouterDialog, FXDialogBox, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
@@ -89,6 +84,12 @@ GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
     return 1;
+}
+
+
+void
+GNERerouterDialog::updateTable() {
+    
 }
 
 /****************************************************************************/

@@ -47,6 +47,30 @@ class GNERouteProbe;
  */
 class GNECalibrator : public GNEAdditional {
 public:
+
+    /// @brief calibrator flow 
+    struct CalibratorFlow {
+        // Parmeters of vehicles
+        std::string id;
+        std::string type;
+        std::string route;
+        std::string	color;
+        std::string departLane;
+        std::string departPos;
+        std::string departSpeed;
+        std::string arrivalLane;
+        std::string arrivalPos;
+        std::string arrivalSpeed;
+        std::string line;
+        int personNumber;
+        int containerNumber;
+        // Parameters of flows
+        SUMOReal vehsPerHour;
+        SUMOReal period;
+        SUMOReal probability;
+        int number;
+    };
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] edge Lane of this StoppingPlace belongs
@@ -81,6 +105,12 @@ public:
      * @param[in] currentDirectory current directory in which this additional are writted
      */
     void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
+
+    /// @brief get Calbratorflow values
+    std::map<std::pair<SUMOTime, SUMOTime>, CalibratorFlow> getFlowValues() const;
+
+    /// @brief set Calbratorflow values
+    void setFlowValues(std::map<std::pair<SUMOTime, SUMOTime>, CalibratorFlow> calibratorFlowValues);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -130,6 +160,9 @@ protected:
 
     /// @brief pointer to RouteProbe
     GNERouteProbe* myRouteProbe;
+
+    /// @brief Calbratorflow values
+    std::map<std::pair<SUMOTime, SUMOTime>, CalibratorFlow> myFlowValues;
 
 private:
     /// @brief set attribute after validation

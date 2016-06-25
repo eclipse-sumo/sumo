@@ -79,6 +79,9 @@ protected:
     GNERerouter *myRerouterParent;
 
 private:
+    /// @brief update data table
+    void updateTable();
+
     /// @brief Invalidated copy constructor.
     GNERerouterDialog(const GNERerouterDialog&);
 

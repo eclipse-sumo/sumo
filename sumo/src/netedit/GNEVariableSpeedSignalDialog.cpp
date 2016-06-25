@@ -45,29 +45,22 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVariableSpeedSignalDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT, GNEVariableSpeedSignalDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, GNEVariableSpeedSignalDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_RESET,  GNEVariableSpeedSignalDialog::onCmdReset),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VARIABLESPEEDSIGNAL_ADDROW,   GNEVariableSpeedSignalDialog::onCmdAddRow),
-    FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_VARIABLESPEEDSIGNAL_REMOVEROW,   GNEVariableSpeedSignalDialog::onCmdRemoveRow),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,  GNEVariableSpeedSignalDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,  GNEVariableSpeedSignalDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_RESET,   GNEVariableSpeedSignalDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_VARIABLESPEEDSIGNAL_ADDROW,    GNEVariableSpeedSignalDialog::onCmdAddRow),
+    FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_VARIABLESPEEDSIGNAL_REMOVEROW, GNEVariableSpeedSignalDialog::onCmdRemoveRow),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEVariableSpeedSignalDialog, FXDialogBox, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-
-static int dialogWidth = 240;
-static int dialogHeight = 240;
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSignal *variableSpeedSignalParent) : 
-    GNEAdditionalDialog(variableSpeedSignalParent, dialogWidth, dialogHeight),
+    GNEAdditionalDialog(variableSpeedSignalParent, 240, 240),
     myVariableSpeedSignalParent(variableSpeedSignalParent) {
 
     // create List with the data
@@ -77,11 +70,11 @@ GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSigna
     // create Horizontal frame for row elements
     myRowFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_FILL_X);
 
-    // create Text field with step
-    myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X);
+    // create Text field for the timeStep
+    myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_X);
 
-    // create Text field with speed
-    myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X);
+    // create Text field for the speed
+    myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_X);
 
     // create Button for insert row
     myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGNAL_ADDROW);
@@ -89,64 +82,14 @@ GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSigna
     // Get values of variable speed signal
     myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();
     
-    // Fill table
-    fillTable();
+    // update table
+    updateTable();
         
     // Execute additional dialog (To make it modal)
     execute();
 }
 
 GNEVariableSpeedSignalDialog::~GNEVariableSpeedSignalDialog() {
-}
-
-
-long 
-GNEVariableSpeedSignalDialog::onCMDInsertRow(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
-
-long 
-GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-    // Iterate over rows to find the row to erase
-    for(int i = 0; i < myDataList->getNumRows(); i++)
-        if(myDataList->getItem(i, 2)->isSelected()) {
-            // Remove element of table and map
-// @todo IMPLEMENT _2SUMOTIme
-            myVSSValues.erase(TplConvert::_2int(myDataList->getItem(i, 0)->getText().text()));
-            myDataList->removeRows(i);
-            // refill table
-            fillTable();
-            return 1;
-        }
-    return 0;
-}
-
-
-long 
-GNEVariableSpeedSignalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // Save new data in Variable Speed Signal edited
-    myVariableSpeedSignalParent->setVariableSpeedSignalValues(myVSSValues);
-    // Stop Modal with positive out
-    getApp()->stopModal(this,TRUE);
-    return 1;
-}
-
-
-long
-GNEVariableSpeedSignalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal with negative out
-    getApp()->stopModal(this,FALSE);
-    return 1;
-}
-
-
-long
-GNEVariableSpeedSignalDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // Get old values
-    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();
-    fillTable();
-    return 1;
 }
 
 
@@ -175,23 +118,67 @@ GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     else
         return false;
 
-    // Ffill table
-    fillTable();
+    // Update table
+    updateTable();
+    return 1;
+}
+
+
+long 
+GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
+    // Iterate over rows to find the row to erase
+    for(int i = 0; i < myDataList->getNumRows(); i++)
+        if(myDataList->getItem(i, 2)->isSelected()) {
+            // Remove element of table and map
+// @todo IMPLEMENT _2SUMOTIme
+            myVSSValues.erase(TplConvert::_2int(myDataList->getItem(i, 0)->getText().text()));
+            myDataList->removeRows(i);
+            // update table
+            updateTable();
+            return 1;
+        }
+    return 0;
+}
+
+
+long 
+GNEVariableSpeedSignalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    // Save new data in Variable Speed Signal edited
+    myVariableSpeedSignalParent->setVariableSpeedSignalValues(myVSSValues);
+    // Stop Modal with positive out
+    getApp()->stopModal(this,TRUE);
+    return 1;
+}
+
+
+long
+GNEVariableSpeedSignalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // Stop Modal with negative out
+    getApp()->stopModal(this,FALSE);
+    return 1;
+}
+
+
+long
+GNEVariableSpeedSignalDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // Get old values
+    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();
+    updateTable();
     return 1;
 }
 
 
 void
-GNEVariableSpeedSignalDialog::fillTable() {
+GNEVariableSpeedSignalDialog::updateTable() {
     // clear table
     myDataList->clearItems();
     // set number of rows
     myDataList->setTableSize(int(myVSSValues.size()), 3);
     // Configure list
     myDataList->setVisibleColumns(3);
-    myDataList->setColumnWidth(0, dialogWidth * 0.35);
-    myDataList->setColumnWidth(1, dialogWidth * 0.35);
-    myDataList->setColumnWidth(2, (dialogWidth * 0.3) - 10);
+    myDataList->setColumnWidth(0, getWidth() * 0.35);
+    myDataList->setColumnWidth(1, getWidth() * 0.35);
+    myDataList->setColumnWidth(2, (getWidth() * 0.3) - 10);
     myDataList->setColumnText(0, "timeStep");
     myDataList->setColumnText(1, "speed (km/h)");
     myDataList->setColumnText(2, "remove");

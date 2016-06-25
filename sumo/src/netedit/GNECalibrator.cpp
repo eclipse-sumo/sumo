@@ -144,6 +144,18 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string &currentD
 }
 
 
+std::map<std::pair<SUMOTime, SUMOTime>, GNECalibrator::CalibratorFlow> 
+GNECalibrator::getFlowValues() const {
+    return myFlowValues;
+}
+
+
+void 
+GNECalibrator::setFlowValues(std::map<std::pair<SUMOTime, SUMOTime>, GNECalibrator::CalibratorFlow> calibratorFlowValues) {
+    myFlowValues = calibratorFlowValues;
+}
+
+
 const std::string&
 GNECalibrator::getParentName() const {
     return myEdge->getMicrosimID();

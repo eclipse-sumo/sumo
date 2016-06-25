@@ -31,13 +31,7 @@
 #endif
 
 #include "GNEAdditionalDialog.h"
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNECalibrator;
+#include "GNECalibrator.h"
 
 // ===========================================================================
 // class definitions
@@ -61,6 +55,12 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+    /// @brief event called after press add row button
+    long onCmdAddRow(FXObject*, FXSelector, void*);
+
+    /// @brief event called after press remove row
+    long onCmdRemoveRow(FXObject*, FXSelector, void*);
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -72,13 +72,80 @@ public:
     /// @}
 
 protected:
+
     /// @brief FOX needs this
     GNECalibratorDialog() {}
 
-    /// @brief pointer to rerouter parent
-    GNECalibrator *myRerouterParent;
+    /// @brief pointer to calibrator parent
+    GNECalibrator *myCalibratorParent;
+
+    /// @brief Map with the temporal FlowValues
+    std::map<std::pair<SUMOTime, SUMOTime>, GNECalibrator::CalibratorFlow> myFlowValues;
+
+    /// @brief Table with the data
+    FXTable *myDataList;
+
+    /// @brief textField for insert a flow's Id
+    FXTextField *myTextFieldId;
+
+    /// @brief textField for insert a flow's Type
+    FXTextField *myTextFieldType;
+
+    /// @brief textField for insert a flow's Route
+    FXTextField *myTextFieldRoute;
+
+    /// @brief textField for insert a flow's color
+    FXTextField	*myTextFieldColor;
+
+    /// @brief textField for insert a flow's DepartLane
+    FXTextField *myTextFieldDepartLane;
+
+    /// @brief textField for insert a flow's DepartPos
+    FXTextField *myTextFieldDepartPos;
+
+    /// @brief textField for insert a flow's DepartSpeed
+    FXTextField *myTextFieldDepartSpeed;
+
+    /// @brief textField for insert a flow's ArrivalLane
+    FXTextField *myTextFieldArrivalLane;
+
+    /// @brief textField for insert a flow's ArrivalPos
+    FXTextField *myTextFieldArrivalPos;
+    
+    /// @brief textField for insert a flow's ArrivalSpeed
+    FXTextField *myTextFieldArrivalSpeed;
+
+    /// @brief textField for insert a flow's Line
+    FXTextField *myTextFieldLine;
+
+    /// @brief textField for insert a flow's PersonNumber
+    FXTextField *myTextFieldPersonNumber;
+
+    /// @brief textField for insert a flow's ContainerNumber
+    FXTextField *myTextFieldContainerNumber;
+
+    /// @brief textField for insert a flow's vehsPerHour
+    FXTextField *myTextFieldVehsPerHour;
+
+    /// @brief textField for insert a flow's period
+    FXTextField *myTextFieldPeriod;
+
+    /// @brief textField for insert a flow's probability
+    FXTextField *myTextFieldProbability;
+
+    /// @brief textField for insert a flow's number
+    FXTextField *myTextFieldnumber;
+
+    /// @brief Button for insert row
+    FXButton *myAddRow;
+
+    /// @brief Horizontal frame for row elements
+    FXHorizontalFrame *myRowFrame;
 
 private:
+    /// @brief update data table
+    void updateTable();
+
     /// @brief Invalidated copy constructor.
     GNECalibratorDialog(const GNECalibratorDialog&);
 
