@@ -385,31 +385,40 @@ public:
     };
 
     // ===========================================================================
-    // class edges
+    // class edgesSelector
     // ===========================================================================
 
-    class edges : public FXGroupBox {
+    class edgesSelector : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::edges)
+        FXDECLARE(GNEAdditionalFrame::edgesSelector)
 
     public:
         /// @brief constructor
-        edges(FXComposite *parent, GNEViewNet* viewNet);
+        edgesSelector(FXComposite *parent, GNEViewNet* viewNet);
 
         /// @brief destructor
-        ~edges();
+        ~edgesSelector();
 
         /// @brief get list of selecte id's in string format
         std::string getIdsSelected() const;
 
-        /// @brief Show list of edges
+        /// @brief Show list of edgesSelector
         void showList(std::string search = "");
 
-        /// @brief hide edges
+        /// @brief hide edgesSelector
         void hideList();
+
+        /// @brief Update use selectedEdges
+        void updateUseSelectedEdges();
+
+        /// @brief get status of checkBox UseSelectedEdges
+        bool isUseSelectedEdgesEnable() const;
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user trigger checkBox of useSelectedEdges
+        long onCmdUseSelectedEdges(FXObject*, FXSelector, void*);
+
         /// @brief called when user type in search box
         long onCmdTypeInSearchBox(FXObject*, FXSelector, void*);
 
@@ -428,10 +437,13 @@ public:
 
     protected:
         /// @brief FOX needs this
-        edges() {}
+        edgesSelector() {}
 
     private:
-        /// @brief List of edges
+        /// @brief CheckBox for selected edges
+        FXMenuCheck *myUseSelectedEdges;
+
+        /// @brief List of edgesSelector
         FXList *myList;
 
         /// @brief text field for search edge IDs
@@ -451,31 +463,40 @@ public:
     };
 
     // ===========================================================================
-    // class lanes
+    // class lanesSelector
     // ===========================================================================
 
-    class lanes : public FXGroupBox {
+    class lanesSelector : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::lanes)
+        FXDECLARE(GNEAdditionalFrame::lanesSelector)
 
     public:
         /// @brief constructor
-        lanes(FXComposite *parent, GNEViewNet* viewNet);
+        lanesSelector(FXComposite *parent, GNEViewNet* viewNet);
 
         /// @brief destructor
-        ~lanes();
+        ~lanesSelector();
 
         /// @brief get list of selecte id's in string format
         std::string getIdsSelected() const;
 
-        /// @brief Show list of lanes
+        /// @brief Show list of lanesSelector
         void showList(std::string search = "");
 
-        /// @brief hide lanes
+        /// @brief hide lanesSelector
         void hideList();
+
+        // @brief Update use selectedLanes
+        void updateUseSelectedLanes();
+
+        /// @brief get status of checkBox UseSelectedLanes
+        bool isUseSelectedLanesEnable() const;
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user trigger checkBox of useSelectedLanes
+        long onCmdUseSelectedLanes(FXObject*, FXSelector, void*);
+
         /// @brief called when user type in search box
         long onCmdTypeInSearchBox(FXObject*, FXSelector, void*);
 
@@ -494,17 +515,20 @@ public:
 
     protected:
         /// @brief FOX needs this
-        lanes() {}
+        lanesSelector() {}
 
     private:
-        /// @brief List of lanes
+        /// @brief CheckBox for selected lanes
+        FXMenuCheck *myUseSelectedLanes;
+
+        /// @brief List of lanesSelector
         FXList *myList;
 
         /// @brief text field for search lane IDs
         FXTextField *myLanesSearch;
 
         /// @brief button for help
-        FXButton *helplanes;
+        FXButton *helpLanes;
 
         /// @brief button for clear selection
         FXButton *clearLanesSelection;
@@ -584,11 +608,11 @@ private:
     /// @brief list of additional Set
     GNEAdditionalFrame::additionalSet *myAdditionalSet;
 
-    /// @brief list of edges
-    GNEAdditionalFrame::edges *myEdges;
+    /// @brief list of edgesSelector
+    GNEAdditionalFrame::edgesSelector *myEdgesSelector;
 
-    /// @brief list of lanes
-    GNEAdditionalFrame::lanes *myLanes;
+    /// @brief list of lanesSelector
+    GNEAdditionalFrame::lanesSelector *myLanesSelector;
 
     /// @brief actual additional type selected in the match Box
     SumoXMLTag myActualAdditionalType;

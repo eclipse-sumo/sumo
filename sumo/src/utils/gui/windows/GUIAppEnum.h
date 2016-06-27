@@ -502,6 +502,8 @@ enum {
     MID_GNE_SELECTADDITIONALSET,
     /** netEdit search edge */
     MID_GNE_SEARCHEDGE,
+    /** netEdit use selected edge */
+    MID_GNE_USESELECTEDEDGES,
     /** netEdit select edge */
     MID_GNE_SELECTEDGE,
     /** netEdit clear selection of edges */
@@ -510,6 +512,8 @@ enum {
     MID_GNE_INVERTEDGESELECTION,
     /** netEdit search lane */
     MID_GNE_SEARCHLANE,
+    /** netEdit use selected lanes */
+    MID_GNE_USESELECTEDLANES,
     /** netEdit select lane */
     MID_GNE_SELECTLANE,
     /** netEdit clear selection of lanes */

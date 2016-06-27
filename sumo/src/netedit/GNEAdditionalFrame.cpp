@@ -87,20 +87,22 @@ FXDEFMAP(GNEAdditionalFrame::additionalSet) GNEAdditionalSetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::additionalSet::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::edges) GNEEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEAREDGESELECTION,  GNEAdditionalFrame::edges::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTEDGESELECTION, GNEAdditionalFrame::edges::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHEDGE,          GNEAdditionalFrame::edges::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTEDGE,          GNEAdditionalFrame::edges::onCmdSelectEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::edges::onCmdHelp),
+FXDEFMAP(GNEAdditionalFrame::edgesSelector) GNEEdgesMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_USESELECTEDEDGES,    GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEAREDGESELECTION,  GNEAdditionalFrame::edgesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTEDGESELECTION, GNEAdditionalFrame::edgesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHEDGE,          GNEAdditionalFrame::edgesSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTEDGE,          GNEAdditionalFrame::edgesSelector::onCmdSelectEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::edgesSelector::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::lanes) GNELanesMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEARLANESELECTION,  GNEAdditionalFrame::lanes::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTLANESELECTION, GNEAdditionalFrame::lanes::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHLANE,          GNEAdditionalFrame::lanes::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTLANE,          GNEAdditionalFrame::lanes::onCmdSelectLane),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::lanes::onCmdHelp),
+FXDEFMAP(GNEAdditionalFrame::lanesSelector) GNELanesMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_USESELECTEDLANES,    GNEAdditionalFrame::lanesSelector::onCmdUseSelectedLanes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEARLANESELECTION,  GNEAdditionalFrame::lanesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTLANESELECTION, GNEAdditionalFrame::lanesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHLANE,          GNEAdditionalFrame::lanesSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTLANE,          GNEAdditionalFrame::lanesSelector::onCmdSelectLane),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::lanesSelector::onCmdHelp),
 };
 
 // Object implementation
@@ -109,8 +111,8 @@ FXIMPLEMENT(GNEAdditionalFrame::additionalParameterList, FXMatrix,       GNEAddi
 FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,    FXGroupBox,     GNEAdditionalParametersMap,    ARRAYNUMBER(GNEAdditionalParametersMap))
 FXIMPLEMENT(GNEAdditionalFrame::editorParameters,        FXGroupBox,     GNEEditorParametersMap,        ARRAYNUMBER(GNEEditorParametersMap))
 FXIMPLEMENT(GNEAdditionalFrame::additionalSet,           FXGroupBox,     GNEAdditionalSetMap,           ARRAYNUMBER(GNEAdditionalSetMap))
-FXIMPLEMENT(GNEAdditionalFrame::edges,                   FXGroupBox,     GNEEdgesMap,                   ARRAYNUMBER(GNEEdgesMap))
-FXIMPLEMENT(GNEAdditionalFrame::lanes,                   FXGroupBox,     GNELanesMap,                   ARRAYNUMBER(GNELanesMap))
+FXIMPLEMENT(GNEAdditionalFrame::edgesSelector,                   FXGroupBox,     GNEEdgesMap,                   ARRAYNUMBER(GNEEdgesMap))
+FXIMPLEMENT(GNEAdditionalFrame::lanesSelector,                   FXGroupBox,     GNELanesMap,                   ARRAYNUMBER(GNELanesMap))
 
 // ===========================================================================
 // method definitions
@@ -135,11 +137,11 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXComposite* parent, GNEViewNet* viewNet)
     // Create create list for additional Set
     myAdditionalSet = new GNEAdditionalFrame::additionalSet(myContentFrame, this, myViewNet);
 
-    /// Create list for edges
-    myEdges = new GNEAdditionalFrame::edges(myContentFrame, myViewNet);
+    /// Create list for edgesSelector
+    myEdgesSelector = new GNEAdditionalFrame::edgesSelector(myContentFrame, myViewNet);
 
-    /// Create list for lanes
-    myLanes = new GNEAdditionalFrame::lanes(myContentFrame, myViewNet);
+    /// Create list for lanesSelector
+    myLanesSelector = new GNEAdditionalFrame::lanesSelector(myContentFrame, myViewNet);
 
     // Add options to myAdditionalMatchBox
     const std::vector<SumoXMLTag>& additionalTags = GNEAttributeCarrier::allowedAdditionalTags();
@@ -203,17 +205,41 @@ GNEAdditionalFrame::addAdditional(GNELane *lane, GUISUMOAbstractView* parent) {
             return false;
         }
     }
-    // If element own a list of edges as attribute 
+    // If element own a list of edgesSelector as attribute 
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
-        valuesOfElement[SUMO_ATTR_EDGES] = myEdges->getIdsSelected();
+        if(myEdgesSelector->isUseSelectedEdgesEnable()) {
+            // Declare a vector of Id's
+            std::vector<std::string> vectorOfIds;
+            // get Selected edges
+            std::vector<GNEEdge*> selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+            // Iterate over selectedEdges and getId
+            for(std::vector<GNEEdge*>::iterator i = selectedEdges.begin(); i != selectedEdges.end(); i++)
+                vectorOfIds.push_back((*i)->getID());
+            // Set saved Ids in attribute edges
+            valuesOfElement[SUMO_ATTR_EDGES] = joinToString(vectorOfIds, " ");
+        } else
+            valuesOfElement[SUMO_ATTR_EDGES] = myEdgesSelector->getIdsSelected();
+        // check if attribute has at least an Edge
         if(valuesOfElement[SUMO_ATTR_EDGES] == "") {
             WRITE_ERROR("A " + toString(myActualAdditionalType) + " must have at least one edge associated.");
             return false;
         }
     }
-    // If element own a list of lanes as attribute 
+    // If element own a list of lanesSelector as attribute 
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANES)) {
-        valuesOfElement[SUMO_ATTR_LANES] = myLanes->getIdsSelected();
+        if(myLanesSelector->isUseSelectedLanesEnable()) {
+            // Declare a vector of Id's
+            std::vector<std::string> vectorOfIds;
+            // get Selected lanes
+            std::vector<GNELane*> selectedLanes = myViewNet->getNet()->retrieveLanes(true);
+            // Iterate over selectedLanes and getId
+            for(std::vector<GNELane*>::iterator i = selectedLanes.begin(); i != selectedLanes.end(); i++)
+                vectorOfIds.push_back((*i)->getID());
+            // Set saved Ids in attribute lanes
+            valuesOfElement[SUMO_ATTR_LANES] = joinToString(vectorOfIds, " ");
+        } else
+            valuesOfElement[SUMO_ATTR_LANES] = myLanesSelector->getIdsSelected();
+        // check if attribute has at least a lane
         if(valuesOfElement[SUMO_ATTR_LANES] == "") {
             WRITE_ERROR("A " + toString(myActualAdditionalType) + " must have at least one lane associated.");
             return false;
@@ -248,6 +274,10 @@ GNEAdditionalFrame::show() {
     FXScrollWindow::show();
     // Show Frame Area in which this GNEFrame is placed
     myViewNet->getViewParent()->showFramesArea();
+    // Update UseAelectedLane CheckBox
+    myEdgesSelector->updateUseSelectedEdges();
+    // Update UseAelectedLane CheckBox
+    myLanesSelector->updateUseSelectedLanes();
 }
 
 
@@ -290,16 +320,16 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
         myAdditionalSet->showList(GNEAttributeCarrier::getParentType(myActualAdditionalType));
     else
         myAdditionalSet->hideList();
-    // Show edges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
+    // Show edgesSelector if we're adding an additional that own the attribute SUMO_ATTR_EDGES
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES))
-        myEdges->showList();
+        myEdgesSelector->showList();
     else
-        myEdges->hideList();
-    // Show lanes if we're adding an additional that own the attribute SUMO_ATTR_LANES
+        myEdgesSelector->hideList();
+    // Show lanesSelector if we're adding an additional that own the attribute SUMO_ATTR_LANES
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANES))
-        myLanes->showList();
+        myLanesSelector->showList();
     else
-        myLanes->hideList();
+        myLanesSelector->hideList();
 }
 
 
@@ -1007,12 +1037,14 @@ GNEAdditionalFrame::additionalSet::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::edges - methods
+// GNEAdditionalFrame::edgesSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::edges::edges(FXComposite *parent, GNEViewNet* viewNet) :
+GNEAdditionalFrame::edgesSelector::edgesSelector(FXComposite *parent, GNEViewNet* viewNet) :
     FXGroupBox(parent, "Edges", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
     myViewNet(viewNet) {
+    // Create CheckBox for selected edges
+    myUseSelectedEdges = new FXMenuCheck(this, "Use selected Edges", this, MID_GNE_USESELECTEDEDGES);
 
     // Create search box
     myEdgesSearch = new FXTextField(this, 10, this, MID_GNE_SEARCHEDGE, LAYOUT_FILL_X);
@@ -1037,46 +1069,95 @@ GNEAdditionalFrame::edges::edges(FXComposite *parent, GNEViewNet* viewNet) :
 }
 
 
-GNEAdditionalFrame::edges::~edges() {}
+GNEAdditionalFrame::edgesSelector::~edgesSelector() {}
+
 
 std::string
-GNEAdditionalFrame::edges::getIdsSelected() const {
+GNEAdditionalFrame::edgesSelector::getIdsSelected() const {
     return GNEAdditionalFrame::getIdsSelected(myList);
 }
 
+
 void
-GNEAdditionalFrame::edges::showList(std::string search) {
+GNEAdditionalFrame::edgesSelector::showList(std::string search) {
+    // FIll list
     myList->clearItems();
     std::vector<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
     for(std::vector<GNEEdge*>::iterator i = vectorOfEdges.begin(); i != vectorOfEdges.end(); i++)
         if((*i)->getID().find(search) != std::string::npos)
             myList->appendItem((*i)->getID().c_str());
+    // By default, CheckBox for useSelectedEdges isn't checked
+    myUseSelectedEdges->setCheck(false);
+    // Recalc Frame
+    recalc();
+    // Update Frame
+    update();
+    // Show dialog
     show();
 }
 
 
 void
-GNEAdditionalFrame::edges::hideList() {
+GNEAdditionalFrame::edgesSelector::hideList() {
     FXGroupBox::hide();
 }
 
 
+void
+GNEAdditionalFrame::edgesSelector::updateUseSelectedEdges() {
+    // Enable or disable use selected edges
+    if(myViewNet->getNet()->retrieveEdges(true).size() > 0)
+        myUseSelectedEdges->enable();
+    else
+        myUseSelectedEdges->disable();
+}
+
+
+bool 
+GNEAdditionalFrame::edgesSelector::isUseSelectedEdgesEnable() const {
+    return myUseSelectedEdges->getCheck();
+}
+
+
 long 
-GNEAdditionalFrame::edges::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of edges that contains the searched string
+GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
+    if(myUseSelectedEdges->getCheck()) {
+        myEdgesSearch->hide();
+        myList->hide();
+        clearEdgesSelection->hide();
+        invertEdgesSelection->hide();
+        helpEdges->hide();
+    } else {
+        myEdgesSearch->show();
+        myList->show();
+        clearEdgesSelection->show();
+        invertEdgesSelection->show();
+        helpEdges->show();
+    }
+    // Recalc Frame
+    recalc();
+    // Update Frame
+    update();
+    return 1;
+}
+
+
+long 
+GNEAdditionalFrame::edgesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of edgesSelector that contains the searched string
     showList(myEdgesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::edges::onCmdSelectEdge(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgesSelector::onCmdSelectEdge(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::edges::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for(int i = 0; i < myList->getNumItems(); i++)
         if(myList->getItem(i)->isSelected())
             myList->deselectItem(i);
@@ -1085,7 +1166,7 @@ GNEAdditionalFrame::edges::onCmdClearSelection(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAdditionalFrame::edges::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for(int i = 0; i < myList->getNumItems(); i++)
         if(myList->getItem(i)->isSelected())
             myList->deselectItem(i);
@@ -1096,17 +1177,19 @@ GNEAdditionalFrame::edges::onCmdInvertSelection(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAdditionalFrame::edges::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::lanes - methods
+// GNEAdditionalFrame::lanesSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::lanes::lanes(FXComposite *parent, GNEViewNet* viewNet) :
-    FXGroupBox(parent, "lanes", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
+GNEAdditionalFrame::lanesSelector::lanesSelector(FXComposite *parent, GNEViewNet* viewNet) :
+    FXGroupBox(parent, "lanesSelector", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
     myViewNet(viewNet) {
+    // Create CheckBox for selected lanes
+    myUseSelectedLanes = new FXMenuCheck(this, "Use selected Lanes", this, MID_GNE_USESELECTEDLANES);
 
     // Create search box
     myLanesSearch = new FXTextField(this, 10, this, MID_GNE_SEARCHLANE, LAYOUT_FILL_X);
@@ -1124,55 +1207,97 @@ GNEAdditionalFrame::lanes::lanes(FXComposite *parent, GNEViewNet* viewNet) :
     invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTLANESELECTION);
 
     // Create help button
-    helplanes = new FXButton(this, "Help", 0, this, MID_HELP);
+    helpLanes = new FXButton(this, "Help", 0, this, MID_HELP);
 
     // Hide List
     hideList();
 }
 
 
-GNEAdditionalFrame::lanes::~lanes() {}
+GNEAdditionalFrame::lanesSelector::~lanesSelector() {}
 
 
 std::string
-GNEAdditionalFrame::lanes::getIdsSelected() const {
+GNEAdditionalFrame::lanesSelector::getIdsSelected() const {
     return GNEAdditionalFrame::getIdsSelected(myList);
 }
 
 
 void
-GNEAdditionalFrame::lanes::showList(std::string search) {
+GNEAdditionalFrame::lanesSelector::showList(std::string search) {
     myList->clearItems();
     std::vector<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
     for(std::vector<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++)
         if((*i)->getID().find(search) != std::string::npos)
             myList->appendItem((*i)->getID().c_str());
+    // By default, CheckBox for useSelectedLanes isn't checked
+    myUseSelectedLanes->setCheck(false);
+    // Show list
     show();
 }
 
 
 void
-GNEAdditionalFrame::lanes::hideList() {
+GNEAdditionalFrame::lanesSelector::hideList() {
     hide();
 }
 
 
+void
+GNEAdditionalFrame::lanesSelector::updateUseSelectedLanes() {
+    // Enable or disable use selected Lanes
+    if(myViewNet->getNet()->retrieveLanes(true).size() > 0)
+        myUseSelectedLanes->enable();
+    else
+        myUseSelectedLanes->disable();
+}
+
+
+bool 
+GNEAdditionalFrame::lanesSelector::isUseSelectedLanesEnable() const {
+    return myUseSelectedLanes->getCheck();
+}
+
+
 long 
-GNEAdditionalFrame::lanes::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of lanes that contains the searched string
+GNEAdditionalFrame::lanesSelector::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
+    if(myUseSelectedLanes->getCheck()) {
+        myLanesSearch->hide();
+        myList->hide();
+        clearLanesSelection->hide();
+        invertLanesSelection->hide();
+        helpLanes->hide();
+    } else {
+        myLanesSearch->show();
+        myList->show();
+        clearLanesSelection->show();
+        invertLanesSelection->show();
+        helpLanes->show();
+    }
+    // Recalc Frame
+    recalc();
+    // Update Frame
+    update();
+    return 1;
+}
+
+
+long 
+GNEAdditionalFrame::lanesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of lanesSelector that contains the searched string
     showList(myLanesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::lanes::onCmdSelectLane(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::lanesSelector::onCmdSelectLane(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::lanes::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::lanesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for(int i = 0; i < myList->getNumItems(); i++)
         if(myList->getItem(i)->isSelected())
             myList->deselectItem(i);
@@ -1181,7 +1306,7 @@ GNEAdditionalFrame::lanes::onCmdClearSelection(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAdditionalFrame::lanes::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::lanesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for(int i = 0; i < myList->getNumItems(); i++)
         if(myList->getItem(i)->isSelected())
             myList->deselectItem(i);
@@ -1192,7 +1317,7 @@ GNEAdditionalFrame::lanes::onCmdInvertSelection(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAdditionalFrame::lanes::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::lanesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
     return 1;
 }
 
