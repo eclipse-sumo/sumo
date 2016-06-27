@@ -177,7 +177,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& 
         throw ProcessError();
     // Obtain pointer to lanes
     std::vector<GNELane*> lanes;
-    for(int i = 0; i < lanesID.size(); i++) {
+    for(int i = 0; i < (int)lanesID.size(); i++) {
         GNELane *lane = myViewNet->getNet()->retrieveLane(lanesID.at(i));
         if(lane)
             lanes.push_back(lane);
@@ -610,7 +610,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
             SUMOSAXAttributes::parseStringVector(values[SUMO_ATTR_LANES], laneIds);
             // Obtain pointers to lanes
             std::vector<GNELane*> lanes;
-            for(int i = 0; i < laneIds.size(); i++)
+            for(int i = 0; i < (int)laneIds.size(); i++)
                 lanes.push_back(viewNet->getNet()->retrieveLane(laneIds.at(i)));
             std::string file = values[SUMO_ATTR_FILE];
             if(pos.size() == 1)
@@ -641,7 +641,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
             SUMOSAXAttributes::parseStringVector(values[SUMO_ATTR_EDGES], edgeIds);
             // Obtain pointers to edges
             std::vector<GNEEdge*> edges;
-            for(int i = 0; i < edgeIds.size(); i++)
+            for(int i = 0; i < (int)edgeIds.size(); i++)
                 edges.push_back(viewNet->getNet()->retrieveEdge(edgeIds.at(i)));
             SUMOReal prob = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_PROB]);
             std::string file = values[SUMO_ATTR_FILE];

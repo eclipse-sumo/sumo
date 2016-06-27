@@ -49,7 +49,7 @@ public:
         // Data empty does't mean 0
         if(data.size() == 0)
             return false;
-        for(int i = 0; i < data.size(); i++) {
+        for(int i = 0; i < (int)data.size(); i++) {
             if(data.at(i) == '+' || data.at(i) == '-') {
                 if(i != 0)
                     return false;
@@ -65,7 +65,7 @@ public:
         bool dot = false;
         if(data.size() == 0)
             return false;
-        for(int i = 0; i < data.size(); i++) {
+        for(int i = 0; i < (int)data.size(); i++) {
             if(data.at(i) == '+' || data.at(i) == '-') {
                 if(i != 0)
                     return false;
@@ -98,7 +98,7 @@ public:
         // Data empty does't mean 0
         if(data.size() == 0)
             return false;
-        for(int i = 0; i < data.size(); i++) {
+        for(int i = 0; i < (int)data.size(); i++) {
             if(data.at(i) == '+') {
                 if(i != 0)
                     return false;

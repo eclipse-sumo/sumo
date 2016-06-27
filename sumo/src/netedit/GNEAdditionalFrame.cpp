@@ -511,7 +511,7 @@ GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr,
 
 void
 GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<std::string> value) {
-    if(value.size() < myMaxNumberOfValuesInParameterList) {
+    if((int)value.size() < myMaxNumberOfValuesInParameterList) {
         myAttr = attr;
         numberOfVisibleTextfields = (int)value.size();
         if(numberOfVisibleTextfields == 0)
@@ -744,7 +744,7 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
         FXTableItem *definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditional, attr).c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
-        if(GNEAttributeCarrier::getDefinition(myAdditional, attr).size()> maxSizeColumnDefinitions)
+        if((int)GNEAttributeCarrier::getDefinition(myAdditional, attr).size() > maxSizeColumnDefinitions)
             maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditional, attr).size());
     }
     // Iterate over vector of additional parameters list
@@ -768,7 +768,7 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
         FXTableItem *definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditional, attr).c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
-        if(GNEAttributeCarrier::getDefinition(myAdditional, attr).size()> maxSizeColumnDefinitions)
+        if((int)GNEAttributeCarrier::getDefinition(myAdditional, attr).size() > maxSizeColumnDefinitions)
             maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditional, attr).size());
     }
     // Set size of column

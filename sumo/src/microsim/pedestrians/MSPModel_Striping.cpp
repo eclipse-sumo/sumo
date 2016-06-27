@@ -647,7 +647,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
         // advance to the next lane / arrive at destination
         sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
         // can't use iterators because we do concurrent modification
-        for (int i = 0; i < pedestrians.size(); i++) {
+        for (int i = 0; i < (int)pedestrians.size(); i++) {
             PState* const p = pedestrians[i];
             if (p->myDir == dir && p->distToLaneEnd() < 0) {
                 // moveToNextLane may trigger re-insertion (for consecutive
