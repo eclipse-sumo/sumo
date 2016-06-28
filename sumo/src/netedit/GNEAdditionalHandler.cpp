@@ -71,45 +71,49 @@ GNEAdditionalHandler::~GNEAdditionalHandler() {}
 
 void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    switch (element) {
-        case SUMO_TAG_BUS_STOP:
-            parseAndBuildBusStop(attrs);
-            break;
-        case SUMO_TAG_CONTAINER_STOP:
-            parseAndBuildContainerStop(attrs);
-            break;
-        case SUMO_TAG_CHARGING_STATION:
-            parseAndBuildChargingStation(attrs);
-            break;
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-            parseAndBuildDetectorE1(attrs);
-            break;
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-            parseAndBuildDetectorE2(attrs);
-            break;
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-            parseAndBuildDetectorE3(attrs);
-            break;
-        case SUMO_TAG_DET_ENTRY:
-            parseAndBuildDetectorEntry(attrs);
-            break;
-        case SUMO_TAG_DET_EXIT:
-            parseAndBuildDetectorExit(attrs);
-            break;
-        case SUMO_TAG_VSS:
-            parseAndBuildVariableSpeedSignal(attrs);
-            break;
-        case SUMO_TAG_REROUTER:
-            parseAndBuildRerouter(attrs);
-            break;
-        case SUMO_TAG_VAPORIZER:
-            parseAndBuildVaporizer(attrs);
-            break;
-        default:
-            break;
+    try {
+        switch (element) {
+            case SUMO_TAG_BUS_STOP:
+                parseAndBuildBusStop(attrs);
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                parseAndBuildContainerStop(attrs);
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                parseAndBuildChargingStation(attrs);
+                break;
+            case SUMO_TAG_E1DETECTOR:
+            case SUMO_TAG_INDUCTION_LOOP:
+                parseAndBuildDetectorE1(attrs);
+                break;
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+                parseAndBuildDetectorE2(attrs);
+                break;
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+                parseAndBuildDetectorE3(attrs);
+                break;
+            case SUMO_TAG_DET_ENTRY:
+                parseAndBuildDetectorEntry(attrs);
+                break;
+            case SUMO_TAG_DET_EXIT:
+                parseAndBuildDetectorExit(attrs);
+                break;
+            case SUMO_TAG_VSS:
+                parseAndBuildVariableSpeedSignal(attrs);
+                break;
+            case SUMO_TAG_REROUTER:
+                parseAndBuildRerouter(attrs);
+                break;
+            case SUMO_TAG_VAPORIZER:
+                parseAndBuildVaporizer(attrs);
+                break;
+            default:
+                break;
+        }
+    } catch (InvalidArgument& e) {
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -729,7 +733,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet *viewNet, const std::string& id, G
 bool
 GNEAdditionalHandler::buildContainerStop(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CONTAINER_STOP, id) == NULL) {
-        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
         GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, lines, blocked);
         viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), containerStop, true), true);
         viewNet->getUndoList()->p_end();

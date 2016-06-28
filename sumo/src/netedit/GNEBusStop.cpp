@@ -151,7 +151,9 @@ GNEBusStop::writeAdditional(OutputDevice& device, const std::string &currentDire
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
-    device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
+    if(myLines.size() > 0) {
+        device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
+    }
     // Close tag
     device.closeTag();
 }

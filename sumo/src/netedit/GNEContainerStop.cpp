@@ -65,17 +65,17 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_BUS_STOP, lane, startPos, endPos, blocked),
+    GNEStoppingPlace(id, viewNet, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, blocked),
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
     updateGeometry();
     // Set colors
-    myBaseColor = RGBColor(76, 170, 50, 255);
-    myBaseColorSelected = RGBColor(161, 255, 135, 255);
-    mySignColor = RGBColor(255, 235, 0, 255);
-    mySignColorSelected = RGBColor(255, 235, 0, 255);
-    myTextColor = RGBColor(76, 170, 50, 255);
-    myTextColorSelected = RGBColor(161, 255, 135, 255);
+    myBaseColor = RGBColor(83, 89, 172, 255);
+    myBaseColorSelected = RGBColor(103, 109, 192, 255);
+    mySignColor = RGBColor(177, 184, 186, 171);
+    mySignColorSelected = RGBColor(197, 204, 206, 171);
+    myTextColor = RGBColor(83, 89, 172, 255);
+    myTextColorSelected = RGBColor(103, 109, 192, 255);
 }
 
 
@@ -151,7 +151,9 @@ GNEContainerStop::writeAdditional(OutputDevice& device, const std::string &curre
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
-    device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
+    if(myLines.size() > 0) {
+        device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
+    }
     // Close tag
     device.closeTag();
 }
