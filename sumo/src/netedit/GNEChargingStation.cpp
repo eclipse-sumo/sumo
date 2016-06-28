@@ -238,10 +238,11 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set Color
-    if(isAdditionalSelected())
+    if (isAdditionalSelected()) {
         GLHelper::setColor(myBaseColorSelected);
-    else
+    } else {
         GLHelper::setColor(myBaseColor);
+    }
 
     // Get exaggeration
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
@@ -255,10 +256,11 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
 
         // Set color of the charging power
-        if(isAdditionalSelected())
+        if (isAdditionalSelected()) {
             GLHelper::setColor(myTextColorSelected);
-        else
+        } else {
             GLHelper::setColor(myTextColor);
+        }
 
         // push charging power matrix
         glPushMatrix();
@@ -297,17 +299,19 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         int noPoints = 9;
 
         // If the scale * exaggeration is more than 25, recalculate nº points
-        if (s.scale * exaggeration > 25)
+        if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
+        }
 
         // Scale matrix
         glScaled(exaggeration, exaggeration, 1);
 
         // Set base color
-        if(isAdditionalSelected())
+        if (isAdditionalSelected()) {
             GLHelper::setColor(myBaseColorSelected);
-        else
+        } else {
             GLHelper::setColor(myBaseColor);
+        }
 
         // Draw extern
         GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
@@ -316,19 +320,22 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
 
         // Set sign color
-        if(isAdditionalSelected())
+        if (isAdditionalSelected()) {
             GLHelper::setColor(mySignColorSelected);
-        else
+        } else {
             GLHelper::setColor(mySignColor);
+        }
         // Draw internt sign
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
 
         // Draw sign 'C'
-        if (s.scale * exaggeration >= 4.5)
-            if(isAdditionalSelected())
+        if (s.scale * exaggeration >= 4.5) {
+            if(isAdditionalSelected()) {
                 GLHelper::drawText("C", Position(), .1, 1.6, myBaseColorSelected, myBlockIconRotation);
-            else
+            } else {
                 GLHelper::drawText("C", Position(), .1, 1.6, myBaseColor, myBlockIconRotation);
+            }
+        }
         // Pop sign matrix
         glPopMatrix();
 

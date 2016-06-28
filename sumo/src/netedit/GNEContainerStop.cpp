@@ -104,7 +104,7 @@ GNEContainerStop::updateGeometry() {
     int numberOfSegments = (int) myShape.size() - 1;
 
     // If number of segments is more than 0
-    if(numberOfSegments >= 0) {
+    if (numberOfSegments >= 0) {
 
         // Reserve memory (To improve efficiency)
         myShapeRotations.reserve(numberOfSegments);
@@ -175,10 +175,11 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set color of the base
-    if(isAdditionalSelected())
+    if (isAdditionalSelected()) {
         GLHelper::setColor(myBaseColorSelected);
-    else
+    } else {
         GLHelper::setColor(myBaseColor);
+    }
 
     // Obtain exaggeration of the draw
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
@@ -196,10 +197,11 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         SUMOReal rotSign = OptionsCont::getOptions().getBool("lefthand");
 
         // Set color of the lines
-        if(isAdditionalSelected())
+        if (isAdditionalSelected()) {
             GLHelper::setColor(myTextColorSelected);
-        else
+        } else {
             GLHelper::setColor(myTextColor);
+        }
 
         // Iterate over every line
         for (size_t i = 0; i != myLines.size(); ++i) {
@@ -254,20 +256,23 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
 
         // Set color of the lines
-        if(isAdditionalSelected())
+        if (isAdditionalSelected()) {
             GLHelper::setColor(mySignColorSelected);
-        else
+        } else {
             GLHelper::setColor(mySignColor);
+        }
 
         // draw another circle in the same position, but a little bit more small
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
 
         // If the scale * exageration is equal or more than 4.5, draw H
-        if (s.scale * exaggeration >= 4.5)
-            if(isAdditionalSelected())
+        if (s.scale * exaggeration >= 4.5) {
+            if (isAdditionalSelected()) {
                 GLHelper::drawText("C", Position(), .1, 1.6, myBaseColorSelected, myBlockIconRotation);
-            else
+            } else {
                 GLHelper::drawText("C", Position(), .1, 1.6, myBaseColor, myBlockIconRotation);
+            }
+        }
 
         // pop draw matrix
         glPopMatrix();

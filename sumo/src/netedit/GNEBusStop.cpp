@@ -175,10 +175,11 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set color of the base
-    if(isAdditionalSelected())
+    if (isAdditionalSelected()) {
         GLHelper::setColor(myBaseColorSelected);
-    else
+    } else {
         GLHelper::setColor(myBaseColor);
+    }
 
     // Obtain exaggeration of the draw
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
@@ -196,10 +197,11 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         SUMOReal rotSign = OptionsCont::getOptions().getBool("lefthand");
 
         // Set color of the lines
-        if(isAdditionalSelected())
+        if (isAdditionalSelected()) {
             GLHelper::setColor(myTextColorSelected);
-        else
+        } else {
             GLHelper::setColor(myTextColor);
+        }
 
         // Iterate over every line
         for (size_t i = 0; i != myLines.size(); ++i) {
@@ -241,8 +243,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         int noPoints = 9;
 
         // If the scale * exaggeration is more than 25, recalculate nº points
-        if (s.scale * exaggeration > 25)
+        if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
+        }
 
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
@@ -254,20 +257,23 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
 
         // Set color of the lines
-        if(isAdditionalSelected())
+        if (isAdditionalSelected()) {
             GLHelper::setColor(mySignColorSelected);
-        else
+        } else {
             GLHelper::setColor(mySignColor);
+        }
 
         // draw another circle in the same position, but a little bit more small
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
 
         // If the scale * exageration is equal or more than 4.5, draw H
-        if (s.scale * exaggeration >= 4.5)
-            if(isAdditionalSelected())
+        if (s.scale * exaggeration >= 4.5) {
+            if(isAdditionalSelected()) {
                 GLHelper::drawText("H", Position(), .1, 1.6, myBaseColorSelected, myBlockIconRotation);
-            else
+            } else {
                 GLHelper::drawText("H", Position(), .1, 1.6, myBaseColor, myBlockIconRotation);
+            }
+        }
 
         // pop draw matrix
         glPopMatrix();
