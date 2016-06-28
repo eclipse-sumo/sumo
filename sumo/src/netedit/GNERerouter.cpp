@@ -352,7 +352,7 @@ GNERerouter::rerouterInterval::setBegin(SUMOTime begin) {
 void
 GNERerouter::rerouterInterval::setEnd(SUMOTime end) {
     if(end >= 0 && myBegin >= end)
-        myEnd = myEnd;
+        myEnd = end;
     else
         throw InvalidArgument("Begin time not valid");
 }
