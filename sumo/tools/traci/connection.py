@@ -24,6 +24,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import socket
 import struct
+import sys
 
 try:
     import traciemb
@@ -46,7 +47,11 @@ class Connection:
 
     def __init__(self, host, port):
         if not _embedded:
-            self._socket = socket.socket()
+            if sys.platform.startswith('java'):
+                # working around jython 2.7.0 bug #2273
+                self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
+            else:
+                self._socket = socket.socket()
             self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             self._socket.connect((host, port))
         self._string = bytes()

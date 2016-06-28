@@ -27,7 +27,7 @@ import time
 
 from .domain import _defaultDomains
 from .connection import Connection, _embedded
-from .exceptions import TraCIException
+from .exceptions import FatalTraCIError
 from . import _inductionloop, _multientryexit, _trafficlights
 from . import _lane, _vehicle, _vehicletype, _person, _route, _areal
 from . import _poi, _polygon, _junction, _edge, _simulation, _gui
@@ -50,8 +50,12 @@ def connect(port=8813, numRetries=10, host="localhost"):
     for wait in range(1, numRetries + 2):
         try:
             return Connection(host, port)
-        except socket.error:
-            time.sleep(wait)
+        except socket.error as e:
+            print("Could not connect to TraCI server at %s:%s" % (host, port), e)
+            if wait < numRetries + 1:
+                print(" Retrying in %s seconds" % wait)
+                time.sleep(wait)
+    raise FatalTraCIError(str(e))
 
 
 def init(port=8813, numRetries=10, host="localhost", label="default"):
