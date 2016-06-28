@@ -46,13 +46,12 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position (center) of the rerouter in the map
-     * @param[in] edges vector with the edges of rerotuer
+     * @param[in] lanes vector with the lanes of variable speed signal
      * @param[in] filename The path to the definition file
-     * @param[in] probability The probability for vehicle rerouting
-     * @param[in] off Whether the router should be inactive initially
+     * @param[in] VSSValues values with the interval and speeds of variable speed signals
      * @param[in] blocked set initial blocking state of item
      */
-    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, bool blocked);
+    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOTime, SUMOReal> &VSSValues, bool blocked);
 
     /// @brief Destructor
     ~GNEVariableSpeedSignal();

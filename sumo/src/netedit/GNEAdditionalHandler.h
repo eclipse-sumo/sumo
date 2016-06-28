@@ -36,6 +36,10 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position.h>
 
+#include "GNECalibrator.h"
+#include "GNERerouter.h"
+#include "GNEVariableSpeedSignal.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -46,7 +50,6 @@ class GNEUndoList;
 class GNEJunction;
 class GNEEdge;
 class GNELane;
-class MSRouteProbe;    // Equivalence in GNE?
 
 // ===========================================================================
 // class definitions
@@ -287,13 +290,14 @@ public:
      * @param[in] edge The edge the calibrator is placed at
      * @param[in] pos The position on the edge the calibrator lies at
      * @param[in] file The file to read the flows from
+     * @param[in] flowValues flow of calibrator
      * @param[in] blocked set initial blocking state of item
      * @return true if was sucesfully created, false in other case
      * @todo Is the position correct/needed
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& file, const std::string& outfile, const SUMOTime freq, bool blocked);
+    static bool buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& file, const std::string& outfile, const SUMOTime freq, const std::map<std::string, GNECalibrator::CalibratorFlow> &flowValues, bool blocked);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
@@ -302,10 +306,11 @@ public:
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
+     * @param[in] rerouterInterval set with the rerouterintervals of rerouter
      * @param[in] blocked set initial blocking state of item
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildRerouter(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, bool blocked);
+    static bool buildRerouter(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouter::rerouterInterval> &rerouterIntervals, bool blocked);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -326,10 +331,11 @@ public:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      * @param[in] blocked set initial blocking state of item
+     * @param[in] VSSValues Step and speed values of variable speed signal
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildVariableSpeedSignal(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, bool blocked);
+    static bool buildVariableSpeedSignal(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::map<SUMOTime, SUMOReal> &VSSValues, bool blocked);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted

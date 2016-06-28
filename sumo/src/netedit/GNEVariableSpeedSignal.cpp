@@ -74,9 +74,10 @@ bool GNEVariableSpeedSignal::variableSpeedSignalSelectedInitialized = false;
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, bool blocked) :
+GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOTime, SUMOReal> &VSSValues, bool blocked) :
     GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_VSS, blocked, std::vector<GNEAdditional*>(), std::vector<GNEEdge*>(), lanes),
-    myFilename(filename) {
+    myFilename(filename), 
+    myVSSValues(VSSValues) {
     // Update geometry;
     updateGeometry();
     // Set colors

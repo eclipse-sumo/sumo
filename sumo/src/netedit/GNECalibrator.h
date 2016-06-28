@@ -47,7 +47,6 @@ class GNERouteProbe;
  */
 class GNECalibrator : public GNEAdditional {
 public:
-
     /// @brief calibrator flow 
     struct CalibratorFlow {
         // Parameters of vehicles
@@ -77,13 +76,12 @@ public:
      * @param[in] edge Lane of this StoppingPlace belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position of the detector on the lane
-
-
      * @param[in] frequency the aggregation interval in which to calibrate the flows
      * @param[in] output The output file for writing calibrator information
+     * @param[in] flowValues values with the flow of calibrator
      * @param[in] blocked set initial blocking state of item
      */
-    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, bool blocked);
+    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, const std::map<std::string, CalibratorFlow> &flowValues, bool blocked);
 
     /// @brief Destructor
     ~GNECalibrator();

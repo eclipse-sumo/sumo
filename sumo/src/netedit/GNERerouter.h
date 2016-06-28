@@ -160,7 +160,7 @@ public:
     // class rerouterInterval
     // ===========================================================================
 
-    class rerouterInterval {
+    class rerouterInterval : public std::pair<SUMOTime, SUMOTime> {
     public:
         /// @brief constructor
         rerouterInterval(SUMOTime begin, SUMOTime end);
@@ -207,21 +207,7 @@ public:
         /// @brief get reoute probability reroutes
         std::vector<routeProbReroute*> getRouteProbReroutes() const;
 
-        /// @brief set time begin
-        /// @throw InvalidArgument if begin time isn't valid
-        void setBegin(SUMOTime begin);
-
-        /// @brief set time end
-        /// @throw InvalidArgument if end time isn't valid
-        void setEnd(SUMOTime end);
-
     private:
-        /// @brief begin of interval
-        SUMOTime myBegin;
-
-        /// @brief end of interval
-        SUMOTime myEnd;
-
         /// @brief vector with the closingReroutes
         std::vector<closingReroute*> myClosingReroutes;
 
@@ -240,9 +226,10 @@ public:
      * @param[in] filename The path to the definition file
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
+     * @param[in] rerouterIntervals set with the rerouter intervals
      * @param[in] blocked set initial blocking state of item
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, bool blocked);
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<rerouterInterval> &rerouterIntervals, bool blocked);
 
     /// @brief Destructor
     ~GNERerouter();
@@ -341,6 +328,9 @@ protected:
 
     /// @brief attribute to enable or disable inactive initially
     bool myOff;
+
+    /// @brief set with the rerouterInterval
+    std::set<rerouterInterval> myRerouterIntervals;
 
 private:
     /// @brief variable to save rerouter icon

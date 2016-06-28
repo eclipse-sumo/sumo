@@ -237,8 +237,7 @@ GNERerouter::routeProbReroute::setProbability(SUMOReal probability) {
 // ---------------------------------------------------------------------------
 
 GNERerouter::rerouterInterval::rerouterInterval(SUMOTime begin, SUMOTime end) :
-    myBegin(begin),
-    myEnd(end) {
+    std::pair<SUMOTime, SUMOTime>(begin, end) {
 }
 
 
@@ -329,13 +328,13 @@ GNERerouter::rerouterInterval::removeRouteProbReroute(GNERerouter::routeProbRero
 
 SUMOTime
 GNERerouter::rerouterInterval::getBegin() const {
-    return myBegin;
+    return first;
 }
 
 
 SUMOTime
 GNERerouter::rerouterInterval::getEnd() const {
-    return myEnd;
+    return second;
 }
 
 
@@ -357,34 +356,16 @@ GNERerouter::rerouterInterval::getRouteProbReroutes() const {
 }
 
 
-void
-GNERerouter::rerouterInterval::setBegin(SUMOTime begin) {
-    if(begin >= 0 && begin >= myEnd) {
-        myBegin = begin;
-    } else {
-        throw InvalidArgument("Begin time isn't valid");
-    }
-}
-
-
-void
-GNERerouter::rerouterInterval::setEnd(SUMOTime end) {
-    if(end >= 0 && myBegin >= end) {
-        myEnd = end;
-    } else {
-        throw InvalidArgument("End time isn't valid");
-    }
-}
-
 // ---------------------------------------------------------------------------
 // GNERerouter - methods
 // ---------------------------------------------------------------------------
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, bool blocked) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<rerouterInterval> &rerouterIntervals, bool blocked) :
     GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_REROUTER, blocked, std::vector<GNEAdditional*>(), edges),
     myFilename(filename),
     myProbability(probability),
-    myOff(off) {
+    myOff(off),
+    myRerouterIntervals(rerouterIntervals) {
     // Update geometry;
     updateGeometry();
     // Set colors

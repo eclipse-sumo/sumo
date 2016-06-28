@@ -66,12 +66,13 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, bool blocked) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, const std::map<std::string, CalibratorFlow> &flowValues, bool blocked) :
     GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, NULL, blocked),
     myEdge(edge),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(NULL) /** change this in the future **/ {
+    myRouteProbe(NULL), /** change this in the future **/ 
+    myFlowValues(flowValues) {
     // Update geometry;
     updateGeometry();
     // Set Colors
