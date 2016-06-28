@@ -505,6 +505,8 @@
 // list of not allowed vehicle classes (get&set: lanes)
 #define LANE_DISALLOWED 0x35
 
+// slope (get: edge, lane, vehicle, person)
+#define VAR_SLOPE 0x36
 
 // speed (get: vehicle)
 #define VAR_SPEED 0x40
