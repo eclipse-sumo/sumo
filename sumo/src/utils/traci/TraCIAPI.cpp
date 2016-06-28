@@ -1883,6 +1883,12 @@ TraCIAPI::VehicleScope::getWaitingTime(const std::string& vehID) const {
 }
 
 
+int
+TraCIAPI::VehicleScope::getSpeedMode(const std::string& vehID) const {
+    return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_SPEEDSETMODE, vehID);
+}
+
+
 std::vector<TraCIAPI::VehicleScope::NextTLSData>
 TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     tcpip::Storage inMsg;

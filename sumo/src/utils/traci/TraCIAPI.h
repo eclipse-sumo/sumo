@@ -731,6 +731,7 @@ public:
         unsigned int getSignalStates(const std::string& vehicleID) const;
         SUMOReal getWaitingTime(const std::string& vehicleID) const;
         std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
+        int getSpeedMode(const std::string& vehicleID) const;
 
         /* /// not yet implemented
         SUMOReal getCO2Emissions(const std::string& vehicleID) const;

@@ -51,6 +51,8 @@ output:visible boundary
 output:uncheck:
 output:@@[^@]*@@
 output:data\\{REPLACE data/}
+output:Could not connect to TraCI server
+output:Retrying in
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->

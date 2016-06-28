@@ -102,6 +102,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_SPEED_DEVIATION: Storage.readDouble,
                       tc.VAR_EMISSIONCLASS:   Storage.readString,
                       tc.VAR_WAITING_TIME:    Storage.readDouble,
+                      tc.VAR_SPEEDSETMODE:    Storage.readInt,
                       tc.VAR_WIDTH:           Storage.readDouble,
                       tc.VAR_MINGAP:          Storage.readDouble,
                       tc.VAR_SHAPECLASS:      Storage.readString,
@@ -383,6 +384,12 @@ class VehicleDomain(Domain):
         (basically, the waiting time of a vehicle is reset to 0 every time it moves). 
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, vehID)
+
+    def getSpeedMode (self, vehID):
+        """getSpeedMode -> int
+        The speed mode of a vehicle 
+        """
+        return self._getUniversal(tc.VAR_SPEEDSETMODE, vehID)
 
     def getWidth(self, vehID):
         """getWidth(string) -> double

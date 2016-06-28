@@ -1123,6 +1123,8 @@ public:
          */
         void setLaneTimeLine(const std::vector<std::pair<SUMOTime, unsigned int> >& laneTimeLine);
 
+        /// @brief return the current speed mode
+        int getSpeedMode() const;
 
         /** @brief Applies stored velocity information on the speed to use
          *

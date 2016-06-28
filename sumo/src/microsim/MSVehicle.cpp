@@ -255,6 +255,16 @@ MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, uns
 }
 
 
+int
+MSVehicle::Influencer::getSpeedMode() const {
+    return (1 * myConsiderSafeVelocity +
+            2 * myConsiderMaxAcceleration +
+            4 * myConsiderMaxDeceleration +
+            8 * myRespectJunctionPriority +
+            16 * myEmergencyBrakeRedLight);
+}
+
+
 SUMOReal
 MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax) {
     // keep original speed
