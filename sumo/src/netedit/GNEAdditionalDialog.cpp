@@ -37,6 +37,20 @@
 #include <foreign/nvwa/debug_new.h>
 #endif
 
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEAdditionalDialog) GNEAdditionalDialogMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT, GNEAdditionalDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, GNEAdditionalDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONALDIALOG_RESET,  GNEAdditionalDialog::onCmdReset),
+};
+
+// Object abstract implementation
+FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXDialogBox, GNEAdditionalDialogMap, ARRAYNUMBER(GNEAdditionalDialogMap))
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================

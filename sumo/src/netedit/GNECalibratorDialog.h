@@ -4,7 +4,7 @@
 /// @date    Jun 2016
 /// @version $Id$
 ///
-/// Dialog for edit rerouters
+/// Dialog for edit calibrators
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -39,9 +39,8 @@
 
 /**
  * @class GNECalibratorDialog
- * @brief Dialog for edit rerouters
+ * @brief Dialog for edit calibrators
  */
-
 class GNECalibratorDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNECalibratorDialog)
@@ -80,13 +79,19 @@ protected:
     GNECalibrator *myCalibratorParent;
 
     /// @brief Map with the temporal FlowValues
-    std::map<std::pair<SUMOTime, SUMOTime>, GNECalibrator::CalibratorFlow> myFlowValues;
+    std::map<std::string, GNECalibrator::CalibratorFlow> myFlowValues;
 
     /// @brief Table with the data
     FXTable *myDataList;
 
     /// @brief textField for insert a flow's Id
     FXTextField *myTextFieldId;
+
+    /// @brief textField for insert a flow's begin
+    FXTextField *myTextFieldBegin;
+
+    /// @brief textField for insert a flow's end
+    FXTextField *myTextFieldEnd;
 
     /// @brief textField for insert a flow's Type
     FXTextField *myTextFieldType;
@@ -134,7 +139,7 @@ protected:
     FXTextField *myTextFieldProbability;
 
     /// @brief textField for insert a flow's number
-    FXTextField *myTextFieldnumber;
+    FXTextField *myTextFieldNumber;
 
     /// @brief Button for insert row
     FXButton *myAddRow;

@@ -71,13 +71,13 @@ GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSigna
     myRowFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_FILL_X);
 
     // create Text field for the timeStep
-    myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_X);
+    myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for the speed
-    myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, LAYOUT_FILL_X);
+    myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Button for insert row
-    myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGNAL_ADDROW);
+    myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGNAL_ADDROW, FRAME_THICK);
 
     // Get values of variable speed signal
     myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();

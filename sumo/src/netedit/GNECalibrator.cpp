@@ -124,6 +124,7 @@ GNECalibrator::getPositionInView() const {
 
 void 
 GNECalibrator::openAdditionalDialog() {
+    // Open calibrator dialog
     GNECalibratorDialog calibratorDialog(this);
 }
 
@@ -139,19 +140,64 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string &currentD
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
+    // Write all flows of this calibrator
+    for (std::map<std::string, CalibratorFlow>::iterator i = myFlowValues.begin(); i != myFlowValues.end(); ++i) {
+        // Open flow tag
+        device.openTag(SUMO_TAG_FLOW);
+        // Write ID
+        device.writeAttr(SUMO_ATTR_ID, i->first);
+        // Write begin
+        device.writeAttr(SUMO_ATTR_BEGIN, i->second.begin);
+        // Write nd
+        device.writeAttr(SUMO_ATTR_END, i->second.end);
+        // Write type
+        device.writeAttr(SUMO_ATTR_TYPE, i->second.type);
+        // Write route
+        device.writeAttr(SUMO_ATTR_ROUTE, i->second.route);
+        // Write color
+        device.writeAttr(SUMO_ATTR_COLOR, i->second.color);
+        // Write depart lane
+        device.writeAttr(SUMO_ATTR_DEPARTLANE, i->second.departLane);
+        // Write depart pos
+        device.writeAttr(SUMO_ATTR_DEPARTPOS, i->second.departPos);
+        // Write depart speed
+        device.writeAttr(SUMO_ATTR_DEPARTSPEED, i->second.departSpeed);
+        // Write arrival lane
+        device.writeAttr(SUMO_ATTR_ARRIVALLANE, i->second.arrivalLane);
+        // Write arrival pos
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, i->second.arrivalPos);
+        // Write arrival speed
+        device.writeAttr(SUMO_ATTR_ARRIVALSPEED, i->second.arrivalSpeed);
+        // Write line
+        device.writeAttr(SUMO_ATTR_LINE, i->second.line);
+        // Write person number
+        device.writeAttr(SUMO_ATTR_NUMBER, i->second.personNumber);
+        // Write container number
+        device.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, i->second.containerNumber);
+        // Write vehsPerHour
+        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, i->second.vehsPerHour);
+        // Write period
+        device.writeAttr(SUMO_ATTR_PERIOD, i->second.period);
+        // Write probability
+        device.writeAttr(SUMO_ATTR_PROB, i->second.probability);
+        // Write number
+        device.writeAttr(SUMO_ATTR_NUMBER, i->second.number);
+        // Close flow tag
+        device.closeTag();
+    }
     // Close tag
     device.closeTag();
 }
 
 
-std::map<std::pair<SUMOTime, SUMOTime>, GNECalibrator::CalibratorFlow> 
+std::map<std::string, GNECalibrator::CalibratorFlow> 
 GNECalibrator::getFlowValues() const {
     return myFlowValues;
 }
 
 
 void 
-GNECalibrator::setFlowValues(std::map<std::pair<SUMOTime, SUMOTime>, GNECalibrator::CalibratorFlow> calibratorFlowValues) {
+GNECalibrator::setFlowValues(std::map<std::string, GNECalibrator::CalibratorFlow> calibratorFlowValues) {
     myFlowValues = calibratorFlowValues;
 }
 

@@ -50,8 +50,7 @@ public:
 
     /// @brief calibrator flow 
     struct CalibratorFlow {
-        // Parmeters of vehicles
-        std::string id;
+        // Parameters of vehicles
         std::string type;
         std::string route;
         std::string	color;
@@ -65,6 +64,8 @@ public:
         int personNumber;
         int containerNumber;
         // Parameters of flows
+        SUMOTime begin;
+        SUMOTime end;
         SUMOReal vehsPerHour;
         SUMOReal period;
         SUMOReal probability;
@@ -107,10 +108,10 @@ public:
     void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
 
     /// @brief get Calbratorflow values
-    std::map<std::pair<SUMOTime, SUMOTime>, CalibratorFlow> getFlowValues() const;
+    std::map<std::string, CalibratorFlow> getFlowValues() const;
 
     /// @brief set Calbratorflow values
-    void setFlowValues(std::map<std::pair<SUMOTime, SUMOTime>, CalibratorFlow> calibratorFlowValues);
+    void setFlowValues(std::map<std::string, CalibratorFlow> calibratorFlowValues);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -162,7 +163,7 @@ protected:
     GNERouteProbe* myRouteProbe;
 
     /// @brief Calbratorflow values
-    std::map<std::pair<SUMOTime, SUMOTime>, CalibratorFlow> myFlowValues;
+    std::map<std::string, CalibratorFlow> myFlowValues;
 
 private:
     /// @brief set attribute after validation

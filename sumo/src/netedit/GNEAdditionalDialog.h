@@ -47,8 +47,10 @@ class GNEAdditional;
  * @class GNEAdditionalDialog
  * @brief Dialog to edit sequences, parameters, etc.. of Additionals
  */
-
 class GNEAdditionalDialog : public FXDialogBox {
+    /// @brief FOX-declaration abstract
+    FXDECLARE_ABSTRACT(GNEAdditionalDialog)
+
 public:
     // Constructor
     GNEAdditionalDialog(GNEAdditional *parent, int width, int height);
