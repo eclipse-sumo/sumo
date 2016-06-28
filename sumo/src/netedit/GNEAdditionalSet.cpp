@@ -69,18 +69,18 @@
 GNEAdditionalSet::GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, bool blocked, std::vector<GNEAdditional*> additionalChilds, std::vector<GNEEdge*> edgeChilds, std::vector<GNELane*> laneChilds) :
     GNEAdditional(id, viewNet, pos, tag, NULL, blocked) {
     // Insert additionals
-    for(int i = 0; i < additionalChilds.size(); i++) {
+    for (int i = 0; i < (int)additionalChilds.size(); i++) {
         addAdditionalChild(additionalChilds.at(i));
     }
     // Insert edges
-    for(int i = 0; i < edgeChilds.size(); i++) {
+    for (int i = 0; i < (int)edgeChilds.size(); i++) {
         edgeChilds.at(i)->addAdditionalSet(this);
         edgeChild myEdgeChild;
         myEdgeChild.edge = edgeChilds.at(i);
         myChildEdges.push_back(myEdgeChild);
     }
     // Insert lanes
-    for(int i = 0; i < laneChilds.size(); i++) {
+    for (int i = 0; i < (int)laneChilds.size(); i++) {
         laneChilds.at(i)->addAdditionalSet(this);
         laneChild myLaneChild;
         myLaneChild.lane = laneChilds.at(i);
@@ -212,7 +212,7 @@ GNEAdditionalSet::updateConnections() {
         i->positionsOverLanes.clear();
         i->rotationsOverLanes.clear();
         // Calculate position and rotation of every lane
-        for(int j = 0; j < i->edge->getLanes().size(); j++) {
+        for(int j = 0; j < (int)i->edge->getLanes().size(); j++) {
             i->positionsOverLanes.push_back(i->edge->getLanes().at(j)->getShape().positionAtOffset(i->edge->getLanes().at(j)->getShape().length() - 10));
             i->rotationsOverLanes.push_back(i->edge->getLanes().at(j)->getShape().rotationDegreeAtOffset(i->edge->getLanes().at(j)->getShape().length() - 10) * -1);
         }
@@ -319,7 +319,7 @@ GNEAdditionalSet::getAdditionalChildIds() const {
     std::vector<std::string> vectorOfAdditionalsIds;
     vectorOfAdditionalsIds.resize(myChildAdditionals.size());
     // Save Ids
-    for(int i = 0; i < myChildAdditionals.size(); i++) {
+    for (int i = 0; i < (int)myChildAdditionals.size(); i++) {
         vectorOfAdditionalsIds[i] = myChildAdditionals.at(i)->getID();
     }
     return vectorOfAdditionalsIds;
@@ -332,7 +332,7 @@ GNEAdditionalSet::getEdgeChildIds() const {
     std::vector<std::string> vectorOfEdgesIds;
     vectorOfEdgesIds.resize(myChildEdges.size());
     // Save Ids
-    for(int i = 0; i < myChildEdges.size(); i++) {
+    for (int i = 0; i < (int)myChildEdges.size(); i++) {
         vectorOfEdgesIds[i] = myChildEdges.at(i).edge->getID();
     }
     return vectorOfEdgesIds;
@@ -345,7 +345,7 @@ GNEAdditionalSet::getLaneChildIds() const {
     std::vector<std::string> vectorOfLanesIds;
     vectorOfLanesIds.resize(myChildLanes.size());
     // Save Ids
-    for(int i = 0; i < myChildLanes.size(); i++) {
+    for(int i = 0; i < (int)myChildLanes.size(); i++) {
         vectorOfLanesIds[i] = myChildLanes.at(i).lane->getID();
     }
     return vectorOfLanesIds;
