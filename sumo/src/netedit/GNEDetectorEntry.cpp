@@ -145,10 +145,11 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set initial values
-    if(isAdditionalSelected())
+    if(isAdditionalSelected()) {
         glColor3d(myBaseColorSelected.red(), myBaseColorSelected.green(), myBaseColorSelected.blue());
-    else
+    } else {
         glColor3d(myBaseColor.red(), myBaseColor.green(), myBaseColor.blue());
+    }
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 

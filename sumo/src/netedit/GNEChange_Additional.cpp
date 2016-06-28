@@ -57,8 +57,9 @@ GNEChange_Additional::GNEChange_Additional(GNENet* net, GNEAdditional* additiona
 GNEChange_Additional::~GNEChange_Additional() {
     assert(myAdditional);
     myAdditional->decRef("GNEChange_Additional");
-    if (myAdditional->unreferenced())
+    if (myAdditional->unreferenced()) {
         delete myAdditional;
+    }
 }
 
 
@@ -81,16 +82,18 @@ void GNEChange_Additional::redo() {
 
 
 FXString GNEChange_Additional::undoName() const {
-    if (myForward)
+    if (myForward) {
         return ("Undo create additional");
-    else
+    } else {
         return ("Undo delete additional");
+    }
 }
 
 
 FXString GNEChange_Additional::redoName() const {
-    if (myForward)
+    if (myForward) {
         return ("Redo create additional");
-    else
+    } else {
         return ("Redo delete additional");
+    }
 }

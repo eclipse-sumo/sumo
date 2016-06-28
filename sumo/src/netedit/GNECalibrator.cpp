@@ -270,10 +270,11 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
-            if(myRouteProbe)
+            if(myRouteProbe) {
                 return myRouteProbe->getID();
-            else
+            } else {
                 return "";
+            }
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -315,10 +316,11 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return isValidFileValue(value);
         case SUMO_ATTR_ROUTEPROBE:
-            if(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL)
+            if(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL) {
                 return true;
-            else
+            } else {
                 return false;
+            }
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }

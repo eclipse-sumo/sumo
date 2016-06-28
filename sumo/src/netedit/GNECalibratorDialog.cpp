@@ -151,30 +151,34 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     std::string id = myTextFieldId->getText().text();
 
     // set Start
-    if(myTextFieldBegin->getText().empty())
+    if(myTextFieldBegin->getText().empty()) {
         return 0;
-    else
+    } else {
         // @todo SUMOTIME
         calibratorFlow.begin = TplConvert::_str2int(myTextFieldBegin->getText().text());
+    }
     
     // set End
-    if(myTextFieldEnd->getText().empty())
+    if(myTextFieldEnd->getText().empty()) {
         return 0;
-    else
+    } else {
         // @todo SUMOTIME
         calibratorFlow.end = TplConvert::_str2int(myTextFieldEnd->getText().text());
+    }
     
     // set Type
-    if(myTextFieldType->getText().empty())
+    if(myTextFieldType->getText().empty()) {
         return 0;
-    else
+    } else {
         calibratorFlow.type = myTextFieldType->getText().text();
+    }
     
     // set Route
-    if(myTextFieldType->getText().empty())
+    if(myTextFieldType->getText().empty()) {
         return 0;
-    else
+    } else {
         calibratorFlow.route = myTextFieldRoute->getText().text();
+    }
     
     // Set color
     calibratorFlow.color = myTextFieldColor->getText().text();
@@ -219,10 +223,11 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     calibratorFlow.number = TplConvert::_str2int(myTextFieldNumber->getText().text());
 
     // Set new time and their speed if don't exist already a flow with the same ID
-    if(myFlowValues.find(id) == myFlowValues.end())
+    if(myFlowValues.find(id) == myFlowValues.end()) {
         myFlowValues[id] = calibratorFlow;
-    else
+    } else {
         return 0;
+    }
 
     // Update table
     updateTable();
@@ -233,7 +238,7 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
 long 
 GNECalibratorDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     // Iterate over rows to find the row to erase
-    for(int i = 0; i < myDataList->getNumRows(); i++)
+    for(int i = 0; i < myDataList->getNumRows(); i++) {
         if(myDataList->getItem(i, 19)->isSelected()) {
             // Remove element of table and map
             myFlowValues.erase(myDataList->getItem(i, 0)->getText().text());
@@ -242,6 +247,7 @@ GNECalibratorDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
             updateTable();
             return 1;
         }
+    }
     return 0;
 }
 

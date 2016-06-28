@@ -131,10 +131,11 @@ GNEChargingStation::updateGeometry() {
     PositionVector tmpShape = myShape;
 
     // Move shape to side
-    if(myRotationLefthand)
+    if(myRotationLefthand) {
         tmpShape.move2side(-1.5);
-    else
+    } else {
         tmpShape.move2side(1.5);
+    }
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
@@ -156,10 +157,11 @@ GNEChargingStation::writeAdditional(OutputDevice& device, const std::string &cur
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     device.writeAttr(SUMO_ATTR_CHARGINGPOWER, myChargingPower);
     device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
-    if(myChargeInTransit)
+    if(myChargeInTransit) {
         device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, "true");
-    else
+    } else {
         device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, "false");
+    }
     device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
     // Close tag
     device.closeTag();
@@ -453,10 +455,11 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEfficiency = parse<SUMOReal>(value);
             break;
         case SUMO_ATTR_CHARGEINTRANSIT:
-            if(value == "true")
+            if(value == "true") {
                 myChargeInTransit = true;
-            else
+            } else {
                 myChargeInTransit = false;
+            }
             break;
         case SUMO_ATTR_CHARGEDELAY:
             myChargeDelay = parse<int>(value);

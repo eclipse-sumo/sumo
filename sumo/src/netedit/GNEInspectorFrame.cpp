@@ -90,8 +90,9 @@ GNEInspectorFrame::GNEInspectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     myGroupBoxForAttributes->hide();
 
     // Create AttrInput
-    for(int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++)
+    for(int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         vectorOfAttrInput.push_back(new AttrInput(myGroupBoxForAttributes, this));
+    }
 
     // Create groupBox for templates
     myGroupBoxForTemplates = new FXGroupBox(myContentFrame, "templates", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
@@ -151,16 +152,18 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
     if (myACs.size() > 0) {
         // Set header
         std::string headerString = toString(myACs.front()->getTag());
-        if (myACs.size() > 1)
+        if (myACs.size() > 1) {
             headerString = toString(myACs.size()) + " " + headerString + "s";
+        }
         getFrameHeaderLabel()->setText(headerString.c_str());
         
         //Show myGroupBoxForAttributes
         myGroupBoxForAttributes->show();
 
         // Hide all AttrInput
-        for(std::vector<GNEInspectorFrame::AttrInput*>::iterator i = vectorOfAttrInput.begin(); i != vectorOfAttrInput.end(); i++)
+        for(std::vector<GNEInspectorFrame::AttrInput*>::iterator i = vectorOfAttrInput.begin(); i != vectorOfAttrInput.end(); i++) {
            (*i)->hiddeAttribute();
+        }
         
         // Gets attributes of element
         const std::vector<SumoXMLAttr>& attrs = myACs.front()->getAttrs();
@@ -200,8 +203,9 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
             // show "Copy Template" (caption supplied via onUpdate)
             myCopyTemplateButton->show();
             // show "Set As Template"
-            if (myACs.size() == 1)
+            if (myACs.size() == 1) {
                 mySetTemplateButton->show();
+            }
         } else {
             // Hidde all template elements
             myGroupBoxForTemplates->hide();
@@ -352,10 +356,11 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
     // Set field depending of the type of value
     if(GNEAttributeCarrier::isBool(myAttr)) {
         // set value of checkbox
-        if(value == "true")
+        if(value == "true") {
             myCheckBox->setCheck(true);
-        else
+        } else {
             myCheckBox->setCheck(false);
+        }
         myCheckBox->show();
     } else if(GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
@@ -374,8 +379,9 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
         } else {
             // fill comboBox
             myChoicesCombo->clearItems();
-            for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it)
+            for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
                 myChoicesCombo->appendItem(it->c_str());
+            }
             myChoicesCombo->setNumVisible((int)choices.size());
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
             myChoicesCombo->show();
@@ -443,29 +449,32 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // First, obtain the string value of the new attribute depending of their type
     if(GNEAttributeCarrier::isBool(myAttr)) {
         // Set true o false depending of the checBox
-        if(myCheckBox->getCheck())
+        if(myCheckBox->getCheck()) {
             newVal = "true";
-        else
+        } else {
             newVal = "false";
+        }
     } else if(GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
         const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
         // Check if are combinable coices
-        if(choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr))
+        if(choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
             // Get value obtained using AttrEditor
             newVal = myTextFieldStrings->getText().text();
-        else
+        } else {
             // Get value of ComboBox
             newVal = myChoicesCombo->getText().text();
-    } else if(GNEAttributeCarrier::isFloat(myAttr))
+        }
+    } else if(GNEAttributeCarrier::isFloat(myAttr)) {
         // obtain value of myTextFieldReal
         newVal = myTextFieldReal->getText().text();
-    else if(GNEAttributeCarrier::isInt(myAttr))
+    } else if(GNEAttributeCarrier::isInt(myAttr)) {
         // obtain value of myTextFieldInt
         newVal = myTextFieldInt->getText().text();
-    else if(GNEAttributeCarrier::isString(myAttr))
+    } else if(GNEAttributeCarrier::isString(myAttr)) {
         // obtain value of myTextFieldStrings
         newVal = myTextFieldStrings->getText().text();
+    }
 
     // Check if newvalue is valid 
     if (myInspectorFrameParent->getACs().front()->isValid(myAttr, newVal)) {
@@ -474,8 +483,9 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
             myInspectorFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
         // Set all attributes
-        for (std::vector<GNEAttributeCarrier*>::const_iterator it_ac = myInspectorFrameParent->getACs().begin(); it_ac != myInspectorFrameParent->getACs().end(); it_ac++)
+        for (std::vector<GNEAttributeCarrier*>::const_iterator it_ac = myInspectorFrameParent->getACs().begin(); it_ac != myInspectorFrameParent->getACs().end(); it_ac++) {
             (*it_ac)->setAttribute(myAttr, newVal, myInspectorFrameParent->getViewNet()->getUndoList());
+        }
         if (myInspectorFrameParent->getACs().size() > 1) {
             myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
@@ -492,12 +502,13 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
         }
     } else {
         // IF value of TextField isn't valid, change color to Red depending of type
-        if(GNEAttributeCarrier::isFloat(myAttr) && myTextFieldStrings != 0)
+        if(GNEAttributeCarrier::isFloat(myAttr) && myTextFieldStrings != 0) {
             myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
-        else if(GNEAttributeCarrier::isInt(myAttr) && myTextFieldStrings != 0)
+        } else if(GNEAttributeCarrier::isInt(myAttr) && myTextFieldStrings != 0) { 
             myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
-        else if (GNEAttributeCarrier::isString(myAttr) && myTextFieldStrings != 0)
+        } else if (GNEAttributeCarrier::isString(myAttr) && myTextFieldStrings != 0) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+        }
     }
     // Update view net
     myInspectorFrameParent->getViewNet()->update();
@@ -541,8 +552,9 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput *attrInputParent, FXTextFiel
         // Create checkBox
         myVectorOfCheckBox.at(i) = new FXCheckButton(myCheckBoxMatrix, choices.at(i).c_str());
         // Set initial value
-        if (oldValue.find(choices.at(i)) != std::string::npos)
+        if (oldValue.find(choices.at(i)) != std::string::npos) {
             myVectorOfCheckBox.at(i)->setCheck(true);
+        }
     }
 
     // Add separator
@@ -566,8 +578,9 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput *attrInputParent, FXTextFiel
         // Iterate  over myVectorOfCheckBox
         for (int i = 0; i < myVectorOfCheckBox.size(); i++) {
             // If checkBox is cheked, save attribute
-            if (myVectorOfCheckBox.at(i)->getCheck())
+            if (myVectorOfCheckBox.at(i)->getCheck()) {
                 attrSolution.push_back(std::string(myVectorOfCheckBox.at(i)->getText().text()));
+            }
         }
         // join to string
         myTextFieldAttr->setText(joinToString(attrSolution, " ").c_str());
@@ -587,10 +600,11 @@ GNEInspectorFrame::AttrEditor::onCmdReset(FXObject*, FXSelector, void*) {
     const std::string oldValue = myTextFieldAttr->getText().text();
     // Reset values
     for (int i = 0; i < choices.size(); i++) {
-        if (oldValue.find(choices.at(i)) != std::string::npos)
+        if (oldValue.find(choices.at(i)) != std::string::npos) {
             myVectorOfCheckBox.at(i)->setCheck(true);
-        else
+        } else {
             myVectorOfCheckBox.at(i)->setCheck(false);
+        }
     }
     return 1;
 }

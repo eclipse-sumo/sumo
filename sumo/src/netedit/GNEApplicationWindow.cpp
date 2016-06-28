@@ -165,17 +165,16 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 #ifdef _MSC_VER
 #pragma warning(disable: 4355)
 #endif
-GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
-        const std::string& configPattern)
-    : GUIMainWindow(a),
-      myLoadThread(0),
-      myAmLoading(false),
-      myRecentNets(a, "nets"),
-      myConfigPattern(configPattern),
-      hadDependentBuild(false),
-      myNet(0),
-      myUndoList(new GNEUndoList(this)),
-      myTitlePrefix("NETEDIT " VERSION_STRING) {
+GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) : 
+    GUIMainWindow(a),
+    myLoadThread(0),
+    myAmLoading(false),
+    myRecentNets(a, "nets"),
+    myConfigPattern(configPattern),
+    hadDependentBuild(false),
+    myNet(0),
+    myUndoList(new GNEUndoList(this)),
+    myTitlePrefix("NETEDIT " VERSION_STRING) {
     GUIIconSubSys::init(a);
 }
 #ifdef _MSC_VER
@@ -956,8 +955,7 @@ GNEApplicationWindow::loadOnStartup() {
 
 /*
 long
-GNEApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
-{
+GNEApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*) {
     /
     GUIDialog_CutSwell *about =
         new GUIDialog_CutSwell(this, "Simulating...", 0, 0);
@@ -1187,8 +1185,7 @@ GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myNet == 0 || !OptionsCont::getOptions().isSet("sumo-net-file")
-                   ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myNet == 0 || !OptionsCont::getOptions().isSet("sumo-net-file") ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
     return 1;
 }
 

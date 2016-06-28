@@ -243,8 +243,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         int noPoints = 9;
 
         // If the scale * exaggeration is more than 25, recalculate nº points
-        if (s.scale * exaggeration > 25)
+        if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
+        }
 
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);

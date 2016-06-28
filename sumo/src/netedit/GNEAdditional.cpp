@@ -89,8 +89,9 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
     // Set rotation left hand
     myRotationLefthand = OptionsCont::getOptions().getBool("lefthand");
     // If this additional belongs to a set, add it.
-    if(myAdditionalSetParent)
+    if(myAdditionalSetParent) {
         myAdditionalSetParent->addAdditionalChild(this);
+    }
     // load additional lock, if wasn't already initialized
     if (!myAdditionalLockInitialized) {
         FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Lock, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
@@ -110,8 +111,9 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
 
 GNEAdditional::~GNEAdditional() {
     // If this additional belongs to a set, remove it.
-    if(myAdditionalSetParent)
+    if(myAdditionalSetParent) {
         myAdditionalSetParent->removeAdditionalChild(this); 
+    }
 }
 
 
@@ -241,16 +243,17 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their edge as a ParentName()");
     }else
         new FXMenuCommand(ret, ("position in view: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
-    // Show childs (if this is is an additionalSet)
+    // Show childs if this is is an additionalSet
     GNEAdditionalSet* additionalSet = dynamic_cast<GNEAdditionalSet*>(this);
     if(additionalSet) {
         new FXMenuSeparator(ret);
-        if(additionalSet->getNumberOfAdditionalChilds() > 0)
+        if(additionalSet->getNumberOfAdditionalChilds() > 0) {
             new FXMenuCommand(ret, ("number of additional childs: " + toString(additionalSet->getNumberOfAdditionalChilds())).c_str(), 0, 0, 0);
-        else if(additionalSet->getNumberOfEdgeChilds() > 0)
+        } else if(additionalSet->getNumberOfEdgeChilds() > 0) {
             new FXMenuCommand(ret, ("number of edge childs: " + toString(additionalSet->getNumberOfEdgeChilds())).c_str(), 0, 0, 0);
-        else if(additionalSet->getNumberOfLaneChilds() > 0)
+        } else if(additionalSet->getNumberOfLaneChilds() > 0) {
             new FXMenuCommand(ret, ("number of lane childs: " + toString(additionalSet->getNumberOfLaneChilds())).c_str(), 0, 0, 0);
+        }
     }
     new FXMenuSeparator(ret);
     // let the GNEViewNet store the popup position
@@ -270,10 +273,11 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& paren
     // Iterate over attributes
     for(std::vector<SumoXMLAttr>::iterator i = attributes.begin(); i != attributes.end(); i++) {
         // Add attribute and set it dynamic if aren't unique
-        if(GNEAttributeCarrier::isUnique(*i))
+        if(GNEAttributeCarrier::isUnique(*i)) {
             ret->mkItem(toString(*i).c_str(), false, getAttribute(*i));
-        else
-         ret->mkItem(toString(*i).c_str(), true, getAttribute(*i));
+        } else {
+            ret->mkItem(toString(*i).c_str(), true, getAttribute(*i));
+        }
     }
     /** @TODO complet with the rest of parameters **/
     // close building
@@ -292,15 +296,16 @@ GNEAdditional::getCenteringBoundary() const {
 
 void
 GNEAdditional::setBlockIconRotation(GNELane *lane) {
-    if (myShape.length() != 0)
+    if (myShape.length() != 0) {
         // If lenght of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
-    else if(lane != NULL)
+    } else if(lane != NULL) {
         // If additional is over a lane, set rotation in the position over lane
         myBlockIconRotation = lane->getShape().rotationDegreeAtOffset(lane->getPositionRelativeToParametricLenght(myPosition.x())) - 90;
-    else
+    } else {
         // In other case, rotation is 0
         myBlockIconRotation = 0;
+    }
 }
 
 
@@ -319,10 +324,11 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
     // Traslate depending of the offset
     glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
     // If myBlocked is enable, draw lock, in other case, draw empty square
-    if(myBlocked)
+    if(myBlocked) {
         GUITexturesHelper::drawTexturedBox(myAdditionalLockGlID, size);
-    else
+    } else {
         GUITexturesHelper::drawTexturedBox(myAdditionalEmptyGlID, size);
+    }
     // Pop matrix
     glPopMatrix();
 }

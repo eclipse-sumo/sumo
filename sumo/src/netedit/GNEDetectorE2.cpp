@@ -163,8 +163,9 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, const std::string &currentD
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
-    if(!myFilename.empty())
+    if(!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
     device.writeAttr(SUMO_ATTR_CONT, myCont);
     device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
     device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
@@ -186,10 +187,11 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set color of the base
-    if(isAdditionalSelected())
+    if(isAdditionalSelected()) {
         GLHelper::setColor(myBaseColorSelected);
-    else
+    } else {
         GLHelper::setColor(myBaseColor);
+    }
 
     // Obtain exaggeration of the draw
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);

@@ -51,9 +51,6 @@ class GNEUndoList;
  * Abstract class for lateral frames in NetEdit
  */
 class GNEFrame : public FXScrollWindow {
-    /// @brief FOX-declaration
-    //FXDECLARE(GNEFrame)
-
 public:
     /**@brief Constructor
      * @brief parent FXFrame in which this GNEFrame is placed

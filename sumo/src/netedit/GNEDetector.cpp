@@ -73,8 +73,9 @@ GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag 
 
 
 GNEDetector::~GNEDetector() {
-    if(myLane)
+    if(myLane) {
         myLane->removeAdditional(this);
+    }
 }
 
 
@@ -125,21 +126,23 @@ GNEDetector::getFilename() const {
 
 void
 GNEDetector::setPositionOverLane(SUMOReal pos) {
-    if(pos < 0)
+    if(pos < 0) {
         throw InvalidArgument("Position '" + toString(pos) + "' not allowed. Must be greather than 0");
-    else if(pos > myLane->getLaneShapeLenght())
+    } else if(pos > myLane->getLaneShapeLenght()) {
         throw InvalidArgument("Position '" + toString(pos) + "' not allowed. Must be smaller than lane length");
-    else
+    } else {
         myPosition = Position(pos, 0);
+    }
 }
 
 
 void
 GNEDetector::setFrequency(int freq) {
-    if (freq >= 0)
+    if (freq >= 0) {
         myFreq = freq;
-    else
+    } else {
         throw InvalidArgument("Frequency '" + toString(freq) + "' not allowed. Must be greather than 0");
+    }
 }
 
 

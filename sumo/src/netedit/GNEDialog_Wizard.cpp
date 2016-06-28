@@ -69,8 +69,8 @@ FXIMPLEMENT(GNEDialog_Wizard::InputFloat, FXHorizontalFrame, InputFloatMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int width, int height)
-    : FXDialogBox(parent, name, DECOR_CLOSE | DECOR_TITLE, 0, 0, width, height) {
+GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int width, int height) :
+    FXDialogBox(parent, name, DECOR_CLOSE | DECOR_TITLE, 0, 0, width, height) {
     OptionsCont& oc = OptionsCont::getOptions();
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
 

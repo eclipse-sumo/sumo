@@ -61,16 +61,12 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw,
-                             MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
-    : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
-      myEventThrow(ev) {
-    myErrorRetriever = new MsgRetrievingFunction<GNELoadThread>(this,
-            &GNELoadThread::retrieveMessage, MsgHandler::MT_ERROR);
-    myMessageRetriever = new MsgRetrievingFunction<GNELoadThread>(this,
-            &GNELoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
-    myWarningRetriever = new MsgRetrievingFunction<GNELoadThread>(this,
-            &GNELoadThread::retrieveMessage, MsgHandler::MT_WARNING);
+GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev) : 
+    FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
+    myEventThrow(ev) {
+    myErrorRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_ERROR);
+    myMessageRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
+    myWarningRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_WARNING);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
 }
 

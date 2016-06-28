@@ -94,9 +94,11 @@ GNERerouter::closingReroute::~closingReroute() {
 void
 GNERerouter::closingReroute::insertAllowVehicle(std::string vehicleid) {
     // Check if was already inserted
-    for(std::vector<std::string>::iterator i = myAllowVehicles.begin(); i != myAllowVehicles.end(); i++)
-        if((*i) == vehicleid)
+    for(std::vector<std::string>::iterator i = myAllowVehicles.begin(); i != myAllowVehicles.end(); i++) {
+        if((*i) == vehicleid) {
             throw ProcessError(vehicleid + " already inserted");
+        }
+    }
     // insert in vector
     myAllowVehicles.push_back(vehicleid);
 }
@@ -105,11 +107,12 @@ GNERerouter::closingReroute::insertAllowVehicle(std::string vehicleid) {
 void
 GNERerouter::closingReroute::removeAllowVehicle(std::string vehicleid) {
     // find and remove
-    for(std::vector<std::string>::iterator i = myAllowVehicles.begin(); i != myAllowVehicles.end(); i++)
+    for(std::vector<std::string>::iterator i = myAllowVehicles.begin(); i != myAllowVehicles.end(); i++) {
         if((*i) == vehicleid) {
             myAllowVehicles.erase(i);
             return;
         }
+    }
     // Throw error if don't exist
     throw ProcessError(vehicleid + " not exist");
 }
@@ -118,9 +121,11 @@ GNERerouter::closingReroute::removeAllowVehicle(std::string vehicleid) {
 void
 GNERerouter::closingReroute::insertDisallowVehicle(std::string vehicleid) {
     // Check if was already inserted
-    for(std::vector<std::string>::iterator i = myDisallowVehicles.begin(); i != myDisallowVehicles.end(); i++)
-        if((*i) == vehicleid)
+    for(std::vector<std::string>::iterator i = myDisallowVehicles.begin(); i != myDisallowVehicles.end(); i++) {
+        if((*i) == vehicleid) {
             throw ProcessError(vehicleid + " already inserted");
+        }
+    }
     // insert in vector
     myDisallowVehicles.push_back(vehicleid);
 }
@@ -129,11 +134,12 @@ GNERerouter::closingReroute::insertDisallowVehicle(std::string vehicleid) {
 void
 GNERerouter::closingReroute::removeDisallowVehicle(std::string vehicleid) {
     // find and remove
-    for(std::vector<std::string>::iterator i = myDisallowVehicles.begin(); i != myDisallowVehicles.end(); i++)
+    for(std::vector<std::string>::iterator i = myDisallowVehicles.begin(); i != myDisallowVehicles.end(); i++) {
         if((*i) == vehicleid) {
             myDisallowVehicles.erase(i);
             return;
         }
+    }
     // Throw error if don't exist
     throw ProcessError(vehicleid + " not exist");
 }
@@ -184,10 +190,11 @@ GNERerouter::destProbReroute::getProbability() const {
 
 void
 GNERerouter::destProbReroute::setProbability(SUMOReal probability) {
-    if(probability >= 0 && probability <= 1)
+    if(probability >= 0 && probability <= 1) {
         myProbability = probability;
-    else
+    } else {
         throw InvalidArgument(toString(probability) + " isn't a probability");
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -218,10 +225,11 @@ GNERerouter::routeProbReroute::getProbability() const {
 
 void
 GNERerouter::routeProbReroute::setProbability(SUMOReal probability) {
-    if(probability >= 0 && probability <= 1)
+    if(probability >= 0 && probability <= 1) {
         myProbability = probability;
-    else
+    } else {
         throw InvalidArgument(toString(probability) + " isn't a probability");
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -241,9 +249,11 @@ GNERerouter::rerouterInterval::~rerouterInterval() {
 void
 GNERerouter::rerouterInterval::insertClosingReroutes(GNERerouter::closingReroute *cr) {
     // Check if was already inserted
-    for(std::vector<closingReroute*>::iterator i = myClosingReroutes.begin(); i != myClosingReroutes.end(); i++)
-        if((*i) == cr)
+    for(std::vector<closingReroute*>::iterator i = myClosingReroutes.begin(); i != myClosingReroutes.end(); i++) {
+        if((*i) == cr) {
             throw ProcessError("closing reroute " + cr->getClosedEdgeId() + " already inserted");
+        }
+    }
     // insert in vector
     myClosingReroutes.push_back(cr);
 }
@@ -252,11 +262,12 @@ GNERerouter::rerouterInterval::insertClosingReroutes(GNERerouter::closingReroute
 void
 GNERerouter::rerouterInterval::removeClosingReroutes(GNERerouter::closingReroute *cr) {
     // find and remove
-    for(std::vector<closingReroute*>::iterator i = myClosingReroutes.begin(); i != myClosingReroutes.end(); i++)
+    for(std::vector<closingReroute*>::iterator i = myClosingReroutes.begin(); i != myClosingReroutes.end(); i++) {
         if((*i) == cr) {
             myClosingReroutes.erase(i);
             return;
         }
+    }
     // Throw error if don't exist
     throw ProcessError("closing reroute " + cr->getClosedEdgeId() + " not exist");
 }
@@ -265,9 +276,11 @@ GNERerouter::rerouterInterval::removeClosingReroutes(GNERerouter::closingReroute
 void
 GNERerouter::rerouterInterval::insertDestProbReroutes(GNERerouter::destProbReroute *dpr) {
     // Check if was already inserted
-    for(std::vector<destProbReroute*>::iterator i = myDestProbReroutes.begin(); i != myDestProbReroutes.end(); i++)
-        if((*i) == dpr)
+    for(std::vector<destProbReroute*>::iterator i = myDestProbReroutes.begin(); i != myDestProbReroutes.end(); i++) {
+        if((*i) == dpr) {
             throw ProcessError("destiny probability reroute " + dpr->getNewDestinationId() + " already inserted");
+        }
+    }
     // insert in vector
     myDestProbReroutes.push_back(dpr);
 }
@@ -276,11 +289,12 @@ GNERerouter::rerouterInterval::insertDestProbReroutes(GNERerouter::destProbRerou
 void
 GNERerouter::rerouterInterval::removeDestProbReroutes(GNERerouter::destProbReroute *dpr) {
     // find and remove
-    for(std::vector<destProbReroute*>::iterator i = myDestProbReroutes.begin(); i != myDestProbReroutes.end(); i++)
+    for(std::vector<destProbReroute*>::iterator i = myDestProbReroutes.begin(); i != myDestProbReroutes.end(); i++) {
         if((*i) == dpr) {
             myDestProbReroutes.erase(i);
             return;
         }
+    }
     // Throw error if don't exist
     throw ProcessError("destiny probability reroute " + dpr->getNewDestinationId() + " not exist");
 }
@@ -289,9 +303,11 @@ GNERerouter::rerouterInterval::removeDestProbReroutes(GNERerouter::destProbRerou
 void
 GNERerouter::rerouterInterval::insertRouteProbReroute(GNERerouter::routeProbReroute *rpr) {
     // Check if was already inserted
-    for(std::vector<routeProbReroute*>::iterator i = myRouteProbReroutes.begin(); i != myRouteProbReroutes.end(); i++)
-        if((*i) == rpr)
+    for(std::vector<routeProbReroute*>::iterator i = myRouteProbReroutes.begin(); i != myRouteProbReroutes.end(); i++) {
+        if((*i) == rpr) {
             throw ProcessError("route probability reroute " + rpr->getNewRouteId() + " already inserted");
+        }
+    }
     // insert in vector
     myRouteProbReroutes.push_back(rpr);
 }
@@ -300,11 +316,12 @@ GNERerouter::rerouterInterval::insertRouteProbReroute(GNERerouter::routeProbRero
 void
 GNERerouter::rerouterInterval::removeRouteProbReroute(GNERerouter::routeProbReroute *rpr) {
     // find and remove
-    for(std::vector<routeProbReroute*>::iterator i = myRouteProbReroutes.begin(); i != myRouteProbReroutes.end(); i++)
+    for(std::vector<routeProbReroute*>::iterator i = myRouteProbReroutes.begin(); i != myRouteProbReroutes.end(); i++) {
         if((*i) == rpr) {
             myRouteProbReroutes.erase(i);
             return;
         }
+    }
     // Throw error if don't exist
     throw ProcessError("route probability reroute " + rpr->getNewRouteId() + " not exist");
 }
@@ -342,19 +359,21 @@ GNERerouter::rerouterInterval::getRouteProbReroutes() const {
 
 void
 GNERerouter::rerouterInterval::setBegin(SUMOTime begin) {
-    if(begin >= 0 && begin >= myEnd)
+    if(begin >= 0 && begin >= myEnd) {
         myBegin = begin;
-    else
-        throw InvalidArgument("Begin time not valid");
+    } else {
+        throw InvalidArgument("Begin time isn't valid");
+    }
 }
 
 
 void
 GNERerouter::rerouterInterval::setEnd(SUMOTime end) {
-    if(end >= 0 && myBegin >= end)
+    if(end >= 0 && myBegin >= end) {
         myEnd = end;
-    else
-        throw InvalidArgument("Begin time not valid");
+    } else {
+        throw InvalidArgument("End time isn't valid");
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -443,8 +462,9 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string &currentDir
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_EDGES, joinToString(getEdgeChildIds(), " ").c_str());
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
-    if(!myFilename.empty())
+    if(!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
     // Close tag
@@ -630,12 +650,15 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> edgeIds;
             SUMOSAXAttributes::parseStringVector(value, edgeIds);
             // Empty Edges aren't valid
-            if(edgeIds.empty())
+            if(edgeIds.empty()) {
                 return false;
+            }
             // Iterate over parsed edges
-            for(int i = 0; i < edgeIds.size(); i++)
-                if(myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false) == NULL)
+            for(int i = 0; i < edgeIds.size(); i++) {
+                if(myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false) == NULL) {
                     return false;
+                }
+            }
             return true;
         }
         case SUMO_ATTR_FILE:
@@ -665,8 +688,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             // Iterate over parsed edges and obtain pointer to edges
             for(int i = 0; i < edgeIds.size(); i++) {
                 edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
-                if(edge)
+                if(edge) {
                     edges.push_back(edge);
+                }
             }
             // Set new childs
             setEdgeChilds(edges);

@@ -100,23 +100,26 @@ GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     SUMOReal speed;
 
     // Get Time
-    if(TplCheck::_str2SUMOTime(myRowStep->getText().text()) == false)
+    if(TplCheck::_str2SUMOTime(myRowStep->getText().text()) == false) {
         return 0;
-    else
+    } else {
 // @toDo IMPLEMENT _str2Time TO TIME
         time = TplConvert::_str2int(myRowStep->getText().text());
+    }
 
     // get SPeed
-    if(TplCheck::_str2SUMOReal(myRowSpeed->getText().text()) == false)
+    if(TplCheck::_str2SUMOReal(myRowSpeed->getText().text()) == false) {
         return 0;
-    else
+    } else {
         speed = TplConvert::_str2SUMOReal(myRowSpeed->getText().text());
+    }
     
     // Set new time and their speed if don't exist already
-    if(myVSSValues.find(time) == myVSSValues.end())
+    if(myVSSValues.find(time) == myVSSValues.end()) {
         myVSSValues[time] = speed;
-    else
+    } else {
         return false;
+    }
 
     // Update table
     updateTable();
@@ -127,7 +130,7 @@ GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
 long 
 GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     // Iterate over rows to find the row to erase
-    for(int i = 0; i < myDataList->getNumRows(); i++)
+    for(int i = 0; i < myDataList->getNumRows(); i++) {
         if(myDataList->getItem(i, 2)->isSelected()) {
             // Remove element of table and map
 // @todo IMPLEMENT _2SUMOTIme
@@ -137,6 +140,7 @@ GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
             updateTable();
             return 1;
         }
+    }
     return 0;
 }
 

@@ -140,8 +140,9 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, const std::string &currentD
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
-    if(!myFilename.empty())
+    if(!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
     device.writeAttr(SUMO_ATTR_SPLIT_VTYPE, mySplitByType);
     // Close tag
     device.closeTag();

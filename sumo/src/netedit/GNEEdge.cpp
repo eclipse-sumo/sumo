@@ -93,8 +93,9 @@ GNEEdge::~GNEEdge() {
         delete &myNBEdge;
     }
     // Remove all references to this edge in their additionals
-    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
         (*i)->removeEdgeReference();
+    }
 }
 
 
@@ -373,15 +374,17 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
 void
 GNEEdge::updateLaneGeometriesAndAdditionals() {
     // Update geometry of lanes
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i)
+    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         (*i)->updateGeometry();
+    }
     // Update geometry of additionals vinculated to this edge
-    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i)
+    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
         (*i)->updateGeometry();
+    }
     // Update geometry of additionalSets vinculated to this edge
-    for (AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i)
+    for (AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i) {
         (*i)->updateGeometry();
-
+    }
 }
 
 
@@ -753,8 +756,9 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
         myLanes[i]->setIndex(i);
     }
     // Add references to this lane in additionalSets
-    for(std::vector<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++)
+    for(std::vector<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++) {
         (*i)->addLaneChild(lane);
+    }
     /* while technically correct, this looks ugly
     getSource()->invalidateShape();
     getDest()->invalidateShape();
@@ -772,8 +776,9 @@ GNEEdge::removeLane(GNELane* lane) {
         lane = myLanes.back();
     }
     // Remove additionalSets vinculated with this Lane
-    for(std::vector<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++)
+    for(std::vector<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++) {
         (*i)->removeLaneChild(lane);
+    }
     myNBEdge.deleteLane(lane->getIndex());
     lane->decRef("GNEEdge::removeLane");
     myLanes.erase(myLanes.begin() + lane->getIndex());
@@ -824,9 +829,11 @@ GNEEdge::setMicrosimID(const std::string& newID) {
 bool
 GNEEdge::addAdditional(GNEAdditional *additional) {
     // Check if additional already exists before insertion
-    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
-        if((*i) == additional)
+    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if((*i) == additional) {
             return false;
+        }
+    }
     // Insert it and retur true
     myAdditionals.push_back(additional);
     return true;
@@ -836,11 +843,12 @@ GNEEdge::addAdditional(GNEAdditional *additional) {
 bool
 GNEEdge::removeAdditional(GNEAdditional *additional) {
     // search additional and remove it
-    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++)
+    for(AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
         if((*i) == additional) {
             myAdditionals.erase(i);
             return true;
         }
+    }
     // If additional wasn't found, return false
     return false;
 }
@@ -855,9 +863,11 @@ GNEEdge::getAdditionals() const{
 bool
 GNEEdge::addAdditionalSet(GNEAdditionalSet *additionalSet) {
     // Check if additionalSet already exists before insertion
-    for(AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
-        if((*i) == additionalSet)
+    for(AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
+        if((*i) == additionalSet) {
             return false;
+        }
+    }
     // Insert it and retur true
     myAdditionalSets.push_back(additionalSet);
     return true;
@@ -867,11 +877,12 @@ GNEEdge::addAdditionalSet(GNEAdditionalSet *additionalSet) {
 bool
 GNEEdge::removeAdditionalSet(GNEAdditionalSet *additionalSet) {
     // search additionalSet and remove it
-    for(AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++)
+    for(AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
         if((*i) == additionalSet) {
             myAdditionalSets.erase(i);
             return true;
         }
+    }
     // If additionalSet wasn't found, return false
     return false;
 }

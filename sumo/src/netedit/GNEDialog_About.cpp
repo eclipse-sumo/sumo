@@ -98,8 +98,8 @@ static const char* dlr_icon[] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEDialog_About::GNEDialog_About(FXWindow* parent)
-    : FXDialogBox(parent, "About NETEDIT", DECOR_CLOSE | DECOR_TITLE) {
+GNEDialog_About::GNEDialog_About(FXWindow* parent) : 
+    FXDialogBox(parent, "About NETEDIT", DECOR_CLOSE | DECOR_TITLE) {
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_TOP | FRAME_NONE | LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 1, 1);
     // build icons
     FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_CENTER_X | FRAME_NONE, 0, 0, 0, 0, 0, 0, 1, 1);

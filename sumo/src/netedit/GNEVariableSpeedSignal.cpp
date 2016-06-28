@@ -259,8 +259,9 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
             SUMOReal speed = i->lane->getSpeed();
             // Show as Km/h
             speed *= 3.6f;
-            if (((int) speed + 1) % 10 == 0)
+            if (((int) speed + 1) % 10 == 0) {
                 speed = (SUMOReal)(((int) speed + 1) / 10 * 10);
+            }
             // draw the speed string
             std::string speedToDraw = toString<SUMOReal>(speed);
             glColor3d(1, 1, 0);
@@ -342,12 +343,15 @@ GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> laneIds;
             SUMOSAXAttributes::parseStringVector(value, laneIds);
             // Empty Lanes aren't valid
-            if(laneIds.empty())
+            if(laneIds.empty()) {
                 return false;
+            }
             // Iterate over parsed lanes
-            for(int i = 0; i < laneIds.size(); i++)
-                if(myViewNet->getNet()->retrieveLane(laneIds.at(i), false) == NULL)
+            for(int i = 0; i < laneIds.size(); i++) {
+                if(myViewNet->getNet()->retrieveLane(laneIds.at(i), false) == NULL) {
                     return false;
+                }
+            }
             return true;
         }
         case SUMO_ATTR_FILE:
@@ -373,8 +377,9 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value) 
             // Iterate over parsed lanes and obtain pointer to lanes
             for(int i = 0; i < laneIds.size(); i++) {
                 lane = myViewNet->getNet()->retrieveLane(laneIds.at(i), false);
-                if(lane)
+                if(lane) {
                     lanes.push_back(lane);
+                }
             }
             // Set new childs
             setLaneChilds(lanes);

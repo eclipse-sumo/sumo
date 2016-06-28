@@ -81,8 +81,9 @@ GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *
 
 
 GNEVaporizer::~GNEVaporizer() {
-    if(myEdge)
+    if(myEdge) {
         myEdge->removeAdditional(this);
+    }
 }
 
 

@@ -35,6 +35,7 @@
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -171,12 +172,18 @@ GNEConnection::setUncontrolled(bool uncontrolled) {
 
 GUIGLObjectPopupMenu* 
 GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // Currently ignored before implementation to avoid warnings
+    UNUSED_PARAMETER(app);
+    UNUSED_PARAMETER(parent);
     return NULL;
 }
 
 
 GUIParameterTableWindow* 
 GNEConnection::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // Currently ignored before implementation to avoid warnings
+    UNUSED_PARAMETER(app);
+    UNUSED_PARAMETER(parent);
     return NULL;
 }
 
@@ -189,28 +196,42 @@ GNEConnection::getCenteringBoundary() const{
 
 void 
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
+    // Currently ignored before implementation to avoid warnings
+    UNUSED_PARAMETER(s);
 }
 
 
 std::string 
 GNEConnection::getAttribute(SumoXMLAttr key) const {
+    // Currently ignored before implementation to avoid warnings
+    UNUSED_PARAMETER(key);
     return "";
 }
 
 
 void 
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    // Currently ignored before implementation to avoid warnings
+    UNUSED_PARAMETER(key);
+    UNUSED_PARAMETER(value);
+    UNUSED_PARAMETER(undoList);
 }
 
 
 bool 
 GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
+    // Currently ignored before implementation to avoid warnings
+    UNUSED_PARAMETER(key);
+    UNUSED_PARAMETER(value);
     return false;
 }
 
 
 void 
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
+    // Currently ignored before implementation to avoid warnings
+    UNUSED_PARAMETER(key);
+    UNUSED_PARAMETER(value);
 }
 
 

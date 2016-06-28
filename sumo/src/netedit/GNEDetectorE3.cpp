@@ -150,8 +150,9 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string &currentD
         device.openTag(getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
         device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
-        if(!myFilename.empty())
+        if(!myFilename.empty()) {
             device.writeAttr(SUMO_ATTR_FILE, myFilename);
+        }
         device.writeAttr(SUMO_ATTR_X, myPosition.x());
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
         // Write childs of this element

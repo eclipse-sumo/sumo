@@ -106,8 +106,9 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge
 
 
 GNERouteProbe::~GNERouteProbe() {
-    if(myEdge)
+    if(myEdge) {
         myEdge->removeAdditional(this);
+    }
 }
 
 
@@ -170,8 +171,9 @@ GNERouteProbe::writeAdditional(OutputDevice& device, const std::string &currentD
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
-    if(!myFilename.empty())
+    if(!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
     device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
     // Close tag
     device.closeTag();
