@@ -844,7 +844,6 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "maxspeed") {
             if (mySpeedMap.find(value) != mySpeedMap.end()) {
                 myCurrentEdge->myMaxSpeed = mySpeedMap[value];
-                std::cout << " way=" << myCurrentEdge->id <<  " using symbolic speed " << myCurrentEdge->myMaxSpeed << " value=" << value << "\n";
             } else {
                 SUMOReal conversion = 1; // OSM default is km/h
                 if (StringUtils::to_lower_case(value).find("km/h") != std::string::npos) {
