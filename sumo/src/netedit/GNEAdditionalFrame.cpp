@@ -47,6 +47,7 @@
 #include "GNEJunction.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
+#include "GNECrossing.h"
 #include "GNEUndoList.h"
 #include "GNEChange_Selection.h"
 #include "GNEAttributeCarrier.h"
@@ -167,25 +168,89 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {
 
 
 bool
-GNEAdditionalFrame::addAdditional(GNELane *lane, GUISUMOAbstractView* parent) {
-    // First check if actual type must be placed over a lane or edge but user did't clicke over a lane
-    if((GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANE) == true || GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGE) == true) && lane == NULL) {
-        return false;
-    }
+GNEAdditionalFrame::addAdditional(GNENetElement *netElement, GUISUMOAbstractView* parent) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement = myAdditionalParameters->getAttributes();
-    // Generate id of elmement
-    valuesOfElement[SUMO_ATTR_ID] = generateID(lane);
-    // obtain a new unique id depending if the element needs or not a lane
-    if(lane) {
-        // Obtain positiono of additional over mouse
-        SUMOReal positionOfTheMouseOverLane = lane->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
-        // Obtain lane ID
-        valuesOfElement[SUMO_ATTR_LANE] = lane->getID();
+    
+    // Declare pointer to netElements
+    GNEJunction *pointed_junction = NULL;
+    GNEEdge *pointed_edge = NULL;
+    GNELane *pointed_lane = NULL;
+    GNECrossing *pointed_crossing = NULL;
+
+    // Check if additional should be placed over a junction
+    if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_JUNCTION)) {
+        pointed_junction = dynamic_cast<GNEJunction*>(netElement);
+        if(pointed_junction != NULL) {
+            // Get attribute junction
+            valuesOfElement[SUMO_ATTR_JUNCTION] = pointed_junction->getID();
+            // Generate id of element based on the junction
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_junction);
+        } else {
+            return false;
+        }
+    }
+    // Check if additional should be placed over a edge
+    else if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGE)) {
+        // Due a edge is composed of lanes, its neccesary check if clicked element is an lane
+        if(dynamic_cast<GNELane*>(netElement) != NULL) {
+            pointed_edge = &(dynamic_cast<GNELane*>(netElement)->getParentEdge());
+        }
+        if(pointed_edge != NULL) {
+            // Get attribute edge
+            valuesOfElement[SUMO_ATTR_EDGE] = pointed_edge->getID();
+            // Generate id of element based on the edge
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_edge);
+        } else {
+            return false;
+        }
+    }
+    // Check if additional should be placed over a lane
+    else if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANE)) {
+        pointed_lane = dynamic_cast<GNELane*>(netElement);
+        if(pointed_lane != NULL) {
+            // Get attribute lane
+            valuesOfElement[SUMO_ATTR_LANE] = pointed_lane->getID();
+            // Generate id of element based on the lane
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_lane);
+        } else {
+            return false;
+        }
+    }
+    // Check if additional should be placed over a crossing
+    else if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_CROSSING)) {
+        pointed_crossing = dynamic_cast<GNECrossing*>(netElement);
+        if(pointed_crossing != NULL) {
+            // Get attribute crossing
+            valuesOfElement[SUMO_ATTR_CROSSING] = pointed_crossing->getID();
+            // Generate id of element based on the crossing
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_crossing);
+        } else {
+            return false;
+        }
+    } else {
+        // Generate id of element
+        valuesOfElement[SUMO_ATTR_ID] = generateID(NULL);
+    }
+
+    // Obtain position attribute
+    if(pointed_edge) {
+        // Obtain position of the mouse over edge
+        SUMOReal positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
+        // If element has a StartPosition and EndPosition over edge, extract attributes
+        if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
+            valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLenght()));
+            valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLenght(), positionOfTheMouseOverEdge, myEditorParameters->getLenght()));
+        }
+        // Extract position of lane
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge); 
+    } else if(pointed_lane) {
+        // Obtain position of the mouse over lane
+        SUMOReal positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
         // If element has a StartPosition and EndPosition over lane, extract attributes
         if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
             valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLenght()));
-            valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(lane->getLaneShapeLenght(), positionOfTheMouseOverLane, myEditorParameters->getLenght()));
+            valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLenght(), positionOfTheMouseOverLane, myEditorParameters->getLenght()));
         }
         // Extract position of lane
         valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
@@ -193,16 +258,20 @@ GNEAdditionalFrame::addAdditional(GNELane *lane, GUISUMOAbstractView* parent) {
         // get position in map
         valuesOfElement[SUMO_ATTR_POSITION] = toString(parent->getPositionInformation());
     }
+    
     // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.txt
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
         valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
     }
+
     // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.txt
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
         valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
     }
+
     // Save block value
     valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockEnabled());
+    
     // If element belongst to an additional Set, get id of parent from myAdditionalSet
     if(GNEAttributeCarrier::hasParent(myActualAdditionalType)) {
         if(myAdditionalSet->getIdSelected() != "") {
@@ -212,6 +281,7 @@ GNEAdditionalFrame::addAdditional(GNELane *lane, GUISUMOAbstractView* parent) {
             return false;
         }
     }
+
     // If element own a list of edgesSelector as attribute 
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
         if(myEdgesSelector->isUseSelectedEdgesEnable()) {
@@ -233,6 +303,7 @@ GNEAdditionalFrame::addAdditional(GNELane *lane, GUISUMOAbstractView* parent) {
             return false;
         }
     }
+
     // If element own a list of lanesSelector as attribute 
     if(GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANES)) {
         if(myLanesSelector->isUseSelectedLanesEnable()) {
@@ -254,6 +325,7 @@ GNEAdditionalFrame::addAdditional(GNELane *lane, GUISUMOAbstractView* parent) {
             return false;
         }
     }
+
     // Create additional
     return GNEAdditionalHandler::buildAdditional(myViewNet, myActualAdditionalType, valuesOfElement);
 }
@@ -349,16 +421,16 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
 
 
 std::string 
-GNEAdditionalFrame::generateID(GNELane *lane) const {
+GNEAdditionalFrame::generateID(GNENetElement *netElement) const {
     int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myActualAdditionalType);
-    if(lane) {
-        // generate ID using lane
-        while(myViewNet->getNet()->getAdditional(myActualAdditionalType, toString(myActualAdditionalType) + "_" + lane->getID() + "_" + toString(additionalIndex)) != NULL) {
+    if(netElement) {
+        // generate ID using netElement
+        while(myViewNet->getNet()->getAdditional(myActualAdditionalType, toString(myActualAdditionalType) + "_" + netElement->getID() + "_" + toString(additionalIndex)) != NULL) {
             additionalIndex++;
         }
-        return toString(myActualAdditionalType) + "_" + lane->getID() + "_" + toString(additionalIndex);
+        return toString(myActualAdditionalType) + "_" + netElement->getID() + "_" + toString(additionalIndex);
     } else {
-        // generate ID without lane
+        // generate ID without netElement
         while(myViewNet->getNet()->getAdditional(myActualAdditionalType, toString(myActualAdditionalType) + "_" + toString(additionalIndex)) != NULL) {
             additionalIndex++;
         }

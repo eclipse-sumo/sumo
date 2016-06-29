@@ -651,7 +651,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
         }
         case SUMO_TAG_CALIBRATOR: {
             // get own attributes of calibrator
-            GNELane *lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
+            GNEEdge *edge = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
             // get rest of parameters
             // Currently unused SUMOReal pos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_POSITION]);
             SUMOReal pos = 0;
@@ -661,8 +661,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
             // get flow values
             std::map<std::string, GNECalibrator::CalibratorFlow> flowValues;
             // Build calibrator
-            if(lane) {
-                return buildCalibrator(viewNet, id, &lane->getParentEdge(), pos, file, outfile, freq, flowValues, blocked);
+            if(edge) {
+                return buildCalibrator(viewNet, id, edge, pos, file, outfile, freq, flowValues, blocked);
             } else {
                 return false;
             }
@@ -694,13 +694,13 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
         }
         case SUMO_TAG_ROUTEPROBE: {
             // get own attributes of RouteProbe
-            GNELane *lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
+            GNEEdge *edge = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
             int freq = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_FREQUENCY]);
             std::string filename = values[SUMO_ATTR_FILE];
             int begin = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_BEGIN]);
             // Build RouteProbe
-            if(lane) {
-                return buildRouteProbe(viewNet, id, &(lane->getParentEdge()), freq, filename, begin, blocked);
+            if(edge) {
+                return buildRouteProbe(viewNet, id, edge, freq, filename, begin, blocked);
             } else {
                 return false;
             }

@@ -490,6 +490,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departureVariation",     AGEN_ATTR_DEP_VARIATION },
 
     { "targetLanes",            SUMO_ATTR_TARGETLANE },
+    { "crossing",               SUMO_ATTR_CROSSING },
 
     // netEdit
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },

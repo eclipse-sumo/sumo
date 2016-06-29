@@ -614,7 +614,8 @@ enum SumoXMLAttr {
     GNE_ATTR_PARENT,
     //@}
 
-    SUMO_ATTR_TARGETLANE
+    SUMO_ATTR_TARGETLANE,
+    SUMO_ATTR_CROSSING
 };
 
 /*

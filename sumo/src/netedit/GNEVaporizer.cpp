@@ -69,7 +69,7 @@
 
 
 GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *edge, SUMOTime startTime, SUMOTime end, bool blocked) :
-    GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, NULL, blocked),
+    GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, NULL, blocked),
     myEdge(edge),
     myStartTime(startTime),
     myEnd(end) {
@@ -100,7 +100,7 @@ GNEVaporizer::updateGeometry() {
     GNELane* firstLane = myEdge->getLanes().at(0);
 
     // Get shape of lane parent
-    myShape.push_back(firstLane->getShape().positionAtOffset(5));
+    myShape.push_back(firstLane->getShape().positionAtOffset(3));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -203,7 +203,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
 
     // draw shape
-    glColor3ub(255, 216, 0);
+    glColor3ub(120, 216, 0);
     glPushMatrix();
     glTranslated(0, 0, getType());
     glTranslated(myShape[0].x(), myShape[0].y(), 0);

@@ -36,7 +36,7 @@
 // class declarations
 // ===========================================================================
 class GNEAttributeCarrier;
-class GNELane;
+class GNENetElement;
 class GNEAdditional;
 class GNEAdditionalSet;
 
@@ -293,8 +293,7 @@ public:
         /// @brief Called when the user enters another reference point
         long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
 
-/*** HAY QUE HACER UN CALLBACK PARA EL LENGTH **/
-
+        /*** @todo write callback for LENGTH **/
 
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);
@@ -550,11 +549,11 @@ public:
     ~GNEAdditionalFrame();
 
     /**@brief add additional element
-     * @param[in] lane clicked lane. if user dind't clicked over lane, will be NULL
+     * @param[in] netElement clicked netElement. if user dind't clicked over a GNENetElement in view, netElement will be NULL
      * @param[in] parent AbstractView to obtain the position of the mouse over the lane.
      * @return true if an additional (GNEAdditional or GNEAdditionalSet) was added, false in other case
      */
-    bool addAdditional(GNELane *lane, GUISUMOAbstractView* parent);
+    bool addAdditional(GNENetElement *netElement, GUISUMOAbstractView* parent);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase
@@ -585,7 +584,7 @@ private:
     void setParametersOfAdditional(SumoXMLTag actualAdditionalType);
 
     /// @brief generate a ID for an additiona element
-    std::string generateID(GNELane *lane) const;
+    std::string generateID(GNENetElement *netElement) const;
 
     /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
     SUMOReal setStartPosition(SUMOReal positionOfTheMouseOverLane, SUMOReal lenghtOfAdditional);

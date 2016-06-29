@@ -100,9 +100,7 @@ public:
     /// @brief multiplexes message to two targets
     long onDefault(FXObject*, FXSelector, void*);
 
-    /**@brief Returns underlying parent edge
-     * @return The underlying GNEEdge
-     */
+    /// @brief Returns underlying parent edge
     GNEEdge& getParentEdge();
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
