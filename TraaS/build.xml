@@ -16,7 +16,7 @@
 
     <target name="javadoc">
         <mkdir dir="${javadoc}" />
-        <javadoc access="public" author="true" classpath="." destdir="${javadoc}" doctitle="TraaS - TraCI as a Service" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="de.tudresden.sumo.util,de.uniluebeck.itm.tcpip,it.polito.appeal.traci,de.tudresden.sumo.cmd,de.tudresden.ws,it.polito.appeal.traci.protocol,de.tudresden.ws.conf,de.tudresden.sumo.config,de.tudresden.ws.log,de.tudresden.ws.container" noqualifier="java.lang" source="1.7" sourcepath="src" splitindex="true" use="true" version="true" />
+        <javadoc access="public" author="true" classpath="." destdir="${javadoc}" doctitle="TraaS - TraCI as a Service" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="de.tudresden.sumo.util,de.uniluebeck.itm.tcpip,it.polito.appeal.traci,de.tudresden.sumo.cmd,de.tudresden.ws,it.polito.appeal.traci.protocol,de.tudresden.ws.conf,de.tudresden.sumo.config,de.tudresden.ws.log,de.tudresden.ws.container" noqualifier="java.lang" source="1.7" sourcepath="src" splitindex="true" use="true" version="true" additionalparam="-Xdoclint:none"/>
         <jar basedir="${javadoc}" destfile="${release}/TraaS_javadoc.jar" />
     </target>
 
