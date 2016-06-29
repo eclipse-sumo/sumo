@@ -31,12 +31,14 @@
 #include <config.h>
 #endif
 
+#include <map>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include "MSCFModel_SmartSK.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
 
+//#define SmartSK_DEBUG
 
 // ===========================================================================
 // method definitions
@@ -55,20 +57,24 @@ MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  SUMOReal accel
     // v(t=myTmp1) = -myTauDecel + sqrt(myTauDecel*myTauDecel + accel*(accel + decel)*t*t + accel*decel*t*TS);
     SUMOReal t = myTmp1;
     myS2Sspeed = -myTauDecel + sqrt(myTauDecel * myTauDecel + accel * (accel + decel) * t * t + accel * decel * t * TS);
+#ifdef SmartSK_DEBUG
     std::cout << "# s2s-speed: " << myS2Sspeed << std::endl;
+#endif
     if (myS2Sspeed > 5.0) {
         myS2Sspeed = 5.0;
     }
 // SUMOReal maxDeltaGap = -0.5*ACCEL2DIST(myDecel + myAccel);
     maxDeltaGap = -0.5 * (myDecel + myAccel) * TS * TS;
+#ifdef SmartSK_DEBUG
     std::cout << "# maxDeltaGap = " << maxDeltaGap << std::endl;
+#endif
     myTmp2 = TS / myTmp2;
     myTmp3 = sqrt(TS) * myTmp3;
 }
 
+
 MSCFModel_SmartSK::~MSCFModel_SmartSK() {}
 
-#include <map>
 
 SUMOReal
 MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
@@ -80,14 +86,14 @@ MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  on lane changing
     const SUMOReal vMin = getSpeedAfterMaxDecel(oldV);
     const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe);
-#ifdef _DEBUG
+#ifdef SmartSK_DEBUG
     if (vMin > vMax) {
         WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
     }
 #endif
     updateMyHeadway(veh);
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
-#ifdef _DEBUG
+#ifdef SmartSK_DEBUG
     if (vars->ggOld.size() > 1) {
         std::cout << "# more than one entry in ggOld list. Speed is " << vPos << ", corresponding dist is " << vars->ggOld[(int) vPos] << "\n";
         for (std::map<int, SUMOReal>::iterator I = vars->ggOld.begin(); I != vars->ggOld.end(); I++) {
