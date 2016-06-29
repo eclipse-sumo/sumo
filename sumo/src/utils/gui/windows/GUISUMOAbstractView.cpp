@@ -1160,9 +1160,7 @@ GUISUMOAbstractView::drawDecals() {
                 if (img == 0) {
                     img = MFXImageHelper::loadImage(getApp(), d.filename);
                 }
-                if (MFXImageHelper::scalePower2(img, GUITexturesHelper::getMaxTextureSize())) {
-                    WRITE_WARNING("Scaling '" + d.filename + "'.");
-                }
+                MFXImageHelper::scalePower2(img, GUITexturesHelper::getMaxTextureSize());
                 d.glID = GUITexturesHelper::add(img);
                 d.initialised = true;
                 d.image = img;
