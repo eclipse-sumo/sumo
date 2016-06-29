@@ -54,6 +54,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+
 StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitializer[] = {
     {"network",       GLO_NETWORK},
     {"edge",          GLO_EDGE},
@@ -73,12 +74,12 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
 };
 
 
-StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(
-    GUIGlObjectTypeNamesInitializer, GLO_MAX);
+StringBijection<GUIGlObjectType> GUIGlObject::TypeNames( GUIGlObjectTypeNamesInitializer, GLO_MAX);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
     myGLObjectType(type),
     myMicrosimID(microsimID),
@@ -97,12 +98,43 @@ GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const 
 }
 
 
-
 GUIGlObject::~GUIGlObject() {
     for (std::set<GUIParameterTableWindow*>::iterator i = myParamWindows.begin(); i != myParamWindows.end(); ++i) {
         (*i)->removeObject(this);
     }
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
+}
+
+
+const std::string& 
+GUIGlObject::getFullName() const {
+    return myFullName;
+}
+
+
+const std::string& 
+GUIGlObject::getParentName() const {
+    return StringUtils::emptyString;
+}
+
+
+GUIGlID 
+GUIGlObject::getGlID() const {
+    return myGlID;
+}
+
+
+GUIParameterTableWindow* 
+GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    UNUSED_PARAMETER(&app);
+    UNUSED_PARAMETER(&parent);
+    return 0;
+}
+
+
+const std::string& 
+GUIGlObject::getMicrosimID() const {
+    return myMicrosimID;
 }
 
 
@@ -112,6 +144,33 @@ GUIGlObject::setMicrosimID(const std::string& newID) {
     myFullName = createFullName();
 }
 
+
+GUIGlObjectType 
+GUIGlObject::getType() const {
+    return myGLObjectType;
+}
+
+
+void 
+GUIGlObject::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
+    UNUSED_PARAMETER(&s);
+    UNUSED_PARAMETER(parent);
+};
+
+#ifdef HAVE_OSG
+
+osg::Node* 
+GUIGlObject::getNode() const {
+    return myOSGNode;
+}
+
+
+void 
+GUIGlObject::setNode(osg::Node* node) {
+    myOSGNode = node;
+}
+
+#endif
 
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app,
@@ -215,6 +274,7 @@ GUIGlObject::setPrefix(const std::string& prefix) {
     myFullName = createFullName();
 }
 
+
 std::string
 GUIGlObject::createFullName() const {
     return myPrefix + ":" + getMicrosimID();
@@ -222,8 +282,7 @@ GUIGlObject::createFullName() const {
 
 
 void
-GUIGlObject::drawName(const Position& pos, const SUMOReal scale,
-                      const GUIVisualizationTextSettings& settings, const SUMOReal angle) const {
+GUIGlObject::drawName(const Position& pos, const SUMOReal scale, const GUIVisualizationTextSettings& settings, const SUMOReal angle) const {
     if (settings.show) {
         GLHelper::drawText(getMicrosimID(), pos, GLO_MAX, settings.size / scale, settings.color, angle);
     }
