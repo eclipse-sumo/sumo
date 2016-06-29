@@ -1,4 +1,4 @@
-EXTRA_DIST = netedit64.ico \
+EXTRA_DIST = netedit64.ico netedit.rc \
 GNELogo_E1.cpp          GNELogo_Rerouter.cpp \
 GNELogo_E2.cpp          GNELogo_RerouterSelected.cpp \
 GNELogo_E3.cpp          GNELogo_RouteProbe.cpp \
