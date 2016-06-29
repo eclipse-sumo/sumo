@@ -113,6 +113,11 @@ GNEDetectorE3::updateGeometry() {
     // Set position
     myShape.push_back(myPosition);
 
+    // Add shape of childs (To avoid graphics errors)
+    for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
+        myShape.append((*i)->getShape());
+    }
+
     // Set block icon offset
     myBlockIconOffset = Position(-0.5, -0.5);
 
