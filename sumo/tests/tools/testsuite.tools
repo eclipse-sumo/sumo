@@ -38,4 +38,7 @@ district
 visualisation
 build
 projects
+
+# test functions that aren't yet used by a tested tool
+sumolib
 misc
