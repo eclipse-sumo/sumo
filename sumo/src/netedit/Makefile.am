@@ -33,10 +33,12 @@ GNENetElement.h GNENetElement.cpp \
 GNEEdge.h GNEEdge.cpp \
 GNELane.h GNELane.cpp \
 GNEInternalLane.h GNEInternalLane.cpp \
+GNEConnection.h GNEConnection.cpp \
 GNECrossing.h GNECrossing.cpp \
 GNEJunction.h GNEJunction.cpp \
 GNEPOI.h GNEPOI.cpp \
 GNEPoly.h GNEPoly.cpp \
+GNEProhibition.h GNEProhibition.cpp \
 GNEViewNet.h GNEViewNet.cpp \
 GNEViewParent.h GNEViewParent.cpp \
 GNEDialog_About.h GNEDialog_About.cpp \
