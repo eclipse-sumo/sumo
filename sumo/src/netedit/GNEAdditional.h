@@ -97,6 +97,9 @@ public:
     /// @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSignal)
     virtual void openAdditionalDialog();
 
+    /// @brief returns the ID of additional
+    const std::string &getAdditionalID() const;
+
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;
 
@@ -111,6 +114,9 @@ public:
 
     /// @brief get additionalSet parent, or NULL if don't belongs to an additionalSet
     GNEAdditionalSet* getAdditionalSetParent() const;
+
+    /// @brief set the ID of additional
+    void setAdditionalID(const std::string &id);
 
     /// @brief Block or unblock additional element(i.e. cannot be moved with mouse)
     void setBlocked(bool value);

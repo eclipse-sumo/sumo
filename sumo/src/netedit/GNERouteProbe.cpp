@@ -308,7 +308,7 @@ std::string
 GNERouteProbe::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return getAdditionalID();
         case SUMO_ATTR_EDGE:
             return myEdge->getID();
         case SUMO_ATTR_FILE:
@@ -331,7 +331,6 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_BEGIN:
@@ -348,8 +347,17 @@ bool
 GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_EDGE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            if(myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_FREQUENCY:
@@ -366,8 +374,15 @@ void
 GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            setAdditionalID(value);
+            break;
         case SUMO_ATTR_EDGE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            myEdge->removeAdditional(this);
+            myEdge = myViewNet->getNet()->retrieveEdge(value);
+            myEdge->addAdditional(this);
+            updateGeometry();
+            getViewNet()->update();
+            break;
         case SUMO_ATTR_FILE:
             myFilename = value;
             break;

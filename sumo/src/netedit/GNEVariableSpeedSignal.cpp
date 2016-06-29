@@ -299,7 +299,7 @@ std::string
 GNEVariableSpeedSignal::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return getAdditionalID();
         case SUMO_ATTR_LANES:
             return joinToString(getLaneChildIds(), " ");
         case SUMO_ATTR_POSITION:
@@ -319,7 +319,6 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value, 
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:
@@ -336,7 +335,11 @@ bool
 GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_POSITION:
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
@@ -367,8 +370,8 @@ void
 GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            setAdditionalID(value);
+            break;
         case SUMO_ATTR_LANES: {
             // Declare variables
             std::vector<std::string> laneIds;

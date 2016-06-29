@@ -313,7 +313,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CALIBRATOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGE, ""));
                 // Currently unused attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROUTEPROBE, ""));

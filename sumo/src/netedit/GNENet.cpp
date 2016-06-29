@@ -1043,10 +1043,10 @@ GNENet::getShapeContainer() {
 void
 GNENet::insertAdditional(GNEAdditional* additional) {
     // Check if additional element exists before insertion
-    if(myAdditionals.find(additional->getID()) != myAdditionals.end()) {
+    if(myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {
         throw ProcessError("additional element with ID='" + additional->getID() + "' already exist");
     } else {
-        myAdditionals[additional->getID()] = additional;
+        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
         if(additional->getAdditionalSetParent() != NULL) {
             additional->getAdditionalSetParent()->addAdditionalChild(additional);
@@ -1057,7 +1057,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 
 void
 GNENet::deleteAdditional(GNEAdditional* additional) {
-    GNEAdditionals::iterator positionToRemove = myAdditionals.find(additional->getID());
+    GNEAdditionals::iterator positionToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
     if(positionToRemove == myAdditionals.end()) {
         throw ProcessError("additional element with ID='" + additional->getID() + "' don't exist");
@@ -1071,10 +1071,23 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
 }
 
 
+void 
+GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
+    GNEAdditionals::iterator additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
+    if(additionalToUpdate != myAdditionals.end()) {
+        // remove an insert additional again into container
+        myAdditionals.erase(additionalToUpdate);
+        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+    }
+}
+
+
 GNEAdditional*
 GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
-    if(!myAdditionals.empty() && (myAdditionals.find(id) != myAdditionals.end()) && (myAdditionals.at(id)->getTag() == type)) {
-        return myAdditionals.at(id);
+    if(myAdditionals.empty()) {
+        return NULL;
+    } else if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(id, type)) != myAdditionals.end())  {
+        return myAdditionals.at(std::pair<std::string, SumoXMLTag>(id, type));
     } else {
         return NULL;
     }

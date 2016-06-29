@@ -152,6 +152,16 @@ GNEDetector::setFilename(std::string filename) {
 }
 
 
+void 
+GNEDetector::changeLane(GNELane *newLane) {
+    myLane->removeAdditional(this);
+    myLane = newLane;
+    myLane->addAdditional(this);
+    updateGeometry();
+    getViewNet()->update();
+}
+
+
 const std::string&
 GNEDetector::getParentName() const {
         return myLane->getMicrosimID();

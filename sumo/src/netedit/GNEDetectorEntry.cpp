@@ -208,7 +208,7 @@ std::string
 GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return getAdditionalID();
         case SUMO_ATTR_LANE:
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
@@ -226,8 +226,11 @@ if (value == getAttribute(key)) {
     }
     switch (key) {
         case SUMO_ATTR_ID:
+            setAdditionalID(value);
+            break;
         case SUMO_ATTR_LANE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            changeLane(myViewNet->getNet()->retrieveLane(value));
+            break;
         case SUMO_ATTR_POSITION:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
@@ -242,8 +245,17 @@ bool
 GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_LANE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            if(myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_POSITION:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) <= (myLane->getLaneParametricLenght()));
         default:
@@ -255,8 +267,11 @@ void
 GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            setAdditionalID(value);
+            break;
         case SUMO_ATTR_LANE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            changeLane(myViewNet->getNet()->retrieveLane(value));
+            break;
         case SUMO_ATTR_POSITION:
             myPosition = Position(parse<SUMOReal>(value), 0);
             updateGeometry();

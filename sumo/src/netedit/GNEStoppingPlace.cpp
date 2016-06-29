@@ -118,6 +118,15 @@ GNEStoppingPlace::removeLaneReference() {
     myLane = NULL;
 }
 
+void 
+GNEStoppingPlace::changeLane(GNELane *newLane) {
+    myLane->removeAdditional(this);
+    myLane = newLane;
+    myLane->addAdditional(this);
+    updateGeometry();
+    getViewNet()->update();
+}
+
 
 SUMOReal
 GNEStoppingPlace::getStartPosition() const {

@@ -261,8 +261,8 @@ std::string
 GNECalibrator::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
-        case SUMO_ATTR_LANE:
+            return getAdditionalID();
+        case SUMO_ATTR_EDGE:
             return toString(myEdge->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
@@ -289,8 +289,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+        case SUMO_ATTR_EDGE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_OUTPUT:
@@ -309,9 +308,18 @@ bool
 GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
+            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+                return true;
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_EDGE:
+            if(myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_POSITION:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
         case SUMO_ATTR_FREQUENCY:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
         case SUMO_ATTR_OUTPUT:
@@ -335,8 +343,15 @@ void
 GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            setAdditionalID(value);
+            break;
+        case SUMO_ATTR_EDGE:
+            myEdge->removeAdditional(this);
+            myEdge = myViewNet->getNet()->retrieveEdge(value);
+            myEdge->addAdditional(this);
+            updateGeometry();
+            getViewNet()->update();
+            break;
         case SUMO_ATTR_POSITION:
             myPosition = Position(parse<SUMOReal>(value), 0);
             updateGeometry();

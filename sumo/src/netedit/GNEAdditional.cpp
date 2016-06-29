@@ -121,6 +121,12 @@ void
 GNEAdditional::openAdditionalDialog() {}
 
 
+const std::string &
+GNEAdditional::getAdditionalID() const {
+    return getMicrosimID();
+}
+
+
 GNEViewNet*
 GNEAdditional::getViewNet() const {
     return myViewNet;
@@ -148,6 +154,17 @@ GNEAdditional::isAdditionalSelected() const {
 GNEAdditionalSet*
 GNEAdditional::getAdditionalSetParent() const {
     return myAdditionalSetParent;
+}
+
+
+void 
+GNEAdditional::setAdditionalID(const std::string &id) {
+    // Save old ID
+    std::string oldID = getMicrosimID();
+    // set New ID
+    setMicrosimID(id);
+    // update additional ID in the container of net
+    myViewNet->getNet()->updateAdditionalID(oldID, this);
 }
 
 

@@ -196,8 +196,11 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     glPushName(getGlID());
     glLineWidth(1.0);
-    /*-
+
+    // Declare auxiliar values
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    int numberOfLanes = int(myEdge->getLanes().size());
+    SUMOReal width = (SUMOReal) 2.0 * s.scale;
 
     // draw shape
     glColor3ub(255, 216, 0);
@@ -220,7 +223,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glEnd();
 
     // position indicator (White)
-    if (width * exaggeration > 1) {
+    if (width* exaggeration > 1) {
         glRotated(90, 0, 0, -1);
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);
@@ -249,7 +252,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
             drawLockIcon(0.4);
     }
-    */
+
     // Finish draw
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     glPopName();
@@ -260,7 +263,7 @@ std::string
 GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return getAdditionalID();
         case SUMO_ATTR_EDGE:
             return myEdge->getID();
         case SUMO_ATTR_STARTTIME:
@@ -281,7 +284,6 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
         case SUMO_ATTR_STARTTIME:
         case SUMO_ATTR_END:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -297,8 +299,17 @@ bool
 GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_EDGE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            if(myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_STARTTIME:
             return canParse<int>(value);
         case SUMO_ATTR_END:
@@ -313,8 +324,15 @@ void
 GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            setAdditionalID(value);
+            break;
         case SUMO_ATTR_EDGE:
-            throw InvalidArgument("modifying " + toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            myEdge->removeAdditional(this);
+            myEdge = myViewNet->getNet()->retrieveEdge(value);
+            myEdge->addAdditional(this);
+            updateGeometry();
+            getViewNet()->update();
+            break;
         case SUMO_ATTR_STARTTIME:
             myStartTime = parse<int>(value);
             break;

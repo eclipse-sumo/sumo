@@ -387,6 +387,10 @@ public:
      */
     void deleteAdditional(GNEAdditional* additional);
 
+    /// @brief update additional ID in container
+    /// @note this function is automatically called when user changes the ID of an additional
+    void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
+
     /**@brief Returns the named additional
      * @param[in] type tag with the type of additional
      * @param[in] id The id of the additional to return.
@@ -428,7 +432,7 @@ private:
     /// @{
     typedef std::map<std::string, GNEEdge*> GNEEdges;
     typedef std::map<std::string, GNEJunction*> GNEJunctions;
-    typedef std::map<std::string, GNEAdditional*> GNEAdditionals;
+    typedef std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> GNEAdditionals;
     // @}
 
     /// @brief map with the name and pointer to edges of net

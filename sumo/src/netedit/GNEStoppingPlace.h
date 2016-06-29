@@ -89,6 +89,9 @@ public:
     /// @note will be automatic called in lane destructor
     void removeLaneReference();
 
+    /// @brief change lane of stopping place
+    void changeLane(GNELane *newLane); 
+
     /// @brief Returns the Start position of the stoppingPlace
     SUMOReal getStartPosition() const;
 

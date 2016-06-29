@@ -115,6 +115,9 @@ public:
      */
     void setFilename(std::string filename);
 
+    /// @brief change lane of detector
+    void changeLane(GNELane *newLane); 
+
     /// @name inherited from GNEAdditional
     /// @{
     /// @brief Returns the name of the parent object
