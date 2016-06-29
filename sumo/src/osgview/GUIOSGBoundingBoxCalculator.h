@@ -62,7 +62,7 @@ public:
     void apply(osg::Geode& geode) {
         osg::BoundingBox bbox;
         for (unsigned int i = 0; i < geode.getNumDrawables(); ++i) {
-            bbox.expandBy(geode.getDrawable(i)->getBound());
+            bbox.expandBy(geode.getDrawable(i)->getBoundingBox());
         }
         osg::BoundingBox bboxTrans;
         for (unsigned int i = 0; i < 8; ++i) {
