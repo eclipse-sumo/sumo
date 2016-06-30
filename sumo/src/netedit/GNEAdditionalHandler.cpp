@@ -60,7 +60,9 @@
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet) :
     SUMOSAXHandler(file),
     myViewNet(viewNet), 
-    calibratorToInsertFlow(NULL) {
+    calibratorToInsertFlow(NULL),
+    reruterToInsertInterval(NULL),
+    rerouterIntervalToInsertValues(NULL) {
 }
 
 

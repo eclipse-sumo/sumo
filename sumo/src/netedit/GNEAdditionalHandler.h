@@ -392,6 +392,12 @@ protected:
 
     /// @brief Pointer to calibrator in which insert flow
     GNECalibrator *calibratorToInsertFlow;
+
+    /// @brief Pointer to rerouter in which insert intervalStep
+    GNERerouter *reruterToInsertInterval;
+
+    /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
+    GNERerouter::rerouterInterval *rerouterIntervalToInsertValues;
 };
 
 

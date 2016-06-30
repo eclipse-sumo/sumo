@@ -64,9 +64,16 @@
 #endif
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+GUIGlID GNEVaporizer::myVaporizerGlID = 0;
+GUIGlID GNEVaporizer::myVaporizerSelectedGlID = 0;
+bool GNEVaporizer::myVaporizerInitialized = false;
+bool GNEVaporizer::myVaporizerSelectedInitialized = false;
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
-
 
 GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *edge, SUMOTime startTime, SUMOTime end, bool blocked) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, NULL, blocked),
@@ -77,6 +84,21 @@ GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *
     myEdge->addAdditional(this);
     // Update geometry;
     updateGeometry();
+    // load Vaporizer logo, if wasn't inicializated
+    if (!myVaporizerInitialized) {
+        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Vaporizer, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        myVaporizerGlID = GUITexturesHelper::add(i);
+        myVaporizerInitialized = true;
+        delete i;
+    }
+
+    // load Vaporizer selected logo, if wasn't inicializated
+    if (!myVaporizerSelectedInitialized) {
+        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_VaporizerSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        myVaporizerSelectedGlID = GUITexturesHelper::add(i);
+        myVaporizerSelectedInitialized = true;
+        delete i;
+    }
 }
 
 
@@ -242,6 +264,12 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(-2.56, - 1.6, 0);
     glColor3d(1, 1, 1);
     glRotated(-90, 0, 0, 1);
+
+    // Draw icon depending of detector is or isn't selected
+    if(isAdditionalSelected()) 
+        GUITexturesHelper::drawTexturedBox(myVaporizerSelectedGlID, 1);
+    else
+        GUITexturesHelper::drawTexturedBox(myVaporizerGlID, 1);
 
     // Pop logo matrix
     glPopMatrix();
