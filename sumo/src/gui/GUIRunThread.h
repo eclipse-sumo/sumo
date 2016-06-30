@@ -116,7 +116,7 @@ public:
         return myBreakpoints;
     }
 
-    MFXMutex& getBreakpointLock() {
+    FXMutex& getBreakpointLock() {
         return myBreakpointLock;
     }
 
@@ -163,7 +163,7 @@ protected:
     std::vector<SUMOTime> myBreakpoints;
 
     /// @brief Lock for modifying the list of breakpoints
-    MFXMutex myBreakpointLock;
+    FXMutex myBreakpointLock;
 
 };
 

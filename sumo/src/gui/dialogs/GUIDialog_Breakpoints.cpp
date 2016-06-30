@@ -44,7 +44,6 @@
 #include <utils/common/TplConvert.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
-#include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
@@ -69,11 +68,11 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                   GUIDialog_Breakpoints::onCmdLoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                   GUIDialog_Breakpoints::onCmdSave),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                  GUIDialog_Breakpoints::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                         GUIDialog_Breakpoints::onCmdClose),
-    FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_Breakpoints::onCmdEditTable),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,  GUIDialog_Breakpoints::onCmdLoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,  GUIDialog_Breakpoints::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR, GUIDialog_Breakpoints::onCmdClear),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,        GUIDialog_Breakpoints::onCmdClose),
+    FXMAPFUNC(SEL_REPLACED, MID_TABLE,         GUIDialog_Breakpoints::onCmdEditTable),
 };
 
 
@@ -83,24 +82,17 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, MFXMutex& breakpointLock)
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock)
     : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 300, 300),
       myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
 
     // build the table
-    myTable = new MFXAddEditTypedTable(hbox, this, MID_TABLE, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myTable = new FXTable(hbox, this, MID_TABLE, LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myTable->setVisibleRows(20);
     myTable->setVisibleColumns(1);
     myTable->setTableSize(20, 1);
     myTable->setBackColor(FXRGB(255, 255, 255));
-    myTable->setCellType(0, CT_REAL);
-    SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
-    SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
-    if (end < 0) {
-        end = SUMOTime_MAX;
-    }
-    myTable->setNumberCellParams(0, begin / 1000, end / 1000, 1, 10, 100, "%.2f");
     myTable->getRowHeader()->setWidth(0);
     myBreakpointLock->lock();
     rebuildList();
@@ -125,6 +117,13 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
 
 GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
     myParent->removeChild(this);
+}
+
+
+void
+GUIDialog_Breakpoints::show() {
+    FXMainWindow::show();
+    myTable->startInput((int)myBreakpoints->size(), 0);
 }
 
 
@@ -168,10 +167,9 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         std::vector<SUMOTime> newBreakpoints = GUISettingsHandler::loadBreakpoints(file);
-        myBreakpointLock->lock();
+        FXMutexLock lock(*myBreakpointLock);
         myBreakpoints->assign(newBreakpoints.begin(), newBreakpoints.end());
         rebuildList();
-        myBreakpointLock->unlock();
     }
     return 1;
 }
@@ -197,7 +195,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
 
 std::string
 GUIDialog_Breakpoints::encode2TXT() {
-    myBreakpointLock->lock();
+    FXMutexLock lock(*myBreakpointLock);
     std::ostringstream strm;
     std::sort(myBreakpoints->begin(), myBreakpoints->end());
     for (std::vector<SUMOTime>::iterator j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
@@ -205,17 +203,15 @@ GUIDialog_Breakpoints::encode2TXT() {
             strm << time2string(*j) << std::endl;
         }
     }
-    myBreakpointLock->unlock();
     return strm.str();
 }
 
 
 long
 GUIDialog_Breakpoints::onCmdClear(FXObject*, FXSelector, void*) {
-    myBreakpointLock->lock();
+    FXMutexLock lock(*myBreakpointLock);
     myBreakpoints->clear();
     rebuildList();
-    myBreakpointLock->unlock();
     return 1;
 }
 
@@ -230,9 +226,9 @@ GUIDialog_Breakpoints::onCmdClose(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
-    myBreakpointLock->lock();
-    MFXEditedTableItem* i = (MFXEditedTableItem*) data;
-    std::string value = i->item->getText().text();
+    FXMutexLock lock(*myBreakpointLock);
+    FXTablePos* i = (FXTablePos*) data;
+    std::string value = myTable->getItemText(i->row, i->col).text();
     // check whether the inserted value is empty
     if (value.find_first_not_of(" ") == std::string::npos) {
         // replace by invalid if so
@@ -242,23 +238,13 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
     if (row == (int) myBreakpoints->size()) {
         myBreakpoints->push_back(INVALID_VALUE);
     }
-
-    switch (i->col) {
-        case 0:
-            try {
-                (*myBreakpoints)[row] = string2time(value);
-            } catch (NumberFormatException&) {
-                std::string msg = "The value must be an int, is:" + value;
-                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
-            }
-            break;
-        default:
-            break;
+    try {
+        (*myBreakpoints)[row] = string2time(value);
+    } catch (NumberFormatException&) {
+        std::string msg = "The value must be a number, is:" + value;
+        FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
     }
-    if (!i->updateOnly) {
-        rebuildList();
-    }
-    myBreakpointLock->unlock();
+    rebuildList();
     return 1;
 }
 

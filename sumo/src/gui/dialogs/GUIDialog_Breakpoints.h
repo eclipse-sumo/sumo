@@ -37,12 +37,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class MFXAddEditTypedTable;
-
-
-// ===========================================================================
 // class definition
 // ===========================================================================
 /**
@@ -61,11 +55,14 @@ public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
-    GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, MFXMutex& breakpointLock);
+    GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock);
 
 
     /// @brief Destructor
     ~GUIDialog_Breakpoints();
+
+    /// @brief sets the focus after the window is created
+    void show();
 
 
 
@@ -101,7 +98,7 @@ private:
 
 private:
     /// @brief The list that holds the ids
-    MFXAddEditTypedTable* myTable;
+    FXTable* myTable;
 
     /// @brief The parent window
     GUIMainWindow* myParent;
@@ -110,7 +107,7 @@ private:
     std::vector<SUMOTime>* myBreakpoints;
 
     /// @brief Lock for modifying the list of breakpoints
-    MFXMutex* myBreakpointLock;
+    FXMutex* myBreakpointLock;
 
 
 protected:
