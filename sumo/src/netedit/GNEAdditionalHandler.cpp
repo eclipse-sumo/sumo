@@ -229,6 +229,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& 
         throw ProcessError();
     }
     // obtain VSS Values
+    // @todo
     std::map<SUMOTime, SUMOReal> VSSValues;
     // Obtain pointer to lanes
     std::vector<GNELane*> lanes;
@@ -240,60 +241,46 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& 
             throw ProcessError();
         }
     }
-    try {
-        // if operation of build variable speed signal was sucesfully, save Id
-        if(buildVariableSpeedSignal(myViewNet, id, Position(posx,posy), lanes, file, VSSValues, false)) {
-            myAdditionalSetParent = id;
-        }
-
-    } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
+    // if operation of build variable speed signal was sucesfully, save Id
+    if(buildVariableSpeedSignal(myViewNet, id, Position(posx,posy), lanes, file, VSSValues, false)) {
+        myAdditionalSetParent = id;
     }
 }
 
 
 void
 GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs) {
-    std::cout << "Function buildRerouter of class GNEAdditionalHandler not implemented yet";
-    /*
-    bool ok = true;
-    // get the id, throw if not given or empty...
+bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    // get rest of parameters
+    const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0);
+    const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0);
+    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
+    const SUMOReal probability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok, 0);
+    const bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), ok, 0);
+    std::vector<std::string> edgesID;
+    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok, "", false), edgesID);
+    // Check if parsing of parameter was correct
     if (!ok) {
         throw ProcessError();
     }
-    // get the file name to read further definitions from
-    std::string file = getFileName(attrs, base, true);
-    std::string objectid = attrs.get<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok);
-    if (!ok) {
-        WRITE_ERROR("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
-    }
-    MSEdgeVector edges;
-    std::vector<std::string> edgeIDs;
-    SUMOSAXAttributes::parseStringVector(objectid, edgeIDs);
-    for (std::vector<std::string>::iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
-        MSEdge* edge = MSEdge::dictionary(*i);
-        if (edge == 0) {
-            WRITE_ERROR("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
+    // obtain Rerouter values Values
+    // @ToDo Finish
+    std::set<GNERerouter::rerouterInterval> rerouterIntervals;
+    // Obtain pointer to edges
+    std::vector<GNEEdge*> edges;
+    for(int i = 0; i < (int)edgesID.size(); i++) {
+        GNEEdge *edge = myViewNet->getNet()->retrieveEdge(edgesID.at(i));
+        if(edge) {
+            edges.push_back(edge);
+        } else {
+            throw ProcessError();
         }
-        edges.push_back(edge);
     }
-    if (edges.size() == 0) {
-        WRITE_ERROR("No edges found for MSTriggeredRerouter '" + id + "'.");
+    // if operation of build variable speed signal was sucesfully, save Id
+    if(buildRerouter(myViewNet, id, Position(posx, posy), edges, probability, file, off , rerouterIntervals, false)) {
+        myAdditionalSetParent = id;
     }
-    SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok, 1);
-    bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), ok, false);
-    if (!ok) {
-        WRITE_ERROR("Could not parse MSTriggeredRerouter '" + id + "'.");
-    }
-    MSTriggeredRerouter* trigger = buildRerouter(myViewNet->getNet(), id, edges, prob, file, off);
-    // read in the trigger description
-    if (file == "") {
-        trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
-    } else if (!XMLSubSys::runParser(*trigger, file)) {
-        throw ProcessError();
-    }
-*/
 }
 
 
