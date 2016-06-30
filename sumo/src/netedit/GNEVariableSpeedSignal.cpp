@@ -157,6 +157,8 @@ GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string 
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANES, joinToString(getLaneChildIds(), " ").c_str());
+    device.writeAttr(SUMO_ATTR_X, myPosition.x());
+    device.writeAttr(SUMO_ATTR_Y, myPosition.y());
     if(!myFilename.empty()) {
         // Write filename attribute
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
