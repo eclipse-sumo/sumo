@@ -59,7 +59,8 @@
 
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet) :
     SUMOSAXHandler(file),
-    myViewNet(viewNet) {
+    myViewNet(viewNet), 
+    calibratorToInsertFlow(NULL) {
 }
 
 
@@ -103,8 +104,14 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             case SUMO_TAG_REROUTER:
                 parseAndBuildRerouter(attrs);
                 break;
+            case SUMO_TAG_CALIBRATOR:
+                parseAndBuildCalibrator(attrs);
+                break;
             case SUMO_TAG_VAPORIZER:
                 parseAndBuildVaporizer(attrs);
+                break;
+            case SUMO_TAG_FLOW:
+                parseFlow(attrs);
                 break;
             default:
                 break;
@@ -118,16 +125,17 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
 void
 GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     // edge Lane ID
-    std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
+    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
     // get attributes
-    std::string edgeID = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok, 0);
-    SUMOReal startTime = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTTIME, id.c_str(), ok, 0);
-    SUMOReal endTime = attrs.getOpt<SUMOReal>(SUMO_ATTR_END, id.c_str(), ok, 0);
+    const std::string edgeID = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok, 0);
+    const SUMOReal startTime = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTTIME, id.c_str(), ok, 0);
+    const SUMOReal endTime = attrs.getOpt<SUMOReal>(SUMO_ATTR_END, id.c_str(), ok, 0);
     // Check if parsing of parameters was correct
-    if (!ok) 
+    if (!ok) {
         throw ProcessError();
+    }
     // get edge
     GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
     if(edge == NULL) {
@@ -144,16 +152,17 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs) {
 void 
 GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     // edge Lane ID
-    std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
+    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
     // get attributes
-    int freq = attrs.getOpt<int>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, 0);
-    std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, 0);
-    int begin = attrs.getOpt<int>(SUMO_ATTR_BEGIN, id.c_str(), ok, 0);
+    const int freq = attrs.getOpt<int>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, 0);
+    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, 0);
+    const int begin = attrs.getOpt<int>(SUMO_ATTR_BEGIN, id.c_str(), ok, 0);
     // Check if parsing of parameters was correct
-    if (!ok) 
+    if (!ok) {
         throw ProcessError();
+    }
     // get edge
     GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
     if(edge == NULL) {
@@ -162,6 +171,43 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs) {
     } else {
         // build Vaporizer
         buildRouteProbe(myViewNet, id, edge, freq, file, begin, false);
+    }
+}
+
+
+void 
+GNEAdditionalHandler::parseFlow(const SUMOSAXAttributes& attrs) {
+    // Declare calibrator to keep flow
+    GNECalibrator::CalibratorFlow flow;
+    bool ok = true;
+    // Load non empty values
+    std::string flowId = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    flow.type = attrs.get<std::string>(SUMO_ATTR_TYPE, flowId.c_str(), ok);
+    flow.route = attrs.get<std::string>(SUMO_ATTR_ROUTE, flowId.c_str(), ok);
+    // Load rest of parameters
+    flow.color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "");
+    flow.departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "");
+    flow.departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "");
+    flow.departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "");
+    flow.arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "");
+    flow.arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "");
+    flow.arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "");
+    flow.line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, flowId.c_str(), ok, "");
+    flow.personNumber = attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, flowId.c_str(), ok, 0);
+    flow.containerNumber = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, flowId.c_str(), ok, 0);
+    flow.begin = attrs.getOpt<SUMOTime>(SUMO_ATTR_BEGIN, flowId.c_str(), ok, 0);
+    flow.end = attrs.getOpt<SUMOTime>(SUMO_ATTR_END, flowId.c_str(), ok, 0);
+    flow.vehsPerHour = attrs.getOpt<SUMOReal>(SUMO_ATTR_VEHSPERHOUR, flowId.c_str(), ok, 0);
+    flow.period = attrs.getOpt<SUMOReal>(SUMO_ATTR_PERIOD, flowId.c_str(), ok, 0);
+    flow.probability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, flowId.c_str(), ok, 0);
+    flow.number = attrs.getOpt<int>(SUMO_ATTR_NUMBER, flowId.c_str(), ok, 0);
+    // Check if parsing of parameters was correct
+    if (!ok) {
+        throw ProcessError();
+    } else if (calibratorToInsertFlow == NULL){
+        WRITE_ERROR("A Calibrators must be inserter befor insertion of a flow (" + flowId + ")");
+    } else {
+        calibratorToInsertFlow->insertFlow(flowId, flow);
     }
 }
 
@@ -252,9 +298,9 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs) {
 void
 GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     // get Lane ID
-    std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     // get positions
     SUMOReal startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     SUMOReal endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, 10);
@@ -263,8 +309,9 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs) {
     SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     // Check if parsing of parameters was correct
-    if (!ok) 
+    if (!ok) {
         throw ProcessError();
+    }
     // get pointer to lane
     GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
     if(lane == NULL) {
@@ -283,9 +330,9 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs) {
 void
 GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     // get Lane ID
-    std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     // get positions
     SUMOReal startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     SUMOReal endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, 10);
@@ -294,8 +341,9 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs)
     SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     // Check if parsing of parameters was correct
-    if (!ok) 
+    if (!ok) {
         throw ProcessError();
+    }
     // get pointer to lane
     GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
     if(lane == NULL) {
@@ -315,19 +363,20 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     // get Lane ID
-    std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     // get positions
     SUMOReal startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     SUMOReal endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, 10);
     // get rest of parameters
-    SUMOReal chrgpower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
-    SUMOReal efficiency = attrs.getOpt<SUMOReal>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
-    bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
-    SUMOReal chargeDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
+    const SUMOReal chrgpower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
+    const SUMOReal efficiency = attrs.getOpt<SUMOReal>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
+    const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
+    const SUMOReal chargeDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     // Check if parsing of parameters was correct
-    if (!ok) 
+    if (!ok) {
         throw ProcessError();
+    }
     // get pointer to lane
     GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
     if(lane == NULL) {
@@ -343,38 +392,31 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
 
 void
 GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs) {
-    std::cout << "Function buildCalibrator of class GNEAdditionalHandler not implemented yet";
-    /*
     bool ok = true;
-    // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    // get edge ID
+    std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
+    // get rest of parameters
+    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
+    SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T);
+    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
+    std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
+    // Currently routeProbe not used 
+    // std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
     if (!ok) {
         throw ProcessError();
     }
-    // get the file name to read further definitions from
-    MSLane* lane = getLane(attrs, "calibrator", id);
-    const SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
-    const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
-    std::string file = getFileName(attrs, base, true);
-    std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
-    std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
-    MSRouteProbe* probe = 0;
-    if (routeProbe != "") {
-        probe = dynamic_cast<MSRouteProbe*>(net.getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(routeProbe));
-    }
-    if (MSGlobals::gUseMesoSim) {
-#ifdef HAVE_INTERNAL
-        METriggeredCalibrator* trigger = buildMECalibrator(myViewNet->getNet(), id, &lane->getEdge(), pos, file, outfile, freq, probe);
-        if (file == "") {
-            trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
-        }
-#endif
+    // get pointer to edge
+    GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
+    if(edge == NULL) {
+        // Write error if lane isn't valid
+        WRITE_ERROR("The edge " + edgeId + " to use within the " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "' is not known.");
     } else {
-        MSCalibrator* trigger = buildCalibrator(myViewNet->getNet(), id, &lane->getEdge(), pos, file, outfile, freq, probe);
-        if (file == "") {
-            trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
+        if(buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>(), false)) {
+            // Save pointer to current calibrator
+            calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id));
         }
-    }*/
+    }
 }
 
 
@@ -390,8 +432,9 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs) {
     const bool splitByType = attrs.getOpt<bool>(SUMO_ATTR_SPLIT_VTYPE, id.c_str(), ok, false, false);
     const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
     // Check if parsing of parameters was correct
-    if (!ok) 
+    if (!ok) {
         throw ProcessError();
+    }
     // get pointer to lane
     GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
     if(lane == NULL) {
@@ -655,14 +698,13 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
             // get rest of parameters
             // Currently unused SUMOReal pos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_POSITION]);
             SUMOReal pos = 0;
-            std::string file = values[SUMO_ATTR_FILE];
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             SUMOTime freq = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_FREQUENCY]);
             // get flow values
             std::map<std::string, GNECalibrator::CalibratorFlow> flowValues;
             // Build calibrator
             if(edge) {
-                return buildCalibrator(viewNet, id, edge, pos, file, outfile, freq, flowValues, blocked);
+                return buildCalibrator(viewNet, id, edge, pos, outfile, freq, flowValues, blocked);
             } else {
                 return false;
             }
@@ -858,7 +900,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet *viewNet, const std::string& 
 
 
 bool
-GNEAdditionalHandler::buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& file, const std::string& outfile, const SUMOTime freq, const std::map<std::string, GNECalibrator::CalibratorFlow> &flowValues, bool blocked) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& outfile, const SUMOTime freq, const std::map<std::string, GNECalibrator::CalibratorFlow> &flowValues, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
         GNECalibrator *calibrator = new GNECalibrator(id, edge, viewNet, pos, freq, outfile, flowValues, blocked);

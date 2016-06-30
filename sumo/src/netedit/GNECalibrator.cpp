@@ -172,7 +172,7 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string &currentD
         // Write line
         device.writeAttr(SUMO_ATTR_LINE, i->second.line);
         // Write person number
-        device.writeAttr(SUMO_ATTR_NUMBER, i->second.personNumber);
+        device.writeAttr(SUMO_ATTR_PERSON_NUMBER, i->second.personNumber);
         // Write container number
         device.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, i->second.containerNumber);
         // Write vehsPerHour
@@ -200,6 +200,28 @@ GNECalibrator::getFlowValues() const {
 void 
 GNECalibrator::setFlowValues(std::map<std::string, GNECalibrator::CalibratorFlow> calibratorFlowValues) {
     myFlowValues = calibratorFlowValues;
+}
+
+
+void 
+GNECalibrator::insertFlow(const std::string & id, const CalibratorFlow &flow) {
+    if(myFlowValues.find(id) == myFlowValues.end()) {
+        myFlowValues[id] = flow;
+    } else {
+        throw InvalidArgument("Calibrators don't allow Flows with duplicate Id's (" + id + ")");
+    }
+
+}
+
+
+void 
+GNECalibrator::removeFlow(const std::string & id) {
+    if(myFlowValues.find(id) != myFlowValues.end()) {
+        myFlowValues.erase(id);
+    } else {
+        throw InvalidArgument("Calibrator with Id''" + id + "' not exists");
+    }
+
 }
 
 

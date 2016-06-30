@@ -159,6 +159,12 @@ public:
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs);
+
+    /**@brief Parses flow values of Calibrators
+     * @param[in] attrs SAX-attributes which define the flows
+     * @exception InvalidArgument If a parameter is not valid
+     */
+    void parseFlow(const SUMOSAXAttributes& attrs);
     /// @}
 
     /// @name building methods
@@ -289,7 +295,7 @@ public:
      * @param[in] id The id of the calibrator
      * @param[in] edge The edge the calibrator is placed at
      * @param[in] pos The position on the edge the calibrator lies at
-     * @param[in] file The file to read the flows from
+     * @param[in] outfile te file in which write results
      * @param[in] flowValues flow of calibrator
      * @param[in] blocked set initial blocking state of item
      * @return true if was sucesfully created, false in other case
@@ -297,7 +303,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& file, const std::string& outfile, const SUMOTime freq, const std::map<std::string, GNECalibrator::CalibratorFlow> &flowValues, bool blocked);
+    static bool buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& outfile, const SUMOTime freq, const std::map<std::string, GNECalibrator::CalibratorFlow> &flowValues, bool blocked);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
@@ -383,6 +389,9 @@ protected:
 
     /// @brief Id of the last inserted GNEAdditionalSet
     std::string myAdditionalSetParent;
+
+    /// @brief Pointer to calibrator in which insert flow
+    GNECalibrator *calibratorToInsertFlow;
 };
 
 

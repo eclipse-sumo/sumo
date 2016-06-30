@@ -52,7 +52,7 @@ public:
         // Parameters of vehicles
         std::string type;
         std::string route;
-        std::string	color;
+        std::string color;
         std::string departLane;
         std::string departPos;
         std::string departSpeed;
@@ -75,7 +75,7 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] edge Lane of this StoppingPlace belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] pos position of the detector on the lane
+     * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
      * @param[in] output The output file for writing calibrator information
      * @param[in] flowValues values with the flow of calibrator
@@ -111,6 +111,12 @@ public:
     /// @brief set Calbratorflow values
     void setFlowValues(std::map<std::string, CalibratorFlow> calibratorFlowValues);
 
+    /// @brief insert a new flow
+    void insertFlow(const std::string & id, const CalibratorFlow &flow);
+
+    /// @brief remove a existent flow
+    void removeFlow(const std::string & id);
+    
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name of the parent object

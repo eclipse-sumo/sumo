@@ -56,8 +56,8 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_RouteProbe.cpp"
-#include "GNELogo_RouteProbeSelected.cpp"
+#include "GNELogo_Vaporizer.cpp"
+#include "GNELogo_VaporizerSelected.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
