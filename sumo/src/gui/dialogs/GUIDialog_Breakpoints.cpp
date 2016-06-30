@@ -58,13 +58,6 @@
 
 
 // ===========================================================================
-// definitions
-// ===========================================================================
-#define INVALID_VALUE -1
-#define INVALID_VALUE_STR "-1"
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[] = {
@@ -83,7 +76,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // method definitions
 // ===========================================================================
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock)
-    : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 300, 300),
+    : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 170, 300),
       myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -108,7 +101,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
     new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     new FXHorizontalSeparator(layout, SEPARATOR_GROOVE | LAYOUT_FILL_X);
     // "Close"
-    new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Close\t\t", 0, this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     //
     setIcon(GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS));
     myParent->addChild(this);
@@ -132,25 +125,17 @@ GUIDialog_Breakpoints::rebuildList() {
     myTable->clearItems();
     sort(myBreakpoints->begin(), myBreakpoints->end());
     // set table attributes
-    myTable->setTableSize((FXint) myBreakpoints->size() + 1, 1);
+    myTable->setTableSize((FXint)myBreakpoints->size() + 1, 1);
     myTable->setColumnText(0, "Time");
     FXHeader* header = myTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
-    int k;
-    for (k = 0; k < 1; k++) {
-        header->setItemJustify(k, JUSTIFY_CENTER_X);
-    }
+    header->setItemJustify(0, JUSTIFY_CENTER_X);
     // insert into table
-    FXint row = 0;
-    std::vector<SUMOTime>::iterator j;
-    for (j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
-        myTable->setItemText(row, 0, time2string(*j).c_str());
-        row++;
+    for (int row = 0; row < (int)myBreakpoints->size(); row++) {
+        myTable->setItemText(row, 0, time2string((*myBreakpoints)[row]).c_str());
     }
     // insert dummy last field
-    for (k = 0; k < 1; k++) {
-        myTable->setItemText(row, k, " ");
-    }
+    myTable->setItemText((int)myBreakpoints->size(), 0, " ");
 }
 
 
@@ -199,9 +184,7 @@ GUIDialog_Breakpoints::encode2TXT() {
     std::ostringstream strm;
     std::sort(myBreakpoints->begin(), myBreakpoints->end());
     for (std::vector<SUMOTime>::iterator j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
-        if ((*j) != INVALID_VALUE) {
-            strm << time2string(*j) << std::endl;
-        }
+        strm << time2string(*j) << std::endl;
     }
     return strm.str();
 }
@@ -227,19 +210,22 @@ GUIDialog_Breakpoints::onCmdClose(FXObject*, FXSelector, void*) {
 long
 GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
     FXMutexLock lock(*myBreakpointLock);
-    FXTablePos* i = (FXTablePos*) data;
-    std::string value = myTable->getItemText(i->row, i->col).text();
+    const FXTablePos* const i = (FXTablePos*) data;
+    const std::string value = myTable->getItemText(i->row, i->col).text();
     // check whether the inserted value is empty
-    if (value.find_first_not_of(" ") == std::string::npos) {
-        // replace by invalid if so
-        value = INVALID_VALUE_STR;
-    }
-    int row = i->row;
-    if (row == (int) myBreakpoints->size()) {
-        myBreakpoints->push_back(INVALID_VALUE);
-    }
+    const bool empty = value.find_first_not_of(" ") == std::string::npos;
     try {
-        (*myBreakpoints)[row] = string2time(value);
+        if (i->row == (int)myBreakpoints->size()) {
+            if (!empty) {
+                myBreakpoints->push_back(string2time(value));
+            }
+        } else {
+            if (empty) {
+                myBreakpoints->erase(myBreakpoints->begin() + i->row);
+            } else {
+                (*myBreakpoints)[i->row] = string2time(value);
+            }
+        }
     } catch (NumberFormatException&) {
         std::string msg = "The value must be a number, is:" + value;
         FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
