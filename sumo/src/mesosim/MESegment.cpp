@@ -55,6 +55,8 @@
 #endif // CHECK_MEMORY_LEAKS
 
 #define DEFAULT_VEH_LENGHT_WITH_GAP 7.5f
+// avoid division by zero when driving very slowly
+#define MESO_MIN_SPEED ((SUMOReal)0.05)
 
 // ===========================================================================
 // static member defintion
@@ -80,7 +82,7 @@ MESegment::MESegment(const std::string& id,
     myTau_fj((SUMOTime)(taufj / parent.getLanes().size())), // Eissfeldt p. 90 and 151 ff.
     myTau_jf((SUMOTime)(taujf / parent.getLanes().size())),
     myTau_jj((SUMOTime)(taujj / parent.getLanes().size())),
-    myTau_length(speed * parent.getLanes().size() / TIME2STEPS(1) ),
+    myTau_length(MAX2(MESO_MIN_SPEED, speed) * parent.getLanes().size() / TIME2STEPS(1) ),
     myHeadwayCapacity(length / DEFAULT_VEH_LENGHT_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
     myOccupancy(0.f),
@@ -154,16 +156,23 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     // f(n_jam_threshold) = myTau_jf (for continuity)
     // f(myHeadwayCapacity) = myTau_jj & myHeadwayCapacity
 
-    const SUMOReal n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
-    // solving f(x) = a * x + b
-    myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(myTau_jf)) / (myHeadwayCapacity - n_jam_threshold);
-    myB = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - myA);
+    if (myJamThreshold < myCapacity) {
+        // jamming is possible
+        const SUMOReal n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
+        // solving f(x) = a * x + b
+        myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(myTau_jf)) / (myHeadwayCapacity - n_jam_threshold);
+        myB = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - myA);
 
-    // note that the original Eissfeldt model (p. 69) used different fixed points
-    // f(n_jam_threshold) = n_jam_threshold * myTau_jj
-    // f(myHeadwayCapacity) = myTau_jf * myHeadwayCapacity
-    //
-    // However, this systematically underestimates the backpropagation speed of the jam front (see #2244)
+        // note that the original Eissfeldt model (p. 69) used different fixed points
+        // f(n_jam_threshold) = n_jam_threshold * myTau_jj
+        // f(myHeadwayCapacity) = myTau_jf * myHeadwayCapacity
+        //
+        // However, this systematically underestimates the backpropagation speed of the jam front (see #2244)
+    } else {
+        // dummy values. Should not be used
+        myA = 0;
+        myB = myTau_jf;
+    }
 }
 
 
@@ -174,9 +183,10 @@ MESegment::jamThresholdForSpeed(SUMOReal speed, SUMOReal jamThresh) const {
     // and multiply by the space these vehicles would occupy
     // the jamThresh parameter is scale the resulting value
     if (speed == 0) {
-        return std::numeric_limits<double>::max();    // FIXME: This line is just an adhoc-fix to avoid division by zero (Leo)
+        return std::numeric_limits<double>::max();  // never jam. Irrelevant at speed 0 anyway
     }
-    return std::ceil((myLength / (-jamThresh * speed * STEPS2TIME(myTau_ff)))) * (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap);
+    const SUMOReal defaultLengthWithGap = SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap;
+    return std::ceil((myLength / (-jamThresh * speed * STEPS2TIME(myTau_ff + defaultLengthWithGap / myTau_length)))) * defaultLengthWithGap;
 }
 
 
@@ -466,7 +476,7 @@ MESegment::addReminders(MEVehicle* veh) const {
 
 void
 MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTeleport) {
-    const SUMOReal speed = isDepart ? -1 : veh->getSpeed(); // on the previous segment
+    const SUMOReal speed = isDepart ? -1 : MAX2(veh->getSpeed(), MESO_MIN_SPEED); // on the previous segment
     veh->setSegment(this); // for arrival checking
     veh->setLastEntryTime(time);
     veh->setBlockTime(SUMOTime_MAX);
@@ -485,7 +495,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     }
     // route continues
     const SUMOReal maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
-    const SUMOReal uspeed = MAX2(maxSpeedOnEdge, (SUMOReal).05);
+    const SUMOReal uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     size_t nextQueIndex = 0;
     if (myCarQues.size() > 1) {
         const MSEdge* succ = veh->succEdge(1);
@@ -575,6 +585,7 @@ MESegment::setSpeedForQueue(SUMOReal newSpeed, SUMOTime currentTime, SUMOTime bl
     for (std::vector<MEVehicle*>::const_reverse_iterator i = vehs.rbegin() + 1; i != vehs.rend(); ++i) {
         (*i)->updateDetectors(currentTime, false);
         newEvent = MAX2(newArrival(*i, newSpeed, currentTime), newEvent + myTau_ff);
+        //newEvent = MAX2(newArrival(*i, newSpeed, currentTime), newEvent + myTau_ff + (SUMOTime)((*(i - 1))->getVehicleType().getLength() / myTau_length));
         (*i)->setEventTime(newEvent);
     }
 }
@@ -592,6 +603,7 @@ MESegment::newArrival(const MEVehicle* const v, SUMOReal newSpeed, SUMOTime curr
 void
 MESegment::setSpeed(SUMOReal newSpeed, SUMOTime currentTime, SUMOReal jamThresh) {
     recomputeJamThreshold(jamThresh);
+    //myTau_length = MAX2(MESO_MIN_SPEED, newSpeed) * myEdge.getLanes().size() / TIME2STEPS(1);
     for (size_t i = 0; i < myCarQues.size(); ++i) {
         if (myCarQues[i].size() != 0) {
             setSpeedForQueue(newSpeed, currentTime, myBlockTimes[i], myCarQues[i]);
