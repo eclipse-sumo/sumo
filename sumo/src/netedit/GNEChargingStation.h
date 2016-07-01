@@ -61,7 +61,7 @@ public:
      * @param[in] chargeDelay delay in timeSteps in the charge
      * @param[in] blocked set initial blocking state of item
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, SUMOReal chargeDelay, bool blocked);
+    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay, bool blocked);
 
     /// @brief Destructor
     ~GNEChargingStation();
@@ -157,7 +157,7 @@ protected:
     bool myChargeInTransit;
 
     /// @brief delay in the starting of charge
-    SUMOReal myChargeDelay;
+    int myChargeDelay;
 
 private:
     /// @brief set attribute after validation

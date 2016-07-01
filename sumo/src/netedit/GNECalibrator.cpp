@@ -137,7 +137,7 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string &currentD
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
+    device.writeAttr(SUMO_ATTR_LANE, myEdge->getLanes().at(0)->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
@@ -284,8 +284,8 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_EDGE:
-            return toString(myEdge->getAttribute(SUMO_ATTR_ID));
+        case SUMO_ATTR_LANE:
+            return toString(myEdge->getLanes().at(0)->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
         case SUMO_ATTR_FREQUENCY:
@@ -311,7 +311,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_EDGE:
+        case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_OUTPUT:
@@ -335,8 +335,8 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_EDGE:
-            if(myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+        case SUMO_ATTR_LANE:
+            if(myViewNet->getNet()->retrieveLane(value, false) != NULL) {
                 return true;
             } else {
                 return false;
@@ -367,9 +367,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             setAdditionalID(value);
             break;
-        case SUMO_ATTR_EDGE:
+        case SUMO_ATTR_LANE:
             myEdge->removeAdditional(this);
-            myEdge = myViewNet->getNet()->retrieveEdge(value);
+            myEdge = &(myViewNet->getNet()->retrieveLane(value)->getParentEdge());
             myEdge->addAdditional(this);
             updateGeometry();
             getViewNet()->update();

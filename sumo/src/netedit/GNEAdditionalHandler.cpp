@@ -518,10 +518,10 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
         ok = true;
     }
-    // get edge ID
-    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok, false);
+    // get lane ID
+    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, false);
     if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_EDGE) + "' of additional " + toString(tag) + " is missing");
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
         ok = true;
     }
     // get Output file
@@ -538,10 +538,10 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
     // Continue if all parameters were sucesfully loaded
     if (ok) {
         // get pointer to edge
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
+        GNEEdge* edge = &(myViewNet->getNet()->retrieveLane(laneID, false)->getParentEdge());
         if(edge == NULL) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else {
             if(buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>(), false)) {
                 // Save pointer to current calibrator
@@ -909,7 +909,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::
         }
         case SUMO_TAG_CALIBRATOR: {
             // get own attributes of calibrator
-            GNEEdge *edge = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
+            GNEEdge *edge = &(viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false)->getParentEdge());
             // get rest of parameters
             // Currently unused SUMOReal pos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_POSITION]);
             SUMOReal pos = 0;
