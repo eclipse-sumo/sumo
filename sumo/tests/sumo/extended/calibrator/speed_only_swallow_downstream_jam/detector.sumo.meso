@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 31 12:55:37 2016 by SUMO Version dev-SVN-r20823
+<!-- generated on Fri Jul  1 15:29:09 2016 by SUMO Version dev-SVN-r21086
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,6 +29,6 @@
 -->
 
 <calibratorstats>
-   <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="550" removed="0" inserted="0" cleared="1440" flow="550.00" aspiredFlow="-1.00" speed="1.39" aspiredSpeed="27.80"/>
-   <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="3" removed="0" inserted="0" cleared="7" flow="6.00" aspiredFlow="-1.00" speed="0.64" aspiredSpeed="27.80"/>
+   <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="543" removed="0" inserted="0" cleared="1447" flow="543.00" aspiredFlow="-1.00" speed="1.37" aspiredSpeed="27.80"/>
+   <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="2" removed="0" inserted="0" cleared="8" flow="4.00" aspiredFlow="-1.00" speed="0.57" aspiredSpeed="27.80"/>
 </calibratorstats>

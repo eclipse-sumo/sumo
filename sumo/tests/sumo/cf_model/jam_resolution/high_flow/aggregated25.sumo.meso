@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 31 12:55:38 2016 by SUMO Version dev-SVN-r20823
+<!-- generated on Fri Jul  1 15:29:10 2016 by SUMO Version dev-SVN-r21086
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -39,7 +39,7 @@
         <edge id="jam0" sampledSeconds="4685.28" traveltime="31.74" density="43.38" occupancy="21.69" waitingTime="0.00" speed="9.45" departed="0" arrived="0" entered="150" left="146" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="jam1" sampledSeconds="3599.54" traveltime="23.83" density="49.99" occupancy="25.00" waitingTime="0.00" speed="8.39" departed="0" arrived="0" entered="152" left="150" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="jam2" sampledSeconds="1936.43" traveltime="12.64" density="53.79" occupancy="26.89" waitingTime="0.00" speed="7.91" departed="0" arrived="0" entered="154" left="152" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="start" sampledSeconds="7218.12" traveltime="45.64" density="66.83" occupancy="33.42" waitingTime="0.00" speed="6.57" departed="170" arrived="0" entered="0" left="154" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="start" sampledSeconds="7214.12" traveltime="45.62" density="66.80" occupancy="33.40" waitingTime="0.00" speed="6.58" departed="170" arrived="0" entered="0" left="154" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="360.00" end="720.00" id="expect_300_vehs">
         <edge id="end" sampledSeconds="1495.26" traveltime="8.31" density="13.85" occupancy="6.92" waitingTime="0.00" speed="36.11" departed="0" arrived="180" entered="180" left="0" laneChangedFrom="0" laneChangedTo="0"/>

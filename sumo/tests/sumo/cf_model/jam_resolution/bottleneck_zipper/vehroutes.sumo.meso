@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 31 12:55:38 2016 by SUMO Version dev-SVN-r20823
+<!-- generated on Fri Jul  1 15:29:10 2016 by SUMO Version dev-SVN-r21086
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -221,75 +221,75 @@
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.24" depart="72.00" arrival="188.00">
+    <vehicle id="right.24" depart="72.00" arrival="189.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.24" depart="73.00" arrival="190.00">
+    <vehicle id="left.24" depart="73.00" arrival="191.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.25" depart="75.00" arrival="192.00">
+    <vehicle id="right.25" depart="75.00" arrival="193.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.25" depart="76.00" arrival="193.00">
+    <vehicle id="left.25" depart="76.00" arrival="195.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.26" depart="78.00" arrival="195.00">
+    <vehicle id="right.26" depart="78.00" arrival="197.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.26" depart="79.00" arrival="197.00">
+    <vehicle id="left.26" depart="79.00" arrival="199.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.27" depart="81.00" arrival="198.00">
+    <vehicle id="right.27" depart="81.00" arrival="201.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.27" depart="82.00" arrival="200.00">
+    <vehicle id="left.27" depart="82.00" arrival="203.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.28" depart="84.00" arrival="202.00">
+    <vehicle id="right.28" depart="84.00" arrival="205.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.28" depart="85.00" arrival="203.00">
+    <vehicle id="left.28" depart="85.00" arrival="207.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.29" depart="87.00" arrival="205.00">
+    <vehicle id="right.29" depart="87.00" arrival="209.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.29" depart="88.00" arrival="207.00">
+    <vehicle id="left.29" depart="88.00" arrival="210.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.30" depart="90.00" arrival="208.00">
+    <vehicle id="right.30" depart="90.00" arrival="212.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.30" depart="91.00" arrival="210.00">
+    <vehicle id="left.30" depart="91.00" arrival="214.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.31" depart="93.00" arrival="212.00">
+    <vehicle id="right.31" depart="93.00" arrival="215.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.31" depart="94.00" arrival="213.00">
+    <vehicle id="left.31" depart="94.00" arrival="217.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.32" depart="96.00" arrival="215.00">
+    <vehicle id="right.32" depart="96.00" arrival="219.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.32" depart="97.00" arrival="217.00">
+    <vehicle id="left.32" depart="97.00" arrival="220.00">
         <route edges="beg end"/>
     </vehicle>
 
