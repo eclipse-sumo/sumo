@@ -52,6 +52,9 @@ increasing_time_typedefined_withmodel
 # Test whether the cfmodel is processed when nested
 increasing_time_typedefined_nestedmodel
 
+# Test with 10 vehicles having one departure time, an unknown type is used in the trips file but the error is ignored
+one_time_typeundefined
+
 # using zones for start / end
 with_taz
 
