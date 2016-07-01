@@ -17,5 +17,8 @@ ramp-like-attachment
 # now with options ramps.guess
 ramp-like-attachment_guessRamps
 
+# load a sumo network and remove the roundabout edges
+remove
+
 # network topologies that should not be classified as a roundabout
 no_roundabout
