@@ -805,7 +805,7 @@ NBNode::computeLanes2Lanes() {
         int out1Offset = MAX2(0, out1->getFirstNonPedestrianLaneIndex(FORWARD, true));
         int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int deltaLaneSum = (out2->getNumLanes() + out1->getNumLanes() - out1Offset - out2Offset) - (in->getNumLanes() - inOffset);
-        if ((deltaLaneSum == 0 || deltaLaneSum == 1)
+        if ((deltaLaneSum == 0 || (deltaLaneSum == 1 && in->getPermissionVariants(inOffset, in->getNumLanes()).size() == 1))
                 && (in->getStep() <= NBEdge::LANES2EDGES)
                 && in != out1
                 && in != out2

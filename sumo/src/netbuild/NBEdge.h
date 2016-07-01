@@ -531,6 +531,9 @@ public:
     int getFirstNonPedestrianLaneIndex(int direction, bool exclusive = false) const;
     NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
+    /// @brief return all permission variants within the specified lane range [iStart, iEnd[
+    std::set<SVCPermissions> getPermissionVariants(int iStart, int iEnd) const; 
+
     /// @brief return the angle for computing pedestrian crossings at the given node
     SUMOReal getCrossingAngle(NBNode* node);
 

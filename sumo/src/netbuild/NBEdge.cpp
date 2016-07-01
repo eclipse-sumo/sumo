@@ -2599,6 +2599,19 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
 }
 
 
+std::set<SVCPermissions> 
+NBEdge::getPermissionVariants(int iStart, int iEnd) const {
+    std::set<SVCPermissions> result;
+    if (iStart < 0 || iStart >= getNumLanes() || iEnd > getNumLanes()) {
+        throw ProcessError("invalid indices iStart " + toString(iStart) + " iEnd " + toString(iEnd) + " for edge with " + toString(getNumLanes()) + " lanes.");
+    }
+    for (int i = iStart; i < iEnd; ++i) {
+        result.insert(getPermissions(i));
+    }
+    return result;
+}
+
+
 SUMOReal
 NBEdge::getCrossingAngle(NBNode* node) {
     SUMOReal angle = getAngleAtNode(node) + (getFromNode() == node ? 180.0 : 0.0);
