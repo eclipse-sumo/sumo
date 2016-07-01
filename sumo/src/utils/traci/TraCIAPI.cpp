@@ -1889,6 +1889,12 @@ TraCIAPI::VehicleScope::getSpeedMode(const std::string& vehID) const {
 }
 
 
+SUMOReal
+TraCIAPI::VehicleScope::getSlope(const std::string& vehID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SLOPE, vehID);
+}
+
+
 std::vector<TraCIAPI::VehicleScope::NextTLSData>
 TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     tcpip::Storage inMsg;

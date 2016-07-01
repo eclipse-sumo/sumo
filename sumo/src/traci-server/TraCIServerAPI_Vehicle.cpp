@@ -102,6 +102,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_PARAMETER
             && variable != VAR_SPEEDSETMODE
             && variable != VAR_NEXT_TLS
+            && variable != VAR_SLOPE
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -161,6 +162,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_ANGLE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(visible ? GeomHelper::naviDegree(v->getAngle()) : INVALID_DOUBLE_VALUE);
+                break;
+            case VAR_SLOPE:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(onRoad ? v->getSlope() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_ROAD_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);

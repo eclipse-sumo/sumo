@@ -155,6 +155,7 @@ print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
 traci.vehicle.setSpeed(vehID, 20)
 print("speedmode", traci.vehicle.getSpeedMode(vehID))
+print("slope", traci.vehicle.getSlope(vehID))
 print("leader", traci.vehicle.getLeader("2"))
 traci.vehicle.subscribeLeader("2")
 for i in range(6):

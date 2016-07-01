@@ -103,6 +103,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_EMISSIONCLASS:   Storage.readString,
                       tc.VAR_WAITING_TIME:    Storage.readDouble,
                       tc.VAR_SPEEDSETMODE:    Storage.readInt,
+                      tc.VAR_SLOPE:           Storage.readDouble,
                       tc.VAR_WIDTH:           Storage.readDouble,
                       tc.VAR_MINGAP:          Storage.readDouble,
                       tc.VAR_SHAPECLASS:      Storage.readString,
@@ -390,6 +391,12 @@ class VehicleDomain(Domain):
         The speed mode of a vehicle 
         """
         return self._getUniversal(tc.VAR_SPEEDSETMODE, vehID)
+
+    def getSlope (self, vehID):
+        """getSlope -> double
+        The slope at the current position of the vehicle in degrees
+        """
+        return self._getUniversal(tc.VAR_SLOPE, vehID)
 
     def getWidth(self, vehID):
         """getWidth(string) -> double

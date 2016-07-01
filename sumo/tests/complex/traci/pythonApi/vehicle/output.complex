@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:20855 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:24272 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -213,6 +213,7 @@ driving dist 2914.61057563
 driving dist 2D 1064.01057563
 nextTLS [('0', 5, 475.3605756313773, 'r'), ('0', 12, 1449.6605756313775, 'r'), ('0', 9, 2423.9605756313777, 'G')]
 speedmode 0
+slope 0.0
 leader ('1', 21.526653511757473)
 step 13
 {104: ('1', 21.38506880249916)}
