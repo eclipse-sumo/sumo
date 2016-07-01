@@ -114,6 +114,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         case SUMO_TAG_VAPORIZER:
             parseAndBuildVaporizer(attrs, tag);
             break;
+        case SUMO_TAG_ROUTEPROBE:
+            parseAndBuildRouteProbe(attrs, tag);
+            break;
         case SUMO_TAG_FLOW:
             parseFlow(attrs, tag);
             break;
@@ -212,11 +215,6 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
 
 void 
 GNEAdditionalHandler::parseFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
-    
-
-    /** COMPROBAR OPCIONALES  **/
-
-    
     // Declare calibrator to keep flow
     GNECalibrator::CalibratorFlow flow;
     bool ok = true;
@@ -238,12 +236,12 @@ GNEAdditionalHandler::parseFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag
     }
     // Load rest of parameters
     flow.color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "", false);
-    flow.departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "", false);
-    flow.departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "", false);
-    flow.departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "", false);
-    flow.arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "", false);
-    flow.arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "", false);
-    flow.arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "", false);
+    flow.departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "first", false);
+    flow.departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "base", false);
+    flow.departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "0", false);
+    flow.arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "current", false);
+    flow.arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "max", false);
+    flow.arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "current", false);
     flow.line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, flowId.c_str(), ok, "", false);
     flow.personNumber = attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, flowId.c_str(), ok, 0, false);
     flow.containerNumber = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, flowId.c_str(), ok, 0, false);

@@ -169,6 +169,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device, const std::string &currentD
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
+    device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     if(!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
