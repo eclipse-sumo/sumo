@@ -277,7 +277,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement *netElement, GUISUMOAbstractView
         if(myAdditionalSet->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalSet->getIdSelected();
         } else {
-            WRITE_ERROR("A " + toString(myAdditionalSet->getCurrentlyTag()) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
+            WRITE_WARNING("A " + toString(myAdditionalSet->getCurrentlyTag()) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
             return false;
         }
     }
@@ -299,7 +299,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement *netElement, GUISUMOAbstractView
             valuesOfElement[SUMO_ATTR_EDGES] = myEdgesSelector->getIdsSelected();
         // check if attribute has at least an Edge
         if(valuesOfElement[SUMO_ATTR_EDGES] == "") {
-            WRITE_ERROR("A " + toString(myActualAdditionalType) + " must have at least one edge associated.");
+            WRITE_WARNING("A " + toString(myActualAdditionalType) + " must have at least one edge associated.");
             return false;
         }
     }
@@ -321,7 +321,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement *netElement, GUISUMOAbstractView
             valuesOfElement[SUMO_ATTR_LANES] = myLanesSelector->getIdsSelected();
         // check if attribute has at least a lane
         if(valuesOfElement[SUMO_ATTR_LANES] == "") {
-            WRITE_ERROR("A " + toString(myActualAdditionalType) + " must have at least one lane associated.");
+            WRITE_WARNING("A " + toString(myActualAdditionalType) + " must have at least one lane associated.");
             return false;
         }
     }

@@ -55,7 +55,7 @@ public:
      * @param[in] filename The path to the output file
      * @param[in] blocked set initial blocking state of item
      */
-    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOReal freq, const std::string& filename, bool blocked);
+    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, int freq, const std::string& filename, bool blocked);
 
     /// @brief GNEDetectorE3 6Destructor
     ~GNEDetectorE3();
@@ -84,6 +84,7 @@ public:
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
     const std::string& getParentName() const;
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -116,7 +117,7 @@ public:
 
 protected:
     /// @brief frequency of E3 detector
-    SUMOReal myFreq;
+    int myFreq;
 
     /// @brief fielname of E3 detector
     std::string myFilename;

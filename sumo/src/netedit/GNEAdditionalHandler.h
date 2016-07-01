@@ -83,88 +83,89 @@ public:
     /// @{
     /**@brief Builds a vaporization
      * @param[in] attrs SAX-attributes which define the vaporizer
+     * @param[in] tag of the additional
      * @note recheck throwing the exception
      */
-    void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs);
+    void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a Variable Speed Signal (lane speed trigger)
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid or the read definition is errornous
+     * @param[in] tag of the additional
      * @see buildLaneSpeedTrigger
      */
-    void parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs);
+    void parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (edge) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildRerouter(const SUMOSAXAttributes& attrs);
+    void parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a bus stop
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildBusStop(const SUMOSAXAttributes& attrs);
+    void parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a container stop
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildContainerStop(const SUMOSAXAttributes& attrs);
+    void parseAndBuildContainerStop(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a charging station
      * @param[in] attrs SAXattributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildChargingStation(const SUMOSAXAttributes& attrs);
+    void parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a mesoscopic or microscopic calibrator
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (edge/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildCalibrator(const SUMOSAXAttributes& attrs);
+    void parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a induction loop detector (E1)
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs);
+    void parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a lane area detector (E2)
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs);
+    void parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a multi entry exit detector (E3)
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter position is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs);
+    void parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a Entry detector
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs);
+    void parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds a Exit detector
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs);
+    void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses his values and builds routeProbe
      * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @param[in] tag of the additional
      */
-    void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs);
+    void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
-     * @exception InvalidArgument If a parameter is not valid
+     * @param[in] tag of the additional
      */
-    void parseFlow(const SUMOSAXAttributes& attrs);
+    void parseFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
     /// @}
 
     /// @name building methods

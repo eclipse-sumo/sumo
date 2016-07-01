@@ -71,472 +71,700 @@ GNEAdditionalHandler::~GNEAdditionalHandler() {}
 
 void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    try {
-        switch (element) {
-            case SUMO_TAG_BUS_STOP:
-                parseAndBuildBusStop(attrs);
-                break;
-            case SUMO_TAG_CONTAINER_STOP:
-                parseAndBuildContainerStop(attrs);
-                break;
-            case SUMO_TAG_CHARGING_STATION:
-                parseAndBuildChargingStation(attrs);
-                break;
-            case SUMO_TAG_E1DETECTOR:
-            case SUMO_TAG_INDUCTION_LOOP:
-                parseAndBuildDetectorE1(attrs);
-                break;
-            case SUMO_TAG_E2DETECTOR:
-            case SUMO_TAG_LANE_AREA_DETECTOR:
-                parseAndBuildDetectorE2(attrs);
-                break;
-            case SUMO_TAG_E3DETECTOR:
-            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-                parseAndBuildDetectorE3(attrs);
-                break;
-            case SUMO_TAG_DET_ENTRY:
-                parseAndBuildDetectorEntry(attrs);
-                break;
-            case SUMO_TAG_DET_EXIT:
-                parseAndBuildDetectorExit(attrs);
-                break;
-            case SUMO_TAG_VSS:
-                parseAndBuildVariableSpeedSignal(attrs);
-                break;
-            case SUMO_TAG_REROUTER:
-                parseAndBuildRerouter(attrs);
-                break;
-            case SUMO_TAG_CALIBRATOR:
-                parseAndBuildCalibrator(attrs);
-                break;
-            case SUMO_TAG_VAPORIZER:
-                parseAndBuildVaporizer(attrs);
-                break;
-            case SUMO_TAG_FLOW:
-                parseFlow(attrs);
-                break;
-            default:
-                break;
-        }
-    } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
+    // Obtain tag of element
+    SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    // Call parse and build depending of tag
+    switch (element) {
+        case SUMO_TAG_BUS_STOP:
+            parseAndBuildBusStop(attrs, tag);
+            break;
+        case SUMO_TAG_CONTAINER_STOP:
+            parseAndBuildContainerStop(attrs, tag);
+            break;
+        case SUMO_TAG_CHARGING_STATION:
+            parseAndBuildChargingStation(attrs, tag);
+            break;
+        case SUMO_TAG_E1DETECTOR:
+        case SUMO_TAG_INDUCTION_LOOP:
+            parseAndBuildDetectorE1(attrs, tag);
+            break;
+        case SUMO_TAG_E2DETECTOR:
+        case SUMO_TAG_LANE_AREA_DETECTOR:
+            parseAndBuildDetectorE2(attrs, tag);
+            break;
+        case SUMO_TAG_E3DETECTOR:
+        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+            parseAndBuildDetectorE3(attrs, tag);
+            break;
+        case SUMO_TAG_DET_ENTRY:
+            parseAndBuildDetectorEntry(attrs, tag);
+            break;
+        case SUMO_TAG_DET_EXIT:
+            parseAndBuildDetectorExit(attrs, tag);
+            break;
+        case SUMO_TAG_VSS:
+            parseAndBuildVariableSpeedSignal(attrs, tag);
+            break;
+        case SUMO_TAG_REROUTER:
+            parseAndBuildRerouter(attrs, tag);
+            break;
+        case SUMO_TAG_CALIBRATOR:
+            parseAndBuildCalibrator(attrs, tag);
+            break;
+        case SUMO_TAG_VAPORIZER:
+            parseAndBuildVaporizer(attrs, tag);
+            break;
+        case SUMO_TAG_FLOW:
+            parseFlow(attrs, tag);
+            break;
+        default:
+            break;
     }
 }
 
 
 void
-GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs) {
+GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
     bool ok = true;
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // edge Lane ID
-    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
-    // get attributes
-    const std::string edgeID = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok, 0);
-    const SUMOReal startTime = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTTIME, id.c_str(), ok, 0);
-    const SUMOReal endTime = attrs.getOpt<SUMOReal>(SUMO_ATTR_END, id.c_str(), ok, 0);
-    // Check if parsing of parameters was correct
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
     if (!ok) {
-        throw ProcessError();
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
     }
-    // get edge
-    GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
-    if(edge == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The edge " + edgeId + " to use within the " + toString(SUMO_TAG_VAPORIZER) + " '" + id + "' is not known.");
-    } else {
-        // build Vaporizer
-        buildVaporizer(myViewNet, id, edge, startTime, endTime, false);
+    // get edge ID
+    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_EDGE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get start Time
+    const SUMOReal startTime = attrs.get<SUMOReal>(SUMO_ATTR_STARTTIME, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_STARTTIME) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get end Time
+    const SUMOReal endTime = attrs.get<SUMOReal>(SUMO_ATTR_END, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_END) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // get edge
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
+        if(edge == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else {
+            // build Vaporizer
+            buildVaporizer(myViewNet, id, edge, startTime, endTime, false);
+        }
     }
 }
 
 
 
 void 
-GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs) {
+GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
     bool ok = true;
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // edge Lane ID
-    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
-    // get attributes
-    const int freq = attrs.getOpt<int>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, 0);
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, 0);
-    const int begin = attrs.getOpt<int>(SUMO_ATTR_BEGIN, id.c_str(), ok, 0);
-    // Check if parsing of parameters was correct
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
     if (!ok) {
-        throw ProcessError();
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
     }
-    // get edge
-    GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
-    if(edge == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The edge " + edgeId + " to use within the " + toString(SUMO_TAG_ROUTEPROBE) + " '" + id + "' is not known.");
-    } else {
-        // build Vaporizer
-        buildRouteProbe(myViewNet, id, edge, freq, file, begin, false);
+    // get edge ID
+    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_EDGE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get frequency
+    const int freq = attrs.get<int>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FREQUENCY) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get File
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FILE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Get optionals attributes
+    const int begin = attrs.getOpt<int>(SUMO_ATTR_BEGIN, id.c_str(), ok, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // get edge
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
+        if(edge == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else {
+            // build Vaporizer
+            buildRouteProbe(myViewNet, id, edge, freq, file, begin, false);
+        }
     }
 }
 
 
 void 
-GNEAdditionalHandler::parseFlow(const SUMOSAXAttributes& attrs) {
+GNEAdditionalHandler::parseFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    
+
+    /** COMPROBAR OPCIONALES  **/
+
+    
     // Declare calibrator to keep flow
     GNECalibrator::CalibratorFlow flow;
     bool ok = true;
     // Load non empty values
-    std::string flowId = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    flow.type = attrs.get<std::string>(SUMO_ATTR_TYPE, flowId.c_str(), ok);
-    flow.route = attrs.get<std::string>(SUMO_ATTR_ROUTE, flowId.c_str(), ok);
+    std::string flowId = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of " + toString(tag) + "'s calibrator is missing");
+        ok = true;
+    }
+    flow.type = attrs.get<std::string>(SUMO_ATTR_TYPE, flowId.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TYPE) + "' of " + toString(tag) + "'s calibrator is missing");
+        ok = true;
+    }
+    flow.route = attrs.get<std::string>(SUMO_ATTR_ROUTE, flowId.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ROUTE) + "' of " + toString(tag) + "'s calibrator is missing");
+        ok = true;
+    }
     // Load rest of parameters
-    flow.color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "");
-    flow.departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "");
-    flow.departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "");
-    flow.departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "");
-    flow.arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "");
-    flow.arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "");
-    flow.arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "");
-    flow.line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, flowId.c_str(), ok, "");
-    flow.personNumber = attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, flowId.c_str(), ok, 0);
-    flow.containerNumber = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, flowId.c_str(), ok, 0);
-    flow.begin = attrs.getOpt<SUMOTime>(SUMO_ATTR_BEGIN, flowId.c_str(), ok, 0);
-    flow.end = attrs.getOpt<SUMOTime>(SUMO_ATTR_END, flowId.c_str(), ok, 0);
-    flow.vehsPerHour = attrs.getOpt<SUMOReal>(SUMO_ATTR_VEHSPERHOUR, flowId.c_str(), ok, 0);
-    flow.period = attrs.getOpt<SUMOReal>(SUMO_ATTR_PERIOD, flowId.c_str(), ok, 0);
-    flow.probability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, flowId.c_str(), ok, 0);
-    flow.number = attrs.getOpt<int>(SUMO_ATTR_NUMBER, flowId.c_str(), ok, 0);
-    // Check if parsing of parameters was correct
-    if (!ok) {
-        throw ProcessError();
-    } else if (calibratorToInsertFlow == NULL){
-        WRITE_ERROR("A Calibrators must be inserter befor insertion of a flow (" + flowId + ")");
-    } else {
-        calibratorToInsertFlow->insertFlow(flowId, flow);
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get rest of parameters
-    const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0);
-    const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0);
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
-    std::vector<std::string> lanesID;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LANES, id.c_str(), ok, "", false), lanesID);
-    // Check if parsing of parameter was correct
-    if (!ok) {
-        throw ProcessError();
-    }
-    // obtain VSS Values
-    // @todo
-    std::map<SUMOTime, SUMOReal> VSSValues;
-    // Obtain pointer to lanes
-    std::vector<GNELane*> lanes;
-    for(int i = 0; i < (int)lanesID.size(); i++) {
-        GNELane *lane = myViewNet->getNet()->retrieveLane(lanesID.at(i));
-        if(lane) {
-            lanes.push_back(lane);
+    flow.color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "", false);
+    flow.departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "", false);
+    flow.departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "", false);
+    flow.departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "", false);
+    flow.arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "", false);
+    flow.arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "", false);
+    flow.arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "", false);
+    flow.line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, flowId.c_str(), ok, "", false);
+    flow.personNumber = attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, flowId.c_str(), ok, 0, false);
+    flow.containerNumber = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, flowId.c_str(), ok, 0, false);
+    flow.begin = attrs.getOpt<SUMOTime>(SUMO_ATTR_BEGIN, flowId.c_str(), ok, 0, false);
+    flow.end = attrs.getOpt<SUMOTime>(SUMO_ATTR_END, flowId.c_str(), ok, 0, false);
+    flow.vehsPerHour = attrs.getOpt<SUMOReal>(SUMO_ATTR_VEHSPERHOUR, flowId.c_str(), ok, 0, false);
+    flow.period = attrs.getOpt<SUMOReal>(SUMO_ATTR_PERIOD, flowId.c_str(), ok, 0, false);
+    flow.probability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, flowId.c_str(), ok, 0, false);
+    flow.number = attrs.getOpt<int>(SUMO_ATTR_NUMBER, flowId.c_str(), ok, 0, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        if (calibratorToInsertFlow == NULL){
+            WRITE_WARNING("A Calibrators must be inserter befor insertion of a flow (" + flowId + ")");
         } else {
-            throw ProcessError();
-        }
-    }
-    // if operation of build variable speed signal was sucesfully, save Id
-    if(buildVariableSpeedSignal(myViewNet, id, Position(posx,posy), lanes, file, VSSValues, false)) {
-        myAdditionalSetParent = id;
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs) {
-bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get rest of parameters
-    const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0);
-    const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0);
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
-    const SUMOReal probability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok, 0);
-    const bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), ok, 0);
-    std::vector<std::string> edgesID;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok, "", false), edgesID);
-    // Check if parsing of parameter was correct
-    if (!ok) {
-        throw ProcessError();
-    }
-    // obtain Rerouter values Values
-    // @ToDo Finish
-    std::set<GNERerouter::rerouterInterval> rerouterIntervals;
-    // Obtain pointer to edges
-    std::vector<GNEEdge*> edges;
-    for(int i = 0; i < (int)edgesID.size(); i++) {
-        GNEEdge *edge = myViewNet->getNet()->retrieveEdge(edgesID.at(i));
-        if(edge) {
-            edges.push_back(edge);
-        } else {
-            throw ProcessError();
-        }
-    }
-    // if operation of build variable speed signal was sucesfully, save Id
-    if(buildRerouter(myViewNet, id, Position(posx, posy), edges, probability, file, off , rerouterIntervals, false)) {
-        myAdditionalSetParent = id;
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get Lane ID
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
-    // get positions
-    SUMOReal startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    SUMOReal endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, 10);
-    // get lines
-    std::vector<std::string> lines;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    // Check if parsing of parameters was correct
-    if (!ok) {
-        throw ProcessError();
-    }
-    // get pointer to lane
-    GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-    if(lane == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The lane " + laneId + " to use within the " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "' is not known.");
-    } else if(!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, friendlyPos)) {
-        // Write error if position isn't valid
-        WRITE_ERROR("Invalid position for " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "'.");
-    } else {
-        // build busStop
-        buildBusStop(myViewNet, id, lane, startPos, endPos, lines, false);
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get Lane ID
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
-    // get positions
-    SUMOReal startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    SUMOReal endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, 10);
-    // get lines
-    std::vector<std::string> lines;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    // Check if parsing of parameters was correct
-    if (!ok) {
-        throw ProcessError();
-    }
-    // get pointer to lane
-    GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-    if(lane == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The lane " + laneId + " to use within the " + toString(SUMO_TAG_CONTAINER_STOP) + " '" + id + "' is not known.");
-    // Check position and build container stop
-    } else if(!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, friendlyPos)) {
-        WRITE_ERROR("Invalid position for " + toString(SUMO_TAG_CONTAINER_STOP) + " '" + id + "'.");
-    } else {
-        buildContainerStop(myViewNet, id, lane, startPos, endPos, lines, false);
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get Lane ID
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
-    // get positions
-    SUMOReal startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    SUMOReal endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, 10);
-    // get rest of parameters
-    const SUMOReal chrgpower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
-    const SUMOReal efficiency = attrs.getOpt<SUMOReal>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
-    const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
-    const SUMOReal chargeDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    // Check if parsing of parameters was correct
-    if (!ok) {
-        throw ProcessError();
-    }
-    // get pointer to lane
-    GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-    if(lane == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The lane " + laneId + " to use within the " + toString(SUMO_TAG_CHARGING_STATION) + " '" + id + "' is not known.");
-    } else if(!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, friendlyPos)) {
-        WRITE_ERROR("Invalid position for " + toString(SUMO_TAG_CHARGING_STATION) + " '" + id + "'.");
-    } else {
-        buildChargingStation(myViewNet, id, lane, startPos, endPos, chrgpower, efficiency, chargeInTransit, chargeDelay, false);
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get edge ID
-    std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
-    // get rest of parameters
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
-    SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T);
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
-    std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
-    // Currently routeProbe not used 
-    // std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
-    if (!ok) {
-        throw ProcessError();
-    }
-    // get pointer to edge
-    GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
-    if(edge == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The edge " + edgeId + " to use within the " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "' is not known.");
-    } else {
-        if(buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>(), false)) {
-            // Save pointer to current calibrator
-            calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id));
+            calibratorToInsertFlow->insertFlow(flowId, flow);
         }
     }
 }
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs) {
+GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get Lane ID
-    std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
-    // get rest of attributes
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
-    const bool splitByType = attrs.getOpt<bool>(SUMO_ATTR_SPLIT_VTYPE, id.c_str(), ok, false, false);
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
-    // Check if parsing of parameters was correct
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
     if (!ok) {
-        throw ProcessError();
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
     }
-    // get pointer to lane
-    GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-    if(lane == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The lane " + laneId + " to use within the " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "' is not known.");
-    } else {
-        // build detector E1
-        buildDetectorE1(myViewNet, id, lane, position, frequency, file, splitByType, false);
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    // get Lane ID
-    std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
-    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-    const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
-    const SUMOReal jamDistThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
-    const SUMOReal length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok);
-    const bool cont = attrs.getOpt<bool>(SUMO_ATTR_CONT, id.c_str(), ok, false);
-    const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
-    // Check if parsing of parameters was correct
+    // get file
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, false);
     if (!ok) {
-        throw ProcessError();
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FILE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
     }
-    // get pointer to lane
-    GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-    if(lane == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The lane " + laneId + " to use within the " + toString(SUMO_TAG_E2DETECTOR) + " '" + id + "' is not known.");
-    } else {
-        // build detector E2
-        buildDetectorE2(myViewNet, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, false);
+    // get lanes
+    const std::string listOfLanes = attrs.get<std::string>(SUMO_ATTR_LANES, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANES) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
     }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    // Get optional attributes
     const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0, false);
     const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // Obtain lanes
+        std::vector<std::string> lanesID;
+        SUMOSAXAttributes::parseStringVector(listOfLanes, lanesID);
+        // obtain VSS Values
+        // @todo
+        std::map<SUMOTime, SUMOReal> VSSValues;
+        // Obtain pointer to lanes
+        std::vector<GNELane*> lanes;
+        for(int i = 0; i < (int)lanesID.size(); i++) {
+            GNELane *lane = myViewNet->getNet()->retrieveLane(lanesID.at(i));
+            if(lane) {
+                lanes.push_back(lane);
+            } else {
+                throw ProcessError(); /*********************** ARREGLAR **********/
+            }
+        }
+        // if operation of build variable speed signal was sucesfully, save Id
+        if(buildVariableSpeedSignal(myViewNet, id, Position(posx,posy), lanes, file, VSSValues, false)) {
+            myAdditionalSetParent = id;
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+bool ok = true;
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get Edges
+    const std::string edgesAttribute = attrs.get<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_EDGES) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get rest of parameters
     const std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "", false);
-    // Check if parsing of parameters was correct
-    if (!ok) {
-        throw ProcessError();
-    }
-    // if operation of build detector E3 was sucesfully, save Id
-    if(buildDetectorE3(myViewNet, id, Position(posx,posy), frequency, file, false)) {
-        myAdditionalSetParent = id;
+    const SUMOReal probability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok, 1, false);
+    const bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), ok, 0, false);
+    const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0, false);
+    const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // Obtain edges
+        std::vector<std::string> edgesID;
+        SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok, "", false), edgesID);
+        // obtain Rerouter values Values
+        // @ToDo Finish
+        std::set<GNERerouter::rerouterInterval> rerouterIntervals;
+        // Obtain pointer to edges
+        std::vector<GNEEdge*> edges;
+        for(int i = 0; i < (int)edgesID.size(); i++) {
+            GNEEdge *edge = myViewNet->getNet()->retrieveEdge(edgesID.at(i));
+            if(edge) {
+                edges.push_back(edge);
+            } else {
+                throw ProcessError(); /**************** ARREGLAR **********/
+            }
+        }
+        // if operation of build variable speed signal was sucesfully, save Id
+        if(buildRerouter(myViewNet, id, Position(posx, posy), edges, probability, file, off , rerouterIntervals, false)) {
+            myAdditionalSetParent = id;
+        }
     }
 }
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs) {
+GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
     bool ok = true;
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
-    // get Lane ID
-    std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, 0, ok);
-    // Check if parsing of parameters was correct
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
     if (!ok) {
-        throw ProcessError();
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
     }
-    // get pointer to lane
-    GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-    if(lane == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The lane " + laneId + " to use within the " + toString(SUMO_TAG_E2DETECTOR) + " is not known.");
-    } else {
-        // get the ID. Note: This Id is interne, and cannot be defined by user
-        int indexEntry = 0;
-        while(myViewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, toString(SUMO_TAG_DET_ENTRY) + "_" + toString(indexEntry) + "_" + myAdditionalSetParent) != NULL) {
-            indexEntry++;
+    // get lane ID
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get startPosition
+    SUMOReal startPos = attrs.get<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_STARTPOS) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get End Position
+    SUMOReal endPos = attrs.get<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ENDPOS) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get optional atributes
+    const std::string linesAttribute = attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // Parse lines
+        std::vector<std::string> lines;
+        SUMOSAXAttributes::parseStringVector(linesAttribute, lines);
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        if(lane == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else if(!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, friendlyPos)) {
+            // Write error if position isn't valid
+            WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
+        } else {
+            // build busStop
+            buildBusStop(myViewNet, id, lane, startPos, endPos, lines, false);
         }
-        // build detector entry
-        buildDetectorEntry(myViewNet, toString(SUMO_TAG_DET_ENTRY) + "_" + toString(indexEntry) + "_" + myAdditionalSetParent, lane, position, myAdditionalSetParent, false);
     }
 }
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs) {
+GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
     bool ok = true;
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
-    // get Lane ID
-    std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, 0, ok);
-    // Check if parsing of parameters was correct
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
     if (!ok) {
-        throw ProcessError();
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
     }
-    // get pointer to lane
-    GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-    if(lane == NULL) {
-        // Write error if lane isn't valid
-        WRITE_ERROR("The lane " + laneId + " to use within the " + toString(SUMO_TAG_E2DETECTOR) + " is not known.");
-    } else {
-        // get the ID. Note: This Id is interne, and cannot be defined by user
-        int indexExit = 0;
-        while(myViewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, toString(SUMO_TAG_DET_EXIT) + "_" + toString(indexExit) + "_" + myAdditionalSetParent) != NULL) {
-            indexExit++;
+    // get lane ID
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get startPosition
+    SUMOReal startPos = attrs.get<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_STARTPOS) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get End Position
+    SUMOReal endPos = attrs.get<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ENDPOS) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get lines
+    const std::string linesAttribute = attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // Parse lines
+        std::vector<std::string> lines;
+        SUMOSAXAttributes::parseStringVector(linesAttribute, lines);
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        if(lane == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        // Check position and build container stop
+        } else if(!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, friendlyPos)) {
+            WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
+        } else {
+            buildContainerStop(myViewNet, id, lane, startPos, endPos, lines, false);
         }
-        // build detector Exit
-        buildDetectorExit(myViewNet, toString(SUMO_TAG_DET_EXIT) + "_" + toString(indexExit) + "_" + myAdditionalSetParent, lane, position, myAdditionalSetParent, false);
     }
+}
 
+
+void
+GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get lane ID
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get startPosition
+    SUMOReal startPos = attrs.get<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_STARTPOS) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get End Position
+    SUMOReal endPos = attrs.get<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ENDPOS) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get rest of parameters
+    const SUMOReal chrgpower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 22000, false);
+    const SUMOReal efficiency = attrs.getOpt<SUMOReal>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0.95, false);
+    const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0, false);
+    const SUMOReal chargeDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0, false);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        if(lane == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else if(!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, friendlyPos)) {
+            WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
+        } else {
+            buildChargingStation(myViewNet, id, lane, startPos, endPos, chrgpower, efficiency, chargeInTransit, chargeDelay, false);
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get edge ID
+    const std::string edgeId = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_EDGE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get Output file
+    const std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "", false);
+        if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_OUTPUT) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get rest of parameters
+    const SUMOReal position = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok, 0, false);
+    SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T, false);
+    // Currently routeProbe not used 
+    // std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // get pointer to edge
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
+        if(edge == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else {
+            if(buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>(), false)) {
+                // Save pointer to current calibrator
+                calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(tag, id));
+            }
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get lane ID
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load position
+    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_POSITION) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load frequency
+    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FREQUENCY) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load file
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FILE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get rest of attributes
+    const bool splitByType = attrs.getOpt<bool>(SUMO_ATTR_SPLIT_VTYPE, id.c_str(), ok, false, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        if(lane == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else {
+            // build detector E1
+            buildDetectorE1(myViewNet, id, lane, position, frequency, file, splitByType, false);
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get lane ID
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load position
+    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_POSITION) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load frequency
+    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FREQUENCY) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load file
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FILE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load lenght
+    const SUMOReal length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LENGTH) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get Rest of parameters
+    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1), false);
+    const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f, false);
+    const SUMOReal jamDistThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f, false);
+    const bool cont = attrs.getOpt<bool>(SUMO_ATTR_CONT, id.c_str(), ok, false);
+    // Check if parsing of parameters was correct
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        if(lane == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else {
+            // build detector E2
+            buildDetectorE2(myViewNet, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, false);
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // get ID of additional
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load frequency
+    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FREQUENCY) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load file
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FILE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Load rest of parameters
+    const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0, false);
+    const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0, false);
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        // if operation of build detector E3 was sucesfully, save Id
+        if(buildDetectorE3(myViewNet, id, Position(posx,posy), frequency, file, false)) {
+            myAdditionalSetParent = id;
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // Load position
+    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_POSITION) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get lane ID
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Check if parsing of parameters was correct
+    if (ok) {
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        if(lane == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else {
+            // get the ID. Note: This Id is interne, and cannot be defined by user
+            int indexEntry = 0;
+            while(myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalSetParent) != NULL) {
+                indexEntry++;
+            }
+            // build detector entry
+            buildDetectorEntry(myViewNet, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalSetParent, lane, position, myAdditionalSetParent, false);
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // Load position
+    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_POSITION) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // get lane ID
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_LANE) + "' of additional " + toString(tag) + " is missing");
+        ok = true;
+    }
+    // Check if parsing of parameters was correct
+    if (ok) {
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        if(lane == NULL) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else {
+            // get the ID. Note: This Id is interne, and cannot be defined by user
+            int indexExit = 0;
+            while(myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalSetParent) != NULL) {
+                indexExit++;
+            }
+            // build detector Exit
+            buildDetectorExit(myViewNet, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalSetParent, lane, position, myAdditionalSetParent, false);
+        }
+    }
 }
 
 
@@ -763,7 +991,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet *viewNet, const std::string& id, G
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_BUS_STOP) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -778,7 +1006,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet *viewNet, const std::string&
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -793,7 +1021,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet *viewNet, const std::strin
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -808,7 +1036,7 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet *viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_E1DETECTOR) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -823,7 +1051,7 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_E2DETECTOR) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -838,7 +1066,7 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet *viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_E3DETECTOR) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -850,7 +1078,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet *viewNet, const std::string&
     GNEDetectorE3 *detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
     // Check if DetectorE3 parent is correct
     if(detectorE3Parent == NULL) {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " '" + id + "' in netEdit; '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' don't valid.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " '" + id + "' in netEdit; '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' don't valid.");
         return false;
     } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, id) == NULL) {
         // Create detector Entry if don't exist already in the net
@@ -860,7 +1088,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet *viewNet, const std::string&
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_DET_ENTRY) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -872,7 +1100,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet *viewNet, const std::string& 
     GNEDetectorE3 *detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
     // Check if DetectorE3 parent is correct
     if(detectorE3Parent == NULL) {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_DET_EXIT) + " '" + id + "' in netEdit; '" + idDetectorE3Parent + "' don't valid.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " '" + id + "' in netEdit; '" + idDetectorE3Parent + "' don't valid.");
         return false;
     } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, id) == NULL) {
         // Create detector Exit if don't exist already in the net
@@ -882,7 +1110,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet *viewNet, const std::string& 
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_DET_EXIT) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -897,7 +1125,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet *viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_CALIBRATOR) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -912,7 +1140,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet *viewNet, const std::string& id, 
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_REROUTER) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_REROUTER) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -927,7 +1155,7 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet *viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -942,7 +1170,7 @@ GNEAdditionalHandler::buildVariableSpeedSignal(GNEViewNet *viewNet,const std::st
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_VSS) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VSS) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -957,7 +1185,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet *viewNet, const std::string& id,
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_ERROR("Could not build " + toString(SUMO_TAG_VAPORIZER) + "'" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VAPORIZER) + " with id '" + id + "' in netEdit; probably declared twice.");
         return false;
     }
 }
@@ -972,7 +1200,7 @@ GNEAdditionalHandler::getFileName(const SUMOSAXAttributes& attrs, const std::str
         if (allowEmpty) {
             return file;
         }
-        WRITE_ERROR("No filename given.");
+        WRITE_WARNING("No filename given.");
     }
     // check whether absolute or relative filenames are given
     if (!FileHelpers::isAbsolute(file)) {
@@ -985,10 +1213,10 @@ GNEAdditionalHandler::getFileName(const SUMOSAXAttributes& attrs, const std::str
 SUMOReal
 GNEAdditionalHandler::getPosition(const SUMOSAXAttributes& attrs, GNELane& lane, const std::string& tt, const std::string& tid) {
     bool ok = true;
-    SUMOReal pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
+    SUMOReal pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok, false);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
     if (!ok) {
-        WRITE_ERROR("Error on parsing a position information.");
+        WRITE_WARNING("Error on parsing a position information.");
     }
     if (pos < 0) {
         pos = lane.getLaneShapeLenght() + pos;
@@ -997,7 +1225,7 @@ GNEAdditionalHandler::getPosition(const SUMOSAXAttributes& attrs, GNELane& lane,
         if (friendlyPos) {
             pos = lane.getLaneShapeLenght() - (SUMOReal) 0.1;
         } else {
-            WRITE_ERROR("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane.getID() + "' length.");
+            WRITE_WARNING("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane.getID() + "' length.");
         }
     }
     return pos;
