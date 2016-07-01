@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  1 11:18:31 2016 by SUMO Version dev-SVN-r21075
+<!-- generated on Fri Jul  1 14:01:50 2016 by SUMO Version dev-SVN-r21075
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,5 +29,5 @@
 -->
 
 <lanechanges>
-    <change id="A" time="3.00" from="beg_0" to="beg_1" reason="strategic|urgent"/>
+    <change id="A" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" reason="strategic|urgent"/>
 </lanechanges>

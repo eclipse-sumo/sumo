@@ -170,6 +170,8 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         of.writeAttr(SUMO_ATTR_TIME, time2string(MSNet::getInstance()->getCurrentTimeStep()));
         of.writeAttr(SUMO_ATTR_FROM, source->getID());
         of.writeAttr(SUMO_ATTR_TO, target->getID());
+        of.writeAttr(SUMO_ATTR_DIR, direction);
+        of.writeAttr(SUMO_ATTR_SPEED, myVehicle.getSpeed());
         of.writeAttr("reason", toString((LaneChangeAction)(myOwnState & ~(LCA_RIGHT | LCA_LEFT))));
         of.closeTag();
     }
