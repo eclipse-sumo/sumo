@@ -117,6 +117,7 @@ MSLaneChangerSublane::change() {
         if (vehicle->getLaneChangeModel().debugVehicle()) {
             std::cout << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " latDist=" << decision.latDist << "\n";
         }
+        vehicle->getLaneChangeModel().setOwnState(decision.state);
         return startChangeSublane(vehicle, myCandi, decision.latDist);
     }
 

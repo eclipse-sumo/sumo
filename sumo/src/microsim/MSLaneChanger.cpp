@@ -268,6 +268,7 @@ MSLaneChanger::change() {
         bool changingAllowed1 = (state1 & LCA_BLOCKED) == 0;
         // change if the vehicle wants to and is allowed to change
         if ((state1 & LCA_RIGHT) != 0 && changingAllowed1) {
+            vehicle->getLaneChangeModel().setOwnState(state1);
             startChange(vehicle, myCandi, -1);
             return true;
         }
@@ -288,6 +289,7 @@ MSLaneChanger::change() {
         bool changingAllowed2 = (state2 & LCA_BLOCKED) == 0;
         // change if the vehicle wants to and is allowed to change
         if ((state2 & LCA_LEFT) != 0 && changingAllowed2) {
+            vehicle->getLaneChangeModel().setOwnState(state2);
             startChange(vehicle, myCandi, 1);
             return true;
         }

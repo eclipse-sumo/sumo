@@ -201,6 +201,8 @@ MSFrame::fillOptions() {
     oc.doRegister("bt-output", new Option_FileName());
     oc.addDescription("bt-output", "Output", "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)");
 
+    oc.doRegister("lanechange-output", new Option_FileName());
+    oc.addDescription("lanechange-output", "Output", "Record lane changes and their motivations for all vehicles into FILE");
 
 #ifdef _DEBUG
     oc.doRegister("movereminder-output", new Option_FileName());
@@ -425,6 +427,7 @@ MSFrame::buildStreams() {
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
+    OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");

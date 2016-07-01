@@ -429,6 +429,9 @@ protected:
     /// @brief whether overtaking on the right is permitted
     static bool myAllowOvertakingRight;
 
+    /// @brief whether to record lane-changing
+    static bool myLCOutput;
+
 private:
     /* @brief information how long ago the vehicle has performed a lane-change,
      * sign indicates direction of the last change
