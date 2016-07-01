@@ -1,2 +1,2 @@
-Error: Flow 'f1' ends before or at its begin time.
+Error: Flow 'f1' ends before its begin time.
 Quitting (on error).

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb  4 09:55:29 2016 by SUMO jtrrouter Version dev-SVN-r19881
+<!-- generated on 07/01/16 14:06:54 by SUMO jtrrouter Version dev-SVN-r21072
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -27,34 +27,34 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0.0" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.0" type="foo" depart="0.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
-    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="10.00">
+    <vehicle id="0.1" type="foo" depart="10.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="20.00">
+    <vehicle id="0.2" type="foo" depart="20.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.3" type="DEFAULT_VEHTYPE" depart="30.00">
+    <vehicle id="0.3" type="foo" depart="30.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
-    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="40.00">
+    <vehicle id="0.4" type="foo" depart="40.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.5" type="DEFAULT_VEHTYPE" depart="50.00">
+    <vehicle id="0.5" type="foo" depart="50.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
-    <vehicle id="0.6" type="DEFAULT_VEHTYPE" depart="60.00">
+    <vehicle id="0.6" type="foo" depart="60.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
-    <vehicle id="0.7" type="DEFAULT_VEHTYPE" depart="70.00">
+    <vehicle id="0.7" type="foo" depart="70.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.8" type="DEFAULT_VEHTYPE" depart="80.00">
+    <vehicle id="0.8" type="foo" depart="80.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
-    <vehicle id="0.9" type="DEFAULT_VEHTYPE" depart="90.00">
+    <vehicle id="0.9" type="foo" depart="90.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 </routes>
