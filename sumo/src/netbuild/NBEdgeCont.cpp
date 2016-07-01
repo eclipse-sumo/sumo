@@ -994,10 +994,12 @@ NBEdgeCont::getRoundabouts() const {
 
 void
 NBEdgeCont::addRoundabout(const EdgeSet& roundabout) {
-    if (find(myRoundabouts.begin(), myRoundabouts.end(), roundabout) != myRoundabouts.end()) {
-        WRITE_WARNING("Ignoring duplicate roundabout: " + toString(roundabout));
-    } else {
-        myRoundabouts.insert(roundabout);
+    if (roundabout.size() > 0) {
+        if (find(myRoundabouts.begin(), myRoundabouts.end(), roundabout) != myRoundabouts.end()) {
+            WRITE_WARNING("Ignoring duplicate roundabout: " + toString(roundabout));
+        } else {
+            myRoundabouts.insert(roundabout);
+        }
     }
 }
 
