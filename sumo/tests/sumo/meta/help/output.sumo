@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r20996
+SUMO Version dev-SVN-r21075
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -74,6 +74,8 @@ Output Options:
   --bt-output FILE                     Save bluetooth visibilities into FILE
                                          (in conjunction with device.btreceiver
                                          and device.btsender)
+  --lanechange-output FILE             Record lane changes and their
+                                         motivations for all vehicles into FILE
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states

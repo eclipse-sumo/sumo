@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jul  1 11:20:00 2016 by SUMO Version dev-SVN-r21075
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="26868"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="veh0" time="32.00" from="1si_1" to="1si_0" reason="traci|urgent"/>
+</lanechanges>

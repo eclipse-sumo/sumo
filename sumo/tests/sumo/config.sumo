@@ -66,6 +66,7 @@ aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
 weights:weights.xml
+lanechanges:lanechanges.xml
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
@@ -124,6 +125,7 @@ output:movereminder-output{LINES 2}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
 weights:<!--{[->]}-->
+lanechanges:<!--{[->]}-->
 
 [floating_point_tolerance]
 detector:0.0101
