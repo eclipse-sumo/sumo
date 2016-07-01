@@ -123,6 +123,7 @@ def main(options):
                 continue
         app = next(iter(appName))
         optionsFiles = []
+        configFiles = []
         potentials = defaultdict(list)
         source = os.path.realpath(source)
         curDir = source
@@ -139,23 +140,13 @@ def main(options):
             if curDir == os.path.dirname(curDir):
                 break
             if os.path.exists(config):
-                # there may be configs in subdirs but we only parse the main
-                # one which should contain all files we need to copy
-                validConfig = False
-                for line in open(config):
-                    entry = line.strip().split(':')
-                    if entry and "copy_test_path" in entry[0]:
-                        validConfig = True
-                        break
-                if validConfig:
-                    break
+                configFiles.append(config)
             curDir = os.path.dirname(curDir)
-        if not os.path.exists(config):
-            print("Config '%s' not found for %s." % (
-                config, source), file=sys.stderr)
+        if not configFiles:
+            print("Config not found for %s." % source, file=sys.stderr)
             continue
         if target == "":
-            target = generateTargetName(curDir, source)
+            target = generateTargetName(os.path.dirname(configFiles[-1]), source)
         testPath = os.path.abspath(join(options.output, target))
         if not os.path.exists(testPath):
             os.makedirs(testPath)
@@ -180,24 +171,26 @@ def main(options):
             nameBase = os.path.basename(target)
         exclude = []
         # gather copy_test_path exclusions
-        for line in open(config):
-            entry = line.strip().split(':')
-            if entry and entry[0] == "test_data_ignore":
-                exclude.append(entry[1])
+        for config in configFiles:
+            for line in open(config):
+                entry = line.strip().split(':')
+                if entry and entry[0] == "test_data_ignore":
+                    exclude.append(entry[1])
         # copy test data from the tree
-        for line in open(config):
-            entry = line.strip().split(':')
-            if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
-                if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
-                    toCopy = potentials[entry[1]][0]
-                    if os.path.isdir(toCopy):
-                        # copy from least specific to most specific
-                        merge = entry[0] == "copy_test_path_merge"
-                        for toCopy in reversed(potentials[entry[1]]):
-                            copy_merge(
-                                toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
-                    else:
-                        shutil.copy2(toCopy, testPath)
+        for config in configFiles:
+            for line in open(config):
+                entry = line.strip().split(':')
+                if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
+                    if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
+                        toCopy = potentials[entry[1]][0]
+                        if os.path.isdir(toCopy):
+                            # copy from least specific to most specific
+                            merge = entry[0] == "copy_test_path_merge"
+                            for toCopy in reversed(potentials[entry[1]]):
+                                copy_merge(
+                                    toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
+                        else:
+                            shutil.copy2(toCopy, testPath)
         if options.skip_configuration:
             continue
         oldWorkDir = os.getcwd()
