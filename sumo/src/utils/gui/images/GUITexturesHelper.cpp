@@ -129,9 +129,7 @@ GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX)
             if (mirrorX) {
                 i->mirror(false, true);
             }
-            if (MFXImageHelper::scalePower2(i, getMaxTextureSize())) {
-                WRITE_WARNING("Scaling '" + filename + "'.");
-            }
+            MFXImageHelper::scalePower2(i, getMaxTextureSize());
             GUIGlID id = add(i);
             delete i;
             myTextures[filename] = (int)id;
