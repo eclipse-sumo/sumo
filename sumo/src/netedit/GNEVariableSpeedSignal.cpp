@@ -358,7 +358,7 @@ GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
             // Iterate over parsed lanes
-            for(int i = 0; i < laneIds.size(); i++) {
+            for(int i = 0; i < (int)laneIds.size(); i++) {
                 if(myViewNet->getNet()->retrieveLane(laneIds.at(i), false) == NULL) {
                     return false;
                 }
@@ -386,7 +386,7 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value) 
             GNELane *lane;
             SUMOSAXAttributes::parseStringVector(value, laneIds);
             // Iterate over parsed lanes and obtain pointer to lanes
-            for(int i = 0; i < laneIds.size(); i++) {
+            for(int i = 0; i < (int)laneIds.size(); i++) {
                 lane = myViewNet->getNet()->retrieveLane(laneIds.at(i), false);
                 if(lane) {
                     lanes.push_back(lane);

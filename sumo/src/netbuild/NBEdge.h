@@ -344,8 +344,8 @@ public:
     /** @brief Returns the number of lanes
      * @returns This edge's number of lanes
      */
-    unsigned int getNumLanes() const {
-        return (unsigned int) myLanes.size();
+    int getNumLanes() const {
+        return (int)myLanes.size();
     }
 
 

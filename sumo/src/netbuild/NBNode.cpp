@@ -113,7 +113,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
     // lanes that will be connected from walkingAreas and forbidden lanes)
     // if the lane is targeted by an explicitly set connection we need
     // to make it available anyway
-    for (int i = 0; i < (int)currentOutgoing->getNumLanes(); ++i) {
+    for (int i = 0; i < currentOutgoing->getNumLanes(); ++i) {
         if ((currentOutgoing->getPermissions(i) == SVC_PEDESTRIAN
                 || isForbidden(currentOutgoing->getPermissions(i)))
                 && approachedLanes.count(i) == 0) {
@@ -557,10 +557,10 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
 
 PositionVector
 NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints) const {
-    if (con.fromLane >= (int) fromE->getNumLanes()) {
+    if (con.fromLane >= fromE->getNumLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' starts at a non-existant lane.");
     }
-    if (con.toLane >= (int) con.toEdge->getNumLanes()) {
+    if (con.toLane >= con.toEdge->getNumLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' targets a non-existant lane.");
     }
     PositionVector ret;
@@ -755,7 +755,7 @@ NBNode::computeLanes2Lanes() {
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset - 1
                 && in != out
                 && in->isConnectedTo(out)) {
-            for (int i = inOffset; i < (int) in->getNumLanes(); ++i) {
+            for (int i = inOffset; i < in->getNumLanes(); ++i) {
                 in->setConnection(i, out, i - inOffset + outOffset + 1, NBEdge::L2L_COMPUTED);
             }
             in->setConnection(inOffset, out, outOffset, NBEdge::L2L_COMPUTED);
@@ -840,8 +840,8 @@ NBNode::computeLanes2Lanes() {
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset + 1
                 && in != out
                 && in->isConnectedTo(out)) {
-            for (int i = inOffset; i < (int) in->getNumLanes(); ++i) {
-                in->setConnection(i, out, MIN2(outOffset + i, ((int)out->getNumLanes() - 1)), NBEdge::L2L_COMPUTED, true);
+            for (int i = inOffset; i < in->getNumLanes(); ++i) {
+                in->setConnection(i, out, MIN2(outOffset + i, out->getNumLanes() - 1), NBEdge::L2L_COMPUTED, true);
             }
             return;
         }
@@ -862,7 +862,7 @@ NBNode::computeLanes2Lanes() {
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset
                 && in != out
                 && in->isConnectedTo(out)) {
-            for (int i = inOffset; i < (int) in->getNumLanes(); ++i) {
+            for (int i = inOffset; i < in->getNumLanes(); ++i) {
                 in->setConnection(i, out, i - inOffset + outOffset, NBEdge::L2L_COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
@@ -906,9 +906,9 @@ NBNode::computeLanes2Lanes() {
                 if (unsatisfied != 0) {
                     //std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
                     int fromLane = 0;
-                    while (unsatisfied != 0 && fromLane < (int)incoming->getNumLanes()) {
+                    while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
                         if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
-                            for (int toLane = 0; toLane < (int)currentOutgoing->getNumLanes(); ++toLane) {
+                            for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
                                 const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
                                 if (satisfied != 0) {
                                     incoming->setConnection((unsigned int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);

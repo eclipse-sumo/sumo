@@ -150,7 +150,7 @@ GNEAttributeCarrier::isValidStringVector(const std::string& value) {
         return true;
     }
     // 2) Check if there are duplicated spaces
-    for(int i = 1; i < value.size(); i++) {
+    for(int i = 1; i < (int)value.size(); i++) {
         if(value.at(i-1) == ' ' && value.at(i) == ' ') {
             return false;
         }
@@ -162,7 +162,7 @@ GNEAttributeCarrier::isValidStringVector(const std::string& value) {
     // 4) Check if every sub-string is valid
     int index = 0;
     std::string subString;
-    while(index < value.size()) {
+    while(index < (int)value.size()) {
         if(value.at(index) == ' ') {
             if(!isValidFileValue(subString)) {
                 return false;
@@ -738,8 +738,8 @@ int
 GNEAttributeCarrier::getHigherNumberOfAttributes() {
     int higherNumber = 0;
     for(std::vector<SumoXMLTag>::const_iterator i = allowedTags().begin(); i != allowedTags().end(); i++) {
-        if(allowedAttributes(*i).size() > higherNumber) {
-            higherNumber = int(allowedAttributes(*i).size());
+        if((int)allowedAttributes(*i).size() > higherNumber) {
+            higherNumber = (int)allowedAttributes(*i).size();
         }
     }
     return higherNumber;

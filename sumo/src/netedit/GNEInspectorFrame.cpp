@@ -548,7 +548,7 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput *attrInputParent, FXTextFiel
     myVectorOfCheckBox.resize(choices.size(), NULL);
 
     // Iterate over choices
-    for (int i = 0; i < choices.size(); i++) {
+    for (int i = 0; i < (int)choices.size(); i++) {
         // Create checkBox
         myVectorOfCheckBox.at(i) = new FXCheckButton(myCheckBoxMatrix, choices.at(i).c_str());
         // Set initial value
@@ -576,7 +576,7 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput *attrInputParent, FXTextFiel
     if (execute()) {
         std::vector<std::string> attrSolution;
         // Iterate  over myVectorOfCheckBox
-        for (int i = 0; i < myVectorOfCheckBox.size(); i++) {
+        for (int i = 0; i < (int)myVectorOfCheckBox.size(); i++) {
             // If checkBox is cheked, save attribute
             if (myVectorOfCheckBox.at(i)->getCheck()) {
                 attrSolution.push_back(std::string(myVectorOfCheckBox.at(i)->getText().text()));
@@ -599,7 +599,7 @@ GNEInspectorFrame::AttrEditor::onCmdReset(FXObject*, FXSelector, void*) {
     // Get old value
     const std::string oldValue = myTextFieldAttr->getText().text();
     // Reset values
-    for (int i = 0; i < choices.size(); i++) {
+    for (int i = 0; i < (int)choices.size(); i++) {
         if (oldValue.find(choices.at(i)) != std::string::npos) {
             myVectorOfCheckBox.at(i)->setCheck(true);
         } else {

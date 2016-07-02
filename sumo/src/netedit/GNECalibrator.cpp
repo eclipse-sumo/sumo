@@ -101,7 +101,7 @@ GNECalibrator::updateGeometry() {
     myShape.clear();
 
     // Iterate over lanes
-    for(int i = 0; i < myEdge->getLanes().size(); i++) {
+    for(int i = 0; i < (int)myEdge->getLanes().size(); i++) {
 
         // Get shape of lane parent
         myShape.push_back(myEdge->getLanes().at(i)->getShape().positionAtOffset(myEdge->getLanes().at(i)->getPositionRelativeToParametricLenght(myPosition.x())));
@@ -239,7 +239,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
 
     glPushName(getGlID());
-    for (int i = 0; i < myShape.size(); ++i) {
+    for (int i = 0; i < (int)myShape.size(); ++i) {
         const Position& pos = myShape[i];
         SUMOReal rot = myShapeRotations[i];
         glPushMatrix();

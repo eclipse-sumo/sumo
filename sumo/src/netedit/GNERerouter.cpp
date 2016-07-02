@@ -525,7 +525,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 3) {
         // draw rerouter symbol over all lanes
         for(childEdges::const_iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-            for(int lanePosIt = 0; lanePosIt < i->positionsOverLanes.size(); lanePosIt++) {
+            for(int lanePosIt = 0; lanePosIt < (int)i->positionsOverLanes.size(); lanePosIt++) {
                 glPushMatrix();
                 glTranslated(i->positionsOverLanes.at(lanePosIt).x(), i->positionsOverLanes.at(lanePosIt).y(), 0);
                 glRotated(i->rotationsOverLanes.at(lanePosIt), 0, 0, 1);
@@ -640,7 +640,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
             // Iterate over parsed edges
-            for(int i = 0; i < edgeIds.size(); i++) {
+            for(int i = 0; i < (int)edgeIds.size(); i++) {
                 if(myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false) == NULL) {
                     return false;
                 }
@@ -675,7 +675,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             GNEEdge *edge;
             SUMOSAXAttributes::parseStringVector(value, edgeIds);
             // Iterate over parsed edges and obtain pointer to edges
-            for(int i = 0; i < edgeIds.size(); i++) {
+            for(int i = 0; i < (int)edgeIds.size(); i++) {
                 edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
                 if(edge) {
                     edges.push_back(edge);
