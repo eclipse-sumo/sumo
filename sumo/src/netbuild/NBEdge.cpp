@@ -755,7 +755,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
     if (find_if(myConnections.begin(), myConnections.end(), connections_finder(lane, destEdge, destLane)) != myConnections.end()) {
         return true;
     }
-    if (myLanes.size() <= lane || destEdge->getNumLanes() <= destLane) {
+    if ((int)myLanes.size() <= lane || destEdge->getNumLanes() <= (int)destLane) {
         // problem might be corrigible in post-processing
         WRITE_WARNING("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
         return false;
@@ -792,10 +792,10 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
 
 
 std::vector<NBEdge::Connection>
-NBEdge::getConnectionsFromLane(unsigned int lane) const {
+NBEdge::getConnectionsFromLane(int lane) const {
     std::vector<NBEdge::Connection> ret;
     for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if ((*i).fromLane == static_cast<int>(lane)) {
+        if ((*i).fromLane == lane) {
             ret.push_back(*i);
         }
     }

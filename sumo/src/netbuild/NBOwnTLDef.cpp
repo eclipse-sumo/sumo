@@ -103,9 +103,9 @@ NBOwnTLDef::getDirectionalWeight(LinkDirection dir) {
 SUMOReal
 NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const NBEdge* const e2) {
     SUMOReal val = 0;
-    for (unsigned int e1l = 0; e1l < e1->getNumLanes(); e1l++) {
+    for (int e1l = 0; e1l < e1->getNumLanes(); e1l++) {
         std::vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
-        for (unsigned int e2l = 0; e2l < e2->getNumLanes(); e2l++) {
+        for (int e2l = 0; e2l < e2->getNumLanes(); e2l++) {
             std::vector<NBEdge::Connection> approached2 = e2->getConnectionsFromLane(e2l);
             for (std::vector<NBEdge::Connection>::iterator e1c = approached1.begin(); e1c != approached1.end(); ++e1c) {
                 if (e1->getTurnDestination() == (*e1c).toEdge) {

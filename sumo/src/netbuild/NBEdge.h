@@ -751,7 +751,7 @@ public:
      * @return The connections from the given lane
      * @see NBEdge::Connection
      */
-    std::vector<Connection> getConnectionsFromLane(unsigned int lane) const;
+    std::vector<Connection> getConnectionsFromLane(int lane) const;
 
     /** @brief Returns the specified connection
      * This method goes through "myConnections" and returns the specified one
