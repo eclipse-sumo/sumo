@@ -370,8 +370,8 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             }
         }
         if (e.lanes.empty()) {
-            for (size_t l = 0; l < myCurrentEdge->getNumLanes(); ++l) {
-                e.lanes.push_back((int) l);
+            for (int l = 0; l < myCurrentEdge->getNumLanes(); ++l) {
+                e.lanes.push_back(l);
             }
         }
         e.speed = attrs.getOpt(SUMO_ATTR_SPEED, 0, ok, myCurrentEdge->getSpeed());
@@ -519,7 +519,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
             }
             // split the edge
             std::vector<int> currLanes;
-            for (unsigned int l = 0; l < e->getNumLanes(); ++l) {
+            for (int l = 0; l < e->getNumLanes(); ++l) {
                 currLanes.push_back(l);
             }
             if (e->getNumLanes() != mySplits.back().lanes.size()) {
@@ -578,10 +578,11 @@ NIXMLEdgesHandler::myEndElement(int element) {
                         WRITE_WARNING("Error on parsing a split (edge '" + myCurrentID + "').");
                     }
                 }  else if (exp.pos == 0) {
-                    if (e->getNumLanes() < exp.lanes.size()) {
-                        e->incLaneNo((int) exp.lanes.size() - e->getNumLanes());
+                    const int laneCountDiff = e->getNumLanes() - (int)exp.lanes.size();
+                    if (laneCountDiff < 0) {
+                        e->incLaneNo(-laneCountDiff);
                     } else {
-                        e->decLaneNo(e->getNumLanes() - (int) exp.lanes.size());
+                        e->decLaneNo(laneCountDiff);
                     }
                     currLanes = exp.lanes;
                     // invalidate traffic light definition loaded from a SUMO network
