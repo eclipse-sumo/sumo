@@ -943,40 +943,8 @@ GNEApplicationWindow::getDefaultCursor() {
 
 void
 GNEApplicationWindow::loadOnStartup() {
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("configuration-file")) {
-        loadConfigOrNet(oc.getString("configuration-file"), false, false, true);
-    } else {
-        loadConfigOrNet(oc.getString("sumo-net-file"), true, false, true);
-        oc.resetWritable();
-        oc.set("output-file", oc.getString("sumo-net-file"));
-    }
+    loadConfigOrNet("", false, false, true);
 }
-
-/*
-long
-GNEApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*) {
-    /
-    GUIDialog_CutSwell *about =
-        new GUIDialog_CutSwell(this, "Simulating...", 0, 0);
-    about->create();
-    about->show(PLACEMENT_OWNER);
-    /
-    std::string prev = myStatusbar->getStatusLine()->getText().text();
-    std::string text = std::string("Computing strategies.");
-    myStatusbar->getStatusLine()->setText(text.c_str());
-    myStatusbar->getStatusLine()->setNormalText(text.c_str());
-    for(int i=0; i<100; ++i) {
-        fxsleep(3000);
-        myProgressBar->setProgress(i);
-    }
-//    delete about;
-    myProgressBar->setProgress(0);
-    myStatusbar->getStatusLine()->setText(prev.c_str());
-    myStatusbar->getStatusLine()->setNormalText(prev.c_str());
-    return 1;
-}
-*/
 
 
 void
