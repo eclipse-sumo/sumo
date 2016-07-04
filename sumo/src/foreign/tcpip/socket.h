@@ -51,7 +51,7 @@
 #include <cstddef>
 
 
-struct in_addr;
+struct sockaddr_in;
 
 namespace tcpip
 {
@@ -127,7 +127,7 @@ namespace tcpip
 #ifdef WIN32
 		std::string GetWinsockErrorString(int err) const;
 #endif
-		bool atoaddr(std::string, struct in_addr& addr);
+		bool atoaddr(std::string, struct sockaddr_in& addr);
 		bool datawaiting(int sock) const throw();
 
 		std::string host_;

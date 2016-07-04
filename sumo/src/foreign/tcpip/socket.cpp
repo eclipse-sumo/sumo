@@ -32,6 +32,7 @@
 	#endif
 
 	#include <winsock2.h>
+	#include <ws2tcpip.h>
 
 	#ifndef vsnprintf
 		#define vsnprintf _vsnprintf
@@ -192,26 +193,35 @@ namespace tcpip
 	// ----------------------------------------------------------------------
 	bool
 		Socket::
-		atoaddr( std::string address, struct in_addr& addr)
+		atoaddr( std::string address, struct sockaddr_in& addr)
 	{
-		struct hostent* host;
-		struct in_addr saddr;
+        int status;
+        struct addrinfo *servinfo; // will point to the results
 
-		// First try nnn.nnn.nnn.nnn form
-		saddr.s_addr = inet_addr(address.c_str());
-		if (saddr.s_addr != static_cast<unsigned int>(-1)) 
-		{
-			addr = saddr;
-			return true;
-		}
+        struct addrinfo hints;
+        memset(&hints, 0, sizeof hints); // make sure the struct is empty
+        hints.ai_family = AF_INET; // restrict to IPv4?
+        hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
+        hints.ai_flags = AI_PASSIVE; // fill in my IP for me
 
-		host = gethostbyname(address.c_str());
-		if( host ) {
-			addr = *((struct in_addr*)host->h_addr_list[0]);
-			return true;
-		}
+        if ((status = getaddrinfo(address.c_str(), NULL, &hints, &servinfo)) != 0) {
+            return false;
+        }
+        
+        bool valid = false;
 
-		return false;
+        for (struct addrinfo *p = servinfo; p != NULL; p = p->ai_next) {
+            if (p->ai_family == AF_INET) { // IPv4
+                addr = *(struct sockaddr_in *)p->ai_addr;
+                addr.sin_port = htons((unsigned short)port_);
+                valid = true;
+                break;
+            }
+        }
+
+        freeaddrinfo(servinfo); // free the linked list
+
+		return valid;
 	}
 
 
@@ -314,15 +324,10 @@ namespace tcpip
 		connect()
 		throw( SocketException )
 	{
-		in_addr addr;
-		if( !atoaddr( host_.c_str(), addr) )
-			BailOnSocketError("tcpip::Socket::connect() @ Invalid network address");
-
 		sockaddr_in address;
-		memset( (char*)&address, 0, sizeof(address) );
-		address.sin_family = AF_INET;
-		address.sin_port = htons((unsigned short)port_);
-		address.sin_addr.s_addr = addr.s_addr;
+
+		if( !atoaddr( host_.c_str(), address) )
+			BailOnSocketError("tcpip::Socket::connect() @ Invalid network address");
 
 		socket_ = static_cast<int>(socket( PF_INET, SOCK_STREAM, 0 ));
 		if( socket_ < 0 )
@@ -336,7 +341,6 @@ namespace tcpip
 			int x = 1;
 			setsockopt(socket_, IPPROTO_TCP, TCP_NODELAY, (const char*)&x, sizeof(x));
 		}
-
     }
 
 	// ----------------------------------------------------------------------
