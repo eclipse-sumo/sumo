@@ -601,6 +601,11 @@ TraCIAPI::EdgeScope::getNoiseEmission(const std::string& edgeID) const {
 }
 
 SUMOReal
+TraCIAPI::EdgeScope::getElectricityConsumption(const std::string& edgeID) const {
+    return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_ELECTRICITYCONSUMPTION, edgeID);
+}
+
+SUMOReal
 TraCIAPI::EdgeScope::getLastStepMeanSpeed(const std::string& edgeID) const {
     return myParent.getDouble(CMD_GET_EDGE_VARIABLE, LAST_STEP_MEAN_SPEED, edgeID);
 }
@@ -943,6 +948,11 @@ TraCIAPI::LaneScope::getFuelConsumption(const std::string& laneID) const {
 SUMOReal
 TraCIAPI::LaneScope::getNoiseEmission(const std::string& laneID) const {
     throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_NOISEEMISSION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getElectricityConsumption(const std::string& laneID) const {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_ELECTRICITYCONSUMPTION, laneID);
 }
 
 SUMOReal

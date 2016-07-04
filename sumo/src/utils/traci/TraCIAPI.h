@@ -238,6 +238,7 @@ public:
         SUMOReal getNOxEmission(const std::string& edgeID) const;
         SUMOReal getFuelConsumption(const std::string& edgeID) const;
         SUMOReal getNoiseEmission(const std::string& edgeID) const;
+        SUMOReal getElectricityConsumption(const std::string& edgeID) const;
         SUMOReal getLastStepMeanSpeed(const std::string& edgeID) const;
         SUMOReal getLastStepOccupancy(const std::string& edgeID) const;
         SUMOReal getLastStepLength(const std::string& edgeID) const;
@@ -393,6 +394,7 @@ public:
         SUMOReal getNOxEmission(const std::string& laneID) const;
         SUMOReal getFuelConsumption(const std::string& laneID) const;
         SUMOReal getNoiseEmission(const std::string& laneID) const;
+        SUMOReal getElectricityConsumption(const std::string& laneID) const;
         SUMOReal getLastStepMeanSpeed(const std::string& laneID) const;
         SUMOReal getLastStepOccupancy(const std::string& laneID) const;
         SUMOReal getLastStepLength(const std::string& laneID) const;

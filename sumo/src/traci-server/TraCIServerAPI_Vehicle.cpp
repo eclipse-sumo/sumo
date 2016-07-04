@@ -87,7 +87,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_CO2EMISSION && variable != VAR_COEMISSION
             && variable != VAR_HCEMISSION && variable != VAR_PMXEMISSION
             && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION
-            && variable != VAR_PERSON_NUMBER && variable != VAR_LEADER
+            && variable != VAR_ELECTRICITYCONSUMPTION && variable != VAR_PERSON_NUMBER && variable != VAR_LEADER
             && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
             && variable != VAR_ROUTE_VALID && variable != VAR_EDGES
             && variable != VAR_SIGNALS && variable != VAR_DISTANCE
@@ -238,6 +238,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_NOISEEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(visible ? v->getHarmonoise_NoiseEmissions() : INVALID_DOUBLE_VALUE);
+                break;
+            case VAR_ELECTRICITYCONSUMPTION:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(visible ? v->getElectricityConsumption() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_PERSON_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);

@@ -685,6 +685,9 @@
 // current time step (get: simulation)
 #define VAR_TIME_STEP 0x70
 
+// current electricity consumption of a node (get: vehicle, lane, edge)
+#define VAR_ELECTRICITYCONSUMPTION 0x71
+
 // number of loaded vehicles (get: simulation)
 #define VAR_LOADED_VEHICLES_NUMBER 0x71
 
