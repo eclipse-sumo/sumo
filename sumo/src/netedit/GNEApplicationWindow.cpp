@@ -1252,12 +1252,12 @@ GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}
 Position
 GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
     std::string edgeID = laneID;
-    unsigned int lane = 0;
+    int lane = 0;
     size_t underscore = laneID.rfind('_');
 
     if (underscore != std::string::npos) {
         edgeID = laneID.substr(0, underscore);
-        lane = static_cast<unsigned int>(TplConvert::_2intSec(laneID.substr(underscore).c_str(), 0));
+        lane = TplConvert::_2intSec(laneID.substr(underscore).c_str(), 0);
     }
     NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
     if (edge == 0 || edge->getNumLanes() <= lane) {
