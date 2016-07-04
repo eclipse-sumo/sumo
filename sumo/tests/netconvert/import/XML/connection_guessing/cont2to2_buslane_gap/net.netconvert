@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun 29 10:26:37 2016 by SUMO netconvert Version dev-SVN-r21051
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="200.00,0.00" convBoundary="0.00,0.00,300.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="CE" from="C" to="E" priority="1">
+        <lane id="CE_0" index="0" speed="13.89" length="100.00" shape="200.00,-4.95 300.00,-4.95"/>
+        <lane id="CE_1" index="1" speed="13.89" length="100.00" shape="200.00,-1.65 300.00,-1.65"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="1">
+        <lane id="WC_0" index="0" allow="bus" speed="13.89" length="100.00" shape="100.00,-4.95 200.00,-4.95"/>
+        <lane id="WC_1" index="1" speed="13.89" length="100.00" shape="100.00,-1.65 200.00,-1.65"/>
+    </edge>
+    <edge id="beg" from="gneJ0" to="W" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="100.00" shape="0.00,-4.95 100.00,-4.95"/>
+        <lane id="beg_1" index="1" speed="13.89" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
+    </edge>
+
+    <junction id="C" type="priority" x="200.00" y="0.00" incLanes="WC_0 WC_1" intLanes="" shape="200.00,-0.05 200.00,-6.55 200.00,-0.05">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="E" type="unregulated" x="300.00" y="0.00" incLanes="CE_0 CE_1" intLanes="" shape="300.00,-6.55 300.00,-0.05"/>
+    <junction id="W" type="unregulated" x="100.00" y="0.00" incLanes="beg_0 beg_1" intLanes="" shape="100.00,-0.05 100.00,-6.55 100.00,-0.05"/>
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
+
+    <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="beg" to="WC" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to="WC" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

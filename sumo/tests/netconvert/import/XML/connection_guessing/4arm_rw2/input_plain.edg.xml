@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 27 Jun 2016 01:41:49 PM CEST by Netedit Version dev-SVN-r21037
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/4arm_rw2/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/4arm_rw2/net.netconvert"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/4arm_rw2/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="1" numLanes="3" speed="13.89"/>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CW" from="C" to="W" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="EC" from="E" to="C" priority="1" numLanes="5" speed="13.89"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="4" speed="13.89"/>
+    <edge id="WC" from="W" to="C" priority="1" numLanes="5" speed="13.89"/>
+</edges>

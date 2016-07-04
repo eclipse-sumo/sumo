@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 29 Jun 2016 10:25:18 AM CEST by Netedit Version dev-SVN-r21051
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/cont2to2_buslane_gap/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/cont2to2_buslane_gap/net.netconvert"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/cont2to2_buslane_gap/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="WC" from="W" to="C" priority="1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bus"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="beg" from="gneJ0" to="W" priority="1" numLanes="2" speed="13.89"/>
+</edges>
