@@ -68,6 +68,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH:                Storage.readDouble,
                       tc.VAR_NOXEMISSION:           Storage.readDouble,
                       tc.VAR_FUELCONSUMPTION:       Storage.readDouble,
                       tc.VAR_NOISEEMISSION:         Storage.readDouble,
+                      tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
                       tc.LAST_STEP_MEAN_SPEED:      Storage.readDouble,
                       tc.LAST_STEP_OCCUPANCY:       Storage.readDouble,
                       tc.LAST_STEP_LENGTH:          Storage.readDouble,
@@ -205,6 +206,13 @@ class LaneDomain(Domain):
         Returns the noise emission in db for the last time step on the given lane.
         """
         return self._getUniversal(tc.VAR_NOISEEMISSION, laneID)
+
+    def getElectricityConsumption(self, laneID):
+        """getElectricityConsumption(string) -> double
+
+        Returns the electricity consumption in ml for the last time step.
+        """
+        return self._getUniversal(tc.VAR_ELECTRICITYCONSUMPTION, laneID)
 
     def getLastStepMeanSpeed(self, laneID):
         """getLastStepMeanSpeed(string) -> double

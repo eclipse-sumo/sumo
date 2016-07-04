@@ -88,6 +88,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_NOXEMISSION:     Storage.readDouble,
                       tc.VAR_FUELCONSUMPTION: Storage.readDouble,
                       tc.VAR_NOISEEMISSION:   Storage.readDouble,
+                      tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
                       tc.VAR_PERSON_NUMBER:   Storage.readInt,
                       tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
                       tc.VAR_EDGE_EFFORT:     Storage.readDouble,
@@ -287,6 +288,13 @@ class VehicleDomain(Domain):
         Returns the noise emission in db for the last time step.
         """
         return self._getUniversal(tc.VAR_NOISEEMISSION, vehID)
+
+    def getElectricityConsumption(self, vehID):
+        """getElectricityConsumption(string) -> double
+
+        Returns the electricity consumption in ml for the last time step.
+        """
+        return self._getUniversal(tc.VAR_ELECTRICITYCONSUMPTION, vehID)
 
     def getPersonNumber(self, vehID):
         """getPersonNumber(string) -> integer
