@@ -51,7 +51,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/images/GUIGifSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNodeCont.h>

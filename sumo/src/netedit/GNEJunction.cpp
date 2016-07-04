@@ -42,7 +42,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/images/GUIGifSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <netbuild/NBOwnTLDef.h>
@@ -211,7 +211,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(1, 1, 1);
             const SUMOReal halfWidth = 32 / s.scale;
             const SUMOReal halfHeight = 64 / s.scale;
-            GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
             glPopMatrix();
         }
         // draw crossings

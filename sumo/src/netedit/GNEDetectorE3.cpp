@@ -39,7 +39,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIGifSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -165,9 +165,9 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of detector is or isn't selected
     if(isAdditionalSelected()) 
-        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_E3SELECTED), 1);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_E3SELECTED), 1);
     else
-        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_E3), 1);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_E3), 1);
 
     // Pop logo matrix
     glPopMatrix();

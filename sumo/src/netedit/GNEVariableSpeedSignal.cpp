@@ -39,7 +39,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIGifSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -200,9 +200,9 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of rerouter is or isn't selected
     if(isAdditionalSelected()) 
-        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_VARIABLESPEEDSIGNALSELECTED), 1);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_VARIABLESPEEDSIGNALSELECTED), 1);
     else
-        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_VARIABLESPEEDSIGNAL), 1);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_VARIABLESPEEDSIGNAL), 1);
 
     // Pop draw icon matrix
     glPopMatrix();

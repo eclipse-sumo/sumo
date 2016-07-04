@@ -39,7 +39,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/images/GUIGifSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -319,9 +319,9 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
     glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
     // If myBlocked is enable, draw lock, in other case, draw empty square
     if(myBlocked) {
-        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_LOCK), size);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCK), size);
     } else {
-        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_EMPTY), size);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_EMPTY), size);
     }
     // Pop matrix
     glPopMatrix();

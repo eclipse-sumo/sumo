@@ -42,7 +42,7 @@
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/images/GUIGifSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUITexturesHelper.h>

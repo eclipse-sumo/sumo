@@ -38,7 +38,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIGifSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -190,7 +190,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {        
         // Add a draw matrix
-        drawDetectorIcon(GUIGifSubSys::getGif(GNELOGO_E1));
+        drawDetectorIcon(GUITextureSubSys::getGif(GNETEXTURE_E1));
 
         // Show Lock icon depending of the Edit mode
         drawLockIcon();

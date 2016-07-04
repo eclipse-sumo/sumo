@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    GUIGifSubSys.h
+/// @file    GUITextureSubSys.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2016
-/// @version $Id: GUIGifSubSys.h 20433 2016-04-13 08:00:14Z behrisch $
+/// @version $Id: GUITextureSubSys.h 20433 2016-04-13 08:00:14Z behrisch $
 ///
 // A class to manage gifs of SUMO
 /****************************************************************************/
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIGifSubSys_h
-#define GUIGifSubSys_h
+#ifndef GUITextureSubSys_h
+#define GUITextureSubSys_h
 
 
 // ===========================================================================
@@ -31,46 +31,46 @@
 #endif
 
 #include <fx.h>
-#include "GUIGifs.h"
+#include "GUITextures.h"
 #include "GUITexturesHelper.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GUIGifSubSys {
+class GUITextureSubSys {
 public:
-    /// @brief Initiate GUIGifSubSys for textures
+    /// @brief Initiate GUITextureSubSys for textures
     /// @param[in] a FOX Toolkit APP
     static void init(FXApp* a);
 
-    /// @brief returns a texture Gif previously defined in the enum GUIGif
-    /// @param[in] GUIGif code of texture to use
-    static GUIGlID getGif(GUIGif which);
+    /// @brief returns a texture Gif previously defined in the enum GUITexture
+    /// @param[in] GUITexture code of texture to use
+    static GUIGlID getGif(GUITexture which);
 
     /// @brief Reset textures
     /// @note Necessary to avoid problems with textures (ej: white empty)
     static void reset();
 
-    /// @brief close GUIGifSubSys
+    /// @brief close GUITextureSubSys
     static void close();
 
 private:
     /// @brief constructor
     /// @note is private because is called by the static function init(FXApp* a)
-    GUIGifSubSys(FXApp* a);
+    GUITextureSubSys(FXApp* a);
 
     /// @brief destructor
-    ~GUIGifSubSys();
+    ~GUITextureSubSys();
 
     /// @pointer to Fox App
     FXApp* myApp;
 
-    /// @brief instance of GUIGifSubSys
-    static GUIGifSubSys* myInstance;
+    /// @brief instance of GUITextureSubSys
+    static GUITextureSubSys* myInstance;
 
     /// @brief vector with the Gifs
-    std::map<GUIGif, std::pair<bool, GUIGlID> > myTextures;
+    std::map<GUITexture, std::pair<bool, GUIGlID> > myTextures;
 };
 
 
