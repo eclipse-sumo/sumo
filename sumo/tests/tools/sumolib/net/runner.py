@@ -2,7 +2,7 @@
 """
 @file    runner.py
 @author  Jakob Erdmann Krajzewicz
-@version $Id: netextract.py 20433 2016-04-13 08:00:14Z behrisch $
+@version $Id$
 
 This script tests sumolib functions
 
