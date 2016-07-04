@@ -6,7 +6,9 @@ GNELogo_Vaporizer.cpp           GNELogo_VaporizerSelected.cpp \
 GNELogo_E1.cpp                  GNELogo_E2.cpp \
 GNELogo_E3.cpp                  GNELogo_E3Selected.cpp \
 GNELogo_Entry.cpp               GNELogo_Exit.cpp \
-GNELogo_Lock.cpp                GNELogo_Empty.cpp \
+GNELogo_Lock.cpp                GNELogo_LockSelected.cpp \
+GNELogo_Empty.cpp               GNELogo_EmptySelected.cpp \
+GNELogo_NotMoving.cpp           GNELogo_NotMovingSelected.cpp \
 GNELogo_TLS.cpp
 
 XERCES_LIBS = -l$(LIB_XERCES)
