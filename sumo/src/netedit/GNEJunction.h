@@ -180,9 +180,6 @@ public:
     /// @brief whether this junction has a valid logic
     bool isLogicValid();
 
-    /// @brief reset decals
-    static void resetDecal();
-
     /// @brief modify the specified crossing (using friend privileges)
     void updateCrossingAttributes(NBNode::Crossing crossing);
 
@@ -217,12 +214,6 @@ private:
 
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myCrossings;
-
-    /// @brief gl-id of the tls-decal (drawn in tls-mode)
-    static int TLSDecalGlID;
-
-    /// @brief whether the tls-decal has been initialized
-    static bool TLSDecalInitialized;
 
 private:
     /// @brief Invalidated copy constructor.

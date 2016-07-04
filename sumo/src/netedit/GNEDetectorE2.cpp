@@ -38,7 +38,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -53,17 +53,10 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_E2.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNEDetectorE2::myDetectorE2GlID = 0;
-bool GNEDetectorE2::myDetectorE2Initialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -79,13 +72,6 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* v
     myJamThreshold(jamThreshold) {
     // Update geometry;
     updateGeometry();
-    // load detector logo, if wasn't inicializated
-    if (!myDetectorE2Initialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_E2, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myDetectorE2GlID = GUITexturesHelper::add(i);
-        myDetectorE2Initialized = true;
-        delete i;
-    }
     // Set Colors
     myBaseColor = RGBColor(0, 204, 204, 255);
     myBaseColorSelected = RGBColor(125, 204, 204, 255);
@@ -205,11 +191,10 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {
         // Draw icon
-        this->drawDetectorIcon(myDetectorE2GlID);
+        this->drawDetectorIcon(GUIGifSubSys::getGif(GNELOGO_E2));
 
         // Show Lock icon depending of the Edit mode
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            drawLockIcon();
+        drawLockIcon();
     }
 
     // Draw name

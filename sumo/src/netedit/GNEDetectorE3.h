@@ -129,18 +129,6 @@ protected:
     std::vector<GNEDetectorE3EntryExit*> myGNEDetectorE3EntryExits;
 
 private:
-    /// @brief variable to save detector E3 icon
-    static GUIGlID myDetectorE3GlID;
-
-    /// @brief variable to save detector E3 selected icon
-    static GUIGlID myDetectorE3SelectedGlID;
-
-    /// @brief check if detector E3 icon was inicilalizated
-    static bool myDetectorE3Initialized;
-
-    /// @brief check if detector E3 selected icon was inicilalizated
-    static bool myDetectorE3SelectedInitialized;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

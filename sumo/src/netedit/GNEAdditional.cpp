@@ -39,6 +39,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -53,21 +54,11 @@
 #include "GNENet.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
-#include "GNELogo_Lock.cpp"
-#include "GNELogo_Empty.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
 
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNEAdditional::myAdditionalLockGlID = 0;
-GUIGlID GNEAdditional::myAdditionalEmptyGlID = 0;
-bool GNEAdditional::myAdditionalLockInitialized = false;
-bool GNEAdditional::myAdditionalEmptyInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -91,20 +82,6 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
     // If this additional belongs to a set, add it.
     if(myAdditionalSetParent) {
         myAdditionalSetParent->addAdditionalChild(this);
-    }
-    // load additional lock, if wasn't already initialized
-    if (!myAdditionalLockInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Lock, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myAdditionalLockGlID = GUITexturesHelper::add(i);
-        myAdditionalLockInitialized = true;
-        delete i;
-    }
-    // load additional empty, if wasn't already inicializated
-    if (!myAdditionalEmptyInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Empty, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myAdditionalEmptyGlID = GUITexturesHelper::add(i);
-        myAdditionalEmptyInitialized = true;
-        delete i;
     }
 }
 
@@ -342,9 +319,9 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
     glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
     // If myBlocked is enable, draw lock, in other case, draw empty square
     if(myBlocked) {
-        GUITexturesHelper::drawTexturedBox(myAdditionalLockGlID, size);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_LOCK), size);
     } else {
-        GUITexturesHelper::drawTexturedBox(myAdditionalEmptyGlID, size);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_EMPTY), size);
     }
     // Pop matrix
     glPopMatrix();

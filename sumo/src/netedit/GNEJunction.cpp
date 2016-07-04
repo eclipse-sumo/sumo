@@ -42,13 +42,12 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBAlgorithms.h>
-#include "GNELogo_TLS.cpp"
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNECrossing.h"
@@ -62,13 +61,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// static members
-// ===========================================================================
-int GNEJunction::TLSDecalGlID = 0;
-bool GNEJunction::TLSDecalInitialized = false;
 
 // ===========================================================================
 // method definitions
@@ -213,20 +205,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         if (s.editMode == GNE_MODE_TLS && myNBNode.isTLControlled() && !myAmTLSSelected) {
-            // decorate in tls mode
-            if (!TLSDecalInitialized) {
-                FXImage* i = new FXGIFImage(myNet->getApp(), GNELogo_TLS, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-                TLSDecalGlID = GUITexturesHelper::add(i);
-                TLSDecalInitialized = true;
-                delete i;
-            }
             glPushMatrix();
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() + 0.1);
             glColor3d(1, 1, 1);
             const SUMOReal halfWidth = 32 / s.scale;
             const SUMOReal halfHeight = 64 / s.scale;
-            GUITexturesHelper::drawTexturedBox(TLSDecalGlID, -halfWidth, -halfHeight, halfWidth, halfHeight);
+            GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
             glPopMatrix();
         }
         // draw crossings
@@ -397,12 +382,6 @@ GNEJunction::removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
 bool
 GNEJunction::isLogicValid() {
     return myHasValidLogic;
-}
-
-
-void
-GNEJunction::resetDecal() {
-    TLSDecalInitialized = false;
 }
 
 

@@ -128,12 +128,6 @@ protected:
     SUMOReal myJamThreshold;
 
 private:
-    /// @brief variable to save detectorE2 icon
-    static GUIGlID myDetectorE2GlID;
-
-    /// @brief check if detectorE2 icon was inicilalizated
-    static bool myDetectorE2Initialized;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

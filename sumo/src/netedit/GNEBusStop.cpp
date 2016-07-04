@@ -281,8 +281,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
 
         // Show Lock icon depending of the Edit mode
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            drawLockIcon();
+        drawLockIcon();
     }
 
     // pop draw matrix

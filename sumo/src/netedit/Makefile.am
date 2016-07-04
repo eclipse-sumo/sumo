@@ -1,15 +1,4 @@
 EXTRA_DIST = netedit64.ico netedit.rc \
-GNELogo_Rerouter.cpp            GNELogo_RerouterSelected.cpp \
-GNELogo_RouteProbe.cpp          GNELogo_RouteProbeSelected.cpp \
-GNELogo_VariableSpeedSignal.cpp GNELogo_VariableSpeedSignalSelected.cpp \
-GNELogo_Vaporizer.cpp           GNELogo_VaporizerSelected.cpp \
-GNELogo_E1.cpp                  GNELogo_E2.cpp \
-GNELogo_E3.cpp                  GNELogo_E3Selected.cpp \
-GNELogo_Entry.cpp               GNELogo_Exit.cpp \
-GNELogo_Lock.cpp                GNELogo_LockSelected.cpp \
-GNELogo_Empty.cpp               GNELogo_EmptySelected.cpp \
-GNELogo_NotMoving.cpp           GNELogo_NotMovingSelected.cpp \
-GNELogo_TLS.cpp
 
 XERCES_LIBS = -l$(LIB_XERCES)
 

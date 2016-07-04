@@ -142,18 +142,6 @@ protected:
     SUMOTime myEnd;
 
 private:
-    /// @brief variable to save Vaporizer icon
-    static GUIGlID myVaporizerGlID;
-
-    /// @brief variable to save Vaporizer selected icon
-    static GUIGlID myVaporizerSelectedGlID;
-
-    /// @brief check if Vaporizer icon was inicilalizated
-    static bool myVaporizerInitialized;
-
-    /// @brief check if Vaporizer selected icon was inicilalizated
-    static bool myVaporizerSelectedInitialized;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

@@ -51,6 +51,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNodeCont.h>
@@ -143,6 +144,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
+
 }
 
 

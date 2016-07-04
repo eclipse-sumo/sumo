@@ -28,7 +28,18 @@ undo.xpm redo.xpm netedit.xpm \
 step.xpm stop.xpm view1.xpm view2.xpm view3.xpm \
 windows_cascade.xpm windows_tile_horizontally.xpm windows_tile_vertically.xpm \
 yellow_edge.xpm yellow_person.xpm yellow_vehicle.xpm \
-yes.xpm lock.xpm add.xpm remove.xpm
+yes.xpm lock.xpm add.xpm remove.xpm \
+GNELogo_Rerouter.cpp GNELogo_RerouterSelected.cpp \
+GNELogo_RouteProbe.cpp GNELogo_RouteProbeSelected.cpp \
+GNELogo_VariableSpeedSignal.cpp GNELogo_VariableSpeedSignalSelected.cpp \
+GNELogo_Vaporizer.cpp GNELogo_VaporizerSelected.cpp \
+GNELogo_E1.cpp GNELogo_E2.cpp \
+GNELogo_E3.cpp GNELogo_E3Selected.cpp \
+GNELogo_Entry.cpp GNELogo_Exit.cpp \
+GNELogo_Lock.cpp GNELogo_LockSelected.cpp \
+GNELogo_Empty.cpp GNELogo_EmptySelected.cpp \
+GNELogo_NotMoving.cpp GNELogo_NotMovingSelected.cpp \
+GNELogo_TLS.cpp
 
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
 GUIIcons.h GUITexturesHelper.cpp GUITexturesHelper.h

@@ -39,7 +39,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -54,21 +54,11 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_VariableSpeedSignal.cpp"
-#include "GNELogo_VariableSpeedSignalSelected.cpp"
 #include "GNEVariableSpeedSignalDialog.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNEVariableSpeedSignal::variableSpeedSignalGlID = 0;
-GUIGlID GNEVariableSpeedSignal::variableSpeedSignalSelectedGlID = 0;
-bool GNEVariableSpeedSignal::variableSpeedSignalInitialized = false;
-bool GNEVariableSpeedSignal::variableSpeedSignalSelectedInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -83,21 +73,6 @@ GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet
     // Set colors
     myBaseColor = RGBColor(76, 170, 50, 255);
     myBaseColorSelected = RGBColor(161, 255, 135, 255);
-    // load rerouter logo, if wasn't inicializated
-    if (!variableSpeedSignalInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_VariableSpeedSignal, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        variableSpeedSignalGlID = GUITexturesHelper::add(i);
-        variableSpeedSignalInitialized = true;
-        delete i;
-    }
-
-    // load rerouter selected logo, if wasn't inicializated
-    if (!variableSpeedSignalSelectedInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_VariableSpeedSignalSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        variableSpeedSignalSelectedGlID = GUITexturesHelper::add(i);
-        variableSpeedSignalSelectedInitialized = true;
-        delete i;
-    }
 }
 
 
@@ -225,9 +200,9 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of rerouter is or isn't selected
     if(isAdditionalSelected()) 
-        GUITexturesHelper::drawTexturedBox(variableSpeedSignalSelectedGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_VARIABLESPEEDSIGNALSELECTED), 1);
     else
-        GUITexturesHelper::drawTexturedBox(variableSpeedSignalGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_VARIABLESPEEDSIGNAL), 1);
 
     // Pop draw icon matrix
     glPopMatrix();
@@ -288,8 +263,7 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Show Lock icon depending of the Edit mode
-    //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-        drawLockIcon(0.4);
+    drawLockIcon(0.4);
 
     // Draw connections
     drawConnections();

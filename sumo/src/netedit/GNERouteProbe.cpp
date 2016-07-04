@@ -39,7 +39,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -56,20 +56,10 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_RouteProbe.cpp"
-#include "GNELogo_RouteProbeSelected.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNERouteProbe::myRouteProbeGlID = 0;
-GUIGlID GNERouteProbe::myRouteProbeSelectedGlID = 0;
-bool GNERouteProbe::myRouteProbeInitialized = false;
-bool GNERouteProbe::myRouteProbeSelectedInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -85,22 +75,6 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myEdge->addAdditional(this);
     // Update geometry;
     updateGeometry();
-    // Set colors
-    // load RouteProbe logo, if wasn't inicializated
-    if (!myRouteProbeInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_RouteProbe, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myRouteProbeGlID = GUITexturesHelper::add(i);
-        myRouteProbeInitialized = true;
-        delete i;
-    }
-
-    // load RouteProbe selected logo, if wasn't inicializated
-    if (!myRouteProbeSelectedInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_RouteProbeSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myRouteProbeSelectedGlID = GUITexturesHelper::add(i);
-        myRouteProbeSelectedInitialized = true;
-        delete i;
-    }
 }
 
 
@@ -284,9 +258,9 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of detector is or isn't selected
     if(isAdditionalSelected()) 
-        GUITexturesHelper::drawTexturedBox(myRouteProbeSelectedGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_ROUTEPROBESELECTED), 1);
     else
-        GUITexturesHelper::drawTexturedBox(myRouteProbeGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_ROUTEPROBE), 1);
 
     // Pop logo matrix
     glPopMatrix();
@@ -294,8 +268,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {        
         // Show Lock icon depending of the Edit mode
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            drawLockIcon(0.4);
+        drawLockIcon(0.4);
     }
 
     // Finish draw

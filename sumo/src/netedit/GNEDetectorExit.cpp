@@ -38,7 +38,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -54,17 +54,11 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_Exit.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
 
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNEDetectorExit::detectorE3ExitGlID = 0;
-bool GNEDetectorExit::detectorE3ExitInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -74,13 +68,6 @@ GNEDetectorExit::GNEDetectorExit(const std::string &id, GNEViewNet* viewNet, GNE
     GNEDetector(id, viewNet, SUMO_TAG_DET_EXIT, lane, pos, 0, "", blocked, parent) {
     // Update geometry;
     updateGeometry();
-    // load logo, if wasn't inicializated
-    if (!detectorE3ExitInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Exit, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        detectorE3ExitGlID = GUITexturesHelper::add(i);
-        detectorE3ExitInitialized = true;
-        delete i;
-    }
     // Set colors
     myBaseColor = RGBColor(204, 0, 0, 255);
     myBaseColorSelected = RGBColor(204, 125, 0, 255);
@@ -190,11 +177,10 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {
         // Draw icon
-        drawDetectorIcon(detectorE3ExitGlID, 1.5, 1);
+        drawDetectorIcon(GUIGifSubSys::getGif(GNELOGO_EXIT), 1.5, 1);
 
         // Show Lock icon depending of the Edit mode
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            drawLockIcon(0.4);
+        drawLockIcon(0.4);
     }
     // Draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);

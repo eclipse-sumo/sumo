@@ -111,12 +111,6 @@ protected:
     bool mySplitByType;
 
 private:
-    /// @brief variable to save detectorE1 icon
-    static GUIGlID myDetectorE1GlID;
-
-    /// @brief check if detectorE1 icon was inicilalizated
-    static bool myDetectorE1Initialized;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

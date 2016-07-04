@@ -135,18 +135,6 @@ protected:
     std::map<SUMOTime, SUMOReal> myVSSValues;
 
 private:
-    /// @brief variable to save variableSpeedSignal icon
-    static GUIGlID variableSpeedSignalGlID;
-
-    /// @brief variable to save variableSpeedSignal selected icon
-    static GUIGlID variableSpeedSignalSelectedGlID;
-
-    /// @brief check if variableSpeedSignal icon was inicilalizated
-    static bool variableSpeedSignalInitialized;
-
-    /// @brief check if variableSpeedSignal selected icon was inicilalizated
-    static bool variableSpeedSignalSelectedInitialized;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

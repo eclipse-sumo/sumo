@@ -39,7 +39,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -55,20 +55,10 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_E3.cpp"
-#include "GNELogo_E3Selected.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNEDetectorE3::myDetectorE3GlID = 0;
-GUIGlID GNEDetectorE3::myDetectorE3SelectedGlID = 0;
-bool GNEDetectorE3::myDetectorE3Initialized = false;
-bool GNEDetectorE3::myDetectorE3SelectedInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -84,20 +74,6 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Positio
     // Set colors
     myBaseColor = RGBColor(76, 170, 50, 255);
     myBaseColorSelected = RGBColor(161, 255, 135, 255);
-    // load detector E3 logo, if wasn't inicializated
-    if (!myDetectorE3Initialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_E3, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myDetectorE3GlID = GUITexturesHelper::add(i);
-        myDetectorE3Initialized = true;
-        delete i;
-    }
-    // load detector E3 selected logo, if wasn't inicializated
-    if (!myDetectorE3SelectedInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_E3Selected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myDetectorE3SelectedGlID = GUITexturesHelper::add(i);
-        myDetectorE3SelectedInitialized = true;
-        delete i;
-    }
 }
 
 
@@ -189,16 +165,15 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of detector is or isn't selected
     if(isAdditionalSelected()) 
-        GUITexturesHelper::drawTexturedBox(myDetectorE3SelectedGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_E3SELECTED), 1);
     else
-        GUITexturesHelper::drawTexturedBox(myDetectorE3GlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_E3), 1);
 
     // Pop logo matrix
     glPopMatrix();
 
     // Show Lock icon depending of the Edit mode
-    //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-        drawLockIcon(0.4);
+    drawLockIcon(0.4);
 
     // Draw connections
     drawConnections();

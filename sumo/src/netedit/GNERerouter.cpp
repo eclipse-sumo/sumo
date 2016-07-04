@@ -39,7 +39,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -57,20 +57,10 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_Rerouter.cpp"
-#include "GNELogo_RerouterSelected.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNERerouter::myRerouterGlID = 0;
-GUIGlID GNERerouter::myRerouterSelectedGlID = 0;
-bool GNERerouter::myRerouterInitialized = false;
-bool GNERerouter::myRerouterSelectedInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -371,21 +361,6 @@ GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position po
     // Set colors
     myBaseColor = RGBColor(76, 170, 50, 255);
     myBaseColorSelected = RGBColor(161, 255, 135, 255);
-    // load rerouter logo, if wasn't inicializated
-    if (!myRerouterInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Rerouter, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myRerouterGlID = GUITexturesHelper::add(i);
-        myRerouterInitialized = true;
-        delete i;
-    }
-
-    // load rerouter selected logo, if wasn't inicializated
-    if (!myRerouterSelectedInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_RerouterSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myRerouterSelectedGlID = GUITexturesHelper::add(i);
-        myRerouterSelectedInitialized = true;
-        delete i;
-    }
 }
 
 
@@ -513,9 +488,9 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of rerouter is or isn't selected
     if(isAdditionalSelected()) 
-        GUITexturesHelper::drawTexturedBox(myRerouterSelectedGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_REROUTERSELECTED), 1);
     else
-        GUITexturesHelper::drawTexturedBox(myRerouterGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_REROUTER), 1);
 
     // Pop draw matrix
     glPopMatrix();
@@ -570,8 +545,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     drawConnections();
 
     // Show Lock icon depending of the Edit mode
-    //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-        drawLockIcon(0.4);
+    drawLockIcon(0.4);
 
     // Pop name
     glPopName();

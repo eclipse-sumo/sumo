@@ -141,12 +141,13 @@ static const char* empty_xpm[] = {
 // ===========================================================================
 // static member variable definitions
 // ===========================================================================
-GUIIconSubSys* GUIIconSubSys::myInstance = 0;
 
+GUIIconSubSys* GUIIconSubSys::myInstance = 0;
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
+
 GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
@@ -276,7 +277,6 @@ GUIIconSubSys::close() {
     delete myInstance;
     myInstance = 0;
 }
-
 
 
 /****************************************************************************/

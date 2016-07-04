@@ -342,8 +342,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
 
         // Draw icon
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            GNEAdditional::drawLockIcon();
+        GNEAdditional::drawLockIcon();
     }
 
     // Pop base matrix

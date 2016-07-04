@@ -49,9 +49,6 @@
     <Filter Include="Quellcodedateien\Items\Routes">
       <UniqueIdentifier>{a83f242b-86a5-4c4d-b2d7-05e7f3dea69b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Quellcodedateien\Logos">
-      <UniqueIdentifier>{aeeaac8b-c625-4786-a787-8b05d852e20e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header-Dateien\Items\Additionals\StoppingPlaces">
       <UniqueIdentifier>{f61c5df4-5bc0-460d-8a11-fac41f7bc0ea}</UniqueIdentifier>
     </Filter>
@@ -215,51 +212,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbe.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_RouteProbeSelected.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_TLS.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_VariableSpeedSignal.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_VariableSpeedSignalSelected.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_E1.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_E2.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_E3.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_E3Selected.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_Empty.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_Entry.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_Exit.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_Lock.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_Rerouter.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_RerouterSelected.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELogo_RouteProbe.cpp">
-      <Filter>Quellcodedateien\Logos</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorDialog.cpp">
       <Filter>Quellcodedateien\Dialogs\AdditionalDialogs</Filter>

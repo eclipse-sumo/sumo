@@ -38,7 +38,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -53,18 +53,10 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_E1.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-
-GUIGlID GNEDetectorE1::myDetectorE1GlID = 0;
-bool GNEDetectorE1::myDetectorE1Initialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -75,13 +67,6 @@ GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* v
     mySplitByType(splitByType) {
     // Update geometry;
     updateGeometry();
-    // load detector logo, if wasn't inicializated
-    if (!myDetectorE1Initialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_E1, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myDetectorE1GlID = GUITexturesHelper::add(i);
-        myDetectorE1Initialized = true;
-        delete i;
-    }
     // Set Colors
     myBaseColor = RGBColor(255, 255, 50, 0);
     myBaseColorSelected = RGBColor(255, 255, 125, 255);
@@ -205,11 +190,10 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {        
         // Add a draw matrix
-        drawDetectorIcon(myDetectorE1GlID);
+        drawDetectorIcon(GUIGifSubSys::getGif(GNELOGO_E1));
 
         // Show Lock icon depending of the Edit mode
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            drawLockIcon();
+        drawLockIcon();
     }
 
     // Finish draw

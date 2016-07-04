@@ -54,8 +54,6 @@
 #include "GNEEdge.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
-#include "GNELogo_Lock.cpp"
-#include "GNELogo_Empty.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

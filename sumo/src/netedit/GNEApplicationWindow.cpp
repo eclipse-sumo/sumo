@@ -50,6 +50,7 @@
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -175,7 +176,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myNet(0),
     myUndoList(new GNEUndoList(this)),
     myTitlePrefix("NETEDIT " VERSION_STRING) {
+    // Load icons
     GUIIconSubSys::init(a);
+    // Load Gifs (Textures)
+    GUIGifSubSys::init(a);
 }
 #ifdef _MSC_VER
 #pragma warning(default: 4355)
@@ -289,8 +293,10 @@ GNEApplicationWindow::create() {
 
 GNEApplicationWindow::~GNEApplicationWindow() {
     closeAllWindows();
-    //
+    // Close icons
     GUIIconSubSys::close();
+    // Close gifs (Textures)
+    GUIGifSubSys::close();
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
@@ -931,7 +937,8 @@ GNEApplicationWindow::closeAllWindows() {
         GeoConvHelper::resetLoaded();
     }
     myMessageWindow->unregisterMsgHandlers();
-    GNEJunction::resetDecal();
+    // Load Gifs (Textures)
+    GUIGifSubSys::reset();
 }
 
 

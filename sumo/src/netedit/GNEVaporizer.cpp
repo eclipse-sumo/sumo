@@ -39,7 +39,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -56,20 +56,10 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_Vaporizer.cpp"
-#include "GNELogo_VaporizerSelected.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNEVaporizer::myVaporizerGlID = 0;
-GUIGlID GNEVaporizer::myVaporizerSelectedGlID = 0;
-bool GNEVaporizer::myVaporizerInitialized = false;
-bool GNEVaporizer::myVaporizerSelectedInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -84,21 +74,6 @@ GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *
     myEdge->addAdditional(this);
     // Update geometry;
     updateGeometry();
-    // load Vaporizer logo, if wasn't inicializated
-    if (!myVaporizerInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Vaporizer, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myVaporizerGlID = GUITexturesHelper::add(i);
-        myVaporizerInitialized = true;
-        delete i;
-    }
-
-    // load Vaporizer selected logo, if wasn't inicializated
-    if (!myVaporizerSelectedInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_VaporizerSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        myVaporizerSelectedGlID = GUITexturesHelper::add(i);
-        myVaporizerSelectedInitialized = true;
-        delete i;
-    }
 }
 
 
@@ -268,9 +243,9 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of detector is or isn't selected
     if(isAdditionalSelected()) 
-        GUITexturesHelper::drawTexturedBox(myVaporizerSelectedGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_VAPORIZERSELECTED), 1);
     else
-        GUITexturesHelper::drawTexturedBox(myVaporizerGlID, 1);
+        GUITexturesHelper::drawTexturedBox(GUIGifSubSys::getGif(GNELOGO_VAPORIZER), 1);
 
     // Pop logo matrix
     glPopMatrix();
@@ -278,8 +253,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {        
         // Show Lock icon depending of the Edit mode
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            drawLockIcon(0.4);
+        drawLockIcon(0.4);
     }
 
     // Finish draw

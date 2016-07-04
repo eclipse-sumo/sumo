@@ -158,18 +158,6 @@ protected:
     int numberOfLanes;
 
 private:
-    /// @brief variable to save RouteProbe icon
-    static GUIGlID myRouteProbeGlID;
-
-    /// @brief variable to save RouteProbe selected icon
-    static GUIGlID myRouteProbeSelectedGlID;
-
-    /// @brief check if RouteProbe icon was inicilalizated
-    static bool myRouteProbeInitialized;
-
-    /// @brief check if RouteProbe selected icon was inicilalizated
-    static bool myRouteProbeSelectedInitialized;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

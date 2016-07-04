@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GUIIconSubSys.h
-/// @author  Daniel Krajzewicz
-/// @date    Jul 2003
-/// @version $Id$
+/// @file    GUIGifs.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Jul 2016
+/// @version $Id: GUIGifs.h 20975 2016-06-15 13:02:40Z palcraft $
 ///
-// A class to manage icons of SUMO
+// An enumeration of gifs used by the gui applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIIconSubSys_h
-#define GUIIconSubSys_h
+#ifndef GUIGifs_h
+#define GUIGifs_h
 
 
 // ===========================================================================
@@ -30,39 +30,35 @@
 #include <config.h>
 #endif
 
-#include <fx.h>
-#include "GUIIcons.h"
-
 
 // ===========================================================================
-// class definitions
+// enumerations
 // ===========================================================================
-class GUIIconSubSys {
-public:
-    /// @brief Initiate GUIIconSubSys
-    /// @param[in] a FOX Toolkit APP
-    static void init(FXApp* a);
-
-    /// @brief returns a icon previously defined in the enum GUIIcon
-    /// @param[in] a FOX Toolkit APP
-    static FXIcon* getIcon(GUIIcon which);
-
-    /// @brief close GUIIconSubSys
-    static void close();
-
-private:
-    /// @brief constructor
-    /// @note is private because is called by the static function init(FXApp* a)
-    GUIIconSubSys(FXApp* a);
-
-    /// @brief destructor
-    ~GUIIconSubSys();
-
-    /// @brief instance of GUIIconSubSys
-    static GUIIconSubSys* myInstance;
-
-    /// @brief vector with the icons
-    FXIcon* myIcons[ICON_MAX];
+/**
+ * @enum GUIGif
+ * @brief An enumeration of gifs used by the gui applications
+ */
+enum GUIGif {
+    GNELOGO_E1 = 0,
+    GNELOGO_E2,
+    GNELOGO_E3,
+    GNELOGO_E3SELECTED,
+    GNELOGO_EMPTY,
+    GNELOGO_EMPTY_SELECTED,
+    GNELOGO_ENTRY,
+    GNELOGO_EXIT,
+    GNELOGO_LOCK,
+    GNELOGO_LOCKSELECTED,
+    GNELOGO_REROUTER,
+    GNELOGO_REROUTERSELECTED,
+    GNELOGO_ROUTEPROBE,
+    GNELOGO_ROUTEPROBESELECTED,
+    GNELOGO_TLS,
+    GNELOGO_VAPORIZER,
+    GNELOGO_VAPORIZERSELECTED,
+    GNELOGO_VARIABLESPEEDSIGNAL,
+    GNELOGO_VARIABLESPEEDSIGNALSELECTED,
+    GIF_MAX
 };
 
 

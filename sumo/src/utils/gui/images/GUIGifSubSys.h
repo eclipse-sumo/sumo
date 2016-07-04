@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GUIIconSubSys.h
-/// @author  Daniel Krajzewicz
-/// @date    Jul 2003
-/// @version $Id$
+/// @file    GUIGifSubSys.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Jul 2016
+/// @version $Id: GUIGifSubSys.h 20433 2016-04-13 08:00:14Z behrisch $
 ///
-// A class to manage icons of SUMO
+// A class to manage gifs of SUMO
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIIconSubSys_h
-#define GUIIconSubSys_h
+#ifndef GUIGifSubSys_h
+#define GUIGifSubSys_h
 
 
 // ===========================================================================
@@ -31,38 +31,46 @@
 #endif
 
 #include <fx.h>
-#include "GUIIcons.h"
-
+#include "GUIGifs.h"
+#include "GUITexturesHelper.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GUIIconSubSys {
+
+class GUIGifSubSys {
 public:
-    /// @brief Initiate GUIIconSubSys
+    /// @brief Initiate GUIGifSubSys for textures
     /// @param[in] a FOX Toolkit APP
     static void init(FXApp* a);
 
-    /// @brief returns a icon previously defined in the enum GUIIcon
-    /// @param[in] a FOX Toolkit APP
-    static FXIcon* getIcon(GUIIcon which);
+    /// @brief returns a texture Gif previously defined in the enum GUIGif
+    /// @param[in] GUIGif code of texture to use
+    static GUIGlID getGif(GUIGif which);
 
-    /// @brief close GUIIconSubSys
+    /// @brief Reset textures
+    /// @note Necessary to avoid problems with textures (ej: white empty)
+    static void reset();
+
+    /// @brief close GUIGifSubSys
     static void close();
 
 private:
     /// @brief constructor
     /// @note is private because is called by the static function init(FXApp* a)
-    GUIIconSubSys(FXApp* a);
+    GUIGifSubSys(FXApp* a);
 
     /// @brief destructor
-    ~GUIIconSubSys();
+    ~GUIGifSubSys();
 
-    /// @brief instance of GUIIconSubSys
-    static GUIIconSubSys* myInstance;
+    /// @pointer to Fox App
+    FXApp* myApp;
 
-    /// @brief vector with the icons
-    FXIcon* myIcons[ICON_MAX];
+    /// @brief instance of GUIGifSubSys
+    static GUIGifSubSys* myInstance;
+
+    /// @brief vector with the Gifs
+    std::map<GUIGif, std::pair<bool, GUIGlID> > myTextures;
 };
 
 

@@ -38,7 +38,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUIGifSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -54,17 +54,10 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNELogo_Entry.cpp"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-GUIGlID GNEDetectorEntry::detectorE3EntryGlID = 0;
-bool GNEDetectorEntry::detectorE3EntryInitialized = false;
 
 // ===========================================================================
 // member method definitions
@@ -74,13 +67,6 @@ GNEDetectorEntry::GNEDetectorEntry(const std::string &id, GNEViewNet* viewNet, G
     GNEDetector(id, viewNet, SUMO_TAG_DET_ENTRY, lane, pos, 0, "", blocked, parent) {
     // Update geometry;
     updateGeometry();
-    // load logo, if wasn't inicializated
-    if (!detectorE3EntryInitialized) {
-        FXImage* i = new FXGIFImage(getViewNet()->getNet()->getApp(), GNELogo_Entry, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
-        detectorE3EntryGlID = GUITexturesHelper::add(i);
-        detectorE3EntryInitialized = true;
-        delete i;
-    }
     // Set colors
     myBaseColor = RGBColor(0, 204, 0, 255);
     myBaseColorSelected = RGBColor(125, 204, 0, 255);
@@ -190,11 +176,10 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {
         // Draw icon
-        drawDetectorIcon(detectorE3EntryGlID, 1.5, 1);
+        drawDetectorIcon(GUIGifSubSys::getGif(GNELOGO_ENTRY), 1.5, 1);
 
         // Show Lock icon depending of the Edit mode
-        //if(dynamic_cast<GNEViewNet*>(parent)->showLockIcon())
-            drawLockIcon(0.4);
+        drawLockIcon(0.4);
     }
     // Draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);

@@ -271,18 +271,6 @@ protected:
     bool mySelectable;
 
 private:
-    /// @brief variable to keep GLId of the additional lock image
-    static GUIGlID myAdditionalLockGlID;
-
-    /// @brief variable to keep GLId of the additional empty image
-    static GUIGlID myAdditionalEmptyGlID;
-
-    /// @brief boolean to check if additional lock image was inicializated
-    static bool myAdditionalLockInitialized;
-
-    /// @brief boolean to check if additional empty image was inicializated
-    static bool myAdditionalEmptyInitialized;
-
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
