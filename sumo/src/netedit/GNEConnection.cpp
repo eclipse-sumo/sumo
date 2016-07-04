@@ -66,7 +66,7 @@
 
 GNEConnection::GNEConnection(GNEEdge *edgeFrom, GNEEdge *edgeTo, GNELane *fromLane, GNELane *toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled) :
     GNENetElement(NULL, "CHANGE", GLO_CONNECTION, SUMO_TAG_CONNECTION), 
-    myEdgeFrom(edgeFrom),	
+    myEdgeFrom(edgeFrom),
     myEdgeTo(edgeTo),
     myFromLane(fromLane),
     myToLane(toLane),

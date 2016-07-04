@@ -33,7 +33,9 @@
 #include "GUITextureSubSys.h"
 
 #include "GNETexture_Lock.cpp"
+#include "GNETexture_LockSelected.cpp"
 #include "GNETexture_Empty.cpp"
+#include "GNETexture_EmptySelected.cpp"
 #include "GNETexture_TLS.cpp"
 #include "GNETexture_E1.cpp"
 #include "GNETexture_E2.cpp"
@@ -49,6 +51,9 @@
 #include "GNETexture_VaporizerSelected.cpp"
 #include "GNETexture_VariableSpeedSignal.cpp"
 #include "GNETexture_VariableSpeedSignalSelected.cpp"
+#include "GNETexture_NotMoving.cpp"
+#include "GNETexture_NotMovingSelected.cpp"
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -73,11 +78,13 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GNETEXTURE_E3] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_E3SELECTED] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_EMPTY] = std::pair<bool, GUIGlID>(false, 0);
-    myTextures[GNETEXTURE_EMPTY_SELECTED] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_EMPTYSELECTED] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_ENTRY] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_EXIT] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_LOCK] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_LOCKSELECTED] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_NOTMOVING] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_NOTMOVINGSELECTED] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_REROUTER] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_REROUTERSELECTED] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_ROUTEPROBE] = std::pair<bool, GUIGlID>(false, 0);
@@ -87,7 +94,6 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GNETEXTURE_VAPORIZERSELECTED] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_VARIABLESPEEDSIGNAL] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_VARIABLESPEEDSIGNALSELECTED] = std::pair<bool, GUIGlID>(false, 0);
-
 }
 
 
@@ -125,9 +131,9 @@ GUITextureSubSys::getGif(GUITexture which) {
             case GNETEXTURE_EMPTY : 
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Empty, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            //case GNETEXTURE_EMPTYSELECTED : 
-                //i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_EmptySelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
-                //break;
+            case GNETEXTURE_EMPTYSELECTED : 
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_EmptySelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
             case GNETEXTURE_ENTRY : 
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Entry, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
@@ -137,9 +143,15 @@ GUITextureSubSys::getGif(GUITexture which) {
             case GNETEXTURE_LOCK : 
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Lock, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            //case GNETEXTURE_LOCKSELECTED : 
-                //i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LockSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
-                //break;
+            case GNETEXTURE_LOCKSELECTED : 
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LockSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GNETEXTURE_NOTMOVING : 
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_NotMoving, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GNETEXTURE_NOTMOVINGSELECTED : 
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_NotMovingSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
             case GNETEXTURE_REROUTER : 
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;

@@ -65,7 +65,7 @@ public:
 
     /// @brief get the name of the edge the vehicles leave
     /// @note this parameter cannot be changed
-    GNEEdge *getEdgeFrom();	
+    GNEEdge *getEdgeFrom();
 
     /// @brief get the name of the edge the vehicles may reach when leaving "from"
     GNEEdge *getEdgeTo();
@@ -164,7 +164,7 @@ public:
 
 protected:
     /// @brief The name of the edge the vehicles leave
-    GNEEdge *myEdgeFrom;	
+    GNEEdge *myEdgeFrom;
 
     /// @brief The name of the edge the vehicles may reach when leaving "from"
     GNEEdge *myEdgeTo;

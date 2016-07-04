@@ -100,7 +100,7 @@ protected:
     FXTextField *myTextFieldRoute;
 
     /// @brief textField for insert a flow's color
-    FXTextField	*myTextFieldColor;
+    FXTextField *myTextFieldColor;
 
     /// @brief textField for insert a flow's DepartLane
     FXTextField *myTextFieldDepartLane;
