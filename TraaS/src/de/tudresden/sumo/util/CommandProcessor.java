@@ -24,13 +24,17 @@ import it.polito.appeal.traci.protocol.ResponseContainer;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.LinkedList;
 
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.ws.container.SumoBestLanes;
 import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
+import de.tudresden.ws.container.SumoLeader;
 import de.tudresden.ws.container.SumoLink;
 import de.tudresden.ws.container.SumoLinkList;
+import de.tudresden.ws.container.SumoNextTLS;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStopFlags;
@@ -191,8 +195,7 @@ public class CommandProcessor extends Query{
 				}
 
 				
-			}else if(sc.input2 == Constants.LANE_LINKS)
-			{
+			}else if(sc.input2 == Constants.LANE_LINKS){
 			
 				resp.content().readUnsignedByte();
 				resp.content().readInt();
@@ -231,8 +234,85 @@ public class CommandProcessor extends Query{
 					links.add(new SumoLink(notInternalLane,internalLane,hasPriority,isOpened,hasFoes,laneLength, state, direction));
 				}
 				output = links;
-			}
-			else{
+			}else if(sc.input2 == Constants.VAR_NEXT_TLS){
+			
+				resp.content().readUnsignedByte();
+				resp.content().readInt();
+				
+				SumoNextTLS sn = new SumoNextTLS();
+				
+				int length = resp.content().readInt();
+				for(int i=0; i<length; i++){
+					
+					resp.content().readUnsignedByte();
+					String tlsID = resp.content().readStringASCII();
+					
+					resp.content().readUnsignedByte();
+					int ix = resp.content().readInt();
+					
+					resp.content().readUnsignedByte();
+					double dist = resp.content().readDouble();
+					
+					resp.content().readUnsignedByte();
+					int k = resp.content().readUnsignedByte();
+					String state = Character.toString ((char) k);
+					
+					sn.add(tlsID, ix, dist, state);
+					
+				}
+				
+				output = sn;
+				
+			}else if(sc.input2 == Constants.VAR_LEADER){
+				
+				resp.content().readUnsignedByte();
+				resp.content().readInt();
+				
+				String vehID = resp.content().readStringASCII();
+				resp.content().readUnsignedByte();
+				double dist = resp.content().readDouble();
+				output = new SumoLeader(vehID, dist);
+			
+			}else if(sc.input2 == Constants.VAR_BEST_LANES){
+				
+				resp.content().readUnsignedByte();
+				resp.content().readInt();
+				
+				int l = resp.content().readInt();
+			
+				SumoBestLanes sl = new SumoBestLanes();
+				for(int i=0; i<l; i++){
+				
+					resp.content().readUnsignedByte();
+					String laneID = resp.content().readStringASCII();
+					
+					resp.content().readUnsignedByte();
+					double length = resp.content().readDouble();
+					
+					resp.content().readUnsignedByte();
+					double occupation = resp.content().readDouble();
+					
+					resp.content().readUnsignedByte();
+					int offset = resp.content().readByte();
+					
+					resp.content().readUnsignedByte();
+					int allowsContinuation = resp.content().readUnsignedByte();
+					
+					resp.content().readUnsignedByte();
+					int nextLanesNo = resp.content().readInt();
+					
+					LinkedList<String> ll = new LinkedList<String>();
+					for(int i1=0; i1<nextLanesNo; i1++){
+						String lane = resp.content().readStringASCII();
+						ll.add(lane);
+					}
+					
+					sl.add(laneID, length, occupation, offset, allowsContinuation, ll);
+				}
+			
+				output = sl;
+				
+			}else{
 				
 				int laenge = resp.content().readInt();
 				obj = new Object[laenge];

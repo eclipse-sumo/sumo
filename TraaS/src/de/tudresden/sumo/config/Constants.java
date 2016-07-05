@@ -32,7 +32,19 @@ public class Constants {
 	
 	public static final int CMD_CLEAR_PENDING_VEHICLES = 0x94;
 	
-	public static final int CMD_SAVE_STATE = 0x95;
+	public static final int CMD_SAVE_SIMSTATE = 0x95;
+	
+	public static final int CMD_CHANGESUBLANE = 0x15;
+	
+	public static final int VAR_LATALIGNMENT = 0xb9;
+	
+	public static final int VAR_MINGAP_LAT = 0xbb;
+	
+	public static final int VAR_NEXT_TLS = 0x70;
+	
+	public static final int VAR_LANEPOSITION_LAT = 0xb8;
+	
+	public static final int VAR_MAXSPEED_LAT = 0xba;
 	
 	public static final int VAR_LEADER = 0x68;
 

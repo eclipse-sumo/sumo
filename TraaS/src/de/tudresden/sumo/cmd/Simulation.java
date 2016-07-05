@@ -349,7 +349,7 @@ public class Simulation {
 	 */
 
 	public static SumoCommand saveState(String filename){
-		return new SumoCommand(Constants.CMD_SET_SIM_VARIABLE, Constants.CMD_SAVE_STATE, "", filename);
+		return new SumoCommand(Constants.CMD_SET_SIM_VARIABLE, Constants.CMD_SAVE_SIMSTATE, "", filename);
 	}
 	
 }

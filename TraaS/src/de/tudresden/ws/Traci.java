@@ -187,7 +187,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: setSignals")
-	public void Vehicle_setSignals(@WebParam(name = "vehID") String vehID, @WebParam(name = "signals") String signals){
+	public void Vehicle_setSignals(@WebParam(name = "vehID") String vehID, @WebParam(name = "signals") int signals){
 		this.sumo.set_cmd(Vehicle.setSignals(vehID, signals));
 	}
 

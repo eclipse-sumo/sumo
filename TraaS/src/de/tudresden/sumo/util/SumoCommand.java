@@ -355,7 +355,6 @@ public class SumoCommand {
 		
 	}
 	
-	
 	public SumoCommand(Object input1, Object input2, Object[] array, Object response, Object output_type){
 	
 		this.cmd = new Command((Integer) input1);
