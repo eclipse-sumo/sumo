@@ -197,27 +197,32 @@ main(int argc, char** argv) {
                     continue;
                 }
                 StringTokenizer st(StringUtils::prune(line), oc.getString("timeline-file.separator"));
-                if (st.size() < 2) {
-                    throw ProcessError("Each line must at least include the time and the speed.");
-                }
-                try {
-                    const SUMOReal t = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                    SUMOReal v = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                    if (inKMH) {
-                        v /= 3.6;
+                if (st.hasNext()) {
+                    try {
+                        SUMOReal t = TplConvert::_2SUMOReal<char>(st.next().c_str());
+                        SUMOReal v = 0;
+                        if (st.hasNext()) {
+                            v = TplConvert::_2SUMOReal<char>(st.next().c_str());
+                        } else {
+                            v = t;
+                            t = time;
+                        }
+                        if (inKMH) {
+                            v /= 3.6;
+                        }
+                        SUMOReal a = !computeA && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                        SUMOReal s = haveSlope && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                        if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
+                            l += v;
+                            totalA += a;
+                            totalS += s;
+                            time++;
+                        }
+                    } catch (EmptyData&) {
+                        throw ProcessError("Missing an entry in line '" + line + "'.");
+                    } catch (NumberFormatException&) {
+                        throw ProcessError("Not numeric entry in line '" + line + "'.");
                     }
-                    SUMOReal a = !computeA && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                    SUMOReal s = haveSlope ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                    if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
-                        l += v;
-                        totalA += a;
-                        totalS += s;
-                        time++;
-                    }
-                } catch (EmptyData&) {
-                    throw ProcessError("Missing an entry in line '" + line + "'.");
-                } catch (NumberFormatException&) {
-                    throw ProcessError("Not numeric entry in line '" + line + "'.");
                 }
             }
             if (!quiet) {
