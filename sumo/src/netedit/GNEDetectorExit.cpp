@@ -95,6 +95,9 @@ GNEDetectorExit::updateGeometry() {
     // Set offset of logo
     myDetectorLogoOffset = Position(-2, 0);
 
+    // Set block icon position
+    myBlockIconPosition = myShape.getLineCenter();
+
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(myLane);
 
@@ -105,7 +108,7 @@ GNEDetectorExit::updateGeometry() {
 
 Position 
 GNEDetectorExit::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPosition.x());
+    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
 }
 
 

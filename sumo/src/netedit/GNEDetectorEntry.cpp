@@ -91,6 +91,9 @@ GNEDetectorEntry::updateGeometry() {
     // Save rotation (angle) of the vector constructed by points f and s
     myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x())) * -1);
 
+    // Set block icon position
+    myBlockIconPosition = myShape.getLineCenter();
+
     // Set offset of logo
     myDetectorLogoOffset = Position(-2, 0);
 
@@ -104,7 +107,7 @@ GNEDetectorEntry::updateGeometry() {
 
 Position 
 GNEDetectorEntry::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPosition.x());
+    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
 }
 
 

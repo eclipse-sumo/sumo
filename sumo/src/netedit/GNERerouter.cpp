@@ -373,6 +373,15 @@ GNERerouter::updateGeometry() {
     // Clear shape
     myShape.clear();
 
+    // Set block icon position
+    myBlockIconPosition = myPosition;
+
+    // Set block icon offset
+    myBlockIconOffset = Position(-0.5, -0.5);
+
+    // Set block icon rotation, and using their rotation for draw logo
+    setBlockIconRotation();
+
     // Set position
     myShape.push_back(myPosition);
 
@@ -380,12 +389,6 @@ GNERerouter::updateGeometry() {
     for(childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
         myShape.append(i->edge->getLanes().at(0)->getShape());
     }
-
-    // Set block icon offset
-    myBlockIconOffset = Position(-0.5, -0.5);
-
-    // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation();
     
     // Update geometry of additionalSet parent
     updateConnections();
@@ -494,6 +497,9 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Pop draw matrix
     glPopMatrix();
 
+    // Show Lock icon depending of the Edit mode
+    drawLockIcon(0.4);
+
     // Draw symbols in every lane
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 3) {
@@ -542,9 +548,6 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw connections
     drawConnections();
-
-    // Show Lock icon depending of the Edit mode
-    drawLockIcon(0.4);
 
     // Pop name
     glPopName();

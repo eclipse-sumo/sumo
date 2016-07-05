@@ -86,6 +86,15 @@ GNEVariableSpeedSignal::updateGeometry() {
     // Clear shape
     myShape.clear();
 
+    // Set block icon position
+    myBlockIconPosition = myPosition;
+
+    // Set block icon offset
+    myBlockIconOffset = Position(-0.5, -0.5);
+
+    // Set block icon rotation, and using their rotation for draw logo
+    setBlockIconRotation();
+
     // Set position
     myShape.push_back(myPosition);
 
@@ -93,12 +102,6 @@ GNEVariableSpeedSignal::updateGeometry() {
     for(childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         myShape.append(i->lane->getShape());
     }
-
-    // Set block icon offset
-    myBlockIconOffset = Position(-0.5, -0.5);
-
-    // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation();
 
     // Update connections
     updateConnections();
@@ -233,6 +236,9 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
     // Pop draw icon matrix
     glPopMatrix();
 
+    // Show Lock icon depending of the Edit mode
+    drawLockIcon(0.4);
+
     // Push matrix to draw every symbol over lane
     glPushMatrix();
 
@@ -286,10 +292,8 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
     }
 
+    // Pop symbol matrix
     glPopMatrix();
-
-    // Show Lock icon depending of the Edit mode
-    drawLockIcon(0.4);
 
     // Draw connections
     drawConnections();

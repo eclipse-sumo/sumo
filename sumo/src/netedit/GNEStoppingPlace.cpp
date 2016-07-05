@@ -87,7 +87,7 @@ GNEStoppingPlace::~GNEStoppingPlace() {
 
 Position 
 GNEStoppingPlace::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPosition.x());
+    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
 }
 
 

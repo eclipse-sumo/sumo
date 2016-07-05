@@ -101,6 +101,9 @@ GNEDetectorE1::updateGeometry() {
     // Set offset of logo
     myDetectorLogoOffset = Position(1,0);
 
+    // Set block icon position
+    myBlockIconPosition = myShape.getLineCenter();
+
     // Set offset of the block icon
     myBlockIconOffset = Position(-1, 0);
 
@@ -111,7 +114,7 @@ GNEDetectorE1::updateGeometry() {
 
 Position 
 GNEDetectorE1::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPosition.x());
+    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
 }
 
 

@@ -310,7 +310,7 @@ GNEAdditional::getCenteringBoundary() const {
 
 void
 GNEAdditional::setBlockIconRotation(GNELane *lane) {
-    if (myShape.length() != 0) {
+    if (myShape.size() > 0 && myShape.length() != 0) {
         // If lenght of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
     } else if(lane != NULL) {
@@ -328,7 +328,7 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
     // Start pushing matrix
     glPushMatrix();
     // Traslate to middle of shape
-    glTranslated(myShape.getLineCenter().x(), myShape.getLineCenter().y(), getType() + 0.1);
+    glTranslated(myBlockIconPosition.x(), myBlockIconPosition.y(), getType() + 0.1);
     // Set draw color
     glColor3d(1, 1, 1);
     // Rotate depending of myBlockIconRotation

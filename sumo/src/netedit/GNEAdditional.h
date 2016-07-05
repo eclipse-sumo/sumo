@@ -259,9 +259,11 @@ protected:
 
     /// @brief draw lock icon
     void drawLockIcon(SUMOReal size = 0.5) const;
+    
+    /// @brief position of the block icon
+    Position myBlockIconPosition;
 
     /// @brief The offSet of the block icon
-    /// @note by default position of blockIcon is in the center of shape
     Position myBlockIconOffset;
 
     /// @brief The rotation of the block icon

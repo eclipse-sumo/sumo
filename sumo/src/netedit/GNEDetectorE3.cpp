@@ -86,6 +86,15 @@ GNEDetectorE3::updateGeometry() {
     // Clear shape
     myShape.clear();
 
+    // Set block icon position
+    myBlockIconPosition = myPosition;
+
+    // Set block icon offset
+    myBlockIconOffset = Position(-0.5, -0.5);
+
+    // Set block icon rotation, and using their rotation for draw logo
+    setBlockIconRotation();
+
     // Set position
     myShape.push_back(myPosition);
 
@@ -93,12 +102,6 @@ GNEDetectorE3::updateGeometry() {
     for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
         myShape.append((*i)->getShape());
     }
-
-    // Set block icon offset
-    myBlockIconOffset = Position(-0.5, -0.5);
-
-    // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation();
 
     // Update connections
     updateConnections();

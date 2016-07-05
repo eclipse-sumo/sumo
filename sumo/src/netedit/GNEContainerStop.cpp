@@ -136,6 +136,9 @@ GNEContainerStop::updateGeometry() {
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
 
+    // Set block icon position
+    myBlockIconPosition = myShape.getLineCenter();
+
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
 }

@@ -114,6 +114,9 @@ GNERouteProbe::updateGeometry() {
     // Save rotation (angle) of the vector constructed by points f and s
     myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(5) * -1);
 
+    // Set block icon position
+    myBlockIconPosition = myShape.getLineCenter();
+
     // Set offset of the block icon
     myBlockIconOffset = Position(1.1, -3.06);
 
