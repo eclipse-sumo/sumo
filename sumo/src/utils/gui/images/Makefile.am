@@ -42,4 +42,5 @@ GNETexture_NotMoving.cpp GNETexture_NotMovingSelected.cpp \
 GNETexture_TLS.cpp
 
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
+GUITextureSubSys.cpp GUITextureSubSys.h \
 GUIIcons.h GUITexturesHelper.cpp GUITexturesHelper.h

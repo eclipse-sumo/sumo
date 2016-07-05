@@ -1,4 +1,4 @@
-EXTRA_DIST = netedit64.ico netedit.rc \
+EXTRA_DIST = netedit64.ico netedit.rc
 
 XERCES_LIBS = -l$(LIB_XERCES)
 
