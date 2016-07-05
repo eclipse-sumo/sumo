@@ -2,7 +2,7 @@
 /// @file    GUITextures.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2016
-/// @version $Id: GUITextures.h 20975 2016-06-15 13:02:40Z palcraft $
+/// @version $Id$
 ///
 // An enumeration of gifs used by the gui applications
 /****************************************************************************/

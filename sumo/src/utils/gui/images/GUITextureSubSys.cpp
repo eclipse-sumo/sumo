@@ -2,7 +2,7 @@
 /// @file    GUITextureSubSys.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2016
-/// @version $Id: GUITextureSubSys.cpp 20975 2016-06-15 13:02:40Z palcraft $
+/// @version $Id$
 ///
 // Helper for Gifs loading and usage
 /****************************************************************************/
