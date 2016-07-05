@@ -106,6 +106,9 @@ main(int argc, char** argv) {
     oc.doRegister("compute-a.forward", new Option_Bool(false));
     oc.addDescription("compute-a.forward", "Processing", "If set, the acceleration for time t is computed from v(t+1) - v(t) instead of v(t) - v(t-1). ");
 
+    oc.doRegister("compute-a.zero-correction", new Option_Bool(false));
+    oc.addDescription("compute-a.zero-correction", "Processing", "If set, the acceleration for time t is set to 0 if the speed is 0. ");
+
     oc.doRegister("skip-first", 's', new Option_Bool(false));
     oc.addDescription("skip-first", "Processing", "If set, the first line of the read file is skipped.");
 
@@ -178,7 +181,7 @@ main(int argc, char** argv) {
 
         const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
-        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), defaultClass, oc.getFloat("slope"), out, xmlOut);
+        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");

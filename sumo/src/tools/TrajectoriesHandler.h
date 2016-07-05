@@ -53,7 +53,8 @@ public:
      *
      * @param[in] file The file that will be processed
      */
-    TrajectoriesHandler(const bool computeA, const bool computeAForward, const SUMOEmissionClass defaultClass,
+    TrajectoriesHandler(const bool computeA, const bool computeAForward, const bool accelZeroCorrection,
+                        const SUMOEmissionClass defaultClass,
                         const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
@@ -100,6 +101,7 @@ protected:
 private:
     const bool myComputeA;
     const bool myComputeAForward;
+    const bool myAccelZeroCorrection;
     const SUMOEmissionClass myDefaultClass;
     const SUMOReal myDefaultSlope;
     std::ostream* myStdOut;

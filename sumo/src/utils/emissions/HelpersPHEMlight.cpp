@@ -274,7 +274,7 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
 #endif
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != 0) {
-        if (a < currCep->GetDecelCoast(corrSpeed, a, slope)) {
+        if (a < currCep->GetDecelCoast(corrSpeed, a, slope) && currCep->getFuelType() != "BEV") {
             // the IDLE_SPEED fix above is now directly in the decel coast calculation.
             return 0;
         }
