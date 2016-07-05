@@ -73,6 +73,7 @@ def check(vehID):
     print("NOx", traci.vehicle.getNOxEmission(vehID))
     print("fuel", traci.vehicle.getFuelConsumption(vehID))
     print("noise", traci.vehicle.getNoiseEmission(vehID))
+    print("Elec", traci.vehicle.getElectricityConsumption(vehID))
     print("traveltime", traci.vehicle.getAdaptedTraveltime(vehID, 0, "1o"))
     print("effort", traci.vehicle.getEffort(vehID, 0, "1o"))
     print("route valid", traci.vehicle.isRouteValid(vehID))
