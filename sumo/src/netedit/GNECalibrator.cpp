@@ -139,7 +139,7 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string &currentD
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANE, myEdge->getLanes().at(0)->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
-    device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
+    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // Write all flows of this calibrator
     for (std::map<std::string, CalibratorFlow>::iterator i = myFlowValues.begin(); i != myFlowValues.end(); ++i) {
@@ -289,7 +289,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
         case SUMO_ATTR_FREQUENCY:
-            return toString(myFrequency);
+            return time2string(myFrequency);
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
@@ -380,7 +380,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = parse<SUMOReal>(value);
+            myFrequency = string2time(value);
             break;
         case SUMO_ATTR_OUTPUT:
             myOutput = value;

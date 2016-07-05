@@ -61,7 +61,7 @@ public:
      * @param[in] blocked set initial blocking state of item
      */
     GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,
-                  bool cont, int timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked);
+                  bool cont, SUMOTime timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked);
 
     /// @brief Destructor
     ~GNEDetectorE2();
@@ -119,7 +119,7 @@ protected:
     bool myCont;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
-    int myTimeThreshold;
+    SUMOTime myTimeThreshold;
 
     /// @brief     The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
     SUMOReal mySpeedThreshold;
