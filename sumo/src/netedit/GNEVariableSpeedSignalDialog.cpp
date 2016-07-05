@@ -80,7 +80,7 @@ GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSigna
     myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGNAL_ADDROW, FRAME_THICK);
 
     // Get values of variable speed signal
-    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();
+    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalSteps();
     
     // update table
     updateTable();
@@ -148,7 +148,7 @@ GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
 long 
 GNEVariableSpeedSignalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Save new data in Variable Speed Signal edited
-    myVariableSpeedSignalParent->setVariableSpeedSignalValues(myVSSValues);
+    myVariableSpeedSignalParent->setVariableSpeedSignalSteps(myVSSValues);
     // Stop Modal with positive out
     getApp()->stopModal(this,TRUE);
     return 1;
@@ -166,7 +166,7 @@ GNEVariableSpeedSignalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNEVariableSpeedSignalDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // Get old values
-    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalValues();
+    myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalSteps();
     updateTable();
     return 1;
 }

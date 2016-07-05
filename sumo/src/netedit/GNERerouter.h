@@ -253,9 +253,8 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] currentDirectory current directory in which this additional are writted
      */
-    void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
+    void writeAdditional(OutputDevice& device, const std::string &);
 
     /// @brief add edge to rerouter
     /// @return true if was sucesfully inserted, false if is duplicated

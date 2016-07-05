@@ -137,9 +137,7 @@ GNERouteProbe::moveAdditional(SUMOReal, SUMOReal, GNEUndoList*) {
 
 
 void
-GNERouteProbe::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
-    // Ignore warning
-    UNUSED_PARAMETER(currentDirectory);
+GNERouteProbe::writeAdditional(OutputDevice& device, const std::string &) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

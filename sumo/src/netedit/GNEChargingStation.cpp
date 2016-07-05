@@ -146,9 +146,7 @@ GNEChargingStation::updateGeometry() {
 
 
 void
-GNEChargingStation::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
-    // Ignore warning
-    UNUSED_PARAMETER(currentDirectory);
+GNEChargingStation::writeAdditional(OutputDevice& device, const std::string &) {
     // Write additional
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

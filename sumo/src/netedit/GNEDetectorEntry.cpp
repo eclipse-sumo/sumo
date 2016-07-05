@@ -109,9 +109,7 @@ GNEDetectorEntry::getPositionInView() const {
 
 
 void
-GNEDetectorEntry::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
-    // Ignore warning
-    UNUSED_PARAMETER(currentDirectory);
+GNEDetectorEntry::writeAdditional(OutputDevice& device, const std::string &) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
@@ -206,7 +204,7 @@ GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
 
 void
 GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-if (value == getAttribute(key)) {
+    if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {

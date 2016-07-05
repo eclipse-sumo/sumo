@@ -83,13 +83,17 @@ public:
     std::string getFilename() const;
 
     /// @brief get values of variable speed signal
-    std::map<SUMOTime, SUMOReal> getVariableSpeedSignalValues() const;
+    std::map<SUMOTime, SUMOReal> getVariableSpeedSignalSteps() const;
 
     /// @brief set filename of rerouter
     void setFilename(std::string filename);
 
     /// @brief set values of variable speed signal
-    void setVariableSpeedSignalValues(const std::map<SUMOTime, SUMOReal> &vssValues);
+    void setVariableSpeedSignalSteps(const std::map<SUMOTime, SUMOReal> &vssValues);
+
+    /// @brief insert a new step in variable speed signal
+    /// @return true if step was sucesfully inserted, false in other case (Time duplicated)
+    bool insertStep(const SUMOTime time, const SUMOReal speed);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -133,6 +137,9 @@ protected:
 
     /// @brief values of variable speed signal
     std::map<SUMOTime, SUMOReal> myVSSValues;
+
+    /// @brief enable or disable save in external filename
+    bool mySaveInFilename;
 
 private:
     /// @brief set attribute after validation

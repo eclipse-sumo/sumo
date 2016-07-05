@@ -123,8 +123,6 @@ GNEDetectorE3::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoLis
 
 void
 GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
-    // Ignore warning
-    UNUSED_PARAMETER(currentDirectory);
     // Only save E3 if have Entry/Exits
     if(getNumberOfAdditionalChilds() > 0) {
         // Write parameters

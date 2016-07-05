@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{df2e0a92-e7d4-499a-a0fe-87d3deca6f20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp">
@@ -19,6 +22,81 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\images\GUITextureSubSys.cpp">
       <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag_minus.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag_plus.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E1.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E2.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E3.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E3Selected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Empty.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_EmptySelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Entry.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Exit.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Lock.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LockSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_NotMoving.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_NotMovingSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Rerouter.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RerouterSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RouteProbe.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RouteProbeSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_TLS.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Vaporizer.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VaporizerSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignal.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignalSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\manip.cpp">
+      <Filter>Textures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -37,5 +115,259 @@
     <ClInclude Include="..\..\..\src\utils\gui\images\GUITextures.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\utils\gui\images\app_tlstracker.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_tracker.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\camera.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\close_gaps.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\closing.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\colorwheel.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\colour_lane.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\colour_vehicle.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\cont.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\create_graph.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\cut.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\dilate.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\document.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\edit_graph.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\erase_stains.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\erode.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\ext.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\extract_streets.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\eyedrop.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\fileopen.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\fileprint.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\filesave.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\green_edge.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\green_person.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\green_vehicle.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\halt.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_add.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_edge.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_junction.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_person.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_poi.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_poly.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_tls.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_vehicle.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lock.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\magnify.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\netedit.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\netopen.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\new_window.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\no.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\open_bmp_dialog.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\opening.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush1x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush2x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush3x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush4x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush5x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\play.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rarify.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\recenter_view.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\redo.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\reload.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\remove.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\removedb.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber1x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber2x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber3x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber4x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber5x.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\savedb.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\shapeopen.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\show_tooltips.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\skeletonize.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\step.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\stop.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\undo.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\view1.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\view2.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\view3.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\windows_cascade.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\windows_tile_horizontally.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\windows_tile_vertically.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yellow_edge.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yellow_person.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yellow_vehicle.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yes.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\zoomstyle.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\add.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\allow_rotation.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_breakpoints.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_finder.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_selector.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_table.xpm">
+      <Filter>Textures</Filter>
+    </None>
   </ItemGroup>
 </Project>

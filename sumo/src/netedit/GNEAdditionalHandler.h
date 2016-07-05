@@ -165,7 +165,13 @@ public:
      * @param[in] attrs SAX-attributes which define the flows
      * @param[in] tag of the additional
      */
-    void parseFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+
+    /**@brief Parses step values of VariableSpeedSignals
+     * @param[in] attrs SAX-attributes which define the steps
+     * @param[in] tag of the additional
+     */
+    void parseVariableSpeedSignalStep(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
     /// @}
 
     /// @name building methods
@@ -390,12 +396,6 @@ protected:
 
     /// @brief Id of the last inserted GNEAdditionalSet
     std::string myAdditionalSetParent;
-
-    /// @brief Pointer to calibrator in which insert flow
-    GNECalibrator *calibratorToInsertFlow;
-
-    /// @brief Pointer to rerouter in which insert intervalStep
-    GNERerouter *reruterToInsertInterval;
 
     /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
     GNERerouter::rerouterInterval *rerouterIntervalToInsertValues;

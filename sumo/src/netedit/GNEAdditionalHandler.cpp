@@ -59,9 +59,7 @@
 
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet) :
     SUMOSAXHandler(file),
-    myViewNet(viewNet), 
-    calibratorToInsertFlow(NULL),
-    reruterToInsertInterval(NULL),
+    myViewNet(viewNet),
     rerouterIntervalToInsertValues(NULL) {
 }
 
@@ -118,7 +116,10 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             parseAndBuildRouteProbe(attrs, tag);
             break;
         case SUMO_TAG_FLOW:
-            parseFlow(attrs, tag);
+            parseCalibratorFlow(attrs, tag);
+            break;
+        case SUMO_TAG_STEP:
+            parseVariableSpeedSignalStep(attrs, tag);
             break;
         default:
             break;
@@ -214,24 +215,24 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
 
 
 void 
-GNEAdditionalHandler::parseFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
     // Declare calibrator to keep flow
     GNECalibrator::CalibratorFlow flow;
     bool ok = true;
     // Load non empty values
     std::string flowId = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
     if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of " + toString(tag) + "'s calibrator is missing");
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_CALIBRATOR) + " is missing");
         ok = true;
     }
     flow.type = attrs.get<std::string>(SUMO_ATTR_TYPE, flowId.c_str(), ok, false);
     if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TYPE) + "' of " + toString(tag) + "'s calibrator is missing");
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TYPE) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_CALIBRATOR) + " is missing");
         ok = true;
     }
     flow.route = attrs.get<std::string>(SUMO_ATTR_ROUTE, flowId.c_str(), ok, false);
     if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ROUTE) + "' of " + toString(tag) + "'s calibrator is missing");
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ROUTE) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_CALIBRATOR) + " is missing");
         ok = true;
     }
     // Load rest of parameters
@@ -253,10 +254,38 @@ GNEAdditionalHandler::parseFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag
     flow.number = attrs.getOpt<int>(SUMO_ATTR_NUMBER, flowId.c_str(), ok, 0, false);
     // Continue if all parameters were sucesfully loaded
     if (ok) {
+        // Obtain calibrator
+        GNECalibrator *calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, myAdditionalSetParent));
         if (calibratorToInsertFlow == NULL){
-            WRITE_WARNING("A Calibrators must be inserter befor insertion of a flow (" + flowId + ")");
+            WRITE_WARNING("A " + toString(SUMO_TAG_CALIBRATOR) + " must be inserter before insertion of the " + toString(tag) + " '" + flowId + "'");
         } else {
             calibratorToInsertFlow->insertFlow(flowId, flow);
+        }
+    }
+}
+
+
+void 
+GNEAdditionalHandler::parseVariableSpeedSignalStep(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag) {
+    bool ok = true;
+    // Load step values
+    SUMOTime time = attrs.get<SUMOTime>(SUMO_ATTR_TIME, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TIME) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_VSS) + " is missing");
+        ok = true;
+    }
+    SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, false);
+    if (!ok) {
+        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_SPEED) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_VSS) + " is missing");
+        ok = true;
+    }
+    // Continue if all parameters were sucesfully loaded
+    if (ok) {
+        GNEVariableSpeedSignal *variableSpeedSignalToInsertStep = dynamic_cast<GNEVariableSpeedSignal*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalSetParent));
+        if (variableSpeedSignalToInsertStep == NULL){
+            WRITE_WARNING("A " + toString(SUMO_TAG_VSS) + " must be inserter before insertion of a " + toString(tag));
+        } else if (!variableSpeedSignalToInsertStep->insertStep(time, speed) ) {
+            WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TIME) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_VSS) + " is duplicated");
         }
     }
 }
@@ -301,7 +330,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& 
             if(lane) {
                 lanes.push_back(lane);
             } else {
-                throw ProcessError(); /*********************** ARREGLAR **********/
+                WRITE_WARNING("lane '" + lanesID.at(i) + "' isn't valid");
             }
         }
         // if operation of build variable speed signal was sucesfully, save Id
@@ -544,8 +573,8 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else {
             if(buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>(), false)) {
-                // Save pointer to current calibrator
-                calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(tag, id));
+                // Save id for insert flows
+                myAdditionalSetParent = id;
             }
         }
     }
