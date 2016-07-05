@@ -64,15 +64,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet *additionalSetParent, bool blocked, bool inspectionable, bool selectable) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet *additionalSetParent, bool blocked) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag),
     myViewNet(viewNet),
     myPosition(pos),
     myAdditionalSetParent(additionalSetParent),
     myBlocked(blocked),
-    myInspectionable(inspectionable),
-    mySelectable(selectable),
+    myInspectionable(true),
+    mySelectable(true),
+    myMovable(true),
     myBlockIconRotation(0),
     myBaseColor(RGBColor::GREEN),
     myBaseColorSelected(RGBColor::BLUE), 
@@ -117,8 +118,26 @@ GNEAdditional::getShape() const {
 
 
 bool
-GNEAdditional::isBlocked() const {
+GNEAdditional::isAdditionalBlocked() const {
     return myBlocked;
+}
+
+
+bool 
+GNEAdditional::isAdditionalInspectionable() const {
+    return myInspectionable;
+}
+
+
+bool 
+GNEAdditional::isAdditionalSelectable() const {
+    return mySelectable;
+}
+
+
+bool 
+GNEAdditional::isAdditionalMovable() const {
+    return myMovable;
 }
 
 
@@ -171,13 +190,13 @@ GNEAdditional::getLane() const {
 
 void 
 GNEAdditional::removeEdgeReference() {
-    throw InvalidArgument("Calling virtual function removeEdgeReference() of class GNEAdditional. Implement removeEdgeReference() in additional child to avoid errors");
+    throw InvalidArgument("Calling virtual function removeEdgeReference() of class GNEAdditional. Implement removeEdgeReference() in additional child to avoid this exception");
 }
 
 
 void 
 GNEAdditional::removeLaneReference() {
-    throw InvalidArgument("Calling virtual function removeLaneReference() of class GNEAdditional. Implement removeLaneReference() in additional child to avoid errors");
+    throw InvalidArgument("Calling virtual function removeLaneReference() of class GNEAdditional. Implement removeLaneReference() in additional child to avoid this exception");
 }
 
 
@@ -217,9 +236,9 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 const SUMOReal lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
                 new FXMenuCommand(ret, ("lane position: " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
             }
-        }
-        else
+        } else {
             throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their lane as a ParentName()");
+        }
     }else if(std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
         // If additional own an edge as attribute, get lane
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getParentName(), false);
@@ -232,11 +251,12 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 const SUMOReal edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
                 new FXMenuCommand(ret, ("edge position: " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
             }
-        }
-        else
+        } else {
             throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their edge as a ParentName()");
-    }else
+        }
+    } else {
         new FXMenuCommand(ret, ("position in view: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
+    }
     // Show childs if this is is an additionalSet
     GNEAdditionalSet* additionalSet = dynamic_cast<GNEAdditionalSet*>(this);
     if(additionalSet) {
@@ -317,11 +337,29 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
     glRotated(180, 0, 0, 1);
     // Traslate depending of the offset
     glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
-    // If myBlocked is enable, draw lock, in other case, draw empty square
-    if(myBlocked) {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCK), size);
+    // Draw icon depending of the state of additional
+    if(isAdditionalSelected()) {
+        if(myMovable == false) {
+            // Draw not movable texture if additional isn't movable and is selected
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_NOTMOVINGSELECTED), size);
+        } else if(myBlocked) {
+            // Draw lock texture if additional is movable, is blocked and is selected
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCKSELECTED), size);
+        } else {
+            // Draw empty texture if additional is movable, isn't blocked and is selected
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_EMPTYSELECTED), size);
+        }
     } else {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_EMPTY), size);
+        if(myMovable == false) {
+            // Draw not movable texture if additional isn't movable
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_NOTMOVING), size);
+        } else if(myBlocked) {
+            // Draw lock texture if additional is movable and is blocked
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCK), size);
+        } else {
+            // Draw empty texture if additional is movable and isn't blocked
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_EMPTY), size);
+        }
     }
     // Pop matrix
     glPopMatrix();

@@ -70,6 +70,8 @@ GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *
     myEdge(edge),
     myStartTime(startTime),
     myEnd(end) {
+    // this additional ISN'T movable
+    myMovable = false;
     // Add additional to edge parent
     myEdge->addAdditional(this);
     // Update geometry;
@@ -240,10 +242,11 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glRotated(-90, 0, 0, 1);
 
     // Draw icon depending of detector is or isn't selected
-    if(isAdditionalSelected()) 
+    if(isAdditionalSelected()) {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_VAPORIZERSELECTED), 1);
-    else
+    } else {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_VAPORIZER), 1);
+    }
 
     // Pop logo matrix
     glPopMatrix();

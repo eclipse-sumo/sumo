@@ -295,8 +295,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement *netElement, GUISUMOAbstractView
             }
             // Set saved Ids in attribute edges
             valuesOfElement[SUMO_ATTR_EDGES] = joinToString(vectorOfIds, " ");
-        } else
+        } else {
             valuesOfElement[SUMO_ATTR_EDGES] = myEdgesSelector->getIdsSelected();
+        }
         // check if attribute has at least an Edge
         if(valuesOfElement[SUMO_ATTR_EDGES] == "") {
             WRITE_WARNING("A " + toString(myActualAdditionalType) + " must have at least one edge associated.");
@@ -317,8 +318,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement *netElement, GUISUMOAbstractView
             }
             // Set saved Ids in attribute lanes
             valuesOfElement[SUMO_ATTR_LANES] = joinToString(vectorOfIds, " ");
-        } else
+        } else {
             valuesOfElement[SUMO_ATTR_LANES] = myLanesSelector->getIdsSelected();
+        }
         // check if attribute has at least a lane
         if(valuesOfElement[SUMO_ATTR_LANES] == "") {
             WRITE_WARNING("A " + toString(myActualAdditionalType) + " must have at least one lane associated.");
@@ -785,8 +787,9 @@ GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additional, Su
             }
             // Update index
             myIndexParameterList++;
-        } else
+        } else {
             WRITE_ERROR("Max number of list attributes reached (" + toString(maxNumberOfListParameters) + ").");
+        }
     } else {
         if(myIndexParameter < maxNumberOfParameters) {
             // Check type of attribute list
@@ -803,8 +806,9 @@ GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additional, Su
             }
             // Update index parameter
             myIndexParameter++;
-        } else
+        } else {
             WRITE_ERROR("Max number of attributes reached (" + toString(maxNumberOfParameters) + ").");
+        }
     }
 }
 

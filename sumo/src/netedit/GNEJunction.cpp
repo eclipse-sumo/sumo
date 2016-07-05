@@ -327,8 +327,9 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         }
         // Invalidate traffic light
         invalidateTLS(undoList);
-    } else
+    } else {
         rebuildCrossings(false);
+    }
 }
 
 

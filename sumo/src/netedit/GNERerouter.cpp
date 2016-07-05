@@ -485,10 +485,11 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     glRotated(180, 0, 0, 1);
 
     // Draw icon depending of rerouter is or isn't selected
-    if(isAdditionalSelected()) 
+    if(isAdditionalSelected()) {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_REROUTERSELECTED), 1);
-    else
+    } else {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_REROUTER), 1);
+    }
 
     // Pop draw matrix
     glPopMatrix();

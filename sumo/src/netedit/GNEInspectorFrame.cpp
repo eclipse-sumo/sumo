@@ -217,11 +217,19 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
         if(dynamic_cast<GNEAdditional*>(myACs.front())) {
             // Get pointer to additional
             myAdditional = dynamic_cast<GNEAdditional*>(myACs.front());
-            // Show groupBox for editor Attributes
-            myGroupBoxForEditor->show();
-            // Show check blocked
-            myCheckBlocked->setCheck(myAdditional->isBlocked());
-            myCheckBlocked->show();
+            bool showGroupBoxForEditor = false;
+
+            // Show check blocked if additional is movable
+            if(myAdditional->isAdditionalMovable()) {
+                myCheckBlocked->setCheck(myAdditional->isAdditionalBlocked());
+                myCheckBlocked->show();
+                showGroupBoxForEditor = true;
+            }
+            // Show groupBox for editor Attributes if some of additional attributes are editable
+            if(showGroupBoxForEditor == true) {
+                myGroupBoxForEditor->show();
+            }
+
         } else {
             // Hide all additional elements
             myGroupBoxForEditor->hide();

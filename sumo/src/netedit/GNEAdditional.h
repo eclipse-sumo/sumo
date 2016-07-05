@@ -69,10 +69,8 @@ public:
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] additionalSetParent pointer to parent, if this additional belongs to an additionalSet
      * @param[in] blocked enable or disable blocking. By default additional element isn't blocked (i.e. value is false)
-     * @param[in] inspectionable enable or disable inspection by GNEInspectorFrame
-     * @param[in] selectable enable or disable selection
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet *additionalSetParent = NULL, bool blocked = false, bool inspectionable = true, bool selectable = true);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet *additionalSetParent = NULL, bool blocked = false);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -106,8 +104,17 @@ public:
     /// @brief Returns additional element's shape
     PositionVector getShape() const;
 
-    /// @brief Check if additional item is blocked (i.e. cannot be moved with mouse)
-    bool isBlocked() const;
+    /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
+    bool isAdditionalBlocked() const;
+
+    /// @brief check if additional element is inspectionable (With GNEInspectorFrame)
+    bool isAdditionalInspectionable() const;
+
+    /// @brief check if additional element is selectable (With GNESelectorFrame)
+    bool isAdditionalSelectable() const;
+
+    /// @brief check if additional element is movable
+    bool isAdditionalMovable() const;
 
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
@@ -264,11 +271,14 @@ protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlocked;
 
-    /// @brief boolean to check if additional element is inspectionable (With GNEInspectorFrame)
+    /// @brief boolean to check if additional element is inspectionable (With GNEInspectorFrame). By default true
     bool myInspectionable;
 
-    /// @brief boolean to check if additional element is selectable (With GNESelectorFrame)
+    /// @brief boolean to check if additional element is selectable (With GNESelectorFrame). By default true
     bool mySelectable;
+
+    /// @brief boolean to check if additional element is movable (with the mouse). By default true
+    bool myMovable;
 
 private:
     /// @brief set attribute after validation

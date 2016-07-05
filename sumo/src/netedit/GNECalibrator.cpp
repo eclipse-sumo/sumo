@@ -73,6 +73,8 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* v
     myOutput(output),
     myRouteProbe(NULL), /** change this in the future **/ 
     myFlowValues(flowValues) {
+    // this additional ISN'T movable
+    myMovable = false;
     // Update geometry;
     updateGeometry();
     // Set Colors

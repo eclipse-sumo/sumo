@@ -139,8 +139,9 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string &currentD
         // Close tag
         device.closeTag();
     }
-    else
+    else {
         WRITE_WARNING(toString(getTag()) + " with ID = '" + getID() + "' cannot be writed in additional file because don't have childs.");
+    }
 }
 
 
@@ -162,10 +163,11 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     glRotated(180, 0, 0, 1);
 
     // Draw icon depending of detector is or isn't selected
-    if(isAdditionalSelected()) 
+    if(isAdditionalSelected()) {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_E3SELECTED), 1);
-    else
+    } else {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_E3), 1);
+    }
 
     // Pop logo matrix
     glPopMatrix();
