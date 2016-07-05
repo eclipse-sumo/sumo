@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    GNEConnection.h
-/// @author  Pablo Álvarez López
+/// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
 /// @version $Id$
 ///
