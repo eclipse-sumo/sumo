@@ -29,7 +29,6 @@ import traci
 import sumolib
 
 
-PORT = 8813
 DELTA_T = 1000
 
 netconvertBinary = sumolib.checkBinary('netconvert')
@@ -39,9 +38,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 def runSingle(addOption):
     step = 0
     timeline = []
-    sumoProcess = subprocess.Popen(
-        "%s -c %s %s" % (sumoBinary, "sumo.sumocfg", addOption), shell=True, stdout=sys.stdout)
-    traci.init(PORT)
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"] + addOption)
     while not step > 10000:
         try:
             traci.simulationStep()
@@ -75,10 +72,10 @@ retcode = subprocess.call(
     [netconvertBinary, "-c", "netconvert.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
 print(">>> Checking Simulation (network: internal, simulation: internal)")
-evalTimeline(runSingle(""))
+evalTimeline(runSingle([]))
 time.sleep(1)
 print(">>> Checking Simulation (network: internal, simulation: no internal)")
-evalTimeline(runSingle("--no-internal-links"))
+evalTimeline(runSingle(["--no-internal-links"]))
 time.sleep(1)
 
 print("")
@@ -88,8 +85,8 @@ retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netccfg",
                            "--no-internal-links"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
 print(">>> Checking Simulation (network: no internal, simulation: internal)")
-evalTimeline(runSingle(""))
+evalTimeline(runSingle([]))
 time.sleep(1)
 print(
     ">>> Checking Simulation (network: no internal, simulation: no internal)")
-evalTimeline(runSingle("--no-internal-links"))
+evalTimeline(runSingle(["--no-internal-links"]))
