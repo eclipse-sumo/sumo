@@ -43,4 +43,4 @@ GNETexture_TLS.cpp
 
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
 GUITextureSubSys.cpp GUITextureSubSys.h \
-GUIIcons.h GUITexturesHelper.cpp GUITexturesHelper.h
+GUIIcons.h GUITexturesHelper.cpp GUITexturesHelper.h GUITextures.h
