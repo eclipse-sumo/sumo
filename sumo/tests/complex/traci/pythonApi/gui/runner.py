@@ -59,3 +59,4 @@ for step in range(3, 6):
 traci.gui.screenshot(viewID, "test.png")
 traci.gui.screenshot(viewID, "test.blub")
 traci.close()
+sumoProcess.wait()

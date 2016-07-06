@@ -36,20 +36,20 @@ DELTA_T = 1000
 if sys.argv[1] == "sumo":
     sumoBinary = os.environ.get(
         "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    addOption = "--remote-port %s" % PORT
+    addOption = []
 else:
     sumoBinary = os.environ.get(
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-S -Q --remote-port %s" % PORT
+    addOption = ["-S", "-Q"]
 
 
 def runSingle(traciEndTime, sumoEndTime=None):
     step = 0
-    opt = addOption
-    if sumoEndTime is not None:
-        opt += (" --end %s" % sumoEndTime)
-    sumoProcess = subprocess.Popen(
-        "%s -c sumo.sumocfg %s" % (sumoBinary, opt), shell=True, stdout=sys.stdout)
+    if sumoEndTime is None:
+        opt = addOption
+    else:
+        opt = addOption + ["--end", str(sumoEndTime)]
+    sumoProcess = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + opt)
     traci.init(PORT)
     while not step > traciEndTime:
         traci.simulationStep()
@@ -57,6 +57,7 @@ def runSingle(traciEndTime, sumoEndTime=None):
     print("Print ended at step %s" %
           (traci.simulation.getCurrentTime() / DELTA_T))
     traci.close()
+    sumoProcess.wait()
     sys.stdout.flush()
 
 

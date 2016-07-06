@@ -124,6 +124,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
     print("Print ended at step %s" %
           (traci.simulation.getCurrentTime() / DELTA_T))
     traci.close()
+    sumoProcess.wait()
     sys.stdout.flush()
     print("uncheck: seen %s vehicles via subscription, %s in surrounding" %
           (seen1, seen2))

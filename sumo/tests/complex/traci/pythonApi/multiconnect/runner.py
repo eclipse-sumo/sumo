@@ -59,3 +59,5 @@ for c in conns:
     print("routes", c.route.getIDList())
     print("edges", c.route.getEdges("h2"))
     c.close()
+for p in sumoProcess:
+    p.wait()

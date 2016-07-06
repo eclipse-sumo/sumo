@@ -64,3 +64,4 @@ objects = [
 print("step", step())
 
 traci.close()
+sumoProcess.wait()

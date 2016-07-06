@@ -67,3 +67,4 @@ for i in range(24):
     traci.simulationStep()
 
 traci.close()
+sumoProcess.wait()

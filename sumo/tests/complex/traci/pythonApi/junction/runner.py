@@ -52,3 +52,4 @@ for step in range(3, 6):
     traci.simulationStep()
     print(traci.junction.getSubscriptionResults(junctionID))
 traci.close()
+sumoProcess.wait()

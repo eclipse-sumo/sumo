@@ -301,3 +301,4 @@ check(moved)
 
 # done
 traci.close()
+sumoProcess.wait()

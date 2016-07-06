@@ -89,3 +89,4 @@ for step in range(10):
         traci.edge.getTraveltime("3si")))
 
 traci.close()
+sumoProcess.wait()

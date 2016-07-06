@@ -36,14 +36,13 @@ PORT = sumolib.miscutils.getFreeSocketPort()
 if sys.argv[1] == "sumo":
     sumoBinary = os.environ.get(
         "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    addOption = "--remote-port %s" % PORT
+    addOption = []
 else:
     sumoBinary = os.environ.get(
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-S -Q --remote-port %s" % PORT
+    addOption = ["-S", "-Q"]
 
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
+sumoProcess = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + addOption)
 traci.init(PORT)
 time.sleep(10)
 step = 0

@@ -53,3 +53,4 @@ for step in range(3, 6):
     traci.simulationStep()
     print(traci.multientryexit.getSubscriptionResults(detID))
 traci.close()
+sumoProcess.wait()

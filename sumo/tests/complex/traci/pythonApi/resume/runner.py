@@ -56,10 +56,11 @@ def init_traci():
         sumo_call, stdout=sys.stdout, stderr=sys.stderr)
 
     traci.init(PORT_TRACI)
+    return sumoProcess
 
 
 def main(args):
-    init_traci()
+    sumoProcess = init_traci()
     step = -1
     while True:
         step += 1
@@ -71,6 +72,7 @@ def main(args):
 
         if step == 160:
             traci.close()
+            sumoProcess.wait()
             break
 
 if __name__ == "__main__":

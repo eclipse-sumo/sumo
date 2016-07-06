@@ -57,3 +57,4 @@ for step in range(3, 6):
     traci.simulationStep()
     print(traci.areal.getSubscriptionResults(detID))
 traci.close()
+sumoProcess.wait()

@@ -86,3 +86,4 @@ for step in range(3, 6):
     traci.simulationStep()
     print(traci.lane.getSubscriptionResults(laneID))
 traci.close()
+sumoProcess.wait()

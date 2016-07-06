@@ -57,3 +57,4 @@ for step in range(3, 6):
     traci.simulationStep()
     print(traci.polygon.getSubscriptionResults(polygonID))
 traci.close()
+sumoProcess.wait()
