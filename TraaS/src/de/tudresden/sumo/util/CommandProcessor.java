@@ -41,6 +41,7 @@ import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.container.SumoTLSPhase;
+import de.tudresden.ws.container.SumoVehicleData;
 
 /**
  * 
@@ -312,6 +313,36 @@ public class CommandProcessor extends Query{
 			
 				output = sl;
 				
+			 }else if(sc.input2 == Constants.LAST_STEP_VEHICLE_DATA){
+					
+					resp.content().readUnsignedByte();
+					resp.content().readInt();
+					
+					int l = resp.content().readInt();
+				
+					SumoVehicleData sv = new SumoVehicleData();
+					for(int i=0; i<l; i++){
+					
+						resp.content().readUnsignedByte();
+						String vehID = resp.content().readStringASCII();
+						
+						resp.content().readUnsignedByte();
+						double length = resp.content().readDouble();
+						
+						resp.content().readUnsignedByte();
+						double entry_time = resp.content().readDouble();
+						
+						resp.content().readUnsignedByte();
+						double leave_time = resp.content().readDouble();
+						
+						resp.content().readUnsignedByte();
+						String typeID = resp.content().readStringASCII();
+						
+						sv.add(vehID, length, entry_time, leave_time, typeID);
+					}
+				
+					output = sv;
+					
 			}else{
 				
 				int laenge = resp.content().readInt();

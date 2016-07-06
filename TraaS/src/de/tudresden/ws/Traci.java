@@ -45,6 +45,7 @@ import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
+import de.tudresden.ws.container.SumoVehicleData;
 import de.tudresden.ws.log.Log;
 import de.tudresden.sumo.util.ConvertHelper;
 import de.tudresden.sumo.util.Sumo;
@@ -1501,8 +1502,8 @@ public class Traci{
 	}
 
 	@WebMethod(action="Inductionloop: Returns the subscription results for the last time step and the given loop.")
-	public int Inductionloop_getVehicleData(@WebParam(name = "loopID") String loopID){
-		return this.helper.getInt(this.sumo.get_cmd(Inductionloop.getVehicleData(loopID)));
+	public SumoVehicleData Inductionloop_getVehicleData(@WebParam(name = "loopID") String loopID){
+		return this.helper.getVehicleData(this.sumo.get_cmd(Inductionloop.getVehicleData(loopID)));
 	}
 
 

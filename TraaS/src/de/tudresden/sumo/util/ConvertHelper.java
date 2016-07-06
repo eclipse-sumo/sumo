@@ -32,6 +32,7 @@ import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
+import de.tudresden.ws.container.SumoVehicleData;
 import de.tudresden.ws.log.Log;
 
 public class ConvertHelper {
@@ -249,6 +250,22 @@ public class ConvertHelper {
 		} catch (Exception ex) {this.logger.write(ex.getStackTrace());}
 
 		return output;
+	}
+
+	public SumoVehicleData getVehicleData(Object obj) {
+			
+				//build an empty list
+				SumoVehicleData output = new SumoVehicleData();
+				
+				try {
+
+					if (obj.getClass().equals(SumoVehicleData.class)) {
+						output = (SumoVehicleData) obj;
+					}
+
+				} catch (Exception ex) {this.logger.write(ex.getStackTrace());}
+
+				return output;
 	}
 
 }
