@@ -785,7 +785,7 @@ public:
     /** @brief Returns the information whether the vehicle is fully controlled via TraCI
      * @return Whether the vehicle is remote-controlled
      */
-    bool isRemoteControlled() const; 
+    bool isRemoteControlled() const;
 
     /// @brief return the distance to the next stop or SUMORealMax if there is none.
     SUMOReal nextStopDist() const {

@@ -61,7 +61,7 @@ public:
 
     public:
         /// @brief constructor
-        additionalParameter(FXComposite *parent, FXObject* tgt);
+        additionalParameter(FXComposite* parent, FXObject* tgt);
 
         /// @brief destructor
         ~additionalParameter();
@@ -92,13 +92,13 @@ public:
         SumoXMLAttr myAttr;
 
         /// @brief lael with the name of the parameter
-        FXLabel *myLabel;
+        FXLabel* myLabel;
 
         /// @brief textField to modify the value of parameter
-        FXTextField *myTextField;
+        FXTextField* myTextField;
 
         /// @brief menuCheck to enable/disable the value of parameter
-        FXMenuCheck *myMenuCheck;
+        FXMenuCheck* myMenuCheck;
     };
 
     // ===========================================================================
@@ -111,7 +111,7 @@ public:
 
     public:
         /// @brief constructor
-        additionalParameterList(FXComposite *parent, FXObject* tgt);
+        additionalParameterList(FXComposite* parent, FXObject* tgt);
 
         /// @brief destructor
         ~additionalParameterList();
@@ -161,10 +161,10 @@ public:
         std::vector<FXTextField*> myTextFields;
 
         /// @brief Button to increase the number of textFields
-        FXButton *add;
+        FXButton* add;
 
         /// @brief Button to decrease the number of textFields
-        FXButton *remove;
+        FXButton* remove;
 
         /// @brief number of visible text fields
         int numberOfVisibleTextfields;
@@ -183,7 +183,7 @@ public:
 
     public:
         /// @brief constructor
-        additionalParameters(FXComposite *parent, FXObject* tgt);
+        additionalParameters(FXComposite* parent, FXObject* tgt);
 
         /// @brief destructor
         ~additionalParameters();
@@ -239,7 +239,7 @@ public:
         int maxNumberOfListParameters;
 
         /// @brief button for help
-        FXButton *helpAdditional;
+        FXButton* helpAdditional;
     };
 
     // ===========================================================================
@@ -259,7 +259,7 @@ public:
         };
 
         /// @brief constructor
-        editorParameters(FXComposite *parent, FXObject* tgt);
+        editorParameters(FXComposite* parent, FXObject* tgt);
 
         /// @brief destructor
         ~editorParameters();
@@ -308,7 +308,7 @@ public:
         FXComboBox* myReferencePointMatchBox;
 
         /// @brief Button for help about the reference point
-        FXButton *helpReferencePoint;
+        FXButton* helpReferencePoint;
 
         /// @brief actual additional reference point selected in the match Box
         additionalReferencePoint myActualAdditionalReferencePoint;
@@ -336,7 +336,7 @@ public:
 
     public:
         /// @brief constructor
-        additionalSet(FXComposite *parent, FXObject* tgt, GNEViewNet* viewNet);
+        additionalSet(FXComposite* parent, FXObject* tgt, GNEViewNet* viewNet);
 
         /// @brief destructor
         ~additionalSet();
@@ -371,13 +371,13 @@ public:
         SumoXMLTag myType;
 
         /// @brief List of additional sets
-        FXList *myList;
+        FXList* myList;
 
         /// @brief Label with the name of Set
-        FXLabel *mySetLabel;
+        FXLabel* mySetLabel;
 
         /// @brief button for help
-        FXButton *helpAdditionalSet;
+        FXButton* helpAdditionalSet;
 
         /// @brief viewNet associated to GNEAdditionalFrame
         GNEViewNet* myViewNet;
@@ -393,7 +393,7 @@ public:
 
     public:
         /// @brief constructor
-        edgesSelector(FXComposite *parent, GNEViewNet* viewNet);
+        edgesSelector(FXComposite* parent, GNEViewNet* viewNet);
 
         /// @brief destructor
         ~edgesSelector();
@@ -440,22 +440,22 @@ public:
 
     private:
         /// @brief CheckBox for selected edges
-        FXMenuCheck *myUseSelectedEdges;
+        FXMenuCheck* myUseSelectedEdges;
 
         /// @brief List of edgesSelector
-        FXList *myList;
+        FXList* myList;
 
         /// @brief text field for search edge IDs
-        FXTextField *myEdgesSearch;
+        FXTextField* myEdgesSearch;
 
         /// @brief button for help
-        FXButton *helpEdges;
+        FXButton* helpEdges;
 
         /// @brief button for clear selection
-        FXButton *clearEdgesSelection;
+        FXButton* clearEdgesSelection;
 
         /// @brief button for invert selection
-        FXButton *invertEdgesSelection;
+        FXButton* invertEdgesSelection;
 
         /// @brief viewNet associated to GNEAdditionalFrame
         GNEViewNet* myViewNet;
@@ -471,7 +471,7 @@ public:
 
     public:
         /// @brief constructor
-        lanesSelector(FXComposite *parent, GNEViewNet* viewNet);
+        lanesSelector(FXComposite* parent, GNEViewNet* viewNet);
 
         /// @brief destructor
         ~lanesSelector();
@@ -518,22 +518,22 @@ public:
 
     private:
         /// @brief CheckBox for selected lanes
-        FXMenuCheck *myUseSelectedLanes;
+        FXMenuCheck* myUseSelectedLanes;
 
         /// @brief List of lanesSelector
-        FXList *myList;
+        FXList* myList;
 
         /// @brief text field for search lane IDs
-        FXTextField *myLanesSearch;
+        FXTextField* myLanesSearch;
 
         /// @brief button for help
-        FXButton *helpLanes;
+        FXButton* helpLanes;
 
         /// @brief button for clear selection
-        FXButton *clearLanesSelection;
+        FXButton* clearLanesSelection;
 
         /// @brief button for invert selection
-        FXButton *invertLanesSelection;
+        FXButton* invertLanesSelection;
 
         /// @brief viewNet associated to GNEAdditionalFrame
         GNEViewNet* myViewNet;
@@ -553,12 +553,12 @@ public:
      * @param[in] parent AbstractView to obtain the position of the mouse over the lane.
      * @return true if an additional (GNEAdditional or GNEAdditionalSet) was added, false in other case
      */
-    bool addAdditional(GNENetElement *netElement, GUISUMOAbstractView* parent);
+    bool addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase
      */
-    void removeAdditional(GNEAdditional *additional);
+    void removeAdditional(GNEAdditional* additional);
 
     /// @name FOX-callbacks
     /// @{
@@ -584,7 +584,7 @@ private:
     void setParametersOfAdditional(SumoXMLTag actualAdditionalType);
 
     /// @brief generate a ID for an additiona element
-    std::string generateID(GNENetElement *netElement) const;
+    std::string generateID(GNENetElement* netElement) const;
 
     /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
     SUMOReal setStartPosition(SUMOReal positionOfTheMouseOverLane, SUMOReal lenghtOfAdditional);
@@ -599,19 +599,19 @@ private:
     FXComboBox* myAdditionalMatchBox;
 
     /// @brief additional default parameters
-    GNEAdditionalFrame::additionalParameters *myAdditionalParameters;
+    GNEAdditionalFrame::additionalParameters* myAdditionalParameters;
 
     /// @brief editor parameter
-    GNEAdditionalFrame::editorParameters *myEditorParameters;
+    GNEAdditionalFrame::editorParameters* myEditorParameters;
 
     /// @brief list of additional Set
-    GNEAdditionalFrame::additionalSet *myAdditionalSet;
+    GNEAdditionalFrame::additionalSet* myAdditionalSet;
 
     /// @brief list of edgesSelector
-    GNEAdditionalFrame::edgesSelector *myEdgesSelector;
+    GNEAdditionalFrame::edgesSelector* myEdgesSelector;
 
     /// @brief list of lanesSelector
-    GNEAdditionalFrame::lanesSelector *myLanesSelector;
+    GNEAdditionalFrame::lanesSelector* myLanesSelector;
 
     /// @brief actual additional type selected in the match Box
     SumoXMLTag myActualAdditionalType;

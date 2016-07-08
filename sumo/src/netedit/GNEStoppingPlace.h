@@ -69,18 +69,18 @@ public:
     /// @brief Returns position of StoppingPlace in view
     Position getPositionInView() const;
 
-    /**@brief change the position of the StoppingPlace geometry 
+    /**@brief change the position of the StoppingPlace geometry
      * @param[in] posx new position of StoppingPlaceover lane
      * @param[in] posy unused
      * @param[in] undoList pointer to the undo list
      */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList);
+    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
-    virtual void writeAdditional(OutputDevice& device, const std::string &currentDirectory) = 0;
+    virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
 
     /// @brief Returns pointer to Lane of stopping place
     GNELane* getLane() const;
@@ -90,7 +90,7 @@ public:
     void removeLaneReference();
 
     /// @brief change lane of stopping place
-    void changeLane(GNELane *newLane); 
+    void changeLane(GNELane* newLane);
 
     /// @brief Returns the Start position of the stoppingPlace
     SUMOReal getStartPosition() const;
@@ -165,7 +165,7 @@ protected:
     /// @brief sign selected color (Default blue)
     RGBColor mySignColorSelected;
 
-     /// @brief Text color (Default cyan)
+    /// @brief Text color (Default cyan)
     RGBColor myTextColor;
 
     /// @brief Text color selected (Default blue)
@@ -176,7 +176,7 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidate set new position in the view
-    void setPosition(const Position &pos);
+    void setPosition(const Position& pos);
 };
 
 

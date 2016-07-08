@@ -57,7 +57,7 @@ FXIMPLEMENT(GNECalibratorDialog, FXDialogBox, GNECalibratorDialogMap, ARRAYNUMBE
 // member method definitions
 // ===========================================================================
 
-GNECalibratorDialog::GNECalibratorDialog(GNECalibrator *calibratorParent) : 
+GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* calibratorParent) :
     GNEAdditionalDialog(calibratorParent, 1024, 360),
     myCalibratorParent(calibratorParent) {
 
@@ -112,30 +112,30 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator *calibratorParent) :
 
     // create Text field for container number
     myTextFieldContainerNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
-    
+
     // create Text field for vehsPerHour
     myTextFieldVehsPerHour = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
-    
+
     // create Text field for period
     myTextFieldPeriod = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
-    
+
     // create Text field for probability
     myTextFieldProbability = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
-    
+
     // create Text field for number
     myTextFieldNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
-    
+
     // create Button for insert row
     myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_CALIBRATOR_ADDROW, FRAME_THICK | LAYOUT_FILL_X);
 
     // Get values of variable speed signal
     myFlowValues = myCalibratorParent->getFlowValues();
-    
+
     // Fill table
     updateTable();
 
     // Execute additional dialog (To make it modal)
-    execute(); 
+    execute();
 }
 
 
@@ -151,79 +151,79 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     std::string id = myTextFieldId->getText().text();
 
     // set Start
-    if(myTextFieldBegin->getText().empty()) {
+    if (myTextFieldBegin->getText().empty()) {
         return 0;
     } else {
         // @todo SUMOTIME
         calibratorFlow.begin = TplConvert::_str2int(myTextFieldBegin->getText().text());
     }
-    
+
     // set End
-    if(myTextFieldEnd->getText().empty()) {
+    if (myTextFieldEnd->getText().empty()) {
         return 0;
     } else {
         // @todo SUMOTIME
         calibratorFlow.end = TplConvert::_str2int(myTextFieldEnd->getText().text());
     }
-    
+
     // set Type
-    if(myTextFieldType->getText().empty()) {
+    if (myTextFieldType->getText().empty()) {
         return 0;
     } else {
         calibratorFlow.type = myTextFieldType->getText().text();
     }
-    
+
     // set Route
-    if(myTextFieldType->getText().empty()) {
+    if (myTextFieldType->getText().empty()) {
         return 0;
     } else {
         calibratorFlow.route = myTextFieldRoute->getText().text();
     }
-    
+
     // Set color
     calibratorFlow.color = myTextFieldColor->getText().text();
-    
+
     // Set depart lane
     calibratorFlow.departLane = myTextFieldDepartLane->getText().text();
-    
+
     // Set depart pos
     calibratorFlow.departPos = myTextFieldDepartPos->getText().text();
-    
+
     // Set depart speed
     calibratorFlow.departSpeed = myTextFieldDepartSpeed->getText().text();
-    
+
     // Set arrival lane
     calibratorFlow.arrivalLane = myTextFieldArrivalLane->getText().text();
-    
+
     // Set arrival pos
     calibratorFlow.arrivalPos = myTextFieldArrivalPos->getText().text();
-    
+
     // Set arrival speed
     calibratorFlow.arrivalSpeed = myTextFieldArrivalSpeed->getText().text();
-    
+
     // Set Line
     calibratorFlow.line = myTextFieldLine->getText().text();
-    
+
     // set PersionNumber
     calibratorFlow.personNumber = TplConvert::_str2int(myTextFieldPersonNumber->getText().text());
-    
+
     // set Container Number
     calibratorFlow.containerNumber = TplConvert::_str2int(myTextFieldContainerNumber->getText().text());
-    
+
     // Set vehsPerHour
     calibratorFlow.vehsPerHour = TplConvert::_str2SUMOReal(myTextFieldVehsPerHour->getText().text());
-    
+
     // set Period
     calibratorFlow.period = TplConvert::_str2SUMOReal(myTextFieldPeriod->getText().text());
-    
+
     // set Probability
     calibratorFlow.probability = TplCheck::_str2SUMOReal(myTextFieldProbability->getText().text());
-    
+
     // set Number
     calibratorFlow.number = TplConvert::_str2int(myTextFieldNumber->getText().text());
 
     // Set new time and their speed if don't exist already a flow with the same ID
-    if(myFlowValues.find(id) == myFlowValues.end()) {
+    if (myFlowValues.find(id) == myFlowValues.end()) {
         myFlowValues[id] = calibratorFlow;
     } else {
         return 0;
@@ -235,11 +235,11 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNECalibratorDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     // Iterate over rows to find the row to erase
-    for(int i = 0; i < myDataList->getNumRows(); i++) {
-        if(myDataList->getItem(i, 19)->isSelected()) {
+    for (int i = 0; i < myDataList->getNumRows(); i++) {
+        if (myDataList->getItem(i, 19)->isSelected()) {
             // Remove element of table and map
             myFlowValues.erase(myDataList->getItem(i, 0)->getText().text());
             myDataList->removeRows(i);
@@ -252,20 +252,20 @@ GNECalibratorDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Get values of variable speed signal
     myCalibratorParent->setFlowValues(myFlowValues);
     // Stop Modal
-    getApp()->stopModal(this,TRUE);
+    getApp()->stopModal(this, TRUE);
     return 1;
 }
 
 
-long 
+long
 GNECalibratorDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal
-    getApp()->stopModal(this,TRUE);
+    getApp()->stopModal(this, TRUE);
     return 1;
 }
 
@@ -329,94 +329,94 @@ GNECalibratorDialog::updateTable() {
     myDataList->setColumnText(18, "Number");
     myDataList->setColumnText(19, "Del.");
     myDataList->getRowHeader()->setWidth(0);
-    
+
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem *item = 0;
-    
+    FXTableItem* item = 0;
+
     // iterate over values
-    for(std::map<std::string, GNECalibrator::CalibratorFlow>::iterator i = myFlowValues.begin(); i != myFlowValues.end(); i++) {
+    for (std::map<std::string, GNECalibrator::CalibratorFlow>::iterator i = myFlowValues.begin(); i != myFlowValues.end(); i++) {
         // set ID
         item = new FXTableItem(toString(i->first).c_str());
-        myDataList->setItem (indexRow, 0, item); 
-        
+        myDataList->setItem(indexRow, 0, item);
+
         // set begin
         item = new FXTableItem(toString(i->second.begin).c_str());
-        myDataList->setItem (indexRow, 1, item); 
-        
+        myDataList->setItem(indexRow, 1, item);
+
         // set end
         item = new FXTableItem(toString(i->second.end).c_str());
-        myDataList->setItem (indexRow, 2, item); 
-        
+        myDataList->setItem(indexRow, 2, item);
+
         // set type
         item = new FXTableItem(toString(i->second.type).c_str());
-        myDataList->setItem (indexRow, 3, item); 
-        
+        myDataList->setItem(indexRow, 3, item);
+
         // set route
         item = new FXTableItem(toString(i->second.route).c_str());
-        myDataList->setItem (indexRow, 4, item); 
-        
+        myDataList->setItem(indexRow, 4, item);
+
         // set color
         item = new FXTableItem(toString(i->second.color).c_str());
-        myDataList->setItem (indexRow, 5, item); 
-        
+        myDataList->setItem(indexRow, 5, item);
+
         // set depart lane
         item = new FXTableItem(toString(i->second.departLane).c_str());
-        myDataList->setItem (indexRow, 6, item); 
-        
+        myDataList->setItem(indexRow, 6, item);
+
         // set depart pos
         item = new FXTableItem(toString(i->second.departPos).c_str());
-        myDataList->setItem (indexRow, 7, item); 
-        
+        myDataList->setItem(indexRow, 7, item);
+
         // set depart speed
         item = new FXTableItem(toString(i->second.departSpeed).c_str());
-        myDataList->setItem (indexRow, 8, item); 
-        
+        myDataList->setItem(indexRow, 8, item);
+
         // set arrival lane
         item = new FXTableItem(toString(i->second.arrivalLane).c_str());
-        myDataList->setItem (indexRow, 9, item); 
-        
+        myDataList->setItem(indexRow, 9, item);
+
         // set arrival pos
         item = new FXTableItem(toString(i->second.arrivalPos).c_str());
-        myDataList->setItem (indexRow, 10, item); 
-        
+        myDataList->setItem(indexRow, 10, item);
+
         // set arrival speed
         item = new FXTableItem(toString(i->second.arrivalSpeed).c_str());
-        myDataList->setItem (indexRow, 11, item); 
-        
+        myDataList->setItem(indexRow, 11, item);
+
         // set line
         item = new FXTableItem(toString(i->second.line).c_str());
-        myDataList->setItem (indexRow, 12, item); 
-        
+        myDataList->setItem(indexRow, 12, item);
+
         // set person number
         item = new FXTableItem(toString(i->second.personNumber).c_str());
-        myDataList->setItem (indexRow, 13, item); 
-        
+        myDataList->setItem(indexRow, 13, item);
+
         // set container number
         item = new FXTableItem(toString(i->second.containerNumber).c_str());
-        myDataList->setItem (indexRow, 14, item); 
-        
+        myDataList->setItem(indexRow, 14, item);
+
         // set vehsPerHour
         item = new FXTableItem(toString(i->second.vehsPerHour).c_str());
-        myDataList->setItem (indexRow, 15, item); 
-        
+        myDataList->setItem(indexRow, 15, item);
+
         // set period
         item = new FXTableItem(toString(i->second.period).c_str());
-        myDataList->setItem (indexRow, 16, item); 
-        
+        myDataList->setItem(indexRow, 16, item);
+
         // set probability
         item = new FXTableItem(toString(i->second.probability).c_str());
-        myDataList->setItem (indexRow, 17, item); 
-        
+        myDataList->setItem(indexRow, 17, item);
+
         // set number
         item = new FXTableItem(toString(i->second.number).c_str());
-        myDataList->setItem (indexRow, 18, item); 
+        myDataList->setItem(indexRow, 18, item);
 
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        myDataList->setItem (indexRow, 19, item);
-        
+        myDataList->setItem(indexRow, 19, item);
+
         // Update index
         indexRow++;
     }

@@ -77,7 +77,7 @@ public:
     //@{
     /// @brief called when user press left button
     virtual void onLeftBtnPress(void* data);
-    
+
     /// @brief called when user releases left button
     virtual bool onLeftBtnRelease(void* data);
 

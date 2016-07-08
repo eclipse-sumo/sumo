@@ -74,7 +74,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
 };
 
 
-StringBijection<GUIGlObjectType> GUIGlObject::TypeNames( GUIGlObjectTypeNamesInitializer, GLO_MAX);
+StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(GUIGlObjectTypeNamesInitializer, GLO_MAX);
 
 // ===========================================================================
 // method definitions
@@ -106,25 +106,25 @@ GUIGlObject::~GUIGlObject() {
 }
 
 
-const std::string& 
+const std::string&
 GUIGlObject::getFullName() const {
     return myFullName;
 }
 
 
-const std::string& 
+const std::string&
 GUIGlObject::getParentName() const {
     return StringUtils::emptyString;
 }
 
 
-GUIGlID 
+GUIGlID
 GUIGlObject::getGlID() const {
     return myGlID;
 }
 
 
-GUIParameterTableWindow* 
+GUIParameterTableWindow*
 GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     UNUSED_PARAMETER(&app);
     UNUSED_PARAMETER(&parent);
@@ -132,7 +132,7 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
-const std::string& 
+const std::string&
 GUIGlObject::getMicrosimID() const {
     return myMicrosimID;
 }
@@ -145,13 +145,13 @@ GUIGlObject::setMicrosimID(const std::string& newID) {
 }
 
 
-GUIGlObjectType 
+GUIGlObjectType
 GUIGlObject::getType() const {
     return myGLObjectType;
 }
 
 
-void 
+void
 GUIGlObject::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
     UNUSED_PARAMETER(&s);
     UNUSED_PARAMETER(parent);
@@ -159,13 +159,13 @@ GUIGlObject::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisual
 
 #ifdef HAVE_OSG
 
-osg::Node* 
+osg::Node*
 GUIGlObject::getNode() const {
     return myOSGNode;
 }
 
 
-void 
+void
 GUIGlObject::setNode(osg::Node* node) {
     myOSGNode = node;
 }

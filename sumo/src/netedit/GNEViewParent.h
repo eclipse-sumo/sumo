@@ -89,7 +89,7 @@ public:
      */
     GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                   const FXString& name, GNEApplicationWindow* parentWindow,
-                  FXGLCanvas* share, GNENet* net, GNEUndoList *undoList,
+                  FXGLCanvas* share, GNENet* net, GNEUndoList* undoList,
                   FXIcon* ic = NULL, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
     /// @brief Destructor
@@ -154,7 +154,7 @@ private:
     FXHorizontalFrame* myFramesArea;
 
     /// @brief Splitter to divide ViewNet und GNEFrames
-    FXSplitter *myFramesSplitter;
+    FXSplitter* myFramesSplitter;
 
     /// @brief the panel for GNE_MODE_INSPECT
     GNEInspectorFrame* myInspectorFrame;

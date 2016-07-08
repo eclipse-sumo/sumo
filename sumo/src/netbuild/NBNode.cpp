@@ -813,7 +813,7 @@ NBNode::computeLanes2Lanes() {
                 && in->isConnectedTo(out2)
                 && !in->isTurningDirectionAt(out1)
                 && !in->isTurningDirectionAt(out2)
-                ) {
+           ) {
             // for internal: check which one is the rightmost
             if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
                 std::swap(out1, out2);

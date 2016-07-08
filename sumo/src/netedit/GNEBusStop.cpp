@@ -104,7 +104,7 @@ GNEBusStop::updateGeometry() {
     int numberOfSegments = (int) myShape.size() - 1;
 
     // If number of segments is more than 0
-    if(numberOfSegments >= 0) {
+    if (numberOfSegments >= 0) {
 
         // Reserve memory (To improve efficiency)
         myShapeRotations.reserve(numberOfSegments);
@@ -145,14 +145,14 @@ GNEBusStop::updateGeometry() {
 
 
 void
-GNEBusStop::writeAdditional(OutputDevice& device, const std::string &) {
+GNEBusStop::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
-    if(myLines.size() > 0) {
+    if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
     }
     // Close tag
@@ -271,7 +271,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
 
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
-            if(isAdditionalSelected()) {
+            if (isAdditionalSelected()) {
                 GLHelper::drawText("H", Position(), .1, 1.6, myBaseColorSelected, myBlockIconRotation);
             } else {
                 GLHelper::drawText("H", Position(), .1, 1.6, myBaseColor, myBlockIconRotation);
@@ -339,19 +339,19 @@ bool
 GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if(myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos-1));
+            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos - 1));
         case SUMO_ATTR_ENDPOS:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos);
         case SUMO_ATTR_LINES:

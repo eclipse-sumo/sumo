@@ -129,7 +129,7 @@ public:
     /// @brief returns the destination-junction
     GNEJunction* getDest() const;
 
-    /**@brief change the edge geometry 
+    /**@brief change the edge geometry
      * It is up to the Edge to decide whether an new geometry node should be
      * generated or an existing node should be moved
      * @param[in] oldPos The origin of the mouse movement
@@ -142,7 +142,7 @@ public:
     //// @brief manipulate the given geometry and return whether it was changed
     static bool changeGeometry(PositionVector& geom, const std::string& id, const Position& oldPos, const Position& newPos, bool relative = false, bool moveEndPoints = false);
 
-    /**@brief change the edge geometry 
+    /**@brief change the edge geometry
      * @param[in] delta All inner points are moved by adding delta
      */
     void moveGeometry(const Position& delta);
@@ -216,22 +216,22 @@ public:
     void setMicrosimID(const std::string& newID);
 
     /// @brief add additional to this edge
-    bool addAdditional(GNEAdditional *additional);
+    bool addAdditional(GNEAdditional* additional);
 
     /// @brief remove additional from this edge
-    bool removeAdditional(GNEAdditional *additional);
+    bool removeAdditional(GNEAdditional* additional);
 
     /// @brief return list of additionals associated with this edge
-    const std::vector<GNEAdditional*> &getAdditionals() const;
+    const std::vector<GNEAdditional*>& getAdditionals() const;
 
     /// @brief add GNEAdditionalSet to this edge
-    bool addAdditionalSet(GNEAdditionalSet *additionalSet);
+    bool addAdditionalSet(GNEAdditionalSet* additionalSet);
 
     /// @brief remove GNEAdditionalSet from this edge
-    bool removeAdditionalSet(GNEAdditionalSet *additionalSet);
+    bool removeAdditionalSet(GNEAdditionalSet* additionalSet);
 
     /// @brief return list of additionalSets associated with this edge
-    const std::vector<GNEAdditionalSet*> &getAdditionalSets();
+    const std::vector<GNEAdditionalSet*>& getAdditionalSets();
 
     // the radius in which to register clicks for geometry nodes
     static const SUMOReal SNAP_RADIUS;

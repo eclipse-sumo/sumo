@@ -123,7 +123,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow( GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -274,7 +274,7 @@ public:
      * @param[in] failHard Whether attempts to retrieve a nonexisting lane should result in an exception
      * @throws UnknownElement
     */
-    GNELane *retrieveLane(const std::string &id, bool failHard = true);
+    GNELane* retrieveLane(const std::string& id, bool failHard = true);
 
     /**@brief return all junctions
      * @param[in] onlySelected Whether to return only selected junctions
@@ -289,7 +289,7 @@ public:
     /**@brief save additional elements of the network
      * @param[in] filename name of the file in wich save additionals
      */
-    void saveAdditionals(const std::string &filename);
+    void saveAdditionals(const std::string& filename);
 
     /**@brief save plain xml representation of the network (and nothing else)
      * @param[in] oc The OptionsCont which knows how and where to save

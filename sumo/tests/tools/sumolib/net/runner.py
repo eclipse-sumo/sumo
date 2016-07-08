@@ -26,4 +26,4 @@ import sumolib.net
 
 net = sumolib.net.readNet(sys.argv[1])
 lane = net.getLane("SC_0")
-print(map(str,lane.getOutgoing()))
+print(map(str, lane.getOutgoing()))

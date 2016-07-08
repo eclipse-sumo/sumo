@@ -47,7 +47,7 @@ class GNERouteProbe;
  */
 class GNECalibrator : public GNEAdditional {
 public:
-    /// @brief calibrator flow 
+    /// @brief calibrator flow
     struct CalibratorFlow {
         // Parameters of vehicles
         std::string type;
@@ -81,12 +81,12 @@ public:
      * @param[in] flowValues values with the flow of calibrator
      * @param[in] blocked set initial blocking state of item
      */
-    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, const std::map<std::string, CalibratorFlow> &flowValues, bool blocked);
+    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, const std::map<std::string, CalibratorFlow>& flowValues, bool blocked);
 
     /// @brief Destructor
     ~GNECalibrator();
 
-    /// @brief change the position of the calibrator geometry 
+    /// @brief change the position of the calibrator geometry
     void moveAdditional(SUMOReal, SUMOReal, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
@@ -102,7 +102,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device, const std::string &);
+    void writeAdditional(OutputDevice& device, const std::string&);
 
     /// @brief get Calbratorflow values
     std::map<std::string, CalibratorFlow> getFlowValues() const;
@@ -111,11 +111,11 @@ public:
     void setFlowValues(std::map<std::string, CalibratorFlow> calibratorFlowValues);
 
     /// @brief insert a new flow
-    void insertFlow(const std::string & id, const CalibratorFlow &flow);
+    void insertFlow(const std::string& id, const CalibratorFlow& flow);
 
     /// @brief remove a existent flow
-    void removeFlow(const std::string & id);
-    
+    void removeFlow(const std::string& id);
+
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name of the parent object
@@ -154,7 +154,7 @@ public:
 
 protected:
     /// @brief edge in which this calibrator is placed
-    GNEEdge *myEdge;
+    GNEEdge* myEdge;
 
     /// @brief Frequency of calibrator
     SUMOTime myFrequency;

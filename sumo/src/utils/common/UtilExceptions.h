@@ -52,7 +52,7 @@ public:
     ProcessError()
         : std::runtime_error("Process Error") {}
 
-   /// @brief constructor
+    /// @brief constructor
     ProcessError(const std::string& msg)
         : std::runtime_error(msg) {}
 };

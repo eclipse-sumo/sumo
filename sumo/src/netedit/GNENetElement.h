@@ -71,7 +71,7 @@ public:
     virtual void updateGeometry() = 0;
 
     /// @brief get Net in which this element is placed
-    GNENet *getNet() const;
+    GNENet* getNet() const;
 
     /// @name inherited from GUIGlObject
     /// @{

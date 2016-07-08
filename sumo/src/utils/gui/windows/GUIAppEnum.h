@@ -75,8 +75,8 @@ enum {
     MID_OPEN_NETWORK,
     /// Load additional file with poi and polygons
     MID_OPEN_SHAPES,
-	/// Load additional file with additional elements	
-    MID_OPEN_ADDITIONALS,								
+    /// Load additional file with additional elements
+    MID_OPEN_ADDITIONALS,
     /// Reload the previously loaded simulation
     MID_RELOAD,
     /// Loads a file previously loaded
@@ -419,7 +419,7 @@ enum {
     /// selector match box messages
     MID_GNE_SELMB_TAG,
     MID_GNE_SELMB_STRING,
-    
+
     /// additional match box messages
     MID_GNE_MODE_ADDITIONAL_ITEM,
     MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT,
@@ -437,12 +437,12 @@ enum {
     MID_GNE_VARIABLESPEEDSIGNAL_REMOVEROW,
     MID_GNE_VARIABLESPEEDSIGNAL_CHANGEVALUE,
 
-    /// Rerouter dialog 
+    /// Rerouter dialog
     MID_GNE_REROUTER_ADDROW,
     MID_GNE_REROUTER_REMOVEROW,
     MID_GNE_REROUTER_CHANGEVALUE,
 
-    /// Calibrator dialog 
+    /// Calibrator dialog
     MID_GNE_CALIBRATOR_ADDROW,
     MID_GNE_CALIBRATOR_REMOVEROW,
     MID_GNE_CALIBRATOR_CHANGEVALUE,

@@ -58,7 +58,7 @@ public:
      * @param[in] blocked set initial blocking state of item
      * @param[in] parent pointer to parent, if this additional belongs to an additionalSet
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, int freq, const std::string &filename, bool blocked = false, GNEAdditionalSet *parent = NULL);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, int freq, const std::string& filename, bool blocked = false, GNEAdditionalSet* parent = NULL);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -69,18 +69,18 @@ public:
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
 
-    /**@brief change the position of the additional geometry 
+    /**@brief change the position of the additional geometry
      * @param[in] posx new x position of additional over lane
      * @param[in] posy unused
      * @param[in] undoList pointer to the undo list
      */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList);
+    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
-    virtual void writeAdditional(OutputDevice& device, const std::string &currentDirectory) = 0;
+    virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
 
     /// @brief Returns pointer to Lane of detector
     GNELane* getLane() const;
@@ -116,7 +116,7 @@ public:
     void setFilename(std::string filename);
 
     /// @brief change lane of detector
-    void changeLane(GNELane *newLane); 
+    void changeLane(GNELane* newLane);
 
     /// @name inherited from GNEAdditional
     /// @{
@@ -178,10 +178,10 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidate return position of additional
-    const Position &getPosition() const;
+    const Position& getPosition() const;
 
     /// @brief Invalidate set new position in the view
-    void setPosition(const Position &pos);
+    void setPosition(const Position& pos);
 };
 
 #endif

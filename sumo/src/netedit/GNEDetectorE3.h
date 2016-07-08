@@ -45,7 +45,7 @@ class GNELane;
  * @class GNEDetectorE3
  * ------------
  */
-class GNEDetectorE3 : public GNEAdditionalSet{
+class GNEDetectorE3 : public GNEAdditionalSet {
 public:
     /**@brief GNEDetectorE3 Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -67,17 +67,17 @@ public:
     /// @brief Returns position of detector E3 in view
     Position getPositionInView() const;
 
-    /**@brief change the position of the E3 geometry 
+    /**@brief change the position of the E3 geometry
      * @param[in] posx new x position of item in the map
      * @param[in] posy new y position of item in the map
      * @param[in] undoList pointer to the undo list
      */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList);
+    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
 
     /**@brief writte additionalSet element into a xml file
      * @param[in] device device in which write parameters of additionalSet element
      */
-    void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
+    void writeAdditional(OutputDevice& device, const std::string& currentDirectory);
 
     /// @name inherited from GUIGlObject
     /// @{

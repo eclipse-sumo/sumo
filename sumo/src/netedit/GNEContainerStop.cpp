@@ -145,14 +145,14 @@ GNEContainerStop::updateGeometry() {
 
 
 void
-GNEContainerStop::writeAdditional(OutputDevice& device, const std::string &) {
+GNEContainerStop::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
-    if(myLines.size() > 0) {
+    if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
     }
     // Close tag
@@ -307,7 +307,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             return toString(myStartPos);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPos);
-        case SUMO_ATTR_LINES: 
+        case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
@@ -339,19 +339,19 @@ bool
 GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if(myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos-1));
+            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos - 1));
         case SUMO_ATTR_ENDPOS:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos);
         case SUMO_ATTR_LINES:

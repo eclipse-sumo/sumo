@@ -66,13 +66,13 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
 GNENetElement::~GNENetElement() {}
 
 
-GNENet *
+GNENet*
 GNENetElement::getNet() const {
     return myNet;
 }
 
 
-const std::string& 
+const std::string&
 GNENetElement::getParentName() const {
     return myNet->getMicrosimID();
 };

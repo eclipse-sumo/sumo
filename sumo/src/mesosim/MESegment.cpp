@@ -82,7 +82,7 @@ MESegment::MESegment(const std::string& id,
     myTau_fj((SUMOTime)(taufj / parent.getLanes().size())), // Eissfeldt p. 90 and 151 ff.
     myTau_jf((SUMOTime)(taujf / parent.getLanes().size())),
     myTau_jj((SUMOTime)(taujj / parent.getLanes().size())),
-    myTau_length(MAX2(MESO_MIN_SPEED, speed) * parent.getLanes().size() / TIME2STEPS(1) ),
+    myTau_length(MAX2(MESO_MIN_SPEED, speed) * parent.getLanes().size() / TIME2STEPS(1)),
     myHeadwayCapacity(length / DEFAULT_VEH_LENGHT_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
     myOccupancy(0.f),

@@ -172,8 +172,7 @@ public:
             return false;
         } catch (EmptyData&) {
             return false;
-        }
-        catch(BoolFormatException&) {
+        } catch (BoolFormatException&) {
             return false;
         }
         return true;

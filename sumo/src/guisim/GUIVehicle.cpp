@@ -692,7 +692,7 @@ GUIVehicle::selectBlockingFoes() const {
 }
 
 
-void 
+void
 GUIVehicle::drawOutsideNetwork(bool add) const {
     GUIMainWindow* mw = GUIMainWindow::getInstance();
     GUISUMOAbstractView* view = mw->getActiveView();

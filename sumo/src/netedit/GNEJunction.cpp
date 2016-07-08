@@ -232,7 +232,7 @@ GNEJunction::getBoundary() const {
 }
 
 
-NBNode* 
+NBNode*
 GNEJunction::getNBNode() const {
     return &myNBNode;
 }

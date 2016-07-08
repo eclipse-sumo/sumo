@@ -41,21 +41,22 @@ import xml.dom.minidom
 import random
 import argparse
 
+
 class FixDistribution(object):
-        
-    def __init__(self, loc, isNumeric = True):
+
+    def __init__(self, loc, isNumeric=True):
         if isNumeric:
             loc = float(loc)
         self._loc = loc
         self._limits = (0, None)
         self._discreteStep = None
         self.isNumeric = isNumeric
-    
+
     def setLimits(self, limits):
         self._limits = limits
-    
+
     def sampleValue(self):
-        value = self._sampleValue()       
+        value = self._sampleValue()
         if self.isNumeric:
             if(self._limits[0] is not None and value < self._limits[0]):
                 value = self._limits[0]
@@ -63,54 +64,58 @@ class FixDistribution(object):
                 value = self._limits[1]
 
         return value
-    
+
     def isComplete(self):
         return self._loc is not None
-        
+
     def _sampleValue(self):
         return self._loc
-        
+
+
 class NormalDistribution(FixDistribution):
     isNumeric = True
-    
+
     def __init__(self, loc, scale):
         FixDistribution.__init__(self, loc)
         self._scale = scale
-        
+
     def _sampleValue(self):
         return random.normalvariate(self._loc, self._scale)
-    
+
     def isComplete(self):
         return self._loc is not None and self._scale is not None
-        
+
+
 class UniformDistribution(FixDistribution):
     isNumeric = True
-    
+
     def __init__(self, limits):
         FixDistribution.__init__(self, 0)
         self.setLimits(limits)
-    
+
     def _sampleValue(self):
         return random.uniform(self._limits[0], self._limits[1])
-    
+
     def isComplete(self):
         return self._limits[0] is not None and self._limits[1] is not None
-            
+
+
 class GammaDistribution(FixDistribution):
     isNumeric = True
-        
+
     def __init__(self, a, loc, scale):
         FixDistribution.__init__(self, 0)
         self._scale = scale
         self._a = a
         self._loc = loc
-    
-    def _sampleValue(self):        
-        return random.gammavariate(self._a, 1.0/self._scale)
-    
+
+    def _sampleValue(self):
+        return random.gammavariate(self._a, 1.0 / self._scale)
+
     def isComplete(self):
         return self._scale is not None and self._a is not None and self._loc is not None
-    
+
+
 def get_options(args=None):
     argParser = argparse.ArgumentParser()
     argParser.add_argument(
@@ -122,19 +127,20 @@ def get_options(args=None):
     argParser.add_argument(
         "-s", "--size", type=int, default=100, dest="vehicleCount", help="number of vTypes in the distribution")
     argParser.add_argument(
-        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for numeric attribute values")    
+        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for numeric attribute values")
     argParser.add_argument("--seed", type=int, help="random seed", default=42)
-    
+
     options = argParser.parse_args()
     return options
 
+
 def readConfigFile(filePath):
     result = {}
-    
+
     distSyntaxes = {'normal': 'normal\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)',
                     'uniform': 'uniform\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\)',
-                    'gamma': 'gamma\(\s*([0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)' }
-            
+                    'gamma': 'gamma\(\s*([0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)'}
+
     with open(filePath, 'rb') as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
@@ -142,20 +148,21 @@ def readConfigFile(filePath):
             lowerLimit = 0
             upperLimit = None
             value = None
-            
+
             if len(row) >= 2:
                 if len(row[0].strip()) > 0:
                     parName = row[0].strip()
-                    # check if attribute value matches given distribution syntax
+                    # check if attribute value matches given distribution
+                    # syntax
                     attValue = row[1].strip()
                     distFound = False
                     for distName, distSyntax in distSyntaxes.iteritems():
                         items = re.findall(distSyntax, attValue)
                         distFound = len(items) > 0
-                        if distFound: # found distribution 
+                        if distFound:  # found distribution
                             distPar1 = float(items[0][0])
                             distPar2 = float(items[0][2])
-                             
+
                             if distName == 'normal':
                                 value = NormalDistribution(distPar1, distPar2)
                             elif distName == 'uniform':
@@ -163,23 +170,26 @@ def readConfigFile(filePath):
                             elif distName == 'gamma':
                                 value = GammaDistribution(distPar1, distPar2)
                             break
-                        
+
                     if not distFound:
-                        isNumeric = len(re.findall('(-?[0-9]+(\.[0-9]+)?)', attValue)) > 0
+                        isNumeric = len(re.findall(
+                            '(-?[0-9]+(\.[0-9]+)?)', attValue)) > 0
                         value = FixDistribution(attValue, isNumeric)
-                    
+
                     # get optional limits
                     if len(row) == 3:
                         limitValue = row[2].strip()
-                        items = re.findall('\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue)
+                        items = re.findall(
+                            '\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue)
                         if len(items) > 0:
                             lowerLimit = float(items[0][0])
                             upperLimit = float(items[0][2])
-                    value.setLimits((lowerLimit, upperLimit))                    
+                    value.setLimits((lowerLimit, upperLimit))
                     result[parName] = value
-    return result    
+    return result
 
-def main(options):  
+
+def main(options):
     if options.seed:
         random.seed(options.seed)
     vTypeParameters = readConfigFile(options.configFile)
@@ -188,32 +198,34 @@ def main(options):
         try:
             domTree = xml.dom.minidom.parse(options.outputFile)
         except Exception as e:
-            sys.exit("Cannot parse existing %s. Error: %s" % (options.outputFile, str(e)))
+            sys.exit("Cannot parse existing %s. Error: %s" %
+                     (options.outputFile, str(e)))
         useExistingFile = True
-    else:    
+    else:
         domTree = xml.dom.minidom.Document()
     vTypeDistNode = domTree.createElement("vTypeDistribution")
     vTypeDistNode.setAttribute("ID", options.vehDistName)
-    
+
     for i in range(0, options.vehicleCount):
         vTypeNode = domTree.createElement("vType")
         vTypeNode.setAttribute("ID", options.vehDistName + str(i))
         vTypeNode.setAttribute("probability", "1")
         for attName, attValue in vTypeParameters.iteritems():
             if attValue.isNumeric:
-                decimalPattern = "%."+str(options.decimalPlaces)+"f"
-                vTypeNode.setAttribute(attName, decimalPattern % attValue.sampleValue())
+                decimalPattern = "%." + str(options.decimalPlaces) + "f"
+                vTypeNode.setAttribute(
+                    attName, decimalPattern % attValue.sampleValue())
             else:
                 vTypeNode.setAttribute(attName, attValue.sampleValue())
         vTypeDistNode.appendChild(vTypeNode)
-        
-    existingDistNodes =  domTree.getElementsByTagName("vTypeDistribution")
+
+    existingDistNodes = domTree.getElementsByTagName("vTypeDistribution")
     replaceNode = None
     for existingDistNode in existingDistNodes:
         if existingDistNode.hasAttribute("ID") and existingDistNode.getAttribute("ID") == options.vehDistName:
             replaceNode = existingDistNode
             break
-    if useExistingFile:  
+    if useExistingFile:
         if replaceNode is not None:
             replaceNode.parentNode.replaceChild(vTypeDistNode, replaceNode)
         else:
@@ -222,15 +234,15 @@ def main(options):
         additionalNode = domTree.createElement("additional")
         additionalNode.appendChild(vTypeDistNode)
         domTree.appendChild(additionalNode)
-    try:    
-        fileHandle = open(options.outputFile,"wb")
+    try:
+        fileHandle = open(options.outputFile, "wb")
         domTree.documentElement.writexml(fileHandle, addindent="  ", newl="\n")
         fileHandle.close()
     except Exception as e:
-        sys.exit(str(e))   
+        sys.exit(str(e))
     sys.stdout.write("Output written to %s" % options.outputFile)
-    
 
-if __name__ == "__main__":   
+
+if __name__ == "__main__":
     options = get_options(sys.argv)
     main(options)

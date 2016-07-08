@@ -447,7 +447,7 @@ TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add)
 }
 
 void
-TraCIAPI::readVariables(tcpip::Storage &inMsg, const std::string &objectID, int variableCount, SubscribedValues& into) {
+TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, SubscribedValues& into) {
     while (variableCount > 0) {
 
         const int variableID = inMsg.readUnsignedByte();
@@ -496,14 +496,14 @@ TraCIAPI::readVariables(tcpip::Storage &inMsg, const std::string &objectID, int 
 }
 
 void
-TraCIAPI::readVariableSubscription(tcpip::Storage &inMsg) {
+TraCIAPI::readVariableSubscription(tcpip::Storage& inMsg) {
     const std::string objectID = inMsg.readString();
     const int variableCount = inMsg.readUnsignedByte();
     readVariables(inMsg, objectID, variableCount, mySubscribedValues);
 }
 
 void
-TraCIAPI::readContextSubscription(tcpip::Storage &inMsg) {
+TraCIAPI::readContextSubscription(tcpip::Storage& inMsg) {
     const std::string contextID = inMsg.readString();
     inMsg.readUnsignedByte(); // context domain
     const int variableCount = inMsg.readUnsignedByte();
@@ -529,8 +529,7 @@ TraCIAPI::simulationStep(SUMOTime time) {
         int cmdId = check_commandGetResult(inMsg, 0, -1, true);
         if (cmdId >= RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId <= RESPONSE_SUBSCRIBE_PERSON_VARIABLE) {
             readVariableSubscription(inMsg);
-        }
-        else {
+        } else {
             readContextSubscription(inMsg);
         }
         numSubs--;
@@ -1408,18 +1407,17 @@ TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) {
 }
 
 
-TraCIAPI::SubscribedContextValues 
+TraCIAPI::SubscribedContextValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults() {
     return myParent.mySubscribedContextValues;
 }
 
 
-TraCIAPI::SubscribedValues 
+TraCIAPI::SubscribedValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults(const std::string& objID) {
     if (myParent.mySubscribedContextValues.find(objID) != myParent.mySubscribedContextValues.end()) {
         return myParent.mySubscribedContextValues[objID];
-    }
-    else {
+    } else {
         throw; // Something?
     }
 }
@@ -2099,42 +2097,42 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, SUMOReal speed) c
 //  ---------------------------------------------------------------------------
 
 std::vector<std::string>
-TraCIAPI::PersonScope::getIDList() const {  
+TraCIAPI::PersonScope::getIDList() const {
     return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, ID_LIST, "");
 }
 
 unsigned int
-TraCIAPI::PersonScope::getIDCount() const { 
+TraCIAPI::PersonScope::getIDCount() const {
     return myParent.getInt(CMD_GET_PERSON_VARIABLE, ID_COUNT, "");
 }
 
 SUMOReal
-TraCIAPI::PersonScope::getSpeed(const std::string& typeID) const {    
+TraCIAPI::PersonScope::getSpeed(const std::string& typeID) const {
     return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_SPEED, typeID);
 }
 
 TraCIAPI::TraCIPosition
-TraCIAPI::PersonScope::getPosition(const std::string& typeID) const {    
+TraCIAPI::PersonScope::getPosition(const std::string& typeID) const {
     return myParent.getPosition(CMD_GET_PERSON_VARIABLE, VAR_POSITION, typeID);
 }
 
 std::string
-TraCIAPI::PersonScope::getRoadID(const std::string& typeID) const {  
+TraCIAPI::PersonScope::getRoadID(const std::string& typeID) const {
     return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_ROAD_ID, typeID);
 }
 
 std::string
-TraCIAPI::PersonScope::getTypeID(const std::string& typeID) const {  
+TraCIAPI::PersonScope::getTypeID(const std::string& typeID) const {
     return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_TYPE, typeID);
 }
 
 SUMOReal
-TraCIAPI::PersonScope::getWaitingTime(const std::string& typeID) const {        
+TraCIAPI::PersonScope::getWaitingTime(const std::string& typeID) const {
     return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_WAITING_TIME, typeID);
 }
 
 std::string
-TraCIAPI::PersonScope::getNextEdge(const std::string& typeID) const {        
+TraCIAPI::PersonScope::getNextEdge(const std::string& typeID) const {
     return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_NEXT_EDGE, typeID);
 }
 

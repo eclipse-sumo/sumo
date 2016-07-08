@@ -99,8 +99,8 @@ public:
      * @param[in] share a reference to FXCanvas
      * @param[in] toolbar A reference to the parents toolbar
      */
-    GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app, 
-               GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList, 
+    GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
+               GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar);
 
     /// @brief destructor
@@ -109,7 +109,7 @@ public:
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow&);
 
-    /// @brief set color schieme 
+    /// @brief set color schieme
     bool setColorScheme(const std::string& name);
 
     /// @brief overloaded handlers

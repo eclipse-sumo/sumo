@@ -53,7 +53,7 @@ class GNEAdditionalDialog : public FXDialogBox {
 
 public:
     // Constructor
-    GNEAdditionalDialog(GNEAdditional *parent, int width, int height);
+    GNEAdditionalDialog(GNEAdditional* parent, int width, int height);
 
     // destructor
     ~GNEAdditionalDialog();
@@ -87,13 +87,13 @@ protected:
     FXVerticalFrame* myContentFrame;
 
     /// @brief accept button
-    FXButton *myAcceptButton;
+    FXButton* myAcceptButton;
 
     /// @brief cancel button
-    FXButton *myCancelButton;
+    FXButton* myCancelButton;
 
     /// @brief cancel button
-    FXButton *myResetButton;
+    FXButton* myResetButton;
 
 private:
     /// @brief update data table

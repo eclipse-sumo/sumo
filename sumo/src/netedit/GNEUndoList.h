@@ -89,7 +89,7 @@ public:
 
     /// @brief special method, avoid empty changes, always execute
     void p_add(GNEChange_Attribute* cmd);
-    
+
     /// @name FOX-callbacks
     /// @{
     /// @brief event after Undo

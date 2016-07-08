@@ -69,7 +69,7 @@ GNECrossing::GNECrossing(GNEJunction& parentJunction, const std::string& id) :
 GNECrossing::~GNECrossing() {}
 
 
-void 
+void
 GNECrossing::updateGeometry() {
     int segments = (int) myShape.size() - 1;
     if (segments >= 0) {

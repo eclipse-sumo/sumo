@@ -42,7 +42,8 @@ else:
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = ["-S", "-Q"]
 
-sumoProcess = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + addOption)
+sumoProcess = subprocess.Popen(
+    [sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + addOption)
 traci.init(PORT)
 time.sleep(10)
 step = 0

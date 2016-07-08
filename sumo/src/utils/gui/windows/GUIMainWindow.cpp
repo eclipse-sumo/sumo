@@ -186,7 +186,7 @@ GUIMainWindow::getInstance() {
 }
 
 
-GUISUMOAbstractView* 
+GUISUMOAbstractView*
 GUIMainWindow::getActiveView() const {
     GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
     if (w != 0) {

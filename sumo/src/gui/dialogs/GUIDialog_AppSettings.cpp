@@ -114,21 +114,21 @@ GUIDialog_AppSettings::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GUIDialog_AppSettings::onCmdSelect(FXObject*, FXSelector sel, void*) {
     switch (FXSELID(sel)) {
-    case MID_QUITONSIMEND:
-        myAppQuitOnEnd = !myAppQuitOnEnd;
-        break;
-    case MID_AUTOSTART:
-        myAppAutoStart = !myAppAutoStart;
-        break;
-    case MID_DEMO:
-        myAppDemo = !myAppDemo;
-        break;
-    case MID_LOCATELINKS:
-        myLocateLinks = !myLocateLinks;
-        break;
-    case MID_ALLOWTEXTURES:
-        myAllowTextures = !myAllowTextures;
-        break;
+        case MID_QUITONSIMEND:
+            myAppQuitOnEnd = !myAppQuitOnEnd;
+            break;
+        case MID_AUTOSTART:
+            myAppAutoStart = !myAppAutoStart;
+            break;
+        case MID_DEMO:
+            myAppDemo = !myAppDemo;
+            break;
+        case MID_LOCATELINKS:
+            myLocateLinks = !myLocateLinks;
+            break;
+        case MID_ALLOWTEXTURES:
+            myAllowTextures = !myAllowTextures;
+            break;
     }
     return 1;
 }

@@ -220,8 +220,8 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
         // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
         const SUMOTime execTime = myEdgeWeightSettingCommand == 0 ? 0 : holder.getParameter().depart;
         MSNet::getInstance()->getInsertionEvents()->addEvent(
-                myRerouteCommand, execTime,
-                MSEventControl::ADAPT_AFTER_EXECUTION);
+            myRerouteCommand, execTime,
+            MSEventControl::ADAPT_AFTER_EXECUTION);
     }
 }
 

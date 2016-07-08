@@ -128,10 +128,10 @@ public:
     bool around(const Position& p, SUMOReal offset = 0) const;
 
     /// @brief Returns the information whether the given polygon overlaps with this
-    /// @note Again a boundary may be specified 
+    /// @note Again a boundary may be specified
     bool overlapsWith(const AbstractPoly& poly, SUMOReal offset = 0) const;
 
-    /// @brief Returns the information whether this list of points interesects the given line 
+    /// @brief Returns the information whether this list of points interesects the given line
     bool intersects(const Position& p1, const Position& p2) const;
 
     /// @brief Returns the information whether this list of points interesects one the given lines
@@ -233,7 +233,7 @@ public:
     //// @brief append the given vector to this one
     void append(const PositionVector& v, SUMOReal sameThreshold = 2.0);
 
-    /// @brief get subpart of a position vector 
+    /// @brief get subpart of a position vector
     PositionVector getSubpart(SUMOReal beginOffset, SUMOReal endOffset) const;
 
     /// @brief get subpart of a position vector in two dimensions (Z is ignored)
@@ -312,7 +312,7 @@ public:
     Position transformToVectorCoordinates(const Position& p, bool extend = false) const;
 
     /// @brief index of the closest position to p
-    /// @note: may only be called for a non-empty vector 
+    /// @note: may only be called for a non-empty vector
     int indexOfClosest(const Position& p) const;
 
     /// @brief distances of all my points to s and all of s points to myself

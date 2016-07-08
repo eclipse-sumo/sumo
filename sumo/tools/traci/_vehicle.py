@@ -135,7 +135,7 @@ class VehicleDomain(Domain):
     STOP_CONTAINER_TRIGGERED = 4
     STOP_BUS_STOP = 8
     STOP_CONTAINER_STOP = 16
-    
+
     DEPART_LANE_RANDOM = -2
     DEPART_LANE_FREE = -3
     DEPART_LANE_ALLOWED_FREE = -4
@@ -394,13 +394,13 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, vehID)
 
-    def getSpeedMode (self, vehID):
+    def getSpeedMode(self, vehID):
         """getSpeedMode -> int
         The speed mode of a vehicle 
         """
         return self._getUniversal(tc.VAR_SPEEDSETMODE, vehID)
 
-    def getSlope (self, vehID):
+    def getSlope(self, vehID):
         """getSlope -> double
         The slope at the current position of the vehicle in degrees
         """

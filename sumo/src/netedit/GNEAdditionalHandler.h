@@ -86,92 +86,92 @@ public:
      * @param[in] tag of the additional
      * @note recheck throwing the exception
      */
-    void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a Variable Speed Signal (lane speed trigger)
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      * @see buildLaneSpeedTrigger
      */
-    void parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a bus stop
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a container stop
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildContainerStop(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildContainerStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a charging station
      * @param[in] attrs SAXattributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a mesoscopic or microscopic calibrator
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a induction loop detector (E1)
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a lane area detector (E2)
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a multi entry exit detector (E3)
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a Entry detector
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a Exit detector
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds routeProbe
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
      */
-    void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
      * @param[in] tag of the additional
      */
-    void parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses step values of VariableSpeedSignals
      * @param[in] attrs SAX-attributes which define the steps
      * @param[in] tag of the additional
      */
-    void parseVariableSpeedSignalStep(const SUMOSAXAttributes& attrs, const SumoXMLTag &tag);
+    void parseVariableSpeedSignalStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
     /// @}
 
     /// @name building methods
@@ -184,7 +184,7 @@ public:
      * @param[in] values map with the attributes and values of the additional to create
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildAdditional(GNEViewNet *viewNet, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values);
+    static bool buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values);
 
     /**@brief Builds a bus stop
      * @param[in] viewNet viewNet in which element will be inserted
@@ -197,7 +197,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
-    static bool buildBusStop(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked);
+    static bool buildBusStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked);
 
     /**@brief Builds a container stop
      * @param[in] viewNet viewNet in which element will be inserted
@@ -210,7 +210,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the container stop can not be added to the net (is duplicate)
      */
-    static bool buildContainerStop(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked);
+    static bool buildContainerStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked);
 
     /**@brief Builds a charging Station
      * @param[in] viewNet viewNet in which element will be inserted
@@ -226,7 +226,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    static bool buildChargingStation(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal startPos, SUMOReal endPos, SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, SUMOReal chargeDelay, bool blocked);
+    static bool buildChargingStation(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal startPos, SUMOReal endPos, SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, SUMOReal chargeDelay, bool blocked);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -240,7 +240,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE1(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal pos, int freq, const std::string &filename, bool splitByType, bool blocked);
+    static bool buildDetectorE1(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, int freq, const std::string& filename, bool splitByType, bool blocked);
 
     /**@brief Builds a lane Area Detector (E2)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -258,7 +258,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE2(GNEViewNet* viewNet, const std::string& id, GNELane *lane, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,
+    static bool buildDetectorE2(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,
                                 bool cont, int timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked);
 
     /**@brief Builds a multi entry exit detector (E3)
@@ -271,7 +271,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE3(GNEViewNet *viewNet, const std::string& id, Position pos, int freq, const std::string &filename, bool blocked);
+    static bool buildDetectorE3(GNEViewNet* viewNet, const std::string& id, Position pos, int freq, const std::string& filename, bool blocked);
 
     /**@brief Builds a entry detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -283,7 +283,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorEntry(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal pos, std::string idDetectorE3Parent, bool blocked);
+    static bool buildDetectorEntry(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, std::string idDetectorE3Parent, bool blocked);
 
     /**@brief Builds a exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -295,7 +295,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the exit detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorExit(GNEViewNet *viewNet, const std::string& id, GNELane *lane, SUMOReal pos, std::string idDetectorE3Parent, bool blocked);
+    static bool buildDetectorExit(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, std::string idDetectorE3Parent, bool blocked);
 
     /**@brief builds a microscopic calibrator
      * @param[in] viewNet viewNet in which element will be inserted
@@ -310,7 +310,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildCalibrator(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOReal pos, const std::string& outfile, const SUMOTime freq, const std::map<std::string, GNECalibrator::CalibratorFlow> &flowValues, bool blocked);
+    static bool buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, SUMOReal pos, const std::string& outfile, const SUMOTime freq, const std::map<std::string, GNECalibrator::CalibratorFlow>& flowValues, bool blocked);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
@@ -323,7 +323,7 @@ public:
      * @param[in] blocked set initial blocking state of item
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildRerouter(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouter::rerouterInterval> &rerouterIntervals, bool blocked);
+    static bool buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouter::rerouterInterval>& rerouterIntervals, bool blocked);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -336,7 +336,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildRouteProbe(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, int freq, const std::string& file, int begin, bool blocked);
+    static bool buildRouteProbe(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, int freq, const std::string& file, int begin, bool blocked);
 
     /**@brief Builds a VariableSpeedSignal (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -348,7 +348,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildVariableSpeedSignal(GNEViewNet *viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::map<SUMOTime, SUMOReal> &VSSValues, bool blocked);
+    static bool buildVariableSpeedSignal(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::map<SUMOTime, SUMOReal>& VSSValues, bool blocked);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -360,7 +360,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static bool buildVaporizer(GNEViewNet *viewNet, const std::string& id, GNEEdge *edge, SUMOTime startTime, SUMOTime end, bool blocked);
+    static bool buildVaporizer(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, SUMOTime startTime, SUMOTime end, bool blocked);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from
@@ -398,7 +398,7 @@ protected:
     std::string myAdditionalSetParent;
 
     /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
-    GNERerouter::rerouterInterval *rerouterIntervalToInsertValues;
+    GNERerouter::rerouterInterval* rerouterIntervalToInsertValues;
 };
 
 

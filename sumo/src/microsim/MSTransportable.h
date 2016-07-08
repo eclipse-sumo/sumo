@@ -286,7 +286,7 @@ public:
     public:
         /// constructor
         Stage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-            const SUMOReal arrivalPos, const std::vector<std::string>& lines);
+                      const SUMOReal arrivalPos, const std::vector<std::string>& lines);
 
         /// destructor
         virtual ~Stage_Driving();

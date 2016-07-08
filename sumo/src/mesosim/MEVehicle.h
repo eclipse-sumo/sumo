@@ -289,7 +289,7 @@ public:
     }
 
     /// @brief Returns the delay that is accrued due to option --meso-tls-penalty
-    SUMOReal getCurrentTLSPenaltySeconds() const; 
+    SUMOReal getCurrentTLSPenaltySeconds() const;
 
 
     /// Replaces the current route by the given one

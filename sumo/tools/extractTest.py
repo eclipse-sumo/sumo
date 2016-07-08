@@ -146,7 +146,8 @@ def main(options):
             print("Config not found for %s." % source, file=sys.stderr)
             continue
         if target == "":
-            target = generateTargetName(os.path.dirname(configFiles[-1]), source)
+            target = generateTargetName(
+                os.path.dirname(configFiles[-1]), source)
         testPath = os.path.abspath(join(options.output, target))
         if not os.path.exists(testPath):
             os.makedirs(testPath)

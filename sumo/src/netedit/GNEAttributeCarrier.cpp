@@ -106,7 +106,7 @@ GNEAttributeCarrier::getTag() const {
 std::vector<SumoXMLAttr>
 GNEAttributeCarrier::getAttrs() const {
     std::vector<SumoXMLAttr> attr;
-    for(std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = allowedAttributes(myTag).begin(); i != allowedAttributes(myTag).end(); i++) {
+    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = allowedAttributes(myTag).begin(); i != allowedAttributes(myTag).end(); i++) {
         attr.push_back(i->first);
     }
     return attr;
@@ -121,7 +121,7 @@ GNEAttributeCarrier::getID() const {
 
 SumoXMLTag
 GNEAttributeCarrier::getParentType(SumoXMLTag tag) {
-    if(hasParent(tag)) {
+    if (hasParent(tag)) {
         return myAllowedAdditionalWithParentTags[tag];
     } else {
         return SUMO_TAG_NOTHING;
@@ -146,25 +146,25 @@ GNEAttributeCarrier::isValidFileValue(const std::string& value) {
 bool
 GNEAttributeCarrier::isValidStringVector(const std::string& value) {
     // 1) check if value is empty
-    if(value.empty()) {
+    if (value.empty()) {
         return true;
     }
     // 2) Check if there are duplicated spaces
-    for(int i = 1; i < (int)value.size(); i++) {
-        if(value.at(i-1) == ' ' && value.at(i) == ' ') {
+    for (int i = 1; i < (int)value.size(); i++) {
+        if (value.at(i - 1) == ' ' && value.at(i) == ' ') {
             return false;
         }
     }
     // 3) Check if the first and last character aren't spaces
-    if((value.at(0) == ' ') || (value.at(value.size()-1) == ' ')) {
+    if ((value.at(0) == ' ') || (value.at(value.size() - 1) == ' ')) {
         return false;
     }
     // 4) Check if every sub-string is valid
     int index = 0;
     std::string subString;
-    while(index < (int)value.size()) {
-        if(value.at(index) == ' ') {
-            if(!isValidFileValue(subString)) {
+    while (index < (int)value.size()) {
+        if (value.at(index) == ' ') {
+            if (!isValidFileValue(subString)) {
                 return false;
             } else {
                 subString.clear();
@@ -435,20 +435,20 @@ bool
 GNEAttributeCarrier::isFloat(SumoXMLAttr attr) {
     // define on first access
     if (myNumericalFloatAttrs.empty()) {
-    myNumericalFloatAttrs.insert(SUMO_ATTR_SPEED);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_LENGTH);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_WIDTH);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_ENDOFFSET);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_RADIUS);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_STARTPOS);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_ENDPOS);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_CHARGINGPOWER);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_EFFICIENCY);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_LENGTH);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_JAM_DIST_THRESHOLD);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_PROB);
-    myNumericalFloatAttrs.insert(SUMO_ATTR_CONTPOS);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_SPEED);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_LENGTH);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_WIDTH);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_ENDOFFSET);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_RADIUS);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_ENDPOS);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_CHARGINGPOWER);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_EFFICIENCY);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_LENGTH);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_HALTING_SPEED_THRESHOLD);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_JAM_DIST_THRESHOLD);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_PROB);
+        myNumericalFloatAttrs.insert(SUMO_ATTR_CONTPOS);
     }
     return myNumericalFloatAttrs.count(attr) == 1;
 }
@@ -457,7 +457,7 @@ GNEAttributeCarrier::isFloat(SumoXMLAttr attr) {
 bool
 GNEAttributeCarrier::isBool(SumoXMLAttr attr) {
     // Iterate over additional tags
-    for(std::vector<SumoXMLTag>::const_iterator i = allowedTags().begin(); i != allowedTags().end(); i++) {
+    for (std::vector<SumoXMLTag>::const_iterator i = allowedTags().begin(); i != allowedTags().end(); i++) {
         // Obtain choices
         std::vector<std::string> choices = discreteChoices(*i, attr);
         // CHeck if choices are exactly "true" and "false"
@@ -511,7 +511,7 @@ GNEAttributeCarrier::isUnique(SumoXMLAttr attr) {
 
 bool
 GNEAttributeCarrier::isDiscrete(SumoXMLTag tag, SumoXMLAttr attr) {
-    if(discreteChoices(tag, attr).size() > 0) {
+    if (discreteChoices(tag, attr).size() > 0) {
         return true;
     } else {
         return false;
@@ -533,8 +533,8 @@ GNEAttributeCarrier::hasParent(SumoXMLTag tag) {
 bool
 GNEAttributeCarrier::hasAttribute(SumoXMLTag tag, SumoXMLAttr attr) {
     const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = allowedAttributes(tag);
-    for(std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); i != attrs.end(); i++) {
-        if(i->first == attr) {
+    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); i != attrs.end(); i++) {
+        if (i->first == attr) {
             return true;
         }
     }
@@ -602,7 +602,7 @@ GNEAttributeCarrier::discreteCombinableChoices(SumoXMLTag, SumoXMLAttr attr) {
 }
 
 
-std::string 
+std::string
 GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myAttrDefinitions.empty()) {
@@ -737,8 +737,8 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
 int
 GNEAttributeCarrier::getHigherNumberOfAttributes() {
     int higherNumber = 0;
-    for(std::vector<SumoXMLTag>::const_iterator i = allowedTags().begin(); i != allowedTags().end(); i++) {
-        if((int)allowedAttributes(*i).size() > higherNumber) {
+    for (std::vector<SumoXMLTag>::const_iterator i = allowedTags().begin(); i != allowedTags().end(); i++) {
+        if ((int)allowedAttributes(*i).size() > higherNumber) {
             higherNumber = (int)allowedAttributes(*i).size();
         }
     }
@@ -748,8 +748,8 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
 
 template<> int
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for(std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if((*i).first == attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if ((*i).first == attr) {
             return TplConvert::_str2int((*i).second);
         }
     }
@@ -761,8 +761,8 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> SUMOReal
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for(std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if((*i).first == attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if ((*i).first == attr) {
             return TplConvert::_str2SUMOReal((*i).second);
         }
     }
@@ -774,8 +774,8 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> bool
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for(std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if((*i).first == attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if ((*i).first == attr) {
             return TplConvert::_str2Bool((*i).second);
         }
     }
@@ -787,8 +787,8 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::string
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for(std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if((*i).first == attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if ((*i).first == attr) {
             return (*i).second;
         }
     }
@@ -801,7 +801,7 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 template<> std::vector<int>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     std::cout << "FINISH" << std::endl;
-    
+
     // Write warning if attribute don't have a default value and return a empty value to avoid warnings
     WRITE_WARNING("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' don't have a default value");
     return std::vector<int>();
@@ -830,8 +830,8 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::vector<std::string>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for(std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if((*i).first == attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if ((*i).first == attr) {
             std::vector<std::string> myVectorString;
             SUMOSAXAttributes::parseStringVector((*i).second, myVectorString);
             return myVectorString;

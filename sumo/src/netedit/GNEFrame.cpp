@@ -53,7 +53,7 @@
 // method definitions
 // ===========================================================================
 
-GNEFrame::GNEFrame(FXComposite* parent, GNEViewNet* viewNet, const std::string &frameLabel) : 
+GNEFrame::GNEFrame(FXComposite* parent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXScrollWindow(parent, LAYOUT_FILL),
     myViewNet(viewNet) {
     // Create font
@@ -84,13 +84,13 @@ GNEFrame::getViewNet() const {
 }
 
 
-FXLabel* 
+FXLabel*
 GNEFrame::getFrameHeaderLabel() const {
     return myFrameHeaderLabel;
 }
 
 
-FXFont *
+FXFont*
 GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
 }

@@ -172,7 +172,7 @@ GNEInternalLane::setLinkState(LinkState state) {
 
 
 LinkState
-GNEInternalLane::getLinkState() const{
+GNEInternalLane::getLinkState() const {
     return (LinkState)myState;
 }
 

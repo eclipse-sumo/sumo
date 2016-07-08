@@ -404,7 +404,7 @@ public:
      * The angle is computed in computeAngle()
      * @return This edge's end angle
      */
-    SUMOReal getShapeEndAngle() const; 
+    SUMOReal getShapeEndAngle() const;
 
 
 
@@ -532,7 +532,7 @@ public:
     NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
     /// @brief return all permission variants within the specified lane range [iStart, iEnd[
-    std::set<SVCPermissions> getPermissionVariants(int iStart, int iEnd) const; 
+    std::set<SVCPermissions> getPermissionVariants(int iStart, int iEnd) const;
 
     /// @brief return the angle for computing pedestrian crossings at the given node
     SUMOReal getCrossingAngle(NBNode* node);
@@ -1234,7 +1234,7 @@ private:
                                     const std::vector<int>* priorities);
 
     /// @brief add some straight connections
-    void addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities); 
+    void addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities);
 
     /** recomputes the edge priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
@@ -1460,11 +1460,11 @@ public:
     class connections_finder {
     public:
         /// constructor
-        connections_finder(int fromLane, NBEdge* const edge2find, int lane2find, bool invertEdge2find=false) : 
+        connections_finder(int fromLane, NBEdge* const edge2find, int lane2find, bool invertEdge2find = false) :
             myFromLane(fromLane), myEdge2Find(edge2find), myLane2Find(lane2find), myInvertEdge2find(invertEdge2find) { }
 
         bool operator()(const Connection& c) const {
-            return ((c.fromLane == myFromLane || myFromLane == -1) 
+            return ((c.fromLane == myFromLane || myFromLane == -1)
                     && ((!myInvertEdge2find && c.toEdge == myEdge2Find) || (myInvertEdge2find && c.toEdge != myEdge2Find))
                     && (c.toLane == myLane2Find || myLane2Find == -1));
         }
@@ -1488,7 +1488,7 @@ public:
     class connections_conflict_finder {
     public:
         /// constructor
-        connections_conflict_finder(int fromLane, NBEdge* const edge2find, bool checkRight) : 
+        connections_conflict_finder(int fromLane, NBEdge* const edge2find, bool checkRight) :
             myFromLane(fromLane), myEdge2Find(edge2find), myCheckRight(checkRight) { }
 
         bool operator()(const Connection& c) const {

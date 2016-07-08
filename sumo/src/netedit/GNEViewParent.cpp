@@ -88,7 +88,7 @@ GNEViewParent::GNEViewParent(
     FXMDIClient* p, FXMDIMenu* mdimenu,
     const FXString& name,
     GNEApplicationWindow* parentWindow,
-    FXGLCanvas* share, GNENet* net, GNEUndoList *undoList,
+    FXGLCanvas* share, GNENet* net, GNEUndoList* undoList,
     FXIcon* ic, FXuint opts,
     FXint x, FXint y, FXint w, FXint h):
     GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
@@ -109,16 +109,16 @@ GNEViewParent::GNEViewParent(
                  "\tRedo\tRedo the last Change.",
                  GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO,
                  ICON_BEFORE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
-    
+
     // Create FXToolBarGrip
     new FXToolBarGrip(myNavigationToolBar, NULL, 0, TOOLBARGRIP_SINGLE | FRAME_SUNKEN);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myContentFrame, SPLITTER_HORIZONTAL | LAYOUT_FILL_X | LAYOUT_FILL_Y | SPLITTER_TRACKING | FRAME_RAISED | FRAME_THICK);
-  
+
     // Create frames Area
     myFramesArea = new FXHorizontalFrame(myFramesSplitter, FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
-      
+
     // Set default width
     myFramesArea->setWidth(200);
 
@@ -129,10 +129,10 @@ GNEViewParent::GNEViewParent(
     FXComposite* tmp = new FXComposite(this);
 
     // Create view net
-    GNEViewNet *viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share, myNavigationToolBar);
-    
+    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share, myNavigationToolBar);
+
     // Set pointer myView with the created view net
-    myView = viewNet; 
+    myView = viewNet;
 
     // creating order is important
     myInspectorFrame = new GNEInspectorFrame(myFramesArea, viewNet);
@@ -189,31 +189,31 @@ GNEViewParent::getAdditionalFrame() const {
 
 void
 GNEViewParent::showFramesArea() {
-    if(myInspectorFrame->shown()  == true ||
-       mySelectorFrame->shown()   == true ||
-       myConnectorFrame->shown()  == true ||
-       myTLSEditorFrame->shown()  == true ||
-       myAdditionalFrame->shown() == true) {
-            myFramesArea->show();
-            myFramesArea->recalc();
+    if (myInspectorFrame->shown()  == true ||
+            mySelectorFrame->shown()   == true ||
+            myConnectorFrame->shown()  == true ||
+            myTLSEditorFrame->shown()  == true ||
+            myAdditionalFrame->shown() == true) {
+        myFramesArea->show();
+        myFramesArea->recalc();
     }
 }
 
 
 void
 GNEViewParent::hideFramesArea() {
-    if(myInspectorFrame->shown()  == false &&
-       mySelectorFrame->shown()   == false &&
-       myConnectorFrame->shown()  == false &&
-       myTLSEditorFrame->shown()  == false &&
-       myAdditionalFrame->shown() == false) {
-            myFramesArea->hide();
-            myFramesArea->recalc();
+    if (myInspectorFrame->shown()  == false &&
+            mySelectorFrame->shown()   == false &&
+            myConnectorFrame->shown()  == false &&
+            myTLSEditorFrame->shown()  == false &&
+            myAdditionalFrame->shown() == false) {
+        myFramesArea->hide();
+        myFramesArea->recalc();
     }
 }
 
 
- int
+int
 GNEViewParent::getFramesAreaWidth() {
     std::cout << myFramesArea->getWidth() << std::endl;
     return myFramesArea->getWidth();

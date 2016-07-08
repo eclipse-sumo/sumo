@@ -99,7 +99,7 @@ GNEDetectorE1::updateGeometry() {
     myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x())) * -1);
 
     // Set offset of logo
-    myDetectorLogoOffset = Position(1,0);
+    myDetectorLogoOffset = Position(1, 0);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
@@ -112,21 +112,21 @@ GNEDetectorE1::updateGeometry() {
 }
 
 
-Position 
+Position
 GNEDetectorE1::getPositionInView() const {
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
 }
 
 
 void
-GNEDetectorE1::writeAdditional(OutputDevice& device, const std::string &) {
+GNEDetectorE1::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
-    if(!myFilename.empty()) {
+    if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
     device.writeAttr(SUMO_ATTR_SPLIT_VTYPE, mySplitByType);
@@ -153,8 +153,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     glBegin(GL_QUADS);
     glVertex2d(-1.0,  2);
     glVertex2d(-1.0, -2);
-    glVertex2d( 1.0, -2);
-    glVertex2d( 1.0,  2);
+    glVertex2d(1.0, -2);
+    glVertex2d(1.0,  2);
     glEnd();
     glTranslated(0, 0, .01);
     glBegin(GL_LINES);
@@ -169,8 +169,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glBegin(GL_QUADS);
         glVertex2f(-1.0,  2);
         glVertex2f(-1.0, -2);
-        glVertex2f( 1.0, -2);
-        glVertex2f( 1.0,  2);
+        glVertex2f(1.0, -2);
+        glVertex2f(1.0,  2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
@@ -189,7 +189,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {        
+    if (s.scale * exaggeration >= 10) {
         // Add a draw matrix
         drawDetectorIcon(GUITextureSubSys::getGif(GNETEXTURE_E1));
 
@@ -250,13 +250,13 @@ bool
 GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if(myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
                 return true;
             } else {
                 return false;

@@ -117,7 +117,7 @@ PCLoaderXML::myStartElement(int element,
         setDefaults(def.prefix, def.color, def.layer, def.allowFill);
     } else {
         setDefaults(myOptions.getString("prefix"), RGBColor::parseColor(myOptions.getString("color")),
-            myOptions.getFloat("layer"), myOptions.getBool("fill"));
+                    myOptions.getFloat("layer"), myOptions.getBool("fill"));
     }
     if (!discard) {
         if (element == SUMO_TAG_POI) {

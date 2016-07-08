@@ -51,7 +51,7 @@ public:
      * @param[in] VSSValues values with the interval and speeds of variable speed signals
      * @param[in] blocked set initial blocking state of item
      */
-    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOTime, SUMOReal> &VSSValues, bool blocked);
+    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOTime, SUMOReal>& VSSValues, bool blocked);
 
     /// @brief Destructor
     ~GNEVariableSpeedSignal();
@@ -66,18 +66,18 @@ public:
     /// @brief open GNEVariableSpeedSignalDialog
     void openAdditionalDialog();
 
-    /**@brief change the position of the rerouter geometry 
+    /**@brief change the position of the rerouter geometry
      * @param[in] posx new x position of rerouter in the map
      * @param[in] posy new y position of rerouter in the map
      * @param[in] undoList pointer to the undo list
      */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList);
+    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
-    void writeAdditional(OutputDevice& device, const std::string &currentDirectory);
+    void writeAdditional(OutputDevice& device, const std::string& currentDirectory);
 
     /// @brief get filename of rerouter
     std::string getFilename() const;
@@ -89,7 +89,7 @@ public:
     void setFilename(std::string filename);
 
     /// @brief set values of variable speed signal
-    void setVariableSpeedSignalSteps(const std::map<SUMOTime, SUMOReal> &vssValues);
+    void setVariableSpeedSignalSteps(const std::map<SUMOTime, SUMOReal>& vssValues);
 
     /// @brief insert a new step in variable speed signal
     /// @return true if step was sucesfully inserted, false in other case (Time duplicated)

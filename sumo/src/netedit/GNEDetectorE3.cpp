@@ -99,7 +99,7 @@ GNEDetectorE3::updateGeometry() {
     myShape.push_back(myPosition);
 
     // Add shape of childs (To avoid graphics errors)
-    for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
+    for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
         myShape.append((*i)->getShape());
     }
 
@@ -108,16 +108,16 @@ GNEDetectorE3::updateGeometry() {
 }
 
 
-Position 
+Position
 GNEDetectorE3::getPositionInView() const {
     return myPosition;
 }
 
 
 void
-GNEDetectorE3::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList) {
+GNEDetectorE3::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList) {
     // if item isn't blocked
-    if(myBlocked == false) {
+    if (myBlocked == false) {
         // change Position
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(Position(posx, posy, 0))));
     }
@@ -125,14 +125,14 @@ GNEDetectorE3::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoLis
 
 
 void
-GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string &currentDirectory) {
+GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentDirectory) {
     // Only save E3 if have Entry/Exits
-    if(getNumberOfAdditionalChilds() > 0) {
+    if (getNumberOfAdditionalChilds() > 0) {
         // Write parameters
         device.openTag(getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
         device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
-        if(!myFilename.empty()) {
+        if (!myFilename.empty()) {
             device.writeAttr(SUMO_ATTR_FILE, myFilename);
         }
         device.writeAttr(SUMO_ATTR_X, myPosition.x());
@@ -141,8 +141,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string &currentD
         writeAdditionalChildrens(device, currentDirectory);
         // Close tag
         device.closeTag();
-    }
-    else {
+    } else {
         WRITE_WARNING(toString(getTag()) + " with ID = '" + getID() + "' cannot be writed in additional file because don't have childs.");
     }
 }
@@ -166,7 +165,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     glRotated(180, 0, 0, 1);
 
     // Draw icon depending of detector is or isn't selected
-    if(isAdditionalSelected()) {
+    if (isAdditionalSelected()) {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_E3SELECTED), 1);
     } else {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_E3), 1);
@@ -229,7 +228,7 @@ bool
 GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;

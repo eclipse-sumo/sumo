@@ -170,27 +170,27 @@ public:
 
         /// @brief insert a new closing reroute
         /// @throw ProcessError if closing reroute was already inserted
-        void insertClosingReroutes(closingReroute *cr);
+        void insertClosingReroutes(closingReroute* cr);
 
         /// @brief remove a previously inserted closing reroute
         /// @throw ProcessError if closing reroute cannot be found in the container
-        void removeClosingReroutes(closingReroute *cr);
+        void removeClosingReroutes(closingReroute* cr);
 
         /// @brief insert destiny probability reroute
         /// @throw ProcessError if destiny probability reroute was already inserted
-        void insertDestProbReroutes(destProbReroute *dpr);
+        void insertDestProbReroutes(destProbReroute* dpr);
 
         /// @brief remove a previously inserted destiny probability reroute
         /// @throw ProcessError if destiny probability reroute cannot be found in the container
-        void removeDestProbReroutes(destProbReroute *dpr);
+        void removeDestProbReroutes(destProbReroute* dpr);
 
         /// @brief insert route probability reroute
         /// @throw ProcessError if route probability reroute was already inserted
-        void insertRouteProbReroute(routeProbReroute *rpr);
+        void insertRouteProbReroute(routeProbReroute* rpr);
 
         /// @brief remove a previously inserted route probability reroute
         /// @throw ProcessError if route probability reroute cannot be found in the container
-        void removeRouteProbReroute(routeProbReroute *rpr);
+        void removeRouteProbReroute(routeProbReroute* rpr);
 
         /// @brief get time begin
         SUMOTime getBegin() const;
@@ -217,7 +217,7 @@ public:
         /// @brief vector with the routeProbReroutes
         std::vector<routeProbReroute*> myRouteProbReroutes;
     };
-    
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
@@ -229,7 +229,7 @@ public:
      * @param[in] rerouterIntervals set with the rerouter intervals
      * @param[in] blocked set initial blocking state of item
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<rerouterInterval> &rerouterIntervals, bool blocked);
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<rerouterInterval>& rerouterIntervals, bool blocked);
 
     /// @brief Destructor
     ~GNERerouter();
@@ -244,25 +244,25 @@ public:
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
 
-    /**@brief change the position of the rerouter geometry 
+    /**@brief change the position of the rerouter geometry
      * @param[in] posx new x position of rerouter in the map
      * @param[in] posy new y position of rerouter in the map
      * @param[in] undoList pointer to the undo list
      */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList *undoList);
+    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device, const std::string &);
+    void writeAdditional(OutputDevice& device, const std::string&);
 
     /// @brief add edge to rerouter
     /// @return true if was sucesfully inserted, false if is duplicated
-    bool addEdge(GNEEdge *edge);
+    bool addEdge(GNEEdge* edge);
 
     /// @brief remove edge of rerouter
     /// @return true if was scuesfully removed, false if wasn't found
-    bool removeEdge(GNEEdge *edge);
+    bool removeEdge(GNEEdge* edge);
 
     /// @brief get filename of rerouter
     std::string getFilename() const;

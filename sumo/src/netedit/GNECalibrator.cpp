@@ -66,12 +66,12 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, const std::map<std::string, CalibratorFlow> &flowValues, bool blocked) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, const std::map<std::string, CalibratorFlow>& flowValues, bool blocked) :
     GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, NULL, blocked),
     myEdge(edge),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(NULL), /** change this in the future **/ 
+    myRouteProbe(NULL), /** change this in the future **/
     myFlowValues(flowValues) {
     // this additional ISN'T movable
     myMovable = false;
@@ -103,7 +103,7 @@ GNECalibrator::updateGeometry() {
     myShape.clear();
 
     // Iterate over lanes
-    for(int i = 0; i < (int)myEdge->getLanes().size(); i++) {
+    for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
 
         // Get shape of lane parent
         myShape.push_back(myEdge->getLanes().at(i)->getShape().positionAtOffset(myEdge->getLanes().at(i)->getPositionRelativeToParametricLenght(myPosition.x())));
@@ -120,12 +120,12 @@ GNECalibrator::updateGeometry() {
 }
 
 
-Position 
+Position
 GNECalibrator::getPositionInView() const {
     return myPosition;
 }
 
-void 
+void
 GNECalibrator::openAdditionalDialog() {
     // Open calibrator dialog
     GNECalibratorDialog calibratorDialog(this);
@@ -133,7 +133,7 @@ GNECalibrator::openAdditionalDialog() {
 
 
 void
-GNECalibrator::writeAdditional(OutputDevice& device, const std::string &) {
+GNECalibrator::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -191,21 +191,21 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string &) {
 }
 
 
-std::map<std::string, GNECalibrator::CalibratorFlow> 
+std::map<std::string, GNECalibrator::CalibratorFlow>
 GNECalibrator::getFlowValues() const {
     return myFlowValues;
 }
 
 
-void 
+void
 GNECalibrator::setFlowValues(std::map<std::string, GNECalibrator::CalibratorFlow> calibratorFlowValues) {
     myFlowValues = calibratorFlowValues;
 }
 
 
-void 
-GNECalibrator::insertFlow(const std::string & id, const CalibratorFlow &flow) {
-    if(myFlowValues.find(id) == myFlowValues.end()) {
+void
+GNECalibrator::insertFlow(const std::string& id, const CalibratorFlow& flow) {
+    if (myFlowValues.find(id) == myFlowValues.end()) {
         myFlowValues[id] = flow;
     } else {
         throw InvalidArgument("Calibrators don't allow Flows with duplicate Id's (" + id + ")");
@@ -214,9 +214,9 @@ GNECalibrator::insertFlow(const std::string & id, const CalibratorFlow &flow) {
 }
 
 
-void 
-GNECalibrator::removeFlow(const std::string & id) {
-    if(myFlowValues.find(id) != myFlowValues.end()) {
+void
+GNECalibrator::removeFlow(const std::string& id) {
+    if (myFlowValues.find(id) != myFlowValues.end()) {
         myFlowValues.erase(id);
     } else {
         throw InvalidArgument("Calibrator with Id''" + id + "' not exists");
@@ -293,7 +293,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
-            if(myRouteProbe) {
+            if (myRouteProbe) {
                 return myRouteProbe->getID();
             } else {
                 return "";
@@ -330,13 +330,13 @@ bool
 GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if(myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
                 return true;
             } else {
                 return false;
@@ -347,7 +347,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return isValidFileValue(value);
         case SUMO_ATTR_ROUTEPROBE:
-            if(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL) {
+            if (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL) {
                 return true;
             } else {
                 return false;

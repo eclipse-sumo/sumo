@@ -59,7 +59,7 @@ FXIMPLEMENT(GNEVariableSpeedSignalDialog, FXDialogBox, GNERerouterDialogMap, ARR
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSignal *variableSpeedSignalParent) : 
+GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSignal* variableSpeedSignalParent) :
     GNEAdditionalDialog(variableSpeedSignalParent, 240, 240),
     myVariableSpeedSignalParent(variableSpeedSignalParent) {
 
@@ -81,10 +81,10 @@ GNEVariableSpeedSignalDialog::GNEVariableSpeedSignalDialog(GNEVariableSpeedSigna
 
     // Get values of variable speed signal
     myVSSValues = myVariableSpeedSignalParent->getVariableSpeedSignalSteps();
-    
+
     // update table
     updateTable();
-        
+
     // Execute additional dialog (To make it modal)
     execute();
 }
@@ -100,7 +100,7 @@ GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     SUMOReal speed;
 
     // Get Time
-    if(TplCheck::_str2SUMOTime(myRowStep->getText().text()) == false) {
+    if (TplCheck::_str2SUMOTime(myRowStep->getText().text()) == false) {
         return 0;
     } else {
 // @toDo IMPLEMENT _str2Time TO TIME
@@ -108,14 +108,14 @@ GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     }
 
     // get SPeed
-    if(TplCheck::_str2SUMOReal(myRowSpeed->getText().text()) == false) {
+    if (TplCheck::_str2SUMOReal(myRowSpeed->getText().text()) == false) {
         return 0;
     } else {
         speed = TplConvert::_str2SUMOReal(myRowSpeed->getText().text());
     }
-    
+
     // Set new time and their speed if don't exist already
-    if(myVSSValues.find(time) == myVSSValues.end()) {
+    if (myVSSValues.find(time) == myVSSValues.end()) {
         myVSSValues[time] = speed;
     } else {
         return false;
@@ -127,11 +127,11 @@ GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     // Iterate over rows to find the row to erase
-    for(int i = 0; i < myDataList->getNumRows(); i++) {
-        if(myDataList->getItem(i, 2)->isSelected()) {
+    for (int i = 0; i < myDataList->getNumRows(); i++) {
+        if (myDataList->getItem(i, 2)->isSelected()) {
             // Remove element of table and map
 // @todo IMPLEMENT _2SUMOTIme
             myVSSValues.erase(TplConvert::_2int(myDataList->getItem(i, 0)->getText().text()));
@@ -145,12 +145,12 @@ GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEVariableSpeedSignalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Save new data in Variable Speed Signal edited
     myVariableSpeedSignalParent->setVariableSpeedSignalSteps(myVSSValues);
     // Stop Modal with positive out
-    getApp()->stopModal(this,TRUE);
+    getApp()->stopModal(this, TRUE);
     return 1;
 }
 
@@ -158,7 +158,7 @@ GNEVariableSpeedSignalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNEVariableSpeedSignalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal with negative out
-    getApp()->stopModal(this,FALSE);
+    getApp()->stopModal(this, FALSE);
     return 1;
 }
 
@@ -189,19 +189,19 @@ GNEVariableSpeedSignalDialog::updateTable() {
     myDataList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem *item = 0;
+    FXTableItem* item = 0;
     // iterate over values
-    for(std::map<SUMOTime, SUMOReal>::iterator i = myVSSValues.begin(); i != myVSSValues.end(); i++) {
+    for (std::map<SUMOTime, SUMOReal>::iterator i = myVSSValues.begin(); i != myVSSValues.end(); i++) {
         // Set time
         item = new FXTableItem(toString(i->first).c_str());
-        myDataList->setItem (indexRow, 0, item);
+        myDataList->setItem(indexRow, 0, item);
         // Set speed
         item = new FXTableItem(toString(i->second).c_str());
-        myDataList->setItem (indexRow, 1, item);
+        myDataList->setItem(indexRow, 1, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        myDataList->setItem (indexRow, 2, item);
+        myDataList->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }

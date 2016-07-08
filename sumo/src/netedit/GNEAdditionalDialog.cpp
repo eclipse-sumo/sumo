@@ -55,7 +55,7 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXDialogBox, GNEAdditionalDialogMap, A
 // member method definitions
 // ===========================================================================
 
-GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional *parent, int width, int height) : 
+GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int height) :
     FXDialogBox(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), LAYOUT_EXPLICIT | DECOR_TITLE | DECOR_BORDER, 0, 0, width, height) {
     // Create frames
     myContentFrame = new FXVerticalFrame(this, LAYOUT_EXPLICIT, 0, 0, width, height - 30);
@@ -72,19 +72,19 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional *parent, int width, int h
 GNEAdditionalDialog::~GNEAdditionalDialog() {
 }
 
-void 
+void
 GNEAdditionalDialog::show() {
     FXDialogBox::show();
 }
 
 
-void 
+void
 GNEAdditionalDialog::hide() {
     FXDialogBox::hide();
 }
 
 
-void 
+void
 GNEAdditionalDialog::execute() {
     FXDialogBox::execute();
 }

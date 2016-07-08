@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *edge, SUMOTime startTime, SUMOTime end, bool blocked) :
+GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOTime startTime, SUMOTime end, bool blocked) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, NULL, blocked),
     myEdge(edge),
     myStartTime(startTime),
@@ -80,7 +80,7 @@ GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *
 
 
 GNEVaporizer::~GNEVaporizer() {
-    if(myEdge) {
+    if (myEdge) {
         myEdge->removeAdditional(this);
     }
 }
@@ -121,7 +121,7 @@ GNEVaporizer::updateGeometry() {
 }
 
 
-Position 
+Position
 GNEVaporizer::getPositionInView() const {
     Position A = myEdge->getLanes().front()->getShape().positionAtOffset(myPosition.x());
     Position B = myEdge->getLanes().back()->getShape().positionAtOffset(myPosition.x());
@@ -138,7 +138,7 @@ GNEVaporizer::moveAdditional(SUMOReal, SUMOReal, GNEUndoList*) {
 
 
 void
-GNEVaporizer::writeAdditional(OutputDevice& device, const std::string &) {
+GNEVaporizer::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -150,37 +150,37 @@ GNEVaporizer::writeAdditional(OutputDevice& device, const std::string &) {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEVaporizer::getEdge() const {
     return myEdge;
 }
 
 
-void 
+void
 GNEVaporizer::removeEdgeReference() {
     myEdge = NULL;
 }
 
 
-SUMOTime 
+SUMOTime
 GNEVaporizer::getStartTime() const {
     return myStartTime;
 }
 
 
-SUMOTime 
+SUMOTime
 GNEVaporizer::getEnd() const {
     return myEnd;
 }
 
 
-void 
+void
 GNEVaporizer::setStartTime(SUMOTime startTime) {
     myStartTime = startTime;
 }
 
 
-void 
+void
 GNEVaporizer::setEndTime(SUMOTime end) {
     myEnd = end;
 }
@@ -224,7 +224,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glEnd();
 
     // position indicator (White)
-    if (width* exaggeration > 1) {
+    if (width * exaggeration > 1) {
         glRotated(90, 0, 0, -1);
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);
@@ -245,7 +245,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glRotated(-90, 0, 0, 1);
 
     // Draw icon depending of detector is or isn't selected
-    if(isAdditionalSelected()) {
+    if (isAdditionalSelected()) {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_VAPORIZERSELECTED), 1);
     } else {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_VAPORIZER), 1);
@@ -255,7 +255,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {        
+    if (s.scale * exaggeration >= 10) {
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
     }
@@ -306,13 +306,13 @@ bool
 GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_EDGE:
-            if(myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
                 return true;
             } else {
                 return false;

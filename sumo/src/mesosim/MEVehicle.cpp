@@ -263,7 +263,7 @@ MEVehicle::mayProceed() const {
 }
 
 
-SUMOReal 
+SUMOReal
 MEVehicle::getCurrentTLSPenaltySeconds() const {
     if (mySegment == 0) {
         return 0;

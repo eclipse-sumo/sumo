@@ -104,10 +104,10 @@ public:
     class straightness_sorter {
     public:
         /// constructor
-        explicit straightness_sorter(NBEdge* e) : 
+        explicit straightness_sorter(NBEdge* e) :
             myReferencePos(e->getLaneShape(0).back()),
-            myReferenceAngle(e->getShapeEndAngle()) 
-        {}
+            myReferenceAngle(e->getShapeEndAngle()) {
+        }
 
     public:
         /// comparing operation

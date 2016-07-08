@@ -209,8 +209,8 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
                                                 myReferencePos.angleTo2D(e1->getLaneShape(0).front()), true));
         relAngle2 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
                                                 myReferencePos.angleTo2D(e2->getLaneShape(0).front()), true));
-        //std::cout << "  tiebraker refPos=" << myReferencePos << " abs1=" 
-        //    << GeomHelper::legacyDegree(myReferencePos.angleTo2D(e1->getLaneShape(0).front()), true) 
+        //std::cout << "  tiebraker refPos=" << myReferencePos << " abs1="
+        //    << GeomHelper::legacyDegree(myReferencePos.angleTo2D(e1->getLaneShape(0).front()), true)
         //    << " abs2=" << GeomHelper::legacyDegree(myReferencePos.angleTo2D(e2->getLaneShape(0).front()), true) <<  "\n";
     }
     //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " a1=" << relAngle1 << " a2=" << relAngle2 << "\n";
@@ -310,8 +310,8 @@ NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge
             const bool e1Peds = (e1->getPermissions() & SVC_PEDESTRIAN) != 0;
             const bool e2Peds = (e2->getPermissions() & SVC_PEDESTRIAN) != 0;
             if (e1->getToNode() == myNode) {
-                if (e1Peds && !e2Peds) {                   
-                    return true;                    
+                if (e1Peds && !e2Peds) {
+                    return true;
                 } else if (!e1Peds && e2Peds) {
                     return false;
                 }
@@ -319,7 +319,7 @@ NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge
                 if (!e1Peds && e2Peds) {
                     return true;
                 } else if (e1Peds && !e2Peds) {
-                     return false;
+                    return false;
                 }
             }
             // break ties to ensure strictly weak ordering

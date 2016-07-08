@@ -63,7 +63,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntry::GNEDetectorEntry(const std::string &id, GNEViewNet* viewNet, GNELane *lane, SUMOReal pos, GNEDetectorE3 *parent, bool blocked) :
+GNEDetectorEntry::GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent, bool blocked) :
     GNEDetector(id, viewNet, SUMO_TAG_DET_ENTRY, lane, pos, 0, "", blocked, parent) {
     // Update geometry;
     updateGeometry();
@@ -105,14 +105,14 @@ GNEDetectorEntry::updateGeometry() {
 }
 
 
-Position 
+Position
 GNEDetectorEntry::getPositionInView() const {
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
 }
 
 
 void
-GNEDetectorEntry::writeAdditional(OutputDevice& device, const std::string &) {
+GNEDetectorEntry::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
@@ -132,7 +132,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set initial values
-    if(isAdditionalSelected()) {
+    if (isAdditionalSelected()) {
         glColor3d(myBaseColorSelected.red(), myBaseColorSelected.green(), myBaseColorSelected.blue());
     } else {
         glColor3d(myBaseColor.red(), myBaseColor.green(), myBaseColor.blue());
@@ -231,13 +231,13 @@ bool
 GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if(myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
                 return true;
             } else {
                 return false;

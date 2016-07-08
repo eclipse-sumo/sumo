@@ -56,12 +56,12 @@ public:
      * @param[in] begin The time at which to start generating output
      * @param[in] blocked set initial blocking state of item
      */
-    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge *edge, int frequency, const std::string& filename, int begin, bool blocked);
+    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, int frequency, const std::string& filename, int begin, bool blocked);
 
     /// @brief Destructor
     ~GNERouteProbe();
 
-    /// @brief change the position of the RouteProbe geometry 
+    /// @brief change the position of the RouteProbe geometry
     void moveAdditional(SUMOReal, SUMOReal, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
@@ -74,7 +74,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device, const std::string &);
+    void writeAdditional(OutputDevice& device, const std::string&);
 
     /// @brief get edge in which the RouteProbe is placed
     GNEEdge* getEdge() const;
@@ -139,7 +139,7 @@ public:
 
 protected:
     /// @brief edge of routeProbe
-    GNEEdge *myEdge;
+    GNEEdge* myEdge;
 
     /// @brief Frequency of RouteProbe
     int myFrequency;

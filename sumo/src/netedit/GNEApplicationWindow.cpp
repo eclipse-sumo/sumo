@@ -166,7 +166,7 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 #ifdef _MSC_VER
 #pragma warning(disable: 4355)
 #endif
-GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) : 
+GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
     myLoadThread(0),
     myAmLoading(false),
@@ -1249,8 +1249,8 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
 
 
 GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net, ShapeContainer& sc) :
-            ShapeHandler(file, sc),
-            myNet(net) {}
+    ShapeHandler(file, sc),
+    myNet(net) {}
 
 
 GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}

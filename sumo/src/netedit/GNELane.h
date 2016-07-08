@@ -168,26 +168,26 @@ public:
     /* @brief method for adding a reference of a additional element placed in this lane
      * @param[in] additional Pointer to additional element
      */
-    void addAdditional(GNEAdditional *additional);
+    void addAdditional(GNEAdditional* additional);
 
     /* @brief method for remove a reference of a additional element placed in this lane
      * @param[in] additional Pointer to additional element previously added
        @return true if additional element was sucesfully removed, flase in other case
      */
-    bool removeAdditional(GNEAdditional *additional);
+    bool removeAdditional(GNEAdditional* additional);
 
     /// @brief method to obtain a list of additional elements associated to this lane
     /// @return set with all additional elements
-    const std::vector<GNEAdditional*> &getAdditionals() const;
+    const std::vector<GNEAdditional*>& getAdditionals() const;
 
     /// @brief add GNEAdditionalSet to this lane
-    bool addAdditionalSet(GNEAdditionalSet *additionalSet);
+    bool addAdditionalSet(GNEAdditionalSet* additionalSet);
 
     /// @brief remove GNEAdditionalSet from this lane
-    bool removeAdditionalSet(GNEAdditionalSet *additionalSet);
+    bool removeAdditionalSet(GNEAdditionalSet* additionalSet);
 
     /// @brief return list of additionalSets associated with this lane
-    const std::vector<GNEAdditionalSet*> &getAdditionalSets();
+    const std::vector<GNEAdditionalSet*>& getAdditionalSets();
 
     /// @name inherited from GNEAttributeCarrier
     /// @{

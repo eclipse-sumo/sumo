@@ -359,8 +359,8 @@ protected:
     ///@brief Draws the stored decals
     void drawDecals();
 
-    ///@brief applies gl-transformations to fit the Boundary given by myChanger onto the canvas. 
-    /// If fixRatio is true, this boundary will be enlarged to prevent anisotropic stretching. 
+    ///@brief applies gl-transformations to fit the Boundary given by myChanger onto the canvas.
+    /// If fixRatio is true, this boundary will be enlarged to prevent anisotropic stretching.
     /// (this should be set to false when doing selections)
     void applyGLTransform(bool fixRatio = true);
 

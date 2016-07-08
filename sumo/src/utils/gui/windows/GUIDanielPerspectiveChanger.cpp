@@ -247,10 +247,10 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
 void
 GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
     myViewPort = Boundary(
-        myViewPort.xmin() - myCallback.p2m(change),
-        myViewPort.ymin(),
-        myViewPort.xmax(),
-        myViewPort.ymax());
+                     myViewPort.xmin() - myCallback.p2m(change),
+                     myViewPort.ymin(),
+                     myViewPort.xmax(),
+                     myViewPort.ymax());
 }
 
 

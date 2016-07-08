@@ -633,7 +633,7 @@ MSEdge::getMeanSpeed() const {
         }
     } else {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            const SUMOReal vehNo = (SUMOReal) (*i)->getVehicleNumber();
+            const SUMOReal vehNo = (SUMOReal)(*i)->getVehicleNumber();
             v += vehNo * (*i)->getMeanSpeed();
             no += vehNo;
         }

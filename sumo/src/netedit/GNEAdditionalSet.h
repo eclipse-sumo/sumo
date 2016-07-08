@@ -50,8 +50,7 @@ class GNEViewNet;
  * @class GNEAdditionalSet
  * @brief An Element wich group additionalSet elements
  */
-class GNEAdditionalSet : public GNEAdditional
-{
+class GNEAdditionalSet : public GNEAdditional {
 public:
 
     /**@brief Constructor.
@@ -63,9 +62,9 @@ public:
      * @param[in] edgeChilds
      * @param[in] laneChilds
      */
-    GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, bool blocked = false, 
-                     std::vector<GNEAdditional*> additionalChilds = std::vector<GNEAdditional*>(), 
-                     std::vector<GNEEdge*> edgeChilds = std::vector<GNEEdge*>(), 
+    GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, bool blocked = false,
+                     std::vector<GNEAdditional*> additionalChilds = std::vector<GNEAdditional*>(),
+                     std::vector<GNEEdge*> edgeChilds = std::vector<GNEEdge*>(),
                      std::vector<GNELane*> laneChilds = std::vector<GNELane*>());
 
     /// @brief Destructor
@@ -78,53 +77,53 @@ public:
     /**@brief writte additionalSet element into a xml file
      * @param[in] device device in which write parameters of additionalSet element
      */
-    virtual void writeAdditional(OutputDevice& device, const std::string &currentDirectory) = 0;
+    virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
 
     /**@brief add additional element to this set
      * @param[in] additionalSet pointer to GNEadditionalSet element to add
      * @return true if was sucesfully added, false in other case
      */
-    bool addAdditionalChild(GNEAdditional *additional);
+    bool addAdditionalChild(GNEAdditional* additional);
 
     /**@brief remove additional element to this set
      * @param[in] additionalSet pointer to GNEadditionalSet element to remove
      * @return true if was sucesfully removed, false in other case
      */
-    bool removeAdditionalChild(GNEAdditional *additional);
+    bool removeAdditionalChild(GNEAdditional* additional);
 
     /**@brief add edge element to this set
      * @param[in] edgeSet pointer to GNEEdge element to add
      * @param[in] position position of edge in which connection will be placed
      * @return true if was sucesfully added, false in other case
      */
-    bool addEdgeChild(GNEEdge *edge);
+    bool addEdgeChild(GNEEdge* edge);
 
     /**@brief remove edge element to this set
      * @param[in] edgeSet pointer to GNEEdge element to remove
      * @return true if was sucesfully removed, false in other case
      */
-    bool removeEdgeChild(GNEEdge *edge);
+    bool removeEdgeChild(GNEEdge* edge);
 
     /**@brief add lane element to this set
      * @param[in] laneSet pointer to GNELane element to add
      * @param[in] position position of edge in which connection will be placed
      * @return true if was sucesfully added, false in other case
      */
-    bool addLaneChild(GNELane *lane);
+    bool addLaneChild(GNELane* lane);
 
     /**@brief remove lane element to this set
      * @param[in] laneSet pointer to GNELane element to remove
      * @return true if was sucesfully removed, false in other case
      */
-    bool removeLaneChild(GNELane *lane);
-    
+    bool removeLaneChild(GNELane* lane);
+
     /// @brief get number of additional childs of this additionalSet
     int getNumberOfAdditionalChilds() const;
 
     /// @brief get number of edge childs of this additionalSet
     int getNumberOfEdgeChilds() const;
 
-        /// @brief get number of lane childs of this additionalSet
+    /// @brief get number of lane childs of this additionalSet
     int getNumberOfLaneChilds() const;
 
     /// @brief get ids of additional childs
@@ -140,7 +139,7 @@ public:
     /// @note preexisting edge childs will be erased
     void setEdgeChilds(std::vector<GNEEdge*> edges);
 
-     /// @brief set lane childs
+    /// @brief set lane childs
     /// @note preexisting lane childs will be erased
     void setLaneChilds(std::vector<GNELane*> lanes);
 
@@ -183,14 +182,14 @@ public:
 protected:
     /// @brief struct for edge childs
     struct edgeChild {
-        GNEEdge *edge;
+        GNEEdge* edge;
         std::vector<Position> positionsOverLanes;
         std::vector<SUMOReal> rotationsOverLanes;
     };
 
     /// @brief struct for lane childs
     struct laneChild {
-        GNELane *lane;
+        GNELane* lane;
         Position positionOverLane;
         SUMOReal rotationOverLane;
     };
@@ -224,7 +223,7 @@ protected:
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
-    void writeAdditionalChildrens(OutputDevice& device, const std::string &currentDirectory);
+    void writeAdditionalChildrens(OutputDevice& device, const std::string& currentDirectory);
 
 private:
     /// @brief set attribute after validation

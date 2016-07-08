@@ -41,7 +41,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPerspectiveChanger::GUIPerspectiveChanger( GUISUMOAbstractView& callBack, const Boundary& viewPort) :
+GUIPerspectiveChanger::GUIPerspectiveChanger(GUISUMOAbstractView& callBack, const Boundary& viewPort) :
     myCallback(callBack),
     myViewPort(viewPort) {
 }
@@ -72,7 +72,7 @@ GUIPerspectiveChanger::onRightBtnRelease(void*) {
     return false;
 }
 
-void 
+void
 GUIPerspectiveChanger::onDoubleClicked(void* data) {
 }
 
@@ -113,10 +113,11 @@ GUIPerspectiveChanger::getMouseYPosition() const {
 
 Boundary
 GUIPerspectiveChanger::getViewport(bool fixRatio) {
-    if (fixRatio)
+    if (fixRatio) {
         return patchedViewPort();
-    else
-        return myViewPort;         
+    } else {
+        return myViewPort;
+    }
 }
 
 

@@ -108,9 +108,9 @@ FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, AR
 /* -------------------------------------------------------------------------
  * GUISUMOAbstractView - methods
  * ----------------------------------------------------------------------- */
-GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share) : 
+GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share) :
     FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
-    LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
+               LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
     myParent(parent),
     myGrid(&((SUMORTree&)grid)),
@@ -199,10 +199,11 @@ GUISUMOAbstractView::updatePositionInformation() const {
     std::string text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
     myApp->getCartesianLabel().setText(text.c_str());
     GeoConvHelper::getFinal().cartesian2geo(pos);
-    if (GeoConvHelper::getFinal().usingGeoProjection())
+    if (GeoConvHelper::getFinal().usingGeoProjection()) {
         text = "lat:" + toString(pos.y(), GEO_OUTPUT_ACCURACY) + ", lon:" + toString(pos.x(), GEO_OUTPUT_ACCURACY);
-    else
+    } else {
         text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
+    }
     myApp->getGeoLabel().setText(text.c_str());
 }
 
@@ -635,8 +636,9 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector , void* data) {
     myChanger->onLeftBtnPress(data);
     grab();
     // Check there are double click
-    if (e->click_count == 2)
+    if (e->click_count == 2) {
         handle(this, FXSEL(SEL_DOUBLECLICKED, 0), data);
+    }
     return 1;
 }
 
@@ -950,7 +952,7 @@ GUISUMOAbstractView::checkSnapshots() {
 
 SUMOTime
 GUISUMOAbstractView::getCurrentTimeStep() const {
-        return 0;
+    return 0;
 }
 
 
@@ -1015,7 +1017,7 @@ GUISUMOAbstractView::getVisualisationSettings() const {
 }
 
 
-void 
+void
 GUISUMOAbstractView::remove(GUIDialog_EditViewport*) {
     myViewportChooser = 0;
 }
@@ -1046,7 +1048,7 @@ GUISUMOAbstractView::startTrack(int /*id*/) {
 
 void
 GUISUMOAbstractView::stopTrack() {
-}                
+}
 
 
 int
@@ -1217,10 +1219,11 @@ GUISUMOAbstractView::removeAdditionalGLVisualisation(const GUIGlObject* const wh
 
 bool
 GUISUMOAbstractView::isAdditionalGLVisualisationEnabled(GUIGlObject* const which) const {
-    if (myAdditionallyDrawn.find(which) == myAdditionallyDrawn.end())
+    if (myAdditionallyDrawn.find(which) == myAdditionallyDrawn.end()) {
         return false;
-    else
+    } else {
         return true;
+    }
 }
 
 

@@ -54,7 +54,7 @@ public:
      * @param[in] parent pointer to GNEDetectorE3 of this additional element belongs
      * @param[in] blocked set initial blocking state of item
      */
-    GNEDetectorEntry(const std::string &id, GNEViewNet* viewNet, GNELane *lane, SUMOReal pos, GNEDetectorE3 *parent, bool blocked = false);
+    GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent, bool blocked = false);
 
     /// @brief destructor
     ~GNEDetectorEntry();
@@ -69,7 +69,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device, const std::string &);
+    void writeAdditional(OutputDevice& device, const std::string&);
 
     /// @name inherited from GUIGlObject
     /// @{

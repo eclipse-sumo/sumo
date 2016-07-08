@@ -54,7 +54,7 @@ class GNERerouterDialog : public GNEAdditionalDialog {
 
 public:
     // Constructor
-    GNERerouterDialog(GNERerouter *rerouterParent);
+    GNERerouterDialog(GNERerouter* rerouterParent);
 
     // destructor
     ~GNERerouterDialog();
@@ -76,7 +76,7 @@ protected:
     GNERerouterDialog() {}
 
     /// @brief pointer to rerouter parent
-    GNERerouter *myRerouterParent;
+    GNERerouter* myRerouterParent;
 
 private:
     /// @brief update data table

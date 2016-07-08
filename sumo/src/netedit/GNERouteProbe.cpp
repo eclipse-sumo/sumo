@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge *edge, int frequency, const std::string& filename, int begin, bool blocked) :
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, int frequency, const std::string& filename, int begin, bool blocked) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, NULL, blocked),
     myEdge(edge),
     myFrequency(frequency),
@@ -81,7 +81,7 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge
 
 
 GNERouteProbe::~GNERouteProbe() {
-    if(myEdge) {
+    if (myEdge) {
         myEdge->removeAdditional(this);
     }
 }
@@ -125,13 +125,13 @@ GNERouteProbe::updateGeometry() {
 }
 
 
-Position 
+Position
 GNERouteProbe::getPositionInView() const {
     Position A = myEdge->getLanes().front()->getShape().positionAtOffset(myPosition.x());
     Position B = myEdge->getLanes().back()->getShape().positionAtOffset(myPosition.x());
 
     // return Middle point
-    return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2); 
+    return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
 }
 
 
@@ -142,13 +142,13 @@ GNERouteProbe::moveAdditional(SUMOReal, SUMOReal, GNEUndoList*) {
 
 
 void
-GNERouteProbe::writeAdditional(OutputDevice& device, const std::string &) {
+GNERouteProbe::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
-    if(!myFilename.empty()) {
+    if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
     device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
@@ -157,48 +157,48 @@ GNERouteProbe::writeAdditional(OutputDevice& device, const std::string &) {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNERouteProbe::getEdge() const {
     return myEdge;
 }
 
-void 
+void
 GNERouteProbe::removeEdgeReference() {
     myEdge = NULL;
 }
 
 
-std::string 
+std::string
 GNERouteProbe::getFilename() const {
     return myFilename;
 }
 
 
-int 
+int
 GNERouteProbe::getFrequency() const {
     return myFrequency;
 }
 
 
-int 
+int
 GNERouteProbe::getBegin() const {
     return myBegin;
 }
 
 
-void 
+void
 GNERouteProbe::setFilename(std::string filename) {
     myFilename = filename;
 }
 
 
-void 
+void
 GNERouteProbe::setFrequency(int frequency) {
     myFrequency = frequency;
 }
 
 
-void 
+void
 GNERouteProbe::setBegin(int begin) {
     myBegin = begin;
 }
@@ -260,7 +260,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glRotated(-90, 0, 0, 1);
 
     // Draw icon depending of detector is or isn't selected
-    if(isAdditionalSelected()) {
+    if (isAdditionalSelected()) {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_ROUTEPROBESELECTED), 1);
     } else {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_ROUTEPROBE), 1);
@@ -270,7 +270,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {        
+    if (s.scale * exaggeration >= 10) {
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
     }
@@ -324,13 +324,13 @@ bool
 GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if(myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_EDGE:
-            if(myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
                 return true;
             } else {
                 return false;

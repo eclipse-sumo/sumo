@@ -125,9 +125,11 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing,
     assert(outgoing.size() > 0);
     const LinkDirection straightestDir = to->getDirection(parent, outgoing[indexOfStraightest]);
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) std::cout << " MainDirections edge=" << parent->getID() << " straightest=" << outgoing[indexOfStraightest]->getID() << " dir=" << toString(straightestDir) << "\n";
+    if (DEBUGCOND) {
+        std::cout << " MainDirections edge=" << parent->getID() << " straightest=" << outgoing[indexOfStraightest]->getID() << " dir=" << toString(straightestDir) << "\n";
+    }
 #endif
-    if (NBNode::isTrafficLight(to->getType()) && 
+    if (NBNode::isTrafficLight(to->getType()) &&
             (straightestDir == LINKDIR_STRAIGHT || straightestDir == LINKDIR_PARTLEFT || straightestDir == LINKDIR_PARTRIGHT)) {
         myDirs.push_back(MainDirections::DIR_FORWARD);
         return;
@@ -1424,7 +1426,7 @@ NBEdge::computeAngle() {
 }
 
 
-SUMOReal 
+SUMOReal
 NBEdge::getShapeStartAngle() const {
     const SUMOReal angleLookahead = MIN2(myGeom.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = myGeom.positionAtOffset2D(angleLookahead);
@@ -1651,7 +1653,9 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
 
 
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) std::cout << " divideOnEdges " << getID() << " outgoing=" << toString(*outgoing) << " prios=" << toString(*priorities) << "\n";
+    if (DEBUGCOND) {
+        std::cout << " divideOnEdges " << getID() << " outgoing=" << toString(*outgoing) << " prios=" << toString(*priorities) << "\n";
+    }
 #endif
 
     // build connections for miv lanes
@@ -1763,7 +1767,9 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
         }
     }
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) std::cout << "   prioSum=" << prioSum << " sumResulting=" << sumResulting << " minResulting=" << minResulting << " numVirtual=" << numVirtual << " availLanes=" << toString(availableLanes) << " resLanes=" << toString(resultingLanes) << " transition=" << toString(transition) << "\n";
+    if (DEBUGCOND) {
+        std::cout << "   prioSum=" << prioSum << " sumResulting=" << sumResulting << " minResulting=" << minResulting << " numVirtual=" << numVirtual << " availLanes=" << toString(availableLanes) << " resLanes=" << toString(resultingLanes) << " transition=" << toString(transition) << "\n";
+    }
 #endif
 
     // assign lanes to edges
@@ -1811,7 +1817,9 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
 
             myConnections.push_back(Connection(fromIndex, target, -1));
 #ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) std::cout << "     request connection from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+            if (DEBUGCOND) {
+                std::cout << "     request connection from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+            }
 #endif
         }
     }
@@ -1820,7 +1828,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
 }
 
 
-void 
+void
 NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities) {
     // ensure sufficient straight connections for the (hightest-priority straight target)
     const int numOutgoing = (int) outgoing->size();
@@ -1849,42 +1857,48 @@ NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int
     }
     const int numDesiredConsToTarget = MIN2(targetLanes, (int)availableLanes.size());
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) std::cout << "  checking extra lanes for target=" << target->getID() << " cons=" << numConsToTarget << " desired=" << numDesiredConsToTarget << "\n";
+    if (DEBUGCOND) {
+        std::cout << "  checking extra lanes for target=" << target->getID() << " cons=" << numConsToTarget << " desired=" << numDesiredConsToTarget << "\n";
+    }
 #endif
     std::vector<int>::const_iterator it_avail = availableLanes.begin();
     while (numConsToTarget < numDesiredConsToTarget && it_avail != availableLanes.end()) {
         const int fromIndex = *it_avail;
         if (
-                // not yet connected
-                (count_if(myConnections.begin(), myConnections.end(), connections_finder(fromIndex, target, -1)) == 0)
-                // matching permissions
-                && ((getPermissions(fromIndex) & target->getPermissions()) != 0)
-                // more than pedestrians
-                && ((getPermissions(fromIndex) & target->getPermissions()) != SVC_PEDESTRIAN)
-           ) {
+            // not yet connected
+            (count_if(myConnections.begin(), myConnections.end(), connections_finder(fromIndex, target, -1)) == 0)
+            // matching permissions
+            && ((getPermissions(fromIndex) & target->getPermissions()) != 0)
+            // more than pedestrians
+            && ((getPermissions(fromIndex) & target->getPermissions()) != SVC_PEDESTRIAN)
+        ) {
 #ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) std::cout << "    candidate from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+            if (DEBUGCOND) {
+                std::cout << "    candidate from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+            }
 #endif
             // prevent same-edge conflicts
             if (
-                    // no outgoing connections to the right from further left
-                    ((it_avail + 1) == availableLanes.end() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, rightOfTarget, false)) == 0) 
-                    // no outgoing connections to the left from further right
-                    && (it_avail == availableLanes.begin() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, leftOfTarget, true)) == 0)) {
+                // no outgoing connections to the right from further left
+                ((it_avail + 1) == availableLanes.end() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, rightOfTarget, false)) == 0)
+                // no outgoing connections to the left from further right
+                && (it_avail == availableLanes.begin() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, leftOfTarget, true)) == 0)) {
 #ifdef DEBUG_CONNECTION_GUESSING
-                if (DEBUGCOND) std::cout << "     request additional connection from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+                if (DEBUGCOND) {
+                    std::cout << "     request additional connection from " << getID() << "_" << fromIndex << " to " << target->getID() << "\n";
+                }
 #endif
                 myConnections.push_back(Connection(fromIndex, target, -1));
                 numConsToTarget++;
             } else {
 #ifdef DEBUG_CONNECTION_GUESSING
-                if (DEBUGCOND) std::cout 
-                    << "     fail check1=" 
-                        << ((it_avail + 1) == availableLanes.end() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, rightOfTarget, false)) == 0) 
-                        << " check2=" << (it_avail == availableLanes.begin() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, leftOfTarget, true)) == 0) 
-                        << " rightOfTarget=" << rightOfTarget->getID()
-                        << " leftOfTarget=" << leftOfTarget->getID()
-                        << "\n";
+                if (DEBUGCOND) std::cout
+                            << "     fail check1="
+                            << ((it_avail + 1) == availableLanes.end() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, rightOfTarget, false)) == 0)
+                            << " check2=" << (it_avail == availableLanes.begin() || count_if(myConnections.begin(), myConnections.end(), connections_conflict_finder(fromIndex, leftOfTarget, true)) == 0)
+                            << " rightOfTarget=" << rightOfTarget->getID()
+                            << " leftOfTarget=" << leftOfTarget->getID()
+                            << "\n";
 #endif
 
             }
@@ -1919,19 +1933,21 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     unsigned int dist = (unsigned int) distance(outgoing->begin(), i);
     MainDirections mainDirections(*outgoing, this, myTo, dist);
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) std::cout << "  prepareEdgePriorities " << getID() 
-        << " outgoing=" << toString(*outgoing) 
-        << " priorities1=" << toString(*priorities) 
-        << " tmp=" << toString(tmp) 
-        << " mainDirs=" << toString(mainDirections.myDirs) 
-        << " dist=" << dist
-        << "\n";
+    if (DEBUGCOND) std::cout << "  prepareEdgePriorities " << getID()
+                                 << " outgoing=" << toString(*outgoing)
+                                 << " priorities1=" << toString(*priorities)
+                                 << " tmp=" << toString(tmp)
+                                 << " mainDirs=" << toString(mainDirections.myDirs)
+                                 << " dist=" << dist
+                                 << "\n";
 #endif
     if (dist != 0 && !mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
         assert(priorities->size() > 0);
         (*priorities)[0] /= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) std::cout << "   priorities2=" << toString(*priorities) << "\n";
+        if (DEBUGCOND) {
+            std::cout << "   priorities2=" << toString(*priorities) << "\n";
+        }
 #endif
     }
     // HEURISTIC:
@@ -1941,7 +1957,9 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
         assert(dist < priorities->size());
         (*priorities)[dist] *= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) std::cout << "   priorities3=" << toString(*priorities) << "\n";
+        if (DEBUGCOND) {
+            std::cout << "   priorities3=" << toString(*priorities) << "\n";
+        }
 #endif
     }
     if (NBNode::isTrafficLight(myTo->getType())) {
@@ -1950,9 +1968,11 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
         // try to ensure separation of left turns
         if (mainDirections.includes(MainDirections::DIR_RIGHTMOST) && mainDirections.includes(MainDirections::DIR_LEFTMOST)) {
             (*priorities)[0] /= 4;
-            (*priorities)[(int)priorities->size() - 1] /=2;
+            (*priorities)[(int)priorities->size() - 1] /= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) std::cout << "   priorities6=" << toString(*priorities) << "\n";
+            if (DEBUGCOND) {
+                std::cout << "   priorities6=" << toString(*priorities) << "\n";
+            }
 #endif
         }
     }
@@ -1960,12 +1980,16 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
         if (myLanes.size() > 2) {
             (*priorities)[dist] *= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) std::cout << "   priorities4=" << toString(*priorities) << "\n";
+            if (DEBUGCOND) {
+                std::cout << "   priorities4=" << toString(*priorities) << "\n";
+            }
 #endif
         } else {
             (*priorities)[dist] *= 3;
 #ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) std::cout << "   priorities5=" << toString(*priorities) << "\n";
+            if (DEBUGCOND) {
+                std::cout << "   priorities5=" << toString(*priorities) << "\n";
+            }
 #endif
         }
     }
@@ -2599,7 +2623,7 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
 }
 
 
-std::set<SVCPermissions> 
+std::set<SVCPermissions>
 NBEdge::getPermissionVariants(int iStart, int iEnd) const {
     std::set<SVCPermissions> result;
     if (iStart < 0 || iStart >= getNumLanes() || iEnd > getNumLanes()) {

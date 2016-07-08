@@ -103,9 +103,9 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app, 
-    GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList, 
-    FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar) :
+GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
+                       GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
+                       FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar) :
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getVisualisationSpeedUp(), glVis, share),
     myViewParent(viewParent),
     myNet(net),
@@ -303,25 +303,25 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 }
 
 
-bool 
+bool
 GNEViewNet::selectEdges() {
     return mySelectEdges->getCheck() != 0;
 }
 
 
-bool 
+bool
 GNEViewNet::autoSelectNodes() {
     return myExtendToEdgeNodes->getCheck() != 0;
 }
 
 
-void 
+void
 GNEViewNet::setSelectionScaling(SUMOReal selectionScale) {
     myVisualizationSettings->selectionScale = selectionScale;
 }
 
 
-bool 
+bool
 GNEViewNet::changeAllPhases() const {
     return myChangeAllPhases->getCheck() != FALSE;
 }
@@ -505,10 +505,10 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         myMoveSelection = true;
                     } else {
                         myAdditionalToMove = pointed_additional;
-                        if(myAdditionalToMove->getLane()) {
+                        if (myAdditionalToMove->getLane()) {
                             myAdditionalFirstPosition.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false), 0, 0);
                             myUndoList->p_begin("position of " + toString(pointed_additional->getTag()));
-                        } else{
+                        } else {
                             myAdditionalFirstPosition = pointed_additional->getPositionInView();
                             myUndoList->p_begin("position of " + toString(pointed_additional->getTag()));
                         }
@@ -622,9 +622,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 break;
 
             case GNE_MODE_ADDITIONAL:
-                if(pointed_additional == NULL) {
-                    GNENetElement *netElement = dynamic_cast<GNENetElement*>(pointed);
-                    if(myViewParent->getAdditionalFrame()->addAdditional(netElement, this)) {
+                if (pointed_additional == NULL) {
+                    GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
+                    if (myViewParent->getAdditionalFrame()->addAdditional(netElement, this)) {
                         update();
                     }
                 }
@@ -684,7 +684,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
 long
 GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
     // If current edit mode is INSPECT or ADDITIONAL
-    if(myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL) {
+    if (myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL) {
         setFocus();
         // interpret object under curser
         if (makeCurrent()) {
@@ -715,10 +715,10 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, getPositionInformation());
     } else if (myAdditionalToMove) {
         // If additional is placed over lane, move it across it
-        if(myAdditionalToMove->getLane()) {
+        if (myAdditionalToMove->getLane()) {
             SUMOReal posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
             myAdditionalToMove->moveAdditional(posOfMouseOverLane - myAdditionalFirstPosition.x(), 0, myUndoList);
-            myAdditionalFirstPosition.set(posOfMouseOverLane,0, 0);
+            myAdditionalFirstPosition.set(posOfMouseOverLane, 0, 0);
         } else {
             myAdditionalToMove->moveAdditional(getPositionInformation().x(), getPositionInformation().y(), myUndoList);
             myAdditionalFirstPosition = getPositionInformation();
@@ -861,7 +861,7 @@ GNEViewNet::getCurrentEditMode() const {
 
 bool
 GNEViewNet::showLockIcon() const {
-    return(myEditMode == GNE_MODE_MOVE || myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL);
+    return (myEditMode == GNE_MODE_MOVE || myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL);
 }
 
 

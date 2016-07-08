@@ -407,7 +407,7 @@ public:
      * @param[in] options The options to be asked for "output-file" and "vtype-output"
      * @param[in] altFilename The name of the file for writing alternatives, "" means no alternatives
      */
-    void openOutput(const OptionsCont& options, const std::string altFilename="");
+    void openOutput(const OptionsCont& options, const std::string altFilename = "");
 
 
     /** @brief closes the file output for computed routes and deletes associated threads if necessary */

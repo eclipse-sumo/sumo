@@ -62,7 +62,7 @@ class GUIVisualizationSettings;
 struct GUIVisualizationTextSettings;
 #ifdef HAVE_OSG
 namespace osg {
-    class Node;
+class Node;
 }
 #endif
 
@@ -269,7 +269,7 @@ private:
     /// @brief OSG Node of this GL object
     osg::Node* myOSGNode;
 #endif
-    
+
     /// @brief LinkStates (Currently unused)
     // static StringBijection<SumoXMLLinkStateValue> LinkStates;
 

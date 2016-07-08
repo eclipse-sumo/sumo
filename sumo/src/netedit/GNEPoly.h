@@ -133,7 +133,7 @@ public:
 
     /// @brief draw the polygon and also little movement handles
 
-    /**@brief change the polygon geometry 
+    /**@brief change the polygon geometry
      * It is up to the Polygon to decide whether an new geometry node should be
      * generated or an existing node should be moved
      * @param[in] oldPos The origin of the mouse movement

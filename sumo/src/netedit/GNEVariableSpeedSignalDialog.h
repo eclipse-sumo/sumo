@@ -55,7 +55,7 @@ class GNEVariableSpeedSignalDialog : public GNEAdditionalDialog {
 
 public:
     // Constructor
-    GNEVariableSpeedSignalDialog(GNEVariableSpeedSignal *variableSpeedSignalParent);
+    GNEVariableSpeedSignalDialog(GNEVariableSpeedSignal* variableSpeedSignalParent);
 
     // destructor
     ~GNEVariableSpeedSignalDialog();
@@ -83,25 +83,25 @@ protected:
     GNEVariableSpeedSignalDialog() {}
 
     /// @brief Pointer to Variable Speed Signal
-    GNEVariableSpeedSignal *myVariableSpeedSignalParent;
+    GNEVariableSpeedSignal* myVariableSpeedSignalParent;
 
     /// @brief Map with the temporal VSSValues
     std::map<SUMOTime, SUMOReal> myVSSValues;
 
     /// @brief Table with the data
-    FXTable *myDataList;
+    FXTable* myDataList;
 
     /// @brief Horizontal frame for row elements
-    FXHorizontalFrame *myRowFrame;
+    FXHorizontalFrame* myRowFrame;
 
     /// @bbriefie Text field with step
-    FXTextField *myRowStep;
+    FXTextField* myRowStep;
 
     /// @brief Text field with speed
-    FXTextField *myRowSpeed;
+    FXTextField* myRowSpeed;
 
     /// @brief Button for insert row
-    FXButton *myAddRow;
+    FXButton* myAddRow;
 
 private:
     /// @brief update data table

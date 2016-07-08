@@ -92,21 +92,21 @@ GNEAdditionalSet::GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, P
 GNEAdditionalSet::~GNEAdditionalSet() {
     // Remove references to this additional Set in edges
     childEdges childEdgesToRemove = myChildEdges;
-    for(childEdges::iterator i = childEdgesToRemove.begin(); i != childEdgesToRemove.end(); i++) {
+    for (childEdges::iterator i = childEdgesToRemove.begin(); i != childEdgesToRemove.end(); i++) {
         (i->edge->removeAdditionalSet(this));
     }
     // Remove references to this additional Set in lanes
     childLanes childLanesToRemove = myChildLanes;
-    for(childLanes::iterator i = childLanesToRemove.begin(); i != childLanesToRemove.end(); i++) {
+    for (childLanes::iterator i = childLanesToRemove.begin(); i != childLanesToRemove.end(); i++) {
         (i->lane->removeAdditionalSet(this));
     }
 }
 
 
 bool
-GNEAdditionalSet::addAdditionalChild(GNEAdditional *additional) {
-    for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
-        if((*i) == additional) {
+GNEAdditionalSet::addAdditionalChild(GNEAdditional* additional) {
+    for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
+        if ((*i) == additional) {
             return false;
         }
     }
@@ -117,9 +117,9 @@ GNEAdditionalSet::addAdditionalChild(GNEAdditional *additional) {
 
 
 bool
-GNEAdditionalSet::removeAdditionalChild(GNEAdditional *additional) {
-    for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
-        if((*i) == additional) {
+GNEAdditionalSet::removeAdditionalChild(GNEAdditional* additional) {
+    for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
+        if ((*i) == additional) {
             myChildAdditionals.erase(i);
             updateConnections();
             return true;
@@ -131,9 +131,9 @@ GNEAdditionalSet::removeAdditionalChild(GNEAdditional *additional) {
 
 
 bool
-GNEAdditionalSet::addEdgeChild(GNEEdge *edge) {
-    for(childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-        if(i->edge == edge) {
+GNEAdditionalSet::addEdgeChild(GNEEdge* edge) {
+    for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
+        if (i->edge == edge) {
             return false;
         }
     }
@@ -147,9 +147,9 @@ GNEAdditionalSet::addEdgeChild(GNEEdge *edge) {
 
 
 bool
-GNEAdditionalSet::removeEdgeChild(GNEEdge *edge) {
-    for(childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-        if(i->edge == edge) {
+GNEAdditionalSet::removeEdgeChild(GNEEdge* edge) {
+    for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
+        if (i->edge == edge) {
             myChildEdges.erase(i);
             updateConnections();
             return true;
@@ -161,9 +161,9 @@ GNEAdditionalSet::removeEdgeChild(GNEEdge *edge) {
 
 
 bool
-GNEAdditionalSet::addLaneChild(GNELane *lane) {
-    for(childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
-        if(i->lane == lane) {
+GNEAdditionalSet::addLaneChild(GNELane* lane) {
+    for (childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
+        if (i->lane == lane) {
             return false;
         }
     }
@@ -177,9 +177,9 @@ GNEAdditionalSet::addLaneChild(GNELane *lane) {
 
 
 bool
-GNEAdditionalSet::removeLaneChild(GNELane *lane) {
-    for(childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
-        if(i->lane == lane) {
+GNEAdditionalSet::removeLaneChild(GNELane* lane) {
+    for (childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
+        if (i->lane == lane) {
             myChildLanes.erase(i);
             updateConnections();
             return true;
@@ -196,7 +196,7 @@ GNEAdditionalSet::updateConnections() {
     myConnectionMiddlePosition.clear();
 
     // Iterate over additonals
-    for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
+    for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
         Position PositionOfChild = (*i)->getPositionInView();
         SUMOReal angleBetweenParentAndChild = myPosition.angleTo2D(PositionOfChild);
         SUMOReal distancieBetweenParentAndChild = myPosition.distanceTo2D(PositionOfChild);
@@ -205,17 +205,17 @@ GNEAdditionalSet::updateConnections() {
     }
 
     // Iterate over eges
-    for(childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
+    for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
         // clear position of lanes and rotations
         i->positionsOverLanes.clear();
         i->rotationsOverLanes.clear();
         // Calculate position and rotation of every lane
-        for(int j = 0; j < (int)i->edge->getLanes().size(); j++) {
+        for (int j = 0; j < (int)i->edge->getLanes().size(); j++) {
             i->positionsOverLanes.push_back(i->edge->getLanes().at(j)->getShape().positionAtOffset(i->edge->getLanes().at(j)->getShape().length() - 10));
             i->rotationsOverLanes.push_back(i->edge->getLanes().at(j)->getShape().rotationDegreeAtOffset(i->edge->getLanes().at(j)->getShape().length() - 10) * -1);
         }
-         // Calculate middle position of lanes
-        Position middlePoint((i->positionsOverLanes.front().x() + i->positionsOverLanes.back().x()) / 2, (i->positionsOverLanes.front().y() + i->positionsOverLanes.back().y()) / 2); 
+        // Calculate middle position of lanes
+        Position middlePoint((i->positionsOverLanes.front().x() + i->positionsOverLanes.back().x()) / 2, (i->positionsOverLanes.front().y() + i->positionsOverLanes.back().y()) / 2);
         // Set position of connection
         SUMOReal angleBetweenParentAndChild = myPosition.angleTo2D(middlePoint);
         SUMOReal distancieBetweenParentAndChild = myPosition.distanceTo2D(middlePoint);
@@ -223,7 +223,7 @@ GNEAdditionalSet::updateConnections() {
     }
 
     // Iterate over lanes
-    for(childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
+    for (childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         // Calculate position and rotation of every lane
         i->positionOverLane = i->lane->getShape().positionAtOffset(i->lane->getShape().length() - 10);
         i->rotationOverLane = i->lane->getShape().rotationDegreeAtOffset(i->lane->getShape().length() - 10) * -1;
@@ -238,7 +238,7 @@ GNEAdditionalSet::updateConnections() {
 void
 GNEAdditionalSet::drawConnections() const {
     // Iterate over list of additionals
-    for(childAdditionals::const_iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
+    for (childAdditionals::const_iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis
@@ -252,7 +252,7 @@ GNEAdditionalSet::drawConnections() const {
         glPopMatrix();
     }
     // Iterate over edges
-    for(childEdges::const_iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
+    for (childEdges::const_iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis
@@ -260,8 +260,8 @@ GNEAdditionalSet::drawConnections() const {
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0, 255));
         // Calculate middle point between lanes
-/*** @todo ADD DISTANCE AS PARAMETER **/
-        Position middlePoint((i->positionsOverLanes.front().x() + i->positionsOverLanes.back().x()) / 2, (i->positionsOverLanes.front().y() + i->positionsOverLanes.back().y()) / 2); 
+        /*** @todo ADD DISTANCE AS PARAMETER **/
+        Position middlePoint((i->positionsOverLanes.front().x() + i->positionsOverLanes.back().x()) / 2, (i->positionsOverLanes.front().y() + i->positionsOverLanes.back().y()) / 2);
         // Draw Line
         GLHelper::drawLine(myPosition, myConnectionMiddlePosition.at(i->edge));
         GLHelper::drawLine(myConnectionMiddlePosition.at(i->edge), middlePoint);
@@ -269,7 +269,7 @@ GNEAdditionalSet::drawConnections() const {
         glPopMatrix();
     }
     // Iterate over lanes
-    for(childLanes::const_iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
+    for (childLanes::const_iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis
@@ -286,32 +286,32 @@ GNEAdditionalSet::drawConnections() const {
 
 
 void
-GNEAdditionalSet::writeAdditionalChildrens(OutputDevice& device, const std::string &currentDirectory) {
-    for(childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
+GNEAdditionalSet::writeAdditionalChildrens(OutputDevice& device, const std::string& currentDirectory) {
+    for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
         (*i)->writeAdditional(device, currentDirectory);
     }
 }
 
 
-int 
+int
 GNEAdditionalSet::getNumberOfAdditionalChilds() const {
     return int(myChildAdditionals.size());
 }
 
 
-int 
+int
 GNEAdditionalSet::getNumberOfEdgeChilds() const {
     return int(myChildEdges.size());
 }
 
 
-int 
+int
 GNEAdditionalSet::getNumberOfLaneChilds() const {
     return int(myChildLanes.size());
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GNEAdditionalSet::getAdditionalChildIds() const {
     // Declare and resize vector
     std::vector<std::string> vectorOfAdditionalsIds;
@@ -324,7 +324,7 @@ GNEAdditionalSet::getAdditionalChildIds() const {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GNEAdditionalSet::getEdgeChildIds() const {
     // Declare and resize vector
     std::vector<std::string> vectorOfEdgesIds;
@@ -337,29 +337,29 @@ GNEAdditionalSet::getEdgeChildIds() const {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GNEAdditionalSet::getLaneChildIds() const {
     // Declare and resize vector
     std::vector<std::string> vectorOfLanesIds;
     vectorOfLanesIds.resize(myChildLanes.size());
     // Save Ids
-    for(int i = 0; i < (int)myChildLanes.size(); i++) {
+    for (int i = 0; i < (int)myChildLanes.size(); i++) {
         vectorOfLanesIds[i] = myChildLanes.at(i).lane->getID();
     }
     return vectorOfLanesIds;
 }
 
 
-void 
+void
 GNEAdditionalSet::setEdgeChilds(std::vector<GNEEdge*> edges) {
     // First remove all existent edges
-    for(childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
+    for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
         i->edge->removeAdditionalSet(this);
     }
-    // clear edge childs vector 
+    // clear edge childs vector
     myChildEdges.clear();
     // Iterate over vector of new edges
-    for(std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
+    for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
         (*i)->addAdditional(this);
         addEdgeChild(*i);
     }
@@ -368,16 +368,16 @@ GNEAdditionalSet::setEdgeChilds(std::vector<GNEEdge*> edges) {
 }
 
 
-void 
+void
 GNEAdditionalSet::setLaneChilds(std::vector<GNELane*> lanes) {
     // First remove all existent lanes
-    for(childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
+    for (childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         i->lane->removeAdditionalSet(this);
     }
-    // clear lane childs vector 
+    // clear lane childs vector
     myChildLanes.clear();
     // Iterate over vector of new lanes
-    for(std::vector<GNELane*>::iterator i = lanes.begin(); i != lanes.end(); i++) {
+    for (std::vector<GNELane*>::iterator i = lanes.begin(); i != lanes.end(); i++) {
         (*i)->addAdditional(this);
         addLaneChild(*i);
     }

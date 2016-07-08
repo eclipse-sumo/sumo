@@ -1404,7 +1404,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         }
                     }
                 }
-                assert((found && lane !=0) || (!found && lane == 0));
+                assert((found && lane != 0) || (!found && lane == 0));
                 // use the best we have
                 server.setVTDControlled(v, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                 if (!v->isOnRoad()) {

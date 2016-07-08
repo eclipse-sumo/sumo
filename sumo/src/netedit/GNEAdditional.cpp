@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet *additionalSetParent, bool blocked) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet* additionalSetParent, bool blocked) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag),
     myViewNet(viewNet),
@@ -76,12 +76,12 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
     myMovable(true),
     myBlockIconRotation(0),
     myBaseColor(RGBColor::GREEN),
-    myBaseColorSelected(RGBColor::BLUE), 
+    myBaseColorSelected(RGBColor::BLUE),
     myAdditionalDialog(NULL) {
     // Set rotation left hand
     myRotationLefthand = OptionsCont::getOptions().getBool("lefthand");
     // If this additional belongs to a set, add it.
-    if(myAdditionalSetParent) {
+    if (myAdditionalSetParent) {
         myAdditionalSetParent->addAdditionalChild(this);
     }
 }
@@ -89,17 +89,17 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
 
 GNEAdditional::~GNEAdditional() {
     // If this additional belongs to a set, remove it.
-    if(myAdditionalSetParent) {
-        myAdditionalSetParent->removeAdditionalChild(this); 
+    if (myAdditionalSetParent) {
+        myAdditionalSetParent->removeAdditionalChild(this);
     }
 }
 
 
-void 
+void
 GNEAdditional::openAdditionalDialog() {}
 
 
-const std::string &
+const std::string&
 GNEAdditional::getAdditionalID() const {
     return getMicrosimID();
 }
@@ -123,19 +123,19 @@ GNEAdditional::isAdditionalBlocked() const {
 }
 
 
-bool 
+bool
 GNEAdditional::isAdditionalInspectionable() const {
     return myInspectionable;
 }
 
 
-bool 
+bool
 GNEAdditional::isAdditionalSelectable() const {
     return mySelectable;
 }
 
 
-bool 
+bool
 GNEAdditional::isAdditionalMovable() const {
     return myMovable;
 }
@@ -153,8 +153,8 @@ GNEAdditional::getAdditionalSetParent() const {
 }
 
 
-void 
-GNEAdditional::setAdditionalID(const std::string &id) {
+void
+GNEAdditional::setAdditionalID(const std::string& id) {
     // Save old ID
     std::string oldID = getMicrosimID();
     // set New ID
@@ -171,30 +171,30 @@ GNEAdditional::setBlocked(bool value) {
 
 
 void
-GNEAdditional::setPositionInView(const Position &pos) {
+GNEAdditional::setPositionInView(const Position& pos) {
     myPosition = pos;
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEAdditional::getEdge() const {
     return NULL;
 }
 
 
-GNELane* 
+GNELane*
 GNEAdditional::getLane() const {
     return NULL;
 }
 
 
-void 
+void
 GNEAdditional::removeEdgeReference() {
     throw InvalidArgument("Calling virtual function removeEdgeReference() of class GNEAdditional. Implement removeEdgeReference() in additional child to avoid this exception");
 }
 
 
-void 
+void
 GNEAdditional::removeLaneReference() {
     throw InvalidArgument("Calling virtual function removeLaneReference() of class GNEAdditional. Implement removeLaneReference() in additional child to avoid this exception");
 }
@@ -218,36 +218,36 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " typed name to clipboard").c_str(), 0, ret, MID_COPY_TYPED_NAME);
     // build menu command selection
     buildSelectionPopupEntry(ret);
-    // build menu command copy cursor position to clipboard 
+    // build menu command copy cursor position to clipboard
     buildPositionCopyEntry(ret, false);
     buildShowParamsPopupEntry(ret, false);
     // get attributes
     std::vector<SumoXMLAttr> attributes = getAttrs();
     // Show position parameters
-    if(std::find(attributes.begin(), attributes.end(), SUMO_ATTR_LANE) != attributes.end()) {
+    if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_LANE) != attributes.end()) {
         // If additional own an lane as attribute, get lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(getParentName(), false);
-        if(lane) {
+        if (lane) {
             // Show menu command inner position
             const SUMOReal innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
             new FXMenuCommand(ret, ("inner position: " + toString(innerPos)).c_str(), 0, 0, 0);
             // If shape isn't empty, show menu command lane position
-            if(myShape.size() > 0) {
+            if (myShape.size() > 0) {
                 const SUMOReal lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
                 new FXMenuCommand(ret, ("lane position: " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
             }
         } else {
             throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their lane as a ParentName()");
         }
-    }else if(std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
+    } else if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
         // If additional own an edge as attribute, get lane
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getParentName(), false);
-        if(edge) {
+        if (edge) {
             // Show menu command inner position
             const SUMOReal innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
             new FXMenuCommand(ret, ("inner position: " + toString(innerPos)).c_str(), 0, 0, 0);
             // If shape isn't empty, show menu command edge position
-            if(myShape.size() > 0) {
+            if (myShape.size() > 0) {
                 const SUMOReal edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
                 new FXMenuCommand(ret, ("edge position: " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
             }
@@ -259,13 +259,13 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // Show childs if this is is an additionalSet
     GNEAdditionalSet* additionalSet = dynamic_cast<GNEAdditionalSet*>(this);
-    if(additionalSet) {
+    if (additionalSet) {
         new FXMenuSeparator(ret);
-        if(additionalSet->getNumberOfAdditionalChilds() > 0) {
+        if (additionalSet->getNumberOfAdditionalChilds() > 0) {
             new FXMenuCommand(ret, ("number of additional childs: " + toString(additionalSet->getNumberOfAdditionalChilds())).c_str(), 0, 0, 0);
-        } else if(additionalSet->getNumberOfEdgeChilds() > 0) {
+        } else if (additionalSet->getNumberOfEdgeChilds() > 0) {
             new FXMenuCommand(ret, ("number of edge childs: " + toString(additionalSet->getNumberOfEdgeChilds())).c_str(), 0, 0, 0);
-        } else if(additionalSet->getNumberOfLaneChilds() > 0) {
+        } else if (additionalSet->getNumberOfLaneChilds() > 0) {
             new FXMenuCommand(ret, ("number of lane childs: " + toString(additionalSet->getNumberOfLaneChilds())).c_str(), 0, 0, 0);
         }
     }
@@ -285,9 +285,9 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& paren
     // Create tanñe
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, attributes.size());
     // Iterate over attributes
-    for(std::vector<SumoXMLAttr>::iterator i = attributes.begin(); i != attributes.end(); i++) {
+    for (std::vector<SumoXMLAttr>::iterator i = attributes.begin(); i != attributes.end(); i++) {
         // Add attribute and set it dynamic if aren't unique
-        if(GNEAttributeCarrier::isUnique(*i)) {
+        if (GNEAttributeCarrier::isUnique(*i)) {
             ret->mkItem(toString(*i).c_str(), false, getAttribute(*i));
         } else {
             ret->mkItem(toString(*i).c_str(), true, getAttribute(*i));
@@ -309,11 +309,11 @@ GNEAdditional::getCenteringBoundary() const {
 
 
 void
-GNEAdditional::setBlockIconRotation(GNELane *lane) {
+GNEAdditional::setBlockIconRotation(GNELane* lane) {
     if (myShape.size() > 0 && myShape.length() != 0) {
         // If lenght of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
-    } else if(lane != NULL) {
+    } else if (lane != NULL) {
         // If additional is over a lane, set rotation in the position over lane
         myBlockIconRotation = lane->getShape().rotationDegreeAtOffset(lane->getPositionRelativeToParametricLenght(myPosition.x())) - 90;
     } else {
@@ -338,11 +338,11 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
     // Traslate depending of the offset
     glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
     // Draw icon depending of the state of additional
-    if(isAdditionalSelected()) {
-        if(myMovable == false) {
+    if (isAdditionalSelected()) {
+        if (myMovable == false) {
             // Draw not movable texture if additional isn't movable and is selected
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_NOTMOVINGSELECTED), size);
-        } else if(myBlocked) {
+        } else if (myBlocked) {
             // Draw lock texture if additional is movable, is blocked and is selected
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCKSELECTED), size);
         } else {
@@ -350,10 +350,10 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_EMPTYSELECTED), size);
         }
     } else {
-        if(myMovable == false) {
+        if (myMovable == false) {
             // Draw not movable texture if additional isn't movable
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_NOTMOVING), size);
-        } else if(myBlocked) {
+        } else if (myBlocked) {
             // Draw lock texture if additional is movable and is blocked
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCK), size);
         } else {

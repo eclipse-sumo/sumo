@@ -57,8 +57,10 @@ def parse_args(args):
         options.outfile = options.routefile + ".poly.xml"
     return options
 
+
 def randomize_pos(pos, blur):
     return tuple([val + random.uniform(-blur, blur) for val in pos])
+
 
 def generate_poly(net, id, color, layer, geo, edges, blur, outf):
     shape = list(itertools.chain(*list(net.getEdge(e).getLane(0).getShape()

@@ -54,7 +54,7 @@ public:
      * @param[in] contPos If set to a positive value, an internal junction will be built at this position (in m) from the start of the internal lane for this connection.
      * @param[in] uncontrolled if set to true, This connection will not be TLS-controlled despite its node being controlled.
      */
-    GNEConnection(GNEEdge *edgeFrom, GNEEdge *edgeTo, GNELane *fromLane, GNELane *toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled);
+    GNEConnection(GNEEdge* edgeFrom, GNEEdge* edgeTo, GNELane* fromLane, GNELane* toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled);
 
     /// @brief Destructor
     ~GNEConnection();
@@ -65,16 +65,16 @@ public:
 
     /// @brief get the name of the edge the vehicles leave
     /// @note this parameter cannot be changed
-    GNEEdge *getEdgeFrom();
+    GNEEdge* getEdgeFrom();
 
     /// @brief get the name of the edge the vehicles may reach when leaving "from"
-    GNEEdge *getEdgeTo();
+    GNEEdge* getEdgeTo();
 
     /// @brief the get incoming lane
-    GNELane *getFromLane();
+    GNELane* getFromLane();
 
     /// @briefthe get outgoing lane
-    GNELane *getToLane();
+    GNELane* getToLane();
 
     /// @briefthe get lane index of the incoming lane
     int getFromLaneIndex();
@@ -164,16 +164,16 @@ public:
 
 protected:
     /// @brief The name of the edge the vehicles leave
-    GNEEdge *myEdgeFrom;
+    GNEEdge* myEdgeFrom;
 
     /// @brief The name of the edge the vehicles may reach when leaving "from"
-    GNEEdge *myEdgeTo;
+    GNEEdge* myEdgeTo;
 
     /// @brief the incoming lane
-    GNELane *myFromLane;
+    GNELane* myFromLane;
 
     /// @brief the outgoing lane
-    GNELane *myToLane;
+    GNELane* myToLane;
 
     /// @brief if set, vehicles which pass this (lane-2-lane) connection) will not wait
     bool myPass;

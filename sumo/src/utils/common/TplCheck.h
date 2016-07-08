@@ -45,65 +45,73 @@ class TplCheck {
 public:
     /// @brief check if a String can be parsed into a int
     /// @ToDo check overflows
-    static bool _str2int(const std::string &data) {
+    static bool _str2int(const std::string& data) {
         // Data empty does't mean 0
-        if(data.size() == 0)
+        if (data.size() == 0) {
             return false;
-        for(int i = 0; i < (int)data.size(); i++) {
-            if(data.at(i) == '+' || data.at(i) == '-') {
-                if(i != 0)
+        }
+        for (int i = 0; i < (int)data.size(); i++) {
+            if (data.at(i) == '+' || data.at(i) == '-') {
+                if (i != 0) {
                     return false;
-            } else if(data.at(i) < '0' || data.at(i) > '9')
+                }
+            } else if (data.at(i) < '0' || data.at(i) > '9') {
                 return false;
+            }
         }
         return true;
     }
 
     /// @brief check if a String can be parsed into a SUMOReal
     /// @ToDo check overflows
-    static bool _str2SUMOReal(const std::string &data) {
+    static bool _str2SUMOReal(const std::string& data) {
         bool dot = false;
-        if(data.size() == 0)
+        if (data.size() == 0) {
             return false;
-        for(int i = 0; i < (int)data.size(); i++) {
-            if(data.at(i) == '+' || data.at(i) == '-') {
-                if(i != 0)
+        }
+        for (int i = 0; i < (int)data.size(); i++) {
+            if (data.at(i) == '+' || data.at(i) == '-') {
+                if (i != 0) {
                     return false;
-            } else if(data.at(i) == '.') {
-                if(data.at(i) == '.' && !dot)
+                }
+            } else if (data.at(i) == '.') {
+                if (data.at(i) == '.' && !dot) {
                     dot = true;
-                else
+                } else {
                     return false;
-            }
-            else if(data.at(i) < '0' || data.at(i) > '9')
+                }
+            } else if (data.at(i) < '0' || data.at(i) > '9') {
                 return false;
+            }
         }
         return true;
     }
-    
+
     /// @brief check if a String can be parsed into a Bool
-    static bool _str2bool(const std::string &data) {
+    static bool _str2bool(const std::string& data) {
         std::string dataToLower = data;
         std::transform(dataToLower.begin(), dataToLower.end(), dataToLower.begin(), ::tolower);
-        if(data == "1" || data == "yes" || data == "true"  || data == "on"  || data == "x" || data == "t" || 
-           data == "0" || data == "no"  || data == "false" || data == "off" || data == "-" || data == "f")
+        if (data == "1" || data == "yes" || data == "true"  || data == "on"  || data == "x" || data == "t" ||
+                data == "0" || data == "no"  || data == "false" || data == "off" || data == "-" || data == "f") {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /// @brief check if a String can be parsed into a SUMOTime
     /// @ToDo check overflows
-    static bool _str2SUMOTime(const std::string &data) {
+    static bool _str2SUMOTime(const std::string& data) {
         // Data empty does't mean 0
-        if(data.size() == 0)
+        if (data.size() == 0) {
             return false;
-        for(int i = 0; i < (int)data.size(); i++) {
-            if(data.at(i) == '+') {
-                if(i != 0)
+        }
+        for (int i = 0; i < (int)data.size(); i++) {
+            if (data.at(i) == '+') {
+                if (i != 0) {
                     return false;
-            }
-            else if(data.at(i) < '0' || data.at(i) > '9') {
+                }
+            } else if (data.at(i) < '0' || data.at(i) > '9') {
                 std::cout << i << " " << data.at(i) << std::endl;
                 return false;
             }

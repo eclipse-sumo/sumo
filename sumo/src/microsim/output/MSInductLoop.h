@@ -283,11 +283,11 @@ public:
     /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
      *
      * @param[in] t The time from which vehicles shall be counted
-     * @param[in] full Whether entryTime or leaveTime shall be compaired against t 
+     * @param[in] full Whether entryTime or leaveTime shall be compaired against t
      *            (the latter gives a more complete picture but may include vehicles in multiple steps  even if they did not stay on the detectort)
      * @return The list of vehicles
      */
-    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime=false) const;
+    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
 
 
 protected:

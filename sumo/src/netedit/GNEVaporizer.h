@@ -55,12 +55,12 @@ public:
      * @param[in] end
      * @param[in] blocked set initial blocking state of item
      */
-    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge *edge, SUMOTime startTime, SUMOTime end, bool blocked);
+    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOTime startTime, SUMOTime end, bool blocked);
 
     /// @brief Destructor
     ~GNEVaporizer();
 
-    /// @brief change the position of the RouteProbe geometry 
+    /// @brief change the position of the RouteProbe geometry
     void moveAdditional(SUMOReal, SUMOReal, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
@@ -73,7 +73,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device, const std::string &);
+    void writeAdditional(OutputDevice& device, const std::string&);
 
     /// @brief get edge in which the RouteProbe is placed
     GNEEdge* getEdge() const;
@@ -132,7 +132,7 @@ public:
 
 protected:
     /// @brief edge in which this vaporizer is placed
-    GNEEdge *myEdge;
+    GNEEdge* myEdge;
 
     /// @brief start time of vaporizer
     SUMOTime myStartTime;

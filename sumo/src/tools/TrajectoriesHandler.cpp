@@ -50,9 +50,9 @@
 // method definitions
 // ===========================================================================
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const bool computeAForward,
-                                         const bool accelZeroCorrection, const SUMOEmissionClass defaultClass,
-                                         const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
-      : SUMOSAXHandler(""), myComputeA(computeA), myComputeAForward(computeAForward), myAccelZeroCorrection(accelZeroCorrection), myDefaultClass(defaultClass),
+        const bool accelZeroCorrection, const SUMOEmissionClass defaultClass,
+        const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
+    : SUMOSAXHandler(""), myComputeA(computeA), myComputeAForward(computeAForward), myAccelZeroCorrection(accelZeroCorrection), myDefaultClass(defaultClass),
       myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
 
 

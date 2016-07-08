@@ -57,7 +57,7 @@ public:
      * @brief viewNet viewNet that uses this GNEFrame
      * @brief frameLabel label of the frame
      */
-    GNEFrame(FXComposite* parent, GNEViewNet* viewNet, const std::string &frameLabel);
+    GNEFrame(FXComposite* parent, GNEViewNet* viewNet, const std::string& frameLabel);
 
     /// @brief destructor
     ~GNEFrame();
@@ -69,20 +69,20 @@ public:
     virtual void hide() = 0;
 
     /// @brief get view net
-    GNEViewNet *getViewNet() const;
+    GNEViewNet* getViewNet() const;
 
     /// @brief get the label for the frame's header
     FXLabel* getFrameHeaderLabel() const;
 
     /// @brief get font of the header's frame
-    FXFont *getFrameHeaderFont() const;
+    FXFont* getFrameHeaderFont() const;
 
 protected:
     /// @brief FOX needs this
     GNEFrame() {}
 
     /// @brief @brief the window to inform when the tls is modfied
-    GNEViewNet *myViewNet;
+    GNEViewNet* myViewNet;
 
     /// @brief Font for the Header
     FXFont* myFrameHeaderFont;

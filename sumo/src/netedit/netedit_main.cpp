@@ -91,7 +91,7 @@ main(int argc, char** argv) {
         }
         // build the main window
         GNEApplicationWindow* window =
-            new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
+        new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
         gSchemeStorage.init(&application);
         window->dependentBuild();
         // Create app

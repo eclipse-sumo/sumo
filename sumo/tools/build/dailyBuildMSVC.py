@@ -72,7 +72,8 @@ def runTests(options, env, svnrev, debugSuffix=""):
     if options.no_tests:
         return
     prefix = env["FILEPREFIX"] + debugSuffix
-    env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, prefix + "batch_result")
+    env["SUMO_BATCH_RESULT"] = os.path.join(
+        options.rootDir, prefix + "batch_result")
     env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
     testLog = os.path.join(options.remoteDir, prefix + "test.log")
     env["TEXTTEST_TMP"] = os.path.join(
@@ -84,7 +85,8 @@ def runTests(options, env, svnrev, debugSuffix=""):
     for name in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", "netgenerate",
                  "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen",
                  "emissionsDrivingCycle", "emissionsMap"]:
-        binary = os.path.join(options.rootDir, options.binDir, name + debugSuffix + ".exe")
+        binary = os.path.join(
+            options.rootDir, options.binDir, name + debugSuffix + ".exe")
         if name == "sumo-gui":
             if os.path.exists(binary):
                 env["GUISIM_BINARY"] = binary
@@ -96,7 +98,8 @@ def runTests(options, env, svnrev, debugSuffix=""):
                (date.today().strftime("%d%b%y"), svnrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
-        runInternalTests.runInternal(debugSuffix, fullOpt, log, True, True, debugSuffix=="")
+        runInternalTests.runInternal(
+            debugSuffix, fullOpt, log, True, True, debugSuffix == "")
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)

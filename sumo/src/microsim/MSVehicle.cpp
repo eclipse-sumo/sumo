@@ -599,7 +599,7 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 // ------------ interaction with the route
 bool
 MSVehicle::hasArrived() const {
-    return (myCurrEdge == myRoute->end() - 1 
+    return (myCurrEdge == myRoute->end() - 1
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
             && myState.myPos > myArrivalPos - POSITION_EPS
             && !isRemoteControlled());
@@ -2656,7 +2656,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
 #ifdef DEBUG_BESTLANES
     if (DEBUG_COND) {
-        std::cout << "   last edge:\n"; 
+        std::cout << "   last edge:\n";
         std::vector<LaneQ>& laneQs = myBestLanes.back();
         for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
             std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
@@ -2713,7 +2713,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
 #ifdef DEBUG_BESTLANES
             if (DEBUG_COND) {
-                std::cout << "   edge=" << cE.getID() << "\n"; 
+                std::cout << "   edge=" << cE.getID() << "\n";
                 std::vector<LaneQ>& laneQs = clanes;
                 for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
                     std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
@@ -2764,7 +2764,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     updateOccupancyAndCurrentBestLane(startLane);
 #ifdef DEBUG_BESTLANES
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << getID() << " bestCont=" << toString(getBestLanesContinuation()) << "\n"; 
+        std::cout << SIMTIME << " veh=" << getID() << " bestCont=" << toString(getBestLanesContinuation()) << "\n";
     }
 #endif
     return;
@@ -3481,7 +3481,7 @@ MSVehicle::influenceChangeDecision(int state) {
 }
 
 
-void 
+void
 MSVehicle::setVTDState(Position xyPos) {
     myCachedPosition = xyPos;
 }

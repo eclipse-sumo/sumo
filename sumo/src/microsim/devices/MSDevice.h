@@ -73,7 +73,7 @@ public:
      */
     static void insertOptions(OptionsCont& oc);
 
-    /** @brief check device-specific options 
+    /** @brief check device-specific options
      * @param[filled] oc The options container with the user-defined options
      */
     static bool checkOptions(OptionsCont& oc);

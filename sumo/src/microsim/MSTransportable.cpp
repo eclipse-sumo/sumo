@@ -102,11 +102,11 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
 * MSTransportable::Stage_Waiting - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge& destination,
-    SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType,
-    const bool initial) :
+        SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType,
+        const bool initial) :
     MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
-        pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination.getID()),
-        initial ? WAITING_FOR_DEPART : WAITING),
+                               pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination.getID()),
+                           initial ? WAITING_FOR_DEPART : WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType) {
@@ -192,14 +192,14 @@ MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os) const {
 void
 MSTransportable::Stage_Waiting::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actstart " + myActType)
-        .writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
+    .writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
 void
 MSTransportable::Stage_Waiting::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actend " + myActType).writeAttr("agent", p.getID())
-        .writeAttr("link", getEdge()->getID()).closeTag();
+    .writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
@@ -220,9 +220,9 @@ MSTransportable::Stage_Waiting::getSpeed() const {
 * MSTransportable::Stage_Driving - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
-    MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
+        MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
     : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
-    myVehicle(0), myStopWaitPos(Position::INVALID) {}
+      myVehicle(0), myStopWaitPos(Position::INVALID) {}
 
 
 MSTransportable::Stage_Driving::~Stage_Driving() {}

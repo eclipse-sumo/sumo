@@ -49,7 +49,8 @@ class Connection:
         if not _embedded:
             if sys.platform.startswith('java'):
                 # working around jython 2.7.0 bug #2273
-                self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
+                self._socket = socket.socket(
+                    socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
             else:
                 self._socket = socket.socket()
             self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)

@@ -53,11 +53,11 @@ FXIMPLEMENT(GNERerouterDialog, FXDialogBox, GNERerouterDialogMap, ARRAYNUMBER(GN
 // member method definitions
 // ===========================================================================
 
-GNERerouterDialog::GNERerouterDialog(GNERerouter *rerouterParent) : 
+GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     GNEAdditionalDialog(rerouterParent, 320, 240),
     myRerouterParent(rerouterParent) {
     // Execute additional dialog (To make it modal)
-    execute(); 
+    execute();
 }
 
 
@@ -65,18 +65,18 @@ GNERerouterDialog::~GNERerouterDialog() {
 }
 
 
-long 
+long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Stop Modal
-    getApp()->stopModal(this,TRUE);
+    getApp()->stopModal(this, TRUE);
     return 1;
 }
 
 
-long 
+long
 GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal
-    getApp()->stopModal(this,TRUE);
+    getApp()->stopModal(this, TRUE);
     return 1;
 }
 
@@ -89,7 +89,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 void
 GNERerouterDialog::updateTable() {
-    
+
 }
 
 /****************************************************************************/

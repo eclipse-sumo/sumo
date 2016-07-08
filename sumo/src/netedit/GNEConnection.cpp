@@ -64,8 +64,8 @@
 // method definitions
 // ===========================================================================
 
-GNEConnection::GNEConnection(GNEEdge *edgeFrom, GNEEdge *edgeTo, GNELane *fromLane, GNELane *toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled) :
-    GNENetElement(NULL, "CHANGE", GLO_CONNECTION, SUMO_TAG_CONNECTION), 
+GNEConnection::GNEConnection(GNEEdge* edgeFrom, GNEEdge* edgeTo, GNELane* fromLane, GNELane* toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled) :
+    GNENetElement(NULL, "CHANGE", GLO_CONNECTION, SUMO_TAG_CONNECTION),
     myEdgeFrom(edgeFrom),
     myEdgeTo(edgeTo),
     myFromLane(fromLane),
@@ -81,96 +81,96 @@ GNEConnection::GNEConnection(GNEEdge *edgeFrom, GNEEdge *edgeTo, GNELane *fromLa
 GNEConnection::~GNEConnection() {}
 
 
-void 
+void
 GNEConnection::updateGeometry() {
 }
 
 
-GNEEdge *
+GNEEdge*
 GNEConnection::getEdgeFrom() {
     return myEdgeFrom;
 }
 
 
-GNEEdge *
+GNEEdge*
 GNEConnection::getEdgeTo() {
     return myEdgeTo;
 }
 
 
-GNELane *
+GNELane*
 GNEConnection::getFromLane() {
     return myFromLane;
 }
 
 
-GNELane *
+GNELane*
 GNEConnection::getToLane() {
     return myToLane;
 }
 
 
-int 
+int
 GNEConnection::getFromLaneIndex() {
     return myFromLane->getIndex();
 }
 
 
-int 
+int
 GNEConnection::getToLaneIndex() {
     return myToLane->getIndex();
 }
 
 
-bool 
+bool
 GNEConnection::getPass() {
     return myPass;
 }
 
 
-bool 
+bool
 GNEConnection::getKeepClear() {
     return myKeepClear;
 }
 
 
-SUMOReal 
+SUMOReal
 GNEConnection::getContPos() {
     return myContPos;
 }
 
 
-bool 
+bool
 GNEConnection::getUncontrolled() {
     return myUncontrolled;
 }
 
 
-void 
+void
 GNEConnection::setPass(bool pass) {
     myPass = pass;
 }
 
 
-void 
+void
 GNEConnection::setKeepClear(bool keepClear) {
     myKeepClear = keepClear;
 }
 
 
-void 
+void
 GNEConnection::setContPos(SUMOReal contPos) {
     myContPos = contPos;
 }
 
 
-void 
+void
 GNEConnection::setUncontrolled(bool uncontrolled) {
     myUncontrolled = uncontrolled ;
 }
 
 
-GUIGLObjectPopupMenu* 
+GUIGLObjectPopupMenu*
 GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // Currently ignored before implementation to avoid warnings
     UNUSED_PARAMETER(app);
@@ -179,7 +179,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-GUIParameterTableWindow* 
+GUIParameterTableWindow*
 GNEConnection::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // Currently ignored before implementation to avoid warnings
     UNUSED_PARAMETER(app);
@@ -188,20 +188,20 @@ GNEConnection::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& paren
 }
 
 
-Boundary 
-GNEConnection::getCenteringBoundary() const{
+Boundary
+GNEConnection::getCenteringBoundary() const {
     return Boundary();
 }
 
 
-void 
+void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Currently ignored before implementation to avoid warnings
     UNUSED_PARAMETER(s);
 }
 
 
-std::string 
+std::string
 GNEConnection::getAttribute(SumoXMLAttr key) const {
     // Currently ignored before implementation to avoid warnings
     UNUSED_PARAMETER(key);
@@ -209,7 +209,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
 }
 
 
-void 
+void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // Currently ignored before implementation to avoid warnings
     UNUSED_PARAMETER(key);
@@ -218,7 +218,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 }
 
 
-bool 
+bool
 GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
     // Currently ignored before implementation to avoid warnings
     UNUSED_PARAMETER(key);
@@ -227,7 +227,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
     // Currently ignored before implementation to avoid warnings
     UNUSED_PARAMETER(key);

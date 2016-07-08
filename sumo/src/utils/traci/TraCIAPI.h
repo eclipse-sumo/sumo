@@ -800,11 +800,11 @@ public:
 
     };
 
-    /** @class PersonScope     
-     * * @brief Scope for interaction with vehicles     
-     * */        
-    class PersonScope : public TraCIScopeWrapper {  
-    public:         
+    /** @class PersonScope
+     * * @brief Scope for interaction with vehicles
+     * */
+    class PersonScope : public TraCIScopeWrapper {
+    public:
         PersonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~PersonScope() {}
 
@@ -812,12 +812,12 @@ public:
         unsigned int getIDCount() const;
         SUMOReal getSpeed(const std::string& typeID) const;
         TraCIPosition getPosition(const std::string& typeID) const;
-        std::string getRoadID(const std::string& typeID) const; 
-        std::string getTypeID(const std::string& typeID) const; 
-        SUMOReal getWaitingTime(const std::string& typeID) const; 
+        std::string getRoadID(const std::string& typeID) const;
+        std::string getTypeID(const std::string& typeID) const;
+        SUMOReal getWaitingTime(const std::string& typeID) const;
         std::string getNextEdge(const std::string& typeID) const;
 
-     private:        
+    private:
         /// @brief invalidated copy constructor
         PersonScope(const PersonScope& src);
 
@@ -854,7 +854,7 @@ public:
     VehicleTypeScope vehicletype;
     /// @brief Scope for interaction with vehicles
     VehicleScope vehicle;
-    /// @brief Scope for interaction with persons    
+    /// @brief Scope for interaction with persons
     PersonScope person;
 
 
@@ -937,9 +937,9 @@ protected:
     void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
     /// @}
 
-    void readVariableSubscription(tcpip::Storage &inMsg);
-    void readContextSubscription(tcpip::Storage &inMsg);
-    void readVariables(tcpip::Storage &inMsg, const std::string &objectID, int variableCount, SubscribedValues& into);
+    void readVariableSubscription(tcpip::Storage& inMsg);
+    void readContextSubscription(tcpip::Storage& inMsg);
+    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, SubscribedValues& into);
 
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURACY) {

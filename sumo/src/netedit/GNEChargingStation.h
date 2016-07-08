@@ -46,8 +46,7 @@ class GNENet;
 // class definitions
 // ===========================================================================
 
-class GNEChargingStation : public GNEStoppingPlace
-{
+class GNEChargingStation : public GNEStoppingPlace {
 public:
     /**@brief Constructor of charging station
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -72,7 +71,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device, const std::string &);
+    void writeAdditional(OutputDevice& device, const std::string&);
 
     /**@brief Returns the charging power of the chargingStation
      * @return The charging power of the chargingStation
