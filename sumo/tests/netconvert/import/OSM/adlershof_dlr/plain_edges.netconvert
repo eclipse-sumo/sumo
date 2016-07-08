@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Fri Jul  8 15:44:51 2016 by SUMO netconvert Version dev-SVN-r21134
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -111,29 +110,29 @@
     <edge id="24214693#0" from="32266935" to="261599791" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="13.526713,52.426404 13.522632,52.426659 13.520153,52.426821" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="24214693#1" from="261599791" to="57343510" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="24214694" from="32266935" to="32266938" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="25944590#0" from="283018817" to="283018841" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="13.528563,52.430263 13.527651,52.430180 13.527333,52.430144 13.527196,52.430112" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944590#1" from="283018841" to="283018842" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944590#2" from="283018842" to="283018844" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="13.526621,52.430008 13.525737,52.429762 13.525479,52.429673" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944590#3" from="283018844" to="283018845" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944601#0" from="38919854" to="283018844" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944601#1" from="283018844" to="283018932" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944603#0" from="283018933" to="283018841" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="13.527455,52.429901 13.527367,52.430023 13.527196,52.430112" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944603#1" from="283018841" to="283018937" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944603#2" from="283018937" to="38919841" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25944605" from="283018937" to="283018842" priority="1" type="highway.footway" numLanes="1" speed="8.33" shape="13.526990,52.430269 13.526818,52.430144 13.526621,52.430008" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944590#0" from="283018817" to="283018841" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.528563,52.430263 13.527651,52.430180 13.527333,52.430144 13.527196,52.430112" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944590#1" from="283018841" to="283018842" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944590#2" from="283018842" to="283018844" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.526621,52.430008 13.525737,52.429762 13.525479,52.429673" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944590#3" from="283018844" to="283018845" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944601#0" from="38919854" to="283018844" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944601#1" from="283018844" to="283018932" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944603#0" from="283018933" to="283018841" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.527455,52.429901 13.527367,52.430023 13.527196,52.430112" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944603#1" from="283018841" to="283018937" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944603#2" from="283018937" to="38919841" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="25944605" from="283018937" to="283018842" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.526990,52.430269 13.526818,52.430144 13.526621,52.430008" spreadType="center" width="2.00" allow="pedestrian"/>
     <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway" numLanes="1" speed="5.56" width="1.00" allow="bicycle"/>
-    <edge id="26004787#0" from="283719736" to="283721344" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004787#1" from="283721344" to="283722837" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004787#2" from="283722837" to="283719904" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004861#0" from="287944369" to="283721344" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004861#1" from="283721344" to="287944368" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004861#2" from="287944368" to="283721348" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004868#0" from="283719736" to="287944369" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004868#1" from="287944369" to="283721473" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004966#0" from="283722835" to="283721473" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004966#1" from="283721473" to="283722837" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004966#2" from="283722837" to="287944368" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="26004966#3" from="287944368" to="283720461" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004787#0" from="283719736" to="283721344" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004787#1" from="283721344" to="283722837" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004787#2" from="283722837" to="283719904" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004861#0" from="287944369" to="283721344" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004861#1" from="283721344" to="287944368" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004861#2" from="287944368" to="283721348" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004868#0" from="283719736" to="287944369" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004868#1" from="287944369" to="283721473" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004966#0" from="283722835" to="283721473" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004966#1" from="283721473" to="283722837" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004966#2" from="283722837" to="287944368" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="26004966#3" from="287944368" to="283720461" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
     <edge id="26816413#0" from="56231597" to="294168710" priority="2" type="highway.service" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian"/>
     <edge id="26816413#1" from="294168710" to="294168098" priority="2" type="highway.service" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian"/>
     <edge id="26816541" from="294168098" to="294168710" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="13.527938,52.428223 13.527472,52.428271 13.527532,52.428533 13.527841,52.428606 13.528214,52.428384" spreadType="center" allow="delivery bicycle pedestrian"/>
@@ -222,6 +221,6 @@
     <edge id="7727483#1" from="294169342" to="261647692" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="7727483#2" from="261647692" to="261647702" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.526868,52.427845 13.526822,52.427416 13.526777,52.426999 13.526758,52.426821" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="7727483#3" from="261647702" to="32266935" name="Wegedornstraße" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="7730463" from="56242425" to="36268408" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="7730463" from="56242425" to="36268408" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
     <edge id="7730464" from="56242441" to="56231598" priority="6" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship"/>
 </edges>

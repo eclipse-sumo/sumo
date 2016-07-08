@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:42:14 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Fri Jul  8 15:44:52 2016 by SUMO netconvert Version dev-SVN-r21134
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -28,13 +27,13 @@
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="8.33" allow="bus" oneway="1"/>
     <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
-    <type id="highway.footway" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
     <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.motorway" priority="13" numLanes="2" speed="44.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="bicycle pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.pedestrian" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="9" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.primary_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.raceway" priority="14" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
@@ -156,7 +155,7 @@
         <lane id="319539204#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="350.28" shape="1544.49,2691.19 1553.22,2730.54 1557.28,2748.82 1586.30,2879.58 1587.90,2886.82 1589.37,2892.95 1596.42,2923.66 1603.31,2957.55 1620.18,3033.19"/>
     </edge>
     <edge id="54844571" from="2032008711" to="837697592" priority="1" type="highway.footway" spreadType="center">
-        <lane id="54844571_0" index="0" allow="pedestrian" speed="8.33" length="49.53" width="2.00" shape="1535.06,2618.98 1582.88,2606.05"/>
+        <lane id="54844571_0" index="0" allow="pedestrian" speed="2.78" length="49.53" width="2.00" shape="1535.06,2618.98 1582.88,2606.05"/>
     </edge>
     <edge id="69607668" from="833044434" to="833045069" priority="2" type="highway.service">
         <lane id="69607668_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="12.76" shape="1549.62,2683.59 1562.21,2681.50"/>

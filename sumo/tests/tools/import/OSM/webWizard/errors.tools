@@ -320,3 +320,4 @@ Warning: Could not build program '0' for traffic light 'GS_2425782615'
 Warning: Connection '196844848_0->25946685#2_0' is only 0.09 short.
 Warning: Connection '196844845_0->29384660#1_0' is only 0.09 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Missing yellow phase in tlLogic '310069196', program '0' for tl-index 0 when switching to phase 1
