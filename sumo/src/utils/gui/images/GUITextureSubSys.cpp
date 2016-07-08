@@ -179,6 +179,8 @@ GUITextureSubSys::getGif(GUITexture which) {
             case GNETEXTURE_VARIABLESPEEDSIGNALSELECTED : 
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSignalSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
+            default:
+                throw ProcessError("Undefined texture");
         }
 
     }

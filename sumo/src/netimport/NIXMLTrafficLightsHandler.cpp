@@ -320,7 +320,7 @@ int
 NIXMLTrafficLightsHandler::retrieveLaneIndex(
     const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok) {
     int laneIndex = attrs.get<int>(attr, 0, ok);
-    if (edge->getNumLanes() <= (size_t) laneIndex) {
+    if (edge->getNumLanes() <= laneIndex) {
         WRITE_ERROR("Invalid lane index '" + toString(laneIndex) + "' for edge '" + edge->getID() + "'.");
         ok = false;
     }
