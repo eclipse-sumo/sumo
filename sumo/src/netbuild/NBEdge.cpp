@@ -1795,7 +1795,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
             // avoid building more connections than the edge has viable lanes (earlier
             // ones have precedence). This is necessary when running divideSelectedLanesOnEdges more than once.
             //    @todo To decide which target lanes are still available we need to do a
-            // preliminary lane-to-lane assignment in regard to permisions (rather than to ordering)
+            // preliminary lane-to-lane assignment in regard to permissions (rather than to ordering)
             const int numConsToTarget = (int)count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true));
             int targetLanes = (int)target->getNumLanes();
             if (target->getPermissions(0) == SVC_PEDESTRIAN) {
@@ -2240,6 +2240,15 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
     // do not create self loops
     if (myFrom == possContinuation->myTo) {
         return false;
+    }
+    // matching lanes must have identical properties
+    for (unsigned int i = 0; i < myLanes.size(); i++) {
+        if (myLanes[i].speed != possContinuation->myLanes[i].speed ||
+                myLanes[i].permissions != possContinuation->myLanes[i].permissions ||
+                myLanes[i].width != possContinuation->myLanes[i].width
+           ) {
+            return false;
+        }
     }
 
     // the vehicle class constraints, too
