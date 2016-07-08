@@ -305,10 +305,24 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
         case 0:
             // ambiguous
             return "none";
+        case SVC_RAIL:
+        case SVC_RAIL_URBAN:
+        case SVC_RAIL_ELECTRIC:
+            return "rail";
         case SVC_TRAM:
             return "tram";
-        default:
-            return "driving";
+        default: {
+            // complex permissions
+            if (permissions == SVCAll) {
+                return "driving";
+            } else if (isRailway(permissions)) {
+                return "rail";
+            } else if ((permissions & SVC_PASSENGER) != 0) {
+                return "driving";
+            } else {
+                return "restricted";
+            }
+        }
     }
 }
 
