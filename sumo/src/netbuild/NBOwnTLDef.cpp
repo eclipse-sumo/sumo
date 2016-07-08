@@ -687,7 +687,7 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, unsigned int noLin
                     }
                 }
                 // add yellow step
-                if (needYellowPhase) {
+                if (needYellowPhase && brakingTime > 0) {
                     logic->addStep(brakingTime, state);
                 }
             }
