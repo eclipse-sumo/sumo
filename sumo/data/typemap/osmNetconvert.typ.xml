@@ -18,8 +18,8 @@
     <type id="highway.unsurfaced"     numLanes="1" speed="8.33"  priority="1"  oneway="false" disallow="rail rail_urban rail_electric tram ship"/>
 
     <!-- everything which serves mainly pedestrians is oneway because all current pedestrian models do not care about direction -->
-    <type id="highway.footway"        numLanes="1" speed="8.33"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
-    <type id="highway.pedestrian"     numLanes="1" speed="8.33"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
+    <type id="highway.footway"        numLanes="1" speed="2.78"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
+    <type id="highway.pedestrian"     numLanes="1" speed="2.78"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
     <type id="highway.path"           numLanes="1" speed="2.78"  priority="1"  oneway="true"  width="2" allow="pedestrian bicycle"/>
     <type id="highway.bridleway"      numLanes="1" speed="2.78"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
     <type id="highway.cycleway"       numLanes="1" speed="5.56"  priority="1"  oneway="false" width="1" allow="bicycle"/>
