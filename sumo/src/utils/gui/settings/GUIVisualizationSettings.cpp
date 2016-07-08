@@ -709,7 +709,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     drawLinkTLIndex.print(dev, "drawLinkTLIndex");
     dev.lf();
     dev << "                  ";
-    drawLinkTLIndex.print(dev, "drawLinkJunctionIndex");
+    drawLinkJunctionIndex.print(dev, "drawLinkJunctionIndex");
     dev.lf();
     dev << "                  ";
     junctionName.print(dev, "junctionName");
