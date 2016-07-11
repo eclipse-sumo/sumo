@@ -1053,6 +1053,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         if (additional->getAdditionalSetParent() != NULL) {
             additional->getAdditionalSetParent()->addAdditionalChild(additional);
         }
+        update();
     }
 }
 
@@ -1069,6 +1070,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         if (additional->getAdditionalSetParent() != NULL) {
             additional->getAdditionalSetParent()->removeAdditionalChild(additional);
         }
+        update();
     }
 }
 

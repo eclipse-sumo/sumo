@@ -713,12 +713,14 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
         ok = true;
     }
     // Load rest of parameters
+    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1), false);
+    const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f, false);
     const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0, false);
     const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0, false);
     // Continue if all parameters were sucesfully loaded
     if (ok) {
         // if operation of build detector E3 was sucesfully, save Id
-        if (buildDetectorE3(myViewNet, id, Position(posx, posy), frequency, file, false)) {
+        if (buildDetectorE3(myViewNet, id, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold, false)) {
             myAdditionalSetParent = id;
         }
     }
@@ -884,9 +886,11 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             int freq = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_FREQUENCY]);
             std::string filename = values[SUMO_ATTR_FILE];
+            int timeThreshold = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_HALTING_TIME_THRESHOLD]);
+            SUMOReal speedThreshold = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_HALTING_SPEED_THRESHOLD]);
             // Build detector E3
             if (pos.size() == 1) {
-                return buildDetectorE3(viewNet, id, pos[0], freq, filename, blocked);
+                return buildDetectorE3(viewNet, id, pos[0], freq, filename, timeThreshold, speedThreshold, blocked);
             } else {
                 return false;
             }
@@ -1085,10 +1089,10 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id, Position pos, int freq, const std::string& filename, bool blocked) {
+GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id, Position pos, int freq, const std::string& filename, SUMOTime timeThreshold, SUMOReal speedThreshold, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
-        GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, blocked);
+        GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, timeThreshold, speedThreshold, blocked);
         viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), detectorE3, true), true);
         viewNet->getUndoList()->p_end();
         return true;

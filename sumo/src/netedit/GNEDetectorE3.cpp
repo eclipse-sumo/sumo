@@ -64,11 +64,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, int freq, const std::string& filename, bool blocked) :
+GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, int freq, const std::string& filename, SUMOTime timeThreshold, SUMOReal speedThreshold, bool blocked) :
     GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_E3DETECTOR, blocked),
     myFreq(freq),
     myFilename(filename),
-    myCounterId(0) {
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold) {
     // Update geometry;
     updateGeometry();
     // Set colors
@@ -135,6 +136,8 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
         if (!myFilename.empty()) {
             device.writeAttr(SUMO_ATTR_FILE, myFilename);
         }
+        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
+        device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
         device.writeAttr(SUMO_ATTR_X, myPosition.x());
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
         // Write childs of this element
@@ -199,6 +202,10 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
             return toString(myFreq);
         case SUMO_ATTR_FILE:
             return myFilename;
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
+            return toString(myTimeThreshold);
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+            return toString(mySpeedThreshold);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -215,6 +222,8 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -240,8 +249,11 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
-        case SUMO_ATTR_LINES:
-            return isValidStringVector(value);
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
+            // @ToDo SUMOTIME
+            return canParse<int>(value);
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+            return canParse<SUMOReal>(value); 
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -265,6 +277,13 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
+            break;
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
+            // @todo SUMOTIME
+            myTimeThreshold = parse<int>(value);
+            break;
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+            mySpeedThreshold = parse<SUMOReal>(value);
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

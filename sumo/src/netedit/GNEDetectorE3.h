@@ -53,9 +53,11 @@ public:
      * @param[in] pos position (center) of the detector in the map
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file
+     * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
+     * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] blocked set initial blocking state of item
      */
-    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, int freq, const std::string& filename, bool blocked);
+    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, int freq, const std::string& filename, SUMOTime timeThreshold, SUMOReal speedThreshold, bool blocked);
 
     /// @brief GNEDetectorE3 6Destructor
     ~GNEDetectorE3();
@@ -122,8 +124,11 @@ protected:
     /// @brief fielname of E3 detector
     std::string myFilename;
 
-    /// @brief counter for Id's of GNEDetectorE3EntryExit
-    int myCounterId;
+    /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
+    SUMOTime myTimeThreshold;
+
+    /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+    SUMOReal mySpeedThreshold;
 
     /// @brief vector with the GNEDetectorE3EntryExits of the detector
     std::vector<GNEDetectorE3EntryExit*> myGNEDetectorE3EntryExits;

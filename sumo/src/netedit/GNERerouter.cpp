@@ -403,7 +403,7 @@ GNERerouter::getPositionInView() const {
 
 void
 GNERerouter::openAdditionalDialog() {
-    GNERerouterDialog rerouterDialog(this);
+    //GNERerouterDialog rerouterDialog(this);
 }
 
 
