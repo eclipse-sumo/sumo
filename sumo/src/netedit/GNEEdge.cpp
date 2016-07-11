@@ -755,10 +755,6 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         myLanes[i]->setIndex(i);
     }
-    // Add references to this lane in additionalSets
-    for (std::vector<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++) {
-        (*i)->addLaneChild(lane);
-    }
     /* while technically correct, this looks ugly
     getSource()->invalidateShape();
     getDest()->invalidateShape();
@@ -774,10 +770,6 @@ GNEEdge::removeLane(GNELane* lane) {
     }
     if (lane == 0) {
         lane = myLanes.back();
-    }
-    // Remove additionalSets vinculated with this Lane
-    for (std::vector<GNEAdditionalSet*>::const_iterator i = lane->getAdditionalSets().begin(); i != lane->getAdditionalSets().end(); i++) {
-        (*i)->removeLaneChild(lane);
     }
     myNBEdge.deleteLane(lane->getIndex());
     lane->decRef("GNEEdge::removeLane");

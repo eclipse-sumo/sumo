@@ -32,6 +32,8 @@
 
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
+#include <vector>
+#include <map>
 #include "GNEChange.h"
 
 // ===========================================================================
@@ -39,6 +41,8 @@
 // ===========================================================================
 class GNENet;
 class GNEEdge;
+class GNELane;
+class GNEAdditionalSet;
 
 // ===========================================================================
 // class definitions
@@ -48,6 +52,7 @@ class GNEEdge;
  * A network change in which a single edge is created or deleted
  */
 class GNEChange_Edge : public GNEChange {
+    // @brief FOX Declaration
     FXDECLARE_ABSTRACT(GNEChange_Edge)
 
 public:
@@ -79,9 +84,15 @@ public:
 
 private:
     /**@brief full information regarding the edge that is to be created/deleted
-     * we assume shared responsibility for the pointer (via reference counting)
+     * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEEdge* myEdge;
+
+    /// @brief additional sets vinculated with this edge
+    std::vector<GNEAdditionalSet*> myAdditionalSetsEdge;
+
+    /// @brief additional sets vinculated with the lanes of edge
+    std::map<GNELane*, std::vector<GNEAdditionalSet*> > myAdditionalSetsLanes;
 };
 
 #endif

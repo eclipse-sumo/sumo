@@ -40,6 +40,7 @@
 // ===========================================================================
 class GNEEdge;
 class GNELane;
+class GNEAdditionalSet;
 
 // ===========================================================================
 // class definitions
@@ -80,10 +81,6 @@ public:
 
 
 private:
-    /**@brief full information regarding the lane that is to be created/deleted
-     * we assume shared responsibility for the pointers (via reference counting)
-     */
-
     /// @brief we need the edge because it is the target of our change commands
     GNEEdge* myEdge;
 
@@ -92,6 +89,9 @@ private:
 
     /// @brief we need to preserve the attributes explicitly because they are not contained withing GNELane itself
     const NBEdge::Lane myLaneAttrs;
+
+    /// @brief additional sets vinculated with this lane
+    std::vector<GNEAdditionalSet*> myAdditionalSets;
 };
 
 #endif

@@ -1043,10 +1043,13 @@ GNENet::getShapeContainer() {
 
 
 void
-GNENet::insertAdditional(GNEAdditional* additional) {
+GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
     // Check if additional element exists before insertion
     if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {
-        throw ProcessError("additional element with ID='" + additional->getID() + "' already exist");
+        // Throw exception only if hardFail is enabled
+        if(hardFail) {
+            throw ProcessError("additional element with ID='" + additional->getID() + "' already exist");
+        }
     } else {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
@@ -1151,10 +1154,6 @@ GNENet::insertEdge(GNEEdge* edge) {
     // rewire the nodes
     nbe->getFromNode()->addOutgoingEdge(nbe);
     nbe->getToNode()->addIncomingEdge(nbe);
-    // Add references to this edge in additionalSets
-    for (std::vector<GNEAdditionalSet*>::const_iterator i = edge->getAdditionalSets().begin(); i != edge->getAdditionalSets().end(); i++) {
-        (*i)->addEdgeChild(edge);
-    }
     registerEdge(edge);
 }
 
@@ -1201,9 +1200,7 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
 
 void
 GNENet::deleteSingleEdge(GNEEdge* edge) {
-    for (std::vector<GNEAdditionalSet*>::const_iterator i = edge->getAdditionalSets().begin(); i != edge->getAdditionalSets().end(); i++) {
-        (*i)->removeEdgeChild(edge);
-    }
+
     myGrid.removeAdditionalGLObject(edge);
     myEdges.erase(edge->getMicrosimID());
     myNetBuilder->getEdgeCont().extract(

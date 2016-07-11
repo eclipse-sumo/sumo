@@ -360,7 +360,7 @@ GNEAdditionalSet::setEdgeChilds(std::vector<GNEEdge*> edges) {
     myChildEdges.clear();
     // Iterate over vector of new edges
     for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
-        (*i)->addAdditional(this);
+        (*i)->addAdditionalSet(this);
         addEdgeChild(*i);
     }
     // Update geometry
@@ -378,7 +378,7 @@ GNEAdditionalSet::setLaneChilds(std::vector<GNELane*> lanes) {
     myChildLanes.clear();
     // Iterate over vector of new lanes
     for (std::vector<GNELane*>::iterator i = lanes.begin(); i != lanes.end(); i++) {
-        (*i)->addAdditional(this);
+        (*i)->addAdditionalSet(this);
         addLaneChild(*i);
     }
     // Update geometry

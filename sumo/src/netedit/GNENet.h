@@ -379,8 +379,9 @@ public:
 
     /**@brief Insert a additional element previously created in GNEAdditionalHandler
      * @param[in] additional pointer to the additional element to add
+     * @param[in] hardFail enable or disable exception if additional to insert is duplicated
      */
-    void insertAdditional(GNEAdditional* additional);
+    void insertAdditional(GNEAdditional* additional, bool hardFail = true);
 
     /**@brief delete additional element previously inserted
      * @param[in] additional The additional element to remove
