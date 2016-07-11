@@ -225,6 +225,7 @@
             <xsd:element name="game" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="start" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

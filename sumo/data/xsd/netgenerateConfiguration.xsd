@@ -124,6 +124,7 @@
     <xsd:complexType name="processingType">
         <xsd:all>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="numerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.tls" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-left-connections" type="boolOptionType" minOccurs="0"/>

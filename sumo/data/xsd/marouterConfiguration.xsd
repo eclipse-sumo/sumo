@@ -36,6 +36,7 @@
         <xsd:all>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netload-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="all-pairs-output" type="fileOptionType" minOccurs="0"/>

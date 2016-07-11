@@ -83,7 +83,7 @@
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="fill" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="layer" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="layer" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="discard" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

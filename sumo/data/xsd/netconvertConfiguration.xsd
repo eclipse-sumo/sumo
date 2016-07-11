@@ -171,6 +171,7 @@
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="numerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="dismiss-vclasses" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.tls" type="boolOptionType" minOccurs="0"/>
@@ -198,6 +199,7 @@
             <xsd:element name="junctions.join-exclude" type="strOptionType" minOccurs="0"/>
             <xsd:element name="speed.offset" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed.factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="speed.minimum" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
