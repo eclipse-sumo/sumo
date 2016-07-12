@@ -31,10 +31,15 @@
 #include <config.h>
 #endif
 
+#include "PositionVector.h"
 
 /* Bezier curve subroutine */
 void
 bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]);
+
+
+PositionVector
+bezier(const PositionVector& init, int numPoints);
 
 
 #endif

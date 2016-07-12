@@ -50,6 +50,8 @@
 
 #include <math.h>
 #include <iostream>
+#include <utils/common/StdDefs.h>
+#include "PositionVector.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -132,6 +134,30 @@ bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]) {
 }
 
 
+PositionVector
+bezier(const PositionVector& init, int numPoints) {
+    PositionVector ret;
+    SUMOReal* def = new SUMOReal[1 + (int)init.size() * 3];
+    for (int i = 0; i < (int)init.size(); ++i) {
+        // starts at index 1
+        def[i * 3 + 1] = init[i].x();
+        def[i * 3 + 2] = 0;
+        def[i * 3 + 3] = init[i].y();
+    }
+    SUMOReal* ret_buf = new SUMOReal[numPoints * 3 + 1];
+    bezier((int)init.size(), def, numPoints, ret_buf);
+    delete[] def;
+    Position prev;
+    for (int i = 0; i < (int)numPoints; i++) {
+        Position current(ret_buf[i * 3 + 1], ret_buf[i * 3 + 3], init[0].z());
+        if (prev != current && !ISNAN(current.x()) && !ISNAN(current.y())) {
+            ret.push_back(current);
+        }
+        prev = current;
+    }
+    delete[] ret_buf;
+    return ret;
+}
 
 /****************************************************************************/
 
