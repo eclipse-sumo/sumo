@@ -98,6 +98,7 @@ protected:
         OPENDRIVE_TAG_SPIRAL,
         OPENDRIVE_TAG_ARC,
         OPENDRIVE_TAG_POLY3,
+        OPENDRIVE_TAG_PARAMPOLY3,
         OPENDRIVE_TAG_LANESECTION,
         OPENDRIVE_TAG_LEFT,
         OPENDRIVE_TAG_CENTER,
@@ -139,6 +140,15 @@ protected:
         OPENDRIVE_ATTR_B,
         OPENDRIVE_ATTR_C,
         OPENDRIVE_ATTR_D,
+        OPENDRIVE_ATTR_AU,
+        OPENDRIVE_ATTR_BU,
+        OPENDRIVE_ATTR_CU,
+        OPENDRIVE_ATTR_DU,
+        OPENDRIVE_ATTR_AV,
+        OPENDRIVE_ATTR_BV,
+        OPENDRIVE_ATTR_CV,
+        OPENDRIVE_ATTR_DV,
+        OPENDRIVE_ATTR_PRANGE,
         OPENDRIVE_ATTR_TYPE,
         OPENDRIVE_ATTR_LEVEL,
         OPENDRIVE_ATTR_ORIENTATION,
@@ -185,7 +195,8 @@ protected:
         OPENDRIVE_GT_LINE,
         OPENDRIVE_GT_SPIRAL,
         OPENDRIVE_GT_ARC,
-        OPENDRIVE_GT_POLY3
+        OPENDRIVE_GT_POLY3,
+        OPENDRIVE_GT_PARAMPOLY3 // rev 1.4
     };
 
 
@@ -532,6 +543,7 @@ protected:
     static PositionVector geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g);
     static PositionVector geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g);
     static PositionVector geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static PositionVector geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
     static Position calculateStraightEndPoint(double hdg, double length, const Position& start);
     static void calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg);
     static void calcPointOnCurve(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,

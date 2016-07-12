@@ -80,6 +80,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "spiral",           NIImporter_OpenDrive::OPENDRIVE_TAG_SPIRAL },
     { "arc",              NIImporter_OpenDrive::OPENDRIVE_TAG_ARC },
     { "poly3",            NIImporter_OpenDrive::OPENDRIVE_TAG_POLY3 },
+    { "paramPoly3",       NIImporter_OpenDrive::OPENDRIVE_TAG_PARAMPOLY3 },
     { "laneSection",      NIImporter_OpenDrive::OPENDRIVE_TAG_LANESECTION },
     { "left",             NIImporter_OpenDrive::OPENDRIVE_TAG_LEFT },
     { "center",           NIImporter_OpenDrive::OPENDRIVE_TAG_CENTER },
@@ -117,6 +118,15 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "b",              NIImporter_OpenDrive::OPENDRIVE_ATTR_B },
     { "c",              NIImporter_OpenDrive::OPENDRIVE_ATTR_C },
     { "d",              NIImporter_OpenDrive::OPENDRIVE_ATTR_D },
+    { "aU",             NIImporter_OpenDrive::OPENDRIVE_ATTR_AU },
+    { "bU",             NIImporter_OpenDrive::OPENDRIVE_ATTR_BU },
+    { "cU",             NIImporter_OpenDrive::OPENDRIVE_ATTR_CU },
+    { "dU",             NIImporter_OpenDrive::OPENDRIVE_ATTR_DU },
+    { "aV",             NIImporter_OpenDrive::OPENDRIVE_ATTR_AV },
+    { "bV",             NIImporter_OpenDrive::OPENDRIVE_ATTR_BV },
+    { "cV",             NIImporter_OpenDrive::OPENDRIVE_ATTR_CV },
+    { "dV",             NIImporter_OpenDrive::OPENDRIVE_ATTR_DV },
+    { "pRange",         NIImporter_OpenDrive::OPENDRIVE_ATTR_PRANGE },
     { "type",           NIImporter_OpenDrive::OPENDRIVE_ATTR_TYPE },
     { "level",          NIImporter_OpenDrive::OPENDRIVE_ATTR_LEVEL },
     { "orientation",    NIImporter_OpenDrive::OPENDRIVE_ATTR_ORIENTATION },
@@ -814,6 +824,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 case OPENDRIVE_GT_POLY3:
                     geom = geomFromPoly(e, g);
                     break;
+                case OPENDRIVE_GT_PARAMPOLY3:
+                    geom = geomFromParamPoly(e, g);
+                    break;
                 default:
                     break;
             }
@@ -990,12 +1003,32 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
 PositionVector
 NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
+    const SUMOReal s = sin(g.hdg);
+    const SUMOReal c = cos(g.hdg);
     PositionVector ret;
     for (SUMOReal off = 0; off < g.length + 2.; off += 2.) {
         SUMOReal x = off;
         SUMOReal y = g.params[0] + g.params[1] * off + g.params[2] * pow(off, 2.) + g.params[3] * pow(off, 3.);
-        SUMOReal s = sin(g.hdg);
-        SUMOReal c = cos(g.hdg);
+        SUMOReal xnew = x * c - y * s;
+        SUMOReal ynew = x * s + y * c;
+        ret.push_back(Position(g.x + xnew, g.y + ynew));
+    }
+    return ret.getSubpart2D(0, g.length);
+}
+
+
+PositionVector
+NIImporter_OpenDrive::geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
+    UNUSED_PARAMETER(e);
+    const SUMOReal s = sin(g.hdg);
+    const SUMOReal c = cos(g.hdg);
+    const SUMOReal pMax = g.params[8];
+    // import with 2m resolution
+    const SUMOReal pStep = pMax / ceil(g.length / 2.0);
+    PositionVector ret;
+    for (SUMOReal p = 0; p < pMax + pStep; p += pStep) {
+        SUMOReal x = g.params[0] + g.params[1] * p + g.params[2] * pow(p, 2.) + g.params[3] * pow(p, 3.);
+        SUMOReal y = g.params[4] + g.params[5] * p + g.params[6] * pow(p, 2.) + g.params[7] * pow(p, 3.);
         SUMOReal xnew = x * c - y * s;
         SUMOReal ynew = x * s + y * c;
         ret.push_back(Position(g.x + xnew, g.y + ynew));
@@ -1355,6 +1388,20 @@ NIImporter_OpenDrive::myStartElement(int element,
             vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_C, myCurrentEdge.id.c_str(), ok));
             vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_D, myCurrentEdge.id.c_str(), ok));
             addGeometryShape(OPENDRIVE_GT_POLY3, vals);
+        }
+        break;
+        case OPENDRIVE_TAG_PARAMPOLY3: {
+            std::vector<SUMOReal> vals;
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_AU, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_BU, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_CU, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_DU, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_AV, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_BV, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_CV, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.get<SUMOReal>(OPENDRIVE_ATTR_DV, myCurrentEdge.id.c_str(), ok));
+            vals.push_back(attrs.getOpt<SUMOReal>(OPENDRIVE_ATTR_PRANGE, myCurrentEdge.id.c_str(), ok, 1.0, false));
+            addGeometryShape(OPENDRIVE_GT_PARAMPOLY3, vals);
         }
         break;
         case OPENDRIVE_TAG_LANESECTION: {
