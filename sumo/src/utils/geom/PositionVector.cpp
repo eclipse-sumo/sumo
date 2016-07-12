@@ -522,6 +522,12 @@ PositionVector::add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff) {
 
 
 void
+PositionVector::add(const Position& offset) {
+    add(offset.x(), offset.y(), offset.z());
+}
+
+
+void
 PositionVector::mirrorX() {
     for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i].mul(1, -1);
@@ -789,6 +795,25 @@ PositionVector::insertAtClosest(const Position& p) {
     }
     insert(begin() + insertionIndex, p);
     return insertionIndex;
+}
+
+
+int
+PositionVector::removeClosest(const Position& p) {
+    if (size() == 0) {
+        return -1;
+    }
+    SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
+    int removalIndex = 0;
+    for (int i = 0; i < (int)size(); i++) {
+        const SUMOReal dist = p.distanceTo2D((*this)[i]);
+        if (dist < minDist) {
+            removalIndex = i;
+            minDist = dist;
+        }
+    }
+    erase(begin() + removalIndex);
+    return removalIndex;
 }
 
 
@@ -1125,6 +1150,20 @@ PositionVector::intersects(const Position& p11, const Position& p12, const Posit
     return true;
 }
 
+
+void 
+PositionVector::rotate2D(SUMOReal angle) {
+    const SUMOReal s = sin(angle);
+    const SUMOReal c = cos(angle);
+    for (int i = 0; i < (int)size(); i++) {
+        const SUMOReal x = (*this)[i].x();
+        const SUMOReal y = (*this)[i].y();
+        const SUMOReal z = (*this)[i].z();
+        const SUMOReal xnew = x * c - y * s;
+        const SUMOReal ynew = x * s + y * c;
+        (*this)[i].set(xnew, ynew, z);
+    }
+}
 
 /****************************************************************************/
 

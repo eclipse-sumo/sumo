@@ -224,8 +224,14 @@ public:
     //// @brief add a position
     void add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff);
 
+    //// @brief add a position
+    void add(const Position& offset);
+
     //// @brief mirror coordinates along the x-axis
     void mirrorX();
+
+    //// @brief rotate all points around (0,0) in the plane by the given angle
+    void rotate2D(SUMOReal angle);
 
     //// @brief get a convex Hull of position vector
     PositionVector convexHull() const;
@@ -268,6 +274,9 @@ public:
 
     /// @brief inserts p between the two closest positions and returns the insertion index
     int insertAtClosest(const Position& p);
+
+    /// @brief removes the point closest to p and return the removal index
+    int removeClosest(const Position& p);
 
     /// @brief comparing operation
     bool operator==(const PositionVector& v2) const;
