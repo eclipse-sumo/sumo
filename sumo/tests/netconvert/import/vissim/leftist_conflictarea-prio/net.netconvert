@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:29 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:31:55 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,13 +32,13 @@
     <location netOffset="-975.72,68.20" convBoundary="0.00,0.00,55.85,70.00" origBoundary="975.72,-68.20,1031.57,1.80" projParameter="!"/>
 
     <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" speed="13.89" length="15.84" shape="55.52,26.21 55.48,30.09 55.47,34.13 55.46,38.17 55.45,42.05"/>
+        <lane id=":0_0_0" index="0" speed="13.89" length="15.84" shape="55.52,26.21 55.45,42.05"/>
     </edge>
     <edge id=":0_1" function="internal">
-        <lane id=":0_1_0" index="0" speed="13.89" length="10.07" shape="55.52,26.21 55.04,31.78 53.76,35.75 53.56,35.98"/>
+        <lane id=":0_1_0" index="0" speed="13.89" length="10.05" shape="55.52,26.21 55.04,31.78 53.76,35.75 53.57,35.97"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" speed="13.89" length="5.84" shape="53.56,35.98 51.69,38.14 48.81,38.93"/>
+        <lane id=":0_6_0" index="0" speed="13.89" length="5.86" shape="53.57,35.97 51.69,38.14 48.81,38.93"/>
     </edge>
     <edge id=":0_2" function="internal">
         <lane id=":0_2_0" index="0" speed="13.89" length="10.49" shape="48.82,35.43 50.18,34.85 51.16,33.11 51.78,30.22 52.02,26.16"/>
@@ -50,7 +50,7 @@
         <lane id=":0_4_0" index="0" speed="13.89" length="4.98" shape="51.95,41.96 51.76,40.64 51.17,39.69 50.19,39.12 48.81,38.93"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="13.89" length="15.80" shape="51.95,41.96 51.96,38.09 51.97,34.06 51.98,30.04 52.02,26.16"/>
+        <lane id=":0_5_0" index="0" speed="13.89" length="15.80" shape="51.95,41.96 52.02,26.16"/>
     </edge>
 
     <edge id="1" from="1-begin" to="0" priority="-1" type="1" spreadType="center" shape="0.01,35.32 47.99,35.43">
@@ -87,7 +87,7 @@
     <junction id="6-end" type="unregulated" x="52.35" y="0.00" incLanes="6_0" intLanes="" shape="50.75,-0.02 53.95,0.02"/>
     <junction id="7-begin" type="unregulated" x="51.85" y="69.68" incLanes="" intLanes="" shape="53.45,69.69 50.25,69.68"/>
 
-    <junction id=":0_6_0" type="internal" x="53.56" y="35.98" incLanes=":0_1_0" intLanes=":0_3_0 :0_4_0 :0_5_0"/>
+    <junction id=":0_6_0" type="internal" x="53.57" y="35.97" incLanes=":0_1_0" intLanes=":0_3_0 :0_4_0 :0_5_0"/>
 
     <connection from="1" to="6" fromLane="0" toLane="0" via=":0_2_0" dir="r" state="M"/>
     <connection from="1" to="4" fromLane="0" toLane="0" via=":0_3_0" dir="l" state="M"/>

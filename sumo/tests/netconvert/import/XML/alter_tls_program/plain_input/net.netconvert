@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  8 16:48:24 2016 by SUMO netconvert Version dev-SVN-r20924
+<!-- generated on Tue Jul 12 16:31:54 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -70,14 +70,14 @@
         <lane id=":m1_0_0" index="0" speed="13.89" length="3.00" shape="51.38,191.10 48.39,190.89"/>
     </edge>
     <edge id=":m1_1" function="internal">
-        <lane id=":m1_1_0" index="0" speed="13.89" length="4.90" shape="48.62,187.60 52.08,181.23"/>
-        <lane id=":m1_1_1" index="1" speed="13.89" length="4.90" shape="48.62,187.60 51.85,184.52"/>
-        <lane id=":m1_1_2" index="2" speed="13.89" length="4.90" shape="48.62,187.60 51.61,187.81"/>
+        <lane id=":m1_1_0" index="0" speed="13.89" length="5.21" shape="48.62,187.60 50.18,186.67 50.35,184.41 50.52,182.15 52.08,181.23"/>
+        <lane id=":m1_1_1" index="1" speed="13.89" length="5.21" shape="48.62,187.60 51.85,184.52"/>
+        <lane id=":m1_1_2" index="2" speed="13.89" length="5.21" shape="48.62,187.60 51.61,187.81"/>
     </edge>
     <edge id=":m2_0" function="internal">
-        <lane id=":m2_0_0" index="0" speed="13.89" length="4.90" shape="351.38,212.40 347.92,218.77"/>
-        <lane id=":m2_0_1" index="1" speed="13.89" length="4.90" shape="351.38,212.40 348.15,215.48"/>
-        <lane id=":m2_0_2" index="2" speed="13.89" length="4.90" shape="351.38,212.40 348.39,212.19"/>
+        <lane id=":m2_0_0" index="0" speed="13.89" length="5.21" shape="351.38,212.40 349.82,213.33 349.65,215.59 349.48,217.85 347.92,218.77"/>
+        <lane id=":m2_0_1" index="1" speed="13.89" length="5.21" shape="351.38,212.40 348.15,215.48"/>
+        <lane id=":m2_0_2" index="2" speed="13.89" length="5.21" shape="351.38,212.40 348.39,212.19"/>
     </edge>
     <edge id=":m2_3" function="internal">
         <lane id=":m2_3_0" index="0" speed="13.89" length="3.00" shape="348.62,208.90 351.61,209.11"/>

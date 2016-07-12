@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:39 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:32:02 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,7 +42,7 @@
         <lane id=":635894914_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="4.82" shape="664.57,0.29 665.16,-1.08 665.90,-1.62 666.79,-1.36 667.81,-0.29"/>
     </edge>
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="25.50" shape="692.79,572.85 692.79,567.46 693.00,560.10 693.23,552.75 693.28,547.36"/>
+        <lane id=":C_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="25.50" shape="692.79,572.85 693.28,547.36"/>
     </edge>
     <edge id=":C_1" function="internal">
         <lane id=":C_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="25.63" shape="692.79,572.85 692.90,563.71 694.15,556.82 696.55,552.20 700.11,549.83"/>
@@ -66,7 +66,7 @@
         <lane id=":C_7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="5.35" shape="696.58,547.27 696.83,548.78 697.51,549.70 698.60,550.06 700.11,549.83"/>
     </edge>
     <edge id=":C_8" function="internal">
-        <lane id=":C_8_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="25.43" shape="696.58,547.27 696.52,552.65 696.30,559.98 696.09,567.32 696.09,572.70"/>
+        <lane id=":C_8_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="25.43" shape="696.58,547.27 696.09,572.70"/>
     </edge>
     <edge id=":C_9" function="internal">
         <lane id=":C_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="4.82" shape="696.58,547.27 695.78,548.53 694.97,548.96 694.14,548.57 693.28,547.36"/>

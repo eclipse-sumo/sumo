@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  8 16:48:24 2016 by SUMO netconvert Version dev-SVN-r20924
+<!-- generated on Tue Jul 12 16:31:54 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -56,9 +56,9 @@
         <lane id=":C_7_2" index="2" allow="bicycle" speed="13.89" length="8.28" shape="112.15,111.05 107.56,111.24 104.28,111.82 102.31,112.79 101.65,114.15"/>
     </edge>
     <edge id=":C_10" function="internal">
-        <lane id=":C_10_0" index="0" speed="13.89" length="28.99" shape="112.15,111.05 103.56,110.74 97.70,110.05 91.84,109.36 83.25,109.05"/>
-        <lane id=":C_10_1" index="1" speed="13.89" length="28.99" width="4.00" shape="112.15,107.75 103.56,107.38 97.70,106.55 91.84,105.72 83.25,105.35"/>
-        <lane id=":C_10_2" index="2" speed="13.89" length="28.99" shape="112.15,103.05 103.57,102.83 97.70,102.35 91.83,101.87 83.25,101.65"/>
+        <lane id=":C_10_0" index="0" speed="13.89" length="28.97" shape="112.15,111.05 83.25,109.05"/>
+        <lane id=":C_10_1" index="1" speed="13.89" length="28.97" width="4.00" shape="112.15,107.75 83.25,105.35"/>
+        <lane id=":C_10_2" index="2" speed="13.89" length="28.97" shape="112.15,103.05 83.25,101.65"/>
     </edge>
     <edge id=":C_13" function="internal">
         <lane id=":C_13_0" index="0" speed="13.89" length="6.86" shape="112.15,103.05 110.39,101.87 109.80,100.70 110.39,99.52 112.15,98.35"/>

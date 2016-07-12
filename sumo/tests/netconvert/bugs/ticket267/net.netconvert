@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:39 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:32:03 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -48,7 +48,7 @@
         <lane id=":0_9_0" index="0" speed="12.50" length="2.67" shape="508.71,498.73 511.35,498.35"/>
     </edge>
     <edge id=":0_3" function="internal">
-        <lane id=":0_3_0" index="0" speed="12.50" length="22.70" shape="511.35,501.65 503.72,501.65 497.62,501.65 492.71,501.65 488.65,501.65"/>
+        <lane id=":0_3_0" index="0" speed="12.50" length="22.70" shape="511.35,501.65 488.65,501.65"/>
     </edge>
     <edge id=":0_4" function="internal">
         <lane id=":0_4_0" index="0" speed="12.50" length="10.88" shape="508.25,488.65 508.44,492.89 509.02,495.92 509.99,497.74 511.35,498.35"/>
@@ -69,7 +69,7 @@
         <lane id=":0_7_0" index="0" speed="12.50" length="10.88" shape="488.65,491.75 492.89,491.56 495.92,490.98 497.74,490.01 498.35,488.65"/>
     </edge>
     <edge id=":0_8" function="internal">
-        <lane id=":0_8_0" index="0" speed="12.50" length="22.70" shape="488.65,498.35 496.28,498.35 502.38,498.35 507.29,498.35 511.35,498.35"/>
+        <lane id=":0_8_0" index="0" speed="12.50" length="22.70" shape="488.65,498.35 511.35,498.35"/>
     </edge>
     <edge id=":1_0" function="internal">
         <lane id=":1_0_0" index="0" speed="11.11" length="4.82" shape="0.00,501.65 -1.24,500.82 -1.65,500.00 -1.24,499.18 0.00,498.35"/>

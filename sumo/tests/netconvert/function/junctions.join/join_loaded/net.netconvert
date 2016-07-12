@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:36 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:32:00 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -59,7 +59,7 @@
         <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0" index="0" speed="13.89" length="8.18" shape="41.13,33.49 44.12,33.57 46.26,33.16 47.57,32.28 48.04,30.93"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9" function="internal">
-        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0" index="0" speed="13.89" length="21.67" shape="41.13,33.49 45.90,33.96 51.92,34.55 57.93,35.07 62.72,35.35"/>
+        <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0" index="0" speed="13.89" length="21.66" shape="41.13,33.49 62.72,35.35"/>
     </edge>
     <edge id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_10" function="internal">
         <lane id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0" index="0" speed="13.89" length="34.01" shape="41.13,33.49 49.76,35.68 55.62,40.38 58.69,47.60 58.99,57.34"/>

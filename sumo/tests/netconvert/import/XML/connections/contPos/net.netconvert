@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:06 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:31:52 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -37,8 +37,8 @@
         <lane id=":54536753_0_0" index="0" disallow="pedestrian" speed="13.89" length="11.30" shape="57.64,40.02 55.75,36.69 53.01,34.73 49.43,34.15 48.96,34.23"/>
     </edge>
     <edge id=":54536753_1" function="internal">
-        <lane id=":54536753_1_0" index="0" disallow="pedestrian" speed="13.89" length="24.31" shape="57.64,40.02 55.07,33.30 53.14,28.77 51.14,24.27 48.37,17.63"/>
-        <lane id=":54536753_1_1" index="1" disallow="pedestrian" speed="13.89" length="24.31" shape="60.76,38.93 58.18,32.17 56.24,27.62 54.23,23.09 51.44,16.41"/>
+        <lane id=":54536753_1_0" index="0" disallow="pedestrian" speed="13.89" length="24.31" shape="57.64,40.02 48.37,17.63"/>
+        <lane id=":54536753_1_1" index="1" disallow="pedestrian" speed="13.89" length="24.31" shape="60.76,38.93 51.44,16.41"/>
     </edge>
     <edge id=":54536753_8" function="internal">
         <lane id=":54536753_8_0" index="0" speed="13.89" length="4.03" shape="48.96,34.23 45.00,34.93"/>

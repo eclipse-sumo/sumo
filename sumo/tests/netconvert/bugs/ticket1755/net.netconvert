@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  8 15:00:45 2016 by SUMO netconvert Version dev-SVN-r21134
+<!-- generated on Tue Jul 12 16:32:04 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -79,7 +79,7 @@
         <lane id=":1596765709_0_0" index="0" allow="rail rail_electric" speed="83.33" length="5.00" shape="31.87,124.93 33.37,129.70"/>
     </edge>
     <edge id=":1596765709_1" function="internal">
-        <lane id=":1596765709_1_0" index="0" allow="rail rail_electric" speed="83.33" length="5.83" shape="31.87,124.93 30.02,130.46"/>
+        <lane id=":1596765709_1_0" index="0" allow="rail rail_electric" speed="83.33" length="6.09" shape="31.87,124.93 31.90,126.56 31.12,127.65 30.26,128.77 30.02,130.46"/>
     </edge>
     <edge id=":1596765735_0" function="internal">
         <lane id=":1596765735_0_0" index="0" allow="rail rail_electric" speed="83.33" length="0.10" shape="35.35,136.48 35.37,136.41"/>
@@ -94,13 +94,13 @@
         <lane id=":1596765757_0_0" index="0" allow="rail rail_electric" speed="83.33" length="5.01" shape="48.88,178.83 50.09,183.69"/>
     </edge>
     <edge id=":1596765757_1" function="internal">
-        <lane id=":1596765757_1_0" index="0" allow="rail rail_electric" speed="83.33" length="6.02" shape="48.88,178.83 46.82,184.49"/>
+        <lane id=":1596765757_1_0" index="0" allow="rail rail_electric" speed="83.33" length="6.32" shape="48.88,178.83 48.86,180.51 47.98,181.63 47.04,182.76 46.82,184.49"/>
     </edge>
     <edge id=":1596765849_0" function="internal">
-        <lane id=":1596765849_0_0" index="0" allow="rail rail_electric" speed="83.33" length="5.04" shape="58.31,245.98 58.81,250.99"/>
+        <lane id=":1596765849_0_0" index="0" allow="rail rail_electric" speed="83.33" length="5.05" shape="58.31,245.98 58.39,247.47 58.58,248.49 58.76,249.50 58.81,250.99"/>
     </edge>
     <edge id=":1596765849_1" function="internal">
-        <lane id=":1596765849_1_0" index="0" allow="rail rail_electric" speed="83.33" length="6.22" shape="54.95,246.11 58.81,250.99"/>
+        <lane id=":1596765849_1_0" index="0" allow="rail rail_electric" speed="83.33" length="6.57" shape="54.95,246.11 55.70,247.74 57.03,248.55 58.30,249.35 58.81,250.99"/>
     </edge>
     <edge id=":1596765923_0" function="internal">
         <lane id=":1596765923_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.75" shape="54.87,353.33 54.77,356.07"/>

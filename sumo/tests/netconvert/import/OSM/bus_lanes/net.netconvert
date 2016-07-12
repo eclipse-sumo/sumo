@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  8 15:44:52 2016 by SUMO netconvert Version dev-SVN-r21134
+<!-- generated on Tue Jul 12 16:31:57 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -68,8 +68,8 @@
         <lane id=":1665723004_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="5.73" shape="564.58,677.82 565.83,678.98 566.95,679.26 567.95,678.67 568.82,677.21"/>
     </edge>
     <edge id=":1665723004_3" function="internal">
-        <lane id=":1665723004_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.32" shape="564.58,677.82 566.52,680.19 567.85,681.81 569.19,683.42 571.15,685.78"/>
-        <lane id=":1665723004_3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.32" shape="562.04,679.93 563.98,682.30 565.31,683.92 566.65,685.53 568.61,687.89"/>
+        <lane id=":1665723004_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.32" shape="564.58,677.82 571.15,685.78"/>
+        <lane id=":1665723004_3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.32" shape="562.04,679.93 568.61,687.89"/>
     </edge>
     <edge id=":2032008711_0" function="internal">
         <lane id=":2032008711_0_0" index="0" allow="bus" speed="13.89" length="5.00" shape="1531.46,2617.29 1532.55,2622.17"/>

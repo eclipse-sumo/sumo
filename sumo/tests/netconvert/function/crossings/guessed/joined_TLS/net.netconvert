@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:39 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:32:02 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -30,9 +30,9 @@
     <location netOffset="-392549.87,-5819736.98" convBoundary="0.00,0.00,111.45,224.07" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":21487229_0" function="internal">
-        <lane id=":21487229_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="10.24" shape="99.76,96.36 102.38,98.64 104.00,101.12 104.62,103.78 104.24,106.64"/>
-        <lane id=":21487229_0_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="10.24" shape="99.76,96.36 101.12,97.84 101.79,99.88 101.78,102.50 101.08,105.69"/>
-        <lane id=":21487229_0_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="10.24" shape="99.76,96.36 99.85,97.03 99.58,98.65 98.93,101.22 97.91,104.74"/>
+        <lane id=":21487229_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="10.25" shape="99.76,96.36 102.38,98.64 104.00,101.12 104.62,103.78 104.24,106.64"/>
+        <lane id=":21487229_0_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="10.25" shape="99.76,96.36 101.12,97.84 101.79,99.88 101.78,102.50 101.08,105.69"/>
+        <lane id=":21487229_0_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="10.25" shape="99.76,96.36 99.86,97.78 99.25,100.41 98.44,103.11 97.91,104.74"/>
     </edge>
     <edge id=":21487229_3" function="internal">
         <lane id=":21487229_3_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="4.96" shape="99.76,96.36 100.63,97.62 100.72,98.56 100.01,99.20 98.52,99.52"/>
@@ -47,25 +47,25 @@
         <lane id=":21487229_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.28" width="4.00" shape="101.00,102.92 97.47,101.04 97.54,100.91 96.40,102.55"/>
     </edge>
     <edge id=":29215077_0" function="internal">
-        <lane id=":29215077_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="11.11" length="16.60" shape="98.35,99.41 94.32,96.57 91.52,94.69 88.63,92.95 84.31,90.59"/>
+        <lane id=":29215077_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="11.11" length="16.59" shape="98.35,99.41 84.31,90.59"/>
     </edge>
     <edge id=":29215077_1" function="internal">
-        <lane id=":29215077_1_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="3.72" shape="98.35,99.41 97.00,97.64 96.70,96.17"/>
+        <lane id=":29215077_1_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="3.55" shape="98.35,99.41 97.00,97.64 96.74,96.35"/>
     </edge>
     <edge id=":29215077_2" function="internal">
-        <lane id=":29215077_2_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="2.94" shape="98.35,99.41 97.48,98.15 97.40,97.21 97.74,96.90"/>
+        <lane id=":29215077_2_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="2.87" shape="98.35,99.41 97.48,98.15 97.40,97.21 97.69,96.94"/>
     </edge>
     <edge id=":29215077_10" function="internal">
-        <lane id=":29215077_10_0" index="0" speed="13.89" length="10.48" shape="96.70,96.17 96.42,94.79 96.61,90.85 97.57,85.82"/>
+        <lane id=":29215077_10_0" index="0" speed="13.89" length="10.65" shape="96.74,96.35 96.42,94.79 96.61,90.85 97.57,85.82"/>
     </edge>
     <edge id=":29215077_11" function="internal">
-        <lane id=":29215077_11_0" index="0" speed="13.89" length="2.02" shape="97.74,96.90 98.10,96.57 99.60,96.25"/>
+        <lane id=":29215077_11_0" index="0" speed="13.89" length="2.08" shape="97.69,96.94 98.10,96.57 99.60,96.25"/>
     </edge>
     <edge id=":29215077_3" function="internal">
         <lane id=":29215077_3_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="11.11" length="6.21" shape="86.11,87.81 89.14,88.99 91.53,88.92 91.98,88.58"/>
     </edge>
     <edge id=":29215077_4" function="internal">
-        <lane id=":29215077_4_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="11.11" length="15.93" shape="86.11,87.81 90.25,90.07 93.04,91.73 95.72,93.53 99.60,96.25"/>
+        <lane id=":29215077_4_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="11.11" length="15.91" shape="86.11,87.81 99.60,96.25"/>
     </edge>
     <edge id=":29215077_5" function="internal">
         <lane id=":29215077_5_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="8.33" length="2.42" shape="86.11,87.81 86.70,89.17 86.60,90.09"/>
@@ -80,8 +80,8 @@
         <lane id=":29215077_6_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="11.11" length="9.70" shape="90.05,101.84 90.42,98.47 89.59,95.47 87.63,92.95"/>
     </edge>
     <edge id=":29215077_7" function="internal">
-        <lane id=":29215077_7_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="17.40" shape="90.05,101.84 91.40,96.88 92.30,93.47 93.15,90.05 94.37,85.04"/>
-        <lane id=":29215077_7_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="17.40" shape="93.23,102.72 94.59,97.72 95.50,94.29 96.35,90.85 97.57,85.82"/>
+        <lane id=":29215077_7_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="17.40" shape="90.05,101.84 94.37,85.04"/>
+        <lane id=":29215077_7_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="17.40" shape="93.23,102.72 97.57,85.82"/>
     </edge>
     <edge id=":29215077_9" function="internal">
         <lane id=":29215077_9_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="10.70" shape="93.23,102.72 94.57,98.87 96.08,96.52 97.75,95.64 99.60,96.25"/>
@@ -192,8 +192,8 @@
     </junction>
     <junction id="cluster_2531313425_2531313439" type="unregulated" x="45.74" y="224.07" incLanes="" intLanes="" shape="44.13,223.22 35.65,218.72"/>
 
-    <junction id=":29215077_10_0" type="internal" x="96.70" y="96.17" incLanes=":29215077_1_0 194962398#2_1 246044848#1_1 246044848#1_2" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
-    <junction id=":29215077_11_0" type="internal" x="97.74" y="96.90" incLanes=":29215077_2_0 194962398#2_1 246044848#1_2" intLanes=":29215077_4_0 :29215077_9_0 :29215077_c0_0 :29215077_c0_0"/>
+    <junction id=":29215077_10_0" type="internal" x="96.74" y="96.35" incLanes=":29215077_1_0 194962398#2_1 246044848#1_1 246044848#1_2" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
+    <junction id=":29215077_11_0" type="internal" x="97.69" y="96.94" incLanes=":29215077_2_0 194962398#2_1 246044848#1_2" intLanes=":29215077_4_0 :29215077_9_0 :29215077_c0_0 :29215077_c0_0"/>
     <junction id=":29215077_12_0" type="internal" x="91.98" y="88.58" incLanes=":29215077_3_0" intLanes=":29215077_1_0 :29215077_7_0 :29215077_7_1 :29215077_c1_0 :29215077_c2_0"/>
     <junction id=":29215077_13_0" type="internal" x="86.60" y="90.09" incLanes=":29215077_5_0 -4615548_1 246044848#1_1" intLanes=":29215077_0_0 :29215077_6_0 :29215077_c2_0 :29215077_c2_0"/>
     <junction id=":29215077_14_0" type="internal" x="87.63" y="92.95" incLanes=":29215077_6_0" intLanes=":29215077_0_0 :29215077_5_0 :29215077_c2_0 :29215077_c3_0"/>

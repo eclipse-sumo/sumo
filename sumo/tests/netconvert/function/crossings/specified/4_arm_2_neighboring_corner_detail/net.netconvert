@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  8 16:31:05 2016 by SUMO netconvert Version dev-SVN-r20924
+<!-- generated on Tue Jul 12 16:32:01 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -35,8 +35,8 @@
         <lane id=":C_0_0" index="0" allow="passenger" speed="13.89" length="18.22" shape="95.05,116.25 94.34,111.31 92.22,107.77 88.69,105.66 83.75,104.95"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="95.05,116.25 95.05,106.60 95.05,100.00 95.05,93.40 95.05,83.75"/>
-        <lane id=":C_1_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="98.35,116.25 98.35,106.60 98.35,100.00 98.35,93.40 98.35,83.75"/>
+        <lane id=":C_1_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="95.05,116.25 95.05,83.75"/>
+        <lane id=":C_1_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="98.35,116.25 98.35,83.75"/>
     </edge>
     <edge id=":C_3" function="internal">
         <lane id=":C_3_0" index="0" allow="passenger" speed="13.89" length="9.04" shape="98.35,116.25 99.47,108.42 100.05,107.45"/>
@@ -48,8 +48,8 @@
         <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="18.22" shape="116.25,104.95 111.31,105.66 107.77,107.78 105.66,111.31 104.95,116.25"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="116.25,104.95 106.60,104.95 100.00,104.95 93.40,104.95 83.75,104.95"/>
-        <lane id=":C_5_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="116.25,101.65 106.60,101.65 100.00,101.65 93.40,101.65 83.75,101.65"/>
+        <lane id=":C_5_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="116.25,104.95 83.75,104.95"/>
+        <lane id=":C_5_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="116.25,101.65 83.75,101.65"/>
     </edge>
     <edge id=":C_7" function="internal">
         <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" length="9.04" shape="116.25,101.65 108.42,100.53 107.45,99.95"/>
@@ -61,8 +61,8 @@
         <lane id=":C_8_0" index="0" allow="passenger" speed="13.89" length="13.68" shape="104.95,83.75 105.66,88.69 107.78,92.23 111.31,94.34 111.75,94.41"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="104.95,83.75 104.95,93.40 104.95,100.00 104.95,106.60 104.95,116.25"/>
-        <lane id=":C_9_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="101.65,83.75 101.65,93.40 101.65,100.00 101.65,106.60 101.65,116.25"/>
+        <lane id=":C_9_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="104.95,83.75 104.95,116.25"/>
+        <lane id=":C_9_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="101.65,83.75 101.65,116.25"/>
     </edge>
     <edge id=":C_11" function="internal">
         <lane id=":C_11_0" index="0" allow="passenger" speed="13.89" length="9.04" shape="101.65,83.75 100.53,91.58 99.95,92.55"/>
@@ -77,8 +77,8 @@
         <lane id=":C_12_0" index="0" allow="passenger" speed="13.89" length="13.68" shape="83.75,95.05 88.69,94.34 92.23,92.22 94.34,88.69 94.41,88.25"/>
     </edge>
     <edge id=":C_13" function="internal">
-        <lane id=":C_13_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="83.75,95.05 93.40,95.05 100.00,95.05 106.60,95.05 116.25,95.05"/>
-        <lane id=":C_13_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="83.75,98.35 93.40,98.35 100.00,98.35 106.60,98.35 116.25,98.35"/>
+        <lane id=":C_13_0" index="0" allow="passenger" speed="13.89" length="32.50" shape="83.75,95.05 116.25,95.05"/>
+        <lane id=":C_13_1" index="1" allow="passenger" speed="13.89" length="32.50" shape="83.75,98.35 116.25,98.35"/>
     </edge>
     <edge id=":C_15" function="internal">
         <lane id=":C_15_0" index="0" allow="passenger" speed="13.89" length="9.04" shape="83.75,98.35 91.58,99.47 92.55,100.05"/>

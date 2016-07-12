@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:04 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:31:51 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -69,8 +69,8 @@
         <lane id=":ErnstRuskaAltglienicker_5_0" index="0" speed="16.50" length="5.00" shape="1903.72,195.05 1905.08,194.86 1906.04,194.28 1906.63,193.31 1906.82,191.95"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_6" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_6_0" index="0" speed="19.00" length="12.80" shape="1903.72,195.05 1907.52,195.05 1910.12,195.05 1912.72,195.05 1916.52,195.05"/>
-        <lane id=":ErnstRuskaAltglienicker_6_1" index="1" speed="19.00" length="12.80" shape="1903.72,198.35 1907.52,198.35 1910.12,198.35 1912.72,198.35 1916.52,198.35"/>
+        <lane id=":ErnstRuskaAltglienicker_6_0" index="0" speed="19.00" length="12.80" shape="1903.72,195.05 1916.52,195.05"/>
+        <lane id=":ErnstRuskaAltglienicker_6_1" index="1" speed="19.00" length="12.80" shape="1903.72,198.35 1916.52,198.35"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_0" function="internal">
         <lane id=":ErnstRuskaEinstein_0_0" index="0" speed="16.50" length="5.00" shape="293.26,208.05 293.07,206.69 292.49,205.72 291.52,205.14 290.16,204.95"/>
@@ -123,12 +123,12 @@
         <lane id=":ErnstRuskaHavestadt_3_0" index="0" speed="16.50" length="5.00" shape="1023.30,204.95 1021.94,205.14 1020.98,205.72 1020.39,206.69 1020.20,208.05"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_4" function="internal">
-        <lane id=":ErnstRuskaHavestadt_4_0" index="0" speed="19.00" length="16.10" shape="1023.30,204.95 1018.52,204.95 1015.25,204.95 1011.98,204.95 1007.20,204.95"/>
-        <lane id=":ErnstRuskaHavestadt_4_1" index="1" speed="19.00" length="16.10" shape="1023.30,201.65 1018.52,201.65 1015.25,201.65 1011.98,201.65 1007.20,201.65"/>
+        <lane id=":ErnstRuskaHavestadt_4_0" index="0" speed="19.00" length="16.10" shape="1023.30,204.95 1007.20,204.95"/>
+        <lane id=":ErnstRuskaHavestadt_4_1" index="1" speed="19.00" length="16.10" shape="1023.30,201.65 1007.20,201.65"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_6" function="internal">
-        <lane id=":ErnstRuskaHavestadt_6_0" index="0" speed="19.00" length="16.10" shape="1007.20,191.75 1011.98,191.75 1015.25,191.75 1018.52,191.75 1023.30,191.75"/>
-        <lane id=":ErnstRuskaHavestadt_6_1" index="1" speed="19.00" length="16.10" shape="1007.20,195.05 1011.98,195.05 1015.25,195.05 1018.52,195.05 1023.30,195.05"/>
+        <lane id=":ErnstRuskaHavestadt_6_0" index="0" speed="19.00" length="16.10" shape="1007.20,191.75 1023.30,191.75"/>
+        <lane id=":ErnstRuskaHavestadt_6_1" index="1" speed="19.00" length="16.10" shape="1007.20,195.05 1023.30,195.05"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_8" function="internal">
         <lane id=":ErnstRuskaHavestadt_8_0" index="0" speed="16.50" length="8.40" shape="1007.20,198.35 1012.89,198.96 1015.33,200.05"/>

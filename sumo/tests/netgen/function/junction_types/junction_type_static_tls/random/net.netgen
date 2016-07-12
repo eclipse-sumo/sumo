@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:24 2016 by SUMO netgenerate Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:31:49 2016 by SUMO netgenerate Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -32,13 +32,13 @@
     <location netOffset="162.29,362.77" convBoundary="0.00,0.00,554.80,574.23" origBoundary="-162.29,-362.77,392.51,211.46" projParameter="!"/>
 
     <edge id=":12_0" function="internal">
-        <lane id=":12_0_0" index="0" speed="13.90" length="5.74" shape="233.90,185.09 232.78,179.47"/>
+        <lane id=":12_0_0" index="0" speed="13.90" length="5.85" shape="233.90,185.09 233.15,183.62 233.08,182.42 233.15,181.15 232.78,179.47"/>
     </edge>
     <edge id=":12_1" function="internal">
         <lane id=":12_1_0" index="0" speed="13.90" length="6.48" shape="229.84,182.37 231.82,182.91 232.97,182.60 233.29,181.45 232.78,179.47"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="13.90" length="5.07" shape="106.55,137.71 104.77,132.96"/>
+        <lane id=":2_0_0" index="0" speed="13.90" length="5.09" shape="106.55,137.71 106.17,136.25 105.82,135.28 105.40,134.33 104.77,132.96"/>
     </edge>
     <edge id=":2_1" function="internal">
         <lane id=":2_1_0" index="0" speed="13.90" length="6.32" shape="106.55,137.71 106.31,135.70 106.74,134.50 107.86,134.12 109.65,134.56"/>

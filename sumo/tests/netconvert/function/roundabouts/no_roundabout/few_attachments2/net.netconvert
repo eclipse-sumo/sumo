@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:35 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Jul 12 16:32:00 2016 by SUMO netconvert Version dev-SVN-r21152
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,7 +39,7 @@
         <lane id=":552609822_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="6.15" shape="22558.69,17298.60 22558.81,17296.64 22559.33,17295.21 22560.26,17294.32 22561.59,17293.97"/>
     </edge>
     <edge id=":552609822_1" function="internal">
-        <lane id=":552609822_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="7.26" shape="22554.88,17296.74 22561.59,17293.97"/>
+        <lane id=":552609822_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="7.44" shape="22554.88,17296.74 22556.67,17295.44 22557.99,17294.63 22559.43,17294.19 22561.59,17293.97"/>
     </edge>
     <edge id=":662904038_0" function="internal">
         <lane id=":662904038_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="0.10" shape="22617.93,17291.07 22617.93,17291.07"/>
