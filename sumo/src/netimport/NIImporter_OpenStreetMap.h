@@ -122,6 +122,7 @@ protected:
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
+            myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false) {}
 
         /// @brief The edge's id
@@ -142,6 +143,8 @@ protected:
         WayType myCyclewayType;
         /// @brief Information about the kind of busway along this road
         WayType myBuswayType;
+        /// @brief Information about the relative z-ordering of ways
+        int myLayer;
         /// @brief The list of nodes this edge is made of
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
@@ -227,6 +230,11 @@ private:
     int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
                    const std::vector<long long int>& passed, NBNetBuilder& nb);
 
+    /// @brief reconstruct elevation from layer info
+    void reconstructLayerElevation(SUMOReal layerElevation, SUMOReal layerElevationGrade, NBNetBuilder& nb);
+
+    /// @brief collect neighboring nodes with their road distance
+    std::map<NBNode*, SUMOReal> getNeighboringNodes(NBNode* node, SUMOReal maxDist); 
 
 protected:
     static const SUMOReal MAXSPEED_UNGIVEN;

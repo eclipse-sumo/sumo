@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r20818
+SUMO netconvert Version dev-SVN-r21148
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -203,6 +203,9 @@ Processing Options:
   --osm.skip-duplicates-check          Skips the check for duplicate nodes and
                                          edges
   --osm.elevation                      Imports elevation data
+  --osm.layer-elevation FLOAT          Reconstruct (relative) elevation based
+                                         on layer data. Each layer is raised by
+                                         FLOAT m
   --opendrive.import-all-lanes         Imports all lane types
   --opendrive.ignore-widths            Whether lane widths shall be ignored.
   --no-internal-links                  Omits internal links

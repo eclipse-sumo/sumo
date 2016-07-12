@@ -372,6 +372,9 @@
         <!-- Imports elevation data -->
         <osm.elevation value="false" type="BOOL"/>
 
+        <!-- Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m -->
+        <osm.layer-elevation value="0" type="FLOAT"/>
+
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 

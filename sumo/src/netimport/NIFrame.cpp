@@ -255,6 +255,9 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.elevation", new Option_Bool(false));
     oc.addDescription("osm.elevation", "Processing", "Imports elevation data");
 
+    oc.doRegister("osm.layer-elevation", new Option_Float(0));
+    oc.addDescription("osm.layer-elevation", "Processing", "Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m");
+
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types");
