@@ -62,7 +62,19 @@ public:
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 protected:
-    static void writePlanView(const PositionVector& shape, OutputDevice& device);
+    /// @brief write geometry as sequence of lines (sumo style)
+    static SUMOReal writeGeomLines(const PositionVector& shape, OutputDevice& device, SUMOReal offset = 0);
+
+    /// @brief write geometry as sequence of lines and bezier curves 
+    static void writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device);
+
+    /// @brief write geometry as a single bezier curve (paramPoly3)
+    static SUMOReal writeGeomPP3(OutputDevice& device,
+        PositionVector init,
+        SUMOReal length,
+        SUMOReal offset = 0);
+
+
     static void writeEmptyCenterLane(OutputDevice& device, const std::string& mark, SUMOReal markWidth);
     static int getID(const std::string& origID, StringBijection<int>& map, int& lastID);
 
