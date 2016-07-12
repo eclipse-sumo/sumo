@@ -159,6 +159,7 @@ image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
 [floating_point_tolerance]
 net:0.0101
 image:0.001
+osmbatch:0.001
 
 [unordered_text]
 errors:ERROR:SCHEMA
