@@ -529,7 +529,7 @@ PositionVector::mirrorX() {
 }
 
 
-PositionVector::as_poly_cw_sorter::as_poly_cw_sorter() {};
+PositionVector::as_poly_cw_sorter::as_poly_cw_sorter() {}
 
 
 int

@@ -1092,7 +1092,7 @@ GUILane::splitAtSegments(const PositionVector& shape) {
         }
         //std::cout << "splitAtSegments " << getID() << " no=" << no << " i=" << i << " offset=" << offset << " index=" << index << " segs=" << toString(myShapeSegments) << " resultSize=" << result.size() << " result=" << toString(result) << "\n";
     }
-    while ((int)myShapeSegments.size() < result.size()) {
+    while (myShapeSegments.size() < result.size()) {
         myShapeSegments.push_back(no - 1);
     }
     return result;

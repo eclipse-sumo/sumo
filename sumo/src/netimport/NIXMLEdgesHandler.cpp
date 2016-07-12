@@ -522,7 +522,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
             for (int l = 0; l < e->getNumLanes(); ++l) {
                 currLanes.push_back(l);
             }
-            if (e->getNumLanes() != mySplits.back().lanes.size()) {
+            if (e->getNumLanes() != (int)mySplits.back().lanes.size()) {
                 // invalidate traffic light definitions loaded from a SUMO network
                 // XXX it would be preferable to reconstruct the phase definitions heuristically
                 e->getToNode()->invalidateTLS(myTLLogicCont);

@@ -110,27 +110,6 @@ private:
     /// @brief Settings to use
     OptionsCont& myOptions;
 
-
-    /// @name Temporary storages used when parsing polygons
-    /// @{
-
-    /// @brief The id of the currently parsed polygon
-    std::string myCurrentID;
-
-    /// @brief The type of the currently parsed polygon
-    std::string myCurrentType;
-
-    /// @brief The color of the currently parsed polygon
-    RGBColor myCurrentColor;
-
-    /// @brief Whether the current polygon must not be prunned
-    bool myCurrentIgnorePrunning;
-
-    /// @brief The layer of the currently parsed polygon
-    SUMOReal myCurrentLayer;
-    /// @}
-
-
 };
 
 

@@ -681,8 +681,10 @@ MSLaneChanger::checkChange(
         }
     }
 #ifndef NO_TRACI
-    // let TraCI influence the wish to change lanes and the security to take
+#ifdef DEBUG_CHECK_CHANGE
     const int oldstate = state;
+#endif
+    // let TraCI influence the wish to change lanes and the security to take
     state = vehicle->influenceChangeDecision(state);
 #endif
 #ifdef DEBUG_CHECK_CHANGE

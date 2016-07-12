@@ -93,9 +93,9 @@ GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos) {
 
 
 std::vector<MSInductLoop::VehicleData>
-GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const {
+GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSInductLoop::collectVehiclesOnDet(t);
+    return MSInductLoop::collectVehiclesOnDet(t, leaveTime);
 }
 
 

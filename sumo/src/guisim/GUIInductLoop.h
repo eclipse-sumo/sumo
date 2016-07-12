@@ -87,10 +87,12 @@ public:
      * This method uses a mutex to prevent parallel read/write access to the vehicle buffer
      *
      * @param[in] t The time from which vehicles shall be counted
+     * @param[in] leaveTime Whether entryTime or leaveTime shall be compared against t
+     *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
      * @return The list of vehicles
      * @see MSInductLoop::collectVehiclesOnDet()
      */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const;
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
 
 
 protected:

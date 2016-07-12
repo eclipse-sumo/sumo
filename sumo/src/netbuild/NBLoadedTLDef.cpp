@@ -60,7 +60,7 @@ NBLoadedTLDef::SignalGroup::~SignalGroup() {}
 
 void
 NBLoadedTLDef::SignalGroup::addConnection(const NBConnection& c) {
-    assert(c.getFromLane() < 0 || c.getFrom()->getNumLanes() > (unsigned int)c.getFromLane());
+    assert(c.getFromLane() < 0 || c.getFrom()->getNumLanes() > c.getFromLane());
     myConnections.push_back(c);
 }
 

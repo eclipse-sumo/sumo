@@ -126,7 +126,6 @@ protected:
 
     /** @brief Writes a lane (<lane ...) of an edge
      * @param[in] into The device to write the edge into
-     * @param[in] eID The ID of the edge
      * @param[in] lID The ID of the lane
      * @param[in] origID The original ID of the edge in the input
      * @param[in] length Lane's length
@@ -135,7 +134,7 @@ protected:
      * @param[in] oppositeID The ID of the opposite lane for overtaking
      * @param[in] node The node to check for custom shape data
      */
-    static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
+    static void writeLane(OutputDevice& into, const std::string& lID,
                           SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
                           SUMOReal endOffset, SUMOReal width, PositionVector shape,
                           const std::string& origID, SUMOReal length, unsigned int index, bool origNames,

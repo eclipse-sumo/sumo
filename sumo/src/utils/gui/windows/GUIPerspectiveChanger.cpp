@@ -73,7 +73,7 @@ GUIPerspectiveChanger::onRightBtnRelease(void*) {
 }
 
 void
-GUIPerspectiveChanger::onDoubleClicked(void* data) {
+GUIPerspectiveChanger::onDoubleClicked(void*) {
 }
 
 

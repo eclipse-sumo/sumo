@@ -155,7 +155,7 @@ void
 GUIGlObject::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
     UNUSED_PARAMETER(&s);
     UNUSED_PARAMETER(parent);
-};
+}
 
 #ifdef HAVE_OSG
 

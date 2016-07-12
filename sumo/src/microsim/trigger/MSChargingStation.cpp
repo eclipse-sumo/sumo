@@ -163,3 +163,6 @@ bool
 MSChargingStation::isCharging() const {
     return myChargingVehicle;
 }
+
+
+/****************************************************************************/
