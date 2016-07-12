@@ -78,7 +78,8 @@
 // minimum length for a weaving section at a combined on-off ramp
 #define MIN_WEAVE_LENGTH 20.0
 
-#define DEBUGID "C"
+//#define DEBUG_SMOOTH_GEOM
+#define DEBUGCOND true
 
 // ===========================================================================
 // static members
@@ -477,13 +478,32 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                            SUMOReal extrapolateBeg,
                            SUMOReal extrapolateEnd) const {
 
+    PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd);
+    if (init.size() == 0) {
+        PositionVector ret;
+        ret.push_back(begShape.back());
+        ret.push_back(endShape.front());
+        return ret;
+    } else {
+        assert(init[0].z() == myPosition.z());
+        return bezier(init, numPoints);
+    }
+}
+
+PositionVector 
+NBNode::bezierControlPoints(
+        const PositionVector& begShape,
+        const PositionVector& endShape,
+        bool isTurnaround,
+        SUMOReal extrapolateBeg,
+        SUMOReal extrapolateEnd,
+        SUMOReal minimumSLength) {
+
     const Position beg = begShape.back();
     const Position end = endShape.front();
-    PositionVector ret;
     PositionVector init;
-    bool noSpline = false;
     if (beg.distanceTo(end) < POSITION_EPS || beg.distanceTo(begShape[-2]) < POSITION_EPS || end.distanceTo(endShape[1]) < POSITION_EPS) {
-        noSpline = true;
+        return init;
     } else {
         init.push_back(beg);
         if (isTurnaround) {
@@ -498,19 +518,24 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
             const SUMOReal angle = fabs(GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0)));
             PositionVector endShapeBegLine(endShape[0], endShape[1]);
             PositionVector begShapeEndLineRev(begShape[-1], begShape[-2]);
-            endShapeBegLine.extrapolate(100, true);
-            begShapeEndLineRev.extrapolate(100, true);
+            endShapeBegLine.extrapolate2D(100, true);
+            begShapeEndLineRev.extrapolate2D(100, true);
             if (angle < M_PI / 4.) {
-                // very low angle: almost straight
+                // very low angle: could be an s-shape or a straight line
+                const SUMOReal displacementAngle = fabs(GeomHelper::angleDiff(begShape.angleAt2D(-2), beg.angleTo2D(end)));
                 const SUMOReal halfDistance = beg.distanceTo(end) / 2.;
-                if (halfDistance > 5) {
-                    const SUMOReal endLength = begShape[-2].distanceTo(begShape[-1]);
+                if (displacementAngle > DEG2RAD(5) && halfDistance * 2 > minimumSLength) {
+                    const SUMOReal endLength = begShape[-2].distanceTo2D(begShape[-1]);
                     const SUMOReal off1 = endLength + MIN2(extrapolateBeg, halfDistance);
                     init.push_back(PositionVector::positionAtOffset(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
                     const SUMOReal off2 = 100. - MIN2(extrapolateEnd, halfDistance);
                     init.push_back(PositionVector::positionAtOffset(endShapeBegLine[0], endShapeBegLine[1], off2));
                 } else {
-                    noSpline = true;
+#ifdef DEBUG_SMOOTH_GEOM
+                    if (DEBUGCOND) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
+                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
+#endif
+                    return PositionVector();
                 }
             } else {
                 // turning
@@ -518,40 +543,33 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                 //  - intersection of the extrapolated lanes
                 //  - begin of outgoing lane
                 // attention: if there is no intersection, use a straight line
-                init.push_back(endShapeBegLine.intersectionPosition2D(begShapeEndLineRev));
-                if (init[-1] == Position::INVALID) {
-                    noSpline = true;
+                const Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
+                if (intersect == Position::INVALID) {
+#ifdef DEBUG_SMOOTH_GEOM
+                    if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end<< " intersect=" << intersect << "\n";
+#endif
+                    return PositionVector();
+                }
+                const SUMOReal minControlLength = 1.0;
+                const bool lengthenBeg = intersect.distanceTo2D(beg) <= minControlLength;
+                const bool lengthenEnd = intersect.distanceTo2D(end) <= minControlLength;
+                if (lengthenBeg && lengthenEnd) {
+#ifdef DEBUG_SMOOTH_GEOM
+                    if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end<< " intersect=" << intersect 
+                        << " dist1=" << intersect.distanceTo2D(beg) << " dist2=" << intersect.distanceTo2D(end) << "\n";
+#endif
+                    return PositionVector();
+                } else if (lengthenBeg || lengthenEnd) {
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
+                } else {
+                    init.push_back(intersect);
                 }
             }
         }
         init.push_back(end);
     }
-    //
-    if (noSpline) {
-        ret.push_back(beg);
-        ret.push_back(end);
-    } else {
-        SUMOReal* def = new SUMOReal[1 + (int)init.size() * 3];
-        for (int i = 0; i < (int)init.size(); ++i) {
-            // starts at index 1
-            def[i * 3 + 1] = init[i].x();
-            def[i * 3 + 2] = 0;
-            def[i * 3 + 3] = init[i].y();
-        }
-        SUMOReal* ret_buf = new SUMOReal[numPoints * 3 + 1];
-        bezier((int)init.size(), def, numPoints, ret_buf);
-        delete[] def;
-        Position prev;
-        for (int i = 0; i < (int)numPoints; i++) {
-            Position current(ret_buf[i * 3 + 1], ret_buf[i * 3 + 3], myPosition.z());
-            if (prev != current && !ISNAN(current.x()) && !ISNAN(current.y())) {
-                ret.push_back(current);
-            }
-            prev = current;
-        }
-        delete[] ret_buf;
-    }
-    return ret;
+    return init;
 }
 
 
