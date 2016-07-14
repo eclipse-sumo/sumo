@@ -41,6 +41,7 @@ man:
 	rm -rf docs/man
 	mkdir docs/man
 	help2man -N -n "A microscopic road traffic simulation" bin/sumo > docs/man/sumo.1
+	help2man -N -n "GUI version of the simulation SUMO" bin/sumo-gui > docs/man/sumo-gui.1
 	help2man -N -n "Builds vehicle routes for SUMO using detector values" bin/dfrouter > docs/man/dfrouter.1
 	help2man -N -n "Shortest path router and DUE computer for the microscopic road traffic simulation SUMO" bin/duarouter > docs/man/duarouter.1
 	help2man -N -n "Router for the microscopic road traffic simulation SUMO based on junction turning ratios" bin/jtrrouter > docs/man/jtrrouter.1
