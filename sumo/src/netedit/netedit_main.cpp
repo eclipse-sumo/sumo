@@ -81,6 +81,13 @@ main(int argc, char** argv) {
 #endif
         // initialise subsystems
         XMLSubSys::init();
+        GNELoadThread::fillOptions(oc);
+        OptionsIO::setArgs(argc, argv);
+        OptionsIO::getOptions();
+        if (oc.processMetaOptions(argc < 2)) {
+            SystemFrame::close();
+            return 0;
+        }
         // Make application
         FXApp application("Netedit", "DLR");
         // Open display
