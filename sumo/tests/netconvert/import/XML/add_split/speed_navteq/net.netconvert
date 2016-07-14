@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jul 14 10:27:04 2016 by SUMO netconvert Version svn
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <edge-files value="input_edges.edg.xml"/>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <output.original-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.scale value="5"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-328248.16,-5789366.94" convBoundary="0.00,0.00,39850.14,20618.00" origBoundary="1248456.000000,5223889.000000,1306826.000000,5241834.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="1" from="0" to="1.10" priority="0" spreadType="center">
+        <lane id="1_0" index="0" speed="55.56" length="10.00" shape="17012.00,658.45 17017.24,658.30">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1_1" index="1" speed="55.56" length="10.00" shape="17012.10,661.75 17017.34,661.59">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1_2" index="2" speed="55.56" length="10.00" shape="17012.19,665.04 17017.43,664.89">
+            <param key="origId" value="1"/>
+        </lane>
+    </edge>
+    <edge id="1.10" from="1.10" to="1.50" priority="0" spreadType="center">
+        <lane id="1.10_0" index="0" speed="10.00" length="40.00" shape="17017.24,658.30 17057.22,657.14">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1.10_1" index="1" speed="10.00" length="40.00" shape="17017.34,661.59 17057.32,660.44">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1.10_2" index="2" speed="10.00" length="40.00" shape="17017.43,664.89 17057.41,663.73">
+            <param key="origId" value="1"/>
+        </lane>
+    </edge>
+    <edge id="1.50" from="1.50" to="1" priority="0" spreadType="center">
+        <lane id="1.50_0" index="0" speed="55.56" length="22802.39" shape="17057.22,657.14 39850.05,-3.30">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1.50_1" index="1" speed="55.56" length="22802.39" shape="17057.32,660.44 39850.14,-0.00">
+            <param key="origId" value="1"/>
+        </lane>
+        <lane id="1.50_2" index="2" speed="55.56" length="22802.39" shape="17057.41,663.73 39850.24,3.30">
+            <param key="origId" value="1"/>
+        </lane>
+    </edge>
+    <edge id="2" from="2" to="0" priority="0" spreadType="center">
+        <lane id="2_0" index="0" speed="55.56" length="17016.60" shape="-0.11,1219.98 17002.48,658.74">
+            <param key="origId" value="2"/>
+        </lane>
+        <lane id="2_1" index="1" speed="55.56" length="17016.60" shape="-0.00,1223.28 17002.58,662.04">
+            <param key="origId" value="2"/>
+        </lane>
+        <lane id="2_2" index="2" speed="55.56" length="17016.60" shape="0.11,1226.57 17002.69,665.34">
+            <param key="origId" value="2"/>
+        </lane>
+    </edge>
+    <edge id="4" from="4" to="0" priority="0" spreadType="center" shape="17632.47,20618.00 17417.81,13770.92 17007.34,661.88">
+        <lane id="4_0" index="0" speed="33.33" length="19965.90" shape="17630.82,20618.05 17416.16,13770.97 17005.89,668.34">
+            <param key="origId" value="4 3"/>
+        </lane>
+        <lane id="4_1" index="1" speed="33.33" length="19965.90" shape="17634.12,20617.95 17419.46,13770.87 17009.19,668.24">
+            <param key="origId" value="4 3"/>
+        </lane>
+    </edge>
+
+    <junction id="0" type="priority" x="17007.34" y="661.88" incLanes="4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17004.29,668.39 17010.79,668.19 17012.24,666.64 17011.96,656.85 17002.42,657.14 17002.75,666.94">
+        <request index="0" response="11100" foes="11100"/>
+        <request index="1" response="11100" foes="11100"/>
+        <request index="2" response="00000" foes="00011"/>
+        <request index="3" response="00000" foes="00011"/>
+        <request index="4" response="00000" foes="00011"/>
+    </junction>
+    <junction id="1" type="unregulated" x="39850.14" y="0.00" incLanes="1.50_0 1.50_1 1.50_2" intLanes="" shape="39850.00,-4.90 39850.28,4.90"/>
+    <junction id="1.10" type="priority" x="17017.34" y="661.59" incLanes="1_0 1_1 1_2" intLanes="" shape="17017.48,666.49 17017.19,656.70 17017.48,666.49">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+    </junction>
+    <junction id="1.50" type="priority" x="17057.32" y="660.44" incLanes="1.10_0 1.10_1 1.10_2" intLanes="" shape="17057.46,665.33 17057.18,655.54 17057.46,665.33">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+    </junction>
+    <junction id="2" type="unregulated" x="0.00" y="1223.28" incLanes="" intLanes="" shape="0.16,1228.17 -0.16,1218.38"/>
+    <junction id="4" type="unregulated" x="17632.47" y="20618.00" incLanes="" intLanes="" shape="17635.72,20617.90 17629.22,20618.10"/>
+
+    <connection from="1" to="1.10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="1.10" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="1.10" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="1.10" to="1.50" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1.10" to="1.50" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1.10" to="1.50" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="2" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2" to="1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2" to="1" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="4" to="1" fromLane="0" toLane="1" dir="l" state="m"/>
+    <connection from="4" to="1" fromLane="1" toLane="2" dir="l" state="m"/>
+
+</net>

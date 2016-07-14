@@ -1,0 +1,2 @@
+--dlr-navteq-prefix=elmar --geometry.remove --output.original-names
+  --no-internal-links -e input_edges.edg.xml
