@@ -7,7 +7,8 @@
 @version $Id$
 
 Applies astyle with the proper settings used in SUMO on all
- files in src.
+ files in src (except for foreign) and autopep8 on all .py files.
+ Also calls sed to fix missing eol at the end of files.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2016 DLR (http://www.dlr.de/) and contributors
@@ -34,6 +35,8 @@ for root, dirs, files in os.walk(srcRoot):
         if name.endswith(".h") or name.endswith(".cpp"):
             subprocess.call(
                 "astyle --style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type -n".split() + [os.path.join(root, name)])
+            subprocess.call(["sed", "-i", "-e", '$a\\',
+                             os.path.join(root, name)])
         for ignoreDir in ['.svn', 'foreign']:
             if ignoreDir in dirs:
                 dirs.remove(ignoreDir)
