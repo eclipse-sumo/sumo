@@ -1,7 +1,7 @@
 #
 # spec file for package sumo
 #
-# Copyright (C) 2001-2015 DLR (http://www.dlr.de/) and contributors
+# Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
 #  This file is part of SUMO.
 #  SUMO is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -64,6 +64,9 @@ cp -a tools data %{buildroot}%{_prefix}/lib/sumo
 %__mkdir_p %{buildroot}%{_bindir}
 %__ln_s ../../bin %{buildroot}%{_prefix}/lib/sumo
 %__ln_s ../lib/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
+%__ln_s ../lib/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
+%__ln_s ../lib/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
+%__ln_s ../lib/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/applications/%{name}.desktop
