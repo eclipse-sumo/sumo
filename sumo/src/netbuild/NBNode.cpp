@@ -490,14 +490,14 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
     }
 }
 
-PositionVector 
+PositionVector
 NBNode::bezierControlPoints(
-        const PositionVector& begShape,
-        const PositionVector& endShape,
-        bool isTurnaround,
-        SUMOReal extrapolateBeg,
-        SUMOReal extrapolateEnd,
-        SUMOReal minimumSLength) {
+    const PositionVector& begShape,
+    const PositionVector& endShape,
+    bool isTurnaround,
+    SUMOReal extrapolateBeg,
+    SUMOReal extrapolateEnd,
+    SUMOReal minimumSLength) {
 
     const Position beg = begShape.back();
     const Position end = endShape.front();
@@ -533,7 +533,7 @@ NBNode::bezierControlPoints(
                 } else {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
-                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
+                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
 #endif
                     return PositionVector();
                 }
@@ -546,7 +546,9 @@ NBNode::bezierControlPoints(
                 const Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
                 if (intersect == Position::INVALID) {
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end<< " intersect=" << intersect << "\n";
+                    if (DEBUGCOND) {
+                        std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect << "\n";
+                    }
 #endif
                     return PositionVector();
                 }
@@ -555,8 +557,8 @@ NBNode::bezierControlPoints(
                 const bool lengthenEnd = intersect.distanceTo2D(end) <= minControlLength;
                 if (lengthenBeg && lengthenEnd) {
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end<< " intersect=" << intersect 
-                        << " dist1=" << intersect.distanceTo2D(beg) << " dist2=" << intersect.distanceTo2D(end) << "\n";
+                    if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
+                                                 << " dist1=" << intersect.distanceTo2D(beg) << " dist2=" << intersect.distanceTo2D(end) << "\n";
 #endif
                     return PositionVector();
                 } else if (lengthenBeg || lengthenEnd) {

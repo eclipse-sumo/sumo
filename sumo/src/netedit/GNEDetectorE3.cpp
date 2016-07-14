@@ -253,7 +253,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             // @ToDo SUMOTIME
             return canParse<int>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            return canParse<SUMOReal>(value); 
+            return canParse<SUMOReal>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }

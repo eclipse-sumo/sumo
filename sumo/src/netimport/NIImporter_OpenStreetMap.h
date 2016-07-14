@@ -234,7 +234,7 @@ private:
     void reconstructLayerElevation(SUMOReal layerElevation, SUMOReal layerElevationGrade, NBNetBuilder& nb);
 
     /// @brief collect neighboring nodes with their road distance
-    std::map<NBNode*, SUMOReal> getNeighboringNodes(NBNode* node, SUMOReal maxDist); 
+    std::map<NBNode*, SUMOReal> getNeighboringNodes(NBNode* node, SUMOReal maxDist);
 
 protected:
     static const SUMOReal MAXSPEED_UNGIVEN;

@@ -1047,7 +1047,7 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
     // Check if additional element exists before insertion
     if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {
         // Throw exception only if hardFail is enabled
-        if(hardFail) {
+        if (hardFail) {
             throw ProcessError("additional element with ID='" + additional->getID() + "' already exist");
         }
     } else {

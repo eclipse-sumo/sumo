@@ -1151,7 +1151,7 @@ PositionVector::intersects(const Position& p11, const Position& p12, const Posit
 }
 
 
-void 
+void
 PositionVector::rotate2D(SUMOReal angle) {
     const SUMOReal s = sin(angle);
     const SUMOReal c = cos(angle);

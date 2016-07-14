@@ -113,7 +113,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         const std::vector<NBEdge::Lane>& lanes = e->getLanes();
         PositionVector ls = getLeftLaneBorder(e);
 #ifdef DEBUG_SMOOTH_GEOM
-    if (DEBUGCOND) std::cout << "write planview for edge " << e->getID() << "\n";
+        if (DEBUGCOND) {
+            std::cout << "write planview for edge " << e->getID() << "\n";
+        }
 #endif
         if (ls.size() == 2 || e->getPermissions() == SVC_PEDESTRIAN) {
             // foot paths may contain sharp angles
@@ -261,7 +263,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 }
 
 
-SUMOReal 
+SUMOReal
 NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& device, SUMOReal offset) {
     for (unsigned int j = 0; j < shape.size() - 1; ++j) {
         const Position& p = shape[j];
@@ -355,14 +357,14 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
 
 SUMOReal
 NWWriter_OpenDrive::writeGeomPP3(
-        OutputDevice& device,
-        PositionVector init,
-        SUMOReal length,
-        SUMOReal offset) {
+    OutputDevice& device,
+    PositionVector init,
+    SUMOReal length,
+    SUMOReal offset) {
     assert(init.size() == 3 || init.size() == 4);
 
     const Position p = init.front();
-    const SUMOReal hdg = init.angleAt2D(0); 
+    const SUMOReal hdg = init.angleAt2D(0);
     // translate to u,v coordinates
     init.add(-p.x(), -p.y(), -p.z());
     init.rotate2D(-hdg);
@@ -388,13 +390,13 @@ NWWriter_OpenDrive::writeGeomPP3(
         // f(x, a, b, c, d) = a + (x*((3*b) - (3*a))) + ((x*x)*((3*a) + (3*c) - (6*b))) + ((x*x*x)*((3*b) - (3*c) - a + d))
         aU = init[0].x();
         bU = 3 * init[1].x() - 3 * init[0].x();
-        cU = 3 * init[0].x() - 6 * init[1].x() + 3 *init[2].x();
-        dU = -init[0].x() + 3 * init[1].x() - 3 *init[2].x() + init[3].x();
+        cU = 3 * init[0].x() - 6 * init[1].x() + 3 * init[2].x();
+        dU = -init[0].x() + 3 * init[1].x() - 3 * init[2].x() + init[3].x();
 
         aV = init[0].y();
         bV = 3 * init[1].y() - 3 * init[0].y();
-        cV = 3 * init[0].y() - 6 * init[1].y() + 3 *init[2].y();
-        dV = -init[0].y() + 3 * init[1].y() - 3 *init[2].y() + init[3].y();
+        cV = 3 * init[0].y() - 6 * init[1].y() + 3 * init[2].y();
+        dV = -init[0].y() + 3 * init[1].y() - 3 * init[2].y() + init[3].y();
     }
 
     device.openTag("geometry");
@@ -423,13 +425,15 @@ NWWriter_OpenDrive::writeGeomPP3(
 void
 NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device) {
 #ifdef DEBUG_SMOOTH_GEOM
-    if (DEBUGCOND) std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
+    if (DEBUGCOND) {
+        std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
+    }
 #endif
     const SUMOReal angleThresh = DEG2RAD(5); // changes below thresh are considered to be straight (make configurable)
     const SUMOReal longThresh = speed; //  16.0; // make user-configurable (should match the sampling rate of the source data)
     const SUMOReal curveCutout = longThresh / 2; // 8.0; // make user-configurable (related to the maximum turning rate)
     // the length of the segment that is added for cutting a corner can be bounded by 2*curveCutout (prevent the segment to be classified as 'long')
-    assert(longThresh >= 2 * curveCutout); 
+    assert(longThresh >= 2 * curveCutout);
     assert(shape.size() > 2);
     // add intermediate points wherever there is a strong angular change between long segments
     // assume the geometry is simplified so as not to contain consecutive colinear points
@@ -446,9 +450,11 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
         const SUMOReal length2 = p1.distanceTo2D(p2);
         maxAngleDiff = MAX2(maxAngleDiff, dAngle);
 #ifdef DEBUG_SMOOTH_GEOM
-    if (DEBUGCOND) std::cout << "   j=" << j << " dAngle=" << RAD2DEG(dAngle) << " length1=" << length1 << " length2=" << length2 << "\n";
+        if (DEBUGCOND) {
+            std::cout << "   j=" << j << " dAngle=" << RAD2DEG(dAngle) << " length1=" << length1 << " length2=" << length2 << "\n";
+        }
 #endif
-        if (dAngle > angleThresh 
+        if (dAngle > angleThresh
                 && (length1 > longThresh || j == 1)
                 && (length2 > longThresh || j == (int)shape.size() - 2)) {
             shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 - MIN2(length1 - POSITION_EPS, curveCutout)));
@@ -459,13 +465,17 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
     }
     const int numPoints = (int)shape2.size();
 #ifdef DEBUG_SMOOTH_GEOM
-    if (DEBUGCOND) std::cout << " n=" << numPoints << " shape2=" << toString(shape2) << "\n";
+    if (DEBUGCOND) {
+        std::cout << " n=" << numPoints << " shape2=" << toString(shape2) << "\n";
+    }
 #endif
-    
+
     if (maxAngleDiff < angleThresh) {
         writeGeomLines(shape2, device, 0);
 #ifdef DEBUG_SMOOTH_GEOM
-    if (DEBUGCOND) std::cout << "   special case: all lines. maxAngleDiff=" << maxAngleDiff << "\n";
+        if (DEBUGCOND) {
+            std::cout << "   special case: all lines. maxAngleDiff=" << maxAngleDiff << "\n";
+        }
 #endif
         return;
 //    } else if (numPoints == 3 || numPoints == 4) {
@@ -489,7 +499,9 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
         if (lineLength >= longThresh) {
             offset = writeGeomLines(line, device, offset);
 #ifdef DEBUG_SMOOTH_GEOM
-    if (DEBUGCOND) std::cout << "      writeLine=" << toString(line) << "\n";
+            if (DEBUGCOND) {
+                std::cout << "      writeLine=" << toString(line) << "\n";
+            }
 #endif
         } else {
             // find control points
@@ -529,14 +541,18 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
                 // could not compute control points, write line
                 offset = writeGeomLines(line, device, offset);
 #ifdef DEBUG_SMOOTH_GEOM
-                if (DEBUGCOND) std::cout << "      writeLine lineLength=" << lineLength << " begShape=" << toString(begShape) << " endShape=" << toString(endShape) << " init=" << toString(init) << "\n";
+                if (DEBUGCOND) {
+                    std::cout << "      writeLine lineLength=" << lineLength << " begShape=" << toString(begShape) << " endShape=" << toString(endShape) << " init=" << toString(init) << "\n";
+                }
 #endif
             } else {
                 // write bezier
                 const SUMOReal curveLength = bezier(init, 12).length2D();
                 offset = writeGeomPP3(device, init, curveLength, offset);
 #ifdef DEBUG_SMOOTH_GEOM
-                if (DEBUGCOND) std::cout << "      writeCurve lineLength=" << lineLength << " curveLength=" << curveLength << " begShape=" << toString(begShape) << " endShape=" << toString(endShape) << " init=" << toString(init) << "\n";
+                if (DEBUGCOND) {
+                    std::cout << "      writeCurve lineLength=" << lineLength << " curveLength=" << curveLength << " begShape=" << toString(begShape) << " endShape=" << toString(endShape) << " init=" << toString(init) << "\n";
+                }
 #endif
             }
         }

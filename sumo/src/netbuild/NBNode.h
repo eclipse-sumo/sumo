@@ -564,12 +564,12 @@ public:
         SUMOReal extrapolateEnd) const;
 
     static PositionVector bezierControlPoints(
-            const PositionVector& begShape,
-            const PositionVector& endShape,
-            bool isTurnaround,
-            SUMOReal extrapolateBeg,
-            SUMOReal extrapolateEnd,
-            SUMOReal minimumSLength = 5.0); 
+        const PositionVector& begShape,
+        const PositionVector& endShape,
+        bool isTurnaround,
+        SUMOReal extrapolateBeg,
+        SUMOReal extrapolateEnd,
+        SUMOReal minimumSLength = 5.0);
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */

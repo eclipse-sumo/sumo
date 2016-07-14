@@ -1112,7 +1112,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(SUMOReal layerElevation, SUM
     NBEdgeCont& ec = nb.getEdgeCont();
     // reconstruct elevation from layer info
     // build a map of raising and lowering forces (attractor and distance)
-    // for all nodes unknownElevation 
+    // for all nodes unknownElevation
     std::map<NBNode*, std::vector<std::pair<SUMOReal, SUMOReal> > > layerForces;
 
     // collect all nodes that belong to a way with layer information
@@ -1219,18 +1219,18 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(SUMOReal layerElevation, SUM
         std::cout << "  node=" << (it->first)->getID() << " ele=" << it->second << "\n";;
     }
 #endif
-    // apply node elevations and interpolate edge shapes in z-direction 
+    // apply node elevations and interpolate edge shapes in z-direction
     for (std::map<NBNode*, SUMOReal>::iterator it = nodeElevation.begin(); it != nodeElevation.end(); ++it) {
         NBNode* n = it->first;
         Position pos = n->getPosition();
-        n->reinit(n->getPosition() + Position(0,0,it->second), n->getType());
+        n->reinit(n->getPosition() + Position(0, 0, it->second), n->getType());
     }
 
     // apply way elevation to all edges that had layer information
     for (std::map<std::string, NBEdge*>::const_iterator it = ec.begin(); it != ec.end(); ++it) {
         NBEdge* edge = it->second;
         const PositionVector& geom = edge->getGeometry();
-        const SUMOReal length = geom.length2D();    
+        const SUMOReal length = geom.length2D();
         const SUMOReal zFrom = nodeElevation[edge->getFromNode()];
         const SUMOReal zTo = nodeElevation[edge->getToNode()];
         // XXX if the from- or to-node was part of multiple ways with
@@ -1241,7 +1241,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(SUMOReal layerElevation, SUM
             if (it_pos != geom.begin()) {
                 dist += (*it_pos).distanceTo2D(*(it_pos - 1));
             }
-            newGeom.push_back((*it_pos) + Position(0,0,zFrom + (zTo - zFrom) * dist / length));
+            newGeom.push_back((*it_pos) + Position(0, 0, zFrom + (zTo - zFrom) * dist / length));
         }
         edge->setGeometry(newGeom);
     }
