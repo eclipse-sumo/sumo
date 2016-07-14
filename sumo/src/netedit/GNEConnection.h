@@ -45,16 +45,18 @@ class GNEEdge;
 class GNEConnection : public GNENetElement {
 public:
     /**@brief Constructor.
-     * @param[in] edgeFrom The  edge the vehicles leave
-     * @param[in] edgeTo The edge the vehicles may reach when leaving "from"
-     * @param[in] fromLane the incoming lane
-     * @param[in] toLane the outgoing lane
+     * @param[in] junction junction in which this connection is placed
+     * @param[in] from The edge the vehicles leave
+     * @param[in] fromLane index of the incoming lane
+     * @param[in] to The edge the vehicles may reach when leaving "from"
+     * @param[in] toLane index of the outgoing lane
      * @param[in] pass if set, vehicles which pass this (lane-2-lane) connection) will not wait
      * @param[in] keepClear if set to false, vehicles which pass this (lane-2-lane) connection) will not worry about blocking the intersection.
      * @param[in] contPos If set to a positive value, an internal junction will be built at this position (in m) from the start of the internal lane for this connection.
      * @param[in] uncontrolled if set to true, This connection will not be TLS-controlled despite its node being controlled.
+     * @param[in[ tlIndex tlIndex of connection (By default is invalid)
      */
-    GNEConnection(GNEEdge* edgeFrom, GNEEdge* edgeTo, GNELane* fromLane, GNELane* toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled);
+    GNEConnection(GNEEdge &from, int fromLane, GNEEdge &to, int toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled, int tlIndex = NBConnection::InvalidTlIndex);
 
     /// @brief Destructor
     ~GNEConnection();
@@ -63,24 +65,26 @@ public:
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     void updateGeometry();
 
+    /// Returns the street's geometry
+    Boundary getBoundary() const;
+
     /// @brief get the name of the edge the vehicles leave
-    /// @note this parameter cannot be changed
-    GNEEdge* getEdgeFrom();
+    GNEEdge  &getEdgeFrom() const;
 
     /// @brief get the name of the edge the vehicles may reach when leaving "from"
-    GNEEdge* getEdgeTo();
+    GNEEdge &getEdgeTo() const;
 
-    /// @brief the get incoming lane
-    GNELane* getFromLane();
+    /// @briefthe get lane of the incoming lane
+    GNELane* getFromLane() const;
 
-    /// @briefthe get outgoing lane
-    GNELane* getToLane();
+    /// @briefthe get lane of the outgoing lane
+    GNELane* getToLane() const;
 
     /// @briefthe get lane index of the incoming lane
-    int getFromLaneIndex();
+    int getFromLaneIndex() const;
 
     /// @briefthe get lane index of the outgoing lane
-    int getToLaneIndex();
+    int getToLaneIndex() const;
 
     /// @brief get parameter pass
     bool getPass();
@@ -93,6 +97,12 @@ public:
 
     /// @briefif get parameter uncontrolled
     bool getUncontrolled();
+
+    /// @brief get NBConnection
+    const NBConnection &getNBConnection() const;
+
+    /// @brief get Edge::NBConnection
+    const NBEdge::Connection &getNBEdgeConnection() const;
 
     /// @brief set parameter pass
     void setPass(bool pass);
@@ -163,17 +173,20 @@ public:
     /// @}
 
 protected:
-    /// @brief The name of the edge the vehicles leave
-    GNEEdge* myEdgeFrom;
+    /// @brief NBConnection associated with this connection
+    NBConnection myNBConnection;
 
-    /// @brief The name of the edge the vehicles may reach when leaving "from"
-    GNEEdge* myEdgeTo;
+    /// @brief NBEdge::Connection associated with this connection
+    NBEdge::Connection myConnection;
 
-    /// @brief the incoming lane
-    GNELane* myFromLane;
+    /// @brief incoming edge of this connection
+    GNEEdge &myFromEdge;
 
-    /// @brief the outgoing lane
-    GNELane* myToLane;
+    /// @brief outcoming edge of this connection
+    GNEEdge &myToEdge;
+
+    /// @brief junction in which this connection is placed
+    NBNode *myJunction;
 
     /// @brief if set, vehicles which pass this (lane-2-lane) connection) will not wait
     bool myPass;
@@ -186,6 +199,18 @@ protected:
 
     /// @brief if set to true, This connection will not be TLS-controlled despite its node being controlled.
     bool myUncontrolled;
+
+    /// @brief the shape of the edge
+    PositionVector myShape;
+
+    /// @name computed only once (for performance) in updateGeometry()
+    /// @{
+    /// The rotations of the shape parts
+    std::vector<SUMOReal> myShapeRotations;
+
+    /// The lengths of the shape parts
+    std::vector<SUMOReal> myShapeLengths;
+    /// @}
 
 private:
     /// @brief set attribute after validation

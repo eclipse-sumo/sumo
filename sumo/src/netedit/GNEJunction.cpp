@@ -295,15 +295,20 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
     myHasValidLogic = valid;
     // If new logic isn't valid
     if (!valid) {
+
         // Check preconditions
         assert(undoList != 0);
         assert(undoList->hasCommandGroup());
+
         // Registre a modification of status
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status));
+
         // allow edges to recompute their connections
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
+
         // Obtain a copy of incoming edges
         EdgeVector incoming = myNBNode.getIncomingEdges();
+
         // Iterate over incoming edges
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
             NBEdge* srcNBE = *it;

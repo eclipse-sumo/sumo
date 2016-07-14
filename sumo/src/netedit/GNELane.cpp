@@ -421,6 +421,11 @@ GNELane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     return ret;
 }
 
+Boundary
+GNELane::getBoundary() const {
+    return myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
+}
+
 
 Boundary
 GNELane::getCenteringBoundary() const {
@@ -446,13 +451,6 @@ const std::vector<SUMOReal>&
 GNELane::getShapeLengths() const {
     return myShapeLengths;
 }
-
-
-Boundary
-GNELane::getBoundary() const {
-    return myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
-}
-
 
 void
 GNELane::updateGeometry() {

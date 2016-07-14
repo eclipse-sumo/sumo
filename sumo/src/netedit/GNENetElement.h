@@ -70,6 +70,9 @@ public:
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     virtual void updateGeometry() = 0;
 
+    /// Returns the NetElement's geometry
+    //virtual Boundary getBoundary() const;
+
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 

@@ -41,6 +41,7 @@ class GNEJunction;
 class GNELane;
 class GNEAdditional;
 class GNEAdditionalSet;
+class GNEConnection;
 
 // ===========================================================================
 // class definitions
@@ -61,11 +62,14 @@ public:
     /// @brief Definition of the lane's positions vector
     typedef std::vector<GNELane*> LaneVector;
 
-    /// @brief Definition of the additionals list
+    /// @brief Definition of the additionals vector
     typedef std::vector<GNEAdditional*> AdditionalVector;
 
-    /// @brief Definition of the additionalSets list
+    /// @brief Definition of the additionalSets vector
     typedef std::vector<GNEAdditionalSet*> AdditionalSetVector;
+
+    /// @brief Definition of the connections map
+    typedef std::map<int, GNEConnection*> connectionMap;
 
     /**@brief Constructor.
      * @param[in] nbe The represented edge
@@ -128,6 +132,12 @@ public:
 
     /// @brief returns the destination-junction
     GNEJunction* getDest() const;
+
+    /// @brief returns vector of GNEConnections of this edge
+    std::vector<GNEConnection*> getGNEConnections() const;
+
+    /// @brief returns vector of GNEConnections of a concrete lane
+    std::vector<GNEConnection*> getGNEConnectionsFromLane(int laneIndex) const;
 
     /**@brief change the edge geometry
      * It is up to the Edge to decide whether an new geometry node should be
@@ -194,7 +204,7 @@ public:
      * let the lanes recompute their precomputed geometry information
      * (needed after computing junction shapes)
      */
-    void updateLaneGeometriesAndAdditionals();
+    void updateLaneGeometries();
 
     /// @brief copy edge attributes from tpl
     void copyTemplate(GNEEdge* tpl, GNEUndoList* undolist);
@@ -255,11 +265,14 @@ protected:
     /// @brief modification status of the connections
     std::string myConnectionStatus;
 
-    /// @brief list with the additonals vinculated with this edge
+    /// @brief vector with the additonals vinculated with this edge
     AdditionalVector myAdditionals;
 
-    /// @brief list with the additonalSets vinculated with this edge
+    /// @brief vector with the additonalSets vinculated with this edge
     AdditionalSetVector myAdditionalSets;
+
+    /// @brief map with the connections vinculated with this edge
+    connectionMap myConnections;
 
 private:
     /// @brief set attribute after validation

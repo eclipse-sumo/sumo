@@ -65,6 +65,7 @@ class GNEApplicationWindow;
 class GNEAttributeCarrier;
 class GNEEdge;
 class GNELane;
+class GNEConnection;
 class GNEJunction;
 class GNEUndoList;
 class GNEAdditional;
@@ -88,6 +89,7 @@ class GNENet : public GUIGlObject {
     /// @brief declare friend class
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
+    friend class GNEChange_Connection;
 
 public:
     /// @brief color of selection
@@ -251,6 +253,9 @@ public:
      * @throws UnknownElement
      */
     GNEEdge* retrieveEdge(const std::string& id, bool failHard = true);
+
+    /**@brief get connection by NBEdge::connection **/
+    GNEConnection *retrieveConnection(unsigned int fromLane, NBEdge *toEdge, unsigned int toLane) const;
 
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs
@@ -418,8 +423,14 @@ public:
      * @return Number of additionals of the net
      */
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING);
+    
+    /// @brief inserts a single connection into the net
+    void insertConnection(GNEConnection* connection);
 
-private:
+    /// @brief deletes a single connection
+    void deleteConnection(GNEConnection* connection);
+
+protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
@@ -431,16 +442,20 @@ private:
 
     /// @name internal GNE components
     /// @{
-    typedef std::map<std::string, GNEEdge*> GNEEdges;
     typedef std::map<std::string, GNEJunction*> GNEJunctions;
+    typedef std::map<std::string, GNEEdge*> GNEEdges;
+    typedef std::vector<GNEConnection*> GNEConnections; // @TODO OPTIMIZE
     typedef std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> GNEAdditionals;
     // @}
+
+    /// @brief map with the name and pointer to junctions of net
+    GNEJunctions myJunctions;
 
     /// @brief map with the name and pointer to edges of net
     GNEEdges myEdges;
 
-    /// @brief map with the name and pointer to junctions of net
-    GNEJunctions myJunctions;
+    /// @brief map with the name and pointer to connections of net
+    GNEConnections myConnections;
 
     /// @brief map with the name and pointer to additional elements of net
     GNEAdditionals myAdditionals;
@@ -472,6 +487,8 @@ private:
 
     /// @brief inserts a single edge into the net and into the underlying netbuild-container
     void insertEdge(GNEEdge* edge);
+
+
 
     /// @brief registers a junction with GNENet containers
     GNEJunction* registerJunction(GNEJunction* junction);

@@ -46,6 +46,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEConnection.h"
+#include "GNEJunction.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
 
@@ -58,18 +59,19 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-
+int NUM_POINTS = 5;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEConnection::GNEConnection(GNEEdge* edgeFrom, GNEEdge* edgeTo, GNELane* fromLane, GNELane* toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled) :
-    GNENetElement(NULL, "CHANGE", GLO_CONNECTION, SUMO_TAG_CONNECTION),
-    myEdgeFrom(edgeFrom),
-    myEdgeTo(edgeTo),
-    myFromLane(fromLane),
-    myToLane(toLane),
+GNEConnection::GNEConnection(GNEEdge &from, int fromLane, GNEEdge &to, int toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled, int tlIndex) :
+    GNENetElement(from.getNet(), from.getID() + "_" + toString(fromLane) + "_" + to.getID() + "_" + toString(toLane) , GLO_JUNCTION, SUMO_TAG_CONNECTION),
+    myNBConnection(from.getNBEdge(), fromLane, to.getNBEdge(), toLane, tlIndex), 
+    myConnection(fromLane, to.getNBEdge(), toLane),
+    myFromEdge(from),
+    myToEdge(to),
+    myJunction(from.getNBEdge()->getToNode()),
     myPass(pass),
     myKeepClear(keepClear),
     myContPos(contPos),
@@ -83,42 +85,61 @@ GNEConnection::~GNEConnection() {}
 
 void
 GNEConnection::updateGeometry() {
+    // Get shape of connection
+    myShape = myJunction->computeInternalLaneShape(myFromEdge.getNBEdge(), myConnection, NUM_POINTS);
+    int segments = (int) myShape.size() - 1;
+    if (segments >= 0) {
+        myShapeRotations.reserve(segments);
+        myShapeLengths.reserve(segments);
+        for (int i = 0; i < segments; ++i) {
+            const Position& f = myShape[i];
+            const Position& s = myShape[i + 1];
+            myShapeLengths.push_back(f.distanceTo2D(s));
+            myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+        }
+    }
 }
 
 
-GNEEdge*
-GNEConnection::getEdgeFrom() {
-    return myEdgeFrom;
+Boundary 
+GNEConnection::getBoundary() const {
+    return Boundary();
 }
 
 
-GNEEdge*
-GNEConnection::getEdgeTo() {
-    return myEdgeTo;
+GNEEdge&
+GNEConnection::getEdgeFrom() const {
+    return myFromEdge;
 }
 
 
-GNELane*
-GNEConnection::getFromLane() {
-    return myFromLane;
+GNEEdge&
+GNEConnection::getEdgeTo() const {
+    return myToEdge;
 }
 
 
-GNELane*
-GNEConnection::getToLane() {
-    return myToLane;
+GNELane* 
+GNEConnection::getFromLane() const {
+    return myFromEdge.getLanes().at(myConnection.fromLane);
+}
+
+
+GNELane* 
+GNEConnection::getToLane() const {
+    return myToEdge.getLanes().at(myConnection.toLane);
 }
 
 
 int
-GNEConnection::getFromLaneIndex() {
-    return myFromLane->getIndex();
+GNEConnection::getFromLaneIndex() const {
+    return myConnection.fromLane;
 }
 
 
 int
-GNEConnection::getToLaneIndex() {
-    return myToLane->getIndex();
+GNEConnection::getToLaneIndex() const {
+    return myConnection.toLane;
 }
 
 
@@ -145,6 +166,17 @@ GNEConnection::getUncontrolled() {
     return myUncontrolled;
 }
 
+
+const NBConnection& 
+GNEConnection::getNBConnection() const {
+    return myNBConnection;
+}
+
+
+const NBEdge::Connection&
+GNEConnection::getNBEdgeConnection() const {
+    return myConnection;
+}
 
 void
 GNEConnection::setPass(bool pass) {
@@ -196,8 +228,19 @@ GNEConnection::getCenteringBoundary() const {
 
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
-    // Currently ignored before implementation to avoid warnings
-    UNUSED_PARAMETER(s);
+    glPushMatrix();
+    glPushName(getGlID());
+    glTranslated(0, 0, GLO_JUNCTION + 0.1); // must draw on top of junction
+//    GLHelper::setColor(colorForLinksState(myState));
+    // draw lane
+    // check whether it is not too small
+    if (s.scale < 1.) {
+        GLHelper::drawLine(myShape);
+    } else {
+        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.2);
+    }
+    glPopName();
+    glPopMatrix();
 }
 
 

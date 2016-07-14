@@ -122,7 +122,7 @@ protected:
     GNEInternalLane();
 
 private:
-    /// @brief the shape of the edge
+    /// @brief the shape of the internal lane
     const PositionVector myShape;
 
     /// @name computed only once (for performance) in updateGeometry()
