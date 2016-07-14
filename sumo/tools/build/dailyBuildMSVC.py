@@ -85,8 +85,9 @@ def runTests(options, env, svnrev, debugSuffix=""):
     for name in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", "netgenerate",
                  "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen",
                  "emissionsDrivingCycle", "emissionsMap"]:
-        binary = os.path.join(
-            options.rootDir, options.binDir, name + debugSuffix + ".exe")
+        image = name + debugSuffix + ".exe"
+        subprocess.call(["taskkill", "/f", "/im", image])
+        binary = os.path.join(options.rootDir, options.binDir, image)
         if name == "sumo-gui":
             if os.path.exists(binary):
                 env["GUISIM_BINARY"] = binary
