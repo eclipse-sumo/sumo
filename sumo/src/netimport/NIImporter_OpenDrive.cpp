@@ -856,18 +856,20 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         // add z-data
         int k = 0;
         SUMOReal pos = 0;
-        const SUMOReal length = e.geom.length2D();
         for (std::vector<OpenDriveElevation>::iterator j = e.elevations.begin(); j != e.elevations.end(); ++j) {
             const OpenDriveElevation& el = *j;
-            const SUMOReal sNext = (j + 1) == e.elevations.end() ? length : (*(j + 1)).s;
-            while (k < (int)e.geom.size() && pos <= sNext) {
-                if (k > 0) {
-                    pos += e.geom[k - 1].distanceTo2D(e.geom[k]);
-                }
+            const SUMOReal sNext = (j + 1) == e.elevations.end() ? std::numeric_limits<SUMOReal>::max() : (*(j + 1)).s;
+            while (k < (int)e.geom.size() && pos < sNext) {
                 const SUMOReal ds = pos - el.s;
                 const SUMOReal z = el.a + el.b * ds + el.c * ds * ds + el.d * ds * ds * ds;
+                //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " pos=" << pos << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
                 e.geom[k].add(0, 0, z);
                 k++;
+                if (k < (int)e.geom.size()) {
+                    // XXX pos understimates the actual position since the
+                    // actual geometry between k-1 and k could be curved
+                    pos += e.geom[k - 1].distanceTo2D(e.geom[k]);
+                }
             }
         }
     }
