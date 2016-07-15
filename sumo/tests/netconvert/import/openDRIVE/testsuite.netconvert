@@ -39,3 +39,6 @@ orig-names
 
 # test for #2085
 imprecise_geometry
+
+# import and export elevation
+elevation_roundtrip

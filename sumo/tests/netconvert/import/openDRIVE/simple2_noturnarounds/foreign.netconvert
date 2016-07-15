@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Nov 25 07:59:52 2015" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Jul 15 15:44:22 2016" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
     <road name="a1" length="50.00" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -10,7 +10,9 @@
         <planView>
             <geometry s="0.00000000" x="0.00000000" y="-0.05000000" hdg="0.00000000" length="50.00000000"><line/></geometry>
         </planView>
-        <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
+        <elevationProfile>
+            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
+        </elevationProfile>
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
@@ -49,7 +51,9 @@
         <planView>
             <geometry s="0.00000000" x="50.00000000" y="0.05000000" hdg="3.14159265" length="50.00000000"><line/></geometry>
         </planView>
-        <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
+        <elevationProfile>
+            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
+        </elevationProfile>
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
