@@ -59,7 +59,7 @@ public:
     /** @brief Returns the current content as a string
      * @return The content as string
      */
-    std::string getString();
+    std::string getString() const;
 
 protected:
     /// @name Methods that override/implement OutputDevice-methods

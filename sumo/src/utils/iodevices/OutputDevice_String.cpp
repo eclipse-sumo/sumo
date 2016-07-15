@@ -52,7 +52,7 @@ OutputDevice_String::~OutputDevice_String() {
 
 
 std::string
-OutputDevice_String::getString() {
+OutputDevice_String::getString() const {
     return myStream.str();
 }
 
