@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:55 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Jul 13 13:23:54 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -184,9 +184,9 @@
         <lane id=":24_0_0" index="0" speed="13.89" length="2.40" shape="435.56,661.90 435.57,664.30"/>
     </edge>
     <edge id=":24_1" function="internal">
-        <lane id=":24_1_0" index="0" speed="13.89" length="4.44" shape="432.28,664.10 431.38,662.95 429.17,663.43 426.88,663.91 425.70,662.76"/>
-        <lane id=":24_1_1" index="1" speed="13.89" length="4.44" shape="432.28,664.10 428.99,662.47"/>
-        <lane id=":24_1_2" index="2" speed="13.89" length="4.44" shape="432.28,664.10 432.27,662.18"/>
+        <lane id=":24_1_0" index="0" speed="13.89" length="4.11" shape="432.28,664.10 425.70,662.76"/>
+        <lane id=":24_1_1" index="1" speed="13.89" length="4.11" shape="432.28,664.10 428.99,662.47"/>
+        <lane id=":24_1_2" index="2" speed="13.89" length="4.11" shape="432.28,664.10 432.27,662.18"/>
     </edge>
     <edge id=":25_0" function="internal">
         <lane id=":25_0_0" index="0" speed="13.89" length="0.10" shape="414.35,445.13 414.36,445.16"/>
@@ -214,9 +214,9 @@
         <lane id=":27_2_2" index="2" speed="19.44" length="3.98" shape="1014.52,489.42 1017.44,489.35"/>
     </edge>
     <edge id=":28_0" function="internal">
-        <lane id=":28_0_0" index="0" speed="19.44" length="3.96" shape="1703.62,489.93 1700.89,488.07"/>
-        <lane id=":28_0_1" index="1" speed="19.44" length="3.96" shape="1705.74,487.39 1702.46,485.17"/>
-        <lane id=":28_0_2" index="2" speed="19.44" length="3.96" shape="1707.85,484.86 1704.03,482.27"/>
+        <lane id=":28_0_0" index="0" speed="19.44" length="3.97" shape="1703.62,489.93 1702.87,489.30 1702.33,488.90 1701.75,488.55 1700.89,488.07"/>
+        <lane id=":28_0_1" index="1" speed="19.44" length="3.97" shape="1705.74,487.39 1704.83,486.64 1704.18,486.16 1703.49,485.74 1702.46,485.17"/>
+        <lane id=":28_0_2" index="2" speed="19.44" length="3.97" shape="1707.85,484.86 1706.79,483.98 1706.04,483.42 1705.24,482.93 1704.03,482.27"/>
     </edge>
     <edge id=":28_3" function="internal">
         <lane id=":28_3_0" index="0" speed="19.44" length="6.45" shape="1707.18,476.47 1709.20,476.98 1710.83,476.64 1712.38,476.41 1714.19,477.25"/>

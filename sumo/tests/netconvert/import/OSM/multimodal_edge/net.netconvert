@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  8 15:44:51 2016 by SUMO netconvert Version dev-SVN-r21134
+<!-- generated on Wed Jul 13 13:23:56 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -70,10 +70,10 @@
         <lane id=":1_0_0" index="0" disallow="rail_urban rail rail_electric ship" speed="27.78" length="4.82" shape="-0.79,1.45 -1.48,0.14 -1.45,-0.79 -0.69,-1.31 0.79,-1.45"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" allow="tram" speed="20.84" length="3.71" shape="655.65,349.67 659.25,350.54"/>
+        <lane id=":2_0_0" index="0" allow="tram" speed="20.84" length="3.79" shape="655.65,349.67 656.64,350.19 657.37,350.45 658.14,350.55 659.25,350.54"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" allow="tram" speed="20.84" length="3.72" shape="655.65,349.67 659.25,350.55"/>
+        <lane id=":2_1_0" index="0" allow="tram" speed="20.84" length="3.79" shape="655.65,349.67 656.64,350.19 657.37,350.46 658.14,350.55 659.25,350.55"/>
     </edge>
     <edge id=":2_2" function="internal">
         <lane id=":2_2_0" index="0" disallow="rail_urban rail rail_electric ship" speed="27.78" length="4.82" shape="654.07,352.57 654.77,353.89 654.74,354.81 653.98,355.34 652.50,355.47"/>

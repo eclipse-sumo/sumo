@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:48 2016 by SUMO netgenerate Version dev-SVN-r21152
+<!-- generated on Wed Jul 13 14:50:24 2016 by SUMO netgenerate Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -664,7 +664,7 @@
         <lane id=":2875_1_0" index="0" speed="13.90" length="5.45" shape="2273.73,2200.14 2275.26,2199.67 2276.54,2199.73 2277.56,2200.34 2278.32,2201.48"/>
     </edge>
     <edge id=":2880_0" function="internal">
-        <lane id=":2880_0_0" index="0" speed="13.90" length="3.89" shape="1157.65,2709.98 1158.77,2713.70"/>
+        <lane id=":2880_0_0" index="0" speed="13.90" length="4.03" shape="1157.65,2709.98 1157.63,2711.16 1157.75,2711.98 1158.10,2712.73 1158.77,2713.70"/>
     </edge>
     <edge id=":2880_1" function="internal">
         <lane id=":2880_1_0" index="0" speed="13.90" length="6.92" shape="1157.65,2709.98 1157.31,2712.34 1156.54,2713.64 1155.36,2713.85 1153.76,2712.98"/>
@@ -784,7 +784,7 @@
         <lane id=":329_3_0" index="0" speed="13.90" length="3.14" shape="917.63,1367.85 916.87,1368.28 914.74,1369.04"/>
     </edge>
     <edge id=":331_0" function="internal">
-        <lane id=":331_0_0" index="0" speed="13.90" length="0.68" shape="909.86,1552.17 909.18,1552.27"/>
+        <lane id=":331_0_0" index="0" speed="13.90" length="0.69" shape="909.86,1552.17 909.66,1552.16 909.51,1552.17 909.38,1552.20 909.18,1552.27"/>
     </edge>
     <edge id=":335_0" function="internal">
         <lane id=":335_0_0" index="0" speed="13.90" length="5.13" shape="1805.05,1682.26 1806.41,1682.26 1807.46,1681.79 1808.20,1680.88 1808.63,1679.50"/>
@@ -826,7 +826,7 @@
         <lane id=":3436_2_0" index="0" speed="13.90" length="9.87" shape="2170.37,1244.01 2177.02,1251.29"/>
     </edge>
     <edge id=":3496_0" function="internal">
-        <lane id=":3496_0_0" index="0" speed="13.90" length="0.61" shape="1750.33,1249.16 1749.93,1249.61"/>
+        <lane id=":3496_0_0" index="0" speed="13.90" length="0.61" shape="1750.33,1249.16 1750.24,1249.31 1750.16,1249.41 1750.07,1249.50 1749.93,1249.61"/>
     </edge>
     <edge id=":360_0" function="internal">
         <lane id=":360_0_0" index="0" speed="13.90" length="7.24" shape="1979.60,1663.82 1981.68,1663.79 1983.07,1664.21 1984.39,1665.02 1986.24,1666.13"/>

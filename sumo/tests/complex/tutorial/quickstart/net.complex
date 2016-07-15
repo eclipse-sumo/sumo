@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 27 08:44:27 2016 by SUMO netconvert Version dev-SVN-r20555
+<!-- generated on Wed Jul 13 12:27:03 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -69,12 +69,12 @@
     </edge>
     <edge id=":3_6" function="internal">
         <lane id=":3_6_0" index="0" speed="13.89" length="22.81" shape="2011.35,4.95 2004.58,5.47 2000.00,6.60 1995.42,7.73 1988.65,8.25"/>
-        <lane id=":3_6_1" index="1" speed="13.89" length="22.81" shape="2011.35,4.95 2004.61,4.95 2000.00,4.95 1995.39,4.95 1988.65,4.95"/>
-        <lane id=":3_6_2" index="2" speed="13.89" length="22.81" shape="2011.35,1.65 2004.61,1.65 2000.00,1.65 1995.39,1.65 1988.65,1.65"/>
+        <lane id=":3_6_1" index="1" speed="13.89" length="22.81" shape="2011.35,4.95 1988.65,4.95"/>
+        <lane id=":3_6_2" index="2" speed="13.89" length="22.81" shape="2011.35,1.65 1988.65,1.65"/>
     </edge>
     <edge id=":3_9" function="internal">
-        <lane id=":3_9_0" index="0" speed="13.89" length="22.81" shape="1988.65,-8.25 1995.39,-8.25 2000.00,-8.25 2004.61,-8.25 2011.35,-8.25"/>
-        <lane id=":3_9_1" index="1" speed="13.89" length="22.81" shape="1988.65,-4.95 1995.39,-4.95 2000.00,-4.95 2004.61,-4.95 2011.35,-4.95"/>
+        <lane id=":3_9_0" index="0" speed="13.89" length="22.81" shape="1988.65,-8.25 2011.35,-8.25"/>
+        <lane id=":3_9_1" index="1" speed="13.89" length="22.81" shape="1988.65,-4.95 2011.35,-4.95"/>
         <lane id=":3_9_2" index="2" speed="13.89" length="22.81" shape="1988.65,-4.95 1995.42,-4.43 2000.00,-3.30 2004.58,-2.17 2011.35,-1.65"/>
     </edge>
     <edge id=":3_12" function="internal">
@@ -112,8 +112,8 @@
         <lane id=":5_3_2" index="2" speed="13.89" length="3.00" shape="2998.50,998.35 3001.50,998.35"/>
     </edge>
     <edge id=":6_0" function="internal">
-        <lane id=":6_0_0" index="0" speed="13.89" length="22.81" shape="2011.35,1008.25 2004.61,1008.25 2000.00,1008.25 1995.39,1008.25 1988.65,1008.25"/>
-        <lane id=":6_0_1" index="1" speed="13.89" length="22.81" shape="2011.35,1004.95 2004.61,1004.95 2000.00,1004.95 1995.39,1004.95 1988.65,1004.95"/>
+        <lane id=":6_0_0" index="0" speed="13.89" length="22.81" shape="2011.35,1008.25 1988.65,1008.25"/>
+        <lane id=":6_0_1" index="1" speed="13.89" length="22.81" shape="2011.35,1004.95 1988.65,1004.95"/>
         <lane id=":6_0_2" index="2" speed="13.89" length="22.81" shape="2011.35,1004.95 2004.58,1004.43 2000.00,1003.30 1995.42,1002.17 1988.65,1001.65"/>
     </edge>
     <edge id=":6_3" function="internal">
@@ -140,8 +140,8 @@
     </edge>
     <edge id=":6_11" function="internal">
         <lane id=":6_11_0" index="0" speed="13.89" length="22.81" shape="1988.65,995.05 1995.42,994.53 2000.00,993.40 2004.58,992.27 2011.35,991.75"/>
-        <lane id=":6_11_1" index="1" speed="13.89" length="22.81" shape="1988.65,995.05 1995.39,995.05 2000.00,995.05 2004.61,995.05 2011.35,995.05"/>
-        <lane id=":6_11_2" index="2" speed="13.89" length="22.81" shape="1988.65,998.35 1995.39,998.35 2000.00,998.35 2004.61,998.35 2011.35,998.35"/>
+        <lane id=":6_11_1" index="1" speed="13.89" length="22.81" shape="1988.65,995.05 2011.35,995.05"/>
+        <lane id=":6_11_2" index="2" speed="13.89" length="22.81" shape="1988.65,998.35 2011.35,998.35"/>
     </edge>
     <edge id=":911_0" function="internal">
         <lane id=":911_0_0" index="0" speed="13.89" length="0.10" shape="500.00,1008.25 500.00,1008.25"/>

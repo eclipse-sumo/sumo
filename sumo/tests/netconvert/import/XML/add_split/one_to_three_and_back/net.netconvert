@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:53 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Jul 13 11:49:38 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,9 +26,9 @@
     <location netOffset="0.00,6.60" convBoundary="0.00,0.00,100.00,6.60" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id=":1.10_0" function="internal">
-        <lane id=":1.10_0_0" index="0" speed="13.90" length="5.21" shape="8.50,-1.65 11.50,-1.65"/>
-        <lane id=":1.10_0_1" index="1" speed="13.90" length="5.21" shape="8.50,-1.65 11.50,1.65"/>
-        <lane id=":1.10_0_2" index="2" speed="13.90" length="5.21" shape="8.50,-1.65 9.99,-0.62 10.00,1.65 10.01,3.92 11.50,4.95"/>
+        <lane id=":1.10_0_0" index="0" speed="13.90" length="4.90" shape="8.50,-1.65 11.50,-1.65"/>
+        <lane id=":1.10_0_1" index="1" speed="13.90" length="4.90" shape="8.50,-1.65 11.50,1.65"/>
+        <lane id=":1.10_0_2" index="2" speed="13.90" length="4.90" shape="8.50,-1.65 11.50,4.95"/>
     </edge>
     <edge id=":1.50_0" function="internal">
         <lane id=":1.50_0_0" index="0" speed="13.90" length="3.00" shape="48.50,-1.65 51.50,-1.65"/>

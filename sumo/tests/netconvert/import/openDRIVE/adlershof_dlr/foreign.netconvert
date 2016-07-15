@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Tue Jul 12 16:46:36 2016" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="190" maxJunc="87" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Jul 13 14:50:33 2016" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="190" maxJunc="87" maxPrg="0"/>
     <road name="Teltowkanalbrücke" length="56.01" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -8344,16 +8344,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":283719904_0_0" length="0.30" id="235" junction="43">
+    <road name=":283719904_0_0" length="0.26" id="235" junction="43">
         <link>
             <predecessor elementType="road" elementId="165" contactPoint="end"/>
             <successor elementType="road" elementId="166" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-    <geometry s="0.00000000" x="933.67497136" y="553.88027400" hdg="2.28996204" length="0.29720161">
-        <paramPoly3 aU="0.00000000" bU="0.38302225" cU="-0.79161875" dU="0.52747611" aV="-0.00000000" bV="0.00000000" cV="0.70284604" dV="-0.47685860"/>
-    </geometry>
+            <geometry s="0.00000000" x="933.67497136" y="553.88027400" hdg="-2.90669297" length="0.25534817"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -8418,16 +8416,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":283719904_2_0" length="0.51" id="237" junction="43">
+    <road name=":283719904_2_0" length="0.48" id="237" junction="43">
         <link>
             <predecessor elementType="road" elementId="49" contactPoint="end"/>
             <successor elementType="road" elementId="48" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-    <geometry s="0.00000000" x="933.34727929" y="553.75999414" hdg="-0.91664316" length="0.50524757">
-        <paramPoly3 aU="0.00000000" bU="0.72224689" cU="-0.93606595" dU="0.62353537" aV="0.00000000" bV="0.00000000" cV="0.71186332" dV="-0.45893487"/>
-    </geometry>
+            <geometry s="0.00000000" x="933.34727929" y="553.75999414" hdg="-0.36358140" length="0.48149793"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>

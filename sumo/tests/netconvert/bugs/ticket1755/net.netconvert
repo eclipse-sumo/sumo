@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:04 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Jul 13 14:50:37 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -100,7 +100,7 @@
         <lane id=":1596765849_0_0" index="0" allow="rail rail_electric" speed="83.33" length="5.05" shape="58.31,245.98 58.39,247.47 58.58,248.49 58.76,249.50 58.81,250.99"/>
     </edge>
     <edge id=":1596765849_1" function="internal">
-        <lane id=":1596765849_1_0" index="0" allow="rail rail_electric" speed="83.33" length="6.57" shape="54.95,246.11 55.70,247.74 57.03,248.55 58.30,249.35 58.81,250.99"/>
+        <lane id=":1596765849_1_0" index="0" allow="rail rail_electric" speed="83.33" length="6.22" shape="54.95,246.11 58.81,250.99"/>
     </edge>
     <edge id=":1596765923_0" function="internal">
         <lane id=":1596765923_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.75" shape="54.87,353.33 54.77,356.07"/>
@@ -121,7 +121,7 @@
         <lane id=":cluster_1596765862_1596765895_1_0" index="0" allow="rail rail_electric" speed="83.33" length="1.62" shape="56.73,305.00 56.77,304.40 56.81,304.20 56.87,304.41 56.93,305.01"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_2" function="internal">
-        <lane id=":cluster_1596765862_1596765895_2_0" index="0" allow="rail rail_electric" speed="83.33" length="25.09" shape="55.75,330.49 56.10,327.98 56.46,317.96 56.70,307.94 56.72,305.44"/>
+        <lane id=":cluster_1596765862_1596765895_2_0" index="0" allow="rail rail_electric" speed="83.33" length="25.08" shape="55.75,330.49 56.72,305.44"/>
     </edge>
 
     <edge id="146404892#0" from="1596766027" to="1596765963" priority="15" type="railway.rail" spreadType="center" shape="49.54,498.49 50.54,462.56 52.20,421.43 52.71,408.75 53.35,392.98">

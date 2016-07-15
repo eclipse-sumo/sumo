@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:52 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Jul 13 11:49:37 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -35,10 +35,10 @@
         <lane id=":42722822_0_0" index="0" speed="7.72" length="4.70" shape="141.61,615.03 140.89,616.29 140.12,616.75 139.29,616.41 138.40,615.27"/>
     </edge>
     <edge id=":7152678.-165_0" function="internal">
-        <lane id=":7152678.-165_0_0" index="0" speed="3.86" length="4.70" shape="360.32,469.87 357.46,468.96"/>
-        <lane id=":7152678.-165_0_1" index="1" speed="3.86" length="4.70" shape="361.21,466.69 358.35,465.79"/>
-        <lane id=":7152678.-165_0_2" index="2" speed="3.86" length="4.70" shape="361.21,466.69 359.23,462.61"/>
-        <lane id=":7152678.-165_0_3" index="3" speed="3.86" length="4.70" shape="361.21,466.69 360.04,465.27 360.66,463.06 361.28,460.84 360.12,459.43"/>
+        <lane id=":7152678.-165_0_0" index="0" speed="3.86" length="4.47" shape="360.32,469.87 357.46,468.96"/>
+        <lane id=":7152678.-165_0_1" index="1" speed="3.86" length="4.47" shape="361.21,466.69 358.35,465.79"/>
+        <lane id=":7152678.-165_0_2" index="2" speed="3.86" length="4.47" shape="361.21,466.69 359.23,462.61"/>
+        <lane id=":7152678.-165_0_3" index="3" speed="3.86" length="4.47" shape="361.21,466.69 360.12,459.43"/>
     </edge>
     <edge id=":cluster_42717004_42717128_42717332_42717527_0" function="internal">
         <lane id=":cluster_42717004_42717128_42717332_42717527_0_0" index="0" speed="5.79" length="8.71" shape="208.58,425.40 205.47,424.66 203.09,424.53 201.44,424.99 200.52,426.06"/>

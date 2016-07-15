@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:39 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Jul 13 14:50:36 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -27,16 +27,16 @@
     <location netOffset="95.49,0.00" convBoundary="0.00,0.00,1390.99,190.99" origBoundary="-95.49,0.00,1295.49,190.99" projParameter="!"/>
 
     <edge id=":dl_0" function="internal">
-        <lane id=":dl_0_0" index="0" speed="13.90" length="0.42" shape="84.12,0.05 84.54,0.00"/>
+        <lane id=":dl_0_0" index="0" speed="13.90" length="0.42" shape="84.12,0.05 84.24,0.02 84.33,0.01 84.41,0.00 84.54,0.00"/>
     </edge>
     <edge id=":dr_0" function="internal">
-        <lane id=":dr_0_0" index="0" speed="13.90" length="0.42" shape="1306.45,0.00 1306.86,0.05"/>
+        <lane id=":dr_0_0" index="0" speed="13.90" length="0.42" shape="1306.45,0.00 1306.57,0.00 1306.66,0.01 1306.74,0.02 1306.86,0.05"/>
     </edge>
     <edge id=":tl_0" function="internal">
-        <lane id=":tl_0_0" index="0" speed="13.90" length="0.42" shape="84.55,190.99 84.14,190.94"/>
+        <lane id=":tl_0_0" index="0" speed="13.90" length="0.42" shape="84.55,190.99 84.43,190.99 84.34,190.98 84.26,190.97 84.14,190.94"/>
     </edge>
     <edge id=":tr_0" function="internal">
-        <lane id=":tr_0_0" index="0" speed="13.90" length="0.42" shape="1306.85,190.94 1306.44,190.99"/>
+        <lane id=":tr_0_0" index="0" speed="13.90" length="0.42" shape="1306.85,190.94 1306.73,190.97 1306.64,190.98 1306.56,190.99 1306.44,190.99"/>
     </edge>
 
     <edge id="1" from="dl" to="dr" priority="-1" spreadType="center">

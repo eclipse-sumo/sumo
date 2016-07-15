@@ -1,3 +1,5 @@
+Warning: Value of key 'layer' is not numeric ('-1,-2') in edge '237519484'.
+Warning: Value of key 'layer' is not numeric ('2.5') in edge '254523931'.
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4592725#0').
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '4611691').
 Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.primary' (first occurence for edge '4611698#0').

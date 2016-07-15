@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:55 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Jul 13 13:23:54 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -149,7 +149,7 @@
         <lane id=":14_0_0" index="0" speed="13.89" length="4.82" shape="1308.05,798.73 1308.48,800.15 1308.27,801.05 1307.43,801.42 1305.95,801.27"/>
     </edge>
     <edge id=":15_0" function="internal">
-        <lane id=":15_0_0" index="0" speed="13.89" length="3.53" shape="1534.86,554.39 1531.62,555.79"/>
+        <lane id=":15_0_0" index="0" speed="13.89" length="3.66" shape="1534.86,554.39 1533.78,554.50 1533.04,554.67 1532.40,555.06 1531.62,555.79"/>
     </edge>
     <edge id=":15_1" function="internal">
         <lane id=":15_1_0" index="0" speed="13.89" length="3.33" shape="1534.86,554.39 1532.89,554.16 1531.83,553.34"/>
@@ -231,9 +231,9 @@
         <lane id=":23_3_1" index="1" speed="19.44" length="2.83" shape="996.32,529.55 999.17,529.14"/>
     </edge>
     <edge id=":24_0" function="internal">
-        <lane id=":24_0_0" index="0" speed="13.89" length="5.20" shape="894.37,649.44 893.31,647.94 891.03,647.90 888.77,647.87 887.78,646.37"/>
-        <lane id=":24_0_1" index="1" speed="13.89" length="5.20" shape="894.37,649.44 891.08,646.43"/>
-        <lane id=":24_0_2" index="2" speed="13.89" length="5.20" shape="894.37,649.44 894.38,646.49"/>
+        <lane id=":24_0_0" index="0" speed="13.89" length="4.89" shape="894.37,649.44 887.78,646.37"/>
+        <lane id=":24_0_1" index="1" speed="13.89" length="4.89" shape="894.37,649.44 891.08,646.43"/>
+        <lane id=":24_0_2" index="2" speed="13.89" length="4.89" shape="894.37,649.44 894.38,646.49"/>
     </edge>
     <edge id=":24_3" function="internal">
         <lane id=":24_3_0" index="0" speed="13.89" length="2.85" shape="897.68,646.56 897.67,649.40"/>

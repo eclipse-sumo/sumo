@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:58 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Jul 13 13:23:56 2016 by SUMO netconvert Version dev-SVN-r21158
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1448,7 +1448,7 @@
         <lane id=":38919652_11_0" index="0" speed="13.89" length="2.27" shape="613.84,562.25 613.58,562.99 612.44,563.95"/>
     </edge>
     <edge id=":38919668_0" function="internal">
-        <lane id=":38919668_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="18.05" length="3.65" shape="685.37,469.75 682.03,468.29"/>
+        <lane id=":38919668_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="18.05" length="3.71" shape="685.37,469.75 684.48,469.11 683.82,468.73 683.10,468.50 682.03,468.29"/>
     </edge>
     <edge id=":38919668_1" function="internal">
         <lane id=":38919668_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="3.69" shape="687.35,467.11 684.34,464.97"/>
