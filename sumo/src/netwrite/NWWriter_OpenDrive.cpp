@@ -31,6 +31,7 @@
 
 #include <ctime>
 #include "NWWriter_OpenDrive.h"
+#include <utils/iodevices/OutputDevice_String.h>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -85,7 +86,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write header
     device.openTag("header");
     device.writeAttr("revMajor", "1");
-    device.writeAttr("revMinor", "3");
+    device.writeAttr("revMinor", "4");
     device.writeAttr("name", "");
     device.writeAttr("version", "1.00");
     device.writeAttr("date", dstr.substr(0, dstr.length() - 1));
@@ -117,15 +118,17 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::cout << "write planview for edge " << e->getID() << "\n";
         }
 #endif
+        OutputDevice_String elevationOSS(false, 3);
+        elevationOSS.setPrecision(8);
         if (ls.size() == 2 || e->getPermissions() == SVC_PEDESTRIAN) {
             // foot paths may contain sharp angles
-            writeGeomLines(ls, device);
+            writeGeomLines(ls, device, elevationOSS);
         } else {
-            writeGeomSmooth(ls, e->getSpeed(), device);
+            writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS);
         }
         device << std::setprecision(OUTPUT_ACCURACY);
         device << "        </planView>\n";
-        device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
+        writeElevationProfile(ls, device, elevationOSS);
         device << "        <lateralProfile/>\n";
         device << "        <lanes>\n";
         device << "            <laneSection s=\"0\">\n";
@@ -197,14 +200,15 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "        <type s=\"0\" type=\"town\"/>\n";
                 device << "        <planView>\n";
                 device << std::setprecision(8); // geometry hdg requires higher precision
+                OutputDevice_String elevationOSS(false, 3);
                 if (init.size() == 0) {
-                    writeGeomLines(fallBackShape, device);
+                    writeGeomLines(fallBackShape, device, elevationOSS);
                 } else {
-                    writeGeomPP3(device, init, length);
+                    writeGeomPP3(device, elevationOSS, init, length);
                 }
                 device << std::setprecision(OUTPUT_ACCURACY);
                 device << "        </planView>\n";
-                device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
+                writeElevationProfile(fallBackShape, device, elevationOSS);
                 device << "        <lateralProfile/>\n";
                 device << "        <lanes>\n";
                 device << "            <laneSection s=\"0\">\n";
@@ -264,12 +268,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 SUMOReal
-NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& device, SUMOReal offset) {
+NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset) {
     for (unsigned int j = 0; j < shape.size() - 1; ++j) {
         const Position& p = shape[j];
+        const Position& p2 = shape[j + 1];
         const SUMOReal hdg = shape.angleAt2D(j);
-        const SUMOReal length = p.distanceTo2D(shape[j + 1]);
+        const SUMOReal length = p.distanceTo2D(p2);
         device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << length << "\"><line/></geometry>\n";
+        elevationDevice << "            <elevation s=\"" << offset << "\" a=\"" << p.z() << "\" b=\"" << (p2.z() - p.z()) / length << "\" c=\"0\" d=\"0\"/>\n";
         offset += length;
     }
     return offset;
@@ -358,6 +364,7 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
 SUMOReal
 NWWriter_OpenDrive::writeGeomPP3(
     OutputDevice& device,
+    OutputDevice& elevationDevice,
     PositionVector init,
     SUMOReal length,
     SUMOReal offset) {
@@ -372,6 +379,7 @@ NWWriter_OpenDrive::writeGeomPP3(
     // parametric coefficients
     SUMOReal aU, bU, cU, dU;
     SUMOReal aV, bV, cV, dV;
+    SUMOReal aZ, bZ, cZ, dZ;
 
     // unfactor the Bernstein polynomials of degree 2 (or 3) and collect the coefficients
     if (init.size() == 3) {
@@ -386,6 +394,12 @@ NWWriter_OpenDrive::writeGeomPP3(
         cV = init[0].y() - 2 * init[1].y() + init[2].y();
         dV = 0;
 
+        // elevation is not parameteric on [0:1] but on [0:length]
+        aZ = init[0].z();
+        bZ = (2 * init[1].z() - 2 * init[0].z()) / length;
+        cZ = (init[0].z() - 2 * init[1].z() + init[2].z()) / (length * length);
+        dZ = 0;
+
     } else {
         // f(x, a, b, c, d) = a + (x*((3*b) - (3*a))) + ((x*x)*((3*a) + (3*c) - (6*b))) + ((x*x*x)*((3*b) - (3*c) - a + d))
         aU = init[0].x();
@@ -397,6 +411,12 @@ NWWriter_OpenDrive::writeGeomPP3(
         bV = 3 * init[1].y() - 3 * init[0].y();
         cV = 3 * init[0].y() - 6 * init[1].y() + 3 * init[2].y();
         dV = -init[0].y() + 3 * init[1].y() - 3 * init[2].y() + init[3].y();
+
+        // elevation is not parameteric on [0:1] but on [0:length]
+        aZ = init[0].z();
+        bZ = (3 * init[1].z() - 3 * init[0].z()) / length;
+        cZ = (3 * init[0].z() - 6 * init[1].z() + 3 * init[2].z()) / (length * length);
+        dZ = (-init[0].z() + 3 * init[1].z() - 3 * init[2].z() + init[3].z()) / (length * length * length);
     }
 
     device.openTag("geometry");
@@ -418,12 +438,21 @@ NWWriter_OpenDrive::writeGeomPP3(
     device.closeTag();
     device.closeTag();
 
+    // write elevation
+    elevationDevice.openTag("elevation");
+    elevationDevice.writeAttr("s", offset);
+    elevationDevice.writeAttr("a", aZ);
+    elevationDevice.writeAttr("b", bZ);
+    elevationDevice.writeAttr("c", cZ);
+    elevationDevice.writeAttr("d", dZ);
+    elevationDevice.closeTag();
+
     return offset + length;
 }
 
 
 void
-NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device) {
+NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice) {
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
@@ -471,20 +500,13 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
 #endif
 
     if (maxAngleDiff < angleThresh) {
-        writeGeomLines(shape2, device, 0);
+        writeGeomLines(shape2, device, elevationDevice, 0);
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND) {
             std::cout << "   special case: all lines. maxAngleDiff=" << maxAngleDiff << "\n";
         }
 #endif
         return;
-//    } else if (numPoints == 3 || numPoints == 4) {
-//        const SUMOReal length = bezier(shape2, 12).length2D();
-//        writeGeomPP3(device, shape2, length);
-//#ifdef DEBUG_SMOOTH_GEOM
-//    if (DEBUGCOND) std::cout << "   special case: single curve\n";
-//#endif
-//        return;
     }
 
     // write the long segments as lines, short segments as curves
@@ -497,7 +519,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
         line.push_back(p1);
         const SUMOReal lineLength = line.length2D();
         if (lineLength >= longThresh) {
-            offset = writeGeomLines(line, device, offset);
+            offset = writeGeomLines(line, device, elevationDevice, offset);
 #ifdef DEBUG_SMOOTH_GEOM
             if (DEBUGCOND) {
                 std::cout << "      writeLine=" << toString(line) << "\n";
@@ -539,7 +561,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
             PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, 25, 25, 0);
             if (init.size() == 0) {
                 // could not compute control points, write line
-                offset = writeGeomLines(line, device, offset);
+                offset = writeGeomLines(line, device, elevationDevice, offset);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
                     std::cout << "      writeLine lineLength=" << lineLength << " begShape=" << toString(begShape) << " endShape=" << toString(endShape) << " init=" << toString(init) << "\n";
@@ -548,7 +570,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
             } else {
                 // write bezier
                 const SUMOReal curveLength = bezier(init, 12).length2D();
-                offset = writeGeomPP3(device, init, curveLength, offset);
+                offset = writeGeomPP3(device, elevationDevice, init, curveLength, offset);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
                     std::cout << "      writeCurve lineLength=" << lineLength << " curveLength=" << curveLength << " begShape=" << toString(begShape) << " endShape=" << toString(endShape) << " init=" << toString(init) << "\n";
@@ -559,6 +581,27 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
     }
 }
 
+
+void
+NWWriter_OpenDrive::writeElevationProfile(const PositionVector& shape, OutputDevice& device, const OutputDevice_String& elevationDevice) {
+    // check if the shape is flat
+    bool flat = true;
+    SUMOReal z = shape.size() == 0 ? 0 : shape[0].z();
+    for (int i = 1; i < (int)shape.size(); ++i) {
+        if (fabs(shape[i].z() - z) > NUMERICAL_EPS) {
+            flat = false;
+            break;
+        }
+    }
+    device << "        <elevationProfile>\n";
+    if (flat) {
+        device << "            <elevation s=\"0\" a=\"" << z << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+    } else {
+        device << elevationDevice.getString();
+    }
+    device << "        </elevationProfile>\n";
+
+}
 
 
 /****************************************************************************/

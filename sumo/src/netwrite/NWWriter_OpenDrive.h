@@ -42,6 +42,7 @@ class NBEdge;
 class OptionsCont;
 class PositionVector;
 class OutputDevice;
+class OutputDevice_String;
 
 
 // ===========================================================================
@@ -63,17 +64,19 @@ public:
 
 protected:
     /// @brief write geometry as sequence of lines (sumo style)
-    static SUMOReal writeGeomLines(const PositionVector& shape, OutputDevice& device, SUMOReal offset = 0);
+    static SUMOReal writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset = 0);
 
     /// @brief write geometry as sequence of lines and bezier curves
-    static void writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device);
+    static void writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice);
 
     /// @brief write geometry as a single bezier curve (paramPoly3)
     static SUMOReal writeGeomPP3(OutputDevice& device,
+                                 OutputDevice& elevationDevice,
                                  PositionVector init,
                                  SUMOReal length,
                                  SUMOReal offset = 0);
 
+    static void writeElevationProfile(const PositionVector& shape, OutputDevice& device, const OutputDevice_String& elevationDevice); 
 
     static void writeEmptyCenterLane(OutputDevice& device, const std::string& mark, SUMOReal markWidth);
     static int getID(const std::string& origID, StringBijection<int>& map, int& lastID);

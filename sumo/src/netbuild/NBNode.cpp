@@ -570,7 +570,7 @@ NBNode::bezierControlPoints(
                 //  - intersection of the extrapolated lanes
                 //  - begin of outgoing lane
                 // attention: if there is no intersection, use a straight line
-                const Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
+                Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
                 if (intersect == Position::INVALID) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) {
@@ -592,6 +592,19 @@ NBNode::bezierControlPoints(
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
                 } else {
+                    SUMOReal z;
+                    const SUMOReal z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z(); 
+                    const SUMOReal z2 = endShapeBegLine.positionAtOffset2D(endShapeBegLine.nearest_offset_to_point2D(intersect)).z();
+                    const SUMOReal z3 = 0.5 * (beg.z() + end.z());
+                    // if z1 and z2 are on the same side in regard to z3 then we
+                    // can use their avarage. Otherwise, the intersection in 3D
+                    // is not good and we are better of using z3
+                    if ((z1 <= z3 && z2 <= z3) || (z1 >= z3 && z2 >= z3)) {
+                        z = 0.5 * (z1 + z2);
+                    } else {
+                        z = z3;
+                    }
+                    intersect.set(intersect.x(), intersect.y(), z);
                     init.push_back(intersect);
                 }
             }
