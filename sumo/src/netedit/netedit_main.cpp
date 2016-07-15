@@ -83,8 +83,8 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         GNELoadThread::fillOptions(oc);
         OptionsIO::setArgs(argc, argv);
-        OptionsIO::getOptions();
-        if (oc.processMetaOptions(argc < 2)) {
+        OptionsIO::getOptions(true);
+        if (oc.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
         }

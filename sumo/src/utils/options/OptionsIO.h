@@ -73,7 +73,7 @@ public:
      *  command line arguments, first, then to load values from this configuration
      *  file and reset them by other values from the command line.
      */
-    static void getOptions();
+    static void getOptions(const bool commandLineOnly = false);
 
 
     /** @brief Loads and parses the configuration

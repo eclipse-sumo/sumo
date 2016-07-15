@@ -69,7 +69,7 @@ OptionsIO::setArgs(int argc, char** argv) {
 
 
 void
-OptionsIO::getOptions() {
+OptionsIO::getOptions(const bool commandLineOnly) {
     if (myArgC == 2 && myArgV[1][0] != '-') {
         // special case only one parameter, check who can handle it
         if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
@@ -82,13 +82,15 @@ OptionsIO::getOptions() {
     if (!OptionsParser::parse(myArgC, myArgV)) {
         throw ProcessError("Could not parse commandline options.");
     }
-    // read the configuration when everything's ok
-    OptionsCont::getOptions().resetWritable();
-    loadConfiguration();
-    // reparse the options
-    //  (overwrite the settings from the configuration file)
-    OptionsCont::getOptions().resetWritable();
-    OptionsParser::parse(myArgC, myArgV);
+    if (!commandLineOnly) {
+        // read the configuration when everything's ok
+        OptionsCont::getOptions().resetWritable();
+        loadConfiguration();
+        // reparse the options
+        //  (overwrite the settings from the configuration file)
+        OptionsCont::getOptions().resetWritable();
+        OptionsParser::parse(myArgC, myArgV);
+    }
 }
 
 
