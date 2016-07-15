@@ -78,7 +78,7 @@
 // minimum length for a weaving section at a combined on-off ramp
 #define MIN_WEAVE_LENGTH 20.0
 
-//#define DEBUG_SMOOTH_GEOM
+// #define DEBUG_SMOOTH_GEOM
 #define DEBUGCOND true
 
 // ===========================================================================
@@ -479,6 +479,9 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                            SUMOReal extrapolateEnd) const {
 
     PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd);
+#ifdef DEBUG_SMOOTH_GEOM
+    if (DEBUGCOND) std::cout << "computeSmoothShape node " << getID() << " init=" << init << "\n";
+#endif
     if (init.size() == 0) {
         PositionVector ret;
         ret.push_back(begShape.back());
@@ -501,8 +504,16 @@ NBNode::bezierControlPoints(
 
     const Position beg = begShape.back();
     const Position end = endShape.front();
+    const SUMOReal dist = beg.distanceTo2D(end);
     PositionVector init;
-    if (beg.distanceTo(end) < POSITION_EPS || beg.distanceTo(begShape[-2]) < POSITION_EPS || end.distanceTo(endShape[1]) < POSITION_EPS) {
+    if (dist < POSITION_EPS || beg.distanceTo2D(begShape[-2]) < POSITION_EPS || end.distanceTo2D(endShape[1]) < POSITION_EPS) {
+#ifdef DEBUG_SMOOTH_GEOM
+        if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end
+            << " dist=" << dist 
+            << " distBegLast=" << beg.distanceTo2D(begShape[-2])
+            << " distEndFirst=" << end.distanceTo2D(endShape[1])
+            << "\n";
+#endif
         return init;
     } else {
         init.push_back(beg);
@@ -511,31 +522,47 @@ NBNode::bezierControlPoints(
             //  - end of incoming lane
             //  - position between incoming/outgoing end/begin shifted by the distance orthogonally
             //  - begin of outgoing lane
-            Position center = PositionVector::positionAtOffset(beg, end, beg.distanceTo(end) / (SUMOReal) 2.);
+            Position center = PositionVector::positionAtOffset2D(beg, end, beg.distanceTo2D(end) / (SUMOReal) 2.);
             center.sub(beg.y() - end.y(), end.x() - beg.x());
             init.push_back(center);
         } else {
-            const SUMOReal angle = fabs(GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0)));
+            const SUMOReal angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
             PositionVector endShapeBegLine(endShape[0], endShape[1]);
             PositionVector begShapeEndLineRev(begShape[-1], begShape[-2]);
             endShapeBegLine.extrapolate2D(100, true);
             begShapeEndLineRev.extrapolate2D(100, true);
-            if (angle < M_PI / 4.) {
+            if (fabs(angle) < M_PI / 4.) {
                 // very low angle: could be an s-shape or a straight line
-                const SUMOReal displacementAngle = fabs(GeomHelper::angleDiff(begShape.angleAt2D(-2), beg.angleTo2D(end)));
-                const SUMOReal halfDistance = beg.distanceTo(end) / 2.;
-                if (displacementAngle > DEG2RAD(5) && halfDistance * 2 > minimumSLength) {
-                    const SUMOReal endLength = begShape[-2].distanceTo2D(begShape[-1]);
-                    const SUMOReal off1 = endLength + MIN2(extrapolateBeg, halfDistance);
-                    init.push_back(PositionVector::positionAtOffset(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
-                    const SUMOReal off2 = 100. - MIN2(extrapolateEnd, halfDistance);
-                    init.push_back(PositionVector::positionAtOffset(endShapeBegLine[0], endShapeBegLine[1], off2));
-                } else {
+                const SUMOReal displacementAngle = GeomHelper::angleDiff(begShape.angleAt2D(-2), beg.angleTo2D(end));
+                const SUMOReal bendDeg = RAD2DEG(fabs(displacementAngle - angle));
+                const SUMOReal halfDistance = dist / 2;
+                if (fabs(displacementAngle) <= DEG2RAD(5)) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
-                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
+                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
 #endif
                     return PositionVector();
+                } else if (bendDeg > 22.5 && pow(bendDeg / 45, 2) / dist > 0.13) {
+                    // do not allow s-curves with extreme bends 
+                    // (a linear dependency is to restrictive at low displacementAngles and too permisive at high angles)
+#ifdef DEBUG_SMOOTH_GEOM
+                    if (DEBUGCOND) std::cout << "   bezierControlPoints found extreme s-curve (consider changing junction shape), falling back to straight line beg=" << beg << " end=" << end
+                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) 
+                        << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
+                            << "\n";
+#endif
+                    return PositionVector();
+                } else {
+                    const SUMOReal endLength = begShape[-2].distanceTo2D(begShape[-1]);
+                    const SUMOReal off1 = endLength + MIN2(extrapolateBeg, halfDistance);
+                    init.push_back(PositionVector::positionAtOffset2D(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
+                    const SUMOReal off2 = 100. - MIN2(extrapolateEnd, halfDistance);
+                    init.push_back(PositionVector::positionAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
+#ifdef DEBUG_SMOOTH_GEOM
+                    if (DEBUGCOND) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
+                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) 
+                        << " halfDistance=" << halfDistance << "\n";
+#endif
                 }
             } else {
                 // turning
@@ -552,7 +579,7 @@ NBNode::bezierControlPoints(
 #endif
                     return PositionVector();
                 }
-                const SUMOReal minControlLength = 1.0;
+                const SUMOReal minControlLength = MIN2(1.0, dist / 2);
                 const bool lengthenBeg = intersect.distanceTo2D(beg) <= minControlLength;
                 const bool lengthenEnd = intersect.distanceTo2D(end) <= minControlLength;
                 if (lengthenBeg && lengthenEnd) {
