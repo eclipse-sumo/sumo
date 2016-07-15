@@ -1,1 +1,1 @@
---no-step-log -c sumo.sumocfg
+-n net.net.xml -a input_additional.add.xml --no-step-log
