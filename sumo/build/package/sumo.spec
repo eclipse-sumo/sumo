@@ -89,7 +89,6 @@ install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version} > 1200
 %{_datadir}/mime/application
-%{_datadir}/mime/application/%{name}.xml
 %endif
 
 %changelog

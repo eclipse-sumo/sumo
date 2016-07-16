@@ -638,6 +638,7 @@ GNENet::retrieveConnection(unsigned int fromLane, NBEdge *toEdge, unsigned int t
             return (*i);
         }
     }
+    return NULL;
 }
 
 
