@@ -499,8 +499,7 @@ NBNode::bezierControlPoints(
     const PositionVector& endShape,
     bool isTurnaround,
     SUMOReal extrapolateBeg,
-    SUMOReal extrapolateEnd,
-    SUMOReal minimumSLength) {
+    SUMOReal extrapolateEnd) {
 
     const Position beg = begShape.back();
     const Position end = endShape.front();

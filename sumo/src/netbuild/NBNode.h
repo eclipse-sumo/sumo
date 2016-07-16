@@ -552,7 +552,6 @@ public:
      * @param[in] isTurnaround Whether this shall be the shape for a turnaround
      * @param[in] extrapolateBeg Extrapolation distance at the beginning
      * @param[in] extrapolateEnd Extrapolation distance at the end
-     * @param[in] minimumSLength minimum length of s-curves
      * @return The shape of the internal lane
      */
     PositionVector computeSmoothShape(
@@ -568,8 +567,7 @@ public:
         const PositionVector& endShape,
         bool isTurnaround,
         SUMOReal extrapolateBeg,
-        SUMOReal extrapolateEnd,
-        SUMOReal minimumSLength = 5.0);
+        SUMOReal extrapolateEnd);
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */

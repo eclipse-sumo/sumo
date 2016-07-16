@@ -183,7 +183,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
                 SUMOReal length;
                 PositionVector fallBackShape;
-                PositionVector init = NBNode::bezierControlPoints(begShape, endShape, inEdge->isTurningDirectionAt(outEdge), 25, 25, 0);
+                PositionVector init = NBNode::bezierControlPoints(begShape, endShape, inEdge->isTurningDirectionAt(outEdge), 25, 25);
                 if (init.size() == 0) {
                     fallBackShape.push_back(begShape.back());
                     fallBackShape.push_back(endShape.front());
@@ -558,7 +558,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
                 endShape.add(p1 - endShape.front());
             }
 
-            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, 25, 25, 0);
+            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, 25, 25);
             if (init.size() == 0) {
                 // could not compute control points, write line
                 offset = writeGeomLines(line, device, elevationDevice, offset);

@@ -250,7 +250,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
     // compute the number of lanes to append
-    const unsigned int firstLaneNumber = prev->getNumLanes();
+    const int firstLaneNumber = prev->getNumLanes();
     int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
     NBEdge* first = prev;
     NBEdge* last = prev;
