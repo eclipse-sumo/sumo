@@ -579,7 +579,7 @@ NBNode::bezierControlPoints(
 #endif
                     return PositionVector();
                 }
-                const SUMOReal minControlLength = MIN2(1.0, dist / 2);
+                const SUMOReal minControlLength = MIN2((SUMOReal)1.0, dist / 2);
                 const bool lengthenBeg = intersect.distanceTo2D(beg) <= minControlLength;
                 const bool lengthenEnd = intersect.distanceTo2D(end) <= minControlLength;
                 if (lengthenBeg && lengthenEnd) {
