@@ -69,6 +69,7 @@
 #endif // CHECK_MEMORY_LEAKS
 
 //#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
+//#define GUILane_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
 // method definitions
@@ -541,6 +542,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfWidth * exaggeration, cornerDetail, offset);
                 }
             }
+#ifdef GUILane_DEBUG_DRAW_VERTICES
+            GLHelper::debugVertices(myShape, 80 / s.scale);
+#endif
             glPopMatrix();
             // draw ROWs (not for inner lanes)
             if ((!isInternal || isCrossing) && drawDetails) {
