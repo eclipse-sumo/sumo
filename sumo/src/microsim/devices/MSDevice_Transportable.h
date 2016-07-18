@@ -118,7 +118,7 @@ public:
      * @return The number of stored transportables
      */
     int size() const {
-        return static_cast<int>(myTransportables.size());
+        return (int)myTransportables.size();
     }
 
 

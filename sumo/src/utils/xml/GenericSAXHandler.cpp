@@ -175,7 +175,7 @@ GenericSAXHandler::registerParent(const int tag, GenericSAXHandler* handler) {
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
                               const XERCES3_SIZE_t length) {
-    myCharactersVector.push_back(TplConvert::_2str(chars, static_cast<int>(length)));
+    myCharactersVector.push_back(TplConvert::_2str(chars, (int)length));
 }
 
 

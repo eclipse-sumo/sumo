@@ -354,7 +354,7 @@ public:
             // even small segments can hold at least one vehicle
             return 1;
         }
-        return static_cast<int>((myCapacity - myOccupancy) / vehLength);
+        return (int)((myCapacity - myOccupancy) / vehLength);
     }
 
     /// @brief return the next time at which a vehicle my enter this segment

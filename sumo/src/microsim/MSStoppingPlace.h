@@ -146,7 +146,7 @@ public:
     /** @brief Returns the number of transportables waiting on this stop
     */
     int getTransportableNumber() const {
-        return static_cast<int>(myWaitingTransportables.size());
+        return (int)myWaitingTransportables.size();
     }
 
     /// @brief adds a transportable to this stop
