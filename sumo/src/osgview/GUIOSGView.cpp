@@ -267,6 +267,16 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow& v) {
 void
 GUIOSGView::recenterView() {
     stopTrack();
+    Position center = myGrid->getCenter();
+    osg::Vec3d lookFromOSG, lookAtOSG, up;
+    myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
+    lookFromOSG[0] = center.x();
+    lookFromOSG[1] = center.y();
+    lookFromOSG[2] = myChanger->zoom2ZPos(100);
+    lookAtOSG[0] = center.x();
+    lookAtOSG[1] = center.y();
+    lookAtOSG[2] = 0;
+    myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
 }
 
@@ -433,7 +443,7 @@ GUIOSGView::showViewportEditor() {
 
 
 void
-GUIOSGView::setViewport(const Position& lookFrom, const Position& lookAt) {
+GUIOSGView::setViewportFromTo(const Position& lookFrom, const Position& lookAt) {
     osg::Vec3d lookFromOSG, lookAtOSG, up;
     myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = lookFrom.x();
@@ -445,6 +455,17 @@ GUIOSGView::setViewport(const Position& lookFrom, const Position& lookAt) {
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
 }
+
+
+
+void 
+GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
+    osg::Vec3d lookFrom, lookAt, up;
+    myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
+    view->setViewportFromTo(Position(lookFrom[0], lookFrom[1], lookFrom[2]), 
+            Position(lookAt[0], lookAt[1], lookAt[2]));
+}
+
 
 
 void

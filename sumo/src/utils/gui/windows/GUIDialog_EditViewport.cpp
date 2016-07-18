@@ -34,6 +34,7 @@
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include "GUISUMOAbstractView.h"
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -88,6 +89,8 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     myXOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
     new FXLabel(m1, "Y:", 0, LAYOUT_CENTER_Y);
     myYOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    new FXLabel(m1, "Z:", 0, LAYOUT_CENTER_Y);
+    myZOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
 #ifdef HAVE_OSG
     new FXLabel(m1, "LookAtX:", 0, LAYOUT_CENTER_Y);
     myLookAtX = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
@@ -116,7 +119,7 @@ GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
 
 long
 GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
-    myParent->setViewport(Position(myXOff->getValue(), myYOff->getValue(), myZoom->getValue()),
+    myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
                           Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
@@ -130,15 +133,20 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_EditViewport::onCmdCancel(FXObject*, FXSelector, void*) {
-    myParent->setViewport(myOldLookFrom, myOldLookAt);
+    myParent->setViewportFromTo(myOldLookFrom, myOldLookAt);
     hide();
     return 1;
 }
 
 
 long
-GUIDialog_EditViewport::onCmdChanged(FXObject*, FXSelector, void*) {
-    myParent->setViewport(Position(myXOff->getValue(), myYOff->getValue(), myZoom->getValue()),
+GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
+    if (o == myZOff) {
+        myZoom->setValue(myParent->getChanger().zPos2Zoom(myZOff->getValue()));
+    } else if (o == myZoom) {
+        myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
+    }
+    myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
                           Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
@@ -161,12 +169,8 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void* /*data*/) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         GUISettingsHandler handler(opendialog.getFilename().text());
-        Position lookFrom, lookAt;
-        handler.setViewport(lookFrom, lookAt);
-        if (lookFrom.z() > 0) {
-            setValues(lookFrom, lookAt);
-            myParent->setViewport(lookFrom, lookAt);
-        }
+        handler.applyViewport(myParent);
+        setValues(myParent->getChanger().getZoom(), myParent->getChanger().getXPos(), myParent->getChanger().getYPos());
     }
     return 1;
 }
@@ -210,14 +214,16 @@ GUIDialog_EditViewport::setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
+    myZOff->setValue(myParent->getChanger().zoom2ZPos(zoom));
 }
 
 
 void
 GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& lookAt) {
-    myZoom->setValue(lookFrom.z());
     myXOff->setValue(lookFrom.x());
     myYOff->setValue(lookFrom.y());
+    myZOff->setValue(lookFrom.z());
+    myZoom->setValue(myParent->getChanger().zPos2Zoom(lookFrom.z()));
 #ifdef HAVE_OSG
     myLookAtX->setValue(lookAt.x());
     myLookAtY->setValue(lookAt.y());

@@ -119,6 +119,24 @@ GUIDanielPerspectiveChanger::getZoom() const {
 }
 
 
+SUMOReal
+GUIDanielPerspectiveChanger::getZPos() const {
+    return myViewPort.getWidth();
+}
+
+
+SUMOReal
+GUIDanielPerspectiveChanger::zoom2ZPos(SUMOReal zoom) const {
+    return myOrigWidth / (zoom / 100);
+}
+
+
+SUMOReal
+GUIDanielPerspectiveChanger::zPos2Zoom(SUMOReal zPos) const {
+    return (myOrigWidth / zPos) * 100;
+}
+
+
 void
 GUIDanielPerspectiveChanger::centerTo(const Position& pos, SUMOReal radius,
                                       bool applyZoom) {
@@ -241,6 +259,12 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
     myViewPort.growHeight(myOrigHeight / zoomFactor);
     myViewPort.growWidth(myOrigWidth / zoomFactor);
     myCallback.update();
+}
+
+
+void 
+GUIDanielPerspectiveChanger::setViewportFrom(SUMOReal xPos, SUMOReal yPos, SUMOReal zPos) {
+    setViewport(zPos2Zoom(zPos), xPos, yPos);
 }
 
 

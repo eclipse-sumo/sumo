@@ -85,12 +85,23 @@ public:
     /// Returns the zoom factor computed stored in this changer
     virtual SUMOReal getZoom() const;
 
+    /// @brief Returns the camera height corresponding to the current zoom factor
+    virtual SUMOReal getZPos() const;
+
+    /// @brief Returns the camera height at which the given zoom level is reached
+    virtual SUMOReal zoom2ZPos(SUMOReal zoom) const;
+
+    /// @brief Returns the zoom level that is achieved at a given camera height
+    virtual SUMOReal zPos2Zoom(SUMOReal zPos) const;
+
     /// Centers the view to the given position, setting it to a size that covers the radius
     void centerTo(const Position& pos, SUMOReal radius, bool applyZoom = true);
 
     /** @brief Sets the viewport */
     void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
 
+    /// @brief Alternative method for setting the viewport
+    void setViewportFrom(SUMOReal xPos, SUMOReal yPos, SUMOReal zPos);
 
     /* @brief Adapts the viewport so that a change in canvass size keeps most of the
      * view intact (by showing more / less instead of zooming)

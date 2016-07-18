@@ -39,6 +39,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
@@ -346,17 +347,12 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
 
 
 void
-GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const {
+GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
     if (myLookFrom.z() > 0) {
-        view->setViewport(myLookFrom, myLookAt);
+        // z value stores zoom so we must convert first
+        Position lookFrom(myLookFrom.x(), myLookFrom.y(), view->getChanger().zoom2ZPos(myLookFrom.z()));
+        view->setViewportFromTo(lookFrom, myLookAt);
     }
-}
-
-
-void
-GUISettingsHandler::setViewport(Position& lookFrom, Position& lookAt) const {
-    lookFrom = myLookFrom;
-    lookAt = myLookAt;
 }
 
 

@@ -754,7 +754,7 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
     const GUISUMOAbstractView* const v = static_cast<GUIGlChildWindow*>(mySubWindows[0])->getView();
     reg.writeIntEntry("viewport", "x", v->getChanger().getXPos());
     reg.writeIntEntry("viewport", "y", v->getChanger().getYPos());
-    reg.writeIntEntry("viewport", "z", v->getChanger().getZoom());
+    reg.writeIntEntry("viewport", "z", v->getChanger().getZPos());
     reg.write();
     std::string netedit = "netedit";
     const char* sumoPath = getenv("SUMO_HOME");
@@ -1273,7 +1273,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     }
                     std::string settingsName = settings.addSettings(view);
                     view->addDecals(settings.getDecals());
-                    settings.setViewport(view);
+                    settings.applyViewport(view);
                     settings.setSnapshots(view);
                     if (settings.getDelay() > 0) {
                         mySimDelayTarget->setValue(settings.getDelay());
@@ -1469,11 +1469,22 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return 0;
     }
+    GUISUMOAbstractView* oldView = 0;
+    if (myMDIClient->numChildren() > 0) {
+        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+        if (w != 0) {
+            oldView = w->getView();
+        }
+    }
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()),
             this, GUIIconSubSys::getIcon(ICON_APP), opts, 10, 10, 300, 200);
     GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet(), vt);
+    if (oldView != 0) {
+        // copy viewport
+        oldView->copyViewportTo(v);
+    }
     w->create();
     if (myMDIClient->numChildren() == 1) {
         w->maximize();
@@ -1481,6 +1492,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
         myMDIClient->vertical(true);
     }
     myMDIClient->setActiveChild(w);
+
     return v;
 }
 

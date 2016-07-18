@@ -136,7 +136,7 @@ protected:
     Position myOldLookFrom, myOldLookAt;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinDial* myZoom, *myXOff, *myYOff;
+    FXRealSpinDial* myZoom, *myXOff, *myYOff, *myZOff;
 
 #ifdef HAVE_OSG
     /// @brief The spin dialers used to change the view at (osg only)

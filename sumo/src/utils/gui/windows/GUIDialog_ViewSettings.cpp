@@ -1020,11 +1020,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     if (handler.getDelay() >= 0) {
         myParent->setDelay(handler.getDelay());
     }
-    Position lookFrom, lookAt;
-    handler.setViewport(lookFrom, lookAt);
-    if (lookFrom.z() > 0) {
-        myParent->setViewport(lookFrom, lookAt);
-    }
+    handler.applyViewport(myParent);
     rebuildColorMatrices(true);
 }
 

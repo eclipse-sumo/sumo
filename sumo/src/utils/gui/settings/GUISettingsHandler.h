@@ -85,15 +85,7 @@ public:
     /** @brief Sets the viewport which has been parsed
      * @param[in] parent the view for which the viewport has to be set
      */
-    void setViewport(GUISUMOAbstractView* view) const;
-
-
-    /** @brief Sets the viewport which has been parsed
-     * @param[out] zoom Variable to store the loaded zoom into
-     * @param[out] xoff Variable to store the loaded x-offset into
-     * @param[out] yoff Variable to store the loaded y-offset into
-     */
-    void setViewport(Position& lookFrom, Position& lookAt) const;
+    void applyViewport(GUISUMOAbstractView* view) const;
 
 
     /** @brief Makes a snapshot if it has been parsed

@@ -207,15 +207,16 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
 
 
 void
-GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) {
-    myLookFrom.set(x, y, zoom);
+GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal z) {
+    myLookFrom.set(x, y, z);
 }
 
 
 void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
     if (myLookFrom.z() > 0) {
-        view->setViewport(myLookFrom, myLookAt);
+        // look straight down
+        view->setViewportFromTo(myLookFrom, Position(myLookFrom.x(), myLookFrom.y(), 0));
     } else {
         view->recenterView();
     }

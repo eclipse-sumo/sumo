@@ -106,7 +106,10 @@ public:
     void centerTo(const Boundary& bound);
 
     ///@brief applies the given viewport settings
-    virtual void setViewport(const Position& lookFrom, const Position& lookAt);
+    virtual void setViewportFromTo(const Position& lookFrom, const Position& lookAt);
+
+    ///@brief copy the viewport to the given view
+    virtual void copyViewportTo(GUISUMOAbstractView* view);
 
     ///@brief meter-to-pixels conversion method
     SUMOReal m2p(SUMOReal meter) const;

@@ -138,7 +138,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
 
 GUISUMOAbstractView::~GUISUMOAbstractView() {
     gSchemeStorage.setDefault(myVisualizationSettings->name);
-    gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
+    gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos());
     delete myPopup;
     delete myChanger;
     delete myViewportChooser;
@@ -986,16 +986,24 @@ GUISUMOAbstractView::getViewportEditor() {
 void
 GUISUMOAbstractView::showViewportEditor() {
     getViewportEditor(); // make sure it exists;
-    Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
+    Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos());
     myViewportChooser->setOldValues(p, Position::INVALID);
     myViewportChooser->show();
 }
 
 
 void
-GUISUMOAbstractView::setViewport(const Position& lookFrom, const Position& /* lookAt */) {
-    myChanger->setViewport(lookFrom.z(), lookFrom.x(), lookFrom.y());
+GUISUMOAbstractView::setViewportFromTo(const Position& lookFrom, const Position& /* lookAt */) {
+    myChanger->setViewportFrom(lookFrom.x(), lookFrom.y(), lookFrom.z());
     update();
+}
+
+
+void 
+GUISUMOAbstractView::copyViewportTo(GUISUMOAbstractView* view) {
+    // look straight down
+    view->setViewportFromTo(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()), 
+            Position(myChanger->getXPos(), myChanger->getYPos(), 0));
 }
 
 

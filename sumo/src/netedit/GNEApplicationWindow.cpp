@@ -810,7 +810,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             GUISettingsHandler settings(ec->mySettingsFile);
             std::string settingsName = settings.addSettings(view);
             view->addDecals(settings.getDecals());
-            settings.setViewport(view);
+            settings.applyViewport(view);
             settings.setSnapshots(view);
         }
         // set network name on the caption
@@ -820,7 +820,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         if (ec->myViewportFromRegistry) {
             Position off, p;
             off.set(getApp()->reg().readIntEntry("viewport", "x"), getApp()->reg().readIntEntry("viewport", "y"), getApp()->reg().readIntEntry("viewport", "z"));
-            getView()->setViewport(off, p);
+            getView()->setViewportFromTo(off, p);
         }
     }
     getApp()->endWaitCursor();

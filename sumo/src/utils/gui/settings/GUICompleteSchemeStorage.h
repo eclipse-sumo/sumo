@@ -120,9 +120,9 @@ public:
     /** @brief Makes the given viewport the default
      * @param[in] x The x-offset
      * @param[in] y The y-offset
-     * @param[in] zoom The zoom
+     * @param[in] z The camera height
      */
-    void saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom);
+    void saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal z);
 
 
     /** @brief Sets the default viewport
