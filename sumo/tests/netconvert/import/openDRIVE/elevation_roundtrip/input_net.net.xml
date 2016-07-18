@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 15 Jul 2016 01:07:40 PM CEST by Netedit Version dev-SVN-r21173
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="60.28,-2.83,201.10,125.86" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="a" from="gneJ0" to="gneJ1" priority="1" shape="60.28,-1.43,-10.00 61.88,121.85 65.87,124.64 199.04,125.86,10.00">
+        <lane id="a_0" index="0" speed="13.89" length="262.11" shape="61.93,-1.45,-10.00 63.52,120.98 66.40,122.99 199.06,124.21,10.00"/>
+    </edge>
+    <edge id="b" from="S" to="E" priority="2" shape="100.00,0.00,10.00 100.00,100.00 200.00,100.00,10.00">
+        <lane id="b_0" index="0" speed="13.89" length="201.00" shape="101.65,-0.00,10.00 101.65,98.35 200.00,98.35,10.00"/>
+    </edge>
+    <edge id="c" from="gneJ2" to="gneJ3" priority="1" shape="139.05,-1.97 139.48,16.99 147.88,56.21 183.86,73.02 200.46,73.45">
+        <lane id="c_0" index="0" speed="13.89" length="115.39" shape="140.70,-2.01 141.13,16.80 149.32,55.06 184.25,71.38 200.50,71.80"/>
+    </edge>
+    <edge id="d" from="gneJ4" to="gneJ5" priority="1" shape="176.75,-2.83 165.33,1.26 160.81,10.74 159.95,24.75 165.55,38.32 176.97,47.80 189.90,50.39 201.10,45.87">
+        <lane id="d_0" index="0" speed="13.89" length="91.46" shape="177.31,-1.28 166.53,2.58 162.44,11.16 161.62,24.47 166.92,37.31 177.70,46.26 189.74,48.68 200.48,44.34"/>
+    </edge>
+
+    <junction id="E" type="unregulated" x="200.00" y="100.00" z="10.00" incLanes="b_0" intLanes="" shape="200.00,96.75,10.00 200.00,99.95,10.00"/>
+    <junction id="S" type="unregulated" x="100.00" y="0.00" z="10.00" incLanes="" intLanes="" shape="100.05,-0.00,10.00 103.25,-0.00,10.00"/>
+    <junction id="gneJ0" type="unregulated" x="60.28" y="-1.43" z="-10.00" incLanes="" intLanes="" shape="60.33,-1.43,-10.00 63.53,-1.47,-10.00"/>
+    <junction id="gneJ1" type="unregulated" x="199.04" y="125.86" z="10.00" incLanes="a_0" intLanes="" shape="199.07,122.61,10.00 199.04,125.81,10.00"/>
+    <junction id="gneJ2" type="unregulated" x="139.05" y="-1.97" incLanes="" intLanes="" shape="139.10,-1.97 142.30,-2.04"/>
+    <junction id="gneJ3" type="unregulated" x="200.46" y="73.45" incLanes="c_0" intLanes="" shape="200.54,70.20 200.46,73.40"/>
+    <junction id="gneJ4" type="unregulated" x="176.75" y="-2.83" incLanes="" intLanes="" shape="176.77,-2.78 177.85,0.23"/>
+    <junction id="gneJ5" type="unregulated" x="201.10" y="45.87" incLanes="d_0" intLanes="" shape="199.88,42.86 201.08,45.82"/>
+
+</net>
