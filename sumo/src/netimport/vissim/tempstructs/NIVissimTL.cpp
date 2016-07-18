@@ -376,11 +376,11 @@ NIVissimTL::clearDict() {
 bool
 NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
                             NBEdgeCont& ec) {
-    size_t ref = 0;
-    size_t ref_groups = 0;
-    size_t ref_signals = 0;
-    size_t no_signals = 0;
-    size_t no_groups = 0;
+    int ref = 0;
+    int ref_groups = 0;
+    int ref_signals = 0;
+    int no_signals = 0;
+    int no_groups = 0;
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimTL* tl = (*i).second;
         /*  if(tl->myType!="festzeit") {
@@ -397,7 +397,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
             WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
         }
-        def->setCycleDuration((unsigned int) tl->myAbsDuration);
+        def->setCycleDuration((int) tl->myAbsDuration);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for (SGroupDictType::const_iterator j = sgs.begin(); j != sgs.end(); j++) {
@@ -418,13 +418,13 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
         }
     }
     if (ref != 0) {
-        WRITE_WARNING("Could not set " + toString<size_t>(ref) + " of " + toString<size_t>(myDict.size()) + " traffic lights.");
+        WRITE_WARNING("Could not set " + toString<int>(ref) + " of " + toString<int>(myDict.size()) + " traffic lights.");
     }
     if (ref_groups != 0) {
-        WRITE_WARNING("Could not set " + toString<size_t>(ref_groups) + " of " + toString<size_t>(no_groups) + " groups.");
+        WRITE_WARNING("Could not set " + toString<int>(ref_groups) + " of " + toString<int>(no_groups) + " groups.");
     }
     if (ref_signals != 0) {
-        WRITE_WARNING("Could not set " + toString<size_t>(ref_signals) + " of " + toString<size_t>(no_signals) + " signals.");
+        WRITE_WARNING("Could not set " + toString<int>(ref_signals) + " of " + toString<int>(no_signals) + " signals.");
     }
     return true;
 

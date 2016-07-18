@@ -136,7 +136,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
     if (getParameter().repetitionNumber < INT_MAX) {
-        ret->mkItem("remaining [#]", false, (unsigned int) getParameter().repetitionNumber - getParameter().repetitionsDone);
+        ret->mkItem("remaining [#]", false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
     if (getParameter().repetitionOffset > 0) {
         ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
@@ -171,9 +171,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     }
     ret->mkItem("devices", false, str.str());
     ret->mkItem("persons", true,
-                new FunctionBinding<GUIVehicle, unsigned int>(this, &MSVehicle::getPersonNumber));
+                new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,
-                new FunctionBinding<GUIVehicle, unsigned int>(this, &MSVehicle::getContainerNumber));
+                new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
 
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
     // close building
@@ -216,7 +216,7 @@ void
 GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const {
     if (myPersonDevice != 0) {
         const std::vector<MSTransportable*>& ps = myPersonDevice->getTransportables();
-        size_t personIndex = 0;
+        int personIndex = 0;
         for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
             assert(person != 0);
@@ -226,7 +226,7 @@ GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& 
     }
     if (myContainerDevice != 0) {
         const std::vector<MSTransportable*>& cs = myContainerDevice->getTransportables();
-        size_t containerIndex = 0;
+        int containerIndex = 0;
         for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
             assert(container != 0);
@@ -374,7 +374,7 @@ GUIVehicle::drawAction_drawVehicleBlueLight() const {
 
 
 SUMOReal
-GUIVehicle::getColorValue(size_t activeScheme) const {
+GUIVehicle::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 8:
             return getSpeed();
@@ -462,7 +462,7 @@ GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
     MSRouteIterator i = r.begin();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
-    size_t bestLaneIndex = (&r == myRoute ? 0 : bestLaneConts.size());
+    int bestLaneIndex = (&r == myRoute ? 0 : bestLaneConts.size());
     for (; i != r.end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {

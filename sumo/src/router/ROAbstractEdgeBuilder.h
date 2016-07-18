@@ -87,14 +87,14 @@ protected:
     /** @brief Returns the index of the edge to built
      * @return Next valid edge index
      */
-    unsigned int getNextIndex() {
+    int getNextIndex() {
         return myCurrentIndex++;
     }
 
 
 private:
     /// @brief The next edge's index
-    unsigned int myCurrentIndex;
+    int myCurrentIndex;
 
 
 private:

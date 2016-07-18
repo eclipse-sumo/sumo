@@ -391,7 +391,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
 
     SUMOTime intervalHaltingDurationSum = 0;
     SUMOTime intervalMaxHaltingDuration = 0;
-    unsigned intervalHaltingNo = 0;
+    int intervalHaltingNo = 0;
     for (std::vector<SUMOTime>::iterator i = myPastIntervalStandingDurations.begin(); i != myPastIntervalStandingDurations.end(); ++i) {
         intervalHaltingDurationSum += (*i);
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i));

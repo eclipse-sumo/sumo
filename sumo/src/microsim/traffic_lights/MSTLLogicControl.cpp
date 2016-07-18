@@ -78,7 +78,7 @@ MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const {
     bool hadErrors = false;
     for (std::map<std::string, MSTrafficLightLogic*>::const_iterator j = myVariants.begin(); j != myVariants.end(); ++j) {
         const MSTrafficLightLogic::Phases& phases = (*j).second->getPhases();
-        unsigned int linkNo = (unsigned int)(*j).second->getLinks().size();
+        int linkNo = (int)(*j).second->getLinks().size();
         bool hadProgramErrors = false;
         for (MSTrafficLightLogic::Phases::const_iterator i = phases.begin(); i != phases.end(); ++i) {
             if ((*i)->getState().length() < linkNo) {
@@ -241,7 +241,7 @@ MSTLLogicControl::TLSLogicVariants::addLink(MSLink* link, MSLane* lane, int pos)
 /* -------------------------------------------------------------------------
  * method definitions for WAUTSwitchProcedure
  * ----------------------------------------------------------------------- */
-unsigned int
+int
 MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(const MSTrafficLightLogic& logic) const {
     std::string val = logic.getParameter("GSP", "");
     if (val.length() == 0) {
@@ -262,7 +262,7 @@ MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime currentTime, const MS
 
 SUMOTime
 MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSTrafficLightLogic& logic, SUMOTime toTime) {
-    unsigned int stepOfMyPos = logic.getIndexFromOffset(toTime);
+    int stepOfMyPos = logic.getIndexFromOffset(toTime);
     SUMOTime startOfPhase = logic.getOffsetFromIndex(stepOfMyPos);
     assert(toTime >= startOfPhase);
     return toTime - startOfPhase;
@@ -271,7 +271,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSTrafficLightLogic
 
 void
 MSTLLogicControl::WAUTSwitchProcedure::switchToPos(SUMOTime simStep, MSTrafficLightLogic& logic, SUMOTime toTime) {
-    unsigned int stepTo = logic.getIndexFromOffset(toTime);
+    int stepTo = logic.getIndexFromOffset(toTime);
     SUMOTime diff = getDiffToStartOfPhase(logic, toTime);
     const MSPhaseDefinition& phase = logic.getPhase(stepTo);
     SUMOTime leftDuration = phase.duration - diff;
@@ -332,7 +332,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch(SUMOTime step) {
 void
 MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) {
     SUMOTime gspTo = TIME2STEPS(getGSPValue(*myTo));
-    unsigned int stepTo = myTo->getIndexFromOffset(gspTo);
+    int stepTo = myTo->getIndexFromOffset(gspTo);
     SUMOTime cycleTimeTo = myTo->getDefaultCycleTime();
     if (gspTo == cycleTimeTo) {
         gspTo = 0;
@@ -418,7 +418,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
 
 void
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime startPos, SUMOTime allCutTime) {
-    unsigned int actStep = myTo->getIndexFromOffset(startPos);
+    int actStep = myTo->getIndexFromOffset(startPos);
     // switches to startPos and cuts this phase, if there is a "Bereich"
     int areasNo = getStretchAreaNo(myTo);
     SUMOTime toCut = 0;
@@ -426,7 +426,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime 
         StretchBereichDef def = getStretchBereichDef(myTo, i + 1);
         const SUMOTime begin = TIME2STEPS(def.begin);
         const SUMOTime end = TIME2STEPS(def.end);
-        size_t stepOfBegin = myTo->getIndexFromOffset(begin);
+        int stepOfBegin = myTo->getIndexFromOffset(begin);
         if (stepOfBegin == actStep) {
             if (begin < startPos) {
                 toCut = end - startPos;
@@ -466,11 +466,11 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime 
 
 void
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOTime startPos, SUMOTime allStretchTime) {
-    unsigned int currStep = myTo->getIndexFromOffset(startPos);
+    int currStep = myTo->getIndexFromOffset(startPos);
     SUMOTime durOfPhase = myTo->getPhase(currStep).duration;
     SUMOTime remainingStretchTime = allStretchTime;
     SUMOTime StretchTimeOfPhase = 0;
-    unsigned int stretchUmlaufAnz = (unsigned int) TplConvert::_2SUMOReal(myTo->getParameter("StretchUmlaufAnz", "").c_str());
+    int stretchUmlaufAnz = (int) TplConvert::_2SUMOReal(myTo->getParameter("StretchUmlaufAnz", "").c_str());
     SUMOReal facSum = 0;
     int areasNo = getStretchAreaNo(myTo);
     for (int x = 0; x < areasNo; x++) {
@@ -503,7 +503,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     currStep = (currStep + 1) % (int)myTo->getPhases().size();
     // stretch all other phases, if there is a "bereich"
     while (remainingStretchTime > 0) {
-        for (unsigned int i = currStep; i < myTo->getPhases().size() && remainingStretchTime > 0; i++) {
+        for (int i = currStep; i < myTo->getPhases().size() && remainingStretchTime > 0; i++) {
             durOfPhase = myTo->getPhase(i).duration;
             SUMOTime beginOfPhase = myTo->getOffsetFromIndex(i);
             SUMOTime endOfPhase = beginOfPhase + durOfPhase;
@@ -772,7 +772,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
     if (first != w->switches.end()) {
         std::vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-            new SwitchInitCommand(*this, wautid, (unsigned int)distance(mbegin, first)),
+            new SwitchInitCommand(*this, wautid, (int)distance(mbegin, first)),
             (*first).when, MSEventControl::NO_CHANGE);
     }
     /*
@@ -787,7 +787,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
 SUMOTime
 MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
     const std::string& wautid = cmd.getWAUTID();
-    unsigned int& index = cmd.getIndex();
+    int& index = cmd.getIndex();
     WAUTSwitch s = myWAUTs[wautid]->switches[index];
     for (std::vector<WAUTJunction>::iterator i = myWAUTs[wautid]->junctions.begin(); i != myWAUTs[wautid]->junctions.end(); ++i) {
         // get the current program and the one to instantiate
@@ -812,7 +812,7 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
         myCurrentlySwitched.push_back(p);
     }
     index++;
-    if (index == static_cast<unsigned int>(myWAUTs[wautid]->switches.size())) {
+    if (index == static_cast<int>(myWAUTs[wautid]->switches.size())) {
         return 0;
     }
     return myWAUTs[wautid]->switches[index].when - MSNet::getInstance()->getCurrentTimeStep();

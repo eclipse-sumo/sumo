@@ -198,7 +198,7 @@ public:
     /** @brief Returns the number of build vehicles
      * @return The number of loaded (build) vehicles
      */
-    unsigned int getLoadedVehicleNo() const {
+    int getLoadedVehicleNo() const {
         return myLoadedVehNo;
     }
 
@@ -206,7 +206,7 @@ public:
     /** @brief Returns the number of removed vehicles
      * @return The number of vehicles that have left the simulation
      */
-    unsigned int getEndedVehicleNo() const {
+    int getEndedVehicleNo() const {
         return myEndedVehNo;
     }
 
@@ -214,7 +214,7 @@ public:
     /** @brief Returns the number of build and inserted, but not yet deleted vehicles
      * @return The number simulated vehicles (including those in teleporter)
      */
-    unsigned int getRunningVehicleNo() const {
+    int getRunningVehicleNo() const {
         return myRunningVehNo;
     }
 
@@ -222,7 +222,7 @@ public:
     /** @brief Returns the number of inserted vehicles
      * @return The number of vehicles that have entered the simulation so far
      */
-    unsigned int getDepartedVehicleNo() const {
+    int getDepartedVehicleNo() const {
         return myRunningVehNo + myEndedVehNo - myDiscarded;
     }
 
@@ -233,7 +233,7 @@ public:
      * (--scale)
      * @return the number of vehicles to create (something between 0 and ceil(frac))
      */
-    unsigned int getQuota(SUMOReal frac = -1) const;
+    int getQuota(SUMOReal frac = -1) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed or
@@ -246,30 +246,30 @@ public:
 
 
     /// @brief return the number of collisions
-    unsigned int getCollisionCount() const {
+    int getCollisionCount() const {
         return myCollisions;
     }
 
     /// @brief return the number of teleports due to jamming
-    unsigned int getTeleportsJam() const {
+    int getTeleportsJam() const {
         return myTeleportsJam;
     }
 
     /// @brief return the number of teleports due to vehicles stuck on a minor road
-    unsigned int getTeleportsYield() const {
+    int getTeleportsYield() const {
         return myTeleportsYield;
     }
 
     /// @brief return the number of teleports due to vehicles stuck on the wrong lane
-    unsigned int getTeleportsWrongLane() const {
+    int getTeleportsWrongLane() const {
         return myTeleportsWrongLane;
     }
 
     /// @brief return the number of teleports (including collisions)
-    unsigned int getTeleportCount() const;
+    int getTeleportCount() const;
 
     /// @brief return the number of emergency stops
-    unsigned int getEmergencyStops() const {
+    int getEmergencyStops() const {
         return myEmergencyStops;
     }
 
@@ -461,31 +461,31 @@ protected:
     /// @{
 
     /// @brief The number of build vehicles
-    unsigned int myLoadedVehNo;
+    int myLoadedVehNo;
 
     /// @brief The number of vehicles within the network (build and inserted but not removed)
-    unsigned int myRunningVehNo;
+    int myRunningVehNo;
 
     /// @brief The number of removed vehicles
-    unsigned int myEndedVehNo;
+    int myEndedVehNo;
 
     /// @brief The number of vehicles which were discarded while loading
-    unsigned int myDiscarded;
+    int myDiscarded;
 
     /// @brief The number of collisions
-    unsigned int myCollisions;
+    int myCollisions;
 
     /// @brief The number of teleports due to jam
-    unsigned int myTeleportsJam;
+    int myTeleportsJam;
 
     /// @brief The number of teleports due to vehicles stuck on a minor road
-    unsigned int myTeleportsYield;
+    int myTeleportsYield;
 
     /// @brief The number of teleports due to vehicles stuck on the wrong lane
-    unsigned int myTeleportsWrongLane;
+    int myTeleportsWrongLane;
 
     /// @brief The number of emergency stops
-    unsigned int myEmergencyStops;
+    int myEmergencyStops;
 
     /// @}
 
@@ -534,10 +534,10 @@ protected:
     std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
 
     /// the number of vehicles wainting for persons contained in myWaiting which can only continue by being triggered
-    unsigned int myWaitingForPerson;
+    int myWaitingForPerson;
 
     /// the number of vehicles wainting for containers contained in myWaiting which can only continue by being triggered
-    unsigned int myWaitingForContainer;
+    int myWaitingForContainer;
 
     /// @brief The scaling factor (especially for inc-dua)
     SUMOReal myScale;

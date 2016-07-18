@@ -339,8 +339,8 @@ public:
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges
      */
-    unsigned int getNumSuccessors() const {
-        return (unsigned int) mySuccessors.size();
+    int getNumSuccessors() const {
+        return (int) mySuccessors.size();
     }
 
 
@@ -362,8 +362,8 @@ public:
      *
      * @return The number of edges following this edge
      */
-    unsigned int getNumPredecessors() const {
-        return (unsigned int) myPredecessors.size();
+    int getNumPredecessors() const {
+        return (int) myPredecessors.size();
     }
 
 
@@ -666,7 +666,7 @@ public:
     static MSEdge* dictionary(const std::string& id);
 
     /// @brief Returns the number of edges
-    static size_t dictSize();
+    static int dictSize();
 
     /// @brief Returns all edges with a numerical id
     static const MSEdgeVector& getAllEdges();

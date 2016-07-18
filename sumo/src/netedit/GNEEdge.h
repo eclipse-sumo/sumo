@@ -290,7 +290,7 @@ private:
      * with this number are restored. If none are found the attributes for the
      * leftmost lane are copied
      */
-    void setNumLanes(unsigned int numLanes, GNEUndoList* undoList);
+    void setNumLanes(int numLanes, GNEUndoList* undoList);
 
     /// @brief@brief increase number of lanes by one use the given attributes and restore the GNELane
     void addLane(GNELane* lane, const NBEdge::Lane& laneAttrs);
@@ -299,10 +299,10 @@ private:
     void removeLane(GNELane* lane);
 
     /// @brief adds a connection
-    void addConnection(unsigned int fromLane, const std::string& toEdgeID, unsigned int toLane, bool mayPass);
+    void addConnection(int fromLane, const std::string& toEdgeID, int toLane, bool mayPass);
 
     /// @brief removes a connection
-    void removeConnection(unsigned int fromLane, const std::string& toEdgeID, unsigned int toLane);
+    void removeConnection(int fromLane, const std::string& toEdgeID, int toLane);
 };
 
 

@@ -728,9 +728,9 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                 //TOKENIZING
                 MSPhaseDefinition::LaneIdVector targetLanesVector;
                 //Skip delimiters at the beginning
-                std::string::size_type firstPos = targetLanesString.find_first_not_of(delimiter, 0);
+                int firstPos = targetLanesString.find_first_not_of(delimiter, 0);
                 //Find first "non-delimiter".
-                std::string::size_type pos = targetLanesString.find_first_of(delimiter, firstPos);
+                int pos = targetLanesString.find_first_of(delimiter, firstPos);
 
                 while (std::string::npos != pos || std::string::npos != firstPos) {
                     //Found a token, add it to the vector
@@ -1026,8 +1026,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Unknown to-edge '" + toID + "' in connection");
             return;
         }
-        if (fromLaneIdx < 0 || static_cast<unsigned int>(fromLaneIdx) >= from->getLanes().size() ||
-                toLaneIdx < 0 || static_cast<unsigned int>(toLaneIdx) >= to->getLanes().size()) {
+        if (fromLaneIdx < 0 || static_cast<int>(fromLaneIdx) >= from->getLanes().size() ||
+                toLaneIdx < 0 || static_cast<int>(toLaneIdx) >= to->getLanes().size()) {
             WRITE_ERROR("Invalid lane index in connection from '" + from->getID() + "' to '" + to->getID() + "'.");
             return;
         }

@@ -904,7 +904,7 @@ void
 GNEApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     // remove trackers and other external windows
-    size_t i;
+    int i;
     for (i = 0; i < mySubWindows.size(); ++i) {
         mySubWindows[i]->destroy();
     }
@@ -1260,7 +1260,7 @@ Position
 GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
     std::string edgeID = laneID;
     int lane = 0;
-    size_t underscore = laneID.rfind('_');
+    int underscore = laneID.rfind('_');
 
     if (underscore != std::string::npos) {
         edgeID = laneID.substr(0, underscore);

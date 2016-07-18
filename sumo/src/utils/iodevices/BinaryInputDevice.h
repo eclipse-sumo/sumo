@@ -130,15 +130,6 @@ public:
     friend BinaryInputDevice& operator>>(BinaryInputDevice& os, int& i);
 
 
-    /** @brief Reads an unsigned int from the file (input operator)
-     *
-     * @param[in, out] os The BinaryInputDevice to read the unsigned int from
-     * @param[in] i The unsigned int to store the read value into
-     * @return The used BinaryInputDevice for further processing
-     */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, unsigned int& i);
-
-
     /** @brief Reads a SUMOReal from the file (input operator)
      *
      * @param[in, out] os The BinaryInputDevice to read the SUMOReal from
@@ -159,7 +150,7 @@ public:
 
     /** @brief Reads a string from the file (input operator)
      *
-     * Reads the length of the string as an unsigned int, first.
+     * Reads the length of the string as an int, first.
      *  Reads then the specified number of chars into "myBuffer".
      * Please note that the buffer has a fixed size - longer strings
      *  will cause an error.
@@ -174,7 +165,7 @@ public:
 
     /** @brief Reads a string vector from the file (input operator)
      *
-     * Reads the length of the vector as an unsigned int, first.
+     * Reads the length of the vector as an int, first.
      *  Reads then the specified number of strings using the string input operator.
      * Please note that the buffer has a fixed size - longer strings
      *  will cause an error.
@@ -189,7 +180,7 @@ public:
 
     /** @brief Reads a string vector from the file (input operator)
      *
-     * Reads the length of the vector as an unsigned int, first.
+     * Reads the length of the vector as an int, first.
      *  Reads then the specified number of strings using the string input operator.
      * Please note that the buffer has a fixed size - longer strings
      *  will cause an error.
@@ -199,12 +190,12 @@ public:
      * @return The used BinaryInputDevice for further processing
      * @todo Use either a buffer with a flexible size or report an error if the buffer is too small!
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector<unsigned int>& v);
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector<int>& v);
 
 
     /** @brief Reads a string vector from the file (input operator)
      *
-     * Reads the length of the vector as an unsigned int, first.
+     * Reads the length of the vector as an int, first.
      *  Reads then the specified number of strings using the string input operator.
      * Please note that the buffer has a fixed size - longer strings
      *  will cause an error.
@@ -214,7 +205,7 @@ public:
      * @return The used BinaryInputDevice for further processing
      * @todo Use either a buffer with a flexible size or report an error if the buffer is too small!
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector< std::vector<unsigned int> >& v);
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector< std::vector<int> >& v);
 
 
     /** @brief Reads a Position from the file (input operator)

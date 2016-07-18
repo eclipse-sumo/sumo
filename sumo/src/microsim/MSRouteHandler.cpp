@@ -625,7 +625,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
         bool ok = true;
         StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_ROUTES, myCurrentRouteDistributionID.c_str(), ok));
-        size_t probIndex = 0;
+        int probIndex = 0;
         while (st.hasNext()) {
             std::string routeID = st.next();
             const MSRoute* route = MSRoute::dictionary(routeID, &myParsingRNG);
@@ -733,7 +733,7 @@ MSRouteHandler::closeVehicle() {
             }
         }
         // maybe we do not want this vehicle to be inserted due to scaling
-        unsigned int quota = vehControl.getQuota();
+        int quota = vehControl.getQuota();
         if (quota > 0) {
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
@@ -754,7 +754,7 @@ MSRouteHandler::closeVehicle() {
                 vehControl.registerOneWaitingForContainer();
             } else {
                 // !!! no upscaling for triggered vehicles yet
-                for (unsigned int i = 1; i < quota; i++) {
+                for (int i = 1; i < quota; i++) {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
                     newPars->id = myVehicleParameter->id + "." + toString(i);

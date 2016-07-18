@@ -136,10 +136,10 @@ private:
 
         struct Lane {
         public:
-            Lane(const std::string& _id, unsigned int _idx, SUMOReal _v)
+            Lane(const std::string& _id, int _idx, SUMOReal _v)
                 : id(_id), index(_idx), v(_v) {}
             std::string id;
-            unsigned int index;
+            int index;
             SUMOReal v;
         };
 

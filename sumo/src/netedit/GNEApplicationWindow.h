@@ -263,7 +263,7 @@ protected:
     GNELoadThread* myLoadThread;
 
     /// @brief The current view number
-    size_t myViewNumber;
+    int myViewNumber;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading;

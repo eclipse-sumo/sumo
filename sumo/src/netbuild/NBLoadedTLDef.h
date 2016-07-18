@@ -90,7 +90,7 @@ public:
         /** @brief Returns the number of links (connection) controlled by this signal
          * @return The number of links controlled by this signal
          */
-        unsigned int getLinkNo() const;
+        int getLinkNo() const;
 
         /** @brief Returns whether vehicles on controlled links may drive at the given time
          * @param[in] time The regarded time
@@ -139,13 +139,13 @@ public:
          * @param[in] pos The position within this signal
          * @return The connection at the given index
          */
-        const NBConnection& getConnection(unsigned int pos) const;
+        const NBConnection& getConnection(int pos) const;
 
         /** @brief Sets the yellow time
          * @param[in] tyellow The yellow time to set in seconds
          * @param[in] forced Whether resetting tyellow was forced by the user by setting "tls.yellow.patch-small"
          */
-        void patchTYellow(unsigned int tyellow, bool forced);
+        void patchTYellow(int tyellow, bool forced);
 
         /** @brief Replaces a removed edge/lane
          * @param[in] removed The edge to replace
@@ -250,7 +250,7 @@ public:
     /** @brief Sets the duration of a cycle
      * @param[in] cycleDur The duration of the cycle
      */
-    void setCycleDuration(unsigned int cycleDur);
+    void setCycleDuration(int cycleDur);
 
 
     /** @brief Adds a signal group
@@ -326,7 +326,7 @@ protected:
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogic* myCompute(unsigned int brakingTimeSeconds);
+    NBTrafficLightLogic* myCompute(int brakingTimeSeconds);
 
 
     /** @brief Collects the nodes participating in this traffic light
@@ -350,7 +350,7 @@ protected:
      */
     bool mustBrake(const NBConnection& possProhibited,
                    const std::string& state,
-                   unsigned int strmpos) const;
+                   int strmpos) const;
 
 
     /** @brief Replaces a removed edge/lane
@@ -370,7 +370,7 @@ private:
      * @param[in] time The time to build the phase for
      * @return The phase of this tls for the given time
      */
-    std::string buildPhaseState(unsigned int time) const;
+    std::string buildPhaseState(int time) const;
 
     // pointer to the NBEdgeCont for checking edges
     const NBEdgeCont* myEdgeCont;
@@ -381,7 +381,7 @@ private:
     SignalGroupCont mySignalGroups;
 
     /// @brief The duration of a single cycle
-    unsigned int myCycleDuration;
+    int myCycleDuration;
 
 
 };

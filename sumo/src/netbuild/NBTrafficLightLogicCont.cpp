@@ -148,7 +148,7 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition* definition) {
 }
 
 
-std::pair<unsigned int, unsigned int>
+std::pair<int, int>
 NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
     // clean previous logics
     Logics logics = getComputed();
@@ -157,14 +157,14 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
     }
     myComputed.clear();
 
-    unsigned int numPrograms = 0;
+    int numPrograms = 0;
     Definitions definitions = getDefinitions();
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         if (computeSingleLogic(oc, *it)) {
             numPrograms++;
         }
     }
-    return std::pair<unsigned int, unsigned int>((unsigned int)myComputed.size(), numPrograms);
+    return std::pair<int, int>((int)myComputed.size(), numPrograms);
 }
 
 

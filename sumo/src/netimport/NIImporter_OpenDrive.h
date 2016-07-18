@@ -334,7 +334,7 @@ protected:
         /// @brief The id (generic, without the optionally leading '-') of the edge generated for this section
         std::string sumoID;
         /// @brief The number of lanes on the right and on the left side, respectively
-        unsigned int rightLaneNumber, leftLaneNumber;
+        int rightLaneNumber, leftLaneNumber;
     };
 
 

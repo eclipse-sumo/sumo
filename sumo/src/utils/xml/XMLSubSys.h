@@ -153,7 +153,7 @@ private:
     static std::vector<SUMOSAXReader*> myReaders;
 
     /// @brief Information whether the reader is parsing
-    static unsigned int myNextFreeReader;
+    static int myNextFreeReader;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
     static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;

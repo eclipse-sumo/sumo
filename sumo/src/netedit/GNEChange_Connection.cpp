@@ -47,8 +47,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, NULL, 0)
 
 
 // Constructor for creating an edge
-GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, unsigned int fromLane,
-        const std::string& toEdgeID, unsigned int toLane,
+GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, int fromLane,
+        const std::string& toEdgeID, int toLane,
         bool mayDefinitelyPass, bool forward):
     GNEChange(0, forward),
     myEdge(edge),

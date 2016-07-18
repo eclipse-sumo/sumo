@@ -132,7 +132,7 @@ public:
      * from sensors, like inductor loops. These logics need to know the current phase to guess the number
      * of vehicles waiting in front of a red light.
      */
-    virtual void stepChanged(unsigned int newStep) {
+    virtual void stepChanged(int newStep) {
         currentStep = newStep;
     }
 };

@@ -399,8 +399,8 @@ TraCIServer::runEmbedded(std::string pyFile) {
 
 int
 TraCIServer::dispatchCommand() {
-    unsigned int commandStart = myInputStorage.position();
-    unsigned int commandLength = myInputStorage.readUnsignedByte();
+    int commandStart = myInputStorage.position();
+    int commandLength = myInputStorage.readUnsignedByte();
     if (commandLength == 0) {
         commandLength = myInputStorage.readInt();
     }
@@ -830,7 +830,7 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
             }
         }
     }
-    unsigned int length = (1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size();
+    int length = (1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size();
     if (s.contextVars) {
         length += 4;
     }
@@ -1000,9 +1000,9 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
         return false;
     }
     into.clear();
-    unsigned int noEntries = inputStorage.readUnsignedByte();
+    int noEntries = inputStorage.readUnsignedByte();
     PositionVector shape;
-    for (unsigned int i = 0; i < noEntries; ++i) {
+    for (int i = 0; i < noEntries; ++i) {
         SUMOReal x = inputStorage.readDouble();
         SUMOReal y = inputStorage.readDouble();
         into.push_back(Position(x, y));

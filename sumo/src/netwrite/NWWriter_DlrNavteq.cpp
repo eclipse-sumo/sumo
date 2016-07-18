@@ -139,7 +139,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
                 }
             }
             device << internalNodeID << "\t1\t" << geom.size() - 2;
-            for (size_t ii = 1; ii < geom.size() - 1; ++ii) {
+            for (int ii = 1; ii < geom.size() - 1; ++ii) {
                 Position pos = geom[(int)ii];
                 gch.cartesian2geo(pos);
                 pos.mul(geoScale);
@@ -312,9 +312,9 @@ NWWriter_DlrNavteq::getSpeedCategoryUpperBound(int kph) {
 }
 
 
-unsigned int
-NWWriter_DlrNavteq::getNavteqLaneCode(const unsigned int numLanes) {
-    const unsigned int code = (numLanes == 1 ? 1 :
+int
+NWWriter_DlrNavteq::getNavteqLaneCode(const int numLanes) {
+    const int code = (numLanes == 1 ? 1 :
                                (numLanes < 4 ?  2 : 3));
     return numLanes * 10 + code;
 }

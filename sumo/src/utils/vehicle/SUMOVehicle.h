@@ -263,7 +263,7 @@ public:
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
-    virtual unsigned int getNumberReroutes() const = 0;
+    virtual int getNumberReroutes() const = 0;
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices

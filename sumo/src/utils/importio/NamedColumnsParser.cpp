@@ -86,7 +86,7 @@ NamedColumnsParser::get(const std::string& name, bool prune) const {
             throw UnknownElement(name);
         }
     }
-    size_t pos = (*i).second;
+    int pos = (*i).second;
     if (myLineParser.size() <= pos) {
         throw OutOfBoundsException();
     }
@@ -107,7 +107,7 @@ NamedColumnsParser::know(const std::string& name) const {
     if (i == myDefinitionsMap.end()) {
         return false;
     }
-    size_t pos = (*i).second;
+    int pos = (*i).second;
     return myLineParser.size() > pos;
 }
 
@@ -141,7 +141,7 @@ NamedColumnsParser::checkPrune(std::string& str, bool prune) const {
     if (!prune) {
         return;
     }
-    size_t idx = str.find_first_not_of(" ");
+    int idx = str.find_first_not_of(" ");
     if (idx != std::string::npos) {
         str = str.substr(idx);
     }

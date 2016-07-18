@@ -104,7 +104,7 @@ public:
 
     static void _debugOut(std::ostream& into);
 
-    static size_t dictSize();
+    static int dictSize();
 
 
     static int getNextFreeNodeID();
@@ -118,7 +118,7 @@ private:
         ~NodeSubCluster();
         void add(NIVissimConnection* c);
         void add(const NodeSubCluster& c);
-        size_t size() const;
+        int size() const;
         bool overlapsWith(const NodeSubCluster& c, SUMOReal offset = 0);
         std::vector<int> getConnectionIDs() const;
         friend class NIVissimConnectionCluster;

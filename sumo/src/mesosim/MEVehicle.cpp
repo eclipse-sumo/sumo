@@ -347,9 +347,9 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
         throw ProcessError("Error: Invalid vehicles in state (may be a micro state)!");
     }
-    unsigned int routeOffset;
+    int routeOffset;
     int segIndex;
-    unsigned int queIndex;
+    int queIndex;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myDeparture;
     bis >> routeOffset;
@@ -365,7 +365,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         myCurrEdge += routeOffset;
         if (segIndex >= 0) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(**myCurrEdge);
-            while (seg->getIndex() != (unsigned int)segIndex) {
+            while (seg->getIndex() != (int)segIndex) {
                 seg = seg->getNextSegment();
                 assert(seg != 0);
             }

@@ -100,7 +100,7 @@ public:
 
 
     /** @brief Returns the number of districts inside the container */
-    size_t size() const;
+    int size() const;
 
 
     /** @brief Adds a source to the named district

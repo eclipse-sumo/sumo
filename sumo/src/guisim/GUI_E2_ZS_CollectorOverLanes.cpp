@@ -72,7 +72,7 @@ GUI_E2_ZS_CollectorOverLanes::buildDetectorGUIRepresentation() {
 
 
 MSE2Collector*
-GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane* l,
+GUI_E2_ZS_CollectorOverLanes::buildCollector(int c, int r, MSLane* l,
         SUMOReal start, SUMOReal end) {
     std::string id = makeID(myID, c, r);
     if (start + end < l->getLength()) {

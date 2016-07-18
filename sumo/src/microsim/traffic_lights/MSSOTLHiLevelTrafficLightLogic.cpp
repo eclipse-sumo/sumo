@@ -20,7 +20,7 @@
 
 MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& subid, const Phases& phases,
-        unsigned int step, SUMOTime delay,
+        int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
                             parameters) {
@@ -30,7 +30,7 @@ MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl&
 
 MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& subid, const Phases& phases,
-        unsigned int step, SUMOTime delay,
+        int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters,
         MSSOTLSensors* sensors) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
@@ -40,7 +40,7 @@ MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl&
 }
 
 MSSOTLHiLevelTrafficLightLogic::~MSSOTLHiLevelTrafficLightLogic() {
-    for (unsigned int i = 0; i < policies.size(); i++) {
+    for (int i = 0; i < policies.size(); i++) {
         delete(policies[i]);
     }
 }

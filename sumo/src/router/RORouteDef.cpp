@@ -60,7 +60,7 @@ bool RORouteDef::myUsingJTRR(false);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDef::RORouteDef(const std::string& id, const unsigned int lastUsed,
+RORouteDef::RORouteDef(const std::string& id, const int lastUsed,
                        const bool tryRepair, const bool mayBeDisconnected) :
     Named(StringUtils::convertUmlaute(id)),
     myPrecomputed(0), myLastUsed(lastUsed), myTryRepair(tryRepair), myMayBeDisconnected(mayBeDisconnected) {
@@ -152,7 +152,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         repairCurrentRoute(router, begin, veh, oldEdges, edges);
         // check whether the same route was already used
         int cheapest = -1;
-        for (unsigned int i = 0; i < myAlternatives.size(); i++) {
+        for (int i = 0; i < myAlternatives.size(); i++) {
             if (edges == myAlternatives[i]->getEdgeVector()) {
                 cheapest = i;
                 break;
@@ -176,7 +176,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     ConstROEdgeVector mandatory;
-    const size_t initialSize = oldEdges.size();
+    const int initialSize = oldEdges.size();
     if (initialSize == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input
@@ -378,7 +378,7 @@ RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                                bool asAlternatives, bool withExitTimes) const {
     if (asAlternatives) {
         dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed);
-        for (size_t i = 0; i != myAlternatives.size(); i++) {
+        for (int i = 0; i != myAlternatives.size(); i++) {
             myAlternatives[i]->writeXMLDefinition(dev, veh, true, withExitTimes);
         }
         dev.closeTag();

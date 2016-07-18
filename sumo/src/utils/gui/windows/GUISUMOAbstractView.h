@@ -350,7 +350,7 @@ protected:
     std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound);
 
     ///@brief invokes the tooltip for the given object
-    void showToolTipFor(unsigned int id);
+    void showToolTipFor(int id);
 
 protected:
     ///@brief check whether we can read image data or position with gdal

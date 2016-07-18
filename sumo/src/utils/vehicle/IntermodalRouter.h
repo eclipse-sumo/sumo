@@ -251,7 +251,7 @@ public:
                              &trip, msTime, intoPed);
         if (success) {
             std::string lastLine = "";
-            for (size_t i = 0; i < intoPed.size(); ++i) {
+            for (int i = 0; i < intoPed.size(); ++i) {
                 if (intoPed[i]->includeInRoute(false)) {
                     if (intoPed[i]->getLine() == "!stop") {
                         into.back().destStop = intoPed[i]->getID();
@@ -275,7 +275,7 @@ public:
         }
 #ifdef IntermodalRouter_DEBUG_ROUTES
         SUMOReal time = STEPS2TIME(msTime);
-        for (size_t i = 0; i < intoPed.size(); ++i) {
+        for (int i = 0; i < intoPed.size(); ++i) {
             time += myInternalRouter->getEffort(intoPed[i], &trip, time);
         }
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()

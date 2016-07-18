@@ -122,7 +122,7 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
     while (myWaiting4Departure.find(time) != myWaiting4Departure.end()) {
         const TransportableVector& transportables = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
-        for (size_t i = 0; i < transportables.size(); ++i) {
+        for (int i = 0; i < transportables.size(); ++i) {
             if (transportables[i]->proceed(net, time)) {
                 myRunningNumber++;
             } else {
@@ -134,7 +134,7 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
     while (myWaitingUntil.find(time) != myWaitingUntil.end()) {
         const TransportableVector& transportables = myWaitingUntil[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
-        for (size_t i = 0; i < transportables.size(); ++i) {
+        for (int i = 0; i < transportables.size(); ++i) {
             if (!transportables[i]->proceed(net, time)) {
                 erase(transportables[i]);
             }

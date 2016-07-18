@@ -74,9 +74,9 @@ MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic& logi
 
 void
 MSOffTrafficLightLogic::rebuildPhase() {
-    size_t no = getLinks().size();
+    int no = getLinks().size();
     std::string state;
-    for (unsigned int i = 0; i < no; ++i) {
+    for (int i = 0; i < no; ++i) {
         // !!! no brake mask!
         state += 'o';
     }
@@ -128,12 +128,12 @@ MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime) const {
 
 
 SUMOTime
-MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int) const {
+MSOffTrafficLightLogic::getOffsetFromIndex(int) const {
     return 0;
 }
 
 
-unsigned int
+int
 MSOffTrafficLightLogic::getIndexFromOffset(SUMOTime) const {
     return 0;
 }

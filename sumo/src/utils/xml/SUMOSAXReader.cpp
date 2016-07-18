@@ -143,7 +143,7 @@ SUMOSAXReader::parseFirst(std::string systemID) {
         elems.clear();
         *myBinaryInput >> elems;
         // !!! check edges here
-        std::vector< std::vector<unsigned int> > followers;
+        std::vector< std::vector<int> > followers;
         *myBinaryInput >> followers;
         // !!! check followers here
         return parseNext();
@@ -216,7 +216,7 @@ SUMOSAXReader::getSAXReader() {
 XERCES_CPP_NAMESPACE::InputSource*
 SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
     const std::string url = TplConvert::_2str(systemId);
-    const std::string::size_type pos = url.rfind("/");
+    const int pos = url.rfind("/");
     if (pos != std::string::npos) {
         const std::string dir = url.substr(0, pos);
         if (dir == "http://sumo.sf.net/xsd" || dir == "http://sumo-sim.org/xsd" || dir == "http://sumo-sim.org/xsd/amitran" ||

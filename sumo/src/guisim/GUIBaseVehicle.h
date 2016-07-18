@@ -95,7 +95,7 @@ public:
     }
 
     /// @brief gets the color value according to the current scheme index
-    virtual SUMOReal getColorValue(size_t activeScheme) const = 0;
+    virtual SUMOReal getColorValue(int activeScheme) const = 0;
 
     /// @brief draws the given guiShape if it has distinc carriages/modules and eturns true if so
     virtual bool drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const = 0;
@@ -313,7 +313,7 @@ public:
     /// @}
 
     /// @brief sets the color according to the current scheme index and some vehicle function
-    static bool setFunctionalColor(size_t activeScheme, const MSBaseVehicle* veh);
+    static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh);
 
 protected:
     /// @brief sets the color according to the currente settings
@@ -335,7 +335,7 @@ protected:
     /// @}
 
     /// @brief returns the seat position for the person with the given index
-    const Position& getSeatPosition(size_t personIndex) const;
+    const Position& getSeatPosition(int personIndex) const;
 
     static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
 

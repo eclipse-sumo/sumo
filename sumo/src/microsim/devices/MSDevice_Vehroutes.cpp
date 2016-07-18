@@ -82,7 +82,7 @@ MSDevice_Vehroutes::init() {
 
 
 MSDevice_Vehroutes*
-MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, unsigned int maxRoutes) {
+MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, int maxRoutes) {
     if (maxRoutes < INT_MAX) {
         return new MSDevice_Vehroutes(v, "vehroute_" + v.getID(), maxRoutes);
     }
@@ -112,7 +112,7 @@ MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle* const 
 // ---------------------------------------------------------------------------
 // MSDevice_Vehroutes-methods
 // ---------------------------------------------------------------------------
-MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, unsigned int maxRoutes)
+MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, int maxRoutes)
     : MSDevice(holder, id), myCurrentRoute(&holder.getRoute()), myMaxRoutes(maxRoutes), myLastSavedAt(0) {
     myCurrentRoute->addReference();
 }
@@ -188,7 +188,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         int numWritten = 0;
         if (myHolder.getNumberReroutes() > 0) {
             assert(myReplacedRoutes.size() <= myHolder.getNumberReroutes());
-            unsigned int i = static_cast<unsigned int>(myReplacedRoutes.size());
+            int i = static_cast<int>(myReplacedRoutes.size());
             while (i > 0 && myReplacedRoutes[i - 1].edge) {
                 i--;
             }
@@ -256,7 +256,7 @@ MSDevice_Vehroutes::generateOutput() const {
             }
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, index);
             const std::vector<SUMOReal>& probs = routeDist->getProbs();
-            for (unsigned int i = 0; i < routes.size(); ++i) {
+            for (int i = 0; i < routes.size(); ++i) {
                 od.setPrecision();
                 od.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_COST, routes[i]->getCosts());
                 od.setPrecision(8);
@@ -273,7 +273,7 @@ MSDevice_Vehroutes::generateOutput() const {
     } else {
         if (myReplacedRoutes.size() > 0) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-            for (unsigned int i = 0; i < myReplacedRoutes.size(); ++i) {
+            for (int i = 0; i < myReplacedRoutes.size(); ++i) {
                 writeXMLRoute(od, i);
             }
         }

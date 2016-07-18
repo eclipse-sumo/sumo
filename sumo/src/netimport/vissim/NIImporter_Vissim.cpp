@@ -488,7 +488,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myStartElement(
         myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
         myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false));
         std::string colorStr(attrs.get<std::string>(VISSIM_ATTR_COLOR, 0, ok));
-        for (size_t pos = colorStr.size() - 2; pos > 0; pos -= 2) {
+        for (int pos = colorStr.size() - 2; pos > 0; pos -= 2) {
             colorStr.insert(pos, " ");
         }
         myElemData["color"].push_back(colorStr);

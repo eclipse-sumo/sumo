@@ -49,7 +49,7 @@ public:
     typedef R(T::* Operation)(int) const;
 
     FuncBinding_IntParam(T* source, Operation operation,
-                         size_t param)
+                         int param)
         :
         mySource(source),
         myOperation(operation),

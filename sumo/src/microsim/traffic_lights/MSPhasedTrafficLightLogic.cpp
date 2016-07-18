@@ -48,12 +48,12 @@
 // ===========================================================================
 MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& subid, const Phases& phases,
-        unsigned int step, SUMOTime delay,
+        int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters
                                                     )
     : MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters), myPhases(phases),
       myStep(step) {
-    for (size_t i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }
 }
@@ -61,7 +61,7 @@ MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol
 
 MSPhasedTrafficLightLogic::~MSPhasedTrafficLightLogic() {
     // MSPhasedTrafficLightLogic:deletePhases();
-    /*for (size_t i=0; i<myPhases.size(); i++) {
+    /*for (int i=0; i<myPhases.size(); i++) {
         delete myPhases[i];
     }*/
 }
@@ -158,17 +158,17 @@ MSPhasedTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
 
 
 SUMOTime
-MSPhasedTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
+MSPhasedTrafficLightLogic::getOffsetFromIndex(int index) const {
     assert(index < myPhases.size());
     SUMOTime pos = 0;
-    for (unsigned int i = 0; i < index; i++) {
+    for (int i = 0; i < index; i++) {
         pos += getPhase(i).duration;
     }
     return pos;
 }
 
 
-unsigned int
+int
 MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     assert(offset <= myDefaultCycleTime);
     if (offset == myDefaultCycleTime) {
@@ -176,7 +176,7 @@ MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     }
     SUMOTime pos = offset;
     SUMOTime testPos = 0;
-    for (unsigned int i = 0; i < myPhases.size(); i++)	{
+    for (int i = 0; i < myPhases.size(); i++)	{
         testPos += getPhase(i).duration;
         if (testPos > pos) {
             return i;
@@ -193,7 +193,7 @@ MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
 // ------------ Changing phases and phase durations
 void
 MSPhasedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
-        SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
+        SUMOTime simStep, int step, SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
     //delete mySwitchCommand;Consider this operation!!!
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
@@ -216,7 +216,7 @@ MSPhasedTrafficLightLogic::setPhases(const Phases& phases, int step) {
 
 void
 MSPhasedTrafficLightLogic::deletePhases() {
-    for (size_t i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < myPhases.size(); i++) {
         delete myPhases[i];
     }
 }

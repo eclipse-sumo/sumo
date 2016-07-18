@@ -70,7 +70,7 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // method definitions
 // ===========================================================================
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app,
-        GUIGlObject& o, size_t noRows)
+        GUIGlObject& o, int noRows)
     : FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(),
                    NULL, NULL, DECOR_ALL, 20, 20, 500, (FXint)(noRows * 20 + 60)),
       myObject(&o),

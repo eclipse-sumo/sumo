@@ -43,7 +43,7 @@
 // ===========================================================================
 /**
  * @typedef IntVector
- * @brief Definition of a vector of unsigned ints
+ * @brief Definition of a vector of ints
  */
 typedef std::vector<int> IntVector;
 

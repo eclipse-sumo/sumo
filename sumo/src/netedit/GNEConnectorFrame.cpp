@@ -201,7 +201,7 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         myNumChanges = 0;
         myViewNet->getUndoList()->p_begin("modify connections");
     } else if (myPotentialTargets.count(lane) || allowConflict) {
-        const unsigned int fromIndex = myCurrentLane->getIndex();
+        const int fromIndex = myCurrentLane->getIndex();
         GNEEdge& srcEdge = myCurrentLane->getParentEdge();
         GNEEdge& destEdge = lane->getParentEdge();
         const std::string& destEdgeID = destEdge.getMicrosimID();
@@ -471,7 +471,7 @@ GNEConnectorFrame::initTargets() {
         }
     }
     // set color for existing connections
-    const unsigned int fromIndex = myCurrentLane->getIndex();
+    const int fromIndex = myCurrentLane->getIndex();
     NBEdge* srcEdge = myCurrentLane->getParentEdge().getNBEdge();
     std::vector<NBEdge::Connection> connections = srcEdge->getConnectionsFromLane(fromIndex);
     for (std::set<GNELane*>::iterator it = myPotentialTargets.begin(); it != myPotentialTargets.end(); it++) {
@@ -511,9 +511,9 @@ GNEConnectorFrame::cleanup() {
 GNEConnectorFrame::LaneStatus
 GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connections, GNELane* targetLane) {
     NBEdge* srcEdge = myCurrentLane->getParentEdge().getNBEdge();
-    const unsigned int fromIndex = myCurrentLane->getIndex();
+    const int fromIndex = myCurrentLane->getIndex();
     NBEdge* destEdge = targetLane->getParentEdge().getNBEdge();
-    const unsigned int toIndex = targetLane->getIndex();
+    const int toIndex = targetLane->getIndex();
     std::vector<NBEdge::Connection>::const_iterator con_it = find_if(
                 connections.begin(), connections.end(),
                 NBEdge::connections_finder(fromIndex, destEdge, toIndex));
@@ -532,11 +532,11 @@ GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connecti
 }
 
 
-unsigned int
+int
 GNEConnectorFrame::getTLLLinkNumber(const std::vector<NBEdge::Connection>& connections, GNELane* targetLane) {
-    const unsigned int fromIndex = myCurrentLane->getIndex();
+    const int fromIndex = myCurrentLane->getIndex();
     NBEdge* destEdge = targetLane->getParentEdge().getNBEdge();
-    const unsigned int toIndex = targetLane->getIndex();
+    const int toIndex = targetLane->getIndex();
     std::vector<NBEdge::Connection>::const_iterator it = find_if(
                 connections.begin(), connections.end(),
                 NBEdge::connections_finder(fromIndex, destEdge, toIndex));

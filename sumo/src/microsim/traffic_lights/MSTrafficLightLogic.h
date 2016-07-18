@@ -187,8 +187,8 @@ public:
      * @param[in] i The index of the signal
      * @return The lanes controlled by the signal at the given index
      */
-    const LaneVector& getLanesAt(unsigned int i) const {
-        if ((size_t)i < myLanes.size()) {
+    const LaneVector& getLanesAt(int i) const {
+        if ((int)i < myLanes.size()) {
             return myLanes[i];
         } else {
             return myEmptyLaneVector;
@@ -208,7 +208,7 @@ public:
      * @param[in] i The index of the signal
      * @return The links controlled by the signal at the given index
      */
-    const LinkVector& getLinksAt(unsigned int i) const {
+    const LinkVector& getLinksAt(int i) const {
         return myLinks[i];
     }
 
@@ -292,14 +292,14 @@ public:
      * @param[in] index The index of the phase to return the begin of
      * @return The begin time of the phase
      */
-    virtual SUMOTime getOffsetFromIndex(unsigned int index) const = 0;
+    virtual SUMOTime getOffsetFromIndex(int index) const = 0;
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
      * @param[in] offset The offset (time) for which the according phase shall be returned
      * @return The according phase
      */
-    virtual unsigned int getIndexFromOffset(SUMOTime offset) const = 0;
+    virtual int getIndexFromOffset(SUMOTime offset) const = 0;
     /// @}
 
 
@@ -326,7 +326,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      */
     virtual void changeStepAndDuration(MSTLLogicControl& tlcontrol,
-                                       SUMOTime simStep, unsigned int step, SUMOTime stepDuration) = 0;
+                                       SUMOTime simStep, int step, SUMOTime stepDuration) = 0;
 
     /// @}
 

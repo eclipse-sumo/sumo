@@ -119,7 +119,7 @@ public:
      * @param[in] parameters Parameters defined for the tll
      */
     MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-                             const std::string& subid, const Phases& phases, unsigned int step,
+                             const std::string& subid, const Phases& phases, int step,
                              SUMOTime delay,
                              const std::map<std::string, std::string>& parameters);
 
@@ -333,7 +333,7 @@ protected:
      * 1-> diff
      * 2-> ratio
      */
-    unsigned int getReinforcementMode() {
+    int getReinforcementMode() {
         return TplConvert::_2int(getParameter("REIMODE", "0").c_str());
     }
 

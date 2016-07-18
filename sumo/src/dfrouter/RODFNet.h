@@ -168,7 +168,7 @@ private:
     mutable std::map<std::string, ROEdge*> myDetectorEdges;
 
     bool myAmInHighwayMode;
-    mutable size_t mySourceNumber, mySinkNumber, myInBetweenNumber, myInvalidNumber;
+    mutable int mySourceNumber, mySinkNumber, myInBetweenNumber, myInvalidNumber;
 
     /// @brief List of ids of edges that shall not be used
     std::vector<std::string> myDisallowedEdges;

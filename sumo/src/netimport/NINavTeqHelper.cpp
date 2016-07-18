@@ -77,7 +77,7 @@ NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) 
 }
 
 
-unsigned int
+int
 NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS, SUMOReal speed) {
     try {
         int nolanes = TplConvert::_2int(laneNoS.c_str());

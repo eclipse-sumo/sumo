@@ -81,13 +81,13 @@ GUITexturesHelper::add(FXImage* i) {
 
 
 void
-GUITexturesHelper::drawTexturedBox(unsigned int which, SUMOReal size) {
+GUITexturesHelper::drawTexturedBox(int which, SUMOReal size) {
     drawTexturedBox(which, size, size, -size, -size);
 }
 
 
 void
-GUITexturesHelper::drawTexturedBox(unsigned int which,
+GUITexturesHelper::drawTexturedBox(int which,
                                    SUMOReal sizeX1, SUMOReal sizeY1,
                                    SUMOReal sizeX2, SUMOReal sizeY2) {
     if (!myAllowTextures) {

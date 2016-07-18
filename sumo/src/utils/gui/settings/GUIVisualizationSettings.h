@@ -295,12 +295,12 @@ public:
     /** @brief Returns the number of the active lane (edge) coloring schme
      * @return number of the active scheme
      */
-    size_t getLaneEdgeMode() const;
+    int getLaneEdgeMode() const;
 
     /** @brief Returns the number of the active lane (edge) scaling schme
      * @return number of the active scheme
      */
-    size_t getLaneEdgeScaleMode() const;
+    int getLaneEdgeScaleMode() const;
 
     /** @brief Returns the current lane (edge) coloring schme
      * @return current scheme

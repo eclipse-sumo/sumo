@@ -77,7 +77,7 @@ NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() {
 
 
 NBTrafficLightLogic*
-NBLoadedSUMOTLDef::myCompute(unsigned int brakingTimeSeconds) {
+NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
     // @todo what to do with those parameters?
     UNUSED_PARAMETER(brakingTimeSeconds);
     myTLLogic->closeBuilding();
@@ -301,12 +301,12 @@ NBLoadedSUMOTLDef::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
 void
 NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
     // XXX what to do if crossings are removed during network building?
-    const unsigned int size = myTLLogic->getNumLinks();
-    unsigned int noLinksAll = 0;
+    const int size = myTLLogic->getNumLinks();
+    int noLinksAll = 0;
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
         const NBConnection& c = *it;
         if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
-            noLinksAll = MAX2(noLinksAll, (unsigned int)c.getTLIndex() + 1);
+            noLinksAll = MAX2(noLinksAll, (int)c.getTLIndex() + 1);
         }
     }
     int oldCrossings = 0;
@@ -317,7 +317,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         // set tl indices for crossings
         (*i)->setCrossingTLIndices(noLinksAll);
         copy(c.begin(), c.end(), std::back_inserter(crossings));
-        noLinksAll += (unsigned int)c.size();
+        noLinksAll += (int)c.size();
         oldCrossings += (*i)->numCrossingsFromSumoNet();
     }
     const int newCrossings = (int)crossings.size() - oldCrossings;
@@ -328,8 +328,8 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                 // patch states for the newly added crossings
 
                 // collect edges
-                EdgeVector fromEdges(size, 0);
-                EdgeVector toEdges(size, 0);
+                EdgeVector fromEdges(size, NULL);
+                EdgeVector toEdges(size, NULL);
                 std::vector<int> fromLanes(size, 0);
                 collectEdgeVectors(fromEdges, toEdges, fromLanes);
                 const std::string crossingDefaultState(newCrossings, 'r');

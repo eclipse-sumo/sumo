@@ -267,7 +267,7 @@ public:
             myMutex.unlock();
             t->run(this);
             myCounter++;
-//            if (myCounter % 1000 == 0) std::cout << (size_t)this << " ran " << myCounter << " tasks " << std::endl;
+//            if (myCounter % 1000 == 0) std::cout << (int)this << " ran " << myCounter << " tasks " << std::endl;
             myPool.addFinished(t);
         }
 //        std::cout << "ran " << myCounter << " tasks " << std::endl;

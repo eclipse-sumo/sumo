@@ -127,10 +127,10 @@ public:
 
     private:
         /// @brief retrieves the minimum index in myAllEdges
-        size_t getMinRank(const EdgeVector& e) const {
-            size_t result = myOrdering.size();
+        int getMinRank(const EdgeVector& e) const {
+            int result = myOrdering.size();
             for (EdgeVector::const_iterator it = e.begin(); it != e.end(); ++it) {
-                size_t rank = std::distance(myOrdering.begin(), std::find(myOrdering.begin(), myOrdering.end(), *it));
+                int rank = std::distance(myOrdering.begin(), std::find(myOrdering.begin(), myOrdering.end(), *it));
                 result = MIN2(result, rank);
             }
             return result;

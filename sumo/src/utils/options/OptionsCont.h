@@ -709,7 +709,7 @@ private:
      * @todo Describe parameter
      */
     void splitLines(std::ostream& os, std::string what,
-                    size_t offset, size_t nextOffset);
+                    int offset, int nextOffset);
 
 
 private:

@@ -62,7 +62,7 @@ public:
 
 public:
     /// Constructor
-    MSVehicleContainer(size_t capacity = 10);
+    MSVehicleContainer(int capacity = 10);
 
     /// Destructor
     ~MSVehicleContainer();
@@ -92,7 +92,7 @@ public:
     bool isEmpty() const;
 
     /// Returns the size of the container
-    size_t size() const;
+    int size() const;
 
     /// Prints the container (the departure times)
     void showArray() const;

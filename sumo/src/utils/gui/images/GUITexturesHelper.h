@@ -52,10 +52,10 @@ public:
     static GUIGlID add(FXImage* i);
 
     /// Draws a named texture as a box with the given size
-    static void drawTexturedBox(unsigned int which, SUMOReal size);
+    static void drawTexturedBox(int which, SUMOReal size);
 
     /// Draws a named texture as a rectangle with the given sizes
-    static void drawTexturedBox(unsigned int which,
+    static void drawTexturedBox(int which,
                                 SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
     /// @brief return texture id for the given filename (initialize on first use)

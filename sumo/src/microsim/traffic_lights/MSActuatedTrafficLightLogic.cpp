@@ -66,7 +66,7 @@
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID,
         const Phases& phases,
-        unsigned int step, SUMOTime delay,
+        int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
@@ -178,7 +178,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 
     // now the gapcontrol starts
     const std::string& state = getCurrentPhaseDef().getState();
-    for (unsigned int i = 0; i < (unsigned int) state.size(); i++)  {
+    for (int i = 0; i < (int) state.size(); i++)  {
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*>& lanes = getLanesAt(i);
             for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {

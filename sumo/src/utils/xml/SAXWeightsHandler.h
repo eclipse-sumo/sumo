@@ -128,7 +128,7 @@ public:
         SUMOReal myAggValue;
 
         /// The number of lanes read for the current edge
-        size_t myNoLanes;
+        int myNoLanes;
 
         /// Information whether the attribute has been found for the current edge
         bool myHadAttribute;

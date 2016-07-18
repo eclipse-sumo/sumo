@@ -134,7 +134,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
     ret->mkItem("passed vehicles [#]", true,
-                new FunctionBinding<GUIInductLoop, unsigned int>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
+                new FunctionBinding<GUIInductLoop, int>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentSpeed));
     ret->mkItem("occupancy [%]", true,

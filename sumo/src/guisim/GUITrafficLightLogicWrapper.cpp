@@ -148,7 +148,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
     if (logics.size() > 1) {
         std::vector<MSTrafficLightLogic*>::const_iterator i;
-        size_t index = 0;
+        int index = 0;
         for (i = logics.begin(); i != logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
                 new FXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
@@ -247,10 +247,10 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
             const MSTrafficLightLogic::Phases& phases = myTLLogic.getPhases();
             int curPhaseIdx = myTLLogic.getCurrentPhaseIndex();
             int phaseIdx = (curPhaseIdx + 1) % phases.size();
-            std::vector<unsigned int> nextGreen;
+            std::vector<int> nextGreen;
             while (phaseIdx != curPhaseIdx) {
                 const std::string& state = phases[phaseIdx]->getState();
-                for (unsigned int linkIdx = 0; linkIdx < state.size(); linkIdx++) {
+                for (int linkIdx = 0; linkIdx < state.size(); linkIdx++) {
                     if ((LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MINOR ||
                             (LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MAJOR) {
                         nextGreen.push_back(linkIdx);
@@ -262,7 +262,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 phaseIdx = (phaseIdx + 1) % phases.size();
             }
             // highlight nextGreen links
-            for (std::vector<unsigned int>::iterator it_idx = nextGreen.begin(); it_idx != nextGreen.end(); it_idx++) {
+            for (std::vector<int>::iterator it_idx = nextGreen.begin(); it_idx != nextGreen.end(); it_idx++) {
                 const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     glPushMatrix();

@@ -167,7 +167,7 @@ protected:
     /// @name members and functions relative to detector icon
     /// @{
     /// @brief set Rotation of block Icon
-    void drawDetectorIcon(const unsigned int GNELogoID, SUMOReal sizex = 0.5, SUMOReal sizey = 0.5) const;
+    void drawDetectorIcon(const int GNELogoID, SUMOReal sizex = 0.5, SUMOReal sizey = 0.5) const;
 
     /// @brief The position of detector
     Position myDetectorLogoOffset;

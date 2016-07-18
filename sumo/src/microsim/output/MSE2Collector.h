@@ -293,7 +293,7 @@ public:
      *
      * @return number of cars passed over the sensor
      */
-    unsigned int getPassedVeh() {
+    int getPassedVeh() {
         return myPassedVeh;
     }
 
@@ -457,7 +457,7 @@ private:
     /// @brief The number of halted vehicles [#]
     int myCurrentHaltingsNumber;
     /// @brief The number of vehicles passed on the sensor
-    unsigned int myPassedVeh;
+    int myPassedVeh;
     /// @}
 
 

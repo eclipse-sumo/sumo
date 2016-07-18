@@ -100,7 +100,7 @@ public:
 
     void removeFromConnectionCluster(NIVissimConnectionCluster* c);
     void addToConnectionCluster(NIVissimConnectionCluster* c);
-    void setSpeed(size_t lane, int speedDist);
+    void setSpeed(int lane, int speedDist);
     bool addToTreatAsSame(NIVissimEdge* e);
 
     NIVissimConnection* getConnectionTo(NIVissimEdge* e);
@@ -263,7 +263,7 @@ private:
     std::string myType;
 
     /// The number of lanes the edge has
-    unsigned int myNoLanes;
+    int myNoLanes;
 
     /// Additional load values for this edge
     SUMOReal myZuschlag1, myZuschlag2;

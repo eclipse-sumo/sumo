@@ -72,7 +72,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, unsigned int maxRoutes = INT_MAX);
+    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, int maxRoutes = INT_MAX);
 
 
     /// @brief generate vehroute output for vehicles which are still in the network
@@ -139,7 +139,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, unsigned int maxRoutes);
+    MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, int maxRoutes);
 
 
     /** @brief Called on route output
@@ -249,7 +249,7 @@ private:
     std::vector<SUMOTime> myExits;
 
     /// @brief The maximum number of routes to report
-    const unsigned int myMaxRoutes;
+    const int myMaxRoutes;
 
     /// @brief The last edge the exit time was saved for
     const MSEdge* myLastSavedAt;

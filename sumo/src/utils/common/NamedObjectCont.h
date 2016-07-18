@@ -134,8 +134,8 @@ public:
      *
      * @return The number of stored items
      */
-    unsigned int size() const {
-        return (unsigned int) myMap.size();
+    int size() const {
+        return (int) myMap.size();
     }
 
 

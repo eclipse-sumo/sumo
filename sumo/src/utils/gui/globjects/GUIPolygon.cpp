@@ -241,7 +241,7 @@ GUIPolygon::performTesselation(SUMOReal lineWidth) const {
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, NULL);
         gluTessBeginContour(tobj);
-        for (size_t i = 0; i != myShape.size(); ++i) {
+        for (int i = 0; i != myShape.size(); ++i) {
             points[3 * i]  = myShape[(int) i].x();
             points[3 * i + 1]  = myShape[(int) i].y();
             points[3 * i + 2]  = 0;

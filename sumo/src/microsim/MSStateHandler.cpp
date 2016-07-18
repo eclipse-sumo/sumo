@@ -80,13 +80,13 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
     if (MSGlobals::gUseMesoSim) {
-        for (size_t i = 0; i < MSEdge::dictSize(); i++) {
+        for (int i = 0; i < MSEdge::dictSize(); i++) {
             for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[i]); s != 0; s = s->getNextSegment()) {
                 s->saveState(out);
             }
         }
     } else {
-        for (size_t i = 0; i < MSEdge::dictSize(); i++) {
+        for (int i = 0; i < MSEdge::dictSize(); i++) {
             const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
             for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
                 (*it)->saveState(out);

@@ -140,12 +140,12 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     // write the successors of lanes
-    unsigned int numConnections = 0;
+    int numConnections = 0;
     for (std::map<std::string, NBEdge*>::const_iterator it_edge = ec.begin(); it_edge != ec.end(); it_edge++) {
         NBEdge* from = it_edge->second;
         from->sortOutgoingConnectionsByIndex();
         const std::vector<NBEdge::Connection> connections = from->getConnections();
-        numConnections += (unsigned int)connections.size();
+        numConnections += (int)connections.size();
         for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
             writeConnection(device, *from, *it_c, includeInternal);
         }
@@ -375,7 +375,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
     const std::vector<NBEdge::Lane>& lanes = e.getLanes();
 
     const SUMOReal length = e.getFinalLength();
-    for (unsigned int i = 0; i < (unsigned int) lanes.size(); i++) {
+    for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         writeLane(into, e.getLaneID(i), l.speed,
                   l.permissions, l.preferred, l.endOffset, l.width, l.shape, l.origID,
@@ -390,7 +390,7 @@ void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
                          SUMOReal endOffset, SUMOReal width, PositionVector shape,
-                         const std::string& origID, SUMOReal length, unsigned int index, bool origNames,
+                         const std::string& origID, SUMOReal length, int index, bool origNames,
                          const std::string& oppositeID, const NBNode* node) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
@@ -453,8 +453,8 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
     std::string incLanes;
     const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
-        unsigned int noLanes = (*i)->getNumLanes();
-        for (unsigned int j = 0; j < noLanes; j++) {
+        int noLanes = (*i)->getNumLanes();
+        for (int j = 0; j < noLanes; j++) {
             incLanes += (*i)->getLaneID(j);
             if (i != incoming.end() - 1 || j < noLanes - 1) {
                 incLanes += ' ';
@@ -469,7 +469,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
     // write the internal lanes
     std::string intLanes;
     if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-        unsigned int l = 0;
+        int l = 0;
         for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
             const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
@@ -548,9 +548,9 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
                 incLanes += " " + (*k).foeIncomingLanes;
             }
             into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
-            const std::vector<unsigned int>& foes = (*k).foeInternalLinks;
+            const std::vector<int>& foes = (*k).foeInternalLinks;
             std::vector<std::string> foeIDs;
-            for (std::vector<unsigned int>::const_iterator it = foes.begin(); it != foes.end(); ++it) {
+            for (std::vector<int>::const_iterator it = foes.begin(); it != foes.end(); ++it) {
                 foeIDs.push_back(internalLaneIDs[*it]);
             }
             into.writeAttr(SUMO_ATTR_INTLANES, joinToString(foeIDs, " "));
@@ -713,7 +713,7 @@ NWWriter_SUMO::writeDistrict(OutputDevice& into, const NBDistrict& d) {
     if (d.getShape().size() > 0) {
         into.writeAttr(SUMO_ATTR_SHAPE, d.getShape());
     }
-    size_t i;
+    int i;
     // write all sources
     const std::vector<NBEdge*>& sources = d.getSourceEdges();
     for (i = 0; i < sources.size(); i++) {

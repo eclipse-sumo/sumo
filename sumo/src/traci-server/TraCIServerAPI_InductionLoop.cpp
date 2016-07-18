@@ -115,11 +115,11 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
                 std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T, true);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
-                unsigned int cnt = 0;
+                int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int) vd.size());
                 ++cnt;
-                for (unsigned int i = 0; i < vd.size(); ++i) {
+                for (int i = 0; i < vd.size(); ++i) {
                     MSInductLoop::VehicleData& svd = vd[i];
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(svd.idM);

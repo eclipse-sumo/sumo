@@ -103,7 +103,7 @@ public:
                              myPedNet->getArrivalEdge(to),
                              &trip, msTime, intoPed);
         if (success) {
-            for (size_t i = 0; i < intoPed.size(); ++i) {
+            for (int i = 0; i < intoPed.size(); ++i) {
                 if (intoPed[i]->includeInRoute(allEdges)) {
                     into.push_back(intoPed[i]->getEdge());
                 }
@@ -111,7 +111,7 @@ public:
         }
 #ifdef PedestrianRouter_DEBUG_ROUTES
         SUMOReal time = msTime;
-        for (size_t i = 0; i < intoPed.size(); ++i) {
+        for (int i = 0; i < intoPed.size(); ++i) {
             time += myInternalRouter->getEffort(intoPed[i], &trip, time);
         }
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()

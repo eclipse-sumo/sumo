@@ -236,11 +236,11 @@ protected:
     /// @brief The frequeny with which to check for calibration
     SUMOTime myFrequency;
     /// @brief The number of vehicles that were removed in the current interval
-    unsigned int myRemoved;
+    int myRemoved;
     /// @brief The number of vehicles that were inserted in the current interval
-    unsigned int myInserted;
+    int myInserted;
     /// @brief The number of vehicles that were removed when clearin a jam
-    unsigned int myClearedInJam;
+    int myClearedInJam;
     /// @brief The information whether the speed adaption has been reset
     bool mySpeedIsDefault;
     /// @brief The information whether speed was adapted in the current interval

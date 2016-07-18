@@ -106,14 +106,14 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessBeginContour(tobj);
     double* points = new double[(v.size() + int(close)) * 3];
 
-    for (size_t i = 0; i != v.size(); ++i) {
+    for (int i = 0; i != v.size(); ++i) {
         points[3 * i] = v[(int)i].x();
         points[3 * i + 1] = v[(int)i].y();
         points[3 * i + 2] = 0;
         gluTessVertex(tobj, points + 3 * i, points + 3 * i);
     }
     if (close) {
-        const size_t i = v.size();
+        const int i = v.size();
         points[3 * i] = v[0].x();
         points[3 * i + 1] = v[0].y();
         points[3 * i + 2] = 0;
@@ -328,7 +328,7 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 }
 
 
-size_t
+int
 GLHelper::angleLookup(SUMOReal angleDeg) {
     const int numCoords = (int)myCircleCoords.size() - 1;
     int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
@@ -336,7 +336,7 @@ GLHelper::angleLookup(SUMOReal angleDeg) {
         index += numCoords;
     }
     assert(index >= 0);
-    return (size_t)index;
+    return (int)index;
 }
 
 
@@ -392,7 +392,7 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
         beg == 0 ? myCircleCoords[0] : myCircleCoords[((int) beg / 10) % 36];
     for (int i = (int)(beg / 10); i < steps && (36.0 / (SUMOReal) steps * (SUMOReal) i) * 10 < end; i++) {
         const std::pair<SUMOReal, SUMOReal>& p2 =
-            myCircleCoords[(size_t)(36.0 / (SUMOReal) steps * (SUMOReal) i)];
+            myCircleCoords[(int)(36.0 / (SUMOReal) steps * (SUMOReal) i)];
         glBegin(GL_TRIANGLES);
         glVertex2d(p1.first * width, p1.second * width);
         glVertex2d(p2.first * width, p2.second * width);

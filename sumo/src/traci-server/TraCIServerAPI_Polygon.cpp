@@ -97,8 +97,8 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_SHAPE:
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                tempMsg.writeUnsignedByte(MIN2(static_cast<int>(255), static_cast<int>(p->getShape().size())));
-                for (unsigned int iPoint = 0; iPoint < MIN2(static_cast<size_t>(255), p->getShape().size()); ++iPoint) {
+                tempMsg.writeUnsignedByte(MIN2(255, (int)p->getShape().size()));
+                for (int iPoint = 0; iPoint < MIN2(255, (int)p->getShape().size()); ++iPoint) {
                     tempMsg.writeDouble(p->getShape()[iPoint].x());
                     tempMsg.writeDouble(p->getShape()[iPoint].y());
                 }

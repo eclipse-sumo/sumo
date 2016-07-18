@@ -120,14 +120,14 @@ public:
      *
      * @return The number of known sinks
      */
-    unsigned int sinkNumber() const;
+    int sinkNumber() const;
 
 
     /** @brief Returns the number of sources
      *
      * @return The number of known sources
      */
-    unsigned int sourceNumber() const;
+    int sourceNumber() const;
 
 
 private:

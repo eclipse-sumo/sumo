@@ -272,7 +272,7 @@ public:
         std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
     }
 
-    const EdgeInfo& getEdgeInfo(size_t index) const {
+    const EdgeInfo& getEdgeInfo(int index) const {
         return myEdgeInfos[index];
     }
 

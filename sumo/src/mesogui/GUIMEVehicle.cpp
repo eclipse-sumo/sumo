@@ -91,7 +91,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
     if (getParameter().repetitionNumber < INT_MAX) {
-        ret->mkItem("remaining [#]", false, (unsigned int) getParameter().repetitionNumber - getParameter().repetitionsDone);
+        ret->mkItem("remaining [#]", false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
     if (getParameter().repetitionOffset > 0) {
         ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
@@ -124,9 +124,9 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     }
     ret->mkItem("devices", false, str.str());
     //ret->mkItem("persons", true,
-    //            new FunctionBinding<GUIMEVehicle, unsigned int>(this, &GUIMEVehicle::getPersonNumber));
+    //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,
-    //            new FunctionBinding<GUIMEVehicle, unsigned int>(this, &GUIMEVehicle::getContainerNumber));
+    //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getContainerNumber));
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
 
     // meso specific values
@@ -175,7 +175,7 @@ GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s 
 
 
 SUMOReal
-GUIMEVehicle::getColorValue(size_t activeScheme) const {
+GUIMEVehicle::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 8:
             return getSpeed();

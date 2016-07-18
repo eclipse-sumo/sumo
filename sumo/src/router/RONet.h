@@ -415,7 +415,7 @@ public:
 
 
     /// Returns the total number of edges the network contains including internal edges
-    size_t getEdgeNo() const;
+    int getEdgeNo() const;
 
     /// Returns the number of internal edges the network contains
     int getInternalEdgeNumber() const;
@@ -535,13 +535,13 @@ private:
     OutputDevice* myTypesOutput;
 
     /// @brief The number of read routes
-    unsigned int myReadRouteNo;
+    int myReadRouteNo;
 
     /// @brief The number of discarded routes
-    unsigned int myDiscardedRouteNo;
+    int myDiscardedRouteNo;
 
     /// @brief The number of written routes
-    unsigned int myWrittenRouteNo;
+    int myWrittenRouteNo;
 
     /// @brief Whether the network contains edges which not all vehicles may pass
     bool myHavePermissions;

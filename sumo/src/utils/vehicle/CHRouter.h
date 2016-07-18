@@ -700,7 +700,7 @@ private:
 
 
     void buildContractionHierarchy(SUMOTime time, const V* const vehicle) {
-        const size_t numEdges = myCHInfos.size();
+        const int numEdges = myCHInfos.size();
         const std::string vClass = (mySPTree->validatePermissions() ?
                                     "all vehicle classes " : "vClass='" + SumoVehicleClassStrings.getString(mySVC) + "' ");
         PROGRESS_BEGIN_MESSAGE("Building Contraction Hierarchy for " + vClass
@@ -712,16 +712,16 @@ private:
         // reset previous connections etc
         myForwardSearch.reset();
         myBackwardSearch.reset();
-        for (size_t i = 0; i < numEdges; i++) {
+        for (int i = 0; i < numEdges; i++) {
             myCHInfos[i].resetContractionState();
         }
         // copy connections from the original net
         const SUMOReal time_seconds = STEPS2TIME(time); // timelines store seconds!
-        for (size_t i = 0; i < numEdges; i++) {
+        for (int i = 0; i < numEdges; i++) {
             synchronize(myCHInfos[i], time_seconds, vehicle);
         }
         // synchronization is finished. now we can compute priorities for the first time
-        for (size_t i = 0; i < numEdges; i++) {
+        for (int i = 0; i < numEdges; i++) {
             myCHInfos[i].updatePriority(mySPTree);
             queue.push_back(&(myCHInfos[i]));
         }

@@ -60,11 +60,11 @@ public:
         addColor(baseColor, baseValue, colName);
     }
 
-    void setThreshold(const size_t pos, const SUMOReal threshold) {
+    void setThreshold(const int pos, const SUMOReal threshold) {
         myThresholds[pos] = threshold;
     }
 
-    void setColor(const size_t pos, const T& color) {
+    void setColor(const int pos, const T& color) {
         myColors[pos] = color;
     }
 
@@ -80,11 +80,11 @@ public:
         return false;
     }
 
-    unsigned int addColor(const T& color, const SUMOReal threshold, const std::string& name = "") {
+    int addColor(const T& color, const SUMOReal threshold, const std::string& name = "") {
         typename std::vector<T>::iterator colIt = myColors.begin();
         std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
         std::vector<std::string>::iterator nameIt = myNames.begin();
-        unsigned int pos = 0;
+        int pos = 0;
         while (threshIt != myThresholds.end() && (*threshIt) < threshold) {
             ++threshIt;
             ++colIt;
@@ -97,7 +97,7 @@ public:
         return pos;
     }
 
-    void removeColor(const size_t pos) {
+    void removeColor(const int pos) {
         assert(pos < myColors.size());
         myColors.erase(myColors.begin() + pos);
         myThresholds.erase(myThresholds.begin() + pos);

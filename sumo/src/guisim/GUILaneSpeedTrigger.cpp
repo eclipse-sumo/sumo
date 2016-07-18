@@ -330,7 +330,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, getType());
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
-    for (size_t i = 0; i < myFGPositions.size(); ++i) {
+    for (int i = 0; i < myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
@@ -365,7 +365,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             if (value != myLastValue) {
                 myLastValue = value;
                 myLastValueString = toString<SUMOReal>(myLastValue);
-                size_t idx = myLastValueString.find('.');
+                int idx = myLastValueString.find('.');
                 if (idx != std::string::npos) {
                     if (idx > myLastValueString.length()) {
                         idx = myLastValueString.length();

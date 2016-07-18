@@ -63,7 +63,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) {
     MSTrafficLightLogic* light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector& links = light->getLinks();
     const std::string& state = light->getCurrentPhaseDef().getState();
-    for (unsigned int i = 0; i < (unsigned int) links.size(); i++) {
+    for (int i = 0; i < (int) links.size(); i++) {
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
             if (myPreviousLinkStates.find(i) == myPreviousLinkStates.end()) {
                 // was not saved before

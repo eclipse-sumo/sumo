@@ -152,7 +152,7 @@ GUIMainWindow::updateChildren() {
     myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
     // inform other windows
     myTrackerLock.lock();
-    for (size_t i = 0; i < myTrackerWindows.size(); i++) {
+    for (int i = 0; i < myTrackerWindows.size(); i++) {
         myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
     }
     myTrackerLock.unlock();

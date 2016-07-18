@@ -157,12 +157,12 @@ public:
 
     /** @brief Joins loaded junction clusters (see NIXMLNodesHandler)
      */
-    unsigned int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Joins junctions that are very close together
      */
-    unsigned int joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    int joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
     /// @}
 
 
@@ -218,7 +218,7 @@ public:
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
      * @return The number of removed nodes
      */
-    unsigned int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
+    int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                      NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
     /// @}
 
@@ -268,8 +268,8 @@ public:
     /** @brief Returns the number of known nodes
      * @return The number of nodes stored in this container
      */
-    unsigned int size() const {
-        return (unsigned int) myNodes.size();
+    int size() const {
+        return (int) myNodes.size();
     }
 
     /** deletes all nodes */

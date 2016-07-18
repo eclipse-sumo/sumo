@@ -133,7 +133,7 @@ public:
     Boundary getBoundary() const;
 
     /// @brief returns the index of the lane
-    unsigned int getIndex() const;
+    int getIndex() const;
 
     /// @nrief returns the current speed of lane
     SUMOReal getSpeed() const;
@@ -141,7 +141,7 @@ public:
     /* @brief method for setting the index of the lane
      * @param[in] index The new index of lane
      */
-    void setIndex(unsigned int index);
+    void setIndex(int index);
 
     /// @brief returns the parameteric length of the lane
     /// @note is the same as their Edge parent
@@ -279,10 +279,10 @@ private:
     void drawLane2LaneConnections() const;
 
     /// @brief return value for lane coloring according to the given scheme
-    SUMOReal getColorValue(size_t activeScheme) const;
+    SUMOReal getColorValue(int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
-    bool setFunctionalColor(size_t activeScheme) const;
+    bool setFunctionalColor(int activeScheme) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIColorer& c) const;

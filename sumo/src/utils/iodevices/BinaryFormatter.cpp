@@ -159,13 +159,6 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 
 
 template<>
-void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const unsigned int& val) {
-    BinaryFormatter::writeAttrHeader(into, attr, BF_INTEGER);
-    FileHelpers::writeInt(into, val);
-}
-
-
-template<>
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SumoXMLNodeType& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_NODE_TYPE);
     FileHelpers::writeByte(into, static_cast<unsigned char>(val));

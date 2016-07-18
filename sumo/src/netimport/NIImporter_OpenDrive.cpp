@@ -848,7 +848,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
             e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
         }
-        for (unsigned int j = 0; j < e.geom.size(); ++j) {
+        for (int j = 0; j < e.geom.size(); ++j) {
             if (!NBNetBuilder::transformCoordinates(e.geom[j])) {
                 WRITE_ERROR("Unable to project coordinates for.");
             }
@@ -1113,7 +1113,7 @@ NIImporter_OpenDrive::OpenDriveLaneSection::OpenDriveLaneSection(SUMOReal sArg) 
 
 void
 NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping(const NBTypeCont& tc) {
-    unsigned int sumoLane = 0;
+    int sumoLane = 0;
     const std::vector<OpenDriveLane>& dirLanesR = lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
     for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanesR.rbegin(); i != dirLanesR.rend(); ++i) {
         if (myImportAllTypes || (tc.knows((*i).type) && !tc.getShallBeDiscarded((*i).type))) {
@@ -1175,7 +1175,7 @@ NIImporter_OpenDrive::OpenDriveLaneSection
 NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneSection(SUMOReal startPos) {
     OpenDriveLaneSection ret(*this);
     ret.s += startPos;
-    for (unsigned int k = 0; k != ret.lanesByDir[OPENDRIVE_TAG_RIGHT].size(); ++k) {
+    for (int k = 0; k != ret.lanesByDir[OPENDRIVE_TAG_RIGHT].size(); ++k) {
         OpenDriveLane& l = ret.lanesByDir[OPENDRIVE_TAG_RIGHT][k];
         l.speed = 0;
         std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator i = std::find_if(l.speeds.begin(), l.speeds.end(), same_position_finder(startPos));
@@ -1183,7 +1183,7 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneSection(SUMOReal startPos) 
             l.speed = (*i).second;
         }
     }
-    for (unsigned int k = 0; k != ret.lanesByDir[OPENDRIVE_TAG_LEFT].size(); ++k) {
+    for (int k = 0; k != ret.lanesByDir[OPENDRIVE_TAG_LEFT].size(); ++k) {
         OpenDriveLane& l = ret.lanesByDir[OPENDRIVE_TAG_LEFT][k];
         std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator i = std::find_if(l.speeds.begin(), l.speeds.end(), same_position_finder(startPos));
         l.speed = 0;

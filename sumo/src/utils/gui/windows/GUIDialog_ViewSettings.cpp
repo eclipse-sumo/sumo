@@ -106,7 +106,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         mySchemeName = new FXComboBox(frame0, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, COMBOBOX_INSERT_LAST | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            size_t index = mySchemeName->appendItem((*i).c_str());
+            int index = mySchemeName->appendItem((*i).c_str());
             if ((*i) == mySettings->name) {
                 mySchemeName->setCurrentItem((FXint) index);
             }
@@ -702,7 +702,7 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
         std::vector<FXRealSpinDial*>::const_iterator threshEnd,
         std::vector<FXButton*>::const_iterator buttonIt,
         GUIColorScheme& scheme) {
-    size_t pos = 0;
+    int pos = 0;
     while (colIt != colEnd) {
         if (scheme.isFixed()) {
             if (sender == *colIt) {
@@ -755,7 +755,7 @@ GUIDialog_ViewSettings::updateScaleRanges(FXObject* sender, std::vector<FXRealSp
         std::vector<FXRealSpinDial*>::const_iterator threshEnd,
         std::vector<FXButton*>::const_iterator buttonIt,
         GUIScaleScheme& scheme) {
-    size_t pos = 0;
+    int pos = 0;
     while (scaleIt != scaleEnd) {
         if (scheme.isFixed()) {
             if (sender == *scaleIt) {
@@ -804,12 +804,12 @@ GUIDialog_ViewSettings::updateScaleRanges(FXObject* sender, std::vector<FXRealSp
 long
 GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*val*/) {
     GUIVisualizationSettings tmpSettings = *mySettings;
-    size_t prevLaneMode = mySettings->getLaneEdgeMode();
-    size_t prevLaneScaleMode = mySettings->getLaneEdgeScaleMode();
-    size_t prevVehicleMode = mySettings->vehicleColorer.getActive();
-    size_t prevPersonMode = mySettings->personColorer.getActive();
-    size_t prevContainerMode = mySettings->containerColorer.getActive();
-    size_t prevJunctionMode = mySettings->junctionColorer.getActive();
+    int prevLaneMode = mySettings->getLaneEdgeMode();
+    int prevLaneScaleMode = mySettings->getLaneEdgeScaleMode();
+    int prevVehicleMode = mySettings->vehicleColorer.getActive();
+    int prevPersonMode = mySettings->personColorer.getActive();
+    int prevContainerMode = mySettings->containerColorer.getActive();
+    int prevJunctionMode = mySettings->junctionColorer.getActive();
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
@@ -1087,7 +1087,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
             return 1;
         }
         name = text->getText().text();
-        for (size_t i = 0; i < name.length(); ++i) {
+        for (int i = 0; i < name.length(); ++i) {
             if (name[i] != '_' && (name[i] < 'a' || name[i] > 'z') && (name[i] < 'A' || name[i] > 'Z') && (name[i] < '0' || name[i] > '9')) {
                 name = "";
                 break;

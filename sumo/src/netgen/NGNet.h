@@ -185,7 +185,7 @@ public:
      *
      * @return The number of stored nodes
      */
-    size_t nodeNo() const;
+    int nodeNo() const;
 
 
 private:

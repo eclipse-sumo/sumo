@@ -362,7 +362,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
-    for (size_t i = 0; i < myFGPositions.size(); ++i) {
+    for (int i = 0; i < myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();

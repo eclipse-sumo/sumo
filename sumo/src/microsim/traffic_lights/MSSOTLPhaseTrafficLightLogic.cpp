@@ -22,7 +22,7 @@
 
 MSSOTLPhaseTrafficLightLogic::MSSOTLPhaseTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
-    const std::string& subid, const Phases& phases, unsigned int step,
+    const std::string& subid, const Phases& phases, int step,
     SUMOTime delay,
     const std::map<std::string, std::string>& parameters) throw() :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
@@ -34,7 +34,7 @@ MSSOTLPhaseTrafficLightLogic::MSSOTLPhaseTrafficLightLogic(
 
 MSSOTLPhaseTrafficLightLogic::MSSOTLPhaseTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
-    const std::string& subid, const Phases& phases, unsigned int step,
+    const std::string& subid, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters,
     MSSOTLSensors* sensors) throw() :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,

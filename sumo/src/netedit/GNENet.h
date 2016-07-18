@@ -255,7 +255,7 @@ public:
     GNEEdge* retrieveEdge(const std::string& id, bool failHard = true);
 
     /**@brief get connection by NBEdge::connection **/
-    GNEConnection *retrieveConnection(unsigned int fromLane, NBEdge *toEdge, unsigned int toLane) const;
+    GNEConnection *retrieveConnection(int fromLane, NBEdge *toEdge, int toLane) const;
 
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs

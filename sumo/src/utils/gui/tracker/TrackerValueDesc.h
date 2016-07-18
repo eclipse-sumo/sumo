@@ -130,7 +130,7 @@ private:
     SUMOReal myInvalidValue;
 
     /// Counter for valid numbers within the current aggregation interval
-    size_t myValidNo;
+    int myValidNo;
 
     /// The time step the values are added from
     SUMOTime myRecordingBegin;

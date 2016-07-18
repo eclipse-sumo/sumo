@@ -90,9 +90,9 @@ GenericSAXHandler::getFileName() const {
 
 XMLCh*
 GenericSAXHandler::convert(const std::string& name) const {
-    size_t len = name.length();
+    int len = name.length();
     XMLCh* ret = new XMLCh[len + 1];
-    size_t i = 0;
+    int i = 0;
     for (; i < len; i++) {
         ret[i] = (XMLCh) name[i];
     }
@@ -130,13 +130,13 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     int element = convertTag(name);
     // collect characters
     if (myCharactersVector.size() != 0) {
-        size_t len = 0;
+        int len = 0;
         unsigned i;
         for (i = 0; i < myCharactersVector.size(); ++i) {
             len += myCharactersVector[i].length();
         }
         char* buf = new char[len + 1];
-        size_t pos = 0;
+        int pos = 0;
         for (i = 0; i < myCharactersVector.size(); ++i) {
             memcpy((unsigned char*) buf + pos, (unsigned char*) myCharactersVector[i].c_str(),
                    sizeof(char)*myCharactersVector[i].length());
@@ -175,7 +175,7 @@ GenericSAXHandler::registerParent(const int tag, GenericSAXHandler* handler) {
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
                               const XERCES3_SIZE_t length) {
-    myCharactersVector.push_back(TplConvert::_2str(chars, static_cast<unsigned int>(length)));
+    myCharactersVector.push_back(TplConvert::_2str(chars, static_cast<int>(length)));
 }
 
 

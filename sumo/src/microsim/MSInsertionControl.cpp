@@ -111,14 +111,14 @@ MSInsertionControl::add(SUMOVehicleParameter* const pars) {
 }
 
 
-unsigned int
+int
 MSInsertionControl::emitVehicles(SUMOTime time) {
     // check whether any vehicles shall be emitted within this time step
     const bool havePreChecked = MSDevice_Routing::isEnabled();
     if (myPendingEmits.empty() || (havePreChecked && myEmitCandidates.empty())) {
         return 0;
     }
-    unsigned int numEmitted = 0;
+    int numEmitted = 0;
     // we use buffering for the refused emits to save time
     //  for this, we have two lists; one contains previously refused emits, the second
     //  will be used to append those vehicles that will not be able to depart in this
@@ -140,7 +140,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
 }
 
 
-unsigned int
+int
 MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
                               MSVehicleContainer::VehicleVector& refusedEmits) {
     assert(veh->getParameter().depart < time + DELTA_T);
@@ -243,7 +243,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                 const MSRoute* route = MSRoute::dictionary(pars->routeid);
                 const MSVehicleType* vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 i->vehicle = vehControl.buildVehicle(newPars, route, vtype, false);
-                unsigned int quota = vehControl.getQuota();
+                int quota = vehControl.getQuota();
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, i->vehicle);
                     add(i->vehicle);
@@ -282,9 +282,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
 }
 
 
-unsigned int
+int
 MSInsertionControl::getWaitingVehicleNo() const {
-    return (unsigned int)myPendingEmits.size();
+    return (int)myPendingEmits.size();
 }
 
 

@@ -72,7 +72,7 @@ public:
     static int dictionary(int nodeid, int tlid, const std::vector<int>& connectors,
                           const std::vector<int>& disturbances, bool amEdgeSplitOnly);
     static NIVissimNodeCluster* dictionary(int id);
-    static size_t contSize();
+    static int contSize();
     static void assignToEdges();
     static void buildNBNodes(NBNodeCont& nc);
     static void dict_recheckEdgeChanges();

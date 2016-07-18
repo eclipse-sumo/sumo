@@ -57,10 +57,10 @@ public:
     /// Returns the maximum value of this distribution
     SUMOReal getMax() const;
 
-    size_t getAreaNo() const;
-    SUMOReal getAreaBegin(size_t index) const;
-    SUMOReal getAreaEnd(size_t index) const;
-    SUMOReal getAreaPerc(size_t index) const;
+    int getAreaNo() const;
+    SUMOReal getAreaBegin(int index) const;
+    SUMOReal getAreaEnd(int index) const;
+    SUMOReal getAreaPerc(int index) const;
 
 
 protected:

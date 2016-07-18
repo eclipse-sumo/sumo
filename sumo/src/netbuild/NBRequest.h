@@ -85,7 +85,7 @@ public:
 
     /** @brief returns the number of the junction's lanes and the number
         of the junction's links in respect. @note: only connected lanes are counted */
-    std::pair<unsigned int, unsigned int> getSizes() const;
+    std::pair<int, int> getSizes() const;
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitorFrom The maybe prohibiting connection's begin
@@ -209,7 +209,7 @@ private:
 
     /** returns the distance between the incoming (from) and the outgoing (to)
         edge clockwise in edges */
-    size_t distanceCounterClockwise(NBEdge* from, NBEdge* to);
+    int distanceCounterClockwise(NBEdge* from, NBEdge* to);
 
     /** computes the relationships between links outgoing right of the given
         link */
@@ -232,7 +232,7 @@ private:
     bool laneConflict(const NBEdge* from, const NBEdge* to, int toLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorToLane) const;
 
     /// @brief return to total number of edge-to-edge connections of this request-logic
-    inline size_t numLinks() const;
+    inline int numLinks() const;
 
 
 private:
@@ -269,7 +269,7 @@ private:
     CombinationsCont  myDone;
 
 private:
-    static size_t myGoodBuilds, myNotBuild;
+    static int myGoodBuilds, myNotBuild;
 
 private:
     /// @brief Invalidated assignment operator

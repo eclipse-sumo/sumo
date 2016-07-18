@@ -46,13 +46,13 @@ MSLogicJunction::LinkBits MSJunctionLogic::myDummyFoes;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-unsigned int
+int
 MSJunctionLogic::nLinks() {
     return myNLinks;
 }
 
 
-MSJunctionLogic::MSJunctionLogic(unsigned int nLinks) :
+MSJunctionLogic::MSJunctionLogic(int nLinks) :
     myNLinks(nLinks) {}
 
 

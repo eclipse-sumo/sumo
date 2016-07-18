@@ -128,7 +128,7 @@ HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) {
     double L_high = 0;
     v = v * 3.6;
     double s = -30.;//
-    for (unsigned int i = 0; i < 27; ++i) {
+    for (int i = 0; i < 27; ++i) {
         double crc_low = alphaR[i] + betaR[i] * log10(v / 70.) + 10.*log10(.8); // + mySurfaceCorrection[i];
         double ctc_low = alphaT[i] + betaT[i] * ((v - 70.) / 70.) + a * ac + 10.*log10(.2);
         double Li_low = 10. * log10(pow(10., (crc_low / 10.)) + pow(10., (ctc_low / 10.)));

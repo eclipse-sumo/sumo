@@ -117,7 +117,7 @@ public:
     void selectBlockingFoes() const;
 
     /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(size_t activeScheme) const;
+    SUMOReal getColorValue(int activeScheme) const;
 
     /** @brief Returns an own parameter window
      *

@@ -76,7 +76,7 @@ public:
      * @param[in] noRows Number of rows to allocate
      */
     GUIParameterTableWindow(GUIMainWindow& app,
-                            GUIGlObject& o, size_t noRows);
+                            GUIGlObject& o, int noRows);
 
 
     /// @brief Destructor

@@ -102,7 +102,7 @@ public:
     /** @brief Returns the number of initial settings
      * @return The number of default schemes
      */
-    unsigned int getNumInitialSettings() const;
+    int getNumInitialSettings() const;
 
 
     /** @brief Initialises the storage with some default settings
@@ -142,7 +142,7 @@ protected:
     std::string myDefaultSettingName;
 
     /// @brief The number of settings which were present at startup
-    unsigned int myNumInitialSettings;
+    int myNumInitialSettings;
 
     /// @brief The default viewport
     Position myLookFrom, myLookAt;

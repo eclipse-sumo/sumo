@@ -147,7 +147,7 @@ protected:
 
     SUMOReal speedThresholdParam;
     std::map<std::string, std::vector<std::string> > m_continueSensorOnLanes;
-    std::map<const std::string, unsigned int> m_typeWeightMap;
+    std::map<const std::string, int> m_typeWeightMap;
 
 };
 

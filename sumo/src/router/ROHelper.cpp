@@ -45,9 +45,9 @@ recheckForLoops(ConstROEdgeVector& edges) {
     // XXX check for stops, departLane, departPos, departSpeed, ....
 
     // removal of edge loops within the route (edge occurs twice)
-    std::map<const ROEdge*, size_t> lastOccurence; // index of the last occurence of this edge
-    for (size_t ii = 0; ii < edges.size(); ++ii) {
-        std::map<const ROEdge*, size_t>::iterator it_pre = lastOccurence.find(edges[ii]);
+    std::map<const ROEdge*, int> lastOccurence; // index of the last occurence of this edge
+    for (int ii = 0; ii < edges.size(); ++ii) {
+        std::map<const ROEdge*, int>::iterator it_pre = lastOccurence.find(edges[ii]);
         if (it_pre != lastOccurence.end()) {
             edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
             ii = it_pre->second;
@@ -71,7 +71,7 @@ recheckForLoops(ConstROEdgeVector& edges) {
     // remove loops at the route's end
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     const RONode* end = edges.back()->getToJunction();
-    size_t firstEnd = edges.size() - 1;
+    int firstEnd = edges.size() - 1;
     for (unsigned i = 0; i < firstEnd; i++) {
         if (edges[i]->getToJunction() == end) {
             firstEnd = i;
@@ -91,9 +91,9 @@ recheckForLoops(ConstROEdgeVector& edges) {
     bool changed = false;
     do {
         changed = false;
-        for (unsigned int b = 0; b < nodes.size() && !changed; ++b) {
+        for (int b = 0; b < nodes.size() && !changed; ++b) {
             RONode* bn = nodes[b];
-            for (unsigned int e = b + 1; e < nodes.size() && !changed; ++e) {
+            for (int e = b + 1; e < nodes.size() && !changed; ++e) {
                 if (bn == nodes[e]) {
                     changed = true;
                     nodes.erase(nodes.begin() + b, nodes.begin() + e);

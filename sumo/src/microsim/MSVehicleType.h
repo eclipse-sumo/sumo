@@ -282,7 +282,7 @@ public:
     /** @brief Get this vehicle type's person capacity
      * @return The person capacity of this vehicle type
      */
-    unsigned int getPersonCapacity() const {
+    int getPersonCapacity() const {
         return myParameter.personCapacity;
     }
 
@@ -290,7 +290,7 @@ public:
     /** @brief Get this vehicle type's container capacity
      * @return The container capacity of this vehicle type
      */
-    unsigned int getContainerCapacity() const {
+    int getContainerCapacity() const {
         return myParameter.containerCapacity;
     }
 

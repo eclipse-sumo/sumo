@@ -145,13 +145,13 @@ public:
     static std::ostream& writeInt(std::ostream& strm, int value);
 
 
-    /** @brief Writes an unsigned integer binary
+    /** @brief Writes an integer binary
      *
      * @param[in, out] strm The stream to write into
-     * @param[in] value The unsigned integer to write
+     * @param[in] value The integer to write
      * @return Reference to the stream
      */
-    static std::ostream& writeUInt(std::ostream& strm, unsigned int value);
+    static std::ostream& writeUInt(std::ostream& strm, int value);
 
 
     /** @brief Writes a float binary
@@ -225,12 +225,12 @@ public:
 
 template <typename E>
 std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E>& edges) {
-    FileHelpers::writeUInt(os, (unsigned int)edges.size());
-    std::vector<unsigned int> follow;
-    unsigned int maxFollow = 0;
+    FileHelpers::writeUInt(os, (int)edges.size());
+    std::vector<int> follow;
+    int maxFollow = 0;
     E prev = edges.front();
     for (typename std::vector<E>::const_iterator i = edges.begin() + 1; i != edges.end(); ++i) {
-        unsigned int idx = 0;
+        int idx = 0;
         for (; idx < prev->getNumSuccessors(); ++idx) {
             if (idx > 15) {
                 break;
@@ -255,12 +255,12 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
         }
     } else {
         const int bits = maxFollow > 3 ? 4 : 2;
-        const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
+        const int numFields = 8 * sizeof(int) / bits;
         FileHelpers::writeInt(os, -bits);
         FileHelpers::writeUInt(os, edges.front()->getNumericalID());
-        unsigned int data = 0;
-        unsigned int field = 0;
-        for (std::vector<unsigned int>::const_iterator i = follow.begin(); i != follow.end(); ++i) {
+        int data = 0;
+        int field = 0;
+        for (std::vector<int>::const_iterator i = follow.begin(); i != follow.end(); ++i) {
             data |= *i;
             field++;
             if (field == numFields) {
@@ -287,23 +287,23 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
     int bitsOrEntry;
     in.read((char*) &bitsOrEntry, sizeof(int));
     if (bitsOrEntry < 0) {
-        const unsigned int bits = -bitsOrEntry;
-        const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
-        const unsigned int mask = (1 << bits) - 1;
-        unsigned int edgeID;
+        const int bits = -bitsOrEntry;
+        const int numFields = 8 * sizeof(int) / bits;
+        const int mask = (1 << bits) - 1;
+        int edgeID;
         in.read((char*) &edgeID, sizeof(int));
         const E* prev = E::getAllEdges()[edgeID];
         assert(prev != 0);
         edges.push_back(prev);
         size--;
-        unsigned int data = 0;
-        unsigned int field = numFields;
+        int data = 0;
+        int field = numFields;
         for (; size > 0; size--) {
             if (field == numFields) {
                 in.read((char*) &data, sizeof(int));
                 field = 0;
             }
-            unsigned int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
+            int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
             if (followIndex >= prev->getNumSuccessors()) {
                 throw ProcessError("Invalid follower index in route '" + rid + "'!");
             }

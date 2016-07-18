@@ -159,7 +159,7 @@ protected:
      * @todo Describe!
      */
     std::string  makeID(const std::string& baseID,
-                        size_t c, size_t r) const;
+                        int c, int r) const;
 
 
     /** @brief Builds a single collector
@@ -170,7 +170,7 @@ protected:
      * @param[in] end !!!
      * @todo Describe!
      */
-    virtual MSE2Collector* buildCollector(size_t c, size_t r,
+    virtual MSE2Collector* buildCollector(int c, int r,
                                           MSLane* l, SUMOReal start, SUMOReal end);
 
 

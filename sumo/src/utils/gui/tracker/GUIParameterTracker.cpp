@@ -160,7 +160,7 @@ GUIParameterTracker::onSimStep(FXObject*, FXSelector, void*) {
 long
 GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
     int index = myAggregationInterval->getCurrentItem();
-    size_t aggInt = 0;
+    int aggInt = 0;
     switch (index) {
         case 0:
             aggInt = 1;
@@ -211,17 +211,17 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
         }
         dev << '\n';
         // count entries
-        size_t max = 0;
+        int max = 0;
         for (i = myTracked.begin(); i != myTracked.end(); ++i) {
             TrackerValueDesc* tvd = *i;
-            size_t sizei = tvd->getAggregatedValues().size();
+            int sizei = tvd->getAggregatedValues().size();
             if (max < sizei) {
                 max = sizei;
             }
             tvd->unlockValues();
         }
         // write entries
-        for (unsigned int j = 0; j < max; j++) {
+        for (int j = 0; j < max; j++) {
             for (i = myTracked.begin(); i != myTracked.end(); ++i) {
                 if (i != myTracked.begin()) {
                     dev << ';';
@@ -274,7 +274,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glDisable(GL_TEXTURE_2D);
-    size_t run = 0;
+    int run = 0;
     for (std::vector<TrackerValueDesc*>::iterator i = myParent->myTracked.begin(); i != myParent->myTracked.end(); i++) {
         TrackerValueDesc* desc = *i;
         drawValue(*desc,

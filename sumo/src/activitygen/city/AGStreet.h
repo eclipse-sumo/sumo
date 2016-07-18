@@ -74,7 +74,7 @@ public:
         }
     };
 
-    AGStreet(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority);
+    AGStreet(const std::string& id, RONode* from, RONode* to, int index, const int priority);
 
     /** @brief Provides the number of persons living in this street.
      *

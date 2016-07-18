@@ -132,7 +132,7 @@ public:
     }
 
 
-    size_t size() const {
+    int size() const {
         return myString2T.size();
     }
 

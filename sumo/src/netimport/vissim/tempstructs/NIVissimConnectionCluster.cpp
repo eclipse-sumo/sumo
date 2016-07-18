@@ -90,7 +90,7 @@ NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::
 }
 
 
-size_t
+int
 NIVissimConnectionCluster::NodeSubCluster::size() const {
     return myConnections.size();
 }
@@ -224,7 +224,7 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
     //  the lists of incoming and outgoing edges and incrementally building the nodes
     //  regarding this information
     std::vector<NIVissimConnectionCluster*> joinAble;
-    size_t pos = 0;
+    int pos = 0;
     ContType::iterator i = myClusters.begin();
     // step1 - faster but no complete
     while (i != myClusters.end()) {
@@ -547,7 +547,7 @@ NIVissimConnectionCluster::hasNodeCluster() const {
 }
 
 
-size_t
+int
 NIVissimConnectionCluster::dictSize() {
     return myClusters.size();
 }
@@ -634,7 +634,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     // return the middle of the connections when there are any
     if (myConnections.size() != 0) {
         SUMOReal sum = 0;
-        size_t part = 0;
+        int part = 0;
         std::vector<int>::const_iterator i;
         for (i = myConnections.begin(); i != myConnections.end(); i++) {
             NIVissimConnection* c = NIVissimConnection::dictionary(*i);

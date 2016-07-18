@@ -72,7 +72,7 @@ MSLogicJunction::postloadInit() {
         int bla = 0;
     }
     // inform links where they have to report approaching vehicles to
-    size_t requestPos = 0;
+    int requestPos = 0;
     std::vector<MSLane*>::iterator i;
     // going through the incoming lanes...
     for(i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {

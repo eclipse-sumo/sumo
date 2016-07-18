@@ -167,7 +167,7 @@ NBNodeCont::extract(NBNode* node, bool remember) {
 // ----------- Adapting the input
 void
 NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
-    unsigned int no = 0;
+    int no = 0;
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         no += (*i).second->removeSelfLoops(dc, ec, tc);
     }
@@ -316,7 +316,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLig
 }
 
 
-unsigned int
+int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBTrafficLightLogicCont& tlc,
                                 bool removeGeometryNodes) {
@@ -332,7 +332,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             edges2keep.insert(edges.begin(), edges.end());
         }
     }
-    unsigned int no = 0;
+    int no = 0;
     std::vector<NBNode*> toRemove;
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         NBNode* current = (*i).second;
@@ -480,7 +480,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
 }
 
 
-unsigned int
+int
 NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     NodeClusters clusters;
     for (std::vector<std::set<std::string> >::iterator it = myClusters2Join.begin(); it != myClusters2Join.end(); it++) {
@@ -504,7 +504,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
 }
 
 
-unsigned int
+int
 NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     NodeClusters cands;
     NodeClusters clusters;
@@ -809,8 +809,8 @@ NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position&
 // ----------- (Helper) methods for guessing/computing traffic lights
 bool
 NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*>& c) const {
-    unsigned int noIncoming = 0;
-    unsigned int noOutgoing = 0;
+    int noIncoming = 0;
+    int noOutgoing = 0;
     bool tooFast = false;
     SUMOReal f = 0;
     std::set<NBEdge*> seen;
@@ -962,7 +962,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
         }
         // cands now only contain sets of junctions that shall be joined into being tls-controlled
-        unsigned int index = 0;
+        int index = 0;
         for (std::vector<std::set<NBNode*> >::iterator i = cands.begin(); i != cands.end(); ++i) {
             std::vector<NBNode*> nodes;
             for (std::set<NBNode*>::iterator j = (*i).begin(); j != (*i).end(); j++) {
@@ -1004,7 +1004,7 @@ void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist) {
     std::vector<std::set<NBNode*> > cands;
     generateNodeClusters(maxdist, cands);
-    unsigned int index = 0;
+    int index = 0;
     for (std::vector<std::set<NBNode*> >::iterator i = cands.begin(); i != cands.end(); ++i) {
         std::set<NBNode*>& c = (*i);
         for (std::set<NBNode*>::iterator j = c.begin(); j != c.end();) {

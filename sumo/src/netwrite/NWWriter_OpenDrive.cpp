@@ -236,7 +236,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         device << "    <junction name=\"" << n->getID() << "\" id=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
-        unsigned int index = 0;
+        int index = 0;
         const std::vector<NBEdge*>& incoming = n->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
             const NBEdge* inEdge = *j;
@@ -269,7 +269,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 SUMOReal
 NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset) {
-    for (unsigned int j = 0; j < shape.size() - 1; ++j) {
+    for (int j = 0; j < shape.size() - 1; ++j) {
         const Position& p = shape[j];
         const Position& p2 = shape[j + 1];
         const SUMOReal hdg = shape.angleAt2D(j);
@@ -469,7 +469,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
     PositionVector shape2 = shape;
     SUMOReal maxAngleDiff = 0;
     SUMOReal offset = 0;
-    for (unsigned int j = 1; j < (int)shape.size() - 1; ++j) {
+    for (int j = 1; j < (int)shape.size() - 1; ++j) {
         //const SUMOReal hdg = shape.angleAt2D(j);
         const Position& p0 = shape[j - 1];
         const Position& p1 = shape[j];
@@ -511,7 +511,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
 
     // write the long segments as lines, short segments as curves
     offset = 0;
-    for (unsigned int j = 0; j < numPoints - 1; ++j) {
+    for (int j = 0; j < numPoints - 1; ++j) {
         const Position& p0 = shape2[j];
         const Position& p1 = shape2[j + 1];
         PositionVector line;

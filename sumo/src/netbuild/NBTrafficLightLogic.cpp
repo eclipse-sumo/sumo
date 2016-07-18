@@ -70,7 +70,7 @@ const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allow
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
-        const std::string& subid, unsigned int noLinks,
+        const std::string& subid, int noLinks,
         SUMOTime offset, TrafficLightType type) :
     Named(id), myNumLinks(noLinks), mySubID(subid),
     myOffset(offset),
@@ -93,13 +93,13 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int in
     // check state size
     if (myNumLinks == 0) {
         // initialize
-        myNumLinks = (unsigned int)state.size();
+        myNumLinks = (int)state.size();
     } else if (state.size() != myNumLinks) {
         throw ProcessError("When adding phase to tlLogic '" + getID() + "': state length of " + toString(state.size()) +
                            " does not match declared number of links " + toString(myNumLinks));
     }
     // check state contents
-    const size_t illegal = state.find_first_not_of(ALLOWED_STATES);
+    const int illegal = state.find_first_not_of(ALLOWED_STATES);
     if (std::string::npos != illegal) {
         throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
     }
@@ -113,7 +113,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int in
 
 
 void
-NBTrafficLightLogic::deletePhase(unsigned int index) {
+NBTrafficLightLogic::deletePhase(int index) {
     if (index >= myPhases.size()) {
         throw InvalidArgument("Index " + toString(index) + " out of range for logic with "
                               + toString(myPhases.size()) + " phases.");
@@ -141,7 +141,7 @@ NBTrafficLightLogic::getDuration() const {
 
 void
 NBTrafficLightLogic::closeBuilding() {
-    for (unsigned int i = 0; i < myPhases.size() - 1;) {
+    for (int i = 0; i < myPhases.size() - 1;) {
         if (myPhases[i].state != myPhases[i + 1].state) {
             ++i;
             continue;
@@ -153,7 +153,7 @@ NBTrafficLightLogic::closeBuilding() {
 
 
 void
-NBTrafficLightLogic::setPhaseState(unsigned int phaseIndex, unsigned int tlIndex, LinkState linkState) {
+NBTrafficLightLogic::setPhaseState(int phaseIndex, int tlIndex, LinkState linkState) {
     assert(phaseIndex < myPhases.size());
     std::string& phaseState = myPhases[phaseIndex].state;
     assert(tlIndex < phaseState.size());
@@ -162,7 +162,7 @@ NBTrafficLightLogic::setPhaseState(unsigned int phaseIndex, unsigned int tlIndex
 
 
 void
-NBTrafficLightLogic::setPhaseDuration(unsigned int phaseIndex, SUMOTime duration) {
+NBTrafficLightLogic::setPhaseDuration(int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < myPhases.size());
     myPhases[phaseIndex].duration = duration;
 }

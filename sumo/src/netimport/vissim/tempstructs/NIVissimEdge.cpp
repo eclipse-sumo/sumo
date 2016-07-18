@@ -338,7 +338,7 @@ void
 NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, std::vector<int> forLanes) {
     // if no lane is given, all set be set
     if (forLanes.size() == 0) {
-        for (size_t i = 0; i < myNoLanes; i++) {
+        for (int i = 0; i < myNoLanes; i++) {
             forLanes.push_back((int) i);
         }
     }
@@ -389,7 +389,7 @@ NIVissimEdge::setDistrictSpeed(/* NBDistribution &dc */) {
                 if (speed == -1) {
                     return;
                 }
-                for (unsigned int i = 0; i < myNoLanes; i++) {
+                for (int i = 0; i < myNoLanes; i++) {
                     myLaneSpeeds[i] = speed;
                     // propagate the speed further
                     // get the list of connected edges
@@ -488,7 +488,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     SUMOReal avgSpeed = 0;
     int i;
     for (i = 0; i < (int) myNoLanes; i++) {
-        if (myLaneSpeeds.size() <= (size_t) i || myLaneSpeeds[i] == -1) {
+        if (myLaneSpeeds.size() <= (int) i || myLaneSpeeds[i] == -1) {
             myLanesWithMissingSpeeds.push_back(toString(myID) + "_" + toString(i));
             avgSpeed += OptionsCont::getOptions().getFloat("vissim.default-speed");
         } else {
@@ -549,7 +549,7 @@ NIVissimEdge::getRealSpeed(/* NBDistribution &dc */ int distNo) {
 bool
 NIVissimEdge::recheckSpeedPatches()
 {
-//    size_t speed_idx = -1;
+//    int speed_idx = -1;
     // check set speeds
     if(myPatchedSpeeds.size()!=0) {
         std::vector<SUMOReal>::iterator i =
@@ -865,7 +865,7 @@ NIVissimEdge::checkDistrictConnectionExistanceAt(SUMOReal pos) {
 
 
 void
-NIVissimEdge::setSpeed(size_t lane, int speedDist) {
+NIVissimEdge::setSpeed(int lane, int speedDist) {
     while (myPatchedSpeeds.size() <= lane) {
         myPatchedSpeeds.push_back(-1);
     }

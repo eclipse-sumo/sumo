@@ -253,7 +253,7 @@ NGNet::add(NGEdge* edge) {
 }
 
 
-size_t
+int
 NGNet::nodeNo() const {
     return myNodeList.size();
 }

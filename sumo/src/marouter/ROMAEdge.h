@@ -71,7 +71,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROMAEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority);
+    ROMAEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority);
 
 
     /// Destructor

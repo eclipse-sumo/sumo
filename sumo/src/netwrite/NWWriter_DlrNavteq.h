@@ -104,7 +104,7 @@ private:
     static int getSpeedCategoryUpperBound(int kph);
 
     /// @brief get the lane number encoding
-    static unsigned int getNavteqLaneCode(const unsigned int numLanes);
+    static int getNavteqLaneCode(const int numLanes);
 
     /// @brief get the length of the edge when measured up to the junction center
     static SUMOReal getGraphLength(NBEdge* edge);

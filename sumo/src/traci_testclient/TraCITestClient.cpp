@@ -372,9 +372,9 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
         if (cmdId >= RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId <= RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
             answerLog << "  CommandID=" << cmdId;
             answerLog << "  ObjectID=" << inMsg.readString();
-            unsigned int varNo = inMsg.readUnsignedByte();
+            int varNo = inMsg.readUnsignedByte();
             answerLog << "  #variables=" << varNo << std::endl;
-            for (unsigned int i = 0; i < varNo; ++i) {
+            for (int i = 0; i < varNo; ++i) {
                 answerLog << "      VariableID=" << inMsg.readUnsignedByte();
                 bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
                 answerLog << "      ok=" << ok;
@@ -386,13 +386,13 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
             answerLog << "  CommandID=" << cmdId;
             answerLog << "  ObjectID=" << inMsg.readString();
             answerLog << "  Domain=" << inMsg.readUnsignedByte();
-            unsigned int varNo = inMsg.readUnsignedByte();
+            int varNo = inMsg.readUnsignedByte();
             answerLog << "  #variables=" << varNo << std::endl;
-            unsigned int objNo = inMsg.readInt();
+            int objNo = inMsg.readInt();
             answerLog << "  #objects=" << objNo << std::endl;
-            for (unsigned int j = 0; j < objNo; ++j) {
+            for (int j = 0; j < objNo; ++j) {
                 answerLog << "   ObjectID=" << inMsg.readString() << std::endl;
-                for (unsigned int i = 0; i < varNo; ++i) {
+                for (int i = 0; i < varNo; ++i) {
                     answerLog << "      VariableID=" << inMsg.readUnsignedByte();
                     bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
                     answerLog << "      ok=" << ok;

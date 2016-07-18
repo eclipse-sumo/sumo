@@ -368,17 +368,17 @@ MSVehicleControl::abortWaiting() {
 }
 
 
-unsigned int
+int
 MSVehicleControl::getQuota(SUMOReal frac) const {
     frac = frac < 0 ? myScale : frac;
     if (frac < 0 || frac == 1.) {
         return 1;
     }
     // the vehicle in question has already been loaded, hence  the '-1'
-    const unsigned int loaded = frac > 1. ? (unsigned int)(myLoadedVehNo / frac) : myLoadedVehNo - 1;
-    const unsigned int base = (unsigned int)frac;
-    const unsigned int resolution = 1000;
-    const unsigned int intFrac = (unsigned int)floor((frac - base) * resolution + 0.5);
+    const int loaded = frac > 1. ? (int)(myLoadedVehNo / frac) : myLoadedVehNo - 1;
+    const int base = (int)frac;
+    const int resolution = 1000;
+    const int intFrac = (int)floor((frac - base) * resolution + 0.5);
     // apply % twice to avoid integer overflow
     if (((loaded % resolution) * intFrac) % resolution < intFrac) {
         return base + 1;
@@ -386,7 +386,7 @@ MSVehicleControl::getQuota(SUMOReal frac) const {
     return base;
 }
 
-unsigned int
+int
 MSVehicleControl::getTeleportCount() const {
     return (MSLane::teleportOnCollision() ? myCollisions : 0) + myTeleportsJam + myTeleportsYield + myTeleportsWrongLane;
 }

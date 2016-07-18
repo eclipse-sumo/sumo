@@ -178,10 +178,10 @@ MSInductLoop::getCurrentOccupancy() const {
 }
 
 
-unsigned int
+int
 MSInductLoop::getCurrentPassedNumber() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
-    return (unsigned int) d.size();
+    return (int) d.size();
 }
 
 

@@ -201,7 +201,7 @@ public:
      * @param[in] s The current segment
      * @param[in] q The current que
      */
-    inline virtual void setSegment(MESegment* s, size_t idx = 0) {
+    inline virtual void setSegment(MESegment* s, int idx = 0) {
         mySegment = s;
         myQueIndex = idx;
     }
@@ -218,7 +218,7 @@ public:
     /** @brief Returns the index of the que the vehicle is in
      * @return The que index
      */
-    inline size_t getQueIndex() const {
+    inline int getQueIndex() const {
         return myQueIndex;
     }
 
@@ -326,7 +326,7 @@ protected:
     MESegment* mySegment;
 
     /// @brief Index of the que the vehicle is in (important for multiqueue extension)
-    size_t myQueIndex;
+    int myQueIndex;
 
     /// @brief The (planned) time of leaving the segment (cell)
     SUMOTime myEventTime;

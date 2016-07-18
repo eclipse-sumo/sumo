@@ -53,12 +53,12 @@
 // ===========================================================================
 MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& subid, const Phases& phases,
-        unsigned int step, SUMOTime delay,
+        int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters) :
     MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters),
     myPhases(phases),
     myStep(step) {
-    for (size_t i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }
 }
@@ -144,7 +144,7 @@ SUMOTime
 MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
     SUMOTime position = 0;
     if (myStep > 0) {
-        for (unsigned int i = 0; i < myStep; i++) {
+        for (int i = 0; i < myStep; i++) {
             position = position + getPhase(i).duration;
         }
     }
@@ -156,27 +156,27 @@ MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
 
 
 SUMOTime
-MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
+MSSimpleTrafficLightLogic::getOffsetFromIndex(int index) const {
     assert(index < myPhases.size());
     if (index == 0) {
         return 0;
     }
     SUMOTime pos = 0;
-    for (unsigned int i = 0; i < index; i++) {
+    for (int i = 0; i < index; i++) {
         pos += getPhase(i).duration;
     }
     return pos;
 }
 
 
-unsigned int
+int
 MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     offset = offset % myDefaultCycleTime;
     if (offset == myDefaultCycleTime) {
         return 0;
     }
     SUMOTime testPos = 0;
-    for (unsigned int i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < myPhases.size(); i++) {
         testPos = testPos + getPhase(i).duration;
         if (testPos > offset) {
             return i;
@@ -193,7 +193,7 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
 // ------------ Changing phases and phase durations
 void
 MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
-        SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
+        SUMOTime simStep, int step, SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
     if (step != myStep) {
@@ -218,7 +218,7 @@ MSSimpleTrafficLightLogic::setPhases(const Phases& phases, int step) {
 
 void
 MSSimpleTrafficLightLogic::deletePhases() {
-    for (size_t i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < myPhases.size(); i++) {
         delete myPhases[i];
     }
 }

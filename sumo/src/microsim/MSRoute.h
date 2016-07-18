@@ -237,7 +237,7 @@ private:
     const bool myAmPermanent;
 
     /// Information by how many vehicles the route is used
-    mutable unsigned int myReferenceCounter;
+    mutable int myReferenceCounter;
 
     /// The color
     const RGBColor* const myColor;

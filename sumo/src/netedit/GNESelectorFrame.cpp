@@ -266,7 +266,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
         SUMOReal val;
         std::istringstream buf(expr);
         buf >> val;
-        if (!buf.fail() && (size_t)buf.tellg() == expr.size()) {
+        if (!buf.fail() && (int)buf.tellg() == expr.size()) {
             handleIDs(getMatches(tag, attr, compOp, val, expr), false);
         } else {
             valid = false;

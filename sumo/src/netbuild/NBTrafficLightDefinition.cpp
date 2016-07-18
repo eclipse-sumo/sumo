@@ -123,7 +123,7 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
         return 0;
     }
     // compute the time needed to brake
-    unsigned int brakingTime = computeBrakingTime(oc.getFloat("tls.yellow.min-decel"));
+    int brakingTime = computeBrakingTime(oc.getFloat("tls.yellow.min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
     if (oc.isSet("tls.yellow.time")) {
@@ -141,10 +141,10 @@ NBTrafficLightDefinition::amInvalid() const {
 }
 
 
-unsigned int
+int
 NBTrafficLightDefinition::computeBrakingTime(SUMOReal minDecel) const {
     SUMOReal vmax = NBContHelper::maxSpeed(myIncomingEdges);
-    return (unsigned int)(vmax / minDecel);
+    return (int)(vmax / minDecel);
 }
 
 
@@ -419,8 +419,8 @@ NBTrafficLightDefinition::collectAllLinks() {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         NBEdge* incoming = *i;
-        unsigned int noLanes = incoming->getNumLanes();
-        for (unsigned int j = 0; j < noLanes; j++) {
+        int noLanes = incoming->getNumLanes();
+        for (int j = 0; j < noLanes; j++) {
             std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
             for (std::vector<NBEdge::Connection>::iterator k = connected.begin(); k != connected.end(); k++) {
                 const NBEdge::Connection& el = *k;

@@ -475,7 +475,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
 
 void
 RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime time, const bool removeLoops) {
-    std::map<const unsigned int, std::vector<RORoutable*> > bulkVehs;
+    std::map<const int, std::vector<RORoutable*> > bulkVehs;
     for (RoutablesMap::const_iterator i = myRoutables.begin(); i != myRoutables.end(); ++i) {
         if (i->first >= time) {
             break;
@@ -494,7 +494,7 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
         }
     }
     int workerIndex = 0;
-    for (std::map<const unsigned int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
+    for (std::map<const int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
             RORoutable* const first = i->second.front();
@@ -627,7 +627,7 @@ RONet::furtherStored() {
 }
 
 
-size_t
+int
 RONet::getEdgeNo() const {
     return myEdges.size();
 }

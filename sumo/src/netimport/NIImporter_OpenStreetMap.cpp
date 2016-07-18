@@ -319,7 +319,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             return index;
         }
         // in the special case of a looped way split again using passed
-        size_t intermediateIndex = passed.size() / 2;
+        int intermediateIndex = passed.size() / 2;
         NBNode* intermediate = insertNodeChecking(passed[intermediateIndex], nc, tlsc);
         std::vector<long long int> part1(passed.begin(), passed.begin() + intermediateIndex);
         std::vector<long long int> part2(passed.begin() + intermediateIndex + 1, passed.end());

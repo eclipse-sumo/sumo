@@ -357,7 +357,7 @@ protected:
         /// @brief The sum of registered speeds the vehicle has/had inside the area during the current interval
         SUMOReal intervalSpeedSum;
         /// @brief The sum of haltings the vehicle has/had within the area during the current interval
-        unsigned intervalHaltings;
+        int intervalHaltings;
         /// @brief An internal information whether the update step was performed
         bool hadUpdate;
     };

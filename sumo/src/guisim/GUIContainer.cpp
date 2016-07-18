@@ -266,7 +266,7 @@ GUIContainer::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUIContainer::setFunctionalColor(size_t activeScheme) const {
+GUIContainer::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
         case 0: {
             if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
@@ -305,7 +305,7 @@ GUIContainer::setFunctionalColor(size_t activeScheme) const {
 
 
 SUMOReal
-GUIContainer::getColorValue(size_t activeScheme) const {
+GUIContainer::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 4:
             return getSpeed();

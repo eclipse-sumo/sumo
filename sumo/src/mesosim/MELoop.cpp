@@ -215,7 +215,7 @@ void
 MELoop::setApproaching(MEVehicle* veh, MSLink* link) {
     if (link != 0) {
         link->setApproaching(veh, veh->getEventTime() + (link->getState() == LINKSTATE_ALLWAY_STOP ?
-                             (SUMOTime)RandHelper::rand((size_t)2) : 0), // tie braker
+                             (SUMOTime)RandHelper::rand((int)2) : 0), // tie braker
                              veh->getSpeed(), veh->getSpeed(), true,
                              veh->getEventTime(), veh->getSpeed(), veh->getWaitingTime(),
                              // @note: dist is not used by meso (getZipperSpeed is never called)
@@ -252,7 +252,7 @@ MELoop::nextSegment(MESegment* s, MEVehicle* v) {
 
 int
 MELoop::numSegmentsFor(const SUMOReal length, const SUMOReal sLength) {
-    int no = (unsigned int)floor(length / sLength + 0.5);
+    int no = (int)floor(length / sLength + 0.5);
     if (no == 0) { // assure there is at least one segment
         return 1;
     } else {

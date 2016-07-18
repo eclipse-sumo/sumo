@@ -94,11 +94,11 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
-                unsigned int cnt = 0;
+                int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int) logics.size());
                 ++cnt;
-                for (unsigned int i = 0; i < logics.size(); ++i) {
+                for (int i = 0; i < logics.size(); ++i) {
                     MSTrafficLightLogic* logic = logics[i];
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(logic->getProgramID());
@@ -132,7 +132,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                         tempContent.writeInt((int)phase.maxDuration);
                         ++cnt; // not implemented
                         const std::string& state = phase.getState();
-                        //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
+                        //int linkNo = (int)(vars.getActive()->getLinks().size());
                         tempContent.writeUnsignedByte(TYPE_STRING);
                         tempContent.writeString(state);
                         ++cnt;
@@ -161,19 +161,19 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 //
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
-                unsigned int cnt = 0;
+                int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
-                unsigned int no = (unsigned int) lanes.size();
+                int no = (int) lanes.size();
                 tempContent.writeInt((int) no);
-                for (unsigned int i = 0; i < no; ++i) {
+                for (int i = 0; i < no; ++i) {
                     const MSTrafficLightLogic::LaneVector& llanes = lanes[i];
                     const MSTrafficLightLogic::LinkVector& llinks = links[i];
                     // number of links controlled by this signal (signal i)
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    unsigned int no2 = (unsigned int) llanes.size();
+                    int no2 = (int) llanes.size();
                     tempContent.writeInt((int) no2);
                     ++cnt;
-                    for (unsigned int j = 0; j < no2; ++j) {
+                    for (int j = 0; j < no2; ++j) {
                         MSLink* link = llinks[j];
                         std::vector<std::string> def;
                         // incoming lane
@@ -227,7 +227,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 MSTrafficLightLogic* tls = vars.getActive();
                 const std::string& state = tls->getCurrentPhaseDef().getState();
                 const std::map<std::string, std::string>& params = tls->getMap();
-                unsigned int num = 0;
+                int num = 0;
                 for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
                     if ("connection:" == (*i).first.substr(0, 11)) {
                         ++num;
@@ -245,7 +245,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                     tempMsg.writeString((*i).second); // foreign id
                     std::string connection = (*i).first.substr(11);
                     std::string from, to;
-                    size_t b = connection.find("->");
+                    int b = connection.find("->");
                     if (b == std::string::npos) {
                         from = connection;
                     } else {

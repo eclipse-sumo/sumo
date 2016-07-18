@@ -55,7 +55,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
     for (std::vector< MSEdge* >::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         const std::vector<MSLane*>& lanes = (*i)->getLanes();
         if (!(*i)->hasLaneChanger()) {
-            size_t pos = (*lanes.begin())->getNumericalID();
+            int pos = (*lanes.begin())->getNumericalID();
             myLanes[pos].lane = *(lanes.begin());
             myLanes[pos].firstNeigh = lanes.end();
             myLanes[pos].lastNeigh = lanes.end();
@@ -63,7 +63,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
             myLanes[pos].haveNeighbors = false;
         } else {
             for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-                size_t pos = (*j)->getNumericalID();
+                int pos = (*j)->getNumericalID();
                 myLanes[pos].lane = *j;
                 myLanes[pos].firstNeigh = (j + 1);
                 myLanes[pos].lastNeigh = lanes.end();

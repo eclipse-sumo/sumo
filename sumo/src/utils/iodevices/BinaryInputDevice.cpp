@@ -121,14 +121,6 @@ operator>>(BinaryInputDevice& os, int& i) {
 
 
 BinaryInputDevice&
-operator>>(BinaryInputDevice& os, unsigned int& i) {
-    os.checkType(BinaryFormatter::BF_INTEGER);
-    os.myStream.read((char*) &i, sizeof(unsigned int));
-    return os;
-}
-
-
-BinaryInputDevice&
 operator>>(BinaryInputDevice& os, SUMOReal& f) {
     int t = os.checkType(BinaryFormatter::BF_FLOAT);
     if (t == BinaryFormatter::BF_SCALED2INT) {
@@ -154,11 +146,11 @@ operator>>(BinaryInputDevice& os, bool& b) {
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, std::string& s) {
     os.checkType(BinaryFormatter::BF_STRING);
-    unsigned int size;
-    os.myStream.read((char*) &size, sizeof(unsigned int));
-    unsigned int done = 0;
+    int size;
+    os.myStream.read((char*) &size, sizeof(int));
+    int done = 0;
     while (done < size) {
-        const unsigned int toRead = MIN2((unsigned int)size - done, (unsigned int)BUF_MAX - 1);
+        const int toRead = MIN2((int)size - done, (int)BUF_MAX - 1);
         os.myStream.read((char*) &os.myBuffer, sizeof(char)*toRead);
         os.myBuffer[toRead] = 0;
         s += std::string(os.myBuffer);
@@ -171,8 +163,8 @@ operator>>(BinaryInputDevice& os, std::string& s) {
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, std::vector<std::string>& v) {
     os.checkType(BinaryFormatter::BF_LIST);
-    unsigned int size;
-    os.myStream.read((char*) &size, sizeof(unsigned int));
+    int size;
+    os.myStream.read((char*) &size, sizeof(int));
     while (size > 0) {
         std::string s;
         os >> s;
@@ -184,12 +176,12 @@ operator>>(BinaryInputDevice& os, std::vector<std::string>& v) {
 
 
 BinaryInputDevice&
-operator>>(BinaryInputDevice& os, std::vector<unsigned int>& v) {
+operator>>(BinaryInputDevice& os, std::vector<int>& v) {
     os.checkType(BinaryFormatter::BF_LIST);
-    unsigned int size;
-    os.myStream.read((char*) &size, sizeof(unsigned int));
+    int size;
+    os.myStream.read((char*) &size, sizeof(int));
     while (size > 0) {
-        unsigned int i;
+        int i;
         os >> i;
         v.push_back(i);
         size--;
@@ -199,12 +191,12 @@ operator>>(BinaryInputDevice& os, std::vector<unsigned int>& v) {
 
 
 BinaryInputDevice&
-operator>>(BinaryInputDevice& os, std::vector< std::vector<unsigned int> >& v) {
+operator>>(BinaryInputDevice& os, std::vector< std::vector<int> >& v) {
     os.checkType(BinaryFormatter::BF_LIST);
-    unsigned int size;
-    os.myStream.read((char*) &size, sizeof(unsigned int));
+    int size;
+    os.myStream.read((char*) &size, sizeof(int));
     while (size > 0) {
-        std::vector<unsigned int> nested;
+        std::vector<int> nested;
         os >> nested;
         v.push_back(nested);
         size--;

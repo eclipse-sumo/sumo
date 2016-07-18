@@ -152,11 +152,11 @@ MSRailCrossing::getPhaseIndexAtTime(SUMOTime) const {
 }
 
 SUMOTime
-MSRailCrossing::getOffsetFromIndex(unsigned int) const {
+MSRailCrossing::getOffsetFromIndex(int) const {
     return 0;
 }
 
-unsigned int
+int
 MSRailCrossing::getIndexFromOffset(SUMOTime) const {
     return 0;
 }

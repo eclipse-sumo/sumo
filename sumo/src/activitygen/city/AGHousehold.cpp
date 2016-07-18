@@ -90,14 +90,14 @@ AGHousehold::getCarNbr() {
     return static_cast<int>(myCars.size());
 }
 
-unsigned int
+int
 AGHousehold::getPeopleNbr() {
-    return static_cast<unsigned int>(myAdults.size() + myChildren.size());
+    return static_cast<int>(myAdults.size() + myChildren.size());
 }
 
-unsigned int
+int
 AGHousehold::getAdultNbr() {
-    return static_cast<unsigned int>(myAdults.size());
+    return static_cast<int>(myAdults.size());
 }
 
 const std::list<AGAdult>&

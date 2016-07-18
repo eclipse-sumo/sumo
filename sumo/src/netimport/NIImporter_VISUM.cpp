@@ -756,11 +756,11 @@ NIImporter_VISUM::parse_Lanes() {
         if (edgeID.substr(edgeID.length() - node->getID().length() - 1) == "_" + node->getID()) {
             edgeID = edgeID.substr(0, edgeID.find('_'));
         }
-        NBNode* rn = new NBNode(edgeID + "_" +  toString((size_t) length) + "_" + node->getID(), p);
+        NBNode* rn = new NBNode(edgeID + "_" +  toString((int) length) + "_" + node->getID(), p);
         if (!myNetBuilder.getNodeCont().insert(rn)) {
             throw ProcessError("Ups - could not insert node!");
         }
-        std::string nid = edgeID + "_" +  toString((size_t) length) + "_" + node->getID();
+        std::string nid = edgeID + "_" +  toString((int) length) + "_" + node->getID();
         myNetBuilder.getEdgeCont().splitAt(myNetBuilder.getDistrictCont(), edge, useLength, rn,
                                            edge->getID(), nid, edge->getNumLanes() + 0, edge->getNumLanes() + 1);
         NBEdge* nedge = myNetBuilder.getEdgeCont().retrieve(nid);

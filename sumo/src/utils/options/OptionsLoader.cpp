@@ -92,7 +92,7 @@ void OptionsLoader::setValue(const std::string& key,
 
 void OptionsLoader::characters(const XMLCh* const chars,
                                const XERCES3_SIZE_t length) {
-    myValue = myValue + TplConvert::_2str(chars, (unsigned int) length);
+    myValue = myValue + TplConvert::_2str(chars, (int) length);
 }
 
 

@@ -351,7 +351,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_BEST_LANES: {
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
-                unsigned int cnt = 0;
+                int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 const std::vector<MSVehicle::LaneQ>& bestLanes = onRoad ? v->getBestLanes() : std::vector<MSVehicle::LaneQ>();
                 tempContent.writeInt((int) bestLanes.size());
@@ -395,7 +395,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     const MSLane* lane = v->getLane();
                     const std::vector<MSLane*>& bestLaneConts = v->getBestLanesContinuation(lane);
                     SUMOReal seen = v->getLane()->getLength() - v->getPositionOnLane();
-                    unsigned int view = 1;
+                    int view = 1;
                     MSLinkCont::const_iterator link = MSLane::succLinkSec(*v, view, *lane, bestLaneConts);
                     while (!lane->isLinkEnd(link)) {
                         if (!lane->getEdge().isInternal()) {
@@ -667,7 +667,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + v->getEdge()->getID() + "'.", outputStorage);
             }
             // Forward command to vehicle
-            std::vector<std::pair<SUMOTime, unsigned int> > laneTimeLine;
+            std::vector<std::pair<SUMOTime, int> > laneTimeLine;
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + stickyTime, laneIndex));
             v->getInfluencer().setLaneTimeLine(laneTimeLine);
@@ -695,7 +695,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane existing with given id on the current road", outputStorage);
             }
             // Forward command to vehicle
-            std::vector<std::pair<SUMOTime, unsigned int> > laneTimeLine;
+            std::vector<std::pair<SUMOTime, int> > laneTimeLine;
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + stickyTime, laneIndex));
             v->getInfluencer().setLaneTimeLine(laneTimeLine);
@@ -1489,7 +1489,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             // check whether the currently seen edge is in the vehicle's route
             //  - either the one it's on or one of the next edges
             const ConstMSEdgeVector& ev = v.getRoute().getEdges();
-            unsigned int routePosition = v.getRoutePosition();
+            int routePosition = v.getRoutePosition();
             if (v.isOnRoad() && v.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
                 ++routePosition;
             }

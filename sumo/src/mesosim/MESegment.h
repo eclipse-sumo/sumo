@@ -76,7 +76,7 @@ public:
     MESegment(const std::string& id,
               const MSEdge& parent, MESegment* next,
               SUMOReal length, SUMOReal speed,
-              unsigned int idx,
+              int idx,
               SUMOTime tauff, SUMOTime taufj,
               SUMOTime taujf, SUMOTime taujj,
               SUMOReal jamThresh,
@@ -129,16 +129,16 @@ public:
      *
      * @return the total number of cars on the segment
      */
-    size_t getCarNumber() const;
+    int getCarNumber() const;
 
     /// @brief return the number of queues
-    inline size_t numQueues() const {
+    inline int numQueues() const {
         return myCarQues.size();
     }
     /** @brief Returns the cars in the queue with the given index for visualization
      * @return the Queue (XXX not thread-safe!)
      */
-    inline const Queue& getQueue(size_t index) const {
+    inline const Queue& getQueue(int index) const {
         assert(index < myCarQues.size());
         return myCarQues[index];
     }
@@ -147,7 +147,7 @@ public:
      *
      * @return the running index of the segment in the edge
      */
-    inline unsigned int getIndex() const {
+    inline int getIndex() const {
         return myIndex;
     }
 
@@ -319,7 +319,7 @@ public:
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const unsigned int queIdx);
+    void loadState(std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const int queIdx);
     /// @}
 
 
@@ -349,7 +349,7 @@ public:
     }
 
     /// @brief return the remaining physical space on this segment
-    inline unsigned int remainingVehicleCapacity(const SUMOReal vehLength) const {
+    inline int remainingVehicleCapacity(const SUMOReal vehLength) const {
         if (myOccupancy == 0. && myCapacity < vehLength) {
             // even small segments can hold at least one vehicle
             return 1;
@@ -432,7 +432,7 @@ private:
     const SUMOReal myLength;
 
     /// @brief Running number of the segment in the edge
-    const unsigned int myIndex;
+    const int myIndex;
 
     /// @brief The time headway parameters, see the Eissfeldt thesis
     const SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
@@ -468,7 +468,7 @@ private:
     Queues myCarQues;
 
     /// @brief The follower edge to que index mapping for multi queue segments
-    std::map<const MSEdge*, std::vector<size_t> > myFollowerMap;
+    std::map<const MSEdge*, std::vector<int> > myFollowerMap;
 
     /// @brief The block times
     std::vector<SUMOTime> myBlockTimes;

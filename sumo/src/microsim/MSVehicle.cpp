@@ -250,7 +250,7 @@ MSVehicle::Influencer::setSpeedTimeLine(const std::vector<std::pair<SUMOTime, SU
 
 
 void
-MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, unsigned int> >& laneTimeLine) {
+MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, int> >& laneTimeLine) {
     myLaneTimeLine = laneTimeLine;
 }
 
@@ -299,7 +299,7 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMO
 
 
 int
-MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const MSEdge& currentEdge, const unsigned int currentLaneIndex, int state) {
+MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const MSEdge& currentEdge, const int currentLaneIndex, int state) {
     // remove leading commands which are no longer valid
     while (myLaneTimeLine.size() == 1 || (myLaneTimeLine.size() > 1 && currentTime > myLaneTimeLine[1].first)) {
         myLaneTimeLine.erase(myLaneTimeLine.begin());
@@ -307,8 +307,8 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
     ChangeRequest changeRequest = REQUEST_NONE;
     // do nothing if the time line does not apply for the current time
     if (myLaneTimeLine.size() >= 2 && currentTime >= myLaneTimeLine[0].first) {
-        const unsigned int destinationLaneIndex = myLaneTimeLine[1].second;
-        if (destinationLaneIndex < (unsigned int)currentEdge.getLanes().size()) {
+        const int destinationLaneIndex = myLaneTimeLine[1].second;
+        if (destinationLaneIndex < (int)currentEdge.getLanes().size()) {
             if (currentLaneIndex > destinationLaneIndex) {
                 changeRequest = REQUEST_RIGHT;
             } else if (currentLaneIndex < destinationLaneIndex) {
@@ -665,14 +665,14 @@ MSVehicle::willPass(const MSEdge* const edge) const {
 }
 
 
-unsigned int
+int
 MSVehicle::getRoutePosition() const {
-    return (unsigned int) std::distance(myRoute->begin(), myCurrEdge);
+    return (int) std::distance(myRoute->begin(), myCurrEdge);
 }
 
 
 void
-MSVehicle::resetRoutePosition(unsigned int index) {
+MSVehicle::resetRoutePosition(int index) {
     myCurrEdge = myRoute->begin() + index;
     // !!! hack
     myArrivalPos = (*(myRoute->end() - 1))->getLanes()[0]->getLength();
@@ -1236,7 +1236,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     SUMOReal seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos; // the distance already "seen"; in the following always up to the end of the current "lane"
     SUMOReal seenNonInternal = 0;
     SUMOReal vLinkPass = MIN2(estimateSpeedAfterDistance(seen, v, cfModel.getMaxAccel()), laneMaxV); // upper bound
-    unsigned int view = 0;
+    int view = 0;
     DriveProcessItem* lastLink = 0;
     bool slowedDownForMinor = false; // whether the vehicle already had to slow down on approach to a minor link
     // iterator over subsequent lanes and fill lfLinks until stopping distance or stopped
@@ -2059,7 +2059,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
         bool foundStopped = false;
         // compute available space until a stopped vehicle is found
         // this is the sum of non-interal lane length minus in-between vehicle lenghts
-        for (unsigned int i = 0; i < lfLinks.size(); ++i) {
+        for (int i = 0; i < lfLinks.size(); ++i) {
             // skip unset links
             DriveProcessItem& item = lfLinks[i];
             if (item.myLink == 0 || foundStopped) {
@@ -2185,7 +2185,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
 
         // find removalBegin
         int removalBegin = -1;
-        for (unsigned int i = 0; hadVehicle && i < lfLinks.size() && removalBegin < 0; ++i) {
+        for (int i = 0; hadVehicle && i < lfLinks.size() && removalBegin < 0; ++i) {
             // skip unset links
             const DriveProcessItem& item = lfLinks[i];
             if (item.myLink == 0) {
@@ -2230,7 +2230,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
     for (DriveItemVector::iterator i = lfLinks.begin(); i != lfLinks.end(); ++i) {
         if ((*i).myLink != 0) {
             if ((*i).myLink->getState() == LINKSTATE_ALLWAY_STOP) {
-                (*i).myArrivalTime += (SUMOTime)RandHelper::rand((size_t)2); // tie braker
+                (*i).myArrivalTime += (SUMOTime)RandHelper::rand((int)2); // tie braker
             }
             (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                         (*i).mySetRequest, (*i).myArrivalTimeBraking, (*i).myArrivalSpeedBraking, getWaitingTime(), (*i).myDistance);
@@ -2969,13 +2969,13 @@ MSVehicle::addPerson(MSTransportable* person) {
     }
     myPersonDevice->addTransportable(person);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered) {
-        unsigned int numExpected = (unsigned int) myStops.front().awaitedPersons.size();
+        int numExpected = (int) myStops.front().awaitedPersons.size();
         if (numExpected != 0) {
             // I added the if-statement and number retrieval, assuming that it should be a "conditional short jump" only and
             //  in most cases we won't have the list of expected passenger - only for simulating car-sharing, probably.
             //  Bus drivers usually do not know the names of the passengers.
             myStops.front().awaitedPersons.erase(person->getID());
-            numExpected = (unsigned int) myStops.front().awaitedPersons.size();
+            numExpected = (int) myStops.front().awaitedPersons.size();
         }
         if (numExpected == 0) {
             myStops.front().duration = 0;
@@ -2991,10 +2991,10 @@ MSVehicle::addContainer(MSTransportable* container) {
     }
     myContainerDevice->addTransportable(container);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().containerTriggered) {
-        unsigned int numExpected = (unsigned int) myStops.front().awaitedContainers.size();
+        int numExpected = (int) myStops.front().awaitedContainers.size();
         if (numExpected != 0) {
             myStops.front().awaitedContainers.erase(container->getID());
-            numExpected = (unsigned int) myStops.front().awaitedContainers.size();
+            numExpected = (int) myStops.front().awaitedContainers.size();
         }
         if (numExpected == 0) {
             myStops.front().duration = 0;
@@ -3023,15 +3023,15 @@ MSVehicle::getContainers() const {
 }
 
 
-unsigned int
+int
 MSVehicle::getPersonNumber() const {
-    unsigned int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
+    int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
     return boarded + myParameter->personNumber;
 }
 
-unsigned int
+int
 MSVehicle::getContainerNumber() const {
-    unsigned int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
+    int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
     return loaded + myParameter->containerNumber;
 }
 
@@ -3092,10 +3092,10 @@ MSVehicle::replaceVehicleType(MSVehicleType* type) {
     myType = type;
 }
 
-unsigned int
+int
 MSVehicle::getLaneIndex() const {
     std::vector<MSLane*>::const_iterator laneP = std::find(myLane->getEdge().getLanes().begin(), myLane->getEdge().getLanes().end(), myLane);
-    return (unsigned int) std::distance(myLane->getEdge().getLanes().begin(), laneP);
+    return (int) std::distance(myLane->getEdge().getLanes().begin(), laneP);
 }
 
 
@@ -3224,7 +3224,7 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
     const SUMOReal dist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
     if (seen < dist) {
         const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(lane);
-        unsigned int view = 1;
+        int view = 1;
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
         DriveItemVector::const_iterator di = myLFLinkLanes.begin();
         while (!lane->isLinkEnd(link) && seen <= dist) {
@@ -3515,7 +3515,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (!attrs.hasAttribute(SUMO_ATTR_POSITION)) {
         throw ProcessError("Error: Invalid vehicles in state (may be a meso state)!");
     }
-    unsigned int routeOffset;
+    int routeOffset;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myDeparture;
     bis >> routeOffset;

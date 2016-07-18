@@ -105,7 +105,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority);
+    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority);
 
 
     /// Destructor
@@ -202,7 +202,7 @@ public:
     /** @brief Returns the index (numeric id) of the edge
      * @return This edge's numerical id
      */
-    unsigned int getNumericalID() const {
+    int getNumericalID() const {
         return myIndex;
     }
 
@@ -218,8 +218,8 @@ public:
     /** @brief Returns the number of lanes this edge has
      * @return This edge's number of lanes
      */
-    unsigned int getLaneNo() const {
-        return (unsigned int) myLanes.size();
+    int getLaneNo() const {
+        return (int) myLanes.size();
     }
 
 
@@ -283,7 +283,7 @@ public:
      *
      * @return The number of edges following this edge
      */
-    unsigned int getNumSuccessors() const;
+    int getNumSuccessors() const;
 
 
     /** @brief Returns the following edges
@@ -307,7 +307,7 @@ public:
      *
      * @return The number of edges reaching into this edge
      */
-    unsigned int getNumPredecessors() const;
+    int getNumPredecessors() const;
 
 
     /** @brief Returns the edge at the given position from the list of incoming edges
@@ -406,7 +406,7 @@ public:
     static const ROEdgeVector& getAllEdges();
 
     /// @brief Returns the number of edges
-    static size_t dictSize() {
+    static int dictSize() {
         return myEdges.size();
     };
 
@@ -452,7 +452,7 @@ protected:
     RONode* myToJunction;
 
     /// @brief The index (numeric id) of the edge
-    const unsigned int myIndex;
+    const int myIndex;
 
     /// @brief The edge priority (road class)
     const int myPriority;

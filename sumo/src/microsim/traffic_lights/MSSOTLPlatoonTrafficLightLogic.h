@@ -43,7 +43,7 @@ public:
      */
     MSSOTLPlatoonTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                    const std::string& id, const std::string& subid,
-                                   const Phases& phases, unsigned int step, SUMOTime delay,
+                                   const Phases& phases, int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters) throw();
 
     /**
@@ -57,7 +57,7 @@ public:
      */
     MSSOTLPlatoonTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                    const std::string& id, const std::string& subid,
-                                   const Phases& phases, unsigned int step, SUMOTime delay,
+                                   const Phases& phases, int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters,
                                    MSSOTLSensors* sensors) throw();
 

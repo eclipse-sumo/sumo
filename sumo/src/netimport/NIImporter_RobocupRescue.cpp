@@ -109,17 +109,17 @@ NIImporter_RobocupRescue::~NIImporter_RobocupRescue() {
 void
 NIImporter_RobocupRescue::loadNodes(const std::string& file) {
     BinaryInputDevice dev(file);
-    unsigned int skip;
+    int skip;
     dev >> skip; // the number in 19_s
     dev >> skip; // x-offset in 19_s
     dev >> skip; // y-offset in 19_s
     //
-    unsigned int noNodes;
+    int noNodes;
     dev >> noNodes;
     WRITE_MESSAGE("Expected node number: " + toString(noNodes));
     do {
         //cout << "  left " << (noNodes) << endl;
-        unsigned int entrySize, id, posX, posY, numEdges;
+        int entrySize, id, posX, posY, numEdges;
         dev >> entrySize;
         entrySize /= 4;
         dev >> id;
@@ -128,33 +128,33 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
         dev >> numEdges;
 
         std::vector<int> edges;
-        for (unsigned int j = 0; j < numEdges; ++j) {
-            unsigned int edge;
+        for (int j = 0; j < numEdges; ++j) {
+            int edge;
             dev >> edge;
             edges.push_back(edge);
         }
 
-        unsigned int signal;
+        int signal;
         dev >> signal;
 
         std::vector<int> turns;
-        for (unsigned int j = 0; j < numEdges; ++j) {
-            unsigned int turn;
+        for (int j = 0; j < numEdges; ++j) {
+            int turn;
             dev >> turn;
             turns.push_back(turn);
         }
 
         std::vector<std::pair<int, int> > conns;
-        for (unsigned int j = 0; j < numEdges; ++j) {
-            unsigned int connF, connT;
+        for (int j = 0; j < numEdges; ++j) {
+            int connF, connT;
             dev >> connF;
             dev >> connT;
             conns.push_back(std::pair<int, int>(connF, connT));
         }
 
         std::vector<std::vector<int> > times;
-        for (unsigned int j = 0; j < numEdges; ++j) {
-            unsigned int t1, t2, t3;
+        for (int j = 0; j < numEdges; ++j) {
+            int t1, t2, t3;
             dev >> t1;
             dev >> t2;
             dev >> t3;
@@ -177,17 +177,17 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
 void
 NIImporter_RobocupRescue::loadEdges(const std::string& file) {
     BinaryInputDevice dev(file);
-    unsigned int skip;
+    int skip;
     dev >> skip; // the number in 19_s
     dev >> skip; // x-offset in 19_s
     dev >> skip; // y-offset in 19_s
     //
-    unsigned int noEdges;
+    int noEdges;
     dev >> noEdges;
     std::cout << "Expected edge number: " << noEdges << std::endl;
     do {
         std::cout << "  left " << (noEdges) << std::endl;
-        unsigned int entrySize, id, begNode, endNode, length, roadKind, carsToHead,
+        int entrySize, id, begNode, endNode, length, roadKind, carsToHead,
                  carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
                  linesToHead, linesToTail, widthForWalkers;
         dev >> entrySize >> id >> begNode >> endNode >> length >> roadKind >> carsToHead

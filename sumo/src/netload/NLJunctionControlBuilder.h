@@ -291,7 +291,7 @@ public:
     MSJunction* retrieve(const std::string id);
 
     /// @brief return the number of phases loaded so far (for error reporting)
-    size_t getNumberOfLoadedPhases() const {
+    int getNumberOfLoadedPhases() const {
         return myActivePhases.size();
     }
 

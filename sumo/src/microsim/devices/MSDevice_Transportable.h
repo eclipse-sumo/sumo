@@ -117,8 +117,8 @@ public:
     /** @brief Return the number of passengers / containers
      * @return The number of stored transportables
      */
-    unsigned int size() const {
-        return static_cast<unsigned int>(myTransportables.size());
+    int size() const {
+        return static_cast<int>(myTransportables.size());
     }
 
 

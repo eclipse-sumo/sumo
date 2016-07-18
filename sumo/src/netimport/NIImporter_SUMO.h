@@ -182,11 +182,11 @@ private:
         /// @brief The id of the target edge
         std::string toEdgeID;
         /// @brief The index of the target lane
-        unsigned int toLaneIdx;
+        int toLaneIdx;
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
         /// @brief The index of this connection within the controlling traffic light
-        unsigned int tlLinkNo;
+        int tlLinkNo;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
         /// @brief Whether the junction must be kept clear coming from this connection
@@ -348,7 +348,7 @@ private:
      * @param[out] edge_id ID of this lane's edge
      * @param[out] index Index of this lane
      */
-    static void interpretLaneID(const std::string& lane_id, std::string& edge_id, unsigned int& index);
+    static void interpretLaneID(const std::string& lane_id, std::string& edge_id, int& index);
 
     /** @brief reconstructs the edge shape from the node positions and the given lane shapes
      * since we do not know the original LaneSpreadFunction this is only an

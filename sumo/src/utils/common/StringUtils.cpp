@@ -54,9 +54,9 @@ std::string StringUtils::emptyString;
 // ===========================================================================
 std::string
 StringUtils::prune(const std::string& str) {
-    const size_t endpos = str.find_last_not_of(" \t\n\r");
+    const int endpos = str.find_last_not_of(" \t\n\r");
     if (std::string::npos != endpos) {
-        const size_t startpos = str.find_first_not_of(" \t\n\r");
+        const int startpos = str.find_first_not_of(" \t\n\r");
         return str.substr(startpos, endpos - startpos + 1);
     }
     return "";
@@ -65,7 +65,7 @@ StringUtils::prune(const std::string& str) {
 
 std::string
 StringUtils::to_lower_case(std::string str) {
-    for (size_t i = 0; i < str.length(); i++) {
+    for (int i = 0; i < str.length(); i++) {
         if (str[i] >= 'A' && str[i] <= 'Z') {
             str[i] = str[i] + 'a' - 'A';
         }
@@ -78,7 +78,7 @@ std::string
 StringUtils::latin1_to_utf8(std::string str) {
     // inspired by http://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
     std::string result;
-    for (size_t i = 0; i < str.length(); i++) {
+    for (int i = 0; i < str.length(); i++) {
         const unsigned char c = str[i];
         if (c < 128) {
             result += c;
@@ -114,10 +114,10 @@ StringUtils::replace(std::string str, const char* what,
                      const char* by) {
     const std::string what_tmp(what);
     const std::string by_tmp(by);
-    size_t idx = str.find(what);
-    const size_t what_len = what_tmp.length();
+    int idx = str.find(what);
+    const int what_len = what_tmp.length();
     if (what_len > 0) {
-        const size_t by_len = by_tmp.length();
+        const int by_len = by_tmp.length();
         while (idx != std::string::npos) {
             str = str.replace(idx, what_len, by);
             idx = str.find(what, idx + by_len);
@@ -180,7 +180,7 @@ std::string
 StringUtils::urlEncode(const std::string& toEncode, const std::string encodeWhich) {
     std::ostringstream out;
 
-    for (std::string::size_type i = 0; i < toEncode.length(); ++i) {
+    for (int i = 0; i < toEncode.length(); ++i) {
         const char t = toEncode.at(i);
 
         if ((encodeWhich != "" && encodeWhich.find(t) == std::string::npos) ||
@@ -204,7 +204,7 @@ std::string
 StringUtils::urlDecode(const std::string& toDecode) {
     std::ostringstream out;
 
-    for (std::string::size_type i = 0; i < toDecode.length(); ++i) {
+    for (int i = 0; i < toDecode.length(); ++i) {
         if (toDecode.at(i) == '%') {
             std::string str(toDecode.substr(i + 1, 2));
             out << hexToChar(str);

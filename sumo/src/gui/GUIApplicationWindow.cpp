@@ -1319,8 +1319,8 @@ void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     updateChildren();
     updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
-    const unsigned int running = myRunThread->getNet().getVehicleControl().getRunningVehicleNo();
-    const unsigned int backlog = myRunThread->getNet().getInsertionControl().getWaitingVehicleNo();
+    const int running = myRunThread->getNet().getVehicleControl().getRunningVehicleNo();
+    const int backlog = myRunThread->getNet().getInsertionControl().getWaitingVehicleNo();
     if (backlog > running) {
         if (myStatButtons.front()->getIcon() == GUIIconSubSys::getIcon(ICON_GREENVEHICLE)) {
             myStatButtons.front()->setIcon(GUIIconSubSys::getIcon(ICON_YELLOWVEHICLE));
@@ -1422,7 +1422,7 @@ GUIApplicationWindow::checkGamingEvents() {
         }
     }
     if (myCollisionSounds.getOverallProb() > 0) {
-        unsigned int collisions = MSNet::getInstance()->getVehicleControl().getCollisionCount();
+        int collisions = MSNet::getInstance()->getVehicleControl().getCollisionCount();
         if (myPreviousCollisionNumber != collisions) {
             const std::string cmd = myCollisionSounds.get(&myGamingRNG);
             if (cmd != "") {
@@ -1507,7 +1507,7 @@ GUIApplicationWindow::closeAllWindows() {
         }
     }
     // remove trackers and other external windows
-    size_t i;
+    int i;
     for (i = 0; i < mySubWindows.size(); ++i) {
         mySubWindows[i]->destroy();
     }

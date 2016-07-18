@@ -188,7 +188,7 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     }
     new FXMenuSeparator(ret);
     int trackedID = parent.getTrackedID();
-    if (trackedID < 0 || (size_t)trackedID != getGlID()) {
+    if (trackedID < 0 || (int)trackedID != getGlID()) {
         new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
     } else {
         new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
@@ -337,7 +337,7 @@ GUIPerson::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUIPerson::setFunctionalColor(size_t activeScheme) const {
+GUIPerson::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
         case 0: {
             if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
@@ -382,7 +382,7 @@ GUIPerson::setFunctionalColor(size_t activeScheme) const {
 
 
 SUMOReal
-GUIPerson::getColorValue(size_t activeScheme) const {
+GUIPerson::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 4:
             return getSpeed();

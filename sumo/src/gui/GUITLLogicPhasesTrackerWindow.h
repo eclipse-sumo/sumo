@@ -210,10 +210,10 @@ private:
     std::vector<std::string> myLinkNames;
 
     /// @brief The index of the first phase that fits into the window
-    size_t myFirstPhase2Show;
+    int myFirstPhase2Show;
 
     /// @brief The offset to draw the first phase (left offset)
-    size_t myFirstPhaseOffset;
+    int myFirstPhaseOffset;
 
     /// @brief The time the diagram begins at
     SUMOTime myFirstTime2Show;

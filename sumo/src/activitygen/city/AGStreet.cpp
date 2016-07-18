@@ -41,7 +41,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGStreet::AGStreet(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority) :
+AGStreet::AGStreet(const std::string& id, RONode* from, RONode* to, int index, const int priority) :
     ROEdge(id, from, to, index, priority), myPopulation(0.), myNumWorkplaces(0.) {
 }
 

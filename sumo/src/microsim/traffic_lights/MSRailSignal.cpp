@@ -72,7 +72,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
             MSLink* link = (*i);
             MSLane* toLane = link->getLane();   //the lane this link is leading to
             myLinksToLane[toLane].push_back(link);
-            myLinkIndices[link] = (unsigned int)std::distance(myLinks.begin(), i2); //assign the index of link to link
+            myLinkIndices[link] = (int)std::distance(myLinks.begin(), i2); //assign the index of link to link
 
             //find all lanes leading from a previous signal to link (we presume that there exists only one path from a previous signal to link)
             std::vector<MSLane*> afferentBlock; //the vector of lanes leading from a previous signal to link
@@ -265,11 +265,11 @@ MSRailSignal::getPhaseIndexAtTime(SUMOTime) const {
 }
 
 SUMOTime
-MSRailSignal::getOffsetFromIndex(unsigned int) const {
+MSRailSignal::getOffsetFromIndex(int) const {
     return 0;
 }
 
-unsigned int
+int
 MSRailSignal::getIndexFromOffset(SUMOTime) const {
     return 0;
 }

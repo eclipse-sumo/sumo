@@ -197,7 +197,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane* l) {
 
 
 MSE2Collector*
-MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane* l,
+MS_E2_ZS_CollectorOverLanes::buildCollector(int c, int r, MSLane* l,
         SUMOReal start, SUMOReal end) {
     std::string id = makeID(l->getID(), c, r);
     if (start + end < l->getLength()) {
@@ -233,11 +233,11 @@ MS_E2_ZS_CollectorOverLanes::writeXMLDetectorProlog(OutputDevice& dev) const {
 }
 
 
-size_t bla = 0;
+int bla = 0;
 
 std::string
 MS_E2_ZS_CollectorOverLanes::makeID(const std::string& baseID ,
-                                    size_t /*col*/, size_t /*row*/) const {
+                                    int /*col*/, int /*row*/) const {
     std::string add;
     switch (myUsage) {
         case DU_USER_DEFINED:
@@ -252,7 +252,7 @@ MS_E2_ZS_CollectorOverLanes::makeID(const std::string& baseID ,
         default:
             break;
     }
-    std::string ret =  baseID + add + toString<size_t>(bla++);
+    std::string ret =  baseID + add + toString<int>(bla++);
     return ret;
 }
 

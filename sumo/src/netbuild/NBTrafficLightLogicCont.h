@@ -124,7 +124,7 @@ public:
 
 
     /// @brief return the number of extracted traffic light definitions
-    size_t getNumExtracted() const {
+    int getNumExtracted() const {
         return myExtracted.size();
     }
 
@@ -142,7 +142,7 @@ public:
      * @return The number of computed tls and programs
      * @see NBTrafficLightDefinition::compute
      */
-    std::pair<unsigned int, unsigned int> computeLogics(OptionsCont& oc);
+    std::pair<int, int> computeLogics(OptionsCont& oc);
 
 
     /** @brief Computes a specific traffic light logic (using by NETEDIT)

@@ -169,7 +169,7 @@ GNEDetector::getParentName() const {
 
 
 void
-GNEDetector::drawDetectorIcon(const unsigned int GNELogoID, SUMOReal sizex, SUMOReal sizey) const {
+GNEDetector::drawDetectorIcon(const int GNELogoID, SUMOReal sizex, SUMOReal sizey) const {
     // Add a draw matrix
     glPushMatrix();
     // Traslate to center

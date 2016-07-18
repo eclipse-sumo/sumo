@@ -61,7 +61,7 @@ public:
 
     void apply(osg::Geode& geode) {
         osg::BoundingBox bbox;
-        for (unsigned int i = 0; i < geode.getNumDrawables(); ++i) {
+        for (int i = 0; i < geode.getNumDrawables(); ++i) {
 #if OSG_MIN_VERSION_REQUIRED(3,4,0)
             bbox.expandBy(geode.getDrawable(i)->getBoundingBox());
 #else
@@ -69,7 +69,7 @@ public:
 #endif
         }
         osg::BoundingBox bboxTrans;
-        for (unsigned int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 8; ++i) {
             osg::Vec3 xvec = bbox.corner(i) * myTransformMatrix;
             bboxTrans.expandBy(xvec);
         }

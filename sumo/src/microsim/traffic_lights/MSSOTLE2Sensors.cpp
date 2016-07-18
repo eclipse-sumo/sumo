@@ -215,10 +215,10 @@ int MSSOTLE2Sensors::getPassedVeh(std::string laneId, bool /* out */) {
         assert(0);
         return 0;
     } else {
-        unsigned int additional = 0;
+        int additional = 0;
         if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end())
             for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
-                unsigned int tmp = 0;
+                int tmp = 0;
                 if (getVelueFromSensor(*it, &MSE2Collector::getPassedVeh, tmp)) {
                     additional += tmp;
                 }
@@ -451,7 +451,7 @@ int MSSOTLE2Sensors::countVehicles(std::string laneId) {
         assert(0);
         return 0;
     }
-    unsigned int additional = 0;
+    int additional = 0;
     if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end()) {
         for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
             if (m_sensorMap.find(*it) != m_sensorMap.end()) {
@@ -484,10 +484,10 @@ SUMOReal MSSOTLE2Sensors::meanVehiclesSpeed(std::string laneId) {
         return 0;
     }
     SUMOReal meanSpeedAcc = 0;
-    unsigned int totalCarNumer = 0;
+    int totalCarNumer = 0;
     if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end())
         for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
-            unsigned int number = 0;
+            int number = 0;
             SUMOReal mean = -1;
             if (!getVelueFromSensor(*it, &MSE2Collector::getCurrentVehicleNumber, number)) {
                 continue;
@@ -496,7 +496,7 @@ SUMOReal MSSOTLE2Sensors::meanVehiclesSpeed(std::string laneId) {
             getVelueFromSensor(*it, &MSE2Collector::getCurrentMeanSpeed, mean);
             meanSpeedAcc += mean * (SUMOReal) number;
         }
-    unsigned int number = sensorsIteratorOut->second->getCurrentVehicleNumber();
+    int number = sensorsIteratorOut->second->getCurrentVehicleNumber();
     totalCarNumer += number;
     SUMOReal mean = sensorsIteratorOut->second->getCurrentMeanSpeed();
     meanSpeedAcc += mean * (SUMOReal) number;
@@ -504,8 +504,8 @@ SUMOReal MSSOTLE2Sensors::meanVehiclesSpeed(std::string laneId) {
 }
 
 std::string trim(std::string& str) {
-    size_t first = str.find_first_not_of(' ');
-    size_t last = str.find_last_not_of(' ');
+    int first = str.find_first_not_of(' ');
+    int last = str.find_last_not_of(' ');
     return str.substr(first, (last - first + 1));
 }
 
@@ -530,7 +530,7 @@ void MSSOTLE2Sensors::setVehicleWeigths(const std::string& weightString) {
         split(*typesIt, '=', typeWeight);
         if (typeWeight.size() == 2) {
             std::string type = trim(typeWeight[0]);
-            unsigned int value = TplConvert::_2int(typeWeight[1].c_str());
+            int value = TplConvert::_2int(typeWeight[1].c_str());
             logstr << type << "=" << value << " ";
             m_typeWeightMap[type] = value;
         }
@@ -543,7 +543,7 @@ int MSSOTLE2Sensors::count(MSE2Collector* sensor) {
     if (m_typeWeightMap.size() == 0) {
         return totCars;
     }
-    unsigned int number = 0;
+    int number = 0;
     const std::list<SUMOVehicle*> vehicles = sensor->getCurrentVehicles();
     std::ostringstream logstr;
     logstr << "[MSSOTLE2Sensors::count]";

@@ -164,13 +164,13 @@ private:
     std::string myStrBuffer;
 
     /// @brief Information about how many characters were supplied to the LineHandler
-    unsigned int myRead;
+    int myRead;
 
     /// @brief Information how many bytes are available within the used file
-    unsigned int myAvailable;
+    int myAvailable;
 
     /// @brief Information how many bytes were read by the reader from the file
-    unsigned int myRread;
+    int myRread;
 
 };
 

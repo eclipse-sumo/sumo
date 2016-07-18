@@ -307,7 +307,7 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     }
     new FXMenuSeparator(ret);
     int trackedID = parent.getTrackedID();
-    if (trackedID < 0 || (size_t)trackedID != getGlID()) {
+    if (trackedID < 0 || (int)trackedID != getGlID()) {
         new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
     } else {
         new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
@@ -1038,7 +1038,7 @@ GUIBaseVehicle::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUIBaseVehicle::setFunctionalColor(size_t activeScheme, const MSBaseVehicle* veh) {
+GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
     switch (activeScheme) {
         case 0: {
             if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
@@ -1176,9 +1176,9 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMORe
 
 
 const Position&
-GUIBaseVehicle::getSeatPosition(size_t personIndex) const {
+GUIBaseVehicle::getSeatPosition(int personIndex) const {
     /// if there are not enough seats in the vehicle people have to squeeze onto the last seat
-    return mySeatPositions[(int)MIN2(personIndex, mySeatPositions.size() - 1)];
+    return mySeatPositions[MIN2(personIndex, (int)mySeatPositions.size() - 1)];
 }
 
 

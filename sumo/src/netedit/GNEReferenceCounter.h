@@ -88,7 +88,7 @@ public:
 
 
 private:
-    size_t myCount;
+    int myCount;
 
 };
 

@@ -237,7 +237,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
         return;
     }
     SUMOTime firstEventOffset = 0;
-    unsigned int step = 0;
+    int step = 0;
     MSTrafficLightLogic* existing = 0;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
     if (myLogicType != TLTYPE_RAIL) {
@@ -391,8 +391,8 @@ NLJunctionControlBuilder::addLogicItem(int request,
                               " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
     }
     // assert that the logicitems come ordered by their request index
-    assert(myActiveLogic.size() == (size_t) request);
-    assert(myActiveFoes.size() == (size_t) request);
+    assert(myActiveLogic.size() == (int) request);
+    assert(myActiveFoes.size() == (int) request);
     // add the read response for the given request index
     myActiveLogic.push_back(std::bitset<SUMO_MAX_CONNECTIONS>(response));
     // add the read junction-internal foes for the given request index

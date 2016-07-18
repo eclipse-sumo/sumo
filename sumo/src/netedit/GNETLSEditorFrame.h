@@ -189,7 +189,7 @@ private:
     FXTable* myPhaseTable;
 
     /// @brief index of the phase being shown
-    unsigned int myPhaseIndex;
+    int myPhaseIndex;
 
 private:
     /// @brief update descrition
@@ -206,7 +206,7 @@ private:
 
     /// @brief initialies the phase table
     /// @param[in] index The index to select
-    void initPhaseTable(unsigned int index = 0);
+    void initPhaseTable(int index = 0);
 
     /// @brief the phase of the current traffic light
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& getPhases();

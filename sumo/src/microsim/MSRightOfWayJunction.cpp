@@ -75,10 +75,10 @@ MSRightOfWayJunction::~MSRightOfWayJunction() {
 void
 MSRightOfWayJunction::postloadInit() {
     // inform links where they have to report approaching vehicles to
-    unsigned int requestPos = 0;
+    int requestPos = 0;
     std::vector<MSLane*>::iterator i;
     // going through the incoming lanes...
-    unsigned int maxNo = 0;
+    int maxNo = 0;
     std::vector<std::pair<MSLane*, MSLink*> > sortedLinks;
     for (i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {
         const MSLinkCont& links = (*i)->getLinkCont();
@@ -109,7 +109,7 @@ MSRightOfWayJunction::postloadInit() {
             const MSLogicJunction::LinkBits& linkFoes = myLogic->getFoesFor(requestPos); // SUMO_ATTR_FOES
             bool cont = myLogic->getIsCont(requestPos);
             myLinkFoeLinks[*j] = std::vector<MSLink*>();
-            for (unsigned int c = 0; c < maxNo; ++c) {
+            for (int c = 0; c < maxNo; ++c) {
                 if (linkResponse.test(c)) {
                     MSLink* foe = sortedLinks[c].second;
                     myLinkFoeLinks[*j].push_back(foe);
@@ -126,7 +126,7 @@ MSRightOfWayJunction::postloadInit() {
                 }
             }
             std::vector<MSLink*> foes;
-            for (unsigned int c = 0; c < maxNo; ++c) {
+            for (int c = 0; c < maxNo; ++c) {
                 if (linkFoes.test(c)) {
                     MSLink* foe = sortedLinks[c].second;
                     foes.push_back(foe);
@@ -150,7 +150,7 @@ MSRightOfWayJunction::postloadInit() {
 #ifdef HAVE_INTERNAL_LANES
             if (MSGlobals::gUsingInternalLanes && myInternalLanes.size() > 0) {
                 int li = 0;
-                for (unsigned int c = 0; c < sortedLinks.size(); ++c) {
+                for (int c = 0; c < sortedLinks.size(); ++c) {
                     if (sortedLinks[c].second->getLane() == 0) { // dead end
                         continue;
                     }

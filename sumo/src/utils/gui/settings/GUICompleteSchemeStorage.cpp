@@ -113,7 +113,7 @@ GUICompleteSchemeStorage::getNames() const {
 }
 
 
-unsigned int
+int
 GUICompleteSchemeStorage::getNumInitialSettings() const {
     return myNumInitialSettings;
 }
@@ -145,7 +145,7 @@ GUICompleteSchemeStorage::init(FXApp* app) {
         vs.containerQuality = 2;
         gSchemeStorage.add(vs);
     }
-    myNumInitialSettings = (unsigned int) mySortedSchemeNames.size();
+    myNumInitialSettings = (int) mySortedSchemeNames.size();
     // add saved settings
     int noSaved = app->reg().readIntEntry("VisualizationSettings", "settingNo", 0);
     for (int i = 0; i < noSaved; ++i) {
@@ -187,7 +187,7 @@ void
 GUICompleteSchemeStorage::writeSettings(FXApp* app) {
     const std::vector<std::string>& names = getNames();
     app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size() - myNumInitialSettings);
-    size_t gidx = 0;
+    int gidx = 0;
     for (std::vector<std::string>::const_iterator i = names.begin() + myNumInitialSettings; i != names.end(); ++i, ++gidx) {
         const GUIVisualizationSettings& item = mySettings.find(*i)->second;
         std::string sname = "visset#" + toString(gidx);
@@ -198,7 +198,7 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
         std::string content = dev.getString();
         app->reg().writeIntEntry(sname.c_str(), "xmlSize", (FXint)(content.size()));
         const unsigned maxSize = 1500; // this is a fox limitation for registry entries
-        for (unsigned int i = 0; i < content.size(); i += maxSize) {
+        for (int i = 0; i < content.size(); i += maxSize) {
             const std::string b = content.substr(i, maxSize);
             app->reg().writeStringEntry(sname.c_str(), ("xml" + toString(i / maxSize)).c_str(), b.c_str());
         }

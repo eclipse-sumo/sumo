@@ -156,11 +156,11 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
                 const SUMOReal posLat = microVeh.getLateralPositionOnLane();
                 of.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
             }
-            const unsigned int personNumber = microVeh.getPersonNumber();
+            const int personNumber = microVeh.getPersonNumber();
             if (personNumber > 0) {
                 of.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);
             }
-            const unsigned int containerNumber = microVeh.getContainerNumber();
+            const int containerNumber = microVeh.getContainerNumber();
             if (containerNumber > 0) {
                 of.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
             }

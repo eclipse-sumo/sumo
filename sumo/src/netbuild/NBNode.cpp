@@ -120,7 +120,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
                 && approachedLanes.count(i) == 0) {
             continue;
         }
-        myAvailableLanes.push_back((unsigned int)i);
+        myAvailableLanes.push_back((int)i);
     }
 }
 
@@ -129,7 +129,7 @@ NBNode::ApproachingDivider::~ApproachingDivider() {}
 
 
 void
-NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int dest) {
+NBNode::ApproachingDivider::execute(const int src, const int dest) {
     assert(myApproaching->size() > src);
     // get the origin edge
     NBEdge* incomingEdge = (*myApproaching)[src];
@@ -142,11 +142,11 @@ NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int d
     std::deque<int>* approachedLanes = spread(approachingLanes, dest);
     assert(approachedLanes->size() <= myAvailableLanes.size());
     // set lanes
-    for (unsigned int i = 0; i < approachedLanes->size(); i++) {
+    for (int i = 0; i < approachedLanes->size(); i++) {
         assert(approachedLanes->size() > i);
         assert(approachingLanes.size() > i);
-        unsigned int approached = myAvailableLanes[(*approachedLanes)[i]];
-        incomingEdge->setConnection((unsigned int) approachingLanes[i], myCurrentOutgoing,
+        int approached = myAvailableLanes[(*approachedLanes)[i]];
+        incomingEdge->setConnection((int) approachingLanes[i], myCurrentOutgoing,
                                     approached, NBEdge::L2L_COMPUTED);
     }
     delete approachedLanes;
@@ -157,7 +157,7 @@ std::deque<int>*
 NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
                                    int dest) const {
     std::deque<int>* ret = new std::deque<int>();
-    unsigned int noLanes = (unsigned int) approachingLanes.size();
+    int noLanes = (int) approachingLanes.size();
     // when only one lane is approached, we check, whether the SUMOReal-value
     //  is assigned more to the left or right lane
     if (noLanes == 1) {
@@ -165,10 +165,10 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
         return ret;
     }
 
-    unsigned int noOutgoingLanes = (unsigned int)myAvailableLanes.size();
+    int noOutgoingLanes = (int)myAvailableLanes.size();
     //
     ret->push_back(dest);
-    unsigned int noSet = 1;
+    int noSet = 1;
     int roffset = 1;
     int loffset = 1;
     while (noSet < noLanes) {
@@ -189,7 +189,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
         if (dest + loffset >= static_cast<int>(noOutgoingLanes)) {
             loffset -= 1;
             roffset += 1;
-            for (unsigned int i = 0; i < ret->size(); i++) {
+            for (int i = 0; i < ret->size(); i++) {
                 (*ret)[i] = (*ret)[i] - 1;
             }
         }
@@ -211,7 +211,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
             if (dest < roffset) {
                 loffset += 1;
                 roffset -= 1;
-                for (unsigned int i = 0; i < ret->size(); i++) {
+                for (int i = 0; i < ret->size(); i++) {
                     (*ret)[i] = (*ret)[i] + 1;
                 }
             }
@@ -378,10 +378,10 @@ NBNode::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
 }
 
 // ----------- Prunning the input
-unsigned int
+int
 NBNode::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
-    unsigned int ret = 0;
-    unsigned int pos = 0;
+    int ret = 0;
+    int pos = 0;
     EdgeVector::const_iterator j = myIncomingEdges.begin();
     while (j != myIncomingEdges.end()) {
         // skip edges which are only incoming and not outgoing
@@ -731,7 +731,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         // build the request
         myRequest = new NBRequest(ec, this, myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);
         // check whether it is not too large
-        unsigned int numConnections = numNormalConnections();
+        int numConnections = numNormalConnections();
         if (numConnections >= SUMO_MAX_CONNECTIONS) {
             // yep -> make it untcontrolled, warn
             delete myRequest;
@@ -938,7 +938,7 @@ NBNode::computeLanes2Lanes() {
         NBEdge* currentOutgoing = *i;
         // get the information about edges that do approach this edge
         EdgeVector* approaching = getEdgesThatApproach(currentOutgoing);
-        const unsigned int numApproaching = (unsigned int)approaching->size();
+        const int numApproaching = (int)approaching->size();
         if (numApproaching != 0) {
             ApproachingDivider divider(approaching, currentOutgoing);
             Bresenham::compute(&divider, numApproaching, divider.numAvailableLanes());
@@ -970,7 +970,7 @@ NBNode::computeLanes2Lanes() {
                             for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
                                 const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
                                 if (satisfied != 0) {
-                                    incoming->setConnection((unsigned int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);
+                                    incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);
                                     //std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
                                     unsatisfied &= ~satisfied;
                                 }
@@ -1057,7 +1057,7 @@ NBNode::getEdgesThatApproach(NBEdge* currentOutgoing) {
 
 
 void
-NBNode::replaceOutgoing(NBEdge* which, NBEdge* by, unsigned int laneOff) {
+NBNode::replaceOutgoing(NBEdge* which, NBEdge* by, int laneOff) {
     // replace the edge in the list of outgoing nodes
     EdgeVector::iterator i = find(myOutgoingEdges.begin(), myOutgoingEdges.end(), which);
     if (i != myOutgoingEdges.end()) {
@@ -1077,7 +1077,7 @@ NBNode::replaceOutgoing(NBEdge* which, NBEdge* by, unsigned int laneOff) {
 void
 NBNode::replaceOutgoing(const EdgeVector& which, NBEdge* by) {
     // replace edges
-    unsigned int laneOff = 0;
+    int laneOff = 0;
     for (EdgeVector::const_iterator i = which.begin(); i != which.end(); i++) {
         replaceOutgoing(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
@@ -1093,7 +1093,7 @@ NBNode::replaceOutgoing(const EdgeVector& which, NBEdge* by) {
 
 
 void
-NBNode::replaceIncoming(NBEdge* which, NBEdge* by, unsigned int laneOff) {
+NBNode::replaceIncoming(NBEdge* which, NBEdge* by, int laneOff) {
     // replace the edge in the list of incoming nodes
     EdgeVector::iterator i = find(myIncomingEdges.begin(), myIncomingEdges.end(), which);
     if (i != myIncomingEdges.end()) {
@@ -1109,7 +1109,7 @@ NBNode::replaceIncoming(NBEdge* which, NBEdge* by, unsigned int laneOff) {
 void
 NBNode::replaceIncoming(const EdgeVector& which, NBEdge* by) {
     // replace edges
-    unsigned int laneOff = 0;
+    int laneOff = 0;
     for (EdgeVector::const_iterator i = which.begin(); i != which.end(); i++) {
         replaceIncoming(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
@@ -1127,7 +1127,7 @@ NBNode::replaceIncoming(const EdgeVector& which, NBEdge* by) {
 
 void
 NBNode::replaceInConnectionProhibitions(NBEdge* which, NBEdge* by,
-                                        unsigned int whichLaneOff, unsigned int byLaneOff) {
+                                        int whichLaneOff, int byLaneOff) {
     // replace in keys
     NBConnectionProhibits::iterator j = myBlockedConnections.begin();
     while (j != myBlockedConnections.end()) {
@@ -1162,7 +1162,7 @@ NBNode::replaceInConnectionProhibitions(NBEdge* which, NBEdge* by,
 
 void
 NBNode::removeDoubleEdges() {
-    unsigned int i, j;
+    int i, j;
     // check incoming
     for (i = 0; myIncomingEdges.size() > 0 && i < myIncomingEdges.size() - 1; i++) {
         j = i + 1;
@@ -1248,7 +1248,7 @@ NBNode::addSortedLinkFoes(const NBConnection& mayDrive,
 
 NBEdge*
 NBNode::getPossiblySplittedIncoming(const std::string& edgeid) {
-    unsigned int size = (unsigned int) edgeid.length();
+    int size = (int) edgeid.length();
     for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         std::string id = (*i)->getID();
         if (id.substr(0, size) == edgeid) {
@@ -1261,7 +1261,7 @@ NBNode::getPossiblySplittedIncoming(const std::string& edgeid) {
 
 NBEdge*
 NBNode::getPossiblySplittedOutgoing(const std::string& edgeid) {
-    unsigned int size = (unsigned int) edgeid.length();
+    int size = (int) edgeid.length();
     for (EdgeVector::iterator i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {
         std::string id = (*i)->getID();
         if (id.substr(0, size) == edgeid) {
@@ -1883,7 +1883,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
     } else {
         // check whether the edges may be part of a common crossing due to having similar angle
         SUMOReal prevAngle = -100000; // dummy
-        for (size_t i = 0; i < candidates.size(); ++i) {
+        for (int i = 0; i < candidates.size(); ++i) {
             NBEdge* edge = candidates[i];
             SUMOReal angle = edge->getCrossingAngle(this);
             // edges should be sorted by angle but this only holds true approximately
@@ -1916,7 +1916,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                     NBEdge* prev = *(it - 1);
                     NBEdge* curr = *it;
                     Position prevPos, currPos;
-                    unsigned int laneI;
+                    int laneI;
                     // compute distance between candiate edges
                     SUMOReal intermediateWidth = 0;
                     if (prev->getToNode() == this) {
@@ -1996,7 +1996,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
 void
 NBNode::buildInnerEdges() {
     // build inner edges for vehicle movements across the junction
-    unsigned int noInternalNoSplits = 0;
+    int noInternalNoSplits = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
@@ -2006,16 +2006,16 @@ NBNode::buildInnerEdges() {
             noInternalNoSplits++;
         }
     }
-    unsigned int lno = 0;
-    unsigned int splitNo = 0;
+    int lno = 0;
+    int splitNo = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
     }
     // if there are custom lane shapes we need to built twice:
     // first to set the ids then to build intersections with the custom geometries
     if (myCustomLaneShapes.size() > 0) {
-        unsigned int lno = 0;
-        unsigned int splitNo = 0;
+        int lno = 0;
+        int splitNo = 0;
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
         }
@@ -2023,7 +2023,7 @@ NBNode::buildInnerEdges() {
 }
 
 
-unsigned int
+int
 NBNode::buildCrossings() {
     //gDebugFlag1 = getID() == DEBUGID;
     if (gDebugFlag1) {
@@ -2032,7 +2032,7 @@ NBNode::buildCrossings() {
     if (myDiscardAllCrossings) {
         myCrossings.clear();
     }
-    unsigned int index = 0;
+    int index = 0;
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
         (*it).id = ":" + getID() + "_c" + toString(index++);
         // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
@@ -2108,7 +2108,7 @@ NBNode::buildCrossings() {
 void
 NBNode::buildWalkingAreas(int cornerDetail) {
     //gDebugFlag1 = getID() == DEBUGID;
-    unsigned int index = 0;
+    int index = 0;
     myWalkingAreas.clear();
     if (gDebugFlag1) {
         std::cout << "build walkingAreas for " << getID() << ":\n";
@@ -2539,7 +2539,7 @@ NBNode::getCrossing(const std::string& id) const {
 
 
 void
-NBNode::setCrossingTLIndices(unsigned int startIndex) {
+NBNode::setCrossingTLIndices(int startIndex) {
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
         (*it).tlLinkNo = startIndex++;
     }
@@ -2598,7 +2598,7 @@ NBNode::getNodeIDFromInternalLane(const std::string id) {
     // :<nodeID>_<part1>_<part2>
     // i.e. :C_3_0, :C_c1_0 :C_w0_0
     assert(id[0] == ':');
-    size_t sep_index = id.rfind('_');
+    int sep_index = id.rfind('_');
     if (sep_index == std::string::npos) {
         WRITE_ERROR("Invalid lane id '" + id + "' (missing '_').");
         return "";

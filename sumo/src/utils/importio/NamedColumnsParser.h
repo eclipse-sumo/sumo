@@ -175,7 +175,7 @@ private:
 
 private:
     /** @brief The map's definition of column item names to their positions within the table */
-    typedef std::map<std::string, size_t> PosMap;
+    typedef std::map<std::string, int> PosMap;
 
     /// @brief The map of column item names to their positions within the table
     PosMap myDefinitionsMap;

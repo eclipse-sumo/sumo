@@ -80,7 +80,7 @@ public:
      * @return The converted lane number
      * @exception ProcessError If the given lane number definition is not a number or if it is not known
      */
-    static unsigned int getLaneNumber(const std::string& id,
+    static int getLaneNumber(const std::string& id,
                                       const std::string& laneNoS, SUMOReal speed);
 
 

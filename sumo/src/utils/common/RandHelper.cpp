@@ -73,7 +73,7 @@ RandHelper::initRandGlobal(MTRand* which) {
     if (oc.getBool("random")) {
 #ifdef _MSC_VER
         long s = myRandomNumberGenerator.hash(time(NULL), clock()) + SysUtils::getWindowsTicks();
-        unsigned int s2 = (unsigned int)(s & 0xffff) ^ (s >> 16);
+        int s2 = (int)(s & 0xffff) ^ (s >> 16);
         which->seed(s2);
 #else
         which->seed();

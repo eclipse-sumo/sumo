@@ -22,7 +22,7 @@
 
 MSDeterministicHiLevelTrafficLightLogic::MSDeterministicHiLevelTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
-    const std::string& subid, const Phases& phases, unsigned int step,
+    const std::string& subid, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters) :
     MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, subid, phases, step,
                                    delay, parameters) {
@@ -63,9 +63,9 @@ throw(ProcessError) {
 
     LinkVectorVector myLinks = getLinks();
 
-    for (unsigned int i = 0; i < myLinks.size(); i++) {
+    for (int i = 0; i < myLinks.size(); i++) {
         LinkVector oneLink = getLinksAt(i);
-        for (unsigned int j = 0; j < oneLink.size(); j++) {
+        for (int j = 0; j < oneLink.size(); j++) {
             currentLane = oneLink[j]->getLane();
             if (outputLanes.find(currentLane->getID()) == outputLanes.end()) {
                 outputLanes.insert(currentLane->getID());
@@ -158,7 +158,7 @@ void MSDeterministicHiLevelTrafficLightLogic::choosePolicy(
     int index_maxStimulus = 0;
     SUMOReal maxStimulus = -1;
     // Compute simulus for each policy
-    for (unsigned int i = 0; i < getPolicies().size(); i++) {
+    for (int i = 0; i < getPolicies().size(); i++) {
         SUMOReal stimulus = getPolicies()[i]->computeDesirability(mean_vSpeed_in,
                             mean_vSpeed_out);
         if (stimulus > maxStimulus) {

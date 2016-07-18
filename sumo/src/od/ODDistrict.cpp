@@ -78,15 +78,15 @@ ODDistrict::getRandomSink() const {
 }
 
 
-unsigned int
+int
 ODDistrict::sinkNumber() const {
-    return (unsigned int) mySinks.getVals().size();
+    return (int) mySinks.getVals().size();
 }
 
 
-unsigned int
+int
 ODDistrict::sourceNumber() const {
-    return (unsigned int) mySources.getVals().size();
+    return (int) mySources.getVals().size();
 }
 
 

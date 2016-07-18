@@ -81,7 +81,7 @@ LineReader::readLine(LineHandler& lh) {
     std::string toReport;
     bool moreAvailable = true;
     while (toReport.length() == 0) {
-        size_t idx = myStrBuffer.find('\n');
+        int idx = myStrBuffer.find('\n');
         if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
@@ -90,14 +90,14 @@ LineReader::readLine(LineHandler& lh) {
         if (idx != std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
             myStrBuffer = myStrBuffer.substr(idx + 1);
-            myRread += (unsigned int)idx + 1;
+            myRread += (int)idx + 1;
         } else {
             if (myRead < myAvailable) {
                 myStrm.read(myBuffer,
                             myAvailable - myRead < 1024
                             ? myAvailable - myRead
                             : 1024);
-                size_t noBytes = myAvailable - myRead;
+                int noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
                 myStrBuffer += std::string(myBuffer, noBytes);
                 myRead += 1024;
@@ -132,7 +132,7 @@ std::string
 LineReader::readLine() {
     std::string toReport;
     while (toReport.length() == 0 && myStrm.good()) {
-        size_t idx = myStrBuffer.find('\n');
+        int idx = myStrBuffer.find('\n');
         if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
@@ -141,14 +141,14 @@ LineReader::readLine() {
         if (idx != std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
             myStrBuffer = myStrBuffer.substr(idx + 1);
-            myRread += (unsigned int) idx + 1;
+            myRread += (int) idx + 1;
         } else {
             if (myRead < myAvailable) {
                 myStrm.read(myBuffer,
                             myAvailable - myRead < 1024
                             ? myAvailable - myRead
                             : 1024);
-                size_t noBytes = myAvailable - myRead;
+                int noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
                 myStrBuffer += std::string(myBuffer, noBytes);
                 myRead += 1024;
@@ -208,7 +208,7 @@ LineReader::reinit() {
     myStrm.open(myFileName.c_str(), std::ios::binary);
     myStrm.unsetf(std::ios::skipws);
     myStrm.seekg(0, std::ios::end);
-    myAvailable = static_cast<unsigned int>(myStrm.tellg());
+    myAvailable = static_cast<int>(myStrm.tellg());
     myStrm.seekg(0, std::ios::beg);
     myRead = 0;
     myRread = 0;

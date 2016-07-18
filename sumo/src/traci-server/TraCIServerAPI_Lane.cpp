@@ -112,7 +112,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case LANE_LINKS: {
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
-                unsigned int cnt = 0;
+                int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 const MSLinkCont& links = lane->getLinkCont();
                 tempContent.writeInt((int) links.size());
@@ -178,8 +178,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
             case VAR_SHAPE:
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                tempMsg.writeUnsignedByte((int)MIN2(static_cast<size_t>(255), lane->getShape().size()));
-                for (unsigned int iPoint = 0; iPoint < MIN2(static_cast<size_t>(255), lane->getShape().size()); ++iPoint) {
+                tempMsg.writeUnsignedByte(MIN2(255, (int)lane->getShape().size()));
+                for (int iPoint = 0; iPoint < MIN2(255, (int)lane->getShape().size()); ++iPoint) {
                     tempMsg.writeDouble(lane->getShape()[iPoint].x());
                     tempMsg.writeDouble(lane->getShape()[iPoint].y());
                 }

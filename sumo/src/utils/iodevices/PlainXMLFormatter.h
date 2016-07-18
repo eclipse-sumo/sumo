@@ -46,7 +46,7 @@
 class PlainXMLFormatter : public OutputFormatter {
 public:
     /// @brief Constructor
-    PlainXMLFormatter(const unsigned int defaultIndentation = 0);
+    PlainXMLFormatter(const int defaultIndentation = 0);
 
 
     /// @brief Destructor
@@ -150,7 +150,7 @@ private:
     std::vector<std::string> myXMLStack;
 
     /// @brief The initial indentation level
-    unsigned int myDefaultIndentation;
+    int myDefaultIndentation;
 
     /// @brief whether a closing ">" might be missing
     bool myHavePendingOpener;

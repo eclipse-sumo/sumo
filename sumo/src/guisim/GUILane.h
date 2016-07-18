@@ -83,9 +83,9 @@ public:
      * @see MSLane
      */
     GUILane(const std::string& id, SUMOReal maxSpeed,
-            SUMOReal length, MSEdge* const edge, unsigned int numericalID,
+            SUMOReal length, MSEdge* const edge, int numericalID,
             const PositionVector& shape, SUMOReal width,
-            SVCPermissions permissions, unsigned int index);
+            SVCPermissions permissions, int index);
 
 
     /// @brief Destructor
@@ -286,13 +286,13 @@ private:
 
 private:
     /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(size_t activeScheme) const;
+    SUMOReal getColorValue(int activeScheme) const;
 
     /// @brief gets the scaling value according to the current scheme index
-    SUMOReal getScaleValue(size_t activeScheme) const;
+    SUMOReal getScaleValue(int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
-    bool setFunctionalColor(size_t activeScheme) const;
+    bool setFunctionalColor(int activeScheme) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIColorer& c) const;

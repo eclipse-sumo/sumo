@@ -99,8 +99,8 @@ public:
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
      */
-    unsigned int size() const {
-        return (unsigned int) myTypes.size();
+    int size() const {
+        return (int) myTypes.size();
     }
 
 

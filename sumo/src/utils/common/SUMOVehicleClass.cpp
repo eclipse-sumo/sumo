@@ -267,7 +267,7 @@ writePermissions(OutputDevice& into, SVCPermissions permissions) {
         into.writeAttr(SUMO_ATTR_DISALLOW, "all");
         return;
     } else {
-        size_t num_allowed = 0;
+        int num_allowed = 0;
         for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
             if ((mask & permissions) == mask) {
                 ++num_allowed;

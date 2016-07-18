@@ -59,7 +59,7 @@ public:
     /* brief build the pedestrian network (once)
      * @param noE The number of edges in the dictionary of E
      */
-    IntermodalNetwork(const std::vector<E*>& edges, unsigned int numericalID = 0) {
+    IntermodalNetwork(const std::vector<E*>& edges, int numericalID = 0) {
 #ifdef IntermodalRouter_DEBUG_NETWORK
         std::cout << "initIntermodalNetwork\n";
 #endif

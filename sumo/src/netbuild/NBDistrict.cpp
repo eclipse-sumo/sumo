@@ -175,7 +175,7 @@ NBDistrict::replaceOutgoing(const EdgeVector& which, NBEdge* const by) {
 
 void
 NBDistrict::removeFromSinksAndSources(NBEdge* const e) {
-    size_t i;
+    int i;
     for (i = 0; i < mySinks.size(); ++i) {
         if (mySinks[i] == e) {
             mySinks.erase(mySinks.begin() + i);

@@ -111,7 +111,7 @@ private:
 template<class E, class L, class N, class V>
 class IntermodalEdge : public Named {
 public:
-    IntermodalEdge(const std::string id, unsigned int numericalID, const E* edge, const std::string& line) :
+    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line) :
         Named(id),
         myNumericalID(numericalID),
         myEdge(edge),
@@ -132,7 +132,7 @@ public:
         return myEdge;
     }
 
-    unsigned int getNumericalID() const {
+    int getNumericalID() const {
         return myNumericalID;
     }
 
@@ -183,7 +183,7 @@ protected:
 
 private:
     /// @brief the index in myEdges
-    const unsigned int myNumericalID;
+    const int myNumericalID;
 
     /// @brief  the original edge
     const E* const myEdge;
@@ -208,7 +208,7 @@ private:
 template<class E, class L, class N, class V>
 class PedestrianEdge : public IntermodalEdge<E, L, N, V> {
 public:
-    PedestrianEdge(unsigned int numericalID, const E* edge, const L* lane, bool forward, const SUMOReal pos = -1.) :
+    PedestrianEdge(int numericalID, const E* edge, const L* lane, bool forward, const SUMOReal pos = -1.) :
         IntermodalEdge<E, L, N, V>(edge->getID() + (edge->isWalkingArea() ? "" : (forward ? "_fwd" : "_bwd")) + toString(pos), numericalID, edge, "!ped"),
         myLane(lane),
         myForward(forward),

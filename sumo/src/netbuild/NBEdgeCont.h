@@ -207,7 +207,7 @@ public:
 
     /** @brief Splits the edge at the position nearest to the given node
      *
-     * Uses "splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)"
+     * Uses "splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, int , int)"
      *  to perform the split; the edge names are built by appending "[0]" and "[1]",
      *  respectively. Both edges will have the same number of lanes.
      *
@@ -216,7 +216,7 @@ public:
      * @param[in] node The node to split the edge at
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
-     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)
+     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, int , int)
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node);
 
@@ -227,7 +227,7 @@ public:
      *  edge to the given node. If this position is too near to the edges begin/end,
      *  false is returned.
      *
-     * Otherwise, "splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)"
+     * Otherwise, "splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, int , int)"
      *  is used to perform the split.
      *
      * @param[in] dc The district container, in order to remove/add the edge from/to sources/sinks
@@ -242,11 +242,11 @@ public:
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
-     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)
+     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, int , int)
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                 int noLanesFirstEdge, int noLanesSecondEdge,
                  const SUMOReal speed = -1., const int changedLeft = 0);
 
 
@@ -267,7 +267,7 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge,
+                 int noLanesFirstEdge, int noLanesSecondEdge,
                  const SUMOReal speed = -1., const int changedLeft = 0);
     /// @}
 
@@ -279,8 +279,8 @@ public:
     /** @brief Returns the number of edges
      * @return The number of edges stored in this container
      */
-    unsigned int size() const {
-        return (unsigned int) myEdges.size();
+    int size() const {
+        return (int) myEdges.size();
     }
 
 
@@ -294,7 +294,7 @@ public:
     /** @brief Returns the number of edge splits
      * @return How often an edge was split
      */
-    unsigned int getNoEdgeSplits() const {
+    int getNoEdgeSplits() const {
         return myEdgesSplit;
     }
     /// @}
@@ -596,7 +596,7 @@ private:
     std::set<std::string> myIgnoredEdges;
 
     /// @brief the number of splits of edges during the building
-    unsigned int myEdgesSplit;
+    int myEdgesSplit;
 
     /// @name Settings for accepting/dismissing edges
     /// @{

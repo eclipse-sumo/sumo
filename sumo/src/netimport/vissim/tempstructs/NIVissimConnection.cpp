@@ -218,9 +218,9 @@ NIVissimConnection::buildGeom() {
 }
 
 
-unsigned int
+int
 NIVissimConnection::buildEdgeConnections(NBEdgeCont& ec) {
-    unsigned int unsetConnections = 0;
+    int unsetConnections = 0;
     // try to determine the connected edges
     NBEdge* fromEdge = 0;
     NBEdge* toEdge = 0;
@@ -276,13 +276,13 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont& ec) {
 
 void
 NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont& ec) {
-    unsigned int unsetConnections = 0;
+    int unsetConnections = 0;
     // go through connections
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         unsetConnections += (*i).second->buildEdgeConnections(ec);
     }
     if (unsetConnections != 0) {
-        WRITE_WARNING(toString<size_t>(unsetConnections) + " of " + toString<size_t>(myDict.size()) + " connections could not be assigned.");
+        WRITE_WARNING(toString<int>(unsetConnections) + " of " + toString<int>(myDict.size()) + " connections could not be assigned.");
     }
 }
 

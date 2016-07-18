@@ -61,29 +61,29 @@ Distribution_Points::getMax() const {
 }
 
 
-size_t
+int
 Distribution_Points::getAreaNo() const {
     return myPoints.size() - 1;
 }
 
 
 SUMOReal
-Distribution_Points::getAreaBegin(size_t index) const {
+Distribution_Points::getAreaBegin(int index) const {
     return myPoints[(int) index].x();
 }
 
 
 SUMOReal
-Distribution_Points::getAreaEnd(size_t index) const {
+Distribution_Points::getAreaEnd(int index) const {
     return myPoints[(int) index + 1].x();
 }
 
 
 SUMOReal
-Distribution_Points::getAreaPerc(size_t index) const {
+Distribution_Points::getAreaPerc(int index) const {
     if (!myProbabilitiesAreComputed) {
         SUMOReal sum = 0;
-        size_t i;
+        int i;
         if (myInterpolateDist) {
             for (i = 0; i < myPoints.size() - 1; i++) {
                 SUMOReal width = getAreaEnd(i) - getAreaBegin(i);

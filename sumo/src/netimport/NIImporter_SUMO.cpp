@@ -150,7 +150,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         // build and insert the edge
         NBEdge* e = new NBEdge(ed->id, from, to,
                                ed->type, ed->maxSpeed,
-                               (unsigned int) ed->lanes.size(),
+                               (int) ed->lanes.size(),
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                geom, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
@@ -169,7 +169,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         if (nbe == 0) { // inner edge or removed by explicit list, vclass, ...
             continue;
         }
-        for (unsigned int fromLaneIndex = 0; fromLaneIndex < (unsigned int) ed->lanes.size(); ++fromLaneIndex) {
+        for (int fromLaneIndex = 0; fromLaneIndex < (int) ed->lanes.size(); ++fromLaneIndex) {
             LaneAttrs* lane = ed->lanes[fromLaneIndex];
             // connections
             const std::vector<Connection>& connections = lane->connections;
@@ -578,7 +578,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     EdgeAttrs* from = myEdges[fromID];
     Connection conn;
     conn.toEdgeID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
-    unsigned int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
+    int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
     conn.toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     conn.tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
@@ -587,7 +587,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }
-    if (from->lanes.size() <= (size_t) fromLaneIdx) {
+    if (from->lanes.size() <= (int) fromLaneIdx) {
         WRITE_ERROR("Invalid lane index '" + toString(fromLaneIdx) + "' for connection from '" + fromID + "'.");
         return;
     }
@@ -633,10 +633,10 @@ NIImporter_SUMO::addProhibition(const SUMOSAXAttributes& attrs) {
 NIImporter_SUMO::LaneAttrs*
 NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
     std::string edge_id;
-    unsigned int index;
+    int index;
     interpretLaneID(lane_id, edge_id, index);
     assert(edge->id == edge_id);
-    if (edge->lanes.size() <= (size_t) index) {
+    if (edge->lanes.size() <= (int) index) {
         WRITE_ERROR("Unknown lane '" + lane_id + "' given in succedge.");
         return 0;
     } else {
@@ -646,16 +646,16 @@ NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
 
 
 void
-NIImporter_SUMO::interpretLaneID(const std::string& lane_id, std::string& edge_id, unsigned int& index) {
+NIImporter_SUMO::interpretLaneID(const std::string& lane_id, std::string& edge_id, int& index) {
     // assume lane_id = edge_id + '_' + index
-    size_t sep_index = lane_id.rfind('_');
+    int sep_index = lane_id.rfind('_');
     if (sep_index == std::string::npos) {
         WRITE_ERROR("Invalid lane id '" + lane_id + "' (missing '_').");
     }
     edge_id = lane_id.substr(0, sep_index);
     std::string index_string = lane_id.substr(sep_index + 1);
     try {
-        index = (unsigned int)TplConvert::_2int(index_string.c_str());
+        index = (int)TplConvert::_2int(index_string.c_str());
     } catch (NumberFormatException) {
         WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
@@ -720,14 +720,14 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
 
     // reverse logic of NBEdge::computeLaneShape
     // !!! this will only work for old-style constant width lanes
-    const size_t noLanes = edge->lanes.size();
+    const int noLanes = edge->lanes.size();
     SUMOReal offset;
     if (edge->lsf == LANESPREAD_RIGHT) {
         offset = (SUMO_const_laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
     } else {
         offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth * (SUMOReal)noLanes - 1) / 2.; ///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
     }
-    for (unsigned int i = 1; i < firstLane.size() - 1; i++) {
+    for (int i = 1; i < firstLane.size() - 1; i++) {
         const Position& from = firstLane[i - 1];
         const Position& me = firstLane[i];
         const Position& to = firstLane[i + 1];
@@ -783,7 +783,7 @@ NIImporter_SUMO::readPosition(const SUMOSAXAttributes& attrs, const std::string&
 void
 NIImporter_SUMO::parseProhibitionConnection(const std::string& attr, std::string& from, std::string& to, bool& ok) {
     // split from/to
-    size_t div = attr.find("->");
+    int div = attr.find("->");
     if (div == std::string::npos) {
         WRITE_ERROR("Missing connection divider in prohibition attribute '" + attr + "'");
         ok = false;

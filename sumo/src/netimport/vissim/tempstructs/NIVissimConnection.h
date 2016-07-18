@@ -77,7 +77,7 @@ public:
     void setNodeCluster(int nodeid);
     const Boundary& getBoundingBox() const;
 
-    unsigned int buildEdgeConnections(NBEdgeCont& ec);
+    int buildEdgeConnections(NBEdgeCont& ec);
 
     void buildGeom();
 

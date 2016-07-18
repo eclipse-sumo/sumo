@@ -142,10 +142,10 @@ public:
 
 protected:
     /// @brief A running number for lane numbering
-    unsigned int myCurrentNumericalLaneID;
+    int myCurrentNumericalLaneID;
 
     /// @brief A running number for edge numbering
-    unsigned int myCurrentNumericalEdgeID;
+    int myCurrentNumericalEdgeID;
 
     /// @brief Temporary, internal storage for built edges
     MSEdgeVector myEdges;

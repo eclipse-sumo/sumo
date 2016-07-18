@@ -646,9 +646,9 @@ MSNet::writeOutput() {
     // summary output
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
-        unsigned int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
+        int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
         const SUMOReal meanWaitingTime = departedVehiclesNumber != 0 ? myVehicleControl->getTotalDepartureDelay() / (SUMOReal) departedVehiclesNumber : -1.;
-        unsigned int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
+        int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
         const SUMOReal meanTravelTime = endedVehicleNumber != 0 ? myVehicleControl->getTotalTravelTime() / (SUMOReal) endedVehicleNumber : -1.;
         od.openTag("step").writeAttr("time", time2string(myStep)).writeAttr("loaded", myVehicleControl->getLoadedVehicleNo())
         .writeAttr("inserted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())

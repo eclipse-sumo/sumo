@@ -65,7 +65,7 @@ class MSPushButton;
  */
 class MSSOTLTrafficLightLogic: public MSPhasedTrafficLightLogic {
 public:
-    // typedef unsigned int CTS;
+    // typedef int CTS;
 
     /**
      * @brief Constructor without sensors passed
@@ -78,7 +78,7 @@ public:
      * @param[in] parameters Parameters defined for the tll
      */
     MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-                            const std::string& subid, const Phases& phases, unsigned int step,
+                            const std::string& subid, const Phases& phases, int step,
                             SUMOTime delay,
                             const std::map<std::string, std::string>& parameters);
 
@@ -94,7 +94,7 @@ public:
      * @param[in] sensors The already defined sensor logic
      */
     MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-                            const std::string& subid, const Phases& phases, unsigned int step,
+                            const std::string& subid, const Phases& phases, int step,
                             SUMOTime delay,
                             const std::map<std::string, std::string>& parameters,
                             MSSOTLSensors* sensors);
@@ -277,7 +277,7 @@ private:
      * 1-> estimated cars times seconds
      * 2-> queue length
      */
-    unsigned int getMode() {
+    int getMode() {
         return TplConvert::_2int(getParameter("MODE", "0").c_str());
     }
     /*

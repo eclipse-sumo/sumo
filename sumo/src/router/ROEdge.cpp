@@ -63,7 +63,7 @@ ROEdgeVector ROEdge::myEdges;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority) :
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority) :
     Named(id),
     myFromJunction(from),
     myToJunction(to),
@@ -215,21 +215,21 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const {
 }
 
 
-unsigned int
+int
 ROEdge::getNumSuccessors() const {
     if (getFunc() == ET_SINK) {
         return 0;
     }
-    return (unsigned int) myFollowingEdges.size();
+    return (int) myFollowingEdges.size();
 }
 
 
-unsigned int
+int
 ROEdge::getNumPredecessors() const {
     if (getFunc() == ET_SOURCE) {
         return 0;
     }
-    return (unsigned int) myApproachingEdges.size();
+    return (int) myApproachingEdges.size();
 }
 
 

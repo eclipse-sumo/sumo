@@ -77,7 +77,7 @@ NBDistrictCont::retrieve(const std::string& id) const {
 }
 
 
-size_t
+int
 NBDistrictCont::size() const {
     return myDistricts.size();
 }

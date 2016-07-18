@@ -97,7 +97,7 @@ private:
     SUMOTime myTime;
     MESegment* mySegment;
     std::pair<int, int> myEdgeAndLane;
-    unsigned int myQueIndex;
+    int myQueIndex;
 
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;

@@ -180,7 +180,7 @@ public:
      * @see SUMOVehicleClass
      */
     MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
-           unsigned int numericalID, const PositionVector& shape, SUMOReal width,
+           int numericalID, const PositionVector& shape, SUMOReal width,
            SVCPermissions permissions, int index);
 
 
@@ -411,7 +411,7 @@ public:
     /** @brief Returns this lane's numerical id
      * @return This lane's numerical id
      */
-    inline size_t getNumericalID() const {
+    inline int getNumericalID() const {
         return myNumericalID;
     }
 
@@ -607,7 +607,7 @@ public:
     /** @brief Returns the number of stored lanes
      * @return The number of stored lanes
      */
-    static size_t dictSize() {
+    static int dictSize() {
         return myDict.size();
     }
 
@@ -633,7 +633,7 @@ public:
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
     static MSLinkCont::const_iterator succLinkSec(const SUMOVehicle& veh,
-            unsigned int nRouteSuccs,
+            int nRouteSuccs,
             const MSLane& succLinkSource,
             const std::vector<MSLane*>& conts);
 
@@ -1012,7 +1012,7 @@ protected:
     SUMOReal basePos(const MSVehicle& veh) const;
 
     /// Unique numerical ID (set on reading by netload)
-    size_t myNumericalID;
+    int myNumericalID;
 
     /// The shape of the lane
     PositionVector myShape;

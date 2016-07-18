@@ -69,13 +69,13 @@ public:
         cb.setCurrentItem((FXint)myActiveScheme);
     }
 
-    void setActive(size_t scheme) {
+    void setActive(int scheme) {
         if (scheme < mySchemes.size()) {
             myActiveScheme = scheme;
         }
     }
 
-    size_t getActive() const {
+    int getActive() const {
         return myActiveScheme;
     }
 
@@ -115,13 +115,13 @@ public:
         mySchemes.push_back(scheme);
     }
 
-    size_t size() const {
+    int size() const {
         return mySchemes.size();
     }
 
 
 protected:
-    size_t myActiveScheme;
+    int myActiveScheme;
     std::vector<T> mySchemes;
 
 };

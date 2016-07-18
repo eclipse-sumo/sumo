@@ -53,7 +53,7 @@ typedef std::set<NBEdge*> EdgeSet;
 
 /** container for (sorted) lanes.
     The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1) */
-typedef std::vector<size_t> LaneVector;
+typedef std::vector<int> LaneVector;
 
 
 #endif

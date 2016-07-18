@@ -62,7 +62,7 @@ public:
     /** @brief calculate the probabilities in the logit model */
     virtual void calculateProbabilities(std::vector<R*> alternatives, const V* const veh, const SUMOTime time) = 0;
 
-    unsigned int getMaxRouteNumber() const {
+    int getMaxRouteNumber() const {
         return myMaxRouteNumber;
     }
 
@@ -90,7 +90,7 @@ private:
     static RouteCostCalculator* myInstance;
 
     /// @brief The maximum route alternatives number
-    unsigned int myMaxRouteNumber;
+    int myMaxRouteNumber;
 
     /// @brief Information whether all routes should be saved
     bool myKeepRoutes;

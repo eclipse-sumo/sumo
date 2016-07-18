@@ -595,7 +595,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
 }
 
 
-size_t
+int
 GUIVisualizationSettings::getLaneEdgeMode() const {
     if (UseMesoSim) {
         return edgeColorer.getActive();
@@ -604,7 +604,7 @@ GUIVisualizationSettings::getLaneEdgeMode() const {
 }
 
 
-size_t
+int
 GUIVisualizationSettings::getLaneEdgeScaleMode() const {
     if (UseMesoSim) {
         return edgeScaler.getActive();

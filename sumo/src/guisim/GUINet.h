@@ -170,13 +170,13 @@ public:
     /** @brief Returns the duration of the last step (sim+visualisation+idle) (in ms)
      * @return How long it took to compute and display the last step
      */
-    unsigned int getWholeDuration() const;
+    int getWholeDuration() const;
 
 
     /** @brief Returns the duration of the last step's simulation part (in ms)
      * @return How long it took to compute the last step
      */
-    unsigned int getSimDuration() const;
+    int getSimDuration() const;
 
 
     /// Returns the simulation speed as a factor to real time
@@ -195,7 +195,7 @@ public:
     //int getVisDuration() const;
 
     /// Returns the duration of the last step's idle part (in ms)
-    unsigned int getIdleDuration() const;
+    int getIdleDuration() const;
 
     /// Sets the duration of the last step's simulation part
     void setSimDuration(int val);
@@ -247,7 +247,7 @@ public:
 
     /** Returns the gl-id of the traffic light that controls the given link
      * valid only if the link is controlled by a tls */
-    unsigned int getLinkTLID(MSLink* link) const;
+    int getLinkTLID(MSLink* link) const;
 
     /** Returns the index of the link within the junction that controls the given link;
      * Returns -1 if the link is not controlled by a tls */
@@ -359,7 +359,7 @@ protected:
 
 
     /// @brief The step durations (simulation, /*visualisation, */idle)
-    unsigned int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;
+    int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;
 
     long myLastVehicleMovementCount, myOverallVehicleCount;
     long myOverallSimDuration;

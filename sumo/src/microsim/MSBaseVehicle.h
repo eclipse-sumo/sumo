@@ -269,7 +269,7 @@ public:
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
-    inline unsigned int getNumberReroutes() const {
+    inline int getNumberReroutes() const {
         return myNumberReroutes;
     }
 
@@ -422,7 +422,7 @@ protected:
     int myArrivalLane;
 
     /// @brief The number of reroutings
-    unsigned int myNumberReroutes;
+    int myNumberReroutes;
 
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1

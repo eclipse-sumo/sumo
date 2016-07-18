@@ -62,9 +62,9 @@ public:
         myMutex.unlock();
     }
 
-    size_t size() {
+    int size() {
         myMutex.lock();
-        const size_t ret = myItems.size();
+        const int ret = myItems.size();
         myMutex.unlock();
         return ret;
     }

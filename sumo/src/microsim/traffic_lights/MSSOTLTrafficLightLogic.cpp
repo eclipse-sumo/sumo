@@ -42,7 +42,7 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const std::string& id,
     const std::string& subid,
     const Phases& phases,
-    unsigned int step,
+    int step,
     SUMOTime delay,
     const std::map<std::string, std::string>& parameters)
     : MSPhasedTrafficLightLogic(tlcontrol, id, subid, phases, step, delay, parameters) {
@@ -59,7 +59,7 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const std::string& id,
     const std::string& subid,
     const Phases& phases,
-    unsigned int step,
+    int step,
     SUMOTime delay,
     const std::map<std::string, std::string>& parameters,
     MSSOTLSensors* sensors)
@@ -77,7 +77,7 @@ MSSOTLTrafficLightLogic::~MSSOTLTrafficLightLogic() {
             delete *vIt;
         }
     m_pushButtons.clear();
-    for (size_t i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < myPhases.size(); i++) {
         delete myPhases[i];
     }
     if (sensorsSelfBuilt) {
@@ -145,10 +145,10 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
                 DBG(
                     WRITE_MESSAGE("Listing lanes for TLS " + getID());
 
-                for (unsigned int i = 0; i < lvv.size(); i++) {
+                for (int i = 0; i < lvv.size(); i++) {
                 LaneVector lv = lvv[i];
 
-                    for (unsigned int j = 0; j < lv.size(); j++) {
+                    for (int j = 0; j < lv.size(); j++) {
                         MSLane* lane = lv[j];
                         WRITE_MESSAGE(lane ->getID());
                     }
@@ -176,10 +176,10 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
 
                 DBG(
                     WRITE_MESSAGE("Listing output lanes");
-                for (unsigned int i = 0; i < myLinks.size(); i++) {
+                for (int i = 0; i < myLinks.size(); i++) {
                 LinkVector oneLink = getLinksAt(i);
 
-                    for (unsigned int j = 0; j < oneLink.size(); j++) {
+                    for (int j = 0; j < oneLink.size(); j++) {
 
                         MSLane* lane  = oneLink[j]->getLane();
                         WRITE_MESSAGE(lane ->getID());
@@ -194,9 +194,9 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
                 LaneVector outLanes;
                 LinkVectorVector myoutLinks = getLinks();
 
-                for (unsigned int i = 0; i < myLinks.size(); i++) {
+                for (int i = 0; i < myLinks.size(); i++) {
                     LinkVector oneLink = getLinksAt(i);
-                    for (unsigned int j = 0; j < oneLink.size(); j++) {
+                    for (int j = 0; j < oneLink.size(); j++) {
                         MSLane* lane  = oneLink[j]->getLane();
                         outLanes.push_back(lane);
                     }
@@ -273,7 +273,7 @@ MSSOTLTrafficLightLogic::countVehicles(MSPhaseDefinition phase) {
         return 0;
     }
 
-    unsigned int accumulator = 0;
+    int accumulator = 0;
     //Iterate over the target lanes for the current target phase to get the number of approaching vehicles
     MSPhaseDefinition::LaneIdVector targetLanes = phase.getTargetLaneSet();
     for (MSPhaseDefinition::LaneIdVector::const_iterator laneIterator = targetLanes.begin(); laneIterator != targetLanes.end(); laneIterator++) {
@@ -286,7 +286,7 @@ MSSOTLTrafficLightLogic::countVehicles(MSPhaseDefinition phase) {
                 accumulator += ((MSSOTLE2Sensors*)mySensors)->estimateVehicles((*laneIterator));  //COMPLEX
                 break;
             case (2):
-                accumulator = MAX2((unsigned int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength((*laneIterator)), accumulator);  //QUEUE
+                accumulator = MAX2((int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength((*laneIterator)), accumulator);  //QUEUE
                 break;
             default:
                 WRITE_ERROR("Unrecognized traffic threshold calculation mode");

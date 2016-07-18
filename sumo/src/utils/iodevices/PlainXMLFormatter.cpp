@@ -41,7 +41,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-PlainXMLFormatter::PlainXMLFormatter(const unsigned int defaultIndentation)
+PlainXMLFormatter::PlainXMLFormatter(const int defaultIndentation)
     : myDefaultIndentation(defaultIndentation), myHavePendingOpener(false) {
 }
 

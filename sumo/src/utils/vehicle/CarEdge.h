@@ -46,7 +46,7 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    CarEdge(unsigned int numericalID, const E* edge, const SUMOReal pos = -1.) :
+    CarEdge(int numericalID, const E* edge, const SUMOReal pos = -1.) :
         _IntermodalEdge(edge->getID() + "_car" + toString(pos), numericalID, edge, "!car"),
         myStartPos(pos >= 0 ? pos : 0.) { }
 
@@ -114,7 +114,7 @@ private:
 template<class E, class L, class N, class V>
 class StopEdge : public IntermodalEdge<E, L, N, V> {
 public:
-    StopEdge(const std::string id, unsigned int numericalID, const E* edge) :
+    StopEdge(const std::string id, int numericalID, const E* edge) :
         IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop") { }
 
     bool includeInRoute(bool /* allEdges */) const {
@@ -144,7 +144,7 @@ private:
     };
 
 public:
-    PublicTransportEdge(const std::string id, unsigned int numericalID, const IntermodalEdge<E, L, N, V>* entryStop, const E* endEdge, const std::string& line) :
+    PublicTransportEdge(const std::string id, int numericalID, const IntermodalEdge<E, L, N, V>* entryStop, const E* endEdge, const std::string& line) :
         IntermodalEdge<E, L, N, V>(line + ":" + (id != "" ? id : endEdge->getID()), numericalID, endEdge, line), myEntryStop(entryStop) { }
 
     bool includeInRoute(bool /* allEdges */) const {
@@ -188,7 +188,7 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    AccessEdge(unsigned int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge,
+    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge,
                const SUMOReal transferTime = NUMERICAL_EPS) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
         myTransferTime(transferTime) { }

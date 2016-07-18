@@ -46,7 +46,7 @@
 // static member variables
 // ===========================================================================
 std::vector<SUMOSAXReader*> XMLSubSys::myReaders;
-unsigned int XMLSubSys::myNextFreeReader;
+int XMLSubSys::myNextFreeReader;
 XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
 XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myNetValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
 

@@ -74,11 +74,6 @@ public:
     }
 
     /// @brief Returns a random integer in [0, maxV-1]
-    static inline size_t rand(size_t maxV) {
-        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV - 1));
-    }
-
-    /// @brief Returns a random integer in [0, maxV-1]
     static inline int rand(int maxV) {
         return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV - 1));
     }
@@ -115,10 +110,10 @@ public:
 
     /// @brief Returns a random element from the given vector
     template<class T>
-    static inline T
+    static inline const T&
     getRandomFrom(const std::vector<T>& v) {
         assert(v.size() > 0);
-        return v[rand(v.size())];
+        return v[rand((int)v.size())];
     }
 
 

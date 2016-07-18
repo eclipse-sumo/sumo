@@ -150,8 +150,8 @@ public:
      *
      * @return The number of edges the route is made of
      */
-    unsigned int size() const {
-        return (unsigned int) myRoute.size();
+    int size() const {
+        return (int) myRoute.size();
     }
 
 

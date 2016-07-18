@@ -114,7 +114,7 @@ GUIContainerStop::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("container number [#]", true, new FunctionBinding<GUIContainerStop, unsigned int>(this, &MSStoppingPlace::getTransportableNumber));
+    ret->mkItem("container number [#]", true, new FunctionBinding<GUIContainerStop, int>(this, &MSStoppingPlace::getTransportableNumber));
     // close building
     ret->closeBuilding();
     return ret;
@@ -128,7 +128,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     RGBColor grey(177, 184, 186, 171);
     RGBColor blue(83, 89, 172, 255);
     // draw the area
-    size_t i;
+    int i;
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);

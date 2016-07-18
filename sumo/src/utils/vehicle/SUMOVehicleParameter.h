@@ -544,10 +544,10 @@ public:
     std::vector<std::string> via;
 
     /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
-    unsigned int personNumber;
+    int personNumber;
 
     /// @brief The static number of containers in the vehicle when it departs
-    unsigned int containerNumber;
+    int containerNumber;
 
     /// @brief Information for the router which parameter were set
     mutable int setParameter;

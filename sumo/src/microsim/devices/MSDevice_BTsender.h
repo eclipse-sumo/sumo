@@ -147,7 +147,7 @@ public:
          * @param[in] _lanePos The position of the vehicle along the lane
          */
         VehicleState(const SUMOReal _speed, const Position& _position, const std::string& _laneID,
-                     const SUMOReal _lanePos, const unsigned int _routePos)
+                     const SUMOReal _lanePos, const int _routePos)
             : speed(_speed), position(_position), laneID(_laneID), lanePos(_lanePos), routePos(_routePos) {}
 
         /// @brief Destructor
@@ -162,7 +162,7 @@ public:
         /// @brief The position at the lane of the vehicle
         SUMOReal lanePos;
         /// @brief The position in the route of the vehicle
-        unsigned int routePos;
+        int routePos;
 
     };
 

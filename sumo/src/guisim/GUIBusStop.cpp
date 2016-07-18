@@ -123,7 +123,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, unsigned int>(this, &MSStoppingPlace::getTransportableNumber));
+    ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
     // close building
     ret->closeBuilding();
     return ret;
@@ -137,7 +137,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
     // draw the area
-    size_t i;
+    int i;
     glTranslated(0, 0, getType());
     GLHelper::setColor(green);
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);

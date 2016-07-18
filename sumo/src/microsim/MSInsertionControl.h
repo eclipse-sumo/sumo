@@ -96,7 +96,7 @@ public:
      * @param[in] time The current simulation time
      * @return The number of vehicles that could be inserted into the net
      */
-    unsigned int emitVehicles(SUMOTime time);
+    int emitVehicles(SUMOTime time);
 
 
     /** @brief Adds a single vehicle for departure
@@ -123,7 +123,7 @@ public:
      *
      * @return The number of vehicles that could not (yet) be inserted into the net
      */
-    unsigned int getWaitingVehicleNo() const;
+    int getWaitingVehicleNo() const;
 
 
     /** @brief Returns the number of flows that are still active
@@ -165,7 +165,7 @@ private:
      * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
      * @return The number of emitted vehicles (0 or 1)
      */
-    unsigned int tryInsert(SUMOTime time, SUMOVehicle* veh,
+    int tryInsert(SUMOTime time, SUMOVehicle* veh,
                            MSVehicleContainer::VehicleVector& refusedEmits);
 
 
@@ -211,7 +211,7 @@ private:
         /// @brief The last created vehicle
         SUMOVehicle* vehicle;
         /// @brief the running index
-        unsigned int index;
+        int index;
     };
 
     /// @brief Container for periodical vehicle parameters

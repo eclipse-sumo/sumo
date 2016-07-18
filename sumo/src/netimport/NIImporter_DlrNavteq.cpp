@@ -226,19 +226,19 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
             return true;
         }
         const std::string marker = "Extraction version: V";
-        size_t vStart = result.find(marker);
+        int vStart = result.find(marker);
         if (vStart == std::string::npos) {
             return true;
         }
         vStart += marker.size();
-        const size_t vEnd = result.find(" ", vStart);
+        const int vEnd = result.find(" ", vStart);
         try {
             myVersion = TplConvert::_2SUMOReal(result.substr(vStart, vEnd - vStart).c_str());
             if (myVersion < 0) {
                 throw ProcessError("Invalid version number '" + toString(myVersion) + "' in file '" + myFile + "'.");
             }
             // init columns
-            const size_t NUM_COLUMNS = 25; // @note arrays must match this size!
+            const int NUM_COLUMNS = 25; // @note arrays must match this size!
             const int MC = MISSING_COLUMN;
             if (myVersion < 3) {
                 const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, MC, 12, 13, 14, 15, 16, 17, 18, 19, 20, MC, MC, -21};
@@ -364,7 +364,7 @@ NIImporter_DlrNavteq::EdgesHandler::getColumn(const StringTokenizer& st, ColumnN
             return fallback;
         }
     } else if (myColumns[name] >= 0) {
-        return st.get((size_t)(myColumns[name]));
+        return st.get((int)(myColumns[name]));
     } else {
         // negative column number implies an optional column
         if ((int) st.size() <= -myColumns[name]) {
@@ -375,7 +375,7 @@ NIImporter_DlrNavteq::EdgesHandler::getColumn(const StringTokenizer& st, ColumnN
                 return fallback;
             }
         } else {
-            return st.get((size_t)(-myColumns[name]));
+            return st.get((int)(-myColumns[name]));
         }
     }
 }

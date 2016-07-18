@@ -314,7 +314,7 @@ protected:
     bool myWasStarted;
 
     /// The current view number
-    size_t myViewNumber;
+    int myViewNumber;
 
     /// information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading;
@@ -398,7 +398,7 @@ protected:
     SUMOReal myJamSoundTime;
     /// @brief A random number generator used to choose a gaming sound
     static MTRand myGamingRNG;
-    unsigned int myPreviousCollisionNumber;
+    int myPreviousCollisionNumber;
 
     /// performance indicators
     FXEX::FXLCDLabel* myWaitingTimeLabel;

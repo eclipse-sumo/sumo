@@ -80,7 +80,7 @@ MSInternalJunction::postloadInit() {
     const int ownLinkIndex = specialLane->getIncomingLanes()[0].viaLink->getIndex();
     const MSLogicJunction::LinkBits& response = parent->getLogic()->getResponseFor(ownLinkIndex);
     // inform links where they have to report approaching vehicles to
-    unsigned int requestPos = 0;
+    int requestPos = 0;
     for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {

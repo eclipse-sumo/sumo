@@ -296,7 +296,7 @@ public:
 
 private:
     /// @brief normalize angle for lookup in myCircleCoords
-    static size_t angleLookup(SUMOReal angleDeg);
+    static int angleLookup(SUMOReal angleDeg);
 
     /// @brief whether the road makes a right turn (or goes straight)
     static bool rightTurn(SUMOReal angle1, SUMOReal angle2);

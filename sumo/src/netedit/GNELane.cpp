@@ -479,13 +479,13 @@ GNELane::updateGeometry() {
     }
 }
 
-unsigned int
+int
 GNELane::getIndex() const {
     return myIndex;
 }
 
 void
-GNELane::setIndex(unsigned int index) {
+GNELane::setIndex(int index) {
     myIndex = index;
     setMicrosimID(myParentEdge.getNBEdge()->getLaneID(index));
 }
@@ -685,7 +685,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNELane::setFunctionalColor(size_t activeScheme) const {
+GNELane::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
         case 6: {
             SUMOReal hue = GeomHelper::naviDegree(getShape().beginEndAngle()); // [0-360]
@@ -700,7 +700,7 @@ GNELane::setFunctionalColor(size_t activeScheme) const {
 
 bool
 GNELane::setMultiColor(const GUIColorer& c) const {
-    const size_t activeScheme = c.getActive();
+    const int activeScheme = c.getActive();
     myShapeColors.clear();
     switch (activeScheme) {
         case 9: // color by height at segment start
@@ -721,7 +721,7 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 
 
 SUMOReal
-GNELane::getColorValue(size_t activeScheme) const {
+GNELane::getColorValue(int activeScheme) const {
     const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
     switch (activeScheme) {
         case 0:

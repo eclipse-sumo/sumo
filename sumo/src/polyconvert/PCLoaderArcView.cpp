@@ -124,7 +124,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
 
     OGRFeature* poFeature;
     poLayer->ResetReading();
-    unsigned int runningID = 0;
+    int runningID = 0;
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         std::vector<Parameterised*> parCont;
         // read in edge attributes
