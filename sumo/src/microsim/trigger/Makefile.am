@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libmicrosimtrigger.a
 
 libmicrosimtrigger_a_SOURCES = MSCalibrator.cpp MSCalibrator.h \
-MSContainerTerminal.cpp MSContainerTerminal.h \
 MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
 MSTrigger.h MSTrigger.cpp \
 MSChargingStation.h MSChargingStation.cpp \
