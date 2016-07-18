@@ -256,9 +256,20 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 
     // draw lane
     // check whether it is not too small
+
+
     const SUMOReal selectionScale = selected || selectedEdge ? s.selectionScale : 1;
-    const SUMOReal exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
-    if (s.scale * exaggeration < 1.) {
+    SUMOReal exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+    // XXX apply usefull scale values
+    //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+
+    // recognize full transparency and simply don't draw
+    GLfloat color[4];
+    glGetFloatv(GL_CURRENT_COLOR, color);
+    if (color[3] == 0 || s.scale * exaggeration < s.laneMinSize) {
+        glPopMatrix();
+    } else if (s.scale * exaggeration < 1.) {
+        // draw as lines
         if (myShapeColors.size() > 0) {
             GLHelper::drawLine(getShape(), myShapeColors);
         } else {

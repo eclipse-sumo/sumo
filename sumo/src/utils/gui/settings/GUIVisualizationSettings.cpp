@@ -56,7 +56,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
       cwaEdgeName(false, 50, RGBColor::MAGENTA),
       streetName(false, 55, RGBColor::YELLOW),
-      hideConnectors(false), laneWidthExaggeration(1),
+      hideConnectors(false), 
+      laneWidthExaggeration(1),
+      laneMinSize(0),
       vehicleQuality(0), showBlinker(true),
       drawLaneChangePreference(false), drawMinGap(false),
       showBTRange(false), vehicleSize(1),
@@ -653,6 +655,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showRails", showRails);
     dev.writeAttr("hideConnectors", hideConnectors);
     dev.writeAttr("widthExaggeration", laneWidthExaggeration);
+    dev.writeAttr("minSize", laneMinSize);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -808,6 +811,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (laneWidthExaggeration != v2.laneWidthExaggeration) {
+        return false;
+    }
+    if (laneMinSize != v2.laneMinSize) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {

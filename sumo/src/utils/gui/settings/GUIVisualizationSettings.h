@@ -166,6 +166,8 @@ public:
     bool hideConnectors;
     /// @brief The lane exaggeration (upscale thickness)
     float laneWidthExaggeration;
+    /// @brief The minimum visual lane width for drawing
+    float laneMinSize;
     //@}
 
 
