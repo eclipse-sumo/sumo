@@ -180,28 +180,38 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         const bool drawBubble = (!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape; // magic threshold
 
         if (drawShape) {
-            glPushMatrix();
             setColor(s, false);
-            glTranslated(0, 0, getType());
-            PositionVector shape = myNBNode.getShape();
-            shape.closePolygon();
-            if (selectionScale > 1) {
-                shape.scaleRelative(selectionScale);
+            // recognize full transparency and simply don't draw
+            GLfloat color[4];
+            glGetFloatv(GL_CURRENT_COLOR, color);
+            if (color[3] != 0) {
+                glPushMatrix();
+                glTranslated(0, 0, getType());
+                PositionVector shape = myNBNode.getShape();
+                shape.closePolygon();
+                if (selectionScale > 1) {
+                    shape.scaleRelative(selectionScale);
+                }
+                if (s.scale * selectionScale * myMaxSize < 40.) {
+                    GLHelper::drawFilledPoly(shape, true);
+                } else {
+                    GLHelper::drawFilledPolyTesselated(shape, true);
+                }
+                glPopMatrix();
             }
-            if (s.scale * selectionScale * myMaxSize < 40.) {
-                GLHelper::drawFilledPoly(shape, true);
-            } else {
-                GLHelper::drawFilledPolyTesselated(shape, true);
-            }
-            glPopMatrix();
         }
         if (drawBubble) {
-            glPushMatrix();
             setColor(s, true);
-            Position pos = myNBNode.getPosition();
-            glTranslated(pos.x(), pos.y(), getType() - 0.05);
-            GLHelper::drawFilledCircle(4 * selectionScale, 32);
-            glPopMatrix();
+            // recognize full transparency and simply don't draw
+            GLfloat color[4];
+            glGetFloatv(GL_CURRENT_COLOR, color);
+            if (color[3] != 0) {
+                glPushMatrix();
+                Position pos = myNBNode.getPosition();
+                glTranslated(pos.x(), pos.y(), getType() - 0.05);
+                GLHelper::drawFilledCircle(4 * selectionScale, 32);
+                glPopMatrix();
+            }
         }
 
         if (s.editMode == GNE_MODE_TLS && myNBNode.isTLControlled() && !myAmTLSSelected) {
