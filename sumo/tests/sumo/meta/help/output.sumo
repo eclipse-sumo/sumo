@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r21075
+SUMO Version dev-SVN-r21198
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -76,9 +76,15 @@ Output Options:
                                          and device.btsender)
   --lanechange-output FILE             Record lane changes and their
                                          motivations for all vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
+  --save-state.period TIME             save state repeatedly after TIME period
   --save-state.prefix FILE             Prefix for network states
+  --save-state.suffix FILE             Suffix for network states (.sbx or .xml)
   --save-state.files FILE              Files for network states
 
 Time Options:

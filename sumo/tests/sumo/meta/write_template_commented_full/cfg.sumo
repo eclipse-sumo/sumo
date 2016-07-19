@@ -132,11 +132,23 @@
         <!-- Record lane changes and their motivations for all vehicles into FILE -->
         <lanechange-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
+        <!-- save state repeatedly after TIME period -->
+        <save-state.period value="-1" type="TIME"/>
+
         <!-- Prefix for network states -->
         <save-state.prefix value="state" type="FILE"/>
+
+        <!-- Suffix for network states (.sbx or .xml) -->
+        <save-state.suffix value=".sbx" type="FILE"/>
 
         <!-- Files for network states -->
         <save-state.files value="" type="FILE"/>
