@@ -153,7 +153,7 @@ std::vector<std::string> inline MSSOTLPolicy5DFamilyStimulus::StringSplit(const 
     std::vector<std::string> results;
 
     int prev = 0;
-    int next = 0;
+    std::string::size_type next = 0;
 
     while ((next = source.find_first_of(delimiter, prev)) != std::string::npos)
     {

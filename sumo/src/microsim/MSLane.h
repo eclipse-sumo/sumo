@@ -608,7 +608,7 @@ public:
      * @return The number of stored lanes
      */
     static int dictSize() {
-        return myDict.size();
+        return (int)myDict.size();
     }
 
 

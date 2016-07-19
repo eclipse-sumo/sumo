@@ -142,10 +142,10 @@ public:
         /// @name Collected values
         /// @{
         /// @brief The number of vehicles that entered this lane within the sample interval
-        unsigned amount;
+        int amount;
 
         /// @brief The number of vehicles that entered this lane within the sample interval by type
-        std::map<const MSVehicleType*, unsigned> typedAmount;
+        std::map<const MSVehicleType*, int> typedAmount;
 
         /// @brief The number of sampled vehicle movements by type (in s)
         std::map<const MSVehicleType*, SUMOReal> typedSamples;

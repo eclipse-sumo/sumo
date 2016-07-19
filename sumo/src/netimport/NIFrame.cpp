@@ -280,7 +280,7 @@ NIFrame::checkOptions() {
     ok &= oc.checkDependingSuboptions("visum-file", "visum.");
     ok &= oc.checkDependingSuboptions("vissim-file", "vissim.");
 #ifdef HAVE_PROJ
-    unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+    int numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && numProjections == 0) {
         if (oc.isDefault("proj")) {
             oc.set("proj.utm", "true");

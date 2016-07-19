@@ -160,14 +160,6 @@ GNEEdge::getGNEConnections() const {
 }
 
 
-std::vector<GNEConnection*> 
-GNEEdge::getGNEConnectionsFromLane(int laneIndex) const {
-    std::vector<GNEConnection*> GNEConnectionsFromLane;
-
-    return GNEConnectionsFromLane;
-}
-
-
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     /* do something different for connectors?
@@ -439,7 +431,7 @@ GNEEdge::copyTemplate(GNEEdge* tpl, GNEUndoList* undoList) {
 std::set<GUIGlID>
 GNEEdge::getLaneGlIDs() {
     std::set<GUIGlID> result;
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (size_t i = 0; i < myLanes.size(); i++) {
         result.insert(myLanes[i]->getGlID());
     }
     return result;
@@ -581,7 +573,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
-                setNumLanes((int)parse<int>(value), undoList);
+                setNumLanes(parse<int>(value), undoList);
             }
             break;
         case SUMO_ATTR_SHAPE:

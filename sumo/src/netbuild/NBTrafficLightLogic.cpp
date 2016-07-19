@@ -99,7 +99,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int in
                            " does not match declared number of links " + toString(myNumLinks));
     }
     // check state contents
-    const int illegal = state.find_first_not_of(ALLOWED_STATES);
+    const std::string::size_type illegal = state.find_first_not_of(ALLOWED_STATES);
     if (std::string::npos != illegal) {
         throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
     }

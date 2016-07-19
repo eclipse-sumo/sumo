@@ -136,9 +136,6 @@ public:
     /// @brief returns vector of GNEConnections of this edge
     std::vector<GNEConnection*> getGNEConnections() const;
 
-    /// @brief returns vector of GNEConnections of a concrete lane
-    std::vector<GNEConnection*> getGNEConnectionsFromLane(int laneIndex) const;
-
     /**@brief change the edge geometry
      * It is up to the Edge to decide whether an new geometry node should be
      * generated or an existing node should be moved

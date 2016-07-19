@@ -648,14 +648,14 @@ NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
 void
 NIImporter_SUMO::interpretLaneID(const std::string& lane_id, std::string& edge_id, int& index) {
     // assume lane_id = edge_id + '_' + index
-    int sep_index = lane_id.rfind('_');
+    const std::string::size_type sep_index = lane_id.rfind('_');
     if (sep_index == std::string::npos) {
         WRITE_ERROR("Invalid lane id '" + lane_id + "' (missing '_').");
     }
     edge_id = lane_id.substr(0, sep_index);
     std::string index_string = lane_id.substr(sep_index + 1);
     try {
-        index = (int)TplConvert::_2int(index_string.c_str());
+        index = TplConvert::_2int(index_string.c_str());
     } catch (NumberFormatException) {
         WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
@@ -720,7 +720,7 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
 
     // reverse logic of NBEdge::computeLaneShape
     // !!! this will only work for old-style constant width lanes
-    const int noLanes = edge->lanes.size();
+    const int noLanes = (int)edge->lanes.size();
     SUMOReal offset;
     if (edge->lsf == LANESPREAD_RIGHT) {
         offset = (SUMO_const_laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
@@ -783,7 +783,7 @@ NIImporter_SUMO::readPosition(const SUMOSAXAttributes& attrs, const std::string&
 void
 NIImporter_SUMO::parseProhibitionConnection(const std::string& attr, std::string& from, std::string& to, bool& ok) {
     // split from/to
-    int div = attr.find("->");
+    const std::string::size_type div = attr.find("->");
     if (div == std::string::npos) {
         WRITE_ERROR("Missing connection divider in prohibition attribute '" + attr + "'");
         ok = false;

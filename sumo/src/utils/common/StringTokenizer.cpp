@@ -131,17 +131,17 @@ std::string StringTokenizer::get(int pos) const {
 
 
 int StringTokenizer::size() const {
-    return myStarts.size();
+    return (int)myStarts.size();
 }
 
 void StringTokenizer::prepare(const std::string& tosplit, const std::string& token, bool splitAtAllChars) {
     int beg = 0;
-    int len = token.length();
+    int len = (int)token.length();
     if (splitAtAllChars) {
         len = 1;
     }
     while (beg < tosplit.length()) {
-        int end;
+        std::string::size_type end;
         if (splitAtAllChars) {
             end = tosplit.find_first_of(token, beg);
         } else {
@@ -151,8 +151,8 @@ void StringTokenizer::prepare(const std::string& tosplit, const std::string& tok
             end = tosplit.length();
         }
         myStarts.push_back(beg);
-        myLengths.push_back(end - beg);
-        beg = end + len;
+        myLengths.push_back((int)end - beg);
+        beg = (int)end + len;
         if (beg == tosplit.length()) {
             myStarts.push_back(beg - 1);
             myLengths.push_back(0);
@@ -161,18 +161,18 @@ void StringTokenizer::prepare(const std::string& tosplit, const std::string& tok
 }
 
 void StringTokenizer::prepareWhitechar(const std::string& tosplit) {
-    int len = tosplit.length();
-    int beg = 0;
+    int len = (int)tosplit.length();
+    std::string::size_type beg = 0;
     while (beg < len && tosplit[beg] <= SPACE) {
         beg++;
     }
     while (beg != std::string::npos && beg < len) {
-        int end = beg;
+        int end = (int)beg;
         while (end < len && tosplit[end] > SPACE) {
             end++;
         }
-        myStarts.push_back(beg);
-        myLengths.push_back(end - beg);
+        myStarts.push_back((int)beg);
+        myLengths.push_back(end - (int)beg);
         beg = end;
         while (beg < len && tosplit[beg] <= SPACE) {
             beg++;

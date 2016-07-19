@@ -691,7 +691,7 @@ MSEdge::dictionary(const std::string& id) {
 
 int
 MSEdge::dictSize() {
-    return myDict.size();
+    return (int)myDict.size();
 }
 
 

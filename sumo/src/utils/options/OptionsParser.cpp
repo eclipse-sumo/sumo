@@ -82,7 +82,7 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
     // process not abbreviated switches
     if (!isAbbreviation(arg1)) {
         std::string tmp(arg1 + 2);
-        int idx1 = tmp.find('=');
+        const std::string::size_type idx1 = tmp.find('=');
         // check whether a parameter was submitted
         if (idx1 != std::string::npos) {
             ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1));

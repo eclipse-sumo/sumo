@@ -75,6 +75,7 @@ GNENetElement::getNet() const {
 const std::string&
 GNENetElement::getParentName() const {
     return myNet->getMicrosimID();
-};
+}
+
 
 /****************************************************************************/

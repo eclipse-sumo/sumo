@@ -351,7 +351,7 @@ protected:
         /// @brief The sum of registered speeds the vehicle has/had inside the area
         SUMOReal speedSum;
         /// @brief The sum of haltings the vehicle has/had within the area
-        unsigned haltings;
+        int haltings;
         /// @brief Begin time of last halt begin
         SUMOReal haltingBegin;
         /// @brief The sum of registered speeds the vehicle has/had inside the area during the current interval

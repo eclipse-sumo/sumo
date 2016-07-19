@@ -700,7 +700,7 @@ private:
 
 
     void buildContractionHierarchy(SUMOTime time, const V* const vehicle) {
-        const int numEdges = myCHInfos.size();
+        const int numEdges = (int)myCHInfos.size();
         const std::string vClass = (mySPTree->validatePermissions() ?
                                     "all vehicle classes " : "vClass='" + SumoVehicleClassStrings.getString(mySVC) + "' ");
         PROGRESS_BEGIN_MESSAGE("Building Contraction Hierarchy for " + vClass

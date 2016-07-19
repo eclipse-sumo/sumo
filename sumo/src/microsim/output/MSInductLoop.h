@@ -350,7 +350,7 @@ protected:
     SUMOReal myLastOccupancy;
 
     /// @brief The number of dismissed vehicles
-    unsigned myDismissedVehicleNumber;
+    int myDismissedVehicleNumber;
 
 
     /// @brief Type of myVehicleDataCont.

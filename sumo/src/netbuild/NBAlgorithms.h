@@ -128,9 +128,9 @@ public:
     private:
         /// @brief retrieves the minimum index in myAllEdges
         int getMinRank(const EdgeVector& e) const {
-            int result = myOrdering.size();
+            int result = (int)myOrdering.size();
             for (EdgeVector::const_iterator it = e.begin(); it != e.end(); ++it) {
-                int rank = std::distance(myOrdering.begin(), std::find(myOrdering.begin(), myOrdering.end(), *it));
+                int rank = (int)std::distance(myOrdering.begin(), std::find(myOrdering.begin(), myOrdering.end(), *it));
                 result = MIN2(result, rank);
             }
             return result;

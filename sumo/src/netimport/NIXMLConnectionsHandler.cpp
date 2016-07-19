@@ -175,7 +175,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
 NBConnection
 NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::string& def) {
     // split from/to
-    int div = def.find("->");
+    const std::string::size_type div = def.find("->");
     if (div == std::string::npos) {
         myErrorMsgHandler->inform("Missing connection divider in " + defRole + " '" + def + "'");
         return NBConnection::InvalidConnection;

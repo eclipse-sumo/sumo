@@ -226,12 +226,11 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
             return true;
         }
         const std::string marker = "Extraction version: V";
-        int vStart = result.find(marker);
-        if (vStart == std::string::npos) {
+        if (result.find(marker) == std::string::npos) {
             return true;
         }
-        vStart += marker.size();
-        const int vEnd = result.find(" ", vStart);
+        const int vStart = (int)(result.find(marker) + marker.size());
+        const int vEnd = (int)result.find(" ", vStart);
         try {
             myVersion = TplConvert::_2SUMOReal(result.substr(vStart, vEnd - vStart).c_str());
             if (myVersion < 0) {

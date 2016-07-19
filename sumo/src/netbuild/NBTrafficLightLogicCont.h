@@ -125,7 +125,7 @@ public:
 
     /// @brief return the number of extracted traffic light definitions
     int getNumExtracted() const {
-        return myExtracted.size();
+        return (int)myExtracted.size();
     }
 
 

@@ -141,7 +141,7 @@ NamedColumnsParser::checkPrune(std::string& str, bool prune) const {
     if (!prune) {
         return;
     }
-    int idx = str.find_first_not_of(" ");
+    std::string::size_type idx = str.find_first_not_of(" ");
     if (idx != std::string::npos) {
         str = str.substr(idx);
     }

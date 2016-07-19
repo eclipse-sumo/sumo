@@ -54,9 +54,9 @@ std::string StringUtils::emptyString;
 // ===========================================================================
 std::string
 StringUtils::prune(const std::string& str) {
-    const int endpos = str.find_last_not_of(" \t\n\r");
+    const std::string::size_type endpos = str.find_last_not_of(" \t\n\r");
     if (std::string::npos != endpos) {
-        const int startpos = str.find_first_not_of(" \t\n\r");
+        const int startpos = (int)str.find_first_not_of(" \t\n\r");
         return str.substr(startpos, endpos - startpos + 1);
     }
     return "";
@@ -114,10 +114,10 @@ StringUtils::replace(std::string str, const char* what,
                      const char* by) {
     const std::string what_tmp(what);
     const std::string by_tmp(by);
-    int idx = str.find(what);
-    const int what_len = what_tmp.length();
+    std::string::size_type idx = str.find(what);
+    const int what_len = (int)what_tmp.length();
     if (what_len > 0) {
-        const int by_len = by_tmp.length();
+        const int by_len = (int)by_tmp.length();
         while (idx != std::string::npos) {
             str = str.replace(idx, what_len, by);
             idx = str.find(what, idx + by_len);

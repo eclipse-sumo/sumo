@@ -407,7 +407,7 @@ public:
 
     /// @brief Returns the number of edges
     static int dictSize() {
-        return myEdges.size();
+        return (int)myEdges.size();
     };
 
     static void setGlobalOptions(const bool interpolate) {

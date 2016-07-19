@@ -249,7 +249,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                 fractionLeft[odID] = 0;
             }
             // get the new departures (into tmp)
-            const int oldSize = vehicles.size();
+            const int oldSize = (int)vehicles.size();
             const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, differSourceSink, prefix);
             if (oldSize != vehicles.size()) {
                 changed = true;

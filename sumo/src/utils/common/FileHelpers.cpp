@@ -74,7 +74,7 @@ FileHelpers::isReadable(std::string path) {
 // ---------------------------------------------------------------------------
 std::string
 FileHelpers::getFilePath(const std::string& path) {
-    int beg = path.find_last_of("\\/");
+    const std::string::size_type beg = path.find_last_of("\\/");
     if (beg == std::string::npos || beg == 0) {
         return "";
     }
@@ -92,7 +92,7 @@ FileHelpers::getConfigurationRelative(const std::string& configPath,
 
 bool
 FileHelpers::isSocket(const std::string& name) {
-    int colonPos = name.find(":");
+    const std::string::size_type colonPos = name.find(":");
     return (colonPos != std::string::npos) && (colonPos > 1);
 }
 
@@ -141,7 +141,7 @@ FileHelpers::checkForRelativity(const std::string& filename,
 
 std::string
 FileHelpers::prependToLastPathComponent(const std::string& prefix, const std::string& path) {
-    int sep_index = path.find_last_of("\\/");
+    const std::string::size_type sep_index = path.find_last_of("\\/");
     if (sep_index == std::string::npos) {
         return prefix + path;
     } else {
@@ -182,7 +182,7 @@ FileHelpers::writeByte(std::ostream& strm, unsigned char value) {
 
 std::ostream&
 FileHelpers::writeString(std::ostream& strm, const std::string& value) {
-    int size = value.length();
+    int size = (int)value.length();
     const char* cstr = value.c_str();
     writeUInt(strm, (int) size);
     strm.write((char*) cstr, (std::streamsize)(sizeof(char)*size));

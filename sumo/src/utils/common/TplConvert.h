@@ -91,7 +91,7 @@ public:
     /// @brief converts a char-type array into std::string considering the given length
     /// @throw an EmptyData - exception if the given pointer is 0
     template<class E>
-    static inline std::string _2str(const E* const data, unsigned length) {
+    static inline std::string _2str(const E* const data, int length) {
         if (data == 0) {
             throw EmptyData();
         }
@@ -99,7 +99,7 @@ public:
             return "";
         }
         char* buf = new char[length + 1];
-        unsigned i = 0;
+        int i = 0;
         for (i = 0; i < length; i++) {
             if ((int) data[i] > 255) {
                 buf[i] = 63; // rudimentary damage control, replace with '?'
@@ -115,7 +115,7 @@ public:
 
     /// @brief converts a char array into std::string considering the given length
     /// @throw an EmptyData - exception if the given pointer is 0 */
-    static inline std::string _2str(const char* const data, unsigned length) {
+    static inline std::string _2str(const char* const data, int length) {
         if (data == 0) {
             throw EmptyData();
         }
@@ -202,7 +202,7 @@ public:
             throw EmptyData();
         }
         long long int sgn = 1;
-        unsigned i = 0;
+        int i = 0;
         if (data[0] == '+') {
             i++;
         }
@@ -235,7 +235,7 @@ public:
             throw EmptyData();
         }
         long long int sgn = 1;
-        unsigned i = 0;
+        int i = 0;
         if (data[0] == '+') {
             i++;
         }
@@ -398,11 +398,11 @@ public:
 
     /// @brief returns the length of the string (the position of the 0-character)
     template<class E>
-    static unsigned getLength(const E* const data) {
+    static int getLength(const E* const data) {
         if (data == 0) {
             return 0;
         }
-        unsigned i = 0;
+        int i = 0;
         while (data[i] != 0) {
             i++;
         }

@@ -133,7 +133,7 @@ public:
 
     /// @brief return the number of queues
     inline int numQueues() const {
-        return myCarQues.size();
+        return (int)myCarQues.size();
     }
     /** @brief Returns the cars in the queue with the given index for visualization
      * @return the Queue (XXX not thread-safe!)

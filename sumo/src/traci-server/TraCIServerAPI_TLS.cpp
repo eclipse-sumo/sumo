@@ -245,7 +245,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                     tempMsg.writeString((*i).second); // foreign id
                     std::string connection = (*i).first.substr(11);
                     std::string from, to;
-                    int b = connection.find("->");
+                    const std::string::size_type b = connection.find("->");
                     if (b == std::string::npos) {
                         from = connection;
                     } else {

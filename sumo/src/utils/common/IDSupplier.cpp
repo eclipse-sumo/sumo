@@ -72,7 +72,7 @@ IDSupplier::avoid(const std::string& id) {
     // does it start with prefix?
     if (id.find(myPrefix) == 0) {
         long number;
-        std::istringstream buf(id.substr(myPrefix.size(), std::string::npos));
+        std::istringstream buf(id.substr(myPrefix.size()));
         buf >> number;
         // does it continue with a number?
         if (!buf.fail()) {

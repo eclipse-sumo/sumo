@@ -85,11 +85,11 @@ OutputDevice::getDevice(const std::string& name) {
             throw IOError("No port number given.");
         }
     } else {
-        const int len = name.length();
+        const int len = (int)name.length();
         std::string name2 = name;
         if (OptionsCont::getOptions().isSet("output-prefix") && name != "/dev/null") {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
-            int metaTimeIndex = prefix.find("TIME");
+            const std::string::size_type metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {
                 time_t rawtime;
                 char buffer [80];

@@ -234,6 +234,7 @@ GNELane::drawLane2LaneConnections() const {
     glPopMatrix();
 }
 
+
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
@@ -835,9 +836,11 @@ GNELane::onDefault(FXObject* obj, FXSelector sel, void* data) {
     return 1;
 }
 
+
 GNEEdge&
 GNELane::getParentEdge() {
     return myParentEdge;
-};
+}
+
 
 /****************************************************************************/

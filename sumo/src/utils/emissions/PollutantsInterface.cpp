@@ -56,7 +56,7 @@ PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {&PollutantsInte
 // ===========================================================================
 SUMOEmissionClass
 PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
-    int sep = eClass.find("/");
+    const std::string::size_type sep = eClass.find("/");
     if (sep != std::string::npos) {
         const std::string model = eClass.substr(0, sep);
         const std::string subClass = eClass.substr(sep + 1);

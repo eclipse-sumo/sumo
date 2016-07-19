@@ -86,9 +86,9 @@ MSRoute::end() const {
 }
 
 
-unsigned
+int
 MSRoute::size() const {
-    return (unsigned) myEdges.size();
+    return (int)myEdges.size();
 }
 
 
@@ -256,7 +256,7 @@ MSRoute::containsAnyOf(const MSEdgeVector& edgelist) const {
 
 
 const MSEdge*
-MSRoute::operator[](unsigned index) const {
+MSRoute::operator[](int index) const {
     return myEdges[index];
 }
 

@@ -240,7 +240,7 @@ public:
     /// @{
 
     /** @brief Returns the number of vehicles currently on the detector */
-    unsigned getCurrentVehicleNumber() const;
+    int getCurrentVehicleNumber() const;
 
     /** @brief Returns the curent detector occupancy */
     SUMOReal getCurrentOccupancy() const;
@@ -252,22 +252,22 @@ public:
     SUMOReal getCurrentMeanLength() const;
 
     /** @brief Returns the current number of jams */
-    unsigned getCurrentJamNumber() const;
+    int getCurrentJamNumber() const;
 
     /** @brief Returns the length in vehicles of the currently largest jam */
-    unsigned getCurrentMaxJamLengthInVehicles() const;
+    int getCurrentMaxJamLengthInVehicles() const;
 
     /** @brief Returns the length in meters of the currently largest jam */
     SUMOReal getCurrentMaxJamLengthInMeters() const;
 
     /** @brief Returns the length of all jams in vehicles */
-    unsigned getCurrentJamLengthInVehicles() const;
+    int getCurrentJamLengthInVehicles() const;
 
     /** @brief Returns the length of all jams in meters */
     SUMOReal getCurrentJamLengthInMeters() const;
 
     /** @brief Returns the length of all jams in meters */
-    unsigned getCurrentStartedHalts() const;
+    int getCurrentStartedHalts() const;
 
     /** @brief Returns the number of current haltings within the area
     *
@@ -409,27 +409,27 @@ private:
     /// @brief The sum of jam lengths [m]
     SUMOReal myJamLengthInMetersSum;
     /// @brief The sum of jam lengths [#veh]
-    unsigned myJamLengthInVehiclesSum;
+    int myJamLengthInVehiclesSum;
     /// @brief The number of collected samples [#]
-    unsigned myVehicleSamples;
+    int myVehicleSamples;
     /// @brief The current aggregation duration [#steps]
-    unsigned myTimeSamples;
+    int myTimeSamples;
     /// @brief The sum of occupancies [%]
     SUMOReal myOccupancySum;
     /// @brief The maximum occupancy [%]
     SUMOReal myMaxOccupancy;
     /// @brief The mean jam length [#veh]
-    unsigned myMeanMaxJamInVehicles;
+    int myMeanMaxJamInVehicles;
     /// @brief The mean jam length [m]
     SUMOReal myMeanMaxJamInMeters;
     /// @brief The max jam length [#veh]
-    unsigned myMaxJamInVehicles;
+    int myMaxJamInVehicles;
     /// @brief The max jam length [m]
     SUMOReal myMaxJamInMeters;
     /// @brief The mean number of vehicles [#veh]
-    unsigned myMeanVehicleNumber;
+    int myMeanVehicleNumber;
     /// @brief The max number of vehicles [#veh]
-    unsigned myMaxVehicleNumber;
+    int myMaxVehicleNumber;
     /// @}
 
 
@@ -443,17 +443,17 @@ private:
     /// @brief The current mean length
     SUMOReal myCurrentMeanLength;
     /// @brief The current jam number
-    unsigned myCurrentJamNo;
+    int myCurrentJamNo;
     /// @brief the current maximum jam length in meters
     SUMOReal myCurrentMaxJamLengthInMeters;
     /// @brief The current maximum jam length in vehicles
-    unsigned myCurrentMaxJamLengthInVehicles;
+    int myCurrentMaxJamLengthInVehicles;
     /// @brief The overall jam length in meters
     SUMOReal myCurrentJamLengthInMeters;
     /// @brief The overall jam length in vehicles
-    unsigned myCurrentJamLengthInVehicles;
+    int myCurrentJamLengthInVehicles;
     /// @brief The number of started halts in the last step
-    unsigned myCurrentStartedHalts;
+    int myCurrentStartedHalts;
     /// @brief The number of halted vehicles [#]
     int myCurrentHaltingsNumber;
     /// @brief The number of vehicles passed on the sensor

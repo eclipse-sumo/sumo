@@ -88,7 +88,7 @@ public:
     MSRouteIterator end() const;
 
     /// Returns the number of edges to pass
-    unsigned size() const;
+    int size() const;
 
     /// returns the destination edge
     const MSEdge* getLastEdge() const;
@@ -113,7 +113,7 @@ public:
 
     bool containsAnyOf(const MSEdgeVector& edgelist) const;
 
-    const MSEdge* operator[](unsigned index) const;
+    const MSEdge* operator[](int index) const;
 
     /// @name State I/O (mesosim only)
     /// @{

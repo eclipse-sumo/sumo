@@ -2598,7 +2598,7 @@ NBNode::getNodeIDFromInternalLane(const std::string id) {
     // :<nodeID>_<part1>_<part2>
     // i.e. :C_3_0, :C_c1_0 :C_w0_0
     assert(id[0] == ':');
-    int sep_index = id.rfind('_');
+    std::string::size_type sep_index = id.rfind('_');
     if (sep_index == std::string::npos) {
         WRITE_ERROR("Invalid lane id '" + id + "' (missing '_').");
         return "";

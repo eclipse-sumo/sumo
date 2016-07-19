@@ -155,29 +155,29 @@ public:
         /// @name Collected values
         /// @{
         /// @brief The number of vehicles that were emitted on the lane
-        unsigned nVehDeparted;
+        int nVehDeparted;
 
         /// @brief The number of vehicles that finished on the lane
-        unsigned nVehArrived;
+        int nVehArrived;
 
         /// @brief The number of vehicles that entered this lane within the sample interval
-        unsigned nVehEntered;
+        int nVehEntered;
 
         /// @brief The number of vehicles that left this lane within the sample interval
-        unsigned nVehLeft;
+        int nVehLeft;
 
         /// @brief The number of vehicles that left this lane within the sample interval
-        unsigned nVehVaporized;
+        int nVehVaporized;
 
         /// @brief The number of vehicle probes with small speed
         SUMOReal waitSeconds;
 
     private:
         /// @brief The number of vehicles that changed from this lane
-        unsigned nVehLaneChangeFrom;
+        int nVehLaneChangeFrom;
 
         /// @brief The number of vehicles that changed to this lane
-        unsigned nVehLaneChangeTo;
+        int nVehLaneChangeTo;
 
 
         /// @brief The sum of the lengths the vehicles had

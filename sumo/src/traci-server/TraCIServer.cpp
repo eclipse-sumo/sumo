@@ -475,7 +475,7 @@ TraCIServer::dispatchCommand() {
         }
     }
     if (!success) {
-        while (myInputStorage.valid_pos() && myInputStorage.position() < commandStart + commandLength) {
+        while (myInputStorage.valid_pos() && (int)myInputStorage.position() < commandStart + commandLength) {
             myInputStorage.readChar();
         }
     }

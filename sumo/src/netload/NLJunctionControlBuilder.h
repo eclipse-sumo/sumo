@@ -292,7 +292,7 @@ public:
 
     /// @brief return the number of phases loaded so far (for error reporting)
     int getNumberOfLoadedPhases() const {
-        return myActivePhases.size();
+        return (int)myActivePhases.size();
     }
 
 

@@ -1260,7 +1260,7 @@ Position
 GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
     std::string edgeID = laneID;
     int lane = 0;
-    int underscore = laneID.rfind('_');
+    const std::string::size_type underscore = laneID.rfind('_');
 
     if (underscore != std::string::npos) {
         edgeID = laneID.substr(0, underscore);

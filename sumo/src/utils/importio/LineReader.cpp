@@ -81,7 +81,7 @@ LineReader::readLine(LineHandler& lh) {
     std::string toReport;
     bool moreAvailable = true;
     while (toReport.length() == 0) {
-        int idx = myStrBuffer.find('\n');
+        const std::string::size_type idx = myStrBuffer.find('\n');
         if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
@@ -132,7 +132,7 @@ std::string
 LineReader::readLine() {
     std::string toReport;
     while (toReport.length() == 0 && myStrm.good()) {
-        int idx = myStrBuffer.find('\n');
+        const std::string::size_type idx = myStrBuffer.find('\n');
         if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;

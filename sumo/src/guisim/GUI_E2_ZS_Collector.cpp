@@ -118,7 +118,7 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
     ret->mkItem("vehicles [#]", true,
-                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentVehicleNumber));
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentVehicleNumber));
     ret->mkItem("occupancy [%]", true,
                 new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentOccupancy));
     ret->mkItem("mean speed [m/s]", true,
@@ -126,17 +126,17 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("mean vehicle length [m]", true,
                 new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMeanLength));
     ret->mkItem("jam number [#]", true,
-                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentJamNumber));
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentJamNumber));
     ret->mkItem("max jam length [veh]", true,
-                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInVehicles));
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInVehicles));
     ret->mkItem("max jam length [m]", true,
                 new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInMeters));
     ret->mkItem("jam length sum [veh]", true,
-                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentJamLengthInVehicles));
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentJamLengthInVehicles));
     ret->mkItem("jam length sum [m]", true,
                 new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentJamLengthInMeters));
     ret->mkItem("started halts [#]", true,
-                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
     // close building
     ret->closeBuilding();
     return ret;

@@ -149,7 +149,7 @@ std::string
 MSVTKExport::List2String(std::vector<double> input) {
 
     std::string output = "";
-    for (unsigned i = 0; i < input.size(); i++) {
+    for (int i = 0; i < input.size(); i++) {
 
         std::stringstream ss;
 

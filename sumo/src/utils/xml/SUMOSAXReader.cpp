@@ -216,7 +216,7 @@ SUMOSAXReader::getSAXReader() {
 XERCES_CPP_NAMESPACE::InputSource*
 SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
     const std::string url = TplConvert::_2str(systemId);
-    const int pos = url.rfind("/");
+    const std::string::size_type pos = url.rfind("/");
     if (pos != std::string::npos) {
         const std::string dir = url.substr(0, pos);
         if (dir == "http://sumo.sf.net/xsd" || dir == "http://sumo-sim.org/xsd" || dir == "http://sumo-sim.org/xsd/amitran" ||

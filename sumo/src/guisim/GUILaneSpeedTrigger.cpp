@@ -365,7 +365,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             if (value != myLastValue) {
                 myLastValue = value;
                 myLastValueString = toString<SUMOReal>(myLastValue);
-                int idx = myLastValueString.find('.');
+                std::string::size_type idx = myLastValueString.find('.');
                 if (idx != std::string::npos) {
                     if (idx > myLastValueString.length()) {
                         idx = myLastValueString.length();

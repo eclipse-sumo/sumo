@@ -535,7 +535,7 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
                         int offset, int nextOffset) {
     while (what.length() > 0) {
         if (what.length() > 79 - offset) {
-            int splitPos = what.rfind(';', 79 - offset);
+            std::string::size_type splitPos = what.rfind(';', 79 - offset);
             if (splitPos == std::string::npos) {
                 splitPos = what.rfind(' ', 79 - offset);
             } else {
@@ -687,7 +687,7 @@ OptionsCont::printHelp(std::ostream& os) {
         for (j = entries.begin(); j != entries.end(); ++j) {
             Option* o = getSecure(*j);
             // name, two leading spaces and "--"
-            int csize = (*j).length() + 2 + 4;
+            int csize = (int)j->length() + 2 + 4;
             // abbreviation length ("-X, "->4chars) if any
             std::vector<std::string> synonymes = getSynonymes(*j);
             if (find_if(synonymes.begin(), synonymes.end(), abbreviation_finder()) != synonymes.end()) {
@@ -695,7 +695,7 @@ OptionsCont::printHelp(std::ostream& os) {
             }
             // the type name
             if (!o->isBool()) {
-                csize += 1 + o->getTypeName().length();
+                csize += 1 + (int)o->getTypeName().length();
             }
             // divider
             csize += 2;
@@ -710,7 +710,7 @@ OptionsCont::printHelp(std::ostream& os) {
         const std::vector<std::string>& entries = mySubTopicEntries[*i];
         for (j = entries.begin(); j != entries.end(); ++j) {
             // start length computation
-            int csize = (*j).length() + 2;
+            int csize = (int)j->length() + 2;
             Option* o = getSecure(*j);
             os << "  ";
             // write abbreviation if given
@@ -728,7 +728,7 @@ OptionsCont::printHelp(std::ostream& os) {
             // write the type if not a bool option
             if (!o->isBool()) {
                 os << ' ' << o->getTypeName();
-                csize += 1 + o->getTypeName().length();
+                csize += 1 + (int)o->getTypeName().length();
             }
             csize += 2;
             // write the description formatting it

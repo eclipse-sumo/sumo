@@ -837,7 +837,7 @@ NBEdgeCont::recheckPostProcessConnections() {
 
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string& id) const {
-    int len = id.length();
+    int len = (int)id.length();
     EdgeVector ret;
     for (EdgeCont::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         std::string curr = (*i).first;
@@ -853,7 +853,7 @@ NBEdgeCont::getGeneratedFrom(const std::string& id) const {
             continue;
         }
         // ok, maybe the edge is a compound made during joining of edges
-        int pos = curr.find(id);
+        std::string::size_type pos = curr.find(id);
         // surely not
         if (pos == std::string::npos) {
             continue;
@@ -932,7 +932,7 @@ NBEdgeCont::guessRoundabouts() {
                 break;
             }
             EdgeVector::const_iterator loopClosed = find(loopEdges.begin(), loopEdges.end(), left);
-            const int loopSize = loopEdges.end() - loopClosed;
+            const int loopSize = (int)(loopEdges.end() - loopClosed);
             if (loopSize > 0) {
                 // loop found
                 if (loopSize < 3) {

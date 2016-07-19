@@ -96,8 +96,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
     myUpdateTarget(0),
     myNetBuilder(netBuilder),
-    myEdges(),
     myJunctions(),
+    myEdges(),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myShapeContainer(myGrid),
@@ -418,7 +418,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     int posBase = 0;
     std::string baseName = edge->getMicrosimID();
     if (edge->wasSplit()) {
-        int sep_index = baseName.rfind('.');
+        const std::string::size_type sep_index = baseName.rfind('.');
         if (sep_index != std::string::npos) { // edge may have been renamed in between
             std::string posString = baseName.substr(sep_index + 1);
             try {

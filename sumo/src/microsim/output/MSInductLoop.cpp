@@ -249,7 +249,7 @@ void
 MSInductLoop::writeTypedXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime,
                                   const std::string& type, const VehicleDataCont& vdc, const VehicleMap& vm) {
     SUMOReal t(STEPS2TIME(stopTime - startTime));
-    unsigned nVehCrossed = (unsigned) vdc.size();
+    int nVehCrossed = (int) vdc.size();
     if (type == "") {
         nVehCrossed += myDismissedVehicleNumber;
     }

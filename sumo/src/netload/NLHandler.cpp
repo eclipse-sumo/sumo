@@ -728,9 +728,9 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                 //TOKENIZING
                 MSPhaseDefinition::LaneIdVector targetLanesVector;
                 //Skip delimiters at the beginning
-                int firstPos = targetLanesString.find_first_not_of(delimiter, 0);
+                std::string::size_type firstPos = targetLanesString.find_first_not_of(delimiter, 0);
                 //Find first "non-delimiter".
-                int pos = targetLanesString.find_first_of(delimiter, firstPos);
+                std::string::size_type pos = targetLanesString.find_first_of(delimiter, firstPos);
 
                 while (std::string::npos != pos || std::string::npos != firstPos) {
                     //Found a token, add it to the vector
