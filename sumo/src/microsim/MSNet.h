@@ -149,6 +149,7 @@ public:
     /** @brief Closes the network's building process
      *
      * Assigns the structures built while loading to this network.
+     * @param[in] oc The options to use
      * @param[in] edges The control of edges which belong to this network
      * @param[in] junctions The control of junctions which belong to this network
      * @param[in] routeLoaders The route loaders used
@@ -160,7 +161,7 @@ public:
      * @param[in] version The network version
      * @todo Try to move all this to the constructor?
      */
-    void closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
+    void closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionControl* junctions,
                        SUMORouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
                        bool hasInternalLinks, bool hasNeighs, bool lefthand,
@@ -736,6 +737,11 @@ protected:
     std::vector<SUMOTime> myStateDumpTimes;
     /// @brief The names for the state files
     std::vector<std::string> myStateDumpFiles;
+    /// @brief The period for writing state
+    SUMOTime myStateDumpPeriod;
+    /// @brief name components for periodic state
+    std::string myStateDumpPrefix;
+    std::string myStateDumpSuffix;
     /// @}
 
 

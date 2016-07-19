@@ -211,11 +211,15 @@ MSFrame::fillOptions() {
     oc.addDescription("movereminder-output.vehicles", "Output", "List of vehicle ids which shall save their movereminder states");
 #endif
 
-    oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
+    oc.doRegister("save-state.times", new Option_IntVector(IntVector()));
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
-    oc.doRegister("save-state.prefix", new Option_FileName("state"));//!!! check, describe
+    oc.doRegister("save-state.period", new Option_String("-1", "TIME"));
+    oc.addDescription("save-state.period", "Output", "save state repeatedly after TIME period");
+    oc.doRegister("save-state.prefix", new Option_FileName("state"));
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
-    oc.doRegister("save-state.files", new Option_FileName());//!!! check, describe
+    oc.doRegister("save-state.suffix", new Option_FileName(".sbx"));
+    oc.addDescription("save-state.suffix", "Output", "Suffix for network states (.sbx or .xml)");
+    oc.doRegister("save-state.files", new Option_FileName());//
     oc.addDescription("save-state.files", "Output", "Files for network states");
 
     // register the simulation settings

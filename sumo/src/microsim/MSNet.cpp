@@ -210,7 +210,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
 
 
 void
-MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
+MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionControl* junctions,
                      SUMORouteLoaderControl* routeLoaders,
                      MSTLLogicControl* tlc,
                      std::vector<SUMOTime> stateDumpTimes,
@@ -226,6 +226,9 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
     myStateDumpFiles = stateDumpFiles;
+    myStateDumpPeriod = string2time(oc.getString("save-state.period"));
+    myStateDumpPrefix = oc.getString("save-state.prefix");
+    myStateDumpSuffix = oc.getString("save-state.suffix");
 
     // set requests/responses
     myJunctions->postloadInitContainer();
@@ -435,6 +438,9 @@ MSNet::simulationStep() {
     if (timeIt != myStateDumpTimes.end()) {
         const int dist = (int)distance(myStateDumpTimes.begin(), timeIt);
         MSStateHandler::saveState(myStateDumpFiles[dist], myStep);
+    }
+    if (myStateDumpPeriod > 0 && myStep % myStateDumpPeriod == 0) {
+        MSStateHandler::saveState(myStateDumpPrefix + "_" + time2string(myStep) + myStateDumpSuffix, myStep);
     }
     myBeginOfTimestepEvents->execute(myStep);
 #ifdef HAVE_FOX

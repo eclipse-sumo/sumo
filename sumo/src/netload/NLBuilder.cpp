@@ -235,11 +235,12 @@ NLBuilder::buildNet() {
             }
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
+            const std::string suffix = myOptions.getString("save-state.suffix");
             for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
-                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".sbx");
+                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + suffix);
             }
         }
-        myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
+        myNet.closeBuilding(myOptions, edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
                             myXMLHandler.haveSeenInternalEdge(),
                             myXMLHandler.haveSeenNeighs(),
                             myXMLHandler.lefthand(),
