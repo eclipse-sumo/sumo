@@ -1143,7 +1143,6 @@ GNEViewNet::setEditMode(EditMode mode) {
     } else {
         myPreviousEditMode = myEditMode;
         myEditMode = mode;
-        myVisualizationSettings->laneColorer.setActive(0); //default
         switch (mode) {
             case GNE_MODE_CONNECT:
             case GNE_MODE_TLS:
