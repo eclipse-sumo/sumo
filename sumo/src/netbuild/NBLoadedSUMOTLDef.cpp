@@ -328,8 +328,8 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                 // patch states for the newly added crossings
 
                 // collect edges
-                EdgeVector fromEdges(size, NULL);
-                EdgeVector toEdges(size, NULL);
+                EdgeVector fromEdges(size, (NBEdge*)0);
+                EdgeVector toEdges(size, (NBEdge*)0);
                 std::vector<int> fromLanes(size, 0);
                 collectEdgeVectors(fromEdges, toEdges, fromLanes);
                 const std::string crossingDefaultState(newCrossings, 'r');
