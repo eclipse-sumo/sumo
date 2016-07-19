@@ -243,9 +243,11 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const bool selected = gSelected.isSelected(getType(), getGlID());
     if (mySpecialColor != 0) {
         GLHelper::setColor(*mySpecialColor);
-    } else if (selected) {
+    } else if (selected && s.laneColorer.getActive() != 1) {
+        // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(GNENet::selectedLaneColor);
-    } else if (selectedEdge) {
+    } else if (selectedEdge && s.laneColorer.getActive() != 1) {
+        // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(GNENet::selectionColor);
     } else {
         const GUIColorer& c = s.laneColorer;
