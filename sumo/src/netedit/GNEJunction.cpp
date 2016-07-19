@@ -613,8 +613,8 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
 void
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
-    // override with special colors
-    if (gSelected.isSelected(getType(), getGlID())) {
+    // override with special colors (unless the color scheme is based on selection)
+    if (gSelected.isSelected(getType(), getGlID()) && s.junctionColorer.getActive() != 1) {
         GLHelper::setColor(GNENet::selectionColor);
     }
     if (myAmCreateEdgeSource) {
