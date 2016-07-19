@@ -239,6 +239,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.drawJunctionShape = TplConvert::_2bool(attrs.getStringSecure("drawShape", toString(mySettings.drawJunctionShape)).c_str());
             mySettings.drawCrossingsAndWalkingareas = TplConvert::_2bool(attrs.getStringSecure(
                         "drawCrossingsAndWalkingareas", toString(mySettings.drawCrossingsAndWalkingareas)).c_str());
+            mySettings.junctionSize = parseSizeSettings("junction", attrs, mySettings.junctionSize);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_ADDITIONALS:

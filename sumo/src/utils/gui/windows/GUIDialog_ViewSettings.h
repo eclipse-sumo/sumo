@@ -322,7 +322,7 @@ private:
                *myVehicleNamePanel, *myPersonNamePanel, *myContainerNamePanel,
                *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel, *myPOITypePanel, *myPolyTypePanel;
 
-    SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel;
+    SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;
 
 
     // load/save-menu

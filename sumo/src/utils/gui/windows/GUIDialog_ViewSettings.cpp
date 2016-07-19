@@ -464,6 +464,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myDrawJunctionShape->setCheck(mySettings->drawJunctionShape);
         myDrawCrossingsAndWalkingAreas = new FXCheckButton(m42, "Draw crossings/walkingareas", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myDrawCrossingsAndWalkingAreas->setCheck(mySettings->drawCrossingsAndWalkingareas);
+
+        new FXHorizontalSeparator(frame4, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+
+        FXMatrix* m43 =
+            new FXMatrix(frame4, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        myJunctionSizePanel = new SizePanel(m43, this, mySettings->junctionSize);
     } {
         // detectors / triggers
         new FXTabItem(tabbook, "Detectors/Trigger", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
@@ -588,6 +595,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     // delete size panels
     delete myVehicleSizePanel;
     delete myPersonSizePanel;
+    delete myJunctionSizePanel;
     delete myPOISizePanel;
     delete myPolySizePanel;
     delete myAddSizePanel;
@@ -677,6 +685,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myJunctionIndexPanel->update(mySettings->drawLinkJunctionIndex);
     myJunctionNamePanel->update(mySettings->junctionName);
     myInternalJunctionNamePanel->update(mySettings->internalJunctionName);
+    myJunctionSizePanel->update(mySettings->junctionSize);
 
     myAddNamePanel->update(mySettings->addName);
     myAddSizePanel->update(mySettings->addSize);
@@ -870,6 +879,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawLinkJunctionIndex = myJunctionIndexPanel->getSettings();
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
     tmpSettings.internalJunctionName = myInternalJunctionNamePanel->getSettings();
+    tmpSettings.junctionSize = myJunctionSizePanel->getSettings();
 
     tmpSettings.addName = myAddNamePanel->getSettings();
     tmpSettings.addSize = myAddSizePanel->getSettings();

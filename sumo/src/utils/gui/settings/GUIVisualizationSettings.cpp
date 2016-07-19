@@ -76,6 +76,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       showLane2Lane(false),
       drawJunctionShape(true),
       drawCrossingsAndWalkingareas(true),
+      junctionSize(1),
       addMode(0),
       addSize(1),
       addName(false, 50, RGBColor(255, 0, 128, 255)),
@@ -724,6 +725,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showLane2Lane", showLane2Lane);
     dev.writeAttr("drawShape", drawJunctionShape);
     dev.writeAttr("drawCrossingsAndWalkingareas", drawCrossingsAndWalkingareas);
+    junctionSize.print(dev, "junction");
     junctionColorer.save(dev);
     dev.closeTag();
     // additionals
@@ -889,6 +891,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     }
 
     if (drawCrossingsAndWalkingareas != v2.drawCrossingsAndWalkingareas) {
+        return false;
+    }
+    if (junctionSize != v2.junctionSize) {
         return false;
     }
 

@@ -141,15 +141,21 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // recognize full transparency and simply don't draw
         GLfloat color[4];
         glGetFloatv(GL_CURRENT_COLOR, color);
-        if (color[3] != 0) {
+        const SUMOReal exaggeration = s.junctionSize.getExaggeration(s);
+        if (color[3] != 0 && s.scale * exaggeration > s.junctionSize.minSize) {
+            PositionVector shape = myJunction.getShape();
+            shape.closePolygon();
+            if (exaggeration > 1) {
+                shape.scaleRelative(exaggeration);
+            }
             glTranslated(0, 0, getType());
             if (s.scale * myMaxSize < 40.) {
-                GLHelper::drawFilledPoly(myJunction.getShape(), true);
+                GLHelper::drawFilledPoly(shape, true);
             } else {
-                GLHelper::drawFilledPolyTesselated(myJunction.getShape(), true);
+                GLHelper::drawFilledPolyTesselated(shape, true);
             }
 #ifdef GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
-            GLHelper::debugVertices(myJunction.getShape(), 80 / s.scale);
+            GLHelper::debugVertices(shape, 80 / s.scale);
 #endif
         }
         glPopName();

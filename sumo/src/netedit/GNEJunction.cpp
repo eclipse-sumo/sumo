@@ -170,8 +170,9 @@ GNEJunction::getCenteringBoundary() const {
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
-    SUMOReal selectionScale = gSelected.isSelected(getType(), getGlID()) ? s.selectionScale : 1;
-    if (s.scale * selectionScale * myMaxSize < 1.) {
+    SUMOReal exaggeration = gSelected.isSelected(getType(), getGlID()) ? s.selectionScale : 1;
+    exaggeration *= s.junctionSize.getExaggeration(s);
+    if (s.scale * exaggeration * myMaxSize < 1.) {
         // draw something simple so that selection still works
         GLHelper::drawBoxLine(myNBNode.getPosition(), 0, 1, 1);
     } else {
@@ -189,10 +190,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, 0, getType());
                 PositionVector shape = myNBNode.getShape();
                 shape.closePolygon();
-                if (selectionScale > 1) {
-                    shape.scaleRelative(selectionScale);
+                if (exaggeration > 1) {
+                    shape.scaleRelative(exaggeration);
                 }
-                if (s.scale * selectionScale * myMaxSize < 40.) {
+                if (s.scale * exaggeration * myMaxSize < 40.) {
                     GLHelper::drawFilledPoly(shape, true);
                 } else {
                     GLHelper::drawFilledPolyTesselated(shape, true);
@@ -209,7 +210,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 Position pos = myNBNode.getPosition();
                 glTranslated(pos.x(), pos.y(), getType() - 0.05);
-                GLHelper::drawFilledCircle(4 * selectionScale, 32);
+                GLHelper::drawFilledCircle(4 * exaggeration, 32);
                 glPopMatrix();
             }
         }

@@ -234,6 +234,8 @@ public:
     bool drawJunctionShape;
     /// @brief whether crosings and walkingareas shall be drawn
     bool drawCrossingsAndWalkingareas;
+    // Setting bundles for controling the size of the drawn junction
+    GUIVisualizationSizeSettings junctionSize;
     //@}
 
 
