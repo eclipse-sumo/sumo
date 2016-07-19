@@ -1,6 +1,9 @@
 # save 2 states
 save2
 
+# save multiple states
+save_at_interval
+
 # the input is taken from test save2/state2.sumo
 load
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb 17 10:18:20 2016 by SUMO Version dev-SVN-r19994
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="1,10"/>
+        <save-state.files value="state.xml,state2.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot version="dev-SVN-r19994" time="1.00">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="type0">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vType id="type1">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vType id="type2">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
+    <vehicle id="v0" depart="0.00" route="r0" type="type1" state="0 0 0 0 7000 0 9223372036854775807"/>
+    <vehicle id="v1" depart="0.00" route="r0" type="type2" state="9223372036854775807 0 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807"/>
+    <segment>
+        <vehicles time="-1" value="v0"/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+</snapshot>
