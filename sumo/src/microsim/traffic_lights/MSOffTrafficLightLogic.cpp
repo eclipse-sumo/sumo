@@ -74,7 +74,7 @@ MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic& logi
 
 void
 MSOffTrafficLightLogic::rebuildPhase() {
-    int no = getLinks().size();
+    int no = (int)getLinks().size();
     std::string state;
     for (int i = 0; i < no; ++i) {
         // !!! no brake mask!

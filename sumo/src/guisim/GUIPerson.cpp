@@ -187,8 +187,8 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
         new FXMenuCommand(ret, "Show Walkingarea Path", 0, ret, MID_SHOW_WALKINGAREA_PATH);
     }
     new FXMenuSeparator(ret);
-    int trackedID = parent.getTrackedID();
-    if (trackedID < 0 || (int)trackedID != getGlID()) {
+    GUIGlID trackedID = parent.getTrackedID();
+    if (trackedID != getGlID()) {
         new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
     } else {
         new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);

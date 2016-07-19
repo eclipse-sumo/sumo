@@ -462,7 +462,7 @@ GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
     MSRouteIterator i = r.begin();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
-    int bestLaneIndex = (&r == myRoute ? 0 : bestLaneConts.size());
+    int bestLaneIndex = (&r == myRoute ? 0 : (int)bestLaneConts.size());
     for (; i != r.end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {

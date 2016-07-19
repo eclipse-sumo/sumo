@@ -52,7 +52,7 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // method definitions
 // ===========================================================================
 GUIGlObjectStorage::GUIGlObjectStorage()
-    : myAktID(0) {}
+    : myAktID(1) {}
 
 
 GUIGlObjectStorage::~GUIGlObjectStorage() {}

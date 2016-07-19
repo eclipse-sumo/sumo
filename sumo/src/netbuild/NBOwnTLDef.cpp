@@ -451,7 +451,7 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
         const SUMOTime pedTime = greenTime - pedClearingTime;
         if (pedTime >= minPedTime) {
             // ensure clearing time for pedestrians
-            const int pedStates = crossings.size();
+            const int pedStates = (int)crossings.size();
             logic->addStep(pedTime, state);
             state = state.substr(0, state.size() - pedStates) + std::string(pedStates, 'r');
             logic->addStep(pedClearingTime, state);

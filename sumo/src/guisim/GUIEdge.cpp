@@ -317,7 +317,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                 if (laneIndex < segment->numQueues()) {
                     // make a copy so we don't have to worry about synchronization
                     queue = segment->getQueue(laneIndex);
-                    const int queueSize = queue.size();
+                    const int queueSize = (int)queue.size();
                     SUMOReal vehiclePosition = segmentOffset + length;
                     // draw vehicles beginning with the leader at the end of the segment
                     SUMOReal xOff = 0;

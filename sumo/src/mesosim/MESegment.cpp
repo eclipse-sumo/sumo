@@ -288,7 +288,7 @@ int
 MESegment::getCarNumber() const {
     int total = 0;
     for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        total += k->size();
+        total += (int)k->size();
     }
     return total;
 }
@@ -304,7 +304,7 @@ MESegment::getMeanSpeed(bool useCached) const {
         int count = 0;
         for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
             SUMOTime earliestExitTime = currentTime;
-            count += k->size();
+            count += (int)k->size();
             for (std::vector<MEVehicle*>::const_reverse_iterator veh = k->rbegin(); veh != k->rend(); ++veh) {
                 v += (*veh)->getConservativeSpeed(earliestExitTime); // earliestExitTime is updated!
                 earliestExitTime += tau;

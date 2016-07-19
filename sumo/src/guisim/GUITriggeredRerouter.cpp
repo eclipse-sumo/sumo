@@ -362,7 +362,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
             if (ri != 0 && prob > 0) {
                 // draw only if the edge is closed at this time
                 if (std::find(ri->closed.begin(), ri->closed.end(), myEdge) != ri->closed.end()) {
-                    const int noLanes = myFGPositions.size();
+                    const int noLanes = (int)myFGPositions.size();
                     for (int j = 0; j < noLanes; ++j) {
                         Position pos = myFGPositions[j];
                         SUMOReal rot = myFGRotations[j];

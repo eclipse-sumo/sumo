@@ -232,7 +232,7 @@ public:
     virtual void stopTrack();
 
     ///@brief get tracked id
-    virtual int getTrackedID() const;
+    virtual GUIGlID getTrackedID() const;
 
     ///@brief on gaming click
     virtual void onGamingClick(Position /*pos*/);
@@ -353,7 +353,7 @@ protected:
     std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound);
 
     ///@brief invokes the tooltip for the given object
-    void showToolTipFor(int id);
+    void showToolTipFor(const GUIGlID id);
 
 protected:
     ///@brief check whether we can read image data or position with gdal

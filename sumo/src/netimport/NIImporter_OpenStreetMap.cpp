@@ -243,8 +243,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     const SUMOReal layerElevation = oc.getFloat("osm.layer-elevation");
     if (layerElevation > 0) {
-        const SUMOReal layerElevationGrade = 5.0; // in %, oc.getFloat("osm.layer-elevation.grade");
-        reconstructLayerElevation(layerElevation, layerElevationGrade, nb);
+        reconstructLayerElevation(layerElevation, nb);
     }
 
     // load relations (after edges are built since we want to apply
@@ -319,7 +318,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             return index;
         }
         // in the special case of a looped way split again using passed
-        int intermediateIndex = passed.size() / 2;
+        int intermediateIndex = (int)passed.size() / 2;
         NBNode* intermediate = insertNodeChecking(passed[intermediateIndex], nc, tlsc);
         std::vector<long long int> part1(passed.begin(), passed.begin() + intermediateIndex);
         std::vector<long long int> part2(passed.begin() + intermediateIndex + 1, passed.end());
@@ -1107,7 +1106,7 @@ NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(long long int wayRef, con
 
 
 void
-NIImporter_OpenStreetMap::reconstructLayerElevation(SUMOReal layerElevation, SUMOReal layerElevationGrade, NBNetBuilder& nb) {
+NIImporter_OpenStreetMap::reconstructLayerElevation(const SUMOReal layerElevation, NBNetBuilder& nb) {
     NBNodeCont& nc = nb.getNodeCont();
     NBEdgeCont& ec = nb.getEdgeCont();
     // reconstruct elevation from layer info

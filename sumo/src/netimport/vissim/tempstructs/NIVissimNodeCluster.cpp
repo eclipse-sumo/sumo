@@ -114,7 +114,7 @@ NIVissimNodeCluster::dictionary(int id) {
 
 int
 NIVissimNodeCluster::contSize() {
-    return myDict.size();
+    return (int)myDict.size();
 }
 
 

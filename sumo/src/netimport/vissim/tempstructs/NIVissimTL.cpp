@@ -418,7 +418,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
         }
     }
     if (ref != 0) {
-        WRITE_WARNING("Could not set " + toString<int>(ref) + " of " + toString<int>(myDict.size()) + " traffic lights.");
+        WRITE_WARNING("Could not set " + toString<int>(ref) + " of " + toString<int>((int)myDict.size()) + " traffic lights.");
     }
     if (ref_groups != 0) {
         WRITE_WARNING("Could not set " + toString<int>(ref_groups) + " of " + toString<int>(no_groups) + " groups.");

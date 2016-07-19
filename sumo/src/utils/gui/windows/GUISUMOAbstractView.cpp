@@ -231,11 +231,11 @@ GUISUMOAbstractView::paintGL() {
         return;
     }
 
-    if (getTrackedID() > 0) {
+    if (getTrackedID() != GUIGlObject::INVALID_ID) {
         centerTo(getTrackedID(), false);
     }
 
-    int id = 0;
+    GUIGlID id = GUIGlObject::INVALID_ID;
     if (myUseToolTips) {
         id = getObjectUnderCursor();
     }
@@ -271,7 +271,7 @@ GUISUMOAbstractView::paintGL() {
     }
     // check whether the select mode /tooltips)
     //  shall be computed, too
-    if (myUseToolTips && id != 0) {
+    if (myUseToolTips && id != GUIGlObject::INVALID_ID) {
         showToolTipFor(id);
     }
     swapBuffers();
@@ -397,7 +397,7 @@ GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
 
 
 void
-GUISUMOAbstractView::showToolTipFor(int id) {
+GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
     if (id != 0) {
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (object != 0) {
@@ -1059,9 +1059,9 @@ GUISUMOAbstractView::stopTrack() {
 }
 
 
-int
+GUIGlID
 GUISUMOAbstractView::getTrackedID() const {
-    return -1;
+    return GUIGlObject::INVALID_ID;
 }
 
 
@@ -1208,7 +1208,7 @@ GUISUMOAbstractView::addAdditionalGLVisualisation(const GUIGlObject* const which
 
 bool
 GUISUMOAbstractView::removeAdditionalGLVisualisation(const GUIGlObject* const which) {
-    if (getTrackedID() == static_cast<int>(which->getGlID())) {
+    if (getTrackedID() == which->getGlID()) {
         stopTrack();
     }
     if (myAdditionallyDrawn.find(which) == myAdditionallyDrawn.end()) {

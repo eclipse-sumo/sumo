@@ -1965,7 +1965,7 @@ TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
         d.dist = inMsg.readDouble();
 
         inMsg.readUnsignedByte();
-        d.state = inMsg.readByte();
+        d.state = (char)inMsg.readByte();
 
         result.push_back(d);
     }

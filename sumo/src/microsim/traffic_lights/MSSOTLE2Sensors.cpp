@@ -504,8 +504,8 @@ SUMOReal MSSOTLE2Sensors::meanVehiclesSpeed(std::string laneId) {
 }
 
 std::string trim(std::string& str) {
-    int first = str.find_first_not_of(' ');
-    int last = str.find_last_not_of(' ');
+    int first = (int)str.find_first_not_of(' ');
+    int last = (int)str.find_last_not_of(' ');
     return str.substr(first, (last - first + 1));
 }
 

@@ -61,7 +61,7 @@ public:
 
     void apply(osg::Geode& geode) {
         osg::BoundingBox bbox;
-        for (int i = 0; i < geode.getNumDrawables(); ++i) {
+        for (int i = 0; i < (int)geode.getNumDrawables(); ++i) {
 #if OSG_MIN_VERSION_REQUIRED(3,4,0)
             bbox.expandBy(geode.getDrawable(i)->getBoundingBox());
 #else

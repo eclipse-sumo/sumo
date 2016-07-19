@@ -214,7 +214,7 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
         int max = 0;
         for (i = myTracked.begin(); i != myTracked.end(); ++i) {
             TrackerValueDesc* tvd = *i;
-            int sizei = tvd->getAggregatedValues().size();
+            int sizei = (int)tvd->getAggregatedValues().size();
             if (max < sizei) {
                 max = sizei;
             }

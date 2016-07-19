@@ -106,7 +106,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // prepare the output
     const std::string& filename = oc.getString("output-file");
     std::string altFilename = filename + ".alt";
-    const int len = filename.length();
+    const int len = (int)filename.length();
     if (len > 4 && filename.substr(len - 4) == ".xml") {
         altFilename = filename.substr(0, len - 4) + ".alt.xml";
     } else if (len > 4 && filename.substr(len - 4) == ".sbx") {

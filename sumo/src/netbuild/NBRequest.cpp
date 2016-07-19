@@ -814,7 +814,7 @@ NBRequest::resetCooperating() {
 
 int
 NBRequest::numLinks() const {
-    return myIncoming.size() * myOutgoing.size() + myCrossings.size();
+    return (int)(myIncoming.size() * myOutgoing.size() + myCrossings.size());
 }
 
 /****************************************************************************/

@@ -282,7 +282,7 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont& ec) {
         unsetConnections += (*i).second->buildEdgeConnections(ec);
     }
     if (unsetConnections != 0) {
-        WRITE_WARNING(toString<int>(unsetConnections) + " of " + toString<int>(myDict.size()) + " connections could not be assigned.");
+        WRITE_WARNING(toString<int>(unsetConnections) + " of " + toString<int>((int)myDict.size()) + " connections could not be assigned.");
     }
 }
 

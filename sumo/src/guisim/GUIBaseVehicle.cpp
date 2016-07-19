@@ -306,8 +306,8 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
         new FXMenuCommand(ret, "Show Link Items", 0, ret, MID_SHOW_LFLINKITEMS);
     }
     new FXMenuSeparator(ret);
-    int trackedID = parent.getTrackedID();
-    if (trackedID < 0 || (int)trackedID != getGlID()) {
+    const GUIGlID trackedID = parent.getTrackedID();
+    if (trackedID < 0 || trackedID != (int)getGlID()) {
         new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
     } else {
         new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);

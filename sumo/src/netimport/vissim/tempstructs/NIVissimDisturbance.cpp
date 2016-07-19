@@ -358,7 +358,7 @@ NIVissimDisturbance::dict_SetDisturbances() {
 void
 NIVissimDisturbance::reportRefused() {
     if (refusedProhibits > 0) {
-        WRITE_WARNING("Could not build " + toString<int>(refusedProhibits) + " of " + toString<int>(myDict.size()) + " disturbances.");
+        WRITE_WARNING("Could not build " + toString<int>(refusedProhibits) + " of " + toString<int>((int)myDict.size()) + " disturbances.");
     }
 }
 

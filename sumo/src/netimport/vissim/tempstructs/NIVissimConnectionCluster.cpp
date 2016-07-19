@@ -92,7 +92,7 @@ NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::
 
 int
 NIVissimConnectionCluster::NodeSubCluster::size() const {
-    return myConnections.size();
+    return (int)myConnections.size();
 }
 
 
@@ -549,7 +549,7 @@ NIVissimConnectionCluster::hasNodeCluster() const {
 
 int
 NIVissimConnectionCluster::dictSize() {
-    return myClusters.size();
+    return (int)myClusters.size();
 }
 
 

@@ -90,7 +90,7 @@ GenericSAXHandler::getFileName() const {
 
 XMLCh*
 GenericSAXHandler::convert(const std::string& name) const {
-    int len = name.length();
+    int len = (int)name.length();
     XMLCh* ret = new XMLCh[len + 1];
     int i = 0;
     for (; i < len; i++) {
@@ -131,16 +131,15 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     // collect characters
     if (myCharactersVector.size() != 0) {
         int len = 0;
-        unsigned i;
-        for (i = 0; i < myCharactersVector.size(); ++i) {
-            len += myCharactersVector[i].length();
+        for (int i = 0; i < (int)myCharactersVector.size(); ++i) {
+            len += (int)myCharactersVector[i].length();
         }
         char* buf = new char[len + 1];
         int pos = 0;
-        for (i = 0; i < myCharactersVector.size(); ++i) {
+        for (int i = 0; i < (int)myCharactersVector.size(); ++i) {
             memcpy((unsigned char*) buf + pos, (unsigned char*) myCharactersVector[i].c_str(),
                    sizeof(char)*myCharactersVector[i].length());
-            pos += myCharactersVector[i].length();
+            pos += (int)myCharactersVector[i].length();
         }
         buf[pos] = 0;
 

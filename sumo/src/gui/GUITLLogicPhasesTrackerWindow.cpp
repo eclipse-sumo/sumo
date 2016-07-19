@@ -266,7 +266,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // check whether no phases are known at all
         if (myDurations.size() != 0) {
             SUMOTime durs = 0;
-            int phaseOffset = myDurations.size() - 1;
+            int phaseOffset = (int)myDurations.size() - 1;
             DurationsVector::reverse_iterator i = myDurations.rbegin();
             while (i != myDurations.rend()) {
                 if (durs + (*i) > beginOffset) {

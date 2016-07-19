@@ -64,7 +64,7 @@ public:
 
     int size() {
         myMutex.lock();
-        const int ret = myItems.size();
+        const int ret = (int)myItems.size();
         myMutex.unlock();
         return ret;
     }

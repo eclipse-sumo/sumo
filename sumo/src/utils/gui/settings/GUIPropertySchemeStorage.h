@@ -116,7 +116,7 @@ public:
     }
 
     int size() const {
-        return mySchemes.size();
+        return (int)mySchemes.size();
     }
 
 

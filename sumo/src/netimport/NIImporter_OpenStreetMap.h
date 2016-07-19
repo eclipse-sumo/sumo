@@ -231,7 +231,7 @@ private:
                    const std::vector<long long int>& passed, NBNetBuilder& nb);
 
     /// @brief reconstruct elevation from layer info
-    void reconstructLayerElevation(SUMOReal layerElevation, SUMOReal layerElevationGrade, NBNetBuilder& nb);
+    void reconstructLayerElevation(SUMOReal layerElevation, NBNetBuilder& nb);
 
     /// @brief collect neighboring nodes with their road distance
     std::map<NBNode*, SUMOReal> getNeighboringNodes(NBNode* node, SUMOReal maxDist);

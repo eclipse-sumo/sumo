@@ -74,6 +74,7 @@ class GUIGlObject {
 public:
     /// @brief associates object types with strings
     static StringBijection<GUIGlObjectType> TypeNames;
+    static const GUIGlID INVALID_ID;
 
     /** @brief Constructor
      *

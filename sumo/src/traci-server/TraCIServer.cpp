@@ -479,7 +479,7 @@ TraCIServer::dispatchCommand() {
             myInputStorage.readChar();
         }
     }
-    if (myInputStorage.position() != commandStart + commandLength) {
+    if ((int)myInputStorage.position() != commandStart + commandLength) {
         std::ostringstream msg;
         msg << "Wrong position in requestMessage after dispatching command.";
         msg << " Expected command length was " << commandLength;

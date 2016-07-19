@@ -133,7 +133,7 @@ public:
 
 
     int size() const {
-        return myString2T.size();
+        return (int)myString2T.size();
     }
 
 

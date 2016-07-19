@@ -505,9 +505,9 @@ GUIOSGView::stopTrack() {
 }
 
 
-int
+GUIGlID
 GUIOSGView::getTrackedID() const {
-    return myTracked == 0 ? -1 : myTracked->getGlID();
+    return myTracked == 0 ? GUIGlObject::INVALID_ID : myTracked->getGlID();
 }
 
 

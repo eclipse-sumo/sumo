@@ -253,7 +253,7 @@ NGRandomNetBuilder::createNet(int numNodes) {
     myOuterNodes.push_back(outerNode);
 
     bool created = true;
-    while (((int) myNet.nodeNo() < numNodes) && (myOuterNodes.size() > 0)) {
+    while ((myNet.nodeNo() < numNodes) && (myOuterNodes.size() > 0)) {
         // brings last element to front
         if (!created) {
             myOuterNodes.push_front(myOuterNodes.back());

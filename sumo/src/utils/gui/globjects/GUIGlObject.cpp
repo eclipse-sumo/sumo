@@ -75,6 +75,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
 
 
 StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(GUIGlObjectTypeNamesInitializer, GLO_MAX);
+const GUIGlID GUIGlObject::INVALID_ID = 0;
 
 // ===========================================================================
 // method definitions
