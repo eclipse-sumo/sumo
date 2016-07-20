@@ -24,16 +24,14 @@
 #define TRACITESTCLIENT_H
 
 // ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4503)
-#endif
-
-
-// ===========================================================================
 // included modules
 // ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <string>
 #include <sstream>
 #include <vector>
