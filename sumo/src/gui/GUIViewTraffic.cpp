@@ -97,7 +97,7 @@ GUIViewTraffic::GUIViewTraffic(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTrackedID(-1)
+    myTrackedID(GUIGlObject::INVALID_ID)
 #ifdef HAVE_FFMPEG
     , myCurrentVideo(0)
 #endif
@@ -249,11 +249,11 @@ GUIViewTraffic::startTrack(int id) {
 
 void
 GUIViewTraffic::stopTrack() {
-    myTrackedID = -1;
+    myTrackedID = GUIGlObject::INVALID_ID;
 }
 
 
-int
+GUIGlID
 GUIViewTraffic::getTrackedID() const {
     return myTrackedID;
 }

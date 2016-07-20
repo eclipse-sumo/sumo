@@ -88,7 +88,7 @@ public:
     /** @brief Returns the id of the tracked vehicle (-1 if none)
      * @return The glID of the vehicle to track
      */
-    int getTrackedID() const;
+    GUIGlID getTrackedID() const;
 
     bool setColorScheme(const std::string& name);
 
@@ -121,7 +121,7 @@ protected:
     GUILane* getLaneUnderCursor();
 
 private:
-    int myTrackedID;
+    GUIGlID myTrackedID;
 
 #ifdef HAVE_FFMPEG
     GUIVideoEncoder* myCurrentVideo;
