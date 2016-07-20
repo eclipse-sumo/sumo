@@ -74,7 +74,6 @@
 #include "GNEAdditionalSet.h"
 #include "GNEStoppingPlace.h"
 #include "GNEDetector.h"
-#include "GNEConnection.h"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -628,20 +627,6 @@ GNENet::retrieveEdge(const std::string& id, bool failHard) {
 }
 
 
-GNEConnection*
-GNENet::retrieveConnection(int fromLane, NBEdge *toEdge, int toLane) const {
-    /// @todo optimize
-    for(GNEConnections::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        if(((*i)->getNBEdgeConnection().fromLane == fromLane) &&
-           ((*i)->getNBEdgeConnection().toEdge == toEdge) &&
-           ((*i)->getNBEdgeConnection().toLane == toLane)) {
-            return (*i);
-        }
-    }
-    return NULL;
-}
-
-
 std::vector<GNEEdge*>
 GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
@@ -1173,16 +1158,6 @@ GNENet::insertEdge(GNEEdge* edge) {
 }
 
 
-void 
-GNENet::insertConnection(GNEConnection* connection) {
-    connection->incRef("GNENet::registerConnection");
-    myConnections.push_back(connection);
-    myGrid.add(connection->getBoundary());
-    myGrid.addAdditionalGLObject(connection);
-    update();
-}
-
-
 GNEJunction*
 GNENet::registerJunction(GNEJunction* junction) {
     junction->incRef("GNENet::registerJunction");
@@ -1232,16 +1207,6 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     edge->decRef("GNENet::deleteSingleEdge");
     edge->setResponsible(true);
     // invalidate junction logic
-    update();
-}
-
-
-void
-GNENet::deleteConnection(GNEConnection* connection) {
-    myGrid.removeAdditionalGLObject(connection);
-
-    myEdges.erase(connection->getMicrosimID());
-    connection->decRef("GNENet::deleteConnection");
     update();
 }
 

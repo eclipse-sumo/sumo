@@ -41,7 +41,6 @@ class GNEJunction;
 class GNELane;
 class GNEAdditional;
 class GNEAdditionalSet;
-class GNEConnection;
 
 // ===========================================================================
 // class definitions
@@ -67,9 +66,6 @@ public:
 
     /// @brief Definition of the additionalSets vector
     typedef std::vector<GNEAdditionalSet*> AdditionalSetVector;
-
-    /// @brief Definition of the connections map
-    typedef std::map<int, GNEConnection*> connectionMap;
 
     /**@brief Constructor.
      * @param[in] nbe The represented edge
@@ -132,9 +128,6 @@ public:
 
     /// @brief returns the destination-junction
     GNEJunction* getDest() const;
-
-    /// @brief returns vector of GNEConnections of this edge
-    std::vector<GNEConnection*> getGNEConnections() const;
 
     /**@brief change the edge geometry
      * It is up to the Edge to decide whether an new geometry node should be
@@ -267,9 +260,6 @@ protected:
 
     /// @brief vector with the additonalSets vinculated with this edge
     AdditionalSetVector myAdditionalSets;
-
-    /// @brief map with the connections vinculated with this edge
-    connectionMap myConnections;
 
 private:
     /// @brief set attribute after validation

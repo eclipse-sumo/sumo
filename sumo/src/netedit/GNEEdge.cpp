@@ -49,7 +49,7 @@
 #include "GNELane.h"
 #include "GNEAdditional.h"
 #include "GNEAdditionalSet.h"
-#include "GNEConnection.h"
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -145,20 +145,6 @@ GNEJunction*
 GNEEdge::getDest() const {
     return myNet->retrieveJunction(myNBEdge.getToNode()->getID());
 }
-
-
-std::vector<GNEConnection*> 
-GNEEdge::getGNEConnections() const {
-    std::vector<GNEConnection*> GNEConnections;
-    const std::vector<NBEdge::Connection> &connections = myNBEdge.getConnections();
-
-    for(std::vector<NBEdge::Connection>::const_iterator i = connections.begin(); i != connections.end(); i++) {
-        GNEConnections.push_back(myNet->retrieveConnection(i->fromLane, i->toEdge, i->toLane));
-    }
-
-    return GNEConnections;
-}
-
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
@@ -398,10 +384,6 @@ GNEEdge::updateLaneGeometries() {
     // Update geometry of additionalSets vinculated to this edge
     for (AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i) {
         (*i)->updateGeometry();
-    }
-    // Update geometry of connections vinculated to this edge
-    for(connectionMap::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        i->second->updateGeometry();
     }
 }
 
@@ -811,11 +793,6 @@ void
 GNEEdge::addConnection(int fromLane, const std::string& toEdgeID, int toLane, bool mayPass) {
     GNEEdge* destEdge = myNet->retrieveEdge(toEdgeID);
     myNBEdge.setConnection(fromLane, destEdge->getNBEdge(), toLane, NBEdge::L2L_USER, true, mayPass);
-
-    /// @todo arreglar esto
-    GNEConnection *connection = new GNEConnection(*this, fromLane, *destEdge, toLane, mayPass, 0, 0, 0);
-    myNet->insertConnection(connection);
-
     myNet->refreshElement(this); // actually we only do this to force a redraw
 }
 
@@ -827,36 +804,9 @@ GNEEdge::removeConnection(int fromLane, const std::string& toEdgeID, int toLane)
         myNet->removeExplicitTurnaround(getMicrosimID());
     }
     myNBEdge.removeFromConnections(destEdge, fromLane, toLane);
-
-    GNEConnection *connectionToErase = myNet->retrieveConnection(fromLane, destEdge, toLane);
-    
-    if(connectionToErase) {
-        myNet->deleteConnection(connectionToErase);
-
-        delete connectionToErase;
-    }
-
     myNet->refreshElement(this); // actually we only do this to force a redraw
 }
 
-
-/*****
-void
-GNEEdge::addConnection(GNEConnection *connection) {
-    myNBEdge.setConnection(connection->getFromLaneIndex(), connection->getEdgeTo().getNBEdge(), connection->getToLaneIndex(), NBEdge::L2L_USER, true, connection->getPass());
-    myNet->refreshElement(this); // actually we only do this to force a redraw
-}
-
-
-void
-GNEEdge::removeConnection(GNEConnection *connection) {
-    if (connection->getEdgeTo().getNBEdge() == myNBEdge.getTurnDestination()) {
-        myNet->removeExplicitTurnaround(getMicrosimID());
-    }
-    myNBEdge.removeFromConnections(connection->getEdgeTo().getNBEdge(), connection->getFromLaneIndex(), connection->getToLaneIndex());
-    myNet->refreshElement(this); // actually we only do this to force a redraw
-}
-*****/
 
 void
 GNEEdge::setMicrosimID(const std::string& newID) {

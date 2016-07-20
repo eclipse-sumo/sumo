@@ -65,7 +65,6 @@ class GNEApplicationWindow;
 class GNEAttributeCarrier;
 class GNEEdge;
 class GNELane;
-class GNEConnection;
 class GNEJunction;
 class GNEUndoList;
 class GNEAdditional;
@@ -254,9 +253,6 @@ public:
      */
     GNEEdge* retrieveEdge(const std::string& id, bool failHard = true);
 
-    /**@brief get connection by NBEdge::connection **/
-    GNEConnection *retrieveConnection(int fromLane, NBEdge *toEdge, int toLane) const;
-
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs
      * @param[in] type The GUI-type of the objects with the given ids
@@ -423,12 +419,6 @@ public:
      * @return Number of additionals of the net
      */
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING);
-    
-    /// @brief inserts a single connection into the net
-    void insertConnection(GNEConnection* connection);
-
-    /// @brief deletes a single connection
-    void deleteConnection(GNEConnection* connection);
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -444,7 +434,6 @@ protected:
     /// @{
     typedef std::map<std::string, GNEJunction*> GNEJunctions;
     typedef std::map<std::string, GNEEdge*> GNEEdges;
-    typedef std::vector<GNEConnection*> GNEConnections; // @TODO OPTIMIZE
     typedef std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> GNEAdditionals;
     // @}
 
@@ -453,9 +442,6 @@ protected:
 
     /// @brief map with the name and pointer to edges of net
     GNEEdges myEdges;
-
-    /// @brief map with the name and pointer to connections of net
-    GNEConnections myConnections;
 
     /// @brief map with the name and pointer to additional elements of net
     GNEAdditionals myAdditionals;
