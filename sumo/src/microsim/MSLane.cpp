@@ -1286,7 +1286,7 @@ MSLane::appropriate(const MSVehicle* veh) {
         return true;
     }
     if (veh->succEdge(1) == 0) {
-        assert(veh->getBestLanes().size() > veh->getLaneIndex());
+        assert((int)veh->getBestLanes().size() > veh->getLaneIndex());
         if (veh->getBestLanes()[veh->getLaneIndex()].bestLaneOffset == 0) {
             return true;
         } else {
@@ -1417,7 +1417,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, int nRouteSuccs,
     // "conts" stores the best continuations of our current lane
     // we should never return an arbitrary link since this may cause collisions
     MSLinkCont::const_iterator link;
-    if (nRouteSuccs < conts.size()) {
+    if (nRouteSuccs < (int)conts.size()) {
         // we go through the links in our list and return the matching one
         for (link = succLinkSource.myLinks.begin(); link != succLinkSource.myLinks.end(); ++link) {
             if ((*link)->getLane() != 0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {

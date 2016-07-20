@@ -330,7 +330,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, getType());
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
-    for (int i = 0; i < myFGPositions.size(); ++i) {
+    for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();

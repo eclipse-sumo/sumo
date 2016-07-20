@@ -632,13 +632,13 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
             if (route == 0) {
                 throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
             }
-            const SUMOReal prob = (probs.size() > probIndex ? probs[probIndex] : 1.0);
+            const SUMOReal prob = ((int)probs.size() > probIndex ? probs[probIndex] : 1.0);
             if (myCurrentRouteDistribution->add(prob, route, false)) {
                 route->addReference();
             }
             probIndex++;
         }
-        if (probs.size() > 0 && probIndex != probs.size()) {
+        if (probs.size() > 0 && probIndex != (int)probs.size()) {
             WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) +
                           " routes in routeDistribution '" + myCurrentRouteDistributionID + "'");
         }

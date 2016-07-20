@@ -187,12 +187,12 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         const MSEdge* lastEdge = 0;
         int numWritten = 0;
         if (myHolder.getNumberReroutes() > 0) {
-            assert(myReplacedRoutes.size() <= myHolder.getNumberReroutes());
-            int i = static_cast<int>(myReplacedRoutes.size());
+            assert((int)myReplacedRoutes.size() <= myHolder.getNumberReroutes());
+            int i = (int)myReplacedRoutes.size();
             while (i > 0 && myReplacedRoutes[i - 1].edge) {
                 i--;
             }
-            for (; i < myReplacedRoutes.size(); ++i) {
+            for (; i < (int)myReplacedRoutes.size(); ++i) {
                 numWritten += myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
                 lastEdge = myReplacedRoutes[i].edge;
             }
@@ -256,7 +256,7 @@ MSDevice_Vehroutes::generateOutput() const {
             }
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, index);
             const std::vector<SUMOReal>& probs = routeDist->getProbs();
-            for (int i = 0; i < routes.size(); ++i) {
+            for (int i = 0; i < (int)routes.size(); ++i) {
                 od.setPrecision();
                 od.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_COST, routes[i]->getCosts());
                 od.setPrecision(8);
@@ -273,7 +273,7 @@ MSDevice_Vehroutes::generateOutput() const {
     } else {
         if (myReplacedRoutes.size() > 0) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-            for (int i = 0; i < myReplacedRoutes.size(); ++i) {
+            for (int i = 0; i < (int)myReplacedRoutes.size(); ++i) {
                 writeXMLRoute(od, i);
             }
         }
@@ -327,7 +327,7 @@ MSDevice_Vehroutes::addRoute() {
         } else {
             myReplacedRoutes.push_back(RouteReplaceInfo(0, MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
         }
-        if (myReplacedRoutes.size() > myMaxRoutes) {
+        if ((int)myReplacedRoutes.size() > myMaxRoutes) {
             myReplacedRoutes.front().route->release();
             myReplacedRoutes.erase(myReplacedRoutes.begin());
         }

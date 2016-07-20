@@ -372,7 +372,7 @@ SUMOTime
 MESegment::getNextInsertionTime(SUMOTime earliestEntry) const {
     // since we do not know which queue will be used we give a conservative estimate
     SUMOTime earliestLeave = earliestEntry;
-    for (int i = 0; i < myCarQues.size(); ++i) {
+    for (int i = 0; i < (int)myCarQues.size(); ++i) {
         earliestLeave = MAX2(earliestLeave, myBlockTimes[i]);
     }
     if (myEdge.getSpeedLimit() == 0) {
@@ -604,7 +604,7 @@ void
 MESegment::setSpeed(SUMOReal newSpeed, SUMOTime currentTime, SUMOReal jamThresh) {
     recomputeJamThreshold(jamThresh);
     //myTau_length = MAX2(MESO_MIN_SPEED, newSpeed) * myEdge.getLanes().size() / TIME2STEPS(1);
-    for (int i = 0; i < myCarQues.size(); ++i) {
+    for (int i = 0; i < (int)myCarQues.size(); ++i) {
         if (myCarQues[i].size() != 0) {
             setSpeedForQueue(newSpeed, currentTime, myBlockTimes[i], myCarQues[i]);
         }
@@ -615,7 +615,7 @@ MESegment::setSpeed(SUMOReal newSpeed, SUMOTime currentTime, SUMOReal jamThresh)
 SUMOTime
 MESegment::getEventTime() const {
     SUMOTime result = SUMOTime_MAX;
-    for (int i = 0; i < myCarQues.size(); ++i) {
+    for (int i = 0; i < (int)myCarQues.size(); ++i) {
         if (myCarQues[i].size() != 0 && myCarQues[i].back()->getEventTime() < result) {
             result = myCarQues[i].back()->getEventTime();
         }
@@ -630,7 +630,7 @@ MESegment::getEventTime() const {
 void
 MESegment::saveState(OutputDevice& out) {
     out.openTag(SUMO_TAG_SEGMENT);
-    for (int i = 0; i < myCarQues.size(); ++i) {
+    for (int i = 0; i < (int)myCarQues.size(); ++i) {
         out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES).writeAttr(SUMO_ATTR_TIME, toString<SUMOTime>(myBlockTimes[i]));
         out.writeAttr(SUMO_ATTR_VALUE, myCarQues[i]);
         out.closeTag();

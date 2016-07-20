@@ -251,7 +251,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
             // get the new departures (into tmp)
             const int oldSize = (int)vehicles.size();
             const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, differSourceSink, prefix);
-            if (oldSize != vehicles.size()) {
+            if (oldSize != (int)vehicles.size()) {
                 changed = true;
             }
             if (fraction != 0) {
@@ -607,14 +607,14 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
         points.push_back(Position((SUMOReal)(24 * 3600), prob));
     } else {
         int i = 0;
-        while (i < def.size()) {
+        while (i < (int)def.size()) {
             StringTokenizer st2(def[i++], ":");
             if (st2.size() != 2) {
                 throw ProcessError("Broken time line definition: missing a value in '" + def[i - 1] + "'.");
             }
-            int time = TplConvert::_2int(st2.next().c_str());
+            const SUMOReal time = TplConvert::_2SUMOReal(st2.next().c_str());
             prob = TplConvert::_2SUMOReal(st2.next().c_str());
-            points.push_back(Position((SUMOReal) time, prob));
+            points.push_back(Position(time, prob));
         }
     }
     return Distribution_Points("N/A", points, interpolating);

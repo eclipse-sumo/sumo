@@ -19,8 +19,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-
-#pragma once
+#ifndef MSSOTLTrafficLightLogic_H
+#define MSSOTLTrafficLightLogic_H
 
 // ===========================================================================
 // included modules
@@ -124,3 +124,5 @@ private:
     MSSOTLPolicy* currentPolicy;
 
 };
+
+#endif

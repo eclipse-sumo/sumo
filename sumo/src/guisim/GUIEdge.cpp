@@ -91,7 +91,7 @@ GUIEdge::~GUIEdge() {
 
 MSLane&
 GUIEdge::getLane(int laneNo) {
-    assert(laneNo < myLanes->size());
+    assert(laneNo < (int)myLanes->size());
     return *((*myLanes)[laneNo]);
 }
 

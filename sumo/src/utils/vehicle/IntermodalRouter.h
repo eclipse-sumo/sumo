@@ -251,7 +251,7 @@ public:
                              &trip, msTime, intoPed);
         if (success) {
             std::string lastLine = "";
-            for (int i = 0; i < intoPed.size(); ++i) {
+            for (int i = 0; i < (int)intoPed.size(); ++i) {
                 if (intoPed[i]->includeInRoute(false)) {
                     if (intoPed[i]->getLine() == "!stop") {
                         into.back().destStop = intoPed[i]->getID();

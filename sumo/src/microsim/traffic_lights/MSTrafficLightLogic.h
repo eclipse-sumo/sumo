@@ -188,7 +188,7 @@ public:
      * @return The lanes controlled by the signal at the given index
      */
     const LaneVector& getLanesAt(int i) const {
-        if ((int)i < myLanes.size()) {
+        if (i < (int)myLanes.size()) {
             return myLanes[i];
         } else {
             return myEmptyLaneVector;

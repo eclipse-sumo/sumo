@@ -1520,10 +1520,10 @@ GUIApplicationWindow::closeAllWindows() {
     }
     // remove trackers and other external windows
     int i;
-    for (i = 0; i < mySubWindows.size(); ++i) {
+    for (i = 0; i < (int)mySubWindows.size(); ++i) {
         mySubWindows[i]->destroy();
     }
-    for (i = 0; i < myTrackerWindows.size(); ++i) {
+    for (i = 0; i < (int)myTrackerWindows.size(); ++i) {
         myTrackerWindows[i]->destroy();
     }
     // delete the simulation

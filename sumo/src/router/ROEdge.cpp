@@ -74,7 +74,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
     myCombinedPermissions(0) {
-    while (myEdges.size() <= index) {
+    while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);
     }
     myEdges[index] = this;

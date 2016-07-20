@@ -129,8 +129,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
     }
     // increment the index to the current phase
     myStep++;
-    assert(myStep <= myPhases.size());
-    if (myStep == myPhases.size()) {
+    assert(myStep <= (int)myPhases.size());
+    if (myStep == (int)myPhases.size()) {
         myStep = 0;
     }
     //stores the time the phase started
@@ -144,7 +144,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
 SUMOTime
 MSActuatedTrafficLightLogic::duration(const SUMOReal detectionGap) const {
     assert(getCurrentPhaseDef().isGreenPhase());
-    assert(myPhases.size() > myStep);
+    assert((int)myPhases.size() > myStep);
     const SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
     // ensure that minimum duration is kept
     SUMOTime newDuration = getCurrentPhaseDef().minDuration - actDuration;
@@ -164,7 +164,7 @@ MSActuatedTrafficLightLogic::duration(const SUMOReal detectionGap) const {
 SUMOReal
 MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
-    assert(myPhases.size() > myStep);
+    assert((int)myPhases.size() > myStep);
     SUMOReal result = std::numeric_limits<SUMOReal>::max();
     if (!getCurrentPhaseDef().isGreenPhase()) {
         return result; // end current phase

@@ -152,7 +152,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         repairCurrentRoute(router, begin, veh, oldEdges, edges);
         // check whether the same route was already used
         int cheapest = -1;
-        for (int i = 0; i < myAlternatives.size(); i++) {
+        for (int i = 0; i < (int)myAlternatives.size(); i++) {
             if (edges == myAlternatives[i]->getEdgeVector()) {
                 cheapest = i;
                 break;
@@ -334,7 +334,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             }
         }
     }
-    if (myAlternatives.size() > RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber()) {
+    if ((int)myAlternatives.size() > RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber()) {
         // only keep the routes with highest probability
         sort(myAlternatives.begin(), myAlternatives.end(), ComparatorProbability());
         for (std::vector<RORoute*>::iterator i = myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(); i != myAlternatives.end(); i++) {
@@ -378,7 +378,7 @@ RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                                bool asAlternatives, bool withExitTimes) const {
     if (asAlternatives) {
         dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed);
-        for (int i = 0; i != myAlternatives.size(); i++) {
+        for (int i = 0; i != (int)myAlternatives.size(); i++) {
             myAlternatives[i]->writeXMLDefinition(dev, veh, true, withExitTimes);
         }
         dev.closeTag();

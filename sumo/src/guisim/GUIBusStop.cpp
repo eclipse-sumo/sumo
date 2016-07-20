@@ -137,7 +137,6 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
     // draw the area
-    int i;
     glTranslated(0, 0, getType());
     GLHelper::setColor(green);
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
@@ -146,7 +145,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 10) {
         // draw the lines
         const SUMOReal rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
-        for (i = 0; i != myLines.size(); ++i) {
+        for (int i = 0; i != (int)myLines.size(); ++i) {
             glPushMatrix();
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(180, 1, 0, 0);

@@ -391,8 +391,8 @@ NLJunctionControlBuilder::addLogicItem(int request,
                               " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
     }
     // assert that the logicitems come ordered by their request index
-    assert(myActiveLogic.size() == (int) request);
-    assert(myActiveFoes.size() == (int) request);
+    assert((int)myActiveLogic.size() == request);
+    assert((int)myActiveFoes.size() == request);
     // add the read response for the given request index
     myActiveLogic.push_back(std::bitset<SUMO_MAX_CONNECTIONS>(response));
     // add the read junction-internal foes for the given request index

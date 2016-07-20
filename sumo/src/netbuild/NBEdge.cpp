@@ -87,7 +87,7 @@ NBEdge::Connection:: getInternalLaneID() const {
 void
 NBEdge::ToEdgeConnectionsAdder::execute(const int lane, const int virtEdge) {
     // check
-    assert(myTransitions.size() > virtEdge);
+    assert((int)myTransitions.size() > virtEdge);
     // get the approached edge
     NBEdge* succEdge = myTransitions[virtEdge];
     std::vector<int> lanes;
@@ -379,7 +379,7 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     // prepare container
     myLength = myFrom->getPosition().distanceTo(myTo->getPosition());
     assert(myGeom.size() >= 2);
-    if (myLanes.size() > noLanes) {
+    if ((int)myLanes.size() > noLanes) {
         // remove connections targeting the removed lanes
         const EdgeVector& incoming = myFrom->getIncomingEdges();
         for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
@@ -404,7 +404,7 @@ NBEdge::~NBEdge() {}
 void
 NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
     myGeom.add(xoff, yoff, 0);
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape.add(xoff, yoff, 0);
     }
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
@@ -414,7 +414,7 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 void
 NBEdge::mirrorX() {
     myGeom.mirrorX();
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape.mirrorX();
     }
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
@@ -491,12 +491,12 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
 
 void
 NBEdge::computeEdgeShape() {
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape = cutAtIntersection(myLanes[i].shape);
     }
     // recompute edge's length as the average of lane lenghts
     SUMOReal avgLength = 0;
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         assert(myLanes[i].shape.length() > 0);
         avgLength += myLanes[i].shape.length();
     }
@@ -1058,7 +1058,7 @@ NBEdge::canMoveConnection(const Connection& con, int newFromLane) const {
 void
 NBEdge::moveConnectionToLeft(int lane) {
     int index = 0;
-    for (int i = 0; i < myConnections.size(); ++i) {
+    for (int i = 0; i < (int)myConnections.size(); ++i) {
         if (myConnections[i].fromLane == (int)(lane) && canMoveConnection(myConnections[i], lane + 1)) {
             index = i;
         }
@@ -1345,10 +1345,7 @@ NBEdge::computeLaneShapes() {
         return;
     }
     // compute lane offset, first
-    std::vector<SUMOReal> offsets;
-    for (int i = 0; i < myLanes.size(); ++i) {
-        offsets.push_back(0);
-    }
+    std::vector<SUMOReal> offsets(myLanes.size(), 0.);
     SUMOReal offset = 0;
     for (int i = (int)myLanes.size() - 2; i >= 0; --i) {
         offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2. + SUMO_const_laneOffset;
@@ -1359,18 +1356,18 @@ NBEdge::computeLaneShapes() {
         offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
     } else {
         SUMOReal width = 0;
-        for (int i = 0; i < myLanes.size(); ++i) {
+        for (int i = 0; i < (int)myLanes.size(); ++i) {
             width += getLaneWidth(i);
         }
         width += SUMO_const_laneOffset * SUMOReal(myLanes.size() - 1);
         offset = -width / 2. + getLaneWidth((int)myLanes.size() - 1) / 2.;
     }
-    for (int i = 0; i < myLanes.size(); ++i) {
+    for (int i = 0; i < (int)myLanes.size(); ++i) {
         offsets[i] += offset;
     }
 
     // build the shape of each lane
-    for (int i = 0; i < myLanes.size(); ++i) {
+    for (int i = 0; i < (int)myLanes.size(); ++i) {
         try {
             myLanes[i].shape = computeLaneShape(i, offsets[i]);
         } catch (InvalidArgument& e) {
@@ -1572,11 +1569,11 @@ NBEdge::recheckLanes() {
         //  more than one connections, try to move one of them.
         // This check is only done for edges which connections were assigned
         //  using the standard algorithm.
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
                 if (i > 0 && connNumbersPerLane[i - 1] > 1 && getPermissions(i) == getPermissions(i - 1)) {
                     moveConnectionToLeft(i - 1);
-                } else if (i < myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1 && getPermissions(i) == getPermissions(i + 1)) {
+                } else if (i < (int)myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1 && getPermissions(i) == getPermissions(i + 1)) {
                     moveConnectionToRight(i + 1);
                 }
             }
@@ -1807,7 +1804,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 // the speed limit is taken from rural roads (which allow cycles)
                 // (pending implementation of #1859)
                 if (getPermissions(fromIndex) == SVC_BICYCLE && getSpeed() <= (101 / 3.6)) {
-                    for (int ii = 0; ii < myLanes.size(); ++ii) {
+                    for (int ii = 0; ii < (int)myLanes.size(); ++ii) {
                         if (myLanes[ii].permissions != SVC_PEDESTRIAN) {
                             myLanes[ii].permissions |= SVC_BICYCLE;
                         }
@@ -1955,7 +1952,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     // when no higher priority exists, let the forward direction be
     //  the main direction
     if (mainDirections.empty()) {
-        assert(dist < priorities->size());
+        assert(dist < (int)priorities->size());
         (*priorities)[dist] *= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
         if (DEBUGCOND) {
@@ -2243,7 +2240,7 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
         return false;
     }
     // matching lanes must have identical properties
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         if (myLanes[i].speed != possContinuation->myLanes[i].speed ||
                 myLanes[i].permissions != possContinuation->myLanes[i].permissions ||
                 myLanes[i].width != possContinuation->myLanes[i].width
@@ -2303,7 +2300,7 @@ void
 NBEdge::append(NBEdge* e) {
     // append geometry
     myGeom.append(e->myGeom);
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape.append(e->myLanes[i].shape);
         if (myLanes[i].origID != e->myLanes[i].origID) {
             myLanes[i].origID += " " + e->myLanes[i].origID;
@@ -2369,7 +2366,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const {
 
 void
 NBEdge::addLane(int index, bool recompute) {
-    assert(index <= myLanes.size());
+    assert(index <= (int)myLanes.size());
     myLanes.insert(myLanes.begin() + index, Lane(this, ""));
     // copy attributes
     if (myLanes.size() > 1) {
@@ -2393,10 +2390,10 @@ NBEdge::addLane(int index, bool recompute) {
 
 void
 NBEdge::incLaneNo(int by) {
-    int newLaneNo = (int) myLanes.size() + by;
-    while (myLanes.size() < newLaneNo) {
+    int newLaneNo = (int)myLanes.size() + by;
+    while ((int)myLanes.size() < newLaneNo) {
         // recompute shapes on last addition
-        const bool recompute = (myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
+        const bool recompute = ((int)myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
         addLane((int)myLanes.size(), recompute);
     }
 }
@@ -2404,7 +2401,7 @@ NBEdge::incLaneNo(int by) {
 
 void
 NBEdge::deleteLane(int index, bool recompute) {
-    assert(index < myLanes.size());
+    assert(index < (int)myLanes.size());
     myLanes.erase(myLanes.begin() + index);
     const EdgeVector& incs = myFrom->getIncomingEdges();
     if (recompute) {
@@ -2421,10 +2418,10 @@ void
 NBEdge::decLaneNo(int by) {
     int newLaneNo = (int) myLanes.size() - by;
     assert(newLaneNo > 0);
-    while (myLanes.size() > newLaneNo) {
+    while ((int)myLanes.size() > newLaneNo) {
         // recompute shapes on last removal
-        const bool recompute = myLanes.size() == newLaneNo + 1 && myStep < LANES2LANES_USER;
-        deleteLane((int)((int)myLanes.size() - 1), recompute);
+        const bool recompute = (int)myLanes.size() == newLaneNo + 1 && myStep < LANES2LANES_USER;
+        deleteLane((int)myLanes.size() - 1, recompute);
     }
 }
 
@@ -2439,11 +2436,11 @@ NBEdge::markAsInLane2LaneState() {
 void
 NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass) {
     if (lane < 0) { // all lanes are meant...
-        for (int i = 0; i < myLanes.size(); i++) {
-            allowVehicleClass((int) i, vclass);
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            allowVehicleClass(i, vclass);
         }
     } else {
-        assert(lane < (int) myLanes.size());
+        assert(lane < (int)myLanes.size());
         myLanes[lane].permissions |= vclass;
     }
 }
@@ -2452,11 +2449,11 @@ NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass) {
 void
 NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
     if (lane < 0) { // all lanes are meant...
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             disallowVehicleClass((int) i, vclass);
         }
     } else {
-        assert(lane < (int) myLanes.size());
+        assert(lane < (int)myLanes.size());
         myLanes[lane].permissions &= ~vclass;
     }
 }
@@ -2465,11 +2462,11 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
 void
 NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
     if (lane < 0) { // all lanes are meant...
-        for (int i = 0; i < myLanes.size(); i++) {
-            allowVehicleClass((int) i, vclass);
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            allowVehicleClass(i, vclass);
         }
     } else {
-        assert(lane < (int) myLanes.size());
+        assert(lane < (int)myLanes.size());
         myLanes[lane].preferred |= vclass;
     }
 }
@@ -2480,13 +2477,13 @@ NBEdge::setLaneWidth(int lane, SUMOReal width) {
     if (lane < 0) {
         // all lanes are meant...
         myLaneWidth = width;
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             // ... do it for each lane
-            setLaneWidth((int) i, width);
+            setLaneWidth(i, width);
         }
         return;
     }
-    assert(lane < (int) myLanes.size());
+    assert(lane < (int)myLanes.size());
     myLanes[lane].width = width;
 }
 
@@ -2502,7 +2499,7 @@ NBEdge::getLaneWidth(int lane) const {
 SUMOReal
 NBEdge::getTotalWidth() const {
     SUMOReal result = 0;
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         result += getLaneWidth(i);
     }
     return result;
@@ -2519,13 +2516,13 @@ NBEdge::setEndOffset(int lane, SUMOReal offset) {
     if (lane < 0) {
         // all lanes are meant...
         myEndOffset = offset;
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             // ... do it for each lane
-            setEndOffset((int) i, offset);
+            setEndOffset(i, offset);
         }
         return;
     }
-    assert(lane < (int) myLanes.size());
+    assert(lane < (int)myLanes.size());
     myLanes[lane].endOffset = offset;
 }
 
@@ -2535,13 +2532,13 @@ NBEdge::setSpeed(int lane, SUMOReal speed) {
     if (lane < 0) {
         // all lanes are meant...
         mySpeed = speed;
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             // ... do it for each lane
-            setSpeed((int) i, speed);
+            setSpeed(i, speed);
         }
         return;
     }
-    assert(lane < (int) myLanes.size());
+    assert(lane < (int)myLanes.size());
     myLanes[lane].speed = speed;
 }
 
@@ -2549,12 +2546,12 @@ NBEdge::setSpeed(int lane, SUMOReal speed) {
 void
 NBEdge::setPermissions(SVCPermissions permissions, int lane) {
     if (lane < 0) {
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             // ... do it for each lane
             setPermissions(permissions, i);
         }
     } else {
-        assert(lane < (int) myLanes.size());
+        assert(lane < (int)myLanes.size());
         myLanes[lane].permissions = permissions;
     }
 }
@@ -2563,12 +2560,12 @@ NBEdge::setPermissions(SVCPermissions permissions, int lane) {
 void
 NBEdge::setPreferredVehicleClass(SVCPermissions permissions, int lane) {
     if (lane < 0) {
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             // ... do it for each lane
             setPreferredVehicleClass(permissions, i);
         }
     } else {
-        assert(lane < (int) myLanes.size());
+        assert(lane < (int)myLanes.size());
         myLanes[lane].preferred = permissions;
     }
 }
@@ -2578,12 +2575,12 @@ SVCPermissions
 NBEdge::getPermissions(int lane) const {
     if (lane < 0) {
         SVCPermissions result = 0;
-        for (int i = 0; i < myLanes.size(); i++) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
             result |= getPermissions(i);
         }
         return result;
     } else {
-        assert(lane < (int) myLanes.size());
+        assert(lane < (int)myLanes.size());
         return myLanes[lane].permissions;
     }
 }

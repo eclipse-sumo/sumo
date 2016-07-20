@@ -70,7 +70,7 @@ public:
     }
 
     void setActive(int scheme) {
-        if (scheme < mySchemes.size()) {
+        if (scheme < (int)mySchemes.size()) {
             myActiveScheme = scheme;
         }
     }

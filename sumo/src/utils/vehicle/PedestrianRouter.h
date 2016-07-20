@@ -103,7 +103,7 @@ public:
                              myPedNet->getArrivalEdge(to),
                              &trip, msTime, intoPed);
         if (success) {
-            for (int i = 0; i < intoPed.size(); ++i) {
+            for (int i = 0; i < (int)intoPed.size(); ++i) {
                 if (intoPed[i]->includeInRoute(allEdges)) {
                     into.push_back(intoPed[i]->getEdge());
                 }

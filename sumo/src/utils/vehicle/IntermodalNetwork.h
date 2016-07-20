@@ -217,7 +217,7 @@ public:
     }
 
     void addEdge(_IntermodalEdge* edge) {
-        while (myEdges.size() <= edge->getNumericalID()) {
+        while ((int)myEdges.size() <= edge->getNumericalID()) {
             myEdges.push_back(0);
         }
         myEdges[edge->getNumericalID()] = edge;

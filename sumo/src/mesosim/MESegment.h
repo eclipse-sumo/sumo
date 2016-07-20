@@ -139,7 +139,7 @@ public:
      * @return the Queue (XXX not thread-safe!)
      */
     inline const Queue& getQueue(int index) const {
-        assert(index < myCarQues.size());
+        assert(index < (int)myCarQues.size());
         return myCarQues[index];
     }
 

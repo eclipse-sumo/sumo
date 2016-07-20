@@ -136,7 +136,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 10) {
         // draw the lines
-        for (i = 0; i != myLines.size(); ++i) {
+        for (i = 0; i != (int)myLines.size(); ++i) {
             glPushMatrix();
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(180, 1, 0, 0);

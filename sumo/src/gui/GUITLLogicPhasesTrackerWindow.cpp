@@ -173,7 +173,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30);
     app.addChild(this, true);
-    for (int i = 0; i < myTLLogic->getLinks().size(); ++i) {
+    for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
     FXVerticalFrame* glcanvasFrame =
@@ -200,7 +200,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
     app.addChild(this, true);
-    for (int i = 0; i < myTLLogic->getLinks().size(); ++i) {
+    for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
     FXVerticalFrame* glcanvasFrame =
@@ -309,14 +309,14 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // draw the link names and the lines dividing them
     SUMOReal h = (SUMOReal)(1.0 - h10);
     SUMOReal h2 = 12;
-    for (int i = 0; i < myTLLogic->getLinks().size() + 1; ++i) {
+    for (int i = 0; i < (int)myTLLogic->getLinks().size() + 1; ++i) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
         glVertex2d((SUMOReal)(30. / width), h);
         glEnd();
         // draw the name
-        if (i < myTLLogic->getLinks().size()) {
+        if (i < (int)myTLLogic->getLinks().size()) {
             glRotated(180, 1, 0, 0);
             pfSetPosition(0, 0);
             glTranslated(0.0, -h + h20 - h4, 0);

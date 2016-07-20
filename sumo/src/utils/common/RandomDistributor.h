@@ -81,7 +81,7 @@ public:
         assert(prob >= 0);
         myProb += prob;
         if (checkDuplicates) {
-            for (int i = 0; i < myVals.size(); i++) {
+            for (int i = 0; i < (int)myVals.size(); i++) {
                 if (val == myVals[i]) {
                     myProbs[i] += prob;
                     return false;
@@ -105,7 +105,7 @@ public:
             throw OutOfBoundsException();
         }
         SUMOReal prob = which == 0 ? RandHelper::rand(myProb) : which->rand(myProb);
-        for (int i = 0; i < myVals.size(); i++) {
+        for (int i = 0; i < (int)myVals.size(); i++) {
             if (prob < myProbs[i]) {
                 return myVals[i];
             }
