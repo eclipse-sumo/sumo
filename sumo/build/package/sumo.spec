@@ -22,18 +22,15 @@ Source4:        %{name}.xml
 License:        GPL-3.0+
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel unzip
-BuildRequires:  libxerces-c-devel help2man fdupes
-%if 0%{?mandriva_version}
-BuildRequires:  XFree86-devel postgresql-devel libmesaglu1-devel
-%else
-BuildRequires:  xorg-x11-devel xorg-x11-Mesa-devel
+BuildRequires:  gcc-c++ unzip help2man
+BuildRequires:  pkgconfig(x11) pkgconfig(xerces-c) pkgconfig(fox)
+%if 0%{?fedora_version} || 0%{?suse_version}
+BuildRequires:  fdupes
+BuildRequires:  pkgconfig(gdal)
 %endif
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
-BuildRequires:  libGLU-devel libXext-devel libXft-devel
-%if 0%{?fedora_version} >= 15
-BuildRequires:  netcdf hdf5 javamail
-%endif
+BuildRequires:  pkgconfig(xcursor) pkgconfig(xrandr) pkgconfig(xi) 
+BuildRequires:  libGLU-devel libXext-devel libXft-devel libjpeg-devel libpng-devel libtiff-devel
 %endif
 
 Autoreqprov: on
@@ -72,9 +69,7 @@ install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/applications/%{name}.desktop
 install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version}
-%if 0%{?suse_version} > 1200
 install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
-%endif
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
