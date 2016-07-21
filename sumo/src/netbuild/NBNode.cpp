@@ -130,7 +130,7 @@ NBNode::ApproachingDivider::~ApproachingDivider() {}
 
 void
 NBNode::ApproachingDivider::execute(const int src, const int dest) {
-    assert(myApproaching->size() > src);
+    assert((int)myApproaching->size() > src);
     // get the origin edge
     NBEdge* incomingEdge = (*myApproaching)[src];
     if (incomingEdge->getStep() == NBEdge::LANES2LANES_DONE || incomingEdge->getStep() == NBEdge::LANES2LANES_USER) {
@@ -142,9 +142,8 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     std::deque<int>* approachedLanes = spread(approachingLanes, dest);
     assert(approachedLanes->size() <= myAvailableLanes.size());
     // set lanes
-    for (int i = 0; i < approachedLanes->size(); i++) {
-        assert(approachedLanes->size() > i);
-        assert(approachingLanes.size() > i);
+    for (int i = 0; i < (int)approachedLanes->size(); i++) {
+        assert((int)approachingLanes.size() > i);
         int approached = myAvailableLanes[(*approachedLanes)[i]];
         incomingEdge->setConnection((int) approachingLanes[i], myCurrentOutgoing,
                                     approached, NBEdge::L2L_COMPUTED);
@@ -189,7 +188,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
         if (dest + loffset >= noOutgoingLanes) {
             loffset -= 1;
             roffset += 1;
-            for (int i = 0; i < ret->size(); i++) {
+            for (int i = 0; i < (int)ret->size(); i++) {
                 (*ret)[i] = (*ret)[i] - 1;
             }
         }
@@ -211,7 +210,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
             if (dest < roffset) {
                 loffset += 1;
                 roffset -= 1;
-                for (int i = 0; i < ret->size(); i++) {
+                for (int i = 0; i < (int)ret->size(); i++) {
                     (*ret)[i] = (*ret)[i] + 1;
                 }
             }
@@ -1162,11 +1161,10 @@ NBNode::replaceInConnectionProhibitions(NBEdge* which, NBEdge* by,
 
 void
 NBNode::removeDoubleEdges() {
-    int i, j;
     // check incoming
-    for (i = 0; myIncomingEdges.size() > 0 && i < myIncomingEdges.size() - 1; i++) {
-        j = i + 1;
-        while (j < myIncomingEdges.size()) {
+    for (int i = 0; myIncomingEdges.size() > 0 && i < (int)myIncomingEdges.size() - 1; i++) {
+        int j = i + 1;
+        while (j < (int)myIncomingEdges.size()) {
             if (myIncomingEdges[i] == myIncomingEdges[j]) {
                 myIncomingEdges.erase(myIncomingEdges.begin() + j);
             } else {
@@ -1175,9 +1173,9 @@ NBNode::removeDoubleEdges() {
         }
     }
     // check outgoing
-    for (i = 0; myOutgoingEdges.size() > 0 && i < myOutgoingEdges.size() - 1; i++) {
-        j = i + 1;
-        while (j < myOutgoingEdges.size()) {
+    for (int i = 0; myOutgoingEdges.size() > 0 && i < (int)myOutgoingEdges.size() - 1; i++) {
+        int j = i + 1;
+        while (j < (int)myOutgoingEdges.size()) {
             if (myOutgoingEdges[i] == myOutgoingEdges[j]) {
                 myOutgoingEdges.erase(myOutgoingEdges.begin() + j);
             } else {
@@ -1186,9 +1184,9 @@ NBNode::removeDoubleEdges() {
         }
     }
     // check all
-    for (i = 0; myAllEdges.size() > 0 && i < myAllEdges.size() - 1; i++) {
-        j = i + 1;
-        while (j < myAllEdges.size()) {
+    for (int i = 0; myAllEdges.size() > 0 && i < (int)myAllEdges.size() - 1; i++) {
+        int j = i + 1;
+        while (j < (int)myAllEdges.size()) {
             if (myAllEdges[i] == myAllEdges[j]) {
                 myAllEdges.erase(myAllEdges.begin() + j);
             } else {
@@ -1883,7 +1881,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
     } else {
         // check whether the edges may be part of a common crossing due to having similar angle
         SUMOReal prevAngle = -100000; // dummy
-        for (int i = 0; i < candidates.size(); ++i) {
+        for (int i = 0; i < (int)candidates.size(); ++i) {
             NBEdge* edge = candidates[i];
             SUMOReal angle = edge->getCrossingAngle(this);
             // edges should be sorted by angle but this only holds true approximately

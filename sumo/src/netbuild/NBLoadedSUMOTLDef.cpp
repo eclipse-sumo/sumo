@@ -324,7 +324,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
     if (newCrossings > 0) {
         const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
         if (phases.size() > 0) {
-            if (phases.front().state.size() == noLinksAll - newCrossings) {
+            if ((int)phases.front().state.size() == noLinksAll - newCrossings) {
                 // patch states for the newly added crossings
 
                 // collect edges
@@ -349,7 +349,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
 
                 delete myTLLogic;
                 myTLLogic = newLogic;
-            } else if (phases.front().state.size() != noLinksAll) {
+            } else if ((int)phases.front().state.size() != noLinksAll) {
                 WRITE_WARNING("Could not patch tlLogic " + getID() + "for new crossings");
             }
         }

@@ -84,7 +84,7 @@ Distribution_Points::getAreaPerc(int index) const {
     if (!myProbabilitiesAreComputed) {
         SUMOReal sum = 0;
         if (myInterpolateDist) {
-            for (int i = 0; i < myPoints.size() - 1; i++) {
+            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
                 SUMOReal width = getAreaEnd(i) - getAreaBegin(i);
                 SUMOReal minval = MIN2(myPoints[i].y(), myPoints[i].y());
                 SUMOReal maxval = MAX2(myPoints[i].y(), myPoints[i].y());
@@ -93,18 +93,18 @@ Distribution_Points::getAreaPerc(int index) const {
                 sum += amount;
             }
         } else {
-            for (int i = 0; i < myPoints.size() - 1; i++) {
+            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
                 myProbabilities.push_back(myPoints[i].y());
                 sum += myPoints[i].y();
             }
         }
         // normalize
         if (myInterpolateDist) {
-            for (int i = 0; i < myPoints.size() - 1; i++) {
+            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
                 myProbabilities[i] = myProbabilities[i] / sum;
             }
         } else {
-            for (int i = 0; i < myPoints.size() - 1; i++) {
+            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
                 myProbabilities[i] = myProbabilities[i] / sum;
             }
         }

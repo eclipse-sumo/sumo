@@ -359,7 +359,7 @@ NBEdgeCont::retrievePossiblySplit(const std::string& id, SUMOReal pos) const {
         // The edge was splitted; check its subparts within the
         //  next step
         if (edge == 0) {
-            if (cid.length() + 3 < maxLength) {
+            if ((int)cid.length() + 3 < maxLength) {
                 names.push_back(cid + "[1]");
                 names.push_back(cid + "[0]");
             }
@@ -843,7 +843,7 @@ NBEdgeCont::getGeneratedFrom(const std::string& id) const {
         std::string curr = (*i).first;
         // the next check makes it possibly faster - we don not have
         //  to compare the names
-        if (curr.length() <= len) {
+        if ((int)curr.length() <= len) {
             continue;
         }
         // the name must be the same as the given id but something
@@ -937,7 +937,7 @@ NBEdgeCont::guessRoundabouts() {
                 // loop found
                 if (loopSize < 3) {
                     doLoop = false; // need at least 3 edges for a roundabout
-                } else if (loopSize < loopEdges.size()) {
+                } else if (loopSize < (int)loopEdges.size()) {
                     // remove initial edges not belonging to the loop
                     EdgeVector(loopEdges.begin() + (loopEdges.size() - loopSize), loopEdges.end()).swap(loopEdges);
                 }

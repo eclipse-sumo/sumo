@@ -200,19 +200,19 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     std::vector<int> fromLanes;
     int noLanesAll = 0;
     int noLinksAll = 0;
-    for (int i1 = 0; i1 < incoming.size(); i1++) {
+    for (int i1 = 0; i1 < (int)incoming.size(); i1++) {
         int noLanes = incoming[i1]->getNumLanes();
         noLanesAll += noLanes;
         for (int i2 = 0; i2 < noLanes; i2++) {
             NBEdge* fromEdge = incoming[i1];
             std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             noLinksAll += (int) approached.size();
-            for (int i3 = 0; i3 < approached.size(); i3++) {
+            for (int i3 = 0; i3 < (int)approached.size(); i3++) {
                 if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
                     --noLinksAll;
                     continue;
                 }
-                assert(i3 < approached.size());
+                assert(i3 < (int)approached.size());
                 NBEdge* toEdge = approached[i3].toEdge;
                 fromEdges.push_back(fromEdge);
                 fromLanes.push_back((int)i2);
@@ -270,7 +270,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             const int numLanes = fromEdge->getNumLanes();
             for (int i2 = 0; i2 < numLanes; i2++) {
                 std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
-                for (int i3 = 0; i3 < approached.size(); ++i3) {
+                for (int i3 = 0; i3 < (int)approached.size(); ++i3) {
                     if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
                         continue;
                     }
@@ -316,7 +316,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         greenPhases.push_back((int)logic->getPhases().size());
         state = addPedestrianPhases(logic, greenTime, state, crossings, fromEdges, toEdges);
         // pedestrians have 'r' from here on
-        for (int i1 = pos; i1 < pos + crossings.size(); ++i1) {
+        for (int i1 = pos; i1 < pos + (int)crossings.size(); ++i1) {
             state[i1] = 'r';
         }
         const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0;

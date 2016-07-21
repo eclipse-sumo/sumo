@@ -160,7 +160,7 @@ NBLoadedTLDef::SignalGroup::containsConnection(NBEdge* from, NBEdge* to) const {
 
 const NBConnection&
 NBLoadedTLDef::SignalGroup::getConnection(int pos) const {
-    assert(pos < myConnections.size());
+    assert(pos < (int)myConnections.size());
     return myConnections[pos];
 }
 

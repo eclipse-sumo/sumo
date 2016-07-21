@@ -94,7 +94,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int in
     if (myNumLinks == 0) {
         // initialize
         myNumLinks = (int)state.size();
-    } else if (state.size() != myNumLinks) {
+    } else if ((int)state.size() != myNumLinks) {
         throw ProcessError("When adding phase to tlLogic '" + getID() + "': state length of " + toString(state.size()) +
                            " does not match declared number of links " + toString(myNumLinks));
     }
@@ -114,7 +114,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int in
 
 void
 NBTrafficLightLogic::deletePhase(int index) {
-    if (index >= myPhases.size()) {
+    if (index >= (int)myPhases.size()) {
         throw InvalidArgument("Index " + toString(index) + " out of range for logic with "
                               + toString(myPhases.size()) + " phases.");
     }
@@ -141,7 +141,7 @@ NBTrafficLightLogic::getDuration() const {
 
 void
 NBTrafficLightLogic::closeBuilding() {
-    for (int i = 0; i < myPhases.size() - 1;) {
+    for (int i = 0; i < (int)myPhases.size() - 1;) {
         if (myPhases[i].state != myPhases[i + 1].state) {
             ++i;
             continue;
@@ -154,16 +154,16 @@ NBTrafficLightLogic::closeBuilding() {
 
 void
 NBTrafficLightLogic::setPhaseState(int phaseIndex, int tlIndex, LinkState linkState) {
-    assert(phaseIndex < myPhases.size());
+    assert(phaseIndex < (int)myPhases.size());
     std::string& phaseState = myPhases[phaseIndex].state;
-    assert(tlIndex < phaseState.size());
+    assert(tlIndex < (int)phaseState.size());
     phaseState[tlIndex] = (char)linkState;
 }
 
 
 void
 NBTrafficLightLogic::setPhaseDuration(int phaseIndex, SUMOTime duration) {
-    assert(phaseIndex < myPhases.size());
+    assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].duration = duration;
 }
 

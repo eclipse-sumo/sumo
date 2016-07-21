@@ -218,7 +218,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         return; // !!! error output? did not happend, yet
     }
     // check whether the link crossing has already been checked
-    assert((int) idx1 < myIncoming.size()*myOutgoing.size());
+    assert(idx1 < (int)(myIncoming.size() * myOutgoing.size()));
     if (myDone[idx1][idx2]) {
         return;
     }
@@ -431,8 +431,8 @@ NBRequest::foes(const NBEdge* const from1, const NBEdge* const to1,
     if (idx1 < 0 || idx2 < 0) {
         return false; // sure? (The connection does not exist within this junction)
     }
-    assert((int) idx1 < myIncoming.size()*myOutgoing.size());
-    assert((int) idx2 < myIncoming.size()*myOutgoing.size());
+    assert(idx1 < (int)(myIncoming.size() * myOutgoing.size()));
+    assert(idx2 < (int)(myIncoming.size()*myOutgoing.size()));
     return myForbids[idx1][idx2] || myForbids[idx2][idx1];
 }
 
@@ -451,8 +451,8 @@ NBRequest::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const p
     if (possProhibitorIdx < 0 || possProhibitedIdx < 0) {
         return false; // sure? (The connection does not exist within this junction)
     }
-    assert((int) possProhibitorIdx < myIncoming.size()*myOutgoing.size());
-    assert((int) possProhibitedIdx < myIncoming.size()*myOutgoing.size());
+    assert(possProhibitorIdx < (int)(myIncoming.size() * myOutgoing.size()));
+    assert(possProhibitedIdx < (int)(myIncoming.size() * myOutgoing.size()));
     // check simple right-of-way-rules
     if (!regardNonSignalisedLowerPriority) {
         return myForbids[possProhibitorIdx][possProhibitedIdx];
@@ -556,9 +556,9 @@ NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge
                     result += '0';
                 } else {
                     assert(k < (int) connected.size());
-                    assert((int) idx < myIncoming.size()*myOutgoing.size());
+                    assert(idx < (int)(myIncoming.size() * myOutgoing.size()));
                     assert(connected[k].toEdge != 0);
-                    assert((int) getIndex(*i, connected[k].toEdge) < myIncoming.size()*myOutgoing.size());
+                    assert(getIndex(*i, connected[k].toEdge) < (int)(myIncoming.size() * myOutgoing.size()));
                     // check whether the connection is prohibited by another one
                     if ((myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
@@ -699,7 +699,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     }
     // go through all (existing) connections;
     //  check whether any of these forbids the one to determine
-    assert((int) idx2 < myIncoming.size()*myOutgoing.size());
+    assert(idx2 < (int)(myIncoming.size()*myOutgoing.size()));
     for (int idx1 = 0; idx1 < numLinks(); idx1++) {
         //assert(myDone[idx1][idx2]);
         if (myDone[idx1][idx2] && myForbids[idx1][idx2]) {
@@ -799,7 +799,7 @@ NBRequest::resetCooperating() {
     for (std::map<NBEdge*, int>::iterator it = incomingCount.begin(); it != incomingCount.end(); ++it) {
         NBEdge* to = it->first;
         // we cannot test against to->getNumLanes() since not all lanes may be used
-        if (approachedLanes[to].size() >= it->second) {
+        if ((int)approachedLanes[to].size() >= it->second) {
             EdgeVector& incoming = incomingEdges[to];
             // make these connections mutually unconflicting
             for (EdgeVector::iterator it_e1 = incoming.begin(); it_e1 != incoming.end(); ++it_e1) {

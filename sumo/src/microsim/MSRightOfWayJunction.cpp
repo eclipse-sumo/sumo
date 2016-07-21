@@ -150,7 +150,7 @@ MSRightOfWayJunction::postloadInit() {
 #ifdef HAVE_INTERNAL_LANES
             if (MSGlobals::gUsingInternalLanes && myInternalLanes.size() > 0) {
                 int li = 0;
-                for (int c = 0; c < sortedLinks.size(); ++c) {
+                for (int c = 0; c < (int)sortedLinks.size(); ++c) {
                     if (sortedLinks[c].second->getLane() == 0) { // dead end
                         continue;
                     }

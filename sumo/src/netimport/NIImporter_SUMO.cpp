@@ -587,7 +587,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }
-    if (from->lanes.size() <= (int) fromLaneIdx) {
+    if ((int)from->lanes.size() <= fromLaneIdx) {
         WRITE_ERROR("Invalid lane index '" + toString(fromLaneIdx) + "' for connection from '" + fromID + "'.");
         return;
     }
@@ -636,7 +636,7 @@ NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
     int index;
     interpretLaneID(lane_id, edge_id, index);
     assert(edge->id == edge_id);
-    if (edge->lanes.size() <= (int) index) {
+    if ((int)edge->lanes.size() <= index) {
         WRITE_ERROR("Unknown lane '" + lane_id + "' given in succedge.");
         return 0;
     } else {
@@ -727,7 +727,7 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
     } else {
         offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth * (SUMOReal)noLanes - 1) / 2.; ///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
     }
-    for (int i = 1; i < firstLane.size() - 1; i++) {
+    for (int i = 1; i < (int)firstLane.size() - 1; i++) {
         const Position& from = firstLane[i - 1];
         const Position& me = firstLane[i];
         const Position& to = firstLane[i + 1];
