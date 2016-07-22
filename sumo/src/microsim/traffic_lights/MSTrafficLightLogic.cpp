@@ -226,7 +226,7 @@ MSTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
     // get the current traffic light signal combination
     const std::string& state = getCurrentPhaseDef().getState();
     // go through the links
-    for (int i = 0; i < myLinks.size(); i++) {
+    for (int i = 0; i < (int)myLinks.size(); i++) {
         const LinkVector& currGroup = myLinks[i];
         LinkState ls = (LinkState) state[i];
         for (LinkVector::const_iterator j = currGroup.begin(); j != currGroup.end(); j++) {

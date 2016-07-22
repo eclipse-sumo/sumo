@@ -98,7 +98,7 @@ ROJTREdge::chooseNext(const ROVehicle* const veh, SUMOReal time, const std::set<
     }
     // if no loaded definitions are valid for this time, try to use the defaults
     if (dist.getOverallProb() == 0) {
-        for (int i = 0; i < myParsedTurnings.size(); ++i) {
+        for (int i = 0; i < (int)myParsedTurnings.size(); ++i) {
             if (avoid.count(myFollowingEdges[i]) == 0) {
                 if (veh == 0 || !myFollowingEdges[i]->prohibits(veh)) {
                     dist.add(myParsedTurnings[i], static_cast<ROJTREdge*>(myFollowingEdges[i]));
@@ -120,16 +120,15 @@ ROJTREdge::setTurnDefaults(const std::vector<SUMOReal>& defs) {
     // I hope, we'll find a less ridiculous solution for this
     std::vector<SUMOReal> tmp(defs.size()*myFollowingEdges.size(), 0);
     // store in less common multiple
-    int i;
-    for (i = 0; i < defs.size(); ++i) {
-        for (int j = 0; j < myFollowingEdges.size(); ++j) {
+    for (int i = 0; i < (int)defs.size(); ++i) {
+        for (int j = 0; j < (int)myFollowingEdges.size(); ++j) {
             tmp[i * myFollowingEdges.size() + j] = (SUMOReal)(defs[i] / 100.0 / (myFollowingEdges.size()));
         }
     }
     // parse from less common multiple
-    for (i = 0; i < myFollowingEdges.size(); ++i) {
+    for (int i = 0; i < (int)myFollowingEdges.size(); ++i) {
         SUMOReal value = 0;
-        for (int j = 0; j < defs.size(); ++j) {
+        for (int j = 0; j < (int)defs.size(); ++j) {
             value += tmp[i * defs.size() + j];
         }
         myParsedTurnings.push_back((SUMOReal) value);

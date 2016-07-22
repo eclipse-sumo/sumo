@@ -534,7 +534,7 @@ void
 OptionsCont::splitLines(std::ostream& os, std::string what,
                         int offset, int nextOffset) {
     while (what.length() > 0) {
-        if (what.length() > 79 - offset) {
+        if ((int)what.length() > 79 - offset) {
             std::string::size_type splitPos = what.rfind(';', 79 - offset);
             if (splitPos == std::string::npos) {
                 splitPos = what.rfind(' ', 79 - offset);

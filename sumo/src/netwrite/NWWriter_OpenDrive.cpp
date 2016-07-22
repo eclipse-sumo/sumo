@@ -269,7 +269,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 SUMOReal
 NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset) {
-    for (int j = 0; j < shape.size() - 1; ++j) {
+    for (int j = 0; j < (int)shape.size() - 1; ++j) {
         const Position& p = shape[j];
         const Position& p2 = shape[j + 1];
         const SUMOReal hdg = shape.angleAt2D(j);

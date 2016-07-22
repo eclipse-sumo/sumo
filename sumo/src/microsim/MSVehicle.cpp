@@ -2059,7 +2059,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
         bool foundStopped = false;
         // compute available space until a stopped vehicle is found
         // this is the sum of non-interal lane length minus in-between vehicle lenghts
-        for (int i = 0; i < lfLinks.size(); ++i) {
+        for (int i = 0; i < (int)lfLinks.size(); ++i) {
             // skip unset links
             DriveProcessItem& item = lfLinks[i];
             if (item.myLink == 0 || foundStopped) {
@@ -2185,7 +2185,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
 
         // find removalBegin
         int removalBegin = -1;
-        for (int i = 0; hadVehicle && i < lfLinks.size() && removalBegin < 0; ++i) {
+        for (int i = 0; hadVehicle && i < (int)lfLinks.size() && removalBegin < 0; ++i) {
             // skip unset links
             const DriveProcessItem& item = lfLinks[i];
             if (item.myLink == 0) {

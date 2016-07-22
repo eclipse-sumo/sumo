@@ -58,7 +58,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
     MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters),
     myPhases(phases),
     myStep(step) {
-    for (int i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < (int)myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }
 }
@@ -82,7 +82,7 @@ MSSimpleTrafficLightLogic::trySwitch() {
     // increment the index
     myStep++;
     // if the last phase was reached ...
-    if (myStep >= myPhases.size()) {
+    if (myStep >= (int)myPhases.size()) {
         // ... set the index to the first phase
         myStep = 0;
     }
@@ -176,7 +176,7 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
         return 0;
     }
     SUMOTime testPos = 0;
-    for (int i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < (int)myPhases.size(); i++) {
         testPos = testPos + getPhase(i).duration;
         if (testPos > offset) {
             return i;
@@ -218,7 +218,7 @@ MSSimpleTrafficLightLogic::setPhases(const Phases& phases, int step) {
 
 void
 MSSimpleTrafficLightLogic::deletePhases() {
-    for (int i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < (int)myPhases.size(); i++) {
         delete myPhases[i];
     }
 }

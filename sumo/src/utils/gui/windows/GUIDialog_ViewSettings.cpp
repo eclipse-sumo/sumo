@@ -1102,7 +1102,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
             return 1;
         }
         name = text->getText().text();
-        for (int i = 0; i < name.length(); ++i) {
+        for (int i = 0; i < (int)name.length(); ++i) {
             if (name[i] != '_' && (name[i] < 'a' || name[i] > 'z') && (name[i] < 'A' || name[i] > 'Z') && (name[i] < '0' || name[i] > '9')) {
                 name = "";
                 break;

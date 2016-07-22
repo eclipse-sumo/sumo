@@ -402,7 +402,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
 
         } else {
             // draw rerouter symbol onto all lanes
-            for (int i = 0; i < myFGPositions.size(); ++i) {
+            for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                 const Position& pos = myFGPositions[i];
                 SUMOReal rot = myFGRotations[i];
                 glPushMatrix();

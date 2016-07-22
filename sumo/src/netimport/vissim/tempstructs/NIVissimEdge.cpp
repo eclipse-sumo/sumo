@@ -486,9 +486,8 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
 
     // build the edge
     SUMOReal avgSpeed = 0;
-    int i;
-    for (i = 0; i < (int) myNoLanes; i++) {
-        if (myLaneSpeeds.size() <= (int) i || myLaneSpeeds[i] == -1) {
+    for (int i = 0; i < myNoLanes; i++) {
+        if ((int)myLaneSpeeds.size() <= i || myLaneSpeeds[i] == -1) {
             myLanesWithMissingSpeeds.push_back(toString(myID) + "_" + toString(i));
             avgSpeed += OptionsCont::getOptions().getFloat("vissim.default-speed");
         } else {
@@ -507,7 +506,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
                                    avgSpeed / (SUMOReal) 3.6, myNoLanes, -1,
                                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                    myGeom, myName, "", LANESPREAD_CENTER, true);
-    for (i = 0; i < (int) myNoLanes; i++) {
+    for (int i = 0; i < myNoLanes; i++) {
         if ((int) myLaneSpeeds.size() <= i || myLaneSpeeds[i] == -1) {
             buildEdge->setSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed") / (SUMOReal) 3.6);
         } else {
@@ -866,7 +865,7 @@ NIVissimEdge::checkDistrictConnectionExistanceAt(SUMOReal pos) {
 
 void
 NIVissimEdge::setSpeed(int lane, int speedDist) {
-    while (myPatchedSpeeds.size() <= lane) {
+    while ((int)myPatchedSpeeds.size() <= lane) {
         myPatchedSpeeds.push_back(-1);
     }
     myPatchedSpeeds[lane] = speedDist;

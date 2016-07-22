@@ -568,7 +568,7 @@ GNETLSEditorFrame::initPhaseTable(int index) {
         myPhaseTable->setTableSize((int)phases.size(), 2);
         myPhaseTable->setVisibleRows((int)phases.size());
         myPhaseTable->setVisibleColumns(2);
-        for (int row = 0; row < phases.size(); row++) {
+        for (int row = 0; row < (int)phases.size(); row++) {
             myPhaseTable->setItemText(row, 0, toString(STEPS2TIME(phases[row].duration)).c_str());
             myPhaseTable->setItemText(row, 1, phases[row].state.c_str());
             myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
@@ -600,7 +600,7 @@ GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
     myHaveModifications = true;
     if (myViewNet->changeAllPhases()) {
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = getPhases();
-        for (int row = 0; row < phases.size(); row++) {
+        for (int row = 0; row < (int)phases.size(); row++) {
             myEditedDef->getLogic()->setPhaseState(row, lane->getTLIndex(), lane->getLinkState());
         }
     } else {

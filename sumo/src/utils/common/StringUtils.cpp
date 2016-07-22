@@ -65,7 +65,7 @@ StringUtils::prune(const std::string& str) {
 
 std::string
 StringUtils::to_lower_case(std::string str) {
-    for (int i = 0; i < str.length(); i++) {
+    for (int i = 0; i < (int)str.length(); i++) {
         if (str[i] >= 'A' && str[i] <= 'Z') {
             str[i] = str[i] + 'a' - 'A';
         }
@@ -78,7 +78,7 @@ std::string
 StringUtils::latin1_to_utf8(std::string str) {
     // inspired by http://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
     std::string result;
-    for (int i = 0; i < str.length(); i++) {
+    for (int i = 0; i < (int)str.length(); i++) {
         const unsigned char c = str[i];
         if (c < 128) {
             result += c;
@@ -180,7 +180,7 @@ std::string
 StringUtils::urlEncode(const std::string& toEncode, const std::string encodeWhich) {
     std::ostringstream out;
 
-    for (int i = 0; i < toEncode.length(); ++i) {
+    for (int i = 0; i < (int)toEncode.length(); ++i) {
         const char t = toEncode.at(i);
 
         if ((encodeWhich != "" && encodeWhich.find(t) == std::string::npos) ||
@@ -204,7 +204,7 @@ std::string
 StringUtils::urlDecode(const std::string& toDecode) {
     std::ostringstream out;
 
-    for (int i = 0; i < toDecode.length(); ++i) {
+    for (int i = 0; i < (int)toDecode.length(); ++i) {
         if (toDecode.at(i) == '%') {
             std::string str(toDecode.substr(i + 1, 2));
             out << hexToChar(str);

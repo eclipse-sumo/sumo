@@ -77,7 +77,7 @@ MSSOTLTrafficLightLogic::~MSSOTLTrafficLightLogic() {
             delete *vIt;
         }
     m_pushButtons.clear();
-    for (int i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < (int)myPhases.size(); i++) {
         delete myPhases[i];
     }
     if (sensorsSelfBuilt) {
@@ -194,9 +194,9 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
                 LaneVector outLanes;
                 LinkVectorVector myoutLinks = getLinks();
 
-                for (int i = 0; i < myLinks.size(); i++) {
+                for (int i = 0; i < (int)myLinks.size(); i++) {
                     LinkVector oneLink = getLinksAt(i);
-                    for (int j = 0; j < oneLink.size(); j++) {
+                    for (int j = 0; j < (int)oneLink.size(); j++) {
                         MSLane* lane  = oneLink[j]->getLane();
                         outLanes.push_back(lane);
                     }

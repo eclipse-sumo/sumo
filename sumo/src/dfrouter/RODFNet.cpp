@@ -294,7 +294,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
         // ... else: loop over the next edges
         const ROEdgeVector& appr  = myApproachedEdges.find(last)->second;
         bool hadOne = false;
-        for (int i = 0; i < appr.size(); i++) {
+        for (int i = 0; i < (int)appr.size(); i++) {
             if (find(current.edges2Pass.begin(), current.edges2Pass.end(), appr[i]) != current.edges2Pass.end()) {
                 // do not append an edge twice (do not build loops)
                 continue;
@@ -750,7 +750,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
                 int noOk = 0;
                 int noFalse = 0;
                 int noSkipped = 0;
-                for (int i = 0; i < appr.size(); i++) {
+                for (int i = 0; i < (int)appr.size(); i++) {
                     if (!hasDetector(appr[i])) {
                         noOk++;
                     } else {
@@ -785,7 +785,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
     int noFalse = 0;
     int noSkipped = 0;
     seen.push_back(edge);
-    for (int i = 0; i < appr.size(); i++) {
+    for (int i = 0; i < (int)appr.size(); i++) {
         bool had = std::find(seen.begin(), seen.end(), appr[i]) != seen.end();
         if (!had) {
             if (isSource(det, appr[i], seen, detectors, strict)) {
@@ -869,7 +869,7 @@ RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen
     bool isall = true;
     int no = 0;
     seen.push_back(edge);
-    for (int i = 0; i < appr.size() && isall; i++) {
+    for (int i = 0; i < (int)appr.size() && isall; i++) {
         bool had = std::find(seen.begin(), seen.end(), appr[i]) != seen.end();
         if (!had) {
             if (!isDestination(det, appr[i], seen, detectors)) {
@@ -917,7 +917,7 @@ RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen
 
     const ROEdgeVector& appr  = myApproachedEdges.find(edge)->second;
     bool isall = false;
-    for (int i = 0; i < appr.size() && !isall; i++) {
+    for (int i = 0; i < (int)appr.size() && !isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
         bool had = std::find(seen.begin(), seen.end(), appr[i]) != seen.end();
         if (!had) {

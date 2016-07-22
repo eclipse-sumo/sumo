@@ -465,7 +465,7 @@ GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
     int bestLaneIndex = (&r == myRoute ? 0 : (int)bestLaneConts.size());
     for (; i != r.end(); ++i) {
         const GUILane* lane;
-        if (bestLaneIndex < bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
+        if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
             lane = static_cast<GUILane*>(bestLaneConts[bestLaneIndex]);
             ++bestLaneIndex;
         } else {

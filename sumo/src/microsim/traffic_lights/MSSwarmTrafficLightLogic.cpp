@@ -157,9 +157,9 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
     }
 
     LinkVectorVector myLinks = getLinks();
-    for (int i = 0; i < myLinks.size(); i++) {
+    for (int i = 0; i < (int)myLinks.size(); i++) {
         LinkVector oneLink = getLinksAt(i);
-        for (int j = 0; j < oneLink.size(); j++) {
+        for (int j = 0; j < (int)oneLink.size(); j++) {
             currentLane = oneLink[j]->getLane();
             if (pheromoneOutputLanes.find(currentLane->getID()) == pheromoneOutputLanes.end()) {
                 laneCheck[currentLane] = false;
@@ -422,7 +422,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
 
     //reset of the sensitivity thresholds in case of 0 pheromone on the input lanes
     if (getPheromoneForInputLanes() == 0) {
-        for (int i = 0; i < policies.size(); i++) {
+        for (int i = 0; i < (int)policies.size(); i++) {
             policies[i]->setThetaSensitivity(getThetaInit());
 //			ANALYSIS_DBG(
             DBG(
@@ -449,7 +449,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
                 break;
         }
     }
-    for (int i = 0; i < policies.size(); i++) {
+    for (int i = 0; i < (int)policies.size(); i++) {
         MSSOTLPolicy* policy = policies[i];
         SUMOReal newSensitivity;
         if (eta < 0) {	//bad performance
@@ -1101,7 +1101,7 @@ void MSSwarmTrafficLightLogic::choosePolicy(SUMOReal phero_in, SUMOReal phero_ou
     std::vector<SUMOReal> thetaStimuli;
     SUMOReal thetaSum = 0.0;
     // Compute stimulus for each policy
-    for (int i = 0; i < getPolicies().size(); i++) {
+    for (int i = 0; i < (int)getPolicies().size(); i++) {
         SUMOReal stimulus = getPolicies()[i]->computeDesirability(phero_in, phero_out, dispersion_in, dispersion_out);
         SUMOReal thetaStimulus = pow(stimulus, 2) / (pow(stimulus, 2) + pow(getPolicies()[i]->getThetaSensitivity(), 2));
 
@@ -1120,7 +1120,7 @@ void MSSwarmTrafficLightLogic::choosePolicy(SUMOReal phero_in, SUMOReal phero_ou
     SUMOReal r = RandHelper::rand((SUMOReal)thetaSum);
 
     SUMOReal partialSum = 0;
-    for (int i = 0; i < getPolicies().size(); i++) {
+    for (int i = 0; i < (int)getPolicies().size(); i++) {
         partialSum += thetaStimuli[i];
 
 //		ANALYSIS_DBG(

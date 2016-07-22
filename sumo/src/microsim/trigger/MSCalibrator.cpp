@@ -93,7 +93,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
         }
     }
     if (addLaneMeanData) {
-        for (int i = 0; i < myEdge->getLanes().size(); ++i) {
+        for (int i = 0; i < (int)myEdge->getLanes().size(); ++i) {
             MSLane* lane = myEdge->getLanes()[i];
             MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, myEdge->getLength(), true);
             laneData->setDescription("meandata_calibrator_" + lane->getID());

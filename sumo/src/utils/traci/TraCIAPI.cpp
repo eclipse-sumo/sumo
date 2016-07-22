@@ -995,7 +995,7 @@ TraCIAPI::LaneScope::setAllowed(const std::string& laneID, const std::vector<std
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeInt((int)allowedClasses.size());
-    for (int i = 0; i < allowedClasses.size(); ++i) {
+    for (int i = 0; i < (int)allowedClasses.size(); ++i) {
         content.writeString(allowedClasses[i]);
     }
     myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, LANE_ALLOWED, laneID, content);
@@ -1008,7 +1008,7 @@ TraCIAPI::LaneScope::setDisallowed(const std::string& laneID, const std::vector<
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeInt((int)disallowedClasses.size());
-    for (int i = 0; i < disallowedClasses.size(); ++i) {
+    for (int i = 0; i < (int)disallowedClasses.size(); ++i) {
         content.writeString(disallowedClasses[i]);
     }
     myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, LANE_DISALLOWED, laneID, content);
@@ -1209,7 +1209,7 @@ TraCIAPI::PolygonScope::setShape(const std::string& polygonID, const TraCIAPI::T
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_POLYGON);
     content.writeInt((int)shape.size());
-    for (int i = 0; i < shape.size(); ++i) {
+    for (int i = 0; i < (int)shape.size(); ++i) {
         content.writeDouble(shape[i].x);
         content.writeDouble(shape[i].y);
     }
@@ -1250,7 +1250,7 @@ TraCIAPI::PolygonScope::add(const std::string& polygonID, const TraCIAPI::TraCIP
     content.writeInt(layer);
     content.writeUnsignedByte(TYPE_POLYGON);
     content.writeInt((int)shape.size());
-    for (int i = 0; i < shape.size(); ++i) {
+    for (int i = 0; i < (int)shape.size(); ++i) {
         content.writeDouble(shape[i].x);
         content.writeDouble(shape[i].y);
     }

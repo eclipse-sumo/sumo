@@ -713,17 +713,16 @@ NWWriter_SUMO::writeDistrict(OutputDevice& into, const NBDistrict& d) {
     if (d.getShape().size() > 0) {
         into.writeAttr(SUMO_ATTR_SHAPE, d.getShape());
     }
-    int i;
     // write all sources
     const std::vector<NBEdge*>& sources = d.getSourceEdges();
-    for (i = 0; i < sources.size(); i++) {
+    for (int i = 0; i < (int)sources.size(); i++) {
         // write the head and the id of the source
         into.openTag(SUMO_TAG_TAZSOURCE).writeAttr(SUMO_ATTR_ID, sources[i]->getID()).writeAttr(SUMO_ATTR_WEIGHT, sourceW[i]);
         into.closeTag();
     }
     // write all sinks
     const std::vector<NBEdge*>& sinks = d.getSinkEdges();
-    for (i = 0; i < sinks.size(); i++) {
+    for (int i = 0; i < (int)sinks.size(); i++) {
         // write the head and the id of the sink
         into.openTag(SUMO_TAG_TAZSINK).writeAttr(SUMO_ATTR_ID, sinks[i]->getID()).writeAttr(SUMO_ATTR_WEIGHT, sinkW[i]);
         into.closeTag();

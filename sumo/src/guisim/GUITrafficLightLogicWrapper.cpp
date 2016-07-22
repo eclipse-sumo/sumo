@@ -250,7 +250,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
             std::vector<int> nextGreen;
             while (phaseIdx != curPhaseIdx) {
                 const std::string& state = phases[phaseIdx]->getState();
-                for (int linkIdx = 0; linkIdx < state.size(); linkIdx++) {
+                for (int linkIdx = 0; linkIdx < (int)state.size(); linkIdx++) {
                     if ((LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MINOR ||
                             (LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MAJOR) {
                         nextGreen.push_back(linkIdx);

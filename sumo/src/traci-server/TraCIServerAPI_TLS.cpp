@@ -98,7 +98,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int) logics.size());
                 ++cnt;
-                for (int i = 0; i < logics.size(); ++i) {
+                for (int i = 0; i < (int)logics.size(); ++i) {
                     MSTrafficLightLogic* logic = logics[i];
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(logic->getProgramID());

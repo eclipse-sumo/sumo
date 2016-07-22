@@ -40,7 +40,7 @@ MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl&
 }
 
 MSSOTLHiLevelTrafficLightLogic::~MSSOTLHiLevelTrafficLightLogic() {
-    for (int i = 0; i < policies.size(); i++) {
+    for (int i = 0; i < (int)policies.size(); i++) {
         delete(policies[i]);
     }
 }

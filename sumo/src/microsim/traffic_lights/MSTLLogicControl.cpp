@@ -81,7 +81,7 @@ MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const {
         int linkNo = (int)(*j).second->getLinks().size();
         bool hadProgramErrors = false;
         for (MSTrafficLightLogic::Phases::const_iterator i = phases.begin(); i != phases.end(); ++i) {
-            if ((*i)->getState().length() < linkNo) {
+            if ((int)(*i)->getState().length() < linkNo) {
                 hadProgramErrors = true;
             }
         }
@@ -503,7 +503,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     currStep = (currStep + 1) % (int)myTo->getPhases().size();
     // stretch all other phases, if there is a "bereich"
     while (remainingStretchTime > 0) {
-        for (int i = currStep; i < myTo->getPhases().size() && remainingStretchTime > 0; i++) {
+        for (int i = currStep; i < (int)myTo->getPhases().size() && remainingStretchTime > 0; i++) {
             durOfPhase = myTo->getPhase(i).duration;
             SUMOTime beginOfPhase = myTo->getOffsetFromIndex(i);
             SUMOTime endOfPhase = beginOfPhase + durOfPhase;

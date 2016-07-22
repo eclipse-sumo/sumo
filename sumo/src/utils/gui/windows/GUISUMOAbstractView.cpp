@@ -452,7 +452,7 @@ GUISUMOAbstractView::displayLegend() {
     while (pixelSize <= 20) {
         length *= 10;
         noDigits++;
-        if (noDigits > text.length()) {
+        if (noDigits > (int)text.length()) {
             return;
         }
         pixelSize = (int) m2p((SUMOReal) length);
