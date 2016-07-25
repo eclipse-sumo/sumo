@@ -49,6 +49,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -992,6 +993,8 @@ GUILane::getColorValue(int activeScheme) const {
         }
         case 28:
             return getElectricityConsumption() / myLength;
+        case 29:
+            return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
     }
     return 0;
 }
@@ -1061,6 +1064,8 @@ GUILane::getScaleValue(int activeScheme) const {
         }
         case 21:
             return getElectricityConsumption() / myLength;
+        case 22:
+            return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
     }
     return 0;
 }

@@ -49,6 +49,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSLaneChanger.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -495,6 +496,8 @@ GUIEdge::getColorValue(int activeScheme) const {
             return getRelativeSpeed();
         case 8:
             return getRoutingSpeed();
+        case 16:
+            return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
     }
     return 0;
 }
@@ -515,6 +518,8 @@ GUIEdge::getScaleValue(int activeScheme) const {
             return getFlow();
         case 6:
             return getRelativeSpeed();
+        case 7:
+            return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
     }
     return 0;
 }

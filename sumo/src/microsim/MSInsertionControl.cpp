@@ -59,8 +59,9 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myVehicleControl(vc),
     myMaxDepartDelay(maxDepartDelay),
     myCheckEdgesOnce(checkEdgesOnce),
-    myMaxVehicleNumber(maxVehicleNumber) {
-}
+    myMaxVehicleNumber(maxVehicleNumber),
+    myPendingEmitsUpdateTime(SUMOTime_MIN) 
+{ }
 
 
 MSInsertionControl::~MSInsertionControl() {
@@ -321,6 +322,30 @@ MSInsertionControl::clearPendingVehicles(std::string& route) {
     }
 }
 
+
+int 
+MSInsertionControl::getPendingEmits(const MSLane* lane) {
+    if (MSNet::getInstance()->getCurrentTimeStep() > myPendingEmitsUpdateTime) {
+        // updated pending emits (only once per time step)
+        myPendingEmitsForLane.clear();
+        for (MSVehicleContainer::VehicleVector::const_iterator veh = myPendingEmits.begin(); veh != myPendingEmits.end(); ++veh) {
+            const MSLane* lane = (*veh)->getLane();
+            if (lane != 0) {
+                myPendingEmitsForLane[lane]++;
+            } else {
+                // no (tentative) departLane was set, increase count for all
+                // lanes of the depart edge
+                const MSEdge* edge = (*veh)->getEdge();
+                const std::vector<MSLane*>& lanes = edge->getLanes();
+                for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
+                    myPendingEmitsForLane[*i]++;
+                }
+            }
+        }
+        myPendingEmitsUpdateTime = MSNet::getInstance()->getCurrentTimeStep();
+    }
+    return myPendingEmitsForLane[lane];
+}
 
 /****************************************************************************/
 

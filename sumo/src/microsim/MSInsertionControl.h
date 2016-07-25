@@ -149,6 +149,8 @@ public:
      */
     void determineCandidates(SUMOTime time);
 
+    /// @brief return the number of pending emits for the given lane
+    int getPendingEmits(const MSLane* lane);
 
 private:
     /** @brief Tries to emit the vehicle
@@ -228,6 +230,12 @@ private:
 
     /// @brief Storage for maximum vehicle number
     int myMaxVehicleNumber;
+
+    /// @brief Last time at which pending emits for each edge where counted
+    SUMOTime myPendingEmitsUpdateTime;
+
+    /// @brief the number of pending emits for each edge in the current time step
+    std::map<const MSLane*, int> myPendingEmitsForLane;
 
 
 private:

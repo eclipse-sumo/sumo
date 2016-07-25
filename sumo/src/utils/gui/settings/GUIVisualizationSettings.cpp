@@ -239,6 +239,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by electricity consumption", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)(1 / 7.5 / 5.));
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by insertion-backlog (streetwise)", RGBColor::GREY);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)1);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)10);
+    scheme.addColor(RGBColor::RED, (SUMOReal)100);
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
@@ -499,6 +504,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
         scheme = GUIScaleScheme("by electricity consumption", 0);
         scheme.addColor(10, (SUMOReal)(1 / 7.5 / 5.));
         laneScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by insertion-backlog (streetwise)", 0);
+        scheme.addColor(1, (SUMOReal)1);
+        scheme.addColor(10, (SUMOReal)10);
+        scheme.addColor(50, (SUMOReal)100);
+        laneScaler.addScheme(scheme);
     }
 
 
@@ -572,6 +582,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal)(1));
     scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(1.25));
     edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by insertion-backlog (streetwise)", RGBColor::GREY);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)1);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)10);
+    scheme.addColor(RGBColor::RED, (SUMOReal)100);
+    edgeColorer.addScheme(scheme);
 
 
     /// add edge scaling schemes
@@ -594,6 +609,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
         edgeScaler.addScheme(scheme);
         scheme = GUIScaleScheme("by relative speed (streetwise)", 0);
         scheme.addColor(20, (SUMOReal)1);
+        edgeScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by insertion-backlog (streetwise)", 0);
+        scheme.addColor(1, (SUMOReal)1);
+        scheme.addColor(10, (SUMOReal)10);
+        scheme.addColor(50, (SUMOReal)100);
         edgeScaler.addScheme(scheme);
     }
 
