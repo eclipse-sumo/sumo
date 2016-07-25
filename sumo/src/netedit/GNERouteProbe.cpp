@@ -77,6 +77,8 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myEdge->addAdditional(this);
     // Update geometry;
     updateGeometry();
+    // Center view in the position of routeProbe
+    myViewNet->centerTo(getGlID(), false);
 }
 
 

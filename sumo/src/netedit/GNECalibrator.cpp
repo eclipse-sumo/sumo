@@ -80,6 +80,8 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* v
     // Set Colors
     myBaseColor = RGBColor(255, 255, 50, 0);
     myBaseColorSelected = RGBColor(255, 255, 125, 255);
+    // Center view in the position of calibrator
+    myViewNet->centerTo(getGlID(), false);
 }
 
 
