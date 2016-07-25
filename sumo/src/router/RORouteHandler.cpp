@@ -109,9 +109,13 @@ RORouteHandler::parseFromViaTo(std::string element,
     if (!attrs.hasAttribute(SUMO_ATTR_VIA)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
+    ConstROEdgeVector viaEdges;
     parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
-               myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
-    myVehicleParameter->via = StringTokenizer(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true)).getVector();
+               viaEdges, "for " + element + " '" + myVehicleParameter->id + "'");
+    for (ConstROEdgeVector::const_iterator i = viaEdges.begin(); i != viaEdges.end(); ++i) {
+        myActiveRoute.push_back(*i);
+        myVehicleParameter->via.push_back((*i)->getID());
+    }
 
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) && myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         const ROEdge* toTaz = myNet.getEdge(myVehicleParameter->toTaz + "-sink");
