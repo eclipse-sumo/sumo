@@ -296,6 +296,9 @@ private:
     /// @brief draw crossties for railroads
     /// @todo: XXX This duplicates the code of GUILane::drawCrossties and needs to be
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
+
+    /// @brief direction indicators for lanes
+    void drawDirectionIndicators() const;
 };
 
 

@@ -313,6 +313,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         if (myParentEdge.getDest()->isLogicValid() && s.scale > 3) {
             drawArrows();
         }
+        if (s.showLaneDirection) {
+            drawDirectionIndicators();
+        }
     }
 
     glPopName();
@@ -820,6 +823,32 @@ GNELane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) co
     }
     glPopMatrix();
 }
+
+
+void
+GNELane::drawDirectionIndicators() const {
+    const SUMOReal width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
+    glColor3d(0.3, 0.3, 0.3);
+    glPushMatrix();
+    glTranslated(0, 0, GLO_JUNCTION + 0.1);
+    int e = (int) getShape().size() - 1;
+    for (int i = 0; i < e; ++i) {
+        glPushMatrix();
+        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
+        glRotated(myShapeRotations[i], 0, 0, 1);
+        for (SUMOReal t = 0; t < myShapeLengths[i]; t += width) {
+            const SUMOReal length = MIN2((SUMOReal)width * 0.5, myShapeLengths[i] - t);
+            glBegin(GL_TRIANGLES);
+            glVertex2d(0, -t - length);
+            glVertex2d(-width * 0.25, -t);
+            glVertex2d(+width * 0.25, -t);
+            glEnd();
+        }
+        glPopMatrix();
+    }
+    glPopMatrix();
+}
+
 
 
 const std::string&
