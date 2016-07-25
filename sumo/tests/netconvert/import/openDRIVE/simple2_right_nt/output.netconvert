@@ -3,7 +3,7 @@ Parsing opendrive from 'opendrive.xodr'...
 done.
  Import done:
    2 nodes loaded.
-   6 types loaded.
+   21 types loaded.
    1 edges loaded.
 Removing self-loops... done (0ms).
 Removing empty nodes... done (0ms).
@@ -12,8 +12,8 @@ Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (0ms).
-Computing edge shapes... done (1ms).
-Computing node types... done (0ms).
+Computing edge shapes... done (0ms).
+Computing node types... done (1ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
 Computing approaching lanes... done (0ms).
@@ -37,5 +37,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,50.00,0.00
 -----------------------------------------------------
-Writing network... done (0ms).
+Writing network... done (1ms).
 Success.
