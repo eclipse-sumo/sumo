@@ -224,6 +224,9 @@ public:
     /// @brief draw crossties for railroads or pedestrian crossings
     void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
 
+    /// @brief direction indicators for lanes
+    void drawDirectionIndicators() const;
+
     SUMOReal getEdgeLaneNumber() const;
 
     /** @brief Returns the stored traveltime for the edge of this lane

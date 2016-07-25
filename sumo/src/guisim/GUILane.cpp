@@ -568,6 +568,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     //  draw from end of first to the begin of second
                     drawLane2LaneConnections();
                 }
+                if (s.showLaneDirection) {
+                    drawDirectionIndicators();
+                }
                 glTranslated(0, 0, .1);
                 if (s.drawLinkJunctionIndex.show) {
                     drawLinkNo(s);
@@ -693,6 +696,32 @@ GUILane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) co
     }
     glPopMatrix();
 }
+
+
+void
+GUILane::drawDirectionIndicators() const {
+    glColor3d(0.3, 0.3, 0.3);
+    glPushMatrix();
+    glTranslated(0, 0, GLO_EDGE);
+    int e = (int) getShape().size() - 1;
+    for (int i = 0; i < e; ++i) {
+        glPushMatrix();
+        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
+        glRotated(myShapeRotations[i], 0, 0, 1);
+        for (SUMOReal t = 0; t < myShapeLengths[i]; t += myWidth) {
+            const SUMOReal length = MIN2((SUMOReal)myHalfLaneWidth, myShapeLengths[i] - t);
+            glBegin(GL_TRIANGLES);
+            glVertex2d(0, -t - length);
+            glVertex2d(-myQuarterLaneWidth, -t);
+            glVertex2d(+myQuarterLaneWidth, -t);
+            glEnd();
+        }
+        glPopMatrix();
+    }
+    glPopMatrix();
+}
+
+
 
 // ------ inherited from GUIGlObject
 GUIGLObjectPopupMenu*

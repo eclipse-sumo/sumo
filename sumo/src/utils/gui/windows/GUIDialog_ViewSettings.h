@@ -275,7 +275,7 @@ private:
     FXCheckButton* myLaneScaleInterpolation;
 
     FXCheckButton* myShowLaneBorders, *myShowLaneDecals, *myShowRails,
-                   *myHideMacroConnectors;
+                   *myHideMacroConnectors, *myShowLaneDirection;
     FXRealSpinDial* myLaneWidthUpscaleDialer;
     FXRealSpinDial* myLaneMinWidthDialer;
 

@@ -59,6 +59,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       hideConnectors(false), 
       laneWidthExaggeration(1),
       laneMinSize(0),
+      showLaneDirection(false),
       vehicleQuality(0), showBlinker(true),
       drawLaneChangePreference(false), drawMinGap(false),
       showBTRange(false), vehicleSize(1),
@@ -657,6 +658,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("hideConnectors", hideConnectors);
     dev.writeAttr("widthExaggeration", laneWidthExaggeration);
     dev.writeAttr("minSize", laneMinSize);
+    dev.writeAttr("showDirection", showLaneDirection);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -816,6 +818,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (laneMinSize != v2.laneMinSize) {
+        return false;
+    }
+    if (showLaneDirection != v2.showLaneDirection) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {
