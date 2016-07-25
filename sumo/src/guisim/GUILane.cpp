@@ -551,9 +551,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
-                if (MSGlobals::gLateralResolution > 0) {
+                if (MSGlobals::gLateralResolution > 0 && s.showSublanes) {
                     // draw sublane-borders
-                    // XXX make configurable
                     GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
                     for (SUMOReal offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
                         GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, offset);

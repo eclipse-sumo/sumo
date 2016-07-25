@@ -170,6 +170,8 @@ public:
     float laneMinSize;
     /// @brief Whether to show direction indicators for lanes
     bool showLaneDirection;
+    /// @brief Whether to show sublane boundaries
+    bool showSublanes;
     //@}
 
 

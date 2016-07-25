@@ -251,6 +251,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myShowLaneDirection = new FXCheckButton(m22, "Show lane direction", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneDirection->setCheck(mySettings->showLaneDirection);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
+        myShowSublanes = new FXCheckButton(m22, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowSublanes->setCheck(mySettings->showSublanes);
+        new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
         new FXLabel(m22, "Exaggerate width by", 0, LAYOUT_CENTER_Y);
         myLaneWidthUpscaleDialer =
             new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
@@ -660,6 +663,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myStreetNamePanel->update(mySettings->streetName);
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
+    myShowSublanes->setCheck(mySettings->showSublanes);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -855,6 +859,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.streetName = myStreetNamePanel->getSettings();
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
     tmpSettings.showLaneDirection = (myShowLaneDirection->getCheck() != FALSE);
+    tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
     tmpSettings.laneWidthExaggeration = (SUMOReal) myLaneWidthUpscaleDialer->getValue();
     tmpSettings.laneMinSize = (SUMOReal) myLaneMinWidthDialer->getValue();
 
