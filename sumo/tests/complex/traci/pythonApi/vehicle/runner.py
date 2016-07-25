@@ -129,6 +129,7 @@ traci.vehicle.setShapeClass(vehID, "bicycle")
 traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setColor(vehID, (255, 0, 0, 255))
+traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
 traci.vehicle.setStop(
     vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 check(vehID)

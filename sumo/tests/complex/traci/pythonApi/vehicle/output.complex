@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:15583 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -80,7 +82,7 @@ NOx 0.0
 fuel 0.0
 noise 0.0
 Elec 0.0
-traveltime -1001.0
+traveltime 55.0
 effort -1001.0
 route valid True
 signals 0
@@ -362,11 +364,11 @@ step 77
 vehicle 'bus' lane=2fi_0 lanePos=35.4188105891 stopped=False
 ['3si', '4o', '4fi', '4si']
 step 78
-('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'angle', 56.57518881739611, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 601.6927777777778)
+('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'angle', 56.5751888173961, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 601.6927777777778)
 step 79
 ('veh', 'parking', 'speed', 1.8778553571086376, 'pos', (998.1221446428914, 501.65000000000003), 'angle', 20.659320354713977, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 1.8778553571086376, 'CO2', 1491.6432525581542)
 step 80
-('veh', 'parking', 'speed', 4.39149194387719, 'pos', (993.7306526990142, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 6.269347300985828, 'CO2', 3475.1873499647263)
+('veh', 'parking', 'speed', 4.39149194387719, 'pos', (993.7306526990142, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 6.269347300985828, 'CO2', 3475.187349964727)
 step 81
 ('veh', 'parking', 'speed', 5.778091609617695, 'pos', (987.9525610893965, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 12.047438910603523, 'CO2', 2597.614410653173)
 step 82
@@ -427,7 +429,7 @@ step 113
 ('veh', 'parking2', 'speed', 10.099877960062585, 'pos', (387.3116965077319, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 101.33830349226817, 'CO2', 2002.3612415562243)
 ('veh', 'offRoad', 'speed', -1001.0, 'pos', (-1001.0, -1001.0), 'angle', -1001.0, 'road', '', 'lane', '', 'lanePos', -1001.0, 'CO2', -1001.0)
 step 114
-('veh', 'offRoad', 'speed', 1.7557868893025443, 'pos', (446.8942131106975, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 41.75578688930254, 'CO2', 1378.6267357143226)
+('veh', 'offRoad', 'speed', 1.7557868893025443, 'pos', (446.8942131106975, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 41.75578688930254, 'CO2', 1378.6267357143224)
 step 115
 ('veh', 'offRoad', 'speed', 3.285045606922359, 'pos', (443.60916750377515, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 45.0408324962249, 'CO2', 1859.6916918595048)
 step 116
