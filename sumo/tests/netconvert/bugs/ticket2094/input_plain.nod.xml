@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 26 Jul 2016 02:22:57 PM CEST by Netedit Version dev-SVN-r21236
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="Ahof_patched_Stp2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="Ahof_patched_Stp2.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/bugs/ticket2094/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-395408.93,-5803674.20" convBoundary="6623.16,5533.96,6898.44,8012.81" origBoundary="13.453860,52.362982,13.649158,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1656195449" x="6790.31" y="6855.22" type="unregulated"/>
+    <node id="246763071" x="6728.68" y="5533.96" type="unregulated"/>
+    <node id="248074278" x="6801.85" y="6882.58" type="unregulated"/>
+    <node id="248077379" x="6623.16" y="8012.81" type="unregulated"/>
+    <node id="597703133" x="6887.42" y="6821.30" type="priority"/>
+    <node id="cluster_129255777_560899541" x="6897.22" y="6976.90" type="unregulated"/>
+    <node id="cluster_2459197191_2459197195_294153466_74947181" x="6852.80" y="6974.56" type="dead_end"/>
+    <node id="cluster_294152029_560899595_593898177" x="6842.03" y="6919.47" type="traffic_light" tl="cluster_294152029_560899595_593898177"/>
+</nodes>

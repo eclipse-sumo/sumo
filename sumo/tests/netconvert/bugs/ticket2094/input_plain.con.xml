@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 26 Jul 2016 02:22:57 PM CEST by Netedit Version dev-SVN-r21236
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="Ahof_patched_Stp2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="Ahof_patched_Stp2.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/bugs/ticket2094/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-26815091#2" to="283006415#0" fromLane="0" toLane="0"/>
+    
+    <connection from="-26815091#2" to="72312640#1" fromLane="0" toLane="1"/>
+    <connection from="-26815091#2" to="26815091#2" fromLane="0" toLane="0"/>
+
+    <connection from="26814968#1" to="26815091#2" fromLane="0" toLane="0"/>
+    <connection from="26814968#1" to="283006415#0" fromLane="0" toLane="0"/>
+    <connection from="26814968#1" to="283006415#0" fromLane="0" toLane="1"/>
+    <connection from="26814968#1" to="283006415#0" fromLane="1" toLane="2"/>
+
+    <connection from="26815091#2" to="-26815091#2" fromLane="0" toLane="0"/>
+
+    <connection from="72312640#0" to="72312640#1" fromLane="0" toLane="0"/>
+    <connection from="72312640#0" to="72312640#1" fromLane="1" toLane="1"/>
+
+    <!--customShape id=":cluster_294152029_560899595_593898177_2_0" shape="58.03,93.93 57.09,96.54 59.96,103.85 65.91,107.01 69.55,119.66"/-->
+
+</connections>

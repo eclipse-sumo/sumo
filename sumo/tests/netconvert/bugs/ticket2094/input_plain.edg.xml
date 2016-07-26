@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 26 Jul 2016 02:22:57 PM CEST by Netedit Version dev-SVN-r21236
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="Ahof_patched_Stp2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="Ahof_patched_Stp2.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netconvert/bugs/ticket2094/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-26815091#2" from="597703133" to="cluster_294152029_560899595_593898177" name="Olmweg" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6887.42,6821.30 6878.86,6867.27 6867.14,6894.22 6845.79,6915.43" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="26814968#1" from="1656195449" to="cluster_294152029_560899595_593898177" name="Glienicker Straße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="6790.31,6855.22 6842.69,6918.36" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="26815091#2" from="cluster_294152029_560899595_593898177" to="597703133" name="Olmweg" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6845.79,6915.43 6867.14,6894.22 6878.86,6867.27 6887.42,6821.30" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="283006415#0" from="cluster_294152029_560899595_593898177" to="cluster_2459197191_2459197195_294153466_74947181" name="Glienicker Straße" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="6845.72,6916.31 6855.48,6937.32 6860.06,6954.63 6860.60,6957.01 6860.08,6971.14" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="44150295" from="cluster_129255777_560899541" to="cluster_294152029_560899595_593898177" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="6898.44,6975.94 6887.30,6967.53 6867.24,6946.10 6845.79,6915.43" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="72312640#0" from="cluster_2459197191_2459197195_294153466_74947181" to="cluster_294152029_560899595_593898177" name="Glienicker Straße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="6848.89,6968.17 6849.55,6953.07 6847.36,6939.82 6841.19,6930.33 6837.60,6924.63" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="72312640#1" from="cluster_294152029_560899595_593898177" to="248074278" name="Glienicker Straße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="6837.60,6924.63 6821.06,6904.44 6801.85,6882.58" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+
+
+</edges>
