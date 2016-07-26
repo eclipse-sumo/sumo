@@ -31,6 +31,7 @@
 
 #include <iostream>
 #include <ctime>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -113,6 +114,7 @@ GNELoadThread::run() {
         submitEndAndCleanup(net);
         return 0;
     }
+    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
 
