@@ -837,7 +837,7 @@ GNELane::drawDirectionIndicators() const {
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (SUMOReal t = 0; t < myShapeLengths[i]; t += width) {
-            const SUMOReal length = MIN2((SUMOReal)width * 0.5, myShapeLengths[i] - t);
+            const SUMOReal length = MIN2(width * (SUMOReal)0.5, myShapeLengths[i] - t);
             glBegin(GL_TRIANGLES);
             glVertex2d(0, -t - length);
             glVertex2d(-width * 0.25, -t);
