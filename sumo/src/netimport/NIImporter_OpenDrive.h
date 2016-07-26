@@ -335,6 +335,9 @@ protected:
         std::string sumoID;
         /// @brief The number of lanes on the right and on the left side, respectively
         int rightLaneNumber, leftLaneNumber;
+        /// @brief the composite type built from all used lane types
+        std::string rightType;
+        std::string leftType;
     };
 
 

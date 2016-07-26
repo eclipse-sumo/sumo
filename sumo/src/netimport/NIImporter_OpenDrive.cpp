@@ -382,7 +382,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             // build lanes to right
             NBEdge* currRight = 0;
             if ((*j).rightLaneNumber > 0) {
-                currRight = new NBEdge("-" + id, sFrom, sTo, "", defaultSpeed, (*j).rightLaneNumber, priorityR,
+                currRight = new NBEdge("-" + id, sFrom, sTo, (*j).rightType, defaultSpeed, (*j).rightLaneNumber, priorityR,
                                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, e->streetName, id, LANESPREAD_RIGHT, true);
                 if (!nb.getEdgeCont().insert(currRight)) {
                     throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
@@ -415,7 +415,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             // build lanes to left
             NBEdge* currLeft = 0;
             if ((*j).leftLaneNumber > 0) {
-                currLeft = new NBEdge(id, sTo, sFrom, "", defaultSpeed, (*j).leftLaneNumber, priorityL,
+                currLeft = new NBEdge(id, sTo, sFrom, (*j).leftType, defaultSpeed, (*j).leftLaneNumber, priorityL,
                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), e->streetName, id, LANESPREAD_RIGHT, true);
                 if (!nb.getEdgeCont().insert(currLeft)) {
                     throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
@@ -1114,21 +1114,35 @@ NIImporter_OpenDrive::OpenDriveLaneSection::OpenDriveLaneSection(SUMOReal sArg) 
 void
 NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping(const NBTypeCont& tc) {
     int sumoLane = 0;
+    bool singleType = true;
+    std::vector<std::string> types;
     const std::vector<OpenDriveLane>& dirLanesR = lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
     for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanesR.rbegin(); i != dirLanesR.rend(); ++i) {
         if (myImportAllTypes || (tc.knows((*i).type) && !tc.getShallBeDiscarded((*i).type))) {
             laneMap[(*i).id] = sumoLane++;
+            types.push_back((*i).type);
+            if (types.front() != types.back()) {
+                singleType = false;
+            }
         }
     }
     rightLaneNumber = sumoLane;
+    rightType = sumoLane > 0 ? (singleType ? types.front() : joinToString(types, "|")) : "";
     sumoLane = 0;
+    singleType = true;
+    types.clear();
     const std::vector<OpenDriveLane>& dirLanesL = lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
     for (std::vector<OpenDriveLane>::const_iterator i = dirLanesL.begin(); i != dirLanesL.end(); ++i) {
         if (myImportAllTypes || (tc.knows((*i).type) && !tc.getShallBeDiscarded((*i).type))) {
             laneMap[(*i).id] = sumoLane++;
+            types.push_back((*i).type);
+            if (types.front() != types.back()) {
+                singleType = false;
+            }
         }
     }
     leftLaneNumber = sumoLane;
+    leftType = sumoLane > 0 ? (singleType ? types.front() : joinToString(types, "|")) : "";
 }
 
 
