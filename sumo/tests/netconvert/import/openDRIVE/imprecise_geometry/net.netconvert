@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 25 15:49:39 2016 by SUMO netconvert Version dev-SVN-r21232
+<!-- generated on Tue Jul 26 16:05:43 2016 by SUMO netconvert Version dev-SVN-r21239
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,9 +31,9 @@
     <type id="mwyEntry" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="mwyExit" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="none" priority="0" speed="1.39" disallow="all" discard="1" width="1.00"/>
-    <type id="parking" priority="1" speed="1.39" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
+    <type id="parking" priority="1" speed="1.39" disallow="tram rail_urban rail rail_electric pedestrian ship" width="2.50"/>
     <type id="rail" priority="3" speed="33.33" allow="rail_urban rail rail_electric" width="3.65"/>
-    <type id="restricted" priority="0" speed="13.89" disallow="tram rail_urban rail rail_electric ship" width="3.65"/>
+    <type id="restricted" priority="0" speed="13.89" disallow="all" width="3.65"/>
     <type id="roadWorks" priority="0" speed="1.39" allow="authority" width="3.65"/>
     <type id="shoulder" priority="0" speed="1.39" disallow="all" discard="1" width="1.00"/>
     <type id="special1" priority="1" speed="22.22" allow="custom1" discard="1" width="3.65"/>
