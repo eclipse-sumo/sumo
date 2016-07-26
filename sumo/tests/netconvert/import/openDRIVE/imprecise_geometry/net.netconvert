@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 26 16:05:43 2016 by SUMO netconvert Version dev-SVN-r21239
+<!-- generated on Tue Jul 26 16:09:42 2016 by SUMO netconvert Version dev-SVN-r21242
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,7 +42,7 @@
     <type id="stop" priority="1" speed="13.89" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
-    <edge id="-190.0.00" from="146" to="268" priority="1" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
+    <edge id="-190.0.00" from="146" to="268" priority="1" type="driving" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
         <lane id="-190.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.95" width="3.20" shape="174.56,4.82 155.02,9.41 67.87,37.49 1.63,60.56"/>
         <lane id="-190.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.95" width="3.20" shape="173.80,1.61 154.13,6.23 66.82,34.36 0.54,57.44"/>
     </edge>

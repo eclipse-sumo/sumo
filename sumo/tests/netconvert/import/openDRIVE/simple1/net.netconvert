@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 26 16:05:43 2016 by SUMO netconvert Version dev-SVN-r21239
+<!-- generated on Tue Jul 26 16:09:42 2016 by SUMO netconvert Version dev-SVN-r21242
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -55,10 +55,10 @@
         <lane id=":1.end_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.90" length="4.53" width="3.00" shape="50.00,-1.55 51.16,-0.78 51.55,0.00 51.16,0.78 50.00,1.55"/>
     </edge>
 
-    <edge id="-1.0.00" from="1.begin" to="1.end" priority="1">
+    <edge id="-1.0.00" from="1.begin" to="1.end" priority="1" type="driving">
         <lane id="-1.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="50.00" width="3.00" shape="0.00,-1.55 50.00,-1.55"/>
     </edge>
-    <edge id="1.0.00" from="1.end" to="1.begin" priority="1">
+    <edge id="1.0.00" from="1.end" to="1.begin" priority="1" type="driving">
         <lane id="1.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="50.00" width="3.00" shape="50.00,1.55 0.00,1.55"/>
     </edge>
 
