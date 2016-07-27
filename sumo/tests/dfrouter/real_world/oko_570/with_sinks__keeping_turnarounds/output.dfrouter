@@ -8,11 +8,11 @@ Computed detector types:
  1 in-between detectors
  2 invalid detectors
 Computing routes... done.
-Detected PKW speed higher than allowed speed at 'LI' on edge '11_21'.
-Detected PKW speed higher than allowed speed at 'LO' on edge '20_10'.
-Detected PKW speed higher than allowed speed at 'RO' on edge '51_61'.
-Detected PKW speed higher than allowed speed at 'RI' on edge '60_50'.
-Detected PKW speed higher than allowed speed at 'BO' on edge 'a4_a5'.
-Detected PKW speed higher than allowed speed at 'BI' on edge 'a5_a4'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'LI' on edge '11_21'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'LO' on edge '20_10'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'RO' on edge '51_61'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'RI' on edge '60_50'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'BO' on edge 'a4_a5'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'BI' on edge 'a5_a4'.
 Writing emitters... done.
 Success.
