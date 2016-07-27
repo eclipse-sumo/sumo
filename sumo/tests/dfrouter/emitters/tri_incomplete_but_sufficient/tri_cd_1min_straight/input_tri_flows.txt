@@ -1,0 +1,3 @@
+Detector;Time;qPKW;qLKW;vPKW;vLKW
+MQ_beg;0;10;0;100;0
+MQ_middle;0;10;0;100;0

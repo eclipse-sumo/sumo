@@ -1,0 +1,5 @@
+# only straight measurements are known but all vehicles run straight
+tri_cd_1min_straight
+
+# straight measurements are missing but left and right flows are known
+tri_cd_1min_middle_missing

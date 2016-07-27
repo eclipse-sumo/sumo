@@ -1,0 +1,10 @@
+<a>
+
+   <detectorDefinition id="MQ_beg"  lane="beg_0" pos="5"/>
+
+   <detectorDefinition id="MQ_R" lane="R_0" pos="500"/>
+   <detectorDefinition id="MQ_L" lane="L_0" pos="500"/>
+
+   <detectorDefinition id="MQ_end" lane="end_0" pos="50"/>
+
+</a>

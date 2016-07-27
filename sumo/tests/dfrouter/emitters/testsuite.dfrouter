@@ -1,10 +1,8 @@
-
 # Tests emitter building on the dlr-testtrack 
 messstrecke
 
 # Tests emitter building on an abstract network
 tri
-
 
 # Tests emitter building on an abstract network - complete coverage, correct information for one minute
 tri_completely_defined
@@ -15,25 +13,20 @@ tri_no_first
 # Tests emitter building on an abstract network - only last arms have detectors, correct information for one minute
 tri_last_only
 
-
 # As tri_completely_defined but with values for MQ_1toL removed
 tri_missing_first_left_values
 
 # As tri_missing_first_left_values but with --remove-empty-detectors 
 tri_missing_first_left_noempty
 
-
-
 # As tri_completely_defined but with flow scales
 tri_scaling_completely
-
-
 
 # As tri_scaling_completely but with no route distributions
 tri_scaling_completely_emissions_only
 
+# not all legs are covered with measurements but the information is sufficient to reconstruct flows
+tri_incomplete_but_sufficient
 
 # (user) errors on emitter usage
 errors
-
-

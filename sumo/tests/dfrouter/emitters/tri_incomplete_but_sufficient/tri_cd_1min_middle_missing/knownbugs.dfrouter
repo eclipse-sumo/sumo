@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 27Jul13:45:14]
+search_string:refId="beg_to_end" probability="0.5"
+trigger_on_absence:1
+search_file:output
+ignore_other_errors:1
+full_description:invalid probabilities
+brief_description:see #2511
