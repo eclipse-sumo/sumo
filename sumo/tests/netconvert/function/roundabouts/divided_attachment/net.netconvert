@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  9 15:52:36 2016 by SUMO netconvert Version dev-SVN-r20942
+<!-- generated on Thu Jul 28 10:33:08 2016 by SUMO netconvert Version dev-SVN-r21246
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -120,11 +120,11 @@
     </junction>
     <junction id="61322089" type="priority" x="229.05" y="49.45" incLanes="8616185_0 8616185_1 8615594_0 8615594_1" intLanes="" shape="231.47,65.27 238.03,60.94 239.13,60.10 243.72,54.11 221.54,35.45 216.92,40.25 216.24,41.47 212.33,48.65">
         <request index="0" response="000000" foes="000000"/>
-        <request index="1" response="001000" foes="001000"/>
-        <request index="2" response="011000" foes="011000"/>
+        <request index="1" response="011000" foes="011000"/>
+        <request index="2" response="111000" foes="111000"/>
         <request index="3" response="000000" foes="000110"/>
-        <request index="4" response="000000" foes="000100"/>
-        <request index="5" response="000000" foes="000000"/>
+        <request index="4" response="000000" foes="000110"/>
+        <request index="5" response="000000" foes="000100"/>
     </junction>
     <junction id="61322707" type="priority" x="265.54" y="54.90" incLanes="8615654_0 8615654_1" intLanes="" shape="265.56,54.94 268.41,60.78 261.78,49.84 265.66,55.06">
         <request index="0" response="0" foes="0"/>
@@ -146,8 +146,8 @@
     <connection from="128366152#0" to="8615117" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="128366152#0" to="8615117" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="8615117" to="8856384" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="8615117" to="8856384" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="8615117" to="8615594" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="8615117" to="8856384" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="8615117" to="8615594" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8615117" to="8615594" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="8615120#0" to="8615120#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8615120#0" to="8615120#1" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -155,8 +155,8 @@
     <connection from="8615120#1" to="8615120#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8615120#1" to="8615120#2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="8615120#2" to="8616039#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="8615120#2" to="8616039#0" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="8615120#2" to="8615591" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="8615120#2" to="8616039#0" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="8615120#2" to="8615591" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8615120#2" to="8615591" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="8615591" to="8615117" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8615591" to="8615117" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -168,9 +168,9 @@
     <connection from="8615831" to="8615120#1" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="8616039#0" to="8616039#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8616039#0" to="8616039#1" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="8616185" to="8615654" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="8616185" to="8615654" fromLane="1" toLane="1" dir="s" state="m"/>
-    <connection from="8616185" to="8615120#0" fromLane="1" toLane="0" dir="s" state="m"/>
+    <connection from="8616185" to="8615654" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="8616185" to="8615120#0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="8616185" to="8615120#0" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="8856384" to="8616185" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="96329516#0" to="96329519#0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="96329519#0" to="8616039#1" fromLane="0" toLane="0" dir="s" state="m"/>

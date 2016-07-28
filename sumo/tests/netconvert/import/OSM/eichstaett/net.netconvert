@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  8 15:44:52 2016 by SUMO netconvert Version dev-SVN-r21134
+<!-- generated on Thu Jul 28 10:33:07 2016 by SUMO netconvert Version dev-SVN-r21246
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -6638,11 +6638,12 @@
         <request index="3" response="0001" foes="0001"/>
     </junction>
     <junction id="26698738" type="priority" x="8219.42" y="4985.51" incLanes="-28788639#0_0 -28788639#0_1 4379608#1_0 4379608#1_1" intLanes="" shape="8223.40,4991.22 8219.97,4978.58 8217.32,4977.89 8212.31,4982.04 8215.32,4992.32 8221.77,4993.10">
-        <request index="0" response="00000" foes="00000"/>
-        <request index="1" response="10000" foes="10000"/>
-        <request index="2" response="00000" foes="00000"/>
-        <request index="3" response="00000" foes="00000"/>
-        <request index="4" response="00000" foes="00010"/>
+        <request index="0" response="010000" foes="010000"/>
+        <request index="1" response="110000" foes="110000"/>
+        <request index="2" response="000000" foes="000000"/>
+        <request index="3" response="000000" foes="000000"/>
+        <request index="4" response="000000" foes="000011"/>
+        <request index="5" response="000000" foes="000010"/>
     </junction>
     <junction id="26698741" type="priority" x="8204.25" y="5013.46" incLanes="24329079#3_0 4379608#2_0 4379608#2_1" intLanes="" shape="8202.08,5017.91 8208.36,5016.23 8209.18,5013.90 8205.36,5008.64 8201.09,5009.74 8200.18,5016.17">
         <request index="0" response="0100" foes="0100"/>
@@ -6651,18 +6652,20 @@
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="26698744" type="priority" x="8177.48" y="4997.13" incLanes="4379608#0_0 4379608#0_1 8456256_0 8456256_1" intLanes="" shape="8179.21,5005.04 8184.47,5001.21 8182.12,4990.74 8175.75,4989.42 8172.22,4992.14 8176.93,5004.36">
-        <request index="0" response="00000" foes="00000"/>
-        <request index="1" response="00000" foes="00000"/>
-        <request index="2" response="00000" foes="10000"/>
-        <request index="3" response="00000" foes="00000"/>
-        <request index="4" response="00100" foes="00100"/>
+        <request index="0" response="000000" foes="000000"/>
+        <request index="1" response="000000" foes="000000"/>
+        <request index="2" response="000000" foes="110000"/>
+        <request index="3" response="000000" foes="100000"/>
+        <request index="4" response="000100" foes="000100"/>
+        <request index="5" response="001100" foes="001100"/>
     </junction>
     <junction id="26698765" type="priority" x="7072.33" y="5614.47" incLanes="-8456256_0 -8456256_1 4379609#0_0 4379609#0_1" intLanes="" shape="7072.60,5622.54 7078.46,5619.72 7078.94,5617.38 7070.30,5607.54 7066.48,5609.18 7064.49,5615.36">
-        <request index="0" response="00000" foes="00000"/>
-        <request index="1" response="10000" foes="10000"/>
-        <request index="2" response="00000" foes="00000"/>
-        <request index="3" response="00000" foes="00000"/>
-        <request index="4" response="00000" foes="00010"/>
+        <request index="0" response="010000" foes="010000"/>
+        <request index="1" response="110000" foes="110000"/>
+        <request index="2" response="000000" foes="000000"/>
+        <request index="3" response="000000" foes="000000"/>
+        <request index="4" response="000000" foes="000011"/>
+        <request index="5" response="000000" foes="000010"/>
     </junction>
     <junction id="26698769" type="priority" x="7072.46" y="5643.82" incLanes="28074493#1_0 28074493#1_1 4379609#1_0 4379609#1_1" intLanes="" shape="7069.32,5650.18 7079.20,5641.57 7078.97,5639.15 7073.36,5635.86 7064.59,5642.90 7066.55,5649.10">
         <request index="0" response="010000" foes="010000"/>
@@ -18758,15 +18761,18 @@
     <connection from="39271417#5" to="-39271417#5" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="4379608#0" to="-8456256" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379608#0" to="-8456256" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="4379608#0" to="4379608#1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="4379608#0" to="4379608#1" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="4379608#1" to="28788639#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379608#1" to="28788639#0" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="4379608#1" to="4379608#2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="4379608#1" to="4379608#2" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="4379608#2" to="-24329079#3" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379608#2" to="4379608#0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="4379608#2" to="4379608#0" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="4379609#0" to="8456256" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379609#0" to="8456256" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="4379609#0" to="4379609#1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="4379609#0" to="4379609#1" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="4379609#1" to="-28074493#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379609#1" to="-28074493#1" fromLane="0" toLane="1" dir="r" state="M"/>
