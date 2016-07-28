@@ -91,6 +91,21 @@ public:
     bool hasDetector(ROEdge* edge) const;
     const std::vector<std::string>& getDetectorList(ROEdge* edge) const;
 
+    SUMOReal getMaxSpeedFactorPKW() const {
+        return myMaxSpeedFactorPKW;
+    }
+
+    SUMOReal getMaxSpeedFactorLKW() const {
+        return myMaxSpeedFactorLKW;
+    }
+
+    SUMOReal getAvgSpeedFactorPKW() const {
+        return myAvgSpeedFactorPKW;
+    }
+
+    SUMOReal getAvgSpeedFactorLKW() const {
+        return myAvgSpeedFactorLKW;
+    }
 
 protected:
     void revalidateFlows(const RODFDetector* detector,
@@ -175,6 +190,12 @@ private:
 
 
     bool myKeepTurnarounds;
+
+    /// @brief maximum speed factor in measurements
+    SUMOReal myMaxSpeedFactorPKW;
+    SUMOReal myMaxSpeedFactorLKW;
+    SUMOReal myAvgSpeedFactorPKW;
+    SUMOReal myAvgSpeedFactorLKW;
 
 };
 

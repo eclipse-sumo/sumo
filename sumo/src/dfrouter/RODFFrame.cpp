@@ -110,6 +110,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("vtype", new Option_Bool(false));
     oc.addDescription("vtype", "Output", "Add vehicle types to the emitters file (PKW, LKW)");
 
+    oc.doRegister("vtype-output", new Option_FileName(""));
+    oc.addDescription("vtype-output", "Output", "Write generated vehicle types into separate FILE instead of including them into the emitters-output");
+
     oc.doRegister("emitters-poi-output", new Option_FileName()); // !!! describe
     oc.addDescription("emitters-poi-output", "Output", "Saves emitter positions as pois to FILE");
 
@@ -233,6 +236,8 @@ RODFFrame::fillOptions() {
     oc.doRegister("arrivalspeed", new Option_String());
     oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
 
+    oc.doRegister("speeddev", new Option_Float(0.1));
+    oc.addDescription("speeddev", "Defaults", "The default speed deviation of vehicles");
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));

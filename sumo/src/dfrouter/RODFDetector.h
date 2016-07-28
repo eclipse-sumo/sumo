@@ -53,6 +53,7 @@ class RODFDetectorCon;
 class RODFNet;
 struct RODFRouteDesc;
 class OutputDevice;
+class SUMOVTypeParameter;
 
 
 // ===========================================================================
@@ -268,6 +269,7 @@ public:
 
     void mesoJoin(const std::string& nid, const std::vector<std::string>& oldids);
 
+    void setSpeedFactorAndDev(SUMOVTypeParameter& type, SUMOReal maxFactor, SUMOReal avgFactor, SUMOReal dev, bool forceDev);
 
 protected:
     /** @brief Clears the given distributions map, deleting the timed distributions

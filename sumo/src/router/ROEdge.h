@@ -214,6 +214,20 @@ public:
         return mySpeed;
     }
 
+    /** @brief Returns the lane's maximum speed, given a vehicle's speed limit adaptation
+     * @param[in] The vehicle to return the adapted speed limit for
+     * @return This lane's resulting max. speed
+     */
+    inline SUMOReal getVClassMaxSpeed(SUMOVehicleClass vclass) const {
+        if (myRestrictions != 0) {
+            std::map<SUMOVehicleClass, SUMOReal>::const_iterator r = myRestrictions->find(vclass);
+            if (r != myRestrictions->end()) {
+                return r->second;
+            }
+        }
+        return mySpeed;
+    }
+
 
     /** @brief Returns the number of lanes this edge has
      * @return This edge's number of lanes

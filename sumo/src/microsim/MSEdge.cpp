@@ -478,9 +478,12 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
     if (pars.departSpeedProcedure == DEPART_SPEED_GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v)) {
-        if (type.getSpeedDeviation() > 0 && pars.departSpeed <= type.getSpeedFactor() * getSpeedLimit() * (2 * type.getSpeedDeviation() + 1.)) {
-            WRITE_WARNING("Choosing new speed factor for vehicle '" + pars.id + "' to match departure speed.");
+        if (type.getSpeedDeviation() > 0) {
             v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(0, pars.departSpeed / (type.getSpeedFactor() * getSpeedLimit())));
+            if (v.getChosenSpeedFactor() > type.getSpeedFactor() * (2 * type.getSpeedDeviation() + 1)) {
+                // only warn for significant deviation
+                WRITE_WARNING("Choosing new speed factor " + toString(v.getChosenSpeedFactor()) + " for vehicle '" + pars.id + "' to match departure speed.");
+            }
         } else {
             throw ProcessError("Departure speed for vehicle '" + pars.id +
                                "' is too high for the departure edge '" + getID() + "'.");

@@ -45,6 +45,7 @@
 #include "RODFRouteDesc.h"
 #include "RODFRouteCont.h"
 #include "RODFDetectorFlow.h"
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/TplConvert.h>
@@ -393,11 +394,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 if (oc.isSet("departspeed")) {
                     out.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
                 } else {
-                    if (v > defaultSpeed) {
-                        out.writeAttr(SUMO_ATTR_DEPARTSPEED, "max");
-                    } else {
-                        out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
-                    }
+                    out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
                 }
                 if (oc.isSet("arrivallane")) {
                     out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
@@ -633,6 +630,34 @@ RODFDetectorCon::writeEmitters(const std::string& file,
     //
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
+    // write vType(s)
+    const bool separateVTypeOutput = OptionsCont::getOptions().getString("vtype-output") != "";
+    OutputDevice& vTypeOut = separateVTypeOutput ? OutputDevice::getDevice(OptionsCont::getOptions().getString("vtype-output")) : out;
+    if (separateVTypeOutput) {
+        vTypeOut.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
+    }
+    const bool forceDev = !OptionsCont::getOptions().isDefault("speeddev");
+    const SUMOReal speedDev = OptionsCont::getOptions().getFloat("speeddev");
+    if (OptionsCont::getOptions().getBool("vtype")) {
+        // write separate types
+        SUMOVTypeParameter pkwType = SUMOVTypeParameter("PKW", SVC_PASSENGER);
+        setSpeedFactorAndDev(pkwType, net.getMaxSpeedFactorPKW(), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
+        pkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET; 
+        pkwType.write(vTypeOut);
+        SUMOVTypeParameter lkwType = SUMOVTypeParameter("LKW", SVC_TRUCK);
+        setSpeedFactorAndDev(lkwType, net.getMaxSpeedFactorLKW(), net.getAvgSpeedFactorLKW(), speedDev, forceDev);
+        lkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET; 
+        lkwType.write(vTypeOut);
+    } else {
+        // patch default type
+        SUMOVTypeParameter type = SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_PASSENGER);
+        setSpeedFactorAndDev(type, MAX2(net.getMaxSpeedFactorPKW(), net.getMaxSpeedFactorLKW()), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
+        if (type.setParameter != 0) {
+            type.write(vTypeOut);
+        }
+    }
+
+
     for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
         RODFDetector* det = *i;
         // get file name for values (emitter/calibrator definition)
@@ -667,6 +692,25 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         }
     }
     out.close();
+    if (separateVTypeOutput) {
+        vTypeOut.close();
+    }
+}
+
+void 
+RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, SUMOReal maxFactor, SUMOReal avgFactor, SUMOReal dev, bool forceDev) {
+    if (avgFactor > 1) {
+        // systematically low speeds can easily be caused by traffic
+        // conditions. Whereas elevated speeds probably reflect speeding
+        type.speedFactor = avgFactor;
+        type.setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
+    }
+    if (forceDev || (maxFactor > 1 && maxFactor > type.speedFactor)) {
+        // setting a non-zero speed deviation causes the simulation to recompute
+        // individual speedFactors to match departSpeed (MSEdge::insertVehicle())
+        type.speedDev = dev;
+        type.setParameter |= VTYPEPARS_SPEEDDEVIATION_SET;
+    }
 }
 
 
