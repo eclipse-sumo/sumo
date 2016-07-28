@@ -184,21 +184,29 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
         return -1;
     }
     SUMOReal relAngle1 = NBHelpers::normRelAngle(
-                             myReferenceAngle, e1->getShapeStartAngle());
+                             myReferenceAngle, myRefIncoming ? e1->getShapeStartAngle() : e1->getShapeEndAngle());
     SUMOReal relAngle2 = NBHelpers::normRelAngle(
-                             myReferenceAngle, e2->getShapeStartAngle());
+                             myReferenceAngle, myRefIncoming ? e2->getShapeStartAngle() : e2->getShapeEndAngle());
+    const int geomIndex = myRefIncoming ? 0 : -1;
 
-    //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " initially a1=" << relAngle1 << " a2=" << relAngle2 << "\n";
-    SUMOReal lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
+    //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " refA=" << myReferenceAngle << " initially a1=" << relAngle1 << " a2=" << relAngle2 << "\n";
+    const SUMOReal e1Length = e1->getGeometry().length2D();
+    const SUMOReal e2Length = e2->getGeometry().length2D();
+    const SUMOReal maxLookAhead = MAX2(e1Length, e2Length);
+    SUMOReal lookAhead = MIN2(maxLookAhead, 2 * NBEdge::ANGLE_LOOKAHEAD);
     while (fabs(relAngle1 - relAngle2) < 3.0) {
         // look at further geometry segments to resolve ambiguity
-        const Position referencePos1 = e1->getGeometry().positionAtOffset2D(lookAhead);
-        const Position referencePos2 = e2->getGeometry().positionAtOffset2D(lookAhead);
+        const SUMOReal offset1 = myRefIncoming ? lookAhead : e1Length - lookAhead;
+        const SUMOReal offset2 = myRefIncoming ? lookAhead : e2Length - lookAhead;
+        const Position referencePos1 = e1->getGeometry().positionAtOffset2D(offset1);
+        const Position referencePos2 = e2->getGeometry().positionAtOffset2D(offset2);
+
         relAngle1 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
-                                                e1->getGeometry().front().angleTo2D(referencePos1), true));
+                    e1->getGeometry()[geomIndex].angleTo2D(referencePos1), true));
         relAngle2 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
-                                                e2->getGeometry().front().angleTo2D(referencePos2), true));
-        if (lookAhead > MAX2(e1->getLength(), e2->getLength())) {
+                    e2->getGeometry()[geomIndex].angleTo2D(referencePos2), true));
+            
+        if (lookAhead > maxLookAhead) {
             break;
         }
         lookAhead *= 2;
@@ -206,9 +214,9 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
     if (fabs(relAngle1 - relAngle2) < 3.0) {
         // use angle to end of reference edge as tiebraker
         relAngle1 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
-                                                myReferencePos.angleTo2D(e1->getLaneShape(0).front()), true));
+                                                myReferencePos.angleTo2D(e1->getLaneShape(0)[geomIndex]), true));
         relAngle2 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
-                                                myReferencePos.angleTo2D(e2->getLaneShape(0).front()), true));
+                                                myReferencePos.angleTo2D(e2->getLaneShape(0)[geomIndex]), true));
         //std::cout << "  tiebraker refPos=" << myReferencePos << " abs1="
         //    << GeomHelper::legacyDegree(myReferencePos.angleTo2D(e1->getLaneShape(0).front()), true)
         //    << " abs2=" << GeomHelper::legacyDegree(myReferencePos.angleTo2D(e2->getLaneShape(0).front()), true) <<  "\n";

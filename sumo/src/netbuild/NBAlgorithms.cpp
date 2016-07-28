@@ -289,7 +289,7 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
         NBNode* n = (*i).second;
         // preset all junction's edge priorities to zero
         for (EdgeVector::iterator j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
-            (*j)->setJunctionPriority(n, 0);
+            (*j)->setJunctionPriority(n, NBEdge::MINOR_ROAD);
         }
         // check if the junction is not a real junction
         if (n->myIncomingEdges.size() == 1 && n->myOutgoingEdges.size() == 1) {
@@ -361,7 +361,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
             // geometrically
             NBEdge* s = counterIncomingEdges.find(best1)->second;
             if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
-                s->setJunctionPriority(&n, 1);
+                s->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
             }
         }
         assert(bestOutgoing.size() != 0);

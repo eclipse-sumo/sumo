@@ -98,15 +98,22 @@ public:
 
     /**
      * straightness_sorter
-     * Class to sort edges according to how straight thei are in relation to the
-     * reference edge
+     * Class to sort edges according to how straight they are in relation to the
+     * reference edge at the given node
      */
     class straightness_sorter {
     public:
         /// constructor
-        explicit straightness_sorter(NBEdge* e) :
-            myReferencePos(e->getLaneShape(0).back()),
-            myReferenceAngle(e->getShapeEndAngle()) {
+        explicit straightness_sorter(const NBNode* n, const NBEdge* e):
+            myRefIncoming(e->getToNode() == n)
+        {
+            if (myRefIncoming) {
+                myReferencePos = e->getLaneShape(0).back();
+                myReferenceAngle = e->getShapeEndAngle(); 
+            } else {
+                myReferencePos = e->getLaneShape(0).front();
+                myReferenceAngle = e->getShapeStartAngle(); 
+            }
         }
 
     public:
@@ -114,6 +121,7 @@ public:
         int operator()(NBEdge* e1, NBEdge* e2) const;
 
     private:
+        bool myRefIncoming;
         Position myReferencePos;
         SUMOReal myReferenceAngle;
     };

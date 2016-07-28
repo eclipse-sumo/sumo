@@ -1024,7 +1024,8 @@ NBEdgeCont::markRoundabouts() {
                 inEdge->removeFromConnections(inEdge->getTurnDestination(), -1);
             }
             // let the connections to succeeding roundabout edge have a higher priority
-            (*j)->setJunctionPriority(node, 1000);
+            (*j)->setJunctionPriority(node, NBEdge::ROUNDABOUT);
+            //(*j)->setJunctionPriority((*j)->getFromNode(), NBEdge::ROUNDABOUT);
             node->setRoundabout();
         }
     }

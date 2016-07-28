@@ -215,6 +215,13 @@ public:
     /// @brief the distance at which to take the default angle
     static const SUMOReal ANGLE_LOOKAHEAD;
 
+    /// @brief junction priority values set by setJunctionPriority
+    enum JunctionPriority { 
+        MINOR_ROAD = 0, 
+        PRIORITY_ROAD = 1, 
+        ROUNDABOUT = 1000
+    };
+
 public:
     /** @brief Constructor
      *
