@@ -54,6 +54,9 @@
         <!-- Add vehicle types to the emitters file (PKW, LKW) -->
         <vtype value="false" type="BOOL"/>
 
+        <!-- Write generated vehicle types into separate FILE instead of including them into the emitters-output -->
+        <vtype-output value="" type="FILE"/>
+
         <!-- Saves emitter positions as pois to FILE -->
         <emitters-poi-output value="" type="FILE"/>
 
@@ -158,6 +161,9 @@
 
         <!-- Assigns a default arrival speed -->
         <arrivalspeed value="" type="STR"/>
+
+        <!-- The default speed deviation of vehicles -->
+        <speeddev value="0.1" type="FLOAT"/>
 
     </defaults>
 

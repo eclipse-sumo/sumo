@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jul 28 08:35:34 2016 by SUMO dfrouter Version dev-SVN-r21246
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <detector-files value="input_tri.det.xml"/>
+        <measure-files value="input_tri_flows.txt"/>
+    </input>
+
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+        <vtype value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="PKW" speedFactor="1.14" vClass="passenger"/>
+    <vType id="LKW" speedFactor="1.39" vClass="truck"/>
+    <routeDistribution id="MQ_beg">
+        <route refId="beg_to_end" probability="1.00"/>
+    </routeDistribution>
+    <vehicle id="emitter_MQ_beg_0" type="PKW" depart="0.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_6000" type="PKW" depart="6.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_12000" type="LKW" depart="12.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_18000" type="PKW" depart="18.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_24000" type="LKW" depart="24.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_30000" type="PKW" depart="30.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_36000" type="LKW" depart="36.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_42000" type="PKW" depart="42.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_48000" type="LKW" depart="48.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="emitter_MQ_beg_54000" type="PKW" depart="54.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+</additional>

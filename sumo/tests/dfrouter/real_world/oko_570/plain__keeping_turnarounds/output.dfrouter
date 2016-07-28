@@ -14,5 +14,6 @@ Detected PKW speed (27.778) higher than allowed speed (13.900) at 'RO' on edge '
 Detected PKW speed (27.778) higher than allowed speed (13.900) at 'RI' on edge '60_50'.
 Detected PKW speed (27.778) higher than allowed speed (13.900) at 'BO' on edge 'a4_a5'.
 Detected PKW speed (27.778) higher than allowed speed (13.900) at 'BI' on edge 'a5_a4'.
+Average speedFactor for PKW is 2.00 maximum speedFactor is 2.00.
 Writing emitters... done.
 Success.

@@ -83,6 +83,9 @@ speed_given10
 # checks using the given speed when speedDev is present
 speed_given_deviation
 
+# checks using the given speed when speedDev is present but quite low
+speed_given_deviation_low
+
 # checks using the maximum speed (bounded by lane's vmax)
 speed_max__lanelimit
 

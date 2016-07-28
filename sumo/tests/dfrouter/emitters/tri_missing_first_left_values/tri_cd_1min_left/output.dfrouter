@@ -19,5 +19,6 @@ Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_Rto2' on e
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_beg' on edge 'beg'.
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_end' on edge 'end'.
 Detected PKW speed (27.778) higher than allowed speed (19.440) at 'MQ_middle' on edge 'middle'.
+Average speedFactor for PKW is 1.43 maximum speedFactor is 1.43.
 Writing emitters... done.
 Success.

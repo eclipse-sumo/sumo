@@ -13,6 +13,7 @@ copy_test_path:net.net.xml
 [collate_file]
 detector_defs:detectors_def.det.xml
 routes:routes.rou.xml
+vtypes:vtypes.rou.xml
 pois:detectors.poi.xml
 emitters:emitters.add.xml
 cfg:config.cfg
@@ -23,6 +24,7 @@ detector_defs:<!--{[->]}-->
 routes:<!--{[->]}-->
 pois:<!--{[->]}-->
 emitters:<!--{[->]}-->
+vtypes:<!--{[->]}-->
 
 [floating_point_tolerance]
 emitters:0.0101

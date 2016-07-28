@@ -1,4 +1,4 @@
-SUMO dfrouter Version svn
+SUMO dfrouter Version dev-SVN-r21246
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -30,6 +30,9 @@ Output Options:
                                          detectors to FILE
   --vtype                              Add vehicle types to the emitters file
                                          (PKW, LKW)
+  --vtype-output FILE                  Write generated vehicle types into
+                                         separate FILE instead of including them
+                                         into the emitters-output
   --emitters-poi-output FILE           Saves emitter positions as pois to FILE
   --variable-speed-sign-output FILE    Saves variable seed sign definitions for
                                          sink detectors to FILE
@@ -79,6 +82,7 @@ Defaults Options:
   --arrivallane STR                    Assigns a default arrival lane
   --arrivalpos STR                     Assigns a default arrival position
   --arrivalspeed STR                   Assigns a default arrival speed
+  --speeddev FLOAT                     The default speed deviation of vehicles
 
 Time Options:
   -b, --begin TIME                     Defines the begin time;

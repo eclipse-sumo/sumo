@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/05/14 13:06:04 by SUMO dfrouter Version dev-SVN-r15814
+<!-- generated on Wed Jul 27 17:11:35 2016 by SUMO dfrouter Version dev-SVN-r21246
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -35,6 +35,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" speedFactor="1.43"/>
     <routeDistribution id="MQ_beg">
         <route refId="beg_to_end" probability="0.00"/>
         <route refId="beg_to_end" probability="1.00"/>
@@ -43,9 +44,9 @@
         <route refId="beg_to_end_2" probability="0.00"/>
         <route refId="beg_to_end_2" probability="1.00"/>
     </routeDistribution>
-    <vehicle id="emitter_MQ_beg_0" depart="0.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_0" depart="0.00" departLane="0" departPos="5.00" departSpeed="27.78" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departLane="0" departPos="5.00" departSpeed="27.78" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departLane="0" departPos="5.00" departSpeed="27.78" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departLane="0" departPos="5.00" departSpeed="27.78" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departLane="0" departPos="5.00" departSpeed="27.78" route="MQ_beg"/>
 </additional>

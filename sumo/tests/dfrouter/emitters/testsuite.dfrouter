@@ -1,6 +1,15 @@
 # Tests emitter building on the dlr-testtrack 
 messstrecke
 
+# using vtype and vtype-output
+vtype
+
+# using vtype and vtype-output and setting speeddev
+vtype_speeddev
+
+# computing speedFactor based on vClass-specific speed limits
+vclass_specific_speeds
+
 # Tests emitter building on an abstract network
 tri
 

@@ -1,0 +1,3 @@
+--net-file=input_messstrecke.net.xml --detector-files=input_messstrecke.det.xml
+--routes-output routes.rou.xml --emitters-output emitters.add.xml --vtype
+--vtype-output vtypes.rou.xml --speeddev 0.2
