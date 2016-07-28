@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jul 28 10:28:53 2016 by SUMO netconvert Version dev-SVN-r21246
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="200.00,0.00" convBoundary="0.00,0.00,400.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="CE" from="C" to="E" priority="1" spreadType="center">
+        <lane id="CE_0" index="0" speed="13.89" length="200.00" shape="201.50,0.00 400.00,0.00"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="1" spreadType="center">
+        <lane id="WC_0" index="0" allow="bicycle" speed="13.89" length="200.00" shape="0.00,-3.30 198.50,-3.30"/>
+        <lane id="WC_1" index="1" speed="13.89" length="200.00" shape="0.00,0.00 198.50,0.00"/>
+        <lane id="WC_2" index="2" speed="13.89" length="200.00" shape="0.00,3.30 198.50,3.30"/>
+    </edge>
+
+    <junction id="C" type="priority" x="200.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="201.50,1.60 201.50,-1.60 198.50,-4.90 198.50,4.90">
+        <request index="0" response="110" foes="110"/>
+        <request index="1" response="000" foes="101"/>
+        <request index="2" response="010" foes="011"/>
+    </junction>
+    <junction id="E" type="unregulated" x="400.00" y="0.00" incLanes="CE_0" intLanes="" shape="400.00,-1.60 400.00,1.60"/>
+    <junction id="W" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,4.90 0.00,-4.90"/>
+
+    <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="0" dir="s" state="m"/>
+
+</net>

@@ -67,6 +67,9 @@ double_con_custom
 # two connections from the same edge to the same lane. Forcing unsafe network by setting attribute pass="true" for both connections
 double_con_custom_unsafe
 
+# two connections from the same edge to the same lane. Priority resolved by defaults
+double_con_bikelane
+
 # custom position for internal junction
 contPos
 
