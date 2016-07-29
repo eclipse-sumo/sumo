@@ -59,6 +59,8 @@
 
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/TplCheck.h>
+#include <utils/common/TplConvert.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
@@ -290,11 +292,26 @@ GUIApplicationWindow::dependentBuild() {
 
 void
 GUIApplicationWindow::create() {
-    if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0) {
+    int windowWidth = getApp()->reg().readIntEntry("SETTINGS", "width", 600);
+    int windowHeight = getApp()->reg().readIntEntry("SETTINGS", "height", 400);
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("window-size")) {
+        std::vector<std::string> windowSize = oc.getStringVector("window-size");
+        if (windowSize.size() != 2 
+                || !TplCheck::_str2int(windowSize[0])
+                || !TplCheck::_str2int(windowSize[1])) {
+            WRITE_ERROR("option window-size requires INT,INT");
+        } else {
+            windowWidth = TplConvert::_str2int(windowSize[0]);
+            windowHeight = TplConvert::_str2int(windowSize[1]);
+        }
+    }
+
+    if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0) {
         setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
         setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
-        setWidth(getApp()->reg().readIntEntry("SETTINGS", "width", 600));
-        setHeight(getApp()->reg().readIntEntry("SETTINGS", "height", 400));
+        setWidth(windowWidth);
+        setHeight(windowHeight);
     }
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
@@ -320,8 +337,10 @@ GUIApplicationWindow::create() {
     myGeoFrame->setWidth(width);
 
     show(PLACEMENT_SCREEN);
-    if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 1) {
-        maximize();
+    if (!OptionsCont::getOptions().isSet("window-size")) {
+        if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 1) {
+            maximize();
+        }
     }
     myShowTimeAsHMS = (getApp()->reg().readIntEntry("gui", "timeasHMS", 0) == 1);
     myAlternateSimDelay = getApp()->reg().readIntEntry("gui", "alternateSimDelay", 100);

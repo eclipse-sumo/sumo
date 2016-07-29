@@ -405,6 +405,9 @@ MSFrame::fillOptions() {
     oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.addDescription("disable-textures", "GUI Only", "Do not load background pictures");
 
+    oc.doRegister("window-size", new Option_String());
+    oc.addDescription("window-size", "GUI Only", "Create initial window with the given x,y size");
+
 #ifdef HAVE_OSG
     oc.doRegister("osg-view", new Option_Bool(false));
     oc.addDescription("osg-view", "GUI Only", "Start with an OpenSceneGraph view instead of the regular 2D view");

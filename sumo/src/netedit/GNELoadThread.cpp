@@ -211,6 +211,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("registry-viewport", new Option_Bool(false));
     oc.addDescription("registry-viewport", "Visualisation", "Load current viewport from registry");
 
+    oc.doRegister("window-size", new Option_String());
+    oc.addDescription("window-size", "Visualisation", "Create initial window with the given x,y size");
+
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();
