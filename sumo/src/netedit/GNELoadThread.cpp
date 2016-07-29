@@ -202,6 +202,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("Visualisation");
 
+    oc.doRegister("new", new Option_Bool(false)); // !!!
+    oc.addDescription("new", "Input", "Start with a new network");
+
     oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
     oc.addDescription("disable-textures", "Visualisation", "");
 

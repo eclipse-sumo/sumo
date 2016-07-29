@@ -90,7 +90,7 @@ public:
     virtual void detach();
 
     /// @brief load net on startup
-    void loadOnStartup();
+    void loadOnStartup(bool newNet);
 
     /// @brief build dependent
     void dependentBuild();

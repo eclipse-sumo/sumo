@@ -965,8 +965,8 @@ GNEApplicationWindow::getDefaultCursor() {
 
 
 void
-GNEApplicationWindow::loadOnStartup() {
-    loadConfigOrNet("", false, false, true);
+GNEApplicationWindow::loadOnStartup(bool newNet) {
+    loadConfigOrNet("", false, false, true, newNet);
 }
 
 
