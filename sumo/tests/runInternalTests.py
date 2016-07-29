@@ -45,6 +45,8 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
         root, "..", "bin", "jtrrouter" + suffix)
     env["NETCONVERT_BINARY"] = os.path.join(
         root, "..", "bin", "netconvert" + suffix)
+    env["NETEDIT_BINARY"] = os.path.join(
+        root, "..", "bin", "netedit" + suffix)
     env["NETGENERATE_BINARY"] = os.path.join(
         root, "..", "bin", "netgenerate" + suffix)
     env["OD2TRIPS_BINARY"] = os.path.join(
