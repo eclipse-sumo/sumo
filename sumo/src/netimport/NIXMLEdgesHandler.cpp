@@ -303,10 +303,6 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     } else {
         lane = attrs.get<int>(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
     }
-    std::string allowed, disallowed, preferred;
-    allowed    = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, 0, ok, "");
-    disallowed = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, 0, ok, "");
-    preferred  = attrs.getOpt<std::string>(SUMO_ATTR_PREFER, 0, ok, "");
     if (!ok) {
         return;
     }
@@ -315,9 +311,16 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
         return;
     }
-    // set information about allowed / disallowed vehicle classes
-    myCurrentEdge->setPermissions(parseVehicleClasses(allowed, disallowed), lane);
-    myCurrentEdge->setPreferredVehicleClass(parseVehicleClasses(preferred), lane);
+    // set information about allowed / disallowed vehicle classes (if specified)
+    if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+        const std::string allowed = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, 0, ok, "");
+        const std::string disallowed = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, 0, ok, "");
+        myCurrentEdge->setPermissions(parseVehicleClasses(allowed, disallowed), lane);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PREFER)) {
+        const std::string preferred  = attrs.get<std::string>(SUMO_ATTR_PREFER, 0, ok);
+        myCurrentEdge->setPreferredVehicleClass(parseVehicleClasses(preferred), lane);
+    }
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
         myCurrentEdge->setLaneWidth(lane, attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
