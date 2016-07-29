@@ -16,10 +16,6 @@ wait("netediticon.png")
 # focus
 click(Pattern("netediticon.png").targetOffset(30,0))
 
-
-# Create new project
-type("a", Key.CTRL)
-
 # Change to create mode
 type("e")
 
