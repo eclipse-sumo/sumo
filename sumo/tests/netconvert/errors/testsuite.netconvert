@@ -12,3 +12,7 @@ invalid_argument_vclass
 
 # warn about large coordinates
 large_coordinates
+
+# test what happens if the ignore-errors option is set and allowed vClass or disallowed vClass contains unrecognized attributes (#2148)
+# 
+ignore_errors_and_unknown_vclass
