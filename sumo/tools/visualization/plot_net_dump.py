@@ -225,8 +225,8 @@ def main(args=None):
             # If we have multiple intervals to be plotted, make sure we have
             # proper output filenames (with a %s as a placeholder in it)
             if len(times) > 1 and optOutputNames.find('%s') < 0:
-                print('Warning: multiple time intervals should be plotted, but \
-                the output file name does not contain a \'\%s\' placeholder. \
+                print('Warning: multiple time intervals detected, but \
+                the output filename(s) do not contain a \'%s\' placeholder. \
                 Continuing by using a default placeholder.')
 
                 # Modify each filename by putting a '-%s' right before the
