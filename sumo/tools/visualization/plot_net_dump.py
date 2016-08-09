@@ -3,7 +3,8 @@
 @file    plot_net_dump.py
 @author  Daniel Krajzewicz
 @author  Laura Bieker
-@date    2013-10-14
+@author  Robert Hilbrich
+@date    2016-08-05
 @version $Id$
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -35,6 +36,8 @@ from sumolib.visualization import helpers
 
 import matplotlib.pyplot as plt
 import matplotlib
+
+import pdb
 
 
 class WeightsReader(ContentHandler):
@@ -87,10 +90,17 @@ def main(args=None):
                          type="float", default=None, help="If set, defines the maximum edge width value")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
+
     # standard plot options
     helpers.addInteractionOptions(optParser)
     helpers.addPlotOptions(optParser)
     helpers.addNetOptions(optParser)
+
+    # Override the help string for the output option
+    outputOpt = optParser.get_option("--output")
+    outputOpt.help = "Comma separated list of filename(s) the figure shall be written to; " + \
+                     "for multiple time intervals use \'\%s\' in the filenames as a placeholder"
+
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
@@ -192,20 +202,24 @@ def main(args=None):
         helpers.plotNet(net, colors, widths, options)
 
         # drawing the legend, at least for the colors
-        sm = plt.cm.ScalarMappable(cmap=matplotlib.cm.get_cmap(
-            options.colormap), norm=matplotlib.colors.Normalize(vmin=minColorValue, vmax=maxColorValue))
-        # "fake up the array of the scalar mappable. Urgh..." (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
+        sm = plt.cm.ScalarMappable(cmap=matplotlib.cm.get_cmap(options.colormap),
+                                   norm=matplotlib.colors.Normalize(vmin=minColorValue,
+                                                                    vmax=maxColorValue))
+
+        # "fake up the array of the scalar mappable. Urgh..."
+        # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
         sm._A = []
         plt.colorbar(sm)
 
-        # Should we also save the figure to a file / list of files?
+        # Should we also save the figure to a file / list of files (comma
+        # separated)?
         if options.output:
             options.nolegend = True
-            optName = options.output
+            optOutputNames = options.output
 
             # If we have multiple intervals to be plotted, make sure we have
-            # proper output filenames
-            if len(times) > 1 and options.output.find('%s') < 0:
+            # proper output filenames (with a %s as a placeholder in it)
+            if len(times) > 1 and optOutputNames.find('%s') < 0:
                 print('Warning: multiple time intervals should be plotted, but \
                 the output file name does not contain a \'\%s\' placeholder. \
                 Continuing by using a default placeholder.')
@@ -213,8 +227,8 @@ def main(args=None):
 
             # If we have a "%s" in the name of the output then replace it with the
             # interval begin of the current interval
-            if options.output.find('%s') >= 0:
-                optName = options.output.replace("%s", str(t))
+            if optOutputNames.find('%s') >= 0:
+                optOutputNames = optOutputNames.replace("%s", str(t))
 
             # Can be used to print additional text in the figure:
             #
@@ -224,7 +238,7 @@ def main(args=None):
             # ax.text(0.2, 0.2, timeStr, bbox={
             #    'facecolor': 'white', 'pad': 10}, size=16)
 
-            helpers.closeFigure(fig, ax, options, False, optName)
+            helpers.closeFigure(fig, ax, options, False, optOutputNames)
 
     return 0
 
