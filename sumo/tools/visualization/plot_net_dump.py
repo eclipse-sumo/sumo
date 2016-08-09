@@ -104,7 +104,8 @@ def main(args=None):
     # Override the help string for the output option
     outputOpt = optParser.get_option("--output")
     outputOpt.help = "Comma separated list of filename(s) the figure shall be written to; " +\
-                     "for multiple time intervals use \'\%s\' in the filename"
+                     "for multiple time intervals use \'\%s\' in the filename as a " +\
+                     "placeholder for the beginning of the time interval"
 
     # parse
     options, remaining_args = optParser.parse_args(args=args)
@@ -141,6 +142,28 @@ def main(args=None):
         sumolib.output.parse_sax(widthDump, hw)
         times = hw._edge2value
 
+    # Should we also save the figure to a file / list of files (comma
+    # separated)? Then we need to check the output filename(s)
+    if options.output:
+        options.nolegend = True
+        optOutputNames = options.output
+
+        # If we have multiple intervals to be plotted, make sure we have
+        # proper output filenames (with a %s as a placeholder in it)
+        if len(times) > 1 and optOutputNames.find('%s') < 0:
+            print('Warning: multiple time intervals detected, but ' +
+                  'the output filename(s) do not contain a \'%s\' placeholder. ' +
+                  'Continuing by using a default placeholder.')
+
+            # Modify each filename by putting a '-%s' right before the
+            # extension
+            filenames = optOutputNames.split(',')
+            for i in range(0, len(filenames)):
+                filename, extension = os.path.splitext(filenames[i])
+                filenames[i] = filename + '-%s' + extension
+            optOutputNames = ','.join(filenames)
+
+    # Now go through each time interval and create the figures
     for t in times:
         if options.verbose:
             print("Processing interval with a beginning of %s" % t)
@@ -219,28 +242,12 @@ def main(args=None):
         # Should we also save the figure to a file / list of files (comma
         # separated)?
         if options.output:
-            options.nolegend = True
-            optOutputNames = options.output
-
-            # If we have multiple intervals to be plotted, make sure we have
-            # proper output filenames (with a %s as a placeholder in it)
-            if len(times) > 1 and optOutputNames.find('%s') < 0:
-                print('Warning: multiple time intervals detected, but \
-                the output filename(s) do not contain a \'%s\' placeholder. \
-                Continuing by using a default placeholder.')
-
-                # Modify each filename by putting a '-%s' right before the
-                # extension
-                filenames = optOutputNames.split(',')
-                for i in range(0, len(filenames)):
-                    filename, extension = os.path.splitext(filenames[i])
-                    filenames[i] = filename + '-%s' + extension
-                optOutputNames = ','.join(filenames)
 
             # If we have a "%s" in the name of the output then replace it with the
             # interval begin of the current interval
-            if optOutputNames.find('%s') >= 0:
-                optOutputNames = optOutputNames.replace("%s", str(t))
+            expandedOutputNames = optOutputNames
+            if expandedOutputNames.find('%s') >= 0:
+                expandedOutputNames = expandedOutputNames.replace("%s", str(t))
 
             # Can be used to print additional text in the figure:
             #
@@ -249,8 +256,7 @@ def main(args=None):
             # timeStr = "%02d:%02d:%02d" % (h, m, s)
             # ax.text(0.2, 0.2, timeStr, bbox={
             #    'facecolor': 'white', 'pad': 10}, size=16)
-
-            helpers.closeFigure(fig, ax, options, False, optOutputNames)
+            helpers.closeFigure(fig, ax, options, False, expandedOutputNames)
 
     return 0
 
