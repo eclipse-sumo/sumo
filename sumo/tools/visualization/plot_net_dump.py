@@ -81,15 +81,20 @@ def main(args=None):
     optParser.add_option("--log-widths", dest="logWidths", action="store_true",
                          default=False, help="If set, widths are log-scaled")
     optParser.add_option("--min-color-value", dest="colorMin",
-                         type="float", default=None, help="If set, defines the minimum edge color value")
+                         type="float", default=None,
+                         help="If set, defines the minimum edge color value")
     optParser.add_option("--max-color-value", dest="colorMax",
-                         type="float", default=None, help="If set, defines the maximum edge color value")
+                         type="float", default=None,
+                         help="If set, defines the maximum edge color value")
     optParser.add_option("--min-width-value", dest="widthMin",
-                         type="float", default=None, help="If set, defines the minimum edge width value")
+                         type="float", default=None,
+                         help="If set, defines the minimum edge width value")
     optParser.add_option("--max-width-value", dest="widthMax",
-                         type="float", default=None, help="If set, defines the maximum edge width value")
+                         type="float", default=None,
+                         help="If set, defines the maximum edge width value")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                         default=False,
+                         help="If set, the script says what it's doing")
 
     # standard plot options
     helpers.addInteractionOptions(optParser)
@@ -98,8 +103,8 @@ def main(args=None):
 
     # Override the help string for the output option
     outputOpt = optParser.get_option("--output")
-    outputOpt.help = "Comma separated list of filename(s) the figure shall be written to; " + \
-                     "for multiple time intervals use \'\%s\' in the filenames as a placeholder"
+    outputOpt.help = "Comma separated list of filename(s) the figure shall be written to; " +\
+                     "for multiple time intervals use \'\%s\' in the filename"
 
     # parse
     options, remaining_args = optParser.parse_args(args=args)
@@ -223,7 +228,14 @@ def main(args=None):
                 print('Warning: multiple time intervals should be plotted, but \
                 the output file name does not contain a \'\%s\' placeholder. \
                 Continuing by using a default placeholder.')
-                # FIXME!
+
+                # Modify each filename by putting a '-%s' right before the
+                # extension
+                filenames = optOutputNames.split(',')
+                for i in range(0, len(filenames)):
+                    filename, extension = os.path.splitext(filenames[i])
+                    filenames[i] = filename + '-%s' + extension
+                optOutputNames = ','.join(filenames)
 
             # If we have a "%s" in the name of the output then replace it with the
             # interval begin of the current interval
