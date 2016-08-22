@@ -168,7 +168,7 @@ void StringTokenizer::prepareWhitechar(const std::string& tosplit) {
     }
     while (beg != std::string::npos && beg < len) {
         int end = (int)beg;
-        while (end < len && tosplit[end] > SPACE) {
+        while (end < (int)len && tosplit[end] > SPACE) {
             end++;
         }
         myStarts.push_back((int)beg);

@@ -53,7 +53,7 @@ MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol
                                                     )
     : MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters), myPhases(phases),
       myStep(step) {
-    for (int i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < (int)myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }
 }
@@ -176,7 +176,7 @@ MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     }
     SUMOTime pos = offset;
     SUMOTime testPos = 0;
-    for (int i = 0; i < myPhases.size(); i++)	{
+    for (int i = 0; i < (int)myPhases.size(); i++)	{
         testPos += getPhase(i).duration;
         if (testPos > pos) {
             return i;
@@ -216,7 +216,7 @@ MSPhasedTrafficLightLogic::setPhases(const Phases& phases, int step) {
 
 void
 MSPhasedTrafficLightLogic::deletePhases() {
-    for (int i = 0; i < myPhases.size(); i++) {
+    for (int i = 0; i < (int)myPhases.size(); i++) {
         delete myPhases[i];
     }
 }

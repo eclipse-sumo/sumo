@@ -595,7 +595,7 @@ MFXAddEditTypedTable::setNumberCellParams(int pos, double min, double max,
 
 MFXAddEditTypedTable::NumberCellParams
 MFXAddEditTypedTable::getNumberCellParams(int pos) const {
-    if (myNumberCellParams.size() <= pos) {
+    if ((int)myNumberCellParams.size() <= pos) {
         NumberCellParams np;
         np.format = "undefined";
         return np;
