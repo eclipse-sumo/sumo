@@ -3,7 +3,7 @@
 @file    sikulixrunner.py
 @author  Jakob Erdmann
 @date    2016-07-29
-@version $Id: toolrunner.py 20433 2016-04-13 08:00:14Z behrisch $
+@version $Id$
 
 Wrapper script for running gui tests with SikuliX and TextTest.
 
