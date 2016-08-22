@@ -367,10 +367,6 @@ MSLCM_SL2015::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
         return (min + wanted) / (SUMOReal) 2.0;
         */
     }
-    if (myVehicle.getLane()->getEdge().getLanes().size() == 1) {
-        // remove chaning information if on a road with a single lane
-        changed();
-    }
     return wanted;
 }
 
