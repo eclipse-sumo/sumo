@@ -81,11 +81,11 @@ MSPhasedTrafficLightLogic::trySwitch(bool) {
     // increment the index
     myStep++;
     // if the last phase was reached ...
-    if (myStep==myPhases.size()) {
+    if (myStep==(int)myPhases.size()) {
         // ... set the index to the first phase
         myStep = 0;
     }
-    assert(myPhases.size()>myStep);
+    assert((int)myPhases.size()>myStep);
     //stores the time the phase started
     myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
     // check whether the next duration was overridden
@@ -159,7 +159,7 @@ MSPhasedTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
 
 SUMOTime
 MSPhasedTrafficLightLogic::getOffsetFromIndex(int index) const {
-    assert(index < myPhases.size());
+    assert(index < (int)myPhases.size());
     SUMOTime pos = 0;
     for (int i = 0; i < index; i++) {
         pos += getPhase(i).duration;
@@ -182,7 +182,7 @@ MSPhasedTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
             return i;
         }
         if (testPos == pos) {
-            assert(myPhases.size() > (i + 1));
+            assert((int)myPhases.size() > (i + 1));
             return i + 1;
         }
     }

@@ -115,7 +115,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
                      const std::string& file, const bool isNet) {
     try {
         XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
-        if (myNextFreeReader == myReaders.size()) {
+        if (myNextFreeReader == (int)myReaders.size()) {
             myReaders.push_back(new SUMOSAXReader(handler, validationScheme));
         } else {
             myReaders[myNextFreeReader]->setValidation(validationScheme);

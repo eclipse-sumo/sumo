@@ -91,7 +91,7 @@ void StringTokenizer::reinit() {
 }
 
 bool StringTokenizer::hasNext() {
-    return myPos != myStarts.size();
+    return myPos != (int)myStarts.size();
 }
 
 std::string StringTokenizer::next() {
@@ -153,7 +153,7 @@ void StringTokenizer::prepare(const std::string& tosplit, const std::string& tok
         myStarts.push_back(beg);
         myLengths.push_back((int)end - beg);
         beg = (int)end + len;
-        if (beg == tosplit.length()) {
+        if (beg == (int)tosplit.length()) {
             myStarts.push_back(beg - 1);
             myLengths.push_back(0);
         }
@@ -167,12 +167,12 @@ void StringTokenizer::prepareWhitechar(const std::string& tosplit) {
         beg++;
     }
     while (beg != std::string::npos && beg < len) {
-        int end = (int)beg;
-        while (end < (int)len && tosplit[end] > SPACE) {
+        std::string::size_type end = beg;
+        while (end < len && tosplit[end] > SPACE) {
             end++;
         }
         myStarts.push_back((int)beg);
-        myLengths.push_back(end - (int)beg);
+        myLengths.push_back((int)end - (int)beg);
         beg = end;
         while (beg < len && tosplit[beg] <= SPACE) {
             beg++;

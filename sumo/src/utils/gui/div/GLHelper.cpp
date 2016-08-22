@@ -106,9 +106,9 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessBeginContour(tobj);
     double* points = new double[(v.size() + int(close)) * 3];
 
-    for (int i = 0; i != v.size(); ++i) {
-        points[3 * i] = v[(int)i].x();
-        points[3 * i + 1] = v[(int)i].y();
+    for (int i = 0; i != (int)v.size(); ++i) {
+        points[3 * i] = v[i].x();
+        points[3 * i + 1] = v[i].y();
         points[3 * i + 2] = 0;
         gluTessVertex(tobj, points + 3 * i, points + 3 * i);
     }

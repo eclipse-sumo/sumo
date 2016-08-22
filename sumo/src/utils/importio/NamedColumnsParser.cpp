@@ -114,7 +114,7 @@ NamedColumnsParser::know(const std::string& name) const {
 
 bool
 NamedColumnsParser::hasFullDefinition() const {
-    return myDefinitionsMap.size() == myLineParser.size();
+    return (int)myDefinitionsMap.size() == myLineParser.size();
 }
 
 

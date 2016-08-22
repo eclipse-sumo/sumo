@@ -98,7 +98,7 @@ public:
     }
 
     void removeColor(const int pos) {
-        assert(pos < myColors.size());
+        assert(pos < (int)myColors.size());
         myColors.erase(myColors.begin() + pos);
         myThresholds.erase(myThresholds.begin() + pos);
         myNames.erase(myNames.begin() + pos);
