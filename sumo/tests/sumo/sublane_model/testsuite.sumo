@@ -1,6 +1,9 @@
 # vehicles overtaking a bicycle on a single-lane road
 overtaking_bicycle
 
+# vehicles overtaking a bicycle on a single-lane road
+overtaking_bicycle_step0.2
+
 # like overtaking_bicyle but with severly reduced lateral speed
 maxSpeedLat
 

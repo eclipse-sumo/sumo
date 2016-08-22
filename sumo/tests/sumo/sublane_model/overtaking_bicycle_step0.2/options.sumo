@@ -1,0 +1,2 @@
+--no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml --step-length
+0.2 --lateral-resolution 0.8 --tripinfo-output tripinfos.xml --fcd-output fcd.xml
