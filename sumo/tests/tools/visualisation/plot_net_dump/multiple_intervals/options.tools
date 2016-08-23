@@ -1,1 +1,1 @@
--n net.net.xml -i input_weights.dump.xml,input_weights.dump.xml -o image.png -m occupancy,speed -b tools/visualization/plot_net_dump.py 
+-n net.net.xml -i input_weights.dump.xml,input_weights.dump.xml -o image.svg -m occupancy,speed -b tools/visualization/plot_net_dump.py 

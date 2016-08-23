@@ -153,7 +153,7 @@ osmbatch:python.*randomTrips\.py{REPLACE python /path/to/randomTrips.py}
 osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
 osmbatch:--trip-attributes.*--{REPLACE --trip-attributes <attrs-with-os-dependent-quoting> --}
 image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
-image:url\(.*\){REPLACE ulr(ReplacedTransientURL)}
+image:url\(.*\){REPLACE url(ReplacedTransientURL)}
 image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
 
 [floating_point_tolerance]
