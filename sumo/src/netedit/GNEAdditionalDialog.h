@@ -74,15 +74,6 @@ protected:
     /// @brief FOX needs this
     GNEAdditionalDialog() {}
 
-    /// @brief Invalidated show dialog for external calls
-    void show();
-
-    /// @brief Invalidated show dialog for external calls
-    void hide();
-
-    /// @brief Invalidated execute dialog for external calls
-    void execute();
-
     /// @brief frame for contents
     FXVerticalFrame* myContentFrame;
 

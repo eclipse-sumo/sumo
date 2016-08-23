@@ -958,7 +958,7 @@ GNENet::changeEdgeEndpoints(GNEEdge* edge, const std::string& newSource, const s
 NBTrafficLightLogicCont&
 GNENet::getTLLogicCont() {
     return myNetBuilder->getTLLogicCont();
-};
+}
 
 
 void
@@ -1253,4 +1253,6 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
     }
     myNeedRecompute = false;
 }
+
+
 /****************************************************************************/

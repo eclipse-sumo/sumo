@@ -762,7 +762,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
                         noFalse++;
                     }
                 }
-                if ((noFalse + noSkipped) == appr.size()) {
+                if (noFalse + noSkipped == (int)appr.size()) {
                     return false;
                 }
             }
@@ -786,27 +786,26 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
 
     // let's check the edges in front
     const ROEdgeVector& appr = myApproachingEdges.find(edge)->second;
-    int noOk = 0;
-    int noFalse = 0;
-    int noSkipped = 0;
+    int numOk = 0;
+    int numFalse = 0;
+    int numSkipped = 0;
     seen.push_back(edge);
     for (int i = 0; i < (int)appr.size(); i++) {
         bool had = std::find(seen.begin(), seen.end(), appr[i]) != seen.end();
         if (!had) {
             if (isSource(det, appr[i], seen, detectors, strict)) {
-                noOk++;
+                numOk++;
             } else {
-                noFalse++;
+                numFalse++;
             }
         } else {
-            noSkipped++;
+            numSkipped++;
         }
     }
-    if (!strict) {
-        return (noFalse + noSkipped) != appr.size();
-    } else {
-        return (noOk + noSkipped) == appr.size();
+    if (strict) {
+        return numOk + numSkipped == (int)appr.size();
     }
+    return numFalse + numSkipped != (int)appr.size();
 }
 
 

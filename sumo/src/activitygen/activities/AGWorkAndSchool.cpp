@@ -137,7 +137,7 @@ AGWorkAndSchool::carAllocation() {
     }
     if (personsDrivingCars.empty() && ! childrenNeedingCarAccompaniment.empty()) {
         //at least one adult exists because no household contains less than one adult
-        if (workingPeoplePossCar.size() != myHousehold->getAdultNbr()) { //personsDrivingCars.size() + adultNeedingCarAccompaniment.size() is equal to 0
+        if ((int)workingPeoplePossCar.size() != myHousehold->getAdultNbr()) { //personsDrivingCars.size() + adultNeedingCarAccompaniment.size() is equal to 0
             std::list<AGAdult>::const_iterator itUA;
             for (itUA = myHousehold->getAdults().begin(); itUA != myHousehold->getAdults().end(); ++itUA) {
                 if (! itUA->isWorking()) {
@@ -374,7 +374,7 @@ AGWorkAndSchool::getUnusedCar() {
 void
 AGWorkAndSchool::makePossibleDriversDrive() {
     //give to a non working adult the ability to drive children or someone else.
-    if (workingPeoplePossCar.size() + personsDrivingCars.size() + adultNeedingCarAccompaniment.size() != myHousehold->getAdultNbr()) {
+    if ((int)workingPeoplePossCar.size() + personsDrivingCars.size() + adultNeedingCarAccompaniment.size() != myHousehold->getAdultNbr()) {
         std::list<AGAdult>::const_iterator itUA;
         for (itUA = myHousehold->getAdults().begin(); itUA != myHousehold->getAdults().end(); ++itUA) {
             if (! itUA->isWorking()) {

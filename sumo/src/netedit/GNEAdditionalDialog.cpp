@@ -72,21 +72,5 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int h
 GNEAdditionalDialog::~GNEAdditionalDialog() {
 }
 
-void
-GNEAdditionalDialog::show() {
-    FXDialogBox::show();
-}
-
-
-void
-GNEAdditionalDialog::hide() {
-    FXDialogBox::hide();
-}
-
-
-void
-GNEAdditionalDialog::execute() {
-    FXDialogBox::execute();
-}
 
 /****************************************************************************/

@@ -844,7 +844,7 @@ GNEViewNet::getViewParent() const {
 GNENet*
 GNEViewNet::getNet() const {
     return myNet;
-};
+}
 
 
 GNEUndoList*

@@ -50,7 +50,7 @@ GNEChange::GNEChange(GNENet* net, bool forward) :
     myForward(forward) {}
 
 
-GNEChange::~GNEChange() {};
+GNEChange::~GNEChange() {}
 
 
 FXuint
@@ -72,10 +72,11 @@ GNEChange::redoName() const {
 
 
 void
-GNEChange::undo() {};
+GNEChange::undo() {}
 
 
 void
-GNEChange::redo() {};
+GNEChange::redo() {}
+
 
 /****************************************************************************/

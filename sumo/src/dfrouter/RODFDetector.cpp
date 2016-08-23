@@ -327,7 +327,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         int index = 0;
         for (SUMOTime time = startTime; time < endTime; time += stepOffset, index++) {
             // get own (departure flow)
-            assert(index < mflows.size());
+            assert(index < (int)mflows.size());
             const FlowDef& srcFD = mflows[index];  // !!! check stepOffset
             // get flows at end
             RandomDistributor<int>* destDist = dists.find(time) != dists.end() ? dists.find(time)->second : 0;
@@ -442,7 +442,7 @@ RODFDetector::writeSingleSpeedTrigger(const std::string& file,
     const std::vector<FlowDef>& mflows = flows.getFlowDefs(myID);
     int index = 0;
     for (SUMOTime t = startTime; t < endTime; t += stepOffset, index++) {
-        assert(index < mflows.size());
+        assert(index < (int)mflows.size());
         const FlowDef& srcFD = mflows[index];
         SUMOReal speed = MAX2(srcFD.vLKW, srcFD.vPKW);
         if (speed <= 0 || speed > 250) {
@@ -916,13 +916,13 @@ RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows& flows) {
         }
 
         // plain case: all of the prior detectors have routes
-        if (noPriorWithRoutes == prior.size()) {
+        if (noPriorWithRoutes == (int)prior.size()) {
             // the number of vehicles is the sum of all vehicles on prior
             continue;
         }
 
         // plain case: all of the follower detectors have routes
-        if (noFollowerWithRoutes == follower.size()) {
+        if (noFollowerWithRoutes == (int)follower.size()) {
             // the number of vehicles is the sum of all vehicles on follower
             continue;
         }
