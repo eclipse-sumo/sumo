@@ -1,0 +1,4 @@
+Error: Unknown vehicle class 'error-vclass1' encountered. It will be ignored.
+Error: Unknown vehicle class 'error-vclass2' encountered. It will be ignored.
+Error: Unknown vehicle class 'error-vclass3' encountered. It will be ignored.
+Quitting (on error).
