@@ -405,6 +405,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     const SUMOTime intervalMeanHaltingDuration = intervalHaltingNo != 0 ? intervalHaltingDurationSum / intervalHaltingNo : 0;
 
     dev << "nSamples=\"" << myVehicleSamples << "\" "
+        << "nVehContrib=\"" << myPassedVeh << "\" "
         << "meanSpeed=\"" << meanSpeed << "\" "
         << "meanOccupancy=\"" << meanOccupancy << "\" "
         << "maxOccupancy=\"" << myMaxOccupancy << "\" "
