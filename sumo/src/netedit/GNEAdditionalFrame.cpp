@@ -594,9 +594,9 @@ GNEAdditionalFrame::additionalParameter::getValue() const {
 
 GNEAdditionalFrame::additionalParameterList::additionalParameterList(FXComposite* parent, FXObject* tgt) :
     FXMatrix(parent, 2, MATRIX_BY_COLUMNS | LAYOUT_FILL_X),
+    myAttr(SUMO_ATTR_NOTHING),
     numberOfVisibleTextfields(1),
-    myMaxNumberOfValuesInParameterList(20),
-    myAttr(SUMO_ATTR_NOTHING) {
+    myMaxNumberOfValuesInParameterList(20) {
     // Create elements
     for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
         myLabels.push_back(new FXLabel(this, "name", 0, JUSTIFY_RIGHT | LAYOUT_FIX_WIDTH, 0, 0, 60, 0));
@@ -622,19 +622,19 @@ GNEAdditionalFrame::additionalParameterList::~additionalParameterList() {}
 
 
 void
-GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<int> value) {
+GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<int> /* value */) {
     myAttr = attr;
     std::cout << "FINISH" << std::endl;
 }
 
 void
-GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<SUMOReal> value) {
+GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<SUMOReal> /* value */) {
     myAttr = attr;
     std::cout << "FINISH" << std::endl;
 }
 
 void
-GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<bool> value) {
+GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<bool> /* value */) {
     myAttr = attr;
     std::cout << "FINISH" << std::endl;
 }
@@ -1088,8 +1088,8 @@ GNEAdditionalFrame::getIdsSelected(const FXList* list) {
 
 GNEAdditionalFrame::additionalSet::additionalSet(FXComposite* parent, FXObject* tgt, GNEViewNet* viewNet) :
     FXGroupBox(parent, "Additional Set", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
-    myViewNet(viewNet),
-    myType(SUMO_TAG_NOTHING) {
+    myType(SUMO_TAG_NOTHING),
+    myViewNet(viewNet) {
 
     // Create label with the type of additionalSet
     mySetLabel = new FXLabel(this, "Set Type:", 0, JUSTIFY_LEFT | LAYOUT_FILL_X);

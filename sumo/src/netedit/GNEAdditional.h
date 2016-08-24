@@ -228,17 +228,6 @@ protected:
     /// @brief pointer to additional set parent, if belong to set
     GNEAdditionalSet* myAdditionalSetParent;
 
-    /// @brief base color (Default green)
-    /// @note default color can be defined in the constructor of every additional
-    RGBColor myBaseColor;
-
-    /// @brief base color selected (Default blue)
-    /// @note default color can be defined in the constructor of every additional
-    RGBColor myBaseColorSelected;
-
-    /// @brief pointer to additional dialog
-    GNEAdditionalDialog* myAdditionalDialog;
-
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
     /// The rotations of the shape parts
@@ -281,6 +270,17 @@ protected:
 
     /// @brief boolean to check if additional element is movable (with the mouse). By default true
     bool myMovable;
+
+    /// @brief base color (Default green)
+    /// @note default color can be defined in the constructor of every additional
+    RGBColor myBaseColor;
+
+    /// @brief base color selected (Default blue)
+    /// @note default color can be defined in the constructor of every additional
+    RGBColor myBaseColorSelected;
+
+    /// @brief pointer to additional dialog
+    GNEAdditionalDialog* myAdditionalDialog;
 
 private:
     /// @brief set attribute after validation

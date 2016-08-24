@@ -374,7 +374,7 @@ AGWorkAndSchool::getUnusedCar() {
 void
 AGWorkAndSchool::makePossibleDriversDrive() {
     //give to a non working adult the ability to drive children or someone else.
-    if ((int)workingPeoplePossCar.size() + personsDrivingCars.size() + adultNeedingCarAccompaniment.size() != myHousehold->getAdultNbr()) {
+    if ((int)(workingPeoplePossCar.size() + personsDrivingCars.size() + adultNeedingCarAccompaniment.size()) != myHousehold->getAdultNbr()) {
         std::list<AGAdult>::const_iterator itUA;
         for (itUA = myHousehold->getAdults().begin(); itUA != myHousehold->getAdults().end(); ++itUA) {
             if (! itUA->isWorking()) {
