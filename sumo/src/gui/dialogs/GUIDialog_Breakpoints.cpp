@@ -92,16 +92,19 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
     myBreakpointLock->unlock();
     // build the layout
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
+
+    // create buttons ('&' in the label creates a hot key)
     // "Load"
-    new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Load\t\t", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Save"
-    new FXButton(layout, "Save\t\t", 0, this, MID_CHOOSEN_SAVE, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Save\t\t", 0, this, MID_CHOOSEN_SAVE, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     new FXHorizontalSeparator(layout, SEPARATOR_GROOVE | LAYOUT_FILL_X);
     // "Clear List"
-    new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "Clea&r\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     new FXHorizontalSeparator(layout, SEPARATOR_GROOVE | LAYOUT_FILL_X);
     // "Close"
     new FXButton(layout, "&Close\t\t", 0, this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    
     //
     setIcon(GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS));
     myParent->addChild(this);
