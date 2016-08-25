@@ -38,7 +38,7 @@ class OutputHandler(handler.ContentHandler):
         if name == "interval":
             self.interval = (float(attrs["begin"]), float(attrs["end"]))
             self.intervals.add(self.interval)
-            if "nVehContrib" in attrs:
+            if "flow" in attrs:
                 self.speed[lane]["e1"][self.interval] = float(attrs["speed"])
             if "nSamples" in attrs:
                 self.speed[lane]["e2"][
