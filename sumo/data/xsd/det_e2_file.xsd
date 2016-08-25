@@ -30,6 +30,7 @@
       <xsd:attribute name="meanSpeed" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanVehicleNumber" use="required" type="xsd:decimal"/>
       <xsd:attribute name="nSamples" use="required" type="xsd:integer"/>
+      <xsd:attribute name="nVehContrib" use="required" type="xsd:integer"/>
       <xsd:attribute name="startedHalts" use="required" type="xsd:decimal"/>
     </xsd:complexType>
   </xsd:element>
