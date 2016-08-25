@@ -70,11 +70,11 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
     myViewNet(viewNet),
     myPosition(pos),
     myAdditionalSetParent(additionalSetParent),
+    myBlockIconRotation(0),
     myBlocked(blocked),
     myInspectionable(true),
     mySelectable(true),
     myMovable(true),
-    myBlockIconRotation(0),
     myBaseColor(RGBColor::GREEN),
     myBaseColorSelected(RGBColor::BLUE),
     myAdditionalDialog(NULL) {
