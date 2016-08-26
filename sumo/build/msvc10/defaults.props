@@ -18,6 +18,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -28,9 +29,4 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="config.props" Condition="Exists('config.props')" />
   </ImportGroup>
-  <ItemDefinitionGroup Condition="Exists('$(FFMPEG)')">
-    <Link>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-    </Link>
-  </ItemDefinitionGroup>
 </Project>
