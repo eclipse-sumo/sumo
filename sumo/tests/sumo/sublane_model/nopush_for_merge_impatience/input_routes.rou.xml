@@ -1,0 +1,10 @@
+<routes>
+    <vType id="t0" vClass="passenger" latAlignment="center" sigma="0.5" minGapLat="1.0" lcPushy="0.0" lcStrategic="2.0" lcSpeedGain="3.0" speedDev="0.1" lcAssertive="1.0" impatience="0.7"/>
+    <vType id="t1" vClass="passenger" latAlignment="center" sigma="0.5" minGapLat="1.0" speedDev="0.1"/>
+
+    <route id="r0" edges="beg end"/>
+
+    <flow id="B"  type="t1"  route="r0" departSpeed="max" departPos="random"  departLane="1" departPosLat="center" begin="0" end="300" period="1.3"/>
+    <vehicle id="A"   type="t0"   route="r0" departSpeed="max" departPos="-1"  departLane="0" departPosLat="center" depart="16"/>
+
+</routes>
