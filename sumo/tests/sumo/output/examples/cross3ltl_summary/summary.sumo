@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  2 16:49:12 2015 by SUMO Version dev-SVN-r17985I
+<!-- generated on Mon Aug 29 14:17:53 2016 by SUMO Version dev-SVN-r21344
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -319,7 +319,7 @@
     <step time="287.00" loaded="76" inserted="75" running="75" waiting="1" ended="0" meanWaitingTime="0.92" meanTravelTime="-1.00"/>
     <step time="288.00" loaded="76" inserted="75" running="75" waiting="1" ended="0" meanWaitingTime="0.92" meanTravelTime="-1.00"/>
     <step time="289.00" loaded="76" inserted="75" running="75" waiting="1" ended="0" meanWaitingTime="0.92" meanTravelTime="-1.00"/>
-    <step time="290.00" loaded="79" inserted="78" running="78" waiting="1" ended="0" meanWaitingTime="1.01" meanTravelTime="-1.00"/>
+    <step time="290.00" loaded="80" inserted="78" running="78" waiting="2" ended="0" meanWaitingTime="1.01" meanTravelTime="-1.00"/>
     <step time="291.00" loaded="80" inserted="78" running="78" waiting="2" ended="0" meanWaitingTime="1.01" meanTravelTime="-1.00"/>
     <step time="292.00" loaded="80" inserted="78" running="78" waiting="2" ended="0" meanWaitingTime="1.01" meanTravelTime="-1.00"/>
     <step time="293.00" loaded="80" inserted="79" running="79" waiting="1" ended="0" meanWaitingTime="1.04" meanTravelTime="-1.00"/>
@@ -359,33 +359,33 @@
     <step time="327.00" loaded="92" inserted="90" running="88" waiting="2" ended="2" meanWaitingTime="1.03" meanTravelTime="210.00"/>
     <step time="328.00" loaded="92" inserted="90" running="88" waiting="2" ended="2" meanWaitingTime="1.03" meanTravelTime="210.00"/>
     <step time="329.00" loaded="92" inserted="90" running="88" waiting="2" ended="2" meanWaitingTime="1.03" meanTravelTime="210.00"/>
-    <step time="330.00" loaded="94" inserted="91" running="89" waiting="3" ended="2" meanWaitingTime="1.02" meanTravelTime="210.00"/>
-    <step time="331.00" loaded="94" inserted="91" running="89" waiting="3" ended="2" meanWaitingTime="1.02" meanTravelTime="210.00"/>
-    <step time="332.00" loaded="94" inserted="91" running="89" waiting="3" ended="2" meanWaitingTime="1.02" meanTravelTime="210.00"/>
-    <step time="333.00" loaded="94" inserted="92" running="90" waiting="2" ended="2" meanWaitingTime="1.15" meanTravelTime="210.00"/>
-    <step time="334.00" loaded="95" inserted="92" running="90" waiting="3" ended="2" meanWaitingTime="1.15" meanTravelTime="210.00"/>
-    <step time="335.00" loaded="95" inserted="92" running="90" waiting="3" ended="2" meanWaitingTime="1.15" meanTravelTime="210.00"/>
-    <step time="336.00" loaded="95" inserted="93" running="91" waiting="2" ended="2" meanWaitingTime="1.20" meanTravelTime="210.00"/>
-    <step time="337.00" loaded="95" inserted="94" running="92" waiting="1" ended="2" meanWaitingTime="1.37" meanTravelTime="210.00"/>
+    <step time="330.00" loaded="96" inserted="91" running="89" waiting="5" ended="2" meanWaitingTime="1.02" meanTravelTime="210.00"/>
+    <step time="331.00" loaded="96" inserted="91" running="89" waiting="5" ended="2" meanWaitingTime="1.02" meanTravelTime="210.00"/>
+    <step time="332.00" loaded="96" inserted="91" running="89" waiting="5" ended="2" meanWaitingTime="1.02" meanTravelTime="210.00"/>
+    <step time="333.00" loaded="96" inserted="92" running="90" waiting="4" ended="2" meanWaitingTime="1.15" meanTravelTime="210.00"/>
+    <step time="334.00" loaded="96" inserted="92" running="90" waiting="4" ended="2" meanWaitingTime="1.15" meanTravelTime="210.00"/>
+    <step time="335.00" loaded="96" inserted="92" running="90" waiting="4" ended="2" meanWaitingTime="1.15" meanTravelTime="210.00"/>
+    <step time="336.00" loaded="96" inserted="93" running="91" waiting="3" ended="2" meanWaitingTime="1.20" meanTravelTime="210.00"/>
+    <step time="337.00" loaded="96" inserted="94" running="92" waiting="2" ended="2" meanWaitingTime="1.37" meanTravelTime="210.00"/>
     <step time="338.00" loaded="96" inserted="94" running="92" waiting="2" ended="2" meanWaitingTime="1.37" meanTravelTime="210.00"/>
     <step time="339.00" loaded="96" inserted="94" running="92" waiting="2" ended="2" meanWaitingTime="1.37" meanTravelTime="210.00"/>
-    <step time="340.00" loaded="98" inserted="95" running="93" waiting="3" ended="2" meanWaitingTime="1.36" meanTravelTime="210.00"/>
-    <step time="341.00" loaded="98" inserted="96" running="94" waiting="2" ended="2" meanWaitingTime="1.46" meanTravelTime="210.00"/>
-    <step time="342.00" loaded="99" inserted="96" running="94" waiting="3" ended="2" meanWaitingTime="1.46" meanTravelTime="210.00"/>
-    <step time="343.00" loaded="99" inserted="96" running="94" waiting="3" ended="2" meanWaitingTime="1.46" meanTravelTime="210.00"/>
-    <step time="344.00" loaded="99" inserted="97" running="95" waiting="2" ended="2" meanWaitingTime="1.48" meanTravelTime="210.00"/>
-    <step time="345.00" loaded="99" inserted="98" running="96" waiting="1" ended="2" meanWaitingTime="1.62" meanTravelTime="210.00"/>
+    <step time="340.00" loaded="100" inserted="95" running="93" waiting="5" ended="2" meanWaitingTime="1.36" meanTravelTime="210.00"/>
+    <step time="341.00" loaded="100" inserted="96" running="94" waiting="4" ended="2" meanWaitingTime="1.46" meanTravelTime="210.00"/>
+    <step time="342.00" loaded="100" inserted="96" running="94" waiting="4" ended="2" meanWaitingTime="1.46" meanTravelTime="210.00"/>
+    <step time="343.00" loaded="100" inserted="96" running="94" waiting="4" ended="2" meanWaitingTime="1.46" meanTravelTime="210.00"/>
+    <step time="344.00" loaded="100" inserted="97" running="95" waiting="3" ended="2" meanWaitingTime="1.48" meanTravelTime="210.00"/>
+    <step time="345.00" loaded="100" inserted="98" running="96" waiting="2" ended="2" meanWaitingTime="1.62" meanTravelTime="210.00"/>
     <step time="346.00" loaded="100" inserted="98" running="96" waiting="2" ended="2" meanWaitingTime="1.62" meanTravelTime="210.00"/>
     <step time="347.00" loaded="100" inserted="98" running="96" waiting="2" ended="2" meanWaitingTime="1.62" meanTravelTime="210.00"/>
     <step time="348.00" loaded="100" inserted="98" running="95" waiting="2" ended="3" meanWaitingTime="1.62" meanTravelTime="222.00"/>
     <step time="349.00" loaded="100" inserted="98" running="95" waiting="2" ended="3" meanWaitingTime="1.62" meanTravelTime="222.00"/>
-    <step time="350.00" loaded="102" inserted="100" running="96" waiting="2" ended="4" meanWaitingTime="1.69" meanTravelTime="225.75"/>
-    <step time="351.00" loaded="103" inserted="100" running="96" waiting="3" ended="4" meanWaitingTime="1.69" meanTravelTime="225.75"/>
-    <step time="352.00" loaded="103" inserted="100" running="95" waiting="3" ended="5" meanWaitingTime="1.69" meanTravelTime="226.40"/>
-    <step time="353.00" loaded="103" inserted="101" running="96" waiting="2" ended="5" meanWaitingTime="1.70" meanTravelTime="226.40"/>
-    <step time="354.00" loaded="103" inserted="101" running="95" waiting="2" ended="6" meanWaitingTime="1.70" meanTravelTime="225.50"/>
-    <step time="355.00" loaded="103" inserted="101" running="95" waiting="2" ended="6" meanWaitingTime="1.70" meanTravelTime="225.50"/>
-    <step time="356.00" loaded="103" inserted="103" running="96" waiting="0" ended="7" meanWaitingTime="1.88" meanTravelTime="223.71"/>
+    <step time="350.00" loaded="104" inserted="100" running="96" waiting="4" ended="4" meanWaitingTime="1.69" meanTravelTime="225.75"/>
+    <step time="351.00" loaded="104" inserted="100" running="96" waiting="4" ended="4" meanWaitingTime="1.69" meanTravelTime="225.75"/>
+    <step time="352.00" loaded="104" inserted="100" running="95" waiting="4" ended="5" meanWaitingTime="1.69" meanTravelTime="226.40"/>
+    <step time="353.00" loaded="104" inserted="101" running="96" waiting="3" ended="5" meanWaitingTime="1.70" meanTravelTime="226.40"/>
+    <step time="354.00" loaded="104" inserted="101" running="95" waiting="3" ended="6" meanWaitingTime="1.70" meanTravelTime="225.50"/>
+    <step time="355.00" loaded="104" inserted="101" running="95" waiting="3" ended="6" meanWaitingTime="1.70" meanTravelTime="225.50"/>
+    <step time="356.00" loaded="104" inserted="103" running="96" waiting="1" ended="7" meanWaitingTime="1.88" meanTravelTime="223.71"/>
     <step time="357.00" loaded="104" inserted="103" running="96" waiting="1" ended="7" meanWaitingTime="1.88" meanTravelTime="223.71"/>
     <step time="358.00" loaded="104" inserted="103" running="96" waiting="1" ended="7" meanWaitingTime="1.88" meanTravelTime="223.71"/>
     <step time="359.00" loaded="104" inserted="104" running="97" waiting="0" ended="7" meanWaitingTime="1.95" meanTravelTime="223.71"/>
@@ -409,9 +409,9 @@
     <step time="377.00" loaded="112" inserted="110" running="101" waiting="2" ended="9" meanWaitingTime="1.92" meanTravelTime="220.78"/>
     <step time="378.00" loaded="112" inserted="110" running="101" waiting="2" ended="9" meanWaitingTime="1.92" meanTravelTime="220.78"/>
     <step time="379.00" loaded="112" inserted="110" running="101" waiting="2" ended="9" meanWaitingTime="1.92" meanTravelTime="220.78"/>
-    <step time="380.00" loaded="114" inserted="112" running="103" waiting="2" ended="9" meanWaitingTime="1.97" meanTravelTime="220.78"/>
-    <step time="381.00" loaded="115" inserted="112" running="103" waiting="3" ended="9" meanWaitingTime="1.97" meanTravelTime="220.78"/>
-    <step time="382.00" loaded="115" inserted="113" running="104" waiting="2" ended="9" meanWaitingTime="2.06" meanTravelTime="220.78"/>
+    <step time="380.00" loaded="116" inserted="112" running="103" waiting="4" ended="9" meanWaitingTime="1.97" meanTravelTime="220.78"/>
+    <step time="381.00" loaded="116" inserted="112" running="103" waiting="4" ended="9" meanWaitingTime="1.97" meanTravelTime="220.78"/>
+    <step time="382.00" loaded="116" inserted="113" running="104" waiting="3" ended="9" meanWaitingTime="2.06" meanTravelTime="220.78"/>
     <step time="383.00" loaded="116" inserted="114" running="105" waiting="2" ended="9" meanWaitingTime="2.07" meanTravelTime="220.78"/>
     <step time="384.00" loaded="116" inserted="114" running="105" waiting="2" ended="9" meanWaitingTime="2.07" meanTravelTime="220.78"/>
     <step time="385.00" loaded="116" inserted="115" running="106" waiting="1" ended="9" meanWaitingTime="2.10" meanTravelTime="220.78"/>
@@ -449,38 +449,38 @@
     <step time="417.00" loaded="128" inserted="126" running="108" waiting="2" ended="18" meanWaitingTime="2.02" meanTravelTime="230.06"/>
     <step time="418.00" loaded="128" inserted="126" running="108" waiting="2" ended="18" meanWaitingTime="2.02" meanTravelTime="230.06"/>
     <step time="419.00" loaded="128" inserted="126" running="107" waiting="2" ended="19" meanWaitingTime="2.02" meanTravelTime="228.95"/>
-    <step time="420.00" loaded="130" inserted="127" running="108" waiting="3" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
-    <step time="421.00" loaded="130" inserted="127" running="108" waiting="3" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
-    <step time="422.00" loaded="130" inserted="127" running="108" waiting="3" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
-    <step time="423.00" loaded="130" inserted="127" running="108" waiting="3" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
-    <step time="424.00" loaded="130" inserted="128" running="109" waiting="2" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
-    <step time="425.00" loaded="131" inserted="128" running="109" waiting="3" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
-    <step time="426.00" loaded="131" inserted="128" running="109" waiting="3" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
-    <step time="427.00" loaded="131" inserted="128" running="109" waiting="3" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
-    <step time="428.00" loaded="131" inserted="128" running="109" waiting="3" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
-    <step time="429.00" loaded="131" inserted="128" running="109" waiting="3" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
-    <step time="430.00" loaded="132" inserted="130" running="111" waiting="2" ended="19" meanWaitingTime="2.22" meanTravelTime="228.95"/>
-    <step time="431.00" loaded="134" inserted="130" running="111" waiting="4" ended="19" meanWaitingTime="2.22" meanTravelTime="228.95"/>
-    <step time="432.00" loaded="134" inserted="130" running="111" waiting="4" ended="19" meanWaitingTime="2.22" meanTravelTime="228.95"/>
-    <step time="433.00" loaded="134" inserted="132" running="113" waiting="2" ended="19" meanWaitingTime="2.38" meanTravelTime="228.95"/>
+    <step time="420.00" loaded="132" inserted="127" running="108" waiting="5" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
+    <step time="421.00" loaded="132" inserted="127" running="108" waiting="5" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
+    <step time="422.00" loaded="132" inserted="127" running="108" waiting="5" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
+    <step time="423.00" loaded="132" inserted="127" running="108" waiting="5" ended="19" meanWaitingTime="2.00" meanTravelTime="228.95"/>
+    <step time="424.00" loaded="132" inserted="128" running="109" waiting="4" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
+    <step time="425.00" loaded="132" inserted="128" running="109" waiting="4" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
+    <step time="426.00" loaded="132" inserted="128" running="109" waiting="4" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
+    <step time="427.00" loaded="132" inserted="128" running="109" waiting="4" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
+    <step time="428.00" loaded="132" inserted="128" running="109" waiting="4" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
+    <step time="429.00" loaded="132" inserted="128" running="109" waiting="4" ended="19" meanWaitingTime="2.09" meanTravelTime="228.95"/>
+    <step time="430.00" loaded="136" inserted="130" running="111" waiting="6" ended="19" meanWaitingTime="2.22" meanTravelTime="228.95"/>
+    <step time="431.00" loaded="136" inserted="130" running="111" waiting="6" ended="19" meanWaitingTime="2.22" meanTravelTime="228.95"/>
+    <step time="432.00" loaded="136" inserted="130" running="111" waiting="6" ended="19" meanWaitingTime="2.22" meanTravelTime="228.95"/>
+    <step time="433.00" loaded="136" inserted="132" running="113" waiting="4" ended="19" meanWaitingTime="2.38" meanTravelTime="228.95"/>
     <step time="434.00" loaded="136" inserted="132" running="113" waiting="4" ended="19" meanWaitingTime="2.38" meanTravelTime="228.95"/>
     <step time="435.00" loaded="136" inserted="132" running="113" waiting="4" ended="19" meanWaitingTime="2.38" meanTravelTime="228.95"/>
     <step time="436.00" loaded="136" inserted="132" running="113" waiting="4" ended="19" meanWaitingTime="2.38" meanTravelTime="228.95"/>
     <step time="437.00" loaded="136" inserted="132" running="113" waiting="4" ended="19" meanWaitingTime="2.38" meanTravelTime="228.95"/>
     <step time="438.00" loaded="136" inserted="132" running="112" waiting="4" ended="20" meanWaitingTime="2.38" meanTravelTime="230.75"/>
     <step time="439.00" loaded="136" inserted="133" running="113" waiting="3" ended="20" meanWaitingTime="2.50" meanTravelTime="230.75"/>
-    <step time="440.00" loaded="137" inserted="134" running="113" waiting="3" ended="21" meanWaitingTime="2.49" meanTravelTime="232.00"/>
-    <step time="441.00" loaded="137" inserted="134" running="113" waiting="3" ended="21" meanWaitingTime="2.49" meanTravelTime="232.00"/>
-    <step time="442.00" loaded="137" inserted="135" running="113" waiting="2" ended="22" meanWaitingTime="2.56" meanTravelTime="232.77"/>
-    <step time="443.00" loaded="138" inserted="135" running="113" waiting="3" ended="22" meanWaitingTime="2.56" meanTravelTime="232.77"/>
-    <step time="444.00" loaded="138" inserted="135" running="112" waiting="3" ended="23" meanWaitingTime="2.56" meanTravelTime="233.13"/>
-    <step time="445.00" loaded="138" inserted="136" running="113" waiting="2" ended="23" meanWaitingTime="2.65" meanTravelTime="233.13"/>
-    <step time="446.00" loaded="139" inserted="136" running="112" waiting="3" ended="24" meanWaitingTime="2.65" meanTravelTime="233.12"/>
-    <step time="447.00" loaded="139" inserted="136" running="112" waiting="3" ended="24" meanWaitingTime="2.65" meanTravelTime="233.12"/>
-    <step time="448.00" loaded="139" inserted="137" running="112" waiting="2" ended="25" meanWaitingTime="2.69" meanTravelTime="232.80"/>
-    <step time="449.00" loaded="139" inserted="137" running="112" waiting="2" ended="25" meanWaitingTime="2.69" meanTravelTime="232.80"/>
-    <step time="450.00" loaded="141" inserted="138" running="112" waiting="3" ended="26" meanWaitingTime="2.67" meanTravelTime="232.19"/>
-    <step time="451.00" loaded="141" inserted="140" running="114" waiting="1" ended="26" meanWaitingTime="2.86" meanTravelTime="232.19"/>
+    <step time="440.00" loaded="140" inserted="134" running="113" waiting="6" ended="21" meanWaitingTime="2.49" meanTravelTime="232.00"/>
+    <step time="441.00" loaded="140" inserted="134" running="113" waiting="6" ended="21" meanWaitingTime="2.49" meanTravelTime="232.00"/>
+    <step time="442.00" loaded="140" inserted="135" running="113" waiting="5" ended="22" meanWaitingTime="2.56" meanTravelTime="232.77"/>
+    <step time="443.00" loaded="140" inserted="135" running="113" waiting="5" ended="22" meanWaitingTime="2.56" meanTravelTime="232.77"/>
+    <step time="444.00" loaded="140" inserted="135" running="112" waiting="5" ended="23" meanWaitingTime="2.56" meanTravelTime="233.13"/>
+    <step time="445.00" loaded="140" inserted="136" running="113" waiting="4" ended="23" meanWaitingTime="2.65" meanTravelTime="233.13"/>
+    <step time="446.00" loaded="140" inserted="136" running="112" waiting="4" ended="24" meanWaitingTime="2.65" meanTravelTime="233.12"/>
+    <step time="447.00" loaded="140" inserted="136" running="112" waiting="4" ended="24" meanWaitingTime="2.65" meanTravelTime="233.12"/>
+    <step time="448.00" loaded="140" inserted="137" running="112" waiting="3" ended="25" meanWaitingTime="2.69" meanTravelTime="232.80"/>
+    <step time="449.00" loaded="140" inserted="137" running="112" waiting="3" ended="25" meanWaitingTime="2.69" meanTravelTime="232.80"/>
+    <step time="450.00" loaded="144" inserted="138" running="112" waiting="6" ended="26" meanWaitingTime="2.67" meanTravelTime="232.19"/>
+    <step time="451.00" loaded="144" inserted="140" running="114" waiting="4" ended="26" meanWaitingTime="2.86" meanTravelTime="232.19"/>
     <step time="452.00" loaded="144" inserted="140" running="113" waiting="4" ended="27" meanWaitingTime="2.86" meanTravelTime="231.33"/>
     <step time="453.00" loaded="144" inserted="140" running="113" waiting="4" ended="27" meanWaitingTime="2.86" meanTravelTime="231.33"/>
     <step time="454.00" loaded="144" inserted="142" running="115" waiting="2" ended="27" meanWaitingTime="2.94" meanTravelTime="231.33"/>
@@ -489,19 +489,19 @@
     <step time="457.00" loaded="144" inserted="143" running="116" waiting="1" ended="27" meanWaitingTime="2.97" meanTravelTime="231.33"/>
     <step time="458.00" loaded="144" inserted="143" running="116" waiting="1" ended="27" meanWaitingTime="2.97" meanTravelTime="231.33"/>
     <step time="459.00" loaded="144" inserted="143" running="116" waiting="1" ended="27" meanWaitingTime="2.97" meanTravelTime="231.33"/>
-    <step time="460.00" loaded="147" inserted="144" running="117" waiting="3" ended="27" meanWaitingTime="2.95" meanTravelTime="231.33"/>
-    <step time="461.00" loaded="147" inserted="144" running="116" waiting="3" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="462.00" loaded="147" inserted="144" running="116" waiting="3" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="463.00" loaded="147" inserted="145" running="117" waiting="2" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="464.00" loaded="147" inserted="145" running="117" waiting="2" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="465.00" loaded="147" inserted="145" running="117" waiting="2" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="466.00" loaded="147" inserted="145" running="117" waiting="2" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="467.00" loaded="147" inserted="145" running="117" waiting="2" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="468.00" loaded="147" inserted="146" running="118" waiting="1" ended="28" meanWaitingTime="2.99" meanTravelTime="230.50"/>
-    <step time="469.00" loaded="147" inserted="146" running="118" waiting="1" ended="28" meanWaitingTime="2.99" meanTravelTime="230.50"/>
-    <step time="470.00" loaded="150" inserted="147" running="119" waiting="3" ended="28" meanWaitingTime="2.97" meanTravelTime="230.50"/>
-    <step time="471.00" loaded="150" inserted="148" running="120" waiting="2" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
-    <step time="472.00" loaded="150" inserted="149" running="121" waiting="1" ended="28" meanWaitingTime="3.08" meanTravelTime="230.50"/>
+    <step time="460.00" loaded="148" inserted="144" running="117" waiting="4" ended="27" meanWaitingTime="2.95" meanTravelTime="231.33"/>
+    <step time="461.00" loaded="148" inserted="144" running="116" waiting="4" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="462.00" loaded="148" inserted="144" running="116" waiting="4" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="463.00" loaded="148" inserted="145" running="117" waiting="3" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="464.00" loaded="148" inserted="145" running="117" waiting="3" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="465.00" loaded="148" inserted="145" running="117" waiting="3" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="466.00" loaded="148" inserted="145" running="117" waiting="3" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="467.00" loaded="148" inserted="145" running="117" waiting="3" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="468.00" loaded="148" inserted="146" running="118" waiting="2" ended="28" meanWaitingTime="2.99" meanTravelTime="230.50"/>
+    <step time="469.00" loaded="148" inserted="146" running="118" waiting="2" ended="28" meanWaitingTime="2.99" meanTravelTime="230.50"/>
+    <step time="470.00" loaded="152" inserted="147" running="119" waiting="5" ended="28" meanWaitingTime="2.97" meanTravelTime="230.50"/>
+    <step time="471.00" loaded="152" inserted="148" running="120" waiting="4" ended="28" meanWaitingTime="2.95" meanTravelTime="230.50"/>
+    <step time="472.00" loaded="152" inserted="149" running="121" waiting="3" ended="28" meanWaitingTime="3.08" meanTravelTime="230.50"/>
     <step time="473.00" loaded="152" inserted="149" running="121" waiting="3" ended="28" meanWaitingTime="3.08" meanTravelTime="230.50"/>
     <step time="474.00" loaded="152" inserted="149" running="121" waiting="3" ended="28" meanWaitingTime="3.08" meanTravelTime="230.50"/>
     <step time="475.00" loaded="152" inserted="149" running="121" waiting="3" ended="28" meanWaitingTime="3.08" meanTravelTime="230.50"/>
@@ -509,7 +509,7 @@
     <step time="477.00" loaded="152" inserted="151" running="123" waiting="1" ended="28" meanWaitingTime="3.19" meanTravelTime="230.50"/>
     <step time="478.00" loaded="152" inserted="151" running="123" waiting="1" ended="28" meanWaitingTime="3.19" meanTravelTime="230.50"/>
     <step time="479.00" loaded="152" inserted="151" running="123" waiting="1" ended="28" meanWaitingTime="3.19" meanTravelTime="230.50"/>
-    <step time="480.00" loaded="155" inserted="152" running="124" waiting="3" ended="28" meanWaitingTime="3.24" meanTravelTime="230.50"/>
+    <step time="480.00" loaded="156" inserted="152" running="124" waiting="4" ended="28" meanWaitingTime="3.24" meanTravelTime="230.50"/>
     <step time="481.00" loaded="156" inserted="152" running="124" waiting="4" ended="28" meanWaitingTime="3.24" meanTravelTime="230.50"/>
     <step time="482.00" loaded="156" inserted="152" running="123" waiting="4" ended="29" meanWaitingTime="3.24" meanTravelTime="231.59"/>
     <step time="483.00" loaded="156" inserted="153" running="124" waiting="3" ended="29" meanWaitingTime="3.24" meanTravelTime="231.59"/>
@@ -539,37 +539,37 @@
     <step time="507.00" loaded="164" inserted="161" running="125" waiting="3" ended="36" meanWaitingTime="3.22" meanTravelTime="231.08"/>
     <step time="508.00" loaded="164" inserted="161" running="125" waiting="3" ended="36" meanWaitingTime="3.22" meanTravelTime="231.08"/>
     <step time="509.00" loaded="164" inserted="161" running="125" waiting="3" ended="36" meanWaitingTime="3.22" meanTravelTime="231.08"/>
-    <step time="510.00" loaded="165" inserted="161" running="125" waiting="4" ended="36" meanWaitingTime="3.22" meanTravelTime="231.08"/>
-    <step time="511.00" loaded="165" inserted="161" running="124" waiting="4" ended="37" meanWaitingTime="3.22" meanTravelTime="230.54"/>
-    <step time="512.00" loaded="165" inserted="161" running="124" waiting="4" ended="37" meanWaitingTime="3.22" meanTravelTime="230.54"/>
-    <step time="513.00" loaded="165" inserted="161" running="124" waiting="4" ended="37" meanWaitingTime="3.22" meanTravelTime="230.54"/>
-    <step time="514.00" loaded="165" inserted="162" running="125" waiting="3" ended="37" meanWaitingTime="3.29" meanTravelTime="230.54"/>
-    <step time="515.00" loaded="166" inserted="163" running="126" waiting="3" ended="37" meanWaitingTime="3.36" meanTravelTime="230.54"/>
-    <step time="516.00" loaded="167" inserted="163" running="126" waiting="4" ended="37" meanWaitingTime="3.36" meanTravelTime="230.54"/>
-    <step time="517.00" loaded="167" inserted="164" running="127" waiting="3" ended="37" meanWaitingTime="3.38" meanTravelTime="230.54"/>
-    <step time="518.00" loaded="167" inserted="164" running="127" waiting="3" ended="37" meanWaitingTime="3.38" meanTravelTime="230.54"/>
-    <step time="519.00" loaded="167" inserted="164" running="127" waiting="3" ended="37" meanWaitingTime="3.38" meanTravelTime="230.54"/>
-    <step time="520.00" loaded="168" inserted="166" running="129" waiting="2" ended="37" meanWaitingTime="3.40" meanTravelTime="230.54"/>
-    <step time="521.00" loaded="169" inserted="166" running="129" waiting="3" ended="37" meanWaitingTime="3.40" meanTravelTime="230.54"/>
-    <step time="522.00" loaded="169" inserted="167" running="130" waiting="2" ended="37" meanWaitingTime="3.51" meanTravelTime="230.54"/>
-    <step time="523.00" loaded="171" inserted="168" running="131" waiting="3" ended="37" meanWaitingTime="3.57" meanTravelTime="230.54"/>
+    <step time="510.00" loaded="168" inserted="161" running="125" waiting="7" ended="36" meanWaitingTime="3.22" meanTravelTime="231.08"/>
+    <step time="511.00" loaded="168" inserted="161" running="124" waiting="7" ended="37" meanWaitingTime="3.22" meanTravelTime="230.54"/>
+    <step time="512.00" loaded="168" inserted="161" running="124" waiting="7" ended="37" meanWaitingTime="3.22" meanTravelTime="230.54"/>
+    <step time="513.00" loaded="168" inserted="161" running="124" waiting="7" ended="37" meanWaitingTime="3.22" meanTravelTime="230.54"/>
+    <step time="514.00" loaded="168" inserted="162" running="125" waiting="6" ended="37" meanWaitingTime="3.29" meanTravelTime="230.54"/>
+    <step time="515.00" loaded="168" inserted="163" running="126" waiting="5" ended="37" meanWaitingTime="3.36" meanTravelTime="230.54"/>
+    <step time="516.00" loaded="168" inserted="163" running="126" waiting="5" ended="37" meanWaitingTime="3.36" meanTravelTime="230.54"/>
+    <step time="517.00" loaded="168" inserted="164" running="127" waiting="4" ended="37" meanWaitingTime="3.38" meanTravelTime="230.54"/>
+    <step time="518.00" loaded="168" inserted="164" running="127" waiting="4" ended="37" meanWaitingTime="3.38" meanTravelTime="230.54"/>
+    <step time="519.00" loaded="168" inserted="164" running="127" waiting="4" ended="37" meanWaitingTime="3.38" meanTravelTime="230.54"/>
+    <step time="520.00" loaded="172" inserted="166" running="129" waiting="6" ended="37" meanWaitingTime="3.40" meanTravelTime="230.54"/>
+    <step time="521.00" loaded="172" inserted="166" running="129" waiting="6" ended="37" meanWaitingTime="3.40" meanTravelTime="230.54"/>
+    <step time="522.00" loaded="172" inserted="167" running="130" waiting="5" ended="37" meanWaitingTime="3.51" meanTravelTime="230.54"/>
+    <step time="523.00" loaded="172" inserted="168" running="131" waiting="4" ended="37" meanWaitingTime="3.57" meanTravelTime="230.54"/>
     <step time="524.00" loaded="172" inserted="168" running="131" waiting="4" ended="37" meanWaitingTime="3.57" meanTravelTime="230.54"/>
     <step time="525.00" loaded="172" inserted="168" running="131" waiting="4" ended="37" meanWaitingTime="3.57" meanTravelTime="230.54"/>
     <step time="526.00" loaded="172" inserted="168" running="131" waiting="4" ended="37" meanWaitingTime="3.57" meanTravelTime="230.54"/>
     <step time="527.00" loaded="172" inserted="169" running="132" waiting="3" ended="37" meanWaitingTime="3.65" meanTravelTime="230.54"/>
     <step time="528.00" loaded="172" inserted="170" running="132" waiting="2" ended="38" meanWaitingTime="3.68" meanTravelTime="231.45"/>
     <step time="529.00" loaded="172" inserted="170" running="132" waiting="2" ended="38" meanWaitingTime="3.68" meanTravelTime="231.45"/>
-    <step time="530.00" loaded="174" inserted="171" running="132" waiting="3" ended="39" meanWaitingTime="3.65" meanTravelTime="232.10"/>
-    <step time="531.00" loaded="174" inserted="172" running="133" waiting="2" ended="39" meanWaitingTime="3.70" meanTravelTime="232.10"/>
-    <step time="532.00" loaded="175" inserted="172" running="132" waiting="3" ended="40" meanWaitingTime="3.70" meanTravelTime="232.53"/>
-    <step time="533.00" loaded="175" inserted="172" running="132" waiting="3" ended="40" meanWaitingTime="3.70" meanTravelTime="232.53"/>
-    <step time="534.00" loaded="175" inserted="173" running="132" waiting="2" ended="41" meanWaitingTime="3.70" meanTravelTime="232.73"/>
-    <step time="535.00" loaded="175" inserted="173" running="132" waiting="2" ended="41" meanWaitingTime="3.70" meanTravelTime="232.73"/>
-    <step time="536.00" loaded="175" inserted="173" running="131" waiting="2" ended="42" meanWaitingTime="3.70" meanTravelTime="232.74"/>
-    <step time="537.00" loaded="175" inserted="174" running="132" waiting="1" ended="42" meanWaitingTime="3.72" meanTravelTime="232.74"/>
-    <step time="538.00" loaded="175" inserted="174" running="131" waiting="1" ended="43" meanWaitingTime="3.72" meanTravelTime="232.56"/>
-    <step time="539.00" loaded="175" inserted="174" running="131" waiting="1" ended="43" meanWaitingTime="3.72" meanTravelTime="232.56"/>
-    <step time="540.00" loaded="178" inserted="177" running="134" waiting="1" ended="43" meanWaitingTime="3.77" meanTravelTime="232.56"/>
+    <step time="530.00" loaded="176" inserted="171" running="132" waiting="5" ended="39" meanWaitingTime="3.65" meanTravelTime="232.10"/>
+    <step time="531.00" loaded="176" inserted="172" running="133" waiting="4" ended="39" meanWaitingTime="3.70" meanTravelTime="232.10"/>
+    <step time="532.00" loaded="176" inserted="172" running="132" waiting="4" ended="40" meanWaitingTime="3.70" meanTravelTime="232.53"/>
+    <step time="533.00" loaded="176" inserted="172" running="132" waiting="4" ended="40" meanWaitingTime="3.70" meanTravelTime="232.53"/>
+    <step time="534.00" loaded="176" inserted="173" running="132" waiting="3" ended="41" meanWaitingTime="3.70" meanTravelTime="232.73"/>
+    <step time="535.00" loaded="176" inserted="173" running="132" waiting="3" ended="41" meanWaitingTime="3.70" meanTravelTime="232.73"/>
+    <step time="536.00" loaded="176" inserted="173" running="131" waiting="3" ended="42" meanWaitingTime="3.70" meanTravelTime="232.74"/>
+    <step time="537.00" loaded="176" inserted="174" running="132" waiting="2" ended="42" meanWaitingTime="3.72" meanTravelTime="232.74"/>
+    <step time="538.00" loaded="176" inserted="174" running="131" waiting="2" ended="43" meanWaitingTime="3.72" meanTravelTime="232.56"/>
+    <step time="539.00" loaded="176" inserted="174" running="131" waiting="2" ended="43" meanWaitingTime="3.72" meanTravelTime="232.56"/>
+    <step time="540.00" loaded="180" inserted="177" running="134" waiting="3" ended="43" meanWaitingTime="3.77" meanTravelTime="232.56"/>
     <step time="541.00" loaded="180" inserted="177" running="134" waiting="3" ended="43" meanWaitingTime="3.77" meanTravelTime="232.56"/>
     <step time="542.00" loaded="180" inserted="177" running="134" waiting="3" ended="43" meanWaitingTime="3.77" meanTravelTime="232.56"/>
     <step time="543.00" loaded="180" inserted="179" running="135" waiting="1" ended="44" meanWaitingTime="3.82" meanTravelTime="232.05"/>
@@ -579,17 +579,17 @@
     <step time="547.00" loaded="180" inserted="179" running="135" waiting="1" ended="44" meanWaitingTime="3.82" meanTravelTime="232.05"/>
     <step time="548.00" loaded="180" inserted="179" running="135" waiting="1" ended="44" meanWaitingTime="3.82" meanTravelTime="232.05"/>
     <step time="549.00" loaded="180" inserted="179" running="135" waiting="1" ended="44" meanWaitingTime="3.82" meanTravelTime="232.05"/>
-    <step time="550.00" loaded="183" inserted="180" running="136" waiting="3" ended="44" meanWaitingTime="3.79" meanTravelTime="232.05"/>
-    <step time="551.00" loaded="183" inserted="180" running="135" waiting="3" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
-    <step time="552.00" loaded="183" inserted="180" running="135" waiting="3" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
-    <step time="553.00" loaded="183" inserted="181" running="136" waiting="2" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
-    <step time="554.00" loaded="183" inserted="181" running="136" waiting="2" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
-    <step time="555.00" loaded="183" inserted="181" running="136" waiting="2" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
-    <step time="556.00" loaded="183" inserted="182" running="137" waiting="1" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
-    <step time="557.00" loaded="183" inserted="182" running="137" waiting="1" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
-    <step time="558.00" loaded="183" inserted="182" running="137" waiting="1" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
-    <step time="559.00" loaded="183" inserted="182" running="137" waiting="1" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
-    <step time="560.00" loaded="186" inserted="184" running="139" waiting="2" ended="45" meanWaitingTime="3.87" meanTravelTime="231.56"/>
+    <step time="550.00" loaded="184" inserted="180" running="136" waiting="4" ended="44" meanWaitingTime="3.79" meanTravelTime="232.05"/>
+    <step time="551.00" loaded="184" inserted="180" running="135" waiting="4" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
+    <step time="552.00" loaded="184" inserted="180" running="135" waiting="4" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
+    <step time="553.00" loaded="184" inserted="181" running="136" waiting="3" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
+    <step time="554.00" loaded="184" inserted="181" running="136" waiting="3" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
+    <step time="555.00" loaded="184" inserted="181" running="136" waiting="3" ended="45" meanWaitingTime="3.79" meanTravelTime="231.56"/>
+    <step time="556.00" loaded="184" inserted="182" running="137" waiting="2" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
+    <step time="557.00" loaded="184" inserted="182" running="137" waiting="2" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
+    <step time="558.00" loaded="184" inserted="182" running="137" waiting="2" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
+    <step time="559.00" loaded="184" inserted="182" running="137" waiting="2" ended="45" meanWaitingTime="3.80" meanTravelTime="231.56"/>
+    <step time="560.00" loaded="188" inserted="184" running="139" waiting="4" ended="45" meanWaitingTime="3.87" meanTravelTime="231.56"/>
     <step time="561.00" loaded="188" inserted="184" running="139" waiting="4" ended="45" meanWaitingTime="3.87" meanTravelTime="231.56"/>
     <step time="562.00" loaded="188" inserted="184" running="139" waiting="4" ended="45" meanWaitingTime="3.87" meanTravelTime="231.56"/>
     <step time="563.00" loaded="188" inserted="185" running="140" waiting="3" ended="45" meanWaitingTime="3.92" meanTravelTime="231.56"/>
@@ -609,9 +609,9 @@
     <step time="577.00" loaded="192" inserted="191" running="143" waiting="1" ended="48" meanWaitingTime="3.98" meanTravelTime="232.27"/>
     <step time="578.00" loaded="192" inserted="191" running="142" waiting="1" ended="49" meanWaitingTime="3.98" meanTravelTime="232.06"/>
     <step time="579.00" loaded="192" inserted="191" running="142" waiting="1" ended="49" meanWaitingTime="3.98" meanTravelTime="232.06"/>
-    <step time="580.00" loaded="195" inserted="193" running="143" waiting="2" ended="50" meanWaitingTime="3.94" meanTravelTime="231.84"/>
-    <step time="581.00" loaded="195" inserted="193" running="143" waiting="2" ended="50" meanWaitingTime="3.94" meanTravelTime="231.84"/>
-    <step time="582.00" loaded="195" inserted="194" running="143" waiting="1" ended="51" meanWaitingTime="3.98" meanTravelTime="231.61"/>
+    <step time="580.00" loaded="196" inserted="193" running="143" waiting="3" ended="50" meanWaitingTime="3.94" meanTravelTime="231.84"/>
+    <step time="581.00" loaded="196" inserted="193" running="143" waiting="3" ended="50" meanWaitingTime="3.94" meanTravelTime="231.84"/>
+    <step time="582.00" loaded="196" inserted="194" running="143" waiting="2" ended="51" meanWaitingTime="3.98" meanTravelTime="231.61"/>
     <step time="583.00" loaded="196" inserted="194" running="143" waiting="2" ended="51" meanWaitingTime="3.98" meanTravelTime="231.61"/>
     <step time="584.00" loaded="196" inserted="194" running="143" waiting="2" ended="51" meanWaitingTime="3.98" meanTravelTime="231.61"/>
     <step time="585.00" loaded="196" inserted="195" running="144" waiting="1" ended="51" meanWaitingTime="3.98" meanTravelTime="231.61"/>
@@ -629,39 +629,39 @@
     <step time="597.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
     <step time="598.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
     <step time="599.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
-    <step time="600.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
-    <step time="601.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
-    <step time="602.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
-    <step time="603.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
-    <step time="604.00" loaded="200" inserted="196" running="143" waiting="4" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
-    <step time="605.00" loaded="200" inserted="197" running="144" waiting="3" ended="53" meanWaitingTime="4.06" meanTravelTime="230.77"/>
-    <step time="606.00" loaded="201" inserted="197" running="144" waiting="4" ended="53" meanWaitingTime="4.06" meanTravelTime="230.77"/>
-    <step time="607.00" loaded="201" inserted="198" running="145" waiting="3" ended="53" meanWaitingTime="4.13" meanTravelTime="230.77"/>
-    <step time="608.00" loaded="202" inserted="199" running="146" waiting="3" ended="53" meanWaitingTime="4.20" meanTravelTime="230.77"/>
-    <step time="609.00" loaded="203" inserted="199" running="146" waiting="4" ended="53" meanWaitingTime="4.20" meanTravelTime="230.77"/>
-    <step time="610.00" loaded="203" inserted="201" running="148" waiting="2" ended="53" meanWaitingTime="4.30" meanTravelTime="230.77"/>
-    <step time="611.00" loaded="206" inserted="201" running="148" waiting="5" ended="53" meanWaitingTime="4.30" meanTravelTime="230.77"/>
-    <step time="612.00" loaded="206" inserted="201" running="148" waiting="5" ended="53" meanWaitingTime="4.30" meanTravelTime="230.77"/>
-    <step time="613.00" loaded="206" inserted="202" running="149" waiting="4" ended="53" meanWaitingTime="4.35" meanTravelTime="230.77"/>
-    <step time="614.00" loaded="207" inserted="202" running="149" waiting="5" ended="53" meanWaitingTime="4.35" meanTravelTime="230.77"/>
-    <step time="615.00" loaded="207" inserted="204" running="151" waiting="3" ended="53" meanWaitingTime="4.40" meanTravelTime="230.77"/>
+    <step time="600.00" loaded="204" inserted="196" running="143" waiting="8" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
+    <step time="601.00" loaded="204" inserted="196" running="143" waiting="8" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
+    <step time="602.00" loaded="204" inserted="196" running="143" waiting="8" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
+    <step time="603.00" loaded="204" inserted="196" running="143" waiting="8" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
+    <step time="604.00" loaded="204" inserted="196" running="143" waiting="8" ended="53" meanWaitingTime="4.01" meanTravelTime="230.77"/>
+    <step time="605.00" loaded="204" inserted="197" running="144" waiting="7" ended="53" meanWaitingTime="4.06" meanTravelTime="230.77"/>
+    <step time="606.00" loaded="204" inserted="197" running="144" waiting="7" ended="53" meanWaitingTime="4.06" meanTravelTime="230.77"/>
+    <step time="607.00" loaded="204" inserted="198" running="145" waiting="6" ended="53" meanWaitingTime="4.13" meanTravelTime="230.77"/>
+    <step time="608.00" loaded="204" inserted="199" running="146" waiting="5" ended="53" meanWaitingTime="4.20" meanTravelTime="230.77"/>
+    <step time="609.00" loaded="204" inserted="199" running="146" waiting="5" ended="53" meanWaitingTime="4.20" meanTravelTime="230.77"/>
+    <step time="610.00" loaded="208" inserted="201" running="148" waiting="7" ended="53" meanWaitingTime="4.30" meanTravelTime="230.77"/>
+    <step time="611.00" loaded="208" inserted="201" running="148" waiting="7" ended="53" meanWaitingTime="4.30" meanTravelTime="230.77"/>
+    <step time="612.00" loaded="208" inserted="201" running="148" waiting="7" ended="53" meanWaitingTime="4.30" meanTravelTime="230.77"/>
+    <step time="613.00" loaded="208" inserted="202" running="149" waiting="6" ended="53" meanWaitingTime="4.35" meanTravelTime="230.77"/>
+    <step time="614.00" loaded="208" inserted="202" running="149" waiting="6" ended="53" meanWaitingTime="4.35" meanTravelTime="230.77"/>
+    <step time="615.00" loaded="208" inserted="204" running="151" waiting="4" ended="53" meanWaitingTime="4.40" meanTravelTime="230.77"/>
     <step time="616.00" loaded="208" inserted="204" running="150" waiting="4" ended="54" meanWaitingTime="4.40" meanTravelTime="231.43"/>
     <step time="617.00" loaded="208" inserted="204" running="150" waiting="4" ended="54" meanWaitingTime="4.40" meanTravelTime="231.43"/>
     <step time="618.00" loaded="208" inserted="205" running="151" waiting="3" ended="54" meanWaitingTime="4.47" meanTravelTime="231.43"/>
     <step time="619.00" loaded="208" inserted="205" running="150" waiting="3" ended="55" meanWaitingTime="4.47" meanTravelTime="232.00"/>
-    <step time="620.00" loaded="209" inserted="205" running="150" waiting="4" ended="55" meanWaitingTime="4.47" meanTravelTime="232.00"/>
-    <step time="621.00" loaded="209" inserted="206" running="150" waiting="3" ended="56" meanWaitingTime="4.50" meanTravelTime="232.46"/>
-    <step time="622.00" loaded="210" inserted="207" running="151" waiting="3" ended="56" meanWaitingTime="4.54" meanTravelTime="232.46"/>
-    <step time="623.00" loaded="211" inserted="207" running="150" waiting="4" ended="57" meanWaitingTime="4.54" meanTravelTime="232.77"/>
-    <step time="624.00" loaded="211" inserted="208" running="151" waiting="3" ended="57" meanWaitingTime="4.58" meanTravelTime="232.77"/>
+    <step time="620.00" loaded="212" inserted="205" running="150" waiting="7" ended="55" meanWaitingTime="4.47" meanTravelTime="232.00"/>
+    <step time="621.00" loaded="212" inserted="206" running="150" waiting="6" ended="56" meanWaitingTime="4.50" meanTravelTime="232.46"/>
+    <step time="622.00" loaded="212" inserted="207" running="151" waiting="5" ended="56" meanWaitingTime="4.54" meanTravelTime="232.46"/>
+    <step time="623.00" loaded="212" inserted="207" running="150" waiting="5" ended="57" meanWaitingTime="4.54" meanTravelTime="232.77"/>
+    <step time="624.00" loaded="212" inserted="208" running="151" waiting="4" ended="57" meanWaitingTime="4.58" meanTravelTime="232.77"/>
     <step time="625.00" loaded="212" inserted="209" running="151" waiting="3" ended="58" meanWaitingTime="4.58" meanTravelTime="232.93"/>
     <step time="626.00" loaded="212" inserted="209" running="151" waiting="3" ended="58" meanWaitingTime="4.58" meanTravelTime="232.93"/>
     <step time="627.00" loaded="212" inserted="210" running="151" waiting="2" ended="59" meanWaitingTime="4.60" meanTravelTime="232.95"/>
     <step time="628.00" loaded="212" inserted="210" running="151" waiting="2" ended="59" meanWaitingTime="4.60" meanTravelTime="232.95"/>
     <step time="629.00" loaded="212" inserted="210" running="151" waiting="2" ended="59" meanWaitingTime="4.60" meanTravelTime="232.95"/>
-    <step time="630.00" loaded="214" inserted="212" running="152" waiting="2" ended="60" meanWaitingTime="4.60" meanTravelTime="232.85"/>
-    <step time="631.00" loaded="215" inserted="212" running="152" waiting="3" ended="60" meanWaitingTime="4.60" meanTravelTime="232.85"/>
-    <step time="632.00" loaded="215" inserted="213" running="153" waiting="2" ended="60" meanWaitingTime="4.63" meanTravelTime="232.85"/>
+    <step time="630.00" loaded="216" inserted="212" running="152" waiting="4" ended="60" meanWaitingTime="4.60" meanTravelTime="232.85"/>
+    <step time="631.00" loaded="216" inserted="212" running="152" waiting="4" ended="60" meanWaitingTime="4.60" meanTravelTime="232.85"/>
+    <step time="632.00" loaded="216" inserted="213" running="153" waiting="3" ended="60" meanWaitingTime="4.63" meanTravelTime="232.85"/>
     <step time="633.00" loaded="216" inserted="213" running="153" waiting="3" ended="60" meanWaitingTime="4.63" meanTravelTime="232.85"/>
     <step time="634.00" loaded="216" inserted="213" running="153" waiting="3" ended="60" meanWaitingTime="4.63" meanTravelTime="232.85"/>
     <step time="635.00" loaded="216" inserted="213" running="153" waiting="3" ended="60" meanWaitingTime="4.63" meanTravelTime="232.85"/>
@@ -669,364 +669,364 @@
     <step time="637.00" loaded="216" inserted="213" running="152" waiting="3" ended="61" meanWaitingTime="4.63" meanTravelTime="237.82"/>
     <step time="638.00" loaded="216" inserted="213" running="151" waiting="3" ended="62" meanWaitingTime="4.63" meanTravelTime="242.50"/>
     <step time="639.00" loaded="216" inserted="213" running="151" waiting="3" ended="62" meanWaitingTime="4.63" meanTravelTime="242.50"/>
-    <step time="640.00" loaded="217" inserted="213" running="151" waiting="4" ended="62" meanWaitingTime="4.63" meanTravelTime="242.50"/>
-    <step time="641.00" loaded="217" inserted="213" running="150" waiting="4" ended="63" meanWaitingTime="4.63" meanTravelTime="242.00"/>
-    <step time="642.00" loaded="217" inserted="213" running="150" waiting="4" ended="63" meanWaitingTime="4.63" meanTravelTime="242.00"/>
-    <step time="643.00" loaded="217" inserted="213" running="149" waiting="4" ended="64" meanWaitingTime="4.63" meanTravelTime="246.39"/>
-    <step time="644.00" loaded="217" inserted="213" running="149" waiting="4" ended="64" meanWaitingTime="4.63" meanTravelTime="246.39"/>
-    <step time="645.00" loaded="217" inserted="213" running="148" waiting="4" ended="65" meanWaitingTime="4.63" meanTravelTime="250.52"/>
-    <step time="646.00" loaded="217" inserted="213" running="148" waiting="4" ended="65" meanWaitingTime="4.63" meanTravelTime="250.52"/>
-    <step time="647.00" loaded="217" inserted="213" running="148" waiting="4" ended="65" meanWaitingTime="4.63" meanTravelTime="250.52"/>
-    <step time="648.00" loaded="217" inserted="215" running="150" waiting="2" ended="65" meanWaitingTime="4.71" meanTravelTime="250.52"/>
-    <step time="649.00" loaded="218" inserted="215" running="150" waiting="3" ended="65" meanWaitingTime="4.71" meanTravelTime="250.52"/>
-    <step time="650.00" loaded="219" inserted="215" running="150" waiting="4" ended="65" meanWaitingTime="4.71" meanTravelTime="250.52"/>
-    <step time="651.00" loaded="219" inserted="217" running="152" waiting="2" ended="65" meanWaitingTime="4.72" meanTravelTime="250.52"/>
-    <step time="652.00" loaded="220" inserted="217" running="152" waiting="3" ended="65" meanWaitingTime="4.72" meanTravelTime="250.52"/>
-    <step time="653.00" loaded="220" inserted="218" running="153" waiting="2" ended="65" meanWaitingTime="4.81" meanTravelTime="250.52"/>
-    <step time="654.00" loaded="222" inserted="219" running="154" waiting="3" ended="65" meanWaitingTime="4.80" meanTravelTime="250.52"/>
-    <step time="655.00" loaded="222" inserted="220" running="155" waiting="2" ended="65" meanWaitingTime="4.90" meanTravelTime="250.52"/>
+    <step time="640.00" loaded="220" inserted="213" running="151" waiting="7" ended="62" meanWaitingTime="4.63" meanTravelTime="242.50"/>
+    <step time="641.00" loaded="220" inserted="213" running="150" waiting="7" ended="63" meanWaitingTime="4.63" meanTravelTime="242.00"/>
+    <step time="642.00" loaded="220" inserted="213" running="150" waiting="7" ended="63" meanWaitingTime="4.63" meanTravelTime="242.00"/>
+    <step time="643.00" loaded="220" inserted="213" running="149" waiting="7" ended="64" meanWaitingTime="4.63" meanTravelTime="246.39"/>
+    <step time="644.00" loaded="220" inserted="213" running="149" waiting="7" ended="64" meanWaitingTime="4.63" meanTravelTime="246.39"/>
+    <step time="645.00" loaded="220" inserted="213" running="148" waiting="7" ended="65" meanWaitingTime="4.63" meanTravelTime="250.52"/>
+    <step time="646.00" loaded="220" inserted="213" running="148" waiting="7" ended="65" meanWaitingTime="4.63" meanTravelTime="250.52"/>
+    <step time="647.00" loaded="220" inserted="213" running="148" waiting="7" ended="65" meanWaitingTime="4.63" meanTravelTime="250.52"/>
+    <step time="648.00" loaded="220" inserted="215" running="150" waiting="5" ended="65" meanWaitingTime="4.71" meanTravelTime="250.52"/>
+    <step time="649.00" loaded="220" inserted="215" running="150" waiting="5" ended="65" meanWaitingTime="4.71" meanTravelTime="250.52"/>
+    <step time="650.00" loaded="224" inserted="215" running="150" waiting="9" ended="65" meanWaitingTime="4.71" meanTravelTime="250.52"/>
+    <step time="651.00" loaded="224" inserted="217" running="152" waiting="7" ended="65" meanWaitingTime="4.72" meanTravelTime="250.52"/>
+    <step time="652.00" loaded="224" inserted="217" running="152" waiting="7" ended="65" meanWaitingTime="4.72" meanTravelTime="250.52"/>
+    <step time="653.00" loaded="224" inserted="218" running="153" waiting="6" ended="65" meanWaitingTime="4.81" meanTravelTime="250.52"/>
+    <step time="654.00" loaded="224" inserted="219" running="154" waiting="5" ended="65" meanWaitingTime="4.80" meanTravelTime="250.52"/>
+    <step time="655.00" loaded="224" inserted="220" running="155" waiting="4" ended="65" meanWaitingTime="4.90" meanTravelTime="250.52"/>
     <step time="656.00" loaded="224" inserted="220" running="155" waiting="4" ended="65" meanWaitingTime="4.90" meanTravelTime="250.52"/>
     <step time="657.00" loaded="224" inserted="220" running="155" waiting="4" ended="65" meanWaitingTime="4.90" meanTravelTime="250.52"/>
-    <step time="658.00" loaded="224" inserted="220" running="154" waiting="4" ended="66" meanWaitingTime="4.90" meanTravelTime="255.18"/>
-    <step time="659.00" loaded="224" inserted="220" running="154" waiting="4" ended="66" meanWaitingTime="4.90" meanTravelTime="255.18"/>
-    <step time="660.00" loaded="226" inserted="221" running="154" waiting="5" ended="67" meanWaitingTime="4.87" meanTravelTime="255.40"/>
-    <step time="661.00" loaded="226" inserted="221" running="153" waiting="5" ended="68" meanWaitingTime="4.87" meanTravelTime="259.75"/>
-    <step time="662.00" loaded="226" inserted="222" running="153" waiting="4" ended="69" meanWaitingTime="4.95" meanTravelTime="259.78"/>
-    <step time="663.00" loaded="226" inserted="223" running="153" waiting="3" ended="70" meanWaitingTime="4.94" meanTravelTime="263.83"/>
-    <step time="664.00" loaded="226" inserted="223" running="153" waiting="3" ended="70" meanWaitingTime="4.94" meanTravelTime="263.83"/>
-    <step time="665.00" loaded="226" inserted="224" running="152" waiting="2" ended="72" meanWaitingTime="4.99" meanTravelTime="267.28"/>
-    <step time="666.00" loaded="227" inserted="224" running="152" waiting="3" ended="72" meanWaitingTime="4.99" meanTravelTime="267.28"/>
-    <step time="667.00" loaded="227" inserted="224" running="150" waiting="3" ended="74" meanWaitingTime="4.99" meanTravelTime="270.34"/>
-    <step time="668.00" loaded="227" inserted="224" running="150" waiting="3" ended="74" meanWaitingTime="4.99" meanTravelTime="270.34"/>
-    <step time="669.00" loaded="227" inserted="224" running="148" waiting="3" ended="76" meanWaitingTime="4.99" meanTravelTime="272.92"/>
-    <step time="670.00" loaded="229" inserted="226" running="149" waiting="3" ended="77" meanWaitingTime="4.94" meanTravelTime="272.18"/>
-    <step time="671.00" loaded="229" inserted="226" running="148" waiting="3" ended="78" meanWaitingTime="4.94" meanTravelTime="275.24"/>
-    <step time="672.00" loaded="229" inserted="226" running="148" waiting="3" ended="78" meanWaitingTime="4.94" meanTravelTime="275.24"/>
-    <step time="673.00" loaded="229" inserted="226" running="148" waiting="3" ended="78" meanWaitingTime="4.94" meanTravelTime="275.24"/>
-    <step time="674.00" loaded="229" inserted="226" running="148" waiting="3" ended="78" meanWaitingTime="4.94" meanTravelTime="275.24"/>
-    <step time="675.00" loaded="229" inserted="226" running="148" waiting="3" ended="78" meanWaitingTime="4.94" meanTravelTime="275.24"/>
-    <step time="676.00" loaded="229" inserted="227" running="149" waiting="2" ended="78" meanWaitingTime="5.08" meanTravelTime="275.24"/>
-    <step time="677.00" loaded="229" inserted="227" running="149" waiting="2" ended="78" meanWaitingTime="5.08" meanTravelTime="275.24"/>
-    <step time="678.00" loaded="229" inserted="227" running="149" waiting="2" ended="78" meanWaitingTime="5.08" meanTravelTime="275.24"/>
-    <step time="679.00" loaded="229" inserted="228" running="150" waiting="1" ended="78" meanWaitingTime="5.18" meanTravelTime="275.24"/>
-    <step time="680.00" loaded="234" inserted="228" running="150" waiting="6" ended="78" meanWaitingTime="5.18" meanTravelTime="275.24"/>
-    <step time="681.00" loaded="234" inserted="228" running="150" waiting="6" ended="78" meanWaitingTime="5.18" meanTravelTime="275.24"/>
-    <step time="682.00" loaded="234" inserted="228" running="149" waiting="6" ended="79" meanWaitingTime="5.18" meanTravelTime="274.42"/>
-    <step time="683.00" loaded="234" inserted="228" running="149" waiting="6" ended="79" meanWaitingTime="5.18" meanTravelTime="274.42"/>
-    <step time="684.00" loaded="234" inserted="228" running="149" waiting="6" ended="79" meanWaitingTime="5.18" meanTravelTime="274.42"/>
-    <step time="685.00" loaded="234" inserted="228" running="149" waiting="6" ended="79" meanWaitingTime="5.18" meanTravelTime="274.42"/>
-    <step time="686.00" loaded="234" inserted="228" running="149" waiting="6" ended="79" meanWaitingTime="5.18" meanTravelTime="274.42"/>
-    <step time="687.00" loaded="234" inserted="228" running="149" waiting="6" ended="79" meanWaitingTime="5.18" meanTravelTime="274.42"/>
-    <step time="688.00" loaded="234" inserted="228" running="148" waiting="6" ended="80" meanWaitingTime="5.18" meanTravelTime="273.62"/>
-    <step time="689.00" loaded="234" inserted="228" running="148" waiting="6" ended="80" meanWaitingTime="5.18" meanTravelTime="273.62"/>
-    <step time="690.00" loaded="234" inserted="228" running="147" waiting="6" ended="81" meanWaitingTime="5.18" meanTravelTime="272.84"/>
-    <step time="691.00" loaded="234" inserted="228" running="147" waiting="6" ended="81" meanWaitingTime="5.18" meanTravelTime="272.84"/>
-    <step time="692.00" loaded="234" inserted="228" running="147" waiting="6" ended="81" meanWaitingTime="5.18" meanTravelTime="272.84"/>
-    <step time="693.00" loaded="234" inserted="228" running="147" waiting="6" ended="81" meanWaitingTime="5.18" meanTravelTime="272.84"/>
-    <step time="694.00" loaded="234" inserted="229" running="148" waiting="5" ended="81" meanWaitingTime="5.22" meanTravelTime="272.84"/>
-    <step time="695.00" loaded="235" inserted="229" running="148" waiting="6" ended="81" meanWaitingTime="5.22" meanTravelTime="272.84"/>
-    <step time="696.00" loaded="235" inserted="229" running="148" waiting="6" ended="81" meanWaitingTime="5.22" meanTravelTime="272.84"/>
-    <step time="697.00" loaded="235" inserted="229" running="148" waiting="6" ended="81" meanWaitingTime="5.22" meanTravelTime="272.84"/>
-    <step time="698.00" loaded="235" inserted="230" running="149" waiting="5" ended="81" meanWaitingTime="5.28" meanTravelTime="272.84"/>
-    <step time="699.00" loaded="236" inserted="231" running="150" waiting="5" ended="81" meanWaitingTime="5.42" meanTravelTime="272.84"/>
-    <step time="700.00" loaded="240" inserted="231" running="150" waiting="9" ended="81" meanWaitingTime="5.42" meanTravelTime="272.84"/>
-    <step time="701.00" loaded="240" inserted="233" running="152" waiting="7" ended="81" meanWaitingTime="5.47" meanTravelTime="272.84"/>
-    <step time="702.00" loaded="242" inserted="233" running="152" waiting="9" ended="81" meanWaitingTime="5.47" meanTravelTime="272.84"/>
-    <step time="703.00" loaded="242" inserted="233" running="152" waiting="9" ended="81" meanWaitingTime="5.47" meanTravelTime="272.84"/>
-    <step time="704.00" loaded="242" inserted="233" running="152" waiting="9" ended="81" meanWaitingTime="5.47" meanTravelTime="272.84"/>
-    <step time="705.00" loaded="242" inserted="234" running="153" waiting="8" ended="81" meanWaitingTime="5.64" meanTravelTime="272.84"/>
-    <step time="706.00" loaded="242" inserted="235" running="154" waiting="7" ended="81" meanWaitingTime="5.64" meanTravelTime="272.84"/>
-    <step time="707.00" loaded="242" inserted="236" running="154" waiting="6" ended="82" meanWaitingTime="5.65" meanTravelTime="272.78"/>
-    <step time="708.00" loaded="242" inserted="236" running="154" waiting="6" ended="82" meanWaitingTime="5.65" meanTravelTime="272.78"/>
-    <step time="709.00" loaded="242" inserted="236" running="153" waiting="6" ended="83" meanWaitingTime="5.65" meanTravelTime="272.71"/>
-    <step time="710.00" loaded="244" inserted="237" running="154" waiting="7" ended="83" meanWaitingTime="5.79" meanTravelTime="272.71"/>
-    <step time="711.00" loaded="244" inserted="237" running="153" waiting="7" ended="84" meanWaitingTime="5.79" meanTravelTime="272.60"/>
-    <step time="712.00" loaded="244" inserted="237" running="153" waiting="7" ended="84" meanWaitingTime="5.79" meanTravelTime="272.60"/>
-    <step time="713.00" loaded="244" inserted="238" running="153" waiting="6" ended="85" meanWaitingTime="5.91" meanTravelTime="272.44"/>
-    <step time="714.00" loaded="247" inserted="238" running="153" waiting="9" ended="85" meanWaitingTime="5.91" meanTravelTime="272.44"/>
-    <step time="715.00" loaded="247" inserted="238" running="152" waiting="9" ended="86" meanWaitingTime="5.91" meanTravelTime="272.20"/>
-    <step time="716.00" loaded="247" inserted="239" running="153" waiting="8" ended="86" meanWaitingTime="6.08" meanTravelTime="272.20"/>
-    <step time="717.00" loaded="247" inserted="239" running="152" waiting="8" ended="87" meanWaitingTime="6.08" meanTravelTime="271.84"/>
-    <step time="718.00" loaded="247" inserted="239" running="152" waiting="8" ended="87" meanWaitingTime="6.08" meanTravelTime="271.84"/>
-    <step time="719.00" loaded="247" inserted="240" running="152" waiting="7" ended="88" meanWaitingTime="6.21" meanTravelTime="271.38"/>
-    <step time="720.00" loaded="247" inserted="240" running="152" waiting="7" ended="88" meanWaitingTime="6.21" meanTravelTime="271.38"/>
-    <step time="721.00" loaded="247" inserted="241" running="153" waiting="6" ended="88" meanWaitingTime="6.23" meanTravelTime="271.38"/>
-    <step time="722.00" loaded="248" inserted="243" running="154" waiting="5" ended="89" meanWaitingTime="6.36" meanTravelTime="270.89"/>
-    <step time="723.00" loaded="249" inserted="243" running="154" waiting="6" ended="89" meanWaitingTime="6.36" meanTravelTime="270.89"/>
-    <step time="724.00" loaded="249" inserted="244" running="155" waiting="5" ended="89" meanWaitingTime="6.35" meanTravelTime="270.89"/>
-    <step time="725.00" loaded="249" inserted="244" running="155" waiting="5" ended="89" meanWaitingTime="6.35" meanTravelTime="270.89"/>
-    <step time="726.00" loaded="249" inserted="244" running="155" waiting="5" ended="89" meanWaitingTime="6.35" meanTravelTime="270.89"/>
-    <step time="727.00" loaded="249" inserted="244" running="155" waiting="5" ended="89" meanWaitingTime="6.35" meanTravelTime="270.89"/>
-    <step time="728.00" loaded="249" inserted="244" running="154" waiting="5" ended="90" meanWaitingTime="6.35" meanTravelTime="270.24"/>
-    <step time="729.00" loaded="249" inserted="244" running="153" waiting="5" ended="91" meanWaitingTime="6.35" meanTravelTime="273.75"/>
-    <step time="730.00" loaded="250" inserted="244" running="153" waiting="6" ended="91" meanWaitingTime="6.35" meanTravelTime="273.75"/>
-    <step time="731.00" loaded="250" inserted="244" running="153" waiting="6" ended="91" meanWaitingTime="6.35" meanTravelTime="273.75"/>
-    <step time="732.00" loaded="250" inserted="244" running="153" waiting="6" ended="91" meanWaitingTime="6.35" meanTravelTime="273.75"/>
-    <step time="733.00" loaded="250" inserted="244" running="152" waiting="6" ended="92" meanWaitingTime="6.35" meanTravelTime="273.05"/>
-    <step time="734.00" loaded="250" inserted="244" running="152" waiting="6" ended="92" meanWaitingTime="6.35" meanTravelTime="273.05"/>
-    <step time="735.00" loaded="250" inserted="244" running="151" waiting="6" ended="93" meanWaitingTime="6.35" meanTravelTime="276.41"/>
-    <step time="736.00" loaded="250" inserted="244" running="151" waiting="6" ended="93" meanWaitingTime="6.35" meanTravelTime="276.41"/>
-    <step time="737.00" loaded="250" inserted="244" running="151" waiting="6" ended="93" meanWaitingTime="6.35" meanTravelTime="276.41"/>
-    <step time="738.00" loaded="250" inserted="244" running="150" waiting="6" ended="94" meanWaitingTime="6.35" meanTravelTime="279.62"/>
-    <step time="739.00" loaded="250" inserted="244" running="150" waiting="6" ended="94" meanWaitingTime="6.35" meanTravelTime="279.62"/>
-    <step time="740.00" loaded="250" inserted="245" running="150" waiting="5" ended="95" meanWaitingTime="6.37" meanTravelTime="282.67"/>
-    <step time="741.00" loaded="251" inserted="245" running="150" waiting="6" ended="95" meanWaitingTime="6.37" meanTravelTime="282.67"/>
-    <step time="742.00" loaded="251" inserted="245" running="149" waiting="6" ended="96" meanWaitingTime="6.37" meanTravelTime="285.58"/>
-    <step time="743.00" loaded="251" inserted="247" running="151" waiting="4" ended="96" meanWaitingTime="6.50" meanTravelTime="285.58"/>
-    <step time="744.00" loaded="255" inserted="247" running="150" waiting="8" ended="97" meanWaitingTime="6.50" meanTravelTime="288.35"/>
-    <step time="745.00" loaded="255" inserted="247" running="150" waiting="8" ended="97" meanWaitingTime="6.50" meanTravelTime="288.35"/>
-    <step time="746.00" loaded="255" inserted="247" running="150" waiting="8" ended="97" meanWaitingTime="6.50" meanTravelTime="288.35"/>
-    <step time="747.00" loaded="255" inserted="247" running="150" waiting="8" ended="97" meanWaitingTime="6.50" meanTravelTime="288.35"/>
-    <step time="748.00" loaded="255" inserted="248" running="151" waiting="7" ended="97" meanWaitingTime="6.71" meanTravelTime="288.35"/>
-    <step time="749.00" loaded="255" inserted="249" running="152" waiting="6" ended="97" meanWaitingTime="6.80" meanTravelTime="288.35"/>
-    <step time="750.00" loaded="259" inserted="249" running="152" waiting="10" ended="97" meanWaitingTime="6.80" meanTravelTime="288.35"/>
-    <step time="751.00" loaded="259" inserted="251" running="153" waiting="8" ended="98" meanWaitingTime="6.95" meanTravelTime="291.34"/>
-    <step time="752.00" loaded="259" inserted="251" running="152" waiting="8" ended="99" meanWaitingTime="6.95" meanTravelTime="291.11"/>
-    <step time="753.00" loaded="259" inserted="251" running="151" waiting="8" ended="100" meanWaitingTime="6.95" meanTravelTime="293.93"/>
-    <step time="754.00" loaded="259" inserted="252" running="150" waiting="7" ended="102" meanWaitingTime="7.10" meanTravelTime="296.28"/>
-    <step time="755.00" loaded="263" inserted="253" running="151" waiting="10" ended="102" meanWaitingTime="7.17" meanTravelTime="296.28"/>
-    <step time="756.00" loaded="263" inserted="253" running="151" waiting="10" ended="102" meanWaitingTime="7.17" meanTravelTime="296.28"/>
-    <step time="757.00" loaded="263" inserted="253" running="149" waiting="10" ended="104" meanWaitingTime="7.17" meanTravelTime="298.20"/>
-    <step time="758.00" loaded="263" inserted="254" running="150" waiting="9" ended="104" meanWaitingTime="7.21" meanTravelTime="298.20"/>
-    <step time="759.00" loaded="263" inserted="254" running="148" waiting="9" ended="106" meanWaitingTime="7.21" meanTravelTime="299.94"/>
-    <step time="760.00" loaded="264" inserted="255" running="149" waiting="9" ended="106" meanWaitingTime="7.18" meanTravelTime="299.94"/>
-    <step time="761.00" loaded="264" inserted="256" running="148" waiting="8" ended="108" meanWaitingTime="7.20" meanTravelTime="301.44"/>
-    <step time="762.00" loaded="265" inserted="256" running="148" waiting="9" ended="108" meanWaitingTime="7.20" meanTravelTime="301.44"/>
-    <step time="763.00" loaded="265" inserted="256" running="146" waiting="9" ended="110" meanWaitingTime="7.20" meanTravelTime="302.81"/>
-    <step time="764.00" loaded="265" inserted="257" running="147" waiting="8" ended="110" meanWaitingTime="7.19" meanTravelTime="302.81"/>
-    <step time="765.00" loaded="265" inserted="257" running="146" waiting="8" ended="111" meanWaitingTime="7.19" meanTravelTime="304.81"/>
-    <step time="766.00" loaded="265" inserted="257" running="145" waiting="8" ended="112" meanWaitingTime="7.19" meanTravelTime="306.70"/>
-    <step time="767.00" loaded="265" inserted="258" running="146" waiting="7" ended="112" meanWaitingTime="7.38" meanTravelTime="306.70"/>
-    <step time="768.00" loaded="265" inserted="258" running="146" waiting="7" ended="112" meanWaitingTime="7.38" meanTravelTime="306.70"/>
-    <step time="769.00" loaded="265" inserted="258" running="146" waiting="7" ended="112" meanWaitingTime="7.38" meanTravelTime="306.70"/>
-    <step time="770.00" loaded="267" inserted="259" running="147" waiting="8" ended="112" meanWaitingTime="7.54" meanTravelTime="306.70"/>
-    <step time="771.00" loaded="267" inserted="259" running="146" waiting="8" ended="113" meanWaitingTime="7.54" meanTravelTime="305.85"/>
-    <step time="772.00" loaded="267" inserted="259" running="146" waiting="8" ended="113" meanWaitingTime="7.54" meanTravelTime="305.85"/>
-    <step time="773.00" loaded="267" inserted="259" running="146" waiting="8" ended="113" meanWaitingTime="7.54" meanTravelTime="305.85"/>
-    <step time="774.00" loaded="267" inserted="259" running="145" waiting="8" ended="114" meanWaitingTime="7.54" meanTravelTime="305.02"/>
-    <step time="775.00" loaded="267" inserted="259" running="145" waiting="8" ended="114" meanWaitingTime="7.54" meanTravelTime="305.02"/>
-    <step time="776.00" loaded="267" inserted="259" running="145" waiting="8" ended="114" meanWaitingTime="7.54" meanTravelTime="305.02"/>
-    <step time="777.00" loaded="267" inserted="259" running="145" waiting="8" ended="114" meanWaitingTime="7.54" meanTravelTime="305.02"/>
-    <step time="778.00" loaded="267" inserted="259" running="145" waiting="8" ended="114" meanWaitingTime="7.54" meanTravelTime="305.02"/>
-    <step time="779.00" loaded="267" inserted="259" running="144" waiting="8" ended="115" meanWaitingTime="7.54" meanTravelTime="304.19"/>
-    <step time="780.00" loaded="267" inserted="260" running="145" waiting="7" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="781.00" loaded="268" inserted="260" running="145" waiting="8" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="782.00" loaded="268" inserted="260" running="145" waiting="8" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="783.00" loaded="268" inserted="260" running="145" waiting="8" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="784.00" loaded="268" inserted="260" running="145" waiting="8" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="785.00" loaded="268" inserted="260" running="145" waiting="8" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="786.00" loaded="268" inserted="260" running="145" waiting="8" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="787.00" loaded="268" inserted="260" running="145" waiting="8" ended="115" meanWaitingTime="7.55" meanTravelTime="304.19"/>
-    <step time="788.00" loaded="268" inserted="261" running="146" waiting="7" ended="115" meanWaitingTime="7.75" meanTravelTime="304.19"/>
-    <step time="789.00" loaded="268" inserted="261" running="146" waiting="7" ended="115" meanWaitingTime="7.75" meanTravelTime="304.19"/>
-    <step time="790.00" loaded="268" inserted="261" running="146" waiting="7" ended="115" meanWaitingTime="7.75" meanTravelTime="304.19"/>
-    <step time="791.00" loaded="268" inserted="262" running="147" waiting="6" ended="115" meanWaitingTime="7.91" meanTravelTime="304.19"/>
-    <step time="792.00" loaded="273" inserted="263" running="148" waiting="10" ended="115" meanWaitingTime="7.93" meanTravelTime="304.19"/>
-    <step time="793.00" loaded="274" inserted="264" running="149" waiting="10" ended="115" meanWaitingTime="7.98" meanTravelTime="304.19"/>
-    <step time="794.00" loaded="276" inserted="264" running="149" waiting="12" ended="115" meanWaitingTime="7.98" meanTravelTime="304.19"/>
-    <step time="795.00" loaded="276" inserted="265" running="150" waiting="11" ended="115" meanWaitingTime="7.97" meanTravelTime="304.19"/>
-    <step time="796.00" loaded="276" inserted="266" running="151" waiting="10" ended="115" meanWaitingTime="8.23" meanTravelTime="304.19"/>
-    <step time="797.00" loaded="276" inserted="266" running="151" waiting="10" ended="115" meanWaitingTime="8.23" meanTravelTime="304.19"/>
-    <step time="798.00" loaded="276" inserted="266" running="150" waiting="10" ended="116" meanWaitingTime="8.23" meanTravelTime="303.87"/>
-    <step time="799.00" loaded="276" inserted="267" running="151" waiting="9" ended="116" meanWaitingTime="8.46" meanTravelTime="303.87"/>
-    <step time="800.00" loaded="277" inserted="267" running="150" waiting="10" ended="117" meanWaitingTime="8.46" meanTravelTime="303.52"/>
-    <step time="801.00" loaded="277" inserted="267" running="150" waiting="10" ended="117" meanWaitingTime="8.46" meanTravelTime="303.52"/>
-    <step time="802.00" loaded="277" inserted="268" running="151" waiting="9" ended="117" meanWaitingTime="8.66" meanTravelTime="303.52"/>
-    <step time="803.00" loaded="277" inserted="268" running="150" waiting="9" ended="118" meanWaitingTime="8.66" meanTravelTime="303.15"/>
-    <step time="804.00" loaded="277" inserted="268" running="150" waiting="9" ended="118" meanWaitingTime="8.66" meanTravelTime="303.15"/>
-    <step time="805.00" loaded="277" inserted="270" running="151" waiting="7" ended="119" meanWaitingTime="8.81" meanTravelTime="302.72"/>
-    <step time="806.00" loaded="282" inserted="270" running="151" waiting="12" ended="119" meanWaitingTime="8.81" meanTravelTime="302.72"/>
-    <step time="807.00" loaded="282" inserted="270" running="150" waiting="12" ended="120" meanWaitingTime="8.81" meanTravelTime="302.18"/>
-    <step time="808.00" loaded="282" inserted="272" running="152" waiting="10" ended="120" meanWaitingTime="9.07" meanTravelTime="302.18"/>
-    <step time="809.00" loaded="282" inserted="272" running="151" waiting="10" ended="121" meanWaitingTime="9.07" meanTravelTime="301.56"/>
-    <step time="810.00" loaded="283" inserted="273" running="152" waiting="10" ended="121" meanWaitingTime="9.03" meanTravelTime="301.56"/>
-    <step time="811.00" loaded="283" inserted="275" running="153" waiting="8" ended="122" meanWaitingTime="9.23" meanTravelTime="300.92"/>
-    <step time="812.00" loaded="285" inserted="275" running="152" waiting="10" ended="123" meanWaitingTime="9.23" meanTravelTime="303.45"/>
-    <step time="813.00" loaded="285" inserted="275" running="152" waiting="10" ended="123" meanWaitingTime="9.23" meanTravelTime="303.45"/>
-    <step time="814.00" loaded="285" inserted="275" running="152" waiting="10" ended="123" meanWaitingTime="9.23" meanTravelTime="303.45"/>
-    <step time="815.00" loaded="285" inserted="275" running="151" waiting="10" ended="124" meanWaitingTime="9.23" meanTravelTime="305.88"/>
-    <step time="816.00" loaded="285" inserted="275" running="151" waiting="10" ended="124" meanWaitingTime="9.23" meanTravelTime="305.88"/>
-    <step time="817.00" loaded="285" inserted="275" running="151" waiting="10" ended="124" meanWaitingTime="9.23" meanTravelTime="305.88"/>
-    <step time="818.00" loaded="285" inserted="275" running="151" waiting="10" ended="124" meanWaitingTime="9.23" meanTravelTime="305.88"/>
-    <step time="819.00" loaded="285" inserted="275" running="150" waiting="10" ended="125" meanWaitingTime="9.23" meanTravelTime="305.10"/>
-    <step time="820.00" loaded="286" inserted="275" running="150" waiting="11" ended="125" meanWaitingTime="9.23" meanTravelTime="305.10"/>
-    <step time="821.00" loaded="286" inserted="275" running="150" waiting="11" ended="125" meanWaitingTime="9.23" meanTravelTime="305.10"/>
-    <step time="822.00" loaded="286" inserted="275" running="149" waiting="11" ended="126" meanWaitingTime="9.23" meanTravelTime="307.46"/>
-    <step time="823.00" loaded="286" inserted="275" running="149" waiting="11" ended="126" meanWaitingTime="9.23" meanTravelTime="307.46"/>
-    <step time="824.00" loaded="286" inserted="275" running="148" waiting="11" ended="127" meanWaitingTime="9.23" meanTravelTime="309.72"/>
-    <step time="825.00" loaded="286" inserted="275" running="148" waiting="11" ended="127" meanWaitingTime="9.23" meanTravelTime="309.72"/>
-    <step time="826.00" loaded="286" inserted="275" running="147" waiting="11" ended="128" meanWaitingTime="9.23" meanTravelTime="311.88"/>
-    <step time="827.00" loaded="286" inserted="275" running="147" waiting="11" ended="128" meanWaitingTime="9.23" meanTravelTime="311.88"/>
-    <step time="828.00" loaded="286" inserted="276" running="147" waiting="10" ended="129" meanWaitingTime="9.30" meanTravelTime="313.94"/>
-    <step time="829.00" loaded="286" inserted="276" running="147" waiting="10" ended="129" meanWaitingTime="9.30" meanTravelTime="313.94"/>
-    <step time="830.00" loaded="286" inserted="276" running="146" waiting="10" ended="130" meanWaitingTime="9.30" meanTravelTime="315.91"/>
-    <step time="831.00" loaded="286" inserted="276" running="146" waiting="10" ended="130" meanWaitingTime="9.30" meanTravelTime="315.91"/>
-    <step time="832.00" loaded="286" inserted="276" running="146" waiting="10" ended="130" meanWaitingTime="9.30" meanTravelTime="315.91"/>
-    <step time="833.00" loaded="286" inserted="278" running="148" waiting="8" ended="130" meanWaitingTime="9.50" meanTravelTime="315.91"/>
-    <step time="834.00" loaded="287" inserted="278" running="148" waiting="9" ended="130" meanWaitingTime="9.50" meanTravelTime="315.91"/>
-    <step time="835.00" loaded="287" inserted="278" running="148" waiting="9" ended="130" meanWaitingTime="9.50" meanTravelTime="315.91"/>
-    <step time="836.00" loaded="287" inserted="279" running="149" waiting="8" ended="130" meanWaitingTime="9.67" meanTravelTime="315.91"/>
-    <step time="837.00" loaded="287" inserted="279" running="149" waiting="8" ended="130" meanWaitingTime="9.67" meanTravelTime="315.91"/>
-    <step time="838.00" loaded="287" inserted="280" running="150" waiting="7" ended="130" meanWaitingTime="9.74" meanTravelTime="315.91"/>
-    <step time="839.00" loaded="289" inserted="281" running="150" waiting="8" ended="131" meanWaitingTime="9.88" meanTravelTime="317.92"/>
-    <step time="840.00" loaded="294" inserted="281" running="150" waiting="13" ended="131" meanWaitingTime="9.88" meanTravelTime="317.92"/>
-    <step time="841.00" loaded="294" inserted="283" running="150" waiting="11" ended="133" meanWaitingTime="9.92" meanTravelTime="319.44"/>
-    <step time="842.00" loaded="295" inserted="283" running="150" waiting="12" ended="133" meanWaitingTime="9.92" meanTravelTime="319.44"/>
-    <step time="843.00" loaded="295" inserted="283" running="149" waiting="12" ended="134" meanWaitingTime="9.92" meanTravelTime="321.25"/>
-    <step time="844.00" loaded="295" inserted="284" running="149" waiting="11" ended="135" meanWaitingTime="10.18" meanTravelTime="320.83"/>
-    <step time="845.00" loaded="295" inserted="284" running="148" waiting="11" ended="136" meanWaitingTime="10.18" meanTravelTime="322.55"/>
-    <step time="846.00" loaded="295" inserted="286" running="149" waiting="9" ended="137" meanWaitingTime="10.19" meanTravelTime="321.96"/>
-    <step time="847.00" loaded="296" inserted="286" running="148" waiting="10" ended="138" meanWaitingTime="10.19" meanTravelTime="323.59"/>
-    <step time="848.00" loaded="296" inserted="286" running="147" waiting="10" ended="139" meanWaitingTime="10.19" meanTravelTime="322.97"/>
-    <step time="849.00" loaded="296" inserted="287" running="147" waiting="9" ended="140" meanWaitingTime="10.18" meanTravelTime="324.51"/>
-    <step time="850.00" loaded="298" inserted="288" running="147" waiting="10" ended="141" meanWaitingTime="10.15" meanTravelTime="323.88"/>
-    <step time="851.00" loaded="298" inserted="288" running="147" waiting="10" ended="141" meanWaitingTime="10.15" meanTravelTime="323.88"/>
-    <step time="852.00" loaded="298" inserted="289" running="147" waiting="9" ended="142" meanWaitingTime="10.12" meanTravelTime="325.35"/>
-    <step time="853.00" loaded="298" inserted="289" running="145" waiting="9" ended="144" meanWaitingTime="10.12" meanTravelTime="325.95"/>
-    <step time="854.00" loaded="298" inserted="289" running="145" waiting="9" ended="144" meanWaitingTime="10.12" meanTravelTime="325.95"/>
-    <step time="855.00" loaded="298" inserted="289" running="144" waiting="9" ended="145" meanWaitingTime="10.12" meanTravelTime="325.13"/>
-    <step time="856.00" loaded="298" inserted="290" running="144" waiting="8" ended="146" meanWaitingTime="10.38" meanTravelTime="326.41"/>
-    <step time="857.00" loaded="298" inserted="290" running="144" waiting="8" ended="146" meanWaitingTime="10.38" meanTravelTime="326.41"/>
-    <step time="858.00" loaded="298" inserted="290" running="144" waiting="8" ended="146" meanWaitingTime="10.38" meanTravelTime="326.41"/>
-    <step time="859.00" loaded="298" inserted="291" running="145" waiting="7" ended="146" meanWaitingTime="10.62" meanTravelTime="326.41"/>
-    <step time="860.00" loaded="300" inserted="291" running="145" waiting="9" ended="146" meanWaitingTime="10.62" meanTravelTime="326.41"/>
-    <step time="861.00" loaded="300" inserted="291" running="145" waiting="9" ended="146" meanWaitingTime="10.62" meanTravelTime="326.41"/>
-    <step time="862.00" loaded="300" inserted="291" running="144" waiting="9" ended="147" meanWaitingTime="10.62" meanTravelTime="325.63"/>
-    <step time="863.00" loaded="300" inserted="291" running="144" waiting="9" ended="147" meanWaitingTime="10.62" meanTravelTime="325.63"/>
-    <step time="864.00" loaded="300" inserted="291" running="143" waiting="9" ended="148" meanWaitingTime="10.62" meanTravelTime="324.84"/>
-    <step time="865.00" loaded="300" inserted="291" running="143" waiting="9" ended="148" meanWaitingTime="10.62" meanTravelTime="324.84"/>
-    <step time="866.00" loaded="300" inserted="291" running="143" waiting="9" ended="148" meanWaitingTime="10.62" meanTravelTime="324.84"/>
-    <step time="867.00" loaded="300" inserted="291" running="143" waiting="9" ended="148" meanWaitingTime="10.62" meanTravelTime="324.84"/>
-    <step time="868.00" loaded="300" inserted="291" running="143" waiting="9" ended="148" meanWaitingTime="10.62" meanTravelTime="324.84"/>
-    <step time="869.00" loaded="300" inserted="291" running="142" waiting="9" ended="149" meanWaitingTime="10.62" meanTravelTime="324.07"/>
-    <step time="870.00" loaded="300" inserted="292" running="143" waiting="8" ended="149" meanWaitingTime="10.61" meanTravelTime="324.07"/>
-    <step time="871.00" loaded="301" inserted="292" running="143" waiting="9" ended="149" meanWaitingTime="10.61" meanTravelTime="324.07"/>
-    <step time="872.00" loaded="301" inserted="292" running="143" waiting="9" ended="149" meanWaitingTime="10.61" meanTravelTime="324.07"/>
-    <step time="873.00" loaded="301" inserted="292" running="143" waiting="9" ended="149" meanWaitingTime="10.61" meanTravelTime="324.07"/>
-    <step time="874.00" loaded="301" inserted="292" running="143" waiting="9" ended="149" meanWaitingTime="10.61" meanTravelTime="324.07"/>
-    <step time="875.00" loaded="301" inserted="293" running="144" waiting="8" ended="149" meanWaitingTime="10.87" meanTravelTime="324.07"/>
-    <step time="876.00" loaded="301" inserted="293" running="144" waiting="8" ended="149" meanWaitingTime="10.87" meanTravelTime="324.07"/>
-    <step time="877.00" loaded="301" inserted="293" running="144" waiting="8" ended="149" meanWaitingTime="10.87" meanTravelTime="324.07"/>
-    <step time="878.00" loaded="301" inserted="294" running="145" waiting="7" ended="149" meanWaitingTime="11.10" meanTravelTime="324.07"/>
-    <step time="879.00" loaded="308" inserted="294" running="145" waiting="14" ended="149" meanWaitingTime="11.10" meanTravelTime="324.07"/>
-    <step time="880.00" loaded="308" inserted="295" running="146" waiting="13" ended="149" meanWaitingTime="11.09" meanTravelTime="324.07"/>
-    <step time="881.00" loaded="309" inserted="296" running="147" waiting="13" ended="149" meanWaitingTime="11.33" meanTravelTime="324.07"/>
-    <step time="882.00" loaded="309" inserted="296" running="147" waiting="13" ended="149" meanWaitingTime="11.33" meanTravelTime="324.07"/>
-    <step time="883.00" loaded="309" inserted="298" running="149" waiting="11" ended="149" meanWaitingTime="11.34" meanTravelTime="324.07"/>
-    <step time="884.00" loaded="311" inserted="298" running="149" waiting="13" ended="149" meanWaitingTime="11.34" meanTravelTime="324.07"/>
-    <step time="885.00" loaded="311" inserted="298" running="149" waiting="13" ended="149" meanWaitingTime="11.34" meanTravelTime="324.07"/>
-    <step time="886.00" loaded="311" inserted="298" running="149" waiting="13" ended="149" meanWaitingTime="11.34" meanTravelTime="324.07"/>
-    <step time="887.00" loaded="311" inserted="299" running="149" waiting="12" ended="150" meanWaitingTime="11.56" meanTravelTime="323.70"/>
-    <step time="888.00" loaded="311" inserted="299" running="149" waiting="12" ended="150" meanWaitingTime="11.56" meanTravelTime="323.70"/>
-    <step time="889.00" loaded="311" inserted="299" running="148" waiting="12" ended="151" meanWaitingTime="11.56" meanTravelTime="323.33"/>
-    <step time="890.00" loaded="312" inserted="301" running="150" waiting="11" ended="151" meanWaitingTime="11.71" meanTravelTime="323.33"/>
-    <step time="891.00" loaded="312" inserted="301" running="149" waiting="11" ended="152" meanWaitingTime="11.71" meanTravelTime="322.94"/>
-    <step time="892.00" loaded="312" inserted="301" running="149" waiting="11" ended="152" meanWaitingTime="11.71" meanTravelTime="322.94"/>
-    <step time="893.00" loaded="312" inserted="302" running="149" waiting="10" ended="153" meanWaitingTime="11.88" meanTravelTime="322.40"/>
-    <step time="894.00" loaded="312" inserted="302" running="149" waiting="10" ended="153" meanWaitingTime="11.88" meanTravelTime="322.40"/>
-    <step time="895.00" loaded="312" inserted="302" running="148" waiting="10" ended="154" meanWaitingTime="11.88" meanTravelTime="321.82"/>
-    <step time="896.00" loaded="312" inserted="304" running="150" waiting="8" ended="154" meanWaitingTime="12.08" meanTravelTime="321.82"/>
-    <step time="897.00" loaded="317" inserted="304" running="150" waiting="13" ended="154" meanWaitingTime="12.08" meanTravelTime="321.82"/>
-    <step time="898.00" loaded="317" inserted="304" running="149" waiting="13" ended="155" meanWaitingTime="12.08" meanTravelTime="321.25"/>
-    <step time="899.00" loaded="317" inserted="306" running="151" waiting="11" ended="155" meanWaitingTime="12.35" meanTravelTime="321.25"/>
-    <step time="900.00" loaded="320" inserted="307" running="152" waiting="13" ended="155" meanWaitingTime="12.31" meanTravelTime="321.25"/>
-    <step time="901.00" loaded="320" inserted="307" running="152" waiting="13" ended="155" meanWaitingTime="12.31" meanTravelTime="321.25"/>
-    <step time="902.00" loaded="320" inserted="309" running="154" waiting="11" ended="155" meanWaitingTime="12.53" meanTravelTime="321.25"/>
-    <step time="903.00" loaded="320" inserted="309" running="153" waiting="11" ended="156" meanWaitingTime="12.53" meanTravelTime="323.24"/>
-    <step time="904.00" loaded="320" inserted="309" running="153" waiting="11" ended="156" meanWaitingTime="12.53" meanTravelTime="323.24"/>
-    <step time="905.00" loaded="320" inserted="309" running="152" waiting="11" ended="157" meanWaitingTime="12.53" meanTravelTime="325.10"/>
-    <step time="906.00" loaded="320" inserted="309" running="152" waiting="11" ended="157" meanWaitingTime="12.53" meanTravelTime="325.10"/>
-    <step time="907.00" loaded="320" inserted="309" running="152" waiting="11" ended="157" meanWaitingTime="12.53" meanTravelTime="325.10"/>
-    <step time="908.00" loaded="320" inserted="309" running="152" waiting="11" ended="157" meanWaitingTime="12.53" meanTravelTime="325.10"/>
-    <step time="909.00" loaded="320" inserted="309" running="151" waiting="11" ended="158" meanWaitingTime="12.53" meanTravelTime="324.37"/>
-    <step time="910.00" loaded="321" inserted="309" running="151" waiting="12" ended="158" meanWaitingTime="12.53" meanTravelTime="324.37"/>
-    <step time="911.00" loaded="321" inserted="309" running="151" waiting="12" ended="158" meanWaitingTime="12.53" meanTravelTime="324.37"/>
-    <step time="912.00" loaded="321" inserted="309" running="150" waiting="12" ended="159" meanWaitingTime="12.53" meanTravelTime="326.21"/>
-    <step time="913.00" loaded="321" inserted="309" running="150" waiting="12" ended="159" meanWaitingTime="12.53" meanTravelTime="326.21"/>
-    <step time="914.00" loaded="321" inserted="309" running="149" waiting="12" ended="160" meanWaitingTime="12.53" meanTravelTime="328.01"/>
-    <step time="915.00" loaded="321" inserted="309" running="149" waiting="12" ended="160" meanWaitingTime="12.53" meanTravelTime="328.01"/>
-    <step time="916.00" loaded="321" inserted="309" running="148" waiting="12" ended="161" meanWaitingTime="12.53" meanTravelTime="329.74"/>
-    <step time="917.00" loaded="321" inserted="309" running="148" waiting="12" ended="161" meanWaitingTime="12.53" meanTravelTime="329.74"/>
-    <step time="918.00" loaded="321" inserted="310" running="148" waiting="11" ended="162" meanWaitingTime="12.55" meanTravelTime="331.40"/>
-    <step time="919.00" loaded="322" inserted="310" running="148" waiting="12" ended="162" meanWaitingTime="12.55" meanTravelTime="331.40"/>
-    <step time="920.00" loaded="322" inserted="311" running="149" waiting="11" ended="162" meanWaitingTime="12.54" meanTravelTime="331.40"/>
-    <step time="921.00" loaded="323" inserted="312" running="150" waiting="11" ended="162" meanWaitingTime="12.54" meanTravelTime="331.40"/>
-    <step time="922.00" loaded="324" inserted="312" running="150" waiting="12" ended="162" meanWaitingTime="12.54" meanTravelTime="331.40"/>
-    <step time="923.00" loaded="324" inserted="312" running="150" waiting="12" ended="162" meanWaitingTime="12.54" meanTravelTime="331.40"/>
-    <step time="924.00" loaded="324" inserted="313" running="151" waiting="11" ended="162" meanWaitingTime="12.51" meanTravelTime="331.40"/>
-    <step time="925.00" loaded="324" inserted="314" running="152" waiting="10" ended="162" meanWaitingTime="12.77" meanTravelTime="331.40"/>
-    <step time="926.00" loaded="324" inserted="315" running="153" waiting="9" ended="162" meanWaitingTime="12.75" meanTravelTime="331.40"/>
-    <step time="927.00" loaded="324" inserted="315" running="153" waiting="9" ended="162" meanWaitingTime="12.75" meanTravelTime="331.40"/>
-    <step time="928.00" loaded="324" inserted="316" running="154" waiting="8" ended="162" meanWaitingTime="12.99" meanTravelTime="331.40"/>
-    <step time="929.00" loaded="324" inserted="316" running="154" waiting="8" ended="162" meanWaitingTime="12.99" meanTravelTime="331.40"/>
-    <step time="930.00" loaded="326" inserted="317" running="154" waiting="9" ended="163" meanWaitingTime="12.95" meanTravelTime="332.90"/>
-    <step time="931.00" loaded="326" inserted="318" running="155" waiting="8" ended="163" meanWaitingTime="12.91" meanTravelTime="332.90"/>
-    <step time="932.00" loaded="326" inserted="318" running="154" waiting="8" ended="164" meanWaitingTime="12.91" meanTravelTime="332.47"/>
-    <step time="933.00" loaded="326" inserted="318" running="153" waiting="8" ended="165" meanWaitingTime="12.91" meanTravelTime="333.93"/>
-    <step time="934.00" loaded="326" inserted="318" running="151" waiting="8" ended="167" meanWaitingTime="12.91" meanTravelTime="334.74"/>
-    <step time="935.00" loaded="326" inserted="318" running="151" waiting="8" ended="167" meanWaitingTime="12.91" meanTravelTime="334.74"/>
-    <step time="936.00" loaded="326" inserted="318" running="149" waiting="8" ended="169" meanWaitingTime="12.91" meanTravelTime="335.46"/>
-    <step time="937.00" loaded="326" inserted="318" running="149" waiting="8" ended="169" meanWaitingTime="12.91" meanTravelTime="335.46"/>
-    <step time="938.00" loaded="326" inserted="318" running="147" waiting="8" ended="171" meanWaitingTime="12.91" meanTravelTime="336.09"/>
-    <step time="939.00" loaded="326" inserted="318" running="147" waiting="8" ended="171" meanWaitingTime="12.91" meanTravelTime="336.09"/>
-    <step time="940.00" loaded="328" inserted="320" running="148" waiting="8" ended="172" meanWaitingTime="12.83" meanTravelTime="337.28"/>
-    <step time="941.00" loaded="328" inserted="320" running="147" waiting="8" ended="173" meanWaitingTime="12.83" meanTravelTime="336.60"/>
-    <step time="942.00" loaded="328" inserted="320" running="146" waiting="8" ended="174" meanWaitingTime="12.83" meanTravelTime="337.72"/>
-    <step time="943.00" loaded="328" inserted="320" running="145" waiting="8" ended="175" meanWaitingTime="12.83" meanTravelTime="337.05"/>
-    <step time="944.00" loaded="328" inserted="320" running="144" waiting="8" ended="176" meanWaitingTime="12.83" meanTravelTime="338.03"/>
-    <step time="945.00" loaded="328" inserted="321" running="145" waiting="7" ended="176" meanWaitingTime="13.09" meanTravelTime="338.03"/>
-    <step time="946.00" loaded="328" inserted="321" running="145" waiting="7" ended="176" meanWaitingTime="13.09" meanTravelTime="338.03"/>
-    <step time="947.00" loaded="328" inserted="321" running="145" waiting="7" ended="176" meanWaitingTime="13.09" meanTravelTime="338.03"/>
-    <step time="948.00" loaded="328" inserted="322" running="146" waiting="6" ended="176" meanWaitingTime="13.32" meanTravelTime="338.03"/>
-    <step time="949.00" loaded="328" inserted="322" running="145" waiting="6" ended="177" meanWaitingTime="13.32" meanTravelTime="337.31"/>
-    <step time="950.00" loaded="330" inserted="322" running="145" waiting="8" ended="177" meanWaitingTime="13.32" meanTravelTime="337.31"/>
-    <step time="951.00" loaded="330" inserted="322" running="145" waiting="8" ended="177" meanWaitingTime="13.32" meanTravelTime="337.31"/>
-    <step time="952.00" loaded="330" inserted="322" running="145" waiting="8" ended="177" meanWaitingTime="13.32" meanTravelTime="337.31"/>
-    <step time="953.00" loaded="330" inserted="322" running="145" waiting="8" ended="177" meanWaitingTime="13.32" meanTravelTime="337.31"/>
-    <step time="954.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="955.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="956.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="957.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="958.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="959.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="960.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="961.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="962.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="963.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="964.00" loaded="330" inserted="322" running="144" waiting="8" ended="178" meanWaitingTime="13.32" meanTravelTime="336.60"/>
-    <step time="965.00" loaded="330" inserted="324" running="146" waiting="6" ended="178" meanWaitingTime="13.58" meanTravelTime="336.60"/>
-    <step time="966.00" loaded="340" inserted="324" running="146" waiting="16" ended="178" meanWaitingTime="13.58" meanTravelTime="336.60"/>
-    <step time="967.00" loaded="340" inserted="324" running="146" waiting="16" ended="178" meanWaitingTime="13.58" meanTravelTime="336.60"/>
-    <step time="968.00" loaded="340" inserted="325" running="147" waiting="15" ended="178" meanWaitingTime="13.90" meanTravelTime="336.60"/>
-    <step time="969.00" loaded="340" inserted="325" running="147" waiting="15" ended="178" meanWaitingTime="13.90" meanTravelTime="336.60"/>
-    <step time="970.00" loaded="340" inserted="325" running="147" waiting="15" ended="178" meanWaitingTime="13.90" meanTravelTime="336.60"/>
-    <step time="971.00" loaded="340" inserted="326" running="148" waiting="14" ended="178" meanWaitingTime="14.20" meanTravelTime="336.60"/>
-    <step time="972.00" loaded="340" inserted="327" running="149" waiting="13" ended="178" meanWaitingTime="14.22" meanTravelTime="336.60"/>
-    <step time="973.00" loaded="342" inserted="328" running="150" waiting="14" ended="178" meanWaitingTime="14.22" meanTravelTime="336.60"/>
-    <step time="974.00" loaded="343" inserted="328" running="150" waiting="15" ended="178" meanWaitingTime="14.22" meanTravelTime="336.60"/>
-    <step time="975.00" loaded="343" inserted="329" running="151" waiting="14" ended="178" meanWaitingTime="14.22" meanTravelTime="336.60"/>
-    <step time="976.00" loaded="343" inserted="329" running="151" waiting="14" ended="178" meanWaitingTime="14.22" meanTravelTime="336.60"/>
-    <step time="977.00" loaded="343" inserted="329" running="150" waiting="14" ended="179" meanWaitingTime="14.22" meanTravelTime="336.17"/>
-    <step time="978.00" loaded="343" inserted="330" running="151" waiting="13" ended="179" meanWaitingTime="14.50" meanTravelTime="336.17"/>
-    <step time="979.00" loaded="343" inserted="330" running="150" waiting="13" ended="180" meanWaitingTime="14.50" meanTravelTime="335.75"/>
-    <step time="980.00" loaded="343" inserted="330" running="150" waiting="13" ended="180" meanWaitingTime="14.50" meanTravelTime="335.75"/>
-    <step time="981.00" loaded="343" inserted="331" running="150" waiting="12" ended="181" meanWaitingTime="14.76" meanTravelTime="335.33"/>
-    <step time="982.00" loaded="343" inserted="331" running="150" waiting="12" ended="181" meanWaitingTime="14.76" meanTravelTime="335.33"/>
-    <step time="983.00" loaded="343" inserted="331" running="149" waiting="12" ended="182" meanWaitingTime="14.76" meanTravelTime="334.80"/>
-    <step time="984.00" loaded="343" inserted="332" running="150" waiting="11" ended="182" meanWaitingTime="15.00" meanTravelTime="334.80"/>
-    <step time="985.00" loaded="352" inserted="332" running="149" waiting="20" ended="183" meanWaitingTime="15.00" meanTravelTime="334.16"/>
-    <step time="986.00" loaded="352" inserted="333" running="150" waiting="19" ended="183" meanWaitingTime="15.01" meanTravelTime="334.16"/>
-    <step time="987.00" loaded="353" inserted="335" running="151" waiting="18" ended="184" meanWaitingTime="15.29" meanTravelTime="333.53"/>
-    <step time="988.00" loaded="354" inserted="336" running="152" waiting="18" ended="184" meanWaitingTime="15.26" meanTravelTime="333.53"/>
-    <step time="989.00" loaded="354" inserted="336" running="152" waiting="18" ended="184" meanWaitingTime="15.26" meanTravelTime="333.53"/>
-    <step time="990.00" loaded="355" inserted="338" running="154" waiting="17" ended="184" meanWaitingTime="15.50" meanTravelTime="333.53"/>
-    <step time="991.00" loaded="356" inserted="338" running="154" waiting="18" ended="184" meanWaitingTime="15.50" meanTravelTime="333.53"/>
-    <step time="992.00" loaded="356" inserted="339" running="155" waiting="17" ended="184" meanWaitingTime="15.46" meanTravelTime="333.53"/>
-    <step time="993.00" loaded="356" inserted="339" running="155" waiting="17" ended="184" meanWaitingTime="15.46" meanTravelTime="333.53"/>
-    <step time="994.00" loaded="356" inserted="339" running="155" waiting="17" ended="184" meanWaitingTime="15.46" meanTravelTime="333.53"/>
-    <step time="995.00" loaded="356" inserted="339" running="154" waiting="17" ended="185" meanWaitingTime="15.46" meanTravelTime="335.32"/>
-    <step time="996.00" loaded="356" inserted="339" running="154" waiting="17" ended="185" meanWaitingTime="15.46" meanTravelTime="335.32"/>
-    <step time="997.00" loaded="356" inserted="339" running="154" waiting="17" ended="185" meanWaitingTime="15.46" meanTravelTime="335.32"/>
-    <step time="998.00" loaded="356" inserted="339" running="154" waiting="17" ended="185" meanWaitingTime="15.46" meanTravelTime="335.32"/>
-    <step time="999.00" loaded="356" inserted="339" running="153" waiting="17" ended="186" meanWaitingTime="15.46" meanTravelTime="334.65"/>
+    <step time="658.00" loaded="224" inserted="221" running="155" waiting="3" ended="66" meanWaitingTime="4.95" meanTravelTime="255.18"/>
+    <step time="659.00" loaded="224" inserted="221" running="155" waiting="3" ended="66" meanWaitingTime="4.95" meanTravelTime="255.18"/>
+    <step time="660.00" loaded="228" inserted="222" running="155" waiting="6" ended="67" meanWaitingTime="4.93" meanTravelTime="255.40"/>
+    <step time="661.00" loaded="228" inserted="222" running="154" waiting="6" ended="68" meanWaitingTime="4.93" meanTravelTime="259.75"/>
+    <step time="662.00" loaded="228" inserted="222" running="153" waiting="6" ended="69" meanWaitingTime="4.93" meanTravelTime="259.78"/>
+    <step time="663.00" loaded="228" inserted="223" running="153" waiting="5" ended="70" meanWaitingTime="4.92" meanTravelTime="263.83"/>
+    <step time="664.00" loaded="228" inserted="224" running="153" waiting="4" ended="71" meanWaitingTime="5.01" meanTravelTime="263.49"/>
+    <step time="665.00" loaded="228" inserted="224" running="152" waiting="4" ended="72" meanWaitingTime="5.01" meanTravelTime="267.26"/>
+    <step time="666.00" loaded="228" inserted="224" running="152" waiting="4" ended="72" meanWaitingTime="5.01" meanTravelTime="267.26"/>
+    <step time="667.00" loaded="228" inserted="224" running="150" waiting="4" ended="74" meanWaitingTime="5.01" meanTravelTime="270.32"/>
+    <step time="668.00" loaded="228" inserted="224" running="150" waiting="4" ended="74" meanWaitingTime="5.01" meanTravelTime="270.32"/>
+    <step time="669.00" loaded="228" inserted="224" running="148" waiting="4" ended="76" meanWaitingTime="5.01" meanTravelTime="272.91"/>
+    <step time="670.00" loaded="232" inserted="226" running="149" waiting="6" ended="77" meanWaitingTime="4.96" meanTravelTime="272.17"/>
+    <step time="671.00" loaded="232" inserted="226" running="148" waiting="6" ended="78" meanWaitingTime="4.96" meanTravelTime="275.23"/>
+    <step time="672.00" loaded="232" inserted="226" running="148" waiting="6" ended="78" meanWaitingTime="4.96" meanTravelTime="275.23"/>
+    <step time="673.00" loaded="232" inserted="226" running="148" waiting="6" ended="78" meanWaitingTime="4.96" meanTravelTime="275.23"/>
+    <step time="674.00" loaded="232" inserted="226" running="148" waiting="6" ended="78" meanWaitingTime="4.96" meanTravelTime="275.23"/>
+    <step time="675.00" loaded="232" inserted="226" running="148" waiting="6" ended="78" meanWaitingTime="4.96" meanTravelTime="275.23"/>
+    <step time="676.00" loaded="232" inserted="226" running="148" waiting="6" ended="78" meanWaitingTime="4.96" meanTravelTime="275.23"/>
+    <step time="677.00" loaded="232" inserted="227" running="149" waiting="5" ended="78" meanWaitingTime="5.06" meanTravelTime="275.23"/>
+    <step time="678.00" loaded="232" inserted="227" running="149" waiting="5" ended="78" meanWaitingTime="5.06" meanTravelTime="275.23"/>
+    <step time="679.00" loaded="232" inserted="227" running="149" waiting="5" ended="78" meanWaitingTime="5.06" meanTravelTime="275.23"/>
+    <step time="680.00" loaded="236" inserted="227" running="149" waiting="9" ended="78" meanWaitingTime="5.06" meanTravelTime="275.23"/>
+    <step time="681.00" loaded="236" inserted="227" running="149" waiting="9" ended="78" meanWaitingTime="5.06" meanTravelTime="275.23"/>
+    <step time="682.00" loaded="236" inserted="227" running="148" waiting="9" ended="79" meanWaitingTime="5.06" meanTravelTime="274.41"/>
+    <step time="683.00" loaded="236" inserted="227" running="148" waiting="9" ended="79" meanWaitingTime="5.06" meanTravelTime="274.41"/>
+    <step time="684.00" loaded="236" inserted="227" running="148" waiting="9" ended="79" meanWaitingTime="5.06" meanTravelTime="274.41"/>
+    <step time="685.00" loaded="236" inserted="227" running="148" waiting="9" ended="79" meanWaitingTime="5.06" meanTravelTime="274.41"/>
+    <step time="686.00" loaded="236" inserted="227" running="148" waiting="9" ended="79" meanWaitingTime="5.06" meanTravelTime="274.41"/>
+    <step time="687.00" loaded="236" inserted="227" running="148" waiting="9" ended="79" meanWaitingTime="5.06" meanTravelTime="274.41"/>
+    <step time="688.00" loaded="236" inserted="227" running="147" waiting="9" ended="80" meanWaitingTime="5.06" meanTravelTime="273.61"/>
+    <step time="689.00" loaded="236" inserted="227" running="147" waiting="9" ended="80" meanWaitingTime="5.06" meanTravelTime="273.61"/>
+    <step time="690.00" loaded="240" inserted="227" running="147" waiting="13" ended="80" meanWaitingTime="5.06" meanTravelTime="273.61"/>
+    <step time="691.00" loaded="240" inserted="227" running="146" waiting="13" ended="81" meanWaitingTime="5.06" meanTravelTime="272.84"/>
+    <step time="692.00" loaded="240" inserted="227" running="146" waiting="13" ended="81" meanWaitingTime="5.06" meanTravelTime="272.84"/>
+    <step time="693.00" loaded="240" inserted="227" running="146" waiting="13" ended="81" meanWaitingTime="5.06" meanTravelTime="272.84"/>
+    <step time="694.00" loaded="240" inserted="228" running="147" waiting="12" ended="81" meanWaitingTime="5.10" meanTravelTime="272.84"/>
+    <step time="695.00" loaded="240" inserted="228" running="147" waiting="12" ended="81" meanWaitingTime="5.10" meanTravelTime="272.84"/>
+    <step time="696.00" loaded="240" inserted="228" running="147" waiting="12" ended="81" meanWaitingTime="5.10" meanTravelTime="272.84"/>
+    <step time="697.00" loaded="240" inserted="228" running="147" waiting="12" ended="81" meanWaitingTime="5.10" meanTravelTime="272.84"/>
+    <step time="698.00" loaded="240" inserted="229" running="148" waiting="11" ended="81" meanWaitingTime="5.16" meanTravelTime="272.84"/>
+    <step time="699.00" loaded="240" inserted="229" running="148" waiting="11" ended="81" meanWaitingTime="5.16" meanTravelTime="272.84"/>
+    <step time="700.00" loaded="244" inserted="229" running="148" waiting="15" ended="81" meanWaitingTime="5.16" meanTravelTime="272.84"/>
+    <step time="701.00" loaded="244" inserted="230" running="149" waiting="14" ended="81" meanWaitingTime="5.18" meanTravelTime="272.84"/>
+    <step time="702.00" loaded="244" inserted="232" running="151" waiting="12" ended="81" meanWaitingTime="5.41" meanTravelTime="272.84"/>
+    <step time="703.00" loaded="244" inserted="232" running="151" waiting="12" ended="81" meanWaitingTime="5.41" meanTravelTime="272.84"/>
+    <step time="704.00" loaded="244" inserted="232" running="151" waiting="12" ended="81" meanWaitingTime="5.41" meanTravelTime="272.84"/>
+    <step time="705.00" loaded="244" inserted="233" running="152" waiting="11" ended="81" meanWaitingTime="5.58" meanTravelTime="272.84"/>
+    <step time="706.00" loaded="244" inserted="234" running="152" waiting="10" ended="82" meanWaitingTime="5.59" meanTravelTime="272.77"/>
+    <step time="707.00" loaded="244" inserted="235" running="153" waiting="9" ended="82" meanWaitingTime="5.59" meanTravelTime="272.77"/>
+    <step time="708.00" loaded="244" inserted="235" running="152" waiting="9" ended="83" meanWaitingTime="5.59" meanTravelTime="272.65"/>
+    <step time="709.00" loaded="244" inserted="235" running="152" waiting="9" ended="83" meanWaitingTime="5.59" meanTravelTime="272.65"/>
+    <step time="710.00" loaded="248" inserted="236" running="153" waiting="12" ended="83" meanWaitingTime="5.78" meanTravelTime="272.65"/>
+    <step time="711.00" loaded="248" inserted="236" running="152" waiting="12" ended="84" meanWaitingTime="5.78" meanTravelTime="272.50"/>
+    <step time="712.00" loaded="248" inserted="236" running="152" waiting="12" ended="84" meanWaitingTime="5.78" meanTravelTime="272.50"/>
+    <step time="713.00" loaded="248" inserted="237" running="152" waiting="11" ended="85" meanWaitingTime="5.94" meanTravelTime="272.31"/>
+    <step time="714.00" loaded="248" inserted="237" running="152" waiting="11" ended="85" meanWaitingTime="5.94" meanTravelTime="272.31"/>
+    <step time="715.00" loaded="248" inserted="237" running="151" waiting="11" ended="86" meanWaitingTime="5.94" meanTravelTime="272.07"/>
+    <step time="716.00" loaded="248" inserted="238" running="152" waiting="10" ended="86" meanWaitingTime="6.11" meanTravelTime="272.07"/>
+    <step time="717.00" loaded="248" inserted="238" running="152" waiting="10" ended="86" meanWaitingTime="6.11" meanTravelTime="272.07"/>
+    <step time="718.00" loaded="248" inserted="238" running="151" waiting="10" ended="87" meanWaitingTime="6.11" meanTravelTime="271.72"/>
+    <step time="719.00" loaded="248" inserted="239" running="152" waiting="9" ended="87" meanWaitingTime="6.24" meanTravelTime="271.72"/>
+    <step time="720.00" loaded="252" inserted="239" running="151" waiting="13" ended="88" meanWaitingTime="6.24" meanTravelTime="271.27"/>
+    <step time="721.00" loaded="252" inserted="240" running="152" waiting="12" ended="88" meanWaitingTime="6.26" meanTravelTime="271.27"/>
+    <step time="722.00" loaded="252" inserted="242" running="153" waiting="10" ended="89" meanWaitingTime="6.43" meanTravelTime="270.79"/>
+    <step time="723.00" loaded="252" inserted="242" running="153" waiting="10" ended="89" meanWaitingTime="6.43" meanTravelTime="270.79"/>
+    <step time="724.00" loaded="252" inserted="243" running="154" waiting="9" ended="89" meanWaitingTime="6.42" meanTravelTime="270.79"/>
+    <step time="725.00" loaded="252" inserted="244" running="154" waiting="8" ended="90" meanWaitingTime="6.42" meanTravelTime="270.11"/>
+    <step time="726.00" loaded="252" inserted="244" running="154" waiting="8" ended="90" meanWaitingTime="6.42" meanTravelTime="270.11"/>
+    <step time="727.00" loaded="252" inserted="244" running="154" waiting="8" ended="90" meanWaitingTime="6.42" meanTravelTime="270.11"/>
+    <step time="728.00" loaded="252" inserted="244" running="154" waiting="8" ended="90" meanWaitingTime="6.42" meanTravelTime="270.11"/>
+    <step time="729.00" loaded="252" inserted="244" running="153" waiting="8" ended="91" meanWaitingTime="6.42" meanTravelTime="273.62"/>
+    <step time="730.00" loaded="256" inserted="244" running="153" waiting="12" ended="91" meanWaitingTime="6.42" meanTravelTime="273.62"/>
+    <step time="731.00" loaded="256" inserted="244" running="153" waiting="12" ended="91" meanWaitingTime="6.42" meanTravelTime="273.62"/>
+    <step time="732.00" loaded="256" inserted="244" running="153" waiting="12" ended="91" meanWaitingTime="6.42" meanTravelTime="273.62"/>
+    <step time="733.00" loaded="256" inserted="244" running="152" waiting="12" ended="92" meanWaitingTime="6.42" meanTravelTime="272.92"/>
+    <step time="734.00" loaded="256" inserted="244" running="152" waiting="12" ended="92" meanWaitingTime="6.42" meanTravelTime="272.92"/>
+    <step time="735.00" loaded="256" inserted="244" running="151" waiting="12" ended="93" meanWaitingTime="6.42" meanTravelTime="276.28"/>
+    <step time="736.00" loaded="256" inserted="244" running="151" waiting="12" ended="93" meanWaitingTime="6.42" meanTravelTime="276.28"/>
+    <step time="737.00" loaded="256" inserted="244" running="150" waiting="12" ended="94" meanWaitingTime="6.42" meanTravelTime="279.48"/>
+    <step time="738.00" loaded="256" inserted="244" running="150" waiting="12" ended="94" meanWaitingTime="6.42" meanTravelTime="279.48"/>
+    <step time="739.00" loaded="256" inserted="245" running="150" waiting="11" ended="95" meanWaitingTime="6.43" meanTravelTime="282.53"/>
+    <step time="740.00" loaded="260" inserted="246" running="151" waiting="14" ended="95" meanWaitingTime="6.44" meanTravelTime="282.53"/>
+    <step time="741.00" loaded="260" inserted="246" running="150" waiting="14" ended="96" meanWaitingTime="6.44" meanTravelTime="285.43"/>
+    <step time="742.00" loaded="260" inserted="246" running="150" waiting="14" ended="96" meanWaitingTime="6.44" meanTravelTime="285.43"/>
+    <step time="743.00" loaded="260" inserted="247" running="151" waiting="13" ended="96" meanWaitingTime="6.43" meanTravelTime="285.43"/>
+    <step time="744.00" loaded="260" inserted="247" running="150" waiting="13" ended="97" meanWaitingTime="6.43" meanTravelTime="288.20"/>
+    <step time="745.00" loaded="260" inserted="247" running="150" waiting="13" ended="97" meanWaitingTime="6.43" meanTravelTime="288.20"/>
+    <step time="746.00" loaded="260" inserted="247" running="150" waiting="13" ended="97" meanWaitingTime="6.43" meanTravelTime="288.20"/>
+    <step time="747.00" loaded="260" inserted="248" running="151" waiting="12" ended="97" meanWaitingTime="6.63" meanTravelTime="288.20"/>
+    <step time="748.00" loaded="260" inserted="248" running="151" waiting="12" ended="97" meanWaitingTime="6.63" meanTravelTime="288.20"/>
+    <step time="749.00" loaded="260" inserted="249" running="152" waiting="11" ended="97" meanWaitingTime="6.64" meanTravelTime="288.20"/>
+    <step time="750.00" loaded="264" inserted="250" running="152" waiting="14" ended="98" meanWaitingTime="6.86" meanTravelTime="291.17"/>
+    <step time="751.00" loaded="264" inserted="250" running="152" waiting="14" ended="98" meanWaitingTime="6.86" meanTravelTime="291.17"/>
+    <step time="752.00" loaded="264" inserted="250" running="151" waiting="14" ended="99" meanWaitingTime="6.86" meanTravelTime="294.01"/>
+    <step time="753.00" loaded="264" inserted="251" running="151" waiting="13" ended="100" meanWaitingTime="7.04" meanTravelTime="293.77"/>
+    <step time="754.00" loaded="264" inserted="252" running="151" waiting="12" ended="101" meanWaitingTime="7.03" meanTravelTime="296.45"/>
+    <step time="755.00" loaded="264" inserted="253" running="151" waiting="11" ended="102" meanWaitingTime="7.02" meanTravelTime="296.14"/>
+    <step time="756.00" loaded="264" inserted="253" running="150" waiting="11" ended="103" meanWaitingTime="7.02" meanTravelTime="298.66"/>
+    <step time="757.00" loaded="264" inserted="253" running="149" waiting="11" ended="104" meanWaitingTime="7.02" meanTravelTime="298.05"/>
+    <step time="758.00" loaded="264" inserted="253" running="148" waiting="11" ended="105" meanWaitingTime="7.02" meanTravelTime="300.43"/>
+    <step time="759.00" loaded="264" inserted="253" running="147" waiting="11" ended="106" meanWaitingTime="7.02" meanTravelTime="299.78"/>
+    <step time="760.00" loaded="268" inserted="255" running="148" waiting="13" ended="107" meanWaitingTime="6.96" meanTravelTime="302.03"/>
+    <step time="761.00" loaded="268" inserted="255" running="147" waiting="13" ended="108" meanWaitingTime="6.96" meanTravelTime="301.28"/>
+    <step time="762.00" loaded="268" inserted="255" running="146" waiting="13" ended="109" meanWaitingTime="6.96" meanTravelTime="303.39"/>
+    <step time="763.00" loaded="268" inserted="255" running="145" waiting="13" ended="110" meanWaitingTime="6.96" meanTravelTime="302.64"/>
+    <step time="764.00" loaded="268" inserted="255" running="144" waiting="13" ended="111" meanWaitingTime="6.96" meanTravelTime="304.63"/>
+    <step time="765.00" loaded="268" inserted="255" running="144" waiting="13" ended="111" meanWaitingTime="6.96" meanTravelTime="304.63"/>
+    <step time="766.00" loaded="268" inserted="255" running="143" waiting="13" ended="112" meanWaitingTime="6.96" meanTravelTime="306.52"/>
+    <step time="767.00" loaded="268" inserted="256" running="144" waiting="12" ended="112" meanWaitingTime="7.20" meanTravelTime="306.52"/>
+    <step time="768.00" loaded="268" inserted="256" running="144" waiting="12" ended="112" meanWaitingTime="7.20" meanTravelTime="306.52"/>
+    <step time="769.00" loaded="268" inserted="256" running="144" waiting="12" ended="112" meanWaitingTime="7.20" meanTravelTime="306.52"/>
+    <step time="770.00" loaded="272" inserted="257" running="145" waiting="15" ended="112" meanWaitingTime="7.40" meanTravelTime="306.52"/>
+    <step time="771.00" loaded="272" inserted="257" running="144" waiting="15" ended="113" meanWaitingTime="7.40" meanTravelTime="305.67"/>
+    <step time="772.00" loaded="272" inserted="257" running="144" waiting="15" ended="113" meanWaitingTime="7.40" meanTravelTime="305.67"/>
+    <step time="773.00" loaded="272" inserted="257" running="144" waiting="15" ended="113" meanWaitingTime="7.40" meanTravelTime="305.67"/>
+    <step time="774.00" loaded="272" inserted="257" running="143" waiting="15" ended="114" meanWaitingTime="7.40" meanTravelTime="304.84"/>
+    <step time="775.00" loaded="272" inserted="257" running="143" waiting="15" ended="114" meanWaitingTime="7.40" meanTravelTime="304.84"/>
+    <step time="776.00" loaded="272" inserted="257" running="143" waiting="15" ended="114" meanWaitingTime="7.40" meanTravelTime="304.84"/>
+    <step time="777.00" loaded="272" inserted="257" running="142" waiting="15" ended="115" meanWaitingTime="7.40" meanTravelTime="304.00"/>
+    <step time="778.00" loaded="272" inserted="257" running="142" waiting="15" ended="115" meanWaitingTime="7.40" meanTravelTime="304.00"/>
+    <step time="779.00" loaded="272" inserted="257" running="142" waiting="15" ended="115" meanWaitingTime="7.40" meanTravelTime="304.00"/>
+    <step time="780.00" loaded="276" inserted="258" running="143" waiting="18" ended="115" meanWaitingTime="7.41" meanTravelTime="304.00"/>
+    <step time="781.00" loaded="276" inserted="258" running="143" waiting="18" ended="115" meanWaitingTime="7.41" meanTravelTime="304.00"/>
+    <step time="782.00" loaded="276" inserted="258" running="143" waiting="18" ended="115" meanWaitingTime="7.41" meanTravelTime="304.00"/>
+    <step time="783.00" loaded="276" inserted="258" running="143" waiting="18" ended="115" meanWaitingTime="7.41" meanTravelTime="304.00"/>
+    <step time="784.00" loaded="276" inserted="258" running="143" waiting="18" ended="115" meanWaitingTime="7.41" meanTravelTime="304.00"/>
+    <step time="785.00" loaded="276" inserted="258" running="143" waiting="18" ended="115" meanWaitingTime="7.41" meanTravelTime="304.00"/>
+    <step time="786.00" loaded="276" inserted="259" running="144" waiting="17" ended="115" meanWaitingTime="7.45" meanTravelTime="304.00"/>
+    <step time="787.00" loaded="276" inserted="259" running="144" waiting="17" ended="115" meanWaitingTime="7.45" meanTravelTime="304.00"/>
+    <step time="788.00" loaded="276" inserted="260" running="145" waiting="16" ended="115" meanWaitingTime="7.72" meanTravelTime="304.00"/>
+    <step time="789.00" loaded="276" inserted="260" running="145" waiting="16" ended="115" meanWaitingTime="7.72" meanTravelTime="304.00"/>
+    <step time="790.00" loaded="280" inserted="260" running="145" waiting="20" ended="115" meanWaitingTime="7.72" meanTravelTime="304.00"/>
+    <step time="791.00" loaded="280" inserted="261" running="146" waiting="19" ended="115" meanWaitingTime="7.96" meanTravelTime="304.00"/>
+    <step time="792.00" loaded="280" inserted="261" running="146" waiting="19" ended="115" meanWaitingTime="7.96" meanTravelTime="304.00"/>
+    <step time="793.00" loaded="280" inserted="263" running="148" waiting="17" ended="115" meanWaitingTime="8.00" meanTravelTime="304.00"/>
+    <step time="794.00" loaded="280" inserted="263" running="148" waiting="17" ended="115" meanWaitingTime="8.00" meanTravelTime="304.00"/>
+    <step time="795.00" loaded="280" inserted="263" running="148" waiting="17" ended="115" meanWaitingTime="8.00" meanTravelTime="304.00"/>
+    <step time="796.00" loaded="280" inserted="265" running="150" waiting="15" ended="115" meanWaitingTime="8.25" meanTravelTime="304.00"/>
+    <step time="797.00" loaded="280" inserted="265" running="150" waiting="15" ended="115" meanWaitingTime="8.25" meanTravelTime="304.00"/>
+    <step time="798.00" loaded="280" inserted="265" running="149" waiting="15" ended="116" meanWaitingTime="8.25" meanTravelTime="303.68"/>
+    <step time="799.00" loaded="280" inserted="267" running="151" waiting="13" ended="116" meanWaitingTime="8.48" meanTravelTime="303.68"/>
+    <step time="800.00" loaded="284" inserted="267" running="150" waiting="17" ended="117" meanWaitingTime="8.48" meanTravelTime="303.33"/>
+    <step time="801.00" loaded="284" inserted="267" running="150" waiting="17" ended="117" meanWaitingTime="8.48" meanTravelTime="303.33"/>
+    <step time="802.00" loaded="284" inserted="268" running="150" waiting="16" ended="118" meanWaitingTime="8.72" meanTravelTime="302.96"/>
+    <step time="803.00" loaded="284" inserted="268" running="150" waiting="16" ended="118" meanWaitingTime="8.72" meanTravelTime="302.96"/>
+    <step time="804.00" loaded="284" inserted="269" running="150" waiting="15" ended="119" meanWaitingTime="8.70" meanTravelTime="302.52"/>
+    <step time="805.00" loaded="284" inserted="270" running="151" waiting="14" ended="119" meanWaitingTime="8.91" meanTravelTime="302.52"/>
+    <step time="806.00" loaded="284" inserted="270" running="150" waiting="14" ended="120" meanWaitingTime="8.91" meanTravelTime="301.98"/>
+    <step time="807.00" loaded="284" inserted="270" running="150" waiting="14" ended="120" meanWaitingTime="8.91" meanTravelTime="301.98"/>
+    <step time="808.00" loaded="284" inserted="271" running="150" waiting="13" ended="121" meanWaitingTime="9.13" meanTravelTime="301.35"/>
+    <step time="809.00" loaded="284" inserted="272" running="151" waiting="12" ended="121" meanWaitingTime="9.12" meanTravelTime="301.35"/>
+    <step time="810.00" loaded="288" inserted="273" running="151" waiting="15" ended="122" meanWaitingTime="9.09" meanTravelTime="300.70"/>
+    <step time="811.00" loaded="288" inserted="274" running="152" waiting="14" ended="122" meanWaitingTime="9.28" meanTravelTime="300.70"/>
+    <step time="812.00" loaded="288" inserted="275" running="153" waiting="13" ended="122" meanWaitingTime="9.25" meanTravelTime="300.70"/>
+    <step time="813.00" loaded="288" inserted="275" running="153" waiting="13" ended="122" meanWaitingTime="9.25" meanTravelTime="300.70"/>
+    <step time="814.00" loaded="288" inserted="275" running="152" waiting="13" ended="123" meanWaitingTime="9.25" meanTravelTime="303.24"/>
+    <step time="815.00" loaded="288" inserted="275" running="152" waiting="13" ended="123" meanWaitingTime="9.25" meanTravelTime="303.24"/>
+    <step time="816.00" loaded="288" inserted="275" running="151" waiting="13" ended="124" meanWaitingTime="9.25" meanTravelTime="305.69"/>
+    <step time="817.00" loaded="288" inserted="275" running="151" waiting="13" ended="124" meanWaitingTime="9.25" meanTravelTime="305.69"/>
+    <step time="818.00" loaded="288" inserted="275" running="151" waiting="13" ended="124" meanWaitingTime="9.25" meanTravelTime="305.69"/>
+    <step time="819.00" loaded="288" inserted="275" running="150" waiting="13" ended="125" meanWaitingTime="9.25" meanTravelTime="304.91"/>
+    <step time="820.00" loaded="292" inserted="275" running="150" waiting="17" ended="125" meanWaitingTime="9.25" meanTravelTime="304.91"/>
+    <step time="821.00" loaded="292" inserted="275" running="150" waiting="17" ended="125" meanWaitingTime="9.25" meanTravelTime="304.91"/>
+    <step time="822.00" loaded="292" inserted="275" running="150" waiting="17" ended="125" meanWaitingTime="9.25" meanTravelTime="304.91"/>
+    <step time="823.00" loaded="292" inserted="275" running="150" waiting="17" ended="125" meanWaitingTime="9.25" meanTravelTime="304.91"/>
+    <step time="824.00" loaded="292" inserted="275" running="149" waiting="17" ended="126" meanWaitingTime="9.25" meanTravelTime="307.29"/>
+    <step time="825.00" loaded="292" inserted="275" running="149" waiting="17" ended="126" meanWaitingTime="9.25" meanTravelTime="307.29"/>
+    <step time="826.00" loaded="292" inserted="275" running="148" waiting="17" ended="127" meanWaitingTime="9.25" meanTravelTime="309.56"/>
+    <step time="827.00" loaded="292" inserted="276" running="149" waiting="16" ended="127" meanWaitingTime="9.25" meanTravelTime="309.56"/>
+    <step time="828.00" loaded="292" inserted="276" running="148" waiting="16" ended="128" meanWaitingTime="9.25" meanTravelTime="311.73"/>
+    <step time="829.00" loaded="292" inserted="276" running="148" waiting="16" ended="128" meanWaitingTime="9.25" meanTravelTime="311.73"/>
+    <step time="830.00" loaded="296" inserted="277" running="148" waiting="19" ended="129" meanWaitingTime="9.21" meanTravelTime="313.81"/>
+    <step time="831.00" loaded="296" inserted="278" running="149" waiting="18" ended="129" meanWaitingTime="9.22" meanTravelTime="313.81"/>
+    <step time="832.00" loaded="296" inserted="278" running="148" waiting="18" ended="130" meanWaitingTime="9.22" meanTravelTime="315.80"/>
+    <step time="833.00" loaded="296" inserted="279" running="149" waiting="17" ended="130" meanWaitingTime="9.48" meanTravelTime="315.80"/>
+    <step time="834.00" loaded="296" inserted="279" running="149" waiting="17" ended="130" meanWaitingTime="9.48" meanTravelTime="315.80"/>
+    <step time="835.00" loaded="296" inserted="279" running="149" waiting="17" ended="130" meanWaitingTime="9.48" meanTravelTime="315.80"/>
+    <step time="836.00" loaded="296" inserted="280" running="150" waiting="16" ended="130" meanWaitingTime="9.72" meanTravelTime="315.80"/>
+    <step time="837.00" loaded="296" inserted="280" running="150" waiting="16" ended="130" meanWaitingTime="9.72" meanTravelTime="315.80"/>
+    <step time="838.00" loaded="296" inserted="280" running="150" waiting="16" ended="130" meanWaitingTime="9.72" meanTravelTime="315.80"/>
+    <step time="839.00" loaded="296" inserted="281" running="150" waiting="15" ended="131" meanWaitingTime="9.97" meanTravelTime="317.81"/>
+    <step time="840.00" loaded="300" inserted="282" running="151" waiting="18" ended="131" meanWaitingTime="9.93" meanTravelTime="317.81"/>
+    <step time="841.00" loaded="300" inserted="283" running="151" waiting="17" ended="132" meanWaitingTime="9.94" meanTravelTime="319.73"/>
+    <step time="842.00" loaded="300" inserted="283" running="151" waiting="17" ended="132" meanWaitingTime="9.94" meanTravelTime="319.73"/>
+    <step time="843.00" loaded="300" inserted="283" running="150" waiting="17" ended="133" meanWaitingTime="9.94" meanTravelTime="321.56"/>
+    <step time="844.00" loaded="300" inserted="284" running="150" waiting="16" ended="134" meanWaitingTime="9.92" meanTravelTime="321.17"/>
+    <step time="845.00" loaded="300" inserted="284" running="149" waiting="16" ended="135" meanWaitingTime="9.92" meanTravelTime="322.90"/>
+    <step time="846.00" loaded="300" inserted="284" running="148" waiting="16" ended="136" meanWaitingTime="9.92" meanTravelTime="322.49"/>
+    <step time="847.00" loaded="300" inserted="284" running="147" waiting="16" ended="137" meanWaitingTime="9.92" meanTravelTime="324.12"/>
+    <step time="848.00" loaded="300" inserted="284" running="146" waiting="16" ended="138" meanWaitingTime="9.92" meanTravelTime="323.54"/>
+    <step time="849.00" loaded="300" inserted="284" running="145" waiting="16" ended="139" meanWaitingTime="9.92" meanTravelTime="325.09"/>
+    <step time="850.00" loaded="304" inserted="286" running="146" waiting="18" ended="140" meanWaitingTime="9.85" meanTravelTime="324.48"/>
+    <step time="851.00" loaded="304" inserted="286" running="145" waiting="18" ended="141" meanWaitingTime="9.85" meanTravelTime="325.94"/>
+    <step time="852.00" loaded="304" inserted="286" running="144" waiting="18" ended="142" meanWaitingTime="9.85" meanTravelTime="325.32"/>
+    <step time="853.00" loaded="304" inserted="286" running="143" waiting="18" ended="143" meanWaitingTime="9.85" meanTravelTime="326.66"/>
+    <step time="854.00" loaded="304" inserted="286" running="142" waiting="18" ended="144" meanWaitingTime="9.85" meanTravelTime="325.93"/>
+    <step time="855.00" loaded="304" inserted="287" running="143" waiting="17" ended="144" meanWaitingTime="10.11" meanTravelTime="325.93"/>
+    <step time="856.00" loaded="304" inserted="287" running="142" waiting="17" ended="145" meanWaitingTime="10.11" meanTravelTime="327.21"/>
+    <step time="857.00" loaded="304" inserted="287" running="142" waiting="17" ended="145" meanWaitingTime="10.11" meanTravelTime="327.21"/>
+    <step time="858.00" loaded="304" inserted="288" running="143" waiting="16" ended="145" meanWaitingTime="10.38" meanTravelTime="327.21"/>
+    <step time="859.00" loaded="304" inserted="288" running="142" waiting="16" ended="146" meanWaitingTime="10.38" meanTravelTime="326.42"/>
+    <step time="860.00" loaded="308" inserted="288" running="142" waiting="20" ended="146" meanWaitingTime="10.38" meanTravelTime="326.42"/>
+    <step time="861.00" loaded="308" inserted="288" running="141" waiting="20" ended="147" meanWaitingTime="10.38" meanTravelTime="325.63"/>
+    <step time="862.00" loaded="308" inserted="288" running="141" waiting="20" ended="147" meanWaitingTime="10.38" meanTravelTime="325.63"/>
+    <step time="863.00" loaded="308" inserted="288" running="140" waiting="20" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="864.00" loaded="308" inserted="288" running="140" waiting="20" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="865.00" loaded="308" inserted="288" running="140" waiting="20" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="866.00" loaded="308" inserted="288" running="140" waiting="20" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="867.00" loaded="308" inserted="288" running="140" waiting="20" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="868.00" loaded="308" inserted="288" running="140" waiting="20" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="869.00" loaded="308" inserted="288" running="140" waiting="20" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="870.00" loaded="312" inserted="289" running="141" waiting="23" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="871.00" loaded="312" inserted="289" running="141" waiting="23" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="872.00" loaded="312" inserted="289" running="141" waiting="23" ended="148" meanWaitingTime="10.38" meanTravelTime="324.84"/>
+    <step time="873.00" loaded="312" inserted="290" running="142" waiting="22" ended="148" meanWaitingTime="10.66" meanTravelTime="324.84"/>
+    <step time="874.00" loaded="312" inserted="290" running="142" waiting="22" ended="148" meanWaitingTime="10.66" meanTravelTime="324.84"/>
+    <step time="875.00" loaded="312" inserted="290" running="142" waiting="22" ended="148" meanWaitingTime="10.66" meanTravelTime="324.84"/>
+    <step time="876.00" loaded="312" inserted="291" running="143" waiting="21" ended="148" meanWaitingTime="10.96" meanTravelTime="324.84"/>
+    <step time="877.00" loaded="312" inserted="291" running="143" waiting="21" ended="148" meanWaitingTime="10.96" meanTravelTime="324.84"/>
+    <step time="878.00" loaded="312" inserted="291" running="143" waiting="21" ended="148" meanWaitingTime="10.96" meanTravelTime="324.84"/>
+    <step time="879.00" loaded="312" inserted="292" running="144" waiting="20" ended="148" meanWaitingTime="11.22" meanTravelTime="324.84"/>
+    <step time="880.00" loaded="316" inserted="293" running="145" waiting="23" ended="148" meanWaitingTime="11.22" meanTravelTime="324.84"/>
+    <step time="881.00" loaded="316" inserted="293" running="145" waiting="23" ended="148" meanWaitingTime="11.22" meanTravelTime="324.84"/>
+    <step time="882.00" loaded="316" inserted="294" running="146" waiting="22" ended="148" meanWaitingTime="11.49" meanTravelTime="324.84"/>
+    <step time="883.00" loaded="316" inserted="294" running="146" waiting="22" ended="148" meanWaitingTime="11.49" meanTravelTime="324.84"/>
+    <step time="884.00" loaded="316" inserted="294" running="146" waiting="22" ended="148" meanWaitingTime="11.49" meanTravelTime="324.84"/>
+    <step time="885.00" loaded="316" inserted="296" running="148" waiting="20" ended="148" meanWaitingTime="11.52" meanTravelTime="324.84"/>
+    <step time="886.00" loaded="316" inserted="296" running="147" waiting="20" ended="149" meanWaitingTime="11.52" meanTravelTime="324.46"/>
+    <step time="887.00" loaded="316" inserted="296" running="147" waiting="20" ended="149" meanWaitingTime="11.52" meanTravelTime="324.46"/>
+    <step time="888.00" loaded="316" inserted="298" running="149" waiting="18" ended="149" meanWaitingTime="11.80" meanTravelTime="324.46"/>
+    <step time="889.00" loaded="316" inserted="298" running="148" waiting="18" ended="150" meanWaitingTime="11.80" meanTravelTime="324.06"/>
+    <step time="890.00" loaded="320" inserted="299" running="149" waiting="21" ended="150" meanWaitingTime="11.76" meanTravelTime="324.06"/>
+    <step time="891.00" loaded="320" inserted="300" running="150" waiting="20" ended="150" meanWaitingTime="12.02" meanTravelTime="324.06"/>
+    <step time="892.00" loaded="320" inserted="300" running="149" waiting="20" ended="151" meanWaitingTime="12.02" meanTravelTime="323.65"/>
+    <step time="893.00" loaded="320" inserted="300" running="149" waiting="20" ended="151" meanWaitingTime="12.02" meanTravelTime="323.65"/>
+    <step time="894.00" loaded="320" inserted="301" running="149" waiting="19" ended="152" meanWaitingTime="12.26" meanTravelTime="323.09"/>
+    <step time="895.00" loaded="320" inserted="301" running="149" waiting="19" ended="152" meanWaitingTime="12.26" meanTravelTime="323.09"/>
+    <step time="896.00" loaded="320" inserted="301" running="148" waiting="19" ended="153" meanWaitingTime="12.26" meanTravelTime="322.50"/>
+    <step time="897.00" loaded="320" inserted="303" running="150" waiting="17" ended="153" meanWaitingTime="12.52" meanTravelTime="322.50"/>
+    <step time="898.00" loaded="320" inserted="303" running="150" waiting="17" ended="153" meanWaitingTime="12.52" meanTravelTime="322.50"/>
+    <step time="899.00" loaded="320" inserted="303" running="150" waiting="17" ended="153" meanWaitingTime="12.52" meanTravelTime="322.50"/>
+    <step time="900.00" loaded="324" inserted="306" running="153" waiting="18" ended="153" meanWaitingTime="12.69" meanTravelTime="322.50"/>
+    <step time="901.00" loaded="324" inserted="306" running="153" waiting="18" ended="153" meanWaitingTime="12.69" meanTravelTime="322.50"/>
+    <step time="902.00" loaded="324" inserted="306" running="153" waiting="18" ended="153" meanWaitingTime="12.69" meanTravelTime="322.50"/>
+    <step time="903.00" loaded="324" inserted="308" running="154" waiting="16" ended="154" meanWaitingTime="12.89" meanTravelTime="324.51"/>
+    <step time="904.00" loaded="324" inserted="308" running="154" waiting="16" ended="154" meanWaitingTime="12.89" meanTravelTime="324.51"/>
+    <step time="905.00" loaded="324" inserted="308" running="153" waiting="16" ended="155" meanWaitingTime="12.89" meanTravelTime="326.39"/>
+    <step time="906.00" loaded="324" inserted="308" running="153" waiting="16" ended="155" meanWaitingTime="12.89" meanTravelTime="326.39"/>
+    <step time="907.00" loaded="324" inserted="308" running="153" waiting="16" ended="155" meanWaitingTime="12.89" meanTravelTime="326.39"/>
+    <step time="908.00" loaded="324" inserted="308" running="152" waiting="16" ended="156" meanWaitingTime="12.89" meanTravelTime="328.22"/>
+    <step time="909.00" loaded="324" inserted="308" running="152" waiting="16" ended="156" meanWaitingTime="12.89" meanTravelTime="328.22"/>
+    <step time="910.00" loaded="328" inserted="308" running="152" waiting="20" ended="156" meanWaitingTime="12.89" meanTravelTime="328.22"/>
+    <step time="911.00" loaded="328" inserted="308" running="151" waiting="20" ended="157" meanWaitingTime="12.89" meanTravelTime="327.46"/>
+    <step time="912.00" loaded="328" inserted="308" running="151" waiting="20" ended="157" meanWaitingTime="12.89" meanTravelTime="327.46"/>
+    <step time="913.00" loaded="328" inserted="308" running="151" waiting="20" ended="157" meanWaitingTime="12.89" meanTravelTime="327.46"/>
+    <step time="914.00" loaded="328" inserted="308" running="151" waiting="20" ended="157" meanWaitingTime="12.89" meanTravelTime="327.46"/>
+    <step time="915.00" loaded="328" inserted="308" running="151" waiting="20" ended="157" meanWaitingTime="12.89" meanTravelTime="327.46"/>
+    <step time="916.00" loaded="328" inserted="308" running="150" waiting="20" ended="158" meanWaitingTime="12.89" meanTravelTime="329.29"/>
+    <step time="917.00" loaded="328" inserted="308" running="150" waiting="20" ended="158" meanWaitingTime="12.89" meanTravelTime="329.29"/>
+    <step time="918.00" loaded="328" inserted="308" running="149" waiting="20" ended="159" meanWaitingTime="12.89" meanTravelTime="331.04"/>
+    <step time="919.00" loaded="328" inserted="308" running="149" waiting="20" ended="159" meanWaitingTime="12.89" meanTravelTime="331.04"/>
+    <step time="920.00" loaded="332" inserted="310" running="150" waiting="22" ended="160" meanWaitingTime="12.87" meanTravelTime="332.73"/>
+    <step time="921.00" loaded="332" inserted="310" running="150" waiting="22" ended="160" meanWaitingTime="12.87" meanTravelTime="332.73"/>
+    <step time="922.00" loaded="332" inserted="310" running="150" waiting="22" ended="160" meanWaitingTime="12.87" meanTravelTime="332.73"/>
+    <step time="923.00" loaded="332" inserted="311" running="151" waiting="21" ended="160" meanWaitingTime="12.84" meanTravelTime="332.73"/>
+    <step time="924.00" loaded="332" inserted="311" running="151" waiting="21" ended="160" meanWaitingTime="12.84" meanTravelTime="332.73"/>
+    <step time="925.00" loaded="332" inserted="313" running="153" waiting="19" ended="160" meanWaitingTime="13.08" meanTravelTime="332.73"/>
+    <step time="926.00" loaded="332" inserted="313" running="153" waiting="19" ended="160" meanWaitingTime="13.08" meanTravelTime="332.73"/>
+    <step time="927.00" loaded="332" inserted="313" running="153" waiting="19" ended="160" meanWaitingTime="13.08" meanTravelTime="332.73"/>
+    <step time="928.00" loaded="332" inserted="314" running="154" waiting="18" ended="160" meanWaitingTime="13.35" meanTravelTime="332.73"/>
+    <step time="929.00" loaded="332" inserted="314" running="154" waiting="18" ended="160" meanWaitingTime="13.35" meanTravelTime="332.73"/>
+    <step time="930.00" loaded="336" inserted="316" running="155" waiting="20" ended="161" meanWaitingTime="13.26" meanTravelTime="332.34"/>
+    <step time="931.00" loaded="336" inserted="316" running="154" waiting="20" ended="162" meanWaitingTime="13.26" meanTravelTime="333.85"/>
+    <step time="932.00" loaded="336" inserted="316" running="153" waiting="20" ended="163" meanWaitingTime="13.26" meanTravelTime="333.41"/>
+    <step time="933.00" loaded="336" inserted="316" running="152" waiting="20" ended="164" meanWaitingTime="13.26" meanTravelTime="334.87"/>
+    <step time="934.00" loaded="336" inserted="316" running="151" waiting="20" ended="165" meanWaitingTime="13.26" meanTravelTime="334.30"/>
+    <step time="935.00" loaded="336" inserted="316" running="150" waiting="20" ended="166" meanWaitingTime="13.26" meanTravelTime="335.69"/>
+    <step time="936.00" loaded="336" inserted="316" running="149" waiting="20" ended="167" meanWaitingTime="13.26" meanTravelTime="335.08"/>
+    <step time="937.00" loaded="336" inserted="316" running="148" waiting="20" ended="168" meanWaitingTime="13.26" meanTravelTime="336.40"/>
+    <step time="938.00" loaded="336" inserted="316" running="148" waiting="20" ended="168" meanWaitingTime="13.26" meanTravelTime="336.40"/>
+    <step time="939.00" loaded="336" inserted="316" running="146" waiting="20" ended="170" meanWaitingTime="13.26" meanTravelTime="337.04"/>
+    <step time="940.00" loaded="340" inserted="318" running="147" waiting="22" ended="171" meanWaitingTime="13.18" meanTravelTime="336.34"/>
+    <step time="941.00" loaded="340" inserted="318" running="146" waiting="22" ended="172" meanWaitingTime="13.18" meanTravelTime="337.53"/>
+    <step time="942.00" loaded="340" inserted="318" running="145" waiting="22" ended="173" meanWaitingTime="13.18" meanTravelTime="336.83"/>
+    <step time="943.00" loaded="340" inserted="318" running="144" waiting="22" ended="174" meanWaitingTime="13.18" meanTravelTime="337.96"/>
+    <step time="944.00" loaded="340" inserted="319" running="145" waiting="21" ended="174" meanWaitingTime="13.46" meanTravelTime="337.96"/>
+    <step time="945.00" loaded="340" inserted="319" running="144" waiting="21" ended="175" meanWaitingTime="13.46" meanTravelTime="338.95"/>
+    <step time="946.00" loaded="340" inserted="319" running="144" waiting="21" ended="175" meanWaitingTime="13.46" meanTravelTime="338.95"/>
+    <step time="947.00" loaded="340" inserted="320" running="145" waiting="20" ended="175" meanWaitingTime="13.76" meanTravelTime="338.95"/>
+    <step time="948.00" loaded="340" inserted="320" running="145" waiting="20" ended="175" meanWaitingTime="13.76" meanTravelTime="338.95"/>
+    <step time="949.00" loaded="340" inserted="320" running="145" waiting="20" ended="175" meanWaitingTime="13.76" meanTravelTime="338.95"/>
+    <step time="950.00" loaded="344" inserted="321" running="146" waiting="23" ended="175" meanWaitingTime="14.02" meanTravelTime="338.95"/>
+    <step time="951.00" loaded="344" inserted="321" running="145" waiting="23" ended="176" meanWaitingTime="14.02" meanTravelTime="338.23"/>
+    <step time="952.00" loaded="344" inserted="321" running="145" waiting="23" ended="176" meanWaitingTime="14.02" meanTravelTime="338.23"/>
+    <step time="953.00" loaded="344" inserted="321" running="144" waiting="23" ended="177" meanWaitingTime="14.02" meanTravelTime="337.50"/>
+    <step time="954.00" loaded="344" inserted="321" running="144" waiting="23" ended="177" meanWaitingTime="14.02" meanTravelTime="337.50"/>
+    <step time="955.00" loaded="344" inserted="321" running="144" waiting="23" ended="177" meanWaitingTime="14.02" meanTravelTime="337.50"/>
+    <step time="956.00" loaded="344" inserted="321" running="144" waiting="23" ended="177" meanWaitingTime="14.02" meanTravelTime="337.50"/>
+    <step time="957.00" loaded="344" inserted="321" running="144" waiting="23" ended="177" meanWaitingTime="14.02" meanTravelTime="337.50"/>
+    <step time="958.00" loaded="344" inserted="321" running="144" waiting="23" ended="177" meanWaitingTime="14.02" meanTravelTime="337.50"/>
+    <step time="959.00" loaded="344" inserted="321" running="144" waiting="23" ended="177" meanWaitingTime="14.02" meanTravelTime="337.50"/>
+    <step time="960.00" loaded="348" inserted="322" running="145" waiting="26" ended="177" meanWaitingTime="14.01" meanTravelTime="337.50"/>
+    <step time="961.00" loaded="348" inserted="322" running="145" waiting="26" ended="177" meanWaitingTime="14.01" meanTravelTime="337.50"/>
+    <step time="962.00" loaded="348" inserted="322" running="145" waiting="26" ended="177" meanWaitingTime="14.01" meanTravelTime="337.50"/>
+    <step time="963.00" loaded="348" inserted="323" running="146" waiting="25" ended="177" meanWaitingTime="14.32" meanTravelTime="337.50"/>
+    <step time="964.00" loaded="348" inserted="323" running="146" waiting="25" ended="177" meanWaitingTime="14.32" meanTravelTime="337.50"/>
+    <step time="965.00" loaded="348" inserted="323" running="146" waiting="25" ended="177" meanWaitingTime="14.32" meanTravelTime="337.50"/>
+    <step time="966.00" loaded="348" inserted="324" running="147" waiting="24" ended="177" meanWaitingTime="14.60" meanTravelTime="337.50"/>
+    <step time="967.00" loaded="348" inserted="325" running="148" waiting="23" ended="177" meanWaitingTime="14.58" meanTravelTime="337.50"/>
+    <step time="968.00" loaded="348" inserted="326" running="149" waiting="22" ended="177" meanWaitingTime="14.59" meanTravelTime="337.50"/>
+    <step time="969.00" loaded="348" inserted="327" running="150" waiting="21" ended="177" meanWaitingTime="14.88" meanTravelTime="337.50"/>
+    <step time="970.00" loaded="352" inserted="327" running="150" waiting="25" ended="177" meanWaitingTime="14.88" meanTravelTime="337.50"/>
+    <step time="971.00" loaded="352" inserted="327" running="150" waiting="25" ended="177" meanWaitingTime="14.88" meanTravelTime="337.50"/>
+    <step time="972.00" loaded="352" inserted="327" running="150" waiting="25" ended="177" meanWaitingTime="14.88" meanTravelTime="337.50"/>
+    <step time="973.00" loaded="352" inserted="329" running="152" waiting="23" ended="177" meanWaitingTime="14.84" meanTravelTime="337.50"/>
+    <step time="974.00" loaded="352" inserted="329" running="152" waiting="23" ended="177" meanWaitingTime="14.84" meanTravelTime="337.50"/>
+    <step time="975.00" loaded="352" inserted="330" running="153" waiting="22" ended="177" meanWaitingTime="15.11" meanTravelTime="337.50"/>
+    <step time="976.00" loaded="352" inserted="330" running="153" waiting="22" ended="177" meanWaitingTime="15.11" meanTravelTime="337.50"/>
+    <step time="977.00" loaded="352" inserted="330" running="153" waiting="22" ended="177" meanWaitingTime="15.11" meanTravelTime="337.50"/>
+    <step time="978.00" loaded="352" inserted="331" running="153" waiting="21" ended="178" meanWaitingTime="15.39" meanTravelTime="337.11"/>
+    <step time="979.00" loaded="352" inserted="331" running="153" waiting="21" ended="178" meanWaitingTime="15.39" meanTravelTime="337.11"/>
+    <step time="980.00" loaded="356" inserted="331" running="152" waiting="25" ended="179" meanWaitingTime="15.39" meanTravelTime="336.70"/>
+    <step time="981.00" loaded="356" inserted="332" running="153" waiting="24" ended="179" meanWaitingTime="15.65" meanTravelTime="336.70"/>
+    <step time="982.00" loaded="356" inserted="332" running="152" waiting="24" ended="180" meanWaitingTime="15.65" meanTravelTime="336.28"/>
+    <step time="983.00" loaded="356" inserted="332" running="152" waiting="24" ended="180" meanWaitingTime="15.65" meanTravelTime="336.28"/>
+    <step time="984.00" loaded="356" inserted="333" running="152" waiting="23" ended="181" meanWaitingTime="15.91" meanTravelTime="335.71"/>
+    <step time="985.00" loaded="356" inserted="333" running="152" waiting="23" ended="181" meanWaitingTime="15.91" meanTravelTime="335.71"/>
+    <step time="986.00" loaded="356" inserted="333" running="151" waiting="23" ended="182" meanWaitingTime="15.91" meanTravelTime="335.07"/>
+    <step time="987.00" loaded="356" inserted="335" running="153" waiting="21" ended="182" meanWaitingTime="16.16" meanTravelTime="335.07"/>
+    <step time="988.00" loaded="356" inserted="335" running="153" waiting="21" ended="182" meanWaitingTime="16.16" meanTravelTime="335.07"/>
+    <step time="989.00" loaded="356" inserted="335" running="153" waiting="21" ended="182" meanWaitingTime="16.16" meanTravelTime="335.07"/>
+    <step time="990.00" loaded="360" inserted="337" running="155" waiting="23" ended="182" meanWaitingTime="16.39" meanTravelTime="335.07"/>
+    <step time="991.00" loaded="360" inserted="338" running="156" waiting="22" ended="182" meanWaitingTime="16.37" meanTravelTime="335.07"/>
+    <step time="992.00" loaded="360" inserted="338" running="156" waiting="22" ended="182" meanWaitingTime="16.37" meanTravelTime="335.07"/>
+    <step time="993.00" loaded="360" inserted="340" running="158" waiting="20" ended="182" meanWaitingTime="16.56" meanTravelTime="335.07"/>
+    <step time="994.00" loaded="360" inserted="341" running="159" waiting="19" ended="182" meanWaitingTime="16.52" meanTravelTime="335.07"/>
+    <step time="995.00" loaded="360" inserted="341" running="159" waiting="19" ended="182" meanWaitingTime="16.52" meanTravelTime="335.07"/>
+    <step time="996.00" loaded="360" inserted="341" running="158" waiting="19" ended="183" meanWaitingTime="16.52" meanTravelTime="336.88"/>
+    <step time="997.00" loaded="360" inserted="341" running="157" waiting="19" ended="184" meanWaitingTime="16.52" meanTravelTime="336.18"/>
+    <step time="998.00" loaded="360" inserted="341" running="157" waiting="19" ended="184" meanWaitingTime="16.52" meanTravelTime="336.18"/>
+    <step time="999.00" loaded="360" inserted="341" running="157" waiting="19" ended="184" meanWaitingTime="16.52" meanTravelTime="336.18"/>
 </summary>
