@@ -171,13 +171,6 @@ private:
                            MSVehicleContainer::VehicleVector& refusedEmits);
 
 
-    /** @brief Checks whether any flow is blocked due to this vehicle and clears the block
-     *
-     * @param[in] veh The vehicle to check for
-     */
-    void checkFlowWait(SUMOVehicle* veh);
-
-
     /** @brief Adds all vehicles that should have been emitted earlier to the refuse container
      *
      * @param[in] time The current simulation time
@@ -208,10 +201,6 @@ private:
     struct Flow {
         /// @brief The paramters
         SUMOVehicleParameter* pars;
-        /// @brief whether it has route or vehicle type distribution
-        bool isVolatile;
-        /// @brief The last created vehicle
-        SUMOVehicle* vehicle;
         /// @brief the running index
         int index;
     };
