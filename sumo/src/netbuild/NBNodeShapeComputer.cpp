@@ -235,7 +235,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     // since there are only two (almost parallel) directions, the
                     // concept of a turning radius does not quite fit. Instead we need
                     // to enlarge the intersection to accomodate the change in
-                    // the number of lanes
+                    // the number of lanes (s-curve)
                     // @todo: make this independently configurable
                     dist += radius;
                 }
