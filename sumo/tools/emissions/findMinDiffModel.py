@@ -4,7 +4,7 @@
 @file    findMinDiffModel.py
 @author  Michael Behrisch
 @date    2016-08-24
-@version $Id: evaluateHBEFA3vsPHEM.py 20433 2016-04-13 08:00:14Z behrisch $
+@version $Id$
 
 This script takes the output file of the emission tests and tries to
 find models most similar to a given model concerning the emission values.
