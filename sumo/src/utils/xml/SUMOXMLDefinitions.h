@@ -360,6 +360,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_KEEPRIGHT_PARAM,
     SUMO_ATTR_LCA_SUBLANE_PARAM,
     SUMO_ATTR_LCA_PUSHY,
+    SUMO_ATTR_LCA_ASSERTIVE,
     /* route alternatives / distribution attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,

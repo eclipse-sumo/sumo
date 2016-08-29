@@ -289,6 +289,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcKeepRight",            SUMO_ATTR_LCA_KEEPRIGHT_PARAM },
     { "lcSublane",              SUMO_ATTR_LCA_SUBLANE_PARAM },
     { "lcPushy",                SUMO_ATTR_LCA_PUSHY },
+    { "lcAssertive",            SUMO_ATTR_LCA_ASSERTIVE },
 
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },

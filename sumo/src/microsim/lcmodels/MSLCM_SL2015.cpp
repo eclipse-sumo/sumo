@@ -88,7 +88,7 @@
 #define SPEED_GAIN_MIN_SECONDS 20.0
 
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
-//#define DEBUG_COND (myVehicle.getID() == "B")
+//#define DEBUG_COND (myVehicle.getID() == "A")
 #define DEBUG_COND (myVehicle.getID() == "disabled")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
@@ -117,6 +117,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
     mySublaneParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 1)),
     myPushy(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHY, 0)),
+    myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 0)),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     mySpeedLossProbThreshold(-0.01 + (1 - mySublaneParam)) {
@@ -1669,7 +1670,8 @@ int
 MSLCM_SL2015::checkBlockingVehicles(
     const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
     SUMOReal latDist, SUMOReal foeOffset, bool leaders, LaneChangeAction blockType,
-    std::vector<CLeaderDist>* collectBlockers) {
+    std::vector<CLeaderDist>* collectBlockers) const
+{
     // determine borders where safety/no-overlap conditions must hold
     const SUMOReal vehWidth = ego->getVehicleType().getWidth();
     const SUMOReal rightVehSide = ego->getRightSideOnEdge();
@@ -1724,9 +1726,16 @@ MSLCM_SL2015::checkBlockingVehicles(
                     if (!leaders) {
                         std::swap(leader, follower);
                     }
-                    if (vehDist.second < follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())) {
+                    const SUMOReal decelFactor = 1 + ego->getImpatience() * myAssertive;
+                    // see MSCFModel::getSecureGap
+                    // for decelFactor == 1 this is equivalent to
+                    // follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
+                    const SUMOReal followDecel = MIN2(follower->getCarFollowModel().getMaxDecel(), leader->getCarFollowModel().getMaxDecel()) * decelFactor;
+                    const SUMOReal secureGap = MAX2((SUMOReal) 0, MSCFModel::brakeGap(follower->getSpeed(), followDecel, follower->getCarFollowModel().getHeadwayTime()) 
+                            - MSCFModel::brakeGap(leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), 0));
+                    if (vehDist.second < secureGap) {
                         if (gDebugFlag2) {
-                            std::cout << "    blocked\n";
+                            std::cout << "    blocked decelFactor=" << decelFactor << "\n";
                         }
                         result |= blockType;
                         if (collectBlockers == 0) {
