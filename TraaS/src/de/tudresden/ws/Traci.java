@@ -107,11 +107,6 @@ public class Traci{
 		this.sumo.set_cmd(Vehicle.moveTo(vehID, laneID, pos));
 	}
 
-	@WebMethod(action="Vehicle: moveToVTD")
-	public void Vehicle_moveToVTD(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "lane") int lane, @WebParam(name = "x") double x, @WebParam(name = "y") double y){
-		this.sumo.set_cmd(Vehicle.moveToVTD(vehID, edgeID, lane, x, y));
-	}
-
 	@WebMethod(action="Vehicle: Remove vehicle with the given ID for the give reason.  Reasons are defined in module constants and start with REMOVE_")
 	public void Vehicle_remove(@WebParam(name = "vehID") String vehID, @WebParam(name = "reason") byte reason){
 		this.sumo.set_cmd(Vehicle.remove(vehID, reason));
@@ -191,7 +186,7 @@ public class Traci{
 	public void Vehicle_setSignals(@WebParam(name = "vehID") String vehID, @WebParam(name = "signals") int signals){
 		this.sumo.set_cmd(Vehicle.setSignals(vehID, signals));
 	}
-
+	
 	@WebMethod(action="Vehicle: setSpeed")
 	public void Vehicle_setSpeed(@WebParam(name = "vehID") String vehID, @WebParam(name = "speed") double speed){
 		this.sumo.set_cmd(Vehicle.setSpeed(vehID, speed));
@@ -206,7 +201,7 @@ public class Traci{
 	public void Vehicle_setSpeedFactor(@WebParam(name = "vehID") String vehID, @WebParam(name = "factor") double factor){
 		this.sumo.set_cmd(Vehicle.setSpeedFactor(vehID, factor));
 	}
-
+	
 	@WebMethod(action="Vehicle: setStop")
 	public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration, @WebParam(name = "stopType") SumoStopFlags stopType){
 		this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration, stopType));
@@ -481,6 +476,11 @@ public class Traci{
 		return this.helper.getDouble(this.sumo.get_cmd(Edge.getEffort(edgeID, time)));
 	}
 
+	@WebMethod(action="Edge: getElectricityConsumption")
+	public double Edge_getElectricityConsumption(@WebParam(name = "edgeID") String edgeID){
+		return this.helper.getDouble(this.sumo.get_cmd(Edge.getElectricityConsumption(edgeID)));
+	}
+	
 	@WebMethod(action="Edge: Returns the fuel consumption in ml for the last time step on the given edge.")
 	public double Edge_getFuelConsumption(@WebParam(name = "edgeID") String edgeID){
 		return this.helper.getDouble(this.sumo.get_cmd(Edge.getFuelConsumption(edgeID)));
@@ -767,6 +767,10 @@ public class Traci{
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getDistance(vehID)));
 	}
 	
+	@WebMethod(action="Vehicle: getElectricityConsumption")
+	public double Vehicle_getElectricityConsumption(@WebParam(name = "vehID") String vehID){
+		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getElectricityConsumption(vehID)));
+	}
 	@WebMethod(action="Vehicle: getWaitingTime")
 	public double Vehicle_getWaitingTime(@WebParam(name = "vehID") String vehID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getWaitingTime(vehID)));
@@ -857,6 +861,11 @@ public class Traci{
 		return this.helper.getInt(this.sumo.get_cmd(Vehicle.getSignals(vehID)));
 	}
 
+	@WebMethod(action="Vehicle: getSlope")
+	public double Vehicle_getSlope(@WebParam(name = "vehID") String vehID){
+		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getSlope(vehID)));
+	}
+	
 	@WebMethod(action="Vehicle: getSpeed")
 	public double Vehicle_getSpeed(@WebParam(name = "vehID") String vehID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getSpeed(vehID)));
@@ -870,6 +879,11 @@ public class Traci{
 	@WebMethod(action="Vehicle: getSpeedFactor")
 	public double Vehicle_getSpeedFactor(@WebParam(name = "vehID") String vehID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getSpeedFactor(vehID)));
+	}
+	
+	@WebMethod(action="Vehicle: getSpeedMode")
+	public double Vehicle_getSpeedMode(@WebParam(name = "vehID") String vehID){
+		return this.helper.getInt(this.sumo.get_cmd(Vehicle.getSpeedMode(vehID)));
 	}
 
 	@WebMethod(action="Vehicle: getSpeedWithoutTraCI")
@@ -1229,7 +1243,12 @@ public class Traci{
 	public String Lane_getEdgeID(@WebParam(name = "laneID") String laneID){
 		return this.helper.getString(this.sumo.get_cmd(Lane.getEdgeID(laneID)));
 	}
-
+	
+	@WebMethod(action="Lane: getElectricityConsumption")
+	public String Lane_getElectricityConsumption(@WebParam(name = "laneID") String laneID){
+		return this.helper.getString(this.sumo.get_cmd(Lane.getElectricityConsumption(laneID)));
+	}
+	
 	@WebMethod(action="Lane: Returns the fuel consumption in ml for the last time step on the given lane.")
 	public double Lane_getFuelConsumption(@WebParam(name = "laneID") String laneID){
 		return this.helper.getDouble(this.sumo.get_cmd(Lane.getFuelConsumption(laneID)));

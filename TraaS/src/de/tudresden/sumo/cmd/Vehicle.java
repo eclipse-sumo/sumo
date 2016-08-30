@@ -223,6 +223,16 @@ public class Vehicle {
 	}
 
 	/**
+	 * Returns the electricity consumption in ml for the last time step.
+	 *  @param vehID id of the vehicle
+	 *  @return energy consumption
+	 */
+
+	public static SumoCommand getElectricityConsumption(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ELECTRICITYCONSUMPTION, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	/**
 	 * Returns the fuel consumption in ml for the last time step.
 	 *  @param vehID id of the vehicle
 	 *  @return fuel consumption
@@ -325,7 +335,7 @@ public class Vehicle {
 	/**
 	 * Return list of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
 	 * @param vehID id of the vehicle
-	 * @return
+	 * @return next traffic lights (compound)
 	 */
 	public static SumoCommand getNextTLS(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_NEXT_TLS, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_COMPOUND);
@@ -444,6 +454,17 @@ public class Vehicle {
 	}
 
 	/**
+	 * getSlope
+	 * @param vehID id of the vehicle
+	 * @return  the slope at the current position of the vehicle in degrees
+	 */
+
+	public static SumoCommand getSlope(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_SLOPE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+
+	
+	/**
 	 * Returns the speed (in m/s) of the named vehicle within the last step.
 	 * @param vehID id of the vehicle
 	 * @return speed in m/s
@@ -473,6 +494,17 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_SPEED_FACTOR, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	/**
+	 * Returns the speed mode of a vehicle 
+	 * @param vehID id of the vehicle
+	 * @return speed mode
+	 */
+
+	public static SumoCommand getSpeedMode(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_SPEEDSETMODE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	
 	/**
 	 * getSpeedWithoutTraCI
 	 * @param vehID id of the vehicle
@@ -681,22 +713,7 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_MOVE_TO, vehID, array);
 	}
 
-	/**
-	 * moveToVTD
-
-	 * @param vehID vehicle id
-	 * @param edgeID edge id
-	 * @param lane lane
-	 * @param x x
-	 * @param y y
-	 * @return SumoCommand
-	 */
-	public static SumoCommand moveToVTD(String vehID, String edgeID, int lane, double x, double y){
-
-		Object[] array = new Object[]{edgeID, lane, x, y};
-		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_MOVE_TO_VTD, vehID, array);
-	}
-
+	
 	/**
 	 * Place vehicle at the given x,y coordinates and force it's angle to
         the given value (for drawing). If keepRoute is set to 1, the closest position
@@ -984,7 +1001,7 @@ public class Vehicle {
 	 * @param pos positon
 	 * @param laneIndex lane index
 	 * @param duration duration
-	 * @param stopType stop type
+	 * @param sf stop flags
 	 * @return SumoCommand
 	 */
 	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, int duration, SumoStopFlags sf){
@@ -999,7 +1016,6 @@ public class Vehicle {
 	 * @param stopID
 	 * @param duration
 	 * @param until
-	 * @param flags
 	 * @return SumoCommand
 	 */
 	public static SumoCommand setBusStop(String vehID, String stopID, int duration, int until){
@@ -1016,7 +1032,6 @@ public class Vehicle {
 	 * @param stopID
 	 * @param duration
 	 * @param until
-	 * @param flags
 	 * @return SumoCommand
 	 */
 	public static SumoCommand setContainerStop(String vehID, String stopID, int duration, int until){

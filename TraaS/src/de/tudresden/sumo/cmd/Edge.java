@@ -87,6 +87,21 @@ public class Edge {
 		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	
+	/**
+	 * Returns the electricity consumption in ml for the last time step.
+	 * 
+	 * @param edgeID
+	 *            a string identifying the edge
+	 * 
+	 * @return the edge effort value (in s), -1 is returned if such a value does
+	 *         not exist
+	 */
+
+	public static SumoCommand getElectricityConsumption(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_ELECTRICITYCONSUMPTION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
 	/**
 	 * Returns the fuel consumption (in ml) on the given edge during the last
 	 * time step.

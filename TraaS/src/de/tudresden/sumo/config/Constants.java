@@ -48,6 +48,16 @@ public class Constants {
 	
 	public static final int VAR_LEADER = 0x68;
 
+	public static final int AUTOMATIC_VARIABLES_SUBSCRIPTION = 0x02;
+
+	public static final int VAR_ELECTRICITYCONSUMPTION = 0x71;
+	
+	public static final int AUTOMATIC_CONTEXT_SUBSCRIPTION = 0x03;
+	
+	public static final int GENERIC_ATTRIBUTE = 0x03;
+	
+	public static final int VAR_SLOPE = 0x36;
+	
 	/**sets/retrieves abstract parameter*/
 	public static final int VAR_PARAMETER = 0x7e;
 	
@@ -114,9 +124,6 @@ public class Constants {
 	/**subscribe junction variable*/
 	public static final int CMD_SUBSCRIBE_JUNCTION_VARIABLE = 0xd9;
 
-	/**subscribe object variables (get: all)*/
-	public static final int OBJECT_VARIABLES_SUBSCRIPTION = 0x02;
-
 	/**yellow phase*/
 	public static final int TLPHASE_YELLOW = 0x02;
 
@@ -131,9 +138,6 @@ public class Constants {
 
 	/**remove an instance (poi, polygon)*/
 	public static final int REMOVE = 0x81;
-
-	/**subscribe context variables (get: all)*/
-	public static final int SURROUNDING_VARIABLES_SUBSCRIPTION = 0x03;
 
 	/**subscribe areal detector (e3) context*/
 	public static final int CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x81;

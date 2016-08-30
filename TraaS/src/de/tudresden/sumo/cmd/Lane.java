@@ -102,6 +102,19 @@ public class Lane {
 	public static SumoCommand getEdgeID(String laneID){
 		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.LANE_EDGE_ID, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_STRING);
 	}
+	
+	/**
+	 * Returns the electricity consumption in ml for the last time step.
+	 * 
+	 * @param laneID
+	 *            a string identifying a lane
+	 * 
+	 * @return the energy consumption
+	 */
+
+	public static SumoCommand getElectricityConsumption(String laneID){
+		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_ELECTRICITYCONSUMPTION, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
 
 	/**
 	 * Returns the fuel consumption (in ml) on the given lane during the last
