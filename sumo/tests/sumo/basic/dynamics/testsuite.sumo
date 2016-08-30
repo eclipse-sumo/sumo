@@ -41,10 +41,10 @@ approach_slow_subsecond
 high_flow1
 
 # very high flow on 2 lanes
-high_flow2
+high_flow3
 
 # very high flow on 2 lanes
-high_flow3
+high_flow2
 
 # very high flow on 2-lanes
 high_flow1_extreme

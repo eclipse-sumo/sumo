@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/20/16 15:37:35 by SUMO Version dev-SVN-r20765
+<!-- generated on Tue Aug 30 16:05:01 2016 by SUMO Version dev-SVN-r21357
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -583,10 +583,10 @@
         <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12401.6270" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="63.2400" y="995.0500" lane="L12_1" posOnLane="61.7400" timeStopped="0"/>
     </timestep>
     <timestep time="184.00">
-        <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12393.6364" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="77.1300" y="991.7500" lane="L12_0" posOnLane="75.6300" timeStopped="0"/>
+        <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12393.6364" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="77.1300" y="995.0500" lane="L12_1" posOnLane="75.6300" timeStopped="0"/>
     </timestep>
     <timestep time="185.00">
-        <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12385.6457" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="91.0200" y="991.7500" lane="L12_0" posOnLane="89.5200" timeStopped="0"/>
+        <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12385.6457" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="91.0200" y="995.0500" lane="L12_1" posOnLane="89.5200" timeStopped="0"/>
     </timestep>
     <timestep time="186.00">
         <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12377.6551" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="104.9100" y="991.7500" lane="L12_0" posOnLane="103.4100" timeStopped="0"/>
