@@ -477,7 +477,8 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                            SUMOReal extrapolateBeg,
                            SUMOReal extrapolateEnd) const {
 
-    PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd);
+    bool ok = true;
+    PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) std::cout << "computeSmoothShape node " << getID() << " init=" << init << "\n";
 #endif
@@ -498,7 +499,8 @@ NBNode::bezierControlPoints(
     const PositionVector& endShape,
     bool isTurnaround,
     SUMOReal extrapolateBeg,
-    SUMOReal extrapolateEnd) {
+    SUMOReal extrapolateEnd,
+    bool &ok) {
 
     const Position beg = begShape.back();
     const Position end = endShape.front();
@@ -512,6 +514,7 @@ NBNode::bezierControlPoints(
             << " distEndFirst=" << end.distanceTo2D(endShape[1])
             << "\n";
 #endif
+        // typically, this node a is a simpleContinuation. see also #2539
         return init;
     } else {
         init.push_back(beg);
@@ -549,6 +552,7 @@ NBNode::bezierControlPoints(
                         << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
                             << "\n";
 #endif
+                    ok = false;
                     return PositionVector();
                 } else {
                     const SUMOReal endLength = begShape[-2].distanceTo2D(begShape[-1]);
@@ -575,6 +579,7 @@ NBNode::bezierControlPoints(
                         std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect << "\n";
                     }
 #endif
+                    ok = false;
                     return PositionVector();
                 }
                 const SUMOReal minControlLength = MIN2((SUMOReal)1.0, dist / 2);
@@ -585,6 +590,7 @@ NBNode::bezierControlPoints(
                     if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
                                                  << " dist1=" << intersect.distanceTo2D(beg) << " dist2=" << intersect.distanceTo2D(end) << "\n";
 #endif
+                    ok = false;
                     return PositionVector();
                 } else if (lengthenBeg || lengthenEnd) {
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));

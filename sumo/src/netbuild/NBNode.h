@@ -567,7 +567,8 @@ public:
         const PositionVector& endShape,
         bool isTurnaround,
         SUMOReal extrapolateBeg,
-        SUMOReal extrapolateEnd);
+        SUMOReal extrapolateEnd,
+        bool& ok);
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */

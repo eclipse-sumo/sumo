@@ -67,7 +67,7 @@ protected:
     static SUMOReal writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset = 0);
 
     /// @brief write geometry as sequence of lines and bezier curves
-    static void writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice);
+    static bool writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice);
 
     /// @brief write geometry as a single bezier curve (paramPoly3)
     static SUMOReal writeGeomPP3(OutputDevice& device,

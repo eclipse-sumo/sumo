@@ -124,7 +124,10 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             // foot paths may contain sharp angles
             writeGeomLines(ls, device, elevationOSS);
         } else {
-            writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS);
+            bool ok = writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS);
+            if (!ok) {
+                WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
+            }
         }
         device << std::setprecision(OUTPUT_ACCURACY);
         device << "        </planView>\n";
@@ -183,11 +186,17 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
                 SUMOReal length;
                 PositionVector fallBackShape;
-                PositionVector init = NBNode::bezierControlPoints(begShape, endShape, inEdge->isTurningDirectionAt(outEdge), 25, 25);
+                const bool turnaround = inEdge->isTurningDirectionAt(outEdge);
+                bool ok = true;
+                PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok);
                 if (init.size() == 0) {
                     fallBackShape.push_back(begShape.back());
                     fallBackShape.push_back(endShape.front());
                     length = fallBackShape.length2D();
+                    // problem with turnarounds is known, method currently returns 'ok' (#2539)
+                    if (!ok) {
+                        WRITE_WARNING("Could not compute smooth shape from lane '" + inEdge->getLaneID(c.fromLane) + "' to lane '" + outEdge->getLaneID(c.toLane) + "'.");
+                    }
                 } else {
                     length = bezier(init, 12).length2D();
                 }
@@ -451,13 +460,14 @@ NWWriter_OpenDrive::writeGeomPP3(
 }
 
 
-void
+bool
 NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice) {
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
     }
 #endif
+    bool ok = true;
     const SUMOReal angleThresh = DEG2RAD(5); // changes below thresh are considered to be straight (make configurable)
     const SUMOReal longThresh = speed; //  16.0; // make user-configurable (should match the sampling rate of the source data)
     const SUMOReal curveCutout = longThresh / 2; // 8.0; // make user-configurable (related to the maximum turning rate)
@@ -506,7 +516,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
             std::cout << "   special case: all lines. maxAngleDiff=" << maxAngleDiff << "\n";
         }
 #endif
-        return;
+        return ok;
     }
 
     // write the long segments as lines, short segments as curves
@@ -557,8 +567,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
                 endShape.push_back(shape2[j + 2]);
                 endShape.add(p1 - endShape.front());
             }
-
-            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, 25, 25);
+            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, 25, 25, ok);
             if (init.size() == 0) {
                 // could not compute control points, write line
                 offset = writeGeomLines(line, device, elevationDevice, offset);
@@ -579,6 +588,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
             }
         }
     }
+    return ok;
 }
 
 
