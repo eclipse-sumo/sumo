@@ -120,27 +120,32 @@ public:
      * @brief An (internal) definition of a single lane of an edge
      */
     struct Lane {
-        Lane(NBEdge* e, const std::string& _origID) :
-            speed(e->getSpeed()), permissions(SVCAll), preferred(0),
-            endOffset(e->getEndOffset()), width(e->getLaneWidth()),
-            origID(_origID) {}
+        /// @brief constructor
+        Lane(NBEdge* e, const std::string& _origID);
+
         /// @brief The lane's shape
         PositionVector shape;
+
         /// @brief The speed allowed on this lane
         SUMOReal speed;
+
         /// @brief List of vehicle types that are allowed on this lane
         SVCPermissions permissions;
+
         /// @brief List of vehicle types that are preferred on this lane
         SVCPermissions preferred;
+
         /// @brief This lane's offset to the intersection begin
         SUMOReal endOffset;
+
         /// @brief This lane's width
         SUMOReal width;
+
         /// @brief An original ID, if given
         std::string origID;
+
         /// @brief An opposite lane ID, if given
         std::string oppositeID;
-
     };
 
 
@@ -153,51 +158,75 @@ public:
          * @param[in] toEdge_ The edge the connections yields in
          * @param[in] toLane_ The lane the connections yields in
          */
-        Connection(int fromLane_, NBEdge* toEdge_, int toLane_)
-            : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_),
-              mayDefinitelyPass(false), keepClear(true), haveVia(false) { }
+        Connection(int fromLane_, NBEdge* toEdge_, int toLane_);
+        
+        /// @brief constructor with more parameters
+        Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, bool haveVia_ = false);
 
+        /// @brief destructor
         ~Connection() { }
-
 
         /// @brief The lane the connections starts at
         int fromLane;
+
         /// @brief The edge the connections yields in
         NBEdge* toEdge;
+
         /// @brief The lane the connections yields in
         int toLane;
+
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
+
         /// @brief The index of this connection within the controlling traffic light
         int tlLinkNo;
+
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
+
         /// @brief whether the junction must be kept clear when using this connection
         bool keepClear;
+
         /// @brief custom position for internal junction on this connection
         SUMOReal contPos;
 
-
+        /// @brief origin ID
         std::string origID;
 
+        /// @brief id of Connection
         std::string id;
+
+        /// @brief shape of Connection
         PositionVector shape;
+
+        /// @brief maximun velocity
         SUMOReal vmax;
 
+        /// @brief check if Connection have a Via
         bool haveVia;
+
+        /// @brief if Connection have a via, ID of it
         std::string viaID;
+
+        /// @brief Maximun velocity of via
         SUMOReal viaVmax;
+
+        /// @brief shape of via
         PositionVector viaShape;
 
+        /// @brief FOE Internal links
         std::vector<int> foeInternalLinks;
+
+        /// @brief FOE Incomings lanes
         std::string foeIncomingLanes;
 
         /// @brief The lane index of this internal lane within the internal edge
         int internalLaneIndex;
 
+        /// @brief get ID of internal lnae
         std::string getInternalLaneID() const;
-
     };
+
 
     /// @brief unspecified lane width
     static const SUMOReal UNSPECIFIED_WIDTH;
