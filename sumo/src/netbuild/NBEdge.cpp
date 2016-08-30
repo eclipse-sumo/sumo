@@ -88,7 +88,9 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     toLane(toLane_),
     mayDefinitelyPass(false), 
     keepClear(true), 
-    haveVia(false) 
+    haveVia(false),
+    id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
+    internalLaneIndex(-1)
 {}
 
 
@@ -99,7 +101,9 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     mayDefinitelyPass(mayDefinitelyPass_), 
     keepClear(keepClear_), 
     contPos(contPos_),
-    haveVia(haveVia_)
+    haveVia(haveVia_),
+    id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
+    internalLaneIndex(-1)
 {}
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
