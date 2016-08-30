@@ -626,7 +626,7 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "strategic",   LCA_STRATEGIC },
     { "cooperative", LCA_COOPERATIVE },
     { "speedGain",   LCA_SPEEDGAIN },
-    { "keepRaight",  LCA_KEEPRIGHT },
+    { "keepRight",   LCA_KEEPRIGHT },
     { "sublane",     LCA_SUBLANE },
     { "traci",       LCA_TRACI },
     { "urgent",      LCA_URGENT },
