@@ -84,16 +84,15 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
-#define DEBUG_PATCH_SPEED
-#define DEBUG_INFORMED
-#define DEBUG_INFORMER
+//#define DEBUG_PATCH_SPEED
+//#define DEBUG_INFORMED
+//#define DEBUG_INFORMER
 //#define DEBUG_CONSTRUCTOR
-#define DEBUG_WANTS_CHANGE
-#define DEBUG_SLOW_DOWN
-#define DEBUG_SAVE_BLOCKER_LENGTH
+//#define DEBUG_WANTS_CHANGE
+//#define DEBUG_SLOW_DOWN
+//#define DEBUG_SAVE_BLOCKER_LENGTH
 
-//#define DEBUG_COND (myVehicle.getID() == "disabled")
-#define DEBUG_COND (myVehicle.getID() == "Pepoli_2_1390" || myVehicle.getID() == "Vittorio_Veneto_2_784")
+#define DEBUG_COND (myVehicle.getID() == "disabled")
 
 // ===========================================================================
 // member method definitions
