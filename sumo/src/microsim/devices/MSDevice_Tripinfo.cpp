@@ -111,7 +111,7 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
     // @todo It might be usefull to recognize a departing vehicle and not
     // count the time spent accelerating towards time loss since it is unavoidable
     // (current interfaces do not give access to maximum acceleration)
-    const SUMOReal vmax = MIN2(veh.getMaxSpeed(), veh.getEdge()->getVehicleMaxSpeed(&veh));
+    const SUMOReal vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
     if (vmax > 0) {
         myTimeLoss += TIME2STEPS(TS * (vmax - newSpeed) / vmax);
     }
