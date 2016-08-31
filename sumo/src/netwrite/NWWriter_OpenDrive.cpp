@@ -195,7 +195,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     length = fallBackShape.length2D();
                     // problem with turnarounds is known, method currently returns 'ok' (#2539)
                     if (!ok) {
-                        WRITE_WARNING("Could not compute smooth shape from lane '" + inEdge->getLaneID(c.fromLane) + "' to lane '" + outEdge->getLaneID(c.toLane) + "'.");
+                        WRITE_WARNING("Could not compute smooth shape from lane '" + inEdge->getLaneID(c.fromLane) + "' to lane '" + outEdge->getLaneID(c.toLane) + "'. Use option 'junctions.scurve-stretch' to fix this.");
                     }
                 } else {
                     length = bezier(init, 12).length2D();

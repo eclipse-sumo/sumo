@@ -1,6 +1,6 @@
-Warning: Could not compute smooth shape from lane '25944605_0' to lane '25944590#2_0'.
-Warning: Could not compute smooth shape from lane '25944590#3_0' to lane '-6137233#1_0'.
-Warning: Could not compute smooth shape from lane '-25944605_0' to lane '6137239#2_0'.
+Warning: Could not compute smooth shape from lane '25944605_0' to lane '25944590#2_0'. Use option 'junctions.scurve-stretch' to fix this.
+Warning: Could not compute smooth shape from lane '25944590#3_0' to lane '-6137233#1_0'. Use option 'junctions.scurve-stretch' to fix this.
+Warning: Could not compute smooth shape from lane '-25944605_0' to lane '6137239#2_0'. Use option 'junctions.scurve-stretch' to fix this.
 Warning: Given openDrive file 'opendrive' uses version 1.4;
  Version 1.2 is supported.
 Warning: Found sharp turn with radius 2.83 at the end of edge '-134.0.00'.

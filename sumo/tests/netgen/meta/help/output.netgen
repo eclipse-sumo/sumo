@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r20635
+SUMO netgenerate Version dev-SVN-r21370
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -180,6 +180,9 @@ Processing Options:
   --junctions.internal-link-detail INT  Generate INT intermediate points to
                                          smooth out lanes within the
                                          intersection
+  --junctions.scurve-stretch FLOAT     Generate longer intersections to allow
+                                         for smooth s-curves when the number of
+                                         lanes changes
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
                                          there are foes on other lanes (at
                                          roundabouts)

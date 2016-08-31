@@ -2650,5 +2650,34 @@ NBNode::rightOnRedConflict(int index, int foeIndex) const {
     }
     return false;
 }
+
+
+SUMOReal 
+NBNode::getMaximumSCurveWidth() const {
+    // This method is only called if the road has continuation shape but is not
+    // a simple continuation
+    //
+    // The desired information could easily be obtained during computeInternalLaneShape (in bezierControlPoints). 
+    // However, we need this during shape computation which comes even before connection building
+    // As a dirty work-around we simply see whether the number of lanes
+    // increases when going straight and the permissions remain the same
+    //
+    // @todo: use knowledge about loaded connections
+    // @todo: use actual lane widths
+    int maxNewLanes = 0;
+    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
+        const NBEdge* in = *i;
+        for (EdgeVector::const_iterator j = myOutgoingEdges.begin(); j != myOutgoingEdges.end(); j++) {
+            const NBEdge* out = *j;
+            if ((in->getNumLanes() < out->getNumLanes() || myType == NODETYPE_ZIPPER)
+                    && !in->isTurningDirectionAt(out)
+                    && in->getPermissions() == out->getPermissions()) {
+                maxNewLanes = MAX2(maxNewLanes, abs(out->getNumLanes() - in->getNumLanes()));
+            }
+        }
+    }
+    return maxNewLanes * SUMO_const_laneWidth;
+}
+
 /****************************************************************************/
 
