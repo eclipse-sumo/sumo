@@ -406,15 +406,13 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
-        const std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vtype->id.c_str(), ok);
+        std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vtype->id.c_str(), ok);
+        if (lcmS == "JE2013") {
+            WRITE_WARNING("Lane change model 'JE2013' is deprecated. Using default model instead.");
+            lcmS = "default";
+        }
         if (SUMOXMLDefinitions::LaneChangeModels.hasString(lcmS)) {
-            if(lcmS == "JE2013") {
-                WRITE_WARNING("Lane change model 'JE2013' is deprecated. Using default model instead.");
-                vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get("default");
-            } else {
-                vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get(lcmS);
-            }
-            vtype->setParameter |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
+            vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get("default");
         } else {
             WRITE_ERROR("Unknown lane change model '" + lcmS + "' when parsing vtype '" + vtype->id + "'");
             throw ProcessError();
