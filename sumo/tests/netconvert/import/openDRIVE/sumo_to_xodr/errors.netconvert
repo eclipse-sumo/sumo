@@ -1,1 +1,4 @@
+Warning: Target lane 'gneE0_1' has multiple connections from 's4'.
+Warning: Could not compute smooth shape from lane 's4_0' to lane 'gneE0_0'.
+Warning: Could not compute smooth shape from lane 's4_1' to lane 'gneE0_1'.
 Warning: Could not compute smooth shape from lane 's3_0' to lane 's3-AddedOffRampEdge_0'.

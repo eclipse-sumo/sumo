@@ -45,3 +45,6 @@ elevation_roundtrip
 
 # convert sumo network to xodr
 sumo_to_xodr
+
+# as above but smoothed
+sumo_to_xodr_scurve_stretch
