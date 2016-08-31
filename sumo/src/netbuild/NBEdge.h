@@ -243,6 +243,8 @@ public:
     static const SUMOReal UNSPECIFIED_SIGNAL_OFFSET;
     /// @brief the distance at which to take the default angle
     static const SUMOReal ANGLE_LOOKAHEAD;
+    /// @brief internal lane computation not yet done
+    static const int UNSPECIFIED_INTERNAL_LANE_INDEX;
 
     /// @brief junction priority values set by setJunctionPriority
     enum JunctionPriority { 

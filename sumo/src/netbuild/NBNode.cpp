@@ -628,7 +628,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' targets a non-existant lane.");
     }
     PositionVector ret;
-    if (myCustomLaneShapes.size() > 0 && con.id != "") {
+    if (myCustomLaneShapes.size() > 0 && con.internalLaneIndex != NBEdge::UNSPECIFIED_INTERNAL_LANE_INDEX) {
         // this is the second pass (ids and shapes are already set
         assert(con.shape.size() > 0);
         CustomShapeMap::const_iterator it = myCustomLaneShapes.find(con.getInternalLaneID());

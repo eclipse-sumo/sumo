@@ -72,6 +72,7 @@ const SUMOReal NBEdge::UNSPECIFIED_CONTPOS = -1;
 const SUMOReal NBEdge::UNSPECIFIED_SIGNAL_OFFSET = -1;
 const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
 const SUMOReal NBEdge::ANGLE_LOOKAHEAD = 10.0;
+const int NBEdge::UNSPECIFIED_INTERNAL_LANE_INDEX = -1;
 
 // ===========================================================================
 // method definitions
@@ -90,7 +91,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     keepClear(true), 
     haveVia(false),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
-    internalLaneIndex(-1)
+    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX)
 {}
 
 
@@ -103,7 +104,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     contPos(contPos_),
     haveVia(haveVia_),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
-    internalLaneIndex(-1)
+    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX)
 {}
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
