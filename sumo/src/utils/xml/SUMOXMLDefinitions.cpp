@@ -592,7 +592,6 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
 StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
     { "DK2008",     LCM_DK2008 },
     { "LC2013",     LCM_LC2013 },
-    { "JE2013",     LCM_JE2013 },
     { "SL2015",     LCM_SL2015 },
     { "default",    LCM_DEFAULT } //< must be the last one
 };

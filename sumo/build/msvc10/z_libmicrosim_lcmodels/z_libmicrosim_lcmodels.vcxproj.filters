@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_DK2008.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_JE2013.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_LC2013.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -32,9 +29,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_DK2008.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_JE2013.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_LC2013.h">

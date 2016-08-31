@@ -408,7 +408,12 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
         const std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vtype->id.c_str(), ok);
         if (SUMOXMLDefinitions::LaneChangeModels.hasString(lcmS)) {
-            vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get(lcmS);
+            if(lcmS == "JE2013") {
+                WRITE_WARNING("Lane change model 'JE2013' is deprecated. Using default model instead.");
+                vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get("default");
+            } else {
+                vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get(lcmS);
+            }
             vtype->setParameter |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
         } else {
             WRITE_ERROR("Unknown lane change model '" + lcmS + "' when parsing vtype '" + vtype->id + "'");
@@ -601,7 +606,6 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_SPEEDGAIN_PARAM);
         lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_PARAM);
         allowedLCModelAttrs[LCM_LC2013] = lc2013Params;
-        allowedLCModelAttrs[LCM_JE2013] = lc2013Params;
 
         std::set<SumoXMLAttr> sl2015Params = lc2013Params;
         sl2015Params.insert(SUMO_ATTR_LCA_PUSHY);

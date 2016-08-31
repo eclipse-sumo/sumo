@@ -29,14 +29,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp" />
     <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_DK2008.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_JE2013.cpp" />
     <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_LC2013.cpp" />
     <ClCompile Include="..\..\..\src\microsim\lcmodels\MSLCM_SL2015.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSAbstractLaneChangeModel.h" />
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_DK2008.h" />
-    <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_JE2013.h" />
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_LC2013.h" />
     <ClInclude Include="..\..\..\src\microsim\lcmodels\MSLCM_SL2015.h" />
   </ItemGroup>

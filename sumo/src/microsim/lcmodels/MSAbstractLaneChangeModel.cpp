@@ -39,7 +39,6 @@
 #include <microsim/MSGlobals.h>
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
-#include "MSLCM_JE2013.h"
 #include "MSLCM_SL2015.h"
 
 /* -------------------------------------------------------------------------
@@ -69,8 +68,6 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
             return new MSLCM_DK2008(v);
         case LCM_LC2013:
             return new MSLCM_LC2013(v);
-        case LCM_JE2013:
-            return new MSLCM_JE2013(v);
         case LCM_SL2015:
             return new MSLCM_SL2015(v);
         case LCM_DEFAULT:
