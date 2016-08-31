@@ -790,6 +790,7 @@ public:
         void slowDown(const std::string& vehicleID, SUMOReal speed, int duration) const;
         void setSpeed(const std::string& vehicleID, SUMOReal speed) const;
         void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
+        void setColor(const std::string& vehicleID, const TraCIColor& c) const;
 
     private:
         /// @brief invalidated copy constructor

@@ -689,6 +689,14 @@ TraCITestClient::testAPI() {
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     answerLog << "    getSpeedMode: " << vehicle.getSpeedMode("0") << "\n";
     answerLog << "    getSlope: " << vehicle.getSlope("0") << "\n";
+    TraCIColor col1;
+    col1.r = 255;
+    col1.g = 255;
+    col1.b = 0;
+    col1.a = 128;
+    vehicle.setColor("0", col1);
+    TraCIColor col2 = vehicle.getColor("0");
+    answerLog << "    getColor: " << col2.r << "r=" << col2.r << " g=" << col2.g << " b=" << col2.b << " a=" << col2.a << "\n";
     answerLog << "    getNextTLS:\n";
     std::vector<VehicleScope::NextTLSData> result = vehicle.getNextTLS("0");
     for (int i = 0; i < (int)result.size(); ++i) {

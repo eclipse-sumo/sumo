@@ -384,7 +384,7 @@ TraCIAPI::getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* ad
     tcpip::Storage inMsg;
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, TYPE_POLYGON);
-    int size = inMsg.readInt();
+    int size = inMsg.readByte();
     TraCIPositionVector ret;
     for (int i = 0; i < size; ++i) {
         TraCIPosition p;
@@ -2091,6 +2091,20 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, SUMOReal speed) c
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
+
+void
+TraCIAPI::VehicleScope::setColor(const std::string& vehicleID, const TraCIColor& c) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COLOR);
+    content.writeUnsignedByte(c.r);
+    content.writeUnsignedByte(c.g);
+    content.writeUnsignedByte(c.b);
+    content.writeUnsignedByte(c.a);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_COLOR, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
 
 // ---------------------------------------------------------------------------
 // // TraCIAPI::PersonScope-methods
