@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  8 09:51:32 2016 by SUMO Version dev-SVN-r20907
+<!-- generated on Wed Aug 31 14:18:09 2016 by SUMO Version dev-SVN-r21377
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -45,11 +45,11 @@
         <vehicle id="B" x="41.36" y="-2.05" angle="90.00" type="t1" speed="13.89" pos="41.67" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="A" x="43.56" y="-5.15" angle="90.00" type="t0" speed="8.06" pos="43.89" lane="beg_0" slope="0.00"/>
+        <vehicle id="A" x="43.56" y="-5.15" angle="82.92" type="t0" speed="8.06" pos="43.89" lane="beg_0" slope="0.00"/>
         <vehicle id="B" x="55.14" y="-2.05" angle="90.00" type="t1" speed="13.89" pos="55.56" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="A" x="54.14" y="-4.15" angle="90.00" type="t0" speed="10.66" pos="54.55" lane="beg_0" slope="0.00"/>
+        <vehicle id="A" x="54.14" y="-4.15" angle="84.64" type="t0" speed="10.66" pos="54.55" lane="beg_0" slope="0.00"/>
         <vehicle id="B" x="68.93" y="-2.05" angle="90.00" type="t1" speed="13.89" pos="69.45" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
@@ -57,11 +57,11 @@
         <vehicle id="B" x="82.71" y="-2.05" angle="90.00" type="t1" speed="13.89" pos="83.34" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="A" x="78.35" y="-2.15" angle="90.00" type="t0" speed="12.53" pos="78.94" lane="beg_1" slope="0.00"/>
+        <vehicle id="A" x="78.35" y="-2.15" angle="85.44" type="t0" speed="12.53" pos="78.94" lane="beg_1" slope="0.00"/>
         <vehicle id="B" x="96.50" y="-2.05" angle="90.00" type="t1" speed="13.89" pos="97.23" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="A" x="91.24" y="-2.05" angle="90.00" type="t0" speed="12.99" pos="91.93" lane="beg_1" slope="0.00"/>
+        <vehicle id="A" x="91.24" y="-2.05" angle="89.56" type="t0" speed="12.99" pos="91.93" lane="beg_1" slope="0.00"/>
         <vehicle id="B" x="110.29" y="-2.05" angle="90.00" type="t1" speed="13.89" pos="111.12" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
