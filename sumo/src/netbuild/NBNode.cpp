@@ -78,7 +78,7 @@
 // minimum length for a weaving section at a combined on-off ramp
 #define MIN_WEAVE_LENGTH 20.0
 
-// #define DEBUG_SMOOTH_GEOM
+//#define DEBUG_SMOOTH_GEOM
 #define DEBUGCOND true
 
 // ===========================================================================
@@ -237,8 +237,9 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
-    myCrossingsLoadedFromSumoNet(0) {
-}
+    myCrossingsLoadedFromSumoNet(0),
+    myDisplacementError(0)
+{ }
 
 
 NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
@@ -251,8 +252,9 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
-    myCrossingsLoadedFromSumoNet(0) {
-}
+    myCrossingsLoadedFromSumoNet(0), 
+    myDisplacementError(0)
+{ }
 
 
 NBNode::~NBNode() {
@@ -475,10 +477,11 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                            int numPoints,
                            bool isTurnaround,
                            SUMOReal extrapolateBeg,
-                           SUMOReal extrapolateEnd) const {
+                           SUMOReal extrapolateEnd,
+                           NBNode* recordError) const {
 
     bool ok = true;
-    PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok);
+    PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok, recordError);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) std::cout << "computeSmoothShape node " << getID() << " init=" << init << "\n";
 #endif
@@ -500,7 +503,8 @@ NBNode::bezierControlPoints(
     bool isTurnaround,
     SUMOReal extrapolateBeg,
     SUMOReal extrapolateEnd,
-    bool &ok) {
+    bool& ok,
+    NBNode* recordError) {
 
     const Position beg = begShape.back();
     const Position end = endShape.front();
@@ -547,12 +551,16 @@ NBNode::bezierControlPoints(
                     // do not allow s-curves with extreme bends 
                     // (a linear dependency is to restrictive at low displacementAngles and too permisive at high angles)
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) std::cout << "   bezierControlPoints found extreme s-curve (consider changing junction shape), falling back to straight line beg=" << beg << " end=" << end
+                    if (DEBUGCOND) std::cout << "   bezierControlPoints found extreme s-curve, falling back to straight line beg=" << beg << " end=" << end
                         << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) 
                         << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
-                            << "\n";
+                        << " displacementError=" << sin(displacementAngle) * dist
+                        << " begShape=" << begShape << " endShape=" << endShape << "\n";
 #endif
                     ok = false;
+                    if (recordError != 0) {
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, fabs(sin(displacementAngle) * dist));
+                    }
                     return PositionVector();
                 } else {
                     const SUMOReal endLength = begShape[-2].distanceTo2D(begShape[-1]);
@@ -580,6 +588,10 @@ NBNode::bezierControlPoints(
                     }
 #endif
                     ok = false;
+                    if (recordError != 0) {
+                        // it's unclear if this error can be solved via stretching the intersection.
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, 1.0);
+                    }
                     return PositionVector();
                 }
                 const SUMOReal minControlLength = MIN2((SUMOReal)1.0, dist / 2);
@@ -590,6 +602,10 @@ NBNode::bezierControlPoints(
                     if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
                                                  << " dist1=" << intersect.distanceTo2D(beg) << " dist2=" << intersect.distanceTo2D(end) << "\n";
 #endif
+                    if (recordError != 0) {
+                        // This should be fixable with minor stretching
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, 1.0);
+                    }
                     ok = false;
                     return PositionVector();
                 } else if (lengthenBeg || lengthenEnd) {
@@ -620,7 +636,7 @@ NBNode::bezierControlPoints(
 
 
 PositionVector
-NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints) const {
+NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError) const {
     if (con.fromLane >= fromE->getNumLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' starts at a non-existant lane.");
     }
@@ -649,7 +665,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
                              numPoints, fromE->getTurnDestination() == con.toEdge,
                              (SUMOReal) 5. * (SUMOReal) fromE->getNumLanes(),
-                             (SUMOReal) 5. * (SUMOReal) con.toEdge->getNumLanes());
+                             (SUMOReal) 5. * (SUMOReal) con.toEdge->getNumLanes(), recordError);
     const NBEdge::Lane& lane = fromE->getLaneStruct(con.fromLane);
     if (lane.endOffset > 0) {
         PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;
@@ -1999,6 +2015,8 @@ NBNode::buildCrossingsAndWalkingAreas() {
 
 void
 NBNode::buildInnerEdges() {
+    // myDisplacementError is computed during this operation. reset first
+    myDisplacementError = 0;
     // build inner edges for vehicle movements across the junction
     int noInternalNoSplits = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
@@ -2651,33 +2669,6 @@ NBNode::rightOnRedConflict(int index, int foeIndex) const {
     return false;
 }
 
-
-SUMOReal 
-NBNode::getMaximumSCurveWidth() const {
-    // This method is only called if the road has continuation shape but is not
-    // a simple continuation
-    //
-    // The desired information could easily be obtained during computeInternalLaneShape (in bezierControlPoints). 
-    // However, we need this during shape computation which comes even before connection building
-    // As a dirty work-around we simply see whether the number of lanes
-    // increases when going straight and the permissions remain the same
-    //
-    // @todo: use knowledge about loaded connections
-    // @todo: use actual lane widths
-    int maxNewLanes = 0;
-    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        const NBEdge* in = *i;
-        for (EdgeVector::const_iterator j = myOutgoingEdges.begin(); j != myOutgoingEdges.end(); j++) {
-            const NBEdge* out = *j;
-            if ((in->getNumLanes() < out->getNumLanes() || myType == NODETYPE_ZIPPER)
-                    && !in->isTurningDirectionAt(out)
-                    && in->getPermissions() == out->getPermissions()) {
-                maxNewLanes = MAX2(maxNewLanes, abs(out->getNumLanes() - in->getNumLanes()));
-            }
-        }
-    }
-    return maxNewLanes * SUMO_const_laneWidth;
-}
 
 /****************************************************************************/
 

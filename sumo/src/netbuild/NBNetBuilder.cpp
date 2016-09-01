@@ -450,6 +450,19 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
         PROGRESS_TIME_MESSAGE(before);
     }
+    // PATCH NODE SHAPES 
+    if (OptionsCont::getOptions().getFloat("junctions.scurve-stretch") > 0) {
+        // @note: notes have collected correction hints in buildInnerEdges()
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("stretching junctions to smooth geometries");
+        myEdgeCont.computeLaneShapes();
+        myNodeCont.computeNodeShapes();
+        myEdgeCont.computeEdgeShapes();
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+            (*i).second->buildInnerEdges();
+        }
+        PROGRESS_TIME_MESSAGE(before);
+    }
     if (lefthand) {
         mirrorX();
     };

@@ -449,6 +449,13 @@ NBFrame::checkOptions() {
         WRITE_ERROR("junctions.internal-link-detail must >= 2");
         ok = false;
     }
+    if (oc.getFloat("junctions.scurve-stretch") > 0) {
+        if (oc.getBool("no-internal-links")) {
+            WRITE_WARNING("option 'junctions.scurve-stretch' requires internal lanes to work. Option '--no-internal-links' was disabled.");
+        }
+        // make sure the option is set so heuristics cannot ignore it
+        oc.set("no-internal-links", "false");
+    }
     return ok;
 }
 

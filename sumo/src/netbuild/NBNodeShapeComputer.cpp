@@ -47,6 +47,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define DEBUG_NODE_SHAPE
+#define DEBUGCOND (myNode.getID() == "disabled")
 
 // ===========================================================================
 // method definitions
@@ -143,6 +145,11 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const bool defaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;  
     const SUMOReal radius = (defaultRadius ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myNode.getRadius());
     const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
+    const SUMOReal sCurveStretch = OptionsCont::getOptions().getFloat("junctions.scurve-stretch");
+
+#ifdef DEBUG_NODE_SHAPE
+    if (DEBUGCOND) std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << radius << "\n";
+#endif
 
     // initialise
     EdgeVector::const_iterator i;
@@ -232,22 +239,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 myExtended[*i] = true;
             } else {
                 if (!simpleContinuation) {
-                    // since there are only two (almost parallel) directions, the
-                    // concept of a turning radius does not quite fit. Instead we need
-                    // to enlarge the intersection to accomodate the change in
-                    // the number of lanes (s-curve)
-                    SUMOReal sCurveRadius = radius;
-                    const SUMOReal sCurveStretch = OptionsCont::getOptions().getFloat("junctions.scurve-stretch");
-                    if (defaultRadius) {
-                        const SUMOReal sCurveWidth = myNode.getMaximumSCurveWidth();
-                        if (sCurveWidth > 0) {
-                            // heuristic that yields reasonable values for
-                            // stretch values in [0.8,1.3]. The special case of
-                            // 0 results in the old non-stretched behavior
-                            sCurveRadius = radius + sCurveWidth / SUMO_const_laneWidth * sCurveStretch * pow((*i)->getSpeed(), 2 + sCurveStretch) / 1000;
-                        }
-                    }
-                    dist += sCurveRadius;
+                    dist += radius;
                 }
                 distances[*i] = dist;
             }
@@ -264,9 +256,15 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             const PositionVector& neighGeom = ccwCloser ? geomsCW[*ccwi] : geomsCCW[*cwi];
             // the border of the far neighbor
             const PositionVector& neighGeom2 = ccwCloser ? geomsCCW[*cwi] : geomsCW[*ccwi];
+#ifdef DEBUG_NODE_SHAPE
+            if (DEBUGCOND) std::cout << " i=" << (*i)->getID() << " neigh=" << (*ccwi)->getID() << " neigh2=" << (*cwi)->getID() << "\n";
+#endif
             if (!simpleContinuation) {
                 if (currGeom.intersects(neighGeom)) {
                     distances[*i] = radius + closestIntersection(currGeom, neighGeom, 100);
+#ifdef DEBUG_NODE_SHAPE
+                    if (DEBUGCOND) std::cout << "   neigh intersects dist=" << distances[*i] << " currGeom=" << currGeom << " neighGeom=" << neighGeom << "\n";
+#endif
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
                         const SUMOReal farAngleDist = ccwCloser ? cad : ccad;
                         SUMOReal a1 = distances[*i];
@@ -279,12 +277,21 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         } else if (fabs(a2 - a1) < 10 || farAngleDist < DEG2RAD(135)) {
                             distances[*i] = MAX2(a1, a2);
                         }
+#ifdef DEBUG_NODE_SHAPE
+                        if (DEBUGCOND) std::cout << "   a1=" << a1 << " a2=" << a2 << " dist=" << distances[*i] << "\n";
+#endif
                     }
                 } else {
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
                         distances[*i] = radius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
+#ifdef DEBUG_NODE_SHAPE
+                        if (DEBUGCOND) std::cout << "   neigh2 intersects dist=" << distances[*i] << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+#endif
                     } else {
                         distances[*i] = 100 + radius;
+#ifdef DEBUG_NODE_SHAPE
+                        if (DEBUGCOND) std::cout << "   no intersects dist=" << distances[*i]  << " currGeom=" << currGeom << " neighGeom=" << neighGeom << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+#endif
                     }
                 }
             } else {
@@ -293,6 +300,18 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 } else {
                     distances[*i] = (SUMOReal) 100.;
                 }
+            }
+        }
+        if (defaultRadius && sCurveStretch > 0) {
+            SUMOReal sCurveWidth = myNode.getDisplacementError();
+            if (sCurveWidth > 0) {
+                const SUMOReal sCurveRadius = radius + sCurveWidth / SUMO_const_laneWidth * sCurveStretch * pow((*i)->getSpeed(), 2 + sCurveStretch) / 1000;
+                distances[*i] = MAX2(distances[*i], 100 + sCurveRadius);
+                // @dirty: update radius so it is exported to the network
+                const_cast<NBNode&>(myNode).setRadius(sCurveRadius);
+#ifdef DEBUG_NODE_SHAPE
+                if (DEBUGCOND) std::cout << "   stretching junction: sCurveWidth=" << sCurveWidth << " sCurveRadius=" << sCurveRadius << " dist=" << distances[*i]  << "\n";
+#endif
             }
         }
     }
