@@ -62,7 +62,7 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const MSMeanData_Net* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
       nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
-      nVehVaporized(0), waitSeconds(0),
+      nVehVaporized(0), waitSeconds(0), frontSampleSeconds(0), frontTravelledDistance(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0),
       vehLengthSum(0), myParent(parent) {}
 
@@ -83,6 +83,8 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     sampleSeconds = 0.;
     travelledDistance = 0;
     waitSeconds = 0;
+    frontSampleSeconds = 0;
+    frontTravelledDistance = 0;
     vehLengthSum = 0;
 }
 
@@ -100,18 +102,22 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     v.sampleSeconds += sampleSeconds;
     v.travelledDistance += travelledDistance;
     v.waitSeconds += waitSeconds;
+    v.frontSampleSeconds += frontSampleSeconds;
+    v.frontTravelledDistance += frontTravelledDistance;
     v.vehLengthSum += vehLengthSum;
 }
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane, SUMOReal timeOnLane, SUMOReal speed) {
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
     if (myParent != 0 && speed < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
     }
+    frontSampleSeconds += frontOnLane;
+    frontTravelledDistance += speed * frontOnLane;
 }
 
 
@@ -181,14 +187,23 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         return;
     }
     if (sampleSeconds > myParent->myMinSamples) {
-        SUMOReal traveltime = myParent->myMaxTravelTime;
+        SUMOReal overlapTraveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
-            traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
+            // one vehicle has to drive lane length + vehicle length before it has left the lane
+            // thus we need to scale with an extended length, approximated by lane length + average vehicle length
+            overlapTraveltime = MIN2(overlapTraveltime, (myLaneLength + vehLengthSum / sampleSeconds) * sampleSeconds / travelledDistance);
         }
         if (numVehicles > 0) {
             dev.writeAttr("traveltime", sampleSeconds / numVehicles).writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         } else {
-            dev.writeAttr("traveltime", traveltime)
+            SUMOReal traveltime = myParent->myMaxTravelTime;
+            if (frontTravelledDistance > 0.f) {
+                traveltime = MIN2(traveltime, myLaneLength * frontSampleSeconds / frontTravelledDistance);
+                dev.writeAttr("traveltime", traveltime);
+            } else if (defaultTravelTime >= 0.) {
+                dev.writeAttr("traveltime", defaultTravelTime);
+            }
+            dev.writeAttr("overlapTraveltime", overlapTraveltime)
             .writeAttr("density", sampleSeconds / STEPS2TIME(period) * (SUMOReal) 1000 / myLaneLength)
             .writeAttr("occupancy", vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes * (SUMOReal) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);

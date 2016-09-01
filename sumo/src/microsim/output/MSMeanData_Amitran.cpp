@@ -90,7 +90,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val)
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
+MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal /* frontOnLane */, SUMOReal timeOnLane, SUMOReal speed) {
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
     typedSamples[&veh.getVehicleType()] += timeOnLane;

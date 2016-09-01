@@ -145,11 +145,11 @@ public:
          * from it's reminder-container.
          *
          * @param[in] veh Vehicle that asks this reminder.
-         * @param[in] timeOnLane time the vehicle spent on the lane.
+         * @param[in] frontOnLane time the front of the vehicle spent on the lane.
+         * @param[in] timeOnLane time some part of the vehicle spent on the lane.
          * @param[in] speed Moving speed.
          */
-        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
-                                SUMOReal speed);
+        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane, SUMOReal timeOnLane, SUMOReal speed);
 
     public:
         /// @name Collected values
@@ -179,6 +179,11 @@ public:
         /// @brief The number of vehicles that changed to this lane
         int nVehLaneChangeTo;
 
+        /// @brief The number of vehicle probes regarding the vehicle front
+        SUMOReal frontSampleSeconds;
+
+        /// @brief The travelled distance regarding the vehicle front
+        SUMOReal frontTravelledDistance;
 
         /// @brief The sum of the lengths the vehicles had
         SUMOReal vehLengthSum;

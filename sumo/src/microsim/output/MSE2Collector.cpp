@@ -13,7 +13,7 @@
 // An areal (along a single lane) detector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -38,6 +38,7 @@
 #include <algorithm>
 #include "MSE2Collector.h"
 #include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
 
@@ -81,47 +82,49 @@ MSE2Collector::~MSE2Collector() {
 
 bool
 MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                          SUMOReal newPos, SUMOReal) {
+                          SUMOReal newPos, SUMOReal newSpeed) {
     if (newPos <= myStartPos) {
         // detector not yet reached
         return true;
     }
-    if (newPos > myStartPos && oldPos <= myStartPos) {
-        if (find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh) == myKnownVehicles.end()) {
-            std::string type = veh.getVehicleType().getID(); // get vehicle's type
-            if (type.find("COLOMBO_undetectable") == std::string::npos) {
-                myKnownVehicles.push_back(&veh);
-                //Detection entering the sensor
-                myPassedVeh++;
-                DBG(
-                    std::ostringstream str;
-                    str << time2string(MSNet::getInstance()->getCurrentTimeStep())
-                    << " MSE2Collector::notifyMove::"
-                    << " lane " << myLane->getID()
-                    << " passedVeh " << myPassedVeh ;
-                    WRITE_MESSAGE(str.str());
-                )
-            }
-        }
+    SUMOReal lengthOnDet = MIN2(veh.getVehicleType().getLength(), newPos - myStartPos);
+    if (newPos > myEndPos) {
+        lengthOnDet = MAX2(SUMOReal(0), lengthOnDet - (newPos - myEndPos));
     }
-    if (newPos - veh.getVehicleType().getLength() > myEndPos) {
-        std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
-        if (i != myKnownVehicles.end()) {
-            myKnownVehicles.erase(i);
+    SUMOReal timeOnDet = TS;
+    if (newPos > myStartPos && oldPos <= myStartPos) {
+        timeOnDet = (newPos - myStartPos) / newSpeed;
+        myPassedVeh++;
+    }
+    if (newPos - veh.getVehicleType().getLength() >= myEndPos) {
+        timeOnDet -= (newPos - veh.getVehicleType().getLength() - myEndPos) / newSpeed;
+        if (fabs(timeOnDet) < NUMERICAL_EPS) { // reduce rounding errors
+            timeOnDet = 0.;
+        } else {
+            myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), newSpeed,
+                timeOnDet, lengthOnDet, newPos,
+                veh.getVehicleType().getLengthWithGap(), veh.getAcceleration()));
         }
         return false;
     }
+    myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), newSpeed,
+                                          timeOnDet, lengthOnDet, newPos,
+                                          veh.getVehicleType().getLengthWithGap(), veh.getAcceleration()));
+    DBG(
+        std::ostringstream str;
+        str << time2string(MSNet::getInstance()->getCurrentTimeStep())
+        << " MSE2Collector::notifyMove::"
+        << " lane " << myLane->getID()
+        << " passedVeh " << myPassedVeh;
+        WRITE_MESSAGE(str.str());
+    )
     return true;
 }
 
 
 bool
 MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) {
-    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos > myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
-        std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
-        if (i != myKnownVehicles.end()) {
-            myKnownVehicles.erase(i);
-        }
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         return false;
     }
     return true;
@@ -143,9 +146,9 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason
         // vehicle is on the detector, being already beyond was checked before
         std::string type = veh.getVehicleType().getID(); // get vehicle's type
         if (type.find("COLOMBO_undetectable") == std::string::npos) {
-            myKnownVehicles.push_back(&veh);
+            //myKnownVehicles.push_back(&veh);
             //Detection entering the sensor
-            myPassedVeh++;
+            //myPassedVeh++;
             DBG(
                 std::ostringstream str;
                 str << time2string(MSNet::getInstance()->getCurrentTimeStep())
@@ -157,12 +160,8 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason
             return true;
         }
     }
-    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myEndPos) {
-        // vehicle is beyond detector
-        return false;
-    }
-    // vehicle is in front of the detector
-    return true;
+    // is vehicle beyond detector?
+    return veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myEndPos;
 }
 
 
@@ -182,7 +181,7 @@ MSE2Collector::reset() {
     myTimeSamples = 0;
     myMeanVehicleNumber = 0;
     myMaxVehicleNumber = 0;
-    for (std::map<const SUMOVehicle*, SUMOTime>::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<const std::string, SUMOTime>::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
         (*i).second = 0;
     }
     myPastStandingDurations.clear();
@@ -195,8 +194,8 @@ MSE2Collector::reset() {
 void
 MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     JamInfo* currentJam = 0;
-    std::map<const SUMOVehicle*, SUMOTime> haltingVehicles;
-    std::map<const SUMOVehicle*, SUMOTime> intervalHaltingVehicles;
+    std::map<const std::string, SUMOTime> haltingVehicles;
+    std::map<const std::string, SUMOTime> intervalHaltingVehicles;
     std::vector<JamInfo*> jams;
 
     SUMOReal lengthSum = 0;
@@ -207,62 +206,44 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
 
     // go through the (sorted) list of vehicles positioned on the detector
     //  sum up values and prepare the list of jams
-    myKnownVehicles.sort(by_vehicle_position_sorter(getLane()));
-    for (std::list<SUMOVehicle*>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
-        const MSVehicle* const veh = static_cast<MSVehicle*>(*i);
-
-        SUMOReal length = veh->getVehicleType().getLength();
-        if (veh->getLane() == getLane()) {
-            if (veh->getBackPositionOnLane(myLane) < myStartPos) {
-                // vehicle entered detector partially
-                length -= (veh->getVehicleType().getLength() - (veh->getPositionOnLane() - myStartPos));
-            }
-            if (veh->getPositionOnLane() > myEndPos && veh->getPositionOnLane() - veh->getVehicleType().getLength() <= myEndPos) {
-                // vehicle left detector partially
-                length -= (veh->getPositionOnLane() - myEndPos);
-            }
-        } else {
-            // ok, the vehicle is only partially still on the detector, has already moved to the
-            //  next lane; still, we do not know how far away it is
-            length = myEndPos - veh->getBackPositionOnLane(myLane);
-        }
-        assert(length >= 0);
-
-        mySpeedSum += veh->getSpeed();
-        myCurrentMeanSpeed += veh->getSpeed();
-        lengthSum += length;
-        myCurrentMeanLength += length;
+    const int numVehicles = (int)myKnownVehicles.size();
+    for (std::vector<VehicleInfo>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
+        myVehicleSamples += i->timeOnDet;
+        mySpeedSum += i->speed * i->timeOnDet;
+        myCurrentMeanSpeed += i->speed * i->timeOnDet;
+        lengthSum += i->lengthOnDet;
+        myCurrentMeanLength += i->lengthOnDet;
 
         // jam-checking begins
         bool isInJam = false;
         // first, check whether the vehicle is slow enough to be states as halting
-        if (veh->getSpeed() < myJamHaltingSpeedThreshold) {
+        if (i->speed < myJamHaltingSpeedThreshold) {
             myCurrentHaltingsNumber++;
             // we have to track the time it was halting;
             //  so let's look up whether it was halting before and compute the overall halting time
-            bool wasHalting = myHaltingVehicleDurations.find(veh) != myHaltingVehicleDurations.end();
+            bool wasHalting = myHaltingVehicleDurations.count(i->id) > 0;
             if (wasHalting) {
-                haltingVehicles[veh] = myHaltingVehicleDurations[veh] + DELTA_T;
-                intervalHaltingVehicles[veh] = myIntervalHaltingVehicleDurations[veh] + DELTA_T;
+                haltingVehicles[i->id] = myHaltingVehicleDurations[i->id] + DELTA_T;
+                intervalHaltingVehicles[i->id] = myIntervalHaltingVehicleDurations[i->id] + DELTA_T;
             } else {
-                haltingVehicles[veh] = DELTA_T;
-                intervalHaltingVehicles[veh] = DELTA_T;
+                haltingVehicles[i->id] = DELTA_T;
+                intervalHaltingVehicles[i->id] = DELTA_T;
                 myCurrentStartedHalts++;
                 myStartedHalts++;
             }
             // we now check whether the halting time is large enough
-            if (haltingVehicles[veh] > myJamHaltingTimeThreshold) {
+            if (haltingVehicles[i->id] > myJamHaltingTimeThreshold) {
                 // yep --> the vehicle is a part of a jam
                 isInJam = true;
             }
         } else {
             // is not standing anymore; keep duration information
-            std::map<const SUMOVehicle*, SUMOTime>::iterator v = myHaltingVehicleDurations.find(veh);
+            std::map<const std::string, SUMOTime>::iterator v = myHaltingVehicleDurations.find(i->id);
             if (v != myHaltingVehicleDurations.end()) {
                 myPastStandingDurations.push_back((*v).second);
                 myHaltingVehicleDurations.erase(v);
             }
-            v = myIntervalHaltingVehicleDurations.find(veh);
+            v = myIntervalHaltingVehicleDurations.find(i->id);
             if (v != myIntervalHaltingVehicleDurations.end()) {
                 myPastIntervalStandingDurations.push_back((*v).second);
                 myIntervalHaltingVehicleDurations.erase(v);
@@ -281,11 +262,11 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
                 // ok, we have a jam already. But - maybe it is too far away
                 //  ... honestly, I can hardly find a reason for doing this,
                 //  but jams were defined this way in an earlier version...
-                if (veh->getPositionOnLane() - (*currentJam->lastStandingVehicle)->getPositionOnLane() > myJamDistanceThreshold) {
+                if (i->position - currentJam->lastStandingVehicle->position > myJamDistanceThreshold) {
                     // yep, yep, yep - it's a new one...
                     //  close the frist, build a new
                     jams.push_back(currentJam);
-                    currentJam = new JamInfo;
+                    currentJam = new JamInfo();
                     currentJam->firstStandingVehicle = i;
                 }
             }
@@ -311,17 +292,10 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     // process jam information
     for (std::vector<JamInfo*>::iterator i = jams.begin(); i != jams.end(); ++i) {
         // compute current jam's values
-        SUMOReal jamLengthInMeters =
-            (*(*i)->firstStandingVehicle)->getPositionOnLane()
-            - (*(*i)->lastStandingVehicle)->getPositionOnLane()
-            + (*(*i)->lastStandingVehicle)->getVehicleType().getLengthWithGap();
-        if ((*(*i)->firstStandingVehicle)->getLane() != myLane) {
-            // vehicle is partial occupator, discount the length that is not on
-            // this lane
-            jamLengthInMeters -= ((*(*i)->firstStandingVehicle)->getVehicleType().getLengthWithGap() -
-                                  (myLane->getLength() - (*(*i)->firstStandingVehicle)->getBackPositionOnLane(myLane)));
-        }
-        int jamLengthInVehicles = (int)distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
+        const SUMOReal jamLengthInMeters = (*i)->firstStandingVehicle->position
+            - (*i)->lastStandingVehicle->position
+            + (*i)->lastStandingVehicle->lengthOnDet;
+        const int jamLengthInVehicles = (int)distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics
         myCurrentMaxJamLengthInMeters = MAX2(myCurrentMaxJamLengthInMeters, jamLengthInMeters);
         myCurrentMaxJamLengthInVehicles = MAX2(myCurrentMaxJamLengthInVehicles, jamLengthInVehicles);
@@ -332,8 +306,6 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     }
     myCurrentJamNo = (int) jams.size();
 
-    const int numVehicles = (int) myKnownVehicles.size();
-    myVehicleSamples += numVehicles;
     myTimeSamples += 1;
     // compute occupancy values
     SUMOReal currentOccupancy = lengthSum / (myEndPos - myStartPos) * (SUMOReal) 100.;
@@ -360,6 +332,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
         delete *i;
     }
     jams.clear();
+    myKnownVehicles.clear();
 }
 
 
@@ -368,7 +341,7 @@ void
 MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << getID() << "\" ";
 
-    const SUMOReal meanSpeed = myVehicleSamples != 0 ? mySpeedSum / (SUMOReal) myVehicleSamples : -1;
+    const SUMOReal meanSpeed = myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
     const SUMOReal meanOccupancy = myTimeSamples != 0 ? myOccupancySum / (SUMOReal) myTimeSamples : 0;
     const SUMOReal meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (SUMOReal) myTimeSamples : 0;
     const SUMOReal meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (SUMOReal) myTimeSamples : 0;
@@ -382,7 +355,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i));
         haltingNo++;
     }
-    for (std::map<const SUMOVehicle*, SUMOTime> ::iterator i = myHaltingVehicleDurations.begin(); i != myHaltingVehicleDurations.end(); ++i) {
+    for (std::map<const std::string, SUMOTime> ::iterator i = myHaltingVehicleDurations.begin(); i != myHaltingVehicleDurations.end(); ++i) {
         haltingDurationSum += (*i).second;
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i).second);
         haltingNo++;
@@ -397,15 +370,15 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i));
         intervalHaltingNo++;
     }
-    for (std::map<const SUMOVehicle*, SUMOTime> ::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<const std::string, SUMOTime> ::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
         intervalHaltingDurationSum += (*i).second;
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i).second);
         intervalHaltingNo++;
     }
     const SUMOTime intervalMeanHaltingDuration = intervalHaltingNo != 0 ? intervalHaltingDurationSum / intervalHaltingNo : 0;
 
-    dev << "nSamples=\"" << myVehicleSamples << "\" "
-        << "nVehContrib=\"" << myPassedVeh << "\" "
+    dev << "sampledSeconds=\"" << myVehicleSamples << "\" "
+        << "nVehEntered=\"" << myPassedVeh << "\" "
         << "meanSpeed=\"" << meanSpeed << "\" "
         << "meanOccupancy=\"" << meanOccupancy << "\" "
         << "maxOccupancy=\"" << myMaxOccupancy << "\" "
@@ -443,25 +416,18 @@ MSE2Collector::getCurrentVehicleNumber() const {
 int
 MSE2Collector::getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const {
 
-    SUMOReal distance = 0;
+    SUMOReal distance = std::numeric_limits<SUMOReal>::max();
     SUMOReal thresholdSpeed = myLane->getSpeedLimit() / speedThreshold;
 
     int count = 0;
-    for (std::list<SUMOVehicle*>::const_iterator it = myKnownVehicles.begin();
+    for (std::vector<VehicleInfo>::const_iterator it = myKnownVehicles.begin();
             it != myKnownVehicles.end(); it++) {
-        MSVehicle* veh = static_cast<MSVehicle*>(*it);
-        SUMOReal acceleration = veh->getAcceleration();
-        if (distance == 0) {
-            distance = veh->getPositionOnLane();
+        if (it->position < distance) {
+            distance = it->position;
         }
-        if (veh->getPositionOnLane() < distance) {
-            distance = veh->getPositionOnLane();
-        }
-        SUMOReal carLength = veh->getVehicleType().getLengthWithGap();
-        SUMOReal vel = veh->getSpeed();
-        SUMOReal realDistance = myLane->getLength() - distance; // the closer vehicle get to the light the greater is the distance
-        if (vel <= thresholdSpeed || acceleration > 0) { //TODO speed less than half of the maximum speed for the lane NEED TUNING
-            count = (int)(realDistance / carLength) + 1;
+        const SUMOReal realDistance = myLane->getLength() - distance; // the closer vehicle get to the light the greater is the distance
+        if (it->speed <= thresholdSpeed || it->accel > 0) { //TODO speed less than half of the maximum speed for the lane NEED TUNING
+            count = (int)(realDistance / it->lengthWithGap) + 1;
         }
     }
 
@@ -475,23 +441,17 @@ MSE2Collector::getEstimateQueueLength() const {
         return -1;
     }
 
-    SUMOReal distance = 0;
+    SUMOReal distance = std::numeric_limits<SUMOReal>::max();
     SUMOReal realDistance = 0;
     bool flowing =  true;
-    for (std::list<SUMOVehicle*>::const_iterator it = myKnownVehicles.begin();
+    for (std::vector<VehicleInfo>::const_iterator it = myKnownVehicles.begin();
             it != myKnownVehicles.end(); it++) {
-        MSVehicle* veh = static_cast<MSVehicle*>(*it);
-        if (distance == 0) {
-            distance = veh->getPositionOnLane();
+        if (it->position < distance) {
+            distance = it->position;
         }
-        if (veh->getPositionOnLane() < distance) {
-            distance = veh->getPositionOnLane();
-        }
-        SUMOReal carLength = veh->getVehicleType().getLengthWithGap();
-        SUMOReal vel = veh->getSpeed();
         //	SUMOReal distanceTemp = myLane->getLength() - distance;
-        if (vel <= 0.5) {
-            realDistance = distance - carLength;
+        if (it->speed <= 0.5) {
+            realDistance = distance - it->lengthWithGap;
             flowing = false;
         }
         DBG(
@@ -499,9 +459,9 @@ MSE2Collector::getEstimateQueueLength() const {
             str << time2string(MSNet::getInstance()->getCurrentTimeStep())
             << " MSE2Collector::getEstimateQueueLength::"
             << " lane " << myLane->getID()
-            << " vehicle " << veh->getID()
-            << " positionOnLane " << veh->getPositionOnLane()
-            << " vel " << veh->getSpeed()
+            << " vehicle " << it->id
+            << " positionOnLane " << it->position
+            << " vel " << it->speed
             << " realDistance " << realDistance;
             WRITE_MESSAGE(str.str());
         )
@@ -569,17 +529,6 @@ MSE2Collector::getCurrentStartedHalts() const {
 
 
 int
-MSE2Collector::by_vehicle_position_sorter::operator()(const SUMOVehicle* v1, const SUMOVehicle* v2) {
-    if (!v1->isFrontOnLane(myLane)) {
-        return true;
-    }
-    if (!v2->isFrontOnLane(myLane)) {
-        return false;
-    }
-    return v1->getPositionOnLane() > v2->getPositionOnLane();
-}
-
-int
 MSE2Collector::getCurrentHaltingNumber() const {
     return myCurrentHaltingsNumber;
 }
@@ -588,15 +537,16 @@ MSE2Collector::getCurrentHaltingNumber() const {
 std::vector<std::string>
 MSE2Collector::getCurrentVehicleIDs() const {
     std::vector<std::string> ret;
-    for (std::list<SUMOVehicle*>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
-        MSVehicle* veh = static_cast<MSVehicle*>(*i);
-        ret.push_back(veh->getID());
+    for (std::vector<VehicleInfo>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
+        ret.push_back(i->id);
     }
     std::sort(ret.begin(), ret.end());
     return ret;
 }
 
-const std::list<SUMOVehicle*>& MSE2Collector::getCurrentVehicles() const {
+
+const std::vector<MSE2Collector::VehicleInfo>&
+MSE2Collector::getCurrentVehicles() const {
     return myKnownVehicles;
 }
 

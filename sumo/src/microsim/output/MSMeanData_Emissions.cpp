@@ -80,7 +80,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
 
 
 void
-MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
+MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal /* frontOnLane */, SUMOReal timeOnLane, SUMOReal speed) {
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
     const double a = veh.getAcceleration();

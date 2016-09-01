@@ -133,11 +133,11 @@ public:
          * from it's reminder-container.
          *
          * @param[in] veh Vehicle that asks this reminder.
-         * @param[in] timeOnLane time the vehicle spent on the lane.
+         * @param[in] frontOnLane time the front of the vehicle spent on the lane.
+         * @param[in] timeOnLane time some part of the vehicle spent on the lane.
          * @param[in] speed Moving speed.
          */
-        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
-                                SUMOReal speed);
+        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane, SUMOReal timeOnLane, SUMOReal speed);
 
     private:
         /// @name Collected values

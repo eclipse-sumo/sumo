@@ -590,7 +590,6 @@ MSVehicle::~MSVehicle() {
 void
 MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
     MSVehicleTransfer::getInstance()->remove(this);
-    workOnMoveReminders(myState.myPos - SPEED2DIST(myState.mySpeed), myState.myPos, myState.mySpeed);
     removeApproachingInformation(myLFLinkLanes);
     leaveLane(reason);
 }
@@ -1751,7 +1750,7 @@ MSVehicle::executeMove() {
         switchOffSignal(VEH_SIGNAL_BRAKELIGHT);
     }
     // call reminders after vNext is set
-    const SUMOReal pos = myState.myPos;
+    SUMOReal pos = myState.myPos;
 
     // update position and speed
     myAcceleration = SPEED2ACCEL(vNext - myState.mySpeed);
@@ -1779,11 +1778,7 @@ MSVehicle::executeMove() {
     bool moved = false;
     std::string emergencyReason = " for unknown reasons";
     // move on lane(s)
-    if (myState.myPos <= myLane->getLength()) {
-        // we are staying at our lane
-        //  there is no need to go over succeeding lanes
-        workOnMoveReminders(pos, pos + SPEED2DIST(vNext), vNext);
-    } else {
+    if (myState.myPos > myLane->getLength()) {
         // we are moving at least to the next lane (maybe pass even more than one)
         if (myCurrEdge != myRoute->end() - 1) {
             MSLane* approachedLane = myLane;
@@ -1814,6 +1809,7 @@ MSVehicle::executeMove() {
                 }
                 if (approachedLane != myLane && approachedLane != 0) {
                     myState.myPos -= myLane->getLength();
+                    pos -= myLane->getLength();
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
@@ -1893,6 +1889,7 @@ MSVehicle::executeMove() {
             myCachedPosition = Position::INVALID;
         }
     }
+    workOnMoveReminders(pos, myState.myPos, myState.mySpeed);
     return moved;
 }
 

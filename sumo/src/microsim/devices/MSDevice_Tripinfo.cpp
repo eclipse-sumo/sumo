@@ -124,7 +124,7 @@ MSDevice_Tripinfo::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUM
     // called by meso
     const SUMOReal vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
     if (vmax > 0) {
-        myTimeLoss += TIME2STEPS(timeOnLane - (timeOnLane * speed / vmax));
+        myTimeLoss += TIME2STEPS(timeOnLane * (vmax - speed) / vmax);
     }
     myWaitingSteps += veh.getWaitingTime() / DELTA_T;
 }

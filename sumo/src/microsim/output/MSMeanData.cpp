@@ -84,16 +84,24 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     // if the vehicle has arrived, the reminder must be kept so it can be
     // notified of the arrival subsequently
     SUMOReal timeOnLane = TS;
+    SUMOReal frontOnLane = TS;
     bool ret = true;
     if (oldPos < 0 && newSpeed != 0) {
         timeOnLane = newPos / newSpeed;
+        frontOnLane = newPos / newSpeed;
     }
     if (newPos - veh.getVehicleType().getLength() > myLaneLength && newSpeed != 0) {
         timeOnLane -= (newPos - veh.getVehicleType().getLength() - myLaneLength) / newSpeed;
-        if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
+        if (fabs(timeOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             timeOnLane = 0.;
         }
         ret = veh.hasArrived();
+    }
+    if (newPos > myLaneLength && newSpeed != 0) {
+        frontOnLane -= (newPos - myLaneLength) / newSpeed;
+        if (fabs(frontOnLane) < NUMERICAL_EPS) { // reduce rounding errors
+            frontOnLane = 0.;
+        }
     }
     if (timeOnLane < 0) {
         WRITE_ERROR("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
@@ -102,7 +110,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     if (timeOnLane == 0) {
         return veh.hasArrived();
     }
-    notifyMoveInternal(veh, timeOnLane, newSpeed);
+    notifyMoveInternal(veh, frontOnLane, timeOnLane, newSpeed);
     return ret;
 }
 
@@ -187,8 +195,8 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const {
 
 
 void
-MSMeanData::MeanDataValueTracker::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
-    myTrackedData[&veh]->myValues->notifyMoveInternal(veh, timeOnLane, speed);
+MSMeanData::MeanDataValueTracker::notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane, SUMOReal timeOnLane, SUMOReal speed) {
+    myTrackedData[&veh]->myValues->notifyMoveInternal(veh, frontOnLane, timeOnLane, speed);
 }
 
 

@@ -1128,10 +1128,10 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
         // length is needed later when the vehicle may not exist anymore
         const SUMOReal length = veh->getVehicleType().getLengthWithGap();
         const SUMOReal nettoLength = veh->getVehicleType().getLength();
-        bool moved = veh->executeMove();
-        MSLane* target = veh->getLane();
+        const bool moved = veh->executeMove();
+        MSLane* const target = veh->getLane();
 #ifndef NO_TRACI
-        bool vtdControlled = veh->hasInfluencer() && veh->getInfluencer().isVTDControlled();
+        const bool vtdControlled = veh->hasInfluencer() && veh->getInfluencer().isVTDControlled();
         if (veh->hasArrived() && !vtdControlled) {
 #else
         if (veh->hasArrived()) {
@@ -1145,11 +1145,8 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
                 veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else {
-                // vehicle has entered a new lane (leaveLane was already called in MSVehicle::executeMove)
+                // vehicle has entered a new lane (leaveLane and workOnMoveReminders were already called in MSVehicle::executeMove)
                 target->myVehBuffer.push_back(veh);
-                SUMOReal pspeed = veh->getSpeed();
-                SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
-                veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
                 lanesWithVehiclesToIntegrate.push_back(target);
             }
         } else if (veh->isParking()) {

@@ -231,14 +231,22 @@ public:
     void enter(const SUMOVehicle& veh, const SUMOReal entryTimestep, const SUMOReal fractionTimeOnDet);
 
 
-    /** @brief Called if a vehicle passes a leave-cross-section.
-     *
-     * Removes vehicle from internal containers.
-     *
-     *  @param[in] veh The vehicle that left the area
-     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
-     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
-     */
+    /** @brief Called if a vehicle front passes a leave-cross-section.
+    *
+    *  @param[in] veh The vehicle that left the area
+    *  @param[in] leaveTimestep The time in seconds the vehicle started crossing the line
+    */
+    void leaveFront(const SUMOVehicle& veh, const SUMOReal leaveTimestep);
+
+
+    /** @brief Called if a vehicle back passes a leave-cross-section.
+    *
+    * Removes vehicle from internal containers.
+    *
+    *  @param[in] veh The vehicle that left the area
+    *  @param[in] leaveTimestep The time in seconds the vehicle left the area
+    *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
+    */
     void leave(const SUMOVehicle& veh, const SUMOReal leaveTimestep, const SUMOReal fractionTimeOnDet);
 
 
@@ -346,8 +354,10 @@ protected:
     struct E3Values {
         /// @brief The vehicle's entry time
         SUMOReal entryTime;
-        /// @brief The vehicle's leaving time
-        SUMOReal leaveTime;
+        /// @brief The time the vehicle's front was crossing the leave line
+        SUMOReal frontLeaveTime;
+        /// @brief The time the vehicle's back was crossing the leave line
+        SUMOReal backLeaveTime;
         /// @brief The sum of registered speeds the vehicle has/had inside the area
         SUMOReal speedSum;
         /// @brief The sum of haltings the vehicle has/had within the area

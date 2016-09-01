@@ -229,21 +229,18 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string& id, MSLane* clane,
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     // check length
-    if (length < 0) {
-        length = clane->getLength() + length;
-    }
-    if (length + pos > clane->getLength()) {
-        if (friendlyPos) {
-            length = clane->getLength() - pos - (SUMOReal) 0.1;
-        } else {
-            throw InvalidArgument("The length of detector '" + id + "' lies beyond the lane's '" + clane->getID() + "' length.");
-        }
-    }
-    if (length < 0) {
+    if (length <= 0) {
         if (friendlyPos) {
             length = (SUMOReal) 0.1;
         } else {
-            throw InvalidArgument("The length of detector '" + id + "' is almost 0.");
+            throw InvalidArgument("Invalid length for detector '" + id + "'.");
+        }
+    }
+    if (length + pos > clane->getLength()) {
+        if (friendlyPos) {
+            length = clane->getLength() - pos;
+        } else {
+            throw InvalidArgument("The length of detector '" + id + "' reaches beyond the lane's '" + clane->getID() + "' length.");
         }
     }
 }
@@ -425,21 +422,21 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane* lane, bool friendly
                                        const std::string& detid) {
     // check whether it is given from the end
     if (pos < 0) {
-        pos = lane->getLength() + pos;
+        pos += lane->getLength();
     }
     // check whether it is on the lane
     if (pos > lane->getLength()) {
         if (friendlyPos) {
-            pos = lane->getLength() - (SUMOReal) 0.1;
+            pos = lane->getLength();
         } else {
-            throw InvalidArgument("The position of detector '" + detid + "' lies beyond the lane's '" + lane->getID() + "' length.");
+            throw InvalidArgument("The position of detector '" + detid + "' lies beyond the lane's '" + lane->getID() + "' end.");
         }
     }
     if (pos < 0) {
         if (friendlyPos) {
-            pos = (SUMOReal) 0.1;
+            pos = 0.;
         } else {
-            throw InvalidArgument("The position of detector '" + detid + "' lies beyond the lane's '" + lane->getID() + "' length.");
+            throw InvalidArgument("The position of detector '" + detid + "' lies before the lane's '" + lane->getID() + "' begin.");
         }
     }
     return pos;
