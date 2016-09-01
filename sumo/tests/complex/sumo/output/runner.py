@@ -40,7 +40,7 @@ class OutputHandler(handler.ContentHandler):
             self.intervals.add(self.interval)
             if "flow" in attrs:
                 self.speed[lane]["e1"][self.interval] = float(attrs["speed"])
-            if "nSamples" in attrs:
+            if "meanMaxJamLengthInVehicles" in attrs:
                 self.speed[lane]["e2"][
                     self.interval] = float(attrs["meanSpeed"])
             if "meanSpeedWithin" in attrs:
@@ -74,24 +74,22 @@ def generateDetectorDef(out, freq, enableLoop, laneIDs):
 </additional>""" % (freq, freq), file=out)
 
 
-def checkOutput(args, withLoop, lanes):
+def checkOutput(freq, args, withLoop, lanes):
     handler = OutputHandler(lanes)
     for f in ["detector.xml", "meandataedge.xml", "meandatalane.xml"]:
         if os.path.exists(f):
             parse(f, handler)
     for i in sorted(handler.intervals):
         for lane in lanes:
-            if withLoop:
-                vals = [handler.speed[lane][type].get(
-                    i, -1.) for type in ["e1", "e2", "e3", "edge", "lane"]]
-            else:
-                vals = [handler.speed[lane][type].get(
-                    i, -1.) for type in ["e2", "e3", "edge", "lane"]]
+            types = ["e1", "e2", "e3", "edge", "lane"]
+            if not withLoop:
+                types = types[1:]
+            vals = [handler.speed[lane][type].get(i, -1.) for type in types]
             for v in vals[:-1]:
                 if abs(v - vals[-1]) > 0.001:
-                    print("failed", args, lane, i, vals)
+                    print("failed", freq, args, lane, i, zip(types, vals))
                     return
-    print("success", args, lanes)
+    print("success", freq, args, lanes)
 
 
 def flush():
@@ -120,5 +118,5 @@ for stepLength in [".1", "1"]:
                 flush()
                 if exitCode:
                     sys.exit(exitCode)
-                checkOutput(args, withLoop, lanes[:numLanes])
+                checkOutput(freq, args, withLoop, lanes[:numLanes])
                 flush()

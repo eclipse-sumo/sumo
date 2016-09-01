@@ -1,0 +1,96 @@
+Loading configuration... done.
+success 0.1 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '.1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '.1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '.1', '--end', '1000'] 2/1to1/1_0 (230.0, 230.1) [('e2', 9.99), ('e3', 10.0), ('edge', 9.99), ('lane', 9.99)]
+Loading configuration... done.
+success 0.1 ['--step-length', '.1', '--end', '1000'] 1/1to0/1_0 (148.1, 148.2) [('e2', 9.99), ('e3', 10.0), ('edge', 9.99), ('lane', 9.99)]
+Loading configuration... done.
+success 1 ['--step-length', '.1', '--end', '1000'] 2/1to1/1_0 (230.0, 231.0) [('e2', 9.99), ('e3', 10.0), ('edge', 9.99), ('lane', 9.99)]
+Loading configuration... done.
+success 1 ['--step-length', '.1', '--end', '1000'] 1/1to0/1_0 (148.0, 149.0) [('e2', 9.91), ('e3', 10.0), ('edge', 9.91), ('lane', 9.91)]
+Loading configuration... done.
+success 10 ['--step-length', '.1', '--end', '1000'] 2/1to1/1_0 (230.0, 240.0) [('e2', 9.42), ('e3', 9.9), ('edge', 9.42), ('lane', 9.42)]
+Loading configuration... done.
+success 10 ['--step-length', '.1', '--end', '1000'] 1/1to0/1_0 (140.0, 150.0) [('e2', 9.96), ('e3', 9.99), ('edge', 9.96), ('lane', 9.96)]
+Loading configuration... done.
+success 100 ['--step-length', '.1', '--end', '1000'] 2/1to1/1_0 (200.0, 300.0) [('e1', 10.0), ('e2', 9.22), ('e3', 5.71), ('edge', 9.22), ('lane', 9.22)]
+Loading configuration... done.
+success 100 ['--step-length', '.1', '--end', '1000'] 1/1to0/1_0 (100.0, 200.0) [('e1', 9.53), ('e2', 5.82), ('e3', 6.93), ('edge', 5.82), ('lane', 5.82)]
+Loading configuration... done.
+success 0.1 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '1', '--end', '51'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 1 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 10 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0']
+Loading configuration... done.
+success 100 ['--step-length', '1', '--end', '100'] ['2/1to1/1_0', '1/1to0/1_0']
+Loading configuration... done.
+success 0.1 ['--step-length', '1', '--end', '1000'] 2/1to1/1_0 (245.0, 246.0) [('e2', 8.92), ('e3', 10.0), ('edge', 8.92), ('lane', 8.92)]
+Loading configuration... done.
+success 0.1 ['--step-length', '1', '--end', '1000'] 1/1to0/1_0 (150.0, 151.0) [('e2', 9.82), ('e3', 10.0), ('edge', 9.82), ('lane', 9.82)]
+Loading configuration... done.
+success 1 ['--step-length', '1', '--end', '1000'] 2/1to1/1_0 (245.0, 246.0) [('e2', 8.92), ('e3', 10.0), ('edge', 8.92), ('lane', 8.92)]
+Loading configuration... done.
+success 1 ['--step-length', '1', '--end', '1000'] 1/1to0/1_0 (150.0, 151.0) [('e2', 9.82), ('e3', 10.0), ('edge', 9.82), ('lane', 9.82)]
+Loading configuration... done.
+success 10 ['--step-length', '1', '--end', '1000'] 2/1to1/1_0 (240.0, 250.0) [('e2', 9.9), ('e3', 10.0), ('edge', 9.9), ('lane', 9.9)]
+Loading configuration... done.
+success 10 ['--step-length', '1', '--end', '1000'] 1/1to0/1_0 (150.0, 160.0) [('e2', 9.15), ('e3', 9.84), ('edge', 9.15), ('lane', 9.15)]
+Loading configuration... done.
+success 100 ['--step-length', '1', '--end', '1000'] 2/1to1/1_0 (200.0, 300.0) [('e1', 10.0), ('e2', 9.41), ('e3', 5.84), ('edge', 9.41), ('lane', 9.41)]
+Loading configuration... done.
+success 100 ['--step-length', '1', '--end', '1000'] 1/1to0/1_0 (100.0, 200.0) [('e1', 10.0), ('e2', 5.94), ('e3', 7.08), ('edge', 5.94), ('lane', 5.94)]
