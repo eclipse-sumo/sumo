@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-   <vType id="DEFAULT_VEHTYPE" sigma="0" laneChangeModel="JE2013"/>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <route id="1" edges="end end2"/>
 
     <vehicle depart="0" id="needsHelp" route="1" departPos="-0.01" departLane="1"/>

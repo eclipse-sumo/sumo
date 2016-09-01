@@ -1,6 +1,6 @@
 <routes>
-    <vType id="DEFAULT_VEHTYPE" laneChangeModel="JE2013"/>
-    <vType id="slow" maxSpeed="1" laneChangeModel="JE2013"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="slow" maxSpeed="1"/>
 
     <route id="r0" edges="VODUGES_beg"/>
     <route id="r1" edges="-VODUGES_beg"/>
