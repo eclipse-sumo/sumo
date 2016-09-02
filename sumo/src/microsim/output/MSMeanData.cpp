@@ -90,14 +90,16 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
         timeOnLane = newPos / newSpeed;
         frontOnLane = newPos / newSpeed;
     }
-    if (newPos - veh.getVehicleType().getLength() > myLaneLength && newSpeed != 0) {
+    if (newPos - veh.getVehicleType().getLength() > myLaneLength && oldPos - veh.getVehicleType().getLength() <= myLaneLength) {
+        assert(newSpeed != 0); // how could it move across the lane boundary otherwise
         timeOnLane -= (newPos - veh.getVehicleType().getLength() - myLaneLength) / newSpeed;
         if (fabs(timeOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             timeOnLane = 0.;
         }
         ret = veh.hasArrived();
     }
-    if (newPos > myLaneLength && newSpeed != 0) {
+    if (newPos > myLaneLength && oldPos <= myLaneLength) {
+        assert(newSpeed != 0); // how could it move across the lane boundary otherwise
         frontOnLane -= (newPos - myLaneLength) / newSpeed;
         if (fabs(frontOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             frontOnLane = 0.;
