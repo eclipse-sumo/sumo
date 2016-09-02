@@ -1096,6 +1096,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid departure time.", outputStorage);
                 }
                 vehicleParams.departProcedure = (DepartDefinition)proc;
+                vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
             } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
                 vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
                 WRITE_WARNING("Departure time for vehicle '" + id + "' is in the past; using current time instead.");
