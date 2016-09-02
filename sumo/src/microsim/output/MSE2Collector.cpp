@@ -121,7 +121,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) {
+MSE2Collector::notifyLeave(SUMOVehicle& /* veh */, SUMOReal /* lastPos */, MSMoveReminder::Notification reason) {
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         return false;
     }
