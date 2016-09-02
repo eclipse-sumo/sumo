@@ -1,0 +1,6 @@
+
+[Reported by Windows at 02Sep17:00:21]
+search_string:occupancy="25.00" waitingTime="15.00"
+search_file:aggregated15
+bug_system:trac
+bug_id:153
