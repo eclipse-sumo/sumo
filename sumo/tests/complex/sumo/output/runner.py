@@ -105,11 +105,11 @@ for idx, arg in enumerate(sys.argv):
         break
 lanes = sys.argv[1:sumoArgStart]
 for stepLength in [".1", "1"]:
-    for end in ["51", "100", "1000"]:
+    for end in [51, 100, 1000]:
         args = sys.argv[sumoArgStart:] + \
-            ["--step-length", stepLength, "--end", end]
+            ["--step-length", stepLength, "--end", str(end)]
         for freq in [.1, 1, 10, 100]:
-            withLoop = freq > 50
+            withLoop = freq > 55 and end > 55
             for numLanes in range(1, len(lanes) + 1):
                 with open("input_additional.add.xml", 'w') as out:
                     generateDetectorDef(out, freq, withLoop, lanes[:numLanes])
