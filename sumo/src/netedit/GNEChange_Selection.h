@@ -55,7 +55,7 @@ public:
      * @param[in] deselected The ids to deselect
      * @param[in] forward Whether to select or deselect the selected ids
      */
-    GNEChange_Selection(const std::set<GUIGlID>& selected, const std::set<GUIGlID>& deselected, bool forward);
+    GNEChange_Selection(GNENet* net, const std::set<GUIGlID>& selected, const std::set<GUIGlID>& deselected, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Selection();

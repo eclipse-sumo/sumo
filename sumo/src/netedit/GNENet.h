@@ -420,6 +420,10 @@ public:
      */
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING);
 
+    /// @brief notify myUpdateTarget
+    void update();
+
+
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
@@ -487,9 +491,6 @@ private:
 
     /// @brief deletes a single edge
     void deleteSingleEdge(GNEEdge* edge);
-
-    /// @brief notify myUpdateTarget
-    void update();
 
     /// @brief reserve edge ID (To avoid duplicates)
     void reserveEdgeID(const std::string& id);

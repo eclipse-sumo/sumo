@@ -316,7 +316,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
         std::set<GUIGlID> deselected;
         deselected.insert(junction->getGlID());
-        undoList->add(new GNEChange_Selection(std::set<GUIGlID>(), deselected, true), true);
+        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
     undoList->p_end();
 }
@@ -345,7 +345,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
         std::set<GUIGlID> deselected;
         deselected.insert(edge->getGlID());
-        undoList->add(new GNEChange_Selection(std::set<GUIGlID>(), deselected, true), true);
+        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
 
     edge->getSource()->removeFromCrossings(edge, undoList);
@@ -371,7 +371,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
             std::set<GUIGlID> deselected;
             deselected.insert(lane->getGlID());
-            undoList->add(new GNEChange_Selection(std::set<GUIGlID>(), deselected, true), true);
+            undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
         }
         if (sidewalk) {
             edge->getSource()->removeFromCrossings(edge, undoList);
@@ -507,7 +507,7 @@ GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
         toSelect.insert(reversed->getGlID());
         toSelect.insert(src->getGlID());
         toSelect.insert(dest->getGlID());
-        undoList->add(new GNEChange_Selection(toSelect, gSelected.getSelected(), true), true);
+        undoList->add(new GNEChange_Selection(this, toSelect, gSelected.getSelected(), true), true);
     }
     undoList->p_end();
     return reversed;

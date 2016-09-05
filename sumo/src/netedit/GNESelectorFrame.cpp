@@ -197,7 +197,7 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
-    myViewNet->getUndoList()->add(new GNEChange_Selection(std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
     myViewNet->update();
     return 1;
 }
@@ -383,10 +383,10 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOpera
     std::set<GUIGlID> previousSelection;
     myViewNet->getUndoList()->p_begin("change selection");
     if (setOperation == SET_REPLACE) {
-        myViewNet->getUndoList()->add(new GNEChange_Selection(std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
     } else if (setOperation == SET_RESTRICT) {
         previousSelection = gSelected.getSelected(); // have to make a copy
-        myViewNet->getUndoList()->add(new GNEChange_Selection(std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
     }
     // handle ids
     GUIGlObject* object;
@@ -445,7 +445,7 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOpera
             }
         }
     }
-    myViewNet->getUndoList()->add(new GNEChange_Selection(selected, deselected, true), true);
+    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), selected, deselected, true), true);
     myViewNet->getUndoList()->p_end();
     myViewNet->update();
 }
