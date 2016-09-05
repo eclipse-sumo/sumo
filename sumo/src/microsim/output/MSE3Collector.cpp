@@ -295,7 +295,7 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
 
 void
 MSE3Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.writeXMLHeader("e3Detector");
+    dev.writeXMLHeader("e3Detector", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/det_e3_file.xsd\"");
 }
 
 
