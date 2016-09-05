@@ -26,6 +26,7 @@
         <xsd:attribute name="id" use="required" type="xsd:string"/>
         <xsd:attribute name="sampledSeconds" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="traveltime" use="optional" type="nonNegativeFloatType"/>
+        <xsd:attribute name="overlapTraveltime" use="optional" type="nonNegativeFloatType"/>
 
         <xsd:attribute name="density" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="occupancy" use="optional" type="nonNegativeFloatType"/>
