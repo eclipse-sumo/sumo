@@ -1194,6 +1194,8 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     myNetBuilder->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
+    // selection status is lost when removing junction via undo and the selection operation was not part of a command group
+    gSelected.deselect(junction->getGlID()); 
     update();
 }
 
@@ -1206,6 +1208,8 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
         myNetBuilder->getDistrictCont(), edge->getNBEdge());
     edge->decRef("GNENet::deleteSingleEdge");
     edge->setResponsible(true);
+    // selection status is lost when removing edge via undo and the selection operation was not part of a command group
+    gSelected.deselect(edge->getGlID()); 
     // invalidate junction logic
     update();
 }
