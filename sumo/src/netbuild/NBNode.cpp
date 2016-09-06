@@ -559,7 +559,7 @@ NBNode::bezierControlPoints(
 #endif
                     ok = false;
                     if (recordError != 0) {
-                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, fabs(sin(displacementAngle) * dist));
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (SUMOReal)fabs(sin(displacementAngle) * dist));
                     }
                     return PositionVector();
                 } else {
@@ -590,7 +590,7 @@ NBNode::bezierControlPoints(
                     ok = false;
                     if (recordError != 0) {
                         // it's unclear if this error can be solved via stretching the intersection.
-                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, 1.0);
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (SUMOReal)1.0);
                     }
                     return PositionVector();
                 }
@@ -604,7 +604,7 @@ NBNode::bezierControlPoints(
 #endif
                     if (recordError != 0) {
                         // This should be fixable with minor stretching
-                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, 1.0);
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (SUMOReal)1.0);
                     }
                     ok = false;
                     return PositionVector();
