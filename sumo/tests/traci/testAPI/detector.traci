@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 11 07:39:54 2016 by SUMO Version dev-SVN-r20691
+<!-- generated on Tue Sep  6 07:31:53 2016 by SUMO Version dev-SVN-r21431
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,7 +23,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="13742"/>
+        <remote-port value="23620"/>
     </traci_server>
 
 </configuration>
@@ -35,7 +35,7 @@
    <interval begin="2.00" end="3.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="3.00" end="4.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="4.00" end="5.00" id="det1" nVehContrib="0" flow="0.00" occupancy="20.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="5.00" end="6.00" id="det1" nVehContrib="1" flow="3600.00" occupancy="10.00" speed="10.00" length="3.00" nVehEntered="1"/>
+   <interval begin="5.00" end="6.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="1"/>
    <interval begin="6.00" end="7.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="7.00" end="8.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="8.00" end="9.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
