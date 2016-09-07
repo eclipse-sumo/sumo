@@ -95,7 +95,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     OGRDataSource* poDS = OGRSFDriverRegistrar::Open(shpName.c_str(), FALSE);
 #else
     GDALAllRegister();
-    GDALDataset* poDS = (GDALDataset*) GDALOpen(shpName.c_str(), GA_ReadOnly);
+    GDALDataset* poDS = (GDALDataset*) GDALOpenEx(shpName.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
 #endif
     if (poDS == NULL) {
         throw ProcessError("Could not open shape description '" + shpName + "'.");
@@ -270,6 +270,11 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         }
         OGRFeature::DestroyFeature(poFeature);
     }
+#if GDAL_VERSION_MAJOR < 2
+    OGRDataSource::DestroyDataSource(poDS);
+#else
+    GDALClose(poDS);
+#endif
     PROGRESS_DONE_MESSAGE();
 #else
     WRITE_ERROR("SUMO was compiled without GDAL support.");

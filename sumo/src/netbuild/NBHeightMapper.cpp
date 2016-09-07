@@ -182,7 +182,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OGRDataSource* ds = OGRSFDriverRegistrar::Open(file.c_str(), FALSE);
 #else
     GDALAllRegister();
-    GDALDataset* ds = (GDALDataset*) GDALOpen(file.c_str(), GA_ReadOnly);
+    GDALDataset* ds = (GDALDataset*)GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
 #endif
     if (ds == NULL) {
         throw ProcessError("Could not open shape file '" + file + "'.");
