@@ -438,13 +438,22 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                        + nv->getCarFollowModel().getSecureGap( // save gap to follower
                                            nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()));
 
+
+        SUMOReal overtakeTime;
+        if(dv > 0){
+            overtakeTime = overtakeDist/dv;
+        } else {
+            // -> set overtakeTime to something indicating impossibility of overtaking
+            overtakeTime = remainingSeconds + 1;
+        }
+
         if (dv < 0
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake? (we will start to brake when approaching a dead end)
                 || myLeftSpace - myLeadingBlockerLength - myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed()) < overtakeDist
                 // not enough time to overtake?
-                || dv * remainingSeconds < overtakeDist) {
+                || remainingSeconds < overtakeTime) {
             // cannot overtake
             msgPass.informNeighLeader(new Info(-1, dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader
