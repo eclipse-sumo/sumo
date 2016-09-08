@@ -1,1 +1,1 @@
---shapefile-prefix shape --shapefile.street-id EDGE_ID --shapefile.use-defaults-on-failure
+--shapefile-prefix data/shape --shapefile.street-id EDGE_ID --shapefile.use-defaults-on-failure
