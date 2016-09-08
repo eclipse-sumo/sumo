@@ -1147,8 +1147,8 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const SUMOReal 
 
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
-        std::cout
-                << "\n\n"
+    std::cout
+    << "\nPLAN_MOVE\n"
                 << STEPS2TIME(t)
                 << " veh=" << getID()
                 << " lane=" << myLane->getID()
@@ -1561,6 +1561,15 @@ MSVehicle::executeMove() {
         int bla = 0;
     }
 #endif
+
+#ifdef DEBUG_EXEC_MOVE
+        if (DEBUG_COND) std::cout << "\nEXECUTE_MOVE\n"
+                    << SIMTIME
+                    << " veh=" << getID()
+                    << " speed=" << toString(getSpeed(), 24)
+                    << std::endl;
+#endif
+
     // get safe velocities from DriveProcessItems
     SUMOReal vSafe = 0; // maximum safe velocity
     SUMOReal vSafeZipper = std::numeric_limits<SUMOReal>::max(); // speed limit due to zipper merging
@@ -1848,6 +1857,7 @@ MSVehicle::executeMove() {
             WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID()
                           + "'" + emergencyReason
                           + " (decel=" + toString(myAcceleration - myState.mySpeed)
+                          + ", offset = " + toString(myState.myPos - myLane->getLength())
                           + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerEmergencyStop();
             myState.myPos = myLane->getLength();
