@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Do 08 Sep 2016 13:45:21 CEST by Netedit Version dev-SVN-r21408
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/home/leo/sumo_master/mytests/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="11.14,37.92,97.61,37.92" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="edge" from="gneJ8" to="gneJ9" priority="1">
+        <lane id="edge_0" index="0" speed="13.89" length="86.46" shape="11.14,36.27 97.61,36.27"/>
+    </edge>
+
+    <junction id="gneJ8" type="unregulated" x="11.14" y="37.92" incLanes="" intLanes="" shape="11.14,37.87 11.14,34.67"/>
+    <junction id="gneJ9" type="unregulated" x="97.61" y="37.92" incLanes="edge_0" intLanes="" shape="97.61,34.67 97.61,37.87"/>
+
+</net>
