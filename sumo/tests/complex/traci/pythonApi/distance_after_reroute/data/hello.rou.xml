@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <vType accel="1.0" decel="5.0" id="Stapler" length="5.0" minGap="2.0" maxSpeed="10.0" sigma="0" />
+
+  <route id="LSR_00__LSR_02" edges="ed0 ed1 ed2"/> 
+  <route id="short" edges="ed1 ed2"/> 
+
+  <vehicle depart="1" id="Stapler_00" route="LSR_00__LSR_02" type="Stapler" />
+</routes>
