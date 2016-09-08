@@ -1,0 +1,1 @@
+--shapefile-prefix data/shape --shapefile.use-running-id -o pois.poi.xml

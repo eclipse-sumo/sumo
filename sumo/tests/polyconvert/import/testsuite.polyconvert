@@ -6,3 +6,6 @@ dlr_navteq
 
 # importing our own XML format
 XML
+
+# importing ESRI shapes
+shape

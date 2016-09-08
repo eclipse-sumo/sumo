@@ -6,6 +6,7 @@ copy_test_path:dlr_navteq_pois.txt
 copy_test_path:dlr_navteq_polygons.txt
 copy_test_path:osm.xml
 copy_test_path:typemap.xml
+copy_test_path:data
 
 [collate_file]
 cfg:config.cfg
