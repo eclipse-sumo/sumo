@@ -22,3 +22,5 @@ matsim
 # Tests for openDRIVE networks 
 openDRIVE
 
+# Tests for ESRI shape files
+shape

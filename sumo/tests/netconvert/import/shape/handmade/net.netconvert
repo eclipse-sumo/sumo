@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09/08/16 09:10:34 by SUMO netconvert Version dev-SVN-r21433
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <shapefile-prefix value="test"/>
+    </input>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <shapefile.street-id value="EDGE_ID"/>
+        <shapefile.use-defaults-on-failure value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-312.00,-423.00" convBoundary="0.00,0.00,1116.00,216.00" origBoundary="312.000000,423.000000,1428.000000,639.000000" projParameter="+proj=utm +zone=269 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="fancyedge" from="0" to="1" priority="0" spreadType="center" shape="0.00,59.00 339.00,216.00 570.00,0.00 894.00,196.00 1116.00,13.00">
+        <lane id="fancyedge_0" index="0" speed="13.90" length="1356.22" shape="-0.00,59.00 339.00,216.00 570.00,0.00 894.00,196.00 1116.00,13.00"/>
+    </edge>
+
+    <junction id="0" type="unregulated" x="0.00" y="59.00" incLanes="" intLanes="" shape="-0.67,60.45 0.67,57.55"/>
+    <junction id="1" type="unregulated" x="1116.00" y="13.00" incLanes="fancyedge_0" intLanes="" shape="1114.98,11.77 1117.02,14.23"/>
+
+</net>
