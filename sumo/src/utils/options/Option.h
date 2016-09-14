@@ -458,13 +458,6 @@ protected:
  * ----------------------------------------------------------------------- */
 class Option_Float : public Option {
 public:
-    /** @brief Constructor for an option with no default value
-     *
-     * Calls Option(false)
-     */
-    Option_Float();
-
-
     /** @brief Constructor for an option with a default value
      *
      * Calls Option(true)
@@ -533,13 +526,6 @@ private:
  * ----------------------------------------------------------------------- */
 class Option_Bool : public Option {
 public:
-    /** @brief Constructor for an option with no default value
-     *
-     * Calls Option(false)
-     */
-    Option_Bool();
-
-
     /** @brief Constructor for an option with a default value
      *
      * Calls Option(true)

@@ -262,7 +262,7 @@ MSFrame::fillOptions() {
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
 
-    oc.doRegister("scale", new Option_Float());
+    oc.doRegister("scale", new Option_Float(1.));
     oc.addDescription("scale", "Processing", "Scale demand by the given factor (by discarding or duplicating vehicles)");
 
     oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
@@ -452,11 +452,9 @@ MSFrame::checkOptions() {
         WRITE_ERROR("No network file (-n) specified.");
         ok = false;
     }
-    if (!oc.isDefault("scale")) {
-        if (oc.getFloat("scale") < 0.) {
-            WRITE_ERROR("Invalid scaling factor.");
-            ok = false;
-        }
+    if (oc.getFloat("scale") < 0.) {
+        WRITE_ERROR("Invalid scaling factor.");
+        ok = false;
     }
     if (oc.getBool("vehroute-output.exit-times") && !oc.isSet("vehroute-output")) {
         WRITE_ERROR("A vehroute-output file is needed for exit times.");

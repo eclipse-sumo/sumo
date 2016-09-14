@@ -189,7 +189,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     geoConvHelper.computeFinal(lefthand); // information needed for location element fixed at this point
 
-    if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
+    if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Reducing geometries");
         myEdgeCont.reduceGeometries(oc.getFloat("geometry.min-dist"));
@@ -288,8 +288,8 @@ NBNetBuilder::compute(OptionsCont& oc,
     if (oc.exists("speed.offset")) {
         const SUMOReal speedOffset = oc.getFloat("speed.offset");
         const SUMOReal speedFactor = oc.getFloat("speed.factor");
-        if (speedOffset != 0 || speedFactor != 1 || oc.isSet("speed.minimum")) {
-            const SUMOReal speedMin = oc.isSet("speed.minimum") ? oc.getFloat("speed.minimum") : -std::numeric_limits<SUMOReal>::infinity();
+        if (speedOffset != 0 || speedFactor != 1) {
+            const SUMOReal speedMin = oc.getFloat("speed.minimum");
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
             for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {

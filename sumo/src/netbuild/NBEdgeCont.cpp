@@ -81,7 +81,7 @@ NBEdgeCont::~NBEdgeCont() {
 void
 NBEdgeCont::applyOptions(OptionsCont& oc) {
     // set edges dismiss/accept options
-    myEdgesMinSpeed = oc.isSet("keep-edges.min-speed") ? oc.getFloat("keep-edges.min-speed") : -1;
+    myEdgesMinSpeed = oc.getFloat("keep-edges.min-speed");
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     // we possibly have to load the edges to keep/remove
     if (oc.isSet("keep-edges.input-file")) {

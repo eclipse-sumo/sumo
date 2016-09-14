@@ -68,7 +68,6 @@ MSVehicleControl::MSVehicleControl() :
     myDefaultPedTypeMayBeDeleted(true),
     myWaitingForPerson(0),
     myWaitingForContainer(0),
-    myScale(-1),
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
@@ -77,9 +76,7 @@ MSVehicleControl::MSVehicleControl() :
     defPedType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_PEDTYPE_ID] = MSVehicleType::build(defPedType);
     OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("scale")) {
-        myScale = oc.getFloat("scale");
-    }
+    myScale = oc.getFloat("scale");
     myMaxRandomDepartOffset = string2time(oc.getString("random-depart-offset"));
 }
 

@@ -127,7 +127,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.max-segment-length", new Option_Float(0));
         oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
 
-        oc.doRegister("geometry.min-dist", new Option_Float());
+        oc.doRegister("geometry.min-dist", new Option_Float(-1));
         oc.addDescription("geometry.min-dist", "Processing", "reduces too similar geometry points");
 
         oc.doRegister("geometry.max-angle", new Option_Float(99));
@@ -191,7 +191,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("speed.factor", new Option_Float(1));
         oc.addDescription("speed.factor", "Processing", "Modifies all edge speeds by multiplying by FLOAT");
 
-        oc.doRegister("speed.minimum", new Option_Float());
+        oc.doRegister("speed.minimum", new Option_Float(0));
         oc.addDescription("speed.minimum", "Processing", "Modifies all edge speeds to at least FLOAT");
     }
 
@@ -323,7 +323,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
     // edge pruning
-    oc.doRegister("keep-edges.min-speed", new Option_Float());
+    oc.doRegister("keep-edges.min-speed", new Option_Float(-1));
     oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);
     oc.addDescription("keep-edges.min-speed", "Edge Removal", "Only keep edges with speed in meters/second > FLOAT");
 

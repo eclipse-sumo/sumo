@@ -135,10 +135,10 @@ fillOptions() {
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
     oc.addDescription("shapefile.id-column", "Input", "Defines in which column the id can be found");
 
-    oc.doRegister("shapefile.use-running-id", new Option_Bool());
+    oc.doRegister("shapefile.use-running-id", new Option_Bool(false));
     oc.addDescription("shapefile.use-running-id", "Input", "A running number will be used as id");
 
-    oc.doRegister("shapefile.add-param", new Option_Bool());
+    oc.doRegister("shapefile.add-param", new Option_Bool(false));
     oc.addDescription("shapefile.add-param", "Input", "Extract all additonal columns as params");
 
     oc.doRegister("shapefile.fill", new Option_String());

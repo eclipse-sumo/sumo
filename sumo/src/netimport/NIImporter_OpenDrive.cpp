@@ -633,14 +633,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // -------------------------
     // clean up
     // -------------------------
-    if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
-        oc.unSet("geometry.min-dist");
-    }
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         delete(*i).second;
     }
 }
-
 
 
 void
@@ -760,6 +756,7 @@ std::string NIImporter_OpenDrive::revertID(const std::string& id) {
     return "-" + id;
 }
 
+
 NBNode*
 NIImporter_OpenDrive::getOrBuildNode(const std::string& id, const Position& pos,
                                      NBNodeCont& nc) {
@@ -793,11 +790,6 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
         e.from = n;
     }
 }
-
-
-
-
-
 
 
 void
@@ -845,7 +837,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             }
             prevType = g.type;
         }
-        if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
+        if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
             e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
         }
         for (int j = 0; j < (int)e.geom.size(); ++j) {
