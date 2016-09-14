@@ -126,7 +126,7 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
     int brakingTime = computeBrakingTime(oc.getFloat("tls.yellow.min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
-    if (oc.isSet("tls.yellow.time")) {
+    if (!oc.isDefault("tls.yellow.time")) {
         brakingTime = oc.getInt("tls.yellow.time");
     }
     NBTrafficLightLogic* ret = myCompute(brakingTime);

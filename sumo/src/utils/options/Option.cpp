@@ -188,12 +188,6 @@ Option::getTypeName() const {
 /* -------------------------------------------------------------------------
  * Option_Integer - methods
  * ----------------------------------------------------------------------- */
-Option_Integer::Option_Integer()
-    : Option() {
-    myTypeName = "INT";
-}
-
-
 Option_Integer::Option_Integer(int value)
     : Option(true), myValue(value) {
     myTypeName = "INT";

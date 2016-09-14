@@ -130,18 +130,9 @@ main(int argc, char* argv[]) {
 
         std::string statFile = oc.getString("stat-file");
         OutputDevice::createDeviceByOption("output-file", "routes", "routes_file.xsd");
-        AGTime duration(1, 0, 0);
-        AGTime begin(0);
-        AGTime end(0);
-        if (oc.isSet("duration-d")) {
-            duration.setDay(oc.getInt("duration-d"));
-        }
-        if (oc.isSet("begin")) {
-            begin.addSeconds(oc.getInt("begin") % 86400);
-        }
-        if (oc.isSet("end")) {
-            end.addSeconds(oc.getInt("end") % 86400);
-        }
+        AGTime duration(oc.getInt("duration-d"), 0, 0);
+        AGTime begin(oc.getInt("begin") % 86400);
+        AGTime end(oc.getInt("end") % 86400);
         AGActivityGen actiGen(statFile, OutputDevice::getDevice(oc.getString("output-file")), net);
         actiGen.importInfoCity();
         actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());

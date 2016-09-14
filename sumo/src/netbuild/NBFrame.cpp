@@ -301,7 +301,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("tls.yellow.patch-small", "patch-small-tyellow", true);
     oc.addDescription("tls.yellow.patch-small", "TLS Building", "Given yellow times are patched even if being too short");
 
-    oc.doRegister("tls.yellow.time", new Option_Integer());
+    oc.doRegister("tls.yellow.time", new Option_Integer(-1));
     oc.addSynonyme("tls.yellow.time", "traffic-light-yellow", true);
     oc.addDescription("tls.yellow.time", "TLS Building", "Set INT as fixed time for yellow phase durations");
 
