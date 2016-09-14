@@ -66,3 +66,4 @@ elmar_traffic_signals:# Generated
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
+foreign:0.0001

@@ -90,7 +90,7 @@
     </ramp_guessing>
 
     <edge_removal>
-        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
+        <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Only keep edges in STR"/>
         <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
@@ -156,7 +156,7 @@
         <geometry.remove.keep-edges.explicit value="" type="STR" help="Ensure that the given list of edges is not modified"/>
         <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
-        <geometry.min-dist value="" type="FLOAT" help="reduces too similar geometry points"/>
+        <geometry.min-dist value="-1" type="FLOAT" help="reduces too similar geometry points"/>
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
         <geometry.min-radius value="9" type="FLOAT" help="Warn about edge geometries with a turning radius less than METERS at the start or end"/>
         <geometry.min-radius.fix value="false" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius"/>
@@ -174,7 +174,7 @@
         <junctions.join-exclude value="" type="STR" help="Interprets STR as list of junctions to exclude from joining"/>
         <speed.offset value="0" type="FLOAT" help="Modifies all edge speeds by adding FLOAT"/>
         <speed.factor value="1" type="FLOAT" help="Modifies all edge speeds by multiplying by FLOAT"/>
-        <speed.minimum value="" type="FLOAT" help="Modifies all edge speeds to at least FLOAT"/>
+        <speed.minimum value="0" type="FLOAT" help="Modifies all edge speeds to at least FLOAT"/>
         <junctions.corner-detail value="0" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
         <junctions.internal-link-detail value="5" type="INT" help="Generate INT intermediate points to smooth out lanes within the intersection"/>
         <junctions.scurve-stretch value="0" type="FLOAT" help="Generate longer intersections to allow for smooth s-curves when the number of lanes changes"/>

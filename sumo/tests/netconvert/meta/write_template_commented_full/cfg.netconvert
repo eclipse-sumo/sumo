@@ -229,7 +229,7 @@
 
     <edge_removal>
         <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
-        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT"/>
+        <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT"/>
 
         <!-- Remove edges in STR -->
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR"/>
@@ -415,7 +415,7 @@
         <geometry.max-segment-length value="0" type="FLOAT"/>
 
         <!-- reduces too similar geometry points -->
-        <geometry.min-dist value="" type="FLOAT"/>
+        <geometry.min-dist value="-1" type="FLOAT"/>
 
         <!-- Warn about edge geometries with an angle above DEGREES in successive segments -->
         <geometry.max-angle value="99" type="FLOAT"/>
@@ -469,7 +469,7 @@
         <speed.factor value="1" type="FLOAT"/>
 
         <!-- Modifies all edge speeds to at least FLOAT -->
-        <speed.minimum value="" type="FLOAT"/>
+        <speed.minimum value="0" type="FLOAT"/>
 
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="0" type="INT"/>
