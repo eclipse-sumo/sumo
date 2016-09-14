@@ -21,9 +21,9 @@
     </output>
 
     <time>
-        <begin value="" synonymes="b" type="INT" help="Sets the time of beginning of the simulation during the first day (in seconds)"/>
-        <end value="" synonymes="e" type="INT" help="Sets the time of ending of the simulation during the last day (in seconds)"/>
-        <duration-d value="" type="INT" help="Sets the duration of the simulation in days"/>
+        <begin value="0" synonymes="b" type="INT" help="Sets the time of beginning of the simulation during the first day (in seconds)"/>
+        <end value="0" synonymes="e" type="INT" help="Sets the time of ending of the simulation during the last day (in seconds)"/>
+        <duration-d value="1" type="INT" help="Sets the duration of the simulation in days"/>
     </time>
 
     <report>

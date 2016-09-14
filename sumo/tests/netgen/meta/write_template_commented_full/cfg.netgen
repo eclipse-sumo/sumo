@@ -184,7 +184,7 @@
         <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL"/>
 
         <!-- Set INT as fixed time for yellow phase durations -->
-        <tls.yellow.time value="" synonymes="traffic-light-yellow" type="INT"/>
+        <tls.yellow.time value="-1" synonymes="traffic-light-yellow" type="INT"/>
 
         <!-- Use INT as green phase duration for left turns (s) -->
         <tls.left-green.time value="6" type="INT"/>
@@ -202,7 +202,7 @@
 
     <edge_removal>
         <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
-        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT"/>
+        <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT"/>
 
         <!-- Remove edges in STR -->
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR"/>
