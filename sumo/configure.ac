@@ -41,6 +41,14 @@ else
     ac_disabled="$ac_disabled Coverage"
 fi
 
+AC_ARG_ENABLE([pic], [AS_HELP_STRING([--enable-pic],[enable compilation of position-independent code [default=no],])])
+if test x$enable_pic = xyes; then
+    CXXFLAGS="-fPIC $CXXFLAGS"
+    ac_enabled="$ac_enabled PIC"
+else
+    ac_disabled="$ac_disabled PIC"
+fi
+
 
 dnl Checks for programs.
 AC_PROG_CC
