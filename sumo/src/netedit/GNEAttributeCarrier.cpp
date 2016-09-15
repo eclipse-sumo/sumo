@@ -215,6 +215,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SHAPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RADIUS, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_KEEP_CLEAR, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLTYPE, ""));
                 break;
             case SUMO_TAG_LANE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, ""));
@@ -556,6 +557,13 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
             }
         }
 
+        choices = SUMOXMLDefinitions::TrafficLightTypes.getStrings();
+        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
+            if (*it != toString(TLTYPE_INVALID)) {
+                myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TLTYPE].push_back(*it);
+            }
+        }
+
         myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("true");
         myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR].push_back("false");
 
@@ -632,6 +640,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_JUNCTION][SUMO_ATTR_SHAPE] = "";
         myAttrDefinitions[SUMO_TAG_JUNCTION][SUMO_ATTR_RADIUS] = "";
         myAttrDefinitions[SUMO_TAG_JUNCTION][SUMO_ATTR_KEEP_CLEAR] = "";
+        myAttrDefinitions[SUMO_TAG_JUNCTION][SUMO_ATTR_TLTYPE] = "";
         // Lane
         myAttrDefinitions[SUMO_TAG_LANE][SUMO_ATTR_ID] = "ID (Must be unique)";
         myAttrDefinitions[SUMO_TAG_LANE][SUMO_ATTR_SPEED] = "";

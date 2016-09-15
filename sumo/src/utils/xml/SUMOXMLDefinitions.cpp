@@ -578,6 +578,7 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
     { "static",         TLTYPE_STATIC },
     { "rail",           TLTYPE_RAIL },
     { "actuated",       TLTYPE_ACTUATED },
+    { "delayBased",     TLTYPE_DELAYBASED },
     { "sotl_phase",     TLTYPE_SOTL_PHASE },
     { "sotl_platoon",   TLTYPE_SOTL_PLATOON },
     { "sotl_request",   TLTYPE_SOTL_REQUEST },

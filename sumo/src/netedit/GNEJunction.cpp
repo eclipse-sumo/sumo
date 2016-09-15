@@ -421,6 +421,9 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             return toString(myNBNode.getShape());
         case SUMO_ATTR_RADIUS:
             return toString(myNBNode.getRadius());
+        case SUMO_ATTR_TLTYPE:
+            // @todo this causes problems if the node were to have multiple programs of different type (plausible)
+            return myNBNode.isTLControlled() ? toString((*myNBNode.getControllingTLS().begin())->getType()) : "";
         case SUMO_ATTR_KEEP_CLEAR:
             return myNBNode.getKeepClear() ? "true" : "false";
         default:
@@ -440,6 +443,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case GNE_ATTR_MODIFICATION_STATUS:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
+        case SUMO_ATTR_TLTYPE:
         case SUMO_ATTR_KEEP_CLEAR:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
@@ -492,6 +496,8 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_RADIUS:
             return canParse<SUMOReal>(value);
             break;
+        case SUMO_ATTR_TLTYPE:
+            return myNBNode.isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
         case SUMO_ATTR_KEEP_CLEAR:
             return value == "true" || value == "false";
             break;
@@ -537,6 +543,13 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_RADIUS:
             myNBNode.setRadius(parse<SUMOReal>(value));
             break;
+        case SUMO_ATTR_TLTYPE: { 
+            const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
+            for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
+                (*it)->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
+            }
+            break;
+        }
         case SUMO_ATTR_KEEP_CLEAR:
             myNBNode.setKeepClear(value == "true");
             break;

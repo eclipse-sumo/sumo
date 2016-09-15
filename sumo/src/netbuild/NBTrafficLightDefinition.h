@@ -323,6 +323,11 @@ public:
         return myType;
     }
 
+    /// @brief set the algorithm type (static etc..)
+    virtual void setType(TrafficLightType type) {
+         myType = type;
+    }
+
     /* @brief computes whether the given stream may have green minor while the
      * other stream has green major in the same phase
      */

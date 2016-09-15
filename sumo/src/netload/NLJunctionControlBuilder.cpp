@@ -309,6 +309,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                     myAdditionalParameter, basePath);
             break;
+        case TLTYPE_DELAYBASED: // placeholder for future development
         case TLTYPE_STATIC:
             tlLogic =
                 new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
