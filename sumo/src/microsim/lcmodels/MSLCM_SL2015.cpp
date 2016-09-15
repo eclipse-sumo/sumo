@@ -2007,6 +2007,7 @@ MSLCM_SL2015::keepLatGap(int state,
     /// XXX to be made configurable
     const SUMOReal gapFactor = (state & LCA_STRATEGIC) != 0 ? 0.0 : 1.0;
     const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
+    const SUMOReal oldLatDist = latDist;
 
     /// XXX todo
     // - compute lateral gap after executing the current maneuver (may be LCA_NONE)
@@ -2062,7 +2063,7 @@ MSLCM_SL2015::keepLatGap(int state,
             blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
         }
     }
-    if (blocked == 0 /*&& latDist != origLatDist*/) {
+    if (blocked == 0 || latDist != oldLatDist) {
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, false);
     }
     if (latDist != 0) {
