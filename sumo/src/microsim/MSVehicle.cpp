@@ -2315,10 +2315,11 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     if (!onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
     } else {
-        activateReminders(MSMoveReminder::NOTIFICATION_TELEPORT);
-        // normal move() isn't called so reset position here
+        // normal move() isn't called so reset position here. must be done
+        // before calling reminders 
         myState.myPos = 0;
         myCachedPosition = Position::INVALID;
+        activateReminders(MSMoveReminder::NOTIFICATION_TELEPORT);
     }
     return hasArrived();
 }
