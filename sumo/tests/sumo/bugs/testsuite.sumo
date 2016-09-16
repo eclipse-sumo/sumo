@@ -1,3 +1,9 @@
+# Time which the vehicle's front spends on a lane is computed wrongly
+ticket2556
+
+# MoveReminders do not detect vehicles departing with their back on the corresponding lane
+ticket2555
+
 # (Copy of overtake_stopped_on_the_left) with subsecond step-length
 ticket2126_subsecond
 

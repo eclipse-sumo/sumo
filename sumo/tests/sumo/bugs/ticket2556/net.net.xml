@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fr 16 Sep 2016 17:15:38 CEST by Netedit Version dev-SVN-r21408
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,50.00,100.00,50.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="edge1" from="gneJ8" to="gneJ12" priority="1">
+        <lane id="edge1_0" index="0" speed="13.89" length="50.00" shape="0.00,48.35 50.00,48.35"/>
+    </edge>
+    <edge id="edge2" from="gneJ12" to="gneJ14" priority="1">
+        <lane id="edge2_0" index="0" speed="13.89" length="50.00" shape="50.00,48.35 100.00,48.35"/>
+    </edge>
+
+    <junction id="gneJ12" type="priority" x="50.00" y="50.00" incLanes="edge1_0" intLanes="" shape="50.00,49.95 50.00,46.75 50.00,49.95">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="gneJ14" type="unregulated" x="100.00" y="50.00" incLanes="edge2_0" intLanes="" shape="100.00,46.75 100.00,49.95"/>
+    <junction id="gneJ8" type="unregulated" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
+
+    <connection from="edge1" to="edge2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
