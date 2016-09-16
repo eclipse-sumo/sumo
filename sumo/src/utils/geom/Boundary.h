@@ -54,6 +54,8 @@ public:
     /// Constructor - the boundary will be build using the given values
     Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
 
+    Boundary(SUMOReal x1, SUMOReal y1, SUMOReal z1, SUMOReal x2, SUMOReal y2, SUMOReal z2);
+
     /// Destructor
     ~Boundary();
 
@@ -61,7 +63,7 @@ public:
     void reset();
 
     /// Makes the boundary include the given coordinate
-    void add(SUMOReal x, SUMOReal y);
+    void add(SUMOReal x, SUMOReal y, SUMOReal z=0);
 
     /// Makes the boundary include the given coordinate
     void add(const Position& p);
@@ -84,10 +86,16 @@ public:
     /// Returns maximum y-coordinate
     SUMOReal ymax() const;
 
-    /// Returns the width of the boudary
+    /// Returns minimum z-coordinate
+    SUMOReal zmin() const;
+
+    /// Returns maximum z-coordinate
+    SUMOReal zmax() const;
+
+    /// Returns the width of the boudary (x-axis)
     SUMOReal getWidth() const;
 
-    /// Returns the height of the boundary
+    /// Returns the height of the boundary (y-axis)
     SUMOReal getHeight() const;
 
     /// Returns whether the boundary contains the given coordinate
@@ -108,8 +116,10 @@ public:
      * The method returns a reference to the instance for further use */
     Boundary& grow(SUMOReal by);
 
+    /// Increases the width of the boundary (x-axis)
     void growWidth(SUMOReal by);
 
+    /// Increases the height of the boundary (y-axis)
     void growHeight(SUMOReal by);
 
     /// flips ymin and ymax
@@ -119,14 +129,14 @@ public:
     void set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
 
     /// Moves the boundary by the given amount
-    void moveby(SUMOReal x, SUMOReal y);
+    void moveby(SUMOReal x, SUMOReal y, SUMOReal z=0);
 
     /// Output operator
     friend std::ostream& operator<<(std::ostream& os, const Boundary& b);
 
 private:
     /// The boundaries
-    SUMOReal myXmin, myXmax, myYmin, myYmax;
+    SUMOReal myXmin, myXmax, myYmin, myYmax, myZmin, myZmax;
 
     /// Information whether the boundary was initialised
     bool myWasInitialised;

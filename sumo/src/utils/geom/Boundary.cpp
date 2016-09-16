@@ -47,15 +47,27 @@
 Boundary::Boundary()
     : myXmin(10000000000.0), myXmax(-10000000000.0),
       myYmin(10000000000.0), myYmax(-10000000000.0),
+      myZmin(10000000000.0), myZmax(-10000000000.0),
       myWasInitialised(false) {}
 
 
 Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
     : myXmin(10000000000.0), myXmax(-10000000000.0),
       myYmin(10000000000.0), myYmax(-10000000000.0),
+      myZmin(10000000000.0), myZmax(-10000000000.0),
       myWasInitialised(false) {
     add(x1, y1);
     add(x2, y2);
+}
+
+
+Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal z1, SUMOReal x2, SUMOReal y2, SUMOReal z2)
+    : myXmin(10000000000.0), myXmax(-10000000000.0),
+      myYmin(10000000000.0), myYmax(-10000000000.0),
+      myZmin(10000000000.0), myZmax(-10000000000.0),
+      myWasInitialised(false) {
+    add(x1, y1, z1);
+    add(x2, y2, z2);
 }
 
 
@@ -68,22 +80,28 @@ Boundary::reset() {
     myXmax = -10000000000.0;
     myYmin = 10000000000.0;
     myYmax = -10000000000.0;
+    myZmin = 10000000000.0;
+    myZmax = -10000000000.0;
     myWasInitialised = false;
 }
 
 
 void
-Boundary::add(SUMOReal x, SUMOReal y) {
+Boundary::add(SUMOReal x, SUMOReal y, SUMOReal z) {
     if (!myWasInitialised) {
         myYmin = y;
         myYmax = y;
         myXmin = x;
         myXmax = x;
+        myZmin = z;
+        myZmax = z;
     } else {
         myXmin = myXmin < x ? myXmin : x;
         myXmax = myXmax > x ? myXmax : x;
         myYmin = myYmin < y ? myYmin : y;
         myYmax = myYmax > y ? myYmax : y;
+        myZmin = myZmin < z ? myZmin : z;
+        myZmax = myZmax > z ? myZmax : z;
     }
     myWasInitialised = true;
 }
@@ -91,20 +109,20 @@ Boundary::add(SUMOReal x, SUMOReal y) {
 
 void
 Boundary::add(const Position& p) {
-    add(p.x(), p.y());
+    add(p.x(), p.y(), p.z());
 }
 
 
 void
 Boundary::add(const Boundary& p) {
-    add(p.xmin(), p.ymin());
-    add(p.xmax(), p.ymax());
+    add(p.xmin(), p.ymin(), p.zmin());
+    add(p.xmax(), p.ymax(), p.zmax());
 }
 
 
 Position
 Boundary::getCenter() const {
-    return Position((myXmin + myXmax) / (SUMOReal) 2.0, (myYmin + myYmax) / (SUMOReal) 2.0);
+    return Position((myXmin + myXmax) / (SUMOReal) 2.0, (myYmin + myYmax) / (SUMOReal) 2.0, (myZmin + myZmax) / (SUMOReal) 2.0);
 }
 
 
@@ -133,6 +151,18 @@ Boundary::ymax() const {
 
 
 SUMOReal
+Boundary::zmin() const {
+    return myZmin;
+}
+
+
+SUMOReal
+Boundary::zmax() const {
+    return myZmax;
+}
+
+
+SUMOReal
 Boundary::getWidth() const {
     return myXmax - myXmin;
 }
@@ -148,7 +178,8 @@ bool
 Boundary::around(const Position& p, SUMOReal offset) const {
     return
         (p.x() <= myXmax + offset && p.x() >= myXmin - offset) &&
-        (p.y() <= myYmax + offset && p.y() >= myYmin - offset);
+        (p.y() <= myYmax + offset && p.y() >= myYmin - offset) &&
+        (p.z() <= myZmax + offset && p.z() >= myZmin - offset);
 }
 
 
@@ -247,11 +278,13 @@ Boundary::set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax) {
 
 
 void
-Boundary::moveby(SUMOReal x, SUMOReal y) {
+Boundary::moveby(SUMOReal x, SUMOReal y, SUMOReal z) {
     myXmin += x;
     myYmin += y;
+    myZmin += z;
     myXmax += x;
     myYmax += y;
+    myZmax += z;
 }
 
 
