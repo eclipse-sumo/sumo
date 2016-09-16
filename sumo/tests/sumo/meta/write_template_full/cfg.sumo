@@ -50,6 +50,8 @@
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <lanechange-output value="" type="FILE" help="Record lane changes and their motivations for all vehicles into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -73,7 +75,7 @@
         <collision.action value="teleport" type="STR" help="How to deal with collisions: [none,warn,teleport,remove]"/>
         <collision.check-junctions value="false" type="BOOL" help="Enables collisions checks on junctions"/>
         <max-num-vehicles value="-1" type="INT" help="Delay vehicle insertion to stay within the given maximum number"/>
-        <scale value="" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
+        <scale value="1" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
         <time-to-teleport.highways value="0" type="TIME" help="The waiting time after which vehicles on a fast road (speed &gt; 69m/s) are teleported if they are on a non-continuing lane"/>
         <waiting-time-memory value="100" type="TIME" help="Length of time interval, over which accumulated waiting time is taken into account"/>

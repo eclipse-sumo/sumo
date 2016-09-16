@@ -132,6 +132,12 @@
         <!-- Record lane changes and their motivations for all vehicles into FILE -->
         <lanechange-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -190,7 +196,7 @@
         <max-num-vehicles value="-1" type="INT"/>
 
         <!-- Scale demand by the given factor (by discarding or duplicating vehicles) -->
-        <scale value="" type="FLOAT"/>
+        <scale value="1" type="FLOAT"/>
 
         <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting -->
         <time-to-teleport value="300" type="TIME"/>
