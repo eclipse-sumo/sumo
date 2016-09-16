@@ -1,0 +1,8 @@
+
+[Reported by leo at 16Sep18:12:17]
+search_string:lane id="edge1_0" sampledSeconds="1.00"
+use_regexp:0
+search_file:aggregated1
+ignore_other_errors:1
+bug_system:trac
+bug_id:2556

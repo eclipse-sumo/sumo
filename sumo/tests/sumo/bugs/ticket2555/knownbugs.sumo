@@ -1,0 +1,9 @@
+
+[Reported by leo at 16Sep18:13:08]
+search_string:<edge id="edge1">
+use_regexp:0
+trigger_on_absence:1
+search_file:aggregated1
+ignore_other_errors:1
+bug_system:trac
+bug_id:2555
