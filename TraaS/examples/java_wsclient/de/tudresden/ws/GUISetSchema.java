@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GUI_setSchema complex type.
+ * <p>Java-Klasse für GUI_setSchema complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="GUI_setSchema">
@@ -37,7 +37,7 @@ public class GUISetSchema {
     protected String schemeName;
 
     /**
-     * Gets the value of the viewID property.
+     * Ruft den Wert der viewID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class GUISetSchema {
     }
 
     /**
-     * Sets the value of the viewID property.
+     * Legt den Wert der viewID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class GUISetSchema {
     }
 
     /**
-     * Gets the value of the schemeName property.
+     * Ruft den Wert der schemeName-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class GUISetSchema {
     }
 
     /**
-     * Sets the value of the schemeName property.
+     * Legt den Wert der schemeName-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

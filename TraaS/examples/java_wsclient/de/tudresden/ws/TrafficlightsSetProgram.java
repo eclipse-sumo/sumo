@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Trafficlights_setProgram complex type.
+ * <p>Java-Klasse für Trafficlights_setProgram complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Trafficlights_setProgram">
@@ -37,7 +37,7 @@ public class TrafficlightsSetProgram {
     protected String programID;
 
     /**
-     * Gets the value of the tlsID property.
+     * Ruft den Wert der tlsID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class TrafficlightsSetProgram {
     }
 
     /**
-     * Sets the value of the tlsID property.
+     * Legt den Wert der tlsID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class TrafficlightsSetProgram {
     }
 
     /**
-     * Gets the value of the programID property.
+     * Ruft den Wert der programID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class TrafficlightsSetProgram {
     }
 
     /**
-     * Sets the value of the programID property.
+     * Legt den Wert der programID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setStop complex type.
+ * <p>Java-Klasse für Vehicle_setStop complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setStop">
@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="pos" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="laneIndex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
  *         &lt;element name="duration" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="stopType" type="{http://ws.tudresden.de/}sumoStopFlags" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlType;
     "edgeID",
     "pos",
     "laneIndex",
-    "duration"
+    "duration",
+    "stopType"
 })
 public class VehicleSetStop {
 
@@ -44,9 +46,10 @@ public class VehicleSetStop {
     protected double pos;
     protected byte laneIndex;
     protected int duration;
+    protected SumoStopFlags stopType;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -58,7 +61,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +73,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Gets the value of the edgeID property.
+     * Ruft den Wert der edgeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -82,7 +85,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Sets the value of the edgeID property.
+     * Legt den Wert der edgeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +97,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Gets the value of the pos property.
+     * Ruft den Wert der pos-Eigenschaft ab.
      * 
      */
     public double getPos() {
@@ -102,7 +105,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Sets the value of the pos property.
+     * Legt den Wert der pos-Eigenschaft fest.
      * 
      */
     public void setPos(double value) {
@@ -110,7 +113,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Gets the value of the laneIndex property.
+     * Ruft den Wert der laneIndex-Eigenschaft ab.
      * 
      */
     public byte getLaneIndex() {
@@ -118,7 +121,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Sets the value of the laneIndex property.
+     * Legt den Wert der laneIndex-Eigenschaft fest.
      * 
      */
     public void setLaneIndex(byte value) {
@@ -126,7 +129,7 @@ public class VehicleSetStop {
     }
 
     /**
-     * Gets the value of the duration property.
+     * Ruft den Wert der duration-Eigenschaft ab.
      * 
      */
     public int getDuration() {
@@ -134,11 +137,35 @@ public class VehicleSetStop {
     }
 
     /**
-     * Sets the value of the duration property.
+     * Legt den Wert der duration-Eigenschaft fest.
      * 
      */
     public void setDuration(int value) {
         this.duration = value;
+    }
+
+    /**
+     * Ruft den Wert der stopType-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SumoStopFlags }
+     *     
+     */
+    public SumoStopFlags getStopType() {
+        return stopType;
+    }
+
+    /**
+     * Legt den Wert der stopType-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SumoStopFlags }
+     *     
+     */
+    public void setStopType(SumoStopFlags value) {
+        this.stopType = value;
     }
 
 }

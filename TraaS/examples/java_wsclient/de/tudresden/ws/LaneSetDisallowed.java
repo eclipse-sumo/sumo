@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Lane_setDisallowed complex type.
+ * <p>Java-Klasse für Lane_setDisallowed complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Lane_setDisallowed">
@@ -39,7 +39,7 @@ public class LaneSetDisallowed {
     protected List<String> disallowedClasses;
 
     /**
-     * Gets the value of the laneID property.
+     * Ruft den Wert der laneID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -51,7 +51,7 @@ public class LaneSetDisallowed {
     }
 
     /**
-     * Sets the value of the laneID property.
+     * Legt den Wert der laneID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

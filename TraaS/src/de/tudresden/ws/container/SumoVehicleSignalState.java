@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -25,7 +25,7 @@ package de.tudresden.ws.container;
  *
  */
 
-public enum SumoVehicleSignalState {
+public enum SumoVehicleSignalState implements SumoObject {
 	
 	VEH_SIGNAL_BLINKER_RIGHT (0),
 	VEH_SIGNAL_BLINKER_LEFT (1),

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -31,7 +31,8 @@ import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStringList;
-import de.tudresden.ws.container.SumoTLSLogic;
+import de.tudresden.ws.container.SumoTLSProgram;
+import de.tudresden.ws.container.SumoTLSController;
 import de.tudresden.ws.container.SumoVehicleData;
 import de.tudresden.ws.log.Log;
 
@@ -182,24 +183,6 @@ public class ConvertHelper {
 
 	}
 
-	public SumoTLSLogic getTLSLogic(Object obj) {
-
-		SumoTLSLogic output = new SumoTLSLogic(null, 0, 0, 0);
-
-		try {
-
-			if (obj.getClass().equals(SumoTLSLogic.class)) {
-				output = (SumoTLSLogic) obj;
-			}
-
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
-
-		return output;
-
-	}
-
 	public SumoGeometry getPolygon(Object obj) {
 
 		SumoGeometry output = new SumoGeometry();
@@ -266,6 +249,24 @@ public class ConvertHelper {
 				} catch (Exception ex) {this.logger.write(ex.getStackTrace());}
 
 				return output;
+	}
+
+	public SumoTLSController getTLSProgram(Object obj) {
+		
+		SumoTLSController output = new SumoTLSController();
+
+		try {
+
+			if (obj.getClass().equals(SumoTLSProgram.class)) {
+				output = (SumoTLSController) obj;
+			}
+
+		} catch (Exception ex) {
+			this.logger.write(ex.getStackTrace());
+		}
+
+		return output;
+		
 	}
 
 }

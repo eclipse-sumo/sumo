@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Lane_getWaitingTime complex type.
+ * <p>Java-Klasse für Lane_getWaitingTime complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Lane_getWaitingTime">
@@ -34,7 +34,7 @@ public class LaneGetWaitingTime {
     protected String laneID;
 
     /**
-     * Gets the value of the laneID property.
+     * Ruft den Wert der laneID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class LaneGetWaitingTime {
     }
 
     /**
-     * Sets the value of the laneID property.
+     * Legt den Wert der laneID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

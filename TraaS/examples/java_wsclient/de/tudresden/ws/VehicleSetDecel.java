@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setDecel complex type.
+ * <p>Java-Klasse für Vehicle_setDecel complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setDecel">
@@ -37,7 +37,7 @@ public class VehicleSetDecel {
     protected double decel;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetDecel {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleSetDecel {
     }
 
     /**
-     * Gets the value of the decel property.
+     * Ruft den Wert der decel-Eigenschaft ab.
      * 
      */
     public double getDecel() {
@@ -69,7 +69,7 @@ public class VehicleSetDecel {
     }
 
     /**
-     * Sets the value of the decel property.
+     * Legt den Wert der decel-Eigenschaft fest.
      * 
      */
     public void setDecel(double value) {

@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Edge_getFuelConsumptionResponse complex type.
+ * <p>Java-Klasse für Edge_getFuelConsumptionResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Edge_getFuelConsumptionResponse">
@@ -36,7 +36,7 @@ public class EdgeGetFuelConsumptionResponse {
     protected double _return;
 
     /**
-     * Gets the value of the return property.
+     * Ruft den Wert der return-Eigenschaft ab.
      * 
      */
     public double getReturn() {
@@ -44,7 +44,7 @@ public class EdgeGetFuelConsumptionResponse {
     }
 
     /**
-     * Sets the value of the return property.
+     * Legt den Wert der return-Eigenschaft fest.
      * 
      */
     public void setReturn(double value) {

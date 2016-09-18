@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_add complex type.
+ * <p>Java-Klasse für Vehicle_add complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_add">
@@ -52,7 +52,7 @@ public class VehicleAdd {
     protected byte lane;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -64,7 +64,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -76,7 +76,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Gets the value of the typeID property.
+     * Ruft den Wert der typeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -88,7 +88,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Sets the value of the typeID property.
+     * Legt den Wert der typeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -100,7 +100,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Gets the value of the routeID property.
+     * Ruft den Wert der routeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -112,7 +112,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Sets the value of the routeID property.
+     * Legt den Wert der routeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -124,7 +124,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Gets the value of the depart property.
+     * Ruft den Wert der depart-Eigenschaft ab.
      * 
      */
     public int getDepart() {
@@ -132,7 +132,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Sets the value of the depart property.
+     * Legt den Wert der depart-Eigenschaft fest.
      * 
      */
     public void setDepart(int value) {
@@ -140,7 +140,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Gets the value of the pos property.
+     * Ruft den Wert der pos-Eigenschaft ab.
      * 
      */
     public double getPos() {
@@ -148,7 +148,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Sets the value of the pos property.
+     * Legt den Wert der pos-Eigenschaft fest.
      * 
      */
     public void setPos(double value) {
@@ -156,7 +156,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Gets the value of the speed property.
+     * Ruft den Wert der speed-Eigenschaft ab.
      * 
      */
     public double getSpeed() {
@@ -164,7 +164,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Sets the value of the speed property.
+     * Legt den Wert der speed-Eigenschaft fest.
      * 
      */
     public void setSpeed(double value) {
@@ -172,7 +172,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Gets the value of the lane property.
+     * Ruft den Wert der lane-Eigenschaft ab.
      * 
      */
     public byte getLane() {
@@ -180,7 +180,7 @@ public class VehicleAdd {
     }
 
     /**
-     * Sets the value of the lane property.
+     * Legt den Wert der lane-Eigenschaft fest.
      * 
      */
     public void setLane(byte value) {

@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Poi_setType complex type.
+ * <p>Java-Klasse für Poi_setType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Poi_setType">
@@ -37,7 +37,7 @@ public class PoiSetType {
     protected String poiType;
 
     /**
-     * Gets the value of the poiID property.
+     * Ruft den Wert der poiID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class PoiSetType {
     }
 
     /**
-     * Sets the value of the poiID property.
+     * Legt den Wert der poiID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class PoiSetType {
     }
 
     /**
-     * Gets the value of the poiType property.
+     * Ruft den Wert der poiType-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class PoiSetType {
     }
 
     /**
-     * Sets the value of the poiType property.
+     * Legt den Wert der poiType-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

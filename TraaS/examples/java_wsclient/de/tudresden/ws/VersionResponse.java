@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for versionResponse complex type.
+ * <p>Java-Klasse für versionResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="versionResponse">
@@ -34,7 +34,7 @@ public class VersionResponse {
     protected String output;
 
     /**
-     * Gets the value of the output property.
+     * Ruft den Wert der output-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class VersionResponse {
     }
 
     /**
-     * Sets the value of the output property.
+     * Legt den Wert der output-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

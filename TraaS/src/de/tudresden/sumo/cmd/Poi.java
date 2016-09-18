@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -86,6 +86,20 @@ public class Poi {
 	public static SumoCommand getIDList(){
 		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
+	
+	/**
+	 * Returns the chosen parameter
+	 *
+	 *  @param poiID a string identifying the poi
+	 *  @param param a string identifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String poiID, String param){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_PARAMETER, poiID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
+	}
+	
 
 	/**
 	 * Returns the position of this poi.

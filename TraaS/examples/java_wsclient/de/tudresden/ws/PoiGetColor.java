@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Poi_getColor complex type.
+ * <p>Java-Klasse für Poi_getColor complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Poi_getColor">
@@ -34,7 +34,7 @@ public class PoiGetColor {
     protected String poiID;
 
     /**
-     * Gets the value of the poiID property.
+     * Ruft den Wert der poiID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class PoiGetColor {
     }
 
     /**
-     * Sets the value of the poiID property.
+     * Legt den Wert der poiID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

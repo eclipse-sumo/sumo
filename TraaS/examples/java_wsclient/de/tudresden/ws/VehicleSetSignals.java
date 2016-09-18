@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setSignals complex type.
+ * <p>Java-Klasse für Vehicle_setSignals complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setSignals">
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="vehID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="signals" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="signals" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,10 +34,10 @@ import javax.xml.bind.annotation.XmlType;
 public class VehicleSetSignals {
 
     protected String vehID;
-    protected String signals;
+    protected int signals;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetSignals {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,26 +61,18 @@ public class VehicleSetSignals {
     }
 
     /**
-     * Gets the value of the signals property.
+     * Ruft den Wert der signals-Eigenschaft ab.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getSignals() {
+    public int getSignals() {
         return signals;
     }
 
     /**
-     * Sets the value of the signals property.
+     * Legt den Wert der signals-Eigenschaft fest.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setSignals(String value) {
+    public void setSignals(int value) {
         this.signals = value;
     }
 

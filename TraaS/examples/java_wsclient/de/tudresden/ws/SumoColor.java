@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for sumoColor complex type.
+ * <p>Java-Klasse für sumoColor complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="sumoColor">
@@ -43,7 +43,7 @@ public class SumoColor {
     protected byte a;
 
     /**
-     * Gets the value of the r property.
+     * Ruft den Wert der r-Eigenschaft ab.
      * 
      */
     public byte getR() {
@@ -51,7 +51,7 @@ public class SumoColor {
     }
 
     /**
-     * Sets the value of the r property.
+     * Legt den Wert der r-Eigenschaft fest.
      * 
      */
     public void setR(byte value) {
@@ -59,7 +59,7 @@ public class SumoColor {
     }
 
     /**
-     * Gets the value of the g property.
+     * Ruft den Wert der g-Eigenschaft ab.
      * 
      */
     public byte getG() {
@@ -67,7 +67,7 @@ public class SumoColor {
     }
 
     /**
-     * Sets the value of the g property.
+     * Legt den Wert der g-Eigenschaft fest.
      * 
      */
     public void setG(byte value) {
@@ -75,7 +75,7 @@ public class SumoColor {
     }
 
     /**
-     * Gets the value of the b property.
+     * Ruft den Wert der b-Eigenschaft ab.
      * 
      */
     public byte getB() {
@@ -83,7 +83,7 @@ public class SumoColor {
     }
 
     /**
-     * Sets the value of the b property.
+     * Legt den Wert der b-Eigenschaft fest.
      * 
      */
     public void setB(byte value) {
@@ -91,7 +91,7 @@ public class SumoColor {
     }
 
     /**
-     * Gets the value of the a property.
+     * Ruft den Wert der a-Eigenschaft ab.
      * 
      */
     public byte getA() {
@@ -99,7 +99,7 @@ public class SumoColor {
     }
 
     /**
-     * Sets the value of the a property.
+     * Legt den Wert der a-Eigenschaft fest.
      * 
      */
     public void setA(byte value) {

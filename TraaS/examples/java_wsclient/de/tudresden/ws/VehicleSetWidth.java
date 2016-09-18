@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setWidth complex type.
+ * <p>Java-Klasse für Vehicle_setWidth complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setWidth">
@@ -37,7 +37,7 @@ public class VehicleSetWidth {
     protected double width;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetWidth {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleSetWidth {
     }
 
     /**
-     * Gets the value of the width property.
+     * Ruft den Wert der width-Eigenschaft ab.
      * 
      */
     public double getWidth() {
@@ -69,7 +69,7 @@ public class VehicleSetWidth {
     }
 
     /**
-     * Sets the value of the width property.
+     * Legt den Wert der width-Eigenschaft fest.
      * 
      */
     public void setWidth(double value) {

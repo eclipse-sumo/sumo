@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -43,7 +43,7 @@ public class Person {
 	
 	
 	/**
-	 * Returns a list of ids of all persons
+	 * Returns a list of personIDs of all persons
 	 * 
 	 * @return list of IDs of all persons
 	 */
@@ -55,196 +55,186 @@ public class Person {
 	/**
 	 * If the person is walking, returns the next edge on the persons route (including crossing and walkingareas). If there is no further edge or the person is in another stage, returns the empty string.
 	 * 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return next edge
 	 */
 
-	public static SumoCommand getNextEdge(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_NEXT_EDGE, id, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRING);
+	public static SumoCommand getNextEdge(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_NEXT_EDGE, personID, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRING);
 	}
 	
+
+
+	/**
+	 * Returns the chosen parameter
+	 *
+	 *  @param personID a string personIDentifying the person
+	 *  @param param a string personIDentifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String personID, String param){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_PARAMETER, personID, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRING);
+	}
 	
 	/**
 	 * get speed
 	 * 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the speed in m/s
 	 */
 	
-	public static SumoCommand getSpeed(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_SPEED, id, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getSpeed(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_SPEED, personID, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
 	 * get position
 	 * 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the position 2D
 	 */
 	
-	public static SumoCommand getPosition(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_POSITION, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.POSITION_2D);
+	public static SumoCommand getPosition(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_POSITION, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.POSITION_2D);
 	}
 	
 	/**
 	 * get position3D
 	 * 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the position 3D
 	 */
 	
-	public static SumoCommand getPosition3D(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_POSITION3D, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.POSITION_3D);
+	public static SumoCommand getPosition3D(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_POSITION3D, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.POSITION_3D);
 	}
 	
 	/**
 	 * get angle
 	 * 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the angle
 	 */
 	
-	public static SumoCommand getAngle(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_ANGLE, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
+	public static SumoCommand getAngle(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_ANGLE, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
 	}
 	
 	/**
 	 * get road ID
 	 * 
-	 * @param id
-	 *            a string identifying the person
-	 * @return the id of the road
+	 * @param personID
+	 *            a string personIDentifying the person
+	 * @return the personID of the road
 	 */
 
-	public static SumoCommand getRoadID(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_ROAD_ID, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_STRING);
+	public static SumoCommand getRoadID(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_ROAD_ID, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_STRING);
 	}
 
 	/**
 	 * get type ID
 	 * 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the type ID of the person
 	 */
 	
-	public static SumoCommand getTypeID(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_TYPE, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_STRING);
+	public static SumoCommand getTypeID(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_TYPE, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_STRING);
 	}
 	
 	/**
 	 * get lane position 
 	 * 	 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the position on the lane
 	 */
 	
-	public static SumoCommand getLanePosition(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_LANEPOSITION, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
+	public static SumoCommand getLanePosition(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_LANEPOSITION, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
 	}
 	
 	/**
 	 * get color 
 	 * 	 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the color of the person in the GUI
 	 */
 	
-	public static SumoCommand getColor(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_COLOR, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_COLOR);
+	public static SumoCommand getColor(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_COLOR, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_COLOR);
 	}
 	
 	
 	/**
 	 * get person number
 	 * 	 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the person number
 	 */
 	
-	public static SumoCommand getPersonNumber(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_PERSON_NUMBER, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_INTEGER);
+	public static SumoCommand getPersonNumber(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_PERSON_NUMBER, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_INTEGER);
 	}
 	
 	/**
 	 * get length
 	 * 	 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the length of the person
 	 */
 	
-	public static SumoCommand getLength(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_LENGTH, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
+	public static SumoCommand getLength(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_LENGTH, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
 	}
 	
 	/**
 	 * get waiting time
 	 * 	 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the waiting time of the person
 	 */
 	
 	
-	public static SumoCommand getWaitingTime(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_WAITING_TIME, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
+	public static SumoCommand getWaitingTime(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_WAITING_TIME, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
 	}
 	
 	/**
-	 * get width
+	 * get wpersonIDth
 	 * 	 
-	 * @param id
+	 * @param personID
 	 *            a string identifying the person
 	 * @return the width of the person
 	 */
 	
-	public static SumoCommand getWidth(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_WIDTH, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
+	public static SumoCommand getWidth(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_WIDTH, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
 	}
 	
 	/**
 	 * get minGap
 	 * 	 
-	 * @param id
-	 *            a string identifying the person
+	 * @param personID
+	 *            a string personIDentifying the person
 	 * @return the value for the minimum Ggap of the person
 	 */
 	
-	public static SumoCommand getMinGap(String id){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_MINGAP, id, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
+	public static SumoCommand getMinGap(String personID){
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_MINGAP, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
 	}
 	
-	//setter methods
-
-
-	/* not yet implemented!
-
-	public static SumoCommand add(String id, String typeID, SumoStringList edges, int depart, double pos, double speed){
-
-		Object[] array = new Object[]{typeID, edges, depart, pos, speed};
-		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.ADD, id, array);
-	}
-	
-	public static SumoCommand setColor(String id, SumoColor color){
-		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.VAR_COLOR, id, color);
-	}
-	
-	public static SumoCommand setSpeed(String id, double  speed){
-		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.VAR_SPEED, id, speed);
-	}
-	
-	public static SumoCommand remove(String id, byte reason){
-		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.REMOVE, id, reason);
-	}
-	
-	*/
 }

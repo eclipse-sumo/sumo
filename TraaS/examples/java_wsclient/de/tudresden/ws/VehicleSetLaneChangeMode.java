@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setLaneChangeMode complex type.
+ * <p>Java-Klasse für Vehicle_setLaneChangeMode complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setLaneChangeMode">
@@ -37,7 +37,7 @@ public class VehicleSetLaneChangeMode {
     protected int lcm;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetLaneChangeMode {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleSetLaneChangeMode {
     }
 
     /**
-     * Gets the value of the lcm property.
+     * Ruft den Wert der lcm-Eigenschaft ab.
      * 
      */
     public int getLcm() {
@@ -69,7 +69,7 @@ public class VehicleSetLaneChangeMode {
     }
 
     /**
-     * Sets the value of the lcm property.
+     * Legt den Wert der lcm-Eigenschaft fest.
      * 
      */
     public void setLcm(int value) {

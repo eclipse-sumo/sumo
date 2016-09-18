@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 
-public class SumoStringList implements List<String>, Serializable {
+public class SumoStringList implements List<String>, Serializable, SumoObject {
 
 	private static final long serialVersionUID = -6530046166179152137L;
 

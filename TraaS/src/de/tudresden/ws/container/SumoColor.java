@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -24,7 +24,7 @@ package de.tudresden.ws.container;
  *
  */
 
-public class SumoColor {
+public class SumoColor implements SumoObject {
 
 	public byte r;
 	public byte g;

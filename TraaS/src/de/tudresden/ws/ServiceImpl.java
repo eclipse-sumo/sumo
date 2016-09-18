@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -23,15 +23,15 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-
+import javax.xml.ws.soap.SOAPBinding;
 
 import de.tudresden.sumo.util.ConvertHelper;
 import de.tudresden.sumo.util.Sumo;
 import de.tudresden.ws.conf.Config;
 import de.tudresden.ws.log.Log;
 
-@WebService(serviceName = "Sumo-Webservice")
-@BindingType(value="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+@WebService(serviceName = "TraasWS")
+@BindingType(value=SOAPBinding.SOAP12HTTP_BINDING)
 
 /**
  * 
@@ -39,14 +39,14 @@ import de.tudresden.ws.log.Log;
  *
  */
 
-public class Service_Impl extends Traci implements Service {
+public class ServiceImpl extends Traci implements Service {
 
 	Log logger;
 	Config conf;
 	Sumo sumo;
 	ConvertHelper helper;
 	
-	public Service_Impl(Config conf) {
+	public ServiceImpl(Config conf) {
 		this.conf = conf;
 		this.logger=conf.logger;
 		this.conf.refresh_actiontime();

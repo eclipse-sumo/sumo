@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Lane_getLinksResponse complex type.
+ * <p>Java-Klasse für Lane_getLinksResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Lane_getLinksResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://ws.tudresden.de/}sumoLink" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class LaneGetLinksResponse {
 
     @XmlElement(name = "return")
-    protected List<String> _return;
+    protected List<SumoLink> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class LaneGetLinksResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
+     * {@link SumoLink }
      * 
      * 
      */
-    public List<String> getReturn() {
+    public List<SumoLink> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<String>();
+            _return = new ArrayList<SumoLink>();
         }
         return this._return;
     }

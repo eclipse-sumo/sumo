@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -64,6 +64,19 @@ public class Polygon {
 
 	public static SumoCommand getIDCount(){
 		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * Returns the chosen parameter
+	 *
+	 *  @param polygonID a string identifying the polygon
+	 *  @param param a string identifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String polygonID, String param){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_PARAMETER, polygonID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
 	}
 	
 	/**
@@ -144,6 +157,20 @@ public class Polygon {
 		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.VAR_COLOR, polygonID, color);
 	}
 
+
+	/**
+	 * Set the color of this polygon.
+	 * 
+	 * @param polygonID
+	 *            a string identifying the polygon
+	 * @param fill parameter if polygon should be filled
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setFill(String polygonID, boolean fill){
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.VAR_FILL, polygonID, fill);
+	}
+	
 	/**
 	 * Set the shape of this polygon.
 	 * 

@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Junction_getPosition complex type.
+ * <p>Java-Klasse für Junction_getPosition complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Junction_getPosition">
@@ -34,7 +34,7 @@ public class JunctionGetPosition {
     protected String junctionID;
 
     /**
-     * Gets the value of the junctionID property.
+     * Ruft den Wert der junctionID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class JunctionGetPosition {
     }
 
     /**
-     * Sets the value of the junctionID property.
+     * Legt den Wert der junctionID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

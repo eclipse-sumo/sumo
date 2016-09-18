@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Simulation_convert2D complex type.
+ * <p>Java-Klasse für Simulation_convert2D complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Simulation_convert2D">
@@ -43,7 +43,7 @@ public class SimulationConvert2D {
     protected String toGeo;
 
     /**
-     * Gets the value of the edgeID property.
+     * Ruft den Wert der edgeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -55,7 +55,7 @@ public class SimulationConvert2D {
     }
 
     /**
-     * Sets the value of the edgeID property.
+     * Legt den Wert der edgeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +67,7 @@ public class SimulationConvert2D {
     }
 
     /**
-     * Gets the value of the pos property.
+     * Ruft den Wert der pos-Eigenschaft ab.
      * 
      */
     public double getPos() {
@@ -75,7 +75,7 @@ public class SimulationConvert2D {
     }
 
     /**
-     * Sets the value of the pos property.
+     * Legt den Wert der pos-Eigenschaft fest.
      * 
      */
     public void setPos(double value) {
@@ -83,7 +83,7 @@ public class SimulationConvert2D {
     }
 
     /**
-     * Gets the value of the laneIndex property.
+     * Ruft den Wert der laneIndex-Eigenschaft ab.
      * 
      */
     public byte getLaneIndex() {
@@ -91,7 +91,7 @@ public class SimulationConvert2D {
     }
 
     /**
-     * Sets the value of the laneIndex property.
+     * Legt den Wert der laneIndex-Eigenschaft fest.
      * 
      */
     public void setLaneIndex(byte value) {
@@ -99,7 +99,7 @@ public class SimulationConvert2D {
     }
 
     /**
-     * Gets the value of the toGeo property.
+     * Ruft den Wert der toGeo-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -111,7 +111,7 @@ public class SimulationConvert2D {
     }
 
     /**
-     * Sets the value of the toGeo property.
+     * Legt den Wert der toGeo-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_changeLane complex type.
+ * <p>Java-Klasse für Vehicle_changeLane complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_changeLane">
@@ -40,7 +40,7 @@ public class VehicleChangeLane {
     protected int duration;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class VehicleChangeLane {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class VehicleChangeLane {
     }
 
     /**
-     * Gets the value of the laneIndex property.
+     * Ruft den Wert der laneIndex-Eigenschaft ab.
      * 
      */
     public byte getLaneIndex() {
@@ -72,7 +72,7 @@ public class VehicleChangeLane {
     }
 
     /**
-     * Sets the value of the laneIndex property.
+     * Legt den Wert der laneIndex-Eigenschaft fest.
      * 
      */
     public void setLaneIndex(byte value) {
@@ -80,7 +80,7 @@ public class VehicleChangeLane {
     }
 
     /**
-     * Gets the value of the duration property.
+     * Ruft den Wert der duration-Eigenschaft ab.
      * 
      */
     public int getDuration() {
@@ -88,7 +88,7 @@ public class VehicleChangeLane {
     }
 
     /**
-     * Sets the value of the duration property.
+     * Legt den Wert der duration-Eigenschaft fest.
      * 
      */
     public void setDuration(int value) {

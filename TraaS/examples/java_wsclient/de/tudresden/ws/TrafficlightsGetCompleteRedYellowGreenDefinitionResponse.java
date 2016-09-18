@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Trafficlights_getCompleteRedYellowGreenDefinitionResponse complex type.
+ * <p>Java-Klasse für Trafficlights_getCompleteRedYellowGreenDefinitionResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Trafficlights_getCompleteRedYellowGreenDefinitionResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://ws.tudresden.de/}sumoTLSLogic" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://ws.tudresden.de/}sumoTLSController" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,29 +33,29 @@ import javax.xml.bind.annotation.XmlType;
 public class TrafficlightsGetCompleteRedYellowGreenDefinitionResponse {
 
     @XmlElement(name = "return")
-    protected SumoTLSLogic _return;
+    protected SumoTLSController _return;
 
     /**
-     * Gets the value of the return property.
+     * Ruft den Wert der return-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link SumoTLSLogic }
+     *     {@link SumoTLSController }
      *     
      */
-    public SumoTLSLogic getReturn() {
+    public SumoTLSController getReturn() {
         return _return;
     }
 
     /**
-     * Sets the value of the return property.
+     * Legt den Wert der return-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link SumoTLSLogic }
+     *     {@link SumoTLSController }
      *     
      */
-    public void setReturn(SumoTLSLogic value) {
+    public void setReturn(SumoTLSController value) {
         this._return = value;
     }
 

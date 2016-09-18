@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for sumoTLSPhase complex type.
+ * <p>Java-Klasse für sumoTLSPhase complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="sumoTLSPhase">
@@ -43,7 +43,7 @@ public class SumoTLSPhase {
     protected String phasedef;
 
     /**
-     * Gets the value of the duration property.
+     * Ruft den Wert der duration-Eigenschaft ab.
      * 
      */
     public int getDuration() {
@@ -51,7 +51,7 @@ public class SumoTLSPhase {
     }
 
     /**
-     * Sets the value of the duration property.
+     * Legt den Wert der duration-Eigenschaft fest.
      * 
      */
     public void setDuration(int value) {
@@ -59,7 +59,7 @@ public class SumoTLSPhase {
     }
 
     /**
-     * Gets the value of the duration1 property.
+     * Ruft den Wert der duration1-Eigenschaft ab.
      * 
      */
     public int getDuration1() {
@@ -67,7 +67,7 @@ public class SumoTLSPhase {
     }
 
     /**
-     * Sets the value of the duration1 property.
+     * Legt den Wert der duration1-Eigenschaft fest.
      * 
      */
     public void setDuration1(int value) {
@@ -75,7 +75,7 @@ public class SumoTLSPhase {
     }
 
     /**
-     * Gets the value of the duration2 property.
+     * Ruft den Wert der duration2-Eigenschaft ab.
      * 
      */
     public int getDuration2() {
@@ -83,7 +83,7 @@ public class SumoTLSPhase {
     }
 
     /**
-     * Sets the value of the duration2 property.
+     * Legt den Wert der duration2-Eigenschaft fest.
      * 
      */
     public void setDuration2(int value) {
@@ -91,7 +91,7 @@ public class SumoTLSPhase {
     }
 
     /**
-     * Gets the value of the phasedef property.
+     * Ruft den Wert der phasedef-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class SumoTLSPhase {
     }
 
     /**
-     * Sets the value of the phasedef property.
+     * Legt den Wert der phasedef-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -27,7 +27,7 @@ import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
-import de.tudresden.ws.container.SumoTLSLogic;
+import de.tudresden.ws.container.SumoTLSProgram;
 import de.tudresden.ws.container.SumoTLSPhase;
 import it.polito.appeal.traci.protocol.Command;
 
@@ -316,9 +316,9 @@ public class SumoCommand {
 					cmd.content().writeStringASCII(s);
 				}
 	
-		}else if(input.getClass().equals(SumoTLSLogic.class)){
+		}else if(input.getClass().equals(SumoTLSProgram.class)){
 		
-			SumoTLSLogic stl = (SumoTLSLogic) input;
+			SumoTLSProgram stl = (SumoTLSProgram) input;
 			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
 			cmd.content().writeInt(stl.phases.size());	
 		

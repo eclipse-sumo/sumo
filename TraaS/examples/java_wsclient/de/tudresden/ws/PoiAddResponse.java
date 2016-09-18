@@ -3,21 +3,19 @@ package de.tudresden.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Poi_addResponse complex type.
+ * <p>Java-Klasse für Poi_addResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Poi_addResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,28 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Poi_addResponse", propOrder = {
-    "_return"
-})
+@XmlType(name = "Poi_addResponse")
 public class PoiAddResponse {
 
-    @XmlElement(name = "return")
-    protected int _return;
-
-    /**
-     * Gets the value of the return property.
-     * 
-     */
-    public int getReturn() {
-        return _return;
-    }
-
-    /**
-     * Sets the value of the return property.
-     * 
-     */
-    public void setReturn(int value) {
-        this._return = value;
-    }
 
 }

@@ -30,9 +30,10 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 import de.tudresden.sumo.cmd.Vehicle;
-import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.subscription.Subscription;
 import de.tudresden.sumo.util.CommandProcessor;
 import de.tudresden.sumo.util.SumoCommand;
 
@@ -53,6 +54,10 @@ public class SumoTraciConnection {
 	 * @author Enrico
 	 * 
 	 */
+	
+	static boolean stdout = false;
+	static boolean stderr = true;
+	
 	private static class StreamLogger implements Runnable {
 		final InputStream stream;
 		@SuppressWarnings("unused")
@@ -71,8 +76,11 @@ public class SumoTraciConnection {
 				String strLine;
 				while ((strLine = br.readLine()) != null)   {
 					
-					if(strLine.contains("Error:") && !strLine.contains("peer shutdown")){System.err.println (strLine);}
-					//else{System.out.println (strLine);}
+					if(strLine.contains("Error:") && !strLine.contains("peer shutdown")){
+						if(stderr) System.err.println (strLine);
+					}else{
+						if(stdout) System.out.println (strLine);
+					}
 					
 				  }	
 				
@@ -90,6 +98,9 @@ public class SumoTraciConnection {
 	//new
 	private String net_file;
 	private String route_file;
+	private String additional_file;
+	private String gui_settings;
+	
 	String sumoEXE = "/opt/sumo/sumo-0.15.0/bin/sumo";
 	private CommandProcessor cp;
 	
@@ -107,19 +118,31 @@ public class SumoTraciConnection {
 		this.route_file=route_file;
 	}
 	
+	public SumoTraciConnection(String sumo_bin, String net_file, String route_file, String additional_file) {
+		this.sumoEXE=sumo_bin;
+		this.net_file=net_file;
+		this.route_file=route_file;
+		this.additional_file=additional_file;
+	}
+	
+	public SumoTraciConnection(String sumo_bin, String net_file, String route_file, String additional_file, String gui_settings) {
+		this.sumoEXE=sumo_bin;
+		this.net_file=net_file;
+		this.route_file=route_file;
+		this.additional_file=additional_file;
+		this.gui_settings = gui_settings;
+	}
+	
 	public SumoTraciConnection(String sumo_bin, String configFile) {
 		this.sumoEXE=sumo_bin;
 		this.configFile=configFile;
 	}
-	
-	
 	
 	public SumoTraciConnection(String configFile, int randomSeed, boolean useGeoOffset) {
 		this.randomSeed = randomSeed;
 		this.configFile = configFile;
 	}
 
-	
 	public SumoTraciConnection(SocketAddress sockAddr) throws IOException,
 			InterruptedException {
 		
@@ -230,6 +253,16 @@ public class SumoTraciConnection {
 			args.add(this.net_file);
 			args.add("--route-files");
 			args.add(this.route_file);
+		
+			if(this.additional_file != null){
+				args.add("--additional-files");
+				args.add(this.additional_file);
+			}
+			
+			if(this.gui_settings != null){
+				args.add("--gui-settings-file");
+				args.add(this.gui_settings);
+			}
 			
 		}else{
 			args.add("--net-file");
@@ -311,7 +344,6 @@ public class SumoTraciConnection {
 		
 	}
 	
-	
 	public synchronized Object do_job_get(SumoCommand cmd) throws Exception{
 		
 		Object output = null;
@@ -329,19 +361,40 @@ public class SumoTraciConnection {
 		return output;
 	}
 	
+	public synchronized void do_timestep() throws Exception{this.do_timestep(0);}
 	
-	public synchronized void do_timestep() throws Exception{
+	public synchronized void do_timestep(int targetTime) throws Exception{
 		
 		if (isClosed())
 			throw new IllegalStateException("connection is closed");
 		
-		try {this.cp.do_job_set(new SumoCommand(Constants.CMD_SIMSTEP2, 0));}
+		try {this.cp.do_SimulationStep(targetTime);}
 		catch (Exception e) {
 			closeAndDontCareAboutInterruptedException();
 			throw e;
 		}
 		
 	}
+	
+	public synchronized void addObserver(Observer o){this.cp.addObserver(o);}
+	
+	public synchronized void do_subscription(Subscription cs) throws Exception{
+		
+		if (isClosed())
+			throw new IllegalStateException("connection is closed");
+		
+		try {
+			this.cp.do_subscription(cs);
+		}catch (Exception e) {
+			closeAndDontCareAboutInterruptedException();
+			throw e;
+		}
+		
+	}
+	
+	public void printSumoOutput(boolean b){stdout = b;}
+	
+	public void printSumoError(boolean b){stderr = b;}
 	
 }
 

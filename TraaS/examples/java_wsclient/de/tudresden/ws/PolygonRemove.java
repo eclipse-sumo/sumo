@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Polygon_remove complex type.
+ * <p>Java-Klasse für Polygon_remove complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Polygon_remove">
@@ -37,7 +37,7 @@ public class PolygonRemove {
     protected int layer;
 
     /**
-     * Gets the value of the polygonID property.
+     * Ruft den Wert der polygonID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class PolygonRemove {
     }
 
     /**
-     * Sets the value of the polygonID property.
+     * Legt den Wert der polygonID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class PolygonRemove {
     }
 
     /**
-     * Gets the value of the layer property.
+     * Ruft den Wert der layer-Eigenschaft ab.
      * 
      */
     public int getLayer() {
@@ -69,7 +69,7 @@ public class PolygonRemove {
     }
 
     /**
-     * Sets the value of the layer property.
+     * Legt den Wert der layer-Eigenschaft fest.
      * 
      */
     public void setLayer(int value) {

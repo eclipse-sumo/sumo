@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicletype_getSpeedFactor complex type.
+ * <p>Java-Klasse für Vehicletype_getSpeedFactor complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicletype_getSpeedFactor">
@@ -34,7 +34,7 @@ public class VehicletypeGetSpeedFactor {
     protected String typeID;
 
     /**
-     * Gets the value of the typeID property.
+     * Ruft den Wert der typeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class VehicletypeGetSpeedFactor {
     }
 
     /**
-     * Sets the value of the typeID property.
+     * Legt den Wert der typeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

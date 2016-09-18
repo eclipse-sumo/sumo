@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Polygon_add complex type.
+ * <p>Java-Klasse für Polygon_add complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Polygon_add">
@@ -49,7 +49,7 @@ public class PolygonAdd {
     protected int layer;
 
     /**
-     * Gets the value of the polygonID property.
+     * Ruft den Wert der polygonID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Sets the value of the polygonID property.
+     * Legt den Wert der polygonID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Gets the value of the shape property.
+     * Ruft den Wert der shape-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Sets the value of the shape property.
+     * Legt den Wert der shape-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Gets the value of the color property.
+     * Ruft den Wert der color-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Sets the value of the color property.
+     * Legt den Wert der color-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Gets the value of the fill property.
+     * Ruft den Wert der fill-Eigenschaft ab.
      * 
      */
     public boolean isFill() {
@@ -129,7 +129,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Sets the value of the fill property.
+     * Legt den Wert der fill-Eigenschaft fest.
      * 
      */
     public void setFill(boolean value) {
@@ -137,7 +137,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Gets the value of the polygonType property.
+     * Ruft den Wert der polygonType-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -149,7 +149,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Sets the value of the polygonType property.
+     * Legt den Wert der polygonType-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -161,7 +161,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Gets the value of the layer property.
+     * Ruft den Wert der layer-Eigenschaft ab.
      * 
      */
     public int getLayer() {
@@ -169,7 +169,7 @@ public class PolygonAdd {
     }
 
     /**
-     * Sets the value of the layer property.
+     * Legt den Wert der layer-Eigenschaft fest.
      * 
      */
     public void setLayer(int value) {

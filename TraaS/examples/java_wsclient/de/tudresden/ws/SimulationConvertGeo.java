@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Simulation_convertGeo complex type.
+ * <p>Java-Klasse für Simulation_convertGeo complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Simulation_convertGeo">
@@ -40,7 +40,7 @@ public class SimulationConvertGeo {
     protected String fromGeo;
 
     /**
-     * Gets the value of the x property.
+     * Ruft den Wert der x-Eigenschaft ab.
      * 
      */
     public double getX() {
@@ -48,7 +48,7 @@ public class SimulationConvertGeo {
     }
 
     /**
-     * Sets the value of the x property.
+     * Legt den Wert der x-Eigenschaft fest.
      * 
      */
     public void setX(double value) {
@@ -56,7 +56,7 @@ public class SimulationConvertGeo {
     }
 
     /**
-     * Gets the value of the y property.
+     * Ruft den Wert der y-Eigenschaft ab.
      * 
      */
     public double getY() {
@@ -64,7 +64,7 @@ public class SimulationConvertGeo {
     }
 
     /**
-     * Sets the value of the y property.
+     * Legt den Wert der y-Eigenschaft fest.
      * 
      */
     public void setY(double value) {
@@ -72,7 +72,7 @@ public class SimulationConvertGeo {
     }
 
     /**
-     * Gets the value of the fromGeo property.
+     * Ruft den Wert der fromGeo-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -84,7 +84,7 @@ public class SimulationConvertGeo {
     }
 
     /**
-     * Sets the value of the fromGeo property.
+     * Legt den Wert der fromGeo-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

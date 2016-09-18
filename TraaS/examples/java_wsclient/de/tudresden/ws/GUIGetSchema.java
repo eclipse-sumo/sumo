@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GUI_getSchema complex type.
+ * <p>Java-Klasse für GUI_getSchema complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="GUI_getSchema">
@@ -34,7 +34,7 @@ public class GUIGetSchema {
     protected String viewID;
 
     /**
-     * Gets the value of the viewID property.
+     * Ruft den Wert der viewID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class GUIGetSchema {
     }
 
     /**
-     * Sets the value of the viewID property.
+     * Legt den Wert der viewID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

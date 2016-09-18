@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -63,6 +63,18 @@ public class Route {
 		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_ROUTE_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
+	/**
+	 * Returns the chosen parameter
+	 *
+	 *  @param routeID a string identifying the route
+	 *  @param param a string identifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String routeID, String param){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_PARAMETER, routeID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
+	}
 	
 	//setter methods
 

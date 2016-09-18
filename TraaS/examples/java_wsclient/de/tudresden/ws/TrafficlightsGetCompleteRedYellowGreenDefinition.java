@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Trafficlights_getCompleteRedYellowGreenDefinition complex type.
+ * <p>Java-Klasse für Trafficlights_getCompleteRedYellowGreenDefinition complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Trafficlights_getCompleteRedYellowGreenDefinition">
@@ -34,7 +34,7 @@ public class TrafficlightsGetCompleteRedYellowGreenDefinition {
     protected String tlsID;
 
     /**
-     * Gets the value of the tlsID property.
+     * Ruft den Wert der tlsID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class TrafficlightsGetCompleteRedYellowGreenDefinition {
     }
 
     /**
-     * Sets the value of the tlsID property.
+     * Legt den Wert der tlsID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

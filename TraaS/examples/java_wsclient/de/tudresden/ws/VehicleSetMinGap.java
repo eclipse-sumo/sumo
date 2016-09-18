@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setMinGap complex type.
+ * <p>Java-Klasse für Vehicle_setMinGap complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setMinGap">
@@ -37,7 +37,7 @@ public class VehicleSetMinGap {
     protected double minGap;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetMinGap {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleSetMinGap {
     }
 
     /**
-     * Gets the value of the minGap property.
+     * Ruft den Wert der minGap-Eigenschaft ab.
      * 
      */
     public double getMinGap() {
@@ -69,7 +69,7 @@ public class VehicleSetMinGap {
     }
 
     /**
-     * Sets the value of the minGap property.
+     * Legt den Wert der minGap-Eigenschaft fest.
      * 
      */
     public void setMinGap(double value) {

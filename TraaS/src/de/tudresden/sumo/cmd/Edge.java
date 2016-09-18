@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -19,6 +19,7 @@
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
+import de.tudresden.ws.container.SumoStringList;
 
 /**
  * 
@@ -304,6 +305,19 @@ public class Edge {
 		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_WAITING_TIME, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
+	/**
+	 * Returns the chosen parameter
+	 *
+	 *  @param edgeID a string identifying the edge
+	 *  @param param a string identifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String edgeID, String param){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_PARAMETER, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRING);
+	}
+	
 	
 	//setter methods
 
@@ -354,5 +368,31 @@ public class Edge {
 		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_MAXSPEED, edgeID, speed);
 	}
 
+	/**
+	 * Set the allowed vehicles for an edge
+	 * 
+	 * @param edgeID a string identifying the edge
+	 * @param sl list of allowed vehicles 
+	 * @return SumoCommand
+	
+	 */
 
+	public static SumoCommand setAllowedVehicles(String edgeID, SumoStringList sl){
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.LANE_ALLOWED, edgeID, sl);
+	}
+	
+	/**
+	 * Set the disallowed vehicles for an edge
+	 * 
+	 * @param edgeID a string identifying the edge
+	 * @param sl list of disallowed vehicles 
+	 * @return SumoCommand
+	
+	 */
+
+	public static SumoCommand setDisallowedVehicles(String edgeID, SumoStringList sl){
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.LANE_DISALLOWED, edgeID, sl);
+	}
+	
+	
 }

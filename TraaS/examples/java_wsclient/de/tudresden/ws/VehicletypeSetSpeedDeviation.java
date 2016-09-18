@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicletype_setSpeedDeviation complex type.
+ * <p>Java-Klasse für Vehicletype_setSpeedDeviation complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicletype_setSpeedDeviation">
@@ -37,7 +37,7 @@ public class VehicletypeSetSpeedDeviation {
     protected double deviation;
 
     /**
-     * Gets the value of the typeID property.
+     * Ruft den Wert der typeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicletypeSetSpeedDeviation {
     }
 
     /**
-     * Sets the value of the typeID property.
+     * Legt den Wert der typeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicletypeSetSpeedDeviation {
     }
 
     /**
-     * Gets the value of the deviation property.
+     * Ruft den Wert der deviation-Eigenschaft ab.
      * 
      */
     public double getDeviation() {
@@ -69,7 +69,7 @@ public class VehicletypeSetSpeedDeviation {
     }
 
     /**
-     * Sets the value of the deviation property.
+     * Legt den Wert der deviation-Eigenschaft fest.
      * 
      */
     public void setDeviation(double value) {

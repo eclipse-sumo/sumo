@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_moveTo complex type.
+ * <p>Java-Klasse für Vehicle_moveTo complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_moveTo">
@@ -40,7 +40,7 @@ public class VehicleMoveTo {
     protected double pos;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class VehicleMoveTo {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class VehicleMoveTo {
     }
 
     /**
-     * Gets the value of the laneID property.
+     * Ruft den Wert der laneID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -76,7 +76,7 @@ public class VehicleMoveTo {
     }
 
     /**
-     * Sets the value of the laneID property.
+     * Legt den Wert der laneID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -88,7 +88,7 @@ public class VehicleMoveTo {
     }
 
     /**
-     * Gets the value of the pos property.
+     * Ruft den Wert der pos-Eigenschaft ab.
      * 
      */
     public double getPos() {
@@ -96,7 +96,7 @@ public class VehicleMoveTo {
     }
 
     /**
-     * Sets the value of the pos property.
+     * Legt den Wert der pos-Eigenschaft fest.
      * 
      */
     public void setPos(double value) {

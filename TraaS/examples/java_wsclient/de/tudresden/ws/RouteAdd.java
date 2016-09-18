@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Route_add complex type.
+ * <p>Java-Klasse für Route_add complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Route_add">
@@ -39,7 +39,7 @@ public class RouteAdd {
     protected List<String> edges;
 
     /**
-     * Gets the value of the routeID property.
+     * Ruft den Wert der routeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -51,7 +51,7 @@ public class RouteAdd {
     }
 
     /**
-     * Sets the value of the routeID property.
+     * Legt den Wert der routeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

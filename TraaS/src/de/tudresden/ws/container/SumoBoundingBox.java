@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -25,7 +25,7 @@ package de.tudresden.ws.container;
  *
  */
 
-public class SumoBoundingBox {
+public class SumoBoundingBox implements SumoObject {
 	
 	public double x_min;
 	public double y_min;

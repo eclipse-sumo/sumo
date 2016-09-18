@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_slowDown complex type.
+ * <p>Java-Klasse für Vehicle_slowDown complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_slowDown">
@@ -40,7 +40,7 @@ public class VehicleSlowDown {
     protected int duration;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class VehicleSlowDown {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class VehicleSlowDown {
     }
 
     /**
-     * Gets the value of the speed property.
+     * Ruft den Wert der speed-Eigenschaft ab.
      * 
      */
     public double getSpeed() {
@@ -72,7 +72,7 @@ public class VehicleSlowDown {
     }
 
     /**
-     * Sets the value of the speed property.
+     * Legt den Wert der speed-Eigenschaft fest.
      * 
      */
     public void setSpeed(double value) {
@@ -80,7 +80,7 @@ public class VehicleSlowDown {
     }
 
     /**
-     * Gets the value of the duration property.
+     * Ruft den Wert der duration-Eigenschaft ab.
      * 
      */
     public int getDuration() {
@@ -88,7 +88,7 @@ public class VehicleSlowDown {
     }
 
     /**
-     * Sets the value of the duration property.
+     * Legt den Wert der duration-Eigenschaft fest.
      * 
      */
     public void setDuration(int value) {

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -19,7 +19,7 @@
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoTLSLogic;
+import de.tudresden.ws.container.SumoTLSProgram;
 
 /**
  * 
@@ -29,7 +29,7 @@ import de.tudresden.ws.container.SumoTLSLogic;
  */
 
 
-public class Trafficlights {
+public class Trafficlight {
 
 	//getter methods
 
@@ -88,6 +88,17 @@ public class Trafficlights {
 	}
 
 	/**
+	 * Returns the external state
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return compound of the external state
+	 */
+
+	public static SumoCommand getExternalState(String tlsID){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_EXTERNAL_STATE, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_COMPOUND);
+	}
+	
+	/**
 	 * Returns a list of IDs of all traffic lights within the scenario.
 	 * 
 	 * @return a list of IDs of all TLS
@@ -108,6 +119,19 @@ public class Trafficlights {
 		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_NEXT_SWITCH, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
+	/**
+	 * Returns the chosen parameter
+	 *
+	 *  @param tlsID a string identifying the traffic light
+	 *  @param param a string identifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String tlsID, String param){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.VAR_PARAMETER, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRING);
+	}
+	
 	/**
 	 * Returns the index of the current phase in the current program.
 	 * 
@@ -151,7 +175,7 @@ public class Trafficlights {
 	 * @return SumoCommand
 	 */
 
-	public static SumoCommand setCompleteRedYellowGreenDefinition(String tlsID, SumoTLSLogic tls){
+	public static SumoCommand setCompleteRedYellowGreenDefinition(String tlsID, SumoTLSProgram tls){
 		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.TL_COMPLETE_PROGRAM_RYG, tlsID, tls);
 	}
 

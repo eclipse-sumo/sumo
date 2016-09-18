@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -44,7 +44,7 @@ public class WebService
 			logger = conf.logger;
 			logger.write(conf.name + " is going to start", 1);			
 		    		
-			Service server = new Service_Impl(conf);
+			Service server = new ServiceImpl(conf);
 			logger.write("The webservice (Version "+server.version()+") is available under " + conf.get_url(),1);
 		        	
 			//start webservice

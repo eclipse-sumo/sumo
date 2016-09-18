@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for sumoBoundingBox complex type.
+ * <p>Java-Klasse für sumoBoundingBox complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="sumoBoundingBox">
@@ -48,7 +48,7 @@ public class SumoBoundingBox {
     protected double yMax;
 
     /**
-     * Gets the value of the xMin property.
+     * Ruft den Wert der xMin-Eigenschaft ab.
      * 
      */
     public double getXMin() {
@@ -56,7 +56,7 @@ public class SumoBoundingBox {
     }
 
     /**
-     * Sets the value of the xMin property.
+     * Legt den Wert der xMin-Eigenschaft fest.
      * 
      */
     public void setXMin(double value) {
@@ -64,7 +64,7 @@ public class SumoBoundingBox {
     }
 
     /**
-     * Gets the value of the yMin property.
+     * Ruft den Wert der yMin-Eigenschaft ab.
      * 
      */
     public double getYMin() {
@@ -72,7 +72,7 @@ public class SumoBoundingBox {
     }
 
     /**
-     * Sets the value of the yMin property.
+     * Legt den Wert der yMin-Eigenschaft fest.
      * 
      */
     public void setYMin(double value) {
@@ -80,7 +80,7 @@ public class SumoBoundingBox {
     }
 
     /**
-     * Gets the value of the xMax property.
+     * Ruft den Wert der xMax-Eigenschaft ab.
      * 
      */
     public double getXMax() {
@@ -88,7 +88,7 @@ public class SumoBoundingBox {
     }
 
     /**
-     * Sets the value of the xMax property.
+     * Legt den Wert der xMax-Eigenschaft fest.
      * 
      */
     public void setXMax(double value) {
@@ -96,7 +96,7 @@ public class SumoBoundingBox {
     }
 
     /**
-     * Gets the value of the yMax property.
+     * Ruft den Wert der yMax-Eigenschaft ab.
      * 
      */
     public double getYMax() {
@@ -104,7 +104,7 @@ public class SumoBoundingBox {
     }
 
     /**
-     * Sets the value of the yMax property.
+     * Legt den Wert der yMax-Eigenschaft fest.
      * 
      */
     public void setYMax(double value) {

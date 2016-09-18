@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ArealDetector_getJamLengthVehicle complex type.
+ * <p>Java-Klasse für ArealDetector_getJamLengthVehicle complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="ArealDetector_getJamLengthVehicle">
@@ -34,7 +34,7 @@ public class ArealDetectorGetJamLengthVehicle {
     protected String loopID;
 
     /**
-     * Gets the value of the loopID property.
+     * Ruft den Wert der loopID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class ArealDetectorGetJamLengthVehicle {
     }
 
     /**
-     * Sets the value of the loopID property.
+     * Legt den Wert der loopID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

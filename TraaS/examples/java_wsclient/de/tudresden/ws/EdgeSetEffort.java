@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Edge_setEffort complex type.
+ * <p>Java-Klasse für Edge_setEffort complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Edge_setEffort">
@@ -37,7 +37,7 @@ public class EdgeSetEffort {
     protected double effort;
 
     /**
-     * Gets the value of the edgeID property.
+     * Ruft den Wert der edgeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class EdgeSetEffort {
     }
 
     /**
-     * Sets the value of the edgeID property.
+     * Legt den Wert der edgeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class EdgeSetEffort {
     }
 
     /**
-     * Gets the value of the effort property.
+     * Ruft den Wert der effort-Eigenschaft ab.
      * 
      */
     public double getEffort() {
@@ -69,7 +69,7 @@ public class EdgeSetEffort {
     }
 
     /**
-     * Sets the value of the effort property.
+     * Legt den Wert der effort-Eigenschaft fest.
      * 
      */
     public void setEffort(double value) {

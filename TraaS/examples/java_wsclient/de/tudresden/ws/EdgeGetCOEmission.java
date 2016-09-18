@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Edge_getCOEmission complex type.
+ * <p>Java-Klasse für Edge_getCOEmission complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Edge_getCOEmission">
@@ -34,7 +34,7 @@ public class EdgeGetCOEmission {
     protected String edgeID;
 
     /**
-     * Gets the value of the edgeID property.
+     * Ruft den Wert der edgeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class EdgeGetCOEmission {
     }
 
     /**
-     * Sets the value of the edgeID property.
+     * Legt den Wert der edgeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

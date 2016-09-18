@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Multientryexit_getLastStepVehicleNumber complex type.
+ * <p>Java-Klasse für Multientryexit_getLastStepVehicleNumber complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Multientryexit_getLastStepVehicleNumber">
@@ -34,7 +34,7 @@ public class MultientryexitGetLastStepVehicleNumber {
     protected String detID;
 
     /**
-     * Gets the value of the detID property.
+     * Ruft den Wert der detID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class MultientryexitGetLastStepVehicleNumber {
     }
 
     /**
-     * Sets the value of the detID property.
+     * Legt den Wert der detID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

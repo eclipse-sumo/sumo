@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TXT_output complex type.
+ * <p>Java-Klasse für TXT_output complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="TXT_output">
@@ -34,7 +34,7 @@ public class TXTOutput {
     protected boolean active;
 
     /**
-     * Gets the value of the active property.
+     * Ruft den Wert der active-Eigenschaft ab.
      * 
      */
     public boolean isActive() {
@@ -42,7 +42,7 @@ public class TXTOutput {
     }
 
     /**
-     * Sets the value of the active property.
+     * Legt den Wert der active-Eigenschaft fest.
      * 
      */
     public void setActive(boolean value) {

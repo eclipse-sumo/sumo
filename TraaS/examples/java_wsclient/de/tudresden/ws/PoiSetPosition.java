@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Poi_setPosition complex type.
+ * <p>Java-Klasse für Poi_setPosition complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Poi_setPosition">
@@ -40,7 +40,7 @@ public class PoiSetPosition {
     protected double y;
 
     /**
-     * Gets the value of the poiID property.
+     * Ruft den Wert der poiID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class PoiSetPosition {
     }
 
     /**
-     * Sets the value of the poiID property.
+     * Legt den Wert der poiID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class PoiSetPosition {
     }
 
     /**
-     * Gets the value of the x property.
+     * Ruft den Wert der x-Eigenschaft ab.
      * 
      */
     public double getX() {
@@ -72,7 +72,7 @@ public class PoiSetPosition {
     }
 
     /**
-     * Sets the value of the x property.
+     * Legt den Wert der x-Eigenschaft fest.
      * 
      */
     public void setX(double value) {
@@ -80,7 +80,7 @@ public class PoiSetPosition {
     }
 
     /**
-     * Gets the value of the y property.
+     * Ruft den Wert der y-Eigenschaft ab.
      * 
      */
     public double getY() {
@@ -88,7 +88,7 @@ public class PoiSetPosition {
     }
 
     /**
-     * Sets the value of the y property.
+     * Legt den Wert der y-Eigenschaft fest.
      * 
      */
     public void setY(double value) {

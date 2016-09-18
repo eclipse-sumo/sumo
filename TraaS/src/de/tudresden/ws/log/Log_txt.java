@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -43,7 +43,7 @@ public class Log_txt implements Log{
                  fw.flush();
                  fw.close();
            }
-           catch( Exception e){System.out.println(e);}
+           catch( Exception e){System.err.println(e);}
         	
         }
         

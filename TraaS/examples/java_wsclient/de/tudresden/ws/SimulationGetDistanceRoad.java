@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Simulation_getDistanceRoad complex type.
+ * <p>Java-Klasse für Simulation_getDistanceRoad complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Simulation_getDistanceRoad">
@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="pos1" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="edgeID2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="pos2" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="isDriving" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="isDriving" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,10 +43,10 @@ public class SimulationGetDistanceRoad {
     protected double pos1;
     protected String edgeID2;
     protected double pos2;
-    protected String isDriving;
+    protected boolean isDriving;
 
     /**
-     * Gets the value of the edgeID1 property.
+     * Ruft den Wert der edgeID1-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Sets the value of the edgeID1 property.
+     * Legt den Wert der edgeID1-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Gets the value of the pos1 property.
+     * Ruft den Wert der pos1-Eigenschaft ab.
      * 
      */
     public double getPos1() {
@@ -78,7 +78,7 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Sets the value of the pos1 property.
+     * Legt den Wert der pos1-Eigenschaft fest.
      * 
      */
     public void setPos1(double value) {
@@ -86,7 +86,7 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Gets the value of the edgeID2 property.
+     * Ruft den Wert der edgeID2-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -98,7 +98,7 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Sets the value of the edgeID2 property.
+     * Legt den Wert der edgeID2-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -110,7 +110,7 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Gets the value of the pos2 property.
+     * Ruft den Wert der pos2-Eigenschaft ab.
      * 
      */
     public double getPos2() {
@@ -118,7 +118,7 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Sets the value of the pos2 property.
+     * Legt den Wert der pos2-Eigenschaft fest.
      * 
      */
     public void setPos2(double value) {
@@ -126,26 +126,18 @@ public class SimulationGetDistanceRoad {
     }
 
     /**
-     * Gets the value of the isDriving property.
+     * Ruft den Wert der isDriving-Eigenschaft ab.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getIsDriving() {
+    public boolean isIsDriving() {
         return isDriving;
     }
 
     /**
-     * Sets the value of the isDriving property.
+     * Legt den Wert der isDriving-Eigenschaft fest.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setIsDriving(String value) {
+    public void setIsDriving(boolean value) {
         this.isDriving = value;
     }
 

@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicletype_setLength complex type.
+ * <p>Java-Klasse für Vehicletype_setLength complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicletype_setLength">
@@ -37,7 +37,7 @@ public class VehicletypeSetLength {
     protected double length;
 
     /**
-     * Gets the value of the typeID property.
+     * Ruft den Wert der typeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicletypeSetLength {
     }
 
     /**
-     * Sets the value of the typeID property.
+     * Legt den Wert der typeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicletypeSetLength {
     }
 
     /**
-     * Gets the value of the length property.
+     * Ruft den Wert der length-Eigenschaft ab.
      * 
      */
     public double getLength() {
@@ -69,7 +69,7 @@ public class VehicletypeSetLength {
     }
 
     /**
-     * Sets the value of the length property.
+     * Legt den Wert der length-Eigenschaft fest.
      * 
      */
     public void setLength(double value) {

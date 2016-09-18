@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Simulation_getDistance2D complex type.
+ * <p>Java-Klasse für Simulation_getDistance2D complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Simulation_getDistance2D">
@@ -20,8 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="y1" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="x2" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="y2" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="isGeo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="isDriving" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="isGeo" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="isDriving" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -45,11 +45,11 @@ public class SimulationGetDistance2D {
     protected double y1;
     protected double x2;
     protected double y2;
-    protected String isGeo;
-    protected String isDriving;
+    protected boolean isGeo;
+    protected boolean isDriving;
 
     /**
-     * Gets the value of the x1 property.
+     * Ruft den Wert der x1-Eigenschaft ab.
      * 
      */
     public double getX1() {
@@ -57,7 +57,7 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Sets the value of the x1 property.
+     * Legt den Wert der x1-Eigenschaft fest.
      * 
      */
     public void setX1(double value) {
@@ -65,7 +65,7 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Gets the value of the y1 property.
+     * Ruft den Wert der y1-Eigenschaft ab.
      * 
      */
     public double getY1() {
@@ -73,7 +73,7 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Sets the value of the y1 property.
+     * Legt den Wert der y1-Eigenschaft fest.
      * 
      */
     public void setY1(double value) {
@@ -81,7 +81,7 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Gets the value of the x2 property.
+     * Ruft den Wert der x2-Eigenschaft ab.
      * 
      */
     public double getX2() {
@@ -89,7 +89,7 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Sets the value of the x2 property.
+     * Legt den Wert der x2-Eigenschaft fest.
      * 
      */
     public void setX2(double value) {
@@ -97,7 +97,7 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Gets the value of the y2 property.
+     * Ruft den Wert der y2-Eigenschaft ab.
      * 
      */
     public double getY2() {
@@ -105,7 +105,7 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Sets the value of the y2 property.
+     * Legt den Wert der y2-Eigenschaft fest.
      * 
      */
     public void setY2(double value) {
@@ -113,50 +113,34 @@ public class SimulationGetDistance2D {
     }
 
     /**
-     * Gets the value of the isGeo property.
+     * Ruft den Wert der isGeo-Eigenschaft ab.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getIsGeo() {
+    public boolean isIsGeo() {
         return isGeo;
     }
 
     /**
-     * Sets the value of the isGeo property.
+     * Legt den Wert der isGeo-Eigenschaft fest.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setIsGeo(String value) {
+    public void setIsGeo(boolean value) {
         this.isGeo = value;
     }
 
     /**
-     * Gets the value of the isDriving property.
+     * Ruft den Wert der isDriving-Eigenschaft ab.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getIsDriving() {
+    public boolean isIsDriving() {
         return isDriving;
     }
 
     /**
-     * Sets the value of the isDriving property.
+     * Legt den Wert der isDriving-Eigenschaft fest.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setIsDriving(String value) {
+    public void setIsDriving(boolean value) {
         this.isDriving = value;
     }
 

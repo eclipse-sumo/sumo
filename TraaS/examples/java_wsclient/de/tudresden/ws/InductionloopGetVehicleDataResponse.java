@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Inductionloop_getVehicleDataResponse complex type.
+ * <p>Java-Klasse für Inductionloop_getVehicleDataResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Inductionloop_getVehicleDataResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="return" type="{http://ws.tudresden.de/}sumoVehicleData" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,21 +33,29 @@ import javax.xml.bind.annotation.XmlType;
 public class InductionloopGetVehicleDataResponse {
 
     @XmlElement(name = "return")
-    protected int _return;
+    protected SumoVehicleData _return;
 
     /**
-     * Gets the value of the return property.
+     * Ruft den Wert der return-Eigenschaft ab.
      * 
+     * @return
+     *     possible object is
+     *     {@link SumoVehicleData }
+     *     
      */
-    public int getReturn() {
+    public SumoVehicleData getReturn() {
         return _return;
     }
 
     /**
-     * Sets the value of the return property.
+     * Legt den Wert der return-Eigenschaft fest.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link SumoVehicleData }
+     *     
      */
-    public void setReturn(int value) {
+    public void setReturn(SumoVehicleData value) {
         this._return = value;
     }
 

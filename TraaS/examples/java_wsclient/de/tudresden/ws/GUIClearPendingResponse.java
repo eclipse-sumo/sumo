@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_moveToVTDResponse complex type.
+ * <p>Java-Klasse für GUI_clearPendingResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="Vehicle_moveToVTDResponse">
+ * &lt;complexType name="GUI_clearPendingResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Vehicle_moveToVTDResponse")
-public class VehicleMoveToVTDResponse {
+@XmlType(name = "GUI_clearPendingResponse")
+public class GUIClearPendingResponse {
 
 
 }

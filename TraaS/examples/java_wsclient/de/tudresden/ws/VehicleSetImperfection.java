@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setImperfection complex type.
+ * <p>Java-Klasse für Vehicle_setImperfection complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setImperfection">
@@ -37,7 +37,7 @@ public class VehicleSetImperfection {
     protected double imperfection;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetImperfection {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleSetImperfection {
     }
 
     /**
-     * Gets the value of the imperfection property.
+     * Ruft den Wert der imperfection-Eigenschaft ab.
      * 
      */
     public double getImperfection() {
@@ -69,7 +69,7 @@ public class VehicleSetImperfection {
     }
 
     /**
-     * Sets the value of the imperfection property.
+     * Legt den Wert der imperfection-Eigenschaft fest.
      * 
      */
     public void setImperfection(double value) {

@@ -10,12 +10,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for sumoTLSLogic complex type.
+ * <p>Java-Klasse für sumoTLSProgram complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="sumoTLSLogic">
+ * &lt;complexType name="sumoTLSProgram">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -33,14 +33,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sumoTLSLogic", propOrder = {
+@XmlType(name = "sumoTLSProgram", propOrder = {
     "subID",
     "type",
     "subParameter",
     "currentPhaseIndex",
     "phases"
 })
-public class SumoTLSLogic {
+public class SumoTLSProgram {
 
     protected String subID;
     protected int type;
@@ -50,7 +50,7 @@ public class SumoTLSLogic {
     protected List<SumoTLSPhase> phases;
 
     /**
-     * Gets the value of the subID property.
+     * Ruft den Wert der subID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -62,7 +62,7 @@ public class SumoTLSLogic {
     }
 
     /**
-     * Sets the value of the subID property.
+     * Legt den Wert der subID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -74,7 +74,7 @@ public class SumoTLSLogic {
     }
 
     /**
-     * Gets the value of the type property.
+     * Ruft den Wert der type-Eigenschaft ab.
      * 
      */
     public int getType() {
@@ -82,7 +82,7 @@ public class SumoTLSLogic {
     }
 
     /**
-     * Sets the value of the type property.
+     * Legt den Wert der type-Eigenschaft fest.
      * 
      */
     public void setType(int value) {
@@ -90,7 +90,7 @@ public class SumoTLSLogic {
     }
 
     /**
-     * Gets the value of the subParameter property.
+     * Ruft den Wert der subParameter-Eigenschaft ab.
      * 
      */
     public int getSubParameter() {
@@ -98,7 +98,7 @@ public class SumoTLSLogic {
     }
 
     /**
-     * Sets the value of the subParameter property.
+     * Legt den Wert der subParameter-Eigenschaft fest.
      * 
      */
     public void setSubParameter(int value) {
@@ -106,7 +106,7 @@ public class SumoTLSLogic {
     }
 
     /**
-     * Gets the value of the currentPhaseIndex property.
+     * Ruft den Wert der currentPhaseIndex-Eigenschaft ab.
      * 
      */
     public int getCurrentPhaseIndex() {
@@ -114,7 +114,7 @@ public class SumoTLSLogic {
     }
 
     /**
-     * Sets the value of the currentPhaseIndex property.
+     * Legt den Wert der currentPhaseIndex-Eigenschaft fest.
      * 
      */
     public void setCurrentPhaseIndex(int value) {

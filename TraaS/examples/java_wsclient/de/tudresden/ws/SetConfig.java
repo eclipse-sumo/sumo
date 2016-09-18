@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for setConfig complex type.
+ * <p>Java-Klasse für setConfig complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="setConfig">
@@ -34,7 +34,7 @@ public class SetConfig {
     protected String filename;
 
     /**
-     * Gets the value of the filename property.
+     * Ruft den Wert der filename-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class SetConfig {
     }
 
     /**
-     * Sets the value of the filename property.
+     * Legt den Wert der filename-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

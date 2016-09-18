@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GUI_setZoom complex type.
+ * <p>Java-Klasse für GUI_setZoom complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="GUI_setZoom">
@@ -37,7 +37,7 @@ public class GUISetZoom {
     protected double zoom;
 
     /**
-     * Gets the value of the viewID property.
+     * Ruft den Wert der viewID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class GUISetZoom {
     }
 
     /**
-     * Sets the value of the viewID property.
+     * Legt den Wert der viewID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class GUISetZoom {
     }
 
     /**
-     * Gets the value of the zoom property.
+     * Ruft den Wert der zoom-Eigenschaft ab.
      * 
      */
     public double getZoom() {
@@ -69,7 +69,7 @@ public class GUISetZoom {
     }
 
     /**
-     * Sets the value of the zoom property.
+     * Legt den Wert der zoom-Eigenschaft fest.
      * 
      */
     public void setZoom(double value) {

@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Trafficlights_setRedYellowGreenState complex type.
+ * <p>Java-Klasse für Trafficlights_setRedYellowGreenState complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Trafficlights_setRedYellowGreenState">
@@ -37,7 +37,7 @@ public class TrafficlightsSetRedYellowGreenState {
     protected String state;
 
     /**
-     * Gets the value of the tlsID property.
+     * Ruft den Wert der tlsID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class TrafficlightsSetRedYellowGreenState {
     }
 
     /**
-     * Sets the value of the tlsID property.
+     * Legt den Wert der tlsID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class TrafficlightsSetRedYellowGreenState {
     }
 
     /**
-     * Gets the value of the state property.
+     * Ruft den Wert der state-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class TrafficlightsSetRedYellowGreenState {
     }
 
     /**
-     * Sets the value of the state property.
+     * Legt den Wert der state-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

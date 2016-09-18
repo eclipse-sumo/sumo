@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setAdaptedTraveltime complex type.
+ * <p>Java-Klasse für Vehicle_setAdaptedTraveltime complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setAdaptedTraveltime">
@@ -46,7 +46,7 @@ public class VehicleSetAdaptedTraveltime {
     protected double time;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Gets the value of the begTime property.
+     * Ruft den Wert der begTime-Eigenschaft ab.
      * 
      */
     public int getBegTime() {
@@ -78,7 +78,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Sets the value of the begTime property.
+     * Legt den Wert der begTime-Eigenschaft fest.
      * 
      */
     public void setBegTime(int value) {
@@ -86,7 +86,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Gets the value of the endTime property.
+     * Ruft den Wert der endTime-Eigenschaft ab.
      * 
      */
     public int getEndTime() {
@@ -94,7 +94,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Sets the value of the endTime property.
+     * Legt den Wert der endTime-Eigenschaft fest.
      * 
      */
     public void setEndTime(int value) {
@@ -102,7 +102,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Gets the value of the edgeID property.
+     * Ruft den Wert der edgeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -114,7 +114,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Sets the value of the edgeID property.
+     * Legt den Wert der edgeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -126,7 +126,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Gets the value of the time property.
+     * Ruft den Wert der time-Eigenschaft ab.
      * 
      */
     public double getTime() {
@@ -134,7 +134,7 @@ public class VehicleSetAdaptedTraveltime {
     }
 
     /**
-     * Sets the value of the time property.
+     * Legt den Wert der time-Eigenschaft fest.
      * 
      */
     public void setTime(double value) {

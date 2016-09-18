@@ -19,23 +19,28 @@
 
 package de.tudresden.sumo.util;
 
-import it.polito.appeal.traci.TraCIException;
-import it.polito.appeal.traci.TraCIException.UnexpectedData;
-import it.polito.appeal.traci.protocol.Command;
-import it.polito.appeal.traci.protocol.RequestMessage;
-import it.polito.appeal.traci.protocol.ResponseMessage;
-import it.polito.appeal.traci.protocol.ResponseContainer;
-import it.polito.appeal.traci.protocol.StatusResponse;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
+import java.util.Observable;
 
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.subscription.ResponseType;
+import de.tudresden.sumo.subscription.SubscriptionObject;
+import de.tudresden.ws.container.SumoObject;
+import de.uniluebeck.itm.tcpip.Storage;
+import it.polito.appeal.traci.TraCIException;
+import it.polito.appeal.traci.TraCIException.UnexpectedData;
+import it.polito.appeal.traci.protocol.Command;
+import it.polito.appeal.traci.protocol.RequestMessage;
+import it.polito.appeal.traci.protocol.ResponseContainer;
+import it.polito.appeal.traci.protocol.ResponseMessage;
+import it.polito.appeal.traci.protocol.StatusResponse;
 
-public abstract class Query {
+public abstract class Query extends Observable {
+	
 	private final DataOutputStream outStream; 
 	private final DataInputStream inStream; 
 	
@@ -101,6 +106,91 @@ public abstract class Query {
 	}
 
 	/**
+	 * Do next time step and update subscription results
+	 * 
+	 * @param targetTime
+	 * @throws IOException
+	 */
+	protected void doSimulationStep(int targetTime) throws IOException {
+		
+			Command cmd = new Command(Constants.CMD_SIMSTEP2);
+		 	cmd.content().writeInt(targetTime);
+			
+			RequestMessage msg = new RequestMessage();
+			msg.append(cmd);
+			msg.writeTo(getOutStream());
+			
+			int totalLen = this.inStream.readInt() - Integer.SIZE/8;
+			byte[] buffer = new byte[totalLen];
+			this.inStream.readFully(buffer);
+			
+			
+			Storage s = new Storage(buffer);
+			for(int i=0; i<7; i++){s.readUnsignedByte();} //offset
+
+			int count = s.readInt();
+			
+			//subscription results
+			for(int i=0; i<count; i++){
+				
+				for(int i1=0; i1<5; i1++){s.readUnsignedByte();} //offset
+
+				int response = s.readUnsignedByte();
+				ResponseType rt = ResponseType.getType(response);
+				
+				if(rt != ResponseType.UNKNOWN){
+				
+					String id = s.readStringASCII();
+					
+					//context
+					if(rt.isContext()){
+						
+						int domain =  s.readUnsignedByte();
+						int Variable_Count = s.readUnsignedByte();
+						int Object_Count = s.readInt();
+						
+							for(int oc=0; oc<Object_Count; oc++){
+							
+								String name = s.readStringASCII();
+								for(int vc=0; vc<Variable_Count; vc++){
+									
+									int variable =  s.readUnsignedByte(); 
+									int status =  s.readUnsignedByte(); //RTYPE_OK
+									int return_type =  s.readUnsignedByte(); 
+									SumoObject o = CommandProcessor.read(return_type, s);
+									
+									SubscriptionObject so = new SubscriptionObject(id, rt, domain, name, variable, status, return_type, o);
+									notifyObservers(so);
+									setChanged(); 
+								
+								}
+							}
+					}else{
+						
+						//variable
+						int Variable_Count = s.readUnsignedByte();
+						for(int vc=0; vc<Variable_Count; vc++){
+									
+									int variable =  s.readUnsignedByte(); 
+									int status =  s.readUnsignedByte(); //RTYPE_OK
+									int return_type =  s.readUnsignedByte(); 
+									SumoObject o = CommandProcessor.read(return_type, s);
+									
+									SubscriptionObject so = new SubscriptionObject(id, rt, variable, status, return_type, o);
+									notifyObservers(so);
+									setChanged(); 
+								
+						}
+						
+					}
+					
+				}
+	
+			}
+	}
+	
+	
+	/**
 	 * Like {@link #queryAndVerify(RequestMessage)}, but good for one-command/
 	 * one-response queries.
 	 * 
@@ -109,10 +199,35 @@ public abstract class Query {
 	 * @throws IOException
 	 */
 	protected ResponseContainer queryAndVerifySingle(Command request) throws IOException {
+		
 		RequestMessage msg = new RequestMessage();
 		msg.append(request);
 		ResponseMessage resp = queryAndVerify(msg);
 		return resp.responses().iterator().next();
+	
+	}
+	
+	/**
+	 * fireAndForget function
+	 * 
+	 * @param request
+	 * @throws IOException
+	 */
+	protected void fireAndForget(Command request) {
+		
+		try{
+		
+			RequestMessage msg = new RequestMessage();
+			msg.append(request);
+			msg.writeTo(this.outStream);
+			
+			int totalLen = this.inStream.readInt() - Integer.SIZE/8;
+			
+			byte[] buffer = new byte[totalLen];
+			this.inStream.readFully(buffer);
+			
+		}catch(Exception ex){ex.printStackTrace();}
+	
 	}
 	
 	protected static String verifyGetVarResponse(Command resp, int commandID, int variable, String objectID) throws UnexpectedData {

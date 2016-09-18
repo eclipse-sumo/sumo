@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GUI_screenshot complex type.
+ * <p>Java-Klasse für GUI_screenshot complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="GUI_screenshot">
@@ -37,7 +37,7 @@ public class GUIScreenshot {
     protected String filename;
 
     /**
-     * Gets the value of the viewID property.
+     * Ruft den Wert der viewID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class GUIScreenshot {
     }
 
     /**
-     * Sets the value of the viewID property.
+     * Legt den Wert der viewID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class GUIScreenshot {
     }
 
     /**
-     * Gets the value of the filename property.
+     * Ruft den Wert der filename-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class GUIScreenshot {
     }
 
     /**
-     * Sets the value of the filename property.
+     * Legt den Wert der filename-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

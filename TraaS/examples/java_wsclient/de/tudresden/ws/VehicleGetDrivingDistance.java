@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_getDrivingDistance complex type.
+ * <p>Java-Klasse für Vehicle_getDrivingDistance complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_getDrivingDistance">
@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="vehID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="edgeID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="pos" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="laneID" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="laneID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,10 +40,10 @@ public class VehicleGetDrivingDistance {
     protected String vehID;
     protected String edgeID;
     protected double pos;
-    protected int laneID;
+    protected byte laneID;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -55,7 +55,7 @@ public class VehicleGetDrivingDistance {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +67,7 @@ public class VehicleGetDrivingDistance {
     }
 
     /**
-     * Gets the value of the edgeID property.
+     * Ruft den Wert der edgeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -79,7 +79,7 @@ public class VehicleGetDrivingDistance {
     }
 
     /**
-     * Sets the value of the edgeID property.
+     * Legt den Wert der edgeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -91,7 +91,7 @@ public class VehicleGetDrivingDistance {
     }
 
     /**
-     * Gets the value of the pos property.
+     * Ruft den Wert der pos-Eigenschaft ab.
      * 
      */
     public double getPos() {
@@ -99,7 +99,7 @@ public class VehicleGetDrivingDistance {
     }
 
     /**
-     * Sets the value of the pos property.
+     * Legt den Wert der pos-Eigenschaft fest.
      * 
      */
     public void setPos(double value) {
@@ -107,18 +107,18 @@ public class VehicleGetDrivingDistance {
     }
 
     /**
-     * Gets the value of the laneID property.
+     * Ruft den Wert der laneID-Eigenschaft ab.
      * 
      */
-    public int getLaneID() {
+    public byte getLaneID() {
         return laneID;
     }
 
     /**
-     * Sets the value of the laneID property.
+     * Legt den Wert der laneID-Eigenschaft fest.
      * 
      */
-    public void setLaneID(int value) {
+    public void setLaneID(byte value) {
         this.laneID = value;
     }
 

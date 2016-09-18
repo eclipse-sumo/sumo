@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GUI_setBoundary complex type.
+ * <p>Java-Klasse für GUI_setBoundary complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="GUI_setBoundary">
@@ -46,7 +46,7 @@ public class GUISetBoundary {
     protected double ymax;
 
     /**
-     * Gets the value of the viewID property.
+     * Ruft den Wert der viewID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Sets the value of the viewID property.
+     * Legt den Wert der viewID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Gets the value of the xmin property.
+     * Ruft den Wert der xmin-Eigenschaft ab.
      * 
      */
     public double getXmin() {
@@ -78,7 +78,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Sets the value of the xmin property.
+     * Legt den Wert der xmin-Eigenschaft fest.
      * 
      */
     public void setXmin(double value) {
@@ -86,7 +86,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Gets the value of the ymin property.
+     * Ruft den Wert der ymin-Eigenschaft ab.
      * 
      */
     public double getYmin() {
@@ -94,7 +94,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Sets the value of the ymin property.
+     * Legt den Wert der ymin-Eigenschaft fest.
      * 
      */
     public void setYmin(double value) {
@@ -102,7 +102,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Gets the value of the xmax property.
+     * Ruft den Wert der xmax-Eigenschaft ab.
      * 
      */
     public double getXmax() {
@@ -110,7 +110,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Sets the value of the xmax property.
+     * Legt den Wert der xmax-Eigenschaft fest.
      * 
      */
     public void setXmax(double value) {
@@ -118,7 +118,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Gets the value of the ymax property.
+     * Ruft den Wert der ymax-Eigenschaft ab.
      * 
      */
     public double getYmax() {
@@ -126,7 +126,7 @@ public class GUISetBoundary {
     }
 
     /**
-     * Sets the value of the ymax property.
+     * Legt den Wert der ymax-Eigenschaft fest.
      * 
      */
     public void setYmax(double value) {

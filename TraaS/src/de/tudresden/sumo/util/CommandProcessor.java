@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -27,6 +27,7 @@ import java.net.Socket;
 import java.util.LinkedList;
 
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.subscription.Subscription;
 import de.tudresden.ws.container.SumoBestLanes;
 import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
@@ -35,13 +36,16 @@ import de.tudresden.ws.container.SumoLeader;
 import de.tudresden.ws.container.SumoLink;
 import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoNextTLS;
+import de.tudresden.ws.container.SumoObject;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
+import de.tudresden.ws.container.SumoPrimitive;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
-import de.tudresden.ws.container.SumoTLSLogic;
+import de.tudresden.ws.container.SumoTLSProgram;
+import de.uniluebeck.itm.tcpip.Storage;
 import de.tudresden.ws.container.SumoTLSPhase;
-import de.tudresden.ws.container.SumoVehicleData;
+import de.tudresden.ws.container.SumoTLSController;
 
 /**
  * 
@@ -56,9 +60,294 @@ public class CommandProcessor extends Query{
 		super(sock);
 	}
 	
-	public synchronized void do_job_set(SumoCommand sc) throws IOException{
+	public synchronized void do_job_set(SumoCommand sc) throws IOException {
 		queryAndVerifySingle(sc.cmd);
 	}
+	
+	public void do_subscription(Subscription cs) throws IOException {
+		fireAndForget(cs.getCommand());
+	}
+	
+	public synchronized void do_SimulationStep(int targetTime) throws IOException {
+		doSimulationStep(targetTime);
+	}
+	
+	public static SumoObject read(int type, Storage s){
+		
+		SumoObject output = null;
+		
+		if(type == Constants.TYPE_INTEGER){output = new SumoPrimitive(s.readInt());
+		}else if(type == Constants.TYPE_DOUBLE){output = new SumoPrimitive(s.readDouble());
+		}else if(type == Constants.TYPE_STRING){output = new SumoPrimitive(s.readStringUTF8());
+		}else if(type == Constants.POSITION_2D){
+			double x = s.readDouble();
+			double y = s.readDouble();
+			output = new SumoPosition2D(x,y);
+		}else if(type == Constants.POSITION_3D){
+			double x = s.readDouble();
+			double y = s.readDouble();
+			double z = s.readDouble();
+			output = new SumoPosition3D(x,y,z);
+		}else if(type == Constants.TYPE_STRINGLIST){
+			
+			SumoStringList ssl = new SumoStringList();
+			int laenge = s.readInt();
+			for(int i=0; i<laenge; i++){
+				ssl.add(s.readStringASCII());
+			}
+			output = ssl;
+		
+		}else if(type == Constants.TYPE_BOUNDINGBOX){
+			
+			double min_x = s.readDouble();
+			double min_y = s.readDouble();
+			double max_x = s.readDouble();
+			double max_y = s.readDouble();
+			
+			output = new SumoBoundingBox(min_x, min_y, max_x, max_y);
+			
+		}else if(type == Constants.VAR_STOPSTATE){
+			
+			short s0 = s.readByte();
+			SumoStopFlags sf = new SumoStopFlags((byte) s0);
+			output = sf;
+			
+			//if(s0.info.equals("isStopped")){output = sf.stopped;}
+			//if(sc.info.equals("isStoppedTriggered")){output = sf.triggered;}
+			//if(sc.info.equals("isAtContainerStop")){output = sf.isContainerStop;}
+			//if(sc.info.equals("isStoppedParking")){output = sf.getID() == 12;}
+			//if(sc.info.equals("isAtBusStop")){output = sf.isBusStop;}
+			
+			
+		}else if(type == Constants.TL_CONTROLLED_LINKS){
+				
+				SumoLinkList sll = new SumoLinkList();
+				
+				//read length
+				s.readUnsignedByte();
+				s.readInt();
+				
+				int laenge =s.readInt();
+				for(int i=0; i<laenge; i++){
+				
+					s.readUnsignedByte();
+					int anzahl = s.readInt();
+					
+					for(int i1=0; i1<anzahl; i1++){
+						
+						s.readUnsignedByte();
+						s.readInt(); //length
+						
+						String from = s.readStringASCII();
+						String to =s.readStringASCII();
+						String over = s.readStringASCII();
+						sll.add(new SumoLink(from, to, over));
+						
+					}
+					
+				}
+				
+				output = sll;
+			
+			}else if(type == Constants.TL_COMPLETE_DEFINITION_RYG){
+				
+				s.readUnsignedByte();
+				s.readInt();
+				
+				int length = s.readInt();
+				
+				SumoTLSController sp = new SumoTLSController();
+				for(int i=0; i<length; i++){
+					
+					s.readUnsignedByte();
+					String subID = s.readStringASCII();
+					
+					s.readUnsignedByte();
+					int type0 = s.readInt();
+					
+					s.readUnsignedByte();
+					int subParameter = s.readInt();
+					
+					s.readUnsignedByte();
+					int currentPhaseIndex = s.readInt();
+					
+					SumoTLSProgram stl = new SumoTLSProgram(subID, type0, subParameter, currentPhaseIndex);
+					
+					s.readUnsignedByte();
+					int nbPhases = s.readInt();
+					
+					for(int i1=0; i1<nbPhases; i1++){
+						
+						s.readUnsignedByte();
+						int duration = s.readInt();
+						
+						s.readUnsignedByte();
+						int duration1 =s.readInt();
+						
+						s.readUnsignedByte();
+						int duration2 = s.readInt();
+						
+						s.readUnsignedByte();
+						String phaseDef = s.readStringASCII();
+						
+						stl.add(new  SumoTLSPhase(duration, duration1, duration2, phaseDef));
+						
+					}
+
+					sp.addProgram(stl);
+					
+				}
+				
+				output = sp;
+				
+			}else if(type == Constants.LANE_LINKS){
+			
+				s.readUnsignedByte();
+				s.readInt();
+				
+				//number of links
+				int length = s.readInt();
+				SumoLinkList links = new SumoLinkList();
+				for(int i=0; i<length; i++){
+					
+					s.readUnsignedByte();
+					String notInternalLane = s.readStringASCII();
+					
+					s.readUnsignedByte();
+					String internalLane = s.readStringASCII();
+					
+					s.readUnsignedByte();
+					byte hasPriority = (byte) s.readUnsignedByte();
+					
+					s.readUnsignedByte();
+					byte isOpened = (byte) s.readUnsignedByte();
+					
+					s.readUnsignedByte();
+					byte hasFoes = (byte) s.readUnsignedByte();
+					
+					//not implemented
+					s.readUnsignedByte();
+					String state =s.readStringASCII();
+					
+					s.readUnsignedByte();
+					String direction = s.readStringASCII();
+					
+					s.readUnsignedByte();
+					double laneLength = s.readDouble();
+					
+					
+					links.add(new SumoLink(notInternalLane,internalLane,hasPriority,isOpened,hasFoes,laneLength, state, direction));
+				}
+				output = links;
+				
+			}else if(type == Constants.VAR_NEXT_TLS){
+			
+				s.readUnsignedByte();
+				s.readInt();
+				
+				SumoNextTLS sn = new SumoNextTLS();
+				
+				int length = s.readInt();
+				for(int i=0; i<length; i++){
+					
+					s.readUnsignedByte();
+					String tlsID = s.readStringASCII();
+					
+					s.readUnsignedByte();
+					int ix = s.readInt();
+					
+					s.readUnsignedByte();
+					double dist = s.readDouble();
+					
+					s.readUnsignedByte();
+					int k = s.readUnsignedByte();
+					String state = Character.toString ((char) k);
+					
+					sn.add(tlsID, ix, dist, state);
+					
+				}
+				
+				output = sn;
+				
+			}else if(type == Constants.VAR_LEADER){
+				
+				s.readUnsignedByte();
+				s.readInt();
+				
+				String vehID = s.readStringASCII();
+				s.readUnsignedByte();
+				double dist = s.readDouble();
+				output = new SumoLeader(vehID, dist);
+			
+			}else if(type == Constants.VAR_BEST_LANES){
+				
+				s.readUnsignedByte();
+				s.readInt();
+				
+				int l = s.readInt();
+			
+				SumoBestLanes sl = new SumoBestLanes();
+				for(int i=0; i<l; i++){
+				
+					s.readUnsignedByte();
+					String laneID =s.readStringASCII();
+					
+					s.readUnsignedByte();
+					double length = s.readDouble();
+					
+					s.readUnsignedByte();
+					double occupation = s.readDouble();
+					
+					s.readUnsignedByte();
+					int offset = s.readByte();
+					
+					s.readUnsignedByte();
+					int allowsContinuation = s.readUnsignedByte();
+					
+					s.readUnsignedByte();
+					int nextLanesNo = s.readInt();
+					
+					LinkedList<String> ll = new LinkedList<String>();
+					for(int i1=0; i1<nextLanesNo; i1++){
+						String lane = s.readStringASCII();
+						ll.add(lane);
+					}
+					
+					sl.add(laneID, length, occupation, offset, allowsContinuation, ll);
+				}
+			
+				output = sl;
+				
+			}else if(type == Constants.TYPE_POLYGON){
+			
+			int laenge = s.readUnsignedByte();
+			
+			SumoGeometry sg = new SumoGeometry();
+			for(int i=0; i<laenge; i++){
+				double x =  s.readDouble();;
+				double y = s.readDouble();;
+				sg.add(new SumoPosition2D(x,y));
+			}
+			
+			output = sg;
+		
+		}
+		else if(type == Constants.TYPE_COLOR){
+			
+			int r = s.readUnsignedByte();
+			int g = s.readUnsignedByte();
+			int b = s.readUnsignedByte();
+			int a = s.readUnsignedByte();
+			
+			output = new SumoColor(r, g, b, a);
+		
+		}else if(type == Constants.TYPE_UBYTE){
+			output = new SumoPrimitive(s.readUnsignedByte());
+		}
+		
+		return output;
+	}
+	
 	
 	public synchronized Object do_job_get(SumoCommand sc) throws IOException{
 		
@@ -154,6 +443,8 @@ public class CommandProcessor extends Query{
 				resp.content().readInt();
 				
 				int length = resp.content().readInt();
+				
+				SumoTLSController sp = new SumoTLSController();
 				for(int i=0; i<length; i++){
 					
 					resp.content().readUnsignedByte();
@@ -168,7 +459,7 @@ public class CommandProcessor extends Query{
 					resp.content().readUnsignedByte();
 					int currentPhaseIndex = resp.content().readInt();
 					
-					SumoTLSLogic stl = new SumoTLSLogic(subID, type, subParameter, currentPhaseIndex);
+					SumoTLSProgram stl = new SumoTLSProgram(subID, type, subParameter, currentPhaseIndex);
 					
 					resp.content().readUnsignedByte();
 					int nbPhases = resp.content().readInt();
@@ -191,10 +482,11 @@ public class CommandProcessor extends Query{
 						
 					}
 
-					output = stl;
+					sp.addProgram(stl);
 					
 				}
-
+				
+				output = sp;
 				
 			}else if(sc.input2 == Constants.LANE_LINKS){
 			
@@ -313,36 +605,6 @@ public class CommandProcessor extends Query{
 			
 				output = sl;
 				
-			 }else if(sc.input2 == Constants.LAST_STEP_VEHICLE_DATA){
-					
-					resp.content().readUnsignedByte();
-					resp.content().readInt();
-					
-					int l = resp.content().readInt();
-				
-					SumoVehicleData sv = new SumoVehicleData();
-					for(int i=0; i<l; i++){
-					
-						resp.content().readUnsignedByte();
-						String vehID = resp.content().readStringASCII();
-						
-						resp.content().readUnsignedByte();
-						double length = resp.content().readDouble();
-						
-						resp.content().readUnsignedByte();
-						double entry_time = resp.content().readDouble();
-						
-						resp.content().readUnsignedByte();
-						double leave_time = resp.content().readDouble();
-						
-						resp.content().readUnsignedByte();
-						String typeID = resp.content().readStringASCII();
-						
-						sv.add(vehID, length, entry_time, leave_time, typeID);
-					}
-				
-					output = sv;
-					
 			}else{
 				
 				int laenge = resp.content().readInt();
@@ -350,8 +612,8 @@ public class CommandProcessor extends Query{
 				
 				for(int i=0; i<laenge; i++){
 					
-					int k = resp.content().readUnsignedByte();
-					obj[i] = this.get_value(k, resp);
+					//int k = resp.content().readUnsignedByte();
+					//obj[i] = this.get_value(k, resp);
 					
 				}
 				
@@ -366,8 +628,8 @@ public class CommandProcessor extends Query{
 			
 			SumoGeometry sg = new SumoGeometry();
 			for(int i=0; i<laenge; i++){
-				double x =  (Double) this.get_value(Constants.TYPE_DOUBLE, resp);
-				double y = (Double) this.get_value(Constants.TYPE_DOUBLE, resp);
+				double x = resp.content().readDouble();
+				double y = resp.content().readDouble();
 				sg.add(new SumoPosition2D(x,y));
 			}
 			
@@ -394,25 +656,6 @@ public class CommandProcessor extends Query{
 		return output;
 	}
 
-	private Object get_value(int code, Command resp){
-		
-		Object obj = -1;
-		
-		if(code == Constants.TYPE_STRING) {
-			obj = resp.content().readStringASCII();		
-		}else if (code == Constants.TYPE_INTEGER) {
-			obj = resp.content().readInt();
-		}else if (code == Constants.TYPE_UBYTE) {
-			obj = resp.content().readUnsignedByte();
-		}else if (code == Constants.TYPE_DOUBLE) {
-			obj = resp.content().readDouble();
-		}else {
-			System.out.println("unknown: " + code);
-		}
-		
-		return obj;
-	}
-	
 	protected static String verifyGetVarResponse(Command resp, int commandID, int variable, String objectID) throws UnexpectedData {
 		verify("response code", commandID, resp.id());
 		verify("variable ID", variable, (int)resp.content().readUnsignedByte());

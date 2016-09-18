@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Trafficlights_setPhaseDuration complex type.
+ * <p>Java-Klasse für Trafficlights_setPhaseDuration complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Trafficlights_setPhaseDuration">
@@ -37,7 +37,7 @@ public class TrafficlightsSetPhaseDuration {
     protected int phaseDuration;
 
     /**
-     * Gets the value of the tlsID property.
+     * Ruft den Wert der tlsID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class TrafficlightsSetPhaseDuration {
     }
 
     /**
-     * Sets the value of the tlsID property.
+     * Legt den Wert der tlsID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class TrafficlightsSetPhaseDuration {
     }
 
     /**
-     * Gets the value of the phaseDuration property.
+     * Ruft den Wert der phaseDuration-Eigenschaft ab.
      * 
      */
     public int getPhaseDuration() {
@@ -69,7 +69,7 @@ public class TrafficlightsSetPhaseDuration {
     }
 
     /**
-     * Sets the value of the phaseDuration property.
+     * Legt den Wert der phaseDuration-Eigenschaft fest.
      * 
      */
     public void setPhaseDuration(int value) {

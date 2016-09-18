@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setAccel complex type.
+ * <p>Java-Klasse für Vehicle_setAccel complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setAccel">
@@ -37,7 +37,7 @@ public class VehicleSetAccel {
     protected double accel;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetAccel {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleSetAccel {
     }
 
     /**
-     * Gets the value of the accel property.
+     * Ruft den Wert der accel-Eigenschaft ab.
      * 
      */
     public double getAccel() {
@@ -69,7 +69,7 @@ public class VehicleSetAccel {
     }
 
     /**
-     * Sets the value of the accel property.
+     * Legt den Wert der accel-Eigenschaft fest.
      * 
      */
     public void setAccel(double value) {

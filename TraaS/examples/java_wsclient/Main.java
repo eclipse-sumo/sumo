@@ -1,5 +1,6 @@
 import de.tudresden.ws.ServiceImpl;
 import de.tudresden.ws.SumoWebservice;
+import de.tudresden.ws.TraasWS;
 
 
 /*   
@@ -29,8 +30,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//Start your webservice with the bash or the cmd!
-	
-		ServiceImpl ws = new SumoWebservice().getServiceImplPort();
+		ServiceImpl ws = new TraasWS().getServiceImplPort();
 		
 		//optional
 		ws.setSumoBinary(sumo_bin);

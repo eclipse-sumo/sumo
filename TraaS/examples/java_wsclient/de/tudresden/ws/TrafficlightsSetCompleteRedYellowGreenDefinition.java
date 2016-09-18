@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Trafficlights_setCompleteRedYellowGreenDefinition complex type.
+ * <p>Java-Klasse für Trafficlights_setCompleteRedYellowGreenDefinition complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Trafficlights_setCompleteRedYellowGreenDefinition">
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="tlsID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="tls" type="{http://ws.tudresden.de/}sumoTLSLogic" minOccurs="0"/>
+ *         &lt;element name="tls" type="{http://ws.tudresden.de/}sumoTLSProgram" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,10 +34,10 @@ import javax.xml.bind.annotation.XmlType;
 public class TrafficlightsSetCompleteRedYellowGreenDefinition {
 
     protected String tlsID;
-    protected SumoTLSLogic tls;
+    protected SumoTLSProgram tls;
 
     /**
-     * Gets the value of the tlsID property.
+     * Ruft den Wert der tlsID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class TrafficlightsSetCompleteRedYellowGreenDefinition {
     }
 
     /**
-     * Sets the value of the tlsID property.
+     * Legt den Wert der tlsID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,26 +61,26 @@ public class TrafficlightsSetCompleteRedYellowGreenDefinition {
     }
 
     /**
-     * Gets the value of the tls property.
+     * Ruft den Wert der tls-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link SumoTLSLogic }
+     *     {@link SumoTLSProgram }
      *     
      */
-    public SumoTLSLogic getTls() {
+    public SumoTLSProgram getTls() {
         return tls;
     }
 
     /**
-     * Sets the value of the tls property.
+     * Legt den Wert der tls-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link SumoTLSLogic }
+     *     {@link SumoTLSProgram }
      *     
      */
-    public void setTls(SumoTLSLogic value) {
+    public void setTls(SumoTLSProgram value) {
         this.tls = value;
     }
 

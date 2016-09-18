@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_remove complex type.
+ * <p>Java-Klasse für Vehicle_remove complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_remove">
@@ -37,7 +37,7 @@ public class VehicleRemove {
     protected byte reason;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleRemove {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleRemove {
     }
 
     /**
-     * Gets the value of the reason property.
+     * Ruft den Wert der reason-Eigenschaft ab.
      * 
      */
     public byte getReason() {
@@ -69,7 +69,7 @@ public class VehicleRemove {
     }
 
     /**
-     * Sets the value of the reason property.
+     * Legt den Wert der reason-Eigenschaft fest.
      * 
      */
     public void setReason(byte value) {

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -26,15 +26,15 @@ import java.util.LinkedList;
  *
  */
 
-public class SumoTLSLogic {
+public class SumoTLSProgram implements SumoObject {
 
 	public String subID;
 	public int type;
 	public int subParameter;
 	public int currentPhaseIndex;
 	public LinkedList<SumoTLSPhase> phases;
-	
-	public SumoTLSLogic(){
+		
+	public SumoTLSProgram(){
 		
 		this.subID = "unkown";
 		this.type = -1;
@@ -43,7 +43,7 @@ public class SumoTLSLogic {
 		this.phases = new LinkedList<SumoTLSPhase>();
 	}
 	
-	public SumoTLSLogic(String subID, int type, int subParameter, int currentPhaseIndex){
+	public SumoTLSProgram(String subID, int type, int subParameter, int currentPhaseIndex){
 		
 		this.subID = subID;
 		this.type = type;

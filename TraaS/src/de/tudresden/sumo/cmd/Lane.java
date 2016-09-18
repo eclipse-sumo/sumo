@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -300,6 +300,19 @@ public class Lane {
 
 	public static SumoCommand getNoiseEmission(String laneID){
 		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_NOISEEMISSION, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	/**
+	 * Returns the chosen parameter
+	 *
+	 *  @param laneID a string identifying the edge
+	 *  @param param a string identifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String laneID, String param){
+		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_PARAMETER, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_STRING);
 	}
 
 	/**

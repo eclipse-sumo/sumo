@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -26,7 +26,7 @@ import java.util.LinkedList;
  *
  */
 
-public class SumoBestLanes {
+public class SumoBestLanes implements SumoObject {
 
 	public LinkedList<SumoBestLane> ll;
 	

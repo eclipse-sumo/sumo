@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Vehicle_setColor complex type.
+ * <p>Java-Klasse für Vehicle_setColor complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Vehicle_setColor">
@@ -37,7 +37,7 @@ public class VehicleSetColor {
     protected SumoColor color;
 
     /**
-     * Gets the value of the vehID property.
+     * Ruft den Wert der vehID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class VehicleSetColor {
     }
 
     /**
-     * Sets the value of the vehID property.
+     * Legt den Wert der vehID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class VehicleSetColor {
     }
 
     /**
-     * Gets the value of the color property.
+     * Ruft den Wert der color-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class VehicleSetColor {
     }
 
     /**
-     * Sets the value of the color property.
+     * Legt den Wert der color-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

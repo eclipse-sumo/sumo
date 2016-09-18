@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Edge_getAdaptedTraveltime complex type.
+ * <p>Java-Klasse für Edge_getAdaptedTraveltime complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Edge_getAdaptedTraveltime">
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="edgeID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="time" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="time" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,10 +34,10 @@ import javax.xml.bind.annotation.XmlType;
 public class EdgeGetAdaptedTraveltime {
 
     protected String edgeID;
-    protected double time;
+    protected int time;
 
     /**
-     * Gets the value of the edgeID property.
+     * Ruft den Wert der edgeID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class EdgeGetAdaptedTraveltime {
     }
 
     /**
-     * Sets the value of the edgeID property.
+     * Legt den Wert der edgeID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -61,18 +61,18 @@ public class EdgeGetAdaptedTraveltime {
     }
 
     /**
-     * Gets the value of the time property.
+     * Ruft den Wert der time-Eigenschaft ab.
      * 
      */
-    public double getTime() {
+    public int getTime() {
         return time;
     }
 
     /**
-     * Sets the value of the time property.
+     * Legt den Wert der time-Eigenschaft fest.
      * 
      */
-    public void setTime(double value) {
+    public void setTime(int value) {
         this.time = value;
     }
 

@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Multientryexit_getLastStepVehicleNumberResponse complex type.
+ * <p>Java-Klasse für Multientryexit_getLastStepVehicleNumberResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Multientryexit_getLastStepVehicleNumberResponse">
@@ -36,7 +36,7 @@ public class MultientryexitGetLastStepVehicleNumberResponse {
     protected int _return;
 
     /**
-     * Gets the value of the return property.
+     * Ruft den Wert der return-Eigenschaft ab.
      * 
      */
     public int getReturn() {
@@ -44,7 +44,7 @@ public class MultientryexitGetLastStepVehicleNumberResponse {
     }
 
     /**
-     * Sets the value of the return property.
+     * Legt den Wert der return-Eigenschaft fest.
      * 
      */
     public void setReturn(int value) {

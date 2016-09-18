@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Polygon_getShape complex type.
+ * <p>Java-Klasse für Polygon_getShape complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Polygon_getShape">
@@ -34,7 +34,7 @@ public class PolygonGetShape {
     protected String polygonID;
 
     /**
-     * Gets the value of the polygonID property.
+     * Ruft den Wert der polygonID-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class PolygonGetShape {
     }
 
     /**
-     * Sets the value of the polygonID property.
+     * Legt den Wert der polygonID-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is

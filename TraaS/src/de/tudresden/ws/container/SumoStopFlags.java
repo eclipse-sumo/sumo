@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -24,7 +24,7 @@ package de.tudresden.ws.container;
  *
  */
 
-public class SumoStopFlags {
+public class SumoStopFlags implements SumoObject {
 
 	 public boolean stopped = false;
 	 public boolean parking = false;

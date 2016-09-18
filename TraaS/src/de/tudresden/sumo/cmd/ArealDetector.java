@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2015 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -40,6 +40,28 @@ public class ArealDetector {
 		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
+	
+	/**
+	 * Returns the number of vehicles on the detector
+	 * @param loopID a string identifying the loop
+	 * @return numeber of vehicles
+	 */
+
+	public static SumoCommand getLastStepVehicleNumber(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, "", Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
+	/**
+	 * Returns a list of all vehicles on the detector
+	 * @param loopID a string identifying the loop
+	 * @return a list of all vehicles on the detector
+	 */
+
+	public static SumoCommand getLastStepVehicleList(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, "", Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+	
 	/**
 	 * Returns the number of the areal detectors in the network.
 	 * @return the number of areal detectors
@@ -59,6 +81,17 @@ public class ArealDetector {
 
 	public static SumoCommand getJamLengthVehicle(String loopID){
 		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.JAM_LENGTH_VEHICLE, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * getLastStepVehcileHalting
+	 * @param loopID a string identifying the loop
+	 * @return halting vehicles
+	 */
+
+
+	public static SumoCommand getLastStepVehcileHalting(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	/**
@@ -91,5 +124,37 @@ public class ArealDetector {
 	public static SumoCommand getLastStepOccupancy(String loopID){
 		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_OCCUPANCY, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
 	}
+	
+	
+	/**
+	 * getPosition
+	 * @param loopID a string identifying the loop
+	 * @return position of the vehicle in m
+	 */
+
+	public static SumoCommand getPosition(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.VAR_POSITION, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	/**
+	 * getLaneID
+	 * @param loopID a string identifying the loop
+	 * @return lane ID of the detector
+	 */
+
+	public static SumoCommand getLaneID(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.VAR_LANE_ID, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_STRING);
+	}
+	
+	/**
+	 * getlength
+	 * @param loopID a string identifying the loop
+	 * @return lane ID of the detector
+	 */
+
+	public static SumoCommand getLength(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.VAR_LENGTH, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
 	
 }
