@@ -721,9 +721,10 @@ public:
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);
 
-private:
-    bool isSimpleContinuation() const;
+    bool isSimpleContinuation(bool checkLaneNumbers=true) const;
 
+
+private:
     /// sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
 

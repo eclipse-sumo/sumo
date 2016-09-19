@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 20 08:43:14 2016 by SUMO netconvert Version dev-SVN-r19742I
+<!-- generated on Mon Sep 19 15:02:34 2016 by SUMO netconvert Version dev-SVN-r21499
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,7 +31,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="gneE0.37.42" type="priority" color="yellow" x="32.17" y="43.51" angle="0"/>
     <poi id="gneE1.37.42" type="priority" color="yellow" x="-2.25" y="52.81" angle="0"/>
     <poi id="gneE10.34.56" type="priority" color="yellow" x="-17.89" y="43.55" angle="0"/>
     <poi id="gneE11.34.56" type="right before left" color="255,153,0" x="-49.41" y="53.00" angle="0"/>
@@ -40,5 +39,4 @@
     <poi id="gneE16.33.69" type="right before left" color="255,153,0" x="-64.96" y="43.74" angle="0"/>
     <poi id="gneE19.26.61" type="right before left" color="255,153,0" x="-61.94" y="56.12" angle="0"/>
     <poi id="gneE21.26.83" type="right before left" color="255,153,0" x="-52.60" y="40.55" angle="0"/>
-    <poi id="gneE3.26.80" type="priority" color="yellow" x="38.23" y="52.77" angle="0"/>
 </additional>
