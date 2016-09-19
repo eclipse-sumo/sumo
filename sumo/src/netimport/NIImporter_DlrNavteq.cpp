@@ -338,7 +338,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used
     const std::string navTeqTypeId = getColumn(st, VEHICLE_TYPE) + "_" + getColumn(st, FORM_OF_WAY);
 
-    if (myTypeCont->knows(navTeqTypeId)) {
+    if (myTypeCont.knows(navTeqTypeId)) {
 	e->setPermissions(myTypeCont.getPermissions(navTeqTypeId));
     } else {
 	// add vehicle type information to the edge
