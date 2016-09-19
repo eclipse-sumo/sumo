@@ -1369,7 +1369,7 @@ protected:
     const ConstMSEdgeVector getStopEdges() const;
 
     /// @brief register vehicle for drawing while outside the network
-    virtual void drawOutsideNetwork(bool /*add*/) const {};
+    virtual void drawOutsideNetwork(bool /*add*/) {};
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
     SUMOTime myWaitingTime;

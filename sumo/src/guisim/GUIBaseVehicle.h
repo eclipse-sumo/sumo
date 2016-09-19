@@ -295,7 +295,9 @@ public:
         /// @brief track vehicle
         VO_TRACKED = 8,
         /// @brief LFLinkItems
-        VO_SHOW_LFLINKITEMS = 16
+        VO_SHOW_LFLINKITEMS = 16,
+        /// @brief draw vehicle outside the road network
+        VO_DRAW_OUTSIDE_NETWORK = 32
     };
 
     /// @brief Enabled visualisations, per view

@@ -138,7 +138,7 @@ public:
 
 protected:
     /// @brief register vehicle for drawing while outside the network
-    void drawOutsideNetwork(bool /*add*/) const;
+    void drawOutsideNetwork(bool add);
 
 private:
 
