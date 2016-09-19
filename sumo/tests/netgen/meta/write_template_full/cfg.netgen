@@ -132,6 +132,7 @@
         <default.speed value="13.9" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
+        <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="1.5" type="FLOAT" help="The default turning radius of intersections"/>
         <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left] Determines the type of the build junctions"/>
