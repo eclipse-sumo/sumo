@@ -107,7 +107,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     PROGRESS_BEGIN_MESSAGE("Loading edges");
     file = oc.getString("dlr-navteq-prefix") + "_links_unsplitted.txt";
     // parse the file
-    EdgesHandler handler2(nb.getNodeCont(), nb.getEdgeCont(), file, myGeoms, streetNames);
+    EdgesHandler handler2(nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), file, myGeoms, streetNames);
     if (!lr.setFile(file)) {
         throw ProcessError("The file '" + file + "' could not be opened.");
     }
@@ -203,11 +203,12 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
 // definitions of NIImporter_DlrNavteq::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
-        const std::string& file,
+        NBTypeCont& tc, const std::string& file,
         std::map<std::string, PositionVector>& geoms,
         std::map<std::string, std::string>& streetNames):
     myNodeCont(nc),
     myEdgeCont(ec),
+    myTypeCont(tc),
     myGeoms(geoms),
     myStreetNames(streetNames),
     myVersion(0),
@@ -338,6 +339,9 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE));
     } else {
         NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE));
+    }
+    if (e->getPermissions() == SVCAll) {
+        e->setPermissions(myTypeCont.getPermissions(""));
     }
     // permission modifications based on form_of_way
     if (form_of_way == 14) { // pedestrian area (fussgaengerzone)

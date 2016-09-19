@@ -48,6 +48,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -75,7 +76,8 @@ NBNetBuilder::~NBNetBuilder() {}
 void
 NBNetBuilder::applyOptions(OptionsCont& oc) {
     // apply options to type control
-    myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"), oc.getInt("default.priority"));
+    myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"),
+        oc.getInt("default.priority"), parseVehicleClasses("", oc.getString("default.disallow")));
     // apply options to edge control
     myEdgeCont.applyOptions(oc);
     // apply options to traffic light logics control

@@ -51,11 +51,13 @@ void
 NBTypeCont::setDefaults(int defaultNumLanes,
                         SUMOReal defaultLaneWidth,
                         SUMOReal defaultSpeed,
-                        int defaultPriority) {
+                        int defaultPriority,
+                        SVCPermissions defaultPermissions) {
     myDefaultType.numLanes = defaultNumLanes;
     myDefaultType.width = defaultLaneWidth;
     myDefaultType.speed = defaultSpeed;
     myDefaultType.priority = defaultPriority;
+    myDefaultType.permissions = defaultPermissions;
 }
 
 
