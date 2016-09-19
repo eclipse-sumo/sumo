@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 19 08:45:43 2016 by SUMO dfrouter Version dev-SVN-r21487
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <detector-files value="input_detectors.det.xml"/>
+        <measure-files value="input_flows.txt"/>
+    </input>
+
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <routes-for-all value="true"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
+
+    <time>
+        <end value="60"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes>
+
+    <route id="beg_to_end" edges="beg middle end"/>
+    <route id="middle_to_end" edges="middle end"/>
+
+</routes>

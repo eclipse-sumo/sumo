@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 12 Aug 2015 11:01:09 AM CEST by Netedit Version dev-SVN-r18624I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="berlin_wista_navteq2012q2_reduced.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/sumo/basic/dynamics/junction/subsecond/approaching_minor/net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-348988.12,-5782727.78" convBoundary="50388.50,26767.41,50834.47,26907.84" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":61070032_0" function="internal">
+        <lane id=":61070032_0_0" index="0" speed="13.89" length="4.82" shape="50834.32,26765.77 50835.63,26766.47 50836.11,26767.26 50835.78,26768.12 50834.62,26769.05"/>
+    </edge>
+    <edge id=":727608502_0" function="internal">
+        <lane id=":727608502_0_0" index="0" speed="13.89" length="4.82" shape="50388.72,26813.77 50387.38,26813.11 50386.86,26812.35 50387.17,26811.47 50388.28,26810.49"/>
+    </edge>
+    <edge id=":878089060_0" function="internal">
+        <lane id=":878089060_0_0" index="0" speed="13.89" length="5.79" shape="50564.26,26797.63 50563.00,26798.00 50562.06,26798.82 50561.42,26800.12 50561.09,26801.87"/>
+    </edge>
+    <edge id=":878089060_1" function="internal">
+        <lane id=":878089060_1_0" index="0" speed="13.89" length="9.59" shape="50564.26,26797.63 50554.71,26798.50"/>
+        <lane id=":878089060_1_1" index="1" speed="13.89" length="9.59" shape="50563.95,26794.35 50554.41,26795.21"/>
+    </edge>
+    <edge id=":878089060_3" function="internal">
+        <lane id=":878089060_3_0" index="0" speed="13.89" length="2.41" shape="50563.95,26794.35 50562.65,26793.64 50562.16,26792.86"/>
+    </edge>
+    <edge id=":878089060_11" function="internal">
+        <lane id=":878089060_11_0" index="0" speed="13.89" length="2.41" shape="50562.16,26792.86 50562.49,26792.00 50563.65,26791.06"/>
+    </edge>
+    <edge id=":878089060_4" function="internal">
+        <lane id=":878089060_4_0" index="0" speed="13.89" length="9.55" shape="50553.83,26788.64 50563.34,26787.77"/>
+        <lane id=":878089060_4_1" index="1" speed="13.89" length="9.55" shape="50554.12,26791.92 50563.65,26791.06"/>
+    </edge>
+    <edge id=":878089060_6" function="internal">
+        <lane id=":878089060_6_0" index="0" speed="13.89" length="4.93" shape="50554.12,26791.92 50557.52,26792.28 50558.72,26793.21"/>
+    </edge>
+    <edge id=":878089060_7" function="internal">
+        <lane id=":878089060_7_0" index="0" speed="13.89" length="2.41" shape="50554.12,26791.92 50555.43,26792.63 50555.91,26793.42"/>
+    </edge>
+    <edge id=":878089060_12" function="internal">
+        <lane id=":878089060_12_0" index="0" speed="13.89" length="9.41" shape="50558.72,26793.21 50559.81,26794.06 50561.00,26797.26 50561.09,26801.87"/>
+    </edge>
+    <edge id=":878089060_13" function="internal">
+        <lane id=":878089060_13_0" index="0" speed="13.89" length="2.41" shape="50555.91,26793.42 50555.57,26794.28 50554.41,26795.21"/>
+    </edge>
+    <edge id=":878089060_8" function="internal">
+        <lane id=":878089060_8_0" index="0" speed="13.89" length="5.22" shape="50557.81,26801.59 50557.72,26800.12 50557.18,26799.12 50556.17,26798.58 50554.71,26798.50"/>
+    </edge>
+    <edge id=":878089060_9" function="internal">
+        <lane id=":878089060_9_0" index="0" speed="13.89" length="12.97" shape="50557.81,26801.59 50558.50,26797.16 50559.70,26793.93 50561.42,26791.89 50563.65,26791.06"/>
+    </edge>
+    <edge id=":878089060_10" function="internal">
+        <lane id=":878089060_10_0" index="0" speed="13.89" length="4.82" shape="50557.81,26801.59 50558.73,26800.43 50559.59,26800.09 50560.38,26800.57 50561.09,26801.87"/>
+    </edge>
+    <edge id=":878089061_0" function="internal">
+        <lane id=":878089061_0_0" index="0" speed="13.89" length="4.82" shape="50551.94,26907.98 50551.02,26909.14 50550.16,26909.48 50549.37,26909.00 50548.66,26907.70"/>
+    </edge>
+
+    <edge id="-820948245" from="878089060" to="61070032" name="Ernst-Ruska-Ufer" priority="-2">
+        <lane id="-820948245_0" index="0" speed="13.89" length="271.85" shape="50563.34,26787.77 50834.01,26762.48"/>
+        <lane id="-820948245_1" index="1" speed="13.89" length="271.85" shape="50563.65,26791.06 50834.32,26765.77"/>
+    </edge>
+    <edge id="-820948246" from="727608502" to="878089060" name="Ernst-Ruska-Ufer" priority="-2" shape="50388.50,26812.13 50478.73,26800.26 50560.20,26793.04">
+        <lane id="-820948246_0" index="0" speed="13.89" length="166.98" shape="50387.85,26807.22 50478.08,26795.35 50553.83,26788.64"/>
+        <lane id="-820948246_1" index="1" speed="13.89" length="166.98" shape="50388.28,26810.49 50478.51,26798.62 50554.12,26791.92"/>
+    </edge>
+    <edge id="820948247" from="878089060" to="878089061" name="North-Willys-Strasse" priority="-4">
+        <lane id="820948247_0" index="0" speed="13.89" length="106.50" shape="50561.09,26801.87 50551.94,26907.98"/>
+    </edge>
+    <edge id="beg_major" from="61070032" to="878089060" name="Ernst-Ruska-Ufer" priority="-2">
+        <lane id="beg_major_0" index="0" speed="13.89" length="271.85" shape="50834.93,26772.34 50564.26,26797.63"/>
+        <lane id="beg_major_1" index="1" speed="13.89" length="271.85" shape="50834.62,26769.05 50563.95,26794.35"/>
+    </edge>
+    <edge id="beg_minor" from="878089061" to="878089060" name="North-Willys-Strasse" priority="-4">
+        <lane id="beg_minor_0" index="0" speed="13.89" length="106.50" shape="50548.66,26907.70 50557.81,26801.59"/>
+    </edge>
+    <edge id="end_major" from="878089060" to="727608502" name="Ernst-Ruska-Ufer" priority="-2" shape="50560.20,26793.04 50478.73,26800.26 50388.50,26812.13">
+        <lane id="end_major_0" index="0" speed="13.89" length="166.70" shape="50554.71,26798.50 50479.17,26805.19 50389.15,26817.04"/>
+        <lane id="end_major_1" index="1" speed="13.89" length="166.70" shape="50554.41,26795.21 50478.88,26801.90 50388.72,26813.77"/>
+    </edge>
+
+    <tlLogic id="61070032" type="static" programID="0" offset="0">
+        <phase duration="31" state="G"/>
+        <phase duration="4" state="y"/>
+    </tlLogic>
+    <tlLogic id="727608502" type="static" programID="0" offset="0">
+        <phase duration="31" state="G"/>
+        <phase duration="4" state="y"/>
+    </tlLogic>
+
+    <junction id="61070032" type="traffic_light" x="50834.47" y="26767.41" incLanes="-820948245_0 -820948245_1" intLanes=":61070032_0_0" shape="50834.47,26767.46 50835.08,26773.93 50833.86,26760.89 50834.47,26767.36">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="727608502" type="traffic_light" x="50388.50" y="26812.13" incLanes="end_major_0 end_major_1" intLanes=":727608502_0_0" shape="50388.49,26812.08 50387.65,26805.64 50389.35,26818.62 50388.51,26812.18">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="878089060" type="priority" x="50560.20" y="26793.04" incLanes="beg_major_0 beg_major_1 -820948246_0 -820948246_1 beg_minor_0" intLanes=":878089060_0_0 :878089060_1_0 :878089060_1_1 :878089060_11_0 :878089060_4_0 :878089060_4_1 :878089060_12_0 :878089060_13_0 :878089060_8_0 :878089060_9_0 :878089060_10_0" shape="50564.41,26799.23 50563.19,26786.18 50553.69,26787.04 50554.85,26800.09 50556.21,26801.45 50562.69,26802.01">
+        <request index="0" response="00000000000" foes="10001000000" cont="0"/>
+        <request index="1" response="00000000000" foes="01111000000" cont="0"/>
+        <request index="2" response="00000000000" foes="01111000000" cont="0"/>
+        <request index="3" response="01000110000" foes="01000110000" cont="1"/>
+        <request index="4" response="00000000000" foes="01000001000" cont="0"/>
+        <request index="5" response="00000000000" foes="01000001000" cont="0"/>
+        <request index="6" response="00000000111" foes="11000000111" cont="1"/>
+        <request index="7" response="00100000110" foes="00100000110" cont="1"/>
+        <request index="8" response="00000000110" foes="00010000110" cont="0"/>
+        <request index="9" response="00001110110" foes="00001111110" cont="0"/>
+        <request index="10" response="00001000001" foes="00001000001" cont="0"/>
+    </junction>
+    <junction id="878089061" type="priority" x="50550.30" y="26907.84" incLanes="820948247_0" intLanes=":878089061_0_0" shape="50550.25,26907.84 50547.06,26907.56 50553.54,26908.12 50550.35,26907.84">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <junction id=":878089060_11_0" type="internal" x="50562.16" y="26792.86" incLanes=":878089060_3_0 -820948246_0 -820948246_1 beg_minor_0" intLanes=":878089060_4_0 :878089060_4_1 :878089060_9_0"/>
+    <junction id=":878089060_12_0" type="internal" x="50558.72" y="26793.21" incLanes=":878089060_6_0 beg_major_0 beg_major_1" intLanes=":878089060_0_0 :878089060_1_0 :878089060_1_1 :878089060_9_0 :878089060_10_0"/>
+    <junction id=":878089060_13_0" type="internal" x="50555.91" y="26793.42" incLanes=":878089060_7_0 beg_major_0 beg_major_1 beg_minor_0" intLanes=":878089060_1_0 :878089060_1_1 :878089060_8_0"/>
+
+    <connection from="-820948245" to="beg_major" fromLane="1" toLane="1" via=":61070032_0_0" tl="61070032" linkIndex="0" dir="t" state="o"/>
+    <connection from="-820948246" to="-820948245" fromLane="0" toLane="0" via=":878089060_4_0" dir="s" state="M"/>
+    <connection from="-820948246" to="-820948245" fromLane="1" toLane="1" via=":878089060_4_1" dir="s" state="M"/>
+    <connection from="-820948246" to="820948247" fromLane="1" toLane="0" via=":878089060_6_0" dir="l" state="m"/>
+    <connection from="-820948246" to="end_major" fromLane="1" toLane="1" via=":878089060_7_0" dir="t" state="m"/>
+    <connection from="820948247" to="beg_minor" fromLane="0" toLane="0" via=":878089061_0_0" dir="t" state="M"/>
+    <connection from="beg_major" to="820948247" fromLane="0" toLane="0" via=":878089060_0_0" dir="r" state="M"/>
+    <connection from="beg_major" to="end_major" fromLane="0" toLane="0" via=":878089060_1_0" dir="s" state="M"/>
+    <connection from="beg_major" to="end_major" fromLane="1" toLane="1" via=":878089060_1_1" dir="s" state="M"/>
+    <connection from="beg_major" to="-820948245" fromLane="1" toLane="1" via=":878089060_3_0" dir="t" state="m"/>
+    <connection from="beg_minor" to="end_major" fromLane="0" toLane="0" via=":878089060_8_0" dir="r" state="m"/>
+    <connection from="beg_minor" to="-820948245" fromLane="0" toLane="1" via=":878089060_9_0" dir="l" state="m"/>
+    <connection from="beg_minor" to="820948247" fromLane="0" toLane="0" via=":878089060_10_0" dir="t" state="m"/>
+    <connection from="end_major" to="-820948246" fromLane="1" toLane="1" via=":727608502_0_0" tl="727608502" linkIndex="0" dir="t" state="o"/>
+
+    <connection from=":61070032_0" to="beg_major" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":727608502_0" to="-820948246" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":878089060_0" to="820948247" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":878089060_1" to="end_major" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":878089060_1" to="end_major" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":878089060_3" to="-820948245" fromLane="0" toLane="1" via=":878089060_11_0" dir="s" state="m"/>
+    <connection from=":878089060_11" to="-820948245" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":878089060_4" to="-820948245" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":878089060_4" to="-820948245" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":878089060_6" to="820948247" fromLane="0" toLane="0" via=":878089060_12_0" dir="s" state="m"/>
+    <connection from=":878089060_12" to="820948247" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":878089060_7" to="end_major" fromLane="0" toLane="1" via=":878089060_13_0" dir="s" state="m"/>
+    <connection from=":878089060_13" to="end_major" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":878089060_8" to="end_major" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":878089060_9" to="-820948245" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":878089060_10" to="820948247" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":878089061_0" to="beg_minor" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

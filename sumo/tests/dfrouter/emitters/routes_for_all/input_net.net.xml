@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 19 Sep 2016 08:42:35 AM CEST by Netedit Version dev-SVN-r21484
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/dfrouter/emitters/routes_for_all/input_tri.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/dfrouter/emitters/routes_for_all/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,200.00" convBoundary="0.00,0.00,1300.00,400.00" origBoundary="0.00,-200.00,1300.00,200.00" projParameter="!"/>
+
+    <edge id="beg" from="beg" to="1" priority="-1">
+        <lane id="beg_0" index="0" speed="19.44" length="100.00" shape="0.00,198.35 100.00,198.35"/>
+    </edge>
+    <edge id="end" from="2" to="end" priority="-1">
+        <lane id="end_0" index="0" speed="19.44" length="400.00" shape="400.00,198.35 800.00,198.35"/>
+    </edge>
+    <edge id="middle" from="1" to="2" priority="-1">
+        <lane id="middle_0" index="0" speed="19.44" length="300.00" shape="100.00,198.35 400.00,198.35"/>
+    </edge>
+
+    <junction id="1" type="priority" x="100.00" y="200.00" incLanes="beg_0" intLanes="" shape="100.00,199.95 100.00,196.75 100.00,199.95">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="2" type="priority" x="400.00" y="200.00" incLanes="middle_0" intLanes="" shape="400.00,199.95 400.00,196.75 400.00,199.95">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="L2" type="unregulated" x="1100.00" y="400.00" incLanes="" intLanes="" shape="1100.00,400.00"/>
+    <junction id="R1" type="unregulated" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.00,0.00"/>
+    <junction id="R2" type="unregulated" x="1100.00" y="0.00" incLanes="" intLanes="" shape="1100.00,0.00"/>
+    <junction id="beg" type="unregulated" x="0.00" y="200.00" incLanes="" intLanes="" shape="0.00,199.95 0.00,196.75"/>
+    <junction id="end" type="unregulated" x="800.00" y="200.00" incLanes="end_0" intLanes="" shape="800.00,196.75 800.00,199.95"/>
+    <junction id="rend" type="unregulated" x="1300.00" y="200.00" incLanes="" intLanes="" shape="1300.00,200.00"/>
+
+    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
