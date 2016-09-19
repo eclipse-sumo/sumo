@@ -50,8 +50,9 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string& id,
         SUMOReal startPos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold)
-    : MSDetectorFileOutput(id),
+        SUMOReal jamDistThreshold,
+        const std::string& vTypes)
+    : MSDetectorFileOutput(id, vTypes),
       startPosM(startPos), haltingTimeThresholdM(haltingTimeThreshold),
       haltingSpeedThresholdM(haltingSpeedThreshold), jamDistThresholdM(jamDistThreshold),
       myStartLaneID(lane->getID()), myUsage(usage) {}
@@ -73,7 +74,7 @@ MS_E2_ZS_CollectorOverLanes::init(MSLane* lane, SUMOReal detLength) {
     myLaneCombinations[0].push_back(lane);
     myDetectorCombinations.push_back(DetectorVector());
     MSE2Collector* c =
-        buildCollector(0, 0, lane, startPosM, length);
+        buildCollector(0, 0, lane, startPosM, length, myVehicleTypes);
     myDetectorCombinations[0].push_back(c);
     myAlreadyBuild[lane] = c;
     extendTo(detLength);
@@ -147,7 +148,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length) {
                     DetectorVector ndv = dv;
                     MSE2Collector* coll = 0;
                     if (myAlreadyBuild.find(l) == myAlreadyBuild.end()) {
-                        coll = buildCollector(0, 0, l, (SUMOReal) 0.1, lanelen);
+                        coll = buildCollector(0, 0, l, (SUMOReal) 0.1, lanelen, myVehicleTypes);
                     } else {
                         coll = myAlreadyBuild.find(l)->second;
                     }
@@ -198,14 +199,15 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane* l) {
 
 MSE2Collector*
 MS_E2_ZS_CollectorOverLanes::buildCollector(int c, int r, MSLane* l,
-        SUMOReal start, SUMOReal end) {
+SUMOReal start, SUMOReal end,
+const std::set<std::string>& vTypes) {
     std::string id = makeID(l->getID(), c, r);
     if (start + end < l->getLength()) {
         start = l->getLength() - end - (SUMOReal) 0.1;
     }
     return new MSE2Collector(id, myUsage,
                              l, start, end, haltingTimeThresholdM,
-                             haltingSpeedThresholdM, jamDistThresholdM);
+                             haltingSpeedThresholdM, jamDistThresholdM, vTypes);
 }
 
 

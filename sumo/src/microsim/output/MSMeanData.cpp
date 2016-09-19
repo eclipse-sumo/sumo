@@ -60,12 +60,12 @@
 // ---------------------------------------------------------------------------
 MSMeanData::MeanDataValues::MeanDataValues(
     MSLane* const lane, const SUMOReal length, const bool doAdd,
-    const std::set<std::string>* const vTypes) :
+    const MSMeanData* const parent) :
     MSMoveReminder("meandata_" + (lane == 0 ? "NULL" :  lane->getID()), lane, doAdd),
     myLaneLength(length),
     sampleSeconds(0),
     travelledDistance(0),
-    myVehicleTypes(vTypes) {}
+    myParent(parent) {}
 
 
 MSMeanData::MeanDataValues::~MeanDataValues() {
@@ -75,7 +75,7 @@ MSMeanData::MeanDataValues::~MeanDataValues() {
 bool
 MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     UNUSED_PARAMETER(reason);
-    return vehicleApplies(veh);
+    return myParent == 0 || myParent->vehicleApplies(veh);
 }
 
 
@@ -127,13 +127,6 @@ MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos
 
 
 bool
-MSMeanData::MeanDataValues::vehicleApplies(const SUMOVehicle& veh) const {
-    return myVehicleTypes == 0 || myVehicleTypes->empty() ||
-           myVehicleTypes->find(veh.getVehicleType().getID()) != myVehicleTypes->end();
-}
-
-
-bool
 MSMeanData::MeanDataValues::isEmpty() const {
     return sampleSeconds == 0;
 }
@@ -155,9 +148,8 @@ MSMeanData::MeanDataValues::getSamples() const {
 // ---------------------------------------------------------------------------
 MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane* const lane,
         const SUMOReal length,
-        const std::set<std::string>* const vTypes,
         const MSMeanData* const parent)
-    : MSMeanData::MeanDataValues(lane, length, true, vTypes), myParent(parent) {
+    : MSMeanData::MeanDataValues(lane, length, true, parent) {
     myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, length, false)));
 }
 
@@ -216,7 +208,7 @@ MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::
     if (reason == MSMoveReminder::NOTIFICATION_SEGMENT) {
         return true;
     }
-    if (vehicleApplies(veh) && myTrackedData.find(&veh) == myTrackedData.end()) {
+    if (myParent->vehicleApplies(veh) && myTrackedData.find(&veh) == myTrackedData.end()) {
         myTrackedData[&veh] = myCurrentData.back();
         myTrackedData[&veh]->myNumVehicleEntered++;
         if (!myTrackedData[&veh]->myValues->notifyEnter(veh, reason)) {
@@ -277,11 +269,10 @@ MSMeanData::MSMeanData(const std::string& id,
                        const bool printDefaults, const bool withInternal, const bool trackVehicles,
                        const SUMOReal maxTravelTime,
                        const SUMOReal minSamples,
-                       const std::set<std::string> vTypes) :
-    MSDetectorFileOutput(id),
+                       const std::string& vTypes) :
+    MSDetectorFileOutput(id, vTypes),
     myMinSamples(minSamples),
     myMaxTravelTime(maxTravelTime),
-    myVehicleTypes(vTypes),
     myDumpEmpty(withEmpty),
     myAmEdgeBased(!useLanes),
     myDumpBegin(dumpBegin),
@@ -305,7 +296,7 @@ MSMeanData::init() {
             if (MSGlobals::gUseMesoSim) {
                 MeanDataValues* data;
                 if (myTrackVehicles) {
-                    data = new MeanDataValueTracker(0, lanes[0]->getLength(), &myVehicleTypes, this);
+                    data = new MeanDataValueTracker(0, lanes[0]->getLength(), this);
                 } else {
                     data = createValues(0, lanes[0]->getLength(), false);
                 }
@@ -322,14 +313,14 @@ MSMeanData::init() {
                 continue;
             }
             if (myAmEdgeBased && myTrackVehicles) {
-                myMeasures.back().push_back(new MeanDataValueTracker(0, lanes[0]->getLength(), &myVehicleTypes, this));
+                myMeasures.back().push_back(new MeanDataValueTracker(0, lanes[0]->getLength(), this));
             }
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 if (myTrackVehicles) {
                     if (myAmEdgeBased) {
                         (*lane)->addMoveReminder(myMeasures.back().back());
                     } else {
-                        myMeasures.back().push_back(new MeanDataValueTracker(*lane, (*lane)->getLength(), &myVehicleTypes, this));
+                        myMeasures.back().push_back(new MeanDataValueTracker(*lane, (*lane)->getLength(), this));
                     }
                 } else {
                     myMeasures.back().push_back(createValues(*lane, (*lane)->getLength(), true));

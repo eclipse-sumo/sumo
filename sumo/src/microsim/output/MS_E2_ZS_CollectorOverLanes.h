@@ -81,7 +81,8 @@ public:
     MS_E2_ZS_CollectorOverLanes(const std::string& id,
                                 DetectorUsage usage, MSLane* lane, SUMOReal startPos,
                                 SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                                SUMOReal jamDistThreshold);
+                                SUMOReal jamDistThreshold,
+                                const std::string& vTypes);
 
 
     /** @brief Builds the consecutive E2 detectors
@@ -171,7 +172,8 @@ protected:
      * @todo Describe!
      */
     virtual MSE2Collector* buildCollector(int c, int r,
-                                          MSLane* l, SUMOReal start, SUMOReal end);
+        MSLane* l, SUMOReal start, SUMOReal end,
+        const std::set<std::string>& vTypes);
 
 
     /** @brief Returns the list of lanes predecessing the given one

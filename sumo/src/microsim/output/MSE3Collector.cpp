@@ -133,8 +133,9 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              const CrossSectionVector& entries,
                              const CrossSectionVector& exits,
                              SUMOReal haltingSpeedThreshold,
-                             SUMOTime haltingTimeThreshold)
-    : MSDetectorFileOutput(id), myEntries(entries), myExits(exits),
+                             SUMOTime haltingTimeThreshold,
+                             const std::string& vTypes)
+    : MSDetectorFileOutput(id, vTypes), myEntries(entries), myExits(exits),
       myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
       myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1) {
     // Set MoveReminders to entries and exits

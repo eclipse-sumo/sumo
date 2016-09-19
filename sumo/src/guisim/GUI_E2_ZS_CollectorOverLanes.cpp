@@ -56,9 +56,9 @@ GUI_E2_ZS_CollectorOverLanes::GUI_E2_ZS_CollectorOverLanes(std::string id,
         DetectorUsage usage, MSLane* lane, SUMOReal startPos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold)
+        SUMOReal jamDistThreshold, const std::string& vTypes)
     : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
-                                  haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold) {}
+                                  haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes) {}
 
 
 
@@ -73,14 +73,15 @@ GUI_E2_ZS_CollectorOverLanes::buildDetectorGUIRepresentation() {
 
 MSE2Collector*
 GUI_E2_ZS_CollectorOverLanes::buildCollector(int c, int r, MSLane* l,
-        SUMOReal start, SUMOReal end) {
+SUMOReal start, SUMOReal end,
+const std::set<std::string>& vTypes) {
     std::string id = makeID(myID, c, r);
     if (start + end < l->getLength()) {
         start = l->getLength() - end - (SUMOReal) 0.1;
     }
     return new GUI_E2_ZS_Collector(id, myUsage,
                                    l, start, end, haltingTimeThresholdM,
-                                   haltingSpeedThresholdM, jamDistThresholdM);
+                                   haltingSpeedThresholdM, jamDistThresholdM, vTypes);
 }
 
 

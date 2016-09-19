@@ -97,7 +97,8 @@ public:
      */
     void buildInductLoop(const std::string& id,
                          const std::string& lane, SUMOReal pos, SUMOTime splInterval,
-                         const std::string& device, bool friendlyPos, bool splitByType);
+                         const std::string& device, bool friendlyPos,
+                         const std::string& vTypes);
 
 
     /** @brief Builds an instantenous induction and adds it to the net
@@ -117,7 +118,8 @@ public:
      */
     void buildInstantInductLoop(const std::string& id,
                                 const std::string& lane, SUMOReal pos,
-                                const std::string& device, bool friendlyPos);
+                                const std::string& device, bool friendlyPos,
+                                const std::string& vTypes);
 
 
     /** @brief Builds an e2 detector with a fixed interval and adds it to the net
@@ -147,7 +149,8 @@ public:
     void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
                          bool cont, SUMOTime splInterval, const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos);
+                         bool friendlyPos,
+                         const std::string& vTypes);
 
 
     /** @brief Builds an e2 detector connected to a lsa
@@ -178,7 +181,8 @@ public:
                          bool cont, MSTLLogicControl::TLSLogicVariants& tlls,
                          const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos);
+                         bool friendlyPos,
+                         const std::string& vTypes);
 
 
     /** @brief Builds an e2 detector connected to a link's state
@@ -210,7 +214,8 @@ public:
                          bool cont, MSTLLogicControl::TLSLogicVariants& tlls, const std::string& tolane,
                          const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos);
+                         bool friendlyPos,
+                         const std::string& vTypes);
 
 
     /** @brief Stores temporary the initial information about an e3 detector to build
@@ -227,7 +232,8 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void beginE3Detector(const std::string& id, const std::string& device, SUMOTime splInterval,
-                         SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold);
+        SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
+        const std::string& vTypes);
 
 
     /** @brief Builds an entry point of an e3 detector
@@ -316,7 +322,8 @@ public:
      */
     void buildRouteProbe(const std::string& id, const std::string& edge,
                          SUMOTime frequency, SUMOTime begin,
-                         const std::string& device);
+                         const std::string& device,
+                         const std::string& vTypes);
     /// @}
 
 
@@ -337,7 +344,8 @@ public:
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
-            MSLane* lane, SUMOReal pos, bool splitByType, bool show = true);
+        MSLane* lane, SUMOReal pos,
+        const std::string& vTypes, bool show = true);
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -350,7 +358,8 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-            MSLane* lane, SUMOReal pos, const std::string& od);
+        MSLane* lane, SUMOReal pos, const std::string& od,
+        const std::string& vTypes);
 
     /** @brief Creates an instance of an e2 detector using the given values
      *
@@ -368,7 +377,8 @@ public:
             DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold,
             SUMOReal haltingSpeedThreshold,
-            SUMOReal jamDistThreshold);
+            SUMOReal jamDistThreshold,
+            const std::string& vTypes);
 
 
     /** @brief Creates an instance of an e2ol-detector using the given values
@@ -387,7 +397,8 @@ public:
     virtual MSDetectorFileOutput* createMultiLaneE2Detector(
         const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold);
+        SUMOReal jamDistThreshold,
+        const std::string& vTypes);
 
 
     /** @brief Creates an instance of an e3 detector using the given values
@@ -402,7 +413,8 @@ public:
      */
     virtual MSDetectorFileOutput* createE3Detector(const std::string& id,
             const CrossSectionVector& entries, const CrossSectionVector& exits,
-            SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold);
+            SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
+            const std::string& vTypes);
 
 
     /** @brief Creates edge based mean data collector using the given specification
@@ -448,7 +460,8 @@ public:
     MSE2Collector* buildSingleLaneE2Det(const std::string& id,
                                         DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
                                         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                                        SUMOReal jamDistThreshold);
+                                        SUMOReal jamDistThreshold,
+                                        const std::string& vTypes);
 
 
     /** @brief Builds an e2 detector that continues on preceeding lanes
@@ -465,7 +478,8 @@ public:
      */
     MSDetectorFileOutput* buildMultiLaneE2Det(const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-            SUMOReal jamDistThreshold);
+            SUMOReal jamDistThreshold,
+            const std::string& vTypes);
 
 
 
@@ -486,13 +500,14 @@ protected:
          */
         E3DetectorDefinition(const std::string& id,
                              const std::string& device, SUMOReal haltingSpeedThreshold,
-                             SUMOTime haltingTimeThreshold, SUMOTime splInterval);
+                             SUMOTime haltingTimeThreshold, SUMOTime splInterval,
+                             const std::string& vTypes);
 
         /// @brief Destructor
         ~E3DetectorDefinition();
 
         /// @brief The id of the detector
-        std::string myID;
+        const std::string myID;
         /// @brief The device the detector shall use
         const std::string myDevice;
         /// @brief The speed a vehicle's speed must be below to be assigned as jammed
@@ -505,6 +520,8 @@ protected:
         CrossSectionVector myExits;
         /// @brief The aggregation interval
         SUMOTime mySampleInterval;
+        /// @brief The device the detector shall use
+        const std::string myVehicleTypes;
         //@}
 
     private:

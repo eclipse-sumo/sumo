@@ -51,8 +51,8 @@
 // MSMeanData_Harmonoise::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-        const std::set<std::string>* const vTypes, const MSMeanData_Harmonoise* parent)
-    : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
+        const MSMeanData_Harmonoise* parent)
+    : MSMeanData::MeanDataValues(lane, length, doAdd, parent),
       currentTimeN(0), meanNTemp(0), myParent(parent) {}
 
 
@@ -95,12 +95,6 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh
 }
 
 
-bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/) {
-    return vehicleApplies(veh);
-}
-
-
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const SUMOReal defaultTravelTime, const int /*numVehicles*/) const {
@@ -129,7 +123,7 @@ MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const bool printDefaults, const bool withInternal,
         const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
-        const std::set<std::string> vTypes)
+        const std::string& vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
@@ -140,7 +134,7 @@ MSMeanData_Harmonoise::~MSMeanData_Harmonoise() {}
 
 MSMeanData::MeanDataValues*
 MSMeanData_Harmonoise::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const {
-    return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
+    return new MSLaneMeanDataValues(lane, length, doAdd, this);
 }
 
 

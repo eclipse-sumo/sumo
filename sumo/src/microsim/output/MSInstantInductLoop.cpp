@@ -54,9 +54,10 @@
 // method definitions
 // ===========================================================================
 MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
-        OutputDevice& od, MSLane* const lane, SUMOReal positionInMeters) :
+    OutputDevice& od, MSLane* const lane, SUMOReal positionInMeters,
+    const std::string& vTypes) :
     MSMoveReminder(id, lane),
-    MSDetectorFileOutput(id),
+    MSDetectorFileOutput(id, vTypes),
     myOutputDevice(od),
     myPosition(positionInMeters), myLastExitTime(-1) {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
@@ -71,6 +72,9 @@ MSInstantInductLoop::~MSInstantInductLoop() {
 bool
 MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                                 SUMOReal newPos, SUMOReal newSpeed) {
+    if (!vehicleApplies(veh)) {
+        return false;
+    }
     if (newPos < myPosition) {
         // detector not reached yet
         return true;

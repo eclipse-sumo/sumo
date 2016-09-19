@@ -63,7 +63,7 @@ public:
                                  MSLane* lane, SUMOReal startPos,
                                  SUMOTime haltingTimeThreshold,
                                  SUMOReal haltingSpeedThreshold,
-                                 SUMOReal jamDistThreshold);
+                                 SUMOReal jamDistThreshold, const std::string& vTypes);
 
     /// Destructor
     ~GUI_E2_ZS_CollectorOverLanes();
@@ -74,7 +74,8 @@ public:
 
 protected:
     MSE2Collector* buildCollector(int c, int r,
-                                  MSLane* l, SUMOReal start, SUMOReal end);
+        MSLane* l, SUMOReal start, SUMOReal end,
+        const std::set<std::string>& vTypes);
 
 
 public:

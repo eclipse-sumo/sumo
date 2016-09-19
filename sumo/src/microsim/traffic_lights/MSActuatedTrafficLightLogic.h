@@ -141,7 +141,7 @@ protected:
     SUMOTime myFreq;
 
     /// Whether detector output separates by vType
-    bool mySplitByType;
+    std::string myVehicleTypes;
 
 };
 

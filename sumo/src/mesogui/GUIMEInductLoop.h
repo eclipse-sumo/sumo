@@ -55,7 +55,7 @@ class GUIMEInductLoop : public MEInductLoop {
 public:
     /// Construtor
     GUIMEInductLoop(const std::string& id, MESegment* s,
-                    SUMOReal position);
+        SUMOReal position, const std::string& vTypes);
 
     /// Destructor
     ~GUIMEInductLoop();

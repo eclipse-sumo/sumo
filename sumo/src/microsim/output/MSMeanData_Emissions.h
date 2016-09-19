@@ -73,8 +73,7 @@ public:
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-                             const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData_Emissions* parent = 0);
+                             const MSMeanData_Emissions* parent);
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues();
@@ -123,9 +122,6 @@ public:
     private:
         /// @brief Collected values
         PollutantsInterface::Emissions myEmissions;
-        /// @brief The meandata parent
-        const MSMeanData_Emissions* myParent;
-
     };
 
 
@@ -150,7 +146,7 @@ public:
                          const bool printDefaults, const bool withInternal,
                          const bool trackVehicles,
                          const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                         const std::set<std::string> vTypes);
+                         const std::string& vTypes);
 
 
     /// @brief Destructor

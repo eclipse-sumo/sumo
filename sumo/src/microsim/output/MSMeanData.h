@@ -76,7 +76,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0);
+        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const MSMeanData* const parent);
 
         /** @brief Destructor */
         virtual ~MeanDataValues();
@@ -118,7 +118,7 @@ public:
          * @return True if vehicle hasn't passed the reminder completely.
          */
         bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                        SUMOReal newPos, SUMOReal newSpeed);
+            SUMOReal newPos, SUMOReal newSpeed);
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -130,15 +130,7 @@ public:
          * @see MSMoveReminder::notifyLeave
          */
         virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                                 MSMoveReminder::Notification reason);
-
-
-        /** @brief Tests whether the vehicles type is to be regarded
-         *
-         * @param[in] veh The regarded vehicle
-         * @return whether the type of the vehicle is in the set of regarded types
-         */
-        bool vehicleApplies(const SUMOVehicle& veh) const;
+            MSMoveReminder::Notification reason);
 
 
         /** @brief Returns whether any data was collected.
@@ -160,15 +152,25 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice& dev, const SUMOTime period,
-                           const SUMOReal numLanes, const SUMOReal defaultTravelTime,
-                           const int numVehicles = -1) const = 0;
+            const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+            const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
-         * @return the number of collected sample seconds
-         */
+        * @return the number of collected sample seconds
+        */
         virtual SUMOReal getSamples() const;
 
+        /** @brief Returns the total travelled distance.
+        * @return the total travelled distance
+        */
+        SUMOReal getTravelledDistance() const {
+            return travelledDistance;
+        }
+
     protected:
+        /// @brief The meandata parent
+        const MSMeanData* const myParent;
+
         /// @brief The length of the lane / edge the data collector is on
         const SUMOReal myLaneLength;
 
@@ -176,14 +178,10 @@ public:
         /// @{
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;
-    public:
+
         /// @brief The sum of the distances the vehicles travelled
         SUMOReal travelledDistance;
         //@}
-
-    protected:
-        /// @brief The vehicle types to look for (0 or empty means all)
-        const std::set<std::string>* const myVehicleTypes;
 
     };
 
@@ -196,8 +194,7 @@ public:
     public:
         /** @brief Constructor */
         MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
-                             const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData* const parent = 0);
+                             const MSMeanData* const parent);
 
         /** @brief Destructor */
         virtual ~MeanDataValueTracker();
@@ -302,9 +299,6 @@ public:
         /// @brief The currently active meandata "intervals"
         std::list<TrackerEntry*> myCurrentData;
 
-        /// @brief The meandata parent
-        const MSMeanData* myParent;
-
     };
 
 
@@ -329,7 +323,7 @@ public:
                const bool printDefaults, const bool withInternal,
                const bool trackVehicles, const SUMOReal minSamples,
                const SUMOReal maxTravelTime,
-               const std::set<std::string> vTypes);
+               const std::string& vTypes);
 
 
     /// @brief Destructor
@@ -370,6 +364,14 @@ public:
     /** @brief Updates the detector
      */
     virtual void detectorUpdate(const SUMOTime step);
+
+    SUMOReal getMinSamples() const {
+        return myMinSamples;
+    }
+
+    SUMOReal getMaxTravelTime() const {
+        return myMaxTravelTime;
+    }
 
 
 protected:
@@ -436,9 +438,6 @@ protected:
 
     /// @brief the maximum travel time to write
     const SUMOReal myMaxTravelTime;
-
-    /// @brief The vehicle types to look for (empty means all)
-    const std::set<std::string> myVehicleTypes;
 
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MeanDataValues*> > myMeasures;

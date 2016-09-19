@@ -70,8 +70,7 @@ public:
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-                             const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData_Harmonoise* parent = 0);
+                             const MSMeanData_Harmonoise* parent);
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues();
@@ -84,25 +83,6 @@ public:
         /** @brief Add the values to this meanData
          */
         void addTo(MSMeanData::MeanDataValues& val) const;
-
-
-        /// @name Methods inherited from MSMoveReminder.
-        /// @{
-
-        /** @brief Computes current emission values and adds them to their sums
-         *
-         * The fraction of time the vehicle is on the lane is computed and
-         *  used as a weight for the vehicle's current emission values
-         *  which are computed using the current velocity and acceleration.
-         *
-         * @param[in] veh The entering vehicle.
-         * @param[in] reason how the vehicle enters the lane
-         * @return Always true
-         * @see MSMoveReminder::notifyEnter
-         * @see MSMoveReminder::Notification
-         */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
-        //@}
 
 
         /** @brief Computes the noise in the last time step
@@ -177,7 +157,7 @@ public:
                           const bool printDefaults, const bool withInternal,
                           const bool trackVehicles,
                           const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                          const std::set<std::string> vTypes);
+                          const std::string& vTypes);
 
 
     /// @brief Destructor

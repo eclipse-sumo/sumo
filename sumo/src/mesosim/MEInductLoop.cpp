@@ -52,10 +52,11 @@
 // ===========================================================================
 MEInductLoop::MEInductLoop(const std::string& id,
                            MESegment* s,
-                           SUMOReal positionInMeters) :
-    MSDetectorFileOutput(id), mySegment(s),
+                           SUMOReal positionInMeters,
+                           const std::string& vTypes) :
+    MSDetectorFileOutput(id, vTypes), mySegment(s),
     myPosition(positionInMeters),
-    myMeanData(0, mySegment->getLength(), false) {
+    myMeanData(0, mySegment->getLength(), false, 0) {
     myMeanData.setDescription("inductionLoop_" + id);
     s->addDetector(&myMeanData);
 }

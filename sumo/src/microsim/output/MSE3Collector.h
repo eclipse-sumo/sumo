@@ -208,7 +208,8 @@ public:
     MSE3Collector(const std::string& id,
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   SUMOReal haltingSpeedThreshold,
-                  SUMOTime haltingTimeThreshold);
+                  SUMOTime haltingTimeThreshold,
+                  const std::string& vTypes);
 
 
     /// @brief Destructor

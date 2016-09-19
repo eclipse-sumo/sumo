@@ -771,7 +771,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    const bool splitByType = attrs.getOpt<bool>(SUMO_ATTR_SPLIT_VTYPE, id.c_str(), ok, false);
+    const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
@@ -780,7 +780,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     try {
         myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          friendlyPos, splitByType);
+                                          friendlyPos, vTypes);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -801,11 +801,12 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (!ok) {
         return;
     }
     try {
-        myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos);
+        myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, vTypes);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -842,12 +843,13 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes& attrs) {
     SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, -1);
     std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
     std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.buildRouteProbe(id, edge, frequency, begin,
-                                          FileHelpers::checkForRelativity(file, getFileName()));
+                                          FileHelpers::checkForRelativity(file, getFileName()), vTypes);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -873,6 +875,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     const bool cont = attrs.getOpt<bool>(SUMO_ATTR_CONT, id.c_str(), ok, false);
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (!ok) {
         return;
     }
@@ -883,13 +886,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
                                                   myJunctionControlBuilder.getTLLogic(lsaid),
                                                   FileHelpers::checkForRelativity(file, getFileName()),
                                                   haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                                  friendlyPos);
+                                                  friendlyPos, vTypes);
             } else {
                 myDetectorBuilder.buildE2Detector(id, lane, position, length, cont,
                                                   myJunctionControlBuilder.getTLLogic(lsaid), toLane,
                                                   FileHelpers::checkForRelativity(file, getFileName()),
                                                   haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                                  friendlyPos);
+                                                  friendlyPos, vTypes);
             }
         } else {
             bool ok = true;
@@ -900,7 +903,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             myDetectorBuilder.buildE2Detector(id, lane, position, length, cont, frequency,
                                               FileHelpers::checkForRelativity(file, getFileName()),
                                               haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                              friendlyPos);
+                                              friendlyPos, vTypes);
         }
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -918,13 +921,14 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
     const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          frequency, haltingSpeedThreshold, haltingTimeThreshold);
+                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {

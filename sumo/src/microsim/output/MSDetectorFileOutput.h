@@ -34,10 +34,14 @@
 #endif
 
 #include <string>
+#include <set>
 
-#include <utils/common/SUMOTime.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/Named.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/vehicle/SUMOVehicle.h>
+#include <microsim/MSVehicleType.h>
 
 
 // ===========================================================================
@@ -65,7 +69,16 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id) : Named(id) { }
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes)
+        : Named(id) {
+        const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
+        myVehicleTypes.insert(vt.begin(), vt.end());
+    }
+
+    /// @brief Constructor
+    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes)
+        : Named(id), myVehicleTypes(vTypes) {
+    }
 
 
     /// @brief (virtual) destructor
@@ -124,6 +137,29 @@ public:
         return 0;
     }
 
+
+    /** @brief Checks whether the detector measures vehicles of the given type.
+    *
+    * @param[in] veh the vehicle of which the type is checked.
+    * @return whether it should be measured
+    */
+    bool vehicleApplies(const SUMOVehicle& veh) const {
+        return myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0;
+    }
+
+
+    /** @brief Checks whether the detector is type specific.
+    *
+    * @return whether vehicle types are considered
+    */
+    bool isTyped() const {
+        return !myVehicleTypes.empty();
+    }
+
+
+protected:
+    /// @brief The vehicle types to look for (empty means all)
+    std::set<std::string> myVehicleTypes;
 
 private:
     /// @brief Invalidated copy constructor.

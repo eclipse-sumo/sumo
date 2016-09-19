@@ -61,7 +61,7 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, SUMOReal position, bool splitByType);
+    GUIInductLoop(const std::string& id, MSLane* const lane, SUMOReal position, const std::string& vTypes);
 
 
     /// @brief Destructor

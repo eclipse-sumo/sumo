@@ -75,7 +75,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     MSTrigger(id),
     MSRouteHandler(aXMLFilename, false),
     myEdge(edge), myPos(pos), myProbe(probe),
-    myEdgeMeanData(0, length, false),
+    myEdgeMeanData(0, length, false, 0),
     myOutput(0), myFrequency(freq), myRemoved(0),
     myInserted(0), myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
@@ -95,7 +95,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     if (addLaneMeanData) {
         for (int i = 0; i < (int)myEdge->getLanes().size(); ++i) {
             MSLane* lane = myEdge->getLanes()[i];
-            MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, myEdge->getLength(), true);
+            MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, myEdge->getLength(), true, 0);
             laneData->setDescription("meandata_calibrator_" + lane->getID());
             LeftoverReminders.push_back(laneData);
             myLaneMeanData.push_back(laneData);
@@ -219,7 +219,7 @@ MSCalibrator::writeXMLOutput() {
                     "\" cleared=\"" << myClearedInJam <<
                     "\" flow=\"" << p * 3600.0 / durationSeconds <<
                     "\" aspiredFlow=\"" << myCurrentStateInterval->q <<
-                    "\" speed=\"" << myEdgeMeanData.travelledDistance / myEdgeMeanData.getSamples() <<
+                    "\" speed=\"" << myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() <<
                     "\" aspiredSpeed=\"" << myCurrentStateInterval->v <<
                     ds << //optional
                     "\"/>\n";

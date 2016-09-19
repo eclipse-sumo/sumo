@@ -56,7 +56,8 @@ class MEInductLoop : public MSDetectorFileOutput {
 public:
     MEInductLoop(const std::string& id,
                  MESegment* s,
-                 SUMOReal positionInMeters);
+                 SUMOReal positionInMeters,
+                 const std::string& vTypes);
 
 
     ~MEInductLoop();

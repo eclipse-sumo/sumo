@@ -53,7 +53,7 @@ public:
      * @param[in] position Position of the detector within the lane.
      */
     GUIInstantInductLoop(const std::string& id, OutputDevice& od,
-                         MSLane* const lane, SUMOReal positionInMeters);
+        MSLane* const lane, SUMOReal positionInMeters, const std::string& vTypes);
 
 
     /// @brief Destructor

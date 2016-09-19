@@ -51,12 +51,37 @@
 // method definitions
 // ===========================================================================
 MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
-                             MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
-                             SUMOTime haltingTimeThreshold,
-                             SUMOReal haltingSpeedThreshold,
-                             SUMOReal jamDistThreshold) :
+    MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
+    SUMOTime haltingTimeThreshold,
+    SUMOReal haltingSpeedThreshold,
+    SUMOReal jamDistThreshold,
+    const std::string& vTypes) :
     MSMoveReminder(id, lane),
-    MSDetectorFileOutput(id),
+    MSDetectorFileOutput(id, vTypes),
+    myJamHaltingSpeedThreshold(haltingSpeedThreshold),
+    myJamHaltingTimeThreshold(haltingTimeThreshold),
+    myJamDistanceThreshold(jamDistThreshold),
+    myStartPos(startPos), myEndPos(startPos + detLength),
+    myUsage(usage),
+    myCurrentOccupancy(0), myCurrentMeanSpeed(-1), myCurrentJamNo(0),
+    myCurrentMaxJamLengthInMeters(0), myCurrentMaxJamLengthInVehicles(0),
+    myCurrentJamLengthInMeters(0), myCurrentJamLengthInVehicles(0), myCurrentStartedHalts(0),
+    myCurrentHaltingsNumber(0), myPassedVeh(0) {
+    assert(myLane != 0);
+    assert(myStartPos >= 0 && myStartPos < myLane->getLength());
+    assert(myEndPos - myStartPos > 0 && myEndPos <= myLane->getLength());
+    reset();
+}
+
+
+MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
+    MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
+    SUMOTime haltingTimeThreshold,
+    SUMOReal haltingSpeedThreshold,
+    SUMOReal jamDistThreshold,
+    const std::set<std::string>& vTypes) :
+    MSMoveReminder(id, lane),
+    MSDetectorFileOutput(id, vTypes),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
     myJamDistanceThreshold(jamDistThreshold),
@@ -131,35 +156,15 @@ MSE2Collector::notifyLeave(SUMOVehicle& /* veh */, SUMOReal /* lastPos */, MSMov
 
 bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
+    if (!vehicleApplies(veh)) {
+        return false;
+    }
     if (!veh.isOnRoad()) {
         // vehicle is teleporting over the edge
         return false;
     }
-    if (veh.getBackPositionOnLane(myLane) >= myEndPos) {
-        // vehicle is beyond the detector
-        return false;
-    }
-    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && veh.getPositionOnLane() > myStartPos) {
-        // the junction case is handled in the notifyMove
-        // vehicle is on the detector, being already beyond was checked before
-        std::string type = veh.getVehicleType().getID(); // get vehicle's type
-        if (type.find("COLOMBO_undetectable") == std::string::npos) {
-            //myKnownVehicles.push_back(&veh);
-            //Detection entering the sensor
-            //myPassedVeh++;
-            DBG(
-                std::ostringstream str;
-                str << time2string(MSNet::getInstance()->getCurrentTimeStep())
-                << " MSE2Collector::notifyEnter::"
-                << " lane " << myLane->getID()
-                << " passedVeh " << myPassedVeh ;
-                WRITE_MESSAGE(str.str());
-            )
-            return true;
-        }
-    }
     // is vehicle beyond detector?
-    return veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myEndPos;
+    return veh.getBackPositionOnLane(myLane) < myEndPos;
 }
 
 

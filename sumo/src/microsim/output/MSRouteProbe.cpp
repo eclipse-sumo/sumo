@@ -51,8 +51,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std::string& distID, const std::string& lastID) :
-    MSDetectorFileOutput(id), MSMoveReminder(id) {
+MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std::string& distID, const std::string& lastID,
+    const std::string& vTypes) :
+    MSDetectorFileOutput(id, vTypes), MSMoveReminder(id) {
     myCurrentRouteDistribution = std::make_pair(distID, MSRoute::distDictionary(distID));
     if (myCurrentRouteDistribution.second == 0) {
         myCurrentRouteDistribution.second = new RandomDistributor<const MSRoute*>();
