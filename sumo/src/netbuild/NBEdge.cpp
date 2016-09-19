@@ -35,7 +35,6 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <cassert>
 #include "NBEdgeCont.h"
 #include "NBNode.h"
 #include "NBNodeCont.h"

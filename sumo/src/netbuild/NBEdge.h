@@ -36,6 +36,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <cassert>
 #include <utils/common/Named.h>
 #include <utils/common/Parameterised.h>
 #include <utils/common/UtilExceptions.h>
@@ -1126,11 +1127,13 @@ public:
 
     // returns a reference to the internal structure for the convenience of NETEDIT
     Lane& getLaneStruct(int lane) {
+        assert(lane < myLanes.size());
         return myLanes[lane];
     }
 
     // returns a reference to the internal structure for the convenience of NETEDIT
     const Lane& getLaneStruct(int lane) const {
+        assert(lane < myLanes.size());
         return myLanes[lane];
     }
 

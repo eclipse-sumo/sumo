@@ -384,7 +384,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if ((*j).rightLaneNumber > 0) {
                 currRight = new NBEdge("-" + id, sFrom, sTo, (*j).rightType, defaultSpeed, (*j).rightLaneNumber, priorityR,
                                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, e->streetName, id, LANESPREAD_RIGHT, true);
-                if (!nb.getEdgeCont().insert(currRight)) {
+                if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
                     throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
                 }
                 lanesBuilt = true;
@@ -417,7 +417,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if ((*j).leftLaneNumber > 0) {
                 currLeft = new NBEdge(id, sTo, sFrom, (*j).leftType, defaultSpeed, (*j).leftLaneNumber, priorityL,
                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), e->streetName, id, LANESPREAD_RIGHT, true);
-                if (!nb.getEdgeCont().insert(currLeft)) {
+                if (!nb.getEdgeCont().insert(currLeft, myImportAllTypes)) {
                     throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
                 }
                 lanesBuilt = true;

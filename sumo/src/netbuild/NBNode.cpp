@@ -491,7 +491,6 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
         ret.push_back(endShape.front());
         return ret;
     } else {
-        assert(init[0].z() == myPosition.z());
         return bezier(init, numPoints);
     }
 }
