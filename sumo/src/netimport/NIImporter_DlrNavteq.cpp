@@ -334,20 +334,29 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         e = new NBEdge(id, from, to, "", speed, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, id, LANESPREAD_CENTER);
     }
-    // add vehicle type information to the edge
-    if (myVersion < 6.0) {
-        NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE));
+
+    // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used
+    const std::string navTeqTypeId = getColumn(st, VEHICLE_TYPE) + "_" + getColumn(st, FORM_OF_WAY);
+
+    if (myTypeCont->knows(navTeqTypeId)) {
+	e->setPermissions(myTypeCont.getPermissions(navTeqTypeId));
     } else {
-        NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE));
+	// add vehicle type information to the edge
+	if (myVersion < 6.0) {
+	    NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE));
+	} else {
+	    NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE));
+	}
+	if (e->getPermissions() == SVCAll) {
+	    e->setPermissions(myTypeCont.getPermissions(""));
+	}
+	// permission modifications based on form_of_way
+	if (form_of_way == 14) { // pedestrian area (fussgaengerzone)
+	    // unfortunately, the veh_type string is misleading in this case
+	    e->disallowVehicleClass(-1, SVC_PASSENGER);
+	}
     }
-    if (e->getPermissions() == SVCAll) {
-        e->setPermissions(myTypeCont.getPermissions(""));
-    }
-    // permission modifications based on form_of_way
-    if (form_of_way == 14) { // pedestrian area (fussgaengerzone)
-        // unfortunately, the veh_type string is misleading in this case
-        e->disallowVehicleClass(-1, SVC_PASSENGER);
-    }
+   
     // insert the edge to the network
     if (!myEdgeCont.insert(e)) {
         delete e;
