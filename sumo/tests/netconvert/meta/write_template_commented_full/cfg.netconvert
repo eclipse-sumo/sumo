@@ -525,6 +525,9 @@
         <!-- The default width of added sidewalks -->
         <default.sidewalk-width value="2" type="FLOAT"/>
 
+        <!-- The default for disallowed vehicle classes -->
+        <default.disallow value="" type="STR"/>
+
         <!-- Whether junctions should be kept clear by default -->
         <default.junctions.keep-clear value="true" type="BOOL"/>
 

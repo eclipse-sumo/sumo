@@ -17,4 +17,7 @@ cross_usingtypes
 
 # Simple cross using types for edge definition (verbose)
 cross_usingtypes_v
+
+# Simple cross disallowing ships
+cross_default_disallow
 ignore_unknown_type
