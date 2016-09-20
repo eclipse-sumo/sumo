@@ -155,7 +155,7 @@ MSE2Collector::notifyLeave(SUMOVehicle& /* veh */, SUMOReal /* lastPos */, MSMov
 
 
 bool
-MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
+MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* reason */) {
     if (!vehicleApplies(veh)) {
         return false;
     }

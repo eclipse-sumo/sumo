@@ -266,7 +266,7 @@ MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
 
 
 void
-MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos) {
+MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal /* lastPos */) {
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
 }

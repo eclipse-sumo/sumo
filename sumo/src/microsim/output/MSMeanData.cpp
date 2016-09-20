@@ -62,10 +62,10 @@ MSMeanData::MeanDataValues::MeanDataValues(
     MSLane* const lane, const SUMOReal length, const bool doAdd,
     const MSMeanData* const parent) :
     MSMoveReminder("meandata_" + (lane == 0 ? "NULL" :  lane->getID()), lane, doAdd),
+    myParent(parent),
     myLaneLength(length),
     sampleSeconds(0),
-    travelledDistance(0),
-    myParent(parent) {}
+    travelledDistance(0) {}
 
 
 MSMeanData::MeanDataValues::~MeanDataValues() {
