@@ -2063,7 +2063,7 @@ MSLCM_SL2015::keepLatGap(int state,
             blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
         }
     }
-    if (blocked == 0 || latDist != oldLatDist) {
+    if (latDist != oldLatDist) {
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, false);
     }
     if (latDist != 0) {
