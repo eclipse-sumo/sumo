@@ -2044,8 +2044,7 @@ MSLCM_SL2015::keepLatGap(int state,
                   << " surplusGapRight=" << surplusGapRight
                   << " surplusGapLeft=" << surplusGapLeft
                   << " state=" << toString((LaneChangeAction)state)
-                  << " blockedBefore=" << toString((LaneChangeAction)blocked)
-                  << "\n";
+                  << " blockedBefore=" << toString((LaneChangeAction)blocked);
     }
     const SUMOReal maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     if (surplusGapRight < -NUMERICAL_EPS) {
@@ -2068,6 +2067,11 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
+    }
+    if (gDebugFlag2) {
+        std::cout << " latDist2=" << latDist
+                  << " blockedAfter=" << toString((LaneChangeAction)blocked)
+                  << "\n";
     }
     return state;
 }
