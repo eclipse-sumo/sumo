@@ -19,6 +19,9 @@ closing_with_prob
 # closing an edge with modifying permissions
 closing_with_disallow
 
+# multiple rerouters that close the same edge with modifying permissions
+closing_with_disallow2
+
 # closing an edge with modifying permissions
 closing_with_disallow_teleport
 
