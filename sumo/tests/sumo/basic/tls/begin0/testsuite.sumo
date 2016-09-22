@@ -37,3 +37,6 @@ sub_off_1_5T
 # The subitional program's offset is set to -124 (-2*T)
 sub_off_2T
 add_off0_with_redyellow
+
+# test sub-second offsets and subsecond durations within subsecond simulation
+subsecond
