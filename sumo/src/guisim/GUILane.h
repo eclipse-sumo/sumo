@@ -333,7 +333,6 @@ private:
 
     /// @brief state for dynamic lane closings
     bool myAmClosed;
-    SVCPermissions myOriginalPermissions;
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

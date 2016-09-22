@@ -104,8 +104,8 @@ public:
         RandomDistributor<const MSRoute*> routeProbs;
         /// The permissions to use
         SVCPermissions permissions;
-        /// The old permissions for all lanes
-        std::vector<SVCPermissions> prevPermissions;
+        /// unique ID for this interval
+        long id;
     };
 
     /** @brief Tries to reroute the vehicle

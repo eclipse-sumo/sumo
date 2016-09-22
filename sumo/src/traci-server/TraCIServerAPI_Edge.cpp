@@ -353,7 +353,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             SVCPermissions permissions = parseVehicleClasses(classes);
             const std::vector<MSLane*>& lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                (*i)->setPermissions(permissions);
+                (*i)->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
             }
             e->rebuildAllowedLanes();
         }
@@ -367,7 +367,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             SVCPermissions permissions = ~parseVehicleClasses(classes); // negation yields allowed
             const std::vector<MSLane*>& lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                (*i)->setPermissions(permissions);
+                (*i)->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
             }
             e->rebuildAllowedLanes();
         }

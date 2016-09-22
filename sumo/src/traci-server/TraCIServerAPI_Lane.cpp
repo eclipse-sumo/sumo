@@ -344,7 +344,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Allowed classes must be given as a list of strings.", outputStorage);
             }
-            l->setPermissions(parseVehicleClasses(classes));
+            l->setPermissions(parseVehicleClasses(classes), MSLane::CHANGE_PERMISSIONS_PERMANENT);
             l->getEdge().rebuildAllowedLanes();
         }
         break;
@@ -353,7 +353,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Not allowed classes must be given as a list of strings.", outputStorage);
             }
-            l->setPermissions(~parseVehicleClasses(classes)); // negation yields allowed
+            l->setPermissions(~parseVehicleClasses(classes), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
             l->getEdge().rebuildAllowedLanes();
         }
         break;

@@ -676,9 +676,12 @@ public:
     MSLane* getParallelLane(int offset) const;
 
 
-    inline void setPermissions(SVCPermissions permissions) {
-        myPermissions = permissions;
-    }
+    /** @brief Sets the permissions to the given value. If a transientID is given, the permissions are recored as temporary
+     * @param[in] permissions The new permissions
+     * @param[in] transientID The id of the permission-modification or the special value PERMANENT
+     */
+    void setPermissions(SVCPermissions permissions, long transientID); 
+    void resetPermissions(long transientID); 
 
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
@@ -963,6 +966,9 @@ public:
         return myCollisionAction == COLLISION_ACTION_TELEPORT;
     }
 
+    static const long CHANGE_PERMISSIONS_PERMANENT = 0; 
+    static const long CHANGE_PERMISSIONS_GUI = 1; 
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange(SUMOTime t);
@@ -1069,6 +1075,9 @@ protected:
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;
 
+    /// The original vClass permissions for this lane (before temporary modifications)
+    SVCPermissions myOriginalPermissions;
+
     /// The vClass speed restrictions for this lane
     const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
 
@@ -1110,6 +1119,9 @@ protected:
 
     // @brief the ids of neighboring lanes
     std::vector<std::string> myNeighs;
+
+    // @brief transient changes in permissions
+    std::map<long, SVCPermissions> myPermissionChanges;
 
     /// definition of the static dictionary type
     typedef std::map< std::string, MSLane* > DictType;

@@ -743,8 +743,13 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
     buildPositionCopyEntry(ret, false);
     new FXMenuSeparator(ret);
     if (myAmClosed) {
-        new FXMenuCommand(ret, "Reopen lane", 0, &parent, MID_CLOSE_LANE);
-        new FXMenuCommand(ret, "Reopen edge", 0, &parent, MID_CLOSE_EDGE);
+        if (myPermissionChanges.empty()) {
+            new FXMenuCommand(ret, "Reopen lane", 0, &parent, MID_CLOSE_LANE);
+            new FXMenuCommand(ret, "Reopen edge", 0, &parent, MID_CLOSE_EDGE);
+        } else {
+            new FXMenuCommand(ret, "Reopen lane (override rerouter)", 0, &parent, MID_CLOSE_LANE);
+            new FXMenuCommand(ret, "Reopen edge (override rerouter)", 0, &parent, MID_CLOSE_EDGE);
+        }
     } else {
         new FXMenuCommand(ret, "Close lane", 0, &parent, MID_CLOSE_LANE);
         new FXMenuCommand(ret, "Close edge", 0, &parent, MID_CLOSE_EDGE);
@@ -1098,10 +1103,10 @@ void
 GUILane::closeTraffic(bool rebuildAllowed) {
     MSGlobals::gCheckRoutes = false;
     if (myAmClosed) {
-        myPermissions = myOriginalPermissions;
+        myPermissionChanges.clear(); // reset rerouters
+        resetPermissions(CHANGE_PERMISSIONS_GUI);
     } else {
-        myOriginalPermissions = myPermissions;
-        myPermissions = SVC_AUTHORITY;
+        setPermissions(SVC_AUTHORITY, CHANGE_PERMISSIONS_GUI);
     }
     myAmClosed = !myAmClosed;
     if (rebuildAllowed) {

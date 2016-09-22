@@ -164,6 +164,7 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
+    myOriginalPermissions(permissions),
     myLogicalPredecessorLane(0),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0),
     myLeaderInfo(this, 0, 0),
@@ -2522,6 +2523,33 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
         throw ProcessError("Invalid collision.action '" + action + "'.");
     }
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
+}
+
+
+void 
+MSLane::setPermissions(SVCPermissions permissions, long transientID) { 
+    if (transientID == CHANGE_PERMISSIONS_PERMANENT) {
+        myPermissions = permissions;
+        myOriginalPermissions = permissions;
+    } else {
+        myPermissionChanges[transientID] = permissions;
+        resetPermissions(CHANGE_PERMISSIONS_PERMANENT);
+    }
+}
+
+
+void 
+MSLane::resetPermissions(long transientID) { 
+    myPermissionChanges.erase(transientID);
+    if (myPermissionChanges.empty()) {
+        myPermissions = myOriginalPermissions;
+    } else {
+        // combine all permission changes
+        myPermissions = SVCAll;
+        for (std::map<long, SVCPermissions>::iterator it = myPermissionChanges.begin(); it != myPermissionChanges.end(); ++it) {
+            myPermissions &= it->second;
+        }
+    }
 }
 
 /****************************************************************************/
