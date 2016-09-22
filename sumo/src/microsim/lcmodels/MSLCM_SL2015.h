@@ -221,7 +221,7 @@ protected:
                       const MSLeaderDistanceInfo& neighBlockers,
                       std::vector<CLeaderDist>* collectLeadBlockers = 0,
                       std::vector<CLeaderDist>* collectFollowBlockers = 0,
-                      bool saveOriginalLatDist = true);
+                      bool keepLatGapManeuver = false);
 
     /// @brief check whether any of the vehicles overlaps with ego
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,

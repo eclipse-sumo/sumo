@@ -1577,9 +1577,9 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, SUMOReal& latDist, int lane
                             const MSLeaderDistanceInfo& /* neighBlockers */,
                             std::vector<CLeaderDist>* collectLeadBlockers,
                             std::vector<CLeaderDist>* collectFollowBlockers,
-                            bool saveOriginalLatDist) {
+                            bool keepLatGapManeuver) {
     // truncate latDist according to maxSpeedLat
-    if (saveOriginalLatDist) {
+    if (!keepLatGapManeuver) {
         myOrigLatDist = latDist;
     }
     const SUMOReal maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
@@ -1633,7 +1633,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, SUMOReal& latDist, int lane
                                          (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER), collectFollowBlockers);
     }
 
-    if (blocked == 0 && !myCanChangeFully && myPushy == 0) {
+    if (blocked == 0 && !myCanChangeFully && myPushy == 0 && !keepLatGapManeuver) {
         // aggressive drivers immediately start moving towards potential
         // blockers and only check that the start of their maneuver (latDist) is safe. In
         // contrast, cautious drivers need to check latDist and origLatDist to
@@ -2063,13 +2063,14 @@ MSLCM_SL2015::keepLatGap(int state,
         }
     }
     if (latDist != oldLatDist) {
-        blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, false);
+        blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
     }
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
     }
     if (gDebugFlag2) {
-        std::cout << " latDist2=" << latDist
+        std::cout << "    keepLatGap (checked)" 
+                  << " latDist2=" << latDist
                   << " blockedAfter=" << toString((LaneChangeAction)blocked)
                   << "\n";
     }
