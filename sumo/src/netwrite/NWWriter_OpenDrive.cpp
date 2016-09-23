@@ -167,7 +167,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "    </road>\n";
     }
     device << "\n";
-    // write junction-internal edges (road)
+    // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
