@@ -183,6 +183,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 const SUMOReal width = c.toEdge->getLaneWidth(c.toLane);
                 const PositionVector begShape = getLeftLaneBorder(inEdge, c.fromLane);
                 const PositionVector endShape = getLeftLaneBorder(outEdge, c.toLane);
+                //std::cout << "computing reference line for internal lane " << c.getInternalLaneID() << " begLane=" << inEdge->getLaneShape(c.fromLane) << " endLane=" << outEdge->getLaneShape(c.toLane) << "\n";
 
                 SUMOReal length;
                 PositionVector fallBackShape;
@@ -354,19 +355,11 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
         // leftmost lane
         laneIndex = (int)edge->getNumLanes() - 1;
     }
-    const int leftmost = (int)edge->getNumLanes() - 1;
-    SUMOReal widthOffset = -(edge->getLaneWidth(leftmost) / 2);
-
-    // collect lane widths from left border of edge to left border of lane to connect to
-    for (int i = leftmost; i > laneIndex; i--) {
-        widthOffset += edge->getLaneWidth(i);
-    }
-
-    PositionVector result = edge->getLaneShape(leftmost);
-    try {
-        result.move2side(widthOffset);
-    } catch (InvalidArgument&) { }
-    return result;
+    PositionVector result = edge->getLaneShape(laneIndex); 
+    try { 
+        result.move2side(-edge->getLaneWidth(laneIndex) / 2); 
+    } catch (InvalidArgument&) { } 
+    return result; 
 }
 
 
