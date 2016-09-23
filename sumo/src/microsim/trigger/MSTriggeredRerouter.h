@@ -98,6 +98,8 @@ public:
         SUMOTime end;
         /// The list of closed edges
         MSEdgeVector closed;
+        /// The list of closed lanes
+        std::vector<MSLane*> closedLanes;
         /// The distributions of new destinations to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
@@ -212,6 +214,8 @@ protected:
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     /// List of closed edges
     MSEdgeVector myCurrentClosed;
+    /// List of closed lanes
+    std::vector<MSLane*> myCurrentClosedLanes;
     /// List of permissions for closed edges
     SVCPermissions myCurrentPermissions;
     /// new destinations with probabilities

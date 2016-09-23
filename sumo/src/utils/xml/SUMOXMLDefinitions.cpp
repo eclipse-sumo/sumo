@@ -106,6 +106,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "stop",                       SUMO_TAG_STOP },
     { "destProbReroute",            SUMO_TAG_DEST_PROB_REROUTE },
     { "closingReroute",             SUMO_TAG_CLOSING_REROUTE },
+    { "closingLaneReroute",         SUMO_TAG_CLOSING_LANE_REROUTE },
     { "routeProbReroute",           SUMO_TAG_ROUTE_PROB_REROUTE },
     { "polygonType",                SUMO_TAG_POLYTYPE },
     { "connection",                 SUMO_TAG_CONNECTION },

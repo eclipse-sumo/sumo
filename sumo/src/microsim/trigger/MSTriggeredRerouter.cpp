@@ -153,6 +153,26 @@ MSTriggeredRerouter::myStartElement(int element,
         myCurrentPermissions = parseVehicleClasses(allow, disallow);
     }
 
+    if (element == SUMO_TAG_CLOSING_LANE_REROUTE) {
+        // by closing lane
+        std::string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        MSLane* closed = MSLane::dictionary(closed_id);
+        if (closed == 0) {
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Lane '" + closed_id + "' to close is not known.");
+        }
+        myCurrentClosedLanes.push_back(closed);
+        bool ok;
+        if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+            const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, getID().c_str(), ok, "", false);
+            const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, getID().c_str(), ok, "");
+            myCurrentPermissions = parseVehicleClasses(allow, disallow);
+        } else {
+            // lane closing only makes sense if the lane really receives reduced
+            // permissions
+            myCurrentPermissions = SVC_AUTHORITY;
+        }
+    }
+
     if (element == SUMO_TAG_ROUTE_PROB_REROUTE) {
         // by explicit rerouting using routes
         // check if route exists
@@ -187,15 +207,17 @@ MSTriggeredRerouter::myEndElement(int element) {
         ri.begin = myCurrentIntervalBegin;
         ri.end = myCurrentIntervalEnd;
         ri.closed = myCurrentClosed;
+        ri.closedLanes = myCurrentClosedLanes;
         ri.edgeProbs = myCurrentEdgeProb;
         ri.routeProbs = myCurrentRouteProb;
         ri.permissions = myCurrentPermissions;
         myCurrentClosed.clear();
+        myCurrentClosedLanes.clear();
         myCurrentEdgeProb.clear();
         myCurrentRouteProb.clear();
         myIntervals.push_back(ri);
         myIntervals.back().id = (long)&myIntervals.back();
-        if (!ri.closed.empty() && ri.permissions != SVCAll) {
+        if (!(ri.closed.empty() && ri.closedLanes.empty()) && ri.permissions != SVCAll) {
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                 new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), ri.begin,
                 MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -210,7 +232,7 @@ MSTriggeredRerouter::myEndElement(int element) {
 SUMOTime
 MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
     for (std::vector<RerouteInterval>::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
-        if (i->begin == currentTime && !i->closed.empty() && i->permissions != SVCAll) {
+        if (i->begin == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
             for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
                 for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
                     //std::cout << SIMTIME << " closing: intervalID=" << i->id << " lane=" << (*l)->getID() << " prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << " new=" << getVehicleClassNames(i->permissions) << "\n";
@@ -218,17 +240,25 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
                 }
                 (*e)->rebuildAllowedLanes();
             }
+            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
+                (*l)->setPermissions(i->permissions, i->id);
+                (*l)->getEdge().rebuildAllowedLanes();
+            }
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                 new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i->end,
                 MSEventControl::ADAPT_AFTER_EXECUTION);
         }
-        if (i->end == currentTime && !i->closed.empty() && i->permissions != SVCAll) {
+        if (i->end == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
             for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
                 for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
                     (*l)->resetPermissions(i->id);
                     //std::cout << SIMTIME << " opening: intervalID=" << i->id << " lane=" << (*l)->getID() << " restore prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << "\n";
                 }
                 (*e)->rebuildAllowedLanes();
+            }
+            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
+                (*l)->resetPermissions(i->id);
+                (*l)->getEdge().rebuildAllowedLanes();
             }
         }
     }
@@ -247,6 +277,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
                 i->routeProbs.getOverallProb() > 0 ||
                 // affected by closingReroute
                 veh.getRoute().containsAnyOf(i->closed)) {
+                // @todo also trigger if the route potentially passes any of i->closedLanes
                 return &*i;
             }
         }
