@@ -211,6 +211,14 @@ MSTriggeredRerouter::myEndElement(int element) {
         ri.edgeProbs = myCurrentEdgeProb;
         ri.routeProbs = myCurrentRouteProb;
         ri.permissions = myCurrentPermissions;
+        if (ri.closedLanes.size() > 0) {
+            // collect edges that are affect by a closed lane
+            std::set<MSEdge*> affected;
+            for (std::vector<MSLane*>::iterator l = ri.closedLanes.begin(); l != ri.closedLanes.end(); ++l) {
+                affected.insert(&((*l)->getEdge()));
+            }
+            ri.closedLanesAffected.insert(ri.closedLanesAffected.begin(), affected.begin(), affected.end());
+        }
         myCurrentClosed.clear();
         myCurrentClosedLanes.clear();
         myCurrentEdgeProb.clear();
@@ -276,8 +284,10 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
                 // routeProbReroute
                 i->routeProbs.getOverallProb() > 0 ||
                 // affected by closingReroute
-                veh.getRoute().containsAnyOf(i->closed)) {
-                // @todo also trigger if the route potentially passes any of i->closedLanes
+                veh.getRoute().containsAnyOf(i->closed) || 
+                // affected by closingLaneReroute
+                veh.getRoute().containsAnyOf(i->closedLanesAffected)) 
+            {
                 return &*i;
             }
         }
@@ -321,10 +331,14 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     if (rerouteDef == 0) {
         return true; // an active interval could appear later
     }
-
     SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
     if (RandHelper::rand() > prob) {
         return false; // XXX another interval could appear later but we would have to track whether the current interval was already tried
+    }
+    // if we have a closingLaneReroute, only vehicles with a rerouting device can profit from rerouting (otherwise, edge weights will not reflect local jamming)
+    const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != 0;
+    if (rerouteDef->closedLanes.size() > 0 && !hasReroutingDevice) {
+        return true; // an active interval could appear later
     }
     // get vehicle params
     const MSRoute& route = veh.getRoute();
@@ -347,6 +361,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     SUMOReal newArrivalPos = -1;
     const bool destUnreachable = std::find(rerouteDef->closed.begin(), rerouteDef->closed.end(), lastEdge) != rerouteDef->closed.end();
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
+    // if we have a closingLaneReroute, no new destinations should be assigned
     if (rerouteDef->closed.size() == 0 || destUnreachable) {
         newEdge = rerouteDef->edgeProbs.getOverallProb() > 0 ? rerouteDef->edgeProbs.get() : route.getLastEdge();
         if (newEdge == &mySpecialDest_terminateRoute) {
@@ -373,7 +388,6 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     // we have a new destination, let's replace the vehicle route (if it is affected)
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
-        const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != 0;
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
                 ? MSDevice_Routing::getRouterTT(rerouteDef->closed)
                 : MSNet::getInstance()->getRouterTT(rerouteDef->closed);

@@ -100,6 +100,8 @@ public:
         MSEdgeVector closed;
         /// The list of closed lanes
         std::vector<MSLane*> closedLanes;
+        /// The list of edges that are affect by closed lanes
+        MSEdgeVector closedLanesAffected;
         /// The distributions of new destinations to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
