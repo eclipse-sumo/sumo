@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' upload='true' generator='JOSM'>
+  <node id='-117541' visible='true' lat='31.225745' lon='121.4621318' />
+  <node id='-117540' visible='true' lat='31.2257974' lon='121.4628584' />
+  <node id='-117539' visible='true' lat='31.2259091' lon='121.4634528' />
+  <node id='-117538' visible='true' lat='31.2260763' lon='121.4640567' />
+  <node id='-117537' visible='true' lat='31.2262644' lon='121.4645879' />
+  <node id='-117536' visible='true' lat='31.2265207' lon='121.4651799' />
+  <node id='-117535' visible='true' lat='31.2281566' lon='121.4691014' />
+  <node id='-117534' visible='true' lat='31.228401' lon='121.4696062'>
+    <tag k='highway' v='motorway_junction' />
+    <tag k='name' v='南北高架' />
+    <tag k='name:en' v='North-South Elevated Road' />
+  </node>
+  <node id='-117533' visible='true' lat='31.2259193' lon='121.4580627' />
+  <node id='-117532' visible='true' lat='31.2258987' lon='121.4594232' />
+  <node id='-117531' visible='true' lat='31.2258644' lon='121.4600273' />
+  <node id='-117530' visible='true' lat='31.2257982' lon='121.4609701' />
+  <node id='-117529' visible='true' lat='31.225755' lon='121.4616818' />
+  <way id='-117528' visible='true'>
+    <nd ref='-117534' />
+    <nd ref='-117535' />
+    <nd ref='-117536' />
+    <nd ref='-117537' />
+    <nd ref='-117538' />
+    <nd ref='-117539' />
+    <nd ref='-117540' />
+    <nd ref='-117541' />
+    <nd ref='-117529' />
+    <tag k='bridge' v='yes' />
+    <tag k='highway' v='trunk' />
+    <tag k='lanes' v='3' />
+    <tag k='layer' v='1' />
+    <tag k='name' v='延安高架' />
+    <tag k='name:en' v='Yan&apos;an Elevated Road' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-117527' visible='true'>
+    <nd ref='-117529' />
+    <nd ref='-117530' />
+    <nd ref='-117531' />
+    <nd ref='-117532' />
+    <nd ref='-117533' />
+    <tag k='bridge' v='yes' />
+    <tag k='highway' v='trunk' />
+    <tag k='lanes' v='3' />
+    <tag k='layer' v='1' />
+    <tag k='name' v='延安高架' />
+    <tag k='name:en' v='Yan&apos;an Elevated Road' />
+    <tag k='oneway' v='yes' />
+  </way>
+</osm>
