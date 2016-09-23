@@ -43,3 +43,6 @@ on_edge_when_activated
 
 # vehicles that are equipped with a routing device should use the corresponding edge weights instead of empty-network weights.
 use_routing_device
+
+# closing 1 lane from a 2-lane road which results in reduced flow
+closingLane

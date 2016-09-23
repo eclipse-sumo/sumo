@@ -1,0 +1,14 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <rerouter id="rerouter" edges="beg">
+        <interval begin="20" end="120">
+            <closingLaneReroute id="middle_0"/>
+            <closingLaneReroute id="middle_1"/>
+        </interval>
+    </rerouter>
+    <!-- without vss, there would be emergency stops and collisions when the
+         closing activates -->
+    <variableSpeedSign id="slow_down_before_lane_closing" lanes="middle_0 middle_1">
+        <step time="10" speed="2"/>
+        <step time="20"/>
+    </variableSpeedSign>
+</additional>
