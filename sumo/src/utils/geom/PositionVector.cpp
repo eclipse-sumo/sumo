@@ -906,7 +906,7 @@ PositionVector::move2side(SUMOReal amount) {
         return;
     }
     if (length2D() == 0) {
-        throw InvalidArgument("2D-length is 0");
+        return;
     }
     PositionVector shape;
     for (int i = 0; i < static_cast<int>(size()); i++) {
