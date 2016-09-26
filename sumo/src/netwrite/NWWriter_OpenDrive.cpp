@@ -129,6 +129,26 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
             }
         }
+        // check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
+        if (e->getNumLanes() > 1) {
+            // compute 'stop line' of rightmost lane
+            const PositionVector shape0 = e->getLaneShape(0);
+            assert(shape0.size() >= 2);
+            const Position& from = shape0[-2];
+            const Position& to = shape0[-1];
+            PositionVector stopLine;
+            stopLine.push_back(to);
+            stopLine.push_back(to - PositionVector::sideOffset(from, to, -1000.0));
+            // endpoints of all other lanes should be on the stop line
+            for (int lane = 1; lane < e->getNumLanes(); ++lane) {
+                const SUMOReal dist = stopLine.distance2D(e->getLaneShape(lane)[-1]);
+                if (dist > NUMERICAL_EPS) {
+                    WRITE_WARNING("Uneven stop line at lane '" + e->getLaneID(lane) + "' (dist=" + toString(dist) + ") cannot be represented in OpenDRIVE.");
+                }
+            }
+        }
+
+
         device << std::setprecision(OUTPUT_ACCURACY);
         device << "        </planView>\n";
         writeElevationProfile(ls, device, elevationOSS);
