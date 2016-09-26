@@ -208,12 +208,18 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 p = geomsCCW[*ccwi][0];
                 p.add(geomsCW[*ccwi][0]);
                 p.mul(0.5);
+#ifdef DEBUG_NODE_SHAPE
+                if (DEBUGCOND) std::cout << " extended: p=" << p << " angle=" << (ccad - cad) << "\n";
+#endif
             } else {
                 p = geomsCCW[*ccwi][0];
                 p.add(geomsCW[*ccwi][0]);
                 p.add(geomsCCW[*i][0]);
                 p.add(geomsCW[*i][0]);
                 p.mul(0.25);
+#ifdef DEBUG_NODE_SHAPE
+                if (DEBUGCOND) std::cout << " unextended: p=" << p << " angle=" << (ccad - cad) << "\n";
+#endif
             }
             // ... compute the distance to this point ...
             SUMOReal dist = geomsCCW[*i].nearest_offset_to_point2D(p);
@@ -237,9 +243,15 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 // the distance is now = zero (the point we have appended)
                 distances[*i] = 100;
                 myExtended[*i] = true;
+#ifdef DEBUG_NODE_SHAPE
+                if (DEBUGCOND) std::cout << " extending (dist=" << dist << ")\n";
+#endif
             } else {
                 if (!simpleContinuation) {
                     dist += radius;
+                } else {
+                    // if the angles change, junction should have some size to avoid degenerate shape
+                    dist += fabs(ccad - cad) * (*i)->getNumLanes();
                 }
                 distances[*i] = dist;
             }
@@ -330,6 +342,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         SUMOReal len = ccwBound.length();
         SUMOReal offset = distances[*i];
         if (offset == -1) {
+            WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");
             offset = (SUMOReal) - .1;
         }
         Position p;
