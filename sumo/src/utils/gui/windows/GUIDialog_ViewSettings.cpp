@@ -239,7 +239,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myShowLaneBorders = new FXCheckButton(m22, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneBorders->setCheck(mySettings->laneShowBorders);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
-        myShowLaneDecals = new FXCheckButton(m22, "Show link decals", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowLaneDecals = new FXCheckButton(m22, "Show turning arrows", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneDecals->setCheck(mySettings->showLinkDecals);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
         myShowRails = new FXCheckButton(m22, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);

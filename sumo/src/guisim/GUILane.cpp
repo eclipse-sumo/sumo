@@ -581,10 +581,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
         }
-        if (mustDrawMarkings && drawDetails) { // needs matrix reset
+        if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
             drawMarkings(s, exaggeration);
         }
-        if (drawDetails && isInternal && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals) {
+        if (drawDetails && isInternal && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders) {
             drawBikeMarkings();
         }
     } else {

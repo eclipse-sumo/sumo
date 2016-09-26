@@ -124,11 +124,13 @@ GUICompleteSchemeStorage::init(FXApp* app) {
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";
+        vs.laneShowBorders = true;
         gSchemeStorage.add(vs);
     }
     {
         GUIVisualizationSettings vs;
         vs.name = "faster standard";
+        vs.laneShowBorders = false;
         vs.showLinkDecals = false;
         vs.showRails = false;
         gSchemeStorage.add(vs);
