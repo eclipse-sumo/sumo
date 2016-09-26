@@ -158,6 +158,8 @@ public:
     bool laneShowBorders;
     /// @brief Information whether link textures (arrows) shall be drawn
     bool showLinkDecals;
+    /// @brief Information whether link rules (colored bars) shall be drawn
+    bool showLinkRules;
     /// @brief Information whether rails shall be drawn
     bool showRails;
     // Setting bundles for optional drawing names with size and color

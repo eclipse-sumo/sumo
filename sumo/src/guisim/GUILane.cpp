@@ -559,7 +559,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, offset);
                     }
                 }
-                drawLinkRules(s, *net);
+                if (s.showLinkRules) {
+                    drawLinkRules(s, *net);
+                }
                 if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                     drawArrows();
                 }

@@ -52,6 +52,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       backgroundColor(RGBColor::WHITE),
       showGrid(false), gridXSize(100), gridYSize(100),
       laneShowBorders(false), showLinkDecals(true), showRails(true),
+      showLinkRules(true),
       edgeName(false, 50, RGBColor(255, 128, 0, 255)),
       internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
       cwaEdgeName(false, 50, RGBColor::MAGENTA),
@@ -675,6 +676,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("scaleMode", getLaneEdgeScaleMode());
     dev.writeAttr("laneShowBorders", laneShowBorders);
     dev.writeAttr("showLinkDecals", showLinkDecals);
+    dev.writeAttr("showLinkRules", showLinkRules);
     dev.writeAttr("showRails", showRails);
     dev.writeAttr("hideConnectors", hideConnectors);
     dev.writeAttr("widthExaggeration", laneWidthExaggeration);
@@ -816,6 +818,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showLinkDecals != v2.showLinkDecals) {
+        return false;
+    }
+    if (showLinkRules != v2.showLinkRules) {
         return false;
     }
     if (showRails != v2.showRails) {
