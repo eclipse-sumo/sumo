@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 11:14:25 2016 by SUMO Version dev-SVN-r21519
+<!-- generated on Mon Sep 26 12:03:37 2016 by SUMO Version dev-SVN-r21519
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -52,10 +52,10 @@
         <vehicle id="W1" x="20.70" y="97.35" angle="97.31" type="car" speed="7.80" pos="20.70" lane="WC_1" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="E1" x="168.90" y="103.75" angle="270.00" type="car" speed="10.40" pos="31.10" lane="EC_0" slope="0.00"/>
-        <vehicle id="N1" x="96.25" y="168.90" angle="180.00" type="car" speed="10.40" pos="31.10" lane="NC_0" slope="0.00"/>
-        <vehicle id="S1" x="103.75" y="31.10" angle="0.00" type="car" speed="10.40" pos="31.10" lane="SC_0" slope="0.00"/>
-        <vehicle id="W1" x="31.10" y="96.25" angle="90.00" type="car" speed="10.40" pos="31.10" lane="WC_0" slope="0.00"/>
+        <vehicle id="E1" x="168.90" y="103.75" angle="275.49" type="car" speed="10.40" pos="31.10" lane="EC_0" slope="0.00"/>
+        <vehicle id="N1" x="96.25" y="168.90" angle="185.49" type="car" speed="10.40" pos="31.10" lane="NC_0" slope="0.00"/>
+        <vehicle id="S1" x="103.75" y="31.10" angle="5.49" type="car" speed="10.40" pos="31.10" lane="SC_0" slope="0.00"/>
+        <vehicle id="W1" x="31.10" y="96.25" angle="95.49" type="car" speed="10.40" pos="31.10" lane="WC_0" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
         <vehicle id="E1" x="155.90" y="104.25" angle="272.20" type="car" speed="13.00" pos="44.10" lane="EC_0" slope="0.00"/>
@@ -89,13 +89,13 @@
     </timestep>
     <timestep time="8.00">
         <vehicle id="E1" x="114.23" y="104.95" angle="270.00" type="car" speed="13.89" pos="85.77" lane="EC_0" slope="0.00"/>
-        <vehicle id="E2" x="179.30" y="102.85" angle="270.00" type="car" speed="7.80" pos="20.70" lane="EC_1" slope="0.00"/>
+        <vehicle id="E2" x="179.30" y="102.85" angle="262.69" type="car" speed="7.80" pos="20.70" lane="EC_1" slope="0.00"/>
         <vehicle id="N1" x="95.05" y="114.23" angle="180.00" type="car" speed="13.89" pos="85.77" lane="NC_0" slope="0.00"/>
-        <vehicle id="N2" x="97.15" y="179.30" angle="180.00" type="car" speed="7.80" pos="20.70" lane="NC_1" slope="0.00"/>
+        <vehicle id="N2" x="97.15" y="179.30" angle="172.69" type="car" speed="7.80" pos="20.70" lane="NC_1" slope="0.00"/>
         <vehicle id="S1" x="104.95" y="85.77" angle="0.00" type="car" speed="13.89" pos="85.77" lane="SC_0" slope="0.00"/>
-        <vehicle id="S2" x="102.85" y="20.70" angle="0.00" type="car" speed="7.80" pos="20.70" lane="SC_1" slope="0.00"/>
+        <vehicle id="S2" x="102.85" y="20.70" angle="352.69" type="car" speed="7.80" pos="20.70" lane="SC_1" slope="0.00"/>
         <vehicle id="W1" x="85.77" y="95.05" angle="90.00" type="car" speed="13.89" pos="85.77" lane="WC_0" slope="0.00"/>
-        <vehicle id="W2" x="20.70" y="97.15" angle="90.00" type="car" speed="7.80" pos="20.70" lane="WC_1" slope="0.00"/>
+        <vehicle id="W2" x="20.70" y="97.15" angle="82.69" type="car" speed="7.80" pos="20.70" lane="WC_1" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
         <vehicle id="E2" x="168.90" y="102.35" angle="267.25" type="car" speed="10.40" pos="31.10" lane="EC_1" slope="0.00"/>
