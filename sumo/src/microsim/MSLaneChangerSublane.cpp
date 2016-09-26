@@ -157,7 +157,13 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, SU
     // 1) update vehicles lateral position according to latDist and target lane
     vehicle->myState.myPosLat += latDist;
     vehicle->myCachedPosition = Position::INVALID;
-    vehicle->setAngle(atan2(latDist, SPEED2DIST(vehicle->getSpeed())));
+
+    // compute new angle of the vehicle from the x- and y-distances travelled within last time step
+    // this part of the angle comes from the orientation of our current lane
+    SUMOReal laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
+    // this part of the angle comes from the vehicle's lateral movement
+    SUMOReal changeAngle = atan2(latDist, SPEED2DIST(vehicle->getSpeed()));
+    vehicle->setAngle(laneAngle + changeAngle);
 
     // 2) distinguish several cases
     //   a) vehicle moves completely within the same lane
