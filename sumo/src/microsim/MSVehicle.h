@@ -514,7 +514,7 @@ public:
     }
 
 
-    /** @brief Returns the vehicle's direction in degrees
+    /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle
      */
     SUMOReal getAngle() const {
@@ -1421,7 +1421,7 @@ protected:
 
     bool myHaveToWaitOnNextLink;
 
-    /// @brief the angle (@todo consider moving this into myState)
+    /// @brief the angle in radians (@todo consider moving this into myState)
     SUMOReal myAngle;
 
     /// @brief distance to the next stop or -1 if there is none
