@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:03 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Mon Sep 26 13:45:21 2016 by SUMO netconvert Version dev-SVN-r21539
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -104,8 +104,8 @@
         <lane id=":450601519_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="24.60" length="6.66" shape="4205.40,3164.19 4207.26,3162.59 4207.75,3161.82 4206.87,3161.89 4204.63,3162.80"/>
     </edge>
     <edge id=":450601528_0" function="internal">
-        <lane id=":450601528_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="0.10" shape="4535.66,2228.75 4535.66,2228.78"/>
-        <lane id=":450601528_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="0.10" shape="4532.43,2228.06 4532.44,2228.06"/>
+        <lane id=":450601528_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="0.10" shape="4535.66,2228.74 4535.66,2228.78"/>
+        <lane id=":450601528_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="0.10" shape="4532.44,2228.06 4532.44,2228.06"/>
         <lane id=":450601528_0_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="0.10" shape="4529.21,2227.38 4529.22,2227.34"/>
     </edge>
     <edge id=":450601590_0" function="internal">
@@ -162,9 +162,9 @@
         <lane id="--15_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="24.60" length="43.02" shape="4204.63,3162.80 4243.78,3144.98"/>
     </edge>
     <edge id="-14" from="49613186" to="450601528" name="I-95" priority="13" type="highway.motorway" spreadType="center" shape="4510.41,-362.93 4666.47,199.36 4823.71,871.73 4825.63,926.47 4698.52,1520.12 4653.33,1707.61 4624.38,1831.02 4585.12,1997.77 4553.20,2129.88 4532.44,2228.06">
-        <lane id="-14_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.14" shape="4513.59,-363.82 4669.66,198.54 4827.00,871.29 4828.95,926.76 4701.74,1520.85 4656.54,1708.37 4627.59,1831.77 4588.33,1998.54 4556.42,2130.61 4535.66,2228.75"/>
-        <lane id="-14_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.14" shape="4510.41,-362.93 4666.47,199.36 4823.71,871.73 4825.63,926.47 4698.52,1520.12 4653.33,1707.61 4624.38,1831.02 4585.12,1997.77 4553.20,2129.88 4532.43,2228.06"/>
-        <lane id="-14_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.14" shape="4507.23,-362.05 4663.27,200.17 4820.43,872.17 4822.32,926.18 4695.31,1519.38 4650.11,1706.85 4621.17,1830.26 4581.91,1997.01 4549.98,2129.15 4529.21,2227.38"/>
+        <lane id="-14_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.13" shape="4513.59,-363.82 4669.66,198.54 4827.00,871.29 4828.95,926.76 4701.74,1520.85 4656.54,1708.37 4627.59,1831.77 4588.33,1998.54 4556.42,2130.61 4535.66,2228.74"/>
+        <lane id="-14_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.13" shape="4510.41,-362.93 4666.47,199.36 4823.71,871.73 4825.63,926.47 4698.52,1520.12 4653.33,1707.61 4624.38,1831.02 4585.12,1997.77 4553.20,2129.88 4532.44,2228.06"/>
+        <lane id="-14_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2663.13" shape="4507.23,-362.05 4663.27,200.17 4820.43,872.17 4822.32,926.18 4695.31,1519.38 4650.11,1706.85 4621.17,1830.26 4581.91,1997.01 4549.98,2129.15 4529.21,2227.38"/>
     </edge>
     <edge id="-6033364#0" from="49613631" to="49613629" name="Dock St" priority="4" type="highway.residential">
         <lane id="-6033364#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="70.27" shape="4213.37,3180.32 4157.49,3222.94"/>
@@ -278,7 +278,7 @@
     <junction id="450601519" type="priority" x="4205.19" y="3164.36" incLanes="38232909_0" intLanes=":450601519_0_0" shape="4205.17,3164.31 4203.85,3161.40 4206.19,3165.61 4204.20,3163.11">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="450601528" type="priority" x="4532.44" y="2228.06" incLanes="-14_0 -14_1 -14_2" intLanes=":450601528_0_0 :450601528_0_1 :450601528_0_2" shape="4537.23,2229.08 4527.64,2227.05 4537.22,2229.13">
+    <junction id="450601528" type="priority" x="4532.44" y="2228.06" incLanes="-14_0 -14_1 -14_2" intLanes=":450601528_0_0 :450601528_0_1 :450601528_0_2" shape="4537.24,2229.00 4527.66,2226.97 4537.20,2229.20">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

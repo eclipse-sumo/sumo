@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Mon Sep 26 13:45:21 2016 by SUMO netconvert Version dev-SVN-r21539
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -41,7 +41,7 @@
         <lane id="133410537#3_0" index="0" allow="pedestrian" speed="1.39" length="1.30" width="2.00" shape="41.58,98.27 40.31,98.53"/>
     </edge>
     <edge id="133410537#4" from="1478005908" to="1468611583" priority="1" type="highway.steps" spreadType="center">
-        <lane id="133410537#4_0" index="0" allow="pedestrian" speed="1.39" length="1.07" width="2.00" shape="35.32,99.56 34.28,99.77"/>
+        <lane id="133410537#4_0" index="0" allow="pedestrian" speed="1.39" length="1.06" width="2.00" shape="35.32,99.56 34.29,99.77"/>
     </edge>
     <edge id="133410538#0" from="1468611583" to="1833873109" priority="1" type="highway.footway" spreadType="center">
         <lane id="133410538#0_0" index="0" allow="pedestrian" speed="8.33" length="0.20" width="2.00" shape="33.54,99.90 33.35,99.94"/>
@@ -85,7 +85,7 @@
 
     <junction id="1468611579" type="unregulated" x="64.98" y="93.48" incLanes="" intLanes="" shape="64.78,92.50 65.18,94.46"/>
     <junction id="1468611580" type="dead_end" x="58.42" y="94.82" incLanes="133403749_0" intLanes="" shape="58.62,95.80 58.22,93.84 58.62,95.80"/>
-    <junction id="1468611583" type="dead_end" x="34.29" y="99.77" incLanes="133410537#4_0" intLanes="" shape="34.47,100.75 34.07,98.79 34.48,100.75"/>
+    <junction id="1468611583" type="dead_end" x="34.29" y="99.77" incLanes="133410537#4_0" intLanes="" shape="34.52,100.74 34.12,98.78 34.43,100.76"/>
     <junction id="1478005898" type="dead_end" x="48.71" y="96.81" incLanes="133410537#1_0 134419963#1_0" intLanes="" shape="48.45,102.46 50.44,102.20 50.87,100.74 49.85,96.16 51.03,97.36 50.63,95.40 49.04,94.09 47.11,94.59 45.99,96.35 46.39,98.30"/>
     <junction id="1478005902" type="unregulated" x="29.72" y="65.72" incLanes="" intLanes="" shape="29.20,67.80 31.14,67.33 28.68,63.85 28.10,66.60"/>
     <junction id="1478005903" type="dead_end" x="44.16" y="97.74" incLanes="172817076#1_0 133410537#2_0" intLanes="" shape="43.38,100.44 45.37,100.28 46.87,98.21 46.47,96.25 44.79,95.06 42.81,95.34 41.38,97.29 41.79,99.25"/>

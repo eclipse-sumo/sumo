@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:31 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Mon Sep 26 13:45:15 2016 by SUMO netconvert Version dev-SVN-r21539
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -78,7 +78,7 @@
         <lane id=":gneJ2_0_0" index="0" speed="13.89" length="0.10" shape="103.48,5.03 103.50,5.03"/>
     </edge>
     <edge id=":gneJ2_1" function="internal">
-        <lane id=":gneJ2_1_0" index="0" speed="13.89" length="0.10" shape="103.57,1.73 103.58,1.73"/>
+        <lane id=":gneJ2_1_0" index="0" speed="13.89" length="0.10" shape="103.60,1.73 103.58,1.73"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
         <lane id=":gneJ5_0_0" index="0" speed="13.89" length="5.07" shape="13.04,-3.34 13.11,-1.94 13.61,-0.93 14.56,-0.30 15.94,-0.05"/>
@@ -97,7 +97,7 @@
         <lane id="gneE0_0" index="0" speed="13.89" length="28.79" shape="39.88,0.76 68.67,1.17"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ2" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="25.36" shape="78.21,1.32 103.57,1.73"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="25.39" shape="78.21,1.32 103.60,1.73"/>
     </edge>
     <edge id="gneE10" from="gneJ1" to="gneJ8" priority="1">
         <lane id="gneE10_0" index="0" speed="13.89" length="30.47" shape="71.88,-1.94 72.72,-32.40"/>
@@ -150,7 +150,7 @@
         <phase duration="4" state="rryy"/>
     </tlLogic>
 
-    <junction id="gneJ0" type="priority" x="39.86" y="2.41" incLanes="gneE6_0" intLanes=":gneJ0_0_0" shape="39.87,2.36 39.91,-0.84 39.86,2.36">
+    <junction id="gneJ0" type="priority" x="39.86" y="2.41" incLanes="gneE6_0" intLanes=":gneJ0_0_0" shape="39.91,2.36 39.95,-0.84 39.82,2.36">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ1" type="traffic_light" x="73.40" y="2.89" incLanes="gneE2_0 gneE11_0 gneE0_0 gneE9_0" intLanes=":gneJ1_0_0 :gneJ1_9_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_5_0 :gneJ1_10_0 :gneJ1_7_0 :gneJ1_11_0" shape="78.13,6.22 78.24,-0.28 76.78,-1.81 70.28,-1.98 68.70,-0.43 68.65,2.77 70.03,7.53 76.53,7.69">
@@ -166,7 +166,7 @@
     </junction>
     <junction id="gneJ10" type="unregulated" x="13.81" y="-29.82" incLanes="" intLanes="" shape="13.86,-29.82 17.05,-29.52"/>
     <junction id="gneJ12" type="unregulated" x="9.68" y="34.21" incLanes="gneE14_0" intLanes="" shape="12.93,34.33 9.73,34.21"/>
-    <junction id="gneJ2" type="priority" x="103.53" y="3.38" incLanes="gneE4_0 gneE1_0" intLanes=":gneJ2_0_0 :gneJ2_1_0" shape="103.44,6.63 103.62,0.13 103.48,6.63">
+    <junction id="gneJ2" type="priority" x="103.53" y="3.38" incLanes="gneE4_0 gneE1_0" intLanes=":gneJ2_0_0 :gneJ2_1_0" shape="103.46,6.63 103.64,0.13 103.46,6.63">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

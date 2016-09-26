@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- generated on 2016-07-13 14:56:12.131241 by $Id: randomTrips.py 20482 2016-04-18 20:49:42Z behrisch $
+<!-- generated on 2016-09-26 13:45:24.536235 by $Id: randomTrips.py 20482 2016-04-18 20:49:42Z behrisch $
   options: <doubleminus>testing
 -->
 <trips>
@@ -114,7 +114,7 @@
     <person id="ped36" depart="142.65" >
         <walk from="196850615" to="113595955#1" />
     </person>
-    <person id="ped37" depart="146.62" >
+    <person id="ped37" depart="146.61" >
         <walk from="98749939#3" to="24540242#1" />
     </person>
     <person id="ped38" depart="150.58" >
@@ -336,7 +336,7 @@
     <person id="ped110" depart="435.88" >
         <walk from="133885744#1" to="196850607#1" />
     </person>
-    <person id="ped111" depart="439.85" >
+    <person id="ped111" depart="439.84" >
         <walk from="274513575#1" to="169195795#0" />
     </person>
     <person id="ped112" depart="443.81" >
@@ -558,7 +558,7 @@
     <person id="ped184" depart="729.11" >
         <walk from="34411873" to="-47016368#1" />
     </person>
-    <person id="ped185" depart="733.08" >
+    <person id="ped185" depart="733.07" >
         <walk from="-23755739#0" to="24913524#0" />
     </person>
     <person id="ped186" depart="737.04" >
@@ -675,7 +675,7 @@
     <person id="ped223" depart="883.65" >
         <walk from="222470308" to="-158023913#0" />
     </person>
-    <person id="ped224" depart="887.62" >
+    <person id="ped224" depart="887.61" >
         <walk from="19798506#2" to="-4613096#1" />
     </person>
     <person id="ped225" depart="891.58" >
