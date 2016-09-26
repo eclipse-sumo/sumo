@@ -1,0 +1,18 @@
+<routes>
+    <vType id="car" vClass="passenger" sigma="0" latAlignment="center"/>
+
+    <route id="S" edges="SC"/>
+    <route id="N" edges="NC"/>
+    <route id="E" edges="EC"/>
+    <route id="W" edges="WC"/>
+
+    <vehicle id="S1" route="S" type="car" depart="0" departLane="1" arrivalLane="0"/>
+    <vehicle id="N1" route="N" type="car" depart="0" departLane="1" arrivalLane="0"/>
+    <vehicle id="W1" route="W" type="car" depart="0" departLane="1" arrivalLane="0"/>
+    <vehicle id="E1" route="E" type="car" depart="0" departLane="1" arrivalLane="0"/>
+
+    <vehicle id="S2" route="S" type="car" depart="5" departLane="0" arrivalLane="1"/>
+    <vehicle id="N2" route="N" type="car" depart="5" departLane="0" arrivalLane="1"/>
+    <vehicle id="W2" route="W" type="car" depart="5" departLane="0" arrivalLane="1"/>
+    <vehicle id="E2" route="E" type="car" depart="5" departLane="0" arrivalLane="1"/>
+</routes>

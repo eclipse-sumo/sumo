@@ -44,4 +44,7 @@ nopush_for_merge
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. Instead it becomes impatient and forces braking in a (potentially) unsafe maneuver
 # 
 nopush_for_merge_impatience
+
+# test angles during lane-changing
+angles
 bugs
