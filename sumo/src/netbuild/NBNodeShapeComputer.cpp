@@ -542,8 +542,6 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     GeomsMap& geomsCCW,
     GeomsMap& geomsCW) {
     // store relationships
-    std::map<NBEdge*, NBEdge*> ccwBoundary;
-    std::map<NBEdge*, NBEdge*> cwBoundary;
     EdgeVector newAll = myNode.myAllEdges;
     bool changed = true;
     while (changed) {
