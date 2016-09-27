@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:36 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Sep 27 13:29:51 2016 by SUMO netconvert Version dev-SVN-r21542
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -36,10 +36,10 @@
         <lane id="gneE11_0" index="0" speed="13.89" length="79.83" shape="69.33,6.69 -7.30,8.54"/>
     </edge>
     <edge id="gneE12" from="cluster_gneJ3_gneJ4" to="gneJ2" priority="1" spreadType="center" shape="84.82,-3.20 83.93,6.61">
-        <lane id="gneE12_0" index="0" speed="13.89" length="13.76" shape="84.56,-0.28 84.22,3.36"/>
+        <lane id="gneE12_0" index="0" speed="13.89" length="12.78" shape="84.40,1.44 84.22,3.36"/>
     </edge>
     <edge id="gneE13" from="gneJ1" to="cluster_gneJ3_gneJ4" priority="1" spreadType="center" shape="72.51,6.61 71.82,-3.00">
-        <lane id="gneE13_0" index="0" speed="13.89" length="13.63" shape="72.28,3.44 72.04,0.00"/>
+        <lane id="gneE13_0" index="0" speed="13.89" length="13.47" shape="72.28,3.44 72.05,0.27"/>
     </edge>
     <edge id="gneE6" from="gneJ5" to="cluster_gneJ3_gneJ4" priority="1" spreadType="center" shape="-7.77,-1.91 71.82,-3.00">
         <lane id="gneE6_0" index="0" speed="13.89" length="86.10" shape="-7.77,-1.91 68.81,-2.96"/>
@@ -51,7 +51,7 @@
         <lane id="gneE9_0" index="0" speed="13.89" length="93.23" shape="177.16,6.20 87.19,6.60"/>
     </edge>
 
-    <junction id="cluster_gneJ3_gneJ4" type="priority" x="78.32" y="-3.10" incLanes="gneE13_0 gneE6_0" intLanes="" shape="82.96,-0.43 86.15,-0.14 87.78,-1.66 87.71,-4.86 68.79,-4.56 68.83,-1.36 70.44,0.12 73.63,-0.11">
+    <junction id="cluster_gneJ3_gneJ4" type="priority" x="78.32" y="-3.10" incLanes="gneE13_0 gneE6_0" intLanes="" shape="70.44,0.12 85.99,1.59 87.78,-1.66 87.71,-4.86 68.79,-4.56 68.83,-1.36">
         <request index="0" response="1100" foes="1100"/>
         <request index="1" response="1000" foes="1000"/>
         <request index="2" response="0000" foes="0001"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 13:45:21 2016 by SUMO netconvert Version dev-SVN-r21539
+<!-- generated on Tue Sep 27 13:29:52 2016 by SUMO netconvert Version dev-SVN-r21542
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1473,32 +1473,32 @@
         <lane id=":1560223635_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.65" width="4.00" shape="4423.95,545.97 4422.22,542.36 4422.92,543.49 4419.93,543.78 4418.17,540.91 4418.03,542.90"/>
     </edge>
     <edge id=":1560223686_0" function="internal">
-        <lane id=":1560223686_0_0" index="0" disallow="pedestrian" speed="13.89" length="3.97" shape="4430.70,572.05 4434.25,574.99"/>
-        <lane id=":1560223686_0_1" index="1" disallow="pedestrian" speed="13.89" length="3.97" shape="4430.70,572.05 4430.97,575.36"/>
+        <lane id=":1560223686_0_0" index="0" disallow="pedestrian" speed="13.89" length="2.24" shape="4430.73,572.39 4434.04,573.12"/>
+        <lane id=":1560223686_0_1" index="1" disallow="pedestrian" speed="13.89" length="2.24" shape="4430.73,572.39 4430.76,573.48"/>
     </edge>
     <edge id=":1560223686_2" function="internal">
-        <lane id=":1560223686_2_0" index="0" disallow="pedestrian" speed="13.89" length="2.60" shape="4430.70,572.05 4430.00,573.36 4429.21,573.85 4429.03,573.78"/>
+        <lane id=":1560223686_2_0" index="0" disallow="pedestrian" speed="13.89" length="2.41" shape="4430.73,572.39 4430.03,573.70 4429.25,574.19"/>
     </edge>
     <edge id=":1560223686_5" function="internal">
-        <lane id=":1560223686_5_0" index="0" speed="13.89" length="2.22" shape="4429.03,573.78 4428.35,573.52 4427.41,572.36"/>
+        <lane id=":1560223686_5_0" index="0" speed="13.89" length="2.41" shape="4429.25,574.19 4428.39,573.86 4427.45,572.71"/>
     </edge>
     <edge id=":1560223686_3" function="internal">
-        <lane id=":1560223686_3_0" index="0" disallow="pedestrian" speed="13.89" length="3.76" shape="4427.46,576.13 4427.41,572.36"/>
+        <lane id=":1560223686_3_0" index="0" disallow="pedestrian" speed="13.89" length="1.14" shape="4427.62,573.83 4427.62,573.49 4427.57,573.27 4427.50,573.04 4427.45,572.71"/>
     </edge>
     <edge id=":1560223686_4" function="internal">
-        <lane id=":1560223686_4_0" index="0" disallow="pedestrian" speed="13.89" length="3.06" shape="4427.46,576.13 4428.05,574.62 4428.83,573.99 4429.26,574.10"/>
+        <lane id=":1560223686_4_0" index="0" disallow="pedestrian" speed="13.89" length="2.30" shape="4427.62,573.83 4428.28,572.57 4429.02,572.09"/>
     </edge>
     <edge id=":1560223686_6" function="internal">
-        <lane id=":1560223686_6_0" index="0" speed="13.89" length="2.18" shape="4429.26,574.10 4429.80,574.24 4430.97,575.36"/>
+        <lane id=":1560223686_6_0" index="0" speed="13.89" length="2.30" shape="4429.02,572.09 4429.85,572.39 4430.76,573.48"/>
     </edge>
     <edge id=":1560223686_c0" function="crossing" crossingEdges="24214694#0 -24214694#0">
-        <lane id=":1560223686_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="4426.01,574.51 4432.48,573.88"/>
+        <lane id=":1560223686_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="4426.05,574.85 4432.52,574.23"/>
     </edge>
     <edge id=":1560223686_w0" function="walkingarea">
-        <lane id=":1560223686_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.05" width="4.00" shape="4435.94,574.81 4438.92,574.47 4435.38,571.60 4432.39,571.88 4432.67,575.88"/>
+        <lane id=":1560223686_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.62" width="4.00" shape="4435.73,572.93 4438.71,572.60 4435.41,571.94 4432.42,572.23 4432.71,576.22"/>
     </edge>
     <edge id=":1560223686_w1" function="walkingarea">
-        <lane id=":1560223686_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.68" width="4.00" shape="4426.20,576.50 4425.82,572.52 4425.72,572.53 4422.73,572.81 4422.78,575.80 4425.77,576.01"/>
+        <lane id=":1560223686_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.84" width="4.00" shape="4426.24,576.84 4425.85,572.86 4425.75,572.87 4422.77,573.16 4422.89,574.08 4425.89,574.29"/>
     </edge>
     <edge id=":1560223734_0" function="internal">
         <lane id=":1560223734_0_0" index="0" allow="delivery pedestrian" speed="8.33" length="4.82" shape="4635.49,594.69 4636.80,595.39 4637.29,596.17 4636.96,597.03 4635.81,597.97"/>
@@ -8368,8 +8368,8 @@
         <lane id="-239335494#0_1" index="1" disallow="pedestrian" speed="13.89" length="0.20" shape="4415.92,368.45 4415.90,368.65"/>
     </edge>
     <edge id="-24214694#0" from="294169342" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="4.66" width="3.00" shape="4433.44,567.10 4433.88,571.74"/>
-        <lane id="-24214694#0_1" index="1" disallow="pedestrian" speed="13.89" length="4.66" shape="4430.25,567.41 4430.70,572.05"/>
+        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="5.01" width="3.00" shape="4433.44,567.10 4433.92,572.08"/>
+        <lane id="-24214694#0_1" index="1" disallow="pedestrian" speed="13.89" length="5.01" shape="4430.25,567.41 4430.73,572.39"/>
     </edge>
     <edge id="-24214694#1" from="1560223635" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="-24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="5.45" width="3.00" shape="4432.00,552.22 4432.52,557.65"/>
@@ -9152,13 +9152,13 @@
         <lane id="143308576_2" index="2" disallow="pedestrian" speed="13.89" length="11.47" shape="4396.67,181.98 4398.01,193.37"/>
     </edge>
     <edge id="143308587" from="cluster_1560223815_1560223847_301292612_56231397" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4420.40,639.59 4422.16,629.76 4424.92,590.45 4426.09,573.57">
-        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="55.79" width="3.00" shape="4420.20,631.36 4420.52,629.56 4423.27,590.33 4424.27,575.91"/>
-        <lane id="143308587_1" index="1" disallow="pedestrian" speed="13.89" length="55.79" shape="4423.35,631.93 4423.70,629.95 4426.47,590.56 4427.46,576.13"/>
+        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="57.80" width="3.00" shape="4420.20,631.36 4420.52,629.56 4423.27,590.33 4424.39,574.19"/>
+        <lane id="143308587_1" index="1" disallow="pedestrian" speed="13.89" length="57.80" shape="4423.35,631.93 4423.70,629.95 4426.47,590.56 4427.62,573.83"/>
     </edge>
     <edge id="143308590#0" from="1560223686" to="cluster_1560223815_1560223847_301292612_56231397" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4433.90,572.78 4436.12,592.75 4435.34,617.02 4434.91,631.40 4432.94,642.71">
-        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="59.10" width="3.00" shape="4437.43,574.64 4439.43,592.62 4438.64,617.12 4438.20,631.73 4437.72,634.50"/>
-        <lane id="143308590#0_1" index="1" disallow="pedestrian" speed="13.89" length="59.10" shape="4434.25,574.99 4436.22,592.75 4435.44,617.02 4435.01,631.41 4434.57,633.94"/>
-        <lane id="143308590#0_2" index="2" disallow="pedestrian" speed="13.89" length="59.10" shape="4430.97,575.36 4432.91,592.88 4432.14,616.92 4431.72,631.08 4431.32,633.36"/>
+        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="60.99" width="3.00" shape="4437.22,572.77 4439.43,592.62 4438.64,617.12 4438.20,631.73 4437.72,634.50"/>
+        <lane id="143308590#0_1" index="1" disallow="pedestrian" speed="13.89" length="60.99" shape="4434.04,573.12 4436.22,592.75 4435.44,617.02 4435.01,631.41 4434.57,633.94"/>
+        <lane id="143308590#0_2" index="2" disallow="pedestrian" speed="13.89" length="60.99" shape="4430.76,573.48 4432.91,592.88 4432.14,616.92 4431.72,631.08 4431.32,633.36"/>
     </edge>
     <edge id="143308600#0" from="664166133" to="1421174996" name="Zum Trudelturm" priority="2" type="highway.service">
         <lane id="143308600#0_0" index="0" allow="delivery pedestrian" speed="5.56" length="10.13" shape="4594.17,947.39 4586.52,940.75"/>
@@ -9729,8 +9729,8 @@
         <lane id="239335494#1_1" index="1" disallow="pedestrian" speed="13.89" length="139.02" shape="4411.19,365.87 4410.90,362.28 4404.39,306.82 4397.64,227.52"/>
     </edge>
     <edge id="24214694#0" from="1560223686" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="4.66" width="3.00" shape="4424.23,572.67 4423.78,568.03"/>
-        <lane id="24214694#0_1" index="1" disallow="pedestrian" speed="13.89" length="4.66" shape="4427.41,572.36 4426.97,567.73"/>
+        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="5.01" width="3.00" shape="4424.26,573.01 4423.78,568.03"/>
+        <lane id="24214694#0_1" index="1" disallow="pedestrian" speed="13.89" length="5.01" shape="4427.45,572.71 4426.97,567.73"/>
     </edge>
     <edge id="24214694#1" from="294169342" to="1560223635" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="5.45" width="3.00" shape="4422.87,558.58 4422.35,553.15"/>
@@ -10655,7 +10655,7 @@
         <request index="9" response="00000001111" foes="00010001111" cont="0"/>
         <request index="10" response="00000111010" foes="00001111010" cont="0"/>
     </junction>
-    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="-24214694#0_0 -24214694#0_1 143308587_0 143308587_1 :1560223686_w1_0" intLanes=":1560223686_0_0 :1560223686_0_1 :1560223686_5_0 :1560223686_3_0 :1560223686_6_0 :1560223686_c0_0" shape="4429.38,575.53 4438.92,574.47 4435.38,571.60 4422.73,572.81 4422.78,575.80 4429.06,576.24">
+    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="-24214694#0_0 -24214694#0_1 143308587_0 143308587_1 :1560223686_w1_0" intLanes=":1560223686_0_0 :1560223686_0_1 :1560223686_5_0 :1560223686_3_0 :1560223686_6_0 :1560223686_c0_0" shape="4422.88,574.36 4438.71,572.60 4435.41,571.94 4422.77,573.16">
         <request index="0" response="000000" foes="110000" cont="0"/>
         <request index="1" response="000000" foes="110000" cont="0"/>
         <request index="2" response="001000" foes="101000" cont="1"/>
@@ -12716,8 +12716,8 @@
     <junction id=":1560223635_9_0" type="internal" x="4427.02" y="551.04" incLanes=":1560223635_2_0 -24214694#2_1 142575658#2_1" intLanes=":1560223635_3_0 :1560223635_7_0 :1560223635_c0_0 :1560223635_c0_0"/>
     <junction id=":1560223635_10_0" type="internal" x="4426.36" y="544.79" incLanes=":1560223635_4_0 24214694#1_1" intLanes=":1560223635_0_0 :1560223635_1_0 :1560223635_7_0 :1560223635_8_0 :1560223635_c1_0"/>
     <junction id=":1560223635_11_0" type="internal" x="4426.14" y="542.46" incLanes=":1560223635_5_0 142575658#2_1 24214694#1_1" intLanes=":1560223635_1_0 :1560223635_6_0 :1560223635_c1_0 :1560223635_c1_0"/>
-    <junction id=":1560223686_5_0" type="internal" x="4429.03" y="573.78" incLanes=":1560223686_2_0 143308587_1" intLanes=":1560223686_3_0 :1560223686_c0_0 :1560223686_c0_0"/>
-    <junction id=":1560223686_6_0" type="internal" x="4429.26" y="574.10" incLanes=":1560223686_4_0 -24214694#0_1" intLanes=":1560223686_0_0 :1560223686_0_1"/>
+    <junction id=":1560223686_5_0" type="internal" x="4429.25" y="574.19" incLanes=":1560223686_2_0 143308587_1" intLanes=":1560223686_3_0 :1560223686_c0_0 :1560223686_c0_0"/>
+    <junction id=":1560223686_6_0" type="internal" x="4429.02" y="572.09" incLanes=":1560223686_4_0 -24214694#0_1" intLanes=":1560223686_0_0 :1560223686_0_1"/>
     <junction id=":1560223789_10_0" type="internal" x="3930.72" y="633.68" incLanes=":1560223789_5_0 142575725#2_0 206579063#0_1 206579063#0_2" intLanes=":1560223789_1_0 :1560223789_6_0 :1560223789_6_1 :1560223789_c0_0 :1560223789_c0_0"/>
     <junction id=":1560223789_11_0" type="internal" x="3930.15" y="637.32" incLanes=":1560223789_8_0 -206579063#2_1" intLanes=":1560223789_1_0 :1560223789_2_0 :1560223789_3_0 :1560223789_4_0"/>
     <junction id=":1560223789_12_0" type="internal" x="3929.74" y="639.56" incLanes=":1560223789_9_0 -206579063#2_1 142575725#2_0" intLanes=":1560223789_0_0 :1560223789_4_0"/>
