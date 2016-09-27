@@ -281,6 +281,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         const SUMOReal farAngleDist = ccwCloser ? cad : ccad;
                         SUMOReal a1 = distances[*i];
                         SUMOReal a2 = radius + closestIntersection(currGeom2, neighGeom2, 100);
+#ifdef DEBUG_NODE_SHAPE
+                        if (DEBUGCOND) std::cout << "      neigh2 also intersects a1=" << a1 << " a2=" << a2 << " ccad=" << RAD2DEG(ccad) << " cad=" << RAD2DEG(cad) << " dist[cwi]=" << distances[*cwi] << " dist[ccwi]=" << distances[*ccwi] << " farAngleDist=" << RAD2DEG(farAngleDist) << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+#endif
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                             if (mmin > 100 && mmin < 205) {
@@ -448,10 +451,12 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
     // distance to look ahead for a misleading angle
     const SUMOReal angleChangeLookahead = 35;
     EdgeSet foundOpposite;
-    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
-        EdgeVector::const_iterator j = i + 1;
-        if (j == myNode.myAllEdges.end()) {
+    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
+        EdgeVector::const_iterator j;
+        if (i == myNode.myAllEdges.end() - 1) {
             j = myNode.myAllEdges.begin();
+        } else {
+            j = i + 1;
         }
         const bool incoming = (*i)->getToNode() == &myNode;
         const bool incoming2 = (*j)->getToNode() == &myNode;
@@ -493,6 +498,9 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 }
                 same[*i].insert(*j);
                 same[*j].insert(*i);
+#ifdef DEBUG_NODE_SHAPE
+                if (DEBUGCOND) std::cout << "   joinedSameDirectionEdges " << (*i)->getID() << "   " << (*j)->getID() << " isOpposite=" << isOpposite << " ambiguousGeometry=" << ambiguousGeometry << "\n";
+#endif
             }
         }
     }
