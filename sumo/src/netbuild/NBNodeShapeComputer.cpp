@@ -544,12 +544,6 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     // store relationships
     std::map<NBEdge*, NBEdge*> ccwBoundary;
     std::map<NBEdge*, NBEdge*> cwBoundary;
-    for (EdgeVector::const_iterator i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
-        cwBoundary[*i] = *i;
-        ccwBoundary[*i] = *i;
-    }
-
-
     EdgeVector newAll = myNode.myAllEdges;
     bool changed = true;
     while (changed) {
@@ -562,12 +556,10 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                     if (myNode.hasIncoming(*i2)) {
                         if (!myNode.hasIncoming(*j)) {
                             geomsCW[*i2] = geomsCW[*j];
-                            cwBoundary[*i2] = *j;
                             computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
                         }
                     } else {
                         if (myNode.hasIncoming(*j)) {
-                            ccwBoundary[*i2] = *j;
                             geomsCCW[*i2] = geomsCCW[*j];
                             computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
                         }
