@@ -159,17 +159,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     GeomsMap geomsCCW;
     // the clockwise boundary of the edge regarding possible same-direction edges
     GeomsMap geomsCW;
-    // store relationships
-    std::map<NBEdge*, NBEdge*> ccwBoundary;
-    std::map<NBEdge*, NBEdge*> cwBoundary;
-    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
-        cwBoundary[*i] = *i;
-        ccwBoundary[*i] = *i;
-    }
     // check which edges are parallel
     joinSameDirectionEdges(same, geomsCCW, geomsCW);
     // compute unique direction list
-    EdgeVector newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW, ccwBoundary, cwBoundary);
+    EdgeVector newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW);
     // if we have only two "directions", let's not compute the geometry using this method
     if (newAll.size() < 2) {
         return PositionVector();
@@ -547,9 +540,16 @@ EdgeVector
 NBNodeShapeComputer::computeUniqueDirectionList(
     std::map<NBEdge*, std::set<NBEdge*> >& same,
     GeomsMap& geomsCCW,
-    GeomsMap& geomsCW,
-    std::map<NBEdge*, NBEdge*>& ccwBoundary,
-    std::map<NBEdge*, NBEdge*>& cwBoundary) {
+    GeomsMap& geomsCW) {
+    // store relationships
+    std::map<NBEdge*, NBEdge*> ccwBoundary;
+    std::map<NBEdge*, NBEdge*> cwBoundary;
+    for (EdgeVector::const_iterator i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
+        cwBoundary[*i] = *i;
+        ccwBoundary[*i] = *i;
+    }
+
+
     EdgeVector newAll = myNode.myAllEdges;
     bool changed = true;
     while (changed) {

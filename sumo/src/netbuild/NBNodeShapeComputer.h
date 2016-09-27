@@ -107,9 +107,7 @@ private:
     EdgeVector computeUniqueDirectionList(
         std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
-        GeomsMap& geomsCW,
-        std::map<NBEdge*, NBEdge*>& ccwBoundary,
-        std::map<NBEdge*, NBEdge*>& cwBoundary);
+        GeomsMap& geomsCW);
 
     /** @brief Compute smoothed corner shape
      * @param[in] begShape
