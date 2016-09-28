@@ -495,7 +495,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
     }
     into.writeAttr(SUMO_ATTR_INTLANES, intLanes);
     // close writing
-    into.writeAttr(SUMO_ATTR_SHAPE, n.getShape());
+    into.writeAttr(SUMO_ATTR_SHAPE, n.getShape().simplified());
     // write optional radius
     if (n.getRadius() != NBNode::UNSPECIFIED_RADIUS) {
         into.writeAttr(SUMO_ATTR_RADIUS, n.getRadius());
