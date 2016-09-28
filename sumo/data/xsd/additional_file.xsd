@@ -61,7 +61,7 @@
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
-        <xsd:attribute name="splitByType" use="optional" type="boolType"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
     </xsd:complexType>
 
@@ -85,6 +85,7 @@
         <xsd:attribute name="timeThreshold" type="xsd:int" use="optional"/>
         <xsd:attribute name="speedThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
     </xsd:complexType>
 
@@ -100,6 +101,7 @@
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="timeThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="speedThreshold" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="detEntryExitType">
@@ -197,6 +199,7 @@
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="rerouterType">
