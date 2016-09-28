@@ -182,7 +182,7 @@
             <xsd:element name="step" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
                     <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
-                    <xsd:attribute name="speed" type="xsd:float" use="required"/>
+                    <xsd:attribute name="speed" type="xsd:float" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
