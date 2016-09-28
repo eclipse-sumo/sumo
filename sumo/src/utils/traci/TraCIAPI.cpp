@@ -1235,7 +1235,7 @@ void
 TraCIAPI::PolygonScope::add(const std::string& polygonID, const TraCIAPI::TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(4);
+    content.writeInt(5);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(type);
     content.writeUnsignedByte(TYPE_COLOR);
@@ -1249,7 +1249,7 @@ TraCIAPI::PolygonScope::add(const std::string& polygonID, const TraCIAPI::TraCIP
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(layer);
     content.writeUnsignedByte(TYPE_POLYGON);
-    content.writeInt((int)shape.size());
+    content.writeUnsignedByte((int)shape.size());
     for (int i = 0; i < (int)shape.size(); ++i) {
         content.writeDouble(shape[i].x);
         content.writeDouble(shape[i].y);
