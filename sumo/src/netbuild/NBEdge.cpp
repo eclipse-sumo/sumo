@@ -1440,13 +1440,15 @@ NBEdge::computeAngle() {
                             : myGeom);
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
-    if ((hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
-                          || myFrom->getShape().around(shape[-1])))
-            || (hasToShape && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
-                               || myTo->getShape().around(shape[0])))) {
+    if (hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
+                || myFrom->getShape().around(shape[-1])
+                || !(myFrom->getShape().around(fromCenter)))) {
         fromCenter = myFrom->getPosition();
+    }
+    if (hasToShape && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
+                || myTo->getShape().around(shape[0])
+                || !(myTo->getShape().around(toCenter)))) {
         toCenter = myTo->getPosition();
-        shape = myGeom;
     }
 
     const SUMOReal angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
