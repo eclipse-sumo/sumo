@@ -342,11 +342,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             offset = (SUMOReal) - .1;
         }
         Position p;
-        if (len >= offset) {
-            p = ccwBound.positionAtOffset2D(offset);
-        } else {
-            p = ccwBound.positionAtOffset2D(len);
-        }
+        p = ccwBound.positionAtOffset2D(offset);
         p.set(p.x(), p.y(), myNode.getPosition().z());
         if (i != newAll.begin()) {
             ret.append(getSmoothCorner(geomsCW[*(i - 1)].reverse(), ccwBound, ret[-1], p, cornerDetail));
@@ -355,11 +351,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         //
         const PositionVector& cwBound = geomsCW[*i];
         len = cwBound.length();
-        if (len >= offset) {
-            p = cwBound.positionAtOffset2D(offset);
-        } else {
-            p = cwBound.positionAtOffset2D(len);
-        }
+        p = cwBound.positionAtOffset2D(offset);
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
     }
