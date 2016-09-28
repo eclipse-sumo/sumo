@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:29 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Wed Sep 28 15:25:33 2016 by SUMO netconvert Version dev-SVN-r21562
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -74,18 +74,18 @@
         </lane>
     </edge>
     <edge id="-24214693#0" from="261599791" to="32266935" priority="9" type="highway.primary" shape="33.97,176.57 202.12,155.05 478.98,121.02">
-        <lane id="-24214693#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="33.34,171.66 201.51,150.14 473.43,116.72">
+        <lane id="-24214693#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="33.49,171.64 201.51,150.14 473.43,116.72">
             <param key="origId" value="24214693"/>
         </lane>
-        <lane id="-24214693#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="33.76,174.93 201.92,153.41 473.83,119.99">
+        <lane id="-24214693#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="33.91,174.91 201.92,153.41 473.83,119.99">
             <param key="origId" value="24214693"/>
         </lane>
     </edge>
     <edge id="-24214693#1" from="57343510" to="261599791" priority="9" type="highway.primary">
-        <lane id="-24214693#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="14.14,174.41 33.27,171.67">
+        <lane id="-24214693#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="14.14,174.41 33.13,171.69">
             <param key="origId" value="24214693"/>
         </lane>
-        <lane id="-24214693#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="14.61,177.68 33.74,174.94">
+        <lane id="-24214693#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="14.61,177.68 33.59,174.96">
             <param key="origId" value="24214693"/>
         </lane>
     </edge>
@@ -437,18 +437,18 @@
         </lane>
     </edge>
     <edge id="24214693#0" from="32266935" to="261599791" priority="9" type="highway.primary" shape="478.98,121.02 202.12,155.05 33.97,176.57">
-        <lane id="24214693#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="474.64,126.55 202.74,159.96 34.60,181.48">
+        <lane id="24214693#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="474.64,126.55 202.74,159.96 34.74,181.46">
             <param key="origId" value="24214693"/>
         </lane>
-        <lane id="24214693#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="474.23,123.27 202.33,156.69 34.18,178.21">
+        <lane id="24214693#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="448.47" shape="474.23,123.27 202.33,156.69 34.32,178.19">
             <param key="origId" value="24214693"/>
         </lane>
     </edge>
     <edge id="24214693#1" from="261599791" to="57343510" priority="9" type="highway.primary">
-        <lane id="24214693#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="34.67,181.47 15.55,184.21">
+        <lane id="24214693#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="34.53,181.49 15.55,184.21">
             <param key="origId" value="24214693"/>
         </lane>
-        <lane id="24214693#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="34.21,178.20 15.08,180.94">
+        <lane id="24214693#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="19.32" shape="34.06,178.22 15.08,180.94">
             <param key="origId" value="24214693"/>
         </lane>
     </edge>
@@ -1042,7 +1042,7 @@
     <junction id="175648134" type="priority" x="15.68" y="168.06" incLanes="-25951490_0" intLanes="" shape="15.67,168.02 15.81,169.11 15.68,168.11">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="261599791" type="traffic_light" x="33.97" y="176.57" incLanes="24214693#0_0 24214693#0_1 -24214693#1_0 -24214693#1_1" intLanes="" shape="34.86,183.06 33.19,170.07 32.99,170.09 34.85,183.06">
+    <junction id="261599791" type="traffic_light" x="33.97" y="176.57" incLanes="24214693#0_0 24214693#0_1 -24214693#1_0 -24214693#1_1" intLanes="" shape="34.95,183.05 33.28,170.05 32.90,170.11 34.76,183.07">
         <request index="0" response="000000" foes="100000"/>
         <request index="1" response="000000" foes="100000"/>
         <request index="2" response="011000" foes="011000"/>

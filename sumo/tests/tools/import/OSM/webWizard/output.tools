@@ -109,38 +109,38 @@ done.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (1ms).
 Joining junction clusters... 
-done (19ms).
+done (29ms).
  Joined 55 junction cluster(s).
-Removing empty nodes and geometry nodes... done (28ms).
+Removing empty nodes and geometry nodes... done (39ms).
    601 nodes removed.
-Moving network to origin... done (47ms).
+Moving network to origin... done (63ms).
 Computing turning directions... 
-done (4ms).
-Guessing and setting on-/off-ramps... done (7ms).
-Sorting nodes' edges... done (7ms).
+done (7ms).
+Guessing and setting on-/off-ramps... done (12ms).
+Sorting nodes' edges... done (9ms).
 Computing node shapes... 
-done (311ms).
-Computing edge shapes... done (190ms).
-Computing node types... done (2ms).
+done (416ms).
+Computing edge shapes... done (239ms).
+Computing node types... done (3ms).
 Guessed 867 pedestrian crossings.
-Computing priorities... done (4ms).
-Computing approached edges... done (6ms).
+Computing priorities... done (7ms).
+Computing approached edges... done (10ms).
 Guessing and setting roundabouts... 
  Guessed 4 roundabout(s).
-done (4ms).
-Computing approaching lanes... done (42ms).
-Dividing of lanes on approached lanes... done (18ms).
-Processing turnarounds... done (2ms).
-Rechecking of lane endings... done (1ms).
-Assigning nodes to traffic lights... done (1ms).
-Joining traffic light nodes... done (5ms).
-Computing traffic light control information... done (3ms).
-Computing node logics... done (84ms).
+done (9ms).
+Computing approaching lanes... done (56ms).
+Dividing of lanes on approached lanes... done (29ms).
+Processing turnarounds... done (3ms).
+Rechecking of lane endings... done (3ms).
+Assigning nodes to traffic lights... done (3ms).
+Joining traffic light nodes... done (7ms).
+Computing traffic light control information... done (4ms).
+Computing node logics... done (115ms).
 Computing traffic light logics... 
-done (23ms).
+done (35ms).
  50 traffic light(s) computed.
 Building inner edges... 
-done (120ms).
+done (181ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -153,15 +153,15 @@ Summary:
   Applied offset     : -388415.86,-5817979.56
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
-Writing network... done (893ms).
+Writing network... done (1405ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/dynamic_gui.28Sep135259.18892/tools/import/OSM/webWizard/2016-09-28-13-53-17/osm.netccfg'
-Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.28Sep135259.18892/tools/import/OSM/webWizard/2016-09-28-13-53-17/osm.net.xml'... done.
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.28Sep152523.16133/tools/import/OSM/webWizard/2016-09-28-15-25-26/osm.netccfg'
+Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.28Sep152523.16133/tools/import/OSM/webWizard/2016-09-28-15-25-26/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/scr2/texttest_tmp/dynamic_gui.28Sep135259.18892/tools/import/OSM/webWizard/2016-09-28-13-53-17/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.28Sep152523.16133/tools/import/OSM/webWizard/2016-09-28-15-25-26/osm.polycfg'
 Success.
 Success.
 Success.
@@ -169,16 +169,16 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (1018ms).
-Loading additional-files from 'osm.poly.xml'... done (97ms).
+Loading net-file from 'osm.net.xml'... done (1021ms).
+Loading additional-files from 'osm.poly.xml'... done (94ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 2581.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 25876ms
- Real time factor: 99.7449
- UPS: 4398.477354
+ Duration: 26159ms
+ Real time factor: 98.6659
+ UPS: 4360.029053
 Vehicles: 
  Inserted: 347
  Running: 0
@@ -187,17 +187,17 @@ Persons:
  Inserted: 208
  Running: 0
 Statistics (avg):
- RouteLength: 1910.52
- Duration: 328.00
- WaitingTime: 61.94
- TimeLoss: 105.15
- DepartDelay: -0.32
+ RouteLength: 1911.44
+ Duration: 328.69
+ WaitingTime: 62.28
+ TimeLoss: 105.85
+ DepartDelay: -0.33
 
-DijkstraRouterTT answered 19138 queries and explored 12.54 edges on average.
-DijkstraRouterTT spent 211ms answering queries (0.01ms on average).
-DijkstraRouterTT answered 410 queries and explored 623.87 edges on average.
-DijkstraRouterTT spent 317ms answering queries (0.77ms on average).
-Building scenario in '/scr2/texttest_tmp/dynamic_gui.28Sep135259.18892/tools/import/OSM/webWizard/2016-09-28-13-53-17'
+DijkstraRouterTT answered 19196 queries and explored 12.48 edges on average.
+DijkstraRouterTT spent 240ms answering queries (0.01ms on average).
+DijkstraRouterTT answered 407 queries and explored 621.56 edges on average.
+DijkstraRouterTT spent 327ms answering queries (0.80ms on average).
+Building scenario in '/scr2/texttest_tmp/dynamic_gui.28Sep152523.16133/tools/import/OSM/webWizard/2016-09-28-15-25-26'
 calling  /scr1/sumoID/sumo/bin/duarouterD -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
 calling  /scr1/sumoID/sumo/bin/duarouterD -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings

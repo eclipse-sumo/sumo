@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:52 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Wed Sep 28 15:25:40 2016 by SUMO netconvert Version dev-SVN-r21562
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,10 +26,10 @@
     <location netOffset="-643076.44,-5068643.55" convBoundary="0.00,0.00,64.98,189.46" origBoundary="4.818163,45.750601,4.848997,45.775889" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="133403749" from="1468611579" to="1468611580" priority="1" type="highway.footway" spreadType="center">
-        <lane id="133403749_0" index="0" allow="pedestrian" speed="8.33" length="6.70" width="2.00" shape="64.98,93.48 58.42,94.82"/>
+        <lane id="133403749_0" index="0" allow="pedestrian" speed="8.33" length="6.55" width="2.00" shape="64.98,93.48 58.57,94.79"/>
     </edge>
     <edge id="133410537#0" from="1468611580" to="1833873063" priority="1" type="highway.steps" spreadType="center">
-        <lane id="133410537#0_0" index="0" allow="pedestrian" speed="1.39" length="5.16" width="2.00" shape="58.42,94.82 53.37,95.86"/>
+        <lane id="133410537#0_0" index="0" allow="pedestrian" speed="1.39" length="5.01" width="2.00" shape="58.27,94.85 53.37,95.86"/>
     </edge>
     <edge id="133410537#1" from="1833873063" to="1478005898" priority="1" type="highway.steps" spreadType="center">
         <lane id="133410537#1_0" index="0" allow="pedestrian" speed="1.39" length="0.20" width="2.00" shape="50.83,96.38 50.63,96.42"/>
@@ -41,10 +41,10 @@
         <lane id="133410537#3_0" index="0" allow="pedestrian" speed="1.39" length="1.30" width="2.00" shape="41.58,98.27 40.31,98.53"/>
     </edge>
     <edge id="133410537#4" from="1478005908" to="1468611583" priority="1" type="highway.steps" spreadType="center">
-        <lane id="133410537#4_0" index="0" allow="pedestrian" speed="1.39" length="1.06" width="2.00" shape="35.32,99.56 34.29,99.77"/>
+        <lane id="133410537#4_0" index="0" allow="pedestrian" speed="1.39" length="0.92" width="2.00" shape="35.32,99.56 34.42,99.74"/>
     </edge>
     <edge id="133410538#0" from="1468611583" to="1833873109" priority="1" type="highway.footway" spreadType="center">
-        <lane id="133410538#0_0" index="0" allow="pedestrian" speed="8.33" length="0.20" width="2.00" shape="33.54,99.90 33.35,99.94"/>
+        <lane id="133410538#0_0" index="0" allow="pedestrian" speed="8.33" length="0.13" width="2.00" shape="34.29,99.77 34.16,99.79"/>
     </edge>
     <edge id="133410538#1" from="1833873109" to="36461620" priority="1" type="highway.footway" spreadType="center">
         <lane id="133410538#1_0" index="0" allow="pedestrian" speed="8.33" length="13.97" width="2.00" shape="29.00,100.73 15.26,103.26"/>
@@ -84,8 +84,8 @@
     </edge>
 
     <junction id="1468611579" type="unregulated" x="64.98" y="93.48" incLanes="" intLanes="" shape="64.78,92.50 65.18,94.46"/>
-    <junction id="1468611580" type="dead_end" x="58.42" y="94.82" incLanes="133403749_0" intLanes="" shape="58.62,95.80 58.22,93.84 58.62,95.80"/>
-    <junction id="1468611583" type="dead_end" x="34.29" y="99.77" incLanes="133410537#4_0" intLanes="" shape="34.52,100.74 34.12,98.78 34.43,100.76"/>
+    <junction id="1468611580" type="dead_end" x="58.42" y="94.82" incLanes="133403749_0" intLanes="" shape="58.77,95.77 58.37,93.81 58.07,93.87 58.47,95.83"/>
+    <junction id="1468611583" type="dead_end" x="34.29" y="99.77" incLanes="133410537#4_0" intLanes="" shape="34.62,100.72 34.22,98.76 33.98,98.81 34.33,100.78"/>
     <junction id="1478005898" type="dead_end" x="48.71" y="96.81" incLanes="133410537#1_0 134419963#1_0" intLanes="" shape="48.45,102.46 50.44,102.20 50.87,100.74 49.85,96.16 51.03,97.36 50.63,95.40 49.04,94.09 47.11,94.59 45.99,96.35 46.39,98.30"/>
     <junction id="1478005902" type="unregulated" x="29.72" y="65.72" incLanes="" intLanes="" shape="29.20,67.80 31.14,67.33 28.68,63.85 28.10,66.60"/>
     <junction id="1478005903" type="dead_end" x="44.16" y="97.74" incLanes="172817076#1_0 133410537#2_0" intLanes="" shape="43.38,100.44 45.37,100.28 46.87,98.21 46.47,96.25 44.79,95.06 42.81,95.34 41.38,97.29 41.79,99.25"/>

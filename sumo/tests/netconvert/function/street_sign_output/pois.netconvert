@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 19 15:02:34 2016 by SUMO netconvert Version dev-SVN-r21499
+<!-- generated on Wed Sep 28 15:25:38 2016 by SUMO netconvert Version dev-SVN-r21562
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,7 +31,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="gneE1.37.42" type="priority" color="yellow" x="-2.25" y="52.81" angle="0"/>
+    <poi id="gneE1.37.27" type="priority" color="yellow" x="-2.25" y="52.81" angle="0"/>
     <poi id="gneE10.34.56" type="priority" color="yellow" x="-17.89" y="43.55" angle="0"/>
     <poi id="gneE11.34.56" type="right before left" color="255,153,0" x="-49.41" y="53.00" angle="0"/>
     <poi id="gneE12.25.57" type="yield" color="red" x="-14.36" y="56.38" angle="0"/>
