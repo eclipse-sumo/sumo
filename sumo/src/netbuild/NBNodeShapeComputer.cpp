@@ -344,7 +344,6 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     PositionVector ret;
     for (i = newAll.begin(); i != newAll.end(); ++i) {
         const PositionVector& ccwBound = geomsCCW[*i];
-        SUMOReal len = ccwBound.length();
         SUMOReal offset = distances[*i];
         if (offset == -1) {
             WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");
@@ -359,7 +358,6 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         ret.push_back_noDoublePos(p);
         //
         const PositionVector& cwBound = geomsCW[*i];
-        len = cwBound.length();
         p = cwBound.positionAtOffset2D(offset);
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
