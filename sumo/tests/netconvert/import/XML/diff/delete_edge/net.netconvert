@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:54 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:17 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -106,7 +106,7 @@
         <request index="6" response="00000000" foes="00000100" cont="0"/>
         <request index="7" response="00000100" foes="00000100" cont="0"/>
     </junction>
-    <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.05,-10.00 3.25,-10.00 -3.25,-10.00 -0.05,-10.00">
+    <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.05,-10.00 -3.25,-10.00 -0.05,-10.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="node_L" type="unregulated" x="-40.00" y="0.00" incLanes="edge_C2L_0 edge_C2L_1" intLanes="" shape="-40.51,3.21 -39.49,-3.21"/>

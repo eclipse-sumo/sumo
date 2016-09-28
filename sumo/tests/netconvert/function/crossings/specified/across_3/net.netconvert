@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:02 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:46 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -214,7 +214,7 @@
         <phase duration="5" state="rrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="121.51" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 E2C_0 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 W2C_0 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_18_0 :C_1_0 :C_1_1 :C_19_0 :C_20_0 :C_5_0 :C_5_1 :C_21_0 :C_8_0 :C_22_0 :C_10_0 :C_10_1 :C_23_0 :C_24_0 :C_14_0 :C_14_1 :C_25_0 :C_17_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="108.14,75.76 134.62,75.66 133.59,111.82 107.21,112.03 108.14,75.76" customShape="1">
+    <junction id="C" type="traffic_light" x="121.51" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 E2C_0 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 W2C_0 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_18_0 :C_1_0 :C_1_1 :C_19_0 :C_20_0 :C_5_0 :C_5_1 :C_21_0 :C_8_0 :C_22_0 :C_10_0 :C_10_1 :C_23_0 :C_24_0 :C_14_0 :C_14_1 :C_25_0 :C_17_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="108.14,75.76 134.62,75.66 133.59,111.82 107.21,112.03" customShape="1">
         <request index="0" response="1001000000000000000000" foes="1001000001000001100000" cont="1"/>
         <request index="1" response="0101000000000000000000" foes="0101111111000111100000" cont="0"/>
         <request index="2" response="0101000000000000000000" foes="0101111111000111100000" cont="0"/>
@@ -238,12 +238,12 @@
         <request index="20" response="0000000000000000000000" foes="0000000011111010000110" cont="0"/>
         <request index="21" response="0000000000000000000000" foes="0000111111000101100001" cont="0"/>
     </junction>
-    <junction id="E" type="dead_end" x="221.51" y="100.00" incLanes="CE_0 CE_1 CE_2 CE_3" intLanes="" shape="221.51,100.05 221.51,111.25 221.48,77.00 221.49,88.20"/>
-    <junction id="E2" type="dead_end" x="254.67" y="93.40" incLanes="CE2_0" intLanes="" shape="254.67,93.45 254.67,96.65 254.67,90.15 254.67,93.35"/>
-    <junction id="N" type="dead_end" x="121.51" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="121.46,200.00 110.26,200.00 132.76,200.00 121.56,200.00"/>
-    <junction id="S" type="dead_end" x="121.51" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="121.56,0.00 132.76,0.00 110.26,0.00 121.46,0.00"/>
-    <junction id="W" type="dead_end" x="21.51" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="21.51,88.59 21.51,77.39 21.51,111.25 21.51,100.05"/>
-    <junction id="W2" type="dead_end" x="0.00" y="93.68" incLanes="CW2_0" intLanes="" shape="0.00,93.63 0.00,90.43 -0.02,96.93 -0.00,93.73"/>
+    <junction id="E" type="dead_end" x="221.51" y="100.00" incLanes="CE_0 CE_1 CE_2 CE_3" intLanes="" shape="221.51,100.05 221.51,111.25 221.48,77.00"/>
+    <junction id="E2" type="dead_end" x="254.67" y="93.40" incLanes="CE2_0" intLanes="" shape="254.67,93.45 254.67,96.65 254.67,90.15"/>
+    <junction id="N" type="dead_end" x="121.51" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="121.46,200.00 132.76,200.00 121.56,200.00"/>
+    <junction id="S" type="dead_end" x="121.51" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="121.56,0.00 110.26,0.00 121.46,0.00"/>
+    <junction id="W" type="dead_end" x="21.51" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="21.51,88.59 21.51,111.25 21.51,100.05"/>
+    <junction id="W2" type="dead_end" x="0.00" y="93.68" incLanes="CW2_0" intLanes="" shape="0.00,93.63 0.00,90.43 -0.02,96.93"/>
 
     <junction id=":C_18_0" type="internal" x="111.91" y="105.62" incLanes=":C_0_0" intLanes=":C_5_0 :C_5_1 :C_12_0 :C_c0_0 :C_c3_0"/>
     <junction id=":C_19_0" type="internal" x="121.56" y="98.60" incLanes=":C_3_0 SC_2 SC_3" intLanes=":C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_10_0 :C_10_1 :C_14_0 :C_14_1 :C_16_0 :C_17_0 :C_c0_0 :C_c1_0"/>

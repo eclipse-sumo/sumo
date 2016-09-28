@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:58 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:33 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -175,8 +175,8 @@
 
     <junction id="1802244960" type="unregulated" x="0.00" y="36.69" incLanes="177308083_0 177308083_1" intLanes="" shape="-0.19,40.34 0.08,35.04"/>
     <junction id="1877604354" type="unregulated" x="327.72" y="171.93" incLanes="" intLanes="" shape="328.99,170.88 324.90,174.25"/>
-    <junction id="1877604780" type="dead_end" x="34.16" y="0.00" incLanes="-324752522_0 -324752522_1" intLanes="" shape="34.21,-0.00 42.80,-0.46 28.82,0.28 34.11,0.00"/>
-    <junction id="447602290" type="priority" x="34.91" y="109.49" incLanes="324752524_0 324752524_1 324752524_2" intLanes=":447602290_0_0" shape="34.86,109.49 29.56,109.33 43.55,109.76 34.96,109.49">
+    <junction id="1877604780" type="dead_end" x="34.16" y="0.00" incLanes="-324752522_0 -324752522_1" intLanes="" shape="34.21,-0.00 28.82,0.28 34.11,0.00"/>
+    <junction id="447602290" type="priority" x="34.91" y="109.49" incLanes="324752524_0 324752524_1 324752524_2" intLanes=":447602290_0_0" shape="34.86,109.49 43.55,109.76 34.96,109.49">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="cluster_1802245009_335683858" type="traffic_light" x="36.22" y="45.08" incLanes="177308057_0 177308057_1 324752522_0 324752522_1 324752522_2 -324752524_0 -324752524_1 :cluster_1802245009_335683858_w1_0 :cluster_1802245009_335683858_w2_0 :cluster_1802245009_335683858_w3_0 :cluster_1802245009_335683858_w0_0" intLanes=":cluster_1802245009_335683858_8_0 :cluster_1802245009_335683858_1_0 :cluster_1802245009_335683858_9_0 :cluster_1802245009_335683858_3_0 :cluster_1802245009_335683858_3_1 :cluster_1802245009_335683858_10_0 :cluster_1802245009_335683858_6_0 :cluster_1802245009_335683858_7_0 :cluster_1802245009_335683858_c0_0 :cluster_1802245009_335683858_c1_0 :cluster_1802245009_335683858_c2_0 :cluster_1802245009_335683858_c3_0" shape="46.26,59.75 48.30,54.86 44.64,34.37 30.66,35.11 29.24,36.53 28.97,41.82 30.87,60.62 44.87,60.67">

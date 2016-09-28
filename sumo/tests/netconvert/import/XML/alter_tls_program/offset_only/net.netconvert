@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:28 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:19 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -82,7 +82,7 @@
         <phase duration="4" state="yyyrrr"/>
     </tlLogic>
 
-    <junction id="gneJ2" type="dead_end" x="0.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="0.00,-0.05 0.00,-3.25 0.00,3.25 0.00,0.05"/>
+    <junction id="gneJ2" type="dead_end" x="0.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="0.00,-0.05 0.00,3.25 0.00,0.05"/>
     <junction id="gneJ3" type="traffic_light" x="20.00" y="0.00" incLanes="gneE6_0 gneE4_0 gneE1_0" intLanes=":gneJ3_0_0 :gneJ3_1_0 :gneJ3_2_0 :gneJ3_3_0 :gneJ3_4_0 :gneJ3_6_0" shape="16.75,4.75 23.25,4.75 24.75,3.25 24.75,-3.25 15.25,-3.25 15.25,3.25">
         <request index="0" response="001000" foes="001000" cont="0"/>
         <request index="1" response="111000" foes="111000" cont="0"/>
@@ -91,8 +91,8 @@
         <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="001100" foes="001110" cont="1"/>
     </junction>
-    <junction id="gneJ4" type="dead_end" x="40.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="40.00,0.05 40.00,3.25 40.00,-3.25 40.00,-0.05"/>
-    <junction id="gneJ5" type="dead_end" x="20.00" y="20.00" incLanes="gneE5_0" intLanes="" shape="19.95,20.00 16.75,20.00 23.25,20.00 20.05,20.00"/>
+    <junction id="gneJ4" type="dead_end" x="40.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="40.00,0.05 40.00,-3.25 40.00,-0.05"/>
+    <junction id="gneJ5" type="dead_end" x="20.00" y="20.00" incLanes="gneE5_0" intLanes="" shape="19.95,20.00 23.25,20.00 20.05,20.00"/>
 
     <junction id=":gneJ3_6_0" type="internal" x="20.11" y="0.05" incLanes=":gneJ3_5_0 gneE4_0" intLanes=":gneJ3_1_0 :gneJ3_2_0 :gneJ3_3_0"/>
 

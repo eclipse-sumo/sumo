@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:52 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,7 +31,7 @@
         <lane id="gneE1_1" index="1" allow="rail" speed="13.89" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,3.80 0.00,-3.80 0.00,-0.05 0.00,-6.55"/>
-    <junction id="gneJ1" type="unregulated" x="100.00" y="0.00" incLanes="gneE0_0 gneE0_1 gneE0_2 gneE1_0 gneE1_1" intLanes="" shape="100.00,-3.80 100.00,3.80 100.00,-6.55 100.00,-0.05"/>
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,3.80 0.00,-0.05 0.00,-6.55"/>
+    <junction id="gneJ1" type="unregulated" x="100.00" y="0.00" incLanes="gneE0_0 gneE0_1 gneE0_2 gneE1_0 gneE1_1" intLanes="" shape="100.00,-3.80 100.00,-6.55 100.00,-0.05"/>
 
 </net>

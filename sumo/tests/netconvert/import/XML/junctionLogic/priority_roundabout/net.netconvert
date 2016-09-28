@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:54 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:20 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -99,13 +99,13 @@
         <lane id="RWRE_0" index="0" speed="8.33" length="8.94" shape="208.93,39.98 217.19,43.40"/>
     </edge>
 
-    <junction id="617530560" type="priority" x="287.13" y="78.25" incLanes="554721084_0" intLanes=":617530560_0_0" shape="287.10,78.29 285.14,80.82 289.12,75.68 287.16,78.21">
+    <junction id="617530560" type="priority" x="287.13" y="78.25" incLanes="554721084_0" intLanes=":617530560_0_0" shape="287.10,78.29 289.12,75.68 287.16,78.21">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="617530570" type="priority" x="0.00" y="56.40" incLanes="554721086_0" intLanes=":617530570_0_0" shape="0.02,56.35 1.36,53.45 -1.36,59.35 -0.02,56.45">
+    <junction id="617530570" type="priority" x="0.00" y="56.40" incLanes="554721086_0" intLanes=":617530570_0_0" shape="0.02,56.35 -1.36,59.35 -0.02,56.45">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="617530575" type="priority" x="219.84" y="0.00" incLanes="-554721118_0" intLanes=":617530575_0_0" shape="219.89,0.02 222.86,1.21 216.82,-1.21 219.79,-0.02">
+    <junction id="617530575" type="priority" x="219.84" y="0.00" incLanes="-554721118_0" intLanes=":617530575_0_0" shape="219.89,0.02 216.82,-1.21 219.79,-0.02">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="RE" type="priority" x="218.16" y="45.58" incLanes="-554721084_0 RWRE_0" intLanes=":RE_0_0 :RE_1_0 :RE_2_0 :RE_3_0" shape="221.27,49.73 222.88,43.44 217.80,41.92 216.58,44.87 216.29,49.16 219.10,50.68">

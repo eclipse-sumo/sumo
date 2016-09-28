@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:35 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:40 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,7 +58,7 @@
         <lane id="4014_0" index="0" speed="13.90" length="70.74" shape="131.57,245.08 144.99,261.82 161.27,300.48"/>
     </edge>
 
-    <junction id="10724" type="priority" x="61.75" y="0.00" incLanes="-10575_0" intLanes="" shape="61.81,-0.01 65.00,-0.29 58.52,0.28 61.71,0.00">
+    <junction id="10724" type="priority" x="61.75" y="0.00" incLanes="-10575_0" intLanes="" shape="61.81,-0.01 65.00,-0.29 58.52,0.28">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="10731" type="priority" x="126.88" y="241.87" incLanes="-4014_0 10573_0" intLanes="" shape="127.74,248.14 132.82,244.07 130.80,239.64 127.70,238.85 123.67,245.34 125.61,247.88">
@@ -66,10 +66,10 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="001"/>
     </junction>
-    <junction id="10732" type="priority" x="159.75" y="301.12" incLanes="4014_0" intLanes="" shape="159.71,301.14 156.76,302.38 162.75,299.86 159.80,301.10">
+    <junction id="10732" type="priority" x="159.75" y="301.12" incLanes="4014_0" intLanes="" shape="159.71,301.14 162.75,299.86 159.80,301.10">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="13439" type="priority" x="0.00" y="260.50" incLanes="-10404_0" intLanes="" shape="0.02,260.47 1.80,257.81 -1.80,263.20 -0.03,260.54">
+    <junction id="13439" type="priority" x="0.00" y="260.50" incLanes="-10404_0" intLanes="" shape="0.02,260.47 1.80,257.81 -1.80,263.20">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="17394" type="priority" x="100.31" y="250.25" incLanes="-10405_0 10404_0" intLanes="" shape="101.86,254.11 102.78,251.04 94.16,245.91 92.21,248.45 91.99,249.89 94.26,255.98">

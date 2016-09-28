@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:04 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:53 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -136,7 +136,7 @@
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>
-    <junction id="54534765" type="dead_end" x="0.00" y="140.79" incLanes="51809012_0" intLanes="" shape="-0.00,140.74 -0.23,137.55 0.23,144.03 0.00,140.84"/>
+    <junction id="54534765" type="dead_end" x="0.00" y="140.79" incLanes="51809012_0" intLanes="" shape="-0.00,140.74 0.23,144.03 0.00,140.84"/>
     <junction id="54534779" type="traffic_light" x="189.92" y="131.42" incLanes="51811859_0 51811859_1 -51809012_0 -763770254_0 -763770254_1" intLanes=":54534779_0_0 :54534779_0_1 :54534779_8_0 :54534779_3_0 :54534779_9_0 :54534779_5_0 :54534779_6_0 :54534779_6_1" shape="196.98,131.04 184.61,126.75 180.05,128.16 180.05,134.66 180.99,136.05 193.13,140.96">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
         <request index="1" response="00000000" foes="00010000" cont="0"/>
@@ -147,9 +147,9 @@
         <request index="6" response="00000000" foes="00011100" cont="0"/>
         <request index="7" response="00000000" foes="00011100" cont="0"/>
     </junction>
-    <junction id="54535534" type="dead_end" x="677.72" y="171.72" incLanes="51812270_0" intLanes="" shape="677.72,171.77 677.48,174.96 677.96,168.48 677.72,171.67"/>
-    <junction id="806373935" type="dead_end" x="237.04" y="0.00" incLanes="-717744589_0 -717744589_1" intLanes="" shape="237.09,0.02 243.20,2.24 230.88,-2.24 236.99,-0.02"/>
-    <junction id="838257708" type="dead_end" x="147.32" y="242.91" incLanes="763770254_0 763770254_1" intLanes="" shape="147.27,242.89 141.17,240.65 153.47,245.17 147.37,242.93"/>
+    <junction id="54535534" type="dead_end" x="677.72" y="171.72" incLanes="51812270_0" intLanes="" shape="677.72,171.77 677.96,168.48 677.72,171.67"/>
+    <junction id="806373935" type="dead_end" x="237.04" y="0.00" incLanes="-717744589_0 -717744589_1" intLanes="" shape="237.09,0.02 230.88,-2.24 236.99,-0.02"/>
+    <junction id="838257708" type="dead_end" x="147.32" y="242.91" incLanes="763770254_0 763770254_1" intLanes="" shape="147.27,242.89 153.47,245.17 147.37,242.93"/>
 
     <junction id=":54534761_8_0" type="internal" x="204.01" y="90.79" incLanes=":54534761_1_0 -51811859_0 -51811859_1" intLanes=":54534761_3_0 :54534761_3_1 :54534761_5_0 :54534761_5_1 :54534761_7_0"/>
     <junction id=":54534761_9_0" type="internal" x="203.56" y="92.34" incLanes=":54534761_7_0 717744589_0 717744589_1" intLanes=":54534761_1_0 :54534761_2_0 :54534761_3_0 :54534761_3_1"/>

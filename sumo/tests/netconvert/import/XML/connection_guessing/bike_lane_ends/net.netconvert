@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:29 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:21 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -81,14 +81,14 @@
         <request index="8" response="0010000000" foes="0010000100"/>
         <request index="9" response="0000000000" foes="0001111100"/>
     </junction>
-    <junction id="2796688606" type="dead_end" x="100.04" y="55.52" incLanes="-77348147_0 -77348147_1" intLanes="" shape="100.00,55.54 94.40,58.43 105.68,52.61 100.08,55.50"/>
+    <junction id="2796688606" type="dead_end" x="100.04" y="55.52" incLanes="-77348147_0 -77348147_1" intLanes="" shape="100.00,55.54 105.68,52.61 100.08,55.50"/>
     <junction id="614674365" type="priority" x="93.56" y="47.36" incLanes="77348147_0 77348147_1 -156364570#0_0 -156364570#0_1 -156364570#0_2" intLanes="" shape="93.51,56.71 102.54,46.94 98.37,41.47 91.49,54.68">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="cluster_1288008787_275525457" type="dead_end" x="112.16" y="3.53" incLanes="25294729#0_0 25294729#0_1" intLanes="" shape="114.65,5.96 118.45,9.66 110.79,2.19 114.58,5.89"/>
-    <junction id="cluster_160503146_2314394457_27411250" type="dead_end" x="0.00" y="0.00" incLanes="156364570#1_0 156364570#1_1 156364570#1_2" intLanes="" shape="0.14,-0.27 3.54,-6.85 -3.30,6.39 0.10,-0.18"/>
+    <junction id="cluster_1288008787_275525457" type="dead_end" x="112.16" y="3.53" incLanes="25294729#0_0 25294729#0_1" intLanes="" shape="114.65,5.96 110.79,2.19 114.58,5.89"/>
+    <junction id="cluster_160503146_2314394457_27411250" type="dead_end" x="0.00" y="0.00" incLanes="156364570#1_0 156364570#1_1 156364570#1_2" intLanes="" shape="0.14,-0.27 -3.30,6.39 0.10,-0.18"/>
 
     <connection from="-156364570#0" to="-77348147" fromLane="2" toLane="1" dir="s" state="M"/>
     <connection from="-156364570#1" to="-156364570#0" fromLane="1" toLane="1" dir="s" state="M"/>

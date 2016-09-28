@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 14:50:34 2016 by SUMO netconvert Version dev-SVN-r21158
+<!-- generated on Wed Sep 28 13:48:40 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -122,13 +122,13 @@
         <lane id="e4_0" index="0" speed="13.89" length="134.11" shape="11779.10,15935.65 11816.03,15986.46 11839.87,16020.35 11848.99,16040.57 11850.07,16048.18"/>
     </edge>
 
-    <junction id="54536750" type="priority" x="11671.30" y="15863.21" incLanes="51812052_0" intLanes=":54536750_0_0" shape="11671.29,15863.16 11670.36,15860.10 11672.24,15866.32 11671.31,15863.26">
+    <junction id="54536750" type="priority" x="11671.30" y="15863.21" incLanes="51812052_0" intLanes=":54536750_0_0" shape="11671.29,15863.16 11672.24,15866.32 11671.31,15863.26">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="54536752" type="priority" x="11718.69" y="15816.38" incLanes="-51811895_0 -51811895_1" intLanes=":54536752_0_0" shape="11718.74,15816.36 11724.82,15814.07 11712.56,15818.69 11718.64,15816.40">
+    <junction id="54536752" type="priority" x="11718.69" y="15816.38" incLanes="-51811895_0 -51811895_1" intLanes=":54536752_0_0" shape="11718.74,15816.36 11712.56,15818.69 11718.64,15816.40">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="54536788" type="priority" x="11838.67" y="16140.50" incLanes="51805615_0" intLanes=":54536788_0_0" shape="11838.62,16140.49 11835.52,16139.69 11841.82,16141.31 11838.72,16140.51">
+    <junction id="54536788" type="priority" x="11838.67" y="16140.50" incLanes="51805615_0" intLanes=":54536788_0_0" shape="11838.62,16140.49 11841.82,16141.31 11838.72,16140.51">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="n0" type="priority" x="11742.85" y="15899.23" incLanes="e0_0" intLanes=":n0_0_0" shape="11741.55,15900.17 11744.29,15898.52 11741.31,15899.68">

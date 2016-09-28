@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:52 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -98,10 +98,10 @@
         <phase duration="4" state="yyyyrrrrr"/>
     </tlLogic>
 
-    <junction id="42726349" type="priority" x="137.80" y="0.00" incLanes="-7144718_0" intLanes=":42726349_0_0" shape="137.85,0.02 140.84,1.15 134.76,-1.15 137.75,-0.02">
+    <junction id="42726349" type="priority" x="137.80" y="0.00" incLanes="-7144718_0" intLanes=":42726349_0_0" shape="137.85,0.02 134.76,-1.15 137.75,-0.02">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="42726840" type="priority" x="73.23" y="16.59" incLanes="-7144720_0" intLanes=":42726840_0_0" shape="73.28,16.61 76.25,17.78 70.21,15.40 73.18,16.57">
+    <junction id="42726840" type="priority" x="73.23" y="16.59" incLanes="-7144720_0" intLanes=":42726840_0_0" shape="73.28,16.61 70.21,15.40 73.18,16.57">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="42727650" type="traffic_light" x="60.22" y="49.52" incLanes="7144718_0 7144720_0 -7144711_0" intLanes=":42727650_0_0 :42727650_1_0 :42727650_9_0 :42727650_3_0 :42727650_4_0 :42727650_10_0 :42727650_6_0 :42727650_11_0 :42727650_12_0" shape="63.69,54.27 65.95,48.18 65.01,46.23 58.97,43.84 55.64,53.22 61.83,55.18">
@@ -115,7 +115,7 @@
         <request index="7" response="000011000" foes="000011110" cont="1"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="42728382" type="priority" x="0.00" y="80.74" incLanes="7144711_0" intLanes=":42728382_0_0" shape="-0.03,80.70 -1.81,78.04 1.81,83.44 0.03,80.78">
+    <junction id="42728382" type="priority" x="0.00" y="80.74" incLanes="7144711_0" intLanes=":42728382_0_0" shape="-0.03,80.70 1.81,83.44 0.03,80.78">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

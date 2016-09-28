@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  9 13:51:02 2016 by SUMO netconvert Version dev-SVN-r20938
+<!-- generated on Wed Sep 28 13:48:24 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -102,16 +102,16 @@
         <request index="20" response="0000000000000111100000" foes="0000000111000111111110"/>
         <request index="21" response="0000000100000111000001" foes="0000000100000111000001"/>
     </junction>
-    <junction id="1" type="priority" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.14,12743.89 39850.43,12753.69 39849.86,12734.00 39850.14,12743.79">
+    <junction id="1" type="priority" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.14,12743.89 39849.86,12734.00 39850.14,12743.79">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="2" type="priority" x="0.00" y="13967.12" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13967.07 -0.32,13957.27 0.32,13976.96 0.00,13967.17">
+    <junction id="2" type="priority" x="0.00" y="13967.12" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13967.07 0.32,13976.96 0.00,13967.17">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="3" type="priority" x="17417.81" y="26514.76" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.76,26514.76 17411.26,26514.97 17427.66,26514.45 17417.86,26514.76">
+    <junction id="3" type="priority" x="17417.81" y="26514.76" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.76,26514.76 17427.66,26514.45 17417.86,26514.76">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16594.80,-0.20 16578.41,0.31 16588.20,0.00">
+    <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16578.41,0.31 16588.20,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 14:50:24 2016 by SUMO netgenerate Version dev-SVN-r21158
+<!-- generated on Wed Sep 28 13:45:01 2016 by SUMO netgenerate Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -2100,7 +2100,7 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="1428" type="priority" x="907.06" y="747.78" incLanes="1429_0" intLanes=":1428_0_0 :1428_1_0 :1428_2_0 :1428_3_0" shape="908.21,752.99 911.35,752.33 912.53,750.80 912.40,747.60 909.94,744.40 907.53,742.29 906.39,741.93 903.21,742.27 902.89,751.21 904.89,753.70">
+    <junction id="1428" type="priority" x="907.06" y="747.78" incLanes="1429_0" intLanes=":1428_0_0 :1428_1_0 :1428_2_0 :1428_3_0" shape="911.35,752.33 912.53,750.80 912.40,747.60 909.94,744.40 907.53,742.29 906.39,741.93 903.21,742.27 902.89,751.21 904.89,753.70">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -2429,7 +2429,7 @@
         <request index="1" response="101" foes="101" cont="0"/>
         <request index="2" response="001" foes="011" cont="1"/>
     </junction>
-    <junction id="331" type="priority" x="909.26" y="1550.48" incLanes="332_0" intLanes=":331_0_0" shape="909.75,1553.77 909.97,1550.57 908.61,1550.78 909.75,1553.77">
+    <junction id="331" type="priority" x="909.26" y="1550.48" incLanes="332_0" intLanes=":331_0_0" shape="909.75,1553.77 909.97,1550.57 908.61,1550.78">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="3327" type="unregulated" x="701.86" y="1705.35" incLanes="3328_0 3907_0" intLanes="" shape="700.84,1710.40 703.67,1708.91 696.61,1709.13 699.53,1710.44"/>

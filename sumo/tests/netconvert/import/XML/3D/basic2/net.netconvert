@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 14:50:29 2016 by SUMO netconvert Version dev-SVN-r21158
+<!-- generated on Wed Sep 28 13:48:19 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,7 +58,7 @@
     <junction id="gneJ4" type="priority" x="393.41" y="100.10" z="80.00" incLanes="gneE3_0" intLanes=":gneJ4_0_0" shape="395.74,97.83,80.00 393.53,100.15,80.00 393.66,103.34,80.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ5" type="priority" x="295.66" y="103.96" z="40.00" incLanes="gneE4_0" intLanes=":gneJ5_0_0" shape="296.33,107.19,40.00 296.20,103.99,40.00 295.17,104.20,40.00 296.33,107.19,40.00">
+    <junction id="gneJ5" type="priority" x="295.66" y="103.96" z="40.00" incLanes="gneE4_0" intLanes=":gneJ5_0_0" shape="296.33,107.19,40.00 296.20,103.99,40.00 295.17,104.20,40.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ6" type="unregulated" x="179.61" y="148.74" incLanes="gneE5_0" intLanes="" shape="180.78,151.77 179.63,148.79"/>

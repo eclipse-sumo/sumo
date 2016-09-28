@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:03 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:50 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -184,10 +184,10 @@
         <request index="18" response="00000111110000011110" foes="00000111111000011110" cont="0"/>
         <request index="19" response="00000111100111111110" foes="00000111100111111110" cont="0"/>
     </junction>
-    <junction id="1" type="dead_end" x="0.00" y="500.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="0.00,499.95 0.00,490.15 0.00,509.85 0.00,500.05"/>
-    <junction id="2" type="dead_end" x="1000.00" y="500.00" incLanes="2o_0 2o_1 2o_2" intLanes="" shape="1000.00,500.05 1000.00,509.85 1000.00,490.15 1000.00,499.95"/>
-    <junction id="3" type="dead_end" x="500.00" y="0.00" incLanes="3o_0 3o_1 3o_2" intLanes="" shape="500.05,0.00 509.85,0.00 490.15,0.00 499.95,0.00"/>
-    <junction id="4" type="dead_end" x="500.00" y="1000.00" incLanes="4o_0 4o_1 4o_2" intLanes="" shape="499.95,1000.00 490.15,1000.00 509.85,1000.00 500.05,1000.00"/>
+    <junction id="1" type="dead_end" x="0.00" y="500.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="0.00,499.95 0.00,509.85 0.00,500.05"/>
+    <junction id="2" type="dead_end" x="1000.00" y="500.00" incLanes="2o_0 2o_1 2o_2" intLanes="" shape="1000.00,500.05 1000.00,490.15 1000.00,499.95"/>
+    <junction id="3" type="dead_end" x="500.00" y="0.00" incLanes="3o_0 3o_1 3o_2" intLanes="" shape="500.05,0.00 490.15,0.00 499.95,0.00"/>
+    <junction id="4" type="dead_end" x="500.00" y="1000.00" incLanes="4o_0 4o_1 4o_2" intLanes="" shape="499.95,1000.00 509.85,1000.00 500.05,1000.00"/>
     <junction id="m1" type="priority" x="250.00" y="500.00" incLanes="1fi_0 1fi_1 1fi_2" intLanes=":m1_0_0 :m1_0_1 :m1_0_2" shape="250.00,499.95 250.00,490.15 250.00,499.95">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>

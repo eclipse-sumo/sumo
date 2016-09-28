@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:04 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:07 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -56,9 +56,9 @@
         <request index="4" response="000000" foes="000010"/>
         <request index="5" response="000000" foes="000010"/>
     </junction>
-    <junction id="E" type="dead_end" x="286.51" y="0.00" incLanes="CE_0 CE_1" intLanes="" shape="286.53,0.05 288.54,6.23 284.48,-6.23 286.49,-0.05"/>
+    <junction id="E" type="dead_end" x="286.51" y="0.00" incLanes="CE_0 CE_1" intLanes="" shape="286.53,0.05 284.48,-6.23 286.49,-0.05"/>
     <junction id="N" type="unregulated" x="235.12" y="110.26" incLanes="" intLanes="" shape="236.72,110.15 233.52,110.37"/>
-    <junction id="W" type="dead_end" x="0.00" y="32.26" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.01,32.21 1.38,22.51 -1.38,42.01 -0.01,32.31"/>
+    <junction id="W" type="dead_end" x="0.00" y="32.26" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.01,32.21 -1.38,42.01 -0.01,32.31"/>
 
     <connection from="EC" to="CW" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="EC" to="CW" fromLane="1" toLane="2" dir="s" state="M"/>

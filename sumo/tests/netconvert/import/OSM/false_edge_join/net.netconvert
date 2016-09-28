@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 13:45:16 2016 by SUMO netconvert Version dev-SVN-r21539
+<!-- generated on Wed Sep 28 13:48:32 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -264,7 +264,7 @@
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
     <junction id="29933586" type="unregulated" x="570.13" y="58.53" incLanes="38006092_0 38006092_1 38006092_2" intLanes="" shape="565.36,59.67 574.89,57.39"/>
-    <junction id="445817289" type="dead_end" x="193.70" y="3420.43" incLanes="6034273#1_0 6034273#1_1" intLanes="" shape="193.75,3420.42 200.05,3418.81 187.36,3422.05 193.65,3420.44"/>
+    <junction id="445817289" type="dead_end" x="193.70" y="3420.43" incLanes="6034273#1_0 6034273#1_1" intLanes="" shape="193.75,3420.42 187.36,3422.05 193.65,3420.44"/>
     <junction id="445851270" type="priority" x="311.76" y="3509.40" incLanes="37961316#0_0 37961316#0_1 37961316#0_2" intLanes=":445851270_0_0 :445851270_0_1 :445851270_0_2 :445851270_3_0" shape="335.49,3499.70 334.10,3496.81 333.87,3496.48 327.40,3489.12 324.85,3493.33 330.77,3501.13">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
@@ -289,7 +289,7 @@
     <junction id="450601651" type="unregulated" x="542.26" y="3387.58" incLanes="38232901_0" intLanes="" shape="543.86,3387.65 540.67,3387.51"/>
     <junction id="450601709" type="unregulated" x="386.44" y="3451.88" incLanes="" intLanes="" shape="385.44,3450.63 387.44,3453.13"/>
     <junction id="452657674" type="unregulated" x="0.00" y="3700.25" incLanes="" intLanes="" shape="2.33,3704.56 -2.33,3695.94"/>
-    <junction id="49609811" type="dead_end" x="507.50" y="3463.87" incLanes="6033364#1_0" intLanes="" shape="507.51,3463.92 508.33,3467.01 506.66,3460.73 507.48,3463.82"/>
+    <junction id="49609811" type="dead_end" x="507.50" y="3463.87" incLanes="6033364#1_0" intLanes="" shape="507.51,3463.92 506.66,3460.73 507.48,3463.82"/>
     <junction id="49613186" type="unregulated" x="597.21" y="0.00" incLanes="" intLanes="" shape="592.49,1.31 601.93,-1.31"/>
     <junction id="49613629" type="priority" x="235.14" y="3590.78" incLanes="6034273#0_0 6034273#0_1 -6033364#0_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_0_0 :49613629_0_1 :49613629_8_0 :49613629_3_0 :49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_6_1" shape="229.24,3594.33 242.00,3591.35 245.26,3587.14 241.32,3581.97 239.81,3581.42 227.01,3584.20">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
@@ -309,8 +309,8 @@
         <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="001100" foes="001110" cont="0"/>
     </junction>
-    <junction id="49615901" type="dead_end" x="449.80" y="3723.41" incLanes="-6040380_0" intLanes="" shape="449.76,3723.44 447.23,3725.40 452.37,3721.42 449.84,3723.38"/>
-    <junction id="49616450" type="dead_end" x="285.10" y="3784.62" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="285.06,3784.63 278.84,3786.54 291.37,3782.70 285.15,3784.60"/>
+    <junction id="49615901" type="dead_end" x="449.80" y="3723.41" incLanes="-6040380_0" intLanes="" shape="449.76,3723.44 452.37,3721.42 449.84,3723.38"/>
+    <junction id="49616450" type="dead_end" x="285.10" y="3784.62" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="285.06,3784.63 291.37,3782.70 285.15,3784.60"/>
 
     <junction id=":49613629_8_0" type="internal" x="235.08" y="3590.16" incLanes=":49613629_2_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_6_1"/>
 

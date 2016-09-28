@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:04 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:07 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -46,7 +46,7 @@
         <lane id="3_0" index="0" allow="ship" speed="2.78" length="269.37" width="7.00" shape="474.19,5.04 452.65,3.57 418.55,8.96 271.25,32.87 239.19,37.44 224.26,43.63"/>
     </edge>
 
-    <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.04,191.08 -5.25,186.41 5.25,195.81 0.04,191.14"/>
+    <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.04,191.08 5.25,195.81 0.04,191.14"/>
     <junction id="C" type="right_before_left" x="180.00" y="58.11" incLanes="2_0 3_0 -1_0" intLanes="" shape="226.85,61.37 225.71,47.31 225.60,46.86 220.20,33.83 218.00,40.15 221.80,53.72">
         <request index="0" response="000000" foes="001000"/>
         <request index="1" response="110000" foes="111000"/>

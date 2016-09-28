@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:04 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:07 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -63,11 +63,11 @@
         <lane id="316746323#3_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="106.50" shape="48.04,136.20 66.70,96.01 84.45,59.09 86.04,53.73 86.04,53.34"/>
     </edge>
 
-    <junction id="2314394457" type="dead_end" x="0.00" y="0.00" incLanes="156364570#1_0 156364570#1_1" intLanes="" shape="0.02,-0.04 2.92,-5.64 -2.92,5.64 -0.02,0.04"/>
-    <junction id="2314394458" type="dead_end" x="49.54" y="136.89" incLanes="-275177453_0 -275177453_1" intLanes="" shape="49.49,136.87 43.78,134.22 55.30,139.56 49.59,136.91"/>
-    <junction id="275525457" type="dead_end" x="101.93" y="0.04" incLanes="25294729#0_0 25294729#0_1" intLanes="" shape="101.97,0.07 105.76,3.78 98.10,-3.70 101.89,0.01"/>
+    <junction id="2314394457" type="dead_end" x="0.00" y="0.00" incLanes="156364570#1_0 156364570#1_1" intLanes="" shape="0.02,-0.04 -2.92,5.64 -0.02,0.04"/>
+    <junction id="2314394458" type="dead_end" x="49.54" y="136.89" incLanes="-275177453_0 -275177453_1" intLanes="" shape="49.49,136.87 55.30,139.56 49.59,136.91"/>
+    <junction id="275525457" type="dead_end" x="101.93" y="0.04" incLanes="25294729#0_0 25294729#0_1" intLanes="" shape="101.97,0.07 98.10,-3.70 101.89,0.01"/>
     <junction id="614672638" type="dead_end" x="103.12" y="51.05" incLanes="-234463925#0_0 -234463925#0_1 25294728_0" intLanes="" shape="93.90,52.23 98.91,42.77 91.43,48.18 91.09,51.36"/>
-    <junction id="cluster_1275468904_2425782615_887148902" type="dead_end" x="254.01" y="161.48" incLanes="234463931_0 234463931_1" intLanes="" shape="255.64,159.68 252.08,163.60 259.27,155.68 255.71,159.61"/>
+    <junction id="cluster_1275468904_2425782615_887148902" type="dead_end" x="254.01" y="161.48" incLanes="234463931_0 234463931_1" intLanes="" shape="255.64,159.68 259.27,155.68 255.71,159.61"/>
     <junction id="cluster_275525455_2796688606_614674365" type="priority" x="79.00" y="41.71" incLanes="316746323#3_0 316746323#3_1 -25294729#0_0 -25294729#0_1 -156364570#1_0 -156364570#1_1" intLanes="" shape="81.23,53.44 94.03,53.18 95.49,51.84 95.84,48.66 76.61,33.65 68.95,26.17 66.56,26.58 60.88,37.93">
         <request index="0" response="000000" foes="001000"/>
         <request index="1" response="110000" foes="111000"/>

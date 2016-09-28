@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 12:27:03 2016 by SUMO netconvert Version dev-SVN-r21158
+<!-- generated on Wed Sep 28 13:53:04 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -368,7 +368,7 @@
         <request index="12" response="00000000000000" foes="00000111111000" cont="0"/>
         <request index="13" response="00000000000000" foes="00000111111000" cont="0"/>
     </junction>
-    <junction id="91" type="dead_end" x="0.00" y="1000.00" incLanes="D1_0 D1_1 D1_2" intLanes="" shape="0.00,999.95 0.00,993.45 0.00,1009.85 0.00,1000.05"/>
+    <junction id="91" type="dead_end" x="0.00" y="1000.00" incLanes="D1_0 D1_1 D1_2" intLanes="" shape="0.00,999.95 0.00,1009.85 0.00,1000.05"/>
     <junction id="911" type="priority" x="500.00" y="1000.00" incLanes="L1_0 L1_1 L1_2 D2_0 D2_1" intLanes=":911_0_0 :911_0_1 :911_0_2 :911_3_0 :911_3_1" shape="500.00,1009.85 500.00,993.45 500.00,1009.85">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
@@ -397,9 +397,9 @@
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="92" type="dead_end" x="0.00" y="0.00" incLanes="D3_0 D3_1 D3_2" intLanes="" shape="0.00,-0.05 0.00,-6.55 0.00,9.85 0.00,0.05"/>
-    <junction id="93" type="dead_end" x="4000.00" y="0.00" incLanes="D5_0 D5_1 D5_2" intLanes="" shape="4000.00,0.05 4000.00,6.55 4000.00,-9.85 4000.00,-0.05"/>
-    <junction id="94" type="dead_end" x="4000.00" y="1000.00" incLanes="D7_0 D7_1 D7_2" intLanes="" shape="4000.00,1000.05 4000.00,1006.55 4000.00,990.15 4000.00,999.95"/>
+    <junction id="92" type="dead_end" x="0.00" y="0.00" incLanes="D3_0 D3_1 D3_2" intLanes="" shape="0.00,-0.05 0.00,9.85 0.00,0.05"/>
+    <junction id="93" type="dead_end" x="4000.00" y="0.00" incLanes="D5_0 D5_1 D5_2" intLanes="" shape="4000.00,0.05 4000.00,-9.85 4000.00,-0.05"/>
+    <junction id="94" type="dead_end" x="4000.00" y="1000.00" incLanes="D7_0 D7_1 D7_2" intLanes="" shape="4000.00,1000.05 4000.00,990.15 4000.00,999.95"/>
 
     <junction id=":3_15_0" type="internal" x="2004.02" y="0.05" incLanes=":3_12_0 L17_0 L17_1 L17_2" intLanes=":3_1_0 :3_1_1 :3_3_0 :3_3_1 :3_3_2 :3_6_0 :3_6_1 :3_6_2"/>
     <junction id=":3_16_0" type="internal" x="2001.43" y="0.05" incLanes=":3_12_1 L17_0 L17_1 L17_2" intLanes=":3_1_0 :3_1_1 :3_3_0 :3_3_1 :3_3_2 :3_6_0 :3_6_1 :3_6_2"/>

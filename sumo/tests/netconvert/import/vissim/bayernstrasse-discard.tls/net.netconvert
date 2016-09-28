@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:21:05 2016 by SUMO netconvert Version dev-SVN-r21544
+<!-- generated on Wed Sep 28 13:48:23 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1001,7 +1001,7 @@
     </junction>
     <junction id="42-DestinationNode" type="unregulated" x="1391.70" y="1641.61" incLanes="42_0" intLanes="" shape="1390.78,1642.92 1392.61,1640.29"/>
     <junction id="42-SourceNode" type="unregulated" x="1410.10" y="1654.40" incLanes="" intLanes="" shape="1411.01,1653.08 1409.18,1655.71"/>
-    <junction id="43" type="priority" x="1715.44" y="1833.02" incLanes="92_0" intLanes="" shape="1713.67,1833.32 1716.24,1831.41 1715.87,1831.00 1713.67,1833.32">
+    <junction id="43" type="priority" x="1715.44" y="1833.02" incLanes="92_0" intLanes="" shape="1713.67,1833.32 1716.24,1831.41 1715.87,1831.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="43-DestinationNode" type="unregulated" x="1410.32" y="1652.24" incLanes="43_0" intLanes="" shape="1411.22,1650.92 1409.41,1653.55"/>

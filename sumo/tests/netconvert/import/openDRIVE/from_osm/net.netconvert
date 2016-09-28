@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  8 15:44:53 2016 by SUMO netconvert Version dev-SVN-r21134
+<!-- generated on Wed Sep 28 13:48:35 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -120,7 +120,7 @@
         <lane id="25722927#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="131.19" shape="126.40,326.62 6.22,294.80 -0.42,293.05"/>
     </edge>
 
-    <junction id="266699840" type="priority" x="221.83" y="0.00" incLanes="-24526820_0" intLanes=":266699840_0_0" shape="221.88,0.01 224.96,0.87 218.70,-0.87 221.78,-0.01">
+    <junction id="266699840" type="priority" x="221.83" y="0.00" incLanes="-24526820_0" intLanes=":266699840_0_0" shape="221.88,0.01 218.70,-0.87 221.78,-0.01">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="266699841" type="right_before_left" x="131.37" y="326.23" incLanes="25722927#0_0 24526820_0 -25722927#1_0" intLanes=":266699841_0_0 :266699841_1_0 :266699841_2_0 :266699841_3_0 :266699841_4_0 :266699841_5_0 :266699841_6_0 :266699841_7_0 :266699841_8_0" shape="135.14,330.61 136.83,324.34 135.78,322.50 129.52,320.76 127.65,321.89 125.99,328.17">
@@ -134,10 +134,10 @@
         <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="266699842" type="priority" x="236.27" y="354.45" incLanes="-25722927#0_0" intLanes=":266699842_0_0" shape="236.26,354.50 235.43,357.59 237.12,351.31 236.29,354.41">
+    <junction id="266699842" type="priority" x="236.27" y="354.45" incLanes="-25722927#0_0" intLanes=":266699842_0_0" shape="236.26,354.50 237.12,351.31 236.29,354.41">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="267181943" type="priority" x="0.00" y="291.45" incLanes="25722927#1_0" intLanes=":267181943_0_0" shape="0.01,291.41 0.83,288.31 -0.83,294.60 -0.01,291.50">
+    <junction id="267181943" type="priority" x="0.00" y="291.45" incLanes="25722927#1_0" intLanes=":267181943_0_0" shape="0.01,291.41 -0.83,294.60 -0.01,291.50">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

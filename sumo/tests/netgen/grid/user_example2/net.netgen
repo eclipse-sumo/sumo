@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:46 2016 by SUMO netgenerate Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:44:54 2016 by SUMO netgenerate Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -8625,7 +8625,7 @@
         <request index="13" response="000000000000000" foes="000000111111000" cont="0"/>
         <request index="14" response="000000110000111" foes="000000110000111" cont="1"/>
     </junction>
-    <junction id="19/0" type="priority" x="3800.00" y="0.00" incLanes="19/1to19/0_0 19/1to19/0_1 19/1to19/0_2 18/0to19/0_0 18/0to19/0_1 18/0to19/0_2" intLanes=":19/0_0_0 :19/0_0_1 :19/0_0_2 :19/0_8_0 :19/0_4_0 :19/0_4_1 :19/0_4_2 :19/0_9_0" shape="3790.15,9.85 3809.85,9.85 3790.15,-9.85 3790.15,9.85">
+    <junction id="19/0" type="priority" x="3800.00" y="0.00" incLanes="19/1to19/0_0 19/1to19/0_1 19/1to19/0_2 18/0to19/0_0 18/0to19/0_1 18/0to19/0_2" intLanes=":19/0_0_0 :19/0_0_1 :19/0_0_2 :19/0_8_0 :19/0_4_0 :19/0_4_1 :19/0_4_2 :19/0_9_0" shape="3790.15,9.85 3809.85,9.85 3790.15,-9.85">
         <request index="0" response="00000000" foes="10000000" cont="0"/>
         <request index="1" response="00000000" foes="10000000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>

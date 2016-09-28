@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:35 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:39 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -96,7 +96,7 @@
         <request index="4" response="000000" foes="000000"/>
         <request index="5" response="000000" foes="000000"/>
     </junction>
-    <junction id="3264787534" type="priority" x="497.90" y="0.00" incLanes="-319975948_0" intLanes="" shape="497.95,0.01 501.06,0.78 494.74,-0.78 497.85,-0.01">
+    <junction id="3264787534" type="priority" x="497.90" y="0.00" incLanes="-319975948_0" intLanes="" shape="497.95,0.01 494.74,-0.78 497.85,-0.01">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="3264787538" type="priority" x="125.96" y="703.91" incLanes="319975948_0 131892063#3_0 131892063#3_1" intLanes="" shape="145.77,706.59 145.00,686.90 144.43,685.79 139.33,681.75 122.84,700.78 123.09,707.28">
@@ -112,7 +112,7 @@
     </junction>
     <junction id="3290374726" type="unregulated" x="678.53" y="670.14" incLanes="303075085#0_0 303075085#0_1" intLanes="" shape="678.31,666.90 678.75,673.38"/>
     <junction id="cluster_2061153200_2697471160" type="unregulated" x="0.83" y="717.01" incLanes="" intLanes="" shape="0.64,712.09 0.38,705.59"/>
-    <junction id="cluster_2697471162_2697471163" type="priority" x="146.14" y="711.74" incLanes="131892063#4_0 131892063#4_1 131892063#4_2 131892063#4_3 131892063#4_4 131892063#4_5" intLanes="" shape="151.68,706.36 150.90,686.67 151.67,706.36">
+    <junction id="cluster_2697471162_2697471163" type="priority" x="146.14" y="711.74" incLanes="131892063#4_0 131892063#4_1 131892063#4_2 131892063#4_3 131892063#4_4 131892063#4_5" intLanes="" shape="151.69,706.36 150.90,686.67 151.67,706.36">
         <request index="0" response="000000" foes="000000"/>
         <request index="1" response="000000" foes="000000"/>
         <request index="2" response="000000" foes="000000"/>

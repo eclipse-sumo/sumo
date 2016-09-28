@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 11:49:40 2016 by SUMO netconvert Version dev-SVN-r21158
+<!-- generated on Wed Sep 28 13:48:19 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -187,10 +187,10 @@
         <request index="10" response="000111000110" foes="000111100110" cont="0"/>
         <request index="11" response="000110011110" foes="000110011110" cont="0"/>
     </junction>
-    <junction id="1" type="dead_end" x="0.00" y="185.80" incLanes="1fo_0" intLanes="" shape="0.00,185.75 0.23,182.56 -0.23,189.04 -0.00,185.85"/>
-    <junction id="2" type="dead_end" x="400.00" y="214.20" incLanes="2fo_0" intLanes="" shape="400.00,214.25 399.77,217.44 400.23,210.96 400.00,214.15"/>
-    <junction id="3" type="dead_end" x="214.20" y="0.00" incLanes="3fo_0" intLanes="" shape="214.25,0.00 217.44,0.23 210.96,-0.23 214.15,-0.00"/>
-    <junction id="4" type="dead_end" x="185.80" y="400.00" incLanes="4fo_0" intLanes="" shape="185.75,400.00 182.56,399.77 189.04,400.23 185.85,400.00"/>
+    <junction id="1" type="dead_end" x="0.00" y="185.80" incLanes="1fo_0" intLanes="" shape="0.00,185.75 -0.23,189.04 -0.00,185.85"/>
+    <junction id="2" type="dead_end" x="400.00" y="214.20" incLanes="2fo_0" intLanes="" shape="400.00,214.25 400.23,210.96 400.00,214.15"/>
+    <junction id="3" type="dead_end" x="214.20" y="0.00" incLanes="3fo_0" intLanes="" shape="214.25,0.00 210.96,-0.23 214.15,-0.00"/>
+    <junction id="4" type="dead_end" x="185.80" y="400.00" incLanes="4fo_0" intLanes="" shape="185.75,400.00 189.04,400.23 185.85,400.00"/>
     <junction id="m1" type="priority" x="50.00" y="189.35" incLanes="1o_0 1fi_0" intLanes=":m1_0_0 :m1_1_0 :m1_1_1 :m1_1_2" shape="51.27,192.70 52.19,179.63 48.73,186.00 48.27,192.49">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>

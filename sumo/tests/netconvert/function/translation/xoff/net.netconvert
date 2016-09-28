@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:36 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:41 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -98,16 +98,16 @@
         <request index="14" response="0000011000110110" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="1" type="priority" x="-400.00" y="0.00" incLanes="1o_0" intLanes="" shape="-400.00,-0.05 -400.00,-6.55 -400.00,3.25 -400.00,0.05">
+    <junction id="1" type="priority" x="-400.00" y="0.00" incLanes="1o_0" intLanes="" shape="-400.00,-0.05 -400.00,3.25 -400.00,0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="2" type="priority" x="600.00" y="0.00" incLanes="2o_0" intLanes="" shape="600.00,0.05 600.00,6.55 600.00,-3.25 600.00,-0.05">
+    <junction id="2" type="priority" x="600.00" y="0.00" incLanes="2o_0" intLanes="" shape="600.00,0.05 600.00,-3.25 600.00,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="3" type="priority" x="100.00" y="-500.00" incLanes="3o_0" intLanes="" shape="100.05,-500.00 106.55,-500.00 96.75,-500.00 99.95,-500.00">
+    <junction id="3" type="priority" x="100.00" y="-500.00" incLanes="3o_0" intLanes="" shape="100.05,-500.00 96.75,-500.00 99.95,-500.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="4" type="priority" x="100.00" y="500.00" incLanes="4o_0" intLanes="" shape="99.95,500.00 93.45,500.00 103.25,500.00 100.05,500.00">
+    <junction id="4" type="priority" x="100.00" y="500.00" incLanes="4o_0" intLanes="" shape="99.95,500.00 103.25,500.00 100.05,500.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="m1" type="priority" x="-150.00" y="0.00" incLanes="1fi_0 1fi_1" intLanes="" shape="-148.50,-0.05 -148.50,-9.85 -151.50,-6.55 -151.50,-0.05">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 13:45:21 2016 by SUMO netconvert Version dev-SVN-r21539
+<!-- generated on Wed Sep 28 13:48:51 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -249,7 +249,7 @@
         <request index="1" response="000" foes="001"/>
         <request index="2" response="000" foes="001"/>
     </junction>
-    <junction id="1610102670" type="priority" x="335.79" y="215.42" incLanes="-23543117#0_0" intLanes="" shape="335.83,215.45 338.59,217.07 332.98,213.78 335.74,215.40">
+    <junction id="1610102670" type="priority" x="335.79" y="215.42" incLanes="-23543117#0_0" intLanes="" shape="335.83,215.45 332.98,213.78 335.74,215.40">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1638951669" type="traffic_light" x="306.36" y="130.47" incLanes="151057664#0_0 66598973#1_0 66598973#1_1 66598973#1_2" intLanes="" shape="301.50,133.18 306.79,124.93 303.44,118.95 300.47,120.14 299.75,120.76 294.69,129.15">
@@ -287,7 +287,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="32949992" type="traffic_light" x="145.01" y="173.17" incLanes="198188181#0_0 198188181#0_1" intLanes="" shape="144.74,176.42 145.81,170.01 144.75,169.92 144.74,176.42">
+    <junction id="32949992" type="traffic_light" x="145.01" y="173.17" incLanes="198188181#0_0 198188181#0_1" intLanes="" shape="144.74,176.42 145.81,170.01 144.75,169.92">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
@@ -320,7 +320,7 @@
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="474459" type="unregulated" x="364.54" y="167.78" incLanes="66598973#3_0 66598973#3_1 66598973#3_2" intLanes="" shape="367.19,163.65 361.90,171.90"/>
-    <junction id="713758579" type="traffic_light" x="152.27" y="184.49" incLanes="23714484_0 23714484_1" intLanes="" shape="151.49,187.66 153.73,181.56 152.36,181.22 151.49,187.66">
+    <junction id="713758579" type="traffic_light" x="152.27" y="184.49" incLanes="23714484_0 23714484_1" intLanes="" shape="151.49,187.66 153.73,181.56 152.36,181.22">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

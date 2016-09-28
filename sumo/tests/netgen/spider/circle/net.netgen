@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 14:45:32 2016 by SUMO netgenerate Version dev-SVN-r21158
+<!-- generated on Wed Sep 28 13:44:57 2016 by SUMO netgenerate Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -346,25 +346,25 @@
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="10/1" type="priority" x="61.63" y="5.77" incLanes="11/1to10/1_0 9/1to10/1_0" intLanes=":10/1_0_0 :10/1_4_0 :10/1_2_0 :10/1_5_0" shape="62.82,8.90 62.04,2.45 59.13,3.55 62.82,8.90">
+    <junction id="10/1" type="priority" x="61.63" y="5.77" incLanes="11/1to10/1_0 9/1to10/1_0" intLanes=":10/1_0_0 :10/1_4_0 :10/1_2_0 :10/1_5_0" shape="62.82,8.90 62.04,2.45 59.13,3.55">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="11/1" type="priority" x="109.15" y="0.00" incLanes="12/1to11/1_0 10/1to11/1_0" intLanes=":11/1_0_0 :11/1_4_0 :11/1_2_0 :11/1_5_0" shape="108.74,3.32 111.05,-2.75 107.96,-3.13 108.74,3.32">
+    <junction id="11/1" type="priority" x="109.15" y="0.00" incLanes="12/1to11/1_0 10/1to11/1_0" intLanes=":11/1_0_0 :11/1_4_0 :11/1_2_0 :11/1_5_0" shape="108.74,3.32 111.05,-2.75 107.96,-3.13">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="12/1" type="priority" x="153.90" y="16.97" incLanes="13/1to12/1_0 11/1to12/1_0" intLanes=":12/1_0_0 :12/1_4_0 :12/1_2_0 :12/1_5_0" shape="152.00,19.73 156.86,15.42 154.30,13.65 152.00,19.73">
+    <junction id="12/1" type="priority" x="153.90" y="16.97" incLanes="13/1to12/1_0 11/1to12/1_0" intLanes=":12/1_0_0 :12/1_4_0 :12/1_2_0 :12/1_5_0" shape="152.00,19.73 156.86,15.42 154.30,13.65">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="13/1" type="priority" x="185.64" y="52.80" incLanes="1/1to13/1_0 12/1to13/1_0" intLanes=":13/1_0_0 :13/1_4_0 :13/1_2_0 :13/1_5_0" shape="182.68,54.35 188.99,52.80 187.54,50.04 182.68,54.35">
+    <junction id="13/1" type="priority" x="185.64" y="52.80" incLanes="1/1to13/1_0 12/1to13/1_0" intLanes=":13/1_0_0 :13/1_4_0 :13/1_2_0 :13/1_5_0" shape="182.68,54.35 188.99,52.80 187.54,50.04">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
@@ -412,7 +412,7 @@
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="9/1" type="priority" x="22.24" y="32.96" incLanes="10/1to9/1_0 8/1to9/1_0" intLanes=":9/1_0_0 :9/1_4_0 :9/1_2_0 :9/1_5_0" shape="24.75,35.18 21.06,29.83 18.99,32.16 24.75,35.18">
+    <junction id="9/1" type="priority" x="22.24" y="32.96" incLanes="10/1to9/1_0 8/1to9/1_0" intLanes=":9/1_0_0 :9/1_4_0 :9/1_2_0 :9/1_5_0" shape="24.75,35.18 21.06,29.83 18.99,32.16">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>

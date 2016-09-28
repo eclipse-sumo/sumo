@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:04 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:06 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -75,9 +75,9 @@
         <request index="4" response="000010" foes="000010" cont="0"/>
         <request index="5" response="001110" foes="001110" cont="0"/>
     </junction>
-    <junction id="2" type="dead_end" x="50.00" y="50.00" incLanes="2o_0" intLanes="" shape="50.00,50.05 50.00,53.25 50.00,46.75 50.00,49.95"/>
-    <junction id="3" type="dead_end" x="0.00" y="0.00" incLanes="3o_0" intLanes="" shape="0.05,0.00 3.25,0.00 -3.25,0.00 -0.05,0.00"/>
-    <junction id="4" type="dead_end" x="0.00" y="100.00" incLanes="4o_0" intLanes="" shape="-0.05,100.00 -3.25,100.00 3.25,100.00 0.05,100.00"/>
+    <junction id="2" type="dead_end" x="50.00" y="50.00" incLanes="2o_0" intLanes="" shape="50.00,50.05 50.00,46.75 50.00,49.95"/>
+    <junction id="3" type="dead_end" x="0.00" y="0.00" incLanes="3o_0" intLanes="" shape="0.05,0.00 -3.25,0.00 -0.05,0.00"/>
+    <junction id="4" type="dead_end" x="0.00" y="100.00" incLanes="4o_0" intLanes="" shape="-0.05,100.00 3.25,100.00 0.05,100.00"/>
 
     <junction id=":0_6_0" type="internal" x="1.42" y="50.93" incLanes=":0_3_0 4i_0" intLanes=":0_0_0 :0_1_0 :0_5_0"/>
 

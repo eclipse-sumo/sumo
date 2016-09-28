@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:57 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:29 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -121,10 +121,10 @@
         <request index="12" response="00011110001110" foes="00011111001110" cont="0"/>
         <request index="13" response="00011100111110" foes="00011100111110" cont="0"/>
     </junction>
-    <junction id="E" type="dead_end" x="200.00" y="-100.00" incLanes="CE_0" intLanes="" shape="200.00,-100.05 200.00,-103.25 200.00,-96.75 200.00,-99.95"/>
-    <junction id="N" type="dead_end" x="100.00" y="0.00" incLanes="CN_0 CN_1" intLanes="" shape="100.05,-0.00 106.55,-0.00 93.45,-0.00 99.95,-0.00"/>
-    <junction id="S" type="dead_end" x="100.00" y="-200.00" incLanes="CS_0 CS_1" intLanes="" shape="99.95,-200.00 93.45,-200.00 106.55,-200.00 100.05,-200.00"/>
-    <junction id="W" type="dead_end" x="0.00" y="-100.00" incLanes="CW_0" intLanes="" shape="0.00,-99.95 0.00,-96.75 0.00,-103.25 0.00,-100.05"/>
+    <junction id="E" type="dead_end" x="200.00" y="-100.00" incLanes="CE_0" intLanes="" shape="200.00,-100.05 200.00,-96.75 200.00,-99.95"/>
+    <junction id="N" type="dead_end" x="100.00" y="0.00" incLanes="CN_0 CN_1" intLanes="" shape="100.05,-0.00 93.45,-0.00 99.95,-0.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="-200.00" incLanes="CS_0 CS_1" intLanes="" shape="99.95,-200.00 106.55,-200.00 100.05,-200.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="-100.00" incLanes="CW_0" intLanes="" shape="0.00,-99.95 0.00,-103.25 0.00,-100.05"/>
 
     <junction id=":C_14_0" type="internal" x="100.05" y="-100.75" incLanes=":C_3_0 NC_0 NC_1" intLanes=":C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_8_1 :C_12_0 :C_13_0"/>
     <junction id=":C_15_0" type="internal" x="99.95" y="-99.25" incLanes=":C_10_0 SC_0 SC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_5_0 :C_6_0 :C_12_0 :C_13_0"/>

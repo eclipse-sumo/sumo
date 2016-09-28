@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:41 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:53 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,7 +39,7 @@
         <lane id="osgb4000000025305634_1" index="1" speed="13.40" length="297.43" shape="76.16,104.27 78.40,95.61 80.40,86.58 83.43,76.48 88.10,63.55 90.40,56.58 93.39,41.62 96.46,30.37 101.60,21.12 111.51,7.24 112.40,4.58 112.99,1.65 111.50,1.65 108.95,3.35 105.12,6.23 104.43,6.98 81.75,25.86"/>
     </edge>
 
-    <junction id="osgb4000000025275959" type="priority" x="79.00" y="26.00" incLanes="osgb4000000025305634_0 osgb4000000025305634_1" intLanes="" shape="84.88,29.63 80.72,24.63 78.55,28.15 84.88,29.63">
+    <junction id="osgb4000000025275959" type="priority" x="79.00" y="26.00" incLanes="osgb4000000025305634_0 osgb4000000025305634_1" intLanes="" shape="84.88,29.63 80.72,24.63 78.55,28.15">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

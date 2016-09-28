@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:28 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:19 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -90,7 +90,7 @@
         <lane id="gneE7_0" index="0" speed="13.89" length="95.77" shape="95.25,1.65,10.00 0.00,1.65"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="gneE7_0" intLanes=":gneJ0_0_0" shape="0.00,-0.05 0.00,-3.25 0.00,3.25 0.00,0.05"/>
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="gneE7_0" intLanes=":gneJ0_0_0" shape="0.00,-0.05 0.00,3.25 0.00,0.05"/>
     <junction id="gneJ1" type="priority" x="100.00" y="0.00" z="10.00" incLanes="gneE5_0 gneE6_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_9_0 :gneJ1_6_0 :gneJ1_10_0 :gneJ1_11_0" shape="96.75,4.75,10.00 103.25,4.75,10.00 104.75,3.25,10.00 104.75,-3.25,10.00 95.25,-3.25,10.00 95.25,3.25,10.00">
         <request index="0" response="000010000" foes="100010000" cont="0"/>
         <request index="1" response="011010000" foes="011110000" cont="0"/>
@@ -102,8 +102,8 @@
         <request index="7" response="000011000" foes="000011110" cont="1"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="200.00" y="0.00" incLanes="gneE1_0" intLanes=":gneJ3_0_0" shape="200.00,0.05 200.00,3.25 200.00,-3.25 200.00,-0.05"/>
-    <junction id="gneJ4" type="unregulated" x="100.00" y="100.00" incLanes="gneE2_0" intLanes=":gneJ4_0_0" shape="99.95,100.00 96.75,100.00 103.25,100.00 100.05,100.00"/>
+    <junction id="gneJ3" type="unregulated" x="200.00" y="0.00" incLanes="gneE1_0" intLanes=":gneJ3_0_0" shape="200.00,0.05 200.00,-3.25 200.00,-0.05"/>
+    <junction id="gneJ4" type="unregulated" x="100.00" y="100.00" incLanes="gneE2_0" intLanes=":gneJ4_0_0" shape="99.95,100.00 103.25,100.00 100.05,100.00"/>
 
     <junction id=":gneJ1_9_0" type="internal" x="103.10" y="0.00" z="10.00" incLanes=":gneJ1_5_0 gneE0_0 gneE5_0" intLanes=":gneJ1_1_0 :gneJ1_6_0"/>
     <junction id=":gneJ1_10_0" type="internal" x="100.11" y="0.05" z="10.00" incLanes=":gneJ1_7_0 gneE6_0" intLanes=":gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0"/>

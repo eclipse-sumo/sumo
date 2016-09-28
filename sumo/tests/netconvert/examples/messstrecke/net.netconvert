@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:51 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Wed Sep 28 13:48:08 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -344,12 +344,12 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="AltglienickerSinkEnd" type="dead_end" x="1908.47" y="0.00" incLanes="AltglienickerSinkS_0" intLanes="" shape="1908.52,0.00 1911.72,0.00 1905.22,0.00 1908.42,0.00"/>
+    <junction id="AltglienickerSinkEnd" type="dead_end" x="1908.47" y="0.00" incLanes="AltglienickerSinkS_0" intLanes="" shape="1908.52,0.00 1905.22,0.00 1908.42,0.00"/>
     <junction id="EinsteinEnd" type="priority" x="294.91" y="300.00" incLanes="EinsteinSinkS_0 EinsteinN_0" intLanes=":EinsteinEnd_0_0 :EinsteinEnd_1_0" shape="291.66,300.00 298.16,300.00 291.66,300.00">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="EinsteinSinkEnd" type="dead_end" x="294.91" y="400.00" incLanes="EinsteinSinkN_0" intLanes="" shape="294.87,400.00 291.66,400.00 298.16,400.00 294.96,400.00"/>
+    <junction id="EinsteinSinkEnd" type="dead_end" x="294.91" y="400.00" incLanes="EinsteinSinkN_0" intLanes="" shape="294.87,400.00 298.16,400.00 294.96,400.00"/>
     <junction id="ErnstRuskaAltglienicker" type="traffic_light" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_0_1 :ErnstRuskaAltglienicker_8_0 :ErnstRuskaAltglienicker_3_0 :ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1" shape="1916.52,209.85 1916.52,193.45 1915.02,191.95 1905.22,191.95 1903.72,193.45 1903.72,206.55">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
         <request index="1" response="00000000" foes="00010000" cont="0"/>
@@ -407,8 +407,8 @@
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaSink1" type="dead_end" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="0.00,199.95 0.00,193.45 0.00,206.55 0.00,200.05"/>
-    <junction id="ErnstRuskaSink2" type="dead_end" x="2125.42" y="200.00" incLanes="ErnstRuskaSink5O_0 ErnstRuskaSink5O_1" intLanes="" shape="2125.42,200.05 2125.42,206.55 2125.42,193.45 2125.42,199.95"/>
+    <junction id="ErnstRuskaSink1" type="dead_end" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="0.00,199.95 0.00,206.55 0.00,200.05"/>
+    <junction id="ErnstRuskaSink2" type="dead_end" x="2125.42" y="200.00" incLanes="ErnstRuskaSink5O_0 ErnstRuskaSink5O_1" intLanes="" shape="2125.42,200.05 2125.42,193.45 2125.42,199.95"/>
     <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes=":ErnstRuskaVolmer_0_0 :ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1 :ErnstRuskaVolmer_5_0 :ErnstRuskaVolmer_5_1 :ErnstRuskaVolmer_8_0" shape="1581.50,208.05 1588.00,208.05 1589.50,206.55 1589.50,193.45 1580.00,193.45 1580.00,206.55">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
@@ -425,12 +425,12 @@
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="HavestadtSinkEnd" type="dead_end" x="1015.25" y="400.00" incLanes="HavestadtSinkN_0 HavestadtSinkN_1" intLanes="" shape="1015.20,400.00 1008.70,400.00 1021.80,400.00 1015.30,400.00"/>
+    <junction id="HavestadtSinkEnd" type="dead_end" x="1015.25" y="400.00" incLanes="HavestadtSinkN_0 HavestadtSinkN_1" intLanes="" shape="1015.20,400.00 1021.80,400.00 1015.30,400.00"/>
     <junction id="VolmerEnd" type="priority" x="1584.75" y="300.00" incLanes="VolmerSinkS_0 VolmerN_0" intLanes=":VolmerEnd_0_0 :VolmerEnd_1_0" shape="1581.50,300.00 1588.00,300.00 1581.50,300.00">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="VolmerSinkEnd" type="dead_end" x="1584.75" y="400.00" incLanes="VolmerSinkN_0" intLanes="" shape="1584.70,400.00 1581.50,400.00 1588.00,400.00 1584.80,400.00"/>
+    <junction id="VolmerSinkEnd" type="dead_end" x="1584.75" y="400.00" incLanes="VolmerSinkN_0" intLanes="" shape="1584.70,400.00 1588.00,400.00 1584.80,400.00"/>
 
     <junction id=":ErnstRuskaAltglienicker_8_0" type="internal" x="1910.45" y="199.95" incLanes=":ErnstRuskaAltglienicker_2_0 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1"/>
     <junction id=":ErnstRuskaEinstein_8_0" type="internal" x="294.17" y="200.05" incLanes=":ErnstRuskaEinstein_7_0 ErnstRuska2W_0 ErnstRuska2W_1" intLanes=":ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1"/>

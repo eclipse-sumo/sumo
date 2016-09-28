@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 13:45:21 2016 by SUMO netconvert Version dev-SVN-r21539
+<!-- generated on Wed Sep 28 13:48:50 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -267,7 +267,7 @@
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
     <junction id="29933586" type="unregulated" x="4483.33" y="-304.40" incLanes="38006092_0 38006092_1 38006092_2" intLanes="" shape="4478.56,-303.27 4488.10,-305.54"/>
-    <junction id="445817289" type="dead_end" x="4106.91" y="3057.50" incLanes="6034273#1_0 6034273#1_1" intLanes="" shape="4106.95,3057.48 4113.25,3055.87 4100.56,3059.12 4106.86,3057.51"/>
+    <junction id="445817289" type="dead_end" x="4106.91" y="3057.50" incLanes="6034273#1_0 6034273#1_1" intLanes="" shape="4106.95,3057.48 4100.56,3059.12 4106.86,3057.51"/>
     <junction id="445851270" type="priority" x="4224.96" y="3146.47" incLanes="37961316#0_0 37961316#0_1 37961316#0_2" intLanes=":445851270_0_0 :445851270_0_1 :445851270_0_2 :445851270_3_0" shape="4248.69,3136.76 4247.30,3133.88 4247.08,3133.54 4240.60,3126.19 4238.05,3130.39 4243.97,3138.20">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
@@ -292,7 +292,7 @@
     <junction id="450601651" type="unregulated" x="4455.47" y="3024.65" incLanes="38232901_0" intLanes="" shape="4457.07,3024.72 4453.87,3024.58"/>
     <junction id="450601709" type="unregulated" x="4299.64" y="3088.94" incLanes="" intLanes="" shape="4298.65,3087.69 4300.64,3090.19"/>
     <junction id="452657674" type="unregulated" x="3913.20" y="3337.32" incLanes="" intLanes="" shape="3915.54,3341.63 3910.87,3333.01"/>
-    <junction id="49609811" type="dead_end" x="4420.70" y="3100.94" incLanes="6033364#1_0" intLanes="" shape="4420.71,3100.99 4421.53,3104.08 4419.87,3097.80 4420.69,3100.89"/>
+    <junction id="49609811" type="dead_end" x="4420.70" y="3100.94" incLanes="6033364#1_0" intLanes="" shape="4420.71,3100.99 4419.87,3097.80 4420.69,3100.89"/>
     <junction id="49613186" type="unregulated" x="4510.41" y="-362.93" incLanes="" intLanes="" shape="4505.69,-361.62 4515.13,-364.24"/>
     <junction id="49613629" type="priority" x="4148.34" y="3227.84" incLanes="6034273#0_0 6034273#0_1 -6033364#0_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_0_0 :49613629_0_1 :49613629_8_0 :49613629_3_0 :49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_6_1" shape="4142.44,3231.39 4155.20,3228.42 4158.46,3224.21 4154.52,3219.04 4153.01,3218.48 4140.21,3221.26">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
@@ -312,8 +312,8 @@
         <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="001100" foes="001110" cont="0"/>
     </junction>
-    <junction id="49615901" type="dead_end" x="4363.01" y="3360.48" incLanes="-6040380_0" intLanes="" shape="4362.97,3360.51 4360.44,3362.46 4365.58,3358.49 4363.05,3360.45"/>
-    <junction id="49616450" type="dead_end" x="4198.31" y="3421.69" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="4198.26,3421.70 4192.05,3423.61 4204.57,3419.76 4198.36,3421.67"/>
+    <junction id="49615901" type="dead_end" x="4363.01" y="3360.48" incLanes="-6040380_0" intLanes="" shape="4362.97,3360.51 4365.58,3358.49 4363.05,3360.45"/>
+    <junction id="49616450" type="dead_end" x="4198.31" y="3421.69" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="4198.26,3421.70 4204.57,3419.76 4198.36,3421.67"/>
 
     <junction id=":49613629_8_0" type="internal" x="4148.28" y="3227.23" incLanes=":49613629_2_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_6_1"/>
 

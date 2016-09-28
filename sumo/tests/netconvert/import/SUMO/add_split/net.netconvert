@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:31 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:28 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -79,7 +79,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="gneJ0" type="dead_end" x="-50.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="-50.00,-6.65 -50.00,-9.85 -50.00,3.25 -50.00,0.05"/>
+    <junction id="gneJ0" type="dead_end" x="-50.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="-50.00,-6.65 -50.00,3.25 -50.00,0.05"/>
     <junction id="gneJ1" type="traffic_light" x="0.00" y="0.00" incLanes="gneE6_0 gneE4_0 gneE8_0 gneE0.40_0 gneE0.40_1 gneE0.40_2" intLanes="" shape="-3.25,4.75 3.25,4.75 4.75,3.25 4.75,-3.25 3.25,-11.35 -3.25,-11.35 -4.75,-9.85 -4.75,3.25">
         <request index="0" response="000000010000" foes="000100010000"/>
         <request index="1" response="111000110000" foes="111100110000"/>
@@ -94,9 +94,9 @@
         <request index="10" response="000000000000" foes="000111100110"/>
         <request index="11" response="000000011000" foes="000110011110"/>
     </junction>
-    <junction id="gneJ3" type="dead_end" x="50.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="50.00,0.05 50.00,3.25 50.00,-3.25 50.00,-0.05"/>
-    <junction id="gneJ4" type="dead_end" x="0.00" y="50.00" incLanes="gneE5_0" intLanes="" shape="-0.05,50.00 -3.25,50.00 3.25,50.00 0.05,50.00"/>
-    <junction id="gneJ5" type="dead_end" x="0.00" y="-50.00" incLanes="gneE7_0" intLanes="" shape="0.05,-50.00 3.25,-50.00 -3.25,-50.00 -0.05,-50.00"/>
+    <junction id="gneJ3" type="dead_end" x="50.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="50.00,0.05 50.00,-3.25 50.00,-0.05"/>
+    <junction id="gneJ4" type="dead_end" x="0.00" y="50.00" incLanes="gneE5_0" intLanes="" shape="-0.05,50.00 3.25,50.00 0.05,50.00"/>
+    <junction id="gneJ5" type="dead_end" x="0.00" y="-50.00" incLanes="gneE7_0" intLanes="" shape="0.05,-50.00 -3.25,-50.00 -0.05,-50.00"/>
 
     <connection from="gneE0" to="gneE0.40" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE0" to="gneE0.40" fromLane="0" toLane="1" dir="s" state="M"/>

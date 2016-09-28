@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:05 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Sep 28 13:48:09 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -77,16 +77,16 @@
         <request index="2" response="0000" foes="1010" cont="0"/>
         <request index="3" response="0101" foes="0101" cont="0"/>
     </junction>
-    <junction id="E" type="priority" x="2000.00" y="100.00" incLanes="CE_0" intLanes=":E_0_0" shape="2000.00,100.05 2000.00,103.25 2000.00,96.75 2000.00,99.95">
+    <junction id="E" type="priority" x="2000.00" y="100.00" incLanes="CE_0" intLanes=":E_0_0" shape="2000.00,100.05 2000.00,96.75 2000.00,99.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="N" type="priority" x="1000.00" y="200.00" incLanes="CN_0" intLanes=":N_0_0" shape="999.95,200.00 996.75,200.00 1003.25,200.00 1000.05,200.00">
+    <junction id="N" type="priority" x="1000.00" y="200.00" incLanes="CN_0" intLanes=":N_0_0" shape="999.95,200.00 1003.25,200.00 1000.05,200.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="S" type="priority" x="1000.00" y="0.00" incLanes="CS_0" intLanes=":S_0_0" shape="1000.05,0.00 1003.25,0.00 996.75,0.00 999.95,0.00">
+    <junction id="S" type="priority" x="1000.00" y="0.00" incLanes="CS_0" intLanes=":S_0_0" shape="1000.05,0.00 996.75,0.00 999.95,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0" intLanes=":W_0_0" shape="0.00,99.95 0.00,96.75 0.00,103.25 0.00,100.05">
+    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0" intLanes=":W_0_0" shape="0.00,99.95 0.00,103.25 0.00,100.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

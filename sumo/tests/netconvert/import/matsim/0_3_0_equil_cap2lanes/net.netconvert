@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  9 14:27:24 2016 by SUMO netconvert Version dev-SVN-r20938
+<!-- generated on Wed Sep 28 13:48:34 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -274,7 +274,7 @@
         <request index="18" response="00000000000000000000" foes="00000000000000000000"/>
         <request index="19" response="00000000000000000000" foes="00000000000000000000"/>
     </junction>
-    <junction id="14" type="priority" x="25000.00" y="0.00" incLanes="21_0 21_1 21_2 21_3 21_4 21_5 21_6 21_7 21_8 21_9 21_10 21_11 21_12 21_13 21_14 21_15 21_16 21_17 21_18 21_19" intLanes="" shape="24934.05,65.95 24999.95,65.95 24934.05,0.05 24934.05,65.95">
+    <junction id="14" type="priority" x="25000.00" y="0.00" incLanes="21_0 21_1 21_2 21_3 21_4 21_5 21_6 21_7 21_8 21_9 21_10 21_11 21_12 21_13 21_14 21_15 21_16 21_17 21_18 21_19" intLanes="" shape="24934.05,65.95 24999.95,65.95 24934.05,0.05">
         <request index="0" response="00000000000000000000" foes="00000000000000000000"/>
         <request index="1" response="00000000000000000000" foes="00000000000000000000"/>
         <request index="2" response="00000000000000000000" foes="00000000000000000000"/>

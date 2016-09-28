@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 13:45:14 2016 by SUMO netconvert Version dev-SVN-r21539
+<!-- generated on Wed Sep 28 13:48:22 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -624,10 +624,10 @@
         <phase duration="1" state="rrrrrrGGG"/>
     </tlLogic>
 
-    <junction id="10" type="dead_end" x="2060.00" y="845.00" incLanes="9_0 9_1" intLanes="" shape="2059.96,845.03 2055.13,849.38 2064.87,840.62 2060.04,844.97"/>
-    <junction id="12" type="dead_end" x="425.00" y="813.00" incLanes="-25_0" intLanes="" shape="424.95,813.00 421.76,812.81 428.24,813.19 425.05,813.00"/>
-    <junction id="13" type="dead_end" x="377.00" y="168.00" incLanes="-28_0" intLanes="" shape="377.05,167.99 380.21,167.46 373.79,168.54 376.95,168.01"/>
-    <junction id="14" type="dead_end" x="832.00" y="806.00" incLanes="13_0" intLanes="" shape="831.97,806.04 829.90,808.48 834.10,803.52 832.03,805.96"/>
+    <junction id="10" type="dead_end" x="2060.00" y="845.00" incLanes="9_0 9_1" intLanes="" shape="2059.96,845.03 2064.87,840.62 2060.04,844.97"/>
+    <junction id="12" type="dead_end" x="425.00" y="813.00" incLanes="-25_0" intLanes="" shape="424.95,813.00 428.24,813.19 425.05,813.00"/>
+    <junction id="13" type="dead_end" x="377.00" y="168.00" incLanes="-28_0" intLanes="" shape="377.05,167.99 373.79,168.54 376.95,168.01"/>
+    <junction id="14" type="dead_end" x="832.00" y="806.00" incLanes="13_0" intLanes="" shape="831.97,806.04 834.10,803.52 832.03,805.96"/>
     <junction id="15" type="priority" x="1062.00" y="550.00" incLanes="-16_0 -14_0" intLanes=":15_0_0 :15_1_0 :15_2_0 :15_3_0" shape="1061.13,557.67 1069.06,553.55 1061.97,550.23 1055.48,550.67 1054.56,553.26 1059.34,557.67">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="1000" foes="1000" cont="0"/>
@@ -640,12 +640,12 @@
         <request index="2" response="0000" foes="1001" cont="0"/>
         <request index="3" response="0110" foes="0110" cont="1"/>
     </junction>
-    <junction id="17" type="dead_end" x="1261.00" y="700.00" incLanes="15_0" intLanes="" shape="1260.97,700.04 1258.81,702.40 1263.19,697.60 1261.03,699.96"/>
-    <junction id="18" type="dead_end" x="942.00" y="680.00" incLanes="14_0" intLanes="" shape="941.96,679.97 939.61,677.80 944.39,682.20 942.04,680.03"/>
-    <junction id="19" type="dead_end" x="1323.00" y="673.00" incLanes="19_0" intLanes="" shape="1322.96,672.97 1320.57,670.84 1325.43,675.16 1323.04,673.03"/>
-    <junction id="2" type="dead_end" x="0.00" y="580.00" incLanes="-22_0 -22_1" intLanes="" shape="-0.00,579.95 -0.56,573.47 0.56,586.53 0.00,580.05"/>
-    <junction id="20" type="dead_end" x="1275.00" y="0.00" incLanes="20_0" intLanes="" shape="1275.05,-0.02 1278.05,-1.12 1271.95,1.12 1274.95,0.02"/>
-    <junction id="21" type="dead_end" x="1512.00" y="838.00" incLanes="29_0" intLanes="" shape="1511.96,837.97 1507.05,833.71 1514.46,840.13 1512.04,838.03"/>
+    <junction id="17" type="dead_end" x="1261.00" y="700.00" incLanes="15_0" intLanes="" shape="1260.97,700.04 1263.19,697.60 1261.03,699.96"/>
+    <junction id="18" type="dead_end" x="942.00" y="680.00" incLanes="14_0" intLanes="" shape="941.96,679.97 944.39,682.20 942.04,680.03"/>
+    <junction id="19" type="dead_end" x="1323.00" y="673.00" incLanes="19_0" intLanes="" shape="1322.96,672.97 1325.43,675.16 1323.04,673.03"/>
+    <junction id="2" type="dead_end" x="0.00" y="580.00" incLanes="-22_0 -22_1" intLanes="" shape="-0.00,579.95 0.56,586.53 0.00,580.05"/>
+    <junction id="20" type="dead_end" x="1275.00" y="0.00" incLanes="20_0" intLanes="" shape="1275.05,-0.02 1271.95,1.12 1274.95,0.02"/>
+    <junction id="21" type="dead_end" x="1512.00" y="838.00" incLanes="29_0" intLanes="" shape="1511.96,837.97 1514.46,840.13 1512.04,838.03"/>
     <junction id="22" type="priority" x="317.00" y="553.00" incLanes="21_0 21_1 22_0 22_1" intLanes=":22_0_0 :22_0_1 :22_2_0 :22_2_1 :22_2_2" shape="318.77,559.47 318.00,543.09 315.02,546.60 316.13,559.65">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>

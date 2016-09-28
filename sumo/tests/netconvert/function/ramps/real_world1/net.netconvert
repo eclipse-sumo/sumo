@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 13:45:18 2016 by SUMO netconvert Version dev-SVN-r21539
+<!-- generated on Wed Sep 28 13:48:39 2016 by SUMO netconvert Version dev-SVN-r21560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -380,7 +380,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="1461605567" type="priority" x="2486.69" y="575.57" incLanes="149600933_0" intLanes="" shape="2486.75,577.17 2486.79,573.97 2486.47,573.98 2486.75,577.17">
+    <junction id="1461605567" type="priority" x="2486.69" y="575.57" incLanes="149600933_0" intLanes="" shape="2486.75,577.17 2486.79,573.97 2486.47,573.98">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1461605575" type="priority" x="2525.75" y="582.49" incLanes="149600934_0 25228270#0_0 25228270#0_1 25228270#0_2" intLanes="" shape="2527.45,587.38 2527.01,574.29 2524.01,574.33 2523.98,577.53 2525.18,577.61 2525.52,587.40">
@@ -435,7 +435,7 @@
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="21425448" type="unregulated" x="2246.94" y="1576.50" incLanes="" intLanes="" shape="2250.11,1575.77 2243.77,1577.23"/>
-    <junction id="21586756" type="priority" x="2389.33" y="591.57" incLanes="43155831#1_0 43155831#1_1 43155831#1_2" intLanes="" shape="2389.86,596.44 2389.08,586.67 2388.52,586.73 2389.86,596.44">
+    <junction id="21586756" type="priority" x="2389.33" y="591.57" incLanes="43155831#1_0 43155831#1_1 43155831#1_2" intLanes="" shape="2389.86,596.44 2389.08,586.67 2388.52,586.73">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
@@ -450,7 +450,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="21586774" type="priority" x="1872.07" y="811.58" incLanes="18361878#1_0" intLanes="" shape="1870.79,812.54 1873.41,810.70 1873.29,810.55 1870.79,812.54">
+    <junction id="21586774" type="priority" x="1872.07" y="811.58" incLanes="18361878#1_0" intLanes="" shape="1870.79,812.54 1873.41,810.70 1873.29,810.55">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="21586775" type="priority" x="1839.37" y="748.48" incLanes="10802650#1_0 10802650#1_1" intLanes="" shape="1836.79,750.46 1841.98,746.55 1836.74,750.40">
@@ -580,7 +580,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="30430120" type="priority" x="1864.96" y="720.93" incLanes="18361879-AddedOffRampEdge_0 18361879-AddedOffRampEdge_1" intLanes="" shape="1865.74,725.73 1865.16,719.26 1864.24,719.40 1865.74,725.73">
+    <junction id="30430120" type="priority" x="1864.96" y="720.93" incLanes="18361879-AddedOffRampEdge_0 18361879-AddedOffRampEdge_1" intLanes="" shape="1865.74,725.73 1865.16,719.26 1864.24,719.40">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
@@ -635,7 +635,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="988738860" type="priority" x="1634.52" y="486.44" incLanes="26564068_0" intLanes="" shape="1633.06,487.12 1636.11,486.15 1635.76,485.41 1633.06,487.12">
+    <junction id="988738860" type="priority" x="1634.52" y="486.44" incLanes="26564068_0" intLanes="" shape="1633.06,487.12 1636.11,486.15 1635.76,485.41">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="988738874" type="priority" x="1637.54" y="483.36" incLanes="23911030_0" intLanes="" shape="1636.21,484.25 1638.88,482.48 1636.21,484.24">
