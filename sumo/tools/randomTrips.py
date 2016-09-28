@@ -92,9 +92,9 @@ def get_options(args=None):
     optParser.add_option("--binomial", type="int", metavar="N",
                          help="If this is set, the number of departures per seconds will be drawn from a binomial distribution with n=N and p=PERIOD/N where PERIOD is the argument given to option --period. Tnumber of attemps for finding a trip which meets the distance constraints")
     optParser.add_option(
-        "-c", "--vclass", help="only from and to edges which permit <vClass>")
+        "-c", "--vclass", "--edge-permission", help="only from and to edges which permit the given vehicle class")
     optParser.add_option(
-        "--vehicle-class", help="The vehicle class assigned to the generated trips")
+        "--vehicle-class", help="The vehicle class assigned to the generated trips (adds a standard vType definition to the output file).")
     optParser.add_option("--validate", default=False, action="store_true",
                          help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_option("-v", "--verbose", action="store_true",
