@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 14:50:37 2016 by SUMO netconvert Version dev-SVN-r21158
+<!-- generated on Wed Sep 28 13:21:31 2016 by SUMO netconvert Version dev-SVN-r21544
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -203,9 +203,9 @@
     </junction>
     <junction id="1596766027" type="unregulated" x="49.54" y="498.49" incLanes="" intLanes="" shape="51.14,498.53 47.94,498.44"/>
     <junction id="cluster_1596765862_1596765895" type="priority" x="56.27" y="316.95" incLanes="146404896#5_0 146404904_0" intLanes=":cluster_1596765862_1596765895_0_0 :cluster_1596765862_1596765895_1_0 :cluster_1596765862_1596765895_2_0" shape="58.31,305.50 55.12,305.37 54.41,302.00 55.06,301.95 55.13,304.94 58.33,305.06">
-        <request index="0" response="000" foes="100" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="001" foes="001" cont="0"/>
+        <request index="0" response="100" foes="100" cont="0"/>
+        <request index="1" response="100" foes="100" cont="0"/>
+        <request index="2" response="000" foes="011" cont="0"/>
     </junction>
 
     <junction id=":1596765684_2_0" type="internal" x="18.46" y="82.01" incLanes=":1596765684_0_0 146404896#0_0" intLanes=":1596765684_1_0"/>
@@ -221,13 +221,13 @@
     <connection from="146404896#3" to="146404896#4" fromLane="0" toLane="0" via=":1596765757_0_0" dir="s" state="M"/>
     <connection from="146404896#3" to="146404902" fromLane="0" toLane="0" via=":1596765757_1_0" dir="s" state="M"/>
     <connection from="146404896#4" to="146404896#5" fromLane="0" toLane="0" via=":1596765849_0_0" dir="s" state="M"/>
-    <connection from="146404896#5" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_0_0" dir="s" state="M"/>
-    <connection from="146404896#5" to="146404901" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_1_0" dir="l" state="M"/>
+    <connection from="146404896#5" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_0_0" dir="s" state="m"/>
+    <connection from="146404896#5" to="146404901" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_1_0" dir="L" state="m"/>
     <connection from="146404896#7" to="146404896#8" fromLane="0" toLane="0" via=":1596765923_0_0" dir="s" state="M"/>
     <connection from="146404896#8" to="146404892#1" fromLane="0" toLane="0" via=":1596765963_0_0" dir="t" state="m"/>
     <connection from="146404901" to="146404896#3" fromLane="0" toLane="0" via=":1596765735_0_0" dir="t" state="m"/>
     <connection from="146404902" to="146404896#5" fromLane="0" toLane="0" via=":1596765849_1_0" dir="s" state="m"/>
-    <connection from="146404904" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_2_0" dir="s" state="m"/>
+    <connection from="146404904" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_2_0" dir="s" state="M"/>
     <connection from="146404905" to="146404896#1" fromLane="0" toLane="0" via=":1596765684_0_0" dir="t" state="m"/>
 
     <connection from=":1596765647_0" to="146404892#2" fromLane="0" toLane="0" dir="s" state="M"/>

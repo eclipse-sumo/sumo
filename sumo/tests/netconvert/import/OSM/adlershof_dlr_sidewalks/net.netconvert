@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 27 13:29:48 2016 by SUMO netconvert Version dev-SVN-r21542
+<!-- generated on Wed Sep 28 13:21:14 2016 by SUMO netconvert Version dev-SVN-r21544
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -2658,16 +2658,16 @@
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="1472995248" type="right_before_left" x="4393.04" y="814.98" incLanes="156071615#4_0 -70214888#1_0 -133858189_0" intLanes="" shape="4396.52,811.89 4391.06,815.13 4394.40,815.97 4390.39,816.56 4390.30,810.01 4387.42,815.84 4388.15,817.86 4394.06,820.57">
-        <request index="0" response="000000000" foes="100010000"/>
-        <request index="1" response="011000000" foes="011110000"/>
-        <request index="2" response="010001000" foes="010001000"/>
-        <request index="3" response="000000000" foes="010000100"/>
-        <request index="4" response="000000011" foes="110000011"/>
-        <request index="5" response="001000010" foes="001000010"/>
-        <request index="6" response="000000000" foes="000100010"/>
-        <request index="7" response="000011000" foes="000011110"/>
-        <request index="8" response="000010001" foes="000010001"/>
+    <junction id="1472995248" type="right_before_left" x="4393.04" y="814.98" incLanes="156071615#4_0 -133858189_0 -70214888#1_0" intLanes="" shape="4396.52,811.89 4391.06,815.13 4394.40,815.97 4390.39,816.56 4390.30,810.01 4387.42,815.84 4388.15,817.86 4394.06,820.57">
+        <request index="0" response="010000000" foes="110110000"/>
+        <request index="1" response="000001000" foes="100001000"/>
+        <request index="2" response="111010000" foes="111010000"/>
+        <request index="3" response="000000000" foes="100000010"/>
+        <request index="4" response="011000001" foes="011000101"/>
+        <request index="5" response="010000001" foes="010000001"/>
+        <request index="6" response="000000000" foes="000010100"/>
+        <request index="7" response="000000000" foes="000110101"/>
+        <request index="8" response="000001011" foes="000001111"/>
     </junction>
     <junction id="1472995250" type="priority" x="4224.42" y="823.65" incLanes="133858190#1_0 -143308562#2_0 -143308562#2_1 143308562#1_0 143308562#1_1" intLanes="" shape="4231.22,825.03 4231.33,823.03 4229.94,821.46 4219.27,820.69 4218.86,825.24 4229.49,826.44">
         <request index="0" response="0000" foes="1000"/>

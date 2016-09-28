@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 27 13:29:46 2016 by SUMO netconvert Version dev-SVN-r21542
+<!-- generated on Wed Sep 28 13:21:05 2016 by SUMO netconvert Version dev-SVN-r21544
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -773,7 +773,7 @@
     </junction>
     <junction id="10" type="priority" x="985.25" y="1456.40" incLanes="3[1][1][1][1][1][1][1][1][1][1][0]_0 3[1][1][1][1][1][1][1][1][1][1][0]_1" intLanes="" shape="980.69,1461.91 978.11,1455.95 975.39,1455.88 973.97,1458.75">
         <request index="0" response="000" foes="000"/>
-        <request index="1" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="10-DestinationNode" type="unregulated" x="1341.27" y="1853.85" incLanes="10_0" intLanes="" shape="1342.61,1854.72 1339.93,1852.98"/>
@@ -921,34 +921,34 @@
     </junction>
     <junction id="29-DestinationNode" type="unregulated" x="1215.21" y="1529.17" incLanes="29_0" intLanes="" shape="1213.98,1528.15 1216.43,1530.20"/>
     <junction id="29-SourceNode" type="unregulated" x="1180.34" y="1570.73" incLanes="" intLanes="" shape="1181.57,1571.76 1179.12,1569.70"/>
-    <junction id="3" type="priority" x="1555.39" y="1921.66" incLanes="3[1][0]_0 3[1][0]_1 71_0 71_1 71_2 71_3 70_0 70_1 73_0 6[1][1][1][1][1][1][1][0]_0 6[1][1][1][1][1][1][1][0]_1 72_0 65[1][0]_0 65[1][0]_1 66_0 67_0 69_0 69_1" intLanes="" shape="1552.22,1926.02 1558.72,1925.91 1569.80,1937.40 1571.10,1926.17 1575.18,1921.36 1562.51,1906.76 1560.76,1906.38 1536.46,1914.95 1588.82,1902.42 1586.65,1908.55 1586.59,1909.32 1587.77,1915.71 1547.23,1912.04 1543.69,1920.55 1542.95,1922.69 1549.57,1933.02 1547.96,1884.12 1550.91,1885.36">
-        <request index="0" response="110011110000000000111100000" foes="110011111111000000111100000"/>
-        <request index="1" response="110011110000000000111100000" foes="110011111111000000111100000"/>
-        <request index="2" response="110011110000000000111100000" foes="110011110011000000111100000"/>
-        <request index="3" response="110011110000000001111100000" foes="110011110011000001111100000"/>
-        <request index="4" response="110011110000000001111100000" foes="110011110011000001111100000"/>
-        <request index="5" response="000000000000000000000000000" foes="111100000011000000000011111"/>
-        <request index="6" response="000000000000000000000000000" foes="111100000011000000000011111"/>
-        <request index="7" response="000000000000000000000000000" foes="110011111111000000000011111"/>
-        <request index="8" response="000000000000000000000000000" foes="110011111111000000000011111"/>
-        <request index="9" response="000000000000000000000000000" foes="110011110011000000000011000"/>
-        <request index="10" response="110000110000111000000000000" foes="110000110000111000000000000"/>
-        <request index="11" response="110000110000111000000000000" foes="110000110000111000000000000"/>
-        <request index="12" response="000000000000100000000000000" foes="110000110000100110000000000"/>
-        <request index="13" response="000000000000100000000000000" foes="110000110000100110000000000"/>
-        <request index="14" response="000000000000000000000000000" foes="110000110000011110000000000"/>
-        <request index="15" response="001100000000000001111111111" foes="001100110000000001111111111"/>
-        <request index="16" response="001100000000000001111111111" foes="001100110000000001111111111"/>
-        <request index="17" response="000000000000000000110000011" foes="000000000000000000110000011"/>
-        <request index="18" response="000000000000000000110000011" foes="000000000000000000110000011"/>
-        <request index="19" response="000000000011111001110000000" foes="110011000011111111110011111"/>
-        <request index="20" response="000000000011111001110000000" foes="110011000011111111110011111"/>
-        <request index="21" response="000000110000000001110000000" foes="000000110000000001110011111"/>
-        <request index="22" response="000000110000000001110000000" foes="000000110000000001110011111"/>
-        <request index="23" response="000000000000000000001100000" foes="000000000011000000001100000"/>
-        <request index="24" response="000000000000000000001100000" foes="000000000011000000001100000"/>
-        <request index="25" response="000000110000111001111100000" foes="000000110000111111111111111"/>
-        <request index="26" response="000000110000111001111100000" foes="000000110000111111111111111"/>
+    <junction id="3" type="priority" x="1555.39" y="1921.66" incLanes="3[1][0]_0 3[1][0]_1 69_0 69_1 71_0 71_1 71_2 71_3 73_0 70_0 70_1 6[1][1][1][1][1][1][1][0]_0 6[1][1][1][1][1][1][1][0]_1 72_0 66_0 65[1][0]_0 65[1][0]_1 67_0" intLanes="" shape="1552.22,1926.02 1558.72,1925.91 1569.80,1937.40 1571.10,1926.17 1575.18,1921.36 1562.51,1906.76 1560.76,1906.38 1536.46,1914.95 1588.82,1902.42 1586.65,1908.55 1586.59,1909.32 1587.77,1915.71 1547.23,1912.04 1543.69,1920.55 1542.95,1922.69 1549.57,1933.02 1547.96,1884.12 1550.91,1885.36">
+        <request index="0" response="000000000000000011000000000" foes="000000110000000011000000000"/>
+        <request index="1" response="000000000000000011000000000" foes="000000110000000011000000000"/>
+        <request index="2" response="111111000000000011000000000" foes="111111110000000011000000000"/>
+        <request index="3" response="111111000000000111000000000" foes="111111110000000111000000000"/>
+        <request index="4" response="111111000000000111000000000" foes="111111110000000111000000000"/>
+        <request index="5" response="111100001111100111000000000" foes="111100001111111111000000000"/>
+        <request index="6" response="111100001111100111000000000" foes="111100001111111111000000000"/>
+        <request index="7" response="000000000000000000000000000" foes="110000001100000000000000000"/>
+        <request index="8" response="000000000000000000000000000" foes="110000001100000000000000000"/>
+        <request index="9" response="000000000000000000000000000" foes="110000111100000000001111111"/>
+        <request index="10" response="000000000000000000000000000" foes="110000111100000000001111111"/>
+        <request index="11" response="000000000000000000000000000" foes="001111111100000000001111000"/>
+        <request index="12" response="001100000011100000001100000" foes="001100000011100000001100000"/>
+        <request index="13" response="001100000011100000001100000" foes="001100000011100000001100000"/>
+        <request index="14" response="000000000000000000000000000" foes="001100000011011000001100000"/>
+        <request index="15" response="000000000000100000000000000" foes="001100000000111000001100000"/>
+        <request index="16" response="000000000000100000000000000" foes="001100000000111000001100000"/>
+        <request index="17" response="110000000000000111110000000" foes="111100000000000111111100000"/>
+        <request index="18" response="110000000000000111110000000" foes="111100000000000111111100000"/>
+        <request index="19" response="110000000000000111000011111" foes="111100000000000111000011111"/>
+        <request index="20" response="110000000000000111000011111" foes="111100000000000111000011111"/>
+        <request index="21" response="000000000000000100000000000" foes="000000000000000100000011100"/>
+        <request index="22" response="000000000000000100000000000" foes="000000000000000100000011100"/>
+        <request index="23" response="000000111111100100000000000" foes="000000111111111100001111100"/>
+        <request index="24" response="000000111111100100000000000" foes="000000111111111100001111100"/>
+        <request index="25" response="000000000000000011110000000" foes="000000111100000011111111100"/>
+        <request index="26" response="000000000000000011110000000" foes="000000111100000011111111100"/>
     </junction>
     <junction id="3-begin" type="unregulated" x="1780.18" y="2334.07" incLanes="" intLanes="" shape="1783.01,2332.48 1777.35,2335.66"/>
     <junction id="30" type="priority" x="732.24" y="1306.60" incLanes="30001[1][1][1]_0 30001[1][1][1]_1" intLanes="" shape="735.39,1312.21 738.34,1306.41 738.44,1306.15 735.45,1311.92">
@@ -1414,8 +1414,8 @@
     <connection from="3[0]" to="3[1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3[0]" to="69" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="3[0]" to="69" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="3[1][0]" to="68" fromLane="0" toLane="0" dir="R" state="m"/>
-    <connection from="3[1][0]" to="68" fromLane="0" toLane="1" dir="R" state="m"/>
+    <connection from="3[1][0]" to="68" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="3[1][0]" to="68" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from="3[1][0]" to="20004" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="0" toLane="0" dir="R" state="m"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="1" toLane="1" dir="R" state="m"/>
@@ -1478,8 +1478,8 @@
     <connection from="66" to="3[1][1][0]" fromLane="0" toLane="1" dir="R" state="m"/>
     <connection from="67" to="6[1][1][1][1][1][1][1][1]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="67" to="6[1][1][1][1][1][1][1][1]" fromLane="0" toLane="1" dir="s" state="m"/>
-    <connection from="69" to="65[1][1][0]" fromLane="0" toLane="0" dir="l" state="m"/>
-    <connection from="69" to="65[1][1][0]" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="69" to="65[1][1][0]" fromLane="0" toLane="0" dir="L" state="m"/>
+    <connection from="69" to="65[1][1][0]" fromLane="1" toLane="1" dir="L" state="m"/>
     <connection from="6[0]" to="6[1][0]" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="6[0]" to="26[0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[0]" to="6[1][0]" fromLane="1" toLane="1" dir="r" state="m"/>
@@ -1508,13 +1508,13 @@
     <connection from="70" to="65[1][1][0]" fromLane="1" toLane="1" dir="r" state="m"/>
     <connection from="71" to="6[1][1][1][1][1][1][1][1]" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="71" to="6[1][1][1][1][1][1][1][1]" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from="71" to="68" fromLane="1" toLane="0" dir="s" state="m"/>
-    <connection from="71" to="68" fromLane="2" toLane="1" dir="s" state="m"/>
+    <connection from="71" to="68" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="71" to="68" fromLane="2" toLane="1" dir="s" state="M"/>
     <connection from="71" to="3[1][1][0]" fromLane="3" toLane="0" dir="l" state="m"/>
     <connection from="71" to="65[1][1][0]" fromLane="3" toLane="0" dir="t" state="m"/>
     <connection from="71" to="65[1][1][0]" fromLane="3" toLane="1" dir="t" state="m"/>
-    <connection from="72" to="68" fromLane="0" toLane="0" dir="l" state="m"/>
-    <connection from="72" to="68" fromLane="0" toLane="1" dir="l" state="m"/>
+    <connection from="72" to="68" fromLane="0" toLane="0" dir="L" state="m"/>
+    <connection from="72" to="68" fromLane="0" toLane="1" dir="L" state="m"/>
     <connection from="73" to="65[1][1][0]" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from="82[0]" to="82[1]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="82[1]" to="84[1]" fromLane="0" toLane="0" dir="l" state="m"/>
