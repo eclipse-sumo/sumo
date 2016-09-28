@@ -215,7 +215,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 #endif
             }
             // ... compute the distance to this point ...
-            SUMOReal dist = geomsCCW[*i].nearest_offset_to_point2D(p);
+            SUMOReal dist = MAX2(
+                    geomsCCW[*i].nearest_offset_to_point2D(p),
+                    geomsCW[*i].nearest_offset_to_point2D(p));
             if (dist < 0) {
                 // ok, we have the problem that even the extrapolated geometry
                 //  does not reach the point
@@ -244,7 +246,14 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     dist += radius;
                 } else {
                     // if the angles change, junction should have some size to avoid degenerate shape
-                    dist += fabs(ccad - cad) * (*i)->getNumLanes();
+                    SUMOReal radius2 = fabs(ccad - cad) * (*i)->getNumLanes();
+                    if (radius2 > NUMERICAL_EPS) {
+                        radius2 = MAX2((SUMOReal)0.15, radius2);
+                    }
+                    dist += radius2;
+#ifdef DEBUG_NODE_SHAPE
+                    if (DEBUGCOND) std::cout << " using radius=" << fabs(ccad - cad) * (*i)->getNumLanes() << " ccad=" << ccad << " cad=" << cad << "\n";
+#endif
                 }
                 distances[*i] = dist;
             }
@@ -354,6 +363,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         p = cwBound.positionAtOffset2D(offset);
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
+#ifdef DEBUG_NODE_SHAPE
+        if (DEBUGCOND) std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
+#endif
     }
     // final curve segment
     ret.append(getSmoothCorner(geomsCW[*(newAll.end() - 1)], geomsCCW[*newAll.begin()], ret[-1], ret[0], cornerDetail));
