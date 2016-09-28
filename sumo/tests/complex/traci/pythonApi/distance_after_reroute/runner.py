@@ -4,7 +4,7 @@
 @author  Laura Bieker
 @author  Michael Behrisch
 @date    2014-08-28
-@version $Id: runner.py 21122 2016-07-06 11:06:52Z behrisch $
+@version $Id$
 
 Python resume test.
 
