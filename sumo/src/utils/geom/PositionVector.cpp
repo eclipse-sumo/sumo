@@ -1192,5 +1192,23 @@ PositionVector::simplified() const {
     }
     return result;
 }
+
+
+PositionVector 
+PositionVector::getOrthogonal(const Position& p, SUMOReal extend) const {
+    PositionVector result;
+    PositionVector tmp = *this;
+    tmp.extrapolate2D(extend);
+    const SUMOReal baseOffset = tmp.nearest_offset_to_point2D(p);
+    if (baseOffset == GeomHelper::INVALID_OFFSET) {
+        // fail
+        return result;
+    }
+    Position base = tmp.positionAtOffset2D(baseOffset);
+    result.push_back(p);
+    result.push_back(base);
+    return result;
+}
+
 /****************************************************************************/
 
