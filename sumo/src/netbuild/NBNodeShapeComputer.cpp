@@ -147,6 +147,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
     const SUMOReal sCurveStretch = OptionsCont::getOptions().getFloat("junctions.scurve-stretch");
     const bool rectangularCut = OptionsCont::getOptions().getBool("rectangular-lane-cut");
+    const bool openDriveOutput = OptionsCont::getOptions().isSet("opendrive-output");
 
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << radius << "\n";
@@ -248,7 +249,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 } else {
                     // if the angles change, junction should have some size to avoid degenerate shape
                     SUMOReal radius2 = fabs(ccad - cad) * (*i)->getNumLanes();
-                    if (radius2 > NUMERICAL_EPS) {
+                    if (radius2 > NUMERICAL_EPS || openDriveOutput) {
                         radius2 = MAX2((SUMOReal)0.15, radius2);
                     }
                     dist += radius2;
