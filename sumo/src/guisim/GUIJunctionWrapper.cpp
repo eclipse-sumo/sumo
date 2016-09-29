@@ -59,7 +59,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#define GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
+//#define GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
 
 // ===========================================================================
 // method definitions
