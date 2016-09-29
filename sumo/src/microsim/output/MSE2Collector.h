@@ -85,8 +85,8 @@ public:
     /** @brief Internal representation of a vehicle
     */
     struct VehicleInfo {
-        VehicleInfo(std::string _id, std::string _type, SUMOReal _speed, SUMOReal _timeOnDet, SUMOReal _lengthOnDet, SUMOReal _position, SUMOReal _lengthWithGap, SUMOReal _accel)
-            : id(_id), type(_type), speed(_speed), timeOnDet(_timeOnDet), lengthOnDet(_lengthOnDet), position(_position), lengthWithGap(_lengthWithGap), accel(_accel) {}
+        VehicleInfo(std::string _id, std::string _type, SUMOReal _speed, SUMOReal _timeOnDet, SUMOReal _lengthOnDet, SUMOReal _position, SUMOReal _lengthWithGap, SUMOReal _accel, bool _stillOnDet)
+            : id(_id), type(_type), speed(_speed), timeOnDet(_timeOnDet), lengthOnDet(_lengthOnDet), position(_position), lengthWithGap(_lengthWithGap), accel(_accel), stillOnDet(_stillOnDet) {}
         std::string id;
         std::string type;
         SUMOReal speed;
@@ -95,6 +95,7 @@ public:
         SUMOReal position;
         SUMOReal lengthWithGap;
         SUMOReal accel;
+        bool stillOnDet;
     };
 
 
@@ -375,6 +376,9 @@ private:
 
     /// @brief List of known vehicles
     std::vector<VehicleInfo> myKnownVehicles;
+
+    /// @brief List of previously known vehicles
+    std::vector<VehicleInfo> myPreviousKnownVehicles;
 
     /// @brief Storage for halting durations of known vehicles (for halting vehicles)
     std::map<const std::string, SUMOTime> myHaltingVehicleDurations;
