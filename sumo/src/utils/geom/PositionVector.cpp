@@ -1195,7 +1195,7 @@ PositionVector::simplified() const {
 
 
 PositionVector 
-PositionVector::getOrthogonal(const Position& p, SUMOReal extend) const {
+PositionVector::getOrthogonal(const Position& p, SUMOReal extend, SUMOReal& distToClosest) const {
     PositionVector result;
     PositionVector tmp = *this;
     tmp.extrapolate2D(extend);
@@ -1205,8 +1205,11 @@ PositionVector::getOrthogonal(const Position& p, SUMOReal extend) const {
         return result;
     }
     Position base = tmp.positionAtOffset2D(baseOffset);
-    result.push_back(p);
-    result.push_back(base);
+    distToClosest = tmp[tmp.indexOfClosest(base)].distanceTo2D(base);
+    if (p.distanceTo2D(base) > NUMERICAL_EPS) {
+        result.push_back(p);
+        result.push_back(base);
+    }
     return result;
 }
 

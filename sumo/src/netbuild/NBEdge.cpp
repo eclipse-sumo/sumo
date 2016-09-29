@@ -494,18 +494,33 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
 
 void 
 NBEdge::setNodeBorder(const NBNode* node, const Position& p) {
-    SUMOReal edgeWidth = 0;
-    for (int i = 0; i < (int)myLanes.size(); i++) {
-        edgeWidth += getLaneWidth(i);
+    const SUMOReal extend = 200;
+    const SUMOReal distanceOfClosestThreshold = 1.0; // very rough heuristic, actually depends on angle
+    SUMOReal distanceOfClosest = distanceOfClosestThreshold;
+    PositionVector border = myGeom.getOrthogonal(p, extend, distanceOfClosest);
+    if (distanceOfClosest < distanceOfClosestThreshold) {
+        // shift border forward / backward
+        const SUMOReal shiftDirection = (node == myFrom ? 1.0 : -1.0);
+        SUMOReal base = myGeom.nearest_offset_to_point2D(p);
+        if (base != GeomHelper::INVALID_OFFSET) {
+            base += shiftDirection * (distanceOfClosestThreshold - distanceOfClosest);
+            PositionVector tmp = myGeom;
+            tmp.move2side(1.0);
+            border = myGeom.getOrthogonal(tmp.positionAtOffset2D(base), extend, distanceOfClosest);
+        }
     }
-
-    if (node == myFrom) {
-        myFromBorder = myGeom.getOrthogonal(p, 200);
-        myFromBorder.extrapolate2D(edgeWidth);
-    } else {
-        assert(node == myTo);
-        myToBorder = myGeom.getOrthogonal(p, 200);
-        myToBorder.extrapolate2D(edgeWidth);
+    if (border.size() == 2) {
+        SUMOReal edgeWidth = 0;
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            edgeWidth += getLaneWidth(i);
+        }
+        border.extrapolate2D(edgeWidth);
+        if (node == myFrom) {
+            myFromBorder = border;
+        } else {
+            assert(node == myTo);
+            myToBorder = border;
+        }
     }
 }
 

@@ -352,8 +352,12 @@ public:
     /// @brief return the same shape with intermediate colinear points removed
     PositionVector simplified() const;
 
-    /// @brief return orthogonal through p (extending this vector if necessary)
-    PositionVector getOrthogonal(const Position& p, SUMOReal extend) const;
+    /** @brief return orthogonal through p (extending this vector if necessary)
+     * @param[in] p The point through which to draw the orthogonal
+     * @param[in] extend how long to extend this vector for finding an orthogonal
+     * @param[out] distToClosest Distance between the intersection point and the closest geometry point
+     */
+    PositionVector getOrthogonal(const Position& p, SUMOReal extend, SUMOReal& distToClosest) const;
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
