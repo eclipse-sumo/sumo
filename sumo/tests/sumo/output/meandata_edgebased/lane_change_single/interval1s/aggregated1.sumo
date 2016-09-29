@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/02/16 12:58:57 by SUMO Version dev-SVN-r21390
+<!-- generated on Thu Sep 29 14:14:41 2016 by SUMO Version dev-SVN-r21578
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -164,11 +164,11 @@
         <edge id="1si" sampledSeconds="1.00" traveltime="312.50" overlapTraveltime="316.25" density="4.00" occupancy="0.40" waitingTime="0.00" speed="0.80" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="46.00" end="47.00" id="dump_1">
-        <edge id="1si" sampledSeconds="1.00" traveltime="156.25" overlapTraveltime="158.13" density="4.00" occupancy="0.40" waitingTime="0.00" speed="1.60" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="1.00" traveltime="156.25" overlapTraveltime="158.12" density="4.00" occupancy="0.40" waitingTime="0.00" speed="1.60" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="4o" sampledSeconds="0.87" traveltime="312.50" overlapTraveltime="314.38" density="1.75" occupancy="0.52" waitingTime="0.00" speed="1.60" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="47.00" end="48.00" id="dump_1">
-        <edge id="1si" sampledSeconds="0.67" traveltime="104.17" overlapTraveltime="105.42" density="2.67" occupancy="0.27" waitingTime="0.00" speed="2.40" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="0.67" overlapTraveltime="105.42" density="2.67" occupancy="0.27" waitingTime="0.00" speed="2.40" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="4o" sampledSeconds="1.00" traveltime="208.33" overlapTraveltime="209.58" density="2.00" occupancy="0.60" waitingTime="0.00" speed="2.40" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="48.00" end="49.00" id="dump_1">
@@ -184,7 +184,7 @@
         <edge id="4o" sampledSeconds="1.00" traveltime="89.29" overlapTraveltime="89.82" density="2.00" occupancy="0.60" waitingTime="0.00" speed="5.60" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="52.00" end="53.00" id="dump_1">
-        <edge id="4o" sampledSeconds="1.00" traveltime="78.13" overlapTraveltime="78.59" density="2.00" occupancy="0.60" waitingTime="0.00" speed="6.40" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="1.00" traveltime="78.12" overlapTraveltime="78.59" density="2.00" occupancy="0.60" waitingTime="0.00" speed="6.40" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="53.00" end="54.00" id="dump_1">
         <edge id="4o" sampledSeconds="1.00" traveltime="69.44" overlapTraveltime="69.86" density="2.00" occupancy="0.60" waitingTime="0.00" speed="7.20" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
