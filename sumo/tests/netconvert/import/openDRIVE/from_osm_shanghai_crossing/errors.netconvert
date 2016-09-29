@@ -116,7 +116,6 @@ Warning: The traffic light '93246685' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '93246685'
 Warning: The traffic light '93246696' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '93246696'
-Warning: Uneven stop line at lane '39839275#0_1' (dist=0.76) cannot be represented in OpenDRIVE.
 Warning: Could not compute smooth shape from lane '11635146#1_0' to lane '11635162#0-AddedOnRampEdge_3'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
 Warning: Could not compute smooth shape from lane '11635146#1_1' to lane '11635162#0-AddedOnRampEdge_4'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
 Warning: Could not compute smooth shape from lane '11635146#1_2' to lane '11635162#0-AddedOnRampEdge_5'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
