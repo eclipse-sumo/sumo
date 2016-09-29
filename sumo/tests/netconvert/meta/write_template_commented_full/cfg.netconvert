@@ -480,6 +480,9 @@
         <!-- Generate longer intersections to allow for smooth s-curves when the number of lanes changes -->
         <junctions.scurve-stretch value="0" type="FLOAT"/>
 
+        <!-- Forces rectangular cuts between lanes and intersections -->
+        <rectangular-lane-cut value="false" type="BOOL"/>
+
         <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
         <check-lane-foes.roundabout value="true" type="BOOL"/>
 
