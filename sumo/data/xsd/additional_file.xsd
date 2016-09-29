@@ -214,6 +214,13 @@
                                 <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>
+                        <xsd:element name="closingLaneReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="xsd:string" use="required"/>
+                                <xsd:attribute name="allow" type="xsd:string" use="optional"/>
+                                <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
+                            </xsd:complexType>
+                        </xsd:element>
                         <xsd:element name="destProbReroute">
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="xsd:string" use="required"/>
