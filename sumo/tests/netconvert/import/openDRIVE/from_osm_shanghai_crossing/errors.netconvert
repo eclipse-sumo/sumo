@@ -1,0 +1,127 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '10628430#0').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '12090453#0').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '13909444#0').
+Warning: Discarding unusable type 'waterway.reservoir' (first occurence for edge '133465377#0').
+Warning: Discarding unusable type 'highway.platform' (first occurence for edge '178725148').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.opposite_lane|highway.tertiary' (first occurence for edge '238219468').
+Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.lane|cycleway.opposite_lane|highway.tertiary' (first occurence for edge '238219468').
+Warning: Shape for junction '477601189' has distance 96.01 to its given position
+Warning: The traffic light '131167245' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '131167245'
+Warning: The traffic light '152878617' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '152878617'
+Warning: The traffic light '1722215053' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1722215053'
+Warning: The traffic light '1888322988' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1888322988'
+Warning: The traffic light '1888323015' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1888323015'
+Warning: The traffic light '1889249243' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1889249243'
+Warning: The traffic light '1889249255' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1889249255'
+Warning: The traffic light '1889249276' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1889249276'
+Warning: The traffic light '1889255135' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1889255135'
+Warning: The traffic light '1890811942' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1890811942'
+Warning: The traffic light '1890811951' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1890811951'
+Warning: The traffic light '1891590934' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1891590934'
+Warning: The traffic light '267195150' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '267195150'
+Warning: The traffic light '476675164' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '476675164'
+Warning: The traffic light '476675195' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '476675195'
+Warning: The traffic light '476675200' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '476675200'
+Warning: The traffic light '476792263' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '476792263'
+Warning: The traffic light '476792266' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '476792266'
+Warning: The traffic light '476794281' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '476794281'
+Warning: The traffic light '476794301' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '476794301'
+Warning: The traffic light '477616429' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '477616429'
+Warning: The traffic light '477619297' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '477619297'
+Warning: The traffic light '479279454' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479279454'
+Warning: The traffic light '479299222' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479299222'
+Warning: The traffic light '479300368' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479300368'
+Warning: The traffic light '479302758' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479302758'
+Warning: The traffic light '479302873' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479302873'
+Warning: The traffic light '479305380' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479305380'
+Warning: The traffic light '479306800' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479306800'
+Warning: The traffic light '479314640' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479314640'
+Warning: The traffic light '479322189' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '479322189'
+Warning: The traffic light '483115423' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '483115423'
+Warning: The traffic light '483122140' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '483122140'
+Warning: The traffic light '483122165' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '483122165'
+Warning: The traffic light '486131798' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '486131798'
+Warning: The traffic light '486179370' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '486179370'
+Warning: The traffic light '601145300' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '601145300'
+Warning: The traffic light '601145301' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '601145301'
+Warning: The traffic light '601145315' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '601145315'
+Warning: The traffic light '677799505' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '677799505'
+Warning: The traffic light '677799508' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '677799508'
+Warning: The traffic light '71127847' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '71127847'
+Warning: The traffic light '76482084' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '76482084'
+Warning: The traffic light '85010431' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '85010431'
+Warning: The traffic light '85011021' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '85011021'
+Warning: The traffic light '85011298' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '85011298'
+Warning: The traffic light '850283413' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '850283413'
+Warning: The traffic light '850287516' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '850287516'
+Warning: The traffic light '85509263' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '85509263'
+Warning: The traffic light '857781031' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '857781031'
+Warning: The traffic light '87752549' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '87752549'
+Warning: The traffic light '93246167' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '93246167'
+Warning: The traffic light '93246664' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '93246664'
+Warning: The traffic light '93246685' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '93246685'
+Warning: The traffic light '93246696' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '93246696'
+Warning: Uneven stop line at lane '39839275#0_1' (dist=0.76) cannot be represented in OpenDRIVE.
+Warning: Could not compute smooth shape from lane '11635146#1_0' to lane '11635162#0-AddedOnRampEdge_3'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
+Warning: Could not compute smooth shape from lane '11635146#1_1' to lane '11635162#0-AddedOnRampEdge_4'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
+Warning: Could not compute smooth shape from lane '11635146#1_2' to lane '11635162#0-AddedOnRampEdge_5'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
+Warning: Could not compute smooth shape from lane '178702261_0' to lane '11635162#0-AddedOnRampEdge_0'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
+Warning: Could not compute smooth shape from lane '178702261_1' to lane '11635162#0-AddedOnRampEdge_1'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
+Warning: Could not compute smooth shape from lane '178702261_2' to lane '11635162#0-AddedOnRampEdge_2'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
+Warning: Could not compute smooth shape from lane '10695688_0' to lane '160077492#1-AddedOnRampEdge_0'. Use option 'junctions.scurve-stretch' or increase radius of junction '850287499' to fix this.
+Warning: Could not compute smooth shape from lane '10695688_1' to lane '160077492#1-AddedOnRampEdge_1'. Use option 'junctions.scurve-stretch' or increase radius of junction '850287499' to fix this.
