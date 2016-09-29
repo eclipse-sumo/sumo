@@ -492,13 +492,30 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     computeAngle();
 }
 
+void 
+NBEdge::setNodeBorder(const NBNode* node, const Position& p) {
+    SUMOReal edgeWidth = 0;
+    for (int i = 0; i < (int)myLanes.size(); i++) {
+        edgeWidth += getLaneWidth(i);
+    }
+
+    if (node == myFrom) {
+        myFromBorder = myGeom.getOrthogonal(p, 200);
+        myFromBorder.extrapolate2D(edgeWidth);
+    } else {
+        assert(node == myTo);
+        myToBorder = myGeom.getOrthogonal(p, 200);
+        myToBorder.extrapolate2D(edgeWidth);
+    }
+}
+
 
 PositionVector
 NBEdge::cutAtIntersection(const PositionVector& old) const {
     PositionVector shape = old;
-    shape = startShapeAt(shape, myFrom);
+    shape = startShapeAt(shape, myFrom, myFromBorder);
     if (shape.size() >= 2) {
-        shape = startShapeAt(shape.reverse(), myTo).reverse();
+        shape = startShapeAt(shape.reverse(), myTo, myToBorder).reverse();
     }
     // sanity checks
     if (shape.length() < POSITION_EPS) {
@@ -540,8 +557,10 @@ NBEdge::computeEdgeShape() {
 
 
 PositionVector
-NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) const {
-    const PositionVector& nodeShape = startNode->getShape();
+NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, PositionVector nodeShape) const {
+    if (nodeShape.size() == 0) {
+        nodeShape = startNode->getShape();
+    }
     PositionVector lb(laneShape.begin(), laneShape.begin() + 2);
     // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0);
     lb.extrapolate(100.0);

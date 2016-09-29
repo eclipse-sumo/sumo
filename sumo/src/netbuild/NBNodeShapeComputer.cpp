@@ -146,6 +146,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const SUMOReal radius = (defaultRadius ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myNode.getRadius());
     const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
     const SUMOReal sCurveStretch = OptionsCont::getOptions().getFloat("junctions.scurve-stretch");
+    const bool rectangularCut = OptionsCont::getOptions().getBool("rectangular-lane-cut");
 
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << radius << "\n";
@@ -364,6 +365,12 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 #ifdef DEBUG_NODE_SHAPE
         if (DEBUGCOND) std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
 #endif
+        if (rectangularCut) {
+            (*i)->setNodeBorder(&myNode, p);
+            for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
+                (*k)->setNodeBorder(&myNode, p);
+            }
+        }
     }
     // final curve segment
     ret.append(getSmoothCorner(geomsCW[*(newAll.end() - 1)], geomsCCW[*newAll.begin()], ret[-1], ret[0], cornerDetail));
@@ -616,6 +623,9 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
 
 PositionVector
 NBNodeShapeComputer::computeNodeShapeSmall() {
+#ifdef DEBUG_NODE_SHAPE
+    if (DEBUGCOND) std::cout << "computeNodeShapeSmall node=" << myNode.getID() << "\n";
+#endif
     PositionVector ret;
     EdgeVector::const_iterator i;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {

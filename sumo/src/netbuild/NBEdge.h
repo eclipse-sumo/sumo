@@ -1162,6 +1162,8 @@ public:
     /// @brief cut shape at the intersection shapes
     PositionVector cutAtIntersection(const PositionVector& old) const;
 
+    void setNodeBorder(const NBNode* node, const Position& p);
+
 private:
     /**
      * ToEdgeConnectionsAdder
@@ -1306,7 +1308,7 @@ private:
      * startNode. laneShape may be shorted or extended
      * @note see [wiki:Developer/Network_Building_Process]
      */
-    PositionVector startShapeAt(const PositionVector& laneShape, const NBNode* startNode) const;
+    PositionVector startShapeAt(const PositionVector& laneShape, const NBNode* startNode, PositionVector nodeShape) const;
 
     /// @brief computes the angle of this edge and stores it in myAngle
     void computeAngle();
@@ -1410,6 +1412,12 @@ private:
 
     /// @brief the offset of a traffic light signal from the end of this edge (-1 for None)
     SUMOReal mySignalOffset;
+
+
+    /// @brief intersection borders (because the node shape might be invalid)
+    PositionVector myFromBorder;
+    PositionVector myToBorder;
+
 
 public:
     /**

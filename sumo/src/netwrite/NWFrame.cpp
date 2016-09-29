@@ -129,6 +129,12 @@ NWFrame::checkOptions() {
         WRITE_ERROR("OpenDRIVE export needs internal links computation.");
         ok = false;
     }
+    if (oc.isSet("opendrive-output") && oc.isDefault("rectangular-lane-cut")) {
+        oc.set("rectangular-lane-cut", "true");
+    }
+    if (oc.isSet("opendrive-output") && !oc.getBool("rectangular-lane-cut")) {
+        WRITE_WARNING("OpenDRIVE cannot represent oblique lane cuts and should use option 'rectangular-lane-cut'.");
+    }
     return ok;
 }
 

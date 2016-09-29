@@ -207,6 +207,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("junctions.scurve-stretch", new Option_Float(0));
     oc.addDescription("junctions.scurve-stretch", "Processing", "Generate longer intersections to allow for smooth s-curves when the number of lanes changes");
 
+    oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
+    oc.addDescription("rectangular-lane-cut", "Processing", "Forces rectangular cuts between lanes and intersections");
+
     oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
     oc.addDescription("check-lane-foes.roundabout", "Processing",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)");
