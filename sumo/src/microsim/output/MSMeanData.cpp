@@ -84,7 +84,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     // if the vehicle has arrived, the reminder must be kept so it can be
     // notified of the arrival subsequently
     SUMOReal timeOnLane = TS;
-    SUMOReal frontOnLane = TS;
+    SUMOReal frontOnLane = oldPos > myLaneLength ? 0. : TS;
     bool ret = true;
     if (oldPos < 0 && newSpeed != 0) {
         timeOnLane = newPos / newSpeed;
