@@ -309,7 +309,7 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="color" type="colorType" use="required"/>
+        <xsd:attribute name="color" type="colorType" use="optional"/>
         <xsd:attribute name="fill" type="boolType" use="optional"/>
         <xsd:attribute name="geo" type="boolType" use="optional"/>
         <xsd:attribute name="layer" type="xsd:float" use="optional"/>
