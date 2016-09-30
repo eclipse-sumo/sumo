@@ -41,6 +41,13 @@
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
         <xsd:attribute name="loadingDuration" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcStrategic" type="xsd:float"/>
+        <xsd:attribute name="lcCooperative" type="xsd:float"/>
+        <xsd:attribute name="lcSpeedGain" type="xsd:float"/>
+        <xsd:attribute name="lcKeepRight" type="xsd:float"/>
+        <xsd:attribute name="lcSublane" type="xsd:float"/>
+        <xsd:attribute name="lcPushy" type="xsd:float"/>
+        <xsd:attribute name="lcAssertive" type="xsd:float"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment">
             <xsd:simpleType>
