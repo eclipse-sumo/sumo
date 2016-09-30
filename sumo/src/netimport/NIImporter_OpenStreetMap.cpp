@@ -769,12 +769,12 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
 
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer") {
+        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
-        if (key == "highway" || key == "railway" || key == "waterway" || key == "cycleway" || key == "busway") {
+        if (key == "highway" || key == "railway" || key == "waterway" || key == "cycleway" || key == "busway" || key == "route") {
             myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff
             if (key == "cycleway") {
