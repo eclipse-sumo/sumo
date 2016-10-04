@@ -424,6 +424,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TLTYPE:
             // @todo this causes problems if the node were to have multiple programs of different type (plausible)
             return myNBNode.isTLControlled() ? toString((*myNBNode.getControllingTLS().begin())->getType()) : "";
+        case SUMO_ATTR_TLID:
+            return myNBNode.isTLControlled() ? toString((*myNBNode.getControllingTLS().begin())->getID()) : "";
         case SUMO_ATTR_KEEP_CLEAR:
             return myNBNode.getKeepClear() ? "true" : "false";
         default:
@@ -467,6 +469,44 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_end();
             break;
         }
+        case SUMO_ATTR_TLID: {
+            undoList->p_begin("change tls id");
+            // junction is already controlled, remove from previous tls
+            const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
+            for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
+                undoList->add(new GNEChange_TLS(this, *it, false), true);
+            }
+            NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
+            const std::map<std::string, NBTrafficLightDefinition*>& programs = tlCont.getPrograms(value);
+            if (programs.size() > 0) {
+                // add to existing tls definitions
+                for (std::map<std::string, NBTrafficLightDefinition*>::const_iterator it = programs.begin(); it != programs.end(); it++) {
+                    NBTrafficLightDefinition* oldTLS = it->second;
+                    if (dynamic_cast<NBOwnTLDef*>(oldTLS) != 0) {
+                        undoList->add(new GNEChange_TLS(this, oldTLS, true), true);
+                    } else {
+                        // delete and re-create the definition because the loaded phases are now invalid
+                        const std::vector<NBNode*> nodes = oldTLS->getNodes();
+                        for (std::vector<NBNode*>::const_iterator it_node = nodes.begin(); it_node != nodes.end(); ++it_node) {
+                            GNEJunction* oldJunction = myNet->retrieveJunction((*it_node)->getID());
+                            undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
+                        }
+                        undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+                        NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
+                        // re-add existing nodes
+                        for (std::vector<NBNode*>::const_iterator it_node = nodes.begin(); it_node != nodes.end(); ++it_node) {
+                            GNEJunction* oldJunction = myNet->retrieveJunction((*it_node)->getID());
+                            undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
+                        }
+                    }
+                }
+            } else {
+                // create new traffic light
+                undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+            }
+            undoList->p_end();
+            break;
+        }
         default:
             throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
     }
@@ -498,6 +538,8 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TLTYPE:
             return myNBNode.isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
+        case SUMO_ATTR_TLID:
+            return myNBNode.isTLControlled() && value != "";
         case SUMO_ATTR_KEEP_CLEAR:
             return value == "true" || value == "false";
             break;
@@ -646,7 +688,9 @@ GNEJunction::addTrafficLight(NBTrafficLightDefinition* tlDef, bool forceInsert) 
 void
 GNEJunction::removeTrafficLight(NBTrafficLightDefinition* tlDef) {
     NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
-    tlCont.extract(tlDef);
+    if (tlDef->getNodes().size() == 1) {
+        tlCont.extract(tlDef);
+    }
     myNBNode.removeTrafficLight(tlDef);
 }
 
