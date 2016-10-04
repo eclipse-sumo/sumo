@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 13 14:53:34 2016 by SUMO netconvert Version dev-SVN-r21158
+<!-- generated on Tue Oct  4 12:37:45 2016 by SUMO netconvert Version dev-SVN-r21591
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -175,12 +175,12 @@
     </edge>
 
     <junction id="f0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
-    <junction id="f1" type="priority" x="300.00" y="0.00" incLanes="i1_0 i1_1 i1_2" intLanes=":f1_0_0 :f1_0_1 :f1_0_2" shape="300.02,-0.05 307.31,-6.61 300.02,-9.85 300.02,-0.05">
+    <junction id="f1" type="priority" x="300.00" y="0.00" incLanes="i1_0 i1_1 i1_2" intLanes=":f1_0_0 :f1_0_1 :f1_0_2" shape="300.02,-0.05 307.31,-6.61 300.02,-9.85">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="f2" type="priority" x="390.00" y="100.00" incLanes="i2_0 i2_1 i2_2" intLanes=":f2_0_0 :f2_0_1 :f2_0_2" shape="390.05,99.98 399.85,99.98 397.33,93.42 390.05,99.98">
+    <junction id="f2" type="priority" x="390.00" y="100.00" incLanes="i2_0 i2_1 i2_2" intLanes=":f2_0_0 :f2_0_1 :f2_0_2" shape="390.05,99.98 399.85,99.98 397.33,93.42">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -225,17 +225,17 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="z3" type="priority" x="990.00" y="100.00" incLanes="e3_0 e3_1 e3_2" intLanes=":z3_0_0 :z3_0_1 :z3_0_2" shape="980.15,103.78 989.95,103.78 987.43,97.22 980.15,103.78">
+    <junction id="z3" type="priority" x="990.00" y="100.00" incLanes="e3_0 e3_1 e3_2" intLanes=":z3_0_0 :z3_0_1 :z3_0_2" shape="980.15,103.78 989.95,103.78 987.43,97.22">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="z4" type="priority" x="900.00" y="0.00" incLanes="e4_0 e4_1 e4_2" intLanes=":z4_0_0 :z4_0_1 :z4_0_2" shape="895.61,9.85 902.90,3.29 895.61,0.05 895.61,9.85">
+    <junction id="z4" type="priority" x="900.00" y="0.00" incLanes="e4_0 e4_1 e4_2" intLanes=":z4_0_0 :z4_0_1 :z4_0_2" shape="895.61,9.85 902.90,3.29 895.61,0.05">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="z5" type="priority" x="700.00" y="0.00" incLanes="e5_0 e5_1 e5_2" intLanes=":z5_0_0 :z5_0_1 :z5_0_2" shape="704.39,9.85 704.39,0.05 697.10,3.29 704.39,9.85">
+    <junction id="z5" type="priority" x="700.00" y="0.00" incLanes="e5_0 e5_1 e5_2" intLanes=":z5_0_0 :z5_0_1 :z5_0_2" shape="704.39,9.85 704.39,0.05 697.10,3.29">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
