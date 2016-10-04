@@ -120,7 +120,8 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
 
 
 void
-MSDevice_Tripinfo::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
+MSDevice_Tripinfo::notifyMoveInternal(SUMOVehicle& veh, SUMOReal /* frontOnLane */,
+                                      SUMOReal timeOnLane, SUMOReal speed) {
     // called by meso
     const SUMOReal vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
     if (vmax > 0) {
