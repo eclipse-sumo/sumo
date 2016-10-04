@@ -40,6 +40,7 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include "GNEEdge.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
@@ -161,16 +162,25 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry hints
     if (s.scale * SNAP_RADIUS > 1.) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-        glPushName(getGlID());
-        PositionVector geom = myNBEdge.getGeometry();
-        for (int i = 1; i < (int)geom.size() - 1; i++) {
-            Position pos = geom[i];
-            glPushMatrix();
-            glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
-            GLHelper:: drawFilledCircle(SNAP_RADIUS, 32);
-            glPopMatrix();
+        if (gSelected.isSelected(getType(), getGlID()) && s.laneColorer.getActive() != 1) {
+            // override with special colors (unless the color scheme is based on selection)
+            GLHelper::setColor(GNENet::selectionColor.changedBrightness(-20));
         }
-        glPopName();
+        // recognize full transparency and simply don't draw
+        GLfloat color[4];
+        glGetFloatv(GL_CURRENT_COLOR, color);
+        if (color[3] > 0) {
+            glPushName(getGlID());
+            PositionVector geom = myNBEdge.getGeometry();
+            for (int i = 1; i < (int)geom.size() - 1; i++) {
+                Position pos = geom[i];
+                glPushMatrix();
+                glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
+                GLHelper:: drawFilledCircle(SNAP_RADIUS, 32);
+                glPopMatrix();
+            }
+            glPopName();
+        }
     }
 
     // (optionally) draw the name and/or the street name
