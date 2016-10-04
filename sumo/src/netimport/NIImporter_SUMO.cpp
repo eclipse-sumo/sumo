@@ -138,6 +138,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             WRITE_ERROR("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
             continue;
         }
+        if (from == to) {
+            WRITE_ERROR("Edge's '" + ed->id + "' from-node and to-node '" + ed->toNode + "' art identical.");
+            continue;
+        }
         // edge shape
         PositionVector geom;
         if (ed->shape.size() > 0) {
