@@ -7,9 +7,6 @@ routecheck
 # Tests for <SUMO_DIST>/tools/route_tools/route2alts.py
 route2alts
 
-# Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
-route_departOffset
-
 # Tests for <SUMO_DIST>/tools/route_tools/route_1htoDay.py
 route_1htoDay
 
@@ -22,3 +19,6 @@ route2poly
 # Cut down routes from a large scenario to a sub-scenario
 cut_routes
 routeStats
+
+# tests for modifying departure times
+departOffset
