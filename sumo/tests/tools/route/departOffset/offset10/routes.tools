@@ -1,14 +1,14 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="a b c d" id="route0_0"></route>
+    <route edges="a b c d" id="route0"></route>
 
-    <vehicle color="red" depart="11" id="veh0_0">
+    <vehicle color="red" depart="11" id="veh0">
         <route edges="c e f g"></route>
     </vehicle>
 
-    <vehicle color="red" route="route0" depart="12" id="veh1_0"></vehicle>
+    <vehicle color="red" route="route0" depart="12" id="veh1"></vehicle>
 
-    <trip color="blue" from="h" depart="13" id="trip0_0" to="j"></trip>
+    <trip color="blue" from="h" depart="13" id="trip0" to="j"></trip>
 
-    <flow begin="14" from="k" color="green" to="l" end="50" id="flow0_0"></flow>
+    <flow begin="14" from="k" color="green" to="l" end="50" id="flow0"></flow>
 
 </routes>

@@ -25,20 +25,38 @@ import array
 from xml.sax import make_parser, handler
 
 
+def get_options(args=None):
+    optParser = optparse.OptionParser()
+    optParser.add_option("-r", "--input-file", dest="infile", help="the input route file (mandatory)")
+    optParser.add_option("-o", "--output-file", dest="outfile", help="the output route file (mandatory)")
+    optParser.add_option("-d", "--depart-offset", dest="offset", type="float", help="the depart offset to apply (mandatory)")
+    optParser.add_option("--modify-ids", dest="modify_ids", action="store_true", default=False, help="whether ids should be modified as well")
+
+    (options, args) = optParser.parse_args(args=args)
+    if not options.infile or not options.outfile or not options.offset:
+        optParser.print_help()
+        sys.exit()
+
+    if int(options.offset) == options.offset:
+        options.offset = int(options.offset)
+
+    return options
+
+
 class RouteReader(handler.ContentHandler):
 
-    def __init__(self, offset, out):
-        self._offset = offset
+    def __init__(self, options, out):
+        self._options = options
         self._out = out
 
     def startElement(self, name, attrs):
         self._out.write('<' + name)
         for a in attrs.keys():
             val = attrs[a]
-            if a == "depart":
-                val = str(int(val) + self._offset)
-            if a == "id":
-                val = val + "_" + str(self._offset)
+            if a in ["depart", "begin", "end"]:
+                val = str(int(val) + self._options.offset)
+            if a == "id" and self._options.modify_ids:
+                val = val + "_" + str(self._options.offset)
             self._out.write(' ' + a + '="' + val + '"')
         self._out.write('>')
 
@@ -49,15 +67,12 @@ class RouteReader(handler.ContentHandler):
         self._out.write(content)
 
 
-def main(infile, outfile, offset):
-    out = open(outfile, "w")
-    parser = make_parser()
-    parser.setContentHandler(RouteReader(offset, out))
-    parser.parse(infile)
+def main(options):
+    with open(options.outfile, "w") as out:
+        parser = make_parser()
+        parser.setContentHandler(RouteReader(options, out))
+        parser.parse(options.infile)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
-        print(
-            "Usage: route_departOffset.py <INPUT_FILE> <OUTPUT_FILE> <OFFSET>")
-        sys.exit()
-    main(sys.argv[1], sys.argv[2], int(sys.argv[3]))
+    main(get_options(sys.argv))
+
