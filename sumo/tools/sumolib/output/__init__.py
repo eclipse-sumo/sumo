@@ -30,17 +30,37 @@ from xml.sax.handler import ContentHandler
 from . import dump, inductionloop, convert
 
 
-def compound_object(element_name, attrnames):
+def _prefix_keyword(name, warn=False):
+    result = name
+    # create a legal identifier (xml allows '-', ':' and '.' ...)
+    result = ''.join([c for c in name if c.isalnum() or c == '_'])
+    if result != name:
+        if result == '':
+            result == 'attr_'
+        if warn:
+            print("Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (
+                name, result), file=sys.stderr)
+    if iskeyword(name):
+        result = 'attr_' + name
+        if warn:
+            print("Warning: Renaming attribute '%s' to '%s' because it conflicts with a python keyword" % (
+                name, result), file=sys.stderr)
+    return result
+
+
+def compound_object(element_name, attrnames, warn=False):
     """return a class which delegates bracket access to an internal dict. 
        Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
     class CompoundObject():
-        _fields = sorted(attrnames)
+        original_fields = sorted(attrnames)
+        _fields = [_prefix_keyword(a, warn) for a in original_fields]
 
         def __init__(self, values, child_dict):
             for name, val in zip(self._fields, values):
                 self.__dict__[name] = val
             self._child_dict = child_dict
+            self.name = element_name
 
         def getAttributes(self):
             return [(k, getattr(self, k)) for k in self._fields]
@@ -55,6 +75,9 @@ def compound_object(element_name, attrnames):
 
         def hasChild(self, name):
             return name in self._child_dict
+
+        def getChild(self, name):
+            return self._child_dict[name]
 
         def __getattr__(self, name):
             if name[:2] != "__":
@@ -82,8 +105,8 @@ def compound_object(element_name, attrnames):
             return "<%s,child_dict=%s>" % (self.getAttributes(), dict(self._child_dict))
 
         def toXML(self, initialIndent="", indent="    "):
-            fields = ['%s="%s"' % (k, getattr(self, k))
-                      for k in self._fields if getattr(self, k) is not None]
+            fields = ['%s="%s"' % (self.original_fields[i], getattr(self, k))
+                      for i,k in enumerate(self._fields) if getattr(self, k) is not None]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:
@@ -100,7 +123,8 @@ def compound_object(element_name, attrnames):
     return CompoundObject
 
 
-def parse(xmlfile, element_names, element_attrs={}, attr_conversions={}):
+def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
+        heterogeneous=False, warn=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
@@ -117,9 +141,10 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={}):
     provided unless an attribute with the same name as the child elements
     exists (i.e. o.child_element_name = [osub0, osub1, ...])
     @Note: All elements with the same name must have the same type regardless of
-    the subtree in which they occur
+    the subtree in which they occur (heterogeneous cases may be handled by
+    setting heterogeneous=False (with reduced parsing speed)
     @Note: Attribute names may be modified to avoid name clashes
-    with python keywords.
+    with python keywords. (set warn=True to receive renaming warnings)
     @Note: The element_names may be either a single string or a list of strings.
     @Example: parse('plain.edg.xml', ['edge'])
     """
@@ -129,7 +154,8 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={}):
     for event, parsenode in ET.iterparse(xmlfile):
         if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, elementTypes,
-                                       parsenode.tag, element_attrs, attr_conversions)
+                                       parsenode.tag, element_attrs,
+                                       attr_conversions, heterogeneous, warn)
             parsenode.clear()
 
 
@@ -137,45 +163,27 @@ _NO_CHILDREN = defaultdict(lambda: [])
 _IDENTITY = lambda x: x
 
 
-def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions):
-    if not element_name in elementTypes:
+def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions, heterogeneous, warn):
+    if not element_name in elementTypes or heterogeneous:
         # initialized the compound_object type from the first encountered #
         # element
         attrnames = element_attrs.get(element_name, node.keys())
         if len(attrnames) != len(set(attrnames)):
             raise Exception(
                 "non-unique attributes %s for element '%s'" % (attrnames, element_name))
-        attrnames = [_prefix_keyword(a) for a in attrnames]
-        elementTypes[element_name] = compound_object(element_name, attrnames)
+        elementTypes[element_name] = compound_object(element_name, attrnames, warn)
     # prepare children
     child_dict = _NO_CHILDREN  # conserve space by reusing singleton
     if len(node) > 0:
         child_dict = defaultdict(lambda: [])
         for c in node:
             child_dict[c.tag].append(_get_compound_object(
-                c, elementTypes, c.tag, element_attrs, attr_conversions))
-    attrnames = elementTypes[element_name]._fields
+                c, elementTypes, c.tag, element_attrs, attr_conversions,
+                heterogeneous, warn))
+    attrnames = elementTypes[element_name].original_fields
     return elementTypes[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict)
-
-
-def _prefix_keyword(name, warn=False):
-    result = name
-    # create a legal identifier (xml allows '-', ':' and '.' ...)
-    result = ''.join([c for c in name if c.isalnum() or c == '_'])
-    if result != name:
-        if result == '':
-            result == 'attr_'
-        if warn:
-            print("Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (
-                name, result), file=sys.stderr)
-    if iskeyword(name):
-        result = 'attr_' + name
-        if warn:
-            print("Warning: Renaming attribute '%s' to '%s' because it conflicts with a python keyword" % (
-                name, result), file=sys.stderr)
-    return result
 
 
 def sum(elements, attrname):
