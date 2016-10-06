@@ -2,11 +2,11 @@
 	<vType id="DEFAULT_VEHTYPE" sigma="0"/>
 
     <route id="r1" edges="beg beg2right right right2end end rend"/>
-	<vehicle id="0" depart="0" departPos="-55" departSpeed="max" route="r1"/>
-	<vehicle id="1" depart="200" departPos="-60" departSpeed="max" route="r1"/>
-	<vehicle id="2" depart="400" departPos="-65" departSpeed="max" route="r1"/>
-	<vehicle id="3" depart="600" departPos="-70" departSpeed="max" route="r1"/>
-	<vehicle id="4" depart="800" departPos="-75" departSpeed="max" route="r1"/>
-	<vehicle id="5" depart="1000" departPos="-80" departSpeed="max" route="r1"/>
+	<vehicle id="0" depart="0" departPos="-50" departSpeed="max" route="r1"/>
+	<vehicle id="1" depart="50" departPos="-65" departSpeed="max" route="r1"/>
+	<vehicle id="2" depart="100" departPos="-80" departSpeed="max" route="r1"/>
+	<vehicle id="3" depart="150" departPos="-95" departSpeed="max" route="r1"/>
+	<vehicle id="4" depart="200" departPos="-110" departSpeed="max" route="r1"/>
+	<vehicle id="5" depart="250" departPos="-125" departSpeed="max" route="r1"/>
 
 </routes>
