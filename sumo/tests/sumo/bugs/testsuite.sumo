@@ -212,3 +212,6 @@ ticket2494
 
 # If a stop is placed shortly after a vehicle's insertion position and the vehicle is provided a too high departSpeed, it misses the stop.
 ticket2543
+
+# StopSpeed returns a too low value for the euler update in case of insertion
+ticket2574
