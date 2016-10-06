@@ -32,4 +32,9 @@ for i in range(0, 24):
     out = sys.argv[1]
     out = out[:out.find(".")] + "_" + str(i) + out[out.find("."):]
     print("Building routes for hour " + str(i) + " into '" + out + "'...")
-    route_departOffset.main(sys.argv[1], out, i * 3600)
+    route_departOffset.main(
+            route_departOffset.get_options([
+                "--input-file", sys.argv[1],
+                "--output-file", out,
+                "--depart-offset", str(i * 3600),
+                "--modify-ids"]))

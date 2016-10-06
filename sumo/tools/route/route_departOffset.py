@@ -19,11 +19,23 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import sys
+import os, sys
+import codecs
 import optparse
-import array
-from xml.sax import make_parser, handler
 
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(os.path.join(tools))
+    from sumolib.output import parse
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+
+def intIfPossible(val):
+    if int(val) == val:
+        return int(val)
+    else:
+        return val
 
 def get_options(args=None):
     optParser = optparse.OptionParser()
@@ -31,47 +43,72 @@ def get_options(args=None):
     optParser.add_option("-o", "--output-file", dest="outfile", help="the output route file (mandatory)")
     optParser.add_option("-d", "--depart-offset", dest="offset", type="float", help="the depart offset to apply (mandatory)")
     optParser.add_option("--modify-ids", dest="modify_ids", action="store_true", default=False, help="whether ids should be modified as well")
+    optParser.add_option("--heterogeneous", dest="heterogeneous",
+            action="store_true", default=False, help="whether heterogeneous objects shall be parsed (i.e. vehicles with embeded and referenced routes)")
+    optParser.add_option("--depart-edges", dest="depart_edges", 
+            help="only modify departure times of vehicles departing on the given edges")
 
     (options, args) = optParser.parse_args(args=args)
-    if not options.infile or not options.outfile or not options.offset:
+    if options.infile is None or options.outfile is None or options.offset is None:
         optParser.print_help()
         sys.exit()
 
-    if int(options.offset) == options.offset:
-        options.offset = int(options.offset)
+    options.offset = intIfPossible(options.offset)
+
+    if options.depart_edges is not None:
+        options.depart_edges = options.depart_edges.split(',')
 
     return options
 
 
-class RouteReader(handler.ContentHandler):
-
-    def __init__(self, options, out):
-        self._options = options
-        self._out = out
-
-    def startElement(self, name, attrs):
-        self._out.write('<' + name)
-        for a in attrs.keys():
-            val = attrs[a]
-            if a in ["depart", "begin", "end"]:
-                val = str(int(val) + self._options.offset)
-            if a == "id" and self._options.modify_ids:
-                val = val + "_" + str(self._options.offset)
-            self._out.write(' ' + a + '="' + val + '"')
-        self._out.write('>')
-
-    def endElement(self, name):
-        self._out.write('</' + name + '>')
-
-    def characters(self, content):
-        self._out.write(content)
-
-
 def main(options):
-    with open(options.outfile, "w") as out:
-        parser = make_parser()
-        parser.setContentHandler(RouteReader(options, out))
-        parser.parse(options.infile)
+    # cache stand-alone routes
+    routesDepart = {} # first edge for each route
+
+    with codecs.open(options.outfile, 'w', encoding='utf8') as out:
+        out.write("<routes>\n")
+        for route in parse(options.infile, "route"):
+            if route.hasAttribute('id') and route.id is not None:
+                routesDepart[route.id] = route.edges.split()[0]
+                out.write(route.toXML('    '))
+
+        for obj in parse(options.infile, ['vehicle', 'trip', 'flow', 'vType'],
+                heterogeneous=options.heterogeneous, warn=False):
+            if obj.name == 'vType':
+                # copy
+                pass
+            else:
+                if options.modify_ids:
+                    obj.id += "_%s" % options.offset
+                departEdge = None
+                if options.depart_edges is not None:
+                    # determine the departEdge of the current vehicle
+                    if obj.name == 'trip':
+                        departEdge = obj.attr_from
+                    elif obj.name == 'vehicle':
+                        if obj.hasAttribute('route') and obj.route is not None:
+                            departEdge = routesDepart[obj.route]
+                        else:
+                            # route child element
+                            departEdge = obj.route[0].edges.split()[0]
+                    elif obj.name == 'flow':
+                        if obj.hasAttribute('attr_from') and obj.attr_from is not None:
+                            departEdge = obj.attr_from
+                        elif obj.hasAttribute('route') and obj.route is not None:
+                            departEdge = routesDepart[obj.route]
+                        else:
+                            # route child element
+                            departEdge = obj.route[0].edges.split()[0]
+                if departEdge is None or departEdge in options.depart_edges:
+                    if obj.name in ['trip', 'vehicle']:
+                        obj.depart = str(intIfPossible(float(obj.depart) + options.offset))
+                    else:
+                        obj.begin = str(intIfPossible(float(obj.begin) + options.offset))
+                        obj.end = str(intIfPossible(float(obj.end) + options.offset))
+
+            out.write(obj.toXML('    '))
+        out.write("</routes>\n")
+
 
 if __name__ == "__main__":
     main(get_options(sys.argv))
