@@ -1,0 +1,2 @@
+--input-file routes.rou.xml --output-file out.rou.xml --depart-offset 10 --heterogeneous
+tools/route/route_departOffset.py
