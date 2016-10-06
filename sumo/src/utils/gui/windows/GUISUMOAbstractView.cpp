@@ -173,11 +173,17 @@ GUISUMOAbstractView::updateToolTip() {
 
 Position
 GUISUMOAbstractView::getPositionInformation() const {
+    return screenPos2NetPos(myWindowCursorPositionX, myWindowCursorPositionY);
+}
+
+
+Position 
+GUISUMOAbstractView::screenPos2NetPos(int x, int y) const {
     Boundary bound = myChanger->getViewport();
-    SUMOReal x = bound.xmin() + bound.getWidth()  * myWindowCursorPositionX / getWidth();
+    SUMOReal xNet = bound.xmin() + bound.getWidth() * x / getWidth();
     // cursor origin is in the top-left corner
-    SUMOReal y = bound.ymin() + bound.getHeight() * (getHeight() - myWindowCursorPositionY) / getHeight();
-    return Position(x, y);
+    SUMOReal yNet = bound.ymin() + bound.getHeight() * (getHeight() - y) / getHeight();
+    return Position(xNet, yNet);
 }
 
 
@@ -1180,11 +1186,20 @@ GUISUMOAbstractView::drawDecals() {
             }
         }
         glPushMatrix();
-        glTranslated(d.centerX, d.centerY, d.layer);
+        if (d.screenRelative) {
+            Position center = screenPos2NetPos(d.centerX, d.centerY);
+            glTranslated(center.x(), center.y(), d.layer);
+        } else {
+            glTranslated(d.centerX, d.centerY, d.layer);
+        }
         glRotated(d.rot, 0, 0, 1);
         glColor3d(1, 1, 1);
-        const SUMOReal halfWidth = d.width / 2.;
-        const SUMOReal halfHeight = d.height / 2.;
+        SUMOReal halfWidth = d.width / 2.;
+        SUMOReal halfHeight = d.height / 2.;
+        if (d.screenRelative) {
+            halfWidth = p2m(halfWidth);
+            halfHeight = p2m(halfHeight);
+        }
         GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
         glPopMatrix();
     }
@@ -1279,6 +1294,7 @@ GUISUMOAbstractView::Decal::Decal() :
     layer(0),
     initialised(false),
     skip2D(false),
+    screenRelative(false),
     glID(-1),
     image(0) {
 }

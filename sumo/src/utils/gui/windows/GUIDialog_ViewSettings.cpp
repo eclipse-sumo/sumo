@@ -1076,6 +1076,7 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
         dev.writeAttr("tilt", d.tilt);
         dev.writeAttr("roll", d.roll);
         dev.writeAttr(SUMO_ATTR_LAYER, d.layer);
+        dev.writeAttr("screenRelative", d.screenRelative);
         dev.closeTag();
     }
 }
@@ -1279,9 +1280,10 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 void
 GUIDialog_ViewSettings::rebuildList() {
     myDecalsTable->clearItems();
+    const int cols = 8;
     // set table attributes
     const int numRows = MAX2((int)10, (int)myDecals->size() + 1);
-    myDecalsTable->setTableSize(numRows, 7);
+    myDecalsTable->setTableSize(numRows, cols);
     myDecalsTable->setColumnText(0, "picture file");
     myDecalsTable->setColumnText(1, "center x");
     myDecalsTable->setColumnText(2, "center y");
@@ -1289,10 +1291,11 @@ GUIDialog_ViewSettings::rebuildList() {
     myDecalsTable->setColumnText(4, "height");
     myDecalsTable->setColumnText(5, "rotation");
     myDecalsTable->setColumnText(6, "layer");
+    myDecalsTable->setColumnText(7, "relative");
     FXHeader* header = myDecalsTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
     int k;
-    for (k = 0; k < 7; k++) {
+    for (k = 0; k < cols; k++) {
         header->setItemJustify(k, JUSTIFY_CENTER_X | JUSTIFY_TOP);
         header->setItemSize(k, 60);
     }
@@ -1309,6 +1312,7 @@ GUIDialog_ViewSettings::rebuildList() {
         myDecalsTable->setItemText(row, 4, toString<SUMOReal>(d.height).c_str());
         myDecalsTable->setItemText(row, 5, toString<SUMOReal>(d.rot).c_str());
         myDecalsTable->setItemText(row, 6, toString<SUMOReal>(d.layer).c_str());
+        myDecalsTable->setItemText(row, 7, toString<SUMOReal>(d.screenRelative).c_str());
         row++;
     }
     // insert dummy last field
@@ -1513,6 +1517,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
         d.initialised = false;
         d.rot = 0;
         d.layer = 0;
+        d.screenRelative = false;
         myDecalsLock->lock();
         myDecals->push_back(d);
         myDecalsLock->unlock();
@@ -1575,6 +1580,14 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
                 d.layer = TplConvert::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
+            }
+            break;
+        case 7:
+            try {
+                d.screenRelative = TplConvert::_2bool(value.c_str());
+            } catch (NumberFormatException&) {
+                std::string msg = "The value must be a bool, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
             }
             break;
