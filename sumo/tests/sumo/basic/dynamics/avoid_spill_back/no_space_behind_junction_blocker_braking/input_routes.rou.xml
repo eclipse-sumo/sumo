@@ -8,7 +8,7 @@
         <route edges="beg middle"/>
     </vehicle>
 
-    <vehicle id="blocker" type="blocker" depart="0" departPos="0" departSpeed="7">
+    <vehicle id="blocker" type="blocker" depart="0" departPos="0" departSpeed="5">
         <route edges="middle"/>
         <stop lane="middle_0" endPos="11" duration="1000"/>
     </vehicle>

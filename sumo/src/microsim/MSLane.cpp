@@ -517,8 +517,22 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*>& bestLaneConts = aVehicle->getBestLanesContinuation(this);
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
-    SUMOReal seen = getLength() - pos;
+    SUMOReal seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
     SUMOReal dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+
+    // before looping through the continuation lanes, check if a stop is scheduled on this lane
+    // (the code is duplicated in the loop)
+    const MSVehicle::Stop& nextStop = aVehicle->getNextStop();
+    if(nextStop.lane == this){
+        std::stringstream msg; msg << "scheduled stop on lane '" << myID <<"' too close";
+        const SUMOReal distToStop = nextStop.endPos - pos; // XXX: Please approve whether endPos is appropriate, here. (Leo)
+        if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
+                patchSpeed, msg.str())) {
+            // we may not drive with the given velocity - we cannot stop at the stop
+            return false;
+        }
+    }
+
     const MSRoute& r = aVehicle->getRoute();
     MSRouteIterator ce = r.begin();
     int nRouteSuccs = 1;
@@ -548,6 +562,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
+
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(), cfModel.getMaxDecel(), 0, posLat)
                 || !(*link)->havePriority()) {
             // have to stop at junction
@@ -569,8 +584,21 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
         // get the next used lane (including internal)
         nextLane = (*link)->getViaLaneOrLane();
-        // check how next lane effects the journey
+        // check how next lane affects the journey
         if (nextLane != 0) {
+
+            // check if there are stops on the next lane that should be regarded
+            // (this block is duplicated before the loop to deal with the insertion lane)
+            if(nextStop.lane == nextLane){
+                std::stringstream msg; msg << "scheduled stop on lane '" << nextStop.lane->getID() <<"' too close";
+                const SUMOReal distToStop = seen + nextStop.endPos; // XXX: Please approve whether endPos is appropriate, here. (Leo)
+                if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
+                                 patchSpeed, msg.str())) {
+                    // we may not drive with the given velocity - we cannot stop at the stop
+                    return false;
+                }
+            }
+
             // check leader on next lane
             // XXX check all leaders in the sublane case
             SUMOReal gap = 0;
@@ -1344,6 +1372,11 @@ MSLane::isEmpty() const {
     return myVehicles.empty() && myPartialVehicles.empty();
 }
 
+bool
+MSLane::isInternal() const {
+    return myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
+}
+
 MSVehicle*
 MSLane::getLastFullVehicle() const {
     if (myVehicles.size() == 0) {
@@ -1400,7 +1433,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, int nRouteSuccs,
         return succLinkSource.myLinks.end();
     }
     // if we are on an internal lane there should only be one link and it must be allowed
-    if (succLinkSource.getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (succLinkSource.isInternal()) {
         assert(succLinkSource.myLinks.size() == 1);
         // could have been disallowed dynamically with a rerouter or via TraCI
         // assert(succLinkSource.myLinks[0]->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass()));
@@ -1414,6 +1447,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, int nRouteSuccs,
     // there should be a link which leads to the next desired lane our route in "conts" (built in "getBestLanes")
     // "conts" stores the best continuations of our current lane
     // we should never return an arbitrary link since this may cause collisions
+
     MSLinkCont::const_iterator link;
     if (nRouteSuccs < (int)conts.size()) {
         // we go through the links in our list and return the matching one

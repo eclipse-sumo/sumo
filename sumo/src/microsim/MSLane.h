@@ -275,7 +275,12 @@ public:
                             bool recheckNextLanes,
                             MSMoveReminder::Notification notification);
 
+    // XXX: Documentation?
     bool checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const SUMOReal nspeed, const bool patchSpeed, const std::string errorMsg) const;
+
+    /** @todo documentation
+     *
+     */
     bool lastInsertion(MSVehicle& veh, SUMOReal mspeed);
 
     /** @brief Tries to insert the given vehicle on any place
@@ -544,6 +549,8 @@ public:
     /// returns the container with all links !!!
     const MSLinkCont& getLinkCont() const;
 
+    /// return the link leading to target (if it exists)
+    const MSLink* getLinkTo(const MSLane* target) const;
 
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const {
@@ -628,6 +635,7 @@ public:
 
 
 
+    // XXX: succLink does not exist... Documentation?
     /** Same as succLink, but does not throw any assertions when
         the succeeding link could not be found;
         Returns the myLinks.end() instead; Further, the number of edges to
@@ -649,6 +657,9 @@ public:
     /** Returns the information whether the lane is has no vehicle and no
         partial occupation*/
     bool isEmpty() const;
+
+    /** Returns whether the lane pertains to an internal edge*/
+    bool isInternal() const;
 
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
