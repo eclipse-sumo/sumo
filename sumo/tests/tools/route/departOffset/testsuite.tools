@@ -9,3 +9,6 @@ offset10_heterogeneous
 
 # modifying departure times for vehicles departing from specified edges
 offset10_departEdges
+
+# modifying departure times for vehicles departing from specified edges
+offset10_departEdges_file

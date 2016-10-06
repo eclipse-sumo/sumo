@@ -47,6 +47,8 @@ def get_options(args=None):
             action="store_true", default=False, help="whether heterogeneous objects shall be parsed (i.e. vehicles with embeded and referenced routes)")
     optParser.add_option("--depart-edges", dest="depart_edges", 
             help="only modify departure times of vehicles departing on the given edges")
+    optParser.add_option("--depart-edges.file", dest="depart_edges_file", 
+            help="only modify departure times of vehicles departing on edges or lanes in the given selection file")
 
     (options, args) = optParser.parse_args(args=args)
     if options.infile is None or options.outfile is None or options.offset is None:
@@ -57,6 +59,18 @@ def get_options(args=None):
 
     if options.depart_edges is not None:
         options.depart_edges = options.depart_edges.split(',')
+
+    if options.depart_edges_file is not None:
+        if options.depart_edges is None:
+            options.depart_edges = []
+        for line in open(options.depart_edges_file):
+            line = line.strip()
+            if line.startswith("edge:"):
+                options.depart_edges.append(line[5:])
+            elif line.startswith("lane:"):
+                options.depart_edges.append(line[5:-2])
+            else: 
+                options.depart_edges.append(line)
 
     return options
 
