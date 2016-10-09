@@ -62,7 +62,10 @@ public:
     ~GNERouteProbe();
 
     /// @brief change the position of the RouteProbe geometry
-    void moveAdditional(SUMOReal, SUMOReal, GNEUndoList*);
+    void moveAdditionalGeometry(SUMOReal, SUMOReal);
+
+    /// @brief updated geometry changes in the attributes of additional 
+    void commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved)
@@ -75,9 +78,6 @@ public:
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device, const std::string&);
-
-    /// @brief get edge in which the RouteProbe is placed
-    GNEEdge* getEdge() const;
 
     /// @brief remove reference to edge
     /// @note this function will be called automatically in destructor of GNEEdge
@@ -138,9 +138,6 @@ public:
     /// @}
 
 protected:
-    /// @brief edge of routeProbe
-    GNEEdge* myEdge;
-
     /// @brief Frequency of RouteProbe
     int myFrequency;
 

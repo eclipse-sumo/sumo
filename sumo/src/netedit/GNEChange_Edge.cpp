@@ -51,13 +51,18 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, NULL, 0)
 // Constructor for creating an edge
 GNEChange_Edge::GNEChange_Edge(GNENet* net, GNEEdge* edge, bool forward):
     GNEChange(net, forward),
-    myEdge(edge),
-    myAdditionalSetsEdge(myEdge->getAdditionalSets()) {
-    for (std::vector<GNELane*>::const_iterator i = myEdge->getLanes().begin(); i != myEdge->getLanes().end(); i++) {
-        myAdditionalSetsLanes[*i] = (*i)->getAdditionalSets();
-    }
+    myEdge(edge) {
     assert(myNet);
     edge->incRef("GNEChange_Edge");
+    // Save additionals of edge
+    myAdditionalChilds = myEdge->getAdditionalChilds();
+    myAdditionalSetParents = myEdge->getAdditionalSets();
+    // Iterate over lanes vinculated to edge
+    for (std::vector<GNELane*>::const_iterator i = myEdge->getLanes().begin(); i != myEdge->getLanes().end(); i++) {
+        // Save additionals vinculated to lane
+        myAdditionalLanes[*i] = (*i)->getAdditionalChilds();
+        myAdditionalSetsLanes[*i] = (*i)->getAdditionalSetParents();
+    }
 }
 
 
@@ -73,15 +78,25 @@ GNEChange_Edge::~GNEChange_Edge() {
 void GNEChange_Edge::undo() {
     if (myForward) {
         myNet->deleteSingleEdge(myEdge);
-        // Remove references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetsEdge.begin(); i != myAdditionalSetsEdge.end(); i++) {
+        // 1 - Remove additional sets vinculated with this edge of net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->deleteAdditional(*i);
+        }
+        // 2 - Remove references to this edge in their AdditionalSets
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             (*i)->removeEdgeChild(myEdge);
             // Remove additional from net if the number of childs is >= 0
             if ((*i)->getNumberOfEdgeChilds() == 0) {
                 myNet->deleteAdditional(*i);
             }
         }
-        // Remove references to every lane of edge in their additionalSets
+        // 3 - Remove of the net all additional child of the lanes of edge
+        for (std::map<GNELane*, std::vector<GNEAdditional*> >::iterator i = myAdditionalLanes.begin(); i != myAdditionalLanes.end(); i++) {
+            for (std::vector<GNEAdditional*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
+                myNet->deleteAdditional(*j);
+            }
+        }
+        // 4 - Remove references to every lane of edge in their additionalSets
         for (std::map<GNELane*, std::vector<GNEAdditionalSet*> >::iterator i = myAdditionalSetsLanes.begin(); i != myAdditionalSetsLanes.end(); i++) {
             for (std::vector<GNEAdditionalSet*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
                 (*j)->removeLaneChild(i->first);
@@ -93,12 +108,22 @@ void GNEChange_Edge::undo() {
         }
     } else {
         myNet->insertEdge(myEdge);
-        // Add references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetsEdge.begin(); i != myAdditionalSetsEdge.end(); i++) {
+        // 1 - add additional sets vinculated with this edge to the net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->insertAdditional(*i);
+        }
+        // 2 - Add references to this edge in their AdditionalSets
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             myNet->insertAdditional(*i, false);
             (*i)->addEdgeChild(myEdge);
         }
-        // Add references to every lane of edge in their additionalSets
+        // 3 - add in the net all additional child of the lanes of edge
+        for (std::map<GNELane*, std::vector<GNEAdditional*> >::iterator i = myAdditionalLanes.begin(); i != myAdditionalLanes.end(); i++) {
+            for (std::vector<GNEAdditional*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
+                myNet->insertAdditional(*j);
+            }
+        }
+        // 4 - Add references to every lane of edge in their additionalSets
         for (std::map<GNELane*, std::vector<GNEAdditionalSet*> >::iterator i = myAdditionalSetsLanes.begin(); i != myAdditionalSetsLanes.end(); i++) {
             for (std::vector<GNEAdditionalSet*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
                 myNet->insertAdditional(*j, false);
@@ -112,12 +137,22 @@ void GNEChange_Edge::undo() {
 void GNEChange_Edge::redo() {
     if (myForward) {
         myNet->insertEdge(myEdge);
-        // Add references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetsEdge.begin(); i != myAdditionalSetsEdge.end(); i++) {
+        // 1 - Add additional sets vinculated with this edge to the net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->insertAdditional(*i);
+        }
+        // 2 - Add references to this edge in their AdditionalSets
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             myNet->insertAdditional(*i, false);
             (*i)->addEdgeChild(myEdge);
         }
-        // Add references to every lane of edge in their additionalSets
+        // 3 - Add in the net all additional child of the lanes of edge
+        for (std::map<GNELane*, std::vector<GNEAdditional*> >::iterator i = myAdditionalLanes.begin(); i != myAdditionalLanes.end(); i++) {
+            for (std::vector<GNEAdditional*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
+                myNet->insertAdditional(*j);
+            }
+        }
+        // 4 - Add references to every lane of edge in their additionalSets
         for (std::map<GNELane*, std::vector<GNEAdditionalSet*> >::iterator i = myAdditionalSetsLanes.begin(); i != myAdditionalSetsLanes.end(); i++) {
             for (std::vector<GNEAdditionalSet*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
                 myNet->insertAdditional(*j, false);
@@ -126,15 +161,25 @@ void GNEChange_Edge::redo() {
         }
     } else {
         myNet->deleteSingleEdge(myEdge);
-        // Remove references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetsEdge.begin(); i != myAdditionalSetsEdge.end(); i++) {
+        // 1 - Remove additional sets vinculated with this edge of net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->deleteAdditional(*i);
+        }
+        // 2 - Remove references to this edge in their AdditionalSets
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             (*i)->removeEdgeChild(myEdge);
             // Remove additional from net if the number of childs is >= 0
             if ((*i)->getNumberOfEdgeChilds() == 0) {
                 myNet->deleteAdditional(*i);
             }
         }
-        // Remove references to every lane of edge in their additionalSets
+        // 3 - Remove of the net all additional child of the lanes of edge
+        for (std::map<GNELane*, std::vector<GNEAdditional*> >::iterator i = myAdditionalLanes.begin(); i != myAdditionalLanes.end(); i++) {
+            for (std::vector<GNEAdditional*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
+                myNet->deleteAdditional(*j);
+            }
+        }
+        // 4 - Remove references to every lane of edge in their additionalSets
         for (std::map<GNELane*, std::vector<GNEAdditionalSet*> >::iterator i = myAdditionalSetsLanes.begin(); i != myAdditionalSetsLanes.end(); i++) {
             for (std::vector<GNEAdditionalSet*>::iterator j = i->second.begin(); j != i->second.end(); j++) {
                 (*j)->removeLaneChild(i->first);

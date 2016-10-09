@@ -89,7 +89,7 @@ public:
      * @param[in] additionalSet pointer to GNEadditionalSet element to remove
      * @return true if was sucesfully removed, false in other case
      */
-    bool removeAdditionalChild(GNEAdditional* additional);
+    bool removeAdditionalGeometryChild(GNEAdditional* additional);
 
     /**@brief add edge element to this set
      * @param[in] edgeSet pointer to GNEEdge element to add

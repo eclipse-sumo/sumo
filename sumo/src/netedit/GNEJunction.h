@@ -107,6 +107,12 @@ public:
     /// @brief Return net build node
     NBNode* getNBNode() const;
 
+    /// @brief Return incoming GNEEdges
+    std::vector<GNEEdge*> getIncomingGNEEdges() const;
+
+    /// @brief Return incoming GNEEdges
+    std::vector<GNEEdge*> getOutgoingGNEEdges() const;
+
     /// @brief marks as first junction in createEdge-mode
     void markAsCreateEdgeSource();
 

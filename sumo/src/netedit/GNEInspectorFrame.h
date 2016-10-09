@@ -39,6 +39,7 @@ class GNENet;
 class GNEEdge;
 class GNEAttributeCarrier;
 class GNEAdditional;
+class GNEConnection;
 
 // ===========================================================================
 // class definitions
@@ -69,7 +70,7 @@ public:
         void showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value);
 
         /// @brief show attribute
-        void hiddeAttribute();
+        void hideAttribute();
 
         /// @brief get current tag
         SumoXMLTag getTag() const;
@@ -173,6 +174,60 @@ public:
         FXButton* myResetButton;
     };
 
+    // ===========================================================================
+    // class AttrConnection
+    // ===========================================================================
+
+    class AttrConnection : public FXHorizontalFrame  {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::AttrConnection)
+
+    public:
+        /// @brief constructor
+        AttrConnection(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~AttrConnection();
+
+        /// @brief show attribute
+        void showConnections(GNEConnection* connection);
+
+        /// @brief show attribute
+        void hideAttrConnection();
+
+        /// @brief set show connection attribute
+        long onCmdSetShowConnection(FXObject*, FXSelector, void*);
+
+        /// @brief inspect connection
+        long onCmdInspectConnection(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX needs this
+        AttrConnection() {}
+
+    private:
+        /// @brief pointer to inspectorFrame Parent
+        GNEInspectorFrame *myInspectorFrameParent;
+
+        /// @brief pointer to current connection
+        GNEConnection *myConnection;
+
+        /// @brief Label for show information of connection
+        FXLabel *myConnectionInfoLabel;
+
+        /// @brief FXCheckBox to hide/show connection individually
+        FXCheckButton *myShowConnection;
+
+        /// @brief FXCheckBox to hide/show connection individually
+        FXButton *myInspectConnection;
+
+        /// @brief set show as private function
+        void show();
+
+        /// @brief set hide as private function
+        void hide();
+    };
+
 public:
     /**@brief Constructor
      * @brief parent FXFrame in which this GNEFrame is placed
@@ -189,8 +244,11 @@ public:
     /// @brief hide Frame
     void hide();
 
+    /// @brief Inspect a single element
+    void inspect(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement = NULL);
+
     /// @brief Inspect the given multi-selection
-    void inspect(const std::vector<GNEAttributeCarrier*>& ACs);
+    void inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttributeCarrier* previousElement = NULL);
 
     /// @brief get current list of ACs
     const std::vector<GNEAttributeCarrier*>& getACs() const;
@@ -213,6 +271,9 @@ public:
     /// @brief called when user toogle the blocking button
     long onCmdSetBlocking(FXObject*, FXSelector, void*);
 
+    /// @brief called when user toogle the go back button
+    long onCmdGoBack(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief FOX needs this
     GNEInspectorFrame() {}
@@ -220,9 +281,12 @@ protected:
 private:
     /// @brief groupBox for attributes
     FXGroupBox* myGroupBoxForAttributes;
-
+    
     /// @brief list of Attribute inputs
     std::vector<GNEInspectorFrame::AttrInput*> vectorOfAttrInput;
+    
+    /// @brief back Button
+    FXButton *myBackButton;
 
     /// @brief groupBox for templates
     FXGroupBox* myGroupBoxForTemplates;
@@ -244,6 +308,15 @@ private:
 
     /// @brief pointer to additional element
     GNEAdditional* myAdditional;
+
+    /// @brief pointer to previous element (If exist)
+    GNEAttributeCarrier* myPreviousElement;
+
+    /// @brief groupBox for AttrConnection
+    FXGroupBox* myGroupBoxForAttrConnections;
+
+    /// @brief vector of attrConnections
+    std::vector<AttrConnection*> myAttrConnections;
 
     /// @brief the multi-selection currently being inspected
     std::vector<GNEAttributeCarrier*> myACs;

@@ -248,6 +248,29 @@ GNEJunction::getNBNode() const {
     return &myNBNode;
 }
 
+
+std::vector<GNEEdge*>
+GNEJunction::getIncomingGNEEdges() const {
+    std::vector<GNEEdge*> incomingEdges;
+    // iterate over incoming edges
+    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
+        incomingEdges.push_back(myNet->retrieveEdge((*i)->getID()));
+    }
+    return incomingEdges;
+}
+
+
+std::vector<GNEEdge*>
+GNEJunction::getOutgoingGNEEdges() const {
+    std::vector<GNEEdge*> outgoingEdges;
+    // iterate over outgoing edges
+    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
+        outgoingEdges.push_back(myNet->retrieveEdge((*i)->getID()));
+    }
+    return outgoingEdges;
+}
+
+
 void
 GNEJunction::markAsCreateEdgeSource() {
     myAmCreateEdgeSource = true;
@@ -306,20 +329,15 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
     myHasValidLogic = valid;
     // If new logic isn't valid
     if (!valid) {
-
         // Check preconditions
         assert(undoList != 0);
         assert(undoList->hasCommandGroup());
-
         // Registre a modification of status
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status));
-
         // allow edges to recompute their connections
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
-
         // Obtain a copy of incoming edges
         EdgeVector incoming = myNBNode.getIncomingEdges();
-
         // Iterate over incoming edges
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
             NBEdge* srcNBE = *it;

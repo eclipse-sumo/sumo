@@ -69,12 +69,11 @@ public:
     /// @brief Returns position of detector E3 in view
     Position getPositionInView() const;
 
-    /**@brief change the position of the E3 geometry
-     * @param[in] posx new x position of item in the map
-     * @param[in] posy new y position of item in the map
-     * @param[in] undoList pointer to the undo list
-     */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
+    /// @brief change the position of the E3 geometry
+    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+
+    /// @brief updated geometry changes in the attributes of additional 
+    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList);
 
     /**@brief writte additionalSet element into a xml file
      * @param[in] device device in which write parameters of additionalSet element

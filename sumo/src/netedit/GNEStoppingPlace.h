@@ -69,28 +69,17 @@ public:
     /// @brief Returns position of StoppingPlace in view
     Position getPositionInView() const;
 
-    /**@brief change the position of the StoppingPlace geometry
-     * @param[in] posx new position of StoppingPlaceover lane
-     * @param[in] posy unused
-     * @param[in] undoList pointer to the undo list
-     */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
+    /// @brief change the position of the StoppingPlace geometry
+    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+
+    /// @brief updated geometry changes in the attributes of additional 
+    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
     virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
-
-    /// @brief Returns pointer to Lane of stopping place
-    GNELane* getLane() const;
-
-    /// @brief Remove reference to Lane of stopping place
-    /// @note will be automatic called in lane destructor
-    void removeLaneReference();
-
-    /// @brief change lane of stopping place
-    void changeLane(GNELane* newLane);
 
     /// @brief Returns the Start position of the stoppingPlace
     SUMOReal getStartPosition() const;
@@ -147,9 +136,6 @@ public:
     /// @}
 
 protected:
-    /// @brief The lane this stopping place belongs
-    GNELane* myLane;
-
     /// @brief The start position this stopping place is located at
     SUMOReal myStartPos;
 

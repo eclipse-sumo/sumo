@@ -87,7 +87,10 @@ public:
     ~GNECalibrator();
 
     /// @brief change the position of the calibrator geometry
-    void moveAdditional(SUMOReal, SUMOReal, GNEUndoList*);
+    void moveAdditionalGeometry(SUMOReal, SUMOReal);
+
+    /// @brief updated geometry changes in the attributes of additional 
+    void commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry c6hanges (i.e. lane moved)
@@ -153,9 +156,6 @@ public:
     /// @}
 
 protected:
-    /// @brief edge in which this calibrator is placed
-    GNEEdge* myEdge;
-
     /// @brief Frequency of calibrator
     SUMOTime myFrequency;
 

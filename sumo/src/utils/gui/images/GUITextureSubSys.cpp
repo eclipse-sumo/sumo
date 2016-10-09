@@ -53,6 +53,9 @@
 #include "GNETexture_VariableSpeedSignalSelected.cpp"
 #include "GNETexture_NotMoving.cpp"
 #include "GNETexture_NotMovingSelected.cpp"
+#include "GNETexture_LaneBus.cpp"
+#include "GNETexture_LanePedestrian.cpp"
+#include "GNETexture_LaneBike.cpp"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -94,6 +97,9 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GNETEXTURE_VAPORIZERSELECTED] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_VARIABLESPEEDSIGNAL] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_VARIABLESPEEDSIGNALSELECTED] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_LANEBIKE] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_LANEBUS] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_LANEPEDESTRIAN] = std::pair<bool, GUIGlID>(false, 0);
 }
 
 
@@ -179,10 +185,20 @@ GUITextureSubSys::getGif(GUITexture which) {
             case GNETEXTURE_VARIABLESPEEDSIGNALSELECTED :
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSignalSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
+            case GNETEXTURE_LANEBIKE :
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LaneBike, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GNETEXTURE_LANEBUS :
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LaneBus, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GNETEXTURE_LANEPEDESTRIAN :
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LanePedestrian, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
             default:
                 throw ProcessError("Undefined texture");
         }
-
+        // Set loaded flag to true
+        i->second.first = true;
     }
     // Return GLID associated to the texture
     return i->second.second;

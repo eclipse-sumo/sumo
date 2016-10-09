@@ -103,6 +103,9 @@ GNEDetectorExit::updateGeometry() {
 
     // Update parent geometry
     myAdditionalSetParent->updateGeometry();
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -118,6 +121,9 @@ GNEDetectorExit::writeAdditional(OutputDevice& device, const std::string&) {
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
+    if(myBlocked) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
+    }
     // Close tag
     device.closeTag();
 }
@@ -200,6 +206,8 @@ GNEDetectorExit::getAttribute(SumoXMLAttr key) const {
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -213,12 +221,9 @@ GNEDetectorExit::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            setAdditionalID(value);
-            break;
         case SUMO_ATTR_LANE:
-            changeLane(myViewNet->getNet()->retrieveLane(value));
-            break;
         case SUMO_ATTR_POSITION:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -246,6 +251,8 @@ GNEDetectorExit::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) <= (myLane->getLaneParametricLenght()));
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -258,11 +265,15 @@ GNEDetectorExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLane(myViewNet->getNet()->retrieveLane(value));
+            changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = Position(parse<SUMOReal>(value), 0);
             updateGeometry();
+            getViewNet()->update();
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
             getViewNet()->update();
             break;
         default:

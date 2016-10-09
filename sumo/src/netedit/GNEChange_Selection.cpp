@@ -28,8 +28,10 @@
 #endif
 
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GNEChange_Selection.h"
 #include "GNENet.h"
+#include "GNEViewNet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -61,40 +63,56 @@ GNEChange_Selection::~GNEChange_Selection() {
 void GNEChange_Selection::undo() {
     if (myForward) {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            gSelected.deselect(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+                gSelected.deselect(*it);
+            }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            gSelected.select(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+                gSelected.select(*it);
+            }
         }
     } else {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            gSelected.select(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+                gSelected.select(*it);
+            }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            gSelected.deselect(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+                gSelected.deselect(*it);
+            }
         }
     }
-    myNet->update();
+    myNet->getViewNet()->update();
 }
 
 
 void GNEChange_Selection::redo() {
     if (myForward) {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            gSelected.select(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+                gSelected.select(*it);
+            }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            gSelected.deselect(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+                gSelected.deselect(*it);
+            }
         }
     } else {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            gSelected.deselect(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+                gSelected.deselect(*it);
+            }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            gSelected.select(*it);
+            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+                gSelected.select(*it);
+            }
         }
     }
-    myNet->update();
+    myNet->getViewNet()->update();
 }
 
 

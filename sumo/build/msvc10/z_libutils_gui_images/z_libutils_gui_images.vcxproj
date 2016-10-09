@@ -123,6 +123,9 @@
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_EmptySelected.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Entry.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Exit.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBike.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBus.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LanePedestrian.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Lock.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LockSelected.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_NotMoving.cpp" />
@@ -181,6 +184,9 @@
     <None Include="..\..\..\src\utils\gui\images\green_person.xpm" />
     <None Include="..\..\..\src\utils\gui\images\green_vehicle.xpm" />
     <None Include="..\..\..\src\utils\gui\images\halt.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lanebike.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lanebus.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lanepedestrian.xpm" />
     <None Include="..\..\..\src\utils\gui\images\locate.xpm" />
     <None Include="..\..\..\src\utils\gui\images\locate_add.xpm" />
     <None Include="..\..\..\src\utils\gui\images\locate_edge.xpm" />
@@ -193,6 +199,7 @@
     <None Include="..\..\..\src\utils\gui\images\lock.xpm" />
     <None Include="..\..\..\src\utils\gui\images\magnify.xpm" />
     <None Include="..\..\..\src\utils\gui\images\netedit.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\neteditarrow.xpm" />
     <None Include="..\..\..\src\utils\gui\images\netopen.xpm" />
     <None Include="..\..\..\src\utils\gui\images\new_window.xpm" />
     <None Include="..\..\..\src\utils\gui\images\no.xpm" />

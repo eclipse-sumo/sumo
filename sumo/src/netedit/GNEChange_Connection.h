@@ -33,6 +33,7 @@
 #include <fx.h>
 #include <string>
 #include <utils/foxtools/fxexdefs.h>
+#include <netbuild/NBEdge.h>
 #include "GNEChange.h"
 
 // ===========================================================================
@@ -51,15 +52,22 @@ class GNEChange_Connection : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Connection)
 
 public:
-    /**@brief Constructor for creating/deleting an edge
-     * @param[in] edge The edge on which to apply changes
-     * @param[in] lane The lane to be deleted or 0 if a lane should be created
-     * @param[in] laneAttrs The attributes of the lane to be created/deleted
+    /**@brief Constructor for creating/deleting a connection
+     * @param[in] edge edge from of connection
+     * @param[in] fromLane index of lane from of connection
+     * @param[in] toEdgeID id of edge to of connection
+     * @param[in] toLane index of lane to of connection
+     * @param[in] mayDefinitelyPass attribute pass of connection
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Connection(GNEEdge* edge, int fromLane,
-                         const std::string& toEdgeID, int toLane,
-                         bool mayDefinitelyPass, bool forward);
+    GNEChange_Connection(GNEEdge* edge, int fromLane, const std::string& toEdgeID, int toLane, bool mayDefinitelyPass, bool forward);
+
+    /**@brief Constructor for creating/deleting a connection
+     * @param[in] edge edge from of connection
+     * @param[in] connection struct with the attributes of connection
+     * @param[in] forward Whether to create/delete (true/false)
+     */
+    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection connection,  bool forward);
 
     /// @brief Destructor
     ~GNEChange_Connection();

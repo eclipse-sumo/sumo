@@ -98,6 +98,15 @@
     <ClCompile Include="..\..\..\src\utils\gui\images\manip.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBike.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBus.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LanePedestrian.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\images\GUIIcons.h">
@@ -367,6 +376,18 @@
       <Filter>Textures</Filter>
     </None>
     <None Include="..\..\..\src\utils\gui\images\app_table.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\neteditarrow.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lanebus.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lanepedestrian.xpm">
+      <Filter>Textures</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lanebike.xpm">
       <Filter>Textures</Filter>
     </None>
   </ItemGroup>

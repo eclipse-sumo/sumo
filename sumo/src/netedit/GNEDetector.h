@@ -69,25 +69,17 @@ public:
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
 
-    /**@brief change the position of the additional geometry
-     * @param[in] posx new x position of additional over lane
-     * @param[in] posy unused
-     * @param[in] undoList pointer to the undo list
-     */
-    void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList);
+    /// @brief change the position of the additional geometry
+    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+
+    /// @brief updated geometry changes in the attributes of additional 
+    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
     virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
-
-    /// @brief Returns pointer to Lane of detector
-    GNELane* getLane() const;
-
-    /// @brief Remove reference to Lane of stopping place
-    /// @note will be automatic called in lane destructor
-    void removeLaneReference();
 
     /// @brief Returns the position of the detector over lane
     SUMOReal getPositionOverLane() const;
@@ -114,9 +106,6 @@ public:
      * @param[in] filename new filename of detector
      */
     void setFilename(std::string filename);
-
-    /// @brief change lane of detector
-    void changeLane(GNELane* newLane);
 
     /// @name inherited from GNEAdditional
     /// @{
@@ -155,9 +144,6 @@ public:
     /// @}
 
 protected:
-    /// @brief The lane this detector belongs
-    GNELane* myLane;
-
     /// @brief The aggregation period the values the detector collects shall be summed up.
     int myFreq;
 

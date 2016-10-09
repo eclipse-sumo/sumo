@@ -55,8 +55,7 @@ public:
     static void drawTexturedBox(int which, SUMOReal size);
 
     /// Draws a named texture as a rectangle with the given sizes
-    static void drawTexturedBox(int which,
-                                SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
+    static void drawTexturedBox(int which, SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
     /// @brief return texture id for the given filename (initialize on first use)
     // @note return -1 on failure
@@ -81,7 +80,6 @@ private:
 
     /// @brief whether textures are drawn
     static bool myAllowTextures;
-
 };
 
 

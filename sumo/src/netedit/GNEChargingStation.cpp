@@ -145,6 +145,9 @@ GNEChargingStation::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -158,12 +161,11 @@ GNEChargingStation::writeAdditional(OutputDevice& device, const std::string&) {
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     device.writeAttr(SUMO_ATTR_CHARGINGPOWER, myChargingPower);
     device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
-    if (myChargeInTransit) {
-        device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, "true");
-    } else {
-        device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, "false");
-    }
+    device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, myChargeInTransit);
     device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
+    if(myBlocked) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
+    }
     // Close tag
     device.closeTag();
 }
@@ -376,6 +378,8 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return toString(myChargeInTransit);
         case SUMO_ATTR_CHARGEDELAY:
             return toString(myChargeDelay);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -396,6 +400,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_EFFICIENCY:
         case SUMO_ATTR_CHARGEINTRANSIT:
         case SUMO_ATTR_CHARGEDELAY:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -421,8 +426,26 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_STARTPOS:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos - 1));
-        case SUMO_ATTR_ENDPOS:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos);
+        case SUMO_ATTR_ENDPOS: {
+            if(canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos) {
+                // If extension is larger than Lane
+                if(parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+                    // Ask user if want to assign the lenght of lane as endPosition
+                    FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
+                                            "EndPosition exceeds the size of the lane", "%s",
+                                            "EndPosition exceeds the size of the lane. You want to assign the size of the lane as endPosition?");
+                    if (answer == 1) { //1:yes, 2:no, 4:esc
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
         case SUMO_ATTR_CHARGINGPOWER:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
         case SUMO_ATTR_EFFICIENCY:
@@ -431,6 +454,8 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGEDELAY:
             return (canParse<int>(value) && parse<int>(value) >= 0);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -447,7 +472,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLane(myViewNet->getNet()->retrieveLane(value));
+            changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
             myStartPos = parse<SUMOReal>(value);
@@ -455,7 +480,11 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPos = parse<SUMOReal>(value);
+            if(parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+                myEndPos = myLane->getLaneParametricLenght();
+            } else {
+                myEndPos = parse<SUMOReal>(value);
+            }
             updateGeometry();
             getViewNet()->update();
             break;
@@ -466,14 +495,14 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEfficiency = parse<SUMOReal>(value);
             break;
         case SUMO_ATTR_CHARGEINTRANSIT:
-            if (value == "true") {
-                myChargeInTransit = true;
-            } else {
-                myChargeInTransit = false;
-            }
+            myChargeInTransit = parse<bool>(value);
             break;
         case SUMO_ATTR_CHARGEDELAY:
             myChargeDelay = parse<int>(value);
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
+            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getType()) + "attribute '" + toString(key) + "' not allowed");

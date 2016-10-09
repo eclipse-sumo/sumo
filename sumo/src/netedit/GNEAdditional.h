@@ -76,13 +76,34 @@ public:
     ~GNEAdditional();
 
     /**@brief change the position of the additional geometry
-     * @param[in] posx new x position of idem in the map or over lane
-     * @param[in] posy new y position of item in the map
-     * @param[in] undoList pointer to the undo list
-     * @note if additional belongs to a Lane, posx correspond to position over lane and posy is ignored
+     * @param[in] offset offset of movement
+     * @note simply call the function moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety)
+     */
+    void moveAdditionalGeometry(const Position &offset);
+
+    /**@brief change the position of the additional geometry
+     * @param[in] offsetx horizontal offset of movement
+     * @param[in] offsety vertical offset of movement
+     * @note if additional belongs to a Lane, offsety is ignored
      * @note must be implemented in ALL childrens
      */
-    virtual void moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList) = 0;
+    virtual void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) = 0;
+
+    /**@brief updated geometry changes in the attributes of additional
+     * @param[in] oldPos old position X of additional
+     * @param[in] undoList The undoList on which to register changes
+     * @note simply call function commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList)
+     */
+    void commmitAdditionalGeometryMoved(const Position &oldPos, GNEUndoList* undoList);
+    
+    /**@brief updated geometry changes in the attributes of additional 
+     * @param[in] oldPosx old position X of additional
+     * @param[in] oldPosy old position Y of additional
+     * @param[in] undoList The undoList on which to register changes
+     * @note if additional belongs to a Lane, oldPosy is ignored
+     * @note must be implemented in ALL childrens
+     */
+    virtual void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
@@ -125,9 +146,6 @@ public:
     /// @brief set the ID of additional
     void setAdditionalID(const std::string& id);
 
-    /// @brief Block or unblock additional element(i.e. cannot be moved with mouse)
-    void setBlocked(bool value);
-
     /// @brief set new position in the view
     /// @note movement cannot be undo with GNEUndoRedo
     void setPositionInView(const Position& pos);
@@ -138,20 +156,10 @@ public:
     virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
 
     /// @brief get edge of additional, or NULL if additional isn't placed over an edge
-    /// @note if additional is placed over a edge, this function has to be implemented in the children (See RouteProbes)
-    virtual GNEEdge* getEdge() const;
+    GNEEdge* getEdge() const;
 
     /// @brief get lane of additional, or NULL if additional isn't placed over a Lane
-    /// @note if additional is placed over a lane, this function has to be implemented in the children (See StoppingPlaces and Detectors)
-    virtual GNELane* getLane() const;
-
-    /// @brief if additional is placed over an edge, remove it reference
-    /// @note if additional is placed over a edge, this function has to be implemented in the children (See RouteProbes) AND called in edge destructor
-    virtual void removeEdgeReference();
-
-    /// @brief if additional is placed over a lane, remove it reference
-    /// @note if additional is placed over a lane, this function has to be implemented in the children (See StoppingPlaces and Detectors) AND called in lane destructor
-    virtual void removeLaneReference();
+    GNELane* getLane() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -198,14 +206,14 @@ public:
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
 
-    /* @brief method for setting the attribute and letting the object perform additional changes
+    /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
     virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
 
-    /* @brief method for checking if the key and their conrrespond attribute are valids
+    /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case
@@ -214,8 +222,29 @@ public:
     /// @}
 
 protected:
+    /**@brief change edge of additional
+     * @throw exception if additional doesn't belong to an edge
+     * @throw expcetion if edge doesn't exist
+     */
+    void changeEdge(const std::string &edgeID);
+
+    /**@brief change lane of additional
+     * @throw exception if additional doesn't belong to a lane
+     * @throw expcetion if edge doesn't exist
+     */
+    void changeLane(const std::string &laneID);
+
+protected:
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
+
+    /// @brief The edge this additional belongs
+    /// @bote NULL if additional doesnt' belongs to a edge
+    GNEEdge* myEdge;
+
+    /// @brief The lane this additional belongs
+    /// @bote NULL if additional doesnt' belongs to a lane
+    GNELane* myLane;
 
     /// @brief The position in which this additional element is located
     /// @note if this element belongs to a Lane, x() value will be the position over Lane

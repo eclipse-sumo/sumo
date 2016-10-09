@@ -67,13 +67,12 @@
 
 GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOTime startTime, SUMOTime end, bool blocked) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, NULL, blocked),
-    myEdge(edge),
     myStartTime(startTime),
     myEnd(end) {
+    // This additional belongs to a edge
+    myEdge = edge;
     // this additional ISN'T movable
     myMovable = false;
-    // Add additional to edge parent
-    myEdge->addAdditional(this);
     // Update geometry;
     updateGeometry();
     // Center view in the position of Vaporizer
@@ -82,9 +81,6 @@ GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* 
 
 
 GNEVaporizer::~GNEVaporizer() {
-    if (myEdge) {
-        myEdge->removeAdditional(this);
-    }
 }
 
 
@@ -120,6 +116,9 @@ GNEVaporizer::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -134,7 +133,13 @@ GNEVaporizer::getPositionInView() const {
 
 
 void
-GNEVaporizer::moveAdditional(SUMOReal, SUMOReal, GNEUndoList*) {
+GNEVaporizer::moveAdditionalGeometry(SUMOReal, SUMOReal) {
+    // This additional cannot be moved
+}
+
+
+void
+GNEVaporizer::commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -149,18 +154,6 @@ GNEVaporizer::writeAdditional(OutputDevice& device, const std::string&) {
     device.writeAttr(SUMO_ATTR_END, myEnd);
     // Close tag
     device.closeTag();
-}
-
-
-GNEEdge*
-GNEVaporizer::getEdge() const {
-    return myEdge;
-}
-
-
-void
-GNEVaporizer::removeEdgeReference() {
-    myEdge = NULL;
 }
 
 
@@ -336,11 +329,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
-            myEdge->removeAdditional(this);
-            myEdge = myViewNet->getNet()->retrieveEdge(value);
-            myEdge->addAdditional(this);
-            updateGeometry();
-            getViewNet()->update();
+            changeEdge(value);
             break;
         case SUMO_ATTR_STARTTIME:
             myStartTime = parse<int>(value);

@@ -132,6 +132,9 @@ GNEDetectorE2::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for draw logo
     setBlockIconRotation(myLane);
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -157,6 +160,9 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, const std::string&) {
     device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
     device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
+    if(myBlocked) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
+    }
     // Close tag
     device.closeTag();
 }
@@ -229,6 +235,8 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(mySpeedThreshold);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return toString(myJamThreshold);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -251,6 +259,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -291,6 +300,8 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOReal>(value);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return canParse<SUMOReal>(value);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -307,7 +318,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLane(myViewNet->getNet()->retrieveLane(value));
+            changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = Position(parse<SUMOReal>(value), 0);
@@ -336,6 +347,10 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             myJamThreshold = parse<SUMOReal>(value);
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
+            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

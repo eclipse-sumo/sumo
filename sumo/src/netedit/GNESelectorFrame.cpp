@@ -62,6 +62,7 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNESelectorFrame) GNESelectorFrameMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNESelectorFrame::onCmdSubset),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,       GNESelectorFrame::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNESelectorFrame::onCmdSave),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,     GNESelectorFrame::onCmdInvert),
@@ -84,8 +85,8 @@ GNESelectorFrame::GNESelectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     mySetOperationTarget(mySetOperation),
     ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
     // selection modification mode
-    FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode",
-                                        GROUPBOX_NORMAL | FRAME_GROOVE | LAYOUT_FILL_X, 2, 0, 0, 0, 4, 2, 2, 2);
+    FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    // Create all options buttons
     new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
                       &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD);
     new FXRadioButton(selBox, "remove\t\tSelected objects are removed from the previous selection",
@@ -94,64 +95,95 @@ GNESelectorFrame::GNESelectorFrame(FXComposite* parent, GNEViewNet* viewNet):
                       &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT);
     new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
                       &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE);
-
-    // selection by expression matching (match box)
-    FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute",
-                                          GROUPBOX_NORMAL | FRAME_GROOVE | LAYOUT_FILL_X, 2, 0, 0, 0, 4, 2, 2, 2);
-    myMatchTagBox = new FXListBox(matchBox, this, MID_GNE_SELMB_TAG);
-    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags();
-    for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
-        myMatchTagBox->appendItem(toString(*it).c_str());
-    }
-    myMatchTagBox->setCurrentItem(1); // edges
-    myMatchTagBox->setNumVisible(myMatchTagBox->getNumItems());
-    myMatchAttrBox = new FXListBox(matchBox);
-    onCmdSelMBTag(0, 0, 0);
-    myMatchAttrBox->setCurrentItem(3); // speed
-    myMatchString = new FXTextField(matchBox, 12, this, MID_GNE_SELMB_STRING, TEXTFIELD_NORMAL, 0, 0, 0, 0, 4, 2, 0, 2);
+    // Create groupBox for selection by expression matching (match box)
+    FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    // Create MatchTagBox for tags and fill it
+    mySetBox = new FXListBox(elementBox, this, MID_CHOOSEN_ELEMENTS, FRAME_GROOVE | LAYOUT_FILL_X);
+    mySetBox->appendItem("Net Element");
+    mySetBox->appendItem("Additional");
+    mySetBox->setNumVisible(mySetBox->getNumItems());
+    // Create groupBox fro selection by expression matching (match box)
+    FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    // Create MatchTagBox for tags
+    myMatchTagBox = new FXListBox(matchBox, this, MID_GNE_SELMB_TAG, FRAME_GROOVE | LAYOUT_FILL_X);
+    // Create listBox for Attributes
+    myMatchAttrBox = new FXListBox(matchBox, NULL, 0, FRAME_GROOVE | LAYOUT_FILL_X);
+    // Set netElements as default tag
+    mySetBox->setCurrentItem(0);
+    // Fill list of sub-items
+    onCmdSubset(0,0,0);
+    // Set speed as default attribute
+    myMatchAttrBox->setCurrentItem(3);
+    // Create TextField for Match string
+    myMatchString = new FXTextField(matchBox, 12, this, MID_GNE_SELMB_STRING, FRAME_THICK | LAYOUT_FILL_X);
+    // Set default value for Match string
     myMatchString->setText(">10.0");
+    // Create help button
     new FXButton(matchBox, "Help", 0, this, MID_HELP);
-
-    FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling",
-                                            GROUPBOX_NORMAL | FRAME_GROOVE | LAYOUT_FILL_X, 2, 0, 0, 0, 4, 2, 2, 2);
-    mySelectionScaling =
-        new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE,
-                           LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y);
+    // Create Groupbox for visual scalings
+    FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    // Create spin button and configure it
+    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y);
     mySelectionScaling->setNumberFormat(1);
     mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setRange(1, 100);
     mySelectionScaling->setValue(1);
     mySelectionScaling->setHelpText("Enlarge selected objects");
-
-    // additional buttons
-    // new FXHorizontalSeparator(this,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-    // "Clear List"
-    new FXButton(myContentFrame, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-    // "Invert"
-    new FXButton(myContentFrame, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-    // "Save"
-    new FXButton(myContentFrame, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-
-    // "Load"
-    new FXButton(myContentFrame, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-
-
-    // Selection Hint
-    new FXLabel(myContentFrame, "Hold <SHIFT> for\nrectangle selection.\nPress <DEL> to\ndelete selected items.", 0, JUSTIFY_LEFT);
+    // Create groupbox for additional buttons
+    FXGroupBox* additionalButtons = new FXGroupBox(myContentFrame, "Operations for selections", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    // Create "Clear List" Button
+    new FXButton(additionalButtons, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    // Create "Invert" Button
+    new FXButton(additionalButtons, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    // Create "Save" Button
+    new FXButton(additionalButtons, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    // Create "Load" Button
+    new FXButton(additionalButtons, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    // Create groupbox for information about selections
+    FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    // Create Selection Hint
+    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, JUSTIFY_LEFT);
 }
 
 
 GNESelectorFrame::~GNESelectorFrame() {
     gSelected.remove2Update();
 }
+
+
+long
+GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
+    // Clear items of myMatchTagBox
+    myMatchTagBox->clearItems();
+    // Set items depending of current items
+    if(mySetBox->getCurrentItem() == 0) {
+        // If we want to work with net elementsn Get net Elements allowed tags
+        const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedNetElementTags();
+        // iterate over tags
+        for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
+            // Add trag to MatchTagBox
+            myMatchTagBox->appendItem(toString(*it).c_str());
+        }
+        myMatchTagBox->setCurrentItem(1); // edges
+        myMatchTagBox->setNumVisible(myMatchTagBox->getNumItems());
+        // Fill attributes with the current element type
+        onCmdSelMBTag(0, 0, 0);
+    } else  {
+        // If we want to work with additionals, get net additionals allowed tags
+        const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedAdditionalTags();
+        // iterate over tags
+        for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
+            // Add trag to MatchTagBox
+            myMatchTagBox->appendItem(toString(*it).c_str());
+        }
+        myMatchTagBox->setCurrentItem(1); // busStops
+        myMatchTagBox->setNumVisible(myMatchTagBox->getNumItems());
+        // Fill attributes with the current element type
+        onCmdSelMBTag(0, 0, 0);
+    }
+    return 1;
+}
+
 
 long
 GNESelectorFrame::onCmdLoad(FXObject*, FXSelector, void*) {
@@ -214,6 +246,10 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
         gSelected.toggleSelection(*it);
     }
     ids = myViewNet->getNet()->getGlIDs(GLO_ADDITIONAL);
+    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+        gSelected.toggleSelection(*it);
+    }
+    ids = myViewNet->getNet()->getGlIDs(GLO_CONNECTION);
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
@@ -366,6 +402,7 @@ GNESelectorFrame::getStats() const {
            toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions\n" +
            toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n" +
            toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n" +
+           toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n" +
            toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n";
 }
 
@@ -401,8 +438,8 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOpera
                 object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
                 if (object->getType() == GLO_LANE && selectEdges) {
                     const GNEEdge& edge = (static_cast<GNELane*>(object))->getParentEdge();
-                    idsSet.insert(edge.getSource()->getGlID());
-                    idsSet.insert(edge.getDest()->getGlID());
+                    idsSet.insert(edge.getGNEJunctionSource()->getGlID());
+                    idsSet.insert(edge.getGNEJunctionDest()->getGlID());
                 }
                 GUIGlObjectStorage::gIDStorage.unblockObject(id);
             }

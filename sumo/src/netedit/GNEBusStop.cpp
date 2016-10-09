@@ -141,6 +141,9 @@ GNEBusStop::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -154,6 +157,9 @@ GNEBusStop::writeAdditional(OutputDevice& device, const std::string&) {
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
+    }
+    if(myBlocked) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag
     device.closeTag();
@@ -309,6 +315,8 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
             return toString(myEndPos);
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -326,6 +334,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_LINES:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -352,10 +361,30 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_STARTPOS:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos - 1));
-        case SUMO_ATTR_ENDPOS:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos);
+        case SUMO_ATTR_ENDPOS: {
+            if(canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos) {
+                // If extension is larger than Lane
+                if(parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+                    // Ask user if want to assign the lenght of lane as endPosition
+                    FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
+                                            "EndPosition exceeds the size of the lane", "%s",
+                                            "EndPosition exceeds the size of the lane. You want to assign the size of the lane as endPosition?");
+                    if (answer == 1) { //1:yes, 2:no, 4:esc
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
         case SUMO_ATTR_LINES:
             return isValidStringVector(value);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -372,7 +401,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLane(myViewNet->getNet()->retrieveLane(value));
+            changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
             myStartPos = parse<SUMOReal>(value);
@@ -380,13 +409,21 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPos = parse<SUMOReal>(value);
+            if(parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+                myEndPos = myLane->getLaneParametricLenght();
+            } else {
+                myEndPos = parse<SUMOReal>(value);
+            }
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_LINES:
             myLines.clear();
             SUMOSAXAttributes::parseStringVector(value, myLines);
+            getViewNet()->update();
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
             getViewNet()->update();
             break;
         default:

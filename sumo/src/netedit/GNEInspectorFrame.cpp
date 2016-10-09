@@ -1,4 +1,4 @@
-/****************************************************************************/
+﻿/****************************************************************************/
 /// @file    GNEInspectorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
@@ -36,15 +36,19 @@
 #include <cassert>
 #include <iostream>
 #include <utils/foxtools/MFXUtils.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include "GNEInspectorFrame.h"
 #include "GNEUndoList.h"
 #include "GNEEdge.h"
+#include "GNELane.h"
 #include "GNEAttributeCarrier.h"
 #include "GNEAdditional.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
+#include "GNEConnection.h"
+#include "GNEViewNet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,30 +56,43 @@
 
 
 // ===========================================================================
+// static
+// ===========================================================================
+
+const unsigned int MAXNUMBEROFATTRCONNECTIONS = 50;
+
+// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
 FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY_TEMPLATE,   GNEInspectorFrame::onCmdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TEMPLATE,    GNEInspectorFrame::onCmdSetTemplate),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_COPY_TEMPLATE,   GNEInspectorFrame::onUpdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING,    GNEInspectorFrame::onCmdSetBlocking),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_COPY_TEMPLATE,  GNEInspectorFrame::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TEMPLATE,   GNEInspectorFrame::onCmdSetTemplate),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_COPY_TEMPLATE,  GNEInspectorFrame::onUpdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_BLOCKING,   GNEInspectorFrame::onCmdSetBlocking),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INSPECT_GOBACK, GNEInspectorFrame::onCmdGoBack),
 };
 
 
 FXDEFMAP(GNEInspectorFrame::AttrInput) AttrInputMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,         GNEInspectorFrame::AttrInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEInspectorFrame::AttrInput::onCmdOpenAttributeEditor)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,         GNEInspectorFrame::AttrInput::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEInspectorFrame::AttrInput::onCmdOpenAttributeEditor)
 };
 
 FXDEFMAP(GNEInspectorFrame::AttrEditor) AttrEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT_RESET,  GNEInspectorFrame::AttrEditor::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT_RESET, GNEInspectorFrame::AttrEditor::onCmdReset),
+};
+
+FXDEFMAP(GNEInspectorFrame::AttrConnection) AttrConnectionMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_CONNECTION, GNEInspectorFrame::AttrConnection::onCmdSetShowConnection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INSPECT_CONNECTION, GNEInspectorFrame::AttrConnection::onCmdInspectConnection),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame, FXScrollWindow, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
 FXIMPLEMENT(GNEInspectorFrame::AttrInput, FXMatrix, AttrInputMap, ARRAYNUMBER(AttrInputMap))
 FXIMPLEMENT(GNEInspectorFrame::AttrEditor, FXDialogBox, AttrEditorMap, ARRAYNUMBER(AttrEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::AttrConnection, FXHorizontalFrame, AttrConnectionMap, ARRAYNUMBER(AttrConnectionMap))
 
 // ===========================================================================
 // method definitions
@@ -83,7 +100,13 @@ FXIMPLEMENT(GNEInspectorFrame::AttrEditor, FXDialogBox, AttrEditorMap, ARRAYNUMB
 
 GNEInspectorFrame::GNEInspectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     GNEFrame(parent, viewNet, "Inspector"),
-    myEdgeTemplate(0) {
+    myEdgeTemplate(0),
+    myAdditional(0),
+    myPreviousElement(0) {
+
+    // Create back button
+    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECT_GOBACK, ICON_BEFORE_TEXT | FRAME_THICK | FRAME_RAISED | LAYOUT_FILL);
+    myBackButton->hide();
 
     // Create groupBox for attributes
     myGroupBoxForAttributes = new FXGroupBox(myContentFrame, "attributes", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
@@ -95,7 +118,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     }
 
     // Create groupBox for templates
-    myGroupBoxForTemplates = new FXGroupBox(myContentFrame, "templates", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    myGroupBoxForTemplates = new FXGroupBox(myContentFrame, "Templates", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
     myGroupBoxForTemplates->hide();
 
     // Create copy template button
@@ -113,6 +136,15 @@ GNEInspectorFrame::GNEInspectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     // Create check blocked button
     myCheckBlocked = new FXCheckButton(myGroupBoxForEditor, "Block movement", this, MID_GNE_SET_BLOCKING);
     myCheckBlocked->hide();
+
+    // Create groupBox for AttrConnection
+    myGroupBoxForAttrConnections = new FXGroupBox(myContentFrame, "Connections", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    myGroupBoxForAttrConnections->hide();
+
+    // Create AttrConnections
+    for (int i = 0; i < MAXNUMBEROFATTRCONNECTIONS; i++) {
+        myAttrConnections.push_back(new AttrConnection(myGroupBoxForAttrConnections, this));
+    }
 }
 
 GNEInspectorFrame::~GNEInspectorFrame() {
@@ -144,17 +176,50 @@ GNEInspectorFrame::hide() {
 
 
 void
-GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
-    // Assing ACS to myACs
-    myACs = ACs;
+GNEInspectorFrame::inspect(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
+    // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
+    std::vector<GNEAttributeCarrier*> itemToInspect;
+    itemToInspect.push_back(AC);
+    inspect(itemToInspect, previousElement);
+}
 
+
+void
+GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttributeCarrier* previousElement) {
+    // Assing ACs to myACs
+    myACs = ACs;
+    // Show back button if previousElement was defined
+    myPreviousElement = previousElement;
+    if(myPreviousElement != NULL) {
+        myHeaderLeftFrame->show();
+        myBackButton->show();
+    } else {
+        myHeaderLeftFrame->hide();
+        myBackButton->hide();
+    }
+    // Hide all elements
+    myGroupBoxForAttributes->hide();
+    myGroupBoxForTemplates->hide();
+    myCopyTemplateButton->hide();
+    mySetTemplateButton->hide();
+    myGroupBoxForEditor->hide();
+    myGroupBoxForEditor->hide();
+    myCheckBlocked->hide();
+    myGroupBoxForAttrConnections->hide();
     // If vector of attribute Carriers contain data
     if (myACs.size() > 0) {
         // Set header
-        std::string headerString = toString(myACs.front()->getTag());
+        std::string headerString;
         if (myACs.size() > 1) {
-            headerString = toString(myACs.size()) + " " + headerString + "s";
+            headerString = "Selection: " + toString(myACs.size()) + " " + toString(myACs.front()->getTag()) + "s";
+        } else {
+            if(dynamic_cast<GNENetElement*>(myACs.front())) {
+                headerString = "Net: " + toString(myACs.front()->getTag());
+            } else if(dynamic_cast<GNEAdditional*>(myACs.front())) {
+                headerString = "Additional: " + toString(myACs.front()->getTag());
+            }
         }
+        // Set headerString into header label
         getFrameHeaderLabel()->setText(headerString.c_str());
 
         //Show myGroupBoxForAttributes
@@ -162,7 +227,12 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
 
         // Hide all AttrInput
         for (std::vector<GNEInspectorFrame::AttrInput*>::iterator i = vectorOfAttrInput.begin(); i != vectorOfAttrInput.end(); i++) {
-            (*i)->hiddeAttribute();
+            (*i)->hideAttribute();
+        }
+
+        // Hide all AttrConnections
+        for (int i = 0; i < MAXNUMBEROFATTRCONNECTIONS; i++) {
+            myAttrConnections.at(i)->hideAttrConnection();
         }
 
         // Gets attributes of element
@@ -206,11 +276,36 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
             if (myACs.size() == 1) {
                 mySetTemplateButton->show();
             }
-        } else {
-            // Hidde all template elements
-            myGroupBoxForTemplates->hide();
-            myCopyTemplateButton->hide();
-            mySetTemplateButton->hide();
+            // Obtain connections of edge
+            const std::vector<GNEConnection*>& connections = dynamic_cast<GNEEdge*>(myACs.front())->getGNEConnections();
+            if(connections.size() > 0) {
+                // Check if all connections are editables
+                if(connections.size() > MAXNUMBEROFATTRCONNECTIONS) {
+                    WRITE_WARNING("Number of connections of " + myACs.front()->getID() + " is greater than the number of editable connections (" + toString(MAXNUMBEROFATTRCONNECTIONS) + ")");
+                }
+                // Show AttrConnections
+                for (int i = 0; (i < connections.size()) && (i < MAXNUMBEROFATTRCONNECTIONS); i++) {
+                    myAttrConnections.at(i)->showConnections(connections.at(i));
+                }
+                myGroupBoxForAttrConnections->show();
+            }
+        }
+
+        // If attributes correspond to a lane
+        if (dynamic_cast<GNELane*>(myACs.front())) {
+            // Obtain connections of lane
+            std::vector<GNEConnection*> connections = dynamic_cast<GNELane*>(myACs.front())->getGNEOutcomingConnections();
+            if(connections.size() > 0) {
+                // Check if all connections are editables
+                if(connections.size() > MAXNUMBEROFATTRCONNECTIONS) {
+                    WRITE_WARNING("Number of connections of " + myACs.front()->getID() + " is greater than the number of editable connections (" + toString(MAXNUMBEROFATTRCONNECTIONS) + ")");
+                }
+                // Show AttrConnections
+                for (int i = 0; (i < connections.size()) && (i < MAXNUMBEROFATTRCONNECTIONS); i++) {
+                    myAttrConnections.at(i)->showConnections(connections.at(i));
+                }
+                myGroupBoxForAttrConnections->show();
+            }
         }
 
         // If attributes correspond to an Additional
@@ -229,23 +324,9 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs) {
             if (showGroupBoxForEditor == true) {
                 myGroupBoxForEditor->show();
             }
-
-        } else {
-            // Hide all additional elements
-            myGroupBoxForEditor->hide();
-            myGroupBoxForEditor->hide();
-            myCheckBlocked->hide();
         }
     } else {
         getFrameHeaderLabel()->setText("No Object selected");
-        // Hide all elements
-        myGroupBoxForAttributes->hide();
-        myGroupBoxForTemplates->hide();
-        myCopyTemplateButton->hide();
-        mySetTemplateButton->hide();
-        myGroupBoxForEditor->hide();
-        myGroupBoxForEditor->hide();
-        myCheckBlocked->hide();
     }
 }
 
@@ -308,8 +389,21 @@ GNEInspectorFrame::onUpdCopyTemplate(FXObject* sender, FXSelector, void*) {
 long
 GNEInspectorFrame::onCmdSetBlocking(FXObject*, FXSelector, void*) {
     if (myAdditional) {
-        myAdditional->setBlocked(myCheckBlocked->getCheck() == 1 ? true : false);
-        myViewNet->update();
+        if(myCheckBlocked->getCheck() == 1) {
+            myAdditional->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", getViewNet()->getUndoList());
+        } else {
+             myAdditional->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", getViewNet()->getUndoList());
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
+    // Inspect previous element (if was defined)
+    if(myPreviousElement) {
+        inspect(myPreviousElement);
     }
     return 1;
 }
@@ -329,7 +423,7 @@ GNEInspectorFrame::AttrInput::AttrInput(FXComposite* parent, GNEInspectorFrame* 
     myInspectorFrameParent(inspectorFrameParent),
     myTag(SUMO_TAG_NOTHING),
     myAttr(SUMO_ATTR_NOTHING) {
-    // Create and hidde ButtonCombinableChoices
+    // Create and hide ButtonCombinableChoices
     myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_OPEN_ATTRIBUTE_EDITOR, ICON_BEFORE_TEXT | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
     myButtonCombinableChoices->hide();
     // Create and hide label
@@ -416,7 +510,7 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
 
 
 void
-GNEInspectorFrame::AttrInput::hiddeAttribute() {
+GNEInspectorFrame::AttrInput::hideAttribute() {
     // Hide all elements
     myLabel->hide();
     myTextFieldInt->hide();
@@ -616,5 +710,91 @@ GNEInspectorFrame::AttrEditor::onCmdReset(FXObject*, FXSelector, void*) {
     }
     return 1;
 }
+
+
+
+GNEInspectorFrame::AttrConnection::AttrConnection(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent) :
+    FXHorizontalFrame(parent, LAYOUT_FILL_X),
+    myInspectorFrameParent(inspectorFrameParent),
+    myConnection(NULL) {
+    // Create label for connection
+    myConnectionInfoLabel = new FXLabel(this, "", NULL, FRAME_THICK | LAYOUT_FILL_X);
+    // Create checkButton for show connection
+    myShowConnection = new FXCheckButton(this,"Show", this, MID_GNE_SHOW_CONNECTION);
+    // Create FXButton for inspectConnection
+    myInspectConnection = new FXButton(this, "inspect", 0, this, MID_GNE_INSPECT_CONNECTION, ICON_BEFORE_TEXT | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+}
+
+
+GNEInspectorFrame::AttrConnection::~AttrConnection() {}
+
+
+void
+GNEInspectorFrame::AttrConnection::showConnections(GNEConnection* connection) {
+    // Set pointer to current connection
+    myConnection = connection;
+    // set Label
+    myConnectionInfoLabel->setText(std::string(
+        myConnection->getEdgeFrom()->getID() +
+        "[" + toString(myConnection->getLaneFrom()->getIndex()) +
+        "] -> " + myConnection->getEdgeTo()->getID() +
+        "[" + toString(myConnection->getLaneTo()->getIndex()) +
+        "]").c_str());
+    // Show Label
+    myConnectionInfoLabel->show();
+    // set show Connection
+    myShowConnection->setCheck(myConnection->getDrawConnection());
+    // show Show Connection
+    myShowConnection->show();
+    // Show AttrConnection
+    show();
+}
+
+
+void 
+GNEInspectorFrame::AttrConnection::hideAttrConnection() {
+    // hide all elements
+    myConnectionInfoLabel->hide();
+    myShowConnection->hide();
+    hide();
+}
+
+
+long
+GNEInspectorFrame::AttrConnection::onCmdSetShowConnection(FXObject*, FXSelector, void*) {
+    if(myShowConnection->getCheck()) {
+        myConnection->setDrawConnection(true);
+    } else {
+         myConnection->setDrawConnection(false);
+    }
+    // Update view net
+    myInspectorFrameParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::AttrConnection::onCmdInspectConnection(FXObject*, FXSelector, void*) {
+    // Inspect connection depending of the checkBox "selectEdges"
+    if(myInspectorFrameParent->getViewNet()->selectEdges()) {
+        myInspectorFrameParent->inspect(myConnection, myConnection->getEdgeFrom());
+    } else {
+        myInspectorFrameParent->inspect(myConnection, myConnection->getLaneFrom());
+    }
+    return 1;
+}
+
+
+void
+GNEInspectorFrame::AttrConnection::show() {
+    FXHorizontalFrame::show();
+}
+
+
+void
+GNEInspectorFrame::AttrConnection::hide() {
+    FXHorizontalFrame::hide();
+}
+
 
 /****************************************************************************/

@@ -65,44 +65,45 @@
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, int freq, const std::string& filename, bool blocked, GNEAdditionalSet* parent) :
     GNEAdditional(id, viewNet, Position(posOverLane, 0), tag, parent, blocked),
-    myLane(lane),
     myFreq(freq),
     myFilename(filename) {
-    myLane->addAdditional(this);
+    // This additional belongs to a Lane
+    myLane = lane;
 }
 
 
 GNEDetector::~GNEDetector() {
-    if (myLane) {
-        myLane->removeAdditional(this);
-    }
 }
 
 
 void
-GNEDetector::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList) {
+GNEDetector::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
     // Due a detector is placed over an lane ignore Warning of posy
-    UNUSED_PARAMETER(posy);
-    // if item isn't blocked
-    if (myBlocked == false) {
-        // Move to Right if posx is positive, to left if posx is negative
-        if (((posx > 0) && ((myPosition.x() + posx) < myLane->getLaneShapeLenght())) || ((posx < 0) && ((myPosition.x() + posx) > 0))) {
-            // change attribute
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x() + posx)));
-        }
+    UNUSED_PARAMETER(offsety);
+    // declare start and end positions
+    SUMOReal startPos = myPosition.x();
+    SUMOReal endPos = 0;
+    // set endPos if additional has the attribute lenght
+    if(GNEAttributeCarrier::hasAttribute(getTag(), SUMO_ATTR_LENGTH)) {
+        endPos = startPos + GNEAttributeCarrier::parse<SUMOReal>(getAttribute(SUMO_ATTR_LENGTH));
+    }
+    // Move to Right if distance is positive, to left if distance is negative
+    if (((offsetx > 0) && ((endPos + offsetx) < myLane->getLaneShapeLenght())) || ((offsetx < 0) && ((startPos + offsetx) > 0))) {
+        // change attribute
+        myPosition.set(myPosition.x() + offsetx, 0);
+        // Update geometry
+        updateGeometry();
     }
 }
 
 
-GNELane*
-GNEDetector::getLane() const {
-    return myLane;
-}
-
-
 void
-GNEDetector::removeLaneReference() {
-    myLane = NULL;
+GNEDetector::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal, GNEUndoList* undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPosx)));
+    undoList->p_end();
+    // Refresh element
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -149,16 +150,6 @@ GNEDetector::setFrequency(int freq) {
 void
 GNEDetector::setFilename(std::string filename) {
     myFilename = filename;
-}
-
-
-void
-GNEDetector::changeLane(GNELane* newLane) {
-    myLane->removeAdditional(this);
-    myLane = newLane;
-    myLane->addAdditional(this);
-    updateGeometry();
-    getViewNet()->update();
 }
 
 

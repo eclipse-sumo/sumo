@@ -67,21 +67,18 @@
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal startPos, SUMOReal endPos, bool blocked) :
     GNEAdditional(id, viewNet, Position(), tag, NULL, blocked),
-    myLane(lane),
     myStartPos(startPos),
     myEndPos(endPos),
     mySignColor(RGBColor::YELLOW),
     mySignColorSelected(RGBColor::BLUE),
     myTextColor(RGBColor::CYAN),
     myTextColorSelected(RGBColor::BLUE) {
-    myLane->addAdditional(this);
+    // This additional belongs to a Lane
+    myLane = lane;
 }
 
 
 GNEStoppingPlace::~GNEStoppingPlace() {
-    if (myLane) {
-        myLane->removeAdditional(this);
-    }
 }
 
 
@@ -92,39 +89,30 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void
-GNEStoppingPlace::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList) {
+GNEStoppingPlace::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
     // Due a stoppingplace is placed over an lane ignore Warning of posy
-    UNUSED_PARAMETER(posy);
-    // if item isn't blocked
-    if (myBlocked == false) {
-        // Move to Right if distance is positive, to left if distance is negative
-        if (((posx > 0) && ((myEndPos + posx) < myLane->getLaneShapeLenght())) || ((posx < 0) && ((myStartPos + posx) > 0))) {
-            // change attribute
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPos + posx)));
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPos + posx)));
-        }
+    UNUSED_PARAMETER(offsety);
+    // Move to Right if distance is positive, to left if distance is negative
+    if (((offsetx > 0) &&
+        ((myLane->getPositionRelativeToParametricLenght(myEndPos) + offsetx) < myLane->getLaneParametricLenght())) ||
+        ((offsetx < 0) && ((myLane->getPositionRelativeToParametricLenght(myStartPos) + offsetx) > 0))) {
+        // change attribute
+        myStartPos += offsetx;
+        myEndPos += offsetx;
+        // Update geometry
+        updateGeometry();
     }
 }
 
 
-GNELane*
-GNEStoppingPlace::getLane() const {
-    return myLane;
-}
-
-
 void
-GNEStoppingPlace::removeLaneReference() {
-    myLane = NULL;
-}
-
-void
-GNEStoppingPlace::changeLane(GNELane* newLane) {
-    myLane->removeAdditional(this);
-    myLane = newLane;
-    myLane->addAdditional(this);
-    updateGeometry();
-    getViewNet()->update();
+GNEStoppingPlace::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getStartPosition()), true, toString(oldPosx)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getEndPosition()), true, toString(oldPosy)));
+    undoList->p_end();
+    // Refresh element
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 

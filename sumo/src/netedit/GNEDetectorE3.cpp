@@ -106,6 +106,9 @@ GNEDetectorE3::updateGeometry() {
 
     // Update connections
     updateConnections();
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -116,12 +119,20 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList) {
-    // if item isn't blocked
-    if (myBlocked == false) {
-        // change Position
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(Position(posx, posy, 0))));
-    }
+GNEDetectorE3::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+    // change Position
+    myPosition = Position(offsetx, offsety);
+    updateGeometry();
+}
+
+
+void
+GNEDetectorE3::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
+    undoList->p_end();
+    // Refresh element
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -140,6 +151,9 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
         device.writeAttr(SUMO_ATTR_X, myPosition.x());
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
+        if(myBlocked) {
+            device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
+        }
         // Write childs of this element
         writeAdditionalChildrens(device, currentDirectory);
         // Close tag
@@ -206,6 +220,8 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
             return toString(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -224,6 +240,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -254,6 +271,8 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<SUMOReal>(value);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -284,6 +303,10 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<SUMOReal>(value);
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
+            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

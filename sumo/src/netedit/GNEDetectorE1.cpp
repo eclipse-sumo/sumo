@@ -109,6 +109,9 @@ GNEDetectorE1::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(myLane);
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -130,6 +133,9 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, const std::string&) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
     device.writeAttr(SUMO_ATTR_SPLIT_VTYPE, mySplitByType);
+    if(myBlocked) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
+    }
     // Close tag
     device.closeTag();
 }
@@ -218,6 +224,8 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return myFilename;
         case SUMO_ATTR_SPLIT_VTYPE:
             return toString(mySplitByType);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -236,6 +244,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_SPLIT_VTYPE:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -269,6 +278,8 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidFileValue(value);
         case SUMO_ATTR_SPLIT_VTYPE:
             return canParse<bool>(value);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -285,7 +296,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLane(myViewNet->getNet()->retrieveLane(value));
+            changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = Position(parse<SUMOReal>(value), 0);
@@ -300,6 +311,10 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SPLIT_VTYPE:
             mySplitByType = parse<bool>(value);
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
+            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

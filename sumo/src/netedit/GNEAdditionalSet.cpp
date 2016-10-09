@@ -93,12 +93,12 @@ GNEAdditionalSet::~GNEAdditionalSet() {
     // Remove references to this additional Set in edges
     childEdges childEdgesToRemove = myChildEdges;
     for (childEdges::iterator i = childEdgesToRemove.begin(); i != childEdgesToRemove.end(); i++) {
-        (i->edge->removeAdditionalSet(this));
+        (i->edge->removeAdditionalGeometrySet(this));
     }
     // Remove references to this additional Set in lanes
     childLanes childLanesToRemove = myChildLanes;
     for (childLanes::iterator i = childLanesToRemove.begin(); i != childLanesToRemove.end(); i++) {
-        (i->lane->removeAdditionalSet(this));
+        (i->lane->removeAdditionalGeometrySet(this));
     }
 }
 
@@ -117,7 +117,7 @@ GNEAdditionalSet::addAdditionalChild(GNEAdditional* additional) {
 
 
 bool
-GNEAdditionalSet::removeAdditionalChild(GNEAdditional* additional) {
+GNEAdditionalSet::removeAdditionalGeometryChild(GNEAdditional* additional) {
     for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
         if ((*i) == additional) {
             myChildAdditionals.erase(i);
@@ -354,7 +354,7 @@ void
 GNEAdditionalSet::setEdgeChilds(std::vector<GNEEdge*> edges) {
     // First remove all existent edges
     for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-        i->edge->removeAdditionalSet(this);
+        i->edge->removeAdditionalGeometrySet(this);
     }
     // clear edge childs vector
     myChildEdges.clear();
@@ -372,7 +372,7 @@ void
 GNEAdditionalSet::setLaneChilds(std::vector<GNELane*> lanes) {
     // First remove all existent lanes
     for (childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
-        i->lane->removeAdditionalSet(this);
+        i->lane->removeAdditionalGeometrySet(this);
     }
     // clear lane childs vector
     myChildLanes.clear();

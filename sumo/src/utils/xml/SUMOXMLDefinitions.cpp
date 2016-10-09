@@ -498,7 +498,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },
     { "shapeStartNotForPrinting",           GNE_ATTR_SHAPE_START },
     { "shapeEndNotForPrinting",             GNE_ATTR_SHAPE_END },
-    { "movementOfElementBlocked",           GNE_ATTR_BLOCK_MOVEMENT },
+    { "blockMovement",                      GNE_ATTR_BLOCK_MOVEMENT },
     { "parentOfAdditional",                 GNE_ATTR_PARENT },
 
     // Other

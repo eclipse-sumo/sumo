@@ -2746,8 +2746,40 @@ NBEdge::addSidewalk(SUMOReal width) {
 
 
 void
+NBEdge::restoreSidewalk(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections) {
+    restoreRestrictedLane(SVC_PEDESTRIAN, oldLanes, oldGeometry, oldConnections);
+}
+
+
+bool
+NBEdge::hatSidewalk() const {
+    if (myLanes[0].permissions == SVC_PEDESTRIAN) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void
 NBEdge::addBikeLane(SUMOReal width) {
     addRestrictedLane(width, SVC_BICYCLE);
+}
+
+
+void
+NBEdge::restoreBikelane(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections) {
+    restoreRestrictedLane(SVC_BICYCLE, oldLanes, oldGeometry, oldConnections);
+}
+
+
+bool
+NBEdge::hatBikelane() const {
+    if (myLanes[0].permissions == SVC_BICYCLE) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -2784,6 +2816,29 @@ NBEdge::addRestrictedLane(SUMOReal width, SUMOVehicleClass vclass) {
     computeLaneShapes();
 }
 
+
+void
+NBEdge::restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections) {
+    // check that previously lane was transformed
+    if (myLanes[0].permissions != vclass) {
+        WRITE_WARNING("Edge '" + getID() + "' don't have a dedicated lane for " + toString(vclass) + "s. Cannot be restored");
+        return;
+    }
+    // restore old values
+    myGeom = oldGeometry;
+    myLanes = oldLanes;
+    myConnections = oldConnections;
+    // shift incoming connections to the right
+    const EdgeVector& incoming = myFrom->getIncomingEdges();
+    for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {
+        (*it)->shiftToLanesToEdge(this, 0);
+    }
+    // Shift TL conections
+    myFrom->shiftTLConnectionLaneIndex(this, 0);
+    myTo->shiftTLConnectionLaneIndex(this, 0);
+    computeLaneShapes();
+}
+   
 
 void
 NBEdge::shiftToLanesToEdge(NBEdge* to, int laneOff) {

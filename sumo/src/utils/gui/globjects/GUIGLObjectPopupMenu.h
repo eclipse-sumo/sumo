@@ -6,7 +6,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The popup menu of a globject
+// The popup menu of a globject.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
@@ -62,13 +62,13 @@ public:
      * @param[in] parent The parent view for changing it
      * @param[in] o The object of interest
      */
-    GUIGLObjectPopupMenu(GUIMainWindow& app,
-                         GUISUMOAbstractView& parent, GUIGlObject& o);
-
+    GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
 
     /// @brief Destructor
     virtual ~GUIGLObjectPopupMenu();
 
+    /// @brief Insert a sub-menu pane in this GUIGLObjectPopupMenu
+    void insertMenuPaneChild(FXMenuPane* child);
 
 public:
     /// Called if the assigned objects shall be centered
@@ -119,12 +119,12 @@ protected:
     /// @brief The position within the network the cursor was above when instanting the popup
     Position myNetworkPosition;
 
+    /// @brief list mit Sub-MenuPanes
+    std::vector<FXMenuPane*> myMenuPanes;
 
 protected:
     /// @brief FOX needs this
     GUIGLObjectPopupMenu() { }
-
-
 };
 
 

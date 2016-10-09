@@ -1,12 +1,16 @@
 import_config_file:../config_all
-binary:$TEXTTEST_HOME/sikulixrunner.py
+binary:$TEXTTEST_HOME/sikulixTestRunner.py
 copy_test_path:input_net.net.xml
+copy_test_path:input_additionals.add.xml
 copy_test_path_merge:test.sikuli
+config_module:default
 
 [collate_file]
 net:net.net.xml
+additionals:additionals.xml
 cfg:config.cfg
 log:log.txt
+sikulixLog:sikulixLog.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
@@ -15,6 +19,10 @@ log:done \(.*\)\.{REPLACE done.}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
+errors:java{LINES 1}
+errors:Java{LINES 1}
+sikulixLog:log{LINES 1}
+sikulixLog:script{LINES 1}
 
 [floating_point_tolerance]
 net:0.0101

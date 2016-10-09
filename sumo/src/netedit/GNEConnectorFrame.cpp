@@ -237,7 +237,7 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         }
         if (changed) {
             myNumChanges += 1;
-            GNEJunction* affected = myViewNet->getNet()->retrieveJunction(srcEdge.getDest()->getMicrosimID());
+            GNEJunction* affected = myViewNet->getNet()->retrieveJunction(srcEdge.getGNEJunctionDest()->getMicrosimID());
             affected->invalidateTLS(myViewNet->getUndoList(), deletedConnection);
             buildIinternalLanes(myCurrentLane->getParentEdge().getNBEdge()->getToNode());
         }
@@ -460,7 +460,7 @@ GNEConnectorFrame::updateDescription() const {
 void
 GNEConnectorFrame::initTargets() {
     // gather potential targets
-    NBNode* nbn = myCurrentLane->getParentEdge().getDest()->getNBNode();
+    NBNode* nbn = myCurrentLane->getParentEdge().getGNEJunctionDest()->getNBNode();
 
     const EdgeVector& outgoing = nbn->getOutgoingEdges();
     for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
@@ -562,13 +562,21 @@ GNEConnectorFrame::buildIinternalLanes(NBNode* node) {
         int index = 0;
         const EdgeVector& incoming = node->getIncomingEdges();
         for (EdgeVector::const_iterator it_edg = incoming.begin(); it_edg != incoming.end(); it_edg++) {
+            // Get connections from edge
             const std::vector<NBEdge::Connection>& conns = (*it_edg)->getConnections();
+            // Iterate over connections
             for (std::vector<NBEdge::Connection>::const_iterator it_con = conns.begin(); it_con != conns.end(); ++it_con) {
+                // Calculate shape of internal lane
                 const PositionVector shape = node->computeInternalLaneShape(*it_edg, *it_con, NUM_POINTS);
+                // Get link state
                 LinkState state = node->getLinkState(*it_edg, it_con->toEdge, it_con->fromLane, it_con->toLane, it_con->mayDefinitelyPass, it_con->tlID);
+                // Create internal lane
                 GNEInternalLane* ilane = new GNEInternalLane(0, innerID + '_' + toString(index) , shape, -1, state);
+                // Add internal lane to Visualisation SpeedUp
                 rtree.addAdditionalGLObject(ilane);
+                // Save pinter to internal lane into myInternalLanes
                 myInternalLanes[index] = ilane;
+                // Update index
                 index++;
             }
         }

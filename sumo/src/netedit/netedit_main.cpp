@@ -106,8 +106,10 @@ main(int argc, char** argv) {
         application.create();
         // Load configuration given on command line
         if (argc > 1) {
+            // Set default options
             OptionsIO::setArgs(argc, argv);
-            window->loadOnStartup(OptionsCont::getOptions().getBool("new"));
+            // load options
+            window->loadOptionOnStartup();
         }
         // Run
         ret = application.run();

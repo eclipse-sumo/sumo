@@ -392,6 +392,9 @@ GNERerouter::updateGeometry() {
 
     // Update geometry of additionalSet parent
     updateConnections();
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -408,12 +411,20 @@ GNERerouter::openAdditionalDialog() {
 
 
 void
-GNERerouter::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList) {
-    // if item isn't blocked
-    if (myBlocked == false) {
-        // change Position
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(Position(posx, posy, 0))));
-    }
+GNERerouter::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+    // change Position
+    myPosition = Position(offsetx, offsety);
+    updateGeometry();
+}
+
+
+void
+GNERerouter::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
+    undoList->p_end();
+    // Refresh element
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -429,6 +440,9 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
     }
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
+    if(myBlocked) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
+    }
     // Close tag
     device.closeTag();
 }
@@ -572,6 +586,8 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(myProbability);
         case SUMO_ATTR_OFF:
             return toString(myOff);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -590,6 +606,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_OFF:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -631,6 +648,8 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PROB:
             return canParse<SUMOReal>(value);
         case SUMO_ATTR_OFF:
+            return canParse<bool>(value);
+        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
@@ -675,6 +694,10 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
+            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

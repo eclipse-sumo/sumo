@@ -53,6 +53,7 @@
 #include "GNELoadThread.h"
 #include "GNENet.h"
 #include "GNEEvent_NetworkLoaded.h"
+#include "GNEAdditionalHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -141,11 +142,22 @@ GNELoadThread::run() {
             if (oc.getBool("ignore-errors")) {
                 MsgHandler::getErrorInstance()->clear();
             }
+            
             // check whether any errors occured
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
             } else {
                 net = new GNENet(netBuilder);
+            }
+
+            // enable load additionals after creation of net if was specified in the command line
+            if(myAdditionalFile != "") {
+                net->setAdditionalsFile(myAdditionalFile);
+            }
+
+            // Set additionals output file
+            if(myAdditionalOutputFile != "") {
+                net->setAdditionalsOutputFile(myAdditionalOutputFile);
             }
         } catch (ProcessError& e) {
             if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
@@ -205,6 +217,12 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
+    oc.doRegister("sumo-additionals-file", new Option_String());
+    oc.addDescription("sumo-additionals-file", "Input", "load additionals");
+
+    oc.doRegister("disable-laneIcons", new Option_Bool(false));
+    oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
+
     oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
     oc.addDescription("disable-textures", "Visualisation", "");
 
@@ -216,6 +234,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("window-size", new Option_String());
     oc.addDescription("window-size", "Visualisation", "Create initial window with the given x,y size");
+
+    oc.doRegister("additionals-output", new Option_String());
+    oc.addDescription("additionals-output", "Output", "default value for additionals output file");
 
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
@@ -265,6 +286,15 @@ void
 GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool optionsReady, bool newNet) {
     myFile = file;
     myLoadNet = isNet;
+
+    const OptionsCont& OC = OptionsCont::getOptions();
+    if(OC.isSet("sumo-additionals-file")) {
+        myAdditionalFile = OC.getString("sumo-additionals-file");
+    }
+    if(OC.isSet("additionals-output")) {
+        myAdditionalOutputFile = OC.getString("additionals-output");
+    }
+
     if (myFile != "") {
         OptionsIO::setArgs(0, 0);
     }

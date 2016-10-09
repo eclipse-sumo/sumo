@@ -1,6 +1,9 @@
 # basic tests for opening and creating networks
 basic
 
+# test shortcuts
+shortcuts
+
 # test create edge mode
 create
 

@@ -337,6 +337,8 @@ enum {
     /// @name GLChosenEditor - Dialog IDs
     //@{
 
+    /// set subset of elements
+    MID_CHOOSEN_ELEMENTS, 
     /// Load set
     MID_CHOOSEN_LOAD,
     /// Save set
@@ -486,13 +488,23 @@ enum {
     MID_GNE_SAVE_PLAIN_XML,
     MID_GNE_SAVE_JOINED,
     MID_GNE_SAVE_POIS,
+    /** Save additionals **/
     MID_GNE_SAVE_ADDITIONALS,
+    MID_GNE_SAVE_ADDITIONALS_AS,
     /** insert contents of another network */
     MID_GNE_INSERT_NETWORK,
+    /** show connections **/
+    MID_GNE_SHOW_CONNECTIONS, 
     /** attribute edited */
     MID_GNE_SET_ATTRIBUTE,
     /** netEdit attribute blocking */
     MID_GNE_SET_BLOCKING,
+    /** netEdit show connection */
+    MID_GNE_SHOW_CONNECTION,
+    /** netEdit inspect connection */ 
+    MID_GNE_INSPECT_CONNECTION, 
+    /** netEdit go back to the previous element */
+    MID_GNE_INSPECT_GOBACK, 
     /** netEdit add row */
     MID_GNE_ADDROW,
     /** netEdit remove row */
@@ -551,6 +563,26 @@ enum {
     MID_GNE_DELETE_GEOMETRY,
     /** duplicate a lane */
     MID_GNE_DUPLICATE_LANE,
+    /** transform lane to sidewalk */
+    MID_GNE_TRANSFORM_LANE_SIDEWALK,
+    /** transform lane to bikelane */
+    MID_GNE_TRANSFORM_LANE_BIKE,
+    /** transform lane to busLane */
+    MID_GNE_TRANSFORM_LANE_BUS,
+    /** revert transformation */
+    MID_GNE_REVERT_TRANSFORMATION,
+    /** add sidewalk */
+    MID_GNE_ADD_LANE_SIDEWALK,
+    /** add bikelane */
+    MID_GNE_ADD_LANE_BIKE,
+    /** add busLane */
+    MID_GNE_ADD_LANE_BUS,
+    /** remove sidewalk */
+    MID_GNE_REMOVE_LANE_SIDEWALK,
+    /** remove bikelane */
+    MID_GNE_REMOVE_LANE_BIKE,
+    /** remove busLane */
+    MID_GNE_REMOVE_LANE_BUS,
     /** set object as template*/
     MID_GNE_SET_TEMPLATE,
     /** copy template*/

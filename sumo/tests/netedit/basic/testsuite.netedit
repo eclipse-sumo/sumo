@@ -1,1 +1,8 @@
-new_net_1edge.sikuli
+#Open netEdit
+open_netedit
+
+#create net with two nodes and an edge
+new_net_1edge
+
+#provoke a error with sikulix
+sikulix_error

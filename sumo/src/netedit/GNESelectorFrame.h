@@ -75,6 +75,9 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+    /// @brief Called when the user change the type of element to search (netElement or Additional)
+    long onCmdSubset(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user presses the Load-button
     /// @note Opens a file dialog and forces the parent to load the list of selected
     /// objects when a file was chosen. Rebuilds the list, then, and redraws itself.
@@ -126,6 +129,9 @@ private:
 
     /// @brief target of modify selection
     FXDataTarget mySetOperationTarget;
+
+    /// @brief tag of the sets of elements
+    FXListBox* mySetBox;
 
     /// @brief tag of the match box
     FXListBox* myMatchTagBox;

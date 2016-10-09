@@ -40,6 +40,7 @@
 // ===========================================================================
 class GNEEdge;
 class GNELane;
+class GNEAdditional;
 class GNEAdditionalSet;
 
 // ===========================================================================
@@ -90,8 +91,11 @@ private:
     /// @brief we need to preserve the attributes explicitly because they are not contained withing GNELane itself
     const NBEdge::Lane myLaneAttrs;
 
-    /// @brief additional sets vinculated with this lane
-    std::vector<GNEAdditionalSet*> myAdditionalSets;
+    /// @brief we need to preserve the list of additionals vinculated with this lane
+    std::vector<GNEAdditional*> myAdditionalChilds;
+
+    /// @brief we need to preserve the list of additional sets in which this lane is a child
+    std::vector<GNEAdditionalSet*> myAdditionalSetParents;
 };
 
 #endif

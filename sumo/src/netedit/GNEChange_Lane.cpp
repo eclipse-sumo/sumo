@@ -51,7 +51,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, NULL, 0)
 
 // Constructor for creating an edge
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward):
-    GNEChange(0, forward),
+    GNEChange(edge->getNet(), forward),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs) {
@@ -59,7 +59,9 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
     if (myLane) {
         // non-zero pointer is passsed in case of removal or duplication
         myLane->incRef("GNEChange_Lane");
-        myAdditionalSets = myLane->getAdditionalSets();
+        // Save additionals of lane
+        myAdditionalChilds = myLane->getAdditionalChilds();
+        myAdditionalSetParents = myLane->getAdditionalSetParents();
     } else {
         assert(forward);
     }
@@ -84,8 +86,12 @@ GNEChange_Lane::~GNEChange_Lane() {
 void GNEChange_Lane::undo() {
     if (myForward) {
         myEdge->removeLane(myLane);
+        // Remove additional sets vinculated with this lane of net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->deleteAdditional(*i);
+        }
         // Remove references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             (*i)->removeLaneChild(myLane);
             // Remove additional from net if the number of childs is >= 0
             if ((*i)->getNumberOfEdgeChilds() == 0) {
@@ -94,8 +100,12 @@ void GNEChange_Lane::undo() {
         }
     } else {
         myEdge->addLane(myLane, myLaneAttrs);
+        // add additional sets vinculated with this lane of net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->insertAdditional(*i);
+        }
         // Add references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             myNet->insertAdditional(*i, false);
             (*i)->addLaneChild(myLane);
         }
@@ -106,15 +116,23 @@ void GNEChange_Lane::undo() {
 void GNEChange_Lane::redo() {
     if (myForward) {
         myEdge->addLane(myLane, myLaneAttrs);
+        // add additional sets vinculated with this lane of net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->insertAdditional(*i);
+        }
         // Add references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             myNet->insertAdditional(*i, false);
             (*i)->addLaneChild(myLane);
         }
     } else {
         myEdge->removeLane(myLane);
+        // Remove additional sets vinculated with this lane of net
+        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
+            myNet->deleteAdditional(*i);
+        }
         // Remove references to this edge in their AdditionalSets
-        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
+        for (std::vector<GNEAdditionalSet*>::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
             (*i)->removeLaneChild(myLane);
             // Remove additional from net if the number of childs is >= 0
             if ((*i)->getNumberOfEdgeChilds() == 0) {

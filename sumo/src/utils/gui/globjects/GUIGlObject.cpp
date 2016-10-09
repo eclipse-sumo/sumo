@@ -61,6 +61,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"lane",          GLO_LANE},
     {"junction",      GLO_JUNCTION},
     {"crossing",      GLO_CROSSING},
+    {"connection",    GLO_CONNECTION},
+    {"prohibition",   GLO_PROHIBITION}, 
     {"tlLogic",       GLO_TLLOGIC},
     {"detector",      GLO_DETECTOR},
     {"trigger",       GLO_TRIGGER},

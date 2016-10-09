@@ -105,6 +105,9 @@ GNEVariableSpeedSignal::updateGeometry() {
 
     // Update connections
     updateConnections();
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -121,12 +124,20 @@ GNEVariableSpeedSignal::openAdditionalDialog() {
 
 
 void
-GNEVariableSpeedSignal::moveAdditional(SUMOReal posx, SUMOReal posy, GNEUndoList* undoList) {
-    // if item isn't blocked
-    if (myBlocked == false) {
-        // change Position
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(Position(posx, posy, 0))));
-    }
+GNEVariableSpeedSignal::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+    // change Position
+    myPosition = Position(offsetx, offsety);
+    updateGeometry();
+}
+
+
+void
+GNEVariableSpeedSignal::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
+    undoList->p_end();
+    // Refresh element
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -167,6 +178,9 @@ GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string&
             // Close VSS tag
             device.closeTag();
         }
+    }
+    if(myBlocked) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag
     device.closeTag();
@@ -316,6 +330,8 @@ GNEVariableSpeedSignal::getAttribute(SumoXMLAttr key) const {
             return toString(myPosition);
         case SUMO_ATTR_FILE:
             return myFilename;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlocked);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -332,6 +348,7 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value, 
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
@@ -370,6 +387,8 @@ GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
+                case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -407,6 +426,10 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value) 
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlocked = parse<bool>(value);
+            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

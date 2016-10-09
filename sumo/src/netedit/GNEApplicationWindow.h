@@ -90,7 +90,7 @@ public:
     virtual void detach();
 
     /// @brief load net on startup
-    void loadOnStartup(bool newNet);
+    void loadOptionOnStartup();
 
     /// @brief build dependent
     void dependentBuild();
@@ -147,6 +147,9 @@ public:
 
     /// @brief called when the command/FXCall save additionals is executed
     long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save additionals as is executed
+    long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save network is executed
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);

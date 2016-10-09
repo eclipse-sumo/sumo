@@ -42,6 +42,7 @@ class GNEEdge;
 class GNENet;
 class GNEAdditional;
 class GNEAdditionalSet;
+class GNEConnection;
 
 // ===========================================================================
 // class definitions
@@ -102,6 +103,12 @@ public:
     /// @brief Returns underlying parent edge
     GNEEdge& getParentEdge();
 
+    /// @brief returns a vector with the incoming GNEConnections of this lane
+    std::vector<GNEConnection*> getGNEIncomingConnections();
+
+    /// @brief returns a vector with the outgoing GNEConnections of this lane
+    std::vector<GNEConnection*> getGNEOutcomingConnections();
+
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -125,12 +132,12 @@ public:
     /// @brief returns the vector with the shape lengths
     const std::vector<SUMOReal>& getShapeLengths() const;
 
+    /// @brief returns the boundry (including lanes)
+    Boundary getBoundary() const;
+
     /// @brief update pre-computed geometry information
     //  @note: must be called when geometry changes (i.e. junction moved)
     void updateGeometry();
-
-    /// @brief returns the boundry (including lanes)
-    Boundary getBoundary() const;
 
     /// @brief returns the index of the lane
     int getIndex() const;
@@ -164,29 +171,26 @@ public:
      */
     SUMOReal getPositionRelativeToShapeLenght(SUMOReal position) const;
 
-    /* @brief method for adding a reference of a additional element placed in this lane
-     * @param[in] additional Pointer to additional element
-     */
-    void addAdditional(GNEAdditional* additional);
+    /// @brief add additional child to this lane
+    void addAdditionalChild(GNEAdditional* additional);
 
-    /* @brief method for remove a reference of a additional element placed in this lane
-     * @param[in] additional Pointer to additional element previously added
-       @return true if additional element was sucesfully removed, flase in other case
-     */
-    bool removeAdditional(GNEAdditional* additional);
+    /// @brief remove additional child to this lane
+    void removeAdditionalChild(GNEAdditional* additional);
 
-    /// @brief method to obtain a list of additional elements associated to this lane
-    /// @return set with all additional elements
-    const std::vector<GNEAdditional*>& getAdditionals() const;
+    /// @brief get additional childs of lane
+    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
     /// @brief add GNEAdditionalSet to this lane
     bool addAdditionalSet(GNEAdditionalSet* additionalSet);
 
     /// @brief remove GNEAdditionalSet from this lane
-    bool removeAdditionalSet(GNEAdditionalSet* additionalSet);
+    bool removeAdditionalGeometrySet(GNEAdditionalSet* additionalSet);
 
-    /// @brief return list of additionalSets associated with this lane
-    const std::vector<GNEAdditionalSet*>& getAdditionalSets();
+    /// @brief return list of additionalSets parents of this lane
+    const std::vector<GNEAdditionalSet*>& getAdditionalSetParents();
+
+    /// @brief check if this lane is restricted
+    bool isRestricted(SUMOVehicleClass vclass) const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -233,13 +237,22 @@ protected:
 
     /// @brief The lengths of the shape parts
     std::vector<SUMOReal> myShapeLengths;
-    /// @}
 
+    /// @brief Position of textures of restricted lanes
+    std::vector<Position> myLaneRestrictedTexturePositions;
+
+    /// @brief Rotations of textures of restricted lanes
+    std::vector<SUMOReal> myLaneRestrictedTextureRotations;
+
+    /// @brief current texture for restricted lanes
+    GUIGlID myLaneRestrictedTexture;
+    /// @}
+    
     /// @brief list with the additonals vinculated with this lane
     AdditionalVector myAdditionals;
 
-    /// @brief list with the additonalSets vinculated with this lane
-    AdditionalSetVector myAdditionalSets;
+    /// @brief list with the additonalSets parents of this lane
+    AdditionalSetVector myAdditionalSetParents;
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
