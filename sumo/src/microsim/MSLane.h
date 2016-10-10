@@ -260,7 +260,7 @@ public:
      *  does not cause unexpected behaviour on consecutive lanes. Returns false
      *  if the vehicle can not be inserted.
      *
-     * If the insertion can take place, incorporateVehicleis called and true is returned.
+     * If the insertion can take place, incorporateVehicle() is called and true is returned.
      *
      * @param[in] vehicle The vehicle to insert
      * @param[in] speed The speed with which it shall be inserted

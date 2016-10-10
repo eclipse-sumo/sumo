@@ -490,7 +490,7 @@ MSLane::checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const
         if (patchSpeed) {
             speed = MIN2(nspeed, speed);
             dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-        } else {
+        } else if(speed>0) {
             if (errorMsg != "") {
                 WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (" + errorMsg + ")!");
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
@@ -512,6 +512,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                       aVehicle->getID() + "'. Inserting at lane end instead.");
         pos = myLength;
     }
+
+#ifdef DEBUG_INSERTION
+    if (DEBUG_COND2(aVehicle)) std::cout << "\nIS_INSERTION_SUCCESS\n"
+            << SIMTIME  <<" lane=" << getID()
+            << " veh '" << aVehicle->getID()<< "'\n";
+#endif
+
     aVehicle->setTentativeLaneAndPosition(this, pos, posLat);
     aVehicle->updateBestLanes(false, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
@@ -554,7 +561,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             } else {
                 // lane does not continue
-                if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, seen),
+                if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
                                  patchSpeed, "junction too close")) {
                     // we may not drive with the given velocity - we cannot stop at the junction
                     return false;
@@ -575,11 +582,18 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 // no sense in trying later
                 errorMsg = "unpriorised junction too close";
             }
-            if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, seen),
+            if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
                              patchSpeed, errorMsg)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
                 return false;
             }
+#ifdef DEBUG_INSERTION
+                if DEBUG_COND2(aVehicle) {
+                    std::cout << "trying insertion before minor link: "
+                            << "insertion speed = " << speed << " dist="<< dist
+                            << "\n";
+                }
+#endif
             break;
         }
         // get the next used lane (including internal)
@@ -604,6 +618,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             SUMOReal gap = 0;
             MSVehicle* leader = nextLane->getLastAnyVehicle();
             if (leader != 0) {
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
+                		<< "leader on lane '" << nextLane->getID() << "': " << leader->getID() << "\n";
+#endif
                 gap = seen + leader->getBackPositionOnLane(nextLane) -  aVehicle->getVehicleType().getMinGap();
             }
             if (leader != 0) {
@@ -648,7 +666,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // may already be comitted to blocking the link and unable to stop
             const SUMOTime leaveTime = (*link)->getLeaveTime(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength());
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed, cfModel.getMaxDecel())) {
-                if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, seen), patchSpeed, "")) {
+                if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen), patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash at the junction
                     return false;
                 }
@@ -673,6 +691,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
     const SUMOReal nspeed = safeInsertionSpeed(aVehicle, leaders, speed);
     if (nspeed < 0 || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
+    	// XXX: checking for nspeed<0... Might appear naturally with ballistic update (see #860, Leo)
+        // TODO: check if ballistic update needs adjustments here, refs. #2577
+
         // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -689,6 +710,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #endif
         return false;
     }
+#ifdef DEBUG_INSERTION
+        if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
+        		<< " speed = " << speed
+				<< " nspeed = " << nspeed
+								<< std::endl;
+#endif
 
     MSLeaderDistanceInfo followers = getFollowersOnConsecutive(aVehicle, false);
     for (int i = 0; i < followers.numSublanes(); ++i) {
@@ -1151,7 +1178,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
 
 bool
 MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIntegrate) {
-    // iteratate over vehicles in reverse so that move reminders will be called in the correct order
+    // iterate over vehicles in reverse so that move reminders will be called in the correct order
     for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
         MSVehicle* veh = *i;
         // length is needed later when the vehicle may not exist anymore
@@ -1202,10 +1229,10 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {
             MSVehicle* veh = myVehicles.back(); // the vehice at the front of the queue
             if (!veh->isStopped() && veh->getLane() == this) {
+                const bool wrongLane = !veh->getLane()->appropriate(veh);
                 const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
-                const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && !veh->getLane()->appropriate(veh);
+                const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
                 if (r1 || r2) {
-                    const bool wrongLane = !veh->getLane()->appropriate(veh);
                     const MSLinkCont::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
                     const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
                     const std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
@@ -1226,7 +1253,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
                     }
                     MSVehicleTransfer::getInstance()->add(t, veh);
                 }
-            } // else look for a vehicle that isn't stopped?
+            } // else look for a (waiting) vehicle that isn't stopped?
         }
     }
     if (MSGlobals::gLateralResolution > 0) {
@@ -1479,6 +1506,34 @@ MSLane::getLinkCont() const {
 }
 
 
+const MSLink*
+MSLane::getLinkTo(const MSLane* target) const {
+    if(target == 0) return 0;
+
+    MSLinkCont::const_iterator i = myLinks.begin();
+    MSLink* link = 0; MSLane* lane = 0;
+    while(i != myLinks.end()){
+        link = *(i++);
+        if(link == 0) continue;
+
+        lane = link->getViaLaneOrLane();
+        while(lane != target) {
+            if(lane->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL){
+                // lane is a non-internal and is not the target -> check the next link
+                break;
+            } else {
+                // lane is internal (go on to the following link)
+                assert(lane->getLinkCont().size() == 1);
+                lane = lane->getLinkCont()[0]->getViaLaneOrLane();
+                continue;
+            }
+        }
+    }
+    if(lane != target) link=0; // target is no continuation lane for this
+    return link;
+}
+
+
 void
 MSLane::setMaxSpeed(SUMOReal val) {
     myMaxSpeed = val;
@@ -1596,7 +1651,7 @@ SUMOReal
 MSLane::getMaximumBrakeDist() const {
     const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     const SUMOReal maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();
-    // this is an upper bound on the actual braking distance (see ticket #860)
+    // NOTE: For the euler update this is an upper bound on the actual braking distance (see ticket #860)
     return maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration();
 }
 
@@ -1631,7 +1686,11 @@ MSLane::getFollowerOnConsecutive(
                 std::cout << SIMTIME << "     nextLane=" << next->getID() << "\n";
             }
 #endif
+            // XXX: why take a MAX here? Even if some upcoming lane allows to go faster, the follower should be able
+            // to brake in time if we only consider 'next->getMaximumBrakeDist() - backOffset'.
             dist = MAX2(dist, next->getMaximumBrakeDist() - backOffset);
+            // Checking the first vehicle on the considered lane.
+            // XXX: Could there be a problem if someone fast is just overtaking a a slow first vehicle, e.g.? (Leo) Refs.#2578
             MSVehicle* v = next->getFirstAnyVehicle();
             SUMOReal agap = 0;
             if (v != 0) {

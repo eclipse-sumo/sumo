@@ -103,7 +103,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
 
         if (desc.myParking) {
             // handle parking vehicles
-            if (desc.myVeh->processNextStop(1) == 0) {
+            if (desc.myVeh->processNextStop(1) <= 0) {
                 ++i;
                 continue;
             }
