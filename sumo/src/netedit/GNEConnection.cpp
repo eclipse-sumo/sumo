@@ -85,7 +85,8 @@ GNEConnection::GNEConnection(GNEEdge *from, NBEdge::Connection connection, bool 
     myConnection(connection),
     GNENetElement(from->getNet(), toString(SUMO_TAG_CONNECTION) + from->getID() + toString(connection.fromLane) + connection.toEdge->getID() + toString(connection.toLane), GLO_CONNECTION, SUMO_TAG_CONNECTION),
     myFromEdge(from),
-    myUncontrolled(uncontrolled) {
+    myUncontrolled(uncontrolled), 
+    myDrawConnection(true) {
     // Update geometry
     updateGeometry();
 }
