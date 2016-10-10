@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:8696 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -39,4 +41,5 @@ emissionclass HBEFA2/zero
 shape bicycle
 MinGap 1.1
 width 1.1
+height 1.9
 color (1, 0, 0, 1)

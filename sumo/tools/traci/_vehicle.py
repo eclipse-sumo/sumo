@@ -106,6 +106,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_SPEEDSETMODE:    Storage.readInt,
                       tc.VAR_SLOPE:           Storage.readDouble,
                       tc.VAR_WIDTH:           Storage.readDouble,
+                      tc.VAR_HEIGHT:          Storage.readDouble,
                       tc.VAR_MINGAP:          Storage.readDouble,
                       tc.VAR_SHAPECLASS:      Storage.readString,
                       tc.VAR_ACCEL:           Storage.readDouble,
@@ -412,6 +413,13 @@ class VehicleDomain(Domain):
         Returns the width in m of this vehicle.
         """
         return self._getUniversal(tc.VAR_WIDTH, vehID)
+
+    def getHeight(self, vehID):
+        """getHeight(string) -> double
+
+        Returns the height in m of this vehicle.
+        """
+        return self._getUniversal(tc.VAR_HEIGHT, vehID)
 
     def getMinGap(self, vehID):
         """getMinGap(string) -> double
@@ -815,6 +823,14 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_WIDTH, vehID, width)
+
+    def setHeight(self, vehID, height):
+        """setHeight(string, double) -> None
+
+        Sets the height in m for this vehicle.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_HEIGHT, vehID, height)
 
     def setMinGap(self, vehID, minGap):
         """setMinGap(string, double) -> None

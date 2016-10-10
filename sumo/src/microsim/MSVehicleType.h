@@ -337,6 +337,16 @@ public:
     void setLength(const SUMOReal& length);
 
 
+    /** @brief Set a new value for this type's height
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] height The new height of this type
+     */
+    void setHeight(const SUMOReal& height);
+
+
     /** @brief Set a new value for this type's minimum gap
      *
      * If the given value<0 then the one from the original type will

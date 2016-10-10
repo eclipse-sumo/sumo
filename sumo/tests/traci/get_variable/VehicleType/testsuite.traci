@@ -29,11 +29,8 @@ VAR_VEHICLECLASS
 VAR_VEHICLECLASS_subseconds
 VAR_WIDTH
 VAR_WIDTH_subseconds
-
+VAR_HEIGHT
 
 # Testing error cases
 errors
 errors_subseconds
-
-
-

@@ -99,6 +99,16 @@ MSVehicleType::setLength(const SUMOReal& length) {
 
 
 void
+MSVehicleType::setHeight(const SUMOReal& height) {
+    if (myOriginalType != 0 && height < 0) {
+        myParameter.height = myOriginalType->getHeight();
+    } else {
+        myParameter.height = height;
+    }
+}
+
+
+void
 MSVehicleType::setMinGap(const SUMOReal& minGap) {
     if (myOriginalType != 0 && minGap < 0) {
         myParameter.minGap = myOriginalType->getMinGap();

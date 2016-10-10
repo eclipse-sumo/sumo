@@ -663,6 +663,7 @@ public:
         std::string getShapeClass(const std::string& typeID) const;
         SUMOReal getMinGap(const std::string& typeID) const;
         SUMOReal getWidth(const std::string& typeID) const;
+        SUMOReal getHeight(const std::string& typeID) const;
         TraCIColor getColor(const std::string& typeID) const;
 
         void setLength(const std::string& typeID, SUMOReal length) const;
@@ -672,6 +673,7 @@ public:
         void setSpeedDeviation(const std::string& typeID, SUMOReal deviation) const;
         void setEmissionClass(const std::string& typeID, const std::string& clazz) const;
         void setWidth(const std::string& typeID, SUMOReal width) const;
+        void setHeight(const std::string& typeID, SUMOReal height) const;
         void setMinGap(const std::string& typeID, SUMOReal minGap) const;
         void setShapeClass(const std::string& typeID, const std::string& clazz) const;
         void setAccel(const std::string& typeID, SUMOReal accel) const;

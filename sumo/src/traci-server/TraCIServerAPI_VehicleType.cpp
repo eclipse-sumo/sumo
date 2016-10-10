@@ -59,6 +59,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_TAU && variable != VAR_VEHICLECLASS && variable != VAR_EMISSIONCLASS && variable != VAR_SHAPECLASS
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
             && variable != VAR_MINGAP && variable != VAR_WIDTH && variable != VAR_COLOR && variable != ID_COUNT
+            && variable != VAR_HEIGHT
             && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -110,6 +111,10 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType&
         case VAR_LENGTH:
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
             tempMsg.writeDouble(v.getLength());
+            break;
+        case VAR_HEIGHT:
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(v.getHeight());
             break;
         case VAR_MINGAP:
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -182,7 +187,9 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_EMISSIONCLASS
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
-            && variable != VAR_TAU && variable != VAR_COLOR && variable != VAR_PARAMETER
+            && variable != VAR_TAU && variable != VAR_COLOR 
+            && variable != VAR_HEIGHT
+            && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Change Vehicle Type State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -219,6 +226,17 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Invalid length.", outputStorage);
             }
             v.setLength(value);
+        }
+        break;
+        case VAR_HEIGHT: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting height requires a double.", outputStorage);
+            }
+            if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+                return server.writeErrorStatusCmd(cmd, "Invalid height.", outputStorage);
+            }
+            v.setHeight(value);
         }
         break;
         case VAR_MAXSPEED: {

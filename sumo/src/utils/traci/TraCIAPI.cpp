@@ -1595,72 +1595,77 @@ TraCIAPI::VehicleTypeScope::getIDList() const {
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getLength(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_LENGTH, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_LENGTH, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getMaxSpeed(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_MAXSPEED, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_MAXSPEED, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getSpeedFactor(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_SPEED_FACTOR, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_SPEED_FACTOR, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getSpeedDeviation(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_SPEED_DEVIATION, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_SPEED_DEVIATION, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getAccel(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_ACCEL, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_ACCEL, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getDecel(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_DECEL, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_DECEL, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getImperfection(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_IMPERFECTION, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_IMPERFECTION, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getTau(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_TAU, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_TAU, typeID);
 }
 
 std::string
 TraCIAPI::VehicleTypeScope::getVehicleClass(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_TL_VARIABLE, VAR_VEHICLECLASS, typeID);
+    return myParent.getString(CMD_GET_VEHICLETYPE_VARIABLE, VAR_VEHICLECLASS, typeID);
 }
 
 std::string
 TraCIAPI::VehicleTypeScope::getEmissionClass(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_TL_VARIABLE, VAR_EMISSIONCLASS, typeID);
+    return myParent.getString(CMD_GET_VEHICLETYPE_VARIABLE, VAR_EMISSIONCLASS, typeID);
 }
 
 std::string
 TraCIAPI::VehicleTypeScope::getShapeClass(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_TL_VARIABLE, VAR_SHAPECLASS, typeID);
+    return myParent.getString(CMD_GET_VEHICLETYPE_VARIABLE, VAR_SHAPECLASS, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getMinGap(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_MINGAP, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_MINGAP, typeID);
 }
 
 SUMOReal
 TraCIAPI::VehicleTypeScope::getWidth(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_TL_VARIABLE, VAR_WIDTH, typeID);
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_WIDTH, typeID);
+}
+
+SUMOReal
+TraCIAPI::VehicleTypeScope::getHeight(const std::string& typeID) const {
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_HEIGHT, typeID);
 }
 
 TraCIAPI::TraCIColor
 TraCIAPI::VehicleTypeScope::getColor(const std::string& typeID) const {
-    return myParent.getColor(CMD_GET_TL_VARIABLE, VAR_COLOR, typeID);
+    return myParent.getColor(CMD_GET_VEHICLETYPE_VARIABLE, VAR_COLOR, typeID);
 }
 
 
@@ -1731,6 +1736,16 @@ TraCIAPI::VehicleTypeScope::setWidth(const std::string& typeID, SUMOReal width) 
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(width);
     myParent.send_commandSetValue(CMD_SET_VEHICLETYPE_VARIABLE, VAR_WIDTH, typeID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
+}
+
+void
+TraCIAPI::VehicleTypeScope::setHeight(const std::string& typeID, SUMOReal height) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(height);
+    myParent.send_commandSetValue(CMD_SET_VEHICLETYPE_VARIABLE, VAR_HEIGHT, typeID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
 }

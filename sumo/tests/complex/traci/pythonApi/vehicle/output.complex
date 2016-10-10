@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:15583 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:13767 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -46,6 +46,7 @@ emissionclass HBEFA2/P_7_7
 shape passenger
 MinGap 2.5
 width 1.8
+height 1.5
 person number 0
 waiting time 0.0
 driving dist 2915.24286403
@@ -99,6 +100,7 @@ emissionclass HBEFA2/zero
 shape bicycle
 MinGap 1.1
 width 1.1
+height 1.6
 person number 0
 waiting time 0.0
 driving dist 2892.51859065
@@ -149,6 +151,7 @@ emissionclass HBEFA2/P_7_7
 shape passenger
 MinGap 2.5
 width 1.8
+height 1.5
 person number 0
 waiting time 0.0
 driving dist -1001.0
@@ -211,6 +214,7 @@ emissionclass HBEFA2/P_7_7
 shape passenger
 MinGap 2.5
 width 1.8
+height 1.5
 person number 0
 waiting time 0.0
 driving dist 2914.61057563
@@ -494,6 +498,7 @@ emissionclass HBEFA2/P_7_7
 shape passenger
 MinGap 2.5
 width 1.8
+height 1.5
 person number 0
 waiting time 0.0
 driving dist -1001.0

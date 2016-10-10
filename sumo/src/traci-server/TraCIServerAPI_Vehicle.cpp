@@ -103,6 +103,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_SPEEDSETMODE
             && variable != VAR_NEXT_TLS
             && variable != VAR_SLOPE
+            && variable != VAR_HEIGHT
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -510,6 +511,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_TAU && variable != VAR_LANECHANGE_MODE
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != ADD_FULL && variable != REMOVE
+            && variable != VAR_HEIGHT
             && variable != VAR_MOVE_TO_VTD && variable != VAR_PARAMETER/* && variable != VAR_SPEED_TIME_LINE && variable != VAR_LANE_TIME_LINE*/
        ) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);

@@ -684,6 +684,12 @@ TraCITestClient::testAPI() {
     edges.push_back("e_u1");
     route.add("e_u1", edges);
     answerLog << "    getIDList: " << joinToString(route.getIDList(), " ") << "\n";
+    answerLog << "  vehicleType:\n";
+    answerLog << "    getIDList: " << joinToString(vehicletype.getIDList(), " ") << "\n";
+    vehicletype.setWidth("t1", 1.9);
+    answerLog << "    getWidth: " << vehicletype.getWidth("t1") << "\n";
+    vehicletype.setHeight("t1", 1.8);
+    answerLog << "    getHeight: " << vehicletype.getHeight("t1") << "\n";
     answerLog << "  vehicle:\n";
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
