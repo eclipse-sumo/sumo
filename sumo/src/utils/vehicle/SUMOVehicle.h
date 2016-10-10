@@ -65,6 +65,17 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
  */
 class SUMOVehicle {
 public:
+
+    // XXX: This definition was introduced to make the MSVehicle's previousSpeed
+    //      available in the context of MSMoveReminder::notifyMove(). Another solution 
+    //      would be to modify notifyMove()'s interface to work with MSVehicle instead 
+    //      of SUMOVehicle (it is only called with MSVehicles!). Refs. #2579
+    /** @brief Returns the vehicle's previous speed
+     * @return The vehicle's speed
+     */
+    virtual SUMOReal getPreviousSpeed() const = 0;
+
+
     typedef Named::NamedLikeComparatorIdLess<SUMOVehicle> ComparatorIdLess;
 
     /// @brief Destructor
