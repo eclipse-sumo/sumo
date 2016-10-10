@@ -63,6 +63,7 @@ bool MSGlobals::gMesoOvertaking;
 SUMOReal MSGlobals::gMesoTLSPenalty;
 MELoop* MSGlobals::gMesoNet;
 
+bool MSGlobals::gSemiImplicitEulerUpdate;
 
 SUMOTime MSGlobals::gWaitingTimeMemory;
 /****************************************************************************/

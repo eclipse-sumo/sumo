@@ -58,6 +58,10 @@ public:
     /// Information whether empty edges shall be written on dump
     static bool gOmitEmptyEdgesOnDump;
 
+    /* Allows switching between time step integration methods
+     * "Semi-Implicit Euler" (default) and the ballistic update rule. */
+    static bool gSemiImplicitEulerUpdate;
+
     /** Information how long the simulation shall wait until it recognizes
         a vehicle as a grid lock participant */
     static SUMOTime gTimeToGridlock;
@@ -68,7 +72,7 @@ public:
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
 
-    /// Information whether the simulation regards internal lanes
+    /// Information whether the simulation regards internal lanes FIXME: (Leo) add appropriate description
     static SUMOTime gIgnoreJunctionBlocker;
 
     /** information whether the network shall check for collisions */
