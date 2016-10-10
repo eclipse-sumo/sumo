@@ -30,6 +30,7 @@
 #endif
 
 #include <cassert>
+#include <map>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
 #include <microsim/MSVehicleType.h>
@@ -98,6 +99,16 @@ MSStoppingPlace::getWaitPosition() const {
 }
 
 
+SUMOReal
+MSStoppingPlace::getStoppingPosition(const SUMOVehicle * veh) const {
+    std::map<const SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::const_iterator i = myEndPositions.find(veh);
+    if(i != myEndPositions.end()){
+        return i->second.second;
+    } else {
+        return getLastFreePos(*veh);
+    }
+}
+
 void
 MSStoppingPlace::addTransportable(MSTransportable* p) {
     myWaitingTransportables.push_back(p);
@@ -131,7 +142,7 @@ MSStoppingPlace::leaveFrom(SUMOVehicle* what) {
 void
 MSStoppingPlace::computeLastFreePos() {
     myLastFreePos = myEndPos;
-    std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator i;
+    std::map<const SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator i;
     for (i = myEndPositions.begin(); i != myEndPositions.end(); i++) {
         if (myLastFreePos > (*i).second.second) {
             myLastFreePos = (*i).second.second;
