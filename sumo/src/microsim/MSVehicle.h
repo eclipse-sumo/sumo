@@ -50,6 +50,7 @@
 #include "MSLink.h"
 #include "MSLane.h"
 
+#define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light! Refs. #2577
 
 // ===========================================================================
 // class declarations
@@ -127,14 +128,28 @@ public:
             return myBackPos;
         }
 
+        /// previous Speed of this state
+        SUMOReal lastCoveredDist() const {
+            return myLastCoveredDist;
+        }
+
 
     private:
         /// the stored position
         SUMOReal myPos;
 
-        /// the stored speed
+        /// the stored speed (should be >=0 at any time)
         SUMOReal mySpeed;
+	
+        /// the speed at the begin of the previous time step
+        SUMOReal myPreviousSpeed;
 
+        /// the distance covered in the last timestep
+        /// NOTE: In case of ballistic positional update, this is not necessarily given by
+        ///       myPos - SPEED2DIST(mySpeed + myPreviousSpeed)/2,
+        /// because a stop may have occured within the last step.
+        SUMOReal myLastCoveredDist;
+	
         /// the stored lateral position
         SUMOReal myPosLat;
 
@@ -341,6 +356,15 @@ public:
     bool executeMove();
 
 
+    /** @brief calculates the distance covered in the next integration step given
+     *         an acceleration and assuming the current velocity. (gives different
+     *         results for different integration methods, e.g., euler vs. ballistic)
+     *  @param[in] accel the assumed acceleration
+     *  @return distance covered in next integration step
+     */
+    SUMOReal getDeltaPos(SUMOReal accel);
+
+
     /// @name state setter/getter
     //@{
 
@@ -349,6 +373,13 @@ public:
      */
     SUMOReal getPositionOnLane() const {
         return myState.myPos;
+    }
+
+    /** @brief Get the distance the vehicle covered in the previous timestep
+     * @return The distance covered in the last timestep (in m)
+     */
+    SUMOReal getLastStepDist() const {
+        return myState.lastCoveredDist();
     }
 
     /** @brief Get the vehicle's front position relative to the given lane
@@ -412,7 +443,16 @@ public:
     }
 
 
+    /** @brief Returns the vehicle's speed before the previous time step
+     * @return The vehicle's speed before the previous time step
+     */
+    SUMOReal getPreviousSpeed() const {
+        return myState.myPreviousSpeed;
+    }
+
+
     /** @brief Returns the vehicle's acceleration in m/s
+     *         (this is computed as the last step's mean acceleration in case that a stop occurs within the middle of the time-step)
      * @return The acceleration
      */
     SUMOReal getAcceleration() const {
@@ -446,6 +486,20 @@ public:
      */
     MSLane* getLane() const {
         return myLane;
+    }
+
+
+    /** @brief Returns the maximal speed for the vehicle on its current lane (including speed factor and deviation,
+     *         i.e., not necessarily the allowed speed limit)
+     * @return The vehicle's max speed
+     */
+    SUMOReal
+    getMaxSpeedOnLane() const {
+        if(myLane != 0){
+            return myLane->getVehicleMaxSpeed(this);
+        } else {
+            return myType->getMaxSpeed();
+        }
     }
 
 
@@ -1454,8 +1508,8 @@ protected:
             myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
             accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) {
-            assert(vWait >= 0);
-            assert(vPass >= 0);
+            assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
+            assert(vPass >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
 
 
@@ -1466,7 +1520,7 @@ protected:
             myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
             myDistance(distance),
             accelV(-1), hadVehicle(false), availableSpace(-1.) {
-            assert(vWait >= 0);
+            assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
 
 
@@ -1499,19 +1553,7 @@ protected:
         // l=linkLength, a=accel, t=continuousTime, v=vLeave
         // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
         return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this),
-                    estimateSpeedAfterDistance(link->getLength(), vLinkPass, getVehicleType().getCarFollowModel().getMaxAccel()));
-    }
-
-    /* @brief estimate speed while accelerating for the given distance
-     * @param[in] dist The distance during which accelerating takes place
-     * @param[in] v The initial speed
-     * @param[in] accel The acceleration
-     * XXX affected by ticket #860 (the formula is invalid for the current position update rule)
-     */
-    inline SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v, const SUMOReal accel) const {
-        // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
-        return MIN2(getVehicleType().getMaxSpeed(),
-                    (SUMOReal)sqrt(2 * dist * accel + v * v));
+                    getCarFollowModel().estimateSpeedAfterDistance(link->getLength(), vLinkPass, getVehicleType().getCarFollowModel().getMaxAccel()));
     }
 
 
@@ -1551,6 +1593,15 @@ protected:
 
     // @brief get the position of the back bumper;
     const Position getBackPosition() const;
+
+    /** @brief updates the vehicles state, given a next value for its speed.
+     *         This value can be negative in case of the ballistic update to indicate
+     *         a stop within the next timestep. (You can call this a 'hack' to
+     *         emulate reasoning based on accelerations: The assumed constant
+     *         acceleration a within the next time step is then a = (vNext - vCurrent)/TS )
+     *  @param[in] vNext speed in the next time step
+     */
+    void updateState(SUMOReal vNext);
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

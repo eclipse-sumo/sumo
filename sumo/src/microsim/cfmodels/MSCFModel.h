@@ -37,6 +37,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/FileHelpers.h>
 
+#define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
 
 // ===========================================================================
 // class declarations
@@ -57,6 +58,7 @@ class MSLane;
  * It provides methods to compute a vehicles velocity for a simulation step.
  */
 class MSCFModel {
+
 public:
 
     class VehicleVariables {
@@ -132,11 +134,24 @@ public:
      *
      * Returns the velocity of the vehicle when approaching a static object (such as the end of a lane) assuming no reaction time is needed.
      * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the the obstacle
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap The (netto) distance to the the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const = 0;
+    virtual SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const = 0;
+
+
+    /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
+     *         due to acceleration capabilities and previous speeds.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap The (netto) distance to the the obstacle
+     * @return EGO's safe speed for approaching a non-moving obstacle at insertion
+     * @see stopSpeed() and insertionFollowSpeed()
+     *
+     */
+    virtual SUMOReal insertionStopSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -209,6 +224,7 @@ public:
 
 
 
+
     /// @name Currently fixed methods
     /// @{
 
@@ -227,7 +243,20 @@ public:
     virtual SUMOReal maxNextSpeed(SUMOReal speed, const MSVehicle* const veh) const;
 
 
-    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
+    /** @brief Returns the minimum speed given the current speed
+     * (depends on the numerical update scheme and its step width)
+     * Note that it wouldn't have to depend on the numerical update
+     * scheme if the semantics would rely on acceleration instead of velocity.
+     *
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values, if needed as e.g. road conditions.
+     * @return The minimum possible speed for the next step
+     */
+    SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle* const veh = 0) const;
+
+
+    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time,
+     * assuming that during the reaction time, the speed remains constant
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
@@ -235,36 +264,11 @@ public:
         return brakeGap(speed, myDecel, myHeadwayTime);
     }
 
+    static SUMOReal brakeGap(const SUMOReal speed, const SUMOReal decel, const SUMOReal headwayTime);
 
-    inline static SUMOReal brakeGap(const SUMOReal speed, const SUMOReal decel, const SUMOReal headwayTime) {
-        /* one possiblity to speed this up is to precalculate speedReduction * steps * (steps+1) / 2
-        for small values of steps (up to 10 maybe) and store them in an array */
-        const SUMOReal speedReduction = ACCEL2SPEED(decel);
-        const int steps = int(speed / speedReduction);
-        return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * headwayTime;
-    }
+    static SUMOReal freeSpeed(const SUMOReal currentSpeed, const SUMOReal decel, const SUMOReal dist, const SUMOReal maxSpeed, const bool onInsertion);
 
-
-    inline static SUMOReal freeSpeed(const SUMOReal decel, const SUMOReal seen, const SUMOReal maxSpeed, const bool onInsertion) {
-        // adapt speed to succeeding lane, no reaction time is involved
-        // when breaking for y steps the following distance g is covered
-        // (drive with v in the final step)
-        // g = (y^2 + y) * 0.5 * b + y * v
-        // y = ((((sqrt((b + 2.0*v)*(b + 2.0*v) + 8.0*b*g)) - b)*0.5 - v)/b)
-        const SUMOReal v = SPEED2DIST(maxSpeed);
-        if (seen < v) {
-            return maxSpeed;
-        }
-        const SUMOReal b = ACCEL2DIST(decel);
-        const SUMOReal y = MAX2(0.0, ((sqrt((b + 2.0 * v) * (b + 2.0 * v) + 8.0 * b * seen) - b) * 0.5 - v) / b);
-        const SUMOReal yFull = floor(y);
-        const SUMOReal exactGap = (yFull * yFull + yFull) * 0.5 * b + yFull * v + (y > yFull ? v : 0.0);
-        const SUMOReal fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(decel);
-        return DIST2SPEED(MAX2((SUMOReal)0.0, seen - exactGap) / (yFull + 1)) + fullSpeedGain + maxSpeed;
-    }
-
-
-    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
+    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
       * @param[in] speed EGO's speed
       * @param[in] leaderSpeed LEADER's speed
       * @param[in] leaderMaxDecel LEADER's max. deceleration rate
@@ -273,10 +277,23 @@ public:
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we lower the value of followerDecel which errs on the side of caution
-        const SUMOReal followDecel = MIN2(myDecel, leaderMaxDecel);
-        return MAX2((SUMOReal) 0, brakeGap(speed, followDecel, myHeadwayTime) - brakeGap(leaderSpeed, leaderMaxDecel, 0));
-    }
+    	//
+    	// xxx (Leo, refs #2548) This is somewhat different from the approach in maximumSafeFollowSpeed, where
+    	// the leaderMaxDecel is increased instead. This is no perfect estimate either,
+    	// but without taking into account the reaction time it is less conservative than decreasing followDecel. 
+    	// Consider replacement by 'const leaderMaxDecel = MAX2(myDecel, leaderMaxDecel);' below and 'followDecel = myDecel;'
+    	// With maximumSafeSpeed = maximumSafeFollowSpeed(*secureGap*, speed, leaderSpeed, leaderMaxDecel) we should have:
+    	//        assert(maximumSafeSpeed <= speed + NUMERICAL_EPS && maximumSafeSpeed >= speed - NUMERICAL_EPS);
 
+        // XXX: this should fix #2548 (postponed after merge of branch {ticket860}):
+        //        const SUMOReal maxDecel = MAX2(myDecel, leaderMaxDecel);
+        //        SUMOReal secureGap = MAX2((SUMOReal) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
+
+        const SUMOReal followDecel = MIN2(myDecel, leaderMaxDecel);
+        // XXX: returning 0 can be wrong if the leader is slower than the follower! Why not return negative values? (Leo)
+        SUMOReal secureGap = MAX2((SUMOReal) 0, brakeGap(speed, followDecel, myHeadwayTime) - brakeGap(leaderSpeed, leaderMaxDecel, 0));
+        return secureGap;
+    }
 
     /** @brief Returns the velocity after maximum deceleration
      * @param[in] v The velocity
@@ -287,6 +304,83 @@ public:
     }
     /// @}
 
+    /** @brief Computes the minimal time needed to cover a distance given the desired speed at arrival.
+     * @param[in] dist Distance to be covered
+     * @param[in] currentSpeed Actual speed of vehicle
+     * @param[in] arrivalSpeed Desired speed at arrival
+     */
+    SUMOReal getMinimalArrivalTime(SUMOReal dist, SUMOReal currentSpeed, SUMOReal arrivalSpeed) const;
+
+
+    /** @brief Computes the minimal possible arrival speed after covering a given distance
+     * @param[in] dist Distance to be covered
+     * @param[in] currentSpeed Actual speed of vehicle
+     */
+    SUMOReal getMinimalArrivalSpeed(SUMOReal dist, SUMOReal currentSpeed) const;
+
+    /** @brief Computes the minimal possible arrival speed after covering a given distance for Euler update
+     * @param[in] dist Distance to be covered
+     * @param[in] currentSpeed Actual speed of vehicle
+     */
+    SUMOReal getMinimalArrivalSpeedEuler(SUMOReal dist, SUMOReal currentSpeed) const;
+
+
+    /** @brief return the resulting gap if, starting with gap currentGap, two vehicles
+     * continue with constant accelerations (velocities bounded by 0 and maxSpeed) for
+     * a given timespan of length 'duration'.
+     * @param[in] currentGap (pos(veh1) - pos(veh2) at start)
+     * @param[in] v1 initial speed of vehicle 1
+     * @param[in] v2 initial speed of vehicle 2
+     * @param[in] a1 acceleration of vehicle 1
+     * @param[in] a2 acceleration of vehicle 2
+     * @param[in] maxV1 maximal speed of vehicle 1
+     * @param[in] maxV2 maximal speed of vehicle 2
+     * @param[in] duration time span for the process
+     * @return estimated gap after 'duration' seconds
+     */
+    static SUMOReal gapExtrapolation(const SUMOReal duration, const SUMOReal currentGap, SUMOReal v1,  SUMOReal v2, SUMOReal a1=0, SUMOReal a2=0, const SUMOReal maxV1=std::numeric_limits<SUMOReal>::max(), const SUMOReal maxV2=std::numeric_limits<SUMOReal>::max());
+
+    /**
+     * @brief Calculates the time at which the position passedPosition has been passed
+     *         In case of a ballistic update, the possibility of a stop within a time step
+     *         requires more information about the last time-step than in case of the euler update
+     *         to determine the last position if the currentSpeed is zero.
+     * @param[in] lastPos the position at time t=0 (must be < currentPos)
+     * @param[in] passedPos the position for which the passing time is to be determined (has to lie within [lastPos, currentPos]!)
+     * @param[in] currentPos the position at time t=TS (one time-step after lastPos) (must be > lastPos)
+     * @param[in] lastSpeed the speed at moment t=0
+     * @param[in] currentSpeed the speed at moment t=TS
+     * @return  time t in [0,TS] at which passedPos in [lastPos, currentPos] was passed.
+     */
+    static SUMOReal passingTime(const SUMOReal lastPos, const SUMOReal passedPos, const SUMOReal currentPos, const SUMOReal lastSpeed, const SUMOReal currentSpeed);
+
+
+
+    /**
+     * @brief Calculates the speed after a time t \in [0,TS]
+     *        given the initial speed and the distance traveled in an interval of step length TS.
+     * @note  If the acceleration were known, this would be much nicer, but in this way
+     *        we need to reconstruct it (for the ballistic update at least, where we assume that
+     *        a stop may occur within the interval)
+     * @param[in] t time in [0,TS] for which the speed shall be determined
+     * @param[in] oldSpeed speed before the last time step (referred to as t == 0)
+     * @param[in] distance covered
+     * @return    speed at time t
+     */
+    static SUMOReal speedAfterTime(const SUMOReal t, const SUMOReal oldSpeed, const SUMOReal dist);
+
+
+
+
+
+    /* @brief estimate speed while accelerating for the given distance
+     * @param[in] dist The distance during which accelerating takes place
+     * @param[in] v The initial speed
+     * @param[in] accel The acceleration
+     * XXX affected by ticket #860 (the formula is invalid for the Euler position update rule)
+     * XXX (Leo) Migrated estimateSpeedAfterDistance() to MSCFModel from MSVehicle as Jakob suggested (removed inline property, because myType is fw-declared)
+     */
+    SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v, const SUMOReal accel) const;
 
     /// @name Setter methods
     /// @{
@@ -326,18 +420,44 @@ public:
 protected:
     /** @brief Returns the maximum safe velocity for following the given leader
      * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] egoSpeed The FOLLOWERS's speed
      * @param[in] predSpeed The LEADER's speed
      * @param[in] predMaxDecel The LEADER's maximum deceleration
+     * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @return the safe velocity
      */
-    SUMOReal maximumSafeFollowSpeed(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    SUMOReal maximumSafeFollowSpeed(SUMOReal gap,  SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal predMaxDecel, bool onInsertion = false) const;
 
 
-    /** @brief Returns the maximum velocity for stopping within gap
-     * This depends stronlgy on the position update model
+    /** @brief Returns the maximum next velocity for stopping within gap
+     * @param[in] gap The (netto) distance to the desired stopping point
+     * @param[in] currentSpeed The current speed of the ego vehicle
+     * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
+     * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
+     */
+    SUMOReal maximumSafeStopSpeed(SUMOReal gap, SUMOReal currentSpeed, bool onInsertion = false, SUMOReal headway = -1) const;
+
+
+    /** @brief Returns the maximum next velocity for stopping within gap
+     * when using the semi-implicit Euler update
      * @param[in] gap The (netto) distance to the LEADER
      */
-    SUMOReal maximumSafeStopSpeed(SUMOReal gap) const;
+    SUMOReal maximumSafeStopSpeedEuler(SUMOReal gap) const;
+
+
+    /** @brief Returns the maximum next velocity for stopping within gap
+     * when using the ballistic positional update.
+     * @note This takes into account the driver's reaction time and the car's current speed.
+     * (The latter is required to calculate the distance covered in the following timestep.)
+     * @param[in] gap The (netto) distance to the desired stopping point
+     * @param[in] currentSpeed The current speed of the ego vehicle
+     * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
+     * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
+     * @return the safe velocity (to be attained at the end of the following time step) that assures the possibility of stopping within gap.
+     * If a negative value is returned, the required stop has to take place before the end of the time step.
+     */
+    SUMOReal maximumSafeStopSpeedBallistic(SUMOReal gap, SUMOReal currentSpeed, bool onInsertion = false, SUMOReal headway = -1) const;
+
 
 protected:
     /// @brief The type to which this model definition belongs to
@@ -351,6 +471,7 @@ protected:
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     SUMOReal myHeadwayTime;
+
 };
 
 
