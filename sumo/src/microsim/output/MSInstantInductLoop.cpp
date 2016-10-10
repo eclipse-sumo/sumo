@@ -79,25 +79,30 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // detector not reached yet
         return true;
     }
+
+    const SUMOReal oldSpeed = veh.getPreviousSpeed();
+    SUMOReal enterSpeed = MSGlobals::gSemiImplicitEulerUpdate ? newSpeed : oldSpeed; // NOTE: For the euler update, the vehicle is assumed to travel at constant speed for the whole time step
+    SUMOReal leaveSpeed = newSpeed;
+
     if (newPos >= myPosition && oldPos < myPosition/* && static_cast<MSVehicle&>(veh).getLane() == myLane*/) {
-        SUMOReal entryTime = SIMTIME;
-        if (newSpeed != 0) {
-            if (myPosition < newPos) {
-                entryTime -= (newPos - myPosition) / newSpeed;
-            }
-        }
+        const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
+        const SUMOReal entryTime = SIMTIME - TS + timeBeforeEnter;
+        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos-oldPos);
         if (myLastExitTime >= 0) {
-            write("enter", entryTime, veh, newSpeed, "gap", entryTime - myLastExitTime);
+            write("enter", entryTime, veh, enterSpeed, "gap", entryTime - myLastExitTime);
         } else {
-            write("enter", entryTime, veh, newSpeed);
+            write("enter", entryTime, veh, enterSpeed);
         }
         myEntryTimes[&veh] = entryTime;
     }
-    if (newPos - veh.getVehicleType().getLength() > myPosition) {
+    const SUMOReal newBackPos = newPos - veh.getVehicleType().getLength();
+    const SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
+    if (newBackPos > myPosition) {
         std::map<SUMOVehicle*, SUMOReal>::iterator i = myEntryTimes.find(&veh);
         if (i != myEntryTimes.end()) {
             // vehicle passed the detector
-            const SUMOReal leaveTime = SIMTIME - (newPos - veh.getVehicleType().getLength() - myPosition) / newSpeed;
+            const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
+            const SUMOReal leaveTime = SIMTIME - TS + timeBeforeLeave;
             write("leave", leaveTime, veh, newSpeed, "occupancy", leaveTime - (*i).second);
             myEntryTimes.erase(i);
             myLastExitTime = leaveTime;

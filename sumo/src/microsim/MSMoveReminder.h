@@ -99,7 +99,7 @@ public:
         NOTIFICATION_JUNCTION,
         /// @brief The vehicle changes the segment (meso only)
         NOTIFICATION_SEGMENT,
-        /// @brief The vehicle changes lanes (micro only)
+        /// @brief The vehicle changes lanes (micro only) XXX: What if a vehicle changes lanes and passes a junction simultaneously?
         NOTIFICATION_LANE_CHANGE,
         /// @brief The vehicle is being teleported
         NOTIFICATION_TELEPORT,
@@ -181,12 +181,12 @@ public:
     }
 
 
+    // TODO: Documentation
     void updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
                         SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
                         bool cleanUp);
 
     /// @}
-
 
     /** @brief Internal notification about the vehicle moves
      *
@@ -197,13 +197,22 @@ public:
      * @param[in] veh Vehicle that asks this reminder.
      * @param[in] frontOnLane time the front of the vehicle spent on the lane.
      * @param[in] timeOnLane time some part of the vehicle spent on the lane.
-     * @param[in] speed Moving speed.
+     * @param[in] meanSpeedFrontOnLane Average speed for the time that the front is on the lane.
+     * @param[in] meanSpeedVehicleOnLane Average speed for the time that the vehicle is on the lane (with front or back).
+     * @param[in] travelledDistanceFrontOnLane distance travelled while overlapping with the lane.
+     * @param[in] travelledDistanceVehicleOnLane distance travelled while front was on the lane.
      */
-    virtual void notifyMoveInternal(SUMOVehicle& veh,
-                                    SUMOReal frontOnLane,
-                                    SUMOReal timeOnLane,
-                                    SUMOReal speed) {
-        UNUSED_PARAMETER(speed);
+    virtual void notifyMoveInternal(const SUMOVehicle& veh,
+                                    const SUMOReal frontOnLane,
+                                    const SUMOReal timeOnLane,
+                                    const SUMOReal meanSpeedFrontOnLane,
+                                    const SUMOReal meanSpeedVehicleOnLane,
+                                    const SUMOReal travelledDistanceFrontOnLane,
+                                    const SUMOReal travelledDistanceVehicleOnLane) {
+        UNUSED_PARAMETER(travelledDistanceFrontOnLane);
+        UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
+        UNUSED_PARAMETER(meanSpeedVehicleOnLane);
+        UNUSED_PARAMETER(meanSpeedFrontOnLane);
         UNUSED_PARAMETER(frontOnLane);
         UNUSED_PARAMETER(timeOnLane);
         UNUSED_PARAMETER(&veh);

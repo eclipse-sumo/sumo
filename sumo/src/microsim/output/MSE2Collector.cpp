@@ -110,27 +110,50 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // detector not yet reached
         return true;
     }
+
+
+    const SUMOReal oldSpeed = veh.getPreviousSpeed();
+    SUMOReal enterSpeed = MSGlobals::gSemiImplicitEulerUpdate ? newSpeed : oldSpeed; // NOTE: For the euler update, the vehicle is assumed to travel at constant speed for the whole time step
+    SUMOReal leaveSpeed = newSpeed;
+
     SUMOReal lengthOnDet = MIN2(veh.getVehicleType().getLength(), newPos - myStartPos);
     if (newPos > myEndPos) {
         lengthOnDet = MAX2(SUMOReal(0), lengthOnDet - (newPos - myEndPos));
     }
+
     SUMOReal timeOnDet = TS;
+
+    // Treat the case that the vehicle entered the lane in the last step
     if (newPos > myStartPos && oldPos <= myStartPos) {
-        timeOnDet = (newPos - myStartPos) / newSpeed;
+        // Vehicle was not on this lane in the last time step
+        const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, myStartPos, newPos, oldSpeed, newSpeed);
+        timeOnDet -= timeBeforeEnter;
+        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos-oldPos);
         myPassedVeh++;
     }
-    if (newPos - veh.getVehicleType().getLength() >= myEndPos) {
-        timeOnDet -= (newPos - veh.getVehicleType().getLength() - myEndPos) / newSpeed;
+
+    // Treat the case that the vehicle's back left the lane in the last step
+    const SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
+    const SUMOReal newBackPos = newPos - veh.getVehicleType().getLength();
+    if (newBackPos > myEndPos) {
+        assert(oldBackPos <= myEndPos);
+        const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myEndPos, newBackPos, oldSpeed, newSpeed);
+        const SUMOReal timeAfterLeave = TS-timeBeforeLeave;
+        timeOnDet -= timeAfterLeave;
+        leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos-oldPos);
+        // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(timeOnDet) < NUMERICAL_EPS) { // reduce rounding errors
             timeOnDet = 0.;
         } else {
-            myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), newSpeed,
+            const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed)/2.;
+            myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), averageSpeedOnDetector,
                 timeOnDet, lengthOnDet, newPos,
                 veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), false));
         }
         return false;
     }
-    myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), newSpeed,
+    const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed)/2.;
+    myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), averageSpeedOnDetector,
                                           timeOnDet, lengthOnDet, newPos,
                                           veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), true));
     DBG(

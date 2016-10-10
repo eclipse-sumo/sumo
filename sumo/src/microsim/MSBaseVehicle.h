@@ -55,6 +55,14 @@ class MSLane;
  */
 class MSBaseVehicle : public SUMOVehicle {
 public:
+    // XXX: This definition was introduced to make the MSVehicle's previousSpeed
+    //      available in the context of MSMoveReminder::notifyMove(). Another solution 
+    //      would be to modify notifyMove()'s interface to work with MSVehicle instead 
+    //      of SUMOVehicle (it is only called with MSVehicles!). Refs. #2579
+    /** @brief Returns the vehicle's previous speed
+     * @return The vehicle's speed
+     */
+    SUMOReal getPreviousSpeed() const;
 
     friend class GUIBaseVehicle;
 
@@ -369,7 +377,6 @@ public:
      */
     void addStops(const bool ignoreStopErrors);
 
-
 protected:
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
@@ -400,9 +407,13 @@ protected:
     /// @{
 
     /// @brief Definition of a move reminder container
+    //         The SUMOReal value holds the relative position offset, i.e.,
+    //         offset + vehicle-position - moveReminder-position = distance,
+    //         i.e. the offset is counted up when the vehicle continues to a
+    //         succeeding lane.
     typedef std::vector< std::pair<MSMoveReminder*, SUMOReal> > MoveReminderCont;
 
-    /// @brief Current lane's move reminder
+    /// @brief Currently relevant move reminders
     MoveReminderCont myMoveReminders;
     /// @}
 

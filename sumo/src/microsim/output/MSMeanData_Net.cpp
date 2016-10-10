@@ -109,15 +109,16 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane, SUMOReal timeOnLane, SUMOReal speed) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal frontOnLane, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane) {
     sampleSeconds += timeOnLane;
-    travelledDistance += speed * timeOnLane;
+    travelledDistance += travelledDistanceVehicleOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
-    if (myParent != 0 && speed < myParent->myHaltSpeed) {
+    // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
+    if (myParent != 0 && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
     }
     frontSampleSeconds += frontOnLane;
-    frontTravelledDistance += speed * frontOnLane;
+    frontTravelledDistance += travelledDistanceFrontOnLane;
 }
 
 

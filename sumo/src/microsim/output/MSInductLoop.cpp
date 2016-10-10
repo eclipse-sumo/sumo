@@ -108,25 +108,35 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // detector not reached yet
         return true;
     }
+    const SUMOReal oldSpeed = veh.getPreviousSpeed();
     if (newPos >= myPosition && oldPos < myPosition) {
         // entered the detector by move
-        SUMOReal entryTime = SIMTIME;
-        if (newSpeed != 0) {
-            if (myPosition > oldPos) {
-                entryTime += (myPosition - oldPos) / newSpeed;
-            }
-        }
+        const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
+        SUMOReal entryTime = SIMTIME + timeBeforeEnter;
         enterDetectorByMove(veh, entryTime);
     }
-    if (newPos - veh.getVehicleType().getLength() > myPosition) {
-        // vehicle passed the detector (it may have changed onto this lane
-        // somewhere past the detector)
-        assert(newSpeed > 0 || myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end());
-        SUMOReal leaveTime = SIMTIME;
-        if (newSpeed > 0) {
-            leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
+    SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
+    SUMOReal newBackPos = newPos - veh.getVehicleType().getLength();
+    if (newBackPos > myPosition) {
+        // vehicle passed the detector (it may have changed onto this lane somewhere past the detector)
+        assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed > 0 || myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end());
+        if(oldBackPos <= myPosition) {
+            const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
+            const SUMOReal leaveTime = SIMTIME + timeBeforeLeave;
+            leaveDetectorByMove(veh, leaveTime);
+        } else {
+            // vehicle is already beyond the detector...
+            // This can happen even if it is still registered in myVehiclesOnDet, e.g., after teleport.
+            // XXX: would we need to call leaveDetectorByMove(veh, leaveTime) as it was done before
+            //      I inserted this if-else differentiation? (Leo) It seems that such a call only resets
+            //      the last leave Time, which seems inadequate to do for such a situation (though it actually
+            //      appears in test output/e1/one_vehicle/lane_change). Moreover, if the vehicle was
+            //      not removed, this call would tidy up.
+            // XXX: Indeed, we need to tidy up, e.g., in case of teleport insertion behind detector
+            // XXX: As a quickfix we just remove it. (should be discussed! Leo) Refs. #2579
+
+            myVehiclesOnDet.erase(&veh);
         }
-        leaveDetectorByMove(veh, leaveTime);
         return false;
     }
     // vehicle stays on the detector
@@ -245,6 +255,9 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
 void
 MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal entryTimestep) {
+//    // Debug (Leo)
+//    std::cout << "enterDetectorByMove(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
+
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
     myEnteredVehicleNumber++;
 }
@@ -253,6 +266,10 @@ MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
 void
 MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal leaveTimestep) {
+
+//    // Debug (Leo)
+//    std::cout << "leaveDetectorByMove(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
+
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
     if (it != myVehiclesOnDet.end()) {
         SUMOReal entryTimestep = it->second;
@@ -261,12 +278,17 @@ MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
         myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep, veh.getVehicleType().getID()));
         myLastOccupancy = leaveTimestep - entryTimestep;
     }
+    // XXX: why is this outside the conditional block? (Leo)
     myLastLeaveTime = leaveTimestep;
 }
 
 
 void
 MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal /* lastPos */) {
+
+//    // Debug (Leo)
+//    std::cout << "leaveDetectorByLaneChange(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
+
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
 }

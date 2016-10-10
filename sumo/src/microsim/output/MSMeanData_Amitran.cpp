@@ -89,11 +89,11 @@ MSMeanData_Amitran::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val)
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal /* frontOnLane */, SUMOReal timeOnLane, SUMOReal speed) {
+MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal /*meanSpeedVehicleOnLane*/, const SUMOReal /*travelledDistanceFrontOnLane*/, const SUMOReal travelledDistanceVehicleOnLane) {
     sampleSeconds += timeOnLane;
-    travelledDistance += speed * timeOnLane;
+    travelledDistance += travelledDistanceVehicleOnLane;
     typedSamples[&veh.getVehicleType()] += timeOnLane;
-    typedTravelDistance[&veh.getVehicleType()] += speed * timeOnLane;
+    typedTravelDistance[&veh.getVehicleType()] += travelledDistanceVehicleOnLane;
 }
 
 

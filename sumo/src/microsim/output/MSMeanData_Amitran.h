@@ -125,17 +125,9 @@ public:
 
     protected:
         /** @brief Internal notification about the vehicle moves
-         *
-         * Indicator if the reminders is still active for the passed
-         * vehicle/parameters. If false, the vehicle will erase this reminder
-         * from it's reminder-container.
-         *
-         * @param[in] veh Vehicle that asks this reminder.
-         * @param[in] frontOnLane time the front of the vehicle spent on the lane.
-         * @param[in] timeOnLane time some part of the vehicle spent on the lane.
-         * @param[in] speed Moving speed.
+         *  @see MSMoveReminder::notifyMoveInternal()
          */
-        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane, SUMOReal timeOnLane, SUMOReal speed);
+        void notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane);
 
     private:
         /// @name Collected values

@@ -59,12 +59,15 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) {
     if (myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() && newPos > myPosition) {
         if (oldPos > myPosition) {
-            // was behind the detector
+            // was behind the detector already in the last step
             return false;
         } else {
+            // entered in this step
+            const SUMOReal oldSpeed = veh.getPreviousSpeed();
             const SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-            assert(newSpeed != 0); // how could it move across the detector otherwise
-            const SUMOReal fractionTimeOnDet = (newPos - myPosition) / newSpeed;
+            assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the detector otherwise
+            const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
+            const SUMOReal fractionTimeOnDet = TS - timeBeforeEnter;
             myCollector.enter(veh, entryTime - fractionTimeOnDet, fractionTimeOnDet);
         }
     }
@@ -99,21 +102,25 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // crossSection not yet reached
         return true;
     }
+    const SUMOReal oldSpeed = veh.getPreviousSpeed();
     if (oldPos < myPosition) {
-        assert(newSpeed != 0); // how could it move across the detector otherwise
-        myCollector.leaveFront(veh, SIMTIME - TS + (myPosition - oldPos) / newSpeed);
+        assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the detector otherwise
+        const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
+//        const SUMOReal leaveTimeFront = SIMTIME - TS + (myPosition - oldPos) / newSpeed;
+        const SUMOReal leaveTimeFront = SIMTIME - TS + timeBeforeLeave;
+        myCollector.leaveFront(veh, leaveTimeFront);
     }
     const SUMOReal backPos = newPos - veh.getVehicleType().getLength();
     if (backPos < myPosition) {
         // crossSection not yet left
         return true;
     }
-    const SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
     // crossSection left
+    const SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
     const SUMOReal leaveStep = SIMTIME;
-    assert(newSpeed != 0); // how could it move across the detector otherwise
-    const SUMOReal fractionTimeOnDet = (myPosition - oldBackPos) / newSpeed;
-    myCollector.leave(veh, leaveStep - TS + fractionTimeOnDet, fractionTimeOnDet);
+    assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the detector otherwise
+    const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, backPos, oldSpeed, newSpeed);
+    myCollector.leave(veh, leaveStep - TS + timeBeforeLeave, timeBeforeLeave);
     return false;
 }
 

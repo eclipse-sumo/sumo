@@ -158,14 +158,14 @@ public:
      *
      * As soon as the reported vehicle enters the detector area (position>myStartPos)
      *  it is added to the list of vehicles to regard (myKnownVehicles). It
-     *  is removed from this list if it leaves the detector (position<lengt>myEndPos).
+     *  is removed from this list if it leaves the detector (position<length>myEndPos).
      * The method returns true as long as the vehicle is not beyond the detector.
      *
      * @param[in] veh The vehicle in question.
      * @param[in] oldPos Position before the move-micro-timestep.
      * @param[in] newPos Position after the move-micro-timestep.
      * @param[in] newSpeed Unused here.
-     * @return False, if vehicle passed the detector entierly, else true.
+     * @return False, if vehicle passed the detector entirely, else true.
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyMove
      */

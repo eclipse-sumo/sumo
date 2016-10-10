@@ -36,6 +36,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/cfmodels/MSCFModel.h>
 #include <microsim/MSNet.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
@@ -83,28 +84,58 @@ bool
 MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) {
     // if the vehicle has arrived, the reminder must be kept so it can be
     // notified of the arrival subsequently
+    const SUMOReal oldSpeed = veh.getPreviousSpeed();
+    SUMOReal enterSpeed = MSGlobals::gSemiImplicitEulerUpdate ? newSpeed : oldSpeed; // NOTE: For the euler update, the vehicle is assumed to travel at constant speed for the whole time step
+    SUMOReal leaveSpeed = newSpeed, leaveSpeedFront = newSpeed;
+
+    // These values will be further decreased below
     SUMOReal timeOnLane = TS;
     SUMOReal frontOnLane = oldPos > myLaneLength ? 0. : TS;
     bool ret = true;
-    if (oldPos < 0 && newSpeed != 0) {
-        timeOnLane = newPos / newSpeed;
-        frontOnLane = newPos / newSpeed;
+
+    // Treat the case that the vehicle entered the lane in the last step
+    if (oldPos < 0 && newPos >= 0) {
+        // Vehicle was not on this lane in the last time step
+        const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, 0, newPos, oldSpeed, newSpeed);
+        timeOnLane = TS - timeBeforeEnter;
+        frontOnLane = timeOnLane;
+        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos-oldPos);
     }
-    if (newPos - veh.getVehicleType().getLength() > myLaneLength && oldPos - veh.getVehicleType().getLength() <= myLaneLength) {
-        assert(newSpeed != 0); // how could it move across the lane boundary otherwise
-        timeOnLane -= (newPos - veh.getVehicleType().getLength() - myLaneLength) / newSpeed;
+
+    // Treat the case that the vehicle's back left the lane in the last step
+    const SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
+    const SUMOReal newBackPos = newPos - veh.getVehicleType().getLength();
+    if (newBackPos > myLaneLength // vehicle's back has left the lane
+            && oldBackPos <= myLaneLength) { // and hasn't left the lane before, XXX: this shouldn't occur, should it? For instance, in the E2 code this is not checked (Leo)
+        assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the lane boundary otherwise
+
+        // (Leo) vehicle left this lane (it can also have skipped over it in one time step -> therefore we use "timeOnLane -= ..." and ( ... - timeOnLane) below)
+        const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myLaneLength, newBackPos, oldSpeed, newSpeed);
+        const SUMOReal timeAfterLeave = TS-timeBeforeLeave;
+        timeOnLane -= timeAfterLeave;
+        leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos-oldPos);
+        // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(timeOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             timeOnLane = 0.;
         }
         ret = veh.hasArrived();
     }
+
+
+    // Treat the case that the vehicle's front left the lane in the last step
     if (newPos > myLaneLength && oldPos <= myLaneLength) {
-        assert(newSpeed != 0); // how could it move across the lane boundary otherwise
-        frontOnLane -= (newPos - myLaneLength) / newSpeed;
+        // vehicle's front has left the lane and has not left before
+        assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0);
+        const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldPos, myLaneLength, newPos, oldSpeed, newSpeed);
+        const SUMOReal timeAfterLeave = TS-timeBeforeLeave;
+        frontOnLane -= timeAfterLeave;
+        // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(frontOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             frontOnLane = 0.;
         }
+        leaveSpeedFront = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos-oldPos);
     }
+
     if (timeOnLane < 0) {
         WRITE_ERROR("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
         return veh.hasArrived();
@@ -112,7 +143,21 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     if (timeOnLane == 0) {
         return veh.hasArrived();
     }
-    notifyMoveInternal(veh, frontOnLane, timeOnLane, newSpeed);
+
+    // XXX: use this, when #2556 is fixed! Refs. #2575
+//    const SUMOReal travelledDistanceFrontOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.);
+//    const SUMOReal travelledDistanceVehicleOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
+    // XXX: #2556 fixed for ballistic update
+    const SUMOReal travelledDistanceFrontOnLane = MSGlobals::gSemiImplicitEulerUpdate ? frontOnLane*newSpeed
+             : MAX2(0., MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.));
+    const SUMOReal travelledDistanceVehicleOnLane = MSGlobals::gSemiImplicitEulerUpdate ? timeOnLane*newSpeed
+             : MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
+//    // XXX: no fix
+//    const SUMOReal travelledDistanceFrontOnLane = frontOnLane*newSpeed;
+//    const SUMOReal travelledDistanceVehicleOnLane = timeOnLane*newSpeed;
+
+    notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront)/2., (enterSpeed + leaveSpeed)/2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
+//    notifyMoveInternal(veh, frontOnLane, timeOnLane, newSpeed, newSpeed, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
     return ret;
 }
 
@@ -189,8 +234,8 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const {
 
 
 void
-MSMeanData::MeanDataValueTracker::notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane, SUMOReal timeOnLane, SUMOReal speed) {
-    myTrackedData[&veh]->myValues->notifyMoveInternal(veh, frontOnLane, timeOnLane, speed);
+MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal frontOnLane, const SUMOReal timeOnLane, const SUMOReal meanSpeedFrontOnLane, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane) {
+    myTrackedData[&veh]->myValues->notifyMoveInternal(veh, frontOnLane, timeOnLane, meanSpeedFrontOnLane, meanSpeedVehicleOnLane, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
 }
 
 

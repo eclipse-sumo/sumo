@@ -79,11 +79,13 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
 
 
 void
-MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal /* frontOnLane */, SUMOReal timeOnLane, SUMOReal speed) {
+MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal /*travelledDistanceFrontOnLane*/, const SUMOReal travelledDistanceVehicleOnLane) {
     sampleSeconds += timeOnLane;
-    travelledDistance += speed * timeOnLane;
+    travelledDistance += travelledDistanceVehicleOnLane;
     const double a = veh.getAcceleration();
-    myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(), speed, a, veh.getSlope()), timeOnLane);
+    myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
+            // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
+            meanSpeedVehicleOnLane, a, veh.getSlope()), timeOnLane);
 }
 
 

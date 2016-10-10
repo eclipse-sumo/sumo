@@ -86,12 +86,13 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::update() {
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal /* frontOnLane */, SUMOReal timeOnLane, SUMOReal speed) {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal /*travelledDistanceFrontOnLane*/, const SUMOReal travelledDistanceVehicleOnLane){
     const SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(),
-                        (double) speed, veh.getAcceleration());
+            // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
+                        (double) meanSpeedVehicleOnLane, veh.getAcceleration());
     currentTimeN += (SUMOReal) pow(10., (sn / 10.));
     sampleSeconds += timeOnLane;
-    travelledDistance += speed * timeOnLane;
+    travelledDistance += travelledDistanceVehicleOnLane;
 }
 
 
