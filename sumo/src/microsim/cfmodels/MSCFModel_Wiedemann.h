@@ -41,9 +41,10 @@
 // class definitions
 // ===========================================================================
 /** @class MSCFModel_Wiedemann
- * @brief The Intellignet Driver Model (IDM) car-following model
+ * @brief The Wiedemann Model car-following model
  * @see MSCFModel
  */
+// XXX: which Wiedemann is this? There are several versions... Below it is stated that it is modified it with Krauss vsafe... (Leo)
 class MSCFModel_Wiedemann : public MSCFModel {
 public:
 

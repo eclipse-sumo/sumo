@@ -638,7 +638,7 @@ int MSDevice_Battery::getVehicleStopped() const {
 
 
 SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
-    // calculate current kinetic energy
+    // calculate current height
     SUMOReal height_cur = veh.getPositionOnLane() / veh.getLane()->getLength() * (veh.getLane()->getShape().back().z() - veh.getLane()->getShape().front().z());
 
     // kinetic energy of vehicle with current velocity
@@ -647,9 +647,36 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     // add current potential energy of vehicle at current position
     currentEnergy += getMass() * 9.81 * height_cur;
 
-    // Calculate the radius of the vehicle's current path if is distintc (r = ds / dphi)
+    // Calculate the radius of the vehicle's current path if is distinct (r = ds / dphi)
     SUMOReal radius = 0;
 
+    // add current rotational energy of internal rotating elements
+    currentEnergy += getInternalMomentOfInertia() * veh.getSpeed() * veh.getSpeed();
+
+    // kinetic + potential + rotational energy gain [Ws] (MODIFICATED LAST ANGLE)
+    SUMOReal EnergyLoss = (currentEnergy - getLastEnergy());
+
+    // save current total energy for next time step
+    setLastEnergy(currentEnergy);
+
+
+    // Energy loss through Air resistance [Ws]
+    // Calculate energy losses:
+    // EnergyLoss,Air = 1/2 * rho_air [kg/m^3] * myFrontSurfaceArea [m^2] * myAirDragCoefficient [-] * v_Veh^2 [m/s] * s [m]
+    //                    ... with rho_air [kg/m^3] = 1,2041 kg/m^3 (at T = 20C)
+    //                    ... with s [m] = v_Veh [m/s] * 1 [s]
+    EnergyLoss += 0.5 * 1.2041 * getFrontSurfaceArea() * getAirDragCoefficient() * fabs(veh.getSpeed() * veh.getSpeed() * veh.getSpeed());
+
+
+    // Energy loss through Roll resistance [Ws]
+    //                    ... (fabs(veh.getSpeed())>=0.01) = 0, if vehicle isn't moving
+    // EnergyLoss,Tire = c_R [-] * F_N [N] * s [m]
+    //                    ... with c_R = ~0.012    (car tire on asphalt)
+    //                    ... with F_N [N] = myMass [kg] * g [m/s^2]
+    EnergyLoss += getRollDragCoefficient() * 9.81 * getMass() * fabs(veh.getSpeed());
+
+
+    // Energy loss through friction by radial force [Ws]
     // If angle of vehicle was changed
     if (getLastAngle() != veh.getAngle()) {
         // Compute new radio
@@ -662,30 +689,6 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
             radius = 10000;
         }
     }
-
-    // add current rotational energy of internal rotating elements
-    currentEnergy += getInternalMomentOfInertia() * veh.getSpeed() * veh.getSpeed();
-
-    // kinetic + potential + rotational energy gain [Ws] (MODIFICATED LAST ANGLE)
-    SUMOReal EnergyLoss = (currentEnergy - getLastEnergy());
-
-    // save current total energy for next time step
-    setLastEnergy(currentEnergy);
-
-    // Calculate energy losses:
-    // EnergyLoss,Air = 1/2 * rho_air [kg/m^3] * myFrontSurfaceArea [m^2] * myAirDragCoefficient [-] * v_Veh^2 [m/s] * s [m]
-    //                    ... with rho_air [kg/m^3] = 1,2041 kg/m^3 (at T = 20C)
-    //                    ... with s [m] = v_Veh [m/s] * 1 [s]
-    EnergyLoss += 0.5 * 1.2041 * getFrontSurfaceArea() * getAirDragCoefficient() * fabs(veh.getSpeed() * veh.getSpeed() * veh.getSpeed());
-
-    // Energy loss through Air resistance [Ws]
-    // EnergyLoss,Tire = c_R [-] * F_N [N] * s [m]
-    //                    ... with c_R = ~0.012    (car tire on asphalt)
-    //                    ... with F_N [N] = myMass [kg] * g [m/s^2]
-    EnergyLoss += getRollDragCoefficient() * 9.81 * getMass() * fabs(veh.getSpeed());
-
-    // Energy loss through Roll resistance [Ws]
-    //                    ... (fabs(veh.getSpeed())>=0.01) = 0, if vehicle isn't moving
     // EnergyLoss,internalFrictionRadialForce = c [m] * F_rad [N];
     if (getLastAngle() != veh.getAngle()) {
         // Energy loss through friction by radial force [Ws]

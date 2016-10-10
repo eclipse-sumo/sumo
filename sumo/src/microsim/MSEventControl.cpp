@@ -77,9 +77,9 @@ MSEventControl::addEvent(Command* operation,
 void
 MSEventControl::execute(SUMOTime execTime) {
     // Execute all events that are scheduled for execTime.
-    for (; !myEvents.empty();) {
+    while (!myEvents.empty()) {
         Event currEvent = myEvents.top();
-        if (currEvent.second == execTime || currEvent.second < execTime + DELTA_T) {
+        if (currEvent.second < execTime + DELTA_T) {
             Command* command = currEvent.first;
             myEvents.pop();
             SUMOTime time = 0;

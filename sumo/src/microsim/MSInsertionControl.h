@@ -62,7 +62,7 @@ class MSVehicleControl;
  *
  * Vehicles are not controlled (created, deleted) by this class.
  *
- * @todo Whe a vehicle is deleted due to waiting too long or because of vaporizing, ths is not reported anywhere
+ * @todo When a vehicle is deleted due to waiting too long or because of vaporizing, this is not reported anywhere
  */
 class MSInsertionControl {
 public:

@@ -167,7 +167,8 @@ MSCFModel_Wiedemann::following(SUMOReal sign) const {
 
 SUMOReal
 MSCFModel_Wiedemann::approaching(SUMOReal dv, SUMOReal dx, SUMOReal bx) const {
-    // there is singularity in the formula. we do the sanity check outside
+    // there is singularity in the formula. we do the sanity check outside 
+    assert(bx < dx);
     return 0.5 * dv * dv / (bx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
 }
 
@@ -193,6 +194,8 @@ MSCFModel_Wiedemann::emergency(SUMOReal /* dv */, SUMOReal /* dx */) const {
 }
 
 
+
+// XXX: This could be replaced by maximumSafeStopSpeed(), refs. #2575
 SUMOReal
 MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed == 0 && gap < 0.01) {

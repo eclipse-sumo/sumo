@@ -108,7 +108,7 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
     // @note we are including the speed factor here, thus myTimeLoss can never be
     // negative. The value is that of a driver who compares his travel time when
     // the road is clear (which includes speed factor) with the actual travel time.
-    // @todo It might be usefull to recognize a departing vehicle and not
+    // @todo It might be useful to recognize a departing vehicle and not
     // count the time spent accelerating towards time loss since it is unavoidable
     // (current interfaces do not give access to maximum acceleration)
     const SUMOReal vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
