@@ -72,7 +72,8 @@ public:
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
 
-    /// Information whether the simulation regards internal lanes FIXME: (Leo) add appropriate description
+    /** Vehicles on internal lanes (even partially) with a waiting time that exceeds this threshold 
+     * no longer block cross-traffic on the junction */
     static SUMOTime gIgnoreJunctionBlocker;
 
     /** information whether the network shall check for collisions */
