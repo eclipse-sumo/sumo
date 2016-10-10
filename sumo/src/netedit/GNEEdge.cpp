@@ -43,6 +43,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include "GNEEdge.h"
 #include "GNENet.h"
+#include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNEChange_Attribute.h"
 #include "GNEChange_Lane.h"
@@ -808,6 +809,9 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
     getGNEJunctionSource()->invalidateShape();
     getGNEJunctionDest()->invalidateShape();
     */
+    // Remake connections
+    remakeGNEConnections();
+    // Update element
     myNet->refreshElement(this);
     updateGeometry();
 }
@@ -821,9 +825,11 @@ GNEEdge::removeLane(GNELane* lane) {
     if (lane == 0) {
         lane = myLanes.back();
     }
+    // Delete lane of edge's container
     myNBEdge.deleteLane(lane->getIndex());
     lane->decRef("GNEEdge::removeLane");
     myLanes.erase(myLanes.begin() + lane->getIndex());
+    // Delete lane if is unreferenced
     if (lane->unreferenced()) {
         delete lane;
     }
@@ -835,6 +841,9 @@ GNEEdge::removeLane(GNELane* lane) {
     getGNEJunctionSource()->invalidateShape();
     getGNEJunctionDest()->invalidateShape();
     */
+    // Remake connections
+    remakeGNEConnections();
+    // Update element
     myNet->refreshElement(this);
     updateGeometry();
 }

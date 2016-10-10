@@ -292,7 +292,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(GNENet::selectedConnectionColor);
         } else {
             // Set color depending of the link state
-            GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
+            ;//GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
         }
         // draw connection checking whether it is not too small
         if (s.scale < 1.) {
