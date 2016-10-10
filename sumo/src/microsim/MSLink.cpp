@@ -583,6 +583,20 @@ MSLink::getViaLane() const {
 }
 
 
+SUMOReal
+MSLink::getInternalLengthsAfter() const {
+    SUMOReal len = 0.;
+    MSLane* lane = myInternalLane;
+
+    while (lane != 0 && lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL){
+        len += lane->getLength();
+        lane = lane->getLinkCont()[0]->getViaLane();
+    }
+    return len;
+}
+
+
+
 bool
 MSLink::isExitLink() const {
     /// XXX this only works in networks with internal lanes

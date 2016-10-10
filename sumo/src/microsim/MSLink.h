@@ -357,7 +357,7 @@ public:
         return myHasFoes;
     }
 
-
+    // @todo documentation
     bool isCont() const {
         return myAmCont;
     }
@@ -379,6 +379,11 @@ public:
      */
     MSLane* getViaLane() const;
 
+
+    /** @brief Returns the cumulative length of all internal lanes after this link
+     *  @return sum of the lengths of all internal lanes following this link
+     */
+    SUMOReal getInternalLengthsAfter() const;
 
     /** @brief Returns all potential link leaders (vehicles on foeLanes)
      * Valid during the planMove() phase
@@ -497,6 +502,7 @@ private:
     /// @brief Whether any foe links exist
     bool myHasFoes;
 
+    // @todo documentation
     bool myAmCont;
 
     bool myKeepClear;
