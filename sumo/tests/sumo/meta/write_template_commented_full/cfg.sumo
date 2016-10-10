@@ -132,12 +132,6 @@
         <!-- Record lane changes and their motivations for all vehicles into FILE -->
         <lanechange-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
-
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -168,6 +162,9 @@
     </time>
 
     <processing>
+        <!-- Whether to use ballistic method for the positional update of vehicles (default is a semi-implicit Euler method). -->
+        <step-method.ballistic value="false" type="BOOL"/>
+
         <!-- Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane -->
         <lateral-resolution value="-1" type="FLOAT"/>
 

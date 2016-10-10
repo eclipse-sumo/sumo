@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r21487
+SUMO Version dev-SVN-r21578
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -76,10 +76,6 @@ Output Options:
                                          and device.btsender)
   --lanechange-output FILE             Record lane changes and their
                                          motivations for all vehicles into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -95,6 +91,9 @@ Time Options:
   --step-length TIME                   Defines the step duration in seconds
 
 Processing Options:
+  --step-method.ballistic              Whether to use ballistic method for the
+                                         positional update of vehicles (default
+                                         is a semi-implicit Euler method).
   --lateral-resolution FLOAT           Defines the resolution in m when
                                          handling lateral positioning within a
                                          lane (with -1 all vehicles drive at the
