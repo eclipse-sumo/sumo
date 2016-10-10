@@ -212,6 +212,7 @@ class Net:
         for ri, shape in enumerate(shapeList):
             self._rtree.add(ri, shape.getBoundingBox(includeJunctions))
 
+    # Please be aware that the resulting list of edges is NOT sorted
     def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True):
         edges = []
         try:
