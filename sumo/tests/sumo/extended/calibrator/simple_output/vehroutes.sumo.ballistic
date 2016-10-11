@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Apr  5 13:45:10 2016 by SUMO Version dev-SVN-r20343
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="veh0" depart="1.00" arrival="97.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.0" depart="77.00" arrival="167.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.1" depart="80.00" arrival="170.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.2" depart="86.00" arrival="176.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.3" depart="92.00" arrival="182.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.4" depart="98.00" arrival="188.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+</routes>

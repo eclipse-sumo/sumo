@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 26 16:42:04 2016 by SUMO Version dev-SVN-r21424
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <max-depart-delay value="1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+    <interval begin="0.00" end="900.00" id="end2_0" nVehContrib="519" flow="2076.00" occupancy="9.26" speed="31.29" length="5.00" nVehEntered="519"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" nVehContrib="599" flow="2396.00" occupancy="10.91" speed="30.67" length="5.00" nVehEntered="599"/>
+    <interval begin="1800.00" end="1917.00" id="end2_0" nVehContrib="82" flow="2523.08" occupancy="11.21" speed="31.30" length="5.00" nVehEntered="82"/>
+</detector>

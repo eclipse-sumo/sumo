@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Apr  5 13:46:27 2016 by SUMO Version dev-SVN-r20343
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="horizontal01" depart="100.00" arrival="302.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal02" depart="104.00" arrival="306.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal03" depart="108.00" arrival="310.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal04" depart="112.00" arrival="314.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal05" depart="116.00" arrival="318.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal06" depart="120.00" arrival="385.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal07" depart="124.00" arrival="387.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal08" depart="128.00" arrival="388.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal11" depart="132.00" arrival="390.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal12" depart="136.00" arrival="391.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal13" depart="140.00" arrival="393.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal14" depart="144.00" arrival="394.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal15" depart="148.00" arrival="395.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal16" depart="152.00" arrival="397.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal17" depart="156.00" arrival="398.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal18" depart="160.00" arrival="400.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal21" depart="164.00" arrival="401.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal22" depart="168.00" arrival="403.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal23" depart="172.00" arrival="404.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal24" depart="176.00" arrival="406.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal25" depart="180.00" arrival="407.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal26" depart="184.00" arrival="409.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal27" depart="188.00" arrival="411.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="horizontal28" depart="192.00" arrival="475.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+
+</routes>

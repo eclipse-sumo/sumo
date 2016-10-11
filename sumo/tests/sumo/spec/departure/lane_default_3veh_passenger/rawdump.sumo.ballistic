@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Apr  5 13:40:21 2016 by SUMO Version dev-SVN-r20343
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="10"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="1" pos="5.10" speed="0.00"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="1" pos="5.82" speed="1.44"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="1" pos="8.10" speed="3.12"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="1" pos="12.49" speed="5.66"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="2" pos="5.10" speed="0.00"/>
+                <vehicle id="1" pos="19.12" speed="7.62"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="2" pos="6.37" speed="2.54"/>
+                <vehicle id="1" pos="27.66" speed="9.45"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="2" pos="10.05" speed="4.82"/>
+                <vehicle id="1" pos="37.92" speed="11.08"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="3" pos="5.10" speed="0.00"/>
+                <vehicle id="2" pos="15.69" speed="6.45"/>
+                <vehicle id="1" pos="49.95" speed="12.98"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="3" pos="6.10" speed="1.99"/>
+                <vehicle id="2" pos="23.01" speed="8.18"/>
+                <vehicle id="1" pos="64.22" speed="15.57"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="3" pos="9.22" speed="4.25"/>
+                <vehicle id="2" pos="32.12" speed="10.04"/>
+                <vehicle id="1" pos="80.80" speed="17.58"/>
+            </lane>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
+</netstate>

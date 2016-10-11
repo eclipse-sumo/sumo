@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Apr  5 13:43:39 2016 by SUMO Version dev-SVN-r20343
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.25"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1800.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="0.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1807.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="0.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1814.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="0.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1821.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1828.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="1.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1835.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="1.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1842.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="1.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1849.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1856.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="2.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1863.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="2.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1870.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="2.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1877.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1884.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="3.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1891.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="3.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1898.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="3.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1905.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1912.00" speed="28.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="4.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1918.93" speed="27.47"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="4.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1925.66" speed="26.34"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="4.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1932.11" speed="25.22"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1938.27" speed="24.09"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="5.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1944.15" speed="22.97"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="5.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1949.76" speed="21.84"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="5.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1955.08" speed="20.72"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1960.12" speed="19.59"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="6.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1964.87" speed="18.47"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="6.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1969.35" speed="17.34"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="6.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1973.55" speed="16.22"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1977.46" speed="15.09"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="7.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1981.09" speed="13.97"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="7.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1984.44" speed="12.84"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="7.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1987.52" speed="11.72"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1990.30" speed="10.59"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="8.25">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1992.81" speed="9.47"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="8.50">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1995.04" speed="8.34"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="8.75">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1996.99" speed="7.22"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="fast">
+            <lane id="fast_0">
+                <vehicle id="v0" pos="1998.65" speed="6.09"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="9.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="0.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="9.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="1.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="9.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="2.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="3.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="10.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="5.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="10.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="6.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="10.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="7.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="8.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="11.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="10.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="11.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="11.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="11.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="12.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="12.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="13.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="12.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="15.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="12.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="16.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="12.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="17.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="13.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="18.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="13.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="20.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="13.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="21.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="13.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="22.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="14.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="23.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="14.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="25.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="14.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="26.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="14.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="27.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="15.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="28.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="15.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="30.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="15.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="31.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="15.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="32.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="16.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="33.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="16.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="35.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="16.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="36.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="16.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="37.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="17.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="38.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="17.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="40.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="17.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="41.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="17.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="42.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="18.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="43.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="18.25">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="45.04" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="18.50">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="46.29" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="18.75">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="47.54" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="19.00">
+        <edge id="slow">
+            <lane id="slow_0">
+                <vehicle id="v0" pos="48.79" speed="5.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="19.25"/>
+</netstate>

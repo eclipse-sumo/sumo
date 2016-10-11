@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun  1 15:56:56 2016 by SUMO Version dev-SVN-r20832
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="busnet.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="511.00" arrivalLane="2/0to2/1_0" arrivalPos="191.00" arrivalSpeed="13.90" duration="511.00" routeLength="3360.94" waitSteps="144" timeLoss="182.50" rerouteNo="0" devices="tripinfo_bus_1" vType="bus" vaporized=""/>
+</tripinfos>

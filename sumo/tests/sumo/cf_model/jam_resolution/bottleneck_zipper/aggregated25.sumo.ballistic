@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Sep 23 12:08:45 2016 by SUMO Version dev-SVN-r21424
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="233.00" id="ed">
+        <edge id="beg" sampledSeconds="2584.39" traveltime="39.09" overlapTraveltime="39.66" density="27.83" occupancy="6.96" waitingTime="0.00" speed="10.17" departed="66" arrived="0" entered="0" left="66" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="5621.81" traveltime="84.87" overlapTraveltime="85.25" density="21.96" occupancy="10.98" waitingTime="0.00" speed="12.94" departed="0" arrived="66" entered="66" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+</meandata>

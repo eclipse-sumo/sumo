@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Sep 23 12:07:47 2016 by SUMO Version dev-SVN-r21424
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <end value="7201"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<calibratorstats>
+   <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="28.11" aspiredSpeed="27.80"/>
+   <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1147" removed="0" inserted="1147" cleared="0" flow="2294.00" aspiredFlow="2500.00" speed="14.19" aspiredSpeed="15.00"/>
+   <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1024" removed="0" inserted="1024" cleared="0" flow="2048.00" aspiredFlow="2500.00" speed="9.46" aspiredSpeed="10.00"/>
+   <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="738" removed="0" inserted="738" cleared="0" flow="1476.00" aspiredFlow="2500.00" speed="4.78" aspiredSpeed="5.00"/>
+</calibratorstats>

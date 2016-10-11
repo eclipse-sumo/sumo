@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Sep 13 12:08:03 2016 by SUMO Version dev-SVN-r21424
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.55" duration="11.00" routeLength="100.00" waitSteps="0" timeLoss="2.90" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="19.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.80" duration="19.00" routeLength="200.00" waitSteps="0" timeLoss="3.35" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="40.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="12.98" duration="40.00" routeLength="200.00" waitSteps="0" timeLoss="24.51" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="slow" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="214.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="0.80" duration="214.00" routeLength="160.00" waitSteps="1" timeLoss="53.37" rerouteNo="0" devices="tripinfo_slow" vType="slow" vaporized=""/>
+</tripinfos>
