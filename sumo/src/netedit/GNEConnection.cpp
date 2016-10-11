@@ -106,7 +106,7 @@ GNEConnection::updateGeometry() {
     PositionVector laneShapeTo = myConnection.toEdge->getLanes().at(myConnection.toLane).shape;
 
     // Calculate shape of connection depending of the size of Junction shape
-    if(myFromEdge->getNBEdge()->getToNode()->getShape().area() > 4) { // Obtanied from GNEJunction::drawgl
+    if(myFromEdge->getNBEdge()->getToNode()->getShape().area() > 4) { // value obtanied from GNEJunction::drawgl
         // Calculate shape using a smooth shape
         myShape = myFromEdge->getNBEdge()->getToNode()->computeSmoothShape(
                     laneShapeFrom, 

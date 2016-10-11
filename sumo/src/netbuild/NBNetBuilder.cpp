@@ -269,6 +269,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_TIME_MESSAGE(before);
     myEdgeCont.computeLaneShapes();
     //
+    // PABLO PARTE IMPORTANTE
     before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Computing node shapes");
     if (oc.exists("geometry.junction-mismatch-threshold")) {

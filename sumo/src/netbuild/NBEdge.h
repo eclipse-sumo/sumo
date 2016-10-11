@@ -76,6 +76,7 @@ class NBEdge : public Named, public Parameterised {
     /** used for visualization (NETEDIT) */
     friend class GNELane;
     friend class GNEEdge;
+    friend class GNEJunction;
 
 public:
 

@@ -107,11 +107,14 @@ public:
     /// @brief Return net build node
     NBNode* getNBNode() const;
 
-    /// @brief Return incoming GNEEdges
-    std::vector<GNEEdge*> getIncomingGNEEdges() const;
+    /// @brief Return all GNEEdges vinculated with this Junction
+    std::vector<GNEEdge*> getGNEEdges() const;
 
     /// @brief Return incoming GNEEdges
-    std::vector<GNEEdge*> getOutgoingGNEEdges() const;
+    std::vector<GNEEdge*> getGNEIncomingEdges() const;
+
+    /// @brief Return incoming GNEEdges
+    std::vector<GNEEdge*> getGNEOutgoingEdges() const;
 
     /// @brief marks as first junction in createEdge-mode
     void markAsCreateEdgeSource();
@@ -134,6 +137,10 @@ public:
 
     /// @brief registers completed movement with the undoList
     void registerMove(GNEUndoList* undoList);
+
+    /// @brief update shapes of all elements associated to the junction
+    /// @note this include the adyacent nodes connected by edges
+    void updateShapesAndGeometries() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{

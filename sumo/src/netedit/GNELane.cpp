@@ -1069,7 +1069,7 @@ GNELane::getGNEIncomingConnections() {
     // Obtain incoming edges if junction source was already created
     GNEJunction *junctionSource =  myParentEdge.getGNEJunctionSource();
     if(junctionSource) {
-        std::vector<GNEEdge*> incomingEdges = junctionSource->getIncomingGNEEdges();
+        std::vector<GNEEdge*> incomingEdges = junctionSource->getGNEIncomingEdges();
         // Iterate over incoming edges
         for(std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
             // Iterate over connection of incoming edges

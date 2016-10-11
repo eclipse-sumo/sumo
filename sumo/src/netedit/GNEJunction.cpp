@@ -249,8 +249,23 @@ GNEJunction::getNBNode() const {
 }
 
 
+std::vector<GNEEdge*> 
+GNEJunction::getGNEEdges() const {
+    std::vector<GNEEdge*> edges;
+    // iterate over incoming edges
+    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
+        edges.push_back(myNet->retrieveEdge((*i)->getID()));
+    }
+    // iterate over outgoing edges
+    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
+        edges.push_back(myNet->retrieveEdge((*i)->getID()));
+    }
+    return edges;
+}
+
+
 std::vector<GNEEdge*>
-GNEJunction::getIncomingGNEEdges() const {
+GNEJunction::getGNEIncomingEdges() const {
     std::vector<GNEEdge*> incomingEdges;
     // iterate over incoming edges
     for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
@@ -261,7 +276,7 @@ GNEJunction::getIncomingGNEEdges() const {
 
 
 std::vector<GNEEdge*>
-GNEJunction::getOutgoingGNEEdges() const {
+GNEJunction::getGNEOutgoingEdges() const {
     std::vector<GNEEdge*> outgoingEdges;
     // iterate over outgoing edges
     for(std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
@@ -293,7 +308,6 @@ void
 GNEJunction::move(Position pos) {
     const Position orig = myNBNode.getPosition();
     setPosition(pos);
-    myNet->refreshElement(this);
     const EdgeVector& incident = getNBNode()->getEdges();
     for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
         GNEEdge* edge = myNet->retrieveEdge((*it)->getID());
@@ -312,8 +326,52 @@ GNEJunction::registerMove(GNEUndoList* undoList) {
     // do not execute the command to avoid changing the edge geometry twice
     undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
     setPosition(newPos);
+    // Refresh element to avoid grabbing problems
+    myNet->refreshElement(this);
+    // Update geometries
+    updateShapesAndGeometries();
 }
 
+
+void
+GNEJunction::updateShapesAndGeometries() const {
+    // Recompute shape of node
+    myNBNode.computeNodeShape(-1);
+    // Recompute shapes of adyacent edges and nodes
+    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
+        (*i)->getFromNode()->computeNodeShape(-1);
+        (*i)->computeEdgeShape();
+        for(std::vector<NBEdge*>::const_iterator j = (*i)->getFromNode()->getEdges().begin(); j != (*i)->getFromNode()->getEdges().end(); j++) {
+            (*j)->computeEdgeShape();
+        }
+    }
+    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
+        (*i)->getToNode()->computeNodeShape(-1);
+        (*i)->computeEdgeShape();
+        for(std::vector<NBEdge*>::const_iterator j = (*i)->getToNode()->getEdges().begin(); j != (*i)->getToNode()->getEdges().end(); j++) {
+            (*j)->computeEdgeShape();
+        }
+    }     
+    // Update geometries of all GNEEdges vinculated with the junction and neighbors
+    std::vector<GNEEdge*> incomingEdges = getGNEIncomingEdges();
+    for(std::vector<GNEEdge*>::const_iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+        (*i)->updateGeometry();
+        std::vector<GNEEdge*> incomingEdgesNeighbor = (*i)->getGNEJunctionSource()->getGNEEdges();
+        for(std::vector<GNEEdge*>::const_iterator j = incomingEdgesNeighbor.begin(); j != incomingEdgesNeighbor.end(); j++) {
+            (*j)->updateGeometry();
+        }
+    }
+    std::vector<GNEEdge*> outcomingEdges = getGNEOutgoingEdges();
+    for(std::vector<GNEEdge*>::const_iterator i = outcomingEdges.begin(); i != outcomingEdges.end(); i++) {
+        (*i)->updateGeometry();
+        std::vector<GNEEdge*> incomingEdgesNeighbor = (*i)->getGNEJunctionDest()->getGNEEdges();
+        for(std::vector<GNEEdge*>::const_iterator j = incomingEdgesNeighbor.begin(); j != incomingEdgesNeighbor.end(); j++) {
+            (*j)->updateGeometry();
+        }
+    }
+    // Update view to show the new shapes
+    myNet->getViewNet()->update();
+}
 
 void
 GNEJunction::invalidateShape() {
