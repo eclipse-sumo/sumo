@@ -81,16 +81,17 @@ TEST_F(MSCFModelTest, test_method_static_brakeGap) {
 }
 
 TEST_F(MSCFModelTest, test_method_static_freeSpeed) {
+    const SUMOReal vCur = 10;
     const SUMOReal b = 4;
     const SUMOReal v = 0;
     const SUMOReal g = 4;
-    EXPECT_DOUBLE_EQ(4, MSCFModel::freeSpeed(b, g, v, false));
-    EXPECT_DOUBLE_EQ(8, MSCFModel::freeSpeed(b, g, v, true));
-    EXPECT_DOUBLE_EQ(17.5, MSCFModel::freeSpeed(5, 30, 10, false));
-    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(4.5, 20, 13.9, false));
-    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(4.5, 30, 13.9, false));
-    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(4.5, 30, 13.9, true));
-    EXPECT_DOUBLE_EQ(22.25, MSCFModel::freeSpeed(4.5, 40, 13.9, false));
+    EXPECT_DOUBLE_EQ(4, MSCFModel::freeSpeed(vCur, b, g, v, false));
+    EXPECT_DOUBLE_EQ(8, MSCFModel::freeSpeed(vCur, b, g, v, true));
+    EXPECT_DOUBLE_EQ(17.5, MSCFModel::freeSpeed(vCur, 5, 30, 10, false));
+    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(vCur, 4.5, 20, 13.9, false));
+    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, false));
+    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, true));
+    EXPECT_DOUBLE_EQ(22.25, MSCFModel::freeSpeed(vCur, 4.5, 40, 13.9, false));
 }
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
