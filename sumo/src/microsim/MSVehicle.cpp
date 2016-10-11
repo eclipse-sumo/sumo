@@ -720,7 +720,7 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
         //      although a higher order quadrature-formula might be more adequate.
         //      For the euler case (where the speed is considered constant for each time step) it is conceivable that
         //      the current calculations may lead to systematic errors for large time steps (compared to reality). Refs. #2579
-        if (!rem->first->notifyMove(*this, oldPos + rem->second, newPos + rem->second, MAX2(0., newSpeed))) {
+        if (!rem->first->notifyMove(*this, oldPos + rem->second, newPos + rem->second, MAX2((SUMOReal)0., newSpeed))) {
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
                 traceMoveReminder("notifyMove", rem->first, rem->second, false);
@@ -1659,7 +1659,7 @@ MSVehicle::getDeltaPos(SUMOReal accel){
     SUMOReal vNext = myState.mySpeed + ACCEL2SPEED(accel);
     if(MSGlobals::gSemiImplicitEulerUpdate){
         // apply implicit Euler positional update
-        return SPEED2DIST(MAX2(vNext,0.));
+        return SPEED2DIST(MAX2(vNext,(SUMOReal)0.));
     }else{
         // apply ballistic update
         if(vNext >= 0){
@@ -2089,7 +2089,7 @@ MSVehicle::updateState(SUMOReal vNext) {
     // TODO: recheck, approve, refs. #2579
     // NOTE: for the ballistic update this is in general
     // not equal to  vNext - myState.mySpeed
-    myAcceleration = SPEED2ACCEL(MAX2(vNext,0.) - myState.mySpeed);
+    myAcceleration = SPEED2ACCEL(MAX2(vNext,(SUMOReal)0.) - myState.mySpeed);
 
 //#ifdef DEBUG_EXEC_MOVE
 //    if (DEBUG_COND) {
@@ -2098,7 +2098,7 @@ MSVehicle::updateState(SUMOReal vNext) {
 //#endif
 
     myState.myPreviousSpeed = myState.mySpeed;
-    myState.mySpeed = MAX2(vNext,0.);
+    myState.mySpeed = MAX2(vNext,(SUMOReal)0.);
 
 #ifndef NO_TRACI
     if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {

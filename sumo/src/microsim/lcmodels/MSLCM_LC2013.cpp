@@ -323,7 +323,7 @@ MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
                 }
 #endif
                 if(wanted >= 0.){
-                    return (MAX2(0., min) + wanted) / (SUMOReal) 2.0;
+                    return (MAX2((SUMOReal)0., min) + wanted) / (SUMOReal) 2.0;
                 } else {
                     return wanted;
                 }
@@ -435,7 +435,7 @@ MSLCM_LC2013::overtakeDistance(const MSVehicle* follower, const MSVehicle* leade
             + follower->getVehicleType().getLength() // follower back reaches leader front
             + leader->getCarFollowModel().getSecureGap( // save gap to leader
                     leaderSpeed, followerSpeed, follower->getCarFollowModel().getMaxDecel()));
-    return MAX2(overtakeDist, 0.);
+    return MAX2(overtakeDist, (SUMOReal)0.);
 }
 
 
@@ -627,9 +627,9 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 #endif
 
         // are we fast enough to cut in without any help?
-        if (MAX2(plannedSpeed,0.) - nv->getSpeed() >= HELP_OVERTAKE) {
+        if (MAX2(plannedSpeed, (SUMOReal)0.) - nv->getSpeed() >= HELP_OVERTAKE) {
             const SUMOReal neededGap = nv->getCarFollowModel().getSecureGap(nv->getSpeed(), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
-            if ((neededGap - neighFollow.second) / remainingSeconds < (MAX2(plannedSpeed,0.) - nv->getSpeed())) {
+            if ((neededGap - neighFollow.second) / remainingSeconds < (MAX2(plannedSpeed, (SUMOReal)0.) - nv->getSpeed())) {
 #ifdef DEBUG_INFORMER
                 if (DEBUG_COND) {
                     std::cout << " wants to cut in before  nv=" << nv->getID() << " without any help." << "\nneededGap = " << neededGap << "\n";
@@ -637,7 +637,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 #endif
                 // follower might even accelerate but not to much
                 // XXX: I don't understand this. The needed gap was determined for nv->getSpeed(), not for (plannedSpeed - HELP_OVERTAKE)?! (Leo), refs. #2578
-                msgPass.informNeighFollower(new Info(MAX2(plannedSpeed,0.) - HELP_OVERTAKE, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
+                msgPass.informNeighFollower(new Info(MAX2(plannedSpeed, (SUMOReal)0.) - HELP_OVERTAKE, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
                 return;
             }
         }
@@ -685,7 +685,8 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                    nv->getSpeed(), plannedAccel, -helpDecel, myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
         }
 
-    	const SUMOReal secureGap = nv->getCarFollowModel().getSecureGap(MAX2(neighNewSpeed1s,0.), MAX2(plannedSpeed,0.), myVehicle.getCarFollowModel().getMaxDecel());
+    	const SUMOReal secureGap = nv->getCarFollowModel().getSecureGap(MAX2(neighNewSpeed1s, (SUMOReal)0.), 
+                MAX2(plannedSpeed, (SUMOReal)0.), myVehicle.getCarFollowModel().getMaxDecel());
 
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
@@ -740,7 +741,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 vsafe1 = MIN2(nv->getSpeed(), MAX2(neighNewSpeed,
                                 nv->getCarFollowModel().followSpeed(nv,
                                         nv->getSpeed(), nextGap,
-                                        MAX2(0., plannedSpeed),
+                                        MAX2((SUMOReal)0., plannedSpeed),
                                         myCarFollowModel.getMaxDecel())));
 
 
@@ -759,7 +760,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                         MAX2(neighNewSpeed,
                                 nv->getCarFollowModel().followSpeed(nv,
                                         nv->getSpeed(), nextGap,
-                                        MAX2(0., plannedSpeed),
+                                        MAX2((SUMOReal)0., plannedSpeed),
                                         myCarFollowModel.getMaxDecel())));
 
                 assert(vsafe >= vsafe1);
@@ -885,8 +886,10 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             	    // Assumptions:
             	    // (A1) leader continues with currentSpeed. (XXX: That might be wrong: Think of accelerating on an on-ramp or of a congested region ahead!)
             	    // (A2) follower breaks with helpDecel.
-            	    const SUMOReal gapAfterRemainingSecs = myCarFollowModel.gapExtrapolation(remainingSeconds, neighFollow.second, myVehicle.getSpeed(), nv->getSpeed(), 0, -helpDecel, myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
-            	    const SUMOReal secureGapAfterRemainingSecs = nv->getCarFollowModel().getSecureGap(MAX2(nv->getSpeed() - remainingSeconds*helpDecel,0.), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel());
+            	    const SUMOReal gapAfterRemainingSecs = myCarFollowModel.gapExtrapolation(
+                            remainingSeconds, neighFollow.second, myVehicle.getSpeed(), nv->getSpeed(), 0, -helpDecel, myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
+            	    const SUMOReal secureGapAfterRemainingSecs = nv->getCarFollowModel().getSecureGap(
+                            MAX2(nv->getSpeed() - remainingSeconds*helpDecel, (SUMOReal)0.), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel());
             	    if(gapAfterRemainingSecs >= secureGapAfterRemainingSecs){ // XXX: here it would be wise to check whether there is enough space for eventual braking if the maneuver doesn't succeed
 #ifdef DEBUG_INFORMER
             	        if(DEBUG_COND){
@@ -1175,6 +1178,7 @@ MSLCM_LC2013::_wantsChange(
     SUMOReal roundaboutDistanceAheadNeigh = 0;
     SUMOReal neighPosition = pos;
 
+#ifdef HAVE_INTERNAL_LANES
     if (myVehicle.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL){
         // take care of the distance on internal lanes
         neighPosition = 0.;
@@ -1194,6 +1198,7 @@ MSLCM_LC2013::_wantsChange(
             roundaboutDistanceAheadNeigh += myVehicle.getLane()->getLinkTo(nextLane)->getInternalLengthsAfter();
         }
     }
+#endif
     // add roundabout distance from neigh.lane on
     roundaboutDistanceAheadNeigh += distanceAlongNextRoundabout(neighPosition, neigh.lane, neigh.bestContinuations);
 
@@ -1777,30 +1782,30 @@ MSLCM_LC2013::distanceAlongNextRoundabout(SUMOReal position, const MSLane* initi
 
     // set an iterator to the first non-zero entry of continuationLanes
     std::vector<MSLane*>::const_iterator j = continuationLanes.begin();
-    while(j != continuationLanes.end() && *j == 0) ++j;
+    while (j != continuationLanes.end() && *j == 0) ++j;
 
     // differentiate possible situations
-    if(j == continuationLanes.end()){
+    if (j == continuationLanes.end()){
         // continuations end here
         assert(initialLane == 0);
         return 0.;
-    } else if(initialLane == 0){
+    } else if (initialLane == 0){
         // NOTE: this may occur when calling distanceAlongNextRoundabout() with neigh.lane in _wantsChange().
         // In that case, the possible internal lengths have been taken into account in _wantsChange().
         // Thus we set initialLane to the first non-zero lane in continuationLanes
         initialLane = *j;
-    } else if(!initialLane->isInternal() && initialLane != *j){
+    } else if (!initialLane->isInternal() && initialLane != *j){
         // this may occur during opposite direction driving where the initial Lane
         // is the reverse lane of *j. This should not happen on a roundabout! Therefore we can skip initialLane.
         assert(!initialLane->getEdge().isRoundabout());
         initialLane = *j;
-    } else if(initialLane->getEdge().isRoundabout()){
+    } else if (initialLane->getEdge().isRoundabout()){
         // initial lane is on roundabout
-        if(!initialLane->isInternal()){
+        if (!initialLane->isInternal()){
             assert(initialLane == *j);
             roundaboutDistanceAhead += initialLane->getLength() - position;
             MSLane* nextLane = 0;
-            if(j+1 == continuationLanes.end() || *(j+1) == 0 || !(*(j+1))->getEdge().isRoundabout()){
+            if (j+1 == continuationLanes.end() || *(j+1) == 0 || !(*(j+1))->getEdge().isRoundabout()){
                 // following connection is not part of the roundabout
             } else {
                 // add internal lengths

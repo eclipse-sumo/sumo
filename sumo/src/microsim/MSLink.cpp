@@ -576,25 +576,26 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
 }
 
 
-#ifdef HAVE_INTERNAL_LANES
-MSLane*
-MSLink::getViaLane() const {
-    return myInternalLane;
-}
-
-
 SUMOReal
 MSLink::getInternalLengthsAfter() const {
     SUMOReal len = 0.;
+#ifdef HAVE_INTERNAL_LANES
     MSLane* lane = myInternalLane;
 
     while (lane != 0 && lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL){
         len += lane->getLength();
         lane = lane->getLinkCont()[0]->getViaLane();
     }
+#endif
     return len;
 }
 
+
+#ifdef HAVE_INTERNAL_LANES
+MSLane*
+MSLink::getViaLane() const {
+    return myInternalLane;
+}
 
 
 bool

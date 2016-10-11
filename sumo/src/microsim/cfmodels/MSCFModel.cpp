@@ -189,7 +189,7 @@ MSCFModel::maxNextSpeed(SUMOReal speed, const MSVehicle* const /*veh*/) const {
 SUMOReal
 MSCFModel::minNextSpeed(SUMOReal speed, const MSVehicle* const /*veh*/) const {
     if(MSGlobals::gSemiImplicitEulerUpdate){
-        return MAX2(speed - (SUMOReal) ACCEL2SPEED(getMaxDecel()), 0.);
+        return MAX2(speed - ACCEL2SPEED(getMaxDecel()), (SUMOReal)0.);
     } else {
         // NOTE: ballistic update allows for negative speeds to indicate a stop within the next timestep
         return speed - ACCEL2SPEED(getMaxDecel());
@@ -272,8 +272,8 @@ MSCFModel::gapExtrapolation(const SUMOReal duration, const SUMOReal currentGap, 
 
     if(MSGlobals::gSemiImplicitEulerUpdate){
         for(unsigned int steps=1; steps*TS <= duration; ++steps){
-            v1 = MIN2(MAX2(v1 + a1, 0.), maxV1);
-            v2 = MIN2(MAX2(v2 + a2, 0.), maxV2);
+            v1 = MIN2(MAX2(v1 + a1, (SUMOReal)0.), maxV1);
+            v2 = MIN2(MAX2(v2 + a2, (SUMOReal)0.), maxV2);
             newGap += TS*(v1-v2);
         }
     } else {
@@ -460,7 +460,7 @@ MSCFModel::speedAfterTime(const SUMOReal t, const SUMOReal v0, const SUMOReal di
 SUMOReal
 MSCFModel::estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v, const SUMOReal accel) const {
     // dist=v*t + 0.5*accel*t^2, solve for t and use v1 = v + accel*t
-    return MAX2(0., MIN2(myType->getMaxSpeed(),
+    return MAX2((SUMOReal)0., MIN2(myType->getMaxSpeed(),
                 (SUMOReal)sqrt(2 * dist * accel + v * v)));
 }
 
@@ -510,7 +510,7 @@ MSCFModel::maximumSafeStopSpeedEuler(SUMOReal gap) const {
 SUMOReal
 MSCFModel::maximumSafeStopSpeedBallistic(SUMOReal g /*gap*/, SUMOReal v /*currentSpeed*/, bool onInsertion, SUMOReal headway) const {
     // decrease gap slightly (to avoid passing end of lane by values of magnitude ~1e-12, when exact stop is required)
-    g = MAX2(0., g - NUMERICAL_EPS);
+    g = MAX2((SUMOReal)0., g - NUMERICAL_EPS);
     headway = headway >= 0 ? headway : myHeadwayTime;
 
     // (Leo) Note that in contrast to the Euler update, for the ballistic update
@@ -537,7 +537,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(SUMOReal g /*gap*/, SUMOReal v /*curren
     // still allows us to stop in time.
 
     const SUMOReal tau = headway;
-    const SUMOReal v0 = MAX2(0., v);
+    const SUMOReal v0 = MAX2((SUMOReal)0., v);
     // We first consider the case that a stop has to take place within time tau
     if(v0*tau >= 2*g) {
         if(g==0.){

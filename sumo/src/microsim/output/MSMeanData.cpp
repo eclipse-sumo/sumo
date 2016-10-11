@@ -149,9 +149,9 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
 //    const SUMOReal travelledDistanceVehicleOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
     // XXX: #2556 fixed for ballistic update
     const SUMOReal travelledDistanceFrontOnLane = MSGlobals::gSemiImplicitEulerUpdate ? frontOnLane*newSpeed
-             : MAX2(0., MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.));
+             : MAX2((SUMOReal)0., MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.));
     const SUMOReal travelledDistanceVehicleOnLane = MSGlobals::gSemiImplicitEulerUpdate ? timeOnLane*newSpeed
-             : MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
+             : MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.) + MIN2(MAX2((SUMOReal)0., newPos-myLaneLength), veh.getVehicleType().getLength());
 //    // XXX: no fix
 //    const SUMOReal travelledDistanceFrontOnLane = frontOnLane*newSpeed;
 //    const SUMOReal travelledDistanceVehicleOnLane = timeOnLane*newSpeed;

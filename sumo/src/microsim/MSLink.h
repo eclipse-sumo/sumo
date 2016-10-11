@@ -371,6 +371,10 @@ public:
     /// @brief whether this is a link past an internal junction which currently has priority
     bool lastWasContMajor() const;
 
+    /** @brief Returns the cumulative length of all internal lanes after this link
+     *  @return sum of the lengths of all internal lanes following this link
+     */
+    SUMOReal getInternalLengthsAfter() const;
 
 #ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the following inner lane
@@ -378,12 +382,6 @@ public:
      * @return The inner lane to use to cross the junction
      */
     MSLane* getViaLane() const;
-
-
-    /** @brief Returns the cumulative length of all internal lanes after this link
-     *  @return sum of the lengths of all internal lanes following this link
-     */
-    SUMOReal getInternalLengthsAfter() const;
 
     /** @brief Returns all potential link leaders (vehicles on foeLanes)
      * Valid during the planMove() phase
