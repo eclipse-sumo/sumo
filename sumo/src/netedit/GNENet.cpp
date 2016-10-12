@@ -920,7 +920,6 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force) {
 
 void
 GNENet::computeJunction(GNEJunction* junction) {
-    std::cout << "computeJunction" << std::endl;
     // recompute tl-logics
     OptionsCont& oc = OptionsCont::getOptions();
     NBTrafficLightLogicCont& tllCont = getTLLogicCont();
