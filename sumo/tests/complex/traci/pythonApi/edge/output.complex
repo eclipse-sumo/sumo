@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:34669 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:40259 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -29,7 +29,13 @@ waiting time 0.0
 checking occupancy with unicode id 0.0201207243461
 traveltime after adaption 79.7638272613
 adaptedTraveltime after adaption 42.0
+adaptedTraveltime after adaption in interval (check time 0) 42.0
+adaptedTraveltime after adaption in interval (check time 15) 24.0
+adaptedTraveltime after adaption in interval (check time 25) 42.0
 effort after adaption 1234.0
+effort after adaption in interval (check time 0) 1234.0
+effort after adaption in interval (check time 15) 2468.0
+effort after adaption in interval (check time 25) 1234.0
 max speed after adaption 23.0
 {16: 1}
 step 3

@@ -70,8 +70,27 @@ traci.edge.adaptTraveltime(edgeID, 42.)
 print("traveltime after adaption", traci.edge.getTraveltime(edgeID))
 print("adaptedTraveltime after adaption",
       traci.edge.getAdaptedTraveltime(edgeID, 0))
+
+traci.edge.adaptTraveltime(edgeID, 24., 10, 20)
+print("adaptedTraveltime after adaption in interval (check time 0)",
+      traci.edge.getAdaptedTraveltime(edgeID, 0))
+print("adaptedTraveltime after adaption in interval (check time 15)",
+      traci.edge.getAdaptedTraveltime(edgeID, 15))
+print("adaptedTraveltime after adaption in interval (check time 25)",
+      traci.edge.getAdaptedTraveltime(edgeID, 25))
+
 traci.edge.setEffort(edgeID, 1234.)
 print("effort after adaption", traci.edge.getEffort(edgeID, 0))
+
+traci.edge.setEffort(edgeID, 2468., 10, 20)
+print("effort after adaption in interval (check time 0)",
+      traci.edge.getEffort(edgeID, 0))
+print("effort after adaption in interval (check time 15)",
+      traci.edge.getEffort(edgeID, 15))
+print("effort after adaption in interval (check time 25)",
+      traci.edge.getEffort(edgeID, 25))
+
+
 traci.edge.setMaxSpeed(edgeID, 23.)
 print("max speed after adaption", traci.lane.getMaxSpeed(edgeID + "_0"))
 
