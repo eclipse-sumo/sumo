@@ -30,6 +30,7 @@
 
 #include <gtest/gtest.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/cfmodels/MSCFModel.h>
 #include <microsim/cfmodels/MSCFModel_Krauss.h>
@@ -52,6 +53,7 @@ class MSCFModelTest : public testing::Test {
             type = new MSVehicleType(SUMOVTypeParameter("0"));
             m = new MSCFModel_Krauss(type,
                     accel, decel, dawdle, tau);
+            MSGlobals::gSemiImplicitEulerUpdate = true;
         }
 
         virtual void TearDown(){
