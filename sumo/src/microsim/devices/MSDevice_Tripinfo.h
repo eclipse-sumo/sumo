@@ -153,15 +153,16 @@ private:
     void computeLengthAndDuration(SUMOReal& routeLength, SUMOTime& duration) const;
 
 protected:
-    /** @brief Internal notification about the vehicle moves
+    /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
-     * @param[in] veh Vehicle that asks this reminder.
-     * @param[in] frontOnLane time the front of the vehicle spent on the lane.
-     * @param[in] timeOnLane time the vehicle spent on the lane.
-     * @param[in] speed Moving speed.
      */
-    void notifyMoveInternal(SUMOVehicle& veh, SUMOReal frontOnLane,
-                            SUMOReal timeOnLane, SUMOReal speed);
+    void notifyMoveInternal(const SUMOVehicle& veh,
+                                    const SUMOReal frontOnLane,
+                                    const SUMOReal timeOnLane,
+                                    const SUMOReal meanSpeedFrontOnLane,
+                                    const SUMOReal meanSpeedVehicleOnLane,
+                                    const SUMOReal travelledDistanceFrontOnLane,
+                                    const SUMOReal travelledDistanceVehicleOnLane);
 
 private:
     /// @brief The lane the vehicle departed at

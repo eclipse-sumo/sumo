@@ -118,18 +118,22 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
     return true;
 }
 
-
 void
-MSDevice_Tripinfo::notifyMoveInternal(SUMOVehicle& veh, SUMOReal /* frontOnLane */,
-                                      SUMOReal timeOnLane, SUMOReal speed) {
+MSDevice_Tripinfo::notifyMoveInternal(const SUMOVehicle& veh,
+        const SUMOReal frontOnLane,
+        const SUMOReal timeOnLane,
+        const SUMOReal meanSpeedFrontOnLane,
+        const SUMOReal meanSpeedVehicleOnLane,
+        const SUMOReal travelledDistanceFrontOnLane,
+        const SUMOReal travelledDistanceVehicleOnLane){
+
     // called by meso
     const SUMOReal vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
     if (vmax > 0) {
-        myTimeLoss += TIME2STEPS(timeOnLane * (vmax - speed) / vmax);
+        myTimeLoss += TIME2STEPS(timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax);
     }
     myWaitingSteps += veh.getWaitingTime() / DELTA_T;
 }
-
 
 bool
 MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
