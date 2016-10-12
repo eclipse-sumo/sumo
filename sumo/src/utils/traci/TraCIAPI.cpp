@@ -553,21 +553,24 @@ TraCIAPI::EdgeScope::getIDCount() const {
 SUMOReal
 TraCIAPI::EdgeScope::getAdaptedTraveltime(const std::string& edgeID, SUMOTime time) const {
     tcpip::Storage content;
+    content.writeByte(TYPE_INTEGER);
     content.writeInt((int)time);
-    return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_CO2EMISSION, edgeID, &content);
+    return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_EDGE_TRAVELTIME, edgeID, &content);
 }
 
 SUMOReal
 TraCIAPI::EdgeScope::getEffort(const std::string& edgeID, SUMOTime time) const {
     tcpip::Storage content;
+    content.writeByte(TYPE_INTEGER);
     content.writeInt((int)time);
-    return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_CO2EMISSION, edgeID, &content);
+    return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_EDGE_EFFORT, edgeID, &content);
 }
 
 SUMOReal
 TraCIAPI::EdgeScope::getCO2Emission(const std::string& edgeID) const {
     return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_CO2EMISSION, edgeID);
 }
+
 
 SUMOReal
 TraCIAPI::EdgeScope::getCOEmission(const std::string& edgeID) const {
@@ -642,8 +645,15 @@ TraCIAPI::EdgeScope::getLastStepVehicleIDs(const std::string& edgeID) const {
 
 
 void
-TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, SUMOReal time) const {
+TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, SUMOReal time, SUMOTime begin, SUMOTime end) const {
     tcpip::Storage content;
+    content.writeByte(TYPE_COMPOUND);
+    content.writeInt(3);
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(begin);
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(end);
+    content.writeByte(TYPE_DOUBLE);
     content.writeDouble(time);
     myParent.send_commandSetValue(CMD_SET_EDGE_VARIABLE, VAR_EDGE_TRAVELTIME, edgeID, content);
     tcpip::Storage inMsg;
@@ -651,8 +661,15 @@ TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, SUMOReal time) c
 }
 
 void
-TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, SUMOReal effort) const {
+TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, SUMOReal effort, SUMOTime begin, SUMOTime end) const {
     tcpip::Storage content;
+    content.writeByte(TYPE_COMPOUND);
+    content.writeInt(3);
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(begin);
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(end);
+    content.writeByte(TYPE_DOUBLE);
     content.writeDouble(effort);
     myParent.send_commandSetValue(CMD_SET_EDGE_VARIABLE, VAR_EDGE_EFFORT, edgeID, content);
     tcpip::Storage inMsg;

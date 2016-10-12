@@ -678,6 +678,12 @@ TraCITestClient::testAPI() {
     answerLog << "  edge:\n";
     answerLog << "    getIDList: " << joinToString(edge.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << edge.getIDCount() << "\n";
+    const std::string edgeID = "e_m0";
+    edge.adaptTraveltime(edgeID, 42, 0, 10);
+    edge.setEffort(edgeID, 420, 0, 10);
+    answerLog << "    currentTraveltime: " << edge.getTraveltime(edgeID) << "\n";
+    answerLog << "    adaptedTravelTime: " << edge.getAdaptedTraveltime(edgeID, 0) << "\n";
+    answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
     answerLog << "  route:\n";
     answerLog << "    add:\n";
     std::vector<std::string> edges;

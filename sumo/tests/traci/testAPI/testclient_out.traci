@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Oct 10 16:45:43 2016
+TraCITestClient output file. Date: Wed Oct 12 13:12:05 2016
 
 
 -> Command sent: <SimulationStep2>:
@@ -7,6 +7,9 @@ testAPI:
   edge:
     getIDList: e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
     getIDCount: 21
+    currentTraveltime: 8.33
+    adaptedTravelTime: 42.00
+    effort: 420.00
   route:
     add:
     getIDList: e_u1 r1

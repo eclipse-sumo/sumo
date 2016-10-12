@@ -33,6 +33,7 @@
 #endif
 
 #include <vector>
+#include <limits>
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -56,6 +57,7 @@
 
 
 typedef long long int SUMOTime; // <utils/common/SUMOTime.h>
+#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max() 
 
 
 class TraCIAPI {
@@ -247,8 +249,8 @@ public:
         SUMOReal getLastStepHaltingNumber(const std::string& edgeID) const;
         std::vector<std::string> getLastStepVehicleIDs(const std::string& edgeID) const;
 
-        void adaptTraveltime(const std::string& edgeID, SUMOReal time) const;
-        void setEffort(const std::string& edgeID, SUMOReal effort) const;
+        void adaptTraveltime(const std::string& edgeID, SUMOReal time, SUMOTime begin=0, SUMOTime end=SUMOTime_MAX) const;
+        void setEffort(const std::string& edgeID, SUMOReal effort, SUMOTime begin=0, SUMOTime end=SUMOTime_MAX) const;
         void setMaxSpeed(const std::string& edgeID, SUMOReal speed) const;
 
     private:
