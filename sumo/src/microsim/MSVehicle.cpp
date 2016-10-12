@@ -639,11 +639,12 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     myRoute->release();
     // assign new route
     myRoute = newRoute;
+    // update arrival definition
+    calculateArrivalParams();
+    // update best lanes
     myLastBestLanesEdge = 0;
     myLastBestLanesInternalLane = 0;
     updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
-    // update arrival definition
-    calculateArrivalParams();
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);

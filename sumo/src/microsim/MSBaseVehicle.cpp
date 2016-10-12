@@ -245,7 +245,6 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool che
         newRoute->release();
         return false;
     }
-    calculateArrivalParams();
     return true;
 }
 

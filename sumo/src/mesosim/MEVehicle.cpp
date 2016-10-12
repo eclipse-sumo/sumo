@@ -212,6 +212,7 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
+    calculateArrivalParams();
     return true;
 }
 
