@@ -188,6 +188,10 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
         edges.pop_back();
     }
     replaceRouteEdges(edges, onInit);
+    // this must be called even if the route could not be replaced
+    if (onInit) {
+        calculateArrivalParams();
+    }
 }
 
 
@@ -217,10 +221,6 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool che
         edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     }
     if (edges == myRoute->getEdges()) {
-        if (onInit) {
-            // if edges = 'from to' we still need to calculate the arrivalPos once
-            calculateArrivalParams();
-        }
         return true;
     }
     const RGBColor& c = myRoute->getColor();
