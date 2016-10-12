@@ -309,6 +309,7 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     }
     if (sublane >= 0) {
         // sublane is already given
+        assert(sublane < myMissingGaps.size());
         if (missingGap > myMissingGaps[sublane]) {
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
