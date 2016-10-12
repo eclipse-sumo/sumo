@@ -37,9 +37,9 @@ for root, dirs, files in os.walk(srcRoot):
                 "astyle --style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type -n".split() + [os.path.join(root, name)])
             subprocess.call(["sed", "-i", "-e", '$a\\',
                              os.path.join(root, name)])
-        for ignoreDir in ['.svn', 'foreign']:
-            if ignoreDir in dirs:
-                dirs.remove(ignoreDir)
+    for ignoreDir in ['.svn', 'foreign']:
+        if ignoreDir in dirs:
+            dirs.remove(ignoreDir)
 
 if autopep:
     sumoRoot = os.path.join(os.path.dirname(__file__), "../../")
