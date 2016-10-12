@@ -313,6 +313,7 @@ GNEJunction::move(Position pos) {
         GNEEdge* edge = myNet->retrieveEdge((*it)->getID());
         edge->updateJunctionPosition(this, orig);
     }
+    updateShapesAndGeometries();
 }
 
 
@@ -334,44 +335,67 @@ GNEJunction::registerMove(GNEUndoList* undoList) {
 
 
 void
-GNEJunction::updateShapesAndGeometries() const {
+GNEJunction::updateShapesAndGeometries(bool includingConnections) const {
     // Recompute shape of node
     myNBNode.computeNodeShape(-1);
     // Recompute shapes of adyacent edges and nodes
     for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
         (*i)->getFromNode()->computeNodeShape(-1);
+        (*i)->getToNode()->computeNodeShape(-1);
+        // Recompute edge shapes
         (*i)->computeEdgeShape();
+        // Recompute shapes of edges of from node
         for(std::vector<NBEdge*>::const_iterator j = (*i)->getFromNode()->getEdges().begin(); j != (*i)->getFromNode()->getEdges().end(); j++) {
             (*j)->computeEdgeShape();
         }
-    }
-    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
-        (*i)->getToNode()->computeNodeShape(-1);
-        (*i)->computeEdgeShape();
+        // recompute shapes of edges of destiny node
         for(std::vector<NBEdge*>::const_iterator j = (*i)->getToNode()->getEdges().begin(); j != (*i)->getToNode()->getEdges().end(); j++) {
             (*j)->computeEdgeShape();
         }
-    }     
+    } 
     // Update geometries of all GNEEdges vinculated with the junction and neighbors
-    std::vector<GNEEdge*> incomingEdges = getGNEIncomingEdges();
-    for(std::vector<GNEEdge*>::const_iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+    std::vector<GNEEdge*> GNEEdges = getGNEEdges();
+    std::vector<GNEEdge*> edgesNeighbor;
+    // Iterate over GNEEdges
+    for(std::vector<GNEEdge*>::const_iterator i = GNEEdges.begin(); i != GNEEdges.end(); i++) {
+        // Update Geometry of Source and Destiny Junctions
+        (*i)->getGNEJunctionSource()->updateGeometry(); 
+        (*i)->getGNEJunctionDest()->updateGeometry();
+        // Update geometry of Edge
         (*i)->updateGeometry();
-        std::vector<GNEEdge*> incomingEdgesNeighbor = (*i)->getGNEJunctionSource()->getGNEEdges();
-        for(std::vector<GNEEdge*>::const_iterator j = incomingEdgesNeighbor.begin(); j != incomingEdgesNeighbor.end(); j++) {
-            (*j)->updateGeometry();
+        // If includingConnections is enabled, update connections geometry
+        if(includingConnections) {
+            (*i)->updateConnectionsGeometry();
         }
-    }
-    std::vector<GNEEdge*> outcomingEdges = getGNEOutgoingEdges();
-    for(std::vector<GNEEdge*>::const_iterator i = outcomingEdges.begin(); i != outcomingEdges.end(); i++) {
-        (*i)->updateGeometry();
-        std::vector<GNEEdge*> incomingEdgesNeighbor = (*i)->getGNEJunctionDest()->getGNEEdges();
-        for(std::vector<GNEEdge*>::const_iterator j = incomingEdgesNeighbor.begin(); j != incomingEdgesNeighbor.end(); j++) {
-            (*j)->updateGeometry();
+         // Obtain neighbors of Junction source
+        edgesNeighbor = (*i)->getGNEJunctionSource()->getGNEEdges();
+        for(std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
+            // Avoid duplicates Geometry updates
+            if((*i) != (*j)) {
+                (*j)->updateGeometry();
+                // If includingConnections is enabled, update connections geometry
+                if(includingConnections) {
+                    (*j)->updateConnectionsGeometry();
+                }
+            }
+        }
+        // Obtain neighbors of Junction destiny
+        edgesNeighbor = (*i)->getGNEJunctionDest()->getGNEEdges();
+        for(std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
+            // Avoid duplicates Geometry updates
+            if((*i) != (*j)) {
+                (*j)->updateGeometry();
+                // If includingConnections is enabled, update connections geometry
+                if(includingConnections) {
+                    (*j)->updateConnectionsGeometry();
+                }
+            }
         }
     }
     // Update view to show the new shapes
     myNet->getViewNet()->update();
 }
+
 
 void
 GNEJunction::invalidateShape() {

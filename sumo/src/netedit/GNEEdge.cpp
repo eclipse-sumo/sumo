@@ -115,9 +115,9 @@ GNEEdge::updateGeometry() {
     for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         (*i)->updateGeometry();
     }
-    // Update geometry of connections
-    for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
-        (*i)->updateGeometry();
+    // Update geometry of connections if the current mode isn't moving move
+    if(myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
+        updateConnectionsGeometry();
     }
     // Update geometry of additionals vinculated to this edge
     for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
@@ -129,6 +129,12 @@ GNEEdge::updateGeometry() {
     }
 }
 
+void
+GNEEdge::updateConnectionsGeometry() {
+    for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
+        (*i)->updateGeometry();
+    }
+}
 
 Boundary
 GNEEdge::getBoundary() const {

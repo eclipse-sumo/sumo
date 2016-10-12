@@ -138,9 +138,11 @@ public:
     /// @brief registers completed movement with the undoList
     void registerMove(GNEUndoList* undoList);
 
-    /// @brief update shapes of all elements associated to the junction
-    /// @note this include the adyacent nodes connected by edges
-    void updateShapesAndGeometries() const;
+    /**@brief update shapes of all elements associated to the junction
+     * @param includingConnections enable update geometry's connections.
+     * @note this include the adyacent nodes connected by edges
+     */
+    void updateShapesAndGeometries(bool includingConnections = true) const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{

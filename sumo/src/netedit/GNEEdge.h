@@ -82,7 +82,11 @@ public:
     ~GNEEdge();
 
     /// @brief update pre-computed geometry information
+    /// @note if current editing mode is Move, connection's geometry will not be updated
     void updateGeometry();
+
+    /// @brief update pre-computed geometry information of connections
+    void updateConnectionsGeometry();
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
