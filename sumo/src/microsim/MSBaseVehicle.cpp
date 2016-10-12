@@ -367,6 +367,9 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason) {
 
 void
 MSBaseVehicle::calculateArrivalParams() {
+    if (myRoute->getLastEdge()->isTaz()) {
+        return;
+    }
     const std::vector<MSLane*>& lanes = myRoute->getLastEdge()->getLanes();
     const SUMOReal lastLaneLength = lanes[0]->getLength();
     switch (myParameter->arrivalPosProcedure) {
