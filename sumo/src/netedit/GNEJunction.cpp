@@ -120,8 +120,7 @@ GNEJunction::rebuildCrossings(bool deleteOnly) {
 
 
 GUIGLObjectPopupMenu*
-GNEJunction::getPopUpMenu(GUIMainWindow& app,
-                          GUISUMOAbstractView& parent) {
+GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -153,8 +152,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GNEJunction::getParameterWindow(GUIMainWindow& /*app*/,
-                                GUISUMOAbstractView&) {
+GNEJunction::getParameterWindow(GUIMainWindow& /*app*/, GUISUMOAbstractView&) {
     return 0;
 }
 
@@ -313,7 +311,10 @@ GNEJunction::move(Position pos) {
         GNEEdge* edge = myNet->retrieveEdge((*it)->getID());
         edge->updateJunctionPosition(this, orig);
     }
-    updateShapesAndGeometries();
+    // Update shapes without include connections, because the aren't showed in Move mode
+    updateShapesAndGeometries(false);
+    // Update view to show the new shapes
+    myNet->getViewNet()->update();
 }
 
 
@@ -331,28 +332,61 @@ GNEJunction::registerMove(GNEUndoList* undoList) {
     myNet->refreshElement(this);
     // Update geometries
     updateShapesAndGeometries();
+    // Update view to show the new shapes
+    myNet->getViewNet()->update();
 }
 
 
 void
-GNEJunction::updateShapesAndGeometries(bool includingConnections) const {
-    // Recompute shape of node
-    myNBNode.computeNodeShape(-1);
-    // Recompute shapes of adyacent edges and nodes
-    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
-        (*i)->getFromNode()->computeNodeShape(-1);
-        (*i)->getToNode()->computeNodeShape(-1);
-        // Recompute edge shapes
-        (*i)->computeEdgeShape();
-        // Recompute shapes of edges of from node
-        for(std::vector<NBEdge*>::const_iterator j = (*i)->getFromNode()->getEdges().begin(); j != (*i)->getFromNode()->getEdges().end(); j++) {
-            (*j)->computeEdgeShape();
+GNEJunction::updateShapesAndGeometries(bool includingConnections) {
+    if(myNet->getViewNet()->showJunctionAsBubbles() == true) {
+        // Set empty shape in the node
+        if (myNBNode.hasCustomShape() == false) {
+            myNBNode.myPoly.clear();
+            myNBNode.myPoly.push_back(myNBNode.getPosition());
         }
-        // recompute shapes of edges of destiny node
-        for(std::vector<NBEdge*>::const_iterator j = (*i)->getToNode()->getEdges().begin(); j != (*i)->getToNode()->getEdges().end(); j++) {
-            (*j)->computeEdgeShape();
+        // Recompute shapes of adyacent edges and nodes
+        for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
+            // Set empty shape in the adyacent nodes
+            if ((*i)->getFromNode()->hasCustomShape() == false) {
+                (*i)->getFromNode()->myPoly.clear();
+                (*i)->getFromNode()->myPoly.push_back((*i)->getFromNode()->getPosition());
+            }
+            if ((*i)->getToNode()->hasCustomShape() == false) {
+                (*i)->getToNode()->myPoly.clear();
+                (*i)->getToNode()->myPoly.push_back((*i)->getToNode()->getPosition());
+            }
+            // Recompute lane shapes
+            (*i)->computeLaneShapes();
+            // Recompute lane shapes of from node
+            for(std::vector<NBEdge*>::const_iterator j = (*i)->getFromNode()->getEdges().begin(); j != (*i)->getFromNode()->getEdges().end(); j++) {
+                (*j)->computeLaneShapes();
+            }
+            // recompute lane shapes of destiny node
+            for(std::vector<NBEdge*>::const_iterator j = (*i)->getToNode()->getEdges().begin(); j != (*i)->getToNode()->getEdges().end(); j++) {
+                (*j)->computeLaneShapes();
+            }
         }
-    } 
+    } else {
+        // Recompute shape of node
+        myNBNode.computeNodeShape(-1);
+        // Recompute shapes of adyacent edges and nodes
+        for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
+            // Recompute shape of adyacent nodes
+            (*i)->getFromNode()->computeNodeShape(-1);
+            (*i)->getToNode()->computeNodeShape(-1);
+            // Recompute edge shapes
+            (*i)->computeEdgeShape();
+            // Recompute shapes of edges of from node
+            for(std::vector<NBEdge*>::const_iterator j = (*i)->getFromNode()->getEdges().begin(); j != (*i)->getFromNode()->getEdges().end(); j++) {
+                (*j)->computeEdgeShape();
+            }
+            // recompute shapes of edges of destiny node
+            for(std::vector<NBEdge*>::const_iterator j = (*i)->getToNode()->getEdges().begin(); j != (*i)->getToNode()->getEdges().end(); j++) {
+                (*j)->computeEdgeShape();
+            }
+        }
+    }
     // Update geometries of all GNEEdges vinculated with the junction and neighbors
     std::vector<GNEEdge*> GNEEdges = getGNEEdges();
     std::vector<GNEEdge*> edgesNeighbor;
@@ -392,8 +426,6 @@ GNEJunction::updateShapesAndGeometries(bool includingConnections) const {
             }
         }
     }
-    // Update view to show the new shapes
-    myNet->getViewNet()->update();
 }
 
 

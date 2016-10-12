@@ -142,7 +142,7 @@ public:
      * @param includingConnections enable update geometry's connections.
      * @note this include the adyacent nodes connected by edges
      */
-    void updateShapesAndGeometries(bool includingConnections = true) const;
+    void updateShapesAndGeometries(bool includingConnections = true);
 
     /// @name inherited from GNEAttributeCarrier
     /// @{

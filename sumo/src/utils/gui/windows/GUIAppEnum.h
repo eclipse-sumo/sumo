@@ -495,6 +495,8 @@ enum {
     MID_GNE_INSERT_NETWORK,
     /** show connections **/
     MID_GNE_SHOW_CONNECTIONS, 
+    /** show junctions as bubbles **/
+    MID_GNE_SHOW_BUBBLES, 
     /** attribute edited */
     MID_GNE_SET_ATTRIBUTE,
     /** netEdit attribute blocking */

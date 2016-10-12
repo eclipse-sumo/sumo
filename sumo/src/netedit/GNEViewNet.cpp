@@ -106,7 +106,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVE_LANE_BUS,         GNEViewNet::onCmdRemoveRestrictedLaneBuslane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_SHAPE,              GNEViewNet::onCmdNodeShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_REPLACE,            GNEViewNet::onCmdNodeReplace),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles)
 };
 
 // Object implementation
@@ -349,6 +350,12 @@ GNEViewNet::setSelectionScaling(SUMOReal selectionScale) {
 bool
 GNEViewNet::changeAllPhases() const {
     return myChangeAllPhases->getCheck() != FALSE;
+}
+
+
+bool 
+GNEViewNet::showJunctionAsBubbles() const {
+    return (myEditMode == GNE_MODE_MOVE) && (myShowJunctionAsBubble->getCheck());
 }
 
 
@@ -1522,6 +1529,15 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long 
+GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
+    // Update Junction Shapes
+    getNet()->updateJunctionShapes(false);
+    return 1;
+}
+
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -1535,8 +1551,12 @@ GNEViewNet::setEditMode(EditMode mode) {
     } else {
         myPreviousEditMode = myEditMode;
         myEditMode = mode;
+        // First check if previous mode was MOVE
+        if(myPreviousEditMode == GNE_MODE_MOVE) {
+            myNet->updateJunctionShapes(true);
+            myShowJunctionAsBubble->setCheck(false);
+        }
         switch (mode) {
-            case GNE_MODE_INSPECT:
             case GNE_MODE_CONNECT:
             case GNE_MODE_TLS:
                 // modes which depend on computed data
@@ -1581,12 +1601,15 @@ GNEViewNet::buildEditModeControls() {
     mySelectEdges->setCheck();
     
     myShowConnections = new FXMenuCheck(myToolbar, "show connections\t\tToggle show connections over junctions", this, MID_GNE_SHOW_CONNECTIONS);
-    myShowConnections->setCheck();
+    myShowConnections->setCheck(true);
     
     myExtendToEdgeNodes = new FXMenuCheck(myToolbar, "auto-select nodes\t\tToggle whether selecting multiple edges should automatically select their nodes", this, 0);
 
     myWarnAboutMerge = new FXMenuCheck(myToolbar, "ask for merge\t\tAsk for confirmation before merging junctions.", this, 0);
-    myWarnAboutMerge->setCheck();
+    myWarnAboutMerge->setCheck(true);
+
+    myShowJunctionAsBubble = new FXMenuCheck(myToolbar, "Show junction as buubles\t\tShow juntion's shape as a buuble.", this, MID_GNE_SHOW_BUBBLES);
+    myShowJunctionAsBubble->setCheck(false);
 
     myChangeAllPhases = new FXMenuCheck(myToolbar, "apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current traffic light plan", this, 0);
     myChangeAllPhases->setCheck(false);
@@ -1607,6 +1630,7 @@ GNEViewNet::updateModeSpecificControls() {
     myExtendToEdgeNodes->hide();
     myChangeAllPhases->hide();
     myWarnAboutMerge->hide();
+    myShowJunctionAsBubble->hide();
     int widthChange = 0;
     // Close all Frames
     if (myViewParent->getInspectorFrame()->shown()) {
@@ -1654,6 +1678,7 @@ GNEViewNet::updateModeSpecificControls() {
             break;
         case GNE_MODE_MOVE:
             myWarnAboutMerge->show();
+            myShowJunctionAsBubble->show();
             break;
         case GNE_MODE_CONNECT:
             widthChange -= myViewParent->getConnectorFrame()->getWidth() + addChange;

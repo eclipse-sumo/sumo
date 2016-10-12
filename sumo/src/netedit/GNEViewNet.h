@@ -198,7 +198,10 @@ public:
 
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
-
+    
+    /// @brief toogle show bubbles
+    long onCmdToogleShowBubbles(FXObject*, FXSelector, void*);
+    
     /// @brief sets edit mode (from hotkey)
     /// @param[in] selid An id MID_GNE_MODE_<foo> as defined in GUIAppEnum
     void setEditModeFromHotkey(FXushort selid);
@@ -250,6 +253,9 @@ public:
 
     /// @brief change all phases
     bool changeAllPhases() const;
+
+    /// @brief return true if junction must be showed as bubbles
+    bool showJunctionAsBubbles() const;
 
 protected:
     /// @brief FOX needs this
@@ -324,6 +330,9 @@ private:
 
     /// @brief whether we should warn about merging junctions
     FXMenuCheck* myWarnAboutMerge;
+
+    /// @brief show connection as buuble in "Move" mode.
+    FXMenuCheck* myShowJunctionAsBubble;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode

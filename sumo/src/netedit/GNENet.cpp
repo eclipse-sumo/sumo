@@ -938,6 +938,17 @@ GNENet::computeJunction(GNEJunction* junction) {
 }
 
 
+void 
+GNENet::updateJunctionShapes(bool includingConnections) {
+    // Update shapes of all junctions
+    for(GNEJunctions::iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
+        i->second->updateShapesAndGeometries(includingConnections);
+    }
+    // Update view to show the new shapes
+    myViewNet->update();
+}
+
+
 void
 GNENet::requireRecompute() {
     myNeedRecompute = true;
