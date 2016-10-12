@@ -83,6 +83,9 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
 #endif
 {
+    if ((*myRoute->begin())->isTaz() || myRoute->getLastEdge()->isTaz()) {
+        pars->setParameter |= VEHPARS_FORCE_REROUTE;
+    }
     // init devices
     MSDevice::buildVehicleDevices(*this, myDevices);
     //

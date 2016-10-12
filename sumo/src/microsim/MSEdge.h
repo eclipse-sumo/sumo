@@ -265,6 +265,10 @@ public:
         return myFunction == EDGEFUNCTION_WALKINGAREA;
     }
 
+    inline bool isTaz() const {
+        return myFunction == EDGEFUNCTION_DISTRICT;
+    }
+
     /** @brief Returns the numerical id of the edge
      * @return This edge's numerical id
      */

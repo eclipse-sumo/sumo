@@ -472,7 +472,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
 bool
 MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const {
     // when vaporizing, no vehicles are inserted, but checking needs to be successful to trigger removal
-    if (isVaporizing()) {
+    if (isVaporizing() || isTaz()) {
         return checkOnly;
     }
     const SUMOVehicleParameter& pars = v.getParameter();
@@ -488,9 +488,6 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
             throw ProcessError("Departure speed for vehicle '" + pars.id +
                                "' is too high for the departure edge '" + getID() + "'.");
         }
-    }
-    if (checkOnly && v.getEdge()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
-        return true;
     }
     if (!checkOnly) {
         std::string msg;
