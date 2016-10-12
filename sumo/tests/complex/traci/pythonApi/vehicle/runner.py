@@ -34,7 +34,8 @@ sumoBinary = sumolib.checkBinary('sumo')
 PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen([sumoBinary,
                                 '-c', 'sumo.sumocfg',
-                                '--additional-files', 'input_additional.add.xml',
+                                '--additional-files',
+                                'input_additional.add.xml,input_additional2.add.xml',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 traci.init(PORT)
 
@@ -301,6 +302,11 @@ print("step", step())
 traci.vehicle.moveToXY(moved, "dummy", 0, 448.99, 491.19, 90, 0)
 print("step", step())
 check(moved)
+# add vehicle and route between taz
+traci.vehicle.add("tazVeh", "withTaz2")
+print("tazVeh edges", traci.vehicle.getRoute("tazVeh"))
+print("step", step())
+print("tazVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition("tazVeh"), traci.vehicle.getRoute("tazVeh")))
 
 # done
 traci.close()

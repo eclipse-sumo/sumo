@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:13767 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:30006 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -503,3 +503,6 @@ person number 0
 waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
+tazVeh edges ['taz34-source', 'taz12-sink']
+step 127
+tazVeh pos=0.0 edges=['3fi', '3si', '1o', '1fi']

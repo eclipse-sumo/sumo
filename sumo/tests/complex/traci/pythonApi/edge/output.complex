@@ -1,9 +1,11 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:34669 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
-edges ['1fi', '1o', '1si', '2fi', '2o', '2si', '3fi', '3o', '3si', '4fi', '4o', '4si']
-edge count 12
+edges ['1fi', '1o', '1si', '2fi', '2o', '2si', '3fi', '3o', '3si', '4fi', '4o', '4si', 'taz12-sink', 'taz12-source', 'taz34-sink', 'taz34-source']
+edge count 16
 examining 2fi
 adaptedTraveltime -1.0
 effort -1.0
