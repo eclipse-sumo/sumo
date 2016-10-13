@@ -139,10 +139,10 @@ public:
     void registerMove(GNEUndoList* undoList);
 
     /**@brief update shapes of all elements associated to the junction
-     * @param includingConnections enable update geometry's connections.
      * @note this include the adyacent nodes connected by edges
+     * @note if this function is called during 'Move' mode, connections will not be updated to improve efficiency
      */
-    void updateShapesAndGeometries(bool includingConnections = true);
+    void updateShapesAndGeometries();
 
     /// @name inherited from GNEAttributeCarrier
     /// @{

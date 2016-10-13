@@ -401,7 +401,7 @@ public:
     void computeJunction(GNEJunction* junction);
 
     /// @brief update junction shapes
-    void updateJunctionShapes(bool includingConnections);
+    void updateJunctionShapes();
 
     /// @brief inform the net about the need for recomputation
     void requireRecompute();

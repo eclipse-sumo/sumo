@@ -938,10 +938,10 @@ GNENet::computeJunction(GNEJunction* junction) {
 
 
 void 
-GNENet::updateJunctionShapes(bool includingConnections) {
+GNENet::updateJunctionShapes() {
     // Update shapes of all junctions
     for(GNEJunctions::iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
-        i->second->updateShapesAndGeometries(includingConnections);
+        i->second->updateShapesAndGeometries();
     }
     // Update view to show the new shapes
     myViewNet->update();
