@@ -1,23 +1,23 @@
-Loading net-file from 'net.net.xml'... done (0ms).
-Loading additional-files from 'input_additional.add.xml'... done (1ms).
+Loading net-file from 'net.net.xml'... done (1ms).
+Loading additional-files from 'input_additional.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 391.00
+Simulation ended at time: 357.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 1035ms
- Real time factor: 377.778
- UPS: 22015.458937
+ Duration: 137ms
+ Real time factor: 2605.84
+ UPS: 143605.839416
 Vehicles: 
  Inserted: 400
  Running: 0
  Waiting: 0
 Statistics (avg):
- RouteLength: 788.45
- Duration: 56.97
- WaitingTime: 16.29
- TimeLoss: 26.68
- DepartDelay: 111.07
+ RouteLength: 791.46
+ Duration: 49.19
+ WaitingTime: 9.29
+ TimeLoss: 18.27
+ DepartDelay: 95.24
 
-AStarRouter answered 30 queries and explored 4.33 edges on average.
+AStarRouter answered 58 queries and explored 4.52 edges on average.
 AStarRouter spent 0ms answering queries (0.00ms on average).
