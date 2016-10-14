@@ -493,9 +493,17 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         // There's no leader on the target lane. Look for leaders on consecutive lanes.
         MSLane* targetLane = target->lane;
         if (targetLane->myPartialVehicles.size() > 0) {
-            assert(targetLane->myPartialVehicles.size() == 1);
-            MSVehicle* leader = targetLane->myPartialVehicles.front();
-            return std::pair<MSVehicle*, SUMOReal>(leader, leader->getBackPositionOnLane(targetLane) - veh(myCandi)->getPositionOnLane() - veh(myCandi)->getVehicleType().getMinGap());
+            assert(targetLane->myPartialVehicles.size() > 0);
+            std::vector<MSVehicle*>::const_iterator i = targetLane->myPartialVehicles.begin();
+            MSVehicle* leader = *i;
+            SUMOReal leaderPos = leader->getBackPositionOnLane(targetLane);
+            while(++i != targetLane->myPartialVehicles.end()){
+                if ((*i)->getBackPositionOnLane(targetLane) < leader->getBackPositionOnLane(targetLane)){
+                    leader = *i;
+                    leaderPos = leader->getBackPositionOnLane(targetLane);
+                }
+            }
+            return std::pair<MSVehicle*, SUMOReal>(leader, leaderPos - veh(myCandi)->getPositionOnLane() - veh(myCandi)->getVehicleType().getMinGap());
         }
         SUMOReal seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
         SUMOReal speed = veh(myCandi)->getSpeed();
@@ -504,7 +512,6 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
             return std::pair<MSVehicle* const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
         }
         const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);
-        //if (veh(myCandi)->getID() == "flow.21") std::cout << SIMTIME << " calling getLeaderOnConsecutive (443)\n";
         return target->lane->getLeaderOnConsecutive(dist, seen, speed, *veh(myCandi), bestLaneConts);
     } else {
         MSVehicle* candi = veh(myCandi);
