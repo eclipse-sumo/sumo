@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:30006 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:25558 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -9,7 +9,7 @@ vehicle count 1
 examining horiz
 speed 3.1154472965
 speed w/o traci 3.1154472965
-pos (990.3428640337894, 501.65000000000003)
+pos (990.4008068495866, 501.65000000000003)
 angle 270.0
 road 2fi
 lane 2fi_0
@@ -20,7 +20,7 @@ routeIndex 0
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 9.65713596621
 color (255, 255, 0, 255)
-bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
+bestLanes [['2fi_0', 3000.0, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
 CO2 1904.97775406
 CO 23.3928317774
 HC 0.701641785426
@@ -49,8 +49,8 @@ width 1.8
 height 1.5
 person number 0
 waiting time 0.0
-driving dist 2915.24286403
-driving dist 2D 1064.64286403
+driving dist 2992.34286403
+driving dist 2D 1090.34286403
 {80: '2fi', 86: 9.657135966210626}
 step 3
 {80: '2fi', 86: 15.313460015063175}
@@ -63,7 +63,7 @@ vehicle count 1
 examining horiz
 speed 9.45050405245
 speed w/o traci 9.45050405245
-pos (967.6185906452126, 501.65000000000003)
+pos (967.8128791013414, 501.65000000000003)
 angle 270.0
 road 2fi
 lane 2fi_0
@@ -74,7 +74,7 @@ routeIndex 0
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 32.3814093548
 color (255, 0, 0, 255)
-bestLanes [['2fi_0', 248.5, 0.0, 0, 1, ['2fi_0']]]
+bestLanes [['2fi_0', 250.0, 0.0, 0, 1, ['2fi_0']]]
 CO2 0.0
 CO 0.0
 HC 0.0
@@ -103,8 +103,8 @@ width 1.1
 height 1.6
 person number 0
 waiting time 0.0
-driving dist 2892.51859065
-driving dist 2D 1041.91859065
+driving dist 2969.61859065
+driving dist 2D 1067.61859065
 vehicles ['horiz']
 vehicle count 1
 examining bla
@@ -177,7 +177,7 @@ vehicle count 3
 examining 2
 speed 3.32558268388
 speed w/o traci 3.32558268388
-pos (989.7105756313773, 501.65000000000003)
+pos (989.772312177589, 501.65000000000003)
 angle 270.0
 road 2fi
 lane 2fi_0
@@ -188,7 +188,7 @@ routeIndex 0
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 10.2894243686
 color (255, 255, 0, 255)
-bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
+bestLanes [['2fi_0', 3000.0, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
 CO2 1822.51280195
 CO 20.4811719966
 HC 0.656485469865
@@ -217,9 +217,9 @@ width 1.8
 height 1.5
 person number 0
 waiting time 0.0
-driving dist 2914.61057563
-driving dist 2D 1064.01057563
-nextTLS [('0', 5, 475.3605756313773, 'r'), ('0', 12, 1449.6605756313775, 'r'), ('0', 9, 2423.9605756313777, 'G')]
+driving dist 2991.71057563
+driving dist 2D 1089.71057563
+nextTLS [('0', 5, 489.7105756313773, 'r'), ('0', 12, 1489.7105756313772, 'r'), ('0', 9, 2489.710575631377, 'G')]
 speedmode 0
 slope 0.0
 leader ('1', 21.526653511757473)
@@ -327,17 +327,17 @@ vehicle 'routeTest2' lane=2fi_0 lanePos=28.7230197765 stopped=False
 step 57
 vehicle 'routeTest2' lane=2fi_0 lanePos=29.6515781128 stopped=False
 step 58
-vehicle 'routeTest2' lane=2fi_0 lanePos=29.9672496263 stopped=False
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.9395970596 stopped=False
 step 59
-vehicle 'routeTest2' lane=2fi_0 lanePos=29.9846484365 stopped=True
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.9906412356 stopped=True
 step 60
-vehicle 'routeTest2' lane=2fi_0 lanePos=29.9846484365 stopped=True
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.9906412356 stopped=True
 step 61
-vehicle 'routeTest2' lane=2fi_0 lanePos=29.9846484365 stopped=True
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.9906412356 stopped=True
 step 62
-vehicle 'routeTest2' lane=2fi_0 lanePos=29.9846484365 stopped=True
+vehicle 'routeTest2' lane=2fi_0 lanePos=29.9906412356 stopped=True
 step 63
-vehicle 'routeTest2' lane=2fi_0 lanePos=31.7356400721 stopped=False
+vehicle 'routeTest2' lane=2fi_0 lanePos=31.7416328712 stopped=False
 step 64
 vehicle 'bus' lane=2fi_0 lanePos=0.0 stopped=False
 step 65
@@ -349,64 +349,64 @@ vehicle 'bus' lane=2fi_0 lanePos=11.98471232 stopped=False
 step 68
 vehicle 'bus' lane=2fi_0 lanePos=19.3360583998 stopped=False
 step 69
-vehicle 'bus' lane=2fi_0 lanePos=25.6325815749 stopped=False
+vehicle 'bus' lane=2fi_0 lanePos=25.8061255982 stopped=False
 step 70
 vehicle 'bus' lane=2fi_0 lanePos=29.1124687255 stopped=False
 step 71
-vehicle 'bus' lane=2fi_0 lanePos=29.8840341817 stopped=False
+vehicle 'bus' lane=2fi_0 lanePos=29.6986784177 stopped=False
 step 72
-vehicle 'bus' lane=2fi_0 lanePos=29.9951436193 stopped=False
+vehicle 'bus' lane=2fi_0 lanePos=29.987381348 stopped=False
 step 73
-vehicle 'bus' lane=2fi_0 lanePos=29.9978597395 stopped=True
+vehicle 'bus' lane=2fi_0 lanePos=29.994438821 stopped=True
 step 74
-vehicle 'bus' lane=2fi_0 lanePos=29.9978597395 stopped=True
+vehicle 'bus' lane=2fi_0 lanePos=29.994438821 stopped=True
 step 75
-vehicle 'bus' lane=2fi_0 lanePos=29.9978597395 stopped=True
+vehicle 'bus' lane=2fi_0 lanePos=29.994438821 stopped=True
 step 76
-vehicle 'bus' lane=2fi_0 lanePos=31.499159953 stopped=False
+vehicle 'bus' lane=2fi_0 lanePos=31.4957390345 stopped=False
 step 77
-vehicle 'bus' lane=2fi_0 lanePos=35.4188105891 stopped=False
+vehicle 'bus' lane=2fi_0 lanePos=35.4153896706 stopped=False
 ['3si', '4o', '4fi', '4si']
 step 78
-('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'angle', 56.5751888173961, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 601.6927777777778)
+('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'angle', 55.96766302073293, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 601.6927777777778)
 step 79
-('veh', 'parking', 'speed', 1.8778553571086376, 'pos', (998.1221446428914, 501.65000000000003), 'angle', 20.659320354713977, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 1.8778553571086376, 'CO2', 1491.6432525581542)
+('veh', 'parking', 'speed', 1.8778553571086376, 'pos', (998.133411775034, 501.65000000000003), 'angle', 19.74788784750981, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 1.8778553571086376, 'CO2', 1491.6432525581542)
 step 80
-('veh', 'parking', 'speed', 4.39149194387719, 'pos', (993.7306526990142, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 6.269347300985828, 'CO2', 3475.187349964727)
+('veh', 'parking', 'speed', 4.39149194387719, 'pos', (993.7682687828201, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 6.269347300985828, 'CO2', 3475.187349964727)
 step 81
-('veh', 'parking', 'speed', 5.778091609617695, 'pos', (987.9525610893965, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 12.047438910603523, 'CO2', 2597.614410653173)
+('veh', 'parking', 'speed', 5.778091609617695, 'pos', (988.02484572286, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 12.047438910603523, 'CO2', 2597.614410653173)
 step 82
-('veh', 'parking', 'speed', 4.972470545046963, 'pos', (982.9800905443495, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 17.019909455650485, 'CO2', 0.0)
+('veh', 'parking', 'speed', 4.972470545046963, 'pos', (983.0822100010835, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 17.019909455650485, 'CO2', 0.0)
 step 83
-('veh', 'parking', 'speed', 2.2155114441644392, 'pos', (980.7645791001851, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.235420899814923, 'CO2', 0.0)
+('veh', 'parking', 'speed', 2.2155114441644392, 'pos', (980.879991625584, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.235420899814923, 'CO2', 0.0)
 step 84
-('veh', 'parking', 'speed', 0.6350493675403266, 'pos', (980.1295297326448, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.87047026735525, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.6350493675403266, 'pos', (980.2487525542489, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.87047026735525, 'CO2', 0.0)
 step 85
-('veh', 'parking', 'speed', 0.11186860187267504, 'pos', (980.0176611307721, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.982338869227924, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.11186860187267504, 'pos', (980.1375551639875, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.982338869227924, 'CO2', 0.0)
 step 86
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 87
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 88
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 89
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 90
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 91
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 92
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 93
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 94
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 95
-('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.0015662360003, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.01609489477179166, 'pos', (980.1215568385843, 504.85), 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1001.0, 'CO2', 0.0)
 step 96
-('veh', 'parking', 'speed', 0.0, 'pos', (980.0015662360003, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.998433763999717, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'pos', (980.1215568385843, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.998433763999717, 'CO2', 0.0)
 step 97
-('veh', 'parking', 'speed', 1.6131526595912873, 'pos', (978.388413576409, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 21.611586423591003, 'CO2', 1258.8640583497302)
+('veh', 'parking', 'speed', 1.6131526595912873, 'pos', (978.5180830949505, 501.65000000000003), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 21.611586423591003, 'CO2', 1258.8640583497302)
 step 98
 step 99
 step 100
@@ -416,43 +416,43 @@ step 103
 step 104
 step 105
 step 106
-('veh', 'parking2', 'speed', 1.5713581576680002, 'pos', (447.07864184233205, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 41.571358157668, 'CO2', 1200.604992399795)
+('veh', 'parking2', 'speed', 1.5456500996106441, 'pos', (448.04743615765057, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 41.54565009961065, 'CO2', 1181.6687562948644)
 step 107
-('veh', 'parking2', 'speed', 4.072884864985681, 'pos', (443.0057569773463, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 45.64424302265368, 'CO2', 3253.452099726605)
+('veh', 'parking2', 'speed', 4.0471768069283245, 'pos', (444.0921302642395, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 45.592826906538974, 'CO2', 3236.9260736225197)
 step 108
-('veh', 'parking2', 'speed', 6.514742305662221, 'pos', (436.4910146716841, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 52.15898532831591, 'CO2', 4694.208344238475)
+('veh', 'parking2', 'speed', 5.983819344147775, 'pos', (438.2441436192039, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 51.57664625068675, 'CO2', 3480.644031769445)
 step 109
-('veh', 'parking2', 'speed', 8.471334657372644, 'pos', (428.01968001431146, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 60.63031998568855, 'CO2', 4703.424027856231)
+('veh', 'parking2', 'speed', 8.073635888818387, 'pos', (430.3537792650617, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 59.65028213950514, 'CO2', 4811.612198210303)
 step 110
-('veh', 'parking2', 'speed', 10.265130842916404, 'pos', (417.75454917139507, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 70.89545082860495, 'CO2', 5125.082521211034)
+('veh', 'parking2', 'speed', 9.867432074362148, 'pos', (420.71033789878754, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 69.51771421386728, 'CO2', 4949.686972621704)
 step 111
-('veh', 'parking2', 'speed', 10.49058894961141, 'pos', (407.2639602217837, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 81.38603977821636, 'CO2', 2026.2079203069409)
+('veh', 'parking2', 'speed', 10.49058894961141, 'pos', (410.45788531833233, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 80.00830316347869, 'CO2', 2643.2330116867265)
 step 112
-('veh', 'parking2', 'speed', 9.85238575398922, 'pos', (397.4115744677945, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 91.23842553220558, 'CO2', 0.0)
+('veh', 'parking2', 'speed', 9.85238575398922, 'pos', (400.82914872095864, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 89.86068891746791, 'CO2', 0.0)
 step 113
-('veh', 'parking2', 'speed', 10.099877960062585, 'pos', (387.3116965077319, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 101.33830349226817, 'CO2', 2002.3612415562243)
+('veh', 'parking2', 'speed', 10.099877960062585, 'pos', (390.9585379905895, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 99.9605668775305, 'CO2', 2002.3612415562243)
 ('veh', 'offRoad', 'speed', -1001.0, 'pos', (-1001.0, -1001.0), 'angle', -1001.0, 'road', '', 'lane', '', 'lanePos', -1001.0, 'CO2', -1001.0)
 step 114
-('veh', 'offRoad', 'speed', 1.7557868893025443, 'pos', (446.8942131106975, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 41.75578688930254, 'CO2', 1378.6267357143224)
+('veh', 'offRoad', 'speed', 1.7557868893025443, 'pos', (447.8420694730847, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 41.75578688930254, 'CO2', 1378.6267357143224)
 step 115
-('veh', 'offRoad', 'speed', 3.285045606922359, 'pos', (443.60916750377515, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 45.0408324962249, 'CO2', 1859.6916918595048)
+('veh', 'offRoad', 'speed', 4.170784267922864, 'pos', (443.76596200804363, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 45.9265711572254, 'CO2', 3202.1884247343637)
 step 116
-('veh', 'offRoad', 'speed', 4.854921133723111, 'pos', (438.75424637005204, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 49.89575362994801, 'CO2', 2492.2696419542694)
-('veh', 'collider', 'speed', 0.0, 'pos', (997.0, 501.65000000000003), 'angle', 343.1416012322618, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 3.0, 'CO2', 601.6927777777778)
+('veh', 'offRoad', 'speed', 6.388258057460189, 'pos', (437.5227174084878, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 52.314829214685595, 'CO2', 4178.793321776991)
+('veh', 'collider', 'speed', 0.0, 'pos', (997.018, 501.65000000000003), 'angle', 342.70689357987214, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 3.0, 'CO2', 601.6927777777778)
 step 117
 ('veh', 'collider', 'speed', -1001.0, 'pos', (-1001.0, -1001.0), 'angle', -1001.0, 'road', '', 'lane', '', 'lanePos', -1001.0, 'CO2', -1001.0)
 step 118
-('veh', 'collider', 'speed', -1001.0, 'pos', (-1001.0, -1001.0), 'angle', -1001.0, 'road', '', 'lane', '', 'lanePos', -1001.0, 'CO2', -1001.0)
+('veh', 'collider', 'speed', 2.499000000000003, 'pos', (743.757, 504.95), 'angle', 270.0, 'road', '2si', 'lane', '2si_1', 'lanePos', 5.0, 'CO2', 895.1810895494817)
 step 119
-('veh', 'collider', 'speed', -1001.0, 'pos', (-1001.0, -1001.0), 'angle', -1001.0, 'road', '', 'lane', '', 'lanePos', -1001.0, 'CO2', -1001.0)
+('veh', 'collider', 'speed', 4.034755036654876, 'pos', (739.9296313722292, 504.95), 'angle', 270.0, 'road', '2si', 'lane', '2si_1', 'lanePos', 9.034755036654875, 'CO2', 2146.4088997558138)
 step 120
-('veh', 'collider', 'speed', -1001.0, 'pos', (-1001.0, -1001.0), 'angle', -1001.0, 'road', '', 'lane', '', 'lanePos', -1001.0, 'CO2', -1001.0)
+('veh', 'collider', 'speed', 4.671137440028264, 'pos', (735.4985903966184, 504.95), 'angle', 270.0, 'road', '2si', 'lane', '2si_1', 'lanePos', 13.70589247668314, 'CO2', 1543.1636484908356)
 step 121
-('veh', 'collider', 'speed', 0.0, 'pos', (448.65000000000003, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 40.0, 'CO2', 601.6927777777778)
+('veh', 'collider', 'speed', 1.7276446989479162, 'pos', (449.55800000000005, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 40.0, 'CO2', 0.0)
 step 122
-('veh', 'collider', 'speed', 2.2392685553757476, 'pos', (446.4107314446243, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 42.239268555375745, 'CO2', 1888.1120677774823)
+('veh', 'collider', 'speed', 3.753046035228545, 'pos', (445.8901481097712, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 43.75304603522854, 'CO2', 2513.4312428544595)
 step 123
-('veh', 'collider', 'speed', 4.046845807763749, 'pos', (442.3638856368606, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 46.28611436313949, 'CO2', 2423.7384638180797)
+('veh', 'collider', 'speed', 5.401505591927344, 'pos', (440.6112566947806, 501.65000000000003), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 49.15455162715589, 'CO2', 2803.238305149973)
 step 124
 step 125
 step 126
@@ -461,7 +461,7 @@ vehicle count 17
 examining movedVeh
 speed 0.0
 speed w/o traci 0.0
-pos (448.99, 491.75)
+pos (438.839014, 491.75)
 angle 90.0
 road 1si
 lane 1si_0
@@ -472,7 +472,7 @@ routeIndex 0
 route ['1si']
 lanePos 197.49
 color (255, 255, 0, 255)
-bestLanes [['1si_0', 237.15, 0.0, 0, 1, ['1si_0']], ['1si_1', 237.15, 0.0, 0, 1, ['1si_1']], ['1si_2', 237.15, 0.0, 0, 1, ['1si_2']]]
+bestLanes [['1si_0', 250.0, 0.0, 0, 1, ['1si_0']], ['1si_1', 250.0, 0.0, 0, 1, ['1si_1']], ['1si_2', 250.0, 0.0, 0, 1, ['1si_2']]]
 CO2 601.692777778
 CO 6.37156111111
 HC 0.34942
