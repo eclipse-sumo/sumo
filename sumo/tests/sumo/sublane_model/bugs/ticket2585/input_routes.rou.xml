@@ -1,0 +1,11 @@
+<routes>
+    <vType id="car" vClass="passenger" sigma="0" width="1"/>
+    <vType id="car_wide" vClass="passenger" sigma="0" width="3"/>
+
+    <route id="r0" edges="middle end"/>
+    <route id="r1" edges="end"/>
+    <route id="r2" edges="beg middle end"/>
+    <vehicle id="ego" depart="0" route="r0" type="car" departPos="-30" departPosLat="-1"/>
+    <vehicle id="leader" depart="0" route="r1" type="car_wide"/>
+    <vehicle id="follower" depart="0" route="r2" type="car_wide" departPos="-30"/>
+</routes>
