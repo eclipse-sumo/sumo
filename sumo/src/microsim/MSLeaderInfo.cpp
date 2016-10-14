@@ -201,7 +201,7 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, SUMOReal gap, SUMOReal lat
         // speedup for the simple case
         sublane = 0;
     }
-    if (sublane >= 0 && sublane < myVehicles.size()) {
+    if (sublane >= 0 && sublane < (int)myVehicles.size()) {
         // sublane is already given
         if (gap < myDistances[sublane]) {
             if (myVehicles[sublane] == 0) {
@@ -307,7 +307,7 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
         // speedup for the simple case
         sublane = 0;
     }
-    if (sublane >= 0 && sublane < myVehicles.size()) {
+    if (sublane >= 0 && sublane < (int)myVehicles.size()) {
         // sublane is already given
         if (missingGap > myMissingGaps[sublane]) {
             if (myVehicles[sublane] == 0) {
