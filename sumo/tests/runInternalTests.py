@@ -57,7 +57,7 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
     env["MAROUTER_BINARY"] = os.path.join(
         root, "..", "bin", "marouter" + suffix)
-    apps = "sumo.meso,complex.meso,duarouter.astar"
+    apps = "sumo.meso,sumo.ballistic,complex.meso,duarouter.astar"
     if chrouter:
         apps += ",duarouter.chrouter"
     ttBin = 'texttest.py'
