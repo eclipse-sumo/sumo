@@ -198,14 +198,14 @@ MSCFModel::minNextSpeed(SUMOReal speed, const MSVehicle* const /*veh*/) const {
 
 
 SUMOReal
-MSCFModel::freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed, const bool onInsertion) const {
+MSCFModel::freeSpeed(const MSVehicle* const /* veh */, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed, const bool onInsertion) const {
 	SUMOReal vSafe = freeSpeed(speed, myDecel, seen, maxSpeed, onInsertion);
 	return vSafe;
 }
 
 
 SUMOReal
-MSCFModel::insertionFollowSpeed(const MSVehicle* const v, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
 	if(MSGlobals::gSemiImplicitEulerUpdate){
 		return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
 	} else {
@@ -408,7 +408,6 @@ MSCFModel::passingTime(const SUMOReal lastPos, const SUMOReal passedPos, const S
         // we solve distanceOldToPassed = lastSpeed*t + a*t^2/2
         if(fabs(a) < NUMERICAL_EPS){
             // treat as constant speed within [0, TS]
-            const SUMOReal lastCoveredDistance = currentPos - lastPos; // assert: >0
             const SUMOReal t = 2*distanceOldToPassed/(lastSpeed+currentSpeed);
             return t;
         } else if(a > 0){

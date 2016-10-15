@@ -103,13 +103,13 @@ GNEConnection::updateGeometry() {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // Get shape of from and to lanes
     PositionVector laneShapeFrom;
-    if(myFromEdge->getNBEdge()->getLanes().size() > (myConnection.fromLane)) {
+    if ((int)myFromEdge->getNBEdge()->getLanes().size() > myConnection.fromLane) {
         laneShapeFrom = myFromEdge->getNBEdge()->getLanes().at(myConnection.fromLane).shape;
     } else {
         return;
     }
     PositionVector laneShapeTo;
-    if(myConnection.toEdge->getLanes().size() > (myConnection.toLane)) {
+    if ((int)myConnection.toEdge->getLanes().size() > myConnection.toLane) {
         laneShapeTo = myConnection.toEdge->getLanes().at(myConnection.toLane).shape;
     } else {
         return;

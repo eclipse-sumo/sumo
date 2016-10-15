@@ -284,7 +284,7 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttr
                     WRITE_WARNING("Number of connections of " + myACs.front()->getID() + " is greater than the number of editable connections (" + toString(MAXNUMBEROFATTRCONNECTIONS) + ")");
                 }
                 // Show AttrConnections
-                for (int i = 0; (i < connections.size()) && (i < MAXNUMBEROFATTRCONNECTIONS); i++) {
+                for (int i = 0; i < (int)connections.size() && i < MAXNUMBEROFATTRCONNECTIONS; i++) {
                     myAttrConnections.at(i)->showConnections(connections.at(i));
                 }
                 myGroupBoxForAttrConnections->show();
@@ -301,7 +301,7 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttr
                     WRITE_WARNING("Number of connections of " + myACs.front()->getID() + " is greater than the number of editable connections (" + toString(MAXNUMBEROFATTRCONNECTIONS) + ")");
                 }
                 // Show AttrConnections
-                for (int i = 0; (i < connections.size()) && (i < MAXNUMBEROFATTRCONNECTIONS); i++) {
+                for (int i = 0; i < (int)connections.size() && i < MAXNUMBEROFATTRCONNECTIONS; i++) {
                     myAttrConnections.at(i)->showConnections(connections.at(i));
                 }
                 myGroupBoxForAttrConnections->show();

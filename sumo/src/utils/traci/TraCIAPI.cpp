@@ -650,9 +650,9 @@ TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, SUMOReal time, S
     content.writeByte(TYPE_COMPOUND);
     content.writeInt(3);
     content.writeByte(TYPE_INTEGER);
-    content.writeInt(begin);
+    content.writeInt((int)begin);
     content.writeByte(TYPE_INTEGER);
-    content.writeInt(end);
+    content.writeInt((int)end);
     content.writeByte(TYPE_DOUBLE);
     content.writeDouble(time);
     myParent.send_commandSetValue(CMD_SET_EDGE_VARIABLE, VAR_EDGE_TRAVELTIME, edgeID, content);
@@ -666,9 +666,9 @@ TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, SUMOReal effort, SUMOT
     content.writeByte(TYPE_COMPOUND);
     content.writeInt(3);
     content.writeByte(TYPE_INTEGER);
-    content.writeInt(begin);
+    content.writeInt((int)begin);
     content.writeByte(TYPE_INTEGER);
-    content.writeInt(end);
+    content.writeInt((int)end);
     content.writeByte(TYPE_DOUBLE);
     content.writeDouble(effort);
     myParent.send_commandSetValue(CMD_SET_EDGE_VARIABLE, VAR_EDGE_EFFORT, edgeID, content);

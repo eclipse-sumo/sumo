@@ -959,7 +959,6 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // XXX This should actually do for euler and ballistic cases (TODO: test!) Refs. #2575
 
             const SUMOReal maxHelpDecel = nv->getCarFollowModel().getMaxDecel() * HELP_DECEL_FACTOR;
-            const SUMOReal neighNextSpeed = nv->getSpeed() - ACCEL2SPEED(maxHelpDecel);
 
             SUMOReal anticipationTime = 1.;
             SUMOReal anticipatedSpeed =  MIN2(myVehicle.getSpeed() + plannedAccel*anticipationTime, myVehicle.getMaxSpeedOnLane());
@@ -1775,9 +1774,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(SUMOReal position, const MSLane* initi
     }
 
     // We start with the current edge.
-    const MSEdge& initialEdge = initialLane->getEdge();
     bool encounteredRoundabout = false;
-    bool accountedForInitialLane = false;
     SUMOReal roundaboutDistanceAhead = 0.;
 
     // set an iterator to the first non-zero entry of continuationLanes
@@ -1804,7 +1801,6 @@ MSLCM_LC2013::distanceAlongNextRoundabout(SUMOReal position, const MSLane* initi
         if (!initialLane->isInternal()){
             assert(initialLane == *j);
             roundaboutDistanceAhead += initialLane->getLength() - position;
-            MSLane* nextLane = 0;
             if (j+1 == continuationLanes.end() || *(j+1) == 0 || !(*(j+1))->getEdge().isRoundabout()){
                 // following connection is not part of the roundabout
             } else {
