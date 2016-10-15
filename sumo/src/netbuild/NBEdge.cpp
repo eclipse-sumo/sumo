@@ -88,8 +88,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     toLane(toLane_),
     mayDefinitelyPass(false), 
     keepClear(true), 
-    haveVia(false),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
+    haveVia(false),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX)
 {}
 
