@@ -140,7 +140,15 @@ public:
 
         /// the stored speed (should be >=0 at any time)
         SUMOReal mySpeed;
-	
+
+        /// the stored lateral position
+        SUMOReal myPosLat;
+
+        /// @brief the stored back position
+        // if the vehicle occupies multiple lanes, this is the position relative
+        // to the lane occupied by its back
+        SUMOReal myBackPos;
+
         /// the speed at the begin of the previous time step
         SUMOReal myPreviousSpeed;
 
@@ -149,14 +157,6 @@ public:
         ///       myPos - SPEED2DIST(mySpeed + myPreviousSpeed)/2,
         /// because a stop may have occured within the last step.
         SUMOReal myLastCoveredDist;
-	
-        /// the stored lateral position
-        SUMOReal myPosLat;
-
-        /// @brief the stored back position
-        // if the vehicle occupies multiple lanes, this is the position relative
-        // to the lane occupied by its back
-        SUMOReal myBackPos;
 
     };
 
