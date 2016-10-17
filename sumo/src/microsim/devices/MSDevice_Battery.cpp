@@ -638,9 +638,10 @@ int MSDevice_Battery::getVehicleStopped() const {
 
 
 SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
-    assert(veh.getSpeed >= 0.);
+    assert(veh.getSpeed() >= 0.);
 
-    //XXX: all formulas below work with the logic of the euler update (refs #860). Approximation order could be improved.
+    //XXX: All formulas below work with the logic of the euler update (refs #860).
+    //     Approximation order could be improved. Refs. #2592.
 
     // calculate current height
     SUMOReal height_cur = veh.getPositionOnLane() / veh.getLane()->getLength() * (veh.getLane()->getShape().back().z() - veh.getLane()->getShape().front().z());
