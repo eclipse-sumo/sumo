@@ -243,9 +243,6 @@ protected:
 
     /// @brief Rotations of textures of restricted lanes
     std::vector<SUMOReal> myLaneRestrictedTextureRotations;
-
-    /// @brief current texture for restricted lanes
-    GUIGlID myLaneRestrictedTexture;
     /// @}
     
     /// @brief list with the additonals vinculated with this lane

@@ -81,7 +81,6 @@ GNELane::GNELane(GNEEdge& edge, const int index) :
     myParentEdge(edge),
     myIndex(index),
     mySpecialColor(0),
-    myLaneRestrictedTexture(0),
     myTLSEditor(0) {
     updateGeometry();
 }
@@ -91,7 +90,6 @@ GNELane::GNELane() :
     myParentEdge(*static_cast<GNEEdge*>(0)),
     myIndex(-1),
     mySpecialColor(0),
-    myLaneRestrictedTexture(0),
     myTLSEditor(0) {
 }
 
@@ -332,6 +330,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // If there are texture of restricted lanes to draw, and draw lane icons is enabled in options
         if((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && myLaneRestrictedTexturePositions.size() > 0) {
+            // Obtain width of icon
+            double iconWidth =  myParentEdge.getNBEdge()->getLaneStruct(myIndex).width / 3;
             // Draw list of icons
             for(int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
                 // Push draw matrix 2
@@ -343,8 +343,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 // Rotate matrix 2
                 glRotated(myLaneRestrictedTextureRotations.at(i), 0, 0, -1);
                 glRotated(90, 0, 0, 1);
-                // draw texture box depending
-                GUITexturesHelper::drawTexturedBox(myLaneRestrictedTexture, 1);
+                // draw texture box depending of type of restriction
+                if(isRestricted(SVC_PEDESTRIAN)) {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
+                } else if (isRestricted(SVC_BICYCLE)) {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEBIKE), iconWidth);
+                } else if (isRestricted(SVC_BUS)) {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEBUS), iconWidth);
+                }
                 // Pop draw matrix 2
                 glPopMatrix();
             }
@@ -637,22 +643,9 @@ GNELane::updateGeometry() {
         }
     }
     // If lane has enought lenght for show textures of restricted lanes
-    /*
     if((getLaneShapeLenght() > 4)) {
-        bool calculatePositionAndRotations = true;
-        // check if lane is restricted, and type of restriction
-        if(isRestricted(SVC_PEDESTRIAN)) {
-            myLaneRestrictedTexture = GUITextureSubSys::getGif(GNETEXTURE_LANEPEDESTRIAN);
-        } else if (isRestricted(SVC_BICYCLE)) {
-            myLaneRestrictedTexture = GUITextureSubSys::getGif(GNETEXTURE_LANEBIKE);
-        } else if (isRestricted(SVC_BUS)) {
-            myLaneRestrictedTexture = GUITextureSubSys::getGif(GNETEXTURE_LANEBUS);
-        } else {
-            calculatePositionAndRotations = false;
-            myLaneRestrictedTexture = 0;
-        }
-        // If lane is restricted
-        if (calculatePositionAndRotations) {
+        // if lane is restricted 
+        if(isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
             // get values for position and rotation of icons
             for(int i = 2; i < getLaneShapeLenght() - 1; i += 15) {
                 myLaneRestrictedTexturePositions.push_back(getShape().positionAtOffset(i));
@@ -660,7 +653,6 @@ GNELane::updateGeometry() {
             }
         }
     }
-    */
 }
 
 int
