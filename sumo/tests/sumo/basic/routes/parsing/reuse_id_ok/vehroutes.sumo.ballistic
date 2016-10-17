@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  5 13:40:34 2016 by SUMO Version dev-SVN-r20343
+<!-- generated on Mon Oct 17 16:02:25 2016 by SUMO Version dev-SVN-r21661
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </output>
 
     <processing>
+        <step-method.ballistic value="true"/>
         <route-steps value="1"/>
     </processing>
 
@@ -37,23 +38,23 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="2" type="KRAUSS_DEFAULT" depart="4.00" arrival="138.00">
+    <vehicle id="2" type="KRAUSS_DEFAULT" depart="3.00" arrival="138.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="3" type="KRAUSS_DEFAULT" depart="6.00" arrival="140.00">
+    <vehicle id="3" type="KRAUSS_DEFAULT" depart="5.00" arrival="139.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="4" type="KRAUSS_DEFAULT" depart="8.00" arrival="142.00">
+    <vehicle id="4" type="KRAUSS_DEFAULT" depart="6.00" arrival="141.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="5" type="KRAUSS_DEFAULT" depart="10.00" arrival="144.00">
+    <vehicle id="5" type="KRAUSS_DEFAULT" depart="8.00" arrival="143.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="6" type="KRAUSS_DEFAULT" depart="12.00" arrival="146.00">
+    <vehicle id="6" type="KRAUSS_DEFAULT" depart="9.00" arrival="144.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

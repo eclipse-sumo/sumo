@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/08/14 16:23:55 by SUMO Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Oct 17 16:00:52 2016 by SUMO Version dev-SVN-r21661
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -70,64 +70,72 @@
         <edge id="beg">
             <lane id="beg_0"/>
             <lane id="beg_1">
-                <vehicle id="2" pos="6.93" speed="1.83"/>
+                <vehicle id="3" pos="5.10" speed="0.00"/>
                 <vehicle id="1" pos="22.93" speed="7.62"/>
             </lane>
-            <lane id="beg_2"/>
+            <lane id="beg_2">
+                <vehicle id="2" pos="6.93" speed="1.83"/>
+            </lane>
         </edge>
     </timestep>
     <timestep time="5.00">
         <edge id="beg">
             <lane id="beg_0"/>
             <lane id="beg_1">
-                <vehicle id="2" pos="10.40" speed="3.47"/>
-                <vehicle id="1" pos="33.09" speed="10.16"/>
+                <vehicle id="3" pos="7.38" speed="2.28"/>
+                <vehicle id="1" pos="32.18" speed="9.25"/>
             </lane>
-            <lane id="beg_2"/>
+            <lane id="beg_2">
+                <vehicle id="2" pos="11.31" speed="4.38"/>
+            </lane>
         </edge>
     </timestep>
     <timestep time="6.00">
         <edge id="beg">
             <lane id="beg_0"/>
             <lane id="beg_1">
-                <vehicle id="3" pos="5.10" speed="0.00"/>
-                <vehicle id="2" pos="15.76" speed="5.36"/>
-                <vehicle id="1" pos="45.53" speed="12.44"/>
+                <vehicle id="3" pos="12.25" speed="4.87"/>
+                <vehicle id="1" pos="43.06" speed="10.88"/>
             </lane>
-            <lane id="beg_2"/>
+            <lane id="beg_2">
+                <vehicle id="2" pos="17.58" speed="6.27"/>
+            </lane>
         </edge>
     </timestep>
     <timestep time="7.00">
         <edge id="beg">
             <lane id="beg_0"/>
             <lane id="beg_1">
-                <vehicle id="3" pos="6.83" speed="1.73"/>
-                <vehicle id="2" pos="23.71" speed="7.95"/>
-                <vehicle id="1" pos="59.60" speed="14.07"/>
+                <vehicle id="3" pos="19.13" speed="6.88"/>
+                <vehicle id="1" pos="55.94" speed="12.88"/>
             </lane>
-            <lane id="beg_2"/>
+            <lane id="beg_2">
+                <vehicle id="2" pos="25.57" speed="7.99"/>
+            </lane>
         </edge>
     </timestep>
     <timestep time="8.00">
         <edge id="beg">
             <lane id="beg_0"/>
             <lane id="beg_1">
-                <vehicle id="3" pos="10.41" speed="3.59"/>
-                <vehicle id="2" pos="33.67" speed="9.96"/>
-                <vehicle id="1" pos="75.67" speed="16.06"/>
+                <vehicle id="3" pos="28.54" speed="9.40"/>
+                <vehicle id="1" pos="71.07" speed="15.13"/>
             </lane>
-            <lane id="beg_2"/>
+            <lane id="beg_2">
+                <vehicle id="2" pos="35.43" speed="9.86"/>
+            </lane>
         </edge>
     </timestep>
     <timestep time="9.00">
         <edge id="beg">
             <lane id="beg_0"/>
             <lane id="beg_1">
-                <vehicle id="3" pos="15.46" speed="5.05"/>
-                <vehicle id="2" pos="46.15" speed="12.48"/>
-                <vehicle id="1" pos="93.99" speed="18.32"/>
+                <vehicle id="3" pos="39.65" speed="11.12"/>
+                <vehicle id="1" pos="88.39" speed="17.31"/>
             </lane>
-            <lane id="beg_2"/>
+            <lane id="beg_2">
+                <vehicle id="2" pos="46.74" speed="11.32"/>
+            </lane>
         </edge>
     </timestep>
 </netstate>

@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'flow1.0'; waited too long (yield), lane='in1_0', time=343.00.
+Warning: Vehicle 'flow1.0' ends teleporting on edge 'out', time 382.00.
+Warning: Teleporting vehicle 'flow1.1'; waited too long (yield), lane='in1_0', time=648.00.
+Warning: Vehicle 'flow1.1' ends teleporting on edge 'out', time 656.00.

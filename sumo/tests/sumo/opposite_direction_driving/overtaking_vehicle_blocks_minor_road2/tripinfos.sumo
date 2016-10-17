@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/20/16 14:21:00 by SUMO Version dev-SVN-r20765
+<!-- generated on Mon Oct 17 14:27:15 2016 by SUMO Version dev-SVN-r21661
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,9 +24,9 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="oncoming1" depart="3.00" departLane="NC_0" departPos="94.25" departSpeed="0.00" departDelay="0.00" arrival="17.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.66" duration="14.00" routeLength="151.82" waitSteps="0" timeLoss="3.02" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="overtaking" depart="2.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="23.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.86" duration="21.00" routeLength="195.25" waitSteps="0" timeLoss="6.16" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="oncoming2" depart="3.00" departLane="NC_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="25.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.34" duration="22.00" routeLength="226.07" waitSteps="0" timeLoss="4.91" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="oncoming3" depart="3.00" departLane="NC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="28.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.36" duration="25.00" routeLength="246.07" waitSteps="0" timeLoss="6.90" rerouteNo="0" devices="tripinfo_oncoming3" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="stopped2" depart="2.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="120.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="12.86" duration="118.00" routeLength="155.25" waitSteps="0" timeLoss="5.78" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="oncoming1" depart="3.00" departLane="NC_0" departPos="94.25" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.15" duration="15.00" routeLength="151.82" waitSteps="0" timeLoss="3.15" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="overtaking" depart="2.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="23.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.50" duration="21.00" routeLength="195.25" waitSteps="0" timeLoss="6.34" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="oncoming3" depart="3.00" departLane="NC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="26.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.14" duration="23.00" routeLength="246.07" waitSteps="0" timeLoss="5.59" rerouteNo="0" devices="tripinfo_oncoming3" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="oncoming2" depart="3.00" departLane="NC_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="28.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="12.98" duration="25.00" routeLength="226.07" waitSteps="0" timeLoss="8.39" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="stopped2" depart="2.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="121.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.15" duration="119.00" routeLength="155.25" waitSteps="0" timeLoss="6.14" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
