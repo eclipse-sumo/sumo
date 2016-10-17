@@ -70,22 +70,12 @@ int NUM_POINTS = 5;
 // method definitions
 // ===========================================================================
 
-GNEConnection::GNEConnection(GNEEdge *from, int fromLane, GNEEdge *to, int toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled) :
-    myConnection(fromLane, to->getNBEdge(), toLane, pass, keepClear, contPos, false),    
-    GNENetElement(from->getNet(), toString(SUMO_TAG_CONNECTION) + from->getID() + toString(fromLane) + to->getID() + toString(toLane), GLO_CONNECTION, SUMO_TAG_CONNECTION),
+GNEConnection::GNEConnection(GNEEdge *from, NBEdge::Connection& connection) :
+    GNENetElement(from->getNet(), 
+            toString(SUMO_TAG_CONNECTION) + ":" + from->getNBEdge()->getLaneID(connection.fromLane) + "->" + connection.toEdge->getLaneID(connection.toLane), 
+            GLO_CONNECTION, SUMO_TAG_CONNECTION),
     myFromEdge(from),
-    myUncontrolled(uncontrolled),
-    myDrawConnection(true) {
-    // Update geometry
-    updateGeometry();
-}
-
-
-GNEConnection::GNEConnection(GNEEdge *from, NBEdge::Connection connection, bool uncontrolled) :
     myConnection(connection),
-    GNENetElement(from->getNet(), toString(SUMO_TAG_CONNECTION) + from->getID() + toString(connection.fromLane) + connection.toEdge->getID() + toString(connection.toLane), GLO_CONNECTION, SUMO_TAG_CONNECTION),
-    myFromEdge(from),
-    myUncontrolled(uncontrolled), 
     myDrawConnection(true) {
     // Update geometry
     updateGeometry();
@@ -188,30 +178,6 @@ GNEConnection::getToLaneIndex() const {
 }
 
 
-bool
-GNEConnection::getPass() {
-    return myConnection.mayDefinitelyPass;
-}
-
-
-bool
-GNEConnection::getKeepClear() {
-    return myConnection.keepClear;
-}
-
-
-SUMOReal
-GNEConnection::getContPos() {
-    return myConnection.contPos;
-}
-
-
-bool
-GNEConnection::getUncontrolled() {
-    return myUncontrolled;
-}
-
-
 const NBEdge::Connection&
 GNEConnection::getNBEdgeConnection() const {
     return myConnection;
@@ -230,30 +196,6 @@ GNEConnection::getLinkState() const {
 bool 
 GNEConnection::getDrawConnection() const {
     return myDrawConnection;
-}
-
-
-void
-GNEConnection::setPass(bool pass) {
-    myConnection.mayDefinitelyPass = pass;
-}
-
-
-void
-GNEConnection::setKeepClear(bool keepClear) {
-    myConnection.keepClear = keepClear;
-}
-
-
-void
-GNEConnection::setContPos(SUMOReal contPos) {
-    myConnection.contPos = contPos;
-}
-
-
-void
-GNEConnection::setUncontrolled(bool uncontrolled) {
-    myUncontrolled = uncontrolled ;
 }
 
 
@@ -303,7 +245,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(GNENet::selectedConnectionColor);
         } else {
             // Set color depending of the link state
-            ;//GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
+            GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
         }
         // draw connection checking whether it is not too small
         if (s.scale < 1.) {
@@ -324,8 +266,6 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEConnection::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return getMicrosimID();
         case SUMO_ATTR_FROM:
             return myFromEdge->getID();
         case SUMO_ATTR_TO:
@@ -341,9 +281,9 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CONTPOS:
             return toString(myConnection.contPos);
         case SUMO_ATTR_UNCONTROLLED:
-            return toString(myUncontrolled);
+            return toString(myFromEdge->getNBEdge()->mayBeTLSControlled(myConnection.fromLane, myConnection.toEdge, myConnection.toLane));
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            return toString(4.5); // XXX retrieve this value from the underlying container
+            return toString(myConnection.visibility);
         default:
             throw InvalidArgument("connection attribute '" + toString(key) + "' not allowed");
     }
@@ -373,22 +313,53 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 
 bool
 GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
-
-
     // Currently ignored before implementation to avoid warnings
-    UNUSED_PARAMETER(key);
-    UNUSED_PARAMETER(value);
-    return false;
+    switch (key) {
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+        case SUMO_ATTR_FROM_LANE:
+        case SUMO_ATTR_TO_LANE:
+            return false;
+        case SUMO_ATTR_PASS:
+            return canParse<bool>(value);
+        case SUMO_ATTR_KEEP_CLEAR:
+            return canParse<bool>(value);
+        case SUMO_ATTR_CONTPOS:
+            return canParse<SUMOReal>(value);
+        case SUMO_ATTR_UNCONTROLLED:
+            return false; // XXX see #2599
+            //return canParse<bool>(value);
+        case SUMO_ATTR_VISIBILITY_DISTANCE:
+            return isPositive<SUMOReal>(value);
+        default:
+            throw InvalidArgument("connection attribute '" + toString(key) + "' not allowed");
+    }
 }
 
 
 void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
-
-
-    // Currently ignored before implementation to avoid warnings
-    UNUSED_PARAMETER(key);
-    UNUSED_PARAMETER(value);
+    switch (key) {
+        case SUMO_ATTR_PASS:
+            myConnection.mayDefinitelyPass = parse<bool>(value);
+            break;
+        case SUMO_ATTR_KEEP_CLEAR:
+            myConnection.keepClear = parse<bool>(value);
+            break;
+            /*
+        case SUMO_ATTR_UNCONTROLLED:
+            // XXX see @2599
+            break;
+            */
+        case SUMO_ATTR_CONTPOS:
+            myConnection.contPos = parse<SUMOReal>(value);
+            break;
+        case SUMO_ATTR_VISIBILITY_DISTANCE:
+            myConnection.visibility = parse<SUMOReal>(value);
+            break;
+        default:
+            throw InvalidArgument("connection attribute '" + toString(key) + "' not allowed");
+    }
 }
 
 

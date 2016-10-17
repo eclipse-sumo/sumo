@@ -420,8 +420,8 @@ GNEEdge::remakeGNEConnections() {
     }
     myGNEConnections.clear();
     // Create connections
-    const std::vector<NBEdge::Connection>& myConnections = myNBEdge.getConnections();
-    for(std::vector<NBEdge::Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
+    std::vector<NBEdge::Connection>& myConnections = myNBEdge.getConnections();
+    for(std::vector<NBEdge::Connection>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
         myGNEConnections.push_back(new GNEConnection(this, *i));
         myGNEConnections.back()->incRef("GNEEdge::GNEEdge");
     }

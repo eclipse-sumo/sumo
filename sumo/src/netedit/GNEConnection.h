@@ -44,24 +44,12 @@ class GNEEdge;
 
 class GNEConnection : public GNENetElement {
 public:
-    /**@brief Constructor.
-     * @param[in] from The edge the vehicles leave
-     * @param[in] fromLane index of the incoming lane
-     * @param[in] to The edge the vehicles may reach when leaving "from"
-     * @param[in] toLane index of the outgoing lane
-     * @param[in] pass if set, vehicles which pass this (lane-2-lane) connection) will not wait
-     * @param[in] keepClear if set to false, vehicles which pass this (lane-2-lane) connection) will not worry about blocking the intersection.
-     * @param[in] contPos If set to a positive value, an internal junction will be built at this position (in m) from the start of the internal lane for this connection.
-     * @param[in] uncontrolled if set to true, This connection will not be TLS-controlled despite its node being controlled.
-     */
-    GNEConnection(GNEEdge *from, int fromLane, GNEEdge *to, int toLane, bool pass, bool keepClear, SUMOReal contPos, bool uncontrolled);
-
     /** Constructor
      * @param[in] from The edge the vehicles leave
      * @param[in] connection NBEdge::Connection in which the rest of parameters are defined
      * @param[in] uncontrolled if set to true, This connection will not be TLS-controlled despite its node being controlled.
     **/
-    GNEConnection(GNEEdge *from, NBEdge::Connection connection, bool uncontrolled = false);
+    GNEConnection(GNEEdge *from, NBEdge::Connection& connection);
 
     /// @brief Destructor
     ~GNEConnection();
@@ -91,18 +79,6 @@ public:
     /// @briefthe get lane index of the outgoing lane
     int getToLaneIndex() const;
 
-    /// @brief get parameter pass
-    bool getPass();
-
-    /// @brief get parameter keepClear
-    bool getKeepClear();
-
-    /// @brief get parameter ContPos
-    SUMOReal getContPos();
-
-    /// @brief get parameter uncontrolled
-    bool getUncontrolled();
-
     /// @brief get Edge::NBConnection
     const NBEdge::Connection &getNBEdgeConnection() const;
 
@@ -111,18 +87,6 @@ public:
 
     /// @brief get LinkState
     int getLinkState() const;
-
-    /// @brief set parameter pass
-    void setPass(bool pass);
-
-    /// @brief set parameter keepClear
-    void setKeepClear(bool keepClear);
-
-    /// @brief set parameter ContPos
-    void setContPos(SUMOReal contPos);
-
-    /// @brief set parameter uncontrolled
-    void setUncontrolled(bool uncontrolled);
 
     /// @brief enable or disable draw connection
     void setDrawConnection(bool drawConnection);
@@ -184,16 +148,13 @@ public:
     /// @}
 
 protected:
-    /// @brief NBEdge::Connection associated with this connection
-    NBEdge::Connection myConnection;
-
     /// @brief incoming edge of this connection
     GNEEdge *myFromEdge;
 
-    /// @brief check if this connection is uncontrollec
-    bool myUncontrolled;
+    /// @brief NBEdge::Connection associated with this connection
+    NBEdge::Connection& myConnection;
 
-    /// @brief the shape of the edge
+    /// @brief the shape of the connection
     PositionVector myShape;
 
     /// @name computed only once (for performance) in updateGeometry()

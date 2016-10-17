@@ -31,6 +31,7 @@
         <xsd:attribute name="uncontrolled" type="boolType" use="optional"/>
         <xsd:attribute name="keepClear" type="boolType" use="optional"/>
         <xsd:attribute name="contPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="visibility" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="prohibitionType">
