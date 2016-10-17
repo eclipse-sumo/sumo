@@ -580,6 +580,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     if (c.contPos != NBEdge::UNSPECIFIED_CONTPOS && style != TLL) {
         into.writeAttr(SUMO_ATTR_CONTPOS, c.contPos);
     }
+    if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE && style != TLL) {
+        into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
+    }
     if (style != PLAIN) {
         if (includeInternal) {
             into.writeAttr(SUMO_ATTR_VIA, c.getInternalLaneID());

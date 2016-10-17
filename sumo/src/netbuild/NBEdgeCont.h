@@ -498,8 +498,9 @@ public:
      * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
      * @param[in] keepClear Whether the connection must check to keep the junction clear
      * @param[in] contPos Custom position for internal junction
+     * @param[in] visibility Custom foe visiblity connection
      */
-    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, SUMOReal contPos);
+    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, SUMOReal contPos, SUMOReal visibility);
 
 
     /** @brief Try to set any stored connections
@@ -560,8 +561,8 @@ private:
          * @param[in] toLane The number of the lane the connection ends at
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
-        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_) :
-            from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_) {
+        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, SUMOReal visibility_) :
+            from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_), visibility(visibility_) {
         }
         /// @brief The id of the edge the connection starts at
         std::string from;
@@ -577,6 +578,8 @@ private:
         bool keepClear;
         /// @brief custom position for internal junction on this connection
         SUMOReal contPos;
+        /// @brief custom foe visiblity for connection
+        SUMOReal visibility;
     };
 
     /// @brief The list of connections to recheck

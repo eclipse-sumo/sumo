@@ -67,6 +67,7 @@ const SUMOReal NBEdge::UNSPECIFIED_WIDTH = -1;
 const SUMOReal NBEdge::UNSPECIFIED_OFFSET = 0;
 const SUMOReal NBEdge::UNSPECIFIED_SPEED = -1;
 const SUMOReal NBEdge::UNSPECIFIED_CONTPOS = -1;
+const SUMOReal NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE = -1;
 
 const SUMOReal NBEdge::UNSPECIFIED_SIGNAL_OFFSET = -1;
 const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
@@ -94,13 +95,14 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 {}
 
 
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, bool haveVia_) : 
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, SUMOReal visibility_, bool haveVia_) : 
     fromLane(fromLane_), 
     toEdge(toEdge_), 
     toLane(toLane_),
     mayDefinitelyPass(mayDefinitelyPass_), 
     keepClear(keepClear_), 
     contPos(contPos_),
+    visibility(visibility_),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(haveVia_),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX)
@@ -767,7 +769,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                bool mayUseSameDestination,
                                bool mayDefinitelyPass,
                                bool keepClear,
-                               SUMOReal contPos) {
+                               SUMOReal contPos,
+                               SUMOReal visibility) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -780,7 +783,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility);
 }
 
 
@@ -807,7 +810,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       bool mayUseSameDestination,
                       bool mayDefinitelyPass,
                       bool keepClear,
-                      SUMOReal contPos) {
+                      SUMOReal contPos,
+                      SUMOReal visibility) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return false;
     }
@@ -844,6 +848,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     }
     myConnections.back().keepClear = keepClear;
     myConnections.back().contPos = contPos;
+    myConnections.back().visibility = visibility;
     if (type == L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {

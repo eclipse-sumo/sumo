@@ -193,6 +193,8 @@ private:
         bool keepClear;
         /// @brief custom position for internal junction on this connection
         SUMOReal contPos;
+        /// @brief custom foe visibility for connection
+        SUMOReal visibility;
     };
 
 
