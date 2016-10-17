@@ -1580,29 +1580,6 @@ MSLCM_LC2013::_wantsChange(
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
 
-// Experimental try to fix #2126 as proposed (leads to problems, see test for ticket 2126)
-//    SUMOReal thisLaneVSafe = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
-//    SUMOReal neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);
-//    if (neighLead.first == 0) {
-////        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, neighDist, 0, 0));
-//        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, true, 0.));
-//    } else {
-//        // @todo: what if leader is below safe gap?!!!
-////        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(
-////                                  &myVehicle, correctedSpeed, neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
-//        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(
-//                neighLead.second, myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
-//    }
-//
-//    if (leader.first == 0) {
-//        //        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, currentDist, 0, 0));
-//        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, true, 0.));
-//    } else {
-//        // @todo: what if leader is below safe gap?!!!
-//        //        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
-//        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(
-//                leader.second, myVehicle.getSpeed(), leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
-//    }
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
