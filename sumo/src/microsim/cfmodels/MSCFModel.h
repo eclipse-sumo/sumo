@@ -417,7 +417,6 @@ public:
     }
     /// @}
 
-protected:
     /** @brief Returns the maximum safe velocity for following the given leader
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] egoSpeed The FOLLOWERS's speed

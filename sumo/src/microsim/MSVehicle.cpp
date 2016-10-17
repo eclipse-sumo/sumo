@@ -1300,7 +1300,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     }
 #endif
     // all links within dist are taken into account (potentially)
+    // the distance already "seen"; in the following always up to the end of the current "lane" 
     const SUMOReal dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
+    const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(),0.);
+
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
@@ -1485,13 +1488,22 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         SUMOReal arrivalSpeed = vLinkPass;
         // vehicles should decelerate when approaching a minor link
-        // - unless they are close enough to have clear visibility and may start to accelerate again
+        // - unless they are close enough to have clear visibility of all relevant foe lanes and may start to accelerate again
         // - and unless they are so close that stopping is impossible (i.e. when a green light turns to yellow when close to the junction)
-        // XXX: The second condition references euler-logic (see ticket860) but seems unproblematic so far.
-        //      Recheck, when doing #892 / #2123 (Leo) Refs. #2575
-        if (!(*link)->havePriority() && stopDist > cfModel.getMaxDecel() && brakeDist < seen) {
+
+        // whether the vehicle/driver is close enough to the link to see all possible foes #2123
+        SUMOReal visibilityDistance = (*link)->getFoeVisibilityDistance();
+        SUMOReal determinedFoePresence = seen < visibilityDistance;
+//        // VARIANT: account for time needed to recognize whether relevant vehicles are on the foe lanes. (Leo)
+//        SUMOReal foeRecognitionTime = 0.0;
+//        SUMOReal determinedFoePresence = seen < visibilityDistance - myState.mySpeed*foeRecognitionTime;
+
+        if (!(*link)->havePriority() && !determinedFoePresence && brakeDist < seen) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
-            arrivalSpeed = MIN2(vLinkPass, cfModel.getMaxDecel() + cfModel.getMaxAccel());
+            SUMOReal maxSpeedAtVisibilityDist = cfModel.maximumSafeStopSpeed(visibilityDistance, myState.mySpeed, false, 0.);
+            // XXX: estimateSpeedAfterDistance does not use euler-logic (thus returns a lower value than possible here...)
+            SUMOReal maxArrivalSpeed = cfModel.estimateSpeedAfterDistance(visibilityDistance, maxSpeedAtVisibilityDist, cfModel.getMaxAccel());
+            arrivalSpeed = MIN2(vLinkPass, maxArrivalSpeed);
             slowedDownForMinor = true;
         }
 
@@ -1719,9 +1731,8 @@ MSVehicle::executeMove() {
                     << "\n";
 #endif
 
-        // the vehicle must change the lane on one of the next lanes
+        // the vehicle must change the lane on one of the next lanes (XXX: refs to code further below???, Leo)
         if (link != 0 && (*i).mySetRequest) {
-
 
             const LinkState ls = link->getState();
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
@@ -1769,20 +1780,22 @@ MSVehicle::executeMove() {
             }
             // vehicles should decelerate when approaching a minor link
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont()) {
-                if ((*i).myDistance > getCarFollowModel().getMaxDecel()) { // I think this is related to #2123 / #892 (Leo)
+                SUMOReal visibilityDistance = link->getFoeVisibilityDistance();
+                SUMOReal determinedFoePresence = i->myDistance <= visibilityDistance;
+                if (!determinedFoePresence) {
                     vSafe = (*i).myVLinkWait;
                     myHaveToWaitOnNextLink = true;
                     if (ls == LINKSTATE_EQUAL) {
                         link->removeApproaching(this);
                     }
-                    break; // could be revalidated
+                    break;
                 } else {
                     // past the point of no return. we need to drive fast enough
                     // to make it across the link. However, minor slowdowns
                     // should be permissible to follow leading traffic safely
                     // XXX: There is a problem in subsecond simulation: If we cannot
                     // make it across the minor link in one step, new traffic
-                    // could appear on a major foe link and cause a collision
+                    // could appear on a major foe link and cause a collision. Refs. #1845, #2123
                     vSafeMinDist = myLane->getLength() - getPositionOnLane(); // distance that must be covered
                 	if(MSGlobals::gSemiImplicitEulerUpdate){
                 		vSafeMin = MIN2((SUMOReal) DIST2SPEED(vSafeMinDist + POSITION_EPS), (*i).myVLinkPass);

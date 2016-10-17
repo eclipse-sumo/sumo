@@ -351,6 +351,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "source",                 SUMO_ATTR_SOURCE },
     { "via",                    SUMO_ATTR_VIA },
     { "nodes",                  SUMO_ATTR_NODES },
+    { "visibility",             SUMO_ATTR_VISIBILITY_DISTANCE },
 
     { "minDur",                 SUMO_ATTR_MINDURATION },
     { "maxDur",                 SUMO_ATTR_MAXDURATION },

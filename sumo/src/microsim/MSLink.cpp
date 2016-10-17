@@ -66,7 +66,7 @@ const SUMOReal MSLink::ZIPPER_ADAPT_DIST(100);
 // member method definitions
 // ===========================================================================
 #ifndef HAVE_INTERNAL_LANES
-MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic* logic, int tlIndex) :
+MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlIndex) :
     myLane(succLane),
     myLaneBefore(predLane),
     myIndex(-1),
@@ -76,6 +76,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState 
     myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),
+    myFoeVisibilityDistance(foeVisibilityDistance),
     myHasFoes(false),
     myAmCont(false),
     myKeepClear(keepClear),
@@ -83,8 +84,9 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState 
     myParallelRight(0),
     myParallelLeft(0),
     myJunction(0)
+{}
 #else
-MSLink::MSLink(MSLane * predLane, MSLane * succLane, MSLane * via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic * logic, int tlIndex) :
+MSLink::MSLink(MSLane * predLane, MSLane * succLane, MSLane * via, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic * logic, int tlIndex) :
     myLane(succLane),
     myLaneBefore(predLane),
     myIndex(-1),
@@ -94,6 +96,7 @@ MSLink::MSLink(MSLane * predLane, MSLane * succLane, MSLane * via, LinkDirection
     myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),
+    myFoeVisibilityDistance(foeVisibilityDistance),
     myHasFoes(false),
     myAmCont(false),
     myKeepClear(keepClear),
@@ -103,8 +106,8 @@ MSLink::MSLink(MSLane * predLane, MSLane * succLane, MSLane * via, LinkDirection
     myParallelRight(0),
     myParallelLeft(0),
     myJunction(0)
-#endif
 {}
+#endif
 
 
 MSLink::~MSLink() {}

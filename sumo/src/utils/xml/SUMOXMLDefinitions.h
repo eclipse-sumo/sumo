@@ -425,6 +425,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_DIR,
     /// The state of a link
     SUMO_ATTR_STATE,
+    /// foe visibility distance of a link
+    SUMO_ATTR_VISIBILITY_DISTANCE,
     /// A layer number
     SUMO_ATTR_LAYER,
     /// Fill the polygon

@@ -1540,7 +1540,10 @@ protected:
     typedef std::vector< DriveProcessItem > DriveItemVector;
     DriveItemVector myLFLinkLanes;
 
+    /// @todo: documentation
     void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, SUMOReal& myStopDist) const;
+
+    /// @todo: documentation
     void checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& lfLinks) const;
 
     /// @brief unregister approach from all upcoming links

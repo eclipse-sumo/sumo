@@ -152,7 +152,7 @@ public:
      * @param[in] length The length of this link
      * @param[in] keepClear Whether the junction after this link must be kept clear
      */
-    MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
+    MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
 #else
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -162,7 +162,7 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
+    MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
 #endif
 
 
@@ -349,6 +349,18 @@ public:
         return myLength;
     }
 
+
+    /** @brief Returns the distance on the approaching lane from which an
+     *         approaching vehicle is able to see all relevant foes and
+     *         may accelerate if the link is minor and no foe is approaching.
+     *
+     * @return The foe-visibility-distance
+     */
+    SUMOReal getFoeVisibilityDistance() const {
+        return myFoeVisibilityDistance;
+    }
+
+
     /** @brief Returns whether this link belongs to a junction where more than one edge is incoming
      *
      * @return Whether any foe links exist
@@ -504,6 +516,11 @@ private:
     bool myAmCont;
 
     bool myKeepClear;
+
+    /// @brief distance from which an approaching vehicle is able to
+    ///        see all relevant foes and may accelerate if the link is minor
+    ///        and no foe is approaching. Defaults to 4.5m.
+    SUMOReal myFoeVisibilityDistance;
 
     /// @brief penalty time for mesoscopic simulation
     SUMOTime myMesoTLSPenalty;

@@ -1011,6 +1011,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         bool ok = true;
         const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
         const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
+        const SUMOReal foeVisibilityDistance = attrs.getOpt<SUMOReal>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, 4.5);
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
         LinkDirection dir = parseLinkDir(attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok));
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
@@ -1071,14 +1072,14 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             }
             length = via->getLength();
         }
-        link = new MSLink(fromLane, toLane, via, dir, state, length, keepClear, logic, tlLinkIdx);
+        link = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx);
         if (via != 0) {
             via->addIncomingLane(fromLane, link);
         } else {
             toLane->addIncomingLane(fromLane, link);
         }
 #else
-        link = new MSLink(fromLane, toLane, dir, state, length, keepClear, logic, tlLinkIdx);
+        link = new MSLink(fromLane, toLane, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx);
         toLane->addIncomingLane(fromLane, link);
 #endif
         toLane->addApproachingLane(fromLane, myNetworkVersion < 0.25);
