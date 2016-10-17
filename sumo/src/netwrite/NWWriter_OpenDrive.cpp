@@ -184,7 +184,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "        <objects/>\n";
         device << "        <signals/>\n";
         if (origNames) {
-            device << "        <userData sumoId=\"" << e->getID() << "\"/>\n";
+            device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
         }
         device << "    </road>\n";
     }
