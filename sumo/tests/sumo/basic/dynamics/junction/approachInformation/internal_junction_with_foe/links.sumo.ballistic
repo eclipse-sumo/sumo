@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  5 13:40:42 2016 by SUMO Version dev-SVN-r20343
+<!-- generated on Fri Oct 14 11:34:00 2016 by SUMO Version dev-SVN-r21661
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -13,6 +13,10 @@
     <output>
         <link-output value="linkstate.xml"/>
     </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -32,7 +36,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="14.65" arrivalTimeBraking="44.65" leaveTime="15.18" arrivalSpeed="9.51" arrivalSpeedBraking="0.00" leaveSpeed="9.51" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="14.50" arrivalTimeBraking="44.50" leaveTime="16.17" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="11.48" arrivalTimeBraking="41.48" leaveTime="12.79" arrivalSpeed="9.70" arrivalSpeedBraking="0.00" leaveSpeed="11.92" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="11.83" arrivalTimeBraking="41.83" leaveTime="12.31" arrivalSpeed="10.43" arrivalSpeedBraking="0.00" leaveSpeed="10.43" willPass="1"/>
@@ -41,7 +45,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="10.92" arrivalTimeBraking="40.92" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_12_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="13.60" arrivalTimeBraking="43.60" leaveTime="15.00" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.15" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="8.92" arrivalTimeBraking="38.92" leaveTime="9.74" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="4.00">
@@ -49,7 +53,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="13.81" arrivalTimeBraking="43.81" leaveTime="14.28" arrivalSpeed="10.52" arrivalSpeedBraking="0.00" leaveSpeed="10.52" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="13.46" arrivalTimeBraking="43.46" leaveTime="15.13" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="10.13" arrivalTimeBraking="40.13" leaveTime="11.24" arrivalSpeed="11.90" arrivalSpeedBraking="0.00" leaveSpeed="13.77" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.60" arrivalTimeBraking="40.60" leaveTime="11.00" arrivalSpeed="12.50" arrivalSpeedBraking="0.00" leaveSpeed="12.50" willPass="1"/>
@@ -58,7 +62,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="10.92" arrivalTimeBraking="40.92" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_12_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="12.64" arrivalTimeBraking="42.64" leaveTime="14.04" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.15" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="8.92" arrivalTimeBraking="38.92" leaveTime="9.74" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="5.00">
@@ -66,7 +70,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="12.87" arrivalTimeBraking="42.87" leaveTime="13.29" arrivalSpeed="12.02" arrivalSpeedBraking="0.00" leaveSpeed="12.02" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="11.08" arrivalTimeBraking="41.08" leaveTime="12.76" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="9.38" arrivalTimeBraking="39.38" leaveTime="10.41" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.05" arrivalTimeBraking="40.05" leaveTime="10.41" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -75,7 +79,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="10.92" arrivalTimeBraking="40.92" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_12_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="10.47" arrivalTimeBraking="40.47" leaveTime="11.87" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.15" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="8.92" arrivalTimeBraking="38.92" leaveTime="9.74" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="6.00">
@@ -83,7 +87,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="12.10" arrivalTimeBraking="42.09" leaveTime="12.46" arrivalSpeed="13.85" arrivalSpeedBraking="0.00" leaveSpeed="13.85" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="9.97" arrivalTimeBraking="39.97" leaveTime="11.64" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="9.38" arrivalTimeBraking="39.38" leaveTime="10.41" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.05" arrivalTimeBraking="40.05" leaveTime="10.41" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -92,7 +96,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="10.92" arrivalTimeBraking="40.92" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_12_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="9.48" arrivalTimeBraking="39.48" leaveTime="10.88" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.15" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="8.92" arrivalTimeBraking="38.92" leaveTime="9.74" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="7.00">
@@ -100,7 +104,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="12.08" arrivalTimeBraking="42.08" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="9.78" arrivalTimeBraking="39.77" leaveTime="11.45" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="9.41" arrivalTimeBraking="39.41" leaveTime="10.43" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.07" arrivalTimeBraking="40.07" leaveTime="10.43" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -109,7 +113,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="10.92" arrivalTimeBraking="40.92" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_12_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="9.31" arrivalTimeBraking="39.31" leaveTime="10.72" arrivalSpeed="7.10" arrivalSpeedBraking="0.00" leaveSpeed="9.15" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="8.94" arrivalTimeBraking="38.94" leaveTime="9.77" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="8.00">
@@ -117,7 +121,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="12.08" arrivalTimeBraking="42.08" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="9.78" arrivalTimeBraking="11.71" leaveTime="11.45" arrivalSpeed="7.10" arrivalSpeedBraking="4.14" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="9.41" arrivalTimeBraking="11.71" leaveTime="10.43" arrivalSpeed="13.89" arrivalSpeedBraking="4.14" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.07" arrivalTimeBraking="40.07" leaveTime="10.43" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -126,7 +130,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="10.92" arrivalTimeBraking="40.92" leaveTime="12.44" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_12_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="9.31" arrivalTimeBraking="10.40" leaveTime="10.72" arrivalSpeed="7.10" arrivalSpeedBraking="8.65" leaveSpeed="9.15" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="8.94" arrivalTimeBraking="10.40" leaveTime="9.77" arrivalSpeed="13.89" arrivalSpeedBraking="8.65" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="9.00">
@@ -134,7 +138,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="12.10" arrivalTimeBraking="42.10" leaveTime="12.46" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="9.81" arrivalTimeBraking="10.60" leaveTime="11.48" arrivalSpeed="7.10" arrivalSpeedBraking="10.91" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="9.43" arrivalTimeBraking="10.60" leaveTime="10.46" arrivalSpeed="13.89" arrivalSpeedBraking="10.91" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.10" arrivalTimeBraking="11.92" leaveTime="10.45" arrivalSpeed="13.89" arrivalSpeedBraking="5.99" leaveSpeed="13.89" willPass="1"/>
@@ -151,7 +155,7 @@
             <approaching id="foe" impatience="0.00" arrivalTime="12.10" arrivalTimeBraking="42.10" leaveTime="12.46" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_12_0" via=":C_22_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="10.03" arrivalTimeBraking="10.86" leaveTime="11.70" arrivalSpeed="7.10" arrivalSpeedBraking="8.86" leaveSpeed="9.92" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="10.53" arrivalTimeBraking="10.86" leaveTime="11.60" arrivalSpeed="12.80" arrivalSpeedBraking="8.86" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_22_0" via="" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.74" arrivalTimeBraking="10.74" leaveTime="11.12" arrivalSpeed="13.36" arrivalSpeedBraking="-nan" leaveSpeed="13.36" willPass="1"/>

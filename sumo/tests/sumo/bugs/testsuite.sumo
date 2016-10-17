@@ -215,3 +215,4 @@ ticket2543
 
 # StopSpeed returns a too low value for the euler update in case of insertion
 ticket2574
+ticket1845
