@@ -638,6 +638,10 @@ int MSDevice_Battery::getVehicleStopped() const {
 
 
 SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
+    assert(veh.getSpeed >= 0.);
+
+    //XXX: all formulas below work with the logic of the euler update (refs #860). Approximation order could be improved.
+
     // calculate current height
     SUMOReal height_cur = veh.getPositionOnLane() / veh.getLane()->getLength() * (veh.getLane()->getShape().back().z() - veh.getLane()->getShape().front().z());
 
@@ -664,8 +668,8 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     // Calculate energy losses:
     // EnergyLoss,Air = 1/2 * rho_air [kg/m^3] * myFrontSurfaceArea [m^2] * myAirDragCoefficient [-] * v_Veh^2 [m/s] * s [m]
     //                    ... with rho_air [kg/m^3] = 1,2041 kg/m^3 (at T = 20C)
-    //                    ... with s [m] = v_Veh [m/s] * 1 [s]
-    EnergyLoss += 0.5 * 1.2041 * getFrontSurfaceArea() * getAirDragCoefficient() * fabs(veh.getSpeed() * veh.getSpeed() * veh.getSpeed());
+    //                    ... with s [m] = v_Veh [m/s] * TS [s]
+    EnergyLoss += 0.5 * 1.2041 * getFrontSurfaceArea() * getAirDragCoefficient() * veh.getSpeed() * veh.getSpeed() * SPEED2DIST(veh.getSpeed());
 
 
     // Energy loss through Roll resistance [Ws]
@@ -673,7 +677,7 @@ SUMOReal MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     // EnergyLoss,Tire = c_R [-] * F_N [N] * s [m]
     //                    ... with c_R = ~0.012    (car tire on asphalt)
     //                    ... with F_N [N] = myMass [kg] * g [m/s^2]
-    EnergyLoss += getRollDragCoefficient() * 9.81 * getMass() * fabs(veh.getSpeed());
+    EnergyLoss += getRollDragCoefficient() * 9.81 * getMass() * SPEED2DIST(veh.getSpeed());
 
 
     // Energy loss through friction by radial force [Ws]
