@@ -637,6 +637,7 @@ GNELane::updateGeometry() {
         }
     }
     // If lane has enought lenght for show textures of restricted lanes
+    /*
     if((getLaneShapeLenght() > 4)) {
         bool calculatePositionAndRotations = true;
         // check if lane is restricted, and type of restriction
@@ -659,6 +660,7 @@ GNELane::updateGeometry() {
             }
         }
     }
+    */
 }
 
 int
