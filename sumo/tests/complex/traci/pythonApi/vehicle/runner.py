@@ -34,6 +34,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen([sumoBinary,
                                 '-c', 'sumo.sumocfg',
+                                '--ignore-route-errors',
                                 '--additional-files',
                                 'input_additional.add.xml,input_additional2.add.xml',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
@@ -307,6 +308,13 @@ traci.vehicle.add("tazVeh", "withTaz2")
 print("tazVeh edges", traci.vehicle.getRoute("tazVeh"))
 print("step", step())
 print("tazVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition("tazVeh"), traci.vehicle.getRoute("tazVeh")))
+# add vehicle and attempt to route between disconnected edges
+traci.vehicle.add("failVeh", "failRoute")
+print("failVeh edges", traci.vehicle.getRoute("failVeh"))
+for i in range(5):
+    print("step", step())
+    print("failVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition("failVeh"),
+        traci.vehicle.getRoute("failVeh")))
 
 # done
 traci.close()

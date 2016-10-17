@@ -3,4 +3,6 @@
     <route id="withStop" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si">
         <stop busStop="busstop1" duration="3"/>
     </route>
+
+    <route id="failRoute" edges="3fi disconnected"/>
 </add>
