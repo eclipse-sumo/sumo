@@ -75,3 +75,6 @@ contPos
 
 # custom position for internal junction
 contPos_4arm
+
+# custom foe visiblity
+visibility

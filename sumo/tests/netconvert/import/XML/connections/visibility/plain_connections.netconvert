@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Oct 17 13:03:13 2016 by SUMO netconvert Version dev-SVN-r21710
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="CE" to="EC" fromLane="1" toLane="1"/>
+
+    <connection from="CN" to="NC" fromLane="1" toLane="1"/>
+
+    <connection from="CS" to="SC" fromLane="1" toLane="1"/>
+
+    <connection from="CW" to="WC" fromLane="1" toLane="1"/>
+
+    <connection from="EC" to="CN" fromLane="0" toLane="0"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1"/>
+    <connection from="EC" to="CS" fromLane="1" toLane="1"/>
+
+    <connection from="NC" to="CW" fromLane="0" toLane="0"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1"/>
+    <connection from="NC" to="CE" fromLane="1" toLane="1"/>
+
+    <connection from="SC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0"/>
+    <connection from="SC" to="CN" fromLane="1" toLane="1"/>
+    <connection from="SC" to="CW" fromLane="1" toLane="1" visibility="40.00"/>
+
+    <connection from="WC" to="CS" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1"/>
+    <connection from="WC" to="CN" fromLane="1" toLane="1"/>
+
+</connections>
