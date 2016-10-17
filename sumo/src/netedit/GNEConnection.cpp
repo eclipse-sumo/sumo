@@ -342,6 +342,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(myConnection.contPos);
         case SUMO_ATTR_UNCONTROLLED:
             return toString(myUncontrolled);
+        case SUMO_ATTR_VISIBILITY_DISTANCE:
+            return toString(4.5); // XXX retrieve this value from the underlying container
         default:
             throw InvalidArgument("connection attribute '" + toString(key) + "' not allowed");
     }
@@ -351,8 +353,6 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
 void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            throw InvalidArgument("modifying connection attribute '" + toString(key) + "' not allowed");
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_FROM_LANE:
@@ -361,6 +361,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_KEEP_CLEAR:
         case SUMO_ATTR_CONTPOS:
         case SUMO_ATTR_UNCONTROLLED:
+        case SUMO_ATTR_VISIBILITY_DISTANCE:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
