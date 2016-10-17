@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Jul 15 15:52:48 2016" north="125.81" south="-2.78" east="201.08" west="60.33" maxRoad="4" maxJunc="8" maxPrg="0"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:04:24 2016" north="125.81" south="-2.78" east="201.08" west="60.33"/>
     <road name="" length="259.99" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -31,14 +31,13 @@
         <lanes>
             <laneSection s="0">
                 <center>
-                    <lane id="0" type="none" level= "0">
+                    <lane id="0" type="none" level="true">
                         <link/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <width sOffset="0" a="0" b="0" c="0" d="0"/>
                     </lane>
                 </center>
                 <right>
-                    <lane id="-1" type="driving" level="0">
+                    <lane id="-1" type="driving" level="true">
                         <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
@@ -93,14 +92,13 @@
         <lanes>
             <laneSection s="0">
                 <center>
-                    <lane id="0" type="none" level= "0">
+                    <lane id="0" type="none" level="true">
                         <link/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <width sOffset="0" a="0" b="0" c="0" d="0"/>
                     </lane>
                 </center>
                 <right>
-                    <lane id="-1" type="driving" level="0">
+                    <lane id="-1" type="driving" level="true">
                         <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
@@ -157,14 +155,13 @@
         <lanes>
             <laneSection s="0">
                 <center>
-                    <lane id="0" type="none" level= "0">
+                    <lane id="0" type="none" level="true">
                         <link/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <width sOffset="0" a="0" b="0" c="0" d="0"/>
                     </lane>
                 </center>
                 <right>
-                    <lane id="-1" type="driving" level="0">
+                    <lane id="-1" type="driving" level="true">
                         <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
@@ -239,14 +236,13 @@
         <lanes>
             <laneSection s="0">
                 <center>
-                    <lane id="0" type="none" level= "0">
+                    <lane id="0" type="none" level="true">
                         <link/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <width sOffset="0" a="0" b="0" c="0" d="0"/>
                     </lane>
                 </center>
                 <right>
-                    <lane id="-1" type="driving" level="0">
+                    <lane id="-1" type="driving" level="true">
                         <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
