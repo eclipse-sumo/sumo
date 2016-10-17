@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:24:48 2016" north="125.81" south="-2.78" east="201.08" west="60.33"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:51:19 2016" north="125.81" south="-2.78" east="201.08" west="60.33"/>
     <road name="" length="259.99" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -48,7 +48,7 @@
         </lanes>
         <objects/>
         <signals/>
-        <userData sumoId="-1.0.00"/>
+        <userData code="sumoId" value="-1.0.00"/>
     </road>
     <road name="" length="195.75" id="2" junction="-1">
         <link>
@@ -109,7 +109,7 @@
         </lanes>
         <objects/>
         <signals/>
-        <userData sumoId="-2.0.00"/>
+        <userData code="sumoId" value="-2.0.00"/>
     </road>
     <road name="" length="111.68" id="3" junction="-1">
         <link>
@@ -172,7 +172,7 @@
         </lanes>
         <objects/>
         <signals/>
-        <userData sumoId="-3.0.00"/>
+        <userData code="sumoId" value="-3.0.00"/>
     </road>
     <road name="" length="86.37" id="4" junction="-1">
         <link>
@@ -253,7 +253,7 @@
         </lanes>
         <objects/>
         <signals/>
-        <userData sumoId="-4.0.00"/>
+        <userData code="sumoId" value="-4.0.00"/>
     </road>
 
 </OpenDRIVE>
