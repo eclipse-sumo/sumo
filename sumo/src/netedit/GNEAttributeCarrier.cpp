@@ -603,6 +603,9 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
 
         myDiscreteChoices[SUMO_TAG_CONNECTION][SUMO_ATTR_UNCONTROLLED].push_back("true");
         myDiscreteChoices[SUMO_TAG_CONNECTION][SUMO_ATTR_UNCONTROLLED].push_back("false");
+
+        myDiscreteChoices[SUMO_TAG_CONNECTION][SUMO_ATTR_PASS].push_back("true");
+        myDiscreteChoices[SUMO_TAG_CONNECTION][SUMO_ATTR_PASS].push_back("false");
     }
 
     return myDiscreteChoices[tag][attr];

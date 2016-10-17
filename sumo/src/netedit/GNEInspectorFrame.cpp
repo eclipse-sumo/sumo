@@ -458,11 +458,7 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
     // Set field depending of the type of value
     if (GNEAttributeCarrier::isBool(myAttr)) {
         // set value of checkbox
-        if (value == "true") {
-            myCheckBox->setCheck(true);
-        } else {
-            myCheckBox->setCheck(false);
-        }
+        myCheckBox->setCheck(GNEAttributeCarrier::parse<bool>(value));
         myCheckBox->show();
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
