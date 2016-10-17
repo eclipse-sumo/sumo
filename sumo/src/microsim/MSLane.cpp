@@ -1511,34 +1511,6 @@ MSLane::getLinkCont() const {
 }
 
 
-const MSLink*
-MSLane::getLinkTo(const MSLane* target) const {
-    if(target == 0) return 0;
-
-    MSLinkCont::const_iterator i = myLinks.begin();
-    MSLink* link = 0; MSLane* lane = 0;
-    while(i != myLinks.end()){
-        link = *(i++);
-        if(link == 0) continue;
-
-        lane = link->getViaLaneOrLane();
-        while(lane != target) {
-            if(lane->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL){
-                // lane is a non-internal and is not the target -> check the next link
-                break;
-            } else {
-                // lane is internal (go on to the following link)
-                assert(lane->getLinkCont().size() == 1);
-                lane = lane->getLinkCont()[0]->getViaLaneOrLane();
-                continue;
-            }
-        }
-    }
-    if(lane != target) link=0; // target is no continuation lane for this
-    return link;
-}
-
-
 void
 MSLane::setMaxSpeed(SUMOReal val) {
     myMaxSpeed = val;

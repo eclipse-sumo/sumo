@@ -549,9 +549,6 @@ public:
     /// returns the container with all links !!!
     const MSLinkCont& getLinkCont() const;
 
-    /// return the link leading to target (if it exists)
-    const MSLink* getLinkTo(const MSLane* target) const;
-
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const {
         assert(myVehBuffer.size() == 0);

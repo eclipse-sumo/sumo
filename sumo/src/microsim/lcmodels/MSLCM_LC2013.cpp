@@ -1194,7 +1194,8 @@ MSLCM_LC2013::_wantsChange(
             }
             assert(nextLane!=0);
             // add all lengths remaining internal lanes of current continuations until nextLane
-            roundaboutDistanceAheadNeigh += myVehicle.getLane()->getLinkTo(nextLane)->getInternalLengthsAfter();
+            const MSLink* link = MSLinkContHelper::getConnectingLink(*myVehicle.getLane(), *nextLane);
+            roundaboutDistanceAheadNeigh += link->getInternalLengthsAfter();
         }
     }
 #endif
@@ -1806,7 +1807,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(SUMOReal position, const MSLane* initi
             } else {
                 // add internal lengths
                 const MSLane* nextLane = *(j+1);
-                const MSLink* link = initialLane->getLinkTo(nextLane);
+                const MSLink* link = MSLinkContHelper::getConnectingLink(*initialLane, *nextLane);
                 assert(link!=0);
                 roundaboutDistanceAhead += link->getInternalLengthsAfter();
             }
@@ -1835,7 +1836,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(SUMOReal position, const MSLane* initi
             // consecutive edge is on the roundabout as well
             if (it+1 != continuationLanes.end() && *(it+1) != 0 && (*(it+1))->getEdge().isRoundabout()){
                 // find corresponding link for the current lane
-                const MSLink* link = lane->getLinkTo(*(it+1));
+                const MSLink* link = MSLinkContHelper::getConnectingLink(*lane, **(it + 1));
                 assert(link!=0);
                 SUMOReal linkLength = link->getInternalLengthsAfter();
                 roundaboutDistanceAhead += linkLength;
