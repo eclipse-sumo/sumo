@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:04:24 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:24:48 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="70.66" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1190,8 +1190,6 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="2a" id="4">
-    </junction>
     <junction name="3" id="9">
     <connection id="0" incomingRoad="5" connectingRoad="17" contactPoint="start">
         <laneLink from="-3" to="-1"/>
@@ -1216,12 +1214,6 @@
     <connection id="3" incomingRoad="4" connectingRoad="23" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    </junction>
-    <junction name="4a" id="5">
-    </junction>
-    <junction name="5" id="7">
-    </junction>
-    <junction name="gneJ0" id="2">
     </junction>
     <junction name="s2-AddedOnRampNode" id="8">
     <connection id="0" incomingRoad="6" connectingRoad="24" contactPoint="start">

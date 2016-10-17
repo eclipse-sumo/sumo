@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:04:25 2016" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:24:48 2016" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
     <road name="" length="99.69" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -11017,8 +11017,6 @@
         <objects/>
         <signals/>
     </road>
-    <junction name="103895156" id="13">
-    </junction>
     <junction name="103895952" id="2">
     <connection id="0" incomingRoad="1" connectingRoad="76" contactPoint="start">
         <laneLink from="-1" to="-1"/>
@@ -11281,16 +11279,6 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="1890502809" id="44">
-    </junction>
-    <junction name="1890502816" id="63">
-    </junction>
-    <junction name="1890502906" id="42">
-    </junction>
-    <junction name="1890531859" id="38">
-    </junction>
-    <junction name="1890531861" id="46">
-    </junction>
     <junction name="1890531875" id="45">
     <connection id="0" incomingRoad="66" connectingRoad="150" contactPoint="start">
         <laneLink from="-1" to="-1"/>
@@ -11298,10 +11286,6 @@
     <connection id="1" incomingRoad="40" connectingRoad="151" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    </junction>
-    <junction name="1890531879" id="65">
-    </junction>
-    <junction name="1890531920" id="23">
     </junction>
     <junction name="1890531922" id="41">
     <connection id="0" incomingRoad="38" connectingRoad="152" contactPoint="start">
@@ -11509,14 +11493,6 @@
         <laneLink from="-3" to="-1"/>
     </connection>
     </junction>
-    <junction name="601145306" id="39">
-    </junction>
-    <junction name="62901951" id="68">
-    </junction>
-    <junction name="63242784" id="32">
-    </junction>
-    <junction name="63279267" id="24">
-    </junction>
     <junction name="63288809" id="51">
     <connection id="0" incomingRoad="46" connectingRoad="208" contactPoint="start">
         <laneLink from="-1" to="-1"/>
@@ -11581,8 +11557,6 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="64846823" id="8">
-    </junction>
     <junction name="71121975" id="26">
     <connection id="0" incomingRoad="21" connectingRoad="226" contactPoint="start">
         <laneLink from="-5" to="-1"/>
@@ -11635,8 +11609,6 @@
     <connection id="3" incomingRoad="51" connectingRoad="240" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    </junction>
-    <junction name="78603287" id="70">
     </junction>
     <junction name="78603290" id="66">
     <connection id="0" incomingRoad="69" connectingRoad="241" contactPoint="start">
@@ -11716,8 +11688,6 @@
     <connection id="3" incomingRoad="72" connectingRoad="263" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    </junction>
-    <junction name="95370953" id="10">
     </junction>
     <junction name="9792174#1-AddedOnRampNode" id="69">
     <connection id="0" incomingRoad="75" connectingRoad="264" contactPoint="start">

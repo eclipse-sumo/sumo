@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:04:24 2016" north="125.81" south="-2.78" east="201.08" west="60.33"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:24:48 2016" north="125.81" south="-2.78" east="201.08" west="60.33"/>
     <road name="" length="259.99" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -256,20 +256,4 @@
         <userData sumoId="-4.0.00"/>
     </road>
 
-    <junction name="1" id="1">
-    </junction>
-    <junction name="2" id="2">
-    </junction>
-    <junction name="3" id="3">
-    </junction>
-    <junction name="4" id="4">
-    </junction>
-    <junction name="5" id="5">
-    </junction>
-    <junction name="6" id="6">
-    </junction>
-    <junction name="7" id="7">
-    </junction>
-    <junction name="8" id="8">
-    </junction>
 </OpenDRIVE>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:04:24 2016" north="0.00" south="0.00" east="50.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:24:48 2016" north="0.00" south="0.00" east="50.00" west="0.00"/>
     <road name="a1" length="50.00" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -82,8 +82,4 @@
         <signals/>
     </road>
 
-    <junction name="1.begin" id="1">
-    </junction>
-    <junction name="1.end" id="2">
-    </junction>
 </OpenDRIVE>
