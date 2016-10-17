@@ -87,15 +87,16 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
-//#define DEBUG_PATCH_SPEED
+#define DEBUG_PATCH_SPEED
 //#define DEBUG_INFORMED
 //#define DEBUG_INFORMER
-//#define DEBUG_CONSTRUCTOR
-//#define DEBUG_WANTS_CHANGE
+#define DEBUG_CONSTRUCTOR
+#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
-#define DEBUG_COND (myVehicle.getID() == "disabled")
+//#define DEBUG_COND (myVehicle.getID() == "disabled")
+#define DEBUG_COND (myVehicle.getID() == "v0")
 
 // ===========================================================================
 // member method definitions
@@ -1557,27 +1558,21 @@ MSLCM_LC2013::_wantsChange(
     //    return ret;
     //}
 
-    // followSpeed returns the speed after accelerating for TS but we are
-    // interested in the speed after 1s
-    // NOTE: The following code is related to #2126 (replace followSpeed() by maximumSafeSpeed()?!) Consider patch (see trac)
-    const SUMOReal correctedSpeed = (myVehicle.getSpeed()
-                                     + myVehicle.getCarFollowModel().getMaxAccel()
-                                     - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
-
     SUMOReal thisLaneVSafe = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     SUMOReal neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);
     if (neighLead.first == 0) {
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, neighDist, 0, 0));
+        // XXX: why stop if neigh lead is NULL? (Leo)
+        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed()));
     } else {
         // @todo: what if leader is below safe gap?!!!
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(
-                                  &myVehicle, correctedSpeed, neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
+        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(neighLead.second, myVehicle.getSpeed(),
+                neighLead.first->getSpeed(),neighLead.first->getCarFollowModel().getMaxDecel()));
     }
     if (leader.first == 0) {
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, currentDist, 0, 0));
+        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, myVehicle.getSpeed()));
     } else {
         // @todo: what if leader is below safe gap?!!!
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
+        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(leader.second, myVehicle.getSpeed(), leader.first->getSpeed(),leader.first->getCarFollowModel().getMaxDecel()));
     }
 
 
@@ -1776,6 +1771,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(SUMOReal position, const MSLane* initi
         initialLane = *j;
     } else if (initialLane->getEdge().isRoundabout()){
         // initial lane is on roundabout
+        assert(position >= 0. && position <= initialLane->getLength());
         if (!initialLane->isInternal()){
             assert(initialLane == *j);
             roundaboutDistanceAhead += initialLane->getLength() - position;
@@ -1796,8 +1792,6 @@ MSLCM_LC2013::distanceAlongNextRoundabout(SUMOReal position, const MSLane* initi
             roundaboutDistanceAhead += initialLane->getLinkCont()[0]->getInternalLengthsAfter();
         }
     }
-
-    assert(position >= 0. && position <= initialLane->getLength());
 
     // treat lanes beyond the initial one
     for (std::vector<MSLane*>::const_iterator it = j; it != continuationLanes.end(); ++it) {
