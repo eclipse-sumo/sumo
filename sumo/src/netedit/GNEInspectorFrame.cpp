@@ -734,12 +734,10 @@ GNEInspectorFrame::AttrConnection::showConnections(GNEConnection* connection) {
     // Set pointer to current connection
     myConnection = connection;
     // set Label
+    const NBEdge::Connection& con = myConnection->getNBEdgeConnection();
     myConnectionInfoLabel->setText(std::string(
-        myConnection->getEdgeFrom()->getID() +
-        "[" + toString(myConnection->getLaneFrom()->getIndex()) +
-        "] -> " + myConnection->getEdgeTo()->getID() +
-        "[" + toString(myConnection->getLaneTo()->getIndex()) +
-        "]").c_str());
+                myConnection->getEdgeFrom()->getNBEdge()->getLaneID(con.toLane) + 
+                "->" + con.toEdge->getLaneID(con.toLane)).c_str());
     // Show Label
     myConnectionInfoLabel->show();
     // set show Connection
