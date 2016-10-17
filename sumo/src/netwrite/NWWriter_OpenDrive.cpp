@@ -315,7 +315,7 @@ NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& de
         const SUMOReal hdg = shape.angleAt2D(j);
         const SUMOReal length = p.distanceTo2D(p2);
         device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << length << "\"><line/></geometry>\n";
-        elevationDevice << "            <elevation s=\"" << offset << "\" a=\"" << p.z() << "\" b=\"" << (p2.z() - p.z()) / length << "\" c=\"0\" d=\"0\"/>\n";
+        elevationDevice << "            <elevation s=\"" << offset << "\" a=\"" << p.z() << "\" b=\"" << (p2.z() - p.z()) / MAX2(POSITION_EPS, length) << "\" c=\"0\" d=\"0\"/>\n";
         offset += length;
     }
     return offset;
@@ -413,6 +413,9 @@ NWWriter_OpenDrive::writeGeomPP3(
     SUMOReal length,
     SUMOReal offset) {
     assert(init.size() == 3 || init.size() == 4);
+
+    // avoid division by 0
+    length = MAX2(POSITION_EPS, length);
 
     const Position p = init.front();
     const SUMOReal hdg = init.angleAt2D(0);
