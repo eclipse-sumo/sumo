@@ -1614,7 +1614,7 @@ GNEViewNet::buildEditModeControls() {
     myWarnAboutMerge = new FXMenuCheck(myToolbar, "ask for merge\t\tAsk for confirmation before merging junctions.", this, 0);
     myWarnAboutMerge->setCheck(true);
 
-    myShowJunctionAsBubble = new FXMenuCheck(myToolbar, "Show junction as buubles\t\tShow juntion's shape as a buuble.", this, MID_GNE_SHOW_BUBBLES);
+    myShowJunctionAsBubble = new FXMenuCheck(myToolbar, "Show junction as bubbles\t\tShow juntion's shape as a bubble.", this, MID_GNE_SHOW_BUBBLES);
     myShowJunctionAsBubble->setCheck(false);
 
     myChangeAllPhases = new FXMenuCheck(myToolbar, "apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current traffic light plan", this, 0);
