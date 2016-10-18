@@ -679,7 +679,7 @@ SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge
 
 std::string
 SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
-    return laneID.substr(0, laneID.rfind('_') - 1);
+    return laneID.substr(0, laneID.rfind('_'));
 }
 
 /****************************************************************************/
