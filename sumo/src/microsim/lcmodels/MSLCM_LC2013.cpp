@@ -1058,6 +1058,7 @@ MSLCM_LC2013::_wantsChange(
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
+    // XXX: What does the following code do? Please comment. (Leo) Refs. #2578
     const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
     const int prebOffset = (checkOpposite ? 0 : laneOffset);
     for (int p = 0; p < (int) preb.size(); ++p) {
@@ -1277,10 +1278,10 @@ MSLCM_LC2013::_wantsChange(
         // to reduce the sense of urgency within roundabouts and promote the
         // use of the inner lane.
         if(roundaboutDistanceAheadNeigh > ROUNDABOUT_DIST_TRESH){
-            neighDist += (roundaboutDistanceAheadNeigh-ROUNDABOUT_DIST_TRESH)*(ROUNDABOUT_DIST_FACTOR - 1.);
+            neighDist += MAX2(SUMOReal(0.), roundaboutDistanceAheadNeigh-ROUNDABOUT_DIST_TRESH)*(ROUNDABOUT_DIST_FACTOR - 1.);
         }
         if(roundaboutDistanceAhead > ROUNDABOUT_DIST_TRESH){
-            currentDist += (roundaboutDistanceAhead-ROUNDABOUT_DIST_TRESH)*(ROUNDABOUT_DIST_FACTOR - 1.);
+            currentDist += MAX2(SUMOReal(0.), roundaboutDistanceAhead-ROUNDABOUT_DIST_TRESH)*(ROUNDABOUT_DIST_FACTOR - 1.);
         }
     }
 
@@ -1561,18 +1562,25 @@ MSLCM_LC2013::_wantsChange(
     SUMOReal neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);
     if (neighLead.first == 0) {
         // XXX: why stop if neigh lead is NULL? (Leo)
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed()));
+        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed(),true));
     } else {
         // @todo: what if leader is below safe gap?!!!
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(neighLead.second, myVehicle.getSpeed(),
-                neighLead.first->getSpeed(),neighLead.first->getCarFollowModel().getMaxDecel()));
+                neighLead.first->getSpeed(),neighLead.first->getCarFollowModel().getMaxDecel(),true));
     }
     if (leader.first == 0) {
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, myVehicle.getSpeed()));
+        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, myVehicle.getSpeed(),true));
     } else {
         // @todo: what if leader is below safe gap?!!!
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(leader.second, myVehicle.getSpeed(), leader.first->getSpeed(),leader.first->getCarFollowModel().getMaxDecel()));
+        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(leader.second, myVehicle.getSpeed(),
+                leader.first->getSpeed(),leader.first->getCarFollowModel().getMaxDecel(),true));
     }
+
+    const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+    thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
+    neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
+    const SUMOReal relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
+                                  RELGAIN_NORMALIZATION_MIN_SPEED);
 
 
 #ifdef DEBUG_WANTS_CHANGE
@@ -1581,15 +1589,12 @@ MSLCM_LC2013::_wantsChange(
                   << " veh=" << myVehicle.getID()
                   << " currentDist=" << currentDist
                   << " neighDist=" << neighDist
+//                  << "\n thisLaneVSafe=" << toString(thisLaneVSafe,24)
+//                  << "\nneighLaneVSafe=" << toString(neighLaneVSafe,24)
+//                  << "\nrelativeGain=" << toString(relativeGain,24)
                   << "\n";
     }
 #endif
-
-    const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
-    thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
-    neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
-    const SUMOReal relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
-                                  RELGAIN_NORMALIZATION_MIN_SPEED);
 
     if (right) {
         // ONLY FOR CHANGING TO THE RIGHT
