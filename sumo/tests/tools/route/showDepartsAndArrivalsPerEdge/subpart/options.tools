@@ -1,0 +1,1 @@
+routes.rou.xml --output-file out.rou.xml --subpart b,c tools/showDepartsAndArrivalsPerEdge.py

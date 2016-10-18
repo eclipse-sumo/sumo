@@ -22,3 +22,6 @@ routeStats
 
 # tests for modifying departure times
 departOffset
+
+# test for generating edge traffic counts
+showDepartsAndArrivalsPerEdge
