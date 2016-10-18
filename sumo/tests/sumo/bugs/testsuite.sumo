@@ -2,7 +2,7 @@
 ticket2556
 
 # (Copy of overtake_stopped_on_the_left) with subsecond step-length
-ticket2126_subsecond
+ticket2603
 
 # platform dependent bug related to lanechanging and maybe floating point
 lanechange

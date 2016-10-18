@@ -9,40 +9,40 @@ Warning: Teleporting vehicle 'always_right.5'; collision with vehicle 'horizonta
 Warning: Vehicle 'always_right.5' teleports beyond arrival edge '2o', time 40.00.
 Warning: Teleporting vehicle 'always_right.6'; collision with vehicle 'horizontal.6', lane='2o_0', gap=-5.00, time=42.00 stage=move.
 Warning: Vehicle 'always_right.6' teleports beyond arrival edge '2o', time 42.00.
-Warning: Teleporting vehicle 'always_right.7'; collision with vehicle 'horizontal.7', lane='2o_0', gap=-5.00, time=44.00 stage=move.
+Warning: Teleporting vehicle 'always_right.7'; collision with vehicle 'horizontal.7', lane='2o_0', gap=-0.61, time=44.00 stage=move.
 Warning: Vehicle 'always_right.7' teleports beyond arrival edge '2o', time 44.00.
-Warning: Teleporting vehicle 'always_right.9'; collision with vehicle 'horizontal.11', lane='2o_0', gap=-0.75, time=54.00 stage=move.
-Warning: Vehicle 'always_right.9' teleports beyond arrival edge '2o', time 54.00.
-Warning: Teleporting vehicle 'always_right.11'; collision with vehicle 'horizontal.13', lane='2o_0', gap=-1.35, time=56.00 stage=move.
-Warning: Vehicle 'always_right.11' teleports beyond arrival edge '2o', time 56.00.
-Warning: Teleporting vehicle 'horizontal.15'; collision with vehicle 'always_right.13', lane='2o_0', gap=-0.27, time=62.00 stage=move.
-Warning: Vehicle 'horizontal.15' teleports beyond arrival edge '2o', time 62.00.
-Warning: Teleporting vehicle 'always_right.15'; collision with vehicle 'horizontal.16', lane='2o_0', gap=-2.00, time=65.00 stage=move.
-Warning: Vehicle 'always_right.15' teleports beyond arrival edge '2o', time 65.00.
-Warning: Teleporting vehicle 'always_right.16'; collision with vehicle 'horizontal.17', lane='2o_0', gap=-4.81, time=67.00 stage=move.
-Warning: Vehicle 'always_right.16' teleports beyond arrival edge '2o', time 67.00.
-Warning: Teleporting vehicle 'always_right.18'; collision with vehicle 'horizontal.19', lane='2o_0', gap=-2.80, time=73.00 stage=move.
-Warning: Vehicle 'always_right.18' teleports beyond arrival edge '2o', time 73.00.
-Warning: Teleporting vehicle 'always_right.17'; collision with vehicle 'horizontal.21', lane='2o_0', gap=-4.45, time=76.00 stage=move.
-Warning: Vehicle 'always_right.17' teleports beyond arrival edge '2o', time 76.00.
-Warning: Teleporting vehicle 'always_right.20'; collision with vehicle 'horizontal.23', lane='2o_0', gap=-3.90, time=79.00 stage=move.
-Warning: Vehicle 'always_right.20' teleports beyond arrival edge '2o', time 79.00.
-Warning: Teleporting vehicle 'horizontal.26'; collision with vehicle 'always_right.22', lane='2o_0', gap=-4.42, time=89.00 stage=move.
-Warning: Vehicle 'horizontal.26' teleports beyond arrival edge '2o', time 89.00.
-Warning: Teleporting vehicle 'always_right.27'; collision with vehicle 'horizontal.25', lane='2o_0', gap=-1.52, time=97.00 stage=move.
-Warning: Vehicle 'always_right.27' teleports beyond arrival edge '2o', time 97.00.
-Warning: Vehicle 'horizontal.29' performs emergency stop at the end of lane '1si_1' because of a red traffic light (decel=-13.53, offset = 4.66), time=100.00.
-Warning: Teleporting vehicle 'horizontal.29'; waited too long (yield), lane='1si_1', time=401.00.
-Warning: Vehicle 'horizontal.29' ends teleporting on edge '2o', time 401.00.
-Warning: Teleporting vehicle 'always_right.28'; waited too long (yield), lane='3si_0', time=403.00.
-Warning: Vehicle 'always_right.28' ends teleporting on edge '2o', time 403.00.
-Warning: Teleporting vehicle 'horizontal.51'; waited too long (wrong lane), lane='1si_2', time=456.00.
-Warning: Vehicle 'horizontal.51' ends teleporting on edge '2o', time 456.00.
-Warning: Teleporting vehicle 'horizontal.55'; waited too long (wrong lane), lane='1si_0', time=461.00.
-Warning: Vehicle 'horizontal.55' ends teleporting on edge '2o', time 461.00.
-Warning: Teleporting vehicle 'always_right.54'; waited too long (yield), lane='3si_0', time=462.00.
-Warning: Vehicle 'always_right.54' ends teleporting on edge '2o', time 462.00.
-Warning: Teleporting vehicle 'always_right.57'; waited too long (wrong lane), lane='3si_1', time=468.00.
-Warning: Vehicle 'always_right.57' ends teleporting on edge '2o', time 468.00.
-Warning: Teleporting vehicle 'horizontal.63'; waited too long (wrong lane), lane='1si_2', time=484.00.
-Warning: Vehicle 'horizontal.63' ends teleporting on edge '2o', time 484.00.
+Warning: Teleporting vehicle 'always_right.8'; collision with vehicle 'horizontal.8', lane='2o_0', gap=-0.45, time=46.00 stage=move.
+Warning: Vehicle 'always_right.8' teleports beyond arrival edge '2o', time 46.00.
+Warning: Teleporting vehicle 'always_right.9'; collision with vehicle 'horizontal.9', lane='2o_0', gap=-5.00, time=48.00 stage=move.
+Warning: Vehicle 'always_right.9' teleports beyond arrival edge '2o', time 48.00.
+Warning: Teleporting vehicle 'always_right.12'; collision with vehicle 'horizontal.12', lane='2o_0', gap=-5.00, time=54.00 stage=move.
+Warning: Vehicle 'always_right.12' teleports beyond arrival edge '2o', time 54.00.
+Warning: Teleporting vehicle 'always_right.13'; collision with vehicle 'horizontal.14', lane='2o_0', gap=-1.99, time=57.00 stage=move.
+Warning: Vehicle 'always_right.13' teleports beyond arrival edge '2o', time 57.00.
+Warning: Teleporting vehicle 'always_right.15'; collision with vehicle 'horizontal.15', lane='2o_0', gap=-1.12, time=60.00 stage=move.
+Warning: Vehicle 'always_right.15' teleports beyond arrival edge '2o', time 60.00.
+Warning: Teleporting vehicle 'always_right.17'; collision with vehicle 'horizontal.16', lane='2o_0', gap=-1.80, time=62.00 stage=move.
+Warning: Vehicle 'always_right.17' teleports beyond arrival edge '2o', time 62.00.
+Warning: Teleporting vehicle 'always_right.21'; collision with vehicle 'horizontal.20', lane='2o_0', gap=-1.51, time=72.00 stage=move.
+Warning: Vehicle 'always_right.21' teleports beyond arrival edge '2o', time 72.00.
+Warning: Teleporting vehicle 'always_right.16'; collision with vehicle 'horizontal.21', lane='2o_0', gap=-1.67, time=76.00 stage=move.
+Warning: Vehicle 'always_right.16' teleports beyond arrival edge '2o', time 76.00.
+Warning: Teleporting vehicle 'always_right.23'; collision with vehicle 'horizontal.22', lane='2o_0', gap=-3.77, time=77.00 stage=move.
+Warning: Vehicle 'always_right.23' teleports beyond arrival edge '2o', time 77.00.
+Warning: Teleporting vehicle 'always_right.24'; collision with vehicle 'horizontal.25', lane='2o_0', gap=-0.60, time=81.00 stage=move.
+Warning: Vehicle 'always_right.24' teleports beyond arrival edge '2o', time 81.00.
+Warning: Vehicle 'always_right.29' performs emergency stop at the end of lane '3si_0' because of a red traffic light (decel=-11.13, offset = 6.09), time=100.00.
+Warning: Teleporting vehicle 'always_right.30'; collision with vehicle 'always_right.29', lane='3si_0', gap=-2.16, time=101.00 stage=move.
+Warning: Vehicle 'always_right.30' ends teleporting on edge '2o', time 101.00.
+Warning: Teleporting vehicle 'always_right.29'; waited too long (yield), lane='3si_0', time=401.00.
+Warning: Vehicle 'always_right.29' ends teleporting on edge '2o', time 401.00.
+Warning: Teleporting vehicle 'horizontal.27'; waited too long (yield), lane='1si_1', time=403.00.
+Warning: Vehicle 'horizontal.27' ends teleporting on edge '2o', time 403.00.
+Warning: Teleporting vehicle 'always_right.63'; waited too long (wrong lane), lane='3si_1', time=473.00.
+Warning: Vehicle 'always_right.63' ends teleporting on edge '2o', time 473.00.
+Warning: Teleporting vehicle 'always_right.64'; waited too long (wrong lane), lane='3si_1', time=484.00.
+Warning: Vehicle 'always_right.64' ends teleporting on edge '2o', time 484.00.
+Warning: Teleporting vehicle 'always_right.68'; waited too long (wrong lane), lane='3si_1', time=486.00.
+Warning: Vehicle 'always_right.68' ends teleporting on edge '2o', time 486.00.
+Warning: Teleporting vehicle 'always_right.73'; waited too long (wrong lane), lane='3si_1', time=499.00.
+Warning: Vehicle 'always_right.73' ends teleporting on edge '2o', time 499.00.
