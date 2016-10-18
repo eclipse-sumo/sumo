@@ -55,7 +55,7 @@
 class MSLaneChanger {
 public:
     /// Constructor
-    MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChanging, bool allowSwap);
+    MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChanging);
 
     /// Destructor.
     virtual ~MSLaneChanger();
@@ -208,9 +208,6 @@ protected:
         will try to change. Every vehicle on the edge will be a candidate
         once in the change-process. */
     ChangerIt myCandi;
-
-    /// @brief Whether blocking vehicles may be swapped
-    bool myAllowsSwap;
 
     /* @brief Whether vehicles may start to change lanes on this edge
      * (finishing a change in progress is always permitted) */

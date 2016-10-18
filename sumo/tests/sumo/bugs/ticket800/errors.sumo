@@ -1,2 +1,4 @@
-Warning: The option 'lanechange.allow-swap' is deprecated, and will not be supported in future versions of SUMO.
-Warning: Vehicle 'swap_to_right' performs emergency stop at the end of lane 'beg_1' because there is no connection to the next edge (decel=-22.60, offset = 7.67), time=8.00.
+Error: On processing option '--lanechange.allow-swap':
+ No option with the name 'lanechange.allow-swap' exists.
+Error: Could not parse commandline options.
+Quitting (on error).

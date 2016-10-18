@@ -79,8 +79,7 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChanger::MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChanging, bool allowSwap) :
-    myAllowsSwap(allowSwap),
+MSLaneChanger::MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChanging) :
     myAllowsChanging(allowChanging),
     myChangeToOpposite(lanes->front()->getEdge().canChangeToOpposite()) {
 
@@ -309,56 +308,6 @@ MSLaneChanger::change() {
     }
     vehicle->getLaneChangeModel().setOwnState(state2 | state1);
 
-    // check whether the vehicles should be swapped
-    if (myAllowsSwap && ((state1 & (LCA_URGENT)) != 0 || (state2 & (LCA_URGENT)) != 0)) {
-        // get the direction ...
-        ChangerIt target;
-        int direction = 0;
-        if ((state1 & (LCA_URGENT)) != 0) {
-            // ... wants to go right
-            target = myCandi - 1;
-            direction = -1;
-        }
-        if ((state2 & (LCA_URGENT)) != 0) {
-            // ... wants to go left
-            target = myCandi + 1;
-            direction = 1;
-        }
-        MSVehicle* prohibitor = target->lead;
-        if (target->hoppedVeh != 0) {
-            SUMOReal hoppedPos = target->hoppedVeh->getPositionOnLane();
-            if (prohibitor == 0 || (hoppedPos > vehicle->getPositionOnLane() && prohibitor->getPositionOnLane() > hoppedPos)) {
-                prohibitor = 0;// !!! vehicles should not jump over more than one lanetarget->hoppedVeh;
-            }
-        }
-        if (prohibitor != 0
-                &&
-                ((prohibitor->getLaneChangeModel().getOwnState() & (LCA_URGENT/*|LCA_SPEEDGAIN*/)) != 0
-                 &&
-                 (prohibitor->getLaneChangeModel().getOwnState() & (LCA_LEFT | LCA_RIGHT))
-                 !=
-                 (vehicle->getLaneChangeModel().getOwnState() & (LCA_LEFT | LCA_RIGHT))
-                )
-           ) {
-
-            // check for position and speed
-            if (prohibitor->getVehicleType().getLengthWithGap() == vehicle->getVehicleType().getLengthWithGap()) {
-                // ok, may be swapped
-                // remove vehicle to swap with
-                MSLane::VehCont::iterator i = find(target->lane->myTmpVehicles.begin(), target->lane->myTmpVehicles.end(), prohibitor);
-                if (i != target->lane->myTmpVehicles.end()) {
-                    assert(*i == prohibitor);
-                    target->lane->myTmpVehicles.erase(i);
-                    startChange(vehicle, myCandi, direction);
-                    startChange(prohibitor, target, -direction);
-                    std::swap(vehicle->myState, prohibitor->myState);
-                    myCandi->lead = prohibitor;
-                    target->lead = vehicle;
-                    return true;
-                }
-            }
-        }
-    }
     if (!changeOpposite(leader)) {
         registerUnchanged(vehicle);
         return false;

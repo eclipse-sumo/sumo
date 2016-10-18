@@ -48,8 +48,8 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChangerSublane::MSLaneChangerSublane(const std::vector<MSLane*>* lanes, bool allowChanging, bool allowSwap) :
-    MSLaneChanger(lanes, allowChanging, allowSwap) {
+MSLaneChangerSublane::MSLaneChangerSublane(const std::vector<MSLane*>* lanes, bool allowChanging) :
+    MSLaneChanger(lanes, allowChanging) {
 }
 
 

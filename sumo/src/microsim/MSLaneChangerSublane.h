@@ -49,7 +49,7 @@
 class MSLaneChangerSublane : public MSLaneChanger {
 public:
     /// Constructor
-    MSLaneChangerSublane(const std::vector<MSLane*>* lanes, bool allowChanging, bool allowSwap);
+    MSLaneChangerSublane(const std::vector<MSLane*>* lanes, bool allowChanging);
 
     /// Destructor.
     ~MSLaneChangerSublane();
