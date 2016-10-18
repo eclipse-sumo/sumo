@@ -132,6 +132,12 @@
         <!-- Record lane changes and their motivations for all vehicles into FILE -->
         <lanechange-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -215,9 +221,6 @@
 
         <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
         <random-depart-offset value="0" type="TIME"/>
-
-        <!-- Whether blocking vehicles trying to change lanes may be swapped -->
-        <lanechange.allow-swap value="false" type="BOOL"/>
 
         <!-- Duration of a lane change maneuver (default 0) -->
         <lanechange.duration value="0" type="TIME"/>
