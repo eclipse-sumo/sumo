@@ -89,9 +89,12 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     toLane(toLane_),
     mayDefinitelyPass(false), 
     keepClear(true), 
+    contPos(UNSPECIFIED_CONTPOS),
+    visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(false),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX)
+
 {}
 
 
@@ -882,6 +885,20 @@ NBEdge::getConnectionsFromLane(int lane) const {
 NBEdge::Connection
 NBEdge::getConnection(int fromLane, const NBEdge* to, int toLane) const {
     for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        if (
+            (*i).fromLane == fromLane
+            && (*i).toEdge == to
+            && (*i).toLane == toLane) {
+            return *i;
+        }
+    }
+    throw ProcessError("Connection from " + getID() + "_" + toString(fromLane)
+                       + " to " + to->getID() + "_" + toString(toLane) + " not found");
+}
+
+NBEdge::Connection&
+NBEdge::getConnectionRef(int fromLane, const NBEdge* to, int toLane) {
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         if (
             (*i).fromLane == fromLane
             && (*i).toEdge == to

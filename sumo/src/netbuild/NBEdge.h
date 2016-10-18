@@ -770,6 +770,12 @@ public:
      */
     Connection getConnection(int fromLane, const NBEdge* to, int toLane) const;
 
+    /** @brief Returns reference to the specified connection
+     * This method goes through "myConnections" and returns the specified one
+     * @see NBEdge::Connection
+     */
+    Connection& getConnectionRef(int fromLane, const NBEdge* to, int toLane);
+
     /** @brief Retrieves info about a connection to a certain lane of a certain edge
      *
      * Turnaround edge is ignored!

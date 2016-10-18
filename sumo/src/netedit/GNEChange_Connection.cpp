@@ -29,6 +29,7 @@
 
 #include <cassert>
 #include "GNEChange_Connection.h"
+#include "GNEConnection.h"
 #include "GNEEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -46,51 +47,36 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, int fromLane, const std::string& toEdgeID, int toLane, bool mayDefinitelyPass, bool forward):
+GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool forward) :
     GNEChange(0, forward),
     myEdge(edge),
-    myFromLane(fromLane),
-    myToEdgeID(toEdgeID),
-    myToLane(toLane),
-    myPass(mayDefinitelyPass) {
-    myEdge->incRef("GNEChange_Connection");
-}
-
-
-GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection connection,  bool forward) :
-    GNEChange(0, forward),
-    myEdge(edge),
-    myFromLane(connection.fromLane),
-    myToEdgeID(connection.toEdge->getID()),
-    myToLane(connection.toLane),
-    myPass(connection.mayDefinitelyPass) {
-    myEdge->incRef("GNEChange_Connection");
+    myNBEdgeConnection(nbCon) 
+{
+    assert(myEdge);
+    //myEdge->incRef("GNEChange_Connection");
 }
 
 
 GNEChange_Connection::~GNEChange_Connection() {
     assert(myEdge);
-    myEdge->decRef("GNEChange_Connection");
-    if (myEdge->unreferenced()) {
-        delete myEdge;
-    }
+    //myEdge->decRef("GNEChange_Connection");
 }
 
 
 void GNEChange_Connection::undo() {
     if (myForward) {
-        myEdge->removeConnection(myFromLane, myToEdgeID, myToLane);
+        myEdge->removeConnection(myNBEdgeConnection);
     } else {
-        myEdge->addConnection(myFromLane, myToEdgeID, myToLane, myPass);
+        myEdge->addConnection(myNBEdgeConnection);
     }
 }
 
 
 void GNEChange_Connection::redo() {
     if (myForward) {
-        myEdge->addConnection(myFromLane, myToEdgeID, myToLane, myPass);
+        myEdge->addConnection(myNBEdgeConnection);
     } else {
-        myEdge->removeConnection(myFromLane, myToEdgeID, myToLane);
+        myEdge->removeConnection(myNBEdgeConnection);
     }
 }
 

@@ -48,6 +48,7 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNELane.h"
+#include "GNEConnection.h"
 #include "GNEInternalLane.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
@@ -215,22 +216,25 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         switch (status) {
             case UNCONNECTED:
                 if (toggle) {
-                    myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, fromIndex,
-                                                  destEdgeID, lane->getIndex(), mayDefinitelyPass, true), true);
+                    // create new connection
+                    NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                    myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, true), true);
                     lane->setSpecialColor(mayDefinitelyPass ? &targetPassColor : &targetColor);
                     changed = true;
                 }
                 break;
             case CONNECTED:
-            case CONNECTED_PASS:
-                myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, fromIndex, destEdgeID, lane->getIndex(),
-                                              status == CONNECTED_PASS, false), true);
+            case CONNECTED_PASS: {
+                // remove connection
+                GNEConnection* con = srcEdge.retrieveConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, con->getNBEdgeConnection(), false), true);
                 lane->setSpecialColor(&potentialTargetColor);
                 changed = true;
                 deletedConnection = NBConnection(srcEdge.getNBEdge(), fromIndex,
                                                  destEdge.getNBEdge(), lane->getIndex(),
                                                  (int)getTLLLinkNumber(connections, lane));
                 break;
+            }
             case CONFLICTED:
                 myViewNet->setStatusBarText("Another lane from the same edge already connects to that lane");
                 break;
@@ -547,6 +551,7 @@ GNEConnectorFrame::getTLLLinkNumber(const std::vector<NBEdge::Connection>& conne
 
 void
 GNEConnectorFrame::buildIinternalLanes(NBNode* node) {
+    /*
     // clean up previous objects
     SUMORTree& rtree = myViewNet->getNet()->getVisualisationSpeedUp();
     for (std::map<int, GNEInternalLane*>::iterator it = myInternalLanes.begin(); it != myInternalLanes.end(); it++) {
@@ -581,6 +586,7 @@ GNEConnectorFrame::buildIinternalLanes(NBNode* node) {
             }
         }
     }
+    */
 }
 
 

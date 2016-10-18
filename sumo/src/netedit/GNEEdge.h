@@ -210,6 +210,10 @@ public:
     /// @brief returns a reference to the GNEConnection vector
     const std::vector<GNEConnection*>& getGNEConnections();
 
+    /**@brief get connection 
+    */
+    GNEConnection* retrieveConnection(int fromLane, NBEdge* to, int toLane, bool failHard = true);
+
     /// @brief whether this edge was created from a split
     bool wasSplit();
 
@@ -297,10 +301,10 @@ private:
     void removeLane(GNELane* lane);
 
     /// @brief adds a connection
-    void addConnection(int fromLane, const std::string& toEdgeID, int toLane, bool mayPass);
+    void addConnection(NBEdge::Connection nbCon);
 
     /// @brief removes a connection
-    void removeConnection(int fromLane, const std::string& toEdgeID, int toLane);
+    void removeConnection(NBEdge::Connection nbCon);
 };
 
 

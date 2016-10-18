@@ -56,6 +56,7 @@
 #include "GNEChange_Attribute.h"
 #include "GNEChange_Connection.h"
 #include "GNEChange_TLS.h"
+#include "GNEConnection.h"
 #include "GNEJunction.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -422,9 +423,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             // delete in reverse so that undoing will add connections in the original order
             for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
                 bool hasTurn = con_it->toEdge == turnEdge;
-                undoList->add(new GNEChange_Connection(
-                                  srcEdge, con_it->fromLane, con_it->toEdge->getID(),
-                                  con_it->toLane, con_it->mayDefinitelyPass, false), true);
+                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false), true);
                 // needs to come after GNEChange_Connection
                 // XXX bug: this code path will not be used on a redo!
                 if (hasTurn) {

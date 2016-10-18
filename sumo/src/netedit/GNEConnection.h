@@ -49,7 +49,7 @@ public:
      * @param[in] connection NBEdge::Connection in which the rest of parameters are defined
      * @param[in] uncontrolled if set to true, This connection will not be TLS-controlled despite its node being controlled.
     **/
-    GNEConnection(GNEEdge *from, NBEdge::Connection& connection);
+    GNEConnection(GNELane *from, GNELane* to);
 
     /// @brief Destructor
     ~GNEConnection();
@@ -80,7 +80,7 @@ public:
     int getToLaneIndex() const;
 
     /// @brief get Edge::NBConnection
-    const NBEdge::Connection &getNBEdgeConnection() const;
+    NBEdge::Connection &getNBEdgeConnection() const;
 
     /// @brief get Draw connection
     bool getDrawConnection() const;
@@ -148,11 +148,11 @@ public:
     /// @}
 
 protected:
-    /// @brief incoming edge of this connection
-    GNEEdge *myFromEdge;
+    /// @brief incoming lane of this connection
+    GNELane *myFromLane;
 
-    /// @brief NBEdge::Connection associated with this connection
-    NBEdge::Connection& myConnection;
+    /// @brief outgoing lane of this connection
+    GNELane *myToLane;
 
     /// @brief the shape of the connection
     PositionVector myShape;

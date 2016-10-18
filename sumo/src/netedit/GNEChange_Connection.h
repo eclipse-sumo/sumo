@@ -52,22 +52,13 @@ class GNEChange_Connection : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Connection)
 
 public:
-    /**@brief Constructor for creating/deleting a connection
-     * @param[in] edge edge from of connection
-     * @param[in] fromLane index of lane from of connection
-     * @param[in] toEdgeID id of edge to of connection
-     * @param[in] toLane index of lane to of connection
-     * @param[in] mayDefinitelyPass attribute pass of connection
-     * @param[in] forward Whether to create/delete (true/false)
-     */
-    GNEChange_Connection(GNEEdge* edge, int fromLane, const std::string& toEdgeID, int toLane, bool mayDefinitelyPass, bool forward);
 
     /**@brief Constructor for creating/deleting a connection
-     * @param[in] edge edge from of connection
-     * @param[in] connection struct with the attributes of connection
+     * @param[in] edge The source edge of the connection
+     * @param[in] nbCon The data of the connection
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection connection,  bool forward);
+    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Connection();
@@ -90,23 +81,15 @@ public:
 
 private:
     // @name full information regarding the lane that is to be created/deleted
-    // @briefwe assume shared responsibility for the pointers (via reference counting)
+    // @brief we assume shared responsibility for the pointers (via reference counting)
     /// @{
-    // @brief we need the edge because it is the target of our change commands
+    // @brief the connection object to be removed/re-added
     GNEEdge* myEdge;
 
-    /// @brief the lane from which the connection originates
-    int myFromLane;
-
-    /// @brief the id of the target edge
-    const std::string myToEdgeID;
-
-    /// @brief the target lane of the connection
-    int myToLane;
+    /// @brief the data which must be copied because the original reference does not persist
+    NBEdge::Connection myNBEdgeConnection;
     /// @}
 
-    /// @brief whether this connection never yields
-    bool myPass;
 };
 
 #endif

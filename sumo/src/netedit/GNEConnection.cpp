@@ -70,15 +70,15 @@ int NUM_POINTS = 5;
 // method definitions
 // ===========================================================================
 
-GNEConnection::GNEConnection(GNEEdge *from, NBEdge::Connection& connection) :
+GNEConnection::GNEConnection(GNELane *from, GNELane* to) :
     GNENetElement(from->getNet(), 
-            toString(SUMO_TAG_CONNECTION) + ":" + from->getNBEdge()->getLaneID(connection.fromLane) + "->" + connection.toEdge->getLaneID(connection.toLane), 
+            toString(SUMO_TAG_CONNECTION) + ":" + from->getMicrosimID() + "->" + to->getMicrosimID(), 
             GLO_CONNECTION, SUMO_TAG_CONNECTION),
-    myFromEdge(from),
-    myConnection(connection),
-    myDrawConnection(true) {
-    // Update geometry
-    updateGeometry();
+    myFromLane(from),
+    myToLane(to),
+    myDrawConnection(true) 
+{
+    // geometry will be updated later
 }
 
 
@@ -90,30 +90,29 @@ GNEConnection::updateGeometry() {
     // Clear containers
     myShapeRotations.clear();
     myShapeLengths.clear();
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // Get shape of from and to lanes
+    NBEdge::Connection& nbCon = getNBEdgeConnection();
     PositionVector laneShapeFrom;
-    if ((int)myFromEdge->getNBEdge()->getLanes().size() > myConnection.fromLane) {
-        laneShapeFrom = myFromEdge->getNBEdge()->getLanes().at(myConnection.fromLane).shape;
+    if ((int)getEdgeFrom()->getNBEdge()->getLanes().size() > nbCon.fromLane) {
+        laneShapeFrom = getEdgeFrom()->getNBEdge()->getLanes().at(nbCon.fromLane).shape;
     } else {
         return;
     }
     PositionVector laneShapeTo;
-    if ((int)myConnection.toEdge->getLanes().size() > myConnection.toLane) {
-        laneShapeTo = myConnection.toEdge->getLanes().at(myConnection.toLane).shape;
+    if ((int)nbCon.toEdge->getLanes().size() > nbCon.toLane) {
+        laneShapeTo = nbCon.toEdge->getLanes().at(nbCon.toLane).shape;
     } else {
         return;
     }
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // Calculate shape of connection depending of the size of Junction shape
-    if(myFromEdge->getNBEdge()->getToNode()->getShape().area() > 4) { // value obtanied from GNEJunction::drawgl
+    if(getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) { // value obtanied from GNEJunction::drawgl
         // Calculate shape using a smooth shape
-        myShape = myFromEdge->getNBEdge()->getToNode()->computeSmoothShape(
+        myShape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
                     laneShapeFrom, 
                     laneShapeTo,
-                    NUM_POINTS, myFromEdge->getNBEdge()->getTurnDestination() == myConnection.toEdge,
-                    (SUMOReal) 5. * (SUMOReal) myFromEdge->getNBEdge()->getNumLanes(),
-                    (SUMOReal) 5. * (SUMOReal) myConnection.toEdge->getNumLanes());
+                    NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
+                    (SUMOReal) 5. * (SUMOReal) getEdgeFrom()->getNBEdge()->getNumLanes(),
+                    (SUMOReal) 5. * (SUMOReal) nbCon.toEdge->getNumLanes());
     
     } else {
         myShape.clear();
@@ -138,59 +137,60 @@ GNEConnection::updateGeometry() {
 
 Boundary 
 GNEConnection::getBoundary() const {
-    return Boundary();
+    return myShape.getBoxBoundary();
 }
 
 
 GNEEdge*
 GNEConnection::getEdgeFrom() const {
-    return myFromEdge;
+    return &(myFromLane->getParentEdge());
 }
 
 
 GNEEdge*
 GNEConnection::getEdgeTo() const {
-    return myFromEdge->getNet()->retrieveEdge(myConnection.toEdge->getID());
+    return &(myToLane->getParentEdge());
 }
 
 
 GNELane* 
 GNEConnection::getLaneFrom() const {
-    return myFromEdge->getLanes().at(myConnection.fromLane);
+    return myFromLane;
 }
 
 
 GNELane* 
 GNEConnection::getLaneTo() const {
-    return myFromEdge->getNet()->retrieveEdge(myConnection.toEdge->getID())->getLanes().at(myConnection.toLane);
+    return myToLane;
 }
 
 
 int
 GNEConnection::getFromLaneIndex() const {
-    return myConnection.fromLane;
+    return myFromLane->getIndex();
 }
 
 
 int
 GNEConnection::getToLaneIndex() const {
-    return myConnection.toLane;
+    return myToLane->getIndex();
 }
 
 
-const NBEdge::Connection&
+NBEdge::Connection&
 GNEConnection::getNBEdgeConnection() const {
-    return myConnection;
+    return getEdgeFrom()->getNBEdge()->getConnectionRef(getFromLaneIndex(), getEdgeTo()->getNBEdge(), getToLaneIndex());
 }
 
 int 
 GNEConnection::getLinkState() const {
-    return myFromEdge->getNBEdge()->getToNode()->getLinkState(myFromEdge->getNBEdge(), 
-                                                              myConnection.toEdge, 
-                                                              myConnection.fromLane, 
-                                                              myConnection.toLane, 
-                                                              myConnection.mayDefinitelyPass, 
-                                                              myConnection.tlID);    
+    NBEdge::Connection& nbCon = getNBEdgeConnection();
+    return getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(getEdgeFrom()->getNBEdge(), 
+                                                              nbCon.toEdge, 
+                                                              nbCon.fromLane, 
+                                                              nbCon.toLane, 
+                                                              nbCon.mayDefinitelyPass, 
+                                                              nbCon.tlID);    
 }
 
 bool 
@@ -207,10 +207,15 @@ GNEConnection::setDrawConnection(bool drawConnection) {
 
 GUIGLObjectPopupMenu*
 GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    // Currently ignored before implementation to avoid warnings
-    UNUSED_PARAMETER(app);
-    UNUSED_PARAMETER(parent);
-    return NULL;
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
+    // let the GNEViewNet store the popup position
+    (dynamic_cast<GNEViewNet&>(parent)).markPopupPosition();
+    return ret;
 }
 
 
@@ -265,25 +270,26 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 
 std::string
 GNEConnection::getAttribute(SumoXMLAttr key) const {
+    NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {
         case SUMO_ATTR_FROM:
-            return myFromEdge->getID();
+            return getEdgeFrom()->getID();
         case SUMO_ATTR_TO:
-            return myConnection.toEdge->getID();
+            return nbCon.toEdge->getID();
         case SUMO_ATTR_FROM_LANE:
-            return toString(myConnection.toLane);
+            return toString(nbCon.toLane);
         case SUMO_ATTR_TO_LANE:
-            return toString(myConnection.toLane);
+            return toString(nbCon.toLane);
         case SUMO_ATTR_PASS:
-            return toString(myConnection.mayDefinitelyPass);
+            return toString(nbCon.mayDefinitelyPass);
         case SUMO_ATTR_KEEP_CLEAR:
-            return toString(myConnection.keepClear);
+            return toString(nbCon.keepClear);
         case SUMO_ATTR_CONTPOS:
-            return toString(myConnection.contPos);
+            return toString(nbCon.contPos);
         case SUMO_ATTR_UNCONTROLLED:
-            return toString(myFromEdge->getNBEdge()->mayBeTLSControlled(myConnection.fromLane, myConnection.toEdge, myConnection.toLane));
+            return toString(getEdgeFrom()->getNBEdge()->mayBeTLSControlled(nbCon.fromLane, nbCon.toEdge, nbCon.toLane));
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            return toString(myConnection.visibility);
+            return toString(nbCon.visibility);
         default:
             throw InvalidArgument("connection attribute '" + toString(key) + "' not allowed");
     }
@@ -339,12 +345,13 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
+    NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {
         case SUMO_ATTR_PASS:
-            myConnection.mayDefinitelyPass = parse<bool>(value);
+            nbCon.mayDefinitelyPass = parse<bool>(value);
             break;
         case SUMO_ATTR_KEEP_CLEAR:
-            myConnection.keepClear = parse<bool>(value);
+            nbCon.keepClear = parse<bool>(value);
             break;
             /*
         case SUMO_ATTR_UNCONTROLLED:
@@ -352,10 +359,10 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
             */
         case SUMO_ATTR_CONTPOS:
-            myConnection.contPos = parse<SUMOReal>(value);
+            nbCon.contPos = parse<SUMOReal>(value);
             break;
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            myConnection.visibility = parse<SUMOReal>(value);
+            nbCon.visibility = parse<SUMOReal>(value);
             break;
         default:
             throw InvalidArgument("connection attribute '" + toString(key) + "' not allowed");
