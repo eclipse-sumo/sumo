@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r21568
+SUMO netconvert Version dev-SVN-r21738
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -110,7 +110,8 @@ TLS Building Options:
   --tls.yellow.time INT                Set INT as fixed time for yellow phase
                                          durations
   --tls.left-green.time INT            Use INT as green phase duration for left
-                                         turns (s)
+                                         turns (s). Setting this value to 0
+                                         disables additional left-turning phases
   --tls.half-offset STR                TLSs in STR will be shifted by
                                          half-phase
   --tls.quarter-offset STR             TLSs in STR will be shifted by

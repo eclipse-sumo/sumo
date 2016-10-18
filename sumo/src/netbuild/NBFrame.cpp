@@ -312,7 +312,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("tls.yellow.time", "TLS Building", "Set INT as fixed time for yellow phase durations");
 
     oc.doRegister("tls.left-green.time", new Option_Integer(6));
-    oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s)");
+    oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases");
 
     // tls-shifts
     oc.doRegister("tls.half-offset", new Option_String());
