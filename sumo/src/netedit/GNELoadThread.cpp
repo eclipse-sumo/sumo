@@ -167,13 +167,14 @@ GNELoadThread::run() {
             delete net;
             delete netBuilder;
             net = 0;
-#ifndef _DEBUG
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
+#ifdef _DEBUG
+            throw;
+#endif
             delete net;
             delete netBuilder;
             net = 0;
-#endif
         }
     }
     // only a single setting file is supported

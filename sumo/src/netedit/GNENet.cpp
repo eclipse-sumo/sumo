@@ -1382,6 +1382,14 @@ GNENet::reserveJunctionID(const std::string& id) {
 
 
 void
+GNENet::initGNEConnections() {
+    for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
+        it->second->remakeGNEConnections();
+        it->second->updateGeometry();
+    }
+}
+
+void
 GNENet::computeAndUpdate(OptionsCont& oc) {
     // make sure we only add turn arounds to edges which currently exist within the network
     std::set<std::string> liveExplicitTurnarounds;
@@ -1391,13 +1399,8 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
         }
     }
     myNetBuilder->compute(oc, liveExplicitTurnarounds, false);
-    // update precomputed lane geometries
-    for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
-        // Remake all connections of edge
-        it->second->remakeGNEConnections();
-        // Update geometry of connections
-        it->second->updateGeometry();
-    }
+    // update precomputed geometries
+    initGNEConnections();
     for (GNEJunctions::const_iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
         it->second->setLogicValid(true);
         // updated shape

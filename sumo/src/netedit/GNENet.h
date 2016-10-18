@@ -369,6 +369,9 @@ public:
      */
     std::set<GUIGlID> getGlIDs(GUIGlObjectType type = GLO_MAX);
 
+    /// @brief initialize GNEConnections
+    void initGNEConnections(); 
+
     /// @brief recompute the network and update lane geometries
     void computeAndUpdate(OptionsCont& oc);
 

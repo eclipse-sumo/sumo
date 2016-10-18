@@ -286,6 +286,9 @@ private:
     /// @brief menu check to show connections
     FXMenuCheck* myShowConnections;
 
+    /// @brief whether show connections has been activated once
+    bool myShowConnectionActivated;
+
     /// @brief menu check to extend to edge nodes
     FXMenuCheck* myExtendToEdgeNodes;
 

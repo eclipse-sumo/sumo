@@ -124,6 +124,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet(net),
     myEditMode(GNE_MODE_MOVE),
     myPreviousEditMode(GNE_MODE_MOVE),
+    myShowConnectionActivated(false),
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
@@ -1522,6 +1523,10 @@ GNEViewNet::onCmdNodeReplace(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
+    if (!myShowConnectionActivated) {
+        getNet()->initGNEConnections();
+        myShowConnectionActivated = true;
+    }
     // Update viewnNet to show/hide conections
     update();
     // Hide/show connections requiere recompute
@@ -1602,7 +1607,7 @@ GNEViewNet::buildEditModeControls() {
     mySelectEdges->setCheck();
     
     myShowConnections = new FXMenuCheck(myToolbar, "show connections\t\tToggle show connections over junctions", this, MID_GNE_SHOW_CONNECTIONS);
-    myShowConnections->setCheck(true);
+    myShowConnections->setCheck(false);
     
     myExtendToEdgeNodes = new FXMenuCheck(myToolbar, "auto-select nodes\t\tToggle whether selecting multiple edges should automatically select their nodes", this, 0);
 

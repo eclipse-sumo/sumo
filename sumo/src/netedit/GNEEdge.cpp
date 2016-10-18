@@ -83,8 +83,6 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
         myLanes.push_back(new GNELane(*this, i));
         myLanes.back()->incRef("GNEEdge::GNEEdge");
     }
-    // Remake connections
-    remakeGNEConnections();
 }
 
 
@@ -409,6 +407,8 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
 
 void
 GNEEdge::remakeGNEConnections() {
+    // @note: this method may only be called once the whole network is initialized
+
     // Drop all existents connections
     for(ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); i++) {
         // Dec reference of connection
