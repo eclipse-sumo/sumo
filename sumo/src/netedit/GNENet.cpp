@@ -331,6 +331,12 @@ void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete edge");
 
+    // invalidate junction
+    edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
+    edge->getGNEJunctionDest()->removeFromCrossings(edge, undoList);
+    edge->getGNEJunctionSource()->setLogicValid(false, undoList);
+    edge->getGNEJunctionDest()->setLogicValid(false, undoList);
+
     // Delete edge
     undoList->add(new GNEChange_Edge(this, edge, false), true);
 
@@ -341,10 +347,6 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
 
-    edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
-    edge->getGNEJunctionDest()->removeFromCrossings(edge, undoList);
-    edge->getGNEJunctionSource()->setLogicValid(false, undoList);
-    edge->getGNEJunctionDest()->setLogicValid(false, undoList);
     requireRecompute();
     undoList->p_end();
 }
