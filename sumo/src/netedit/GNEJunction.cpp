@@ -664,6 +664,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             bool ok;
             myOrigPos = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
             move(myOrigPos);
+            // Refresh element to avoid grabbing problems
+            myNet->refreshElement(this);
             break;
         case GNE_ATTR_MODIFICATION_STATUS:
             myLogicStatus = value;
