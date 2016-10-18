@@ -164,6 +164,14 @@ public:
      */
     virtual void removeNode(NBNode* node);
 
+    /** @brief removes the given connection from the traffic light
+     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
+     * @note: tlIndex is not necessarily unique. we need the whole connection data here
+     */
+    virtual void removeConnection(const NBConnection& conn, bool reconstruct = true) {
+        UNUSED_PARAMETER(conn);
+        UNUSED_PARAMETER(reconstruct);
+    }
 
     /** @brief Returns the list of controlled nodes
      * @return Controlled nodes

@@ -40,6 +40,7 @@
 #include "NBNodeCont.h"
 #include "NBContHelper.h"
 #include "NBHelpers.h"
+#include "NBTrafficLightDefinition.h"
 #include <cmath>
 #include <iomanip>
 #include "NBTypeCont.h"
@@ -419,6 +420,10 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     myLength = myFrom->getPosition().distanceTo(myTo->getPosition());
     assert(myGeom.size() >= 2);
     if ((int)myLanes.size() > noLanes) {
+        // remove connections starting at the removed lanes
+        for (int lane = noLanes; lane < (int)myLanes.size(); ++lane) {
+            removeFromConnections(0, lane, -1);
+        }
         // remove connections targeting the removed lanes
         const EdgeVector& incoming = myFrom->getIncomingEdges();
         for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
@@ -1026,9 +1031,15 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
     // remove from "myConnections"
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         Connection& c = *i;
-        if (c.toEdge == toEdge
+        if ((toEdge == 0 || c.toEdge == toEdge)
                 && (fromLane < 0 || c.fromLane == fromLane)
                 && (toLane < 0 || c.toLane == toLane)) {
+            if (myTo->isTLControlled()) {
+                std::set<NBTrafficLightDefinition*> tldefs = myTo->getControllingTLS();
+                for (std::set<NBTrafficLightDefinition*>::iterator it = tldefs.begin(); it != tldefs.end(); it++) {
+                    (*it)->removeConnection(NBConnection(this, c.fromLane, c.toEdge, c.toLane));
+                }
+            }
             i = myConnections.erase(i);
             tryLater = false;
         } else {
