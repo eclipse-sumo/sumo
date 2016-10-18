@@ -1158,6 +1158,9 @@ MSLCM_LC2013::_wantsChange(
     if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped()) {
         // value is doubled for the check since we change back and forth
         // XXX: which value is doubled??? (Leo) Refs. #2578
+        //      If I understand right, this is to induce an overtaking maneuver...
+        //      (decreasing the laDist to avoid urgency-indication below 
+        //       -> XXX: leads to lc-oscillations for subsecond simulation, refs. #2603)
         laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap()
                         + leader.first->getVehicleType().getLengthWithGap());
     }
