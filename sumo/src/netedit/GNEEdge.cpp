@@ -179,8 +179,10 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // draw the connections
-    for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
-        (*i)->drawGL(s);
+    if (s.scale >= 2) {
+        for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
+            (*i)->drawGL(s);
+        }
     }
 
     // draw geometry hints
