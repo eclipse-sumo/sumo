@@ -81,7 +81,7 @@ protected:
      */
     struct NIOSMNode {
         NIOSMNode(long long int _id, double _lon, double _lat) :
-            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), node(0) {}
+            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false), node(0) {}
 
         /// @brief The node's id
         const long long int id;
@@ -93,6 +93,8 @@ protected:
         SUMOReal ele;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
+        /// @brief Whether this is a railway crossing
+        bool railwayCrossing;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 

@@ -1011,7 +1011,7 @@ NBNode::computeLanes2Lanes() {
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             const std::vector<NBEdge::Connection> cons = (*i)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = cons.begin(); k != cons.end(); ++k) {
-                if (getDirection(*i, (*k).toEdge) != LINKDIR_STRAIGHT) {
+                if (getDirection(*i, (*k).toEdge) == LINKDIR_TURN) {
                     (*i)->removeFromConnections((*k).toEdge);
                 }
             }
