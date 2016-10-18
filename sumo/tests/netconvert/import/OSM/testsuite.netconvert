@@ -47,3 +47,6 @@ intersection_with_crossings
 
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 numerical_ids
+
+# automatically detect rail crossing
+rail_crossing
