@@ -319,6 +319,10 @@ NIFrame::checkOptions() {
             }
         }
     }
+    if (oc.isSet("opendrive-files") && oc.isDefault("tls.left-green.time")) {
+        // legacy behavior. see #2114
+        oc.set("tls.left-green.time", "0");
+    }
     return ok;
 }
 

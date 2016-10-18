@@ -614,19 +614,18 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             continue;
         }
         NBNode* toNode = e->getToNode();
-        NBTrafficLightDefinition* tlDef = 0;
         if (!toNode->isTLControlled()) {
             TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
-            tlDef = new NBOwnTLDef(toNode->getID(), toNode, 0, type);
+            NBOwnTLDef* tlDef = new NBOwnTLDef(toNode->getID(), toNode, 0, type);
             if (!nb.getTLLogicCont().insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
                 throw ProcessError();
             }
             toNode->addTrafficLight(tlDef);
-            static_cast<NBOwnTLDef*>(tlDef)->setSinglePhase();
+            //tlDef->setSinglePhase();
         }
-        tlDef = *toNode->getControllingTLS().begin();
+        NBTrafficLightDefinition* tlDef = *toNode->getControllingTLS().begin();
         tlDef->addParameter("connection:" + id, (*i).second);
     }
 
