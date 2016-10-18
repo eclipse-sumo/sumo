@@ -870,7 +870,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     }
     // Get connection to remove
     myNBEdge.removeFromConnections(nbCon.toEdge, nbCon.fromLane, nbCon.toLane);
-    GNEConnection* con = retrieveConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
+    GNEConnection* con = retrieveConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
     if (con != 0) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
