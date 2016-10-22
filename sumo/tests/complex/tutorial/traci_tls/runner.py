@@ -40,9 +40,6 @@ except ImportError:
         "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
 
 import traci
-# the port used for communicating with your sumo instance
-PORT = 8873
-
 
 def generate_routefile():
     random.seed(42)  # make tests reproducible
@@ -91,7 +88,6 @@ def generate_routefile():
 
 def run():
     """execute the TraCI control loop"""
-    traci.init(PORT)
     step = 0
     # we start with phase 2 where EW has green
     traci.trafficlights.setPhase("0", 2)
@@ -134,7 +130,6 @@ if __name__ == "__main__":
 
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-    sumoProcess = subprocess.Popen([sumoBinary, "-c", "data/cross.sumocfg", "--tripinfo-output",
-                                    "tripinfo.xml", "--remote-port", str(PORT)], stdout=sys.stdout, stderr=sys.stderr)
+    traci.start([sumoBinary, "-c", "data/cross.sumocfg",
+                             "--tripinfo-output", "tripinfo.xml"])
     run()
-    sumoProcess.wait()
