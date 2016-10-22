@@ -1,11 +1,13 @@
 Loading configuration... done.
 Success.
 Loading configuration... done.
-***Starting server on port 8874 ***
-Loading net-file from 'data/../pedcrossing.net.xml'... done (2ms).
-Loading additional-files from 'data/pedcrossing.tll.xml'... done (42ms).
+***Starting server on port 41070 ***
+Loading net-file from 'data/../pedcrossing.net.xml'... done (3ms).
+Loading additional-files from 'data/pedcrossing.tll.xml'... done (22ms).
 Loading done.
 Simulation started with time: 0.00
+Could not connect to TraCI server at localhost:41070 [Errno 111] Connection refused
+ Retrying in 1 seconds
 ped0 pushes the button
 ped1 pushes the button
 ped2 pushes the button
@@ -71,21 +73,21 @@ ped87 pushes the button
 ped89 pushes the button
 ped90 pushes the button
 ped92 pushes the button
-Simulation ended at time: 3613.00
+Simulation ended at time: 3618.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 2123ms
- Real time factor: 1701.84
- UPS: 8388.130005
+ Duration: 1163ms
+ Real time factor: 3110.92
+ UPS: 14168.529665
 Vehicles: 
- Inserted: 729
+ Inserted: 679
  Running: 0
  Waiting: 0
 Persons: 
  Inserted: 94
  Running: 1
 
-DijkstraRouterTT answered 1173 queries and explored 7.00 edges on average.
+DijkstraRouterTT answered 1174 queries and explored 7.00 edges on average.
 DijkstraRouterTT spent 1ms answering queries (0.00ms on average).
-DijkstraRouterTT answered 1092 queries and explored 2.00 edges on average.
+DijkstraRouterTT answered 860 queries and explored 2.00 edges on average.
 DijkstraRouterTT spent 0ms answering queries (0.00ms on average).
