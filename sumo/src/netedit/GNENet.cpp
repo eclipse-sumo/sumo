@@ -384,6 +384,11 @@ void
 GNENet::deleteConnection(GNEConnection *connection, GNEUndoList* undoList) {
     undoList->p_begin("delete connection");
     undoList->add(new GNEChange_Connection(connection, false), true);
+    if (gSelected.isSelected(GLO_CONNECTION, connection->getGlID())) {
+    std::set<GUIGlID> deselected;
+    deselected.insert(connection->getGlID());
+    undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+    }
     requireRecompute();
     undoList->p_end();
 }
