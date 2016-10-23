@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    NBConnection.h
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Sascha Krieg
-/// @date    Sept 2002
-/// @version $Id$
+/// @brief @file    NBConnection.h
+/// @brief @author  Daniel Krajzewicz
+/// @brief @author  Jakob Erdmann
+/// @brief @author  Sascha Krieg
+/// @brief @date    Sept 2002
+/// @brief @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/
@@ -50,54 +50,53 @@ class NBNode;
  */
 class NBConnection {
 public:
-    /// Constructor
+    /// @brief Constructor
     NBConnection(NBEdge* from, NBEdge* to);
 
-    /// Constructor
+    /// @brief Constructor
     NBConnection(NBEdge* from, int fromLane, NBEdge* to, int toLane, int tlIndex = InvalidTlIndex);
 
-    /// Constructor
+    /// @brief Constructor
     NBConnection(const std::string& fromID, NBEdge* from,
                  const std::string& toID, NBEdge* to);
 
-    /// Constructor
+    /// @brief Constructor
     NBConnection(const NBConnection& c);
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~NBConnection();
 
-    /// returns the from-edge (start of the connection)
+    /// @brief returns the from-edge (start of the connection)
     NBEdge* getFrom() const;
 
-    /// returns the to-edge (end of the connection)
+    /// @brief returns the to-edge (end of the connection)
     NBEdge* getTo() const;
 
-    /// replaces the from-edge by the one given
+    /// @brief replaces the from-edge by the one given
     bool replaceFrom(NBEdge* which, NBEdge* by);
 
-    /// replaces the from-edge by the one given
+    /// @brief replaces the from-edge by the one given
     bool replaceFrom(NBEdge* which, int whichLane, NBEdge* by, int byLane);
 
-    /// replaces the to-edge by the one given
+    /// @brief replaces the to-edge by the one given
     bool replaceTo(NBEdge* which, NBEdge* by);
 
-    /// replaces the to-edge by the one given
+    /// @brief replaces the to-edge by the one given
     bool replaceTo(NBEdge* which, int whichLane, NBEdge* by, int byLane);
 
-    /// @brief patches lane indices refering to the given edge
+    /// @brief  patches lane indices refering to the given edge
     void shiftLaneIndex(NBEdge* edge, int offset);
 
-    /// checks whether the edges are still valid
+    /// @brief checks whether the edges are still valid
     bool check(const NBEdgeCont& ec);
 
-    /// returns the from-lane
+    /// @brief returns the from-lane
     int getFromLane() const;
 
-    /// returns the to-lane
+    /// @brief returns the to-lane
     int getToLane() const;
 
-    /* @brief returns the index within the controlling tls or InvalidTLIndex if this
-     * link is unontrolled */
+    /// @brief returns the index within the controlling tls or InvalidTLIndex if this link is unontrolled
     int getTLIndex() const {
         return myTlIndex;
     }
@@ -107,46 +106,45 @@ public:
         myTlIndex = tlIndex;
     }
 
-    /// returns the id of the connection (!!! not really pretty)
+    /// @brief returns the id of the connection (!!! not really pretty)
     std::string getID() const;
 
-    /// Compares both connections in order to allow sorting
+    /// @brief Compares both connections in order to allow sorting
     friend bool operator<(const NBConnection& c1, const NBConnection& c2);
 
-    /// Comparison operator
+    /// @brief Comparison operator
     bool operator==(const NBConnection& c) const;
 
-    /// Comparison operator
+    /// @brief Comparison operator
     bool operator!=(const NBConnection& c) const {
         return !(*this == c);
     }
 
-    /// Output operator
+    /// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const NBConnection& c);
 
     const static int InvalidTlIndex;
     const static NBConnection InvalidConnection;
 
 private:
-    /// Checks whether the from-edge is still valid
+    /// @brief Checks whether the from-edge is still valid
     NBEdge* checkFrom(const NBEdgeCont& ec);
 
-    /// Checks whether the to-edge is still valid
+    /// @brief Checks whether the to-edge is still valid
     NBEdge* checkTo(const NBEdgeCont& ec);
 
 private:
-    /// The from- and the to-edges
+    /// @brief The from- and the to-edges
     NBEdge* myFrom, *myTo;
 
-    /// The names of both edges, needed for verification of validity
+    /// @brief The names of both edges, needed for verification of validity
     std::string myFromID, myToID;
 
-    /// The lanes; may be -1 if no certain lane was specified
+    /// @brief The lanes; may be -1 if no certain lane was specified
     int myFromLane, myToLane;
 
     // @brief the index within the controlling tls if this connection is tls-controlled
     int myTlIndex;
-
 };
 
 
