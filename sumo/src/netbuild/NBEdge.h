@@ -754,6 +754,9 @@ public:
                        SUMOReal contPos = UNSPECIFIED_CONTPOS,
                        SUMOReal visibility = UNSPECIFIED_VISIBILITY_DISTANCE);
 
+    /// @brief insert a previously created NBEdge::connection
+    void insertConnection(NBEdge::Connection connection);
+
     /** @brief Returns connections from a given lane
      *
      * This method goes through "myConnections" and copies those which are
@@ -843,6 +846,9 @@ public:
      * @param[in] tryLater If the connection does not exist, try again during recheckLanes()
      */
     void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1, bool tryLater = false);
+
+    /// @brief remove an existent connection of edge
+    bool removeFromConnections(NBEdge::Connection connectionToRemove);
 
     /// @brief invalidate current connections of edge
     void invalidateConnections(bool reallowSetting = false);

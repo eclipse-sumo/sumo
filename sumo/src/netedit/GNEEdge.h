@@ -300,11 +300,11 @@ private:
     /// @briefdecrease the number of lanes by one. argument is only used to increase robustness (assertions)
     void removeLane(GNELane* lane);
 
-    /// @brief adds a connection
-    void addConnection(NBEdge::Connection nbCon);
+    /// @brief add a GNEConnection
+    void addConnection(GNEConnection *connection);
 
-    /// @brief removes a connection
-    void removeConnection(NBEdge::Connection nbCon);
+    /// @brief remove a GNEConnection
+    void removeConnection(GNEConnection *connection);
 };
 
 

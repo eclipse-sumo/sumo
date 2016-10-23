@@ -383,7 +383,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
 void
 GNENet::deleteConnection(GNEConnection *connection, GNEUndoList* undoList) {
     undoList->p_begin("delete connection");
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), false), true);
+    undoList->add(new GNEChange_Connection(connection, false), true);
     requireRecompute();
     undoList->p_end();
 }
@@ -527,9 +527,9 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     newGeoms.second.erase(newGeoms.second.begin());
     secondPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.second), undoList);
     // fix connections
-    std::vector<NBEdge::Connection>& connections = edge->getNBEdge()->getConnections();
-    for (std::vector<NBEdge::Connection>::iterator con_it = connections.begin(); con_it != connections.end(); con_it++) {
-        undoList->add(new GNEChange_Connection(secondPart, *con_it, true), true);
+    std::vector<GNEConnection*> connections = edge->getGNEConnections();
+    for (std::vector<GNEConnection*>::iterator con_it = connections.begin(); con_it != connections.end(); con_it++) {
+        undoList->add(new GNEChange_Connection(*con_it, true), true);
     }
     undoList->p_end();
     return newJunction;

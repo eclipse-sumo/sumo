@@ -875,6 +875,12 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
 }
 
 
+void 
+NBEdge::insertConnection(NBEdge::Connection connection) {
+    myConnections.push_back(connection);
+}
+
+
 std::vector<NBEdge::Connection>
 NBEdge::getConnectionsFromLane(int lane) const {
     std::vector<NBEdge::Connection> ret;
@@ -1056,6 +1062,21 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
     if (tryLater) {
         myConnectionsToDelete.push_back(Connection(fromLane, toEdge, toLane));
     }
+}
+
+
+bool
+NBEdge::removeFromConnections(NBEdge::Connection connectionToRemove) {
+    // iterate over connections
+    for(std::vector<Connection>::iterator i = myConnections.begin(); i !=  myConnections.end(); i++) {
+        if(((*i).toEdge == connectionToRemove.toEdge) && ((*i).fromLane == connectionToRemove.fromLane) && ((*i).toLane == connectionToRemove.toLane)) {
+            // remove connection
+            myConnections.erase(i);
+            return true;
+        }
+    }
+    //throw exception if remove wasn't found
+    throw ProcessError("Connection from " + getID() + "_" + toString(connectionToRemove.fromLane) + " to " + connectionToRemove.toEdge->getID() + "_" + toString(connectionToRemove.toLane) + " not found");
 }
 
 

@@ -418,12 +418,12 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             NBEdge* srcNBE = *it;
             NBEdge* turnEdge = srcNBE->getTurnDestination();
             GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-            // Make a copy of connections
-            std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
+            // Make a copy of GNEConnections
+            std::vector<GNEConnection*> connections = srcEdge->getGNEConnections();
             // delete in reverse so that undoing will add connections in the original order
-            for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
-                bool hasTurn = con_it->toEdge == turnEdge;
-                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false), true);
+            for (std::vector<GNEConnection*>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
+                bool hasTurn = (*con_it)->getNBEdgeConnection().toEdge == turnEdge;
+                undoList->add(new GNEChange_Connection(*con_it, false), true);
                 // needs to come after GNEChange_Connection
                 // XXX bug: this code path will not be used on a redo!
                 if (hasTurn) {

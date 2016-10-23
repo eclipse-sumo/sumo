@@ -47,36 +47,34 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool forward) :
-    GNEChange(0, forward),
-    myEdge(edge),
-    myNBEdgeConnection(nbCon) 
-{
-    assert(myEdge);
-    //myEdge->incRef("GNEChange_Connection");
+GNEChange_Connection::GNEChange_Connection(GNEConnection *connection, bool forward) :
+    GNEChange(connection->getNet(), forward),
+    myConnection(connection) {
+    assert(connection);
+    myConnection->incRef("GNEChange_Connection");
 }
 
 
 GNEChange_Connection::~GNEChange_Connection() {
-    assert(myEdge);
-    //myEdge->decRef("GNEChange_Connection");
+    assert(myConnection);
+    myConnection->decRef("GNEChange_Connection");
 }
 
 
 void GNEChange_Connection::undo() {
     if (myForward) {
-        myEdge->removeConnection(myNBEdgeConnection);
+        myConnection->getEdgeFrom()->removeConnection(myConnection);
     } else {
-        myEdge->addConnection(myNBEdgeConnection);
+        myConnection->getEdgeFrom()->addConnection(myConnection);
     }
 }
 
 
 void GNEChange_Connection::redo() {
     if (myForward) {
-        myEdge->addConnection(myNBEdgeConnection);
+        myConnection->getEdgeFrom()->addConnection(myConnection);
     } else {
-        myEdge->removeConnection(myNBEdgeConnection);
+        myConnection->getEdgeFrom()->removeConnection(myConnection);
     }
 }
 

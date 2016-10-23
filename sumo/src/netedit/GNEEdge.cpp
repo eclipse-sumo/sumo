@@ -848,33 +848,38 @@ GNEEdge::removeLane(GNELane* lane) {
 }
 
 void
-GNEEdge::addConnection(NBEdge::Connection nbCon) {
-    // If a new connection was sucesfully created
-    if (myNBEdge.setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::L2L_USER, true, nbCon.mayDefinitelyPass, nbCon.keepClear, nbCon.contPos, nbCon.visibility)) {
-        // Create GNEConection
-        GNEConnection* con = new GNEConnection(myLanes[nbCon.fromLane], myNet->retrieveEdge(nbCon.toEdge->getID())->getLanes()[nbCon.toLane]);
-        con->updateGeometry();
-        myGNEConnections.push_back(con);
-        // Add reference
-        myGNEConnections.back()->incRef("GNEEdge::addConnection");
+GNEEdge::addConnection(GNEConnection *connection) {
+    // Create GNEConection if doesn't exist
+    if(connection == NULL) {
+        // Create new connection
+        connection = new GNEConnection(myLanes[connection->getNBEdgeConnection().fromLane], myNet->retrieveEdge(connection->getNBEdgeConnection().toEdge->getID())->getLanes()[connection->getNBEdgeConnection().toLane]);
+        // Insert NBEdge::connection of GNEconnection into NBEdge
+        myNBEdge.insertConnection(connection->getNBEdgeConnection());
+        // Update geometry of connection @improve remove this step
+        connection->updateGeometry();
     }
+    // Add connection to container
+    myGNEConnections.push_back(connection);
+    // Add reference
+    myGNEConnections.back()->incRef("GNEEdge::addConnection");
+    // Force redraw
     myNet->refreshElement(this); // actually we only do this to force a redraw
 }
 
 
 void
-GNEEdge::removeConnection(NBEdge::Connection nbCon) {
-
-    if (nbCon.toEdge == myNBEdge.getTurnDestination()) {
+GNEEdge::removeConnection(GNEConnection *connection) {
+    // First check if an explicit turnaround has to be removed
+    if (connection->getNBEdgeConnection().toEdge == myNBEdge.getTurnDestination()) {
         myNet->removeExplicitTurnaround(getMicrosimID());
     }
     // Get connection to remove
-    myNBEdge.removeFromConnections(nbCon.toEdge, nbCon.fromLane, nbCon.toLane);
-    GNEConnection* con = retrieveConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
-    if (con != 0) {
-        con->decRef("GNEEdge::removeConnection");
-        myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
-    }
+    myNBEdge.removeFromConnections(connection->getNBEdgeConnection().toEdge, connection->getNBEdgeConnection().fromLane, connection->getNBEdgeConnection().toLane);
+    // Decrease reference
+    connection->decRef("GNEEdge::removeConnection");
+    // Remove connection of connections container
+    myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), connection));
+    // Force redraw
     myNet->refreshElement(this); // actually we only do this to force a redraw
 }
 

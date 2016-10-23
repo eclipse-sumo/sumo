@@ -80,7 +80,7 @@ public:
     int getToLaneIndex() const;
 
     /// @brief get Edge::NBConnection
-    NBEdge::Connection &getNBEdgeConnection() const;
+    const NBEdge::Connection &getNBEdgeConnection() const;
 
     /// @brief get Draw connection
     bool getDrawConnection() const;
@@ -153,6 +153,9 @@ protected:
 
     /// @brief outgoing lane of this connection
     GNELane *myToLane;
+
+    /// @brief NBEdge::connection associated to this edge
+    NBEdge::Connection myNBEdgeConnection;
 
     /// @brief the shape of the connection
     PositionVector myShape;
