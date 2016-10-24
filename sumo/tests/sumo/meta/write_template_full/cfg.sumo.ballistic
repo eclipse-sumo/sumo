@@ -50,6 +50,8 @@
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <lanechange-output value="" type="FILE" help="Record lane changes and their motivations for all vehicles into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -82,7 +84,6 @@
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
         <random-depart-offset value="0" type="TIME" help="Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"/>
-        <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>
         <tls.all-off value="false" type="BOOL" help="Switches off all traffic lights."/>
