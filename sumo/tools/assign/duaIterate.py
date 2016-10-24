@@ -61,8 +61,6 @@ def addGenericOptions(argParser):
                            default=False, help="use current time to generate random number")
     argParser.add_argument("-I", "--nointernal-link", action="store_true", dest="internallink",
                            default=False, help="not to simulate internal link: true or false")
-    argParser.add_argument("-L", "--lanechange-allowed", dest="lanechangeallowed", action="store_true",
-                           default=False, help="lane change allowed to swap")
     argParser.add_argument("-j", "--meso-junctioncontrol", dest="mesojunctioncontrol", action="store_true",
                            default=False, help="Enable mesoscopic traffic light and priority junciton handling")
     argParser.add_argument("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
@@ -305,7 +303,6 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
                '--begin', options.begin,
                '--route-steps', options.routeSteps,
                '--no-internal-links', options.internallink,
-               '--lanechange.allow-swap', options.lanechangeallowed,
                '--eager-insert', options.eager_insert,
                '--time-to-teleport', options.timetoteleport,
                '--time-to-teleport.highways', options.timetoteleport_highways,
