@@ -1281,6 +1281,14 @@ MSLCM_LC2013::_wantsChange(
     }
 #endif
 
+    // we check for a special situation with a stopped neighLead, since
+    // a short distance on the current lane should not keep the vehicle from overtaking a
+    // neighboring leader if it is stopped and leaves enough space for merging in behind.
+    const SUMOReal spaceBehindNeighLead = neighLead.first==0 ? 0. :
+            neighLead.first->getLane()->getLength() - neighLead.first->getPositionOnLane(); // -  neighLead.first->getVehicleType().getMinGap();
+    const bool overtakeStoppedNeighLead = neighLead.first==0 ? false :
+            neighLead.first->isStopped() && spaceBehindNeighLead - 0.5 > myVehicle.getVehicleType().getLength();
+
     const SUMOReal usableDist = (currentDist - posOnLane - best.occupation *  JAM_FACTOR);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const SUMOReal maxJam = MAX2(preb[currIdx + prebOffset].occupation, preb[currIdx].occupation);
@@ -1299,12 +1307,15 @@ MSLCM_LC2013::_wantsChange(
                   << " best.length=" << best.length
                   << " maxJam=" << maxJam
                   << " neighLeftPlace=" << neighLeftPlace
+//                  << "\nspaceBehindNeighLead=" << spaceBehindNeighLead
+//                  << " overtakeStoppedNeighLead=" << toString(overtakeStoppedNeighLead)
                   << "\n";
     }
 #endif
 
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
-            && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
+            && currentDistDisallows(usableDist, bestLaneOffset, laDist)
+            && !overtakeStoppedNeighLead) {
         /// @brief we urgently need to change lanes to follow our route
         ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
     } else {
