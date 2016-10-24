@@ -1,19 +1,6 @@
-
-[Reported by leonhard at 13Mai11:16:29]
-search_string:tripinfo
-search_file:tripinfos
-bug_system:trac
-bug_id:2126
-
 [Reported by leo at 18Okt11:37:41]
 search_string:tripinfo
 search_file:tripinfos
 bug_system:trac
 bug_id:2603
 
-[Reported by leo at 20Okt11:46:31]
-search_string:tripinfos
-search_file:tripinfos
-ignore_other_errors:1
-bug_system:trac
-bug_id:2603

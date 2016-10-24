@@ -1,1 +1,4 @@
-Warning: The option 'lanechange.allow-swap' is deprecated, and will not be supported in future versions of SUMO.
+Error: On processing option '--lanechange.allow-swap':
+ No option with the name 'lanechange.allow-swap' exists.
+Error: Could not parse commandline options.
+Quitting (on error).
