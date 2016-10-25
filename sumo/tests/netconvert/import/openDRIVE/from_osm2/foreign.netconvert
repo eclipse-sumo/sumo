@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Oct 17 08:24:48 2016" north="284.53" south="0.00" east="1103.40" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Oct 25 12:30:06 2016" north="284.53" south="0.00" east="1103.40" west="0.00"/>
     <road name="延安高架" length="345.17" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -8,10 +8,18 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="343.85784633" y="-3.15897895" hdg="3.05715053" length="67.77833565"><line/></geometry>
-            <geometry s="67.77833565" x="276.32101288" y="2.55756819" hdg="3.04613267" length="90.10465152"><line/></geometry>
-            <geometry s="157.88298717" x="186.62659386" y="11.14589881" hdg="3.06167754" length="57.51885632"><line/></geometry>
-            <geometry s="215.40184348" x="129.29130977" y="15.73763381" hdg="3.11002682" length="129.51047353"><line/></geometry>
+            <geometry s="0.00000000" x="343.85784633" y="-3.15897895" hdg="3.05715053" length="67.77833565">
+                <line/>
+            </geometry>
+            <geometry s="67.77833565" x="276.32101288" y="2.55756819" hdg="3.04613267" length="90.10465152">
+                <line/>
+            </geometry>
+            <geometry s="157.88298717" x="186.62659386" y="11.14589881" hdg="3.06167754" length="57.51885632">
+                <line/>
+            </geometry>
+            <geometry s="215.40184348" x="129.29130977" y="15.73763381" hdg="3.11002682" length="129.51047353">
+                <line/>
+            </geometry>
         </planView>
         <elevationProfile>
             <elevation s="0" a="0.00" b="0" c="0" d="0"/>
@@ -57,17 +65,39 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="1105.74613389" y="280.22357165" hdg="-2.64236377" length="55.34583712"><line/></geometry>
-            <geometry s="55.34583712" x="1057.15514574" y="253.72682549" hdg="-2.70352547" length="415.38345324"><line/></geometry>
-            <geometry s="470.72929035" x="680.99500717" y="77.52534033" hdg="-2.68879856" length="63.29959681"><line/></geometry>
-            <geometry s="534.02888717" x="624.07422124" y="49.83304744" hdg="-2.76462707" length="55.11272934"><line/></geometry>
-            <geometry s="589.14161650" x="572.83118347" y="29.54600686" hdg="-2.84381199" length="46.98342053"><line/></geometry>
-            <geometry s="636.12503703" x="527.91550358" y="15.76110552" hdg="-2.89201131" length="27.74773735"><line/></geometry>
-            <geometry s="663.87277438" x="501.02750452" y="8.90746164" hdg="-2.94021063" length="30.74311559"><line/></geometry>
-            <geometry s="694.61588997" x="470.90567420" y="2.75811256" hdg="-3.00599638" length="27.71990902"><line/></geometry>
-            <geometry s="722.33579899" x="443.44020892" y="-0.98909613" hdg="-3.07178213" length="42.27487119"><line/></geometry>
-            <geometry s="764.61067018" x="401.26830937" y="-3.93793028" hdg="-3.12657381" length="27.73831088"><line/></geometry>
-            <geometry s="792.34898106" x="373.53312684" y="-4.35451196" hdg="3.10181982" length="29.04447956"><line/></geometry>
+            <geometry s="0.00000000" x="1105.74613389" y="280.22357165" hdg="-2.64236377" length="55.34583712">
+                <line/>
+            </geometry>
+            <geometry s="55.34583712" x="1057.15514574" y="253.72682549" hdg="-2.70352547" length="415.38345324">
+                <line/>
+            </geometry>
+            <geometry s="470.72929035" x="680.99500717" y="77.52534033" hdg="-2.68879856" length="63.29959681">
+                <line/>
+            </geometry>
+            <geometry s="534.02888717" x="624.07422124" y="49.83304744" hdg="-2.76462707" length="55.11272934">
+                <line/>
+            </geometry>
+            <geometry s="589.14161650" x="572.83118347" y="29.54600686" hdg="-2.84381199" length="46.98342053">
+                <line/>
+            </geometry>
+            <geometry s="636.12503703" x="527.91550358" y="15.76110552" hdg="-2.89201131" length="27.74773735">
+                <line/>
+            </geometry>
+            <geometry s="663.87277438" x="501.02750452" y="8.90746164" hdg="-2.94021063" length="30.74311559">
+                <line/>
+            </geometry>
+            <geometry s="694.61588997" x="470.90567420" y="2.75811256" hdg="-3.00599638" length="27.71990902">
+                <line/>
+            </geometry>
+            <geometry s="722.33579899" x="443.44020892" y="-0.98909613" hdg="-3.07178213" length="42.27487119">
+                <line/>
+            </geometry>
+            <geometry s="764.61067018" x="401.26830937" y="-3.93793028" hdg="-3.12657381" length="27.73831088">
+                <line/>
+            </geometry>
+            <geometry s="792.34898106" x="373.53312684" y="-4.35451196" hdg="3.10181982" length="29.04447956">
+                <line/>
+            </geometry>
         </planView>
         <elevationProfile>
             <elevation s="0" a="0.00" b="0" c="0" d="0"/>
@@ -114,7 +144,9 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="344.76609570" y="3.19530339" hdg="3.07948518" length="0.36917361"><line/></geometry>
+            <geometry s="0.00000000" x="344.76609570" y="3.19530339" hdg="3.07948518" length="0.36917361">
+                <line/>
+            </geometry>
         </planView>
         <elevationProfile>
             <elevation s="0" a="0.00" b="0" c="0" d="0"/>
@@ -150,7 +182,9 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="344.63885618" y="-0.00216594" hdg="3.07948518" length="0.51210344"><line/></geometry>
+            <geometry s="0.00000000" x="344.63885618" y="-0.00216594" hdg="3.07948518" length="0.51210344">
+                <line/>
+            </geometry>
         </planView>
         <elevationProfile>
             <elevation s="0" a="0.00" b="0" c="0" d="0"/>
@@ -186,7 +220,9 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="344.51161667" y="-3.19963527" hdg="3.07948518" length="0.65503328"><line/></geometry>
+            <geometry s="0.00000000" x="344.51161667" y="-3.19963527" hdg="3.07948518" length="0.65503328">
+                <line/>
+            </geometry>
         </planView>
         <elevationProfile>
             <elevation s="0" a="0.00" b="0" c="0" d="0"/>
