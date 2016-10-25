@@ -3,14 +3,14 @@ Loading additional-files from 'input_routes.rou.xml'... done (0ms).
 Loading additional-files from 'input_additional.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 1127.00
+Simulation ended at time: 1118.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 327ms
- Real time factor: 3446.48
- UPS: 13229.357798
+ Duration: 199ms
+ Real time factor: 5618.09
+ UPS: 23427.135678
 Vehicles: 
- Inserted: 103
+ Inserted: 111
  Running: 0
  Waiting: 0
 
