@@ -149,8 +149,6 @@ private:
     /// @brief return the status of toLane
     LaneStatus getLaneStatus(const std::vector<NBEdge::Connection>& connections, GNELane* targetLane);
 
-    /// @brief builds internal lanes for the given node
-    void buildIinternalLanes(NBNode* node);
 };
 
 
