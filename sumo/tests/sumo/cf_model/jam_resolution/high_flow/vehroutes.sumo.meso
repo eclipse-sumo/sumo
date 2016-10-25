@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  1 15:29:10 2016 by SUMO Version dev-SVN-r21086
+<!-- generated on 10/25/16 10:22:38 by SUMO Version dev-SVN-r21767
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -502,19 +502,19 @@
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.117" depart="151.00" arrival="312.00">
+    <vehicle id="high.117" depart="150.00" arrival="312.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.118" depart="151.00" arrival="314.00">
+    <vehicle id="high.118" depart="150.00" arrival="314.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.119" depart="151.00" arrival="316.00">
+    <vehicle id="high.119" depart="150.00" arrival="316.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.120" depart="151.00" arrival="318.00">
+    <vehicle id="high.120" depart="150.00" arrival="318.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
