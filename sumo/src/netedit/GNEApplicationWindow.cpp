@@ -841,7 +841,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         gSchemeStorage.setViewport(getView()); // refit the network to accomodate mode specific panel
         if (ec->myViewportFromRegistry) {
             Position off, p;
-            off.set(getApp()->reg().readIntEntry("viewport", "x"), getApp()->reg().readIntEntry("viewport", "y"), getApp()->reg().readIntEntry("viewport", "z"));
+            off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
             getView()->setViewportFromTo(off, p);
         }
     }

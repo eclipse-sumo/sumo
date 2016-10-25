@@ -771,9 +771,9 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
     FXRegistry reg("Netedit", "DLR");
     reg.read();
     const GUISUMOAbstractView* const v = static_cast<GUIGlChildWindow*>(mySubWindows[0])->getView();
-    reg.writeIntEntry("viewport", "x", v->getChanger().getXPos());
-    reg.writeIntEntry("viewport", "y", v->getChanger().getYPos());
-    reg.writeIntEntry("viewport", "z", v->getChanger().getZPos());
+    reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
+    reg.writeRealEntry("viewport", "y", v->getChanger().getYPos());
+    reg.writeRealEntry("viewport", "z", v->getChanger().getZPos());
     reg.write();
     std::string netedit = "netedit";
     const char* sumoPath = getenv("SUMO_HOME");
