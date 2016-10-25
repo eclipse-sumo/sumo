@@ -1154,15 +1154,17 @@ MSLCM_LC2013::_wantsChange(
     SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT) * myStrategicParam;
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
 
-    // react to a stopped leader on the current lane
+
     if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped()) {
-        // value is doubled for the check since we change back and forth
-        // XXX: which value is doubled??? (Leo) Refs. #2578
-        //      If I understand right, this is to induce an overtaking maneuver...
-        //      (decreasing the laDist to avoid urgency-indication below 
-        //       -> XXX: leads to lc-oscillations for subsecond simulation, refs. #2603)
+        // react to a stopped leader on the current lane
+        // The value of laDist is doubled below for the check whether the lc-maneuver can be taken out
+        // on the remaining distance (because the vehicle has to change back and forth). Therefore multiply with 0.5.
         laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap()
                         + leader.first->getVehicleType().getLengthWithGap());
+    } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && neighLead.first->isStopped()){
+        // react to a stopped leader on the target lane (if it is the bestLane)
+        laDist = myVehicle.getVehicleType().getLengthWithGap()
+                        + neighLead.first->getVehicleType().getLengthWithGap();
     }
 
     // free space that is available for changing
@@ -1281,14 +1283,6 @@ MSLCM_LC2013::_wantsChange(
     }
 #endif
 
-    // we check for a special situation with a stopped neighLead, since
-    // a short distance on the current lane should not keep the vehicle from overtaking a
-    // neighboring leader if it is stopped and leaves enough space for merging in behind.
-    const SUMOReal spaceBehindNeighLead = neighLead.first==0 ? 0. :
-            neighLead.first->getLane()->getLength() - neighLead.first->getPositionOnLane(); // -  neighLead.first->getVehicleType().getMinGap();
-    const bool overtakeStoppedNeighLead = neighLead.first==0 ? false :
-            neighLead.first->isStopped() && spaceBehindNeighLead - 0.5 > myVehicle.getVehicleType().getLength();
-
     const SUMOReal usableDist = (currentDist - posOnLane - best.occupation *  JAM_FACTOR);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const SUMOReal maxJam = MAX2(preb[currIdx + prebOffset].occupation, preb[currIdx].occupation);
@@ -1307,15 +1301,12 @@ MSLCM_LC2013::_wantsChange(
                   << " best.length=" << best.length
                   << " maxJam=" << maxJam
                   << " neighLeftPlace=" << neighLeftPlace
-//                  << "\nspaceBehindNeighLead=" << spaceBehindNeighLead
-//                  << " overtakeStoppedNeighLead=" << toString(overtakeStoppedNeighLead)
                   << "\n";
     }
 #endif
 
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
-            && currentDistDisallows(usableDist, bestLaneOffset, laDist)
-            && !overtakeStoppedNeighLead) {
+            && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
         /// @brief we urgently need to change lanes to follow our route
         ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
     } else {
@@ -1425,9 +1416,6 @@ MSLCM_LC2013::_wantsChange(
             saveBlockerLength(*firstBlocked, lcaCounter);
         }
 
-        // XXX: Why do we use myLookAheadSpeed here? This prevents overtaking when a vehicle stops
-        //      shortly before the lane to be used for overtaking ends.
-        //      (although enough space is present, see ticket 2126 test for ballistic). Refs. #2578
         const SUMOReal remainingSeconds = ((ret & LCA_TRACI) == 0 ?
                                            // MAX2((SUMOReal)STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) : 
                                            MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
