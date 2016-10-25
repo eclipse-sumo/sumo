@@ -439,7 +439,7 @@ GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
     for(ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); i++) {
         // Dec reference of connection
-        (*i)->decRef("GNEEdge::removeConnection");
+        (*i)->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced
         if((*i)->unreferenced()) {
             delete (*i);

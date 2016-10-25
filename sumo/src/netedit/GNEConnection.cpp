@@ -72,7 +72,7 @@ int NUM_POINTS = 5;
 
 GNEConnection::GNEConnection(GNELane *from, GNELane* to) :
     GNENetElement(from->getNet(), 
-            toString(SUMO_TAG_CONNECTION) + ":" + from->getMicrosimID() + "->" + to->getMicrosimID(), 
+            std::string(":") + from->getMicrosimID() + "->" + to->getMicrosimID(), 
             GLO_CONNECTION, SUMO_TAG_CONNECTION),
     myFromLane(from),
     myToLane(to),
@@ -287,6 +287,11 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 
 std::string
 GNEConnection::getAttribute(SumoXMLAttr key) const {
+    if (key == SUMO_ATTR_ID) {
+        // used by GNEReferenceCounter
+        // @note: may be called for connections without a valid nbCon reference
+        return getMicrosimID();
+    }
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {
         case SUMO_ATTR_FROM:
