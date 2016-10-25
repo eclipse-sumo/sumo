@@ -1545,8 +1545,10 @@ MSLCM_LC2013::_wantsChange(
 
     SUMOReal thisLaneVSafe = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     SUMOReal neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);
+
+    /* First attempt to fix #2126
+     * should rather be considering anticipated speeds further in the future, maybe combined with maximal speed as tried here
     if (neighLead.first == 0) {
-        // XXX: why stop if neigh lead is NULL? (Leo)
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed(),true));
     } else {
         // @todo: what if leader is below safe gap?!!!
@@ -1560,12 +1562,33 @@ MSLCM_LC2013::_wantsChange(
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(leader.second, myVehicle.getSpeed(),
                 leader.first->getSpeed(),leader.first->getCarFollowModel().getMaxDecel(),true));
     }
+    */
+
+    const SUMOReal correctedSpeed= (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
+                                      - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
+    if (neighLead.first == 0) {
+        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, neighDist, 0, 0));
+    } else {
+        // @todo: what if leader is below safe gap?!!!
+        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(
+                &myVehicle, correctedSpeed, neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
+    }
+    if (leader.first == 0) {
+        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, currentDist, 0, 0));
+    } else {
+        // @todo: what if leader is below safe gap?!!!
+        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(
+                &myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
+    }
 
     const SUMOReal vMax = MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
     thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
     neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
     const SUMOReal relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
                                   RELGAIN_NORMALIZATION_MIN_SPEED);
+
+//    // maybe this (acceleration-difference) would be a good quantity to take into account for lc-considerations..., refs. #2126
+//    const SUMOReal accelDifference = ACCEL2SPEED(neighLaneVSafe - thisLaneVSafe);
 
 
 #ifdef DEBUG_WANTS_CHANGE
