@@ -23,21 +23,20 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import shutil
-import struct
-import random
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import traci
 import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
-
-PORTS = [
-    sumolib.miscutils.getFreeSocketPort(), sumolib.miscutils.getFreeSocketPort()]
-sumoProcess = [subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, p), shell=True, stdout=sys.stdout) for p in PORTS]
-conns = [traci.connect(p) for p in PORTS]
+conns = []
+sumoProcess = []
+for i in range(2):
+    p = sumolib.miscutils.getFreeSocketPort()
+    sumoProcess = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg",
+                                    "--remote-port", str(p)], stdout=sys.stdout)
+    conns.append(traci.connect(p, proc=sumoProcess))
 for c in conns:
     for step in range(3):
         print("step", step)
@@ -59,5 +58,3 @@ for c in conns:
     print("routes", c.route.getIDList())
     print("edges", c.route.getEdges("h2"))
     c.close()
-for p in sumoProcess:
-    p.wait()
