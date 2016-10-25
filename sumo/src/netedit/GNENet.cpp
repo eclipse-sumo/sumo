@@ -331,7 +331,7 @@ void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete edge");
 
-    // invalidate junction
+    // invalidate junction (saving connections)
     edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
     edge->getGNEJunctionDest()->removeFromCrossings(edge, undoList);
     edge->getGNEJunctionSource()->setLogicValid(false, undoList);
@@ -360,6 +360,13 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         deleteEdge(edge, undoList);
     } else {
         undoList->p_begin("delete lane");
+        // invalidate junctions (saving connections)
+        edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
+        edge->getGNEJunctionDest()->removeFromCrossings(edge, undoList);
+        edge->getGNEJunctionSource()->setLogicValid(false, undoList);
+        edge->getGNEJunctionDest()->setLogicValid(false, undoList);
+
+        // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
         const bool sidewalk = laneAttrs.permissions == SVC_PEDESTRIAN;
         undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false), true);
@@ -367,12 +374,6 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
             std::set<GUIGlID> deselected;
             deselected.insert(lane->getGlID());
             undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
-        }
-        if (sidewalk) {
-            edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
-            edge->getGNEJunctionDest()->removeFromCrossings(edge, undoList);
-            edge->getGNEJunctionSource()->setLogicValid(false, undoList);
-            edge->getGNEJunctionDest()->setLogicValid(false, undoList);
         }
         requireRecompute();
         undoList->p_end();
