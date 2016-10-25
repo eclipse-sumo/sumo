@@ -104,14 +104,24 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
-        device << "    <road name=\"" << StringUtils::escapeXML(e->getStreetName()) << "\" length=\"" << e->getLength() << "\" id=\"" << getID(e->getID(), edgeMap, edgeID) << "\" junction=\"-1\">\n";
-        device << "        <link>\n";
-        device << "            <predecessor elementType=\"junction\" elementId=\"" << getID(e->getFromNode()->getID(), nodeMap, nodeID) << "\"/>\n";
-        device << "            <successor elementType=\"junction\" elementId=\"" << getID(e->getToNode()->getID(), nodeMap, nodeID) << "\"/>\n";
-        device << "        </link>\n";
-        device << "        <type s=\"0\" type=\"town\"/>\n";
-        device << "        <planView>\n";
-        device << std::setprecision(8); // geometry hdg requires higher precision
+        device.openTag("road");
+        device.writeAttr("name", StringUtils::escapeXML(e->getStreetName()));
+        device.writeAttr("length", e->getLength());
+        device.writeAttr("id", getID(e->getID(), edgeMap, edgeID));
+        device.writeAttr("junction", -1);
+        device.openTag("link");
+        device.openTag("predecessor");
+        device.writeAttr("elementType", "junction");
+        device.writeAttr("elementId", getID(e->getFromNode()->getID(), nodeMap, nodeID));
+        device.closeTag();
+        device.openTag("successor");
+        device.writeAttr("elementType", "junction");
+        device.writeAttr("elementId", getID(e->getToNode()->getID(), nodeMap, nodeID));
+        device.closeTag();
+        device.closeTag();
+        device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
+        device.openTag("planView");
+        device.setPrecision(8); // geometry hdg requires higher precision
         // for the shape we need to use the leftmost border of the leftmost lane
         const std::vector<NBEdge::Lane>& lanes = e->getLanes();
         PositionVector ls = getLeftLaneBorder(e);
@@ -151,8 +161,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
 
 
-        device << std::setprecision(OUTPUT_ACCURACY);
-        device << "        </planView>\n";
+        device.setPrecision(OUTPUT_ACCURACY);
+        device.closeTag();
         writeElevationProfile(ls, device, elevationOSS);
         device << "        <lateralProfile/>\n";
         device << "        <lanes>\n";
@@ -186,9 +196,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (origNames) {
             device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
         }
-        device << "    </road>\n";
+        device.closeTag();
     }
-    device << "\n";
+    device.lf();
     // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
@@ -224,22 +234,34 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     length = bezier(init, 12).length2D();
                 }
 
-                device << "    <road name=\"" << c.getInternalLaneID() << "\" length=\"" << length << "\" id=\"" << getID(c.getInternalLaneID(), edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
-                device << "        <link>\n";
-                device << "            <predecessor elementType=\"road\" elementId=\"" << getID(inEdge->getID(), edgeMap, edgeID) << "\" contactPoint=\"end\"/>\n";
-                device << "            <successor elementType=\"road\" elementId=\"" << getID(outEdge->getID(), edgeMap, edgeID) << "\" contactPoint=\"start\"/>\n";
-                device << "        </link>\n";
-                device << "        <type s=\"0\" type=\"town\"/>\n";
-                device << "        <planView>\n";
-                device << std::setprecision(8); // geometry hdg requires higher precision
+                device.openTag("road");
+                device.writeAttr("name", c.getInternalLaneID());
+                device.writeAttr("length", length);
+                device.writeAttr("id", getID(c.getInternalLaneID(), edgeMap, edgeID));
+                device.writeAttr("junction", getID(n->getID(), nodeMap, nodeID));
+                device.openTag("link");
+                device.openTag("predecessor");
+                device.writeAttr("elementType", "road");
+                device.writeAttr("elementId", getID(inEdge->getID(), edgeMap, edgeID));
+                device.writeAttr("contactPoint", "end");
+                device.closeTag();
+                device.openTag("successor");
+                device.writeAttr("elementType", "road");
+                device.writeAttr("elementId", getID(outEdge->getID(), edgeMap, edgeID));
+                device.writeAttr("contactPoint", "start");
+                device.closeTag();
+                device.closeTag();
+                device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
+                device.openTag("planView");
+                device.setPrecision(8); // geometry hdg requires higher precision
                 OutputDevice_String elevationOSS(false, 3);
                 if (init.size() == 0) {
                     writeGeomLines(fallBackShape, device, elevationOSS);
                 } else {
                     writeGeomPP3(device, elevationOSS, init, length);
                 }
-                device << std::setprecision(OUTPUT_ACCURACY);
-                device << "        </planView>\n";
+                device.setPrecision(OUTPUT_ACCURACY);
+                device.closeTag();
                 writeElevationProfile(fallBackShape, device, elevationOSS);
                 device << "        <lateralProfile/>\n";
                 device << "        <lanes>\n";
@@ -259,7 +281,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "        </lanes>\n";
                 device << "        <objects/>\n";
                 device << "        <signals/>\n";
-                device << "    </road>\n";
+                device.closeTag();
             }
         }
     }
@@ -314,7 +336,14 @@ NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& de
         const Position& p2 = shape[j + 1];
         const SUMOReal hdg = shape.angleAt2D(j);
         const SUMOReal length = p.distanceTo2D(p2);
-        device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << length << "\"><line/></geometry>\n";
+        device.openTag("geometry");
+        device.writeAttr("s", offset);
+        device.writeAttr("x", p.x());
+        device.writeAttr("y", p.y());
+        device.writeAttr("hdg", hdg);
+        device.writeAttr("length", length);
+        device.openTag("line").closeTag();
+        device.closeTag();
         elevationDevice << "            <elevation s=\"" << offset << "\" a=\"" << p.z() << "\" b=\"" << (p2.z() - p.z()) / MAX2(POSITION_EPS, length) << "\" c=\"0\" d=\"0\"/>\n";
         offset += length;
     }
