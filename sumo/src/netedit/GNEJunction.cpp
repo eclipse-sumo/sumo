@@ -402,16 +402,11 @@ GNEJunction::invalidateShape() {
 void
 GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status) {
     myHasValidLogic = valid;
-    // If new logic isn't valid
     if (!valid) {
-        // Check preconditions
         assert(undoList != 0);
         assert(undoList->hasCommandGroup());
-        // allow edges to recompute their connections
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
-        // Obtain a copy of incoming edges
         EdgeVector incoming = myNBNode.getIncomingEdges();
-        // Iterate over incoming edges
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
             NBEdge* srcNBE = *it;
             NBEdge* turnEdge = srcNBE->getTurnDestination();
@@ -431,11 +426,22 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
-        // Invalidate traffic light
         invalidateTLS(undoList);
     } else {
         rebuildCrossings(false);
     }
+}
+
+
+void
+GNEJunction::markAsModified(GNEUndoList* undoList) {
+    EdgeVector incoming = myNBNode.getIncomingEdges();
+    for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
+        NBEdge* srcNBE = *it;
+        GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
+        undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, MODIFIED), true);
+    }
+    undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, MODIFIED), true);
 }
 
 

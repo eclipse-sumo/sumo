@@ -182,6 +182,9 @@ public:
      * @note: this should always be called with an active command group */
     void setLogicValid(bool valid, GNEUndoList* undoList = 0, const std::string& status = GUESSED);
 
+    /// @brief prevent re-guessing connections at this junction
+    void markAsModified(GNEUndoList* undoList);
+
     /* @brief invalidates loaded or edited TLS
      * @param[in] deletedConnection If a valid connection is given a replacement def with this connection removed
      *   but all other information intact will be computed instead of guessing a new tlDef
