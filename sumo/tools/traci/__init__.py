@@ -41,7 +41,7 @@ def _STEPS2TIME(step):
     return step / 1000.
 
 
-def connect(port=8813, numRetries=10, host="localhost"):
+def connect(port=8813, numRetries=10, host="localhost", proc=None):
     """
     Establish a connection to a TraCI-Server and return the
     connection object. The connection is not saved in the pool and not
@@ -50,7 +50,7 @@ def connect(port=8813, numRetries=10, host="localhost"):
     """
     for wait in range(1, numRetries + 2):
         try:
-            return Connection(host, port)
+            return Connection(host, port, proc)
         except socket.error as e:
             print("Could not connect to TraCI server at %s:%s" %
                   (host, port), e)
@@ -66,7 +66,7 @@ def init(port=8813, numRetries=10, host="localhost", label="default"):
     label. This method is not thread-safe. It accesses the connection
     pool concurrently.
     """
-    _connections[label] = (connect(port, numRetries, host), None)
+    _connections[label] = connect(port, numRetries, host)
     switch(label)
     return getVersion()
 
@@ -79,7 +79,7 @@ def start(cmd, port=None, numRetries=10, label="default"):
     if port is None:
         port = sumolib.miscutils.getFreeSocketPort()
     sumoProcess = subprocess.Popen(cmd + ["--remote-port", str(port)])
-    _connections[label] = (connect(port, numRetries, "localhost"), sumoProcess)
+    _connections[label] = connect(port, numRetries, "localhost", sumoProcess)
     switch(label)
     return getVersion()
 
@@ -94,23 +94,21 @@ def simulationStep(step=0):
     If the given value is 0 or absent, exactly one step is performed.
     Values smaller than or equal to the current sim time result in no action.
     """
-    return _connections[""][0].simulationStep(step)
+    return _connections[""].simulationStep(step)
 
 
 def getVersion():
-    return _connections[""][0].getVersion()
+    return _connections[""].getVersion()
 
 
 def close(wait=True):
-    _connections[""][0].close()
-    if wait and _connections[""][1] is not None:
-        _connections[""][1].wait()
+    _connections[""].close(wait)
 
 
 def switch(label):
     _connections[""] = _connections[label]
     for domain in _defaultDomains:
-        domain._setConnection(_connections[""][0])
+        domain._setConnection(_connections[""])
 
 
 if _embedded:
