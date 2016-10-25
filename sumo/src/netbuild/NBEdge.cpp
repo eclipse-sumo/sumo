@@ -1075,8 +1075,8 @@ NBEdge::removeFromConnections(NBEdge::Connection connectionToRemove) {
             return true;
         }
     }
-    //throw exception if remove wasn't found
-    throw ProcessError("Connection from " + getID() + "_" + toString(connectionToRemove.fromLane) + " to " + connectionToRemove.toEdge->getID() + "_" + toString(connectionToRemove.toLane) + " not found");
+    assert(false);
+    return false;
 }
 
 
