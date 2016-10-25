@@ -182,7 +182,7 @@ RORouteHandler::myStartElement(int element,
         case SUMO_TAG_WALK: {
             bool ok = true;
             const char* const objId = myVehicleParameter->id.c_str();
-            const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, objId, ok, -1);
+            const SUMOReal duration = attrs.getOpt<SUMOReal>(SUMO_ATTR_DURATION, objId, ok, -1);
             if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
                 throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
             }

@@ -505,7 +505,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     const SUMOReal xCornerCut = 0.3 * exaggeration;
     const SUMOReal yCornerCut = 0.4 * exaggeration;
     // round to closest integer
-    const int numCarriages = floor(length / (defaultLength + carriageGap) + 0.5);
+    const int numCarriages = (int)(length / (defaultLength + carriageGap) + 0.5);
     assert(numCarriages > 0);
     const SUMOReal carriageLengthWithGap = length / numCarriages;
     const SUMOReal carriageLength = carriageLengthWithGap - carriageGap;

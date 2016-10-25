@@ -309,7 +309,7 @@ public:
      * @param[in] currentSpeed Actual speed of vehicle
      * @param[in] arrivalSpeed Desired speed at arrival
      */
-    SUMOReal getMinimalArrivalTime(SUMOReal dist, SUMOReal currentSpeed, SUMOReal arrivalSpeed) const;
+    SUMOTime getMinimalArrivalTime(SUMOReal dist, SUMOReal currentSpeed, SUMOReal arrivalSpeed) const;
 
 
     /** @brief Computes the minimal possible arrival speed after covering a given distance

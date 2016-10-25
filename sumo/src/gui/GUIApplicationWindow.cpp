@@ -706,7 +706,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
     getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
     getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 : 0);
-    getApp()->reg().writeIntEntry("gui", "alternateSimDelay", myAlternateSimDelay);
+    getApp()->reg().writeIntEntry("gui", "alternateSimDelay", (int)myAlternateSimDelay);
     getApp()->exit(0);
     return 1;
 }
@@ -986,8 +986,8 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
     const SUMOTime tmp = myAlternateSimDelay;
-    myAlternateSimDelay = mySimDelayTarget->getValue();
-    mySimDelayTarget->setValue(tmp);
+    myAlternateSimDelay = (SUMOTime)mySimDelayTarget->getValue();
+    mySimDelayTarget->setValue((FXdouble)tmp);
     return 1;
 }
 
@@ -1462,7 +1462,7 @@ GUIApplicationWindow::checkGamingEvents() {
             if (veh->getSpeed() < SUMO_const_haltingSpeed) {
                 myWaitingTime += DELTA_T;
             }
-            myTimeLoss += TS * TIME2STEPS(vmax - veh->getSpeed()) / vmax; // may be negative with speedFactor > 1
+            myTimeLoss += TIME2STEPS(TS * (vmax - veh->getSpeed()) / vmax); // may be negative with speedFactor > 1
         }
     }
     myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());

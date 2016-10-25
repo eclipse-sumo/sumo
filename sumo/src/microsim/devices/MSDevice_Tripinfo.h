@@ -171,8 +171,8 @@ private:
     /// @brief The speed on departure
     SUMOReal myDepartSpeed;
 
-    /// @brief The overall number of waiting steps
-    int myWaitingSteps;
+    /// @brief The overall waiting time
+    SUMOTime myWaitingTime;
 
     /// @brief The vehicle's arrival time
     SUMOTime myArrivalTime;

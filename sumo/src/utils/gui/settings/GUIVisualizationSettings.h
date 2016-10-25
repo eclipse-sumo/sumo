@@ -167,9 +167,9 @@ public:
 
     bool hideConnectors;
     /// @brief The lane exaggeration (upscale thickness)
-    float laneWidthExaggeration;
+    SUMOReal laneWidthExaggeration;
     /// @brief The minimum visual lane width for drawing
-    float laneMinSize;
+    SUMOReal laneMinSize;
     /// @brief Whether to show direction indicators for lanes
     bool showLaneDirection;
     /// @brief Whether to show sublane boundaries

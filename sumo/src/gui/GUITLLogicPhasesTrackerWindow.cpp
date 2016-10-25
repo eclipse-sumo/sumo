@@ -240,7 +240,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // compute what shall be shown (what is visible)
     myFirstPhase2Show = 0;
     myFirstPhaseOffset = 0;
-    int leftOffset = 0;
+    SUMOTime leftOffset = 0;
     myFirstTime2Show = 0;
     if (!myAmInTrackingMode) {
         myPhases.clear();
@@ -353,12 +353,12 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // and the initial phase information
     PhasesVector::iterator pi = myPhases.begin() + myFirstPhase2Show;
     DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show;
-    int fpo = myFirstPhaseOffset;
+    SUMOTime fpo = myFirstPhaseOffset;
 
     // start drawing
     for (int i = 30; pd != myDurations.end();) {
         // the first phase may be drawn incompletely
-        int duration = *pd - fpo;
+        SUMOTime duration = *pd - fpo;
         // compute the heigh and the width of the phase
         h = (SUMOReal)(1.0 - h10);
         SUMOReal a = (SUMOReal) duration / width;

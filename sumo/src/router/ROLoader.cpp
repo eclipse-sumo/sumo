@@ -308,7 +308,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
 
 
 void
-ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo, bool endGiven) {
+ROLoader::writeStats(const SUMOTime time, const SUMOTime start, const SUMOTime absNo, bool endGiven) {
     if (myLogSteps) {
         if (endGiven) {
             const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;

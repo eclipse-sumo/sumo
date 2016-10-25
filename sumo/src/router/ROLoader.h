@@ -177,7 +177,7 @@ protected:
 
 
 protected:
-    void writeStats(SUMOTime time, SUMOTime start, int absNo, bool endGiven);
+    void writeStats(const SUMOTime time, const SUMOTime start, const SUMOTime absNo, bool endGiven);
 
 
 private:

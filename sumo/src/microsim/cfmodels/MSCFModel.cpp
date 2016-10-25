@@ -225,7 +225,7 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, SUMOReal speed, SUMORe
 }
 
 
-SUMOReal
+SUMOTime
 MSCFModel::getMinimalArrivalTime(SUMOReal dist, SUMOReal currentSpeed, SUMOReal arrivalSpeed) const{
     const SUMOReal accel = (arrivalSpeed >= currentSpeed) ? getMaxAccel() : -getMaxDecel();
     const SUMOReal accelTime = (arrivalSpeed - currentSpeed) / accel;
@@ -234,8 +234,7 @@ MSCFModel::getMinimalArrivalTime(SUMOReal dist, SUMOReal currentSpeed, SUMOReal 
     // will either drive as fast as possible and decelerate as late as possible
     // or accelerate as fast as possible and then hold that speed
     const SUMOReal nonAccelSpeed = MAX3(currentSpeed, arrivalSpeed, SUMO_const_haltingSpeed);
-    const SUMOTime arrivalTime = TIME2STEPS(accelTime + nonAccelWay / nonAccelSpeed);
-    return arrivalTime;
+    return TIME2STEPS(accelTime + nonAccelWay / nonAccelSpeed);
 }
 
 

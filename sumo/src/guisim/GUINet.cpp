@@ -286,8 +286,6 @@ GUINet::initGUIStructures() {
         myJunctionWrapper.push_back(new GUIJunctionWrapper(*(*i).second));
     }
     // build the visualization tree
-    float* cmin = new float[2];
-    float* cmax = new float[2];
     for (std::vector<GUIEdge*>::iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
         GUIEdge* edge = *i;
         Boundary b;
@@ -297,10 +295,8 @@ GUINet::initGUIStructures() {
         }
         // make sure persons are always drawn and selectable since they depend on their edge being drawn
         b.grow(MSPModel::SIDEWALK_OFFSET + 1);
-        cmin[0] = b.xmin();
-        cmin[1] = b.ymin();
-        cmax[0] = b.xmax();
-        cmax[1] = b.ymax();
+        const float cmin[2] = { (float)b.xmin(), (float)b.ymin() };
+        const float cmax[2] = { (float)b.xmax(), (float)b.ymax() };
         myGrid.Insert(cmin, cmax, edge);
         myBoundary.add(b);
         if (myBoundary.getWidth() > 10e16 || myBoundary.getHeight() > 10e16) {
@@ -311,15 +307,11 @@ GUINet::initGUIStructures() {
         GUIJunctionWrapper* junction = *i;
         Boundary b = junction->getBoundary();
         b.grow(2.);
-        cmin[0] = b.xmin();
-        cmin[1] = b.ymin();
-        cmax[0] = b.xmax();
-        cmax[1] = b.ymax();
+        const float cmin[2] = { (float)b.xmin(), (float)b.ymin() };
+        const float cmax[2] = { (float)b.xmax(), (float)b.ymax() };
         myGrid.Insert(cmin, cmax, junction);
         myBoundary.add(b);
     }
-    delete[] cmin;
-    delete[] cmax;
     myGrid.add(myBoundary);
 }
 

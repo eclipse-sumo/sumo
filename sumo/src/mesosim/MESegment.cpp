@@ -171,7 +171,7 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     } else {
         // dummy values. Should not be used
         myA = 0;
-        myB = myTau_jf;
+        myB = STEPS2TIME(myTau_jf);
     }
 }
 

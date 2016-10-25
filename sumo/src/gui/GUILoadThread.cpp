@@ -177,8 +177,8 @@ GUILoadThread::run() {
     }
 
     GUINet* net = 0;
-    int simStartTime = 0;
-    int simEndTime = 0;
+    SUMOTime simStartTime = 0;
+    SUMOTime simEndTime = 0;
     std::vector<std::string> guiSettingsFiles;
     bool osgView = false;
     GUIEdgeControlBuilder* eb = 0;

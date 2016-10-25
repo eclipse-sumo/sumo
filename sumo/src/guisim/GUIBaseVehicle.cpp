@@ -368,7 +368,7 @@ void
 GUIBaseVehicle::drawPoly(double* poses, SUMOReal offset) {
     glPushMatrix();
     glTranslated(0, 0, offset * .1);
-    glPolygonOffset(0, offset * -1);
+    glPolygonOffset(0, (GLfloat)-offset);
     glBegin(GL_TRIANGLE_FAN);
     int i = 0;
     while (poses[i] > -999) {

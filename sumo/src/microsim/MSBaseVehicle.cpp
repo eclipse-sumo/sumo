@@ -75,7 +75,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myChosenSpeedFactor(speedFactor),
     myMoveReminders(0),
     myDeparture(NOT_YET_DEPARTED),
-    myDepartPos(NOT_YET_DEPARTED),
+    myDepartPos(-1),
     myArrivalPos(-1),
     myArrivalLane(-1),
     myNumberReroutes(0)

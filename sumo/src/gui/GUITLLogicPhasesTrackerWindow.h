@@ -213,7 +213,7 @@ private:
     int myFirstPhase2Show;
 
     /// @brief The offset to draw the first phase (left offset)
-    int myFirstPhaseOffset;
+    SUMOTime myFirstPhaseOffset;
 
     /// @brief The time the diagram begins at
     SUMOTime myFirstTime2Show;
