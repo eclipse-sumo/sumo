@@ -757,7 +757,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myNBEdge.invalidateConnections(true);
             } else if (value != GUESSED) {
                 myNBEdge.declareConnectionsAsLoaded();
-                clearGNEConnections();
             }
             break;
         case GNE_ATTR_SHAPE_START: {

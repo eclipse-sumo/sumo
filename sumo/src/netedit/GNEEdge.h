@@ -251,6 +251,8 @@ public:
     // the radius in which to register clicks for geometry nodes
     static const SUMOReal SNAP_RADIUS;
 
+    /// @brief clear current connections
+    void clearGNEConnections();
 protected:
     /// @brief the underlying NBEdge
     NBEdge& myNBEdge;
@@ -309,8 +311,6 @@ private:
     /// @brief removes a connection
     void removeConnection(NBEdge::Connection nbCon);
 
-    /// @brief clear current connections
-    void clearGNEConnections();
 };
 
 

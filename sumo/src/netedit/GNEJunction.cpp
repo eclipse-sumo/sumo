@@ -441,7 +441,6 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
         undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, MODIFIED), true);
     }
-    undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, MODIFIED), true);
 }
 
 
@@ -675,6 +674,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myLogicStatus == GUESSED && value != GUESSED) {
                 // clear guessed connections. previous connections will be restored
                 myNBNode.invalidateIncomingConnections();
+                std::vector<GNEEdge*> incomingEdges = getGNEIncomingEdges();
+                for(std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+                    (*i)->clearGNEConnections();
+                }
             }
             myLogicStatus = value;
             break;
