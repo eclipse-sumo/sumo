@@ -202,69 +202,45 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         myNumChanges = 0;
         myViewNet->getUndoList()->p_begin("modify connections");
     } else if (myPotentialTargets.count(lane) || allowConflict) {
-        // Save current 
         const int fromIndex = myCurrentLane->getIndex();
-        // Get source and destiny GNEEdges
         GNEEdge& srcEdge = myCurrentLane->getParentEdge();
         GNEEdge& destEdge = lane->getParentEdge();
         const std::string& destEdgeID = destEdge.getMicrosimID();
-        // Obtain GNEConnections from lane source
-        std::vector<GNEConnection*> sourceConnections = myCurrentLane->getGNEOutcomingConnections();
-        // Declare 'changed' flag
+        std::vector<NBEdge::Connection> connections = srcEdge.getNBEdge()->getConnectionsFromLane(fromIndex);
         bool changed = false;
-        // Declare NBConnection for save a possible deleted connection
         NBConnection deletedConnection = NBConnection::InvalidConnection;
-        // get Lane status
-        LaneStatus status = getLaneStatus(sourceConnections, lane);
-        // Set status unconnected if status is conflicted and conflicted are allow
+        LaneStatus status = getLaneStatus(connections, lane);
         if (status == CONFLICTED && allowConflict) {
             status = UNCONNECTED;
         }
-        // switch connection status
         switch (status) {
             case UNCONNECTED:
                 if (toggle) {
                     // create new connection
-                    GNEConnection *newCon = new GNEConnection(srcEdge.getLanes().at(fromIndex), lane);
-                    // Add new connection using GNEChange_Connection
-                    myViewNet->getUndoList()->add(new GNEChange_Connection(newCon, true), true);
-                    // Change special color of lane
+                    NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                    myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, true), true);
                     lane->setSpecialColor(mayDefinitelyPass ? &targetPassColor : &targetColor);
-                    // set 'changed' flag to true
                     changed = true;
                 }
-                // Break switch
                 break;
             case CONNECTED:
             case CONNECTED_PASS: {
                 // remove connection
-                GNEConnection* connectionToRemove = srcEdge.retrieveConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
-                // Remove connection using GNEChange_Connection
-                myViewNet->getUndoList()->add(new GNEChange_Connection(connectionToRemove, false), true);
-                // Change lane special color
+                GNEConnection* con = srcEdge.retrieveConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                deletedConnection = con->getNBConnection();
+                myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, con->getNBEdgeConnection(), false), true);
                 lane->setSpecialColor(&potentialTargetColor);
-                // set 'changed' flag to true
                 changed = true;
-                // Save deleted connection
-                deletedConnection = NBConnection(srcEdge.getNBEdge(), fromIndex,
-                                                 destEdge.getNBEdge(), lane->getIndex(),
-                                                 (int)getTLLLinkNumber(sourceConnections, lane));
-                // Break switch
                 break;
             }
             case CONFLICTED:
                 myViewNet->setStatusBarText("Another lane from the same edge already connects to that lane");
                 break;
         }
-        // if connections were changed
         if (changed) {
-            // Update number of changes
             myNumChanges += 1;
-            // get pointer to affected junction
             GNEJunction* affected = myViewNet->getNet()->retrieveJunction(srcEdge.getGNEJunctionDest()->getMicrosimID());
-            // Invalidate TLS
             affected->invalidateTLS(myViewNet->getUndoList(), deletedConnection);
-            // build internal lanes
             buildIinternalLanes(myCurrentLane->getParentEdge().getNBEdge()->getToNode());
         }
     } else {
@@ -555,45 +531,6 @@ GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connecti
     } else {
         return UNCONNECTED;
     }
-}
-
-
-GNEConnectorFrame::LaneStatus
-GNEConnectorFrame::getLaneStatus(const std::vector<GNEConnection*>& connections, GNELane* targetLane) {
-    // Declare NBEdgeConnections
-    std::vector<NBEdge::Connection> NBEdgeConnections;
-    // Iterate over GNEConnections vector
-    for(std::vector<GNEConnection*>::const_iterator i = connections.begin(); i != connections.end(); i++) {
-        NBEdgeConnections.push_back((*i)->getNBEdgeConnection());
-    }
-    // call getLaneStatus
-    return getLaneStatus(NBEdgeConnections, targetLane);
-}
-
-
-int
-GNEConnectorFrame::getTLLLinkNumber(const std::vector<NBEdge::Connection>& connections, GNELane* targetLane) {
-    const int fromIndex = myCurrentLane->getIndex();
-    NBEdge* destEdge = targetLane->getParentEdge().getNBEdge();
-    const int toIndex = targetLane->getIndex();
-    std::vector<NBEdge::Connection>::const_iterator it = find_if(
-                connections.begin(), connections.end(),
-                NBEdge::connections_finder(fromIndex, destEdge, toIndex));
-    assert(it != connections.end());
-    return it->tlLinkNo;
-}
-
-
-int
-GNEConnectorFrame::getTLLLinkNumber(const std::vector<GNEConnection*>& connections, GNELane* targetLane) {
-    // Declare NBEdgeConnections
-    std::vector<NBEdge::Connection> NBEdgeConnections;
-    // Iterate over GNEConnections vector
-    for(std::vector<GNEConnection*>::const_iterator i = connections.begin(); i != connections.end(); i++) {
-        NBEdgeConnections.push_back((*i)->getNBEdgeConnection());
-    }
-    // call getLaneStatus
-    return getTLLLinkNumber(NBEdgeConnections, targetLane);
 }
 
 

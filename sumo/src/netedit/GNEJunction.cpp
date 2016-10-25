@@ -407,8 +407,6 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         // Check preconditions
         assert(undoList != 0);
         assert(undoList->hasCommandGroup());
-        // Registre a modification of status
-        undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status));
         // allow edges to recompute their connections
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
         // Obtain a copy of incoming edges
@@ -418,12 +416,12 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             NBEdge* srcNBE = *it;
             NBEdge* turnEdge = srcNBE->getTurnDestination();
             GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-            // Make a copy of GNEConnections
-            std::vector<GNEConnection*> connections = srcEdge->getGNEConnections();
+            // Make a copy of connections
+            std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
             // delete in reverse so that undoing will add connections in the original order
-            for (std::vector<GNEConnection*>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
-                bool hasTurn = (*con_it)->getNBEdgeConnection().toEdge == turnEdge;
-                undoList->add(new GNEChange_Connection(*con_it, false), true);
+            for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
+                bool hasTurn = con_it->toEdge == turnEdge;
+                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false), true);
                 // needs to come after GNEChange_Connection
                 // XXX bug: this code path will not be used on a redo!
                 if (hasTurn) {
@@ -432,6 +430,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             }
             undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
+        undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
         // Invalidate traffic light
         invalidateTLS(undoList);
     } else {
@@ -667,6 +666,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->refreshElement(this);
             break;
         case GNE_ATTR_MODIFICATION_STATUS:
+            if (myLogicStatus == GUESSED && value != GUESSED) {
+                // clear guessed connections. previous connections will be restored
+                myNBNode.invalidateIncomingConnections();
+            }
             myLogicStatus = value;
             break;
         case SUMO_ATTR_SHAPE: {

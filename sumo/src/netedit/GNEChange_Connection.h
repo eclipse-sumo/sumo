@@ -55,10 +55,11 @@ class GNEChange_Connection : public GNEChange {
 public:
 
     /**@brief Constructor for creating/deleting a connection
-     * @param[in] connection The connection to be created/deleted
+     * @param[in] edge The source edge of the connection
+     * @param[in] nbCon The data of the connection
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Connection(GNEConnection *connection, bool forward);
+    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Connection();
@@ -80,10 +81,21 @@ public:
 
 
 private:
-    /**@brief full information regarding the connection that is to be created/deleted
+    // @name full information regarding the lane that is to be created/deleted
+    // @brief we assume shared responsibility for the pointers (via reference counting)
+    /// @{
+    // @brief the connection object to be removed/re-added
+    GNEEdge* myEdge;
+
+    /// @brief the data which must be copied because the original reference does not persist
+    NBEdge::Connection myNBEdgeConnection;
+
+    /**@brief We only keep this to retain the GUIGlID
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEConnection *myConnection;
+    /// @}
+
 };
 
 #endif

@@ -198,6 +198,9 @@ public:
     /// @brief remake connections
     void remakeGNEConnections();
 
+    /// @brief remake connections of all incoming edges
+    void remakeIncomingGNEConnections();
+
     /// @brief copy edge attributes from tpl
     void copyTemplate(GNEEdge* tpl, GNEUndoList* undolist);
 
@@ -212,7 +215,7 @@ public:
 
     /**@brief get connection 
     */
-    GNEConnection* retrieveConnection(int fromLane, NBEdge* to, int toLane, bool failHard = true);
+    GNEConnection* retrieveConnection(int fromLane, NBEdge* to, int toLane);
 
     /// @brief whether this edge was created from a split
     bool wasSplit();
@@ -300,11 +303,14 @@ private:
     /// @briefdecrease the number of lanes by one. argument is only used to increase robustness (assertions)
     void removeLane(GNELane* lane);
 
-    /// @brief add a GNEConnection
-    void addConnection(GNEConnection *connection);
+    /// @brief adds a connection
+    void addConnection(NBEdge::Connection nbCon, GNEConnection* con);
 
-    /// @brief remove a GNEConnection
-    void removeConnection(GNEConnection *connection);
+    /// @brief removes a connection
+    void removeConnection(NBEdge::Connection nbCon);
+
+    /// @brief clear current connections
+    void clearGNEConnections();
 };
 
 

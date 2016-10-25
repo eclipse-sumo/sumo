@@ -79,14 +79,20 @@ public:
     /// @briefthe get lane index of the outgoing lane
     int getToLaneIndex() const;
 
-    /// @brief get Edge::NBConnection
-    const NBEdge::Connection &getNBEdgeConnection() const;
+    /// @brief get Edge::Connection
+    NBEdge::Connection &getNBEdgeConnection() const;
+
+    /// @brief get NBConnection
+    NBConnection getNBConnection() const;
 
     /// @brief get Draw connection
     bool getDrawConnection() const;
 
     /// @brief get LinkState
-    int getLinkState() const;
+    LinkState getLinkState() const;
+
+    /// @brief recompute cached myLinkState
+    void updateLinkState();
 
     /// @brief enable or disable draw connection
     void setDrawConnection(bool drawConnection);
@@ -154,9 +160,6 @@ protected:
     /// @brief outgoing lane of this connection
     GNELane *myToLane;
 
-    /// @brief NBEdge::connection associated to this edge
-    NBEdge::Connection myNBEdgeConnection;
-
     /// @brief the shape of the connection
     PositionVector myShape;
 
@@ -172,6 +175,9 @@ protected:
     /// @brief Enable or disable draw connection
     /// @note by default is enabled
     bool myDrawConnection;
+
+    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
+    LinkState myLinkState;
 
 private:
     /// @brief set attribute after validation

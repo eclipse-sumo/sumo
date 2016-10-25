@@ -383,11 +383,14 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
 void
 GNENet::deleteConnection(GNEConnection *connection, GNEUndoList* undoList) {
     undoList->p_begin("delete connection");
-    undoList->add(new GNEChange_Connection(connection, false), true);
+    NBConnection deleted = connection->getNBConnection();
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), false), true);
+    GNEJunction* affected = connection->getEdgeFrom()->getGNEJunctionDest();
+    affected->invalidateTLS(myViewNet->getUndoList(), deleted);
     if (gSelected.isSelected(GLO_CONNECTION, connection->getGlID())) {
-    std::set<GUIGlID> deselected;
-    deselected.insert(connection->getGlID());
-    undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+        std::set<GUIGlID> deselected;
+        deselected.insert(connection->getGlID());
+        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
     requireRecompute();
     undoList->p_end();
@@ -532,9 +535,9 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     newGeoms.second.erase(newGeoms.second.begin());
     secondPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.second), undoList);
     // fix connections
-    std::vector<GNEConnection*> connections = edge->getGNEConnections();
-    for (std::vector<GNEConnection*>::iterator con_it = connections.begin(); con_it != connections.end(); con_it++) {
-        undoList->add(new GNEChange_Connection(*con_it, true), true);
+    std::vector<NBEdge::Connection>& connections = edge->getNBEdge()->getConnections();
+    for (std::vector<NBEdge::Connection>::iterator con_it = connections.begin(); con_it != connections.end(); con_it++) {
+        undoList->add(new GNEChange_Connection(secondPart, *con_it, true), true);
     }
     undoList->p_end();
     return newJunction;
@@ -1392,6 +1395,8 @@ void
 GNENet::initGNEConnections() {
     for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         it->second->remakeGNEConnections();
+    }
+    for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         it->second->updateGeometry();
     }
 }

@@ -115,6 +115,7 @@ GNEUndoList::p_abort() {
 
 void
 GNEUndoList::undo() {
+    //std::cout << undoName().text() << "\n";
     FXUndoList::undo();
     myParent->updateControls();
 }
@@ -122,6 +123,7 @@ GNEUndoList::undo() {
 
 void
 GNEUndoList::redo() {
+    //std::cout << redoName().text() << "\n";
     FXUndoList::redo();
     myParent->updateControls();
 }
