@@ -1,4 +1,4 @@
-Loading net-file from 'motorway.net.xml'... done (2ms).
+Loading net-file from 'motorway.net.xml'... done (1ms).
 Loading additional-files from 'input_additional.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
@@ -15,7 +15,7 @@ Vehicles:
 Statistics (avg):
  RouteLength: 1516.39
  Duration: 681.60
- WaitingTime: 5.24
+ WaitingTime: 5.36
  TimeLoss: 638.75
  DepartDelay: 0.00
 
