@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 26 11:54:15 2016 by SUMO Version dev-SVN-r21795
+<!-- generated on 10/26/16 12:40:04 by SUMO Version dev-SVN-r21793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,6 +27,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ego" depart="0.00" departLane="beg2_0" departPos="2800.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="offRamp_0" arrivalPos="206.60" departPosLat="1.09" arrivalSpeed="36.00" duration="18.00" routeLength="505.20" waitSteps="0.00" timeLoss="3.05" rerouteNo="0" devices="tripinfo_ego" vType="t0" vaporized=""/>
-    <tripinfo id="slow" depart="0.00" departLane="beg2_0" departPos="2820.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="26.00" arrivalLane="offRamp_0" arrivalPos="206.60" departPosLat="1.09" arrivalSpeed="20.00" duration="26.00" routeLength="485.20" waitSteps="0.00" timeLoss="1.20" rerouteNo="0" devices="tripinfo_slow" vType="t1" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="beg2_0" departPos="2800.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="offRamp_0" arrivalPos="206.60" arrivalPosLat="1.09" arrivalSpeed="36.00" duration="18.00" routeLength="505.20" waitSteps="0" timeLoss="3.05" rerouteNo="0" devices="tripinfo_ego" vType="t0" vaporized=""/>
+    <tripinfo id="slow" depart="0.00" departLane="beg2_0" departPos="2820.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="26.00" arrivalLane="offRamp_0" arrivalPos="206.60" arrivalPosLat="1.09" arrivalSpeed="20.00" duration="26.00" routeLength="485.20" waitSteps="0" timeLoss="1.20" rerouteNo="0" devices="tripinfo_slow" vType="t1" vaporized=""/>
 </tripinfos>

@@ -140,6 +140,7 @@ weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 
 [floating_point_tolerance]
+output:0.0101
 detector:0.0101
 summary:0.0101
 aggregated1:0.0101
