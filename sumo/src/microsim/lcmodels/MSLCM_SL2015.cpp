@@ -87,6 +87,8 @@
 
 #define SPEED_GAIN_MIN_SECONDS 20.0
 
+#define ARRIVALPOS_LAT_THRESHOLD 100.0
+
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "A")
 #define DEBUG_COND (myVehicle.getID() == "disabled")
@@ -1340,24 +1342,52 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (fabs(latDist) <= NUMERICAL_EPS && (myCanChangeFully || (myPreviousState | LCA_SUBLANE) != 0)) {
         const SUMOReal halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
         const SUMOReal halfVehWidth = myVehicle.getVehicleType().getWidth() * 0.5;
-        switch (myVehicle.getVehicleType().getPreferredLateralAlignment()) {
-            case LATALIGN_RIGHT:
-                latDist = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
-                break;
-            case LATALIGN_LEFT:
-                latDist = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
-                break;
-            case LATALIGN_CENTER:
-                latDist = -myVehicle.getLateralPositionOnLane();
-                break;
-            case LATALIGN_NICE:
-                latDist = latDistNice;
-                break;
-            case LATALIGN_COMPACT:
-                latDist = sublaneSides[sublaneCompact] - rightVehSide;
-                break;
-            case LATALIGN_ARBITRARY:
-                break;
+        if (myVehicle.getParameter().arrivalPosLatProcedure != ARRIVAL_POSLAT_DEFAULT 
+                && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
+                && bestLaneOffset == 0 
+                && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
+            // vehicle is on its final edge, on the correct lane and close to
+            // its arrival position. Change to the desired lateral position
+            switch (myVehicle.getParameter().arrivalPosLatProcedure) {
+                case ARRIVAL_POSLAT_GIVEN:
+                    latDist = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
+                    break;
+                case ARRIVAL_POSLAT_RIGHT:
+                    latDist = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    break;
+                case ARRIVAL_POSLAT_CENTER:
+                    latDist = -myVehicle.getLateralPositionOnLane();
+                    break;
+                case ARRIVAL_POSLAT_LEFT:
+                    latDist = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    break;
+                default:
+                    assert(false);
+            }
+            if (gDebugFlag2) std::cout << SIMTIME 
+                << " arrivalPosLatProcedure=" << myVehicle.getParameter().arrivalPosLatProcedure 
+                << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
+
+        } else {
+            switch (myVehicle.getVehicleType().getPreferredLateralAlignment()) {
+                case LATALIGN_RIGHT:
+                    latDist = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    break;
+                case LATALIGN_LEFT:
+                    latDist = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    break;
+                case LATALIGN_CENTER:
+                    latDist = -myVehicle.getLateralPositionOnLane();
+                    break;
+                case LATALIGN_NICE:
+                    latDist = latDistNice;
+                    break;
+                case LATALIGN_COMPACT:
+                    latDist = sublaneSides[sublaneCompact] - rightVehSide;
+                    break;
+                case LATALIGN_ARBITRARY:
+                    break;
+            }
         }
         if (gDebugFlag2) std::cout << SIMTIME
                                        << " alignment=" << toString(myVehicle.getVehicleType().getPreferredLateralAlignment())

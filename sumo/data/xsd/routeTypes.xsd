@@ -252,6 +252,8 @@
         <xsd:attribute name="arrivalLane" type="arrivalLaneType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
+        <xsd:attribute name="departPosLat" type="departPosLatType"/>
+        <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
         <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
@@ -286,6 +288,8 @@
         <xsd:attribute name="arrivalLane" type="arrivalLaneType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
+        <xsd:attribute name="departPosLat" type="departPosLatType"/>
+        <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
@@ -326,6 +330,8 @@
         <xsd:attribute name="arrivalLane" type="arrivalLaneType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
+        <xsd:attribute name="departPosLat" type="departPosLatType"/>
+        <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeType">
@@ -401,6 +407,33 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="random"/>
                     <xsd:enumeration value="max"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="departPosLatType">
+        <xsd:union memberTypes="xsd:float">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="random"/>
+                    <xsd:enumeration value="free"/>
+                    <xsd:enumeration value="random_free"/>
+                    <xsd:enumeration value="right"/>
+                    <xsd:enumeration value="center"/>
+                    <xsd:enumeration value="left"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="arrivalPosLatType">
+        <xsd:union memberTypes="xsd:float">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="right"/>
+                    <xsd:enumeration value="center"/>
+                    <xsd:enumeration value="left"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>

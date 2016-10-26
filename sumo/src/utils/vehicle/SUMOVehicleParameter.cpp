@@ -54,6 +54,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       departSpeed(-1), departSpeedProcedure(DEPART_SPEED_DEFAULT),
       arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
       arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
+      arrivalPosLat(0), arrivalPosLatProcedure(ARRIVAL_POSLAT_DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
       repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
       line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0), setParameter(0) {
@@ -141,6 +142,37 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     } else if (oc.isSet("departpos")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
     }
+    //  departPosLat
+    if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
+        std::string val;
+        switch (departPosProcedure) {
+            case DEPART_POSLAT_GIVEN:
+                val = toString(departPos);
+                break;
+            case DEPART_POSLAT_RANDOM:
+                val = "random";
+                break;
+            case DEPART_POSLAT_RANDOM_FREE:
+                val = "random_free";
+                break;
+            case DEPART_POSLAT_FREE:
+                val = "free";
+                break;
+            case DEPART_POSLAT_RIGHT:
+                val = "right";
+                break;
+            case DEPART_POSLAT_CENTER:
+                val = "center";
+                break;
+            case DEPART_POSLAT_LEFT:
+                val = "left";
+                break;
+            case DEPART_POSLAT_DEFAULT:
+            default:
+                break;
+        }
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS_LAT, val);
+    }
     //  departspeed
     if (wasSet(VEHPARS_DEPARTSPEED_SET) && !defaultOptionOverrides(oc, "departspeed")) {
         std::string val;
@@ -201,6 +233,28 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, val);
     } else if (oc.isSet("arrivalpos")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
+    }
+    //  arrivalPosLat
+    if (wasSet(VEHPARS_ARRIVALPOSLAT_SET)) {
+        std::string val;
+        switch (arrivalPosProcedure) {
+            case ARRIVAL_POSLAT_GIVEN:
+                val = toString(arrivalPos);
+                break;
+            case ARRIVAL_POSLAT_RIGHT:
+                val = "right";
+                break;
+            case ARRIVAL_POSLAT_CENTER:
+                val = "center";
+                break;
+            case ARRIVAL_POSLAT_LEFT:
+                val = "left";
+                break;
+            case ARRIVAL_POSLAT_DEFAULT:
+            default:
+                break;
+        }
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS_LAT, val);
     }
     //  arrivalspeed
     if (wasSet(VEHPARS_ARRIVALSPEED_SET) && !defaultOptionOverrides(oc, "arrivalspeed")) {
@@ -476,6 +530,31 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string&
     }
     if (!ok) {
         error = "Invalid arrivalPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float)";
+    }
+    return ok;
+}
+
+
+bool
+SUMOVehicleParameter::parseArrivalPosLat(const std::string& val, const std::string& element, const std::string& id,
+                                        SUMOReal& pos, ArrivalPosLatDefinition& apd, std::string& error) {
+    bool ok = true;
+    if (val == "right") {
+        apd = ARRIVAL_POSLAT_RIGHT;
+    } else if (val == "center") {
+        apd = ARRIVAL_POSLAT_CENTER;
+    } else if (val == "left") {
+        apd = ARRIVAL_POSLAT_LEFT;
+    } else {
+        try {
+            pos = TplConvert::_2SUMOReal(val.c_str());
+            apd = ARRIVAL_POSLAT_GIVEN;
+        } catch (...) {
+            ok = false;
+        }
+    }
+    if (!ok) {
+        error = "Invalid arrivalPosLat definition for " + element + " '" + id + "';\n must be one of (\"right\", \"center\", \"left\", or a float)";
     }
     return ok;
 }

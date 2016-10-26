@@ -68,7 +68,8 @@ const int VEHPARS_FORCE_REROUTE = 2 << 13;
 const int VEHPARS_PERSON_CAPACITY_SET = 2 << 14;
 const int VEHPARS_PERSON_NUMBER_SET = 2 << 15;
 const int VEHPARS_CONTAINER_NUMBER_SET = 2 << 16;
-const int VEHPARS_DEPARTPOSLAT_SET = 2 << 16;
+const int VEHPARS_DEPARTPOSLAT_SET = 2 << 17;
+const int VEHPARS_ARRIVALPOSLAT_SET = 2 << 18;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -226,6 +227,26 @@ enum ArrivalPosDefinition {
     ARRIVAL_POS_MAX,
     /// @brief Tag for the last element in the enum for safe int casting
     ARRIVAL_POS_DEF_MAX
+};
+
+
+/**
+ * @enum ArrivalPosLatDefinition
+ * @brief Possible ways to choose the departure position
+ */
+enum ArrivalPosLatDefinition {
+    /// @brief No information given; use default
+    ARRIVAL_POSLAT_DEFAULT,
+    /// @brief The position is given
+    ARRIVAL_POSLAT_GIVEN,
+    /// @brief At the rightmost side of the lane
+    ARRIVAL_POSLAT_RIGHT,
+    /// @brief At the center of the lane
+    ARRIVAL_POSLAT_CENTER,
+    /// @brief At the leftmost side of the lane
+    ARRIVAL_POSLAT_LEFT,
+    /// @brief Tag for the last element in the enum for safe int casting
+    ARRIVAL_POSLAT_DEF_MAX
 };
 
 
@@ -389,6 +410,19 @@ public:
                                 SUMOReal& pos, ArrivalPosDefinition& apd, std::string& error);
 
 
+    /** @brief Validates a given arrivalPosLat value
+     * @param[in] val The arrivalPosLat value to parse
+     * @param[in] element The name of the type of the parsed element, for building the error message
+     * @param[in] id The id of the parsed element, for building the error message
+     * @param[out] pos The parsed position, if given
+     * @param[out] apd The parsed arrivalPos definition
+     * @param[out] error Error message, if an error occures
+     * @return Whether the given value is a valid arrivalPos definition
+     */
+    static bool parseArrivalPosLat(const std::string& val, const std::string& element, const std::string& id,
+                                  SUMOReal& pos, ArrivalPosLatDefinition& apd, std::string& error);
+
+
     /** @brief Validates a given arrivalSpeed value
      * @param[in] val The arrivalSpeed value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -460,6 +494,10 @@ public:
     SUMOReal arrivalPos;
     /// @brief Information how the vehicle shall choose the arrival position
     ArrivalPosDefinition arrivalPosProcedure;
+    /// @brief (optional) The lateral position the vehicle shall arrive on
+    SUMOReal arrivalPosLat;
+    /// @brief Information how the vehicle shall choose the lateral arrival position
+    ArrivalPosLatDefinition arrivalPosLatProcedure;
     /// @brief (optional) The final speed of the vehicle (not used yet)
     SUMOReal arrivalSpeed;
     /// @brief Information how the vehicle's end speed shall be chosen

@@ -253,6 +253,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departSpeed",            SUMO_ATTR_DEPARTSPEED },
     { "arrivalLane",            SUMO_ATTR_ARRIVALLANE },
     { "arrivalPos",             SUMO_ATTR_ARRIVALPOS },
+    { "arrivalPosLat",          SUMO_ATTR_ARRIVALPOS_LAT },
     { "arrivalSpeed",           SUMO_ATTR_ARRIVALSPEED },
     { "route",                  SUMO_ATTR_ROUTE },
     { "maxSpeed",               SUMO_ATTR_MAXSPEED },

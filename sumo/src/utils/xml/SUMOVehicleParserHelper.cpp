@@ -299,6 +299,14 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
             throw ProcessError(error);
         }
     }
+    // parse lateral arrival position information
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_LAT)) {
+        ret->setParameter |= VEHPARS_ARRIVALPOSLAT_SET;
+        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, ret->id.c_str(), ok);
+        if (!SUMOVehicleParameter::parseArrivalPosLat(helper, element, ret->id, ret->arrivalPosLat, ret->arrivalPosLatProcedure, error)) {
+            throw ProcessError(error);
+        }
+    }
     // parse arrival speed information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
         ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
