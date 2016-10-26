@@ -3,7 +3,7 @@
 @file    checkImages.py
 @author  Michael Behrisch
 @date    2016
-@version $Id: apply_astyle.py 21159 2016-07-14 07:59:30Z behrisch $
+@version $Id$
 
 Checks whether all images in src/utils/gui/images are properly
  inserted into the Makefile
