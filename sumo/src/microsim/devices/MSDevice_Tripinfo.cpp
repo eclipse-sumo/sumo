@@ -230,7 +230,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("arrivalSpeed", myArrivalSpeed);
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", routeLength);
-    os.writeAttr("waitSteps", STEPS2TIME(myWaitingTime));
+    os.writeAttr("waitSteps", myWaitingTime / DELTA_T);
     os.writeAttr("timeLoss", time2string(myTimeLoss));
     os.writeAttr("rerouteNo", myHolder.getNumberReroutes());
     const std::vector<MSDevice*>& devices = myHolder.getDevices();
