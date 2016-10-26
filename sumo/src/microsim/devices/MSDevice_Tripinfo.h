@@ -171,6 +171,9 @@ private:
     /// @brief The speed on departure
     SUMOReal myDepartSpeed;
 
+    /// @brief The lateral depart position
+    SUMOReal myDepartPosLat;
+
     /// @brief The overall waiting time
     SUMOTime myWaitingTime;
 
@@ -182,6 +185,9 @@ private:
 
     /// @brief The position on the lane the vehicle arrived at
     SUMOReal myArrivalPos;
+
+    /// @brief The lateral position on the lane the vehicle arrived at
+    SUMOReal myArrivalPosLat;
 
     /// @brief The speed when arriving
     SUMOReal myArrivalSpeed;
