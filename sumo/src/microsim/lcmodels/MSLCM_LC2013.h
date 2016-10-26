@@ -159,10 +159,30 @@ protected:
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
 
-    // XXX: consider relocation (perhaps to MSVehicle...) (Leo)
+    // XXX: consider relocation of the roundabout functions (perhaps to MSVehicle or the abstract LC Model...) (Leo)
+    /// @brief computes the distance and number of edges in the next upcoming
+    ///        roundabout along the lane continuations given in curr and neigh
+    /// @param[in] veh The considered ego Vehicle
+    /// @param[in] curr continuation info along veh's current lane
+    /// @param[in] neigh continuation info along a neighboring lane (in MSLCM_2013::_wantsChange() the considered lane for a lanechange)
+    /// @param[out] roundaboutDistanceAhead Accumulated length of lanes in the next oncoming roundabout in curr
+    /// @param[out] roundaboutDistanceAheadNeigh Accumulated length of lanes in the next oncoming roundabout in neigh
+    /// @param[out] roundaboutEdgesAhead  Number of lanes in the next oncoming roundabout in curr
+    /// @param[out] roundaboutEdgesAheadNeigh Number of lanes in the next oncoming roundabout in neigh
+    static void
+    getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh,
+            SUMOReal& roundaboutDistanceAhead, SUMOReal& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh);
+
+    /// @brief Computes the artificial bonus distance for roundabout lanes
+    ///        this additional distance reduces the sense of urgency within
+    ///        roundabouts and thereby promotes the use of the inner roundabout
+    ///        lane in multi-lane roundabouts.
+    /// @param[in] roundaboutDistAhead Distance on roundabout
+    /// @param[in] roundaboutEdgesAhead number of edges on roundabout
+    SUMOReal
+    roundaboutDistBonus(SUMOReal roundaboutDistAhead, int roundaboutEdgesAhead) const;
+
     /// @brief compute the distance on the next upcoming roundabout along a given sequence of lanes.
-    ///        (used in _wantsChange() for modifying behavior when approaching a roundabout by decreasing
-    ///         sense of urgency to use the outer lane by scaling up the roundabout distance)
     /// @param[in] position position of the vehicle on the initial lane
     /// @param[in] initialLane starting lane for the computation (may be internal)
     /// @param[in] continuationLanes sequence of lanes along which the roundabout distance is to be computed (only containing non-internal lanes)
