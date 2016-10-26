@@ -53,7 +53,7 @@
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net)
     : SUMOSAXHandler("turn-ratio-file"), myNet(net),
-      myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0) {}
+      myIntervalBegin(0), myIntervalEnd(STEPS2TIME(SUMOTime_MAX)), myEdge(0) {}
 
 
 ROJTRTurnDefLoader::~ROJTRTurnDefLoader() {}

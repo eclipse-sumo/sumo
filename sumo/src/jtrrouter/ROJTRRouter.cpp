@@ -93,7 +93,8 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
 
 
 SUMOReal
-ROJTRRouter::recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime time) const {
+ROJTRRouter::recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const {
+    const SUMOReal time = STEPS2TIME(msTime);
     SUMOReal costs = 0;
     for (ConstROEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         costs += (*i)->getTravelTime(v, time);
