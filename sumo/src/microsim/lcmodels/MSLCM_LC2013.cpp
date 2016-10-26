@@ -958,8 +958,6 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // ballistic
             // XXX This should actually do for euler and ballistic cases (TODO: test!) Refs. #2575
 
-            const SUMOReal maxHelpDecel = nv->getCarFollowModel().getMaxDecel() * HELP_DECEL_FACTOR;
-
             SUMOReal anticipationTime = 1.;
             SUMOReal anticipatedSpeed =  MIN2(myVehicle.getSpeed() + plannedAccel*anticipationTime, myVehicle.getMaxSpeedOnLane());
             SUMOReal anticipatedGap = myCarFollowModel.gapExtrapolation(anticipationTime, neighFollow.second, myVehicle.getSpeed(), nv->getSpeed(),

@@ -106,14 +106,13 @@ MESegment::MESegment(const std::string& id,
                 myBlockTimes.push_back(-1);
             }
             for (int i = 0; i < numFollower; ++i) {
-                const MSEdge* edge = parent.getSuccessors()[i];
-                myFollowerMap[edge] = std::vector<int>();
-                const std::vector<MSLane*>* allowed = parent.allowedLanes(*edge);
+                const MSEdge* const edge = parent.getSuccessors()[i];
+                const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
                 assert(allowed != 0);
                 assert(allowed->size() > 0);
                 for (std::vector<MSLane*>::const_iterator j = allowed->begin(); j != allowed->end(); ++j) {
                     std::vector<MSLane*>::const_iterator it = find(lanes.begin(), lanes.end(), *j);
-                    myFollowerMap[edge].push_back(distance(lanes.begin(), it));
+                    myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
                 }
             }
         }

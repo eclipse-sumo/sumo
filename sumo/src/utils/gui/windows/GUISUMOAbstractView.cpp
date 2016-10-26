@@ -248,10 +248,10 @@ GUISUMOAbstractView::paintGL() {
 
     // draw
     glClearColor(
-        myVisualizationSettings->backgroundColor.red() / 255.,
-        myVisualizationSettings->backgroundColor.green() / 255.,
-        myVisualizationSettings->backgroundColor.blue() / 255.,
-        myVisualizationSettings->backgroundColor.alpha() / 255.);
+        myVisualizationSettings->backgroundColor.red() / 255.f,
+        myVisualizationSettings->backgroundColor.green() / 255.f,
+        myVisualizationSettings->backgroundColor.blue() / 255.f,
+        myVisualizationSettings->backgroundColor.alpha() / 255.f);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -463,8 +463,7 @@ GUISUMOAbstractView::displayLegend() {
         }
         pixelSize = (int) m2p((SUMOReal) length);
     }
-    SUMOReal lineWidth = 1.0;
-    glLineWidth((SUMOReal) lineWidth);
+    glLineWidth(1.0);
 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
@@ -585,10 +584,10 @@ GUISUMOAbstractView::onConfigure(FXObject*, FXSelector, void*) {
     if (makeCurrent()) {
         glViewport(0, 0, getWidth() - 1, getHeight() - 1);
         glClearColor(
-            myVisualizationSettings->backgroundColor.red() / 255.,
-            myVisualizationSettings->backgroundColor.green() / 255.,
-            myVisualizationSettings->backgroundColor.blue() / 255.,
-            myVisualizationSettings->backgroundColor.alpha() / 255.);
+            myVisualizationSettings->backgroundColor.red() / 255.f,
+            myVisualizationSettings->backgroundColor.green() / 255.f,
+            myVisualizationSettings->backgroundColor.blue() / 255.f,
+            myVisualizationSettings->backgroundColor.alpha() / 255.f);
         doInit();
         myAmInitialised = true;
         makeNonCurrent();
@@ -795,10 +794,10 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
     }
     // draw
     glClearColor(
-        myVisualizationSettings->backgroundColor.red() / 255.,
-        myVisualizationSettings->backgroundColor.green() / 255.,
-        myVisualizationSettings->backgroundColor.blue() / 255.,
-        myVisualizationSettings->backgroundColor.alpha() / 255.);
+        myVisualizationSettings->backgroundColor.red() / 255.f,
+        myVisualizationSettings->backgroundColor.green() / 255.f,
+        myVisualizationSettings->backgroundColor.blue() / 255.f,
+        myVisualizationSettings->backgroundColor.alpha() / 255.f);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -865,12 +864,8 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
             glLineWidth(1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             Boundary viewPort = myChanger->getViewport();
-            float minB[2];
-            float maxB[2];
-            minB[0] = viewPort.xmin();
-            minB[1] = viewPort.ymin();
-            maxB[0] = viewPort.xmax();
-            maxB[1] = viewPort.ymax();
+            const float minB[2] = { (float)viewPort.xmin(), (float)viewPort.ymin() };
+            const float maxB[2] = { (float)viewPort.xmax(), (float)viewPort.ymax() };
             myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
             glEnable(GL_POLYGON_OFFSET_FILL);
             glEnable(GL_POLYGON_OFFSET_LINE);
@@ -1187,7 +1182,7 @@ GUISUMOAbstractView::drawDecals() {
         }
         glPushMatrix();
         if (d.screenRelative) {
-            Position center = screenPos2NetPos(d.centerX, d.centerY);
+            Position center = screenPos2NetPos((int)d.centerX, (int)d.centerY);
             glTranslated(center.x(), center.y(), d.layer);
         } else {
             glTranslated(d.centerX, d.centerY, d.layer);
