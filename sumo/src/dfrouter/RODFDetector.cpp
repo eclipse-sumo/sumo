@@ -178,7 +178,7 @@ void
 RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
         SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
         const RODFNet& net,
-        std::map<int, RandomDistributor<int>* >& into) const {
+        std::map<SUMOTime, RandomDistributor<int>* >& into) const {
     if (myRoutes == 0) {
         if (myType != DISCARDED_DETECTOR && myType != BETWEEN_DETECTOR) {
             WRITE_ERROR("Missing routes for detector '" + myID + "'.");
@@ -283,7 +283,7 @@ RODFDetector::hasRoutes() const {
 
 bool
 RODFDetector::writeEmitterDefinition(const std::string& file,
-                                     const std::map<int, RandomDistributor<int>* >& dists,
+const std::map<SUMOTime, RandomDistributor<int>* >& dists,
                                      const RODFDetectorFlows& flows,
                                      SUMOTime startTime, SUMOTime endTime,
                                      SUMOTime stepOffset,
@@ -674,7 +674,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         // try to write the definition
         SUMOReal defaultSpeed = net.getEdge(det->getEdgeID())->getSpeed();
         //  ... compute routes' distribution over time
-        std::map<int, RandomDistributor<int>* > dists;
+        std::map<SUMOTime, RandomDistributor<int>* > dists;
         if (!insertionsOnly && flows.knows(det->getID())) {
             det->buildDestinationDistribution(*this, startTime, endTime, stepOffset, net, dists);
         }
@@ -943,8 +943,8 @@ RODFDetectorCon::getAnyDetectorForEdge(const RODFEdge* const edge) const {
 
 
 void
-RODFDetectorCon::clearDists(std::map<int, RandomDistributor<int>* >& dists) const {
-    for (std::map<int, RandomDistributor<int>* >::iterator i = dists.begin(); i != dists.end(); ++i) {
+RODFDetectorCon::clearDists(std::map<SUMOTime, RandomDistributor<int>* >& dists) const {
+    for (std::map<SUMOTime, RandomDistributor<int>* >::iterator i = dists.begin(); i != dists.end(); ++i) {
         delete(*i).second;
     }
 }

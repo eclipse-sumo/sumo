@@ -169,7 +169,7 @@ public:
     /// @{
 
     bool writeEmitterDefinition(const std::string& file,
-                                const std::map<int, RandomDistributor<int>* >& dists,
+        const std::map<SUMOTime, RandomDistributor<int>* >& dists,
                                 const RODFDetectorFlows& flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                 bool includeUnusedRoutes, SUMOReal scale,
@@ -186,7 +186,7 @@ public:
     void buildDestinationDistribution(const RODFDetectorCon& detectors,
                                       SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                       const RODFNet& net,
-                                      std::map<int, RandomDistributor<int>* >& into) const;
+                                      std::map<SUMOTime, RandomDistributor<int>* >& into) const;
 
     void computeSplitProbabilities(const RODFNet* net, const RODFDetectorCon& detectors,
                                    const RODFDetectorFlows& flows,
@@ -275,7 +275,7 @@ protected:
     /** @brief Clears the given distributions map, deleting the timed distributions
      * @param[in] dists The distribution map to clear
      */
-    void clearDists(std::map<int, RandomDistributor<int>* >& dists) const;
+    void clearDists(std::map<SUMOTime, RandomDistributor<int>* >& dists) const;
 
 
 protected:

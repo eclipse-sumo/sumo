@@ -942,8 +942,8 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
     std::map<ROEdge*, std::vector<std::string>, idComp>::iterator i;
     SUMOReal speedFactorSumPKW = 0;
     SUMOReal speedFactorSumLKW = 0;
-    int speedFactorCountPKW = 0;
-    int speedFactorCountLKW = 0;
+    SUMOReal speedFactorCountPKW = 0;
+    SUMOReal speedFactorCountLKW = 0;
     for (i = myDetectorsOnEdges.begin(); i != myDetectorsOnEdges.end(); ++i) {
         ROEdge* into = (*i).first;
         const SUMOReal maxSpeedPKW = into->getVClassMaxSpeed(SVC_PASSENGER);
@@ -995,10 +995,10 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
                 FlowDef& fd = mflows[index];
                 fd.qPKW += srcFD.qPKW;
                 fd.qLKW += srcFD.qLKW;
-                fd.vLKW += (srcFD.vLKW / (SUMOReal) maxClique->size());
-                fd.vPKW += (srcFD.vPKW / (SUMOReal) maxClique->size());
-                fd.fLKW += (srcFD.fLKW / (SUMOReal) maxClique->size());
-                fd.isLKW += (srcFD.isLKW / (SUMOReal) maxClique->size());
+                fd.vLKW += srcFD.vLKW / (SUMOReal) maxClique->size();
+                fd.vPKW += srcFD.vPKW / (SUMOReal) maxClique->size();
+                fd.fLKW += srcFD.fLKW / (SUMOReal) maxClique->size();
+                fd.isLKW += srcFD.isLKW / (SUMOReal) maxClique->size();
                 const SUMOReal speedFactorPKW = srcFD.vPKW / 3.6 / maxSpeedPKW;
                 const SUMOReal speedFactorLKW = srcFD.vLKW / 3.6 / maxSpeedLKW;
                 myMaxSpeedFactorPKW = MAX2(myMaxSpeedFactorPKW, speedFactorPKW);

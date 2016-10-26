@@ -164,11 +164,11 @@ public:
         assert(from != 0 && to != 0);
         // check whether from and to can be used
         if (PF::operator()(from, vehicle)) {
-            myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on from edge '" + from->getID() + "'.");
+            myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
             return false;
         }
         if (PF::operator()(to, vehicle)) {
-            myErrorMsgHandler->inform("Vehicle  '" + vehicle->getID() + "' is not allowed on to edge '" + to->getID() + "'.");
+            myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             return false;
         }
         this->startQuery();

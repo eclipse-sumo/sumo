@@ -352,18 +352,19 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
     // and the initial phase information
     PhasesVector::iterator pi = myPhases.begin() + myFirstPhase2Show;
-    DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show;
+    
     SUMOTime fpo = myFirstPhaseOffset;
 
     // start drawing
-    for (int i = 30; pd != myDurations.end();) {
+    for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
+        SUMOTime i = 30;
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
         // compute the heigh and the width of the phase
         h = (SUMOReal)(1.0 - h10);
         SUMOReal a = (SUMOReal) duration / width;
         a *= (SUMOReal)(((width - 31.0) / ((SUMOReal)(myLastTime - myBeginTime))));
-        SUMOReal x2 = x + a;
+        const SUMOReal x2 = x + a;
 
         // go through the links
         for (int j = 0; j < (int) myTLLogic->getLinks().size(); ++j) {
@@ -398,7 +399,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // proceed to next phase
         i += duration;
         ++pi;
-        ++pd;
         x = x2;
         // all further phases are drawn in full
         fpo = 0;
