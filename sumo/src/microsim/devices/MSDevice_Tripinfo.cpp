@@ -225,7 +225,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("arrivalLane", myArrivalLane);
     os.writeAttr("arrivalPos", myArrivalPos);
     if (MSGlobals::gLateralResolution > 0) {
-        os.writeAttr("departPosLat", myArrivalPosLat);
+        os.writeAttr("arrivalPosLat", myArrivalPosLat);
     }
     os.writeAttr("arrivalSpeed", myArrivalSpeed);
     os.writeAttr("duration", time2string(duration));
