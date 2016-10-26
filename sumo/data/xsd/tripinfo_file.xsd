@@ -23,11 +23,13 @@
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="departLane" use="required" type="xsd:string"/>
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="departPosLat" use="optional" type="xsd:float"/>
             <xsd:attribute name="departSpeed" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="departDelay" use="required" type="xsd:float"/> <!-- should be nonNegativeFloatType see http://sumo-sim.org/trac.wsgi/ticket/964 -->
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="arrivalLane" use="required" type="xsd:string"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="arrivalPosLat" use="optional" type="xsd:float"/>
             <xsd:attribute name="arrivalSpeed" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
