@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 10:31:00 2016 by SUMO netconvert Version dev-SVN-r21814
+<!-- generated on Thu Oct 27 14:28:27 2016 by SUMO netconvert Version dev-SVN-r21818
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1386,7 +1386,7 @@
     </edge>
     <edge id="143308521#10" from="1789928382" to="664166125" priority="5" type="highway.unclassified">
         <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4459.99,1000.77 4460.08,1000.82"/>
-        <lane id="143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="2.74" shape="4457.38,1002.29 4457.54,1002.40"/>
+        <lane id="143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="2.74" shape="4458.44,1002.98 4458.61,1003.09"/>
     </edge>
     <edge id="143308521#2" from="cluster_1568241686_2177702824" to="664166095" priority="5" type="highway.unclassified" shape="4155.02,912.80 4188.50,911.11 4216.82,909.67">
         <lane id="143308521#2_0" index="0" allow="pedestrian" speed="22.22" length="62.13" width="2.00" shape="4159.76,908.21 4188.28,906.76 4210.42,905.64"/>

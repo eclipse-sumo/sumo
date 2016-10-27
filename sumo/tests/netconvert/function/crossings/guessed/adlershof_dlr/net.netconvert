@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 10:31:03 2016 by SUMO netconvert Version dev-SVN-r21814
+<!-- generated on Thu Oct 27 14:28:32 2016 by SUMO netconvert Version dev-SVN-r21818
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1467,7 +1467,7 @@
         <lane id=":1560223635_w1_0" index="0" allow="pedestrian" speed="1.00" length="6.82" width="4.00" shape="4430.02,548.39 4430.51,552.36 4433.49,552.08 4432.45,541.25 4429.46,541.54 4430.03,541.59 4429.08,545.48"/>
     </edge>
     <edge id=":1560223635_w2" function="walkingarea">
-        <lane id=":1560223635_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.59" width="4.00" shape="4422.39,543.85 4423.34,539.96 4422.92,543.49 4419.93,543.78 4418.17,540.91 4418.03,542.90"/>
+        <lane id=":1560223635_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.57" width="4.00" shape="4422.39,543.85 4423.34,539.96 4422.58,540.02 4419.60,540.31 4418.17,540.91 4418.03,542.90"/>
     </edge>
     <edge id=":1560223686_0" function="internal">
         <lane id=":1560223686_0_0" index="0" disallow="pedestrian" speed="13.89" length="3.72" shape="4430.73,572.39 4434.25,575.05"/>
@@ -3061,7 +3061,7 @@
         <lane id=":1787023433_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.88" width="4.00" shape="4429.15,539.36 4422.46,537.72"/>
     </edge>
     <edge id=":1787023433_w0" function="walkingarea">
-        <lane id=":1787023433_w0_0" index="0" allow="pedestrian" speed="1.00" length="5.01" width="4.00" shape="4422.20,536.00 4419.21,536.29 4417.85,537.80 4417.89,541.00 4419.91,543.58 4422.90,543.29 4421.99,539.67 4422.94,535.78"/>
+        <lane id=":1787023433_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.55" width="4.00" shape="4422.20,536.00 4419.21,536.29 4417.85,537.80 4417.89,541.00 4419.58,540.11 4422.56,539.82 4421.99,539.67 4422.94,535.78"/>
     </edge>
     <edge id=":1787023433_w1" function="walkingarea">
         <lane id=":1787023433_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.29" width="4.00" shape="4429.62,537.41 4428.68,541.30 4429.44,541.34 4432.43,541.05 4431.85,535.07 4428.87,535.36"/>
@@ -6394,7 +6394,7 @@
         <lane id=":664166125_0_0" index="0" disallow="pedestrian" speed="22.22" length="5.16" shape="4458.61,1003.10 4458.67,1004.69 4458.22,1005.56 4457.24,1005.73 4455.75,1005.17"/>
     </edge>
     <edge id=":664166125_w0" function="walkingarea">
-        <lane id=":664166125_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.79" width="2.00" shape="4455.89,1007.29 4454.80,1008.97 4459.55,999.30 4458.47,1000.98"/>
+        <lane id=":664166125_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.70" width="2.00" shape="4455.89,1007.29 4454.80,1008.97 4460.62,999.99 4459.53,1001.67"/>
     </edge>
     <edge id=":664166133_0" function="internal">
         <lane id=":664166133_0_0" index="0" allow="delivery pedestrian" speed="5.56" length="4.82" shape="4596.33,944.89 4596.73,946.33 4596.50,947.22 4595.64,947.57 4594.17,947.39"/>
@@ -9025,7 +9025,7 @@
         <lane id="143308521#1_1" index="1" disallow="pedestrian" speed="22.22" length="11.86" shape="4134.66,912.19 4146.50,911.58"/>
     </edge>
     <edge id="143308521#10" from="1789928382" to="664166125" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified">
-        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="0.15" width="2.00" shape="4458.84,1000.03 4459.01,1000.14"/>
+        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="0.15" width="2.00" shape="4459.91,1000.72 4460.08,1000.83"/>
         <lane id="143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="0.15" shape="4458.52,1003.04 4458.61,1003.10"/>
     </edge>
     <edge id="143308521#2" from="cluster_1568241686_2177702824" to="664166095" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4155.02,912.80 4188.50,911.11 4216.82,909.67">
@@ -9731,7 +9731,7 @@
         <lane id="24214694#1_1" index="1" disallow="pedestrian" speed="13.89" length="5.45" shape="4426.05,558.27 4425.53,552.84"/>
     </edge>
     <edge id="24214694#2" from="1560223635" to="1787023433" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="0.20" width="3.00" shape="4421.43,543.64 4421.41,543.44"/>
+        <lane id="24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="0.20" width="3.00" shape="4421.09,540.17 4421.07,539.97"/>
         <lane id="24214694#2_1" index="1" disallow="pedestrian" speed="13.89" length="0.20" shape="4424.27,539.76 4424.25,539.56"/>
     </edge>
     <edge id="24214694#3" from="1787023433" to="cluster_1292264830_1787023432" name="Wegedornstraße" priority="7" type="highway.secondary" shape="4425.88,539.30 4422.99,509.31">

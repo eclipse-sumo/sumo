@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 10:30:59 2016 by SUMO netconvert Version dev-SVN-r21814
+<!-- generated on Thu Oct 27 14:28:27 2016 by SUMO netconvert Version dev-SVN-r21818
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1444,7 +1444,7 @@
         <lane id="143308521#1_1" index="1" disallow="pedestrian" speed="22.22" length="27.45" shape="4134.66,912.19 4151.76,911.31"/>
     </edge>
     <edge id="143308521#10" from="1789928382" to="664166125" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified">
-        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4458.84,1000.03 4459.01,1000.14"/>
+        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4459.91,1000.72 4460.08,1000.83"/>
         <lane id="143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="2.74" shape="4458.52,1003.04 4458.61,1003.10"/>
     </edge>
     <edge id="143308521#2" from="1568241686" to="664166095" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4155.02,912.80 4188.50,911.11 4216.82,909.67">
@@ -2239,7 +2239,7 @@
         <lane id="24214694#1_1" index="1" disallow="pedestrian" speed="13.89" length="16.14" shape="4426.05,558.27 4425.53,552.84"/>
     </edge>
     <edge id="24214694#2" from="1560223635" to="1787023433" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="7.58" width="3.00" shape="4421.43,543.64 4421.41,543.44"/>
+        <lane id="24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="7.58" width="3.00" shape="4421.09,540.17 4421.07,539.97"/>
         <lane id="24214694#2_1" index="1" disallow="pedestrian" speed="13.89" length="7.58" shape="4424.27,539.76 4424.25,539.56"/>
     </edge>
     <edge id="24214694#3" from="1787023433" to="1292264830" name="Wegedornstraße" priority="7" type="highway.secondary">
