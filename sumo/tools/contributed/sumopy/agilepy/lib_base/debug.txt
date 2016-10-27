@@ -1,0 +1,46 @@
+reload............................................................
+load_obj test_demand_array.obj
+load_obj->init_postload_internal demand
+BaseObjman.init_postload_internal demand parent: ROOT
+Attrsman.init_postload_internal of obj: demand
+  call init_postload_internal of zones
+ObjConf.init_postload_internal zones True True False obj: demand
+AttrConf.init_postload_internal zones True True False obj: demand
+ObjConf.set_obj zones demand
+  make sure children get initialized
+  call init_postload_internal of zones zones __main__.ZonesTab
+Attrsman.init_postload_internal of obj: demand
+  call init_postload_internal of shapes
+AttrConf.init_postload_internal shapes True True True obj: demand
+  call init_postload_internal of odintervals
+ObjConf.init_postload_internal odintervals True True False obj: demand
+AttrConf.init_postload_internal odintervals True True False obj: demand
+ObjConf.set_obj odintervals demand
+  make sure children get initialized
+  call init_postload_internal of odintervals odintervals __main__.OdIntervalsTab
+Attrsman.init_postload_internal of obj: demand
+  call init_postload_internal of t_start
+AttrConf.init_postload_internal t_start True True True obj: demand
+  call init_postload_internal of t_end
+AttrConf.init_postload_internal t_end True True True obj: demand
+  call init_postload_internal of odmodes
+ObjsConf.init_postload_internal odmodes True True True obj: demand
+AttrConf.init_postload_internal odmodes True True True obj: demand
+set_obj odmodes demand
+  make sure childrenS get initialized
+Traceback (most recent call last):
+  File "test_classman_save.py", line 132, in <module>
+    demand = load_obj('test_demand_array.obj')
+  File "/home/joerg/projects/megapy/lib_meta/classman.py", line 173, in load_obj
+    obj.init_postload_internal(parent)
+  File "/home/joerg/projects/megapy/lib_meta/classman.py", line 1707, in init_postload_internal
+    self.attrsman.init_postload_internal(self)
+  File "/home/joerg/projects/megapy/lib_meta/classman.py", line 1334, in init_postload_internal
+    attrconfig.init_postload_internal(self, obj)
+  File "/home/joerg/projects/megapy/lib_meta/classman.py", line 613, in init_postload_internal
+    self.get_value().init_postload_internal(obj)
+  File "/home/joerg/projects/megapy/lib_meta/classman.py", line 1334, in init_postload_internal
+    attrconfig.init_postload_internal(self, obj)
+  File "/home/joerg/projects/megapy/lib_meta/classman.py", line 1066, in init_postload_internal
+    for _id in self.get_obj().get_ids():
+AttributeError: BaseObjman instance has no attribute 'get_ids'
