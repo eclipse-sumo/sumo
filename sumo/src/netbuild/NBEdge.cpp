@@ -557,8 +557,14 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
         // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
         // in this case the result shape should shortened
         if (DEG2RAD(135) < fabs(GeomHelper::angleDiff(shape.beginEndAngle(), old.beginEndAngle()))) {
-            shape = shape.reverse();
+            // eliminate intermediate points
+            PositionVector tmp;
+            tmp.push_back(shape[0]);
+            tmp.push_back(shape[-1]);
+            shape = tmp;
+            // cut to size and reverse
             shape = shape.getSubpart(0, 2 * POSITION_EPS); // *2 because otherwhise shape has only a single point
+            shape = shape.reverse();
         }
     }
     return shape;
