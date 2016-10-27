@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Oct 27 14:28:28 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Oct 27 15:44:02 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
     <road name="Teltowkanalbrücke" length="56.01" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -337,7 +337,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="559.67245439" y="310.49609773" hdg="1.02100042" length="0.20000000">
+            <geometry s="0.00000000" x="559.20125307" y="309.72719674" hdg="1.02100042" length="0.20000000">
                 <line/>
             </geometry>
         </planView>
@@ -1843,7 +1843,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="936.68615645" y="550.28944894" hdg="-0.85163062" length="0.20000000">
+            <geometry s="0.00000000" x="935.24172888" y="551.93910548" hdg="-0.85163062" length="0.20000000">
                 <line/>
             </geometry>
         </planView>
@@ -4135,7 +4135,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="558.74929128" y="309.18107332" hdg="-2.12059224" length="0.20000000">
+            <geometry s="0.00000000" x="559.22049260" y="309.94997430" hdg="-2.12059224" length="0.20000000">
                 <line/>
             </geometry>
         </planView>
@@ -6523,7 +6523,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="934.00428831" y="553.50416663" hdg="2.28996204" length="0.20000000">
+            <geometry s="0.00000000" x="935.44871588" y="551.85451009" hdg="2.28996204" length="0.20000000">
                 <line/>
             </geometry>
         </planView>
@@ -9244,14 +9244,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":283719904_0_0" length="0.48" id="235" junction="43">
+    <road name=":283719904_0_0" length="2.62" id="235" junction="43">
         <link>
             <predecessor elementType="road" elementId="165" contactPoint="end"/>
             <successor elementType="road" elementId="166" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="933.87253686" y="553.65463775" hdg="2.78480499" length="0.47586978">
+            <geometry s="0.00000000" x="935.31696444" y="552.00498121" hdg="2.37628442" length="2.62120137">
                 <line/>
             </geometry>
         </planView>
@@ -9282,15 +9282,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":283719904_1_0" length="6.48" id="236" junction="43">
+    <road name=":283719904_1_0" length="0.10" id="236" junction="43">
         <link>
             <predecessor elementType="road" elementId="165" contactPoint="end"/>
             <successor elementType="road" elementId="48" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="933.87253686" y="553.65463775" hdg="-1.98157878" length="6.47649701">
-                <paramPoly3 aU="-0.00000000" bU="9.80840224" cU="-7.84672179" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="3.92336089" dV="0.00000000"/>
+            <geometry s="0.00000000" x="935.31696444" y="552.00498121" hdg="-2.42242694" length="0.10000000">
+                <line/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -9320,15 +9320,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":283719904_2_0" length="4.82" id="237" junction="43">
+    <road name=":283719904_2_0" length="2.64" id="237" junction="43">
         <link>
             <predecessor elementType="road" elementId="49" contactPoint="end"/>
             <successor elementType="road" elementId="48" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="933.34727929" y="553.75999414" hdg="-0.91664316" length="4.82373569">
-                <paramPoly3 aU="0.00000000" bU="7.22383316" cU="-7.29895013" dU="4.86087980" aV="0.00000000" bV="0.00000000" cV="1.14417458" dV="-0.60634673"/>
+            <geometry s="0.00000000" x="933.34727929" y="553.75999414" hdg="-0.91664316" length="2.63607381">
+                <paramPoly3 aU="0.00000000" bU="3.94148363" cU="-4.02290552" dU="2.67916146" aV="0.00000000" bV="0.00000000" cV="0.93006907" dV="-0.53469091"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -9738,15 +9738,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_1_0" length="17.15" id="248" junction="9">
+    <road name=":294168098_1_0" length="16.25" id="248" junction="9">
         <link>
             <predecessor elementType="road" elementId="102" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="568.20691858" y="323.32592142" hdg="-2.40038852" length="17.15495988">
-                <paramPoly3 aU="-0.00000000" bU="25.52308258" cU="-25.99645679" dU="17.00012157" aV="0.00000000" bV="-0.00000000" cV="5.09694217" dV="-1.04847781"/>
+            <geometry s="0.00000000" x="568.20691858" y="323.32592142" hdg="-2.40038852" length="16.24513105">
+                <paramPoly3 aU="-0.00000000" bU="24.17150347" cU="-24.59446555" dU="16.08298094" aV="0.00000000" bV="0.00000000" cV="4.72307294" dV="-0.92364896"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -9928,15 +9928,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_6_0" length="8.96" id="253" junction="9">
+    <road name=":294168098_6_0" length="8.32" id="253" junction="9">
         <link>
             <predecessor elementType="road" elementId="8" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="565.76247362" y="309.43004981" hdg="2.23833221" length="8.95558996">
-                <paramPoly3 aU="0.00000000" bU="12.47003787" cU="-8.32404216" dU="0.00000000" aV="-0.00000000" bV="0.00000000" cV="5.66192860" dV="0.00000000"/>
+            <geometry s="0.00000000" x="565.76247362" y="309.43004981" hdg="2.23833221" length="8.32176634">
+                <paramPoly3 aU="0.00000000" bU="12.47003787" cU="-8.01188461" dU="0.00000000" aV="-0.00000000" bV="-0.00000000" cV="4.81588068" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10004,15 +10004,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_8_0" length="7.52" id="255" junction="9">
+    <road name=":294168098_8_0" length="8.11" id="255" junction="9">
         <link>
             <predecessor elementType="road" elementId="9" contactPoint="end"/>
             <successor elementType="road" elementId="104" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="559.77695703" y="310.66662396" hdg="1.02100042" length="7.52201030">
-                <paramPoly3 aU="0.00000000" bU="8.17587554" cU="-6.19652354" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="-5.71494940" dV="0.00000000"/>
+            <geometry s="0.00000000" x="559.30575572" y="309.89772298" hdg="1.02100042" length="8.11298235">
+                <paramPoly3 aU="0.00000000" bU="9.97947129" cU="-7.09832141" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-5.71494940" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10042,14 +10042,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_9_0" length="15.19" id="256" junction="9">
+    <road name=":294168098_9_0" length="16.09" id="256" junction="9">
         <link>
             <predecessor elementType="road" elementId="9" contactPoint="end"/>
             <successor elementType="road" elementId="7" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="559.77695703" y="310.66662396" hdg="0.97692411" length="15.18561045">
+            <geometry s="0.00000000" x="559.30575572" y="309.89772298" hdg="0.97939419" length="16.08658157">
                 <line/>
             </geometry>
         </planView>
@@ -10080,15 +10080,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_10_0" length="12.34" id="257" junction="9">
+    <road name=":294168098_10_0" length="13.13" id="257" junction="9">
         <link>
             <predecessor elementType="road" elementId="9" contactPoint="end"/>
             <successor elementType="road" elementId="103" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="559.77695703" y="310.66662396" hdg="1.02100042" length="12.33633488">
-                <paramPoly3 aU="0.00000000" bU="22.31433073" cU="-12.93900786" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="4.70268764" dV="0.00000000"/>
+            <geometry s="0.00000000" x="559.30575572" y="309.89772298" hdg="1.02100042" length="13.13181642">
+                <paramPoly3 aU="0.00000000" bU="24.11792647" cU="-13.84080573" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="4.70268764" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10118,15 +10118,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_11_0" length="2.67" id="258" junction="9">
+    <road name=":294168098_11_0" length="0.15" id="258" junction="9">
         <link>
             <predecessor elementType="road" elementId="9" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="559.77695703" y="310.66662396" hdg="3.00005627" length="2.66705898">
-                <paramPoly3 aU="0.00000000" bU="4.03915685" cU="-3.23132548" dU="0.00000000" aV="-0.00000000" bV="-0.00000000" cV="1.61566274" dV="0.00000000"/>
+            <geometry s="0.00000000" x="559.30575572" y="309.89772298" hdg="1.48464803" length="0.14764777">
+                <paramPoly3 aU="0.00000000" bU="0.22360680" cU="-0.17888544" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="0.08944272" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10726,15 +10726,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294169338_0_0" length="7.80" id="274" junction="11">
+    <road name=":294169338_0_0" length="8.56" id="274" junction="11">
         <link>
             <predecessor elementType="road" elementId="105" contactPoint="end"/>
             <successor elementType="road" elementId="106" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="558.64478864" y="309.01054708" hdg="-2.12059224" length="7.79883974">
-                <paramPoly3 aU="-0.00000000" bU="11.24036402" cU="-12.79328082" dU="7.84802985" aV="0.00000000" bV="0.00000000" cV="-5.73436841" dV="1.66924441"/>
+            <geometry s="0.00000000" x="559.11598995" y="309.77944807" hdg="-2.12059224" length="8.56487024">
+                <paramPoly3 aU="-0.00000000" bU="12.39845595" cU="-13.35172760" dU="8.15018257" aV="0.00000000" bV="0.00000000" cV="-5.06869281" dV="1.00356881"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10764,15 +10764,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294169338_1_0" length="7.75" id="275" junction="11">
+    <road name=":294169338_1_0" length="8.58" id="275" junction="11">
         <link>
             <predecessor elementType="road" elementId="105" contactPoint="end"/>
             <successor elementType="road" elementId="108" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="558.64478864" y="309.01054708" hdg="-2.12059224" length="7.75290212">
-                <paramPoly3 aU="-0.00000000" bU="11.37965568" cU="-12.18602996" dU="7.76077907" aV="0.00000000" bV="0.00000000" cV="4.23523579" dV="-1.20368799"/>
+            <geometry s="0.00000000" x="559.11598995" y="309.77944807" hdg="-2.12059224" length="8.58353969">
+                <paramPoly3 aU="-0.00000000" bU="12.63122938" cU="-13.11550598" dU="8.34047927" aV="0.00000000" bV="0.00000000" cV="3.70078142" dV="-0.66923361"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10802,15 +10802,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294169338_2_0" length="2.67" id="276" junction="11">
+    <road name=":294169338_2_0" length="0.15" id="276" junction="11">
         <link>
             <predecessor elementType="road" elementId="105" contactPoint="end"/>
             <successor elementType="road" elementId="9" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="558.64478864" y="309.01054708" hdg="-0.14153639" length="2.66705898">
-                <paramPoly3 aU="0.00000000" bU="4.03915685" cU="-3.23132548" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="1.61566274" dV="0.00000000"/>
+            <geometry s="0.00000000" x="559.11598995" y="309.77944807" hdg="-1.65694463" length="0.14764777">
+                <paramPoly3 aU="-0.00000000" bU="0.22360680" cU="-0.17888544" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="0.08944272" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10840,15 +10840,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294169338_3_0" length="9.39" id="277" junction="11">
+    <road name=":294169338_3_0" length="8.38" id="277" junction="11">
         <link>
             <predecessor elementType="road" elementId="12" contactPoint="end"/>
             <successor elementType="road" elementId="9" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="557.69522327" y="301.48614275" hdg="1.46220156" length="9.38741588">
-                <paramPoly3 aU="0.00000000" bU="13.83653303" cU="-12.67107649" dU="8.00571941" aV="0.00000000" bV="-0.00000000" cV="2.94134193" dV="-3.93041391"/>
+            <geometry s="0.00000000" x="557.69522327" y="301.48614275" hdg="1.39004365" length="8.37753524">
+                <line/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10992,15 +10992,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294169338_7_0" length="9.42" id="281" junction="11">
+    <road name=":294169338_7_0" length="8.63" id="281" junction="11">
         <link>
             <predecessor elementType="road" elementId="10" contactPoint="end"/>
             <successor elementType="road" elementId="9" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="551.92919315" y="305.67545210" hdg="0.40863610" length="9.42400024">
-                <paramPoly3 aU="0.00000000" bU="13.68183531" cU="-11.49570182" dU="6.83509831" aV="0.00000000" bV="-0.00000000" cV="-3.82371952" dV="5.17060317"/>
+            <geometry s="0.00000000" x="551.92919315" y="305.67545210" hdg="0.40863610" length="8.62515875">
+                <paramPoly3 aU="0.00000000" bU="12.48694730" cU="-10.34195938" dU="6.13831054" aV="0.00000000" bV="0.00000000" cV="-4.69196384" dV="5.52049067"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -17414,14 +17414,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":36268403_0_0" length="9.20" id="450" junction="38">
+    <road name=":36268403_0_0" length="7.01" id="450" junction="38">
         <link>
             <predecessor elementType="road" elementId="164" contactPoint="end"/>
             <successor elementType="road" elementId="165" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="940.16965278" y="546.67145453" hdg="2.30489750" length="9.20313391">
+            <geometry s="0.00000000" x="940.16965278" y="546.67145453" hdg="2.30956847" length="7.01079954">
                 <line/>
             </geometry>
         </planView>
@@ -17566,15 +17566,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":36268403_4_0" length="7.64" id="454" junction="38">
+    <road name=":36268403_4_0" length="5.99" id="454" junction="38">
         <link>
             <predecessor elementType="road" elementId="38" contactPoint="end"/>
             <successor elementType="road" elementId="165" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="933.40612974" y="546.87618166" hdg="0.71423262" length="7.63966957">
-                <paramPoly3 aU="0.00000000" bU="9.63263896" cU="-4.83909210" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="4.61626331" dV="0.00000000"/>
+            <geometry s="0.00000000" x="933.40612974" y="546.87618166" hdg="0.71423262" length="5.99167726">
+                <paramPoly3 aU="0.00000000" bU="9.63263896" cU="-4.82827558" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="2.42363459" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -17642,15 +17642,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":36268403_6_0" length="4.94" id="456" junction="38">
+    <road name=":36268403_6_0" length="5.83" id="456" junction="38">
         <link>
             <predecessor elementType="road" elementId="48" contactPoint="end"/>
             <successor elementType="road" elementId="149" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="936.81790790" y="550.13897783" hdg="-0.85163062" length="4.94350179">
-                <paramPoly3 aU="0.00000000" bU="3.00000000" cU="-5.66344884" dU="2.77069949" aV="0.00000000" bV="0.00000000" cV="-11.14733921" dV="6.43157164"/>
+            <geometry s="0.00000000" x="935.37348032" y="551.78863437" hdg="-0.85163062" length="5.83267408">
+                <paramPoly3 aU="0.00000000" bU="4.64633909" cU="-2.34643304" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="-4.71576757" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -17680,14 +17680,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":36268403_7_0" length="4.82" id="457" junction="38">
+    <road name=":36268403_7_0" length="7.01" id="457" junction="38">
         <link>
             <predecessor elementType="road" elementId="48" contactPoint="end"/>
             <successor elementType="road" elementId="47" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="936.81790790" y="550.13897783" hdg="-0.82311164" length="4.82172035">
+            <geometry s="0.00000000" x="935.37348032" y="551.78863437" hdg="-0.83202620" length="7.01376283">
                 <line/>
             </geometry>
         </planView>
@@ -17718,15 +17718,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":36268403_8_0" length="6.48" id="458" junction="38">
+    <road name=":36268403_8_0" length="0.10" id="458" junction="38">
         <link>
             <predecessor elementType="road" elementId="48" contactPoint="end"/>
             <successor elementType="road" elementId="165" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="936.81790790" y="550.13897783" hdg="1.16001387" length="6.47649701">
-                <paramPoly3 aU="0.00000000" bU="9.80840224" cU="-7.84672179" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="3.92336089" dV="0.00000000"/>
+            <geometry s="0.00000000" x="935.37348032" y="551.78863437" hdg="0.71916571" length="0.10000000">
+                <line/>
             </geometry>
         </planView>
         <elevationProfile>

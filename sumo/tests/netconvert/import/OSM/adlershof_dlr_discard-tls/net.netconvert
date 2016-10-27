@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 10:01:00 2016 by SUMO netconvert Version dev-SVN-r21814
+<!-- generated on Thu Oct 27 15:44:00 2016 by SUMO netconvert Version dev-SVN-r21818
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -98,7 +98,7 @@
         <lane id="-26816553_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="231.92" shape="712.94,230.68 707.50,236.65 682.58,264.00 634.00,225.46 572.28,303.75 570.10,306.51"/>
     </edge>
     <edge id="-26816590#0" from="294169338" to="294168098" priority="2" type="highway.service">
-        <lane id="-26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="561.04,309.66 561.14,309.83"/>
+        <lane id="-26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="560.57,308.89 560.67,309.06"/>
     </edge>
     <edge id="-26816590#1" from="294169339" to="294169338" priority="2" type="highway.service">
         <lane id="-26816590#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.40" shape="548.11,302.28 552.56,304.21"/>
@@ -215,7 +215,7 @@
         <lane id="-5784968#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="89.42" shape="938.92,545.51 993.91,486.35"/>
     </edge>
     <edge id="-5784968#2" from="283719904" to="36268403" name="Gottfried-Leibniz-Straße" priority="4" type="highway.residential">
-        <lane id="-5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="2.71" shape="935.48,549.24 935.61,549.08"/>
+        <lane id="-5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.20" shape="934.04,550.89 934.17,550.73"/>
     </edge>
     <edge id="-5784968#3" from="38920778" to="283719904" name="Gottfried-Leibniz-Straße" priority="4" type="highway.residential">
         <lane id="-5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="52.03" shape="904.66,588.54 932.08,552.79"/>
@@ -392,7 +392,7 @@
         <lane id="26816553_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="231.92" shape="565.43,307.10 569.68,301.71 633.46,220.82 682.21,259.50 705.06,234.43 710.50,228.46"/>
     </edge>
     <edge id="26816590#0" from="294168098" to="294169338" priority="2" type="highway.service">
-        <lane id="26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="557.39,310.02 557.28,309.85"/>
+        <lane id="26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="557.86,310.79 557.75,310.62"/>
     </edge>
     <edge id="26816590#1" from="294169338" to="294169339" priority="2" type="highway.service">
         <lane id="26816590#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.40" shape="551.25,307.24 546.80,305.30"/>

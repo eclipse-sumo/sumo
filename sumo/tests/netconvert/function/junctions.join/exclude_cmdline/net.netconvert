@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 10:31:02 2016 by SUMO netconvert Version dev-SVN-r21814
+<!-- generated on Thu Oct 27 15:44:05 2016 by SUMO netconvert Version dev-SVN-r21818
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -30,8 +30,8 @@
         <lane id=":38919945_0_0" index="0" speed="22.22" length="10.29" shape="38.16,60.67 35.64,59.25 34.40,57.25 33.14,55.38 30.55,54.33"/>
     </edge>
     <edge id=":38919945_1" function="internal">
-        <lane id=":38919945_1_0" index="0" speed="25.00" length="9.95" shape="38.95,57.46 36.57,56.29 35.10,54.15 34.53,51.07 34.86,47.02"/>
-        <lane id=":38919945_1_1" index="1" speed="25.00" length="9.95" shape="39.75,54.26 38.64,53.60 38.00,52.26 37.83,50.26 38.12,47.59"/>
+        <lane id=":38919945_1_0" index="0" speed="25.00" length="9.70" shape="38.95,57.46 36.57,56.30 35.09,54.22 34.50,51.22 34.82,47.31"/>
+        <lane id=":38919945_1_1" index="1" speed="25.00" length="9.70" shape="39.75,54.26 38.64,53.61 37.99,52.33 37.80,50.42 38.07,47.87"/>
     </edge>
     <edge id=":59993001_0" function="internal">
         <lane id=":59993001_0_0" index="0" speed="18.05" length="5.62" shape="29.13,43.70 30.44,43.61 31.52,43.01 32.35,41.92 32.94,40.32"/>
@@ -40,11 +40,11 @@
         <lane id=":59993001_1_0" index="0" speed="22.22" length="12.75" shape="29.13,43.70 41.70,45.78"/>
     </edge>
     <edge id=":59993001_2" function="internal">
-        <lane id=":59993001_2_0" index="0" speed="20.84" length="6.94" shape="34.90,46.83 34.72,44.86 33.82,43.55 32.97,42.26 32.94,40.32"/>
-        <lane id=":59993001_2_1" index="1" speed="20.84" length="6.94" shape="38.15,47.39 37.96,45.50 37.05,44.25 36.19,43.00 36.14,41.14"/>
+        <lane id=":59993001_2_0" index="0" speed="20.84" length="7.19" shape="34.85,47.11 34.68,45.06 33.80,43.69 32.96,42.33 32.94,40.32"/>
+        <lane id=":59993001_2_1" index="1" speed="20.84" length="7.19" shape="38.10,47.67 37.92,45.70 37.02,44.39 36.17,43.08 36.14,41.14"/>
     </edge>
     <edge id=":59993001_4" function="internal">
-        <lane id=":59993001_4_0" index="0" speed="25.00" length="4.51" shape="38.15,47.39 38.53,46.38 39.25,45.78 40.31,45.57 41.70,45.78"/>
+        <lane id=":59993001_4_0" index="0" speed="25.00" length="4.72" shape="38.10,47.67 38.50,46.54 39.24,45.85 40.30,45.59 41.70,45.78"/>
     </edge>
     <edge id=":cluster_301292612_56231397_0" function="internal">
         <lane id=":cluster_301292612_56231397_0_0" index="0" speed="18.05" length="7.48" shape="47.83,60.83 45.87,60.40 44.41,60.84 42.90,61.40 40.82,61.33"/>
@@ -110,8 +110,8 @@
         <lane id="46039050_0" index="0" speed="22.22" length="27.42" shape="1.87,40.76 29.13,43.70"/>
     </edge>
     <edge id="6137245" from="38919945" to="59993001" priority="7" spreadType="center">
-        <lane id="6137245_0" index="0" speed="27.78" length="0.20" shape="34.86,47.02 34.90,46.83"/>
-        <lane id="6137245_1" index="1" speed="27.78" length="0.20" shape="38.12,47.59 38.15,47.39"/>
+        <lane id="6137245_0" index="0" speed="27.78" length="0.20" shape="34.82,47.31 34.85,47.11"/>
+        <lane id="6137245_1" index="1" speed="27.78" length="0.20" shape="38.07,47.87 38.10,47.67"/>
     </edge>
 
     <tlLogic id="cluster_301292612_56231397" type="static" programID="0" offset="0">

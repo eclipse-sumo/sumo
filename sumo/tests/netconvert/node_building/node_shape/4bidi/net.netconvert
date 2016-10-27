@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 10:00:54 2016 by SUMO netconvert Version dev-SVN-r21814
+<!-- generated on Thu Oct 27 15:43:52 2016 by SUMO netconvert Version dev-SVN-r21818
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -52,7 +52,7 @@
         <lane id="234463931_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="200.79" shape="97.18,46.04 123.86,60.16 144.63,71.47 170.64,89.94 230.56,134.60 256.79,158.42"/>
     </edge>
     <edge id="25294728" from="cluster_275525455_2796688606_614674365" to="614672638" priority="1" type="highway.pedestrian" spreadType="center" shape="87.60,49.38 103.12,51.05">
-        <lane id="25294728_0" index="0" allow="pedestrian" speed="8.33" length="21.18" shape="95.47,50.23 95.66,50.25"/>
+        <lane id="25294728_0" index="0" allow="pedestrian" speed="8.33" length="18.19" shape="93.36,50.00 93.56,50.02"/>
     </edge>
     <edge id="25294729#0" from="cluster_275525455_2796688606_614674365" to="275525457" priority="4" type="highway.residential" shape="68.27,34.53 101.93,0.04">
         <lane id="25294729#0_0" index="0" allow="pedestrian" speed="8.33" length="55.08" width="2.00" shape="69.67,26.87 98.82,-3.00"/>
