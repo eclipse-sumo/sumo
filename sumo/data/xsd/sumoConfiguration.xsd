@@ -66,8 +66,11 @@
             <xsd:element name="vehroute-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="lanechange-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="intArrayOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="save-state.prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.suffix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.files" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -82,6 +85,7 @@
 
     <xsd:complexType name="processingType">
         <xsd:all>
+            <xsd:element name="step-method.ballistic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lateral-resolution" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
@@ -99,9 +103,9 @@
             <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="eager-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="random-depart-offset" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="lanechange.allow-swap" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.all-off" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
@@ -119,6 +123,7 @@
             <xsd:element name="device.rerouting.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.pre-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.adaptation-weight" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.adaptation-steps" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
@@ -224,7 +229,9 @@
             <xsd:element name="quit-on-end" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="game" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="start" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="demo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="window-size" type="strOptionType" minOccurs="0"/>
             <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
