@@ -511,8 +511,9 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                              &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
             if (targetSpeed < myVehicle.getSpeed()) {
                 // slow down smoothly to follow leader
-                const SUMOReal decel = MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
-                                            MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
+                const SUMOReal decel = remainingSeconds == 0. ? myVehicle.getCarFollowModel().getMaxDecel() :
+                                         MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
+                                              MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
                 const SUMOReal nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - ACCEL2SPEED(decel));
 #ifdef DEBUG_INFORMER
                 if (DEBUG_COND) {
