@@ -349,7 +349,6 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     const bool pastMidpoint = lcm.updateCompletion();
     vehicle->myState.myPosLat += lcm.getLateralSpeed();
     vehicle->myCachedPosition = Position::INVALID;
-    ChangerIt shadow;
     if (pastMidpoint) {
         ChangerIt to = from + direction;
         MSLane* source = myCandi->lane;
@@ -359,12 +358,10 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
         to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
         to->dens += vehicle->getVehicleType().getLengthWithGap();
         to->hoppedVeh = vehicle;
-        shadow = from;
     } else {
         from->lane->myTmpVehicles.insert(from->lane->myTmpVehicles.begin(), vehicle);
         from->dens += vehicle->getVehicleType().getLengthWithGap();
         from->hoppedVeh = vehicle;
-        shadow = from + lcm.getShadowDirection();
     }
     if (!lcm.isChangingLanes()) {
         vehicle->myState.myPosLat = 0;
@@ -373,6 +370,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     lcm.updateShadowLane();
     if (lcm.getShadowLane() != 0) {
         // set as hoppedVeh on the shadow lane so it is found as leader on both lanes
+        ChangerIt shadow = pastMidpoint ? from : from + lcm.getShadowDirection();
         shadow->hoppedVeh = vehicle;
     }
     vehicle->myAngle = vehicle->computeAngle();
