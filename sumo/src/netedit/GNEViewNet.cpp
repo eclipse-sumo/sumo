@@ -398,12 +398,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    float minB[2];
-    float maxB[2];
-    minB[0] = bound.xmin();
-    minB[1] = bound.ymin();
-    maxB[0] = bound.xmax();
-    maxB[1] = bound.ymax();
+    const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
+    const float maxB[2] = { (float)bound.xmax(), (float)bound.ymax() };
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);

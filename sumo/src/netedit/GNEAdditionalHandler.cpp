@@ -159,7 +159,7 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
         ok = true;
         abort = true;
     }
-    // Continue if all parameters were sucesfully loaded
+    // Continue if all parameters were successfully loaded
     if (!abort) {
         // get edge
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);

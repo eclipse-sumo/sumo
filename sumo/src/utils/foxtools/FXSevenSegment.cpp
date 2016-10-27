@@ -117,7 +117,7 @@ void FXSevenSegment::setBgColor(const FXColor clr) {
 // set horizontal segment length
 void FXSevenSegment::setHorizontal(const FXint len) {
     if (len != hsl) {
-        hsl = len;
+        hsl = (FXshort)len;
         checkSize();
         recalc();
         update();
@@ -127,7 +127,7 @@ void FXSevenSegment::setHorizontal(const FXint len) {
 // set vertical segment length
 void FXSevenSegment::setVertical(const FXint len) {
     if (len != vsl) {
-        vsl = len;
+        vsl = (FXshort)len;
         checkSize();
         recalc();
         update();
@@ -137,7 +137,7 @@ void FXSevenSegment::setVertical(const FXint len) {
 // set segment thickness
 void FXSevenSegment::setThickness(const FXint width) {
     if (width != st) {
-        st = width;
+        st = (FXshort)width;
         checkSize();
         recalc();
         update();
@@ -147,7 +147,7 @@ void FXSevenSegment::setThickness(const FXint width) {
 // set groove thickness
 void FXSevenSegment::setGroove(const FXint width) {
     if (width != groove) {
-        groove = width;
+        groove = (FXshort)width;
         checkSize();
         recalc();
         update();
@@ -408,17 +408,17 @@ void FXSevenSegment::checkSize() {
 // draw each segment, into the available drawing space
 // if widget is resizeable, caculate new sizes for length/width/grove of each segment
 void FXSevenSegment::drawSegments(FXDCWindow& dc, FXbool s1, FXbool s2, FXbool s3, FXbool s4, FXbool s5, FXbool s6, FXbool s7) {
-    FXint sx = border + padleft, sy = border + padtop;
-    FXint x, y;
+    FXshort sx = (FXshort)(border + padleft), sy = (FXshort)(border + padtop);
+    FXshort x, y;
     if (options & LAYOUT_FILL) {
         if (options & LAYOUT_FILL_X) {
-            hsl = width - padleft - padright - (border << 1);
+            hsl = (FXshort)(width - padleft - padright - (border << 1));
             if (hsl < 4) {
                 hsl = 4;
             }
         }
         if (options & LAYOUT_FILL_Y) {
-            vsl = (height - padtop - padbottom - (border << 1)) >> 1;
+            vsl = (FXshort)(height - padtop - padbottom - (border << 1)) >> 1;
             if (vsl < 4) {
                 vsl = 4;
             }

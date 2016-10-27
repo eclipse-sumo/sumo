@@ -223,8 +223,8 @@ GNELane::drawLane2LaneConnections() const {
         }
         const Position& endPos = it->toEdge->getLaneShape(it->toLane)[0];
         glBegin(GL_LINES);
-        glVertex2f(startPos.x(), startPos.y());
-        glVertex2f(endPos.x(), endPos.y());
+        glVertex2d(startPos.x(), startPos.y());
+        glVertex2d(endPos.x(), endPos.y());
         glEnd();
         GLHelper::drawTriangleAtEnd(startPos, endPos, (SUMOReal) 1.5, (SUMOReal) .2);
     }

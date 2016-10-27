@@ -52,10 +52,10 @@ private:
     FXchar  value;      // The currently shown character
     FXColor fgcolor;    // The color of the LCD text
     FXColor bgcolor;    // The color of the LCD background
-    FXint   hsl;        // This is pixel length of a horizontal segment
-    FXint   vsl;        // This is pixel length of a vertical segment
-    FXint   st;         // This is segment thickness, in pixels
-    FXint   groove;     // Groove between segments
+    FXshort hsl;        // This is pixel length of a horizontal segment
+    FXshort vsl;        // This is pixel length of a vertical segment
+    FXshort st;         // This is segment thickness, in pixels
+    FXshort groove;     // Groove between segments
 
 private:
     void checkSize();

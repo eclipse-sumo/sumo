@@ -48,7 +48,7 @@ TrackerValueDesc::TrackerValueDesc(const std::string& name,
                                    SUMOTime recordBegin)
     : myName(name), myActiveCol(col), myInactiveCol(col),
       myMin(0), myMax(0),
-      myAggregationInterval(TIME2STEPS(1) / DELTA_T), myInvalidValue(-1), myValidNo(0),
+      myAggregationInterval((int)(TIME2STEPS(1) / DELTA_T)), myInvalidValue(-1), myValidNo(0),
       myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
 
 
@@ -147,7 +147,7 @@ void
 TrackerValueDesc::setAggregationSpan(SUMOTime as) {
     AbstractMutex::ScopedLocker locker(myLock);
     if (myAggregationInterval != as / DELTA_T) {
-        myAggregationInterval = as / DELTA_T;
+        myAggregationInterval = (int)(as / DELTA_T);
         // ok, the aggregation has changed,
         //  let's recompute the list of aggregated values
         myAggregatedValues.clear();

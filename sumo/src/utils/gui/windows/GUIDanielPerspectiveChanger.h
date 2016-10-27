@@ -150,7 +150,7 @@ private:
 
     /// avoid flicker
     FXTime myDragDelay;
-    FXTime myMouseDownTime;
+    FXlong myMouseDownTime;
 
 
 private:

@@ -1302,7 +1302,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     // all links within dist are taken into account (potentially)
     // the distance already "seen"; in the following always up to the end of the current "lane" 
     const SUMOReal dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
-    const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(),0.);
 
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
 #ifdef DEBUG_PLAN_MOVE

@@ -368,7 +368,6 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
 
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
-        const bool sidewalk = laneAttrs.permissions == SVC_PEDESTRIAN;
         undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false), true);
         if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
             std::set<GUIGlID> deselected;

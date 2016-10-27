@@ -55,11 +55,11 @@ class GUIVisualizationSettings;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, float _size, RGBColor _color) :
+    GUIVisualizationTextSettings(bool _show, SUMOReal _size, RGBColor _color) :
         show(_show), size(_size), color(_color) {}
 
     bool show;
-    float size;
+    SUMOReal size;
     RGBColor color;
 
     bool operator==(const GUIVisualizationTextSettings& other) {
@@ -80,13 +80,13 @@ struct GUIVisualizationTextSettings {
 
 
 struct GUIVisualizationSizeSettings {
-    GUIVisualizationSizeSettings(float _minSize, float _exaggeration = 1.0, bool _constantSize = false) :
+    GUIVisualizationSizeSettings(SUMOReal _minSize, SUMOReal _exaggeration = 1.0, bool _constantSize = false) :
         minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize) {}
 
     /// @brief The minimum size to draw this object
-    float minSize;
+    SUMOReal minSize;
     /// @brief The size exaggeration (upscale)
-    float exaggeration;
+    SUMOReal exaggeration;
     // @brief whether the object shall be drawn with constant size regardless of zoom
     bool constantSize;
 
