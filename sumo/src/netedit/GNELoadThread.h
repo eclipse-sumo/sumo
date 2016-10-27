@@ -67,9 +67,9 @@ public:
     /**@brief begins the loading of a netconvert configuration or a a network
      * @param[in] file The network or configuration-file to be loaded
      * @param[in] isNet whether file is a network file
-     * @param[in] optionsReady whether options are already initialized
+     * @param[in] useStartupOptions whether the initial startup options shall be used
      */
-    void loadConfigOrNet(const std::string& file, bool isNet, bool optionsReady = false, bool newNet = false);
+    void loadConfigOrNet(const std::string& file, bool isNet, bool useStartupOptions, bool newNet = false);
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
@@ -109,9 +109,6 @@ protected:
 
     /// @brief Information whether only the network shall be loaded
     bool myLoadNet;
-
-    /// @brief if true, options will not be read from myFile
-    bool myOptionsReady;
 
     /// @brief if true, a new net is created
     bool myNewNet;

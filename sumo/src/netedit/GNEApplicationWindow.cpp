@@ -649,7 +649,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
         if (wizard->execute()) {
             NIFrame::checkOptions(); // needed to set projection parameters
-            loadConfigOrNet(file, false, false, true);
+            loadConfigOrNet(file, false, false, false);
         }
     }
     return 1;
@@ -725,6 +725,7 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* data) 
 
 long
 GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
+    // @note. If another network has been load during this session, it might not be desirable to set useStartupOptions
     loadConfigOrNet(OptionsCont::getOptions().getString("sumo-net-file"), true, true);
     return 1;
 }
@@ -868,7 +869,7 @@ GNEApplicationWindow::handleEvent_Message(GUIEvent* e) {
 
 
 void
-GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool optionsReady, bool newNet) {
+GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool useStartupOptions, bool newNet) {
     if (!continueWithUnsavedChanges()) {
         return;
     }
@@ -880,7 +881,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
         setStatusBarText("Reloading.");
     } else {
         gSchemeStorage.saveViewport(0, 0, -1); // recenter view
-        myLoadThread->loadConfigOrNet(file, isNet, optionsReady, newNet);
+        myLoadThread->loadConfigOrNet(file, isNet, useStartupOptions, newNet);
         setStatusBarText("Loading '" + file + "'.");
     }
     update();
@@ -980,15 +981,8 @@ GNEApplicationWindow::getDefaultCursor() {
 
 void
 GNEApplicationWindow::loadOptionOnStartup() {
-    // get options
-    const OptionsCont& OC = OptionsCont::getOptions();
-    // depending of the options, create a new net, or load a existent net depet
-    if(OC.getBool("new")) {
-        loadConfigOrNet("", true, false, true, true);
-    }
-    if(OC.isSet("sumo-net-file")) {
-        loadConfigOrNet(OC.getString("sumo-net-file"), true, false, true, false);
-    }
+    const OptionsCont& oc = OptionsCont::getOptions();
+    loadConfigOrNet("", true, false, true, oc.getBool("new"));
 }
 
 

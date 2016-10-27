@@ -284,7 +284,7 @@ GNELoadThread::initOptions() {
 
 
 void
-GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool optionsReady, bool newNet) {
+GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStartupOptions, bool newNet) {
     myFile = file;
     myLoadNet = isNet;
 
@@ -296,10 +296,9 @@ GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool options
         myAdditionalOutputFile = OC.getString("additionals-output");
     }
 
-    if (myFile != "") {
+    if (myFile != "" && !useStartupOptions) {
         OptionsIO::setArgs(0, 0);
     }
-    myOptionsReady = optionsReady;
     myNewNet = newNet;
     start();
 }
