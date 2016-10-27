@@ -539,9 +539,12 @@ PositionVector
 NBEdge::cutAtIntersection(const PositionVector& old) const {
     PositionVector shape = old;
     shape = startShapeAt(shape, myFrom, myFromBorder);
-    if (shape.size() >= 2) {
-        shape = startShapeAt(shape.reverse(), myTo, myToBorder).reverse();
+    if (shape.size() < 2) {
+        // only keep the last snippet
+        const SUMOReal oldLength = old.length();
+        shape = old.getSubpart(oldLength - 2 * POSITION_EPS, oldLength);
     }
+    shape = startShapeAt(shape.reverse(), myTo, myToBorder).reverse();
     // sanity checks
     if (shape.length() < POSITION_EPS) {
         if (old.length() < 2 * POSITION_EPS) {
