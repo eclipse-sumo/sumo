@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:31 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Thu Oct 27 10:00:58 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -158,8 +158,8 @@
         <lane id="30001[0]_1" index="1" speed="13.89" length="182.25" shape="314.23,1181.32 366.03,1182.29 409.48,1183.36 435.99,1184.01 469.12,1186.12 489.12,1189.69"/>
     </edge>
     <edge id="30001[1][0]" from="46" to="49" priority="-1" type="11" spreadType="center" shape="479.07,1186.22 483.20,1186.96 489.57,1190.54">
-        <lane id="30001[1][0]_0" index="0" speed="13.89" length="14.80" shape="484.23,1185.64 484.40,1185.74"/>
-        <lane id="30001[1][0]_1" index="1" speed="13.89" length="14.80" shape="482.63,1188.53 482.83,1188.57"/>
+        <lane id="30001[1][0]_0" index="0" speed="13.89" length="5.21" shape="489.15,1188.41 489.33,1188.51"/>
+        <lane id="30001[1][0]_1" index="1" speed="13.89" length="5.21" shape="488.92,1189.66 489.12,1189.69"/>
     </edge>
     <edge id="30001[1][1][0]" from="49" to="47" priority="-1" type="11" spreadType="center" shape="489.57,1190.54 497.84,1190.85 506.83,1193.49 526.37,1195.61">
         <lane id="30001[1][1][0]_0" index="0" speed="13.89" length="37.30" shape="490.75,1188.93 498.11,1189.21 507.15,1191.86 522.23,1193.50"/>
@@ -303,7 +303,7 @@
         <lane id="31[0]_1" index="1" speed="13.89" length="31.00" shape="683.60,1955.45 708.90,1950.85"/>
     </edge>
     <edge id="31[1][0]" from="22" to="25" priority="-1" type="1" spreadType="center">
-        <lane id="31[1][0]_0" index="0" speed="13.89" length="10.28" shape="712.55,1943.14 712.56,1942.94"/>
+        <lane id="31[1][0]_0" index="0" speed="13.89" length="10.28" shape="712.60,1942.47 712.61,1942.27"/>
         <lane id="31[1][0]_1" index="1" speed="13.89" length="10.28" shape="715.90,1942.52 716.20,1938.64"/>
     </edge>
     <edge id="31[1][1][1][0]" from="26" to="27" priority="-1" type="1" spreadType="center" shape="729.89,1922.08 745.25,1918.11 801.66,1870.05 818.92,1847.97 843.93,1805.71 844.37,1804.64">
@@ -516,8 +516,8 @@
         <lane id="6[0]_1" index="1" speed="13.89" length="93.91" shape="1016.24,1454.08 1037.06,1464.77 1088.22,1488.91"/>
     </edge>
     <edge id="6[1][0]" from="15" to="16" priority="-1" type="2" spreadType="center">
-        <lane id="6[1][0]_0" index="0" speed="13.89" length="5.32" shape="1090.39,1487.71 1090.49,1487.54"/>
-        <lane id="6[1][0]_1" index="1" speed="13.89" length="5.32" shape="1093.23,1489.38 1093.33,1489.20"/>
+        <lane id="6[1][0]_0" index="0" speed="13.89" length="5.32" shape="1092.44,1484.21 1092.54,1484.03"/>
+        <lane id="6[1][0]_1" index="1" speed="13.89" length="5.32" shape="1095.28,1485.87 1095.39,1485.70"/>
     </edge>
     <edge id="6[1][1][0]" from="16" to="17" priority="-1" type="2" spreadType="center" shape="1094.50,1483.95 1108.41,1496.19 1135.22,1507.07 1161.76,1519.95 1235.07,1558.60 1323.41,1593.45 1353.68,1607.17 1389.39,1622.14 1406.86,1630.59 1414.57,1634.77">
         <lane id="6[1][1][0]_0" index="0" speed="13.89" length="368.13" shape="1100.88,1487.37 1109.29,1494.76 1135.89,1505.56 1162.50,1518.47 1235.76,1557.09 1324.05,1591.93 1354.34,1605.65 1390.07,1620.63 1407.61,1629.12 1424.40,1638.22"/>

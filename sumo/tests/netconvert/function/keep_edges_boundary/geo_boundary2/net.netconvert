@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:37 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Thu Oct 27 10:31:00 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -162,7 +162,7 @@
         <lane id="-5198597#0_0" index="0" speed="13.89" length="96.30" shape="131.31,332.94 191.90,267.81"/>
     </edge>
     <edge id="-5784968#0" from="283721348" to="36268378" priority="4" type="highway.residential">
-        <lane id="-5784968#0_0" index="0" speed="13.89" length="7.53" shape="434.81,481.37 434.94,481.23"/>
+        <lane id="-5784968#0_0" index="0" speed="13.89" length="7.53" shape="435.25,480.90 435.38,480.75"/>
     </edge>
     <edge id="-5784968#1" from="36268403" to="283721348" priority="4" type="highway.residential">
         <lane id="-5784968#1_0" index="0" speed="13.89" length="89.43" shape="375.19,545.52 428.51,488.15"/>
@@ -342,7 +342,7 @@
         <lane id="5198597#0_0" index="0" speed="13.89" length="96.30" shape="194.32,270.06 133.73,335.19"/>
     </edge>
     <edge id="5784968#0" from="36268378" to="283721348" priority="4" type="highway.residential">
-        <lane id="5784968#0_0" index="0" speed="13.89" length="7.53" shape="437.80,483.00 437.66,483.15"/>
+        <lane id="5784968#0_0" index="0" speed="13.89" length="7.53" shape="437.36,483.47 437.22,483.62"/>
     </edge>
     <edge id="5784968#1" from="283721348" to="36268403" priority="4" type="highway.residential">
         <lane id="5784968#1_0" index="0" speed="13.89" length="89.43" shape="430.92,490.39 377.61,547.76"/>

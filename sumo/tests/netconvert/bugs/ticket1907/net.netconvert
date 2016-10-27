@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:52 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Thu Oct 27 10:31:04 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -196,11 +196,11 @@
         <lane id=":2108790992_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.70" width="2.00" shape="2.43,309.76 3.87,308.38 -3.87,315.76 -2.43,314.38"/>
     </edge>
     <edge id=":3314305186_0" function="internal">
-        <lane id=":3314305186_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.92" shape="226.09,513.57 226.25,513.51 226.36,513.46 226.46,513.41 226.61,513.32"/>
-        <lane id=":3314305186_0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.92" shape="227.08,516.72 227.44,516.60 227.67,516.50 227.90,516.38 228.23,516.19"/>
+        <lane id=":3314305186_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.66" shape="226.34,513.49 226.43,513.45 226.48,513.41 226.53,513.37 226.61,513.32"/>
+        <lane id=":3314305186_0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.66" shape="227.33,516.64 227.61,516.54 227.80,516.45 227.97,516.35 228.23,516.19"/>
     </edge>
     <edge id=":3314305186_w0" function="walkingarea">
-        <lane id=":3314305186_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="2.00" shape="225.78,511.84 224.79,510.10 224.99,510.04 225.58,511.94"/>
+        <lane id=":3314305186_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.26" width="2.00" shape="225.78,511.84 224.79,510.10 225.24,509.96 225.84,511.87"/>
     </edge>
     <edge id=":337270654_0" function="internal">
         <lane id=":337270654_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="2.52" shape="173.16,523.77 172.97,521.85"/>
@@ -234,7 +234,7 @@
         <lane id=":3526736114_1_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="2.41" shape="223.19,516.28 221.77,516.69 220.87,516.47"/>
     </edge>
     <edge id=":3526736114_2" function="internal">
-        <lane id=":3526736114_2_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="5.39" shape="223.19,516.28 222.71,517.16 223.17,517.53 224.56,517.40 226.89,516.78"/>
+        <lane id=":3526736114_2_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="5.61" shape="223.19,516.28 222.73,517.15 223.23,517.51 224.70,517.36 227.14,516.70"/>
     </edge>
     <edge id=":3526736114_9" function="internal">
         <lane id=":3526736114_9_0" index="0" speed="11.11" length="2.41" shape="220.87,516.47 220.51,515.62 220.68,514.15"/>
@@ -243,7 +243,7 @@
         <lane id=":3526736114_3_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="6.37" shape="215.16,516.99 216.99,516.49 218.28,516.11 219.39,515.46 220.68,514.15"/>
     </edge>
     <edge id=":3526736114_4" function="internal">
-        <lane id=":3526736114_4_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="11.26" shape="215.16,516.99 225.90,513.63"/>
+        <lane id=":3526736114_4_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="11.52" shape="215.16,516.99 226.15,513.55"/>
     </edge>
     <edge id=":3526736114_5" function="internal">
         <lane id=":3526736114_5_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="7.19" shape="216.14,520.14 218.48,519.34 220.32,518.56 221.68,517.79 222.56,517.04"/>
@@ -252,7 +252,7 @@
         <lane id=":3526736114_6_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="7.24" shape="216.00,519.67 220.68,514.15"/>
     </edge>
     <edge id=":3526736114_7" function="internal">
-        <lane id=":3526736114_7_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="11.70" shape="216.00,519.67 218.48,517.64 220.79,517.24 223.43,517.33 226.89,516.78"/>
+        <lane id=":3526736114_7_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="11.97" shape="216.00,519.67 218.54,517.59 220.90,517.18 223.60,517.27 227.14,516.70"/>
     </edge>
     <edge id=":3526736114_8" function="internal">
         <lane id=":3526736114_8_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="5.16" shape="216.00,519.67 216.65,516.55 217.96,515.07"/>
@@ -273,7 +273,7 @@
         <lane id=":3526736114_c4_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="4.00" shape="225.07,516.55 222.63,514.48"/>
     </edge>
     <edge id=":3526736114_w0" function="walkingarea">
-        <lane id=":3526736114_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.28" width="4.00" shape="221.61,513.30 225.42,512.10 225.39,512.00 224.79,510.10"/>
+        <lane id=":3526736114_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.28" width="4.00" shape="221.86,513.22 225.67,512.02 225.65,511.93 225.05,510.02"/>
     </edge>
     <edge id=":3526736114_w1" function="walkingarea">
         <lane id=":3526736114_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.01" width="4.00" shape="216.87,516.17 219.46,513.12 219.38,513.05 217.09,511.11 214.05,513.46 214.65,515.37 214.68,515.47 218.49,514.27"/>
@@ -377,9 +377,9 @@
         <lane id="175999143#0_2" index="2" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="6.82" shape="206.99,521.79 210.93,521.78 216.14,520.14"/>
     </edge>
     <edge id="175999143#1" from="3526736114" to="3314305186" name="Avenida de Escaleritas" priority="5" type="highway.tertiary_link" spreadType="center" shape="220.11,516.07 226.62,514.03">
-        <lane id="175999143#1_0" index="0" allow="pedestrian" speed="11.11" length="0.20" width="2.00" shape="225.09,511.05 225.28,510.99"/>
-        <lane id="175999143#1_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.20" shape="225.90,513.63 226.09,513.57"/>
-        <lane id="175999143#1_2" index="2" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.20" shape="226.89,516.78 227.08,516.72"/>
+        <lane id="175999143#1_0" index="0" allow="pedestrian" speed="11.11" length="0.20" width="2.00" shape="225.35,510.97 225.54,510.91"/>
+        <lane id="175999143#1_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.20" shape="226.15,513.55 226.34,513.49"/>
+        <lane id="175999143#1_2" index="2" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="0.20" shape="227.14,516.70 227.33,516.64"/>
     </edge>
     <edge id="175999152" from="1865620718" to="1553017429" name="Avenida de Escaleritas" priority="5" type="highway.tertiary_link" spreadType="center" shape="156.55,487.43 169.07,496.95 176.73,502.98 186.18,507.83 195.06,510.27 201.23,510.95 208.99,510.06 215.85,507.68 222.94,504.30 232.79,498.81">
         <lane id="175999152_0" index="0" allow="pedestrian" speed="11.11" length="64.89" width="2.00" shape="158.96,487.19 170.08,495.64 177.63,501.58 186.78,506.28 195.37,508.64 201.23,509.29 208.62,508.44 215.18,506.17"/>

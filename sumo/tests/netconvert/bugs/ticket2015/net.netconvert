@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:40 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Thu Oct 27 10:31:04 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,10 +32,10 @@
         <lane id="133410537#0_0" index="0" allow="pedestrian" speed="1.39" length="5.01" width="2.00" shape="58.27,94.85 53.37,95.86"/>
     </edge>
     <edge id="133410537#1" from="1833873063" to="1478005898" priority="1" type="highway.steps" spreadType="center">
-        <lane id="133410537#1_0" index="0" allow="pedestrian" speed="1.39" length="0.20" width="2.00" shape="50.83,96.38 50.63,96.42"/>
+        <lane id="133410537#1_0" index="0" allow="pedestrian" speed="1.39" length="0.20" width="2.00" shape="49.00,96.75 48.81,96.79"/>
     </edge>
     <edge id="133410537#2" from="1478005898" to="1478005903" priority="1" type="highway.steps" spreadType="center">
-        <lane id="133410537#2_0" index="0" allow="pedestrian" speed="1.39" length="0.20" width="2.00" shape="46.67,97.23 46.48,97.27"/>
+        <lane id="133410537#2_0" index="0" allow="pedestrian" speed="1.39" length="0.20" width="2.00" shape="46.39,97.28 46.19,97.33"/>
     </edge>
     <edge id="133410537#3" from="1478005903" to="1478005908" priority="1" type="highway.steps" spreadType="center">
         <lane id="133410537#3_0" index="0" allow="pedestrian" speed="1.39" length="1.30" width="2.00" shape="41.58,98.27 40.31,98.53"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:04 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Oct 27 10:00:54 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -33,7 +33,7 @@
         <lane id="2_0" index="0" speed="13.90" length="71.60" shape="68.68,129.69 79.45,129.27 87.12,129.44"/>
     </edge>
     <edge id="3" from="S" to="C" priority="0" spreadType="center">
-        <lane id="3_0" index="0" speed="13.90" length="3.86" shape="16.54,130.62 16.48,130.81"/>
+        <lane id="3_0" index="0" speed="13.90" length="3.86" shape="15.84,132.79 15.78,132.98"/>
     </edge>
     <edge id="4" from="409851820" to="S" priority="0" spreadType="center" shape="0.39,127.81 16.84,129.69">
         <lane id="4_0" index="0" speed="13.90" length="17.92" shape="0.67,127.84 13.41,129.30"/>

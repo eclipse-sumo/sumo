@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:33 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Thu Oct 27 10:01:00 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -115,7 +115,7 @@
         </lane>
     </edge>
     <edge id="-26816590#0" from="294169338" to="294168098" priority="2" type="highway.service">
-        <lane id="-26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="560.09,308.12 560.20,308.29">
+        <lane id="-26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="561.04,309.66 561.14,309.83">
             <param key="origId" value="26816590"/>
         </lane>
     </edge>
@@ -310,7 +310,7 @@
         </lane>
     </edge>
     <edge id="-5784968#2" from="283719904" to="36268403" priority="4" type="highway.residential">
-        <lane id="-5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.85" shape="932.59,552.53 932.73,552.38">
+        <lane id="-5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="2.71" shape="935.48,549.24 935.61,549.08">
             <param key="origId" value="5784968"/>
         </lane>
     </edge>
@@ -593,7 +593,7 @@
         </lane>
     </edge>
     <edge id="26816590#0" from="294168098" to="294169338" priority="2" type="highway.service">
-        <lane id="26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="558.33,311.55 558.22,311.38">
+        <lane id="26816590#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="15.38" shape="557.39,310.02 557.28,309.85">
             <param key="origId" value="26816590"/>
         </lane>
     </edge>

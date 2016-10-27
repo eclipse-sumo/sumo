@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:37 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Thu Oct 27 10:31:00 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -163,7 +163,7 @@
         <lane id="-5198597#0_0" index="0" speed="13.89" length="96.26" shape="131.37,332.93 191.93,267.81"/>
     </edge>
     <edge id="-5784968#0" from="283721348" to="36268378" priority="4">
-        <lane id="-5784968#0_0" index="0" speed="13.89" length="7.56" shape="434.88,481.34 435.01,481.19"/>
+        <lane id="-5784968#0_0" index="0" speed="13.89" length="7.56" shape="435.28,480.90 435.42,480.76"/>
     </edge>
     <edge id="-5784968#1" from="36268403" to="283721348" priority="4">
         <lane id="-5784968#1_0" index="0" speed="13.89" length="89.39" shape="375.22,545.45 428.56,488.14"/>
@@ -343,7 +343,7 @@
         <lane id="5198597#0_0" index="0" speed="13.89" length="96.26" shape="194.34,270.05 133.79,335.18"/>
     </edge>
     <edge id="5784968#0" from="36268378" to="283721348" priority="4">
-        <lane id="5784968#0_0" index="0" speed="13.89" length="7.56" shape="437.84,482.99 437.71,483.14"/>
+        <lane id="5784968#0_0" index="0" speed="13.89" length="7.56" shape="437.44,483.43 437.30,483.58"/>
     </edge>
     <edge id="5784968#1" from="283721348" to="36268403" priority="4">
         <lane id="5784968#1_0" index="0" speed="13.89" length="89.39" shape="430.98,490.39 377.64,547.70"/>

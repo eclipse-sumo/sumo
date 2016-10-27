@@ -644,7 +644,7 @@
     <link id="310" from="257" to="264" roadClass="3" length="31446" speedLimitKmh="50" laneNr="2"/>
     <link id="311" from="52" to="51" roadClass="3" length="56113" speedLimitKmh="50" laneNr="2"/>
     <link id="312" from="51" to="48" roadClass="3" length="98979" speedLimitKmh="50" laneNr="2"/>
-    <link id="313" from="47" to="46" roadClass="3" length="200" speedLimitKmh="50" laneNr="2"/>
+    <link id="313" from="47" to="46" roadClass="3" length="199" speedLimitKmh="50" laneNr="2"/>
     <link id="314" from="46" to="257" roadClass="3" length="28131" speedLimitKmh="50" laneNr="2"/>
     <link id="315" from="257" to="258" roadClass="3" length="2822" speedLimitKmh="50" laneNr="2"/>
     <link id="316" from="258" to="269" roadClass="3" length="7978" speedLimitKmh="50" laneNr="2"/>

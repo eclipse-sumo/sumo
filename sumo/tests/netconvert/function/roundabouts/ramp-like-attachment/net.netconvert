@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 16 10:38:53 2016 by SUMO netconvert Version dev-SVN-r20975
+<!-- generated on Thu Oct 27 10:31:01 2016 by SUMO netconvert Version dev-SVN-r21814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -59,10 +59,10 @@
         <lane id="30417941#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="846.47,340.69 846.61,341.24 846.34,349.24 843.90,356.89 839.45,363.60 834.66,367.74"/>
     </edge>
     <edge id="30417941#3" from="2149919279" to="492500988" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="835.98,373.05 833.79,374.34">
-        <lane id="30417941#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.35" shape="837.48,377.91 837.31,378.01"/>
-        <lane id="30417941#3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.35" shape="835.17,375.44 835.00,375.54"/>
-        <lane id="30417941#3_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.35" shape="834.13,372.22 833.96,372.32"/>
-        <lane id="30417941#3_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.35" shape="831.82,369.75 831.65,369.86"/>
+        <lane id="30417941#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.55" shape="837.48,377.91 837.31,378.01"/>
+        <lane id="30417941#3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.55" shape="834.89,375.61 834.71,375.71"/>
+        <lane id="30417941#3_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.55" shape="834.13,372.22 833.96,372.32"/>
+        <lane id="30417941#3_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.55" shape="831.54,369.92 831.36,370.02"/>
     </edge>
     <edge id="30417941#4" from="492500988" to="335691182" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="832.98,372.96 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 793.28,366.71">
         <lane id="30417941#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="834.16,376.04 825.71,379.29 816.27,380.28 806.90,378.80 798.23,374.95 791.09,369.18"/>
