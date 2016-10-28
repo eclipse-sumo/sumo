@@ -1497,8 +1497,9 @@ MSLane::succLinkSec(const SUMOVehicle& veh, int nRouteSuccs,
     }
     // the only case where this should happen is for a disconnected route (deliberately ignored)
 #ifdef _DEBUG
-    WRITE_WARNING("Could not find connection between lane '" + succLinkSource.getID() + "' and lane '" + conts[nRouteSuccs]->getID() +
-                  "' for vehicle '" + veh.getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+    // the "'" around the ids are missing intentionally in the message below because it slows messaging down, resulting in test timeouts
+    WRITE_WARNING("Could not find connection between lane " + succLinkSource.getID() + " and lane " + conts[nRouteSuccs]->getID() +
+                  " for vehicle " + veh.getID() + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
 #endif
     return succLinkSource.myLinks.end();
 }
