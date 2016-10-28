@@ -1,4 +1,4 @@
-#!/usr/bin/env python;
+#!/usr/bin/env python
 """SUMOPy is intended to expand the user-base of the traffic micro-simulator SUMO (Simulation of Urban MObility) by providing a user-friendly, yet flexible simulation suite.
 
 A further scope of SUMOPy is to manage the huge amount of data necessary to run complex multi-modal simulations.
