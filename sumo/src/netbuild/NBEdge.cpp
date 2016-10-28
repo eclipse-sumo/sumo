@@ -565,10 +565,27 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
             tmp.push_back(shape[0]);
             tmp.push_back(shape[-1]);
             shape = tmp;
-            const SUMOReal midpoint = shape.length() / 2;
-            // cut to size and reverse
-            shape = shape.getSubpart(midpoint - POSITION_EPS, midpoint + POSITION_EPS);
-            shape = shape.reverse();
+            if (tmp.length() < POSITION_EPS) {
+                // fall back to original shape
+                if (old.length() < 2 * POSITION_EPS) {
+                    shape = old;
+                } else {
+                    const SUMOReal midpoint = old.length() / 2;
+                    // EPS*2 because otherwhise shape has only a single point
+                    shape = old.getSubpart(midpoint - POSITION_EPS, midpoint + POSITION_EPS);
+                    assert(shape.size() >= 2);
+                    assert(shape.length() > 0);
+                }
+            } else {
+                const SUMOReal midpoint = shape.length() / 2;
+                // cut to size and reverse
+                shape = shape.getSubpart(midpoint - POSITION_EPS, midpoint + POSITION_EPS);
+                if (shape.length() < POSITION_EPS) {
+                    assert(false);
+                    // the shape has a sharp turn near the midpoint
+                }
+                shape = shape.reverse();
+            }
         }
     }
     return shape;
