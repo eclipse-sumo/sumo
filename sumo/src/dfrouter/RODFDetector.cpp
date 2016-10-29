@@ -705,7 +705,7 @@ RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, SUMOReal maxFact
         type.speedFactor = avgFactor;
         type.setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
     }
-    if (forceDev || (maxFactor > 1 && maxFactor > type.speedFactor)) {
+    if (forceDev || (maxFactor > 1 && maxFactor > type.speedFactor + NUMERICAL_EPS)) {
         // setting a non-zero speed deviation causes the simulation to recompute
         // individual speedFactors to match departSpeed (MSEdge::insertVehicle())
         type.speedDev = dev;
