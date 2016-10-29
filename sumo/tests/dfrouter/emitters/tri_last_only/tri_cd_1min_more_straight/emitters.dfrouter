@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 27 17:11:35 2016 by SUMO dfrouter Version dev-SVN-r21246
+<!-- generated on 10/29/16 21:40:14 by SUMO dfrouter Version dev-SVN-r21841
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -33,7 +33,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vType id="DEFAULT_VEHTYPE" speedFactor="1.43" speedDev="0.10"/>
+    <vType id="DEFAULT_VEHTYPE" speedFactor="1.43"/>
     <routeDistribution id="MQ_beg">
         <route refId="beg_to_end" probability="0.50"/>
         <route refId="beg_to_end_1" probability="0.25"/>
