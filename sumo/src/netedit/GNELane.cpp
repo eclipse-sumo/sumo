@@ -329,14 +329,15 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             drawDirectionIndicators();
         }
         // If there are texture of restricted lanes to draw, and draw lane icons is enabled in options
-        if((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && myLaneRestrictedTexturePositions.size() > 0) {
+        if ((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && myLaneRestrictedTexturePositions.size() > 0) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different
-            if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).width != -1)
+            if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).width != -1) {
                 iconWidth = myParentEdge.getNBEdge()->getLaneStruct(myIndex).width / 3;
+            }
             // Draw list of icons
-            for(int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
+            for (int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
                 // Push draw matrix 2
                 glPushMatrix();
                 // Set white color
@@ -347,7 +348,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 glRotated(myLaneRestrictedTextureRotations.at(i), 0, 0, -1);
                 glRotated(90, 0, 0, 1);
                 // draw texture box depending of type of restriction
-                if(isRestricted(SVC_PEDESTRIAN)) {
+                if (isRestricted(SVC_PEDESTRIAN)) {
                     GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
                 } else if (isRestricted(SVC_BICYCLE)) {
                     GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEBIKE), iconWidth);
@@ -440,11 +441,11 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (gSelected.isSelected(GLO_LANE, getGlID())) {
             new FXMenuCommand(ret, "Duplicate selected lanes", 0, &parent, MID_GNE_DUPLICATE_LANE);
             // Create panel for lane operations
-            FXMenuPane *addSpecialLanes = new FXMenuPane(ret);
+            FXMenuPane* addSpecialLanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(addSpecialLanes);
-            FXMenuPane *removeSpecialLanes = new FXMenuPane(ret);
+            FXMenuPane* removeSpecialLanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(removeSpecialLanes);
-            FXMenuPane *transformSlanes = new FXMenuPane(ret);
+            FXMenuPane* transformSlanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(transformSlanes);
             // Create menu comands for all add special lanes
             new FXMenuCommand(addSpecialLanes, "Sidewalks", pedestrianIcon, &parent, MID_GNE_ADD_LANE_SIDEWALK);
@@ -470,34 +471,34 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             bool edgeHasBikelane = myParentEdge.hasRestrictedLane(SVC_BICYCLE);
             bool edgeHasBuslane = myParentEdge.hasRestrictedLane(SVC_BUS);
             // Create panel for lane operations and insert it in ret
-            FXMenuPane *addSpecialLanes = new FXMenuPane(ret);
+            FXMenuPane* addSpecialLanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(addSpecialLanes);
-            FXMenuPane *removeSpecialLanes = new FXMenuPane(ret);
+            FXMenuPane* removeSpecialLanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(removeSpecialLanes);
-            FXMenuPane *transformSlanes = new FXMenuPane(ret);
+            FXMenuPane* transformSlanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(transformSlanes);
             // Create menu comands for all add special lanes
-            FXMenuCommand *addSidewalk = new FXMenuCommand(addSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_ADD_LANE_SIDEWALK);
-            FXMenuCommand *addBikelane = new FXMenuCommand(addSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_ADD_LANE_BIKE);
-            FXMenuCommand *addBuslane = new FXMenuCommand(addSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_ADD_LANE_BUS);
+            FXMenuCommand* addSidewalk = new FXMenuCommand(addSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_ADD_LANE_SIDEWALK);
+            FXMenuCommand* addBikelane = new FXMenuCommand(addSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_ADD_LANE_BIKE);
+            FXMenuCommand* addBuslane = new FXMenuCommand(addSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_ADD_LANE_BUS);
             // Create menu comands for all remove special lanes and disable it
-            FXMenuCommand *removeSidewalk = new FXMenuCommand(removeSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_REMOVE_LANE_SIDEWALK);
+            FXMenuCommand* removeSidewalk = new FXMenuCommand(removeSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_REMOVE_LANE_SIDEWALK);
             removeSidewalk->disable();
-            FXMenuCommand *removeBikelane = new FXMenuCommand(removeSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_REMOVE_LANE_BIKE);
+            FXMenuCommand* removeBikelane = new FXMenuCommand(removeSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_REMOVE_LANE_BIKE);
             removeBikelane->disable();
-            FXMenuCommand *removeBuslane = new FXMenuCommand(removeSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_REMOVE_LANE_BUS);
+            FXMenuCommand* removeBuslane = new FXMenuCommand(removeSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_REMOVE_LANE_BUS);
             removeBuslane->disable();
             // Create menu comands for all trasform special lanes and disable it
-            FXMenuCommand *transformLaneToSidewalk = new FXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_TRANSFORM_LANE_SIDEWALK);
-            FXMenuCommand *transformLaneToBikelane = new FXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_TRANSFORM_LANE_BIKE);
-            FXMenuCommand *transformLaneToBuslane = new FXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_TRANSFORM_LANE_BUS);
-            FXMenuCommand *revertTransformation = new FXMenuCommand(transformSlanes, "revert transformation", 0, &parent, MID_GNE_REVERT_TRANSFORMATION);
+            FXMenuCommand* transformLaneToSidewalk = new FXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_TRANSFORM_LANE_SIDEWALK);
+            FXMenuCommand* transformLaneToBikelane = new FXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_TRANSFORM_LANE_BIKE);
+            FXMenuCommand* transformLaneToBuslane = new FXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_TRANSFORM_LANE_BUS);
+            FXMenuCommand* revertTransformation = new FXMenuCommand(transformSlanes, "revert transformation", 0, &parent, MID_GNE_REVERT_TRANSFORMATION);
             // add menuCascade for lane operations
             FXMenuCascade* cascadeAddSpecialLane = new FXMenuCascade(ret, "add special lane", 0, addSpecialLanes);
             FXMenuCascade* cascadeRemoveSpecialLane = new FXMenuCascade(ret, "remove special lane", 0, removeSpecialLanes);
             new FXMenuCascade(ret, "transform to special lane", 0, transformSlanes);
             // Enable and disable options depending of current transform of the lane
-            if(edgeHasSidewalk) {
+            if (edgeHasSidewalk) {
                 transformLaneToSidewalk->disable();
                 addSidewalk->disable();
                 removeSidewalk->enable();
@@ -507,20 +508,20 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 addBikelane->disable();
                 removeBikelane->enable();
             }
-            if (edgeHasBuslane){
+            if (edgeHasBuslane) {
                 transformLaneToBuslane->disable();
                 addBuslane->disable();
                 removeBuslane->enable();
             }
             // Check if cascade menus must be disabled
-            if(edgeHasSidewalk && edgeHasBikelane && edgeHasBuslane) {
+            if (edgeHasSidewalk && edgeHasBikelane && edgeHasBuslane) {
                 cascadeAddSpecialLane->disable();
             }
-            if(!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane) {
+            if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane) {
                 cascadeRemoveSpecialLane->disable();
             }
             // Enable or disable revert transformation
-            if(isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
+            if (isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
                 revertTransformation->enable();
             } else {
                 revertTransformation->disable();
@@ -611,7 +612,7 @@ GNELane::updateGeometry() {
     myLaneRestrictedTextureRotations.clear();
     //SUMOReal length = myParentEdge.getLength(); // @todo see ticket #448
     // may be different from length
-    
+
     // Obtain lane and shape rotations
     int segments = (int) getShape().size() - 1;
     if (segments >= 0) {
@@ -633,24 +634,24 @@ GNELane::updateGeometry() {
         (*i)->updateGeometry();
     }
     // In Move mode, connections aren't updated
-    if(myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
+    if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
         // Update incoming connections of this lane
         std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
-        for(std::vector<GNEConnection*>::iterator i = incomingConnections.begin(); i != incomingConnections.end(); i++) {
+        for (std::vector<GNEConnection*>::iterator i = incomingConnections.begin(); i != incomingConnections.end(); i++) {
             (*i)->updateGeometry();
         }
         // Update outgoings connections of this lane
         std::vector<GNEConnection*> outGoingConnections = getGNEOutcomingConnections();
-        for(std::vector<GNEConnection*>::iterator i = outGoingConnections.begin(); i != outGoingConnections.end(); i++) {
+        for (std::vector<GNEConnection*>::iterator i = outGoingConnections.begin(); i != outGoingConnections.end(); i++) {
             (*i)->updateGeometry();
         }
     }
     // If lane has enought lenght for show textures of restricted lanes
-    if((getLaneShapeLenght() > 4)) {
-        // if lane is restricted 
-        if(isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
+    if ((getLaneShapeLenght() > 4)) {
+        // if lane is restricted
+        if (isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
             // get values for position and rotation of icons
-            for(int i = 2; i < getLaneShapeLenght() - 1; i += 15) {
+            for (int i = 2; i < getLaneShapeLenght() - 1; i += 15) {
                 myLaneRestrictedTexturePositions.push_back(getShape().positionAtOffset(i));
                 myLaneRestrictedTextureRotations.push_back(getShape().rotationDegreeAtOffset(i));
             }
@@ -717,11 +718,11 @@ GNELane::removeAdditionalChild(GNEAdditional* additional) {
     // Declare iterator
     AdditionalVector::iterator i = myAdditionals.begin();
     // Find additional
-    while((*i != additional) && (i != myAdditionals.end())) {
+    while ((*i != additional) && (i != myAdditionals.end())) {
         i++;
     }
     // If additional was found, remove it
-    if(i == myAdditionals.end()) {
+    if (i == myAdditionals.end()) {
         throw ProcessError("additional element with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
     } else {
         myAdditionals.erase(i);
@@ -771,11 +772,11 @@ GNELane::getAdditionalSetParents() {
 
 bool
 GNELane::isRestricted(SUMOVehicleClass vclass) const {
-    if(vclass == SVC_PEDESTRIAN) {
+    if (vclass == SVC_PEDESTRIAN) {
         return (myParentEdge.getNBEdge()->getPermissions(myIndex) == 1048576);
-    } else if(vclass == SVC_BICYCLE) {
+    } else if (vclass == SVC_BICYCLE) {
         return (myParentEdge.getNBEdge()->getPermissions(myIndex) == 524288);
-    } else if(vclass == SVC_BUS) {
+    } else if (vclass == SVC_BUS) {
         return (myParentEdge.getNBEdge()->getPermissions(myIndex) == 256);
     } else {
         return false;
@@ -1067,14 +1068,14 @@ GNELane::getGNEIncomingConnections() {
     // Declare a vector to save incoming connections
     std::vector<GNEConnection*> incomingConnections;
     // Obtain incoming edges if junction source was already created
-    GNEJunction *junctionSource =  myParentEdge.getGNEJunctionSource();
-    if(junctionSource) {
+    GNEJunction* junctionSource =  myParentEdge.getGNEJunctionSource();
+    if (junctionSource) {
         std::vector<GNEEdge*> incomingEdges = junctionSource->getGNEIncomingEdges();
         // Iterate over incoming edges
-        for(std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+        for (std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
             // Iterate over connection of incoming edges
-            for(std::vector<GNEConnection*>::const_iterator j = (*i)->getGNEConnections().begin(); j != (*i)->getGNEConnections().end(); j++) {
-                if((*j)->getNBEdgeConnection().fromLane == getIndex()) {
+            for (std::vector<GNEConnection*>::const_iterator j = (*i)->getGNEConnections().begin(); j != (*i)->getGNEConnections().end(); j++) {
+                if ((*j)->getNBEdgeConnection().fromLane == getIndex()) {
                     incomingConnections.push_back(*j);
                 }
             }
@@ -1090,8 +1091,8 @@ GNELane::getGNEOutcomingConnections() {
     const std::vector<GNEConnection*>& edgeConnections = myParentEdge.getGNEConnections();
     std::vector<GNEConnection*> outcomingConnections;
     // Obtain outgoing connections
-    for(std::vector<GNEConnection*>::const_iterator i = edgeConnections.begin(); i != edgeConnections.end(); i++) {
-        if((*i)->getNBEdgeConnection().fromLane == getIndex()) {
+    for (std::vector<GNEConnection*>::const_iterator i = edgeConnections.begin(); i != edgeConnections.end(); i++) {
+        if ((*i)->getNBEdgeConnection().fromLane == getIndex()) {
             outcomingConnections.push_back(*i);
         }
     }

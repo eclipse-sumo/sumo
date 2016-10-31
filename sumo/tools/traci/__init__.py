@@ -36,6 +36,7 @@ from . import _poi, _polygon, _junction, _edge, _simulation, _gui
 
 _connections = {}
 
+
 def _STEPS2TIME(step):
     """Conversion from time steps in milliseconds to seconds as float"""
     return step / 1000.
@@ -114,4 +115,3 @@ def switch(label):
 if _embedded:
     # create the default dummy connection
     init()
-

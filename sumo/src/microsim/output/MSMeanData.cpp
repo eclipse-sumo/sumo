@@ -99,7 +99,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
         const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, 0, newPos, oldSpeed, newSpeed);
         timeOnLane = TS - timeBeforeEnter;
         frontOnLane = timeOnLane;
-        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos-oldPos);
+        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos - oldPos);
     }
 
     // Treat the case that the vehicle's back left the lane in the last step
@@ -111,9 +111,9 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
 
         // (Leo) vehicle left this lane (it can also have skipped over it in one time step -> therefore we use "timeOnLane -= ..." and ( ... - timeOnLane) below)
         const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myLaneLength, newBackPos, oldSpeed, newSpeed);
-        const SUMOReal timeAfterLeave = TS-timeBeforeLeave;
+        const SUMOReal timeAfterLeave = TS - timeBeforeLeave;
         timeOnLane -= timeAfterLeave;
-        leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos-oldPos);
+        leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos - oldPos);
         // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(timeOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             timeOnLane = 0.;
@@ -127,13 +127,13 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
         // vehicle's front has left the lane and has not left before
         assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0);
         const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldPos, myLaneLength, newPos, oldSpeed, newSpeed);
-        const SUMOReal timeAfterLeave = TS-timeBeforeLeave;
+        const SUMOReal timeAfterLeave = TS - timeBeforeLeave;
         frontOnLane -= timeAfterLeave;
         // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(frontOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             frontOnLane = 0.;
         }
-        leaveSpeedFront = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos-oldPos);
+        leaveSpeedFront = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos - oldPos);
     }
 
     if (timeOnLane < 0) {
@@ -148,15 +148,15 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
 //    const SUMOReal travelledDistanceFrontOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.);
 //    const SUMOReal travelledDistanceVehicleOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
     // XXX: #2556 fixed for ballistic update
-    const SUMOReal travelledDistanceFrontOnLane = MSGlobals::gSemiImplicitEulerUpdate ? frontOnLane*newSpeed
-             : MAX2((SUMOReal)0., MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.));
-    const SUMOReal travelledDistanceVehicleOnLane = MSGlobals::gSemiImplicitEulerUpdate ? timeOnLane*newSpeed
-             : MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.) + MIN2(MAX2((SUMOReal)0., newPos-myLaneLength), veh.getVehicleType().getLength());
+    const SUMOReal travelledDistanceFrontOnLane = MSGlobals::gSemiImplicitEulerUpdate ? frontOnLane * newSpeed
+            : MAX2((SUMOReal)0., MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.));
+    const SUMOReal travelledDistanceVehicleOnLane = MSGlobals::gSemiImplicitEulerUpdate ? timeOnLane * newSpeed
+            : MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.) + MIN2(MAX2((SUMOReal)0., newPos - myLaneLength), veh.getVehicleType().getLength());
 //    // XXX: no fix
 //    const SUMOReal travelledDistanceFrontOnLane = frontOnLane*newSpeed;
 //    const SUMOReal travelledDistanceVehicleOnLane = timeOnLane*newSpeed;
 
-    notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront)/2., (enterSpeed + leaveSpeed)/2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
+    notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront) / 2., (enterSpeed + leaveSpeed) / 2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
 //    notifyMoveInternal(veh, frontOnLane, timeOnLane, newSpeed, newSpeed, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
     return ret;
 }

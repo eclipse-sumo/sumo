@@ -84,7 +84,7 @@ GNEDetector::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
     SUMOReal startPos = myPosition.x();
     SUMOReal endPos = 0;
     // set endPos if additional has the attribute lenght
-    if(GNEAttributeCarrier::hasAttribute(getTag(), SUMO_ATTR_LENGTH)) {
+    if (GNEAttributeCarrier::hasAttribute(getTag(), SUMO_ATTR_LENGTH)) {
         endPos = startPos + GNEAttributeCarrier::parse<SUMOReal>(getAttribute(SUMO_ATTR_LENGTH));
     }
     // Move to Right if distance is positive, to left if distance is negative

@@ -53,19 +53,19 @@
  * GUI_E2_ZS_Collector-methods
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector(const std::string& id, DetectorUsage usage,
-    MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
-    SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-    SUMOReal jamDistThreshold, const std::string& vTypes)
+        MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
+        SUMOReal jamDistThreshold, const std::string& vTypes)
     : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
-    haltingSpeedThreshold, jamDistThreshold, vTypes) {}
+                    haltingSpeedThreshold, jamDistThreshold, vTypes) {}
 
 
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector(const std::string& id, DetectorUsage usage,
-    MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
-    SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-    SUMOReal jamDistThreshold, const std::set<std::string>& vTypes)
+        MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
+        SUMOReal jamDistThreshold, const std::set<std::string>& vTypes)
     : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
-    haltingSpeedThreshold, jamDistThreshold, vTypes) {}
+                    haltingSpeedThreshold, jamDistThreshold, vTypes) {}
 
 
 GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() {}

@@ -414,23 +414,23 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
         laneIndex = (int)edge->getNumLanes() - 1;
     }
     /// it would be tempting to use
-    // PositionVector result = edge->getLaneShape(laneIndex); 
+    // PositionVector result = edge->getLaneShape(laneIndex);
     // (and the moveo2side)
     // However, the lanes in SUMO have a small lateral gap (SUMO_const_laneOffset) to account for markings
     // In OpenDRIVE this gap does not exists so we have to do all lateral
     // computations based on the reference line
     // This assumes that the 'stop line' for all lanes is colinear!
-    const int leftmost = (int)edge->getNumLanes() - 1; 
-    SUMOReal widthOffset = -(edge->getLaneWidth(leftmost) / 2); 
-    // collect lane widths from left border of edge to left border of lane to connect to 
-    for (int i = leftmost; i > laneIndex; i--) { 
-        widthOffset += edge->getLaneWidth(i); 
-    } 
-    PositionVector result = edge->getLaneShape(leftmost); 
-    try { 
-        result.move2side(widthOffset); 
-    } catch (InvalidArgument&) { } 
-    return result; 
+    const int leftmost = (int)edge->getNumLanes() - 1;
+    SUMOReal widthOffset = -(edge->getLaneWidth(leftmost) / 2);
+    // collect lane widths from left border of edge to left border of lane to connect to
+    for (int i = leftmost; i > laneIndex; i--) {
+        widthOffset += edge->getLaneWidth(i);
+    }
+    PositionVector result = edge->getLaneShape(leftmost);
+    try {
+        result.move2side(widthOffset);
+    } catch (InvalidArgument&) { }
+    return result;
 }
 
 

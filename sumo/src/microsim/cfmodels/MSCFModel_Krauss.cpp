@@ -66,23 +66,25 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMORe
     const SUMOReal vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
     const SUMOReal vmin = minNextSpeed(speed);
     const SUMOReal vmax = maxNextSpeed(speed, veh);
-    if(MSGlobals::gSemiImplicitEulerUpdate){
-        return MIN2(vsafe, vmax); 
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return MIN2(vsafe, vmax);
     } else {
-	// ballistic
+        // ballistic
         // XXX: the euler variant can break as strong as it wishes immediately! The ballistic cannot, refs. #2575.
-        return MAX2(MIN2(vsafe, vmax), vmin); 
+        return MAX2(MIN2(vsafe, vmax), vmin);
     }
 }
 
 
 SUMOReal
 MSCFModel_Krauss::dawdle(SUMOReal speed) const {
-    if(!MSGlobals::gSemiImplicitEulerUpdate){
+    if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.
         // We do not allow dawdling to overwrite this indication
-        if(speed < 0) return speed;
+        if (speed < 0) {
+            return speed;
+        }
     }
     // generate random number out of [0,1)
     const SUMOReal random = RandHelper::rand();

@@ -440,7 +440,7 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
     }
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
-    if(myBlocked) {
+    if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag

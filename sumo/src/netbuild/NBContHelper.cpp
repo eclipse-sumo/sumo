@@ -202,10 +202,10 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(offset2);
 
         relAngle1 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
-                    e1->getGeometry()[geomIndex].angleTo2D(referencePos1), true));
+                                                e1->getGeometry()[geomIndex].angleTo2D(referencePos1), true));
         relAngle2 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
-                    e2->getGeometry()[geomIndex].angleTo2D(referencePos2), true));
-            
+                                                e2->getGeometry()[geomIndex].angleTo2D(referencePos2), true));
+
         if (lookAhead > maxLookAhead) {
             break;
         }

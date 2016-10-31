@@ -72,7 +72,7 @@ public:
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
 
-    /** Vehicles on internal lanes (even partially) with a waiting time that exceeds this threshold 
+    /** Vehicles on internal lanes (even partially) with a waiting time that exceeds this threshold
      * no longer block cross-traffic on the junction */
     static SUMOTime gIgnoreJunctionBlocker;
 

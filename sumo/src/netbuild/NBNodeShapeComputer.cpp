@@ -142,7 +142,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         return PositionVector();
     }
     // magic values
-    const bool defaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;  
+    const bool defaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;
     const SUMOReal radius = (defaultRadius ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myNode.getRadius());
     const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
     const SUMOReal sCurveStretch = OptionsCont::getOptions().getFloat("junctions.scurve-stretch");
@@ -150,7 +150,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const bool openDriveOutput = OptionsCont::getOptions().isSet("opendrive-output");
 
 #ifdef DEBUG_NODE_SHAPE
-    if (DEBUGCOND) std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << radius << "\n";
+    if (DEBUGCOND) {
+        std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << radius << "\n";
+    }
 #endif
 
     // initialise
@@ -204,7 +206,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 p.add(geomsCW[*ccwi][0]);
                 p.mul(0.5);
 #ifdef DEBUG_NODE_SHAPE
-                if (DEBUGCOND) std::cout << " extended: p=" << p << " angle=" << (ccad - cad) << "\n";
+                if (DEBUGCOND) {
+                    std::cout << " extended: p=" << p << " angle=" << (ccad - cad) << "\n";
+                }
 #endif
             } else {
                 p = geomsCCW[*ccwi][0];
@@ -213,13 +217,15 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 p.add(geomsCW[*i][0]);
                 p.mul(0.25);
 #ifdef DEBUG_NODE_SHAPE
-                if (DEBUGCOND) std::cout << " unextended: p=" << p << " angle=" << (ccad - cad) << "\n";
+                if (DEBUGCOND) {
+                    std::cout << " unextended: p=" << p << " angle=" << (ccad - cad) << "\n";
+                }
 #endif
             }
             // ... compute the distance to this point ...
             SUMOReal dist = MAX2(
-                    geomsCCW[*i].nearest_offset_to_point2D(p),
-                    geomsCW[*i].nearest_offset_to_point2D(p));
+                                geomsCCW[*i].nearest_offset_to_point2D(p),
+                                geomsCW[*i].nearest_offset_to_point2D(p));
             if (dist < 0) {
                 // ok, we have the problem that even the extrapolated geometry
                 //  does not reach the point
@@ -241,7 +247,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 distances[*i] = 100;
                 myExtended[*i] = true;
 #ifdef DEBUG_NODE_SHAPE
-                if (DEBUGCOND) std::cout << " extending (dist=" << dist << ")\n";
+                if (DEBUGCOND) {
+                    std::cout << " extending (dist=" << dist << ")\n";
+                }
 #endif
             } else {
                 if (!simpleContinuation) {
@@ -254,7 +262,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     }
                     dist += radius2;
 #ifdef DEBUG_NODE_SHAPE
-                    if (DEBUGCOND) std::cout << " using radius=" << fabs(ccad - cad) * (*i)->getNumLanes() << " ccad=" << ccad << " cad=" << cad << "\n";
+                    if (DEBUGCOND) {
+                        std::cout << " using radius=" << fabs(ccad - cad) * (*i)->getNumLanes() << " ccad=" << ccad << " cad=" << cad << "\n";
+                    }
 #endif
                 }
                 distances[*i] = dist;
@@ -273,20 +283,26 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             // the border of the far neighbor
             const PositionVector& neighGeom2 = ccwCloser ? geomsCCW[*cwi] : geomsCW[*ccwi];
 #ifdef DEBUG_NODE_SHAPE
-            if (DEBUGCOND) std::cout << " i=" << (*i)->getID() << " neigh=" << (*ccwi)->getID() << " neigh2=" << (*cwi)->getID() << "\n";
+            if (DEBUGCOND) {
+                std::cout << " i=" << (*i)->getID() << " neigh=" << (*ccwi)->getID() << " neigh2=" << (*cwi)->getID() << "\n";
+            }
 #endif
             if (!simpleContinuation) {
                 if (currGeom.intersects(neighGeom)) {
                     distances[*i] = radius + closestIntersection(currGeom, neighGeom, 100);
 #ifdef DEBUG_NODE_SHAPE
-                    if (DEBUGCOND) std::cout << "   neigh intersects dist=" << distances[*i] << " currGeom=" << currGeom << " neighGeom=" << neighGeom << "\n";
+                    if (DEBUGCOND) {
+                        std::cout << "   neigh intersects dist=" << distances[*i] << " currGeom=" << currGeom << " neighGeom=" << neighGeom << "\n";
+                    }
 #endif
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
                         const SUMOReal farAngleDist = ccwCloser ? cad : ccad;
                         SUMOReal a1 = distances[*i];
                         SUMOReal a2 = radius + closestIntersection(currGeom2, neighGeom2, 100);
 #ifdef DEBUG_NODE_SHAPE
-                        if (DEBUGCOND) std::cout << "      neigh2 also intersects a1=" << a1 << " a2=" << a2 << " ccad=" << RAD2DEG(ccad) << " cad=" << RAD2DEG(cad) << " dist[cwi]=" << distances[*cwi] << " dist[ccwi]=" << distances[*ccwi] << " farAngleDist=" << RAD2DEG(farAngleDist) << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+                        if (DEBUGCOND) {
+                            std::cout << "      neigh2 also intersects a1=" << a1 << " a2=" << a2 << " ccad=" << RAD2DEG(ccad) << " cad=" << RAD2DEG(cad) << " dist[cwi]=" << distances[*cwi] << " dist[ccwi]=" << distances[*ccwi] << " farAngleDist=" << RAD2DEG(farAngleDist) << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+                        }
 #endif
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
@@ -297,19 +313,25 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                             distances[*i] = MAX2(a1, a2);
                         }
 #ifdef DEBUG_NODE_SHAPE
-                        if (DEBUGCOND) std::cout << "   a1=" << a1 << " a2=" << a2 << " dist=" << distances[*i] << "\n";
+                        if (DEBUGCOND) {
+                            std::cout << "   a1=" << a1 << " a2=" << a2 << " dist=" << distances[*i] << "\n";
+                        }
 #endif
                     }
                 } else {
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
                         distances[*i] = radius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
 #ifdef DEBUG_NODE_SHAPE
-                        if (DEBUGCOND) std::cout << "   neigh2 intersects dist=" << distances[*i] << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+                        if (DEBUGCOND) {
+                            std::cout << "   neigh2 intersects dist=" << distances[*i] << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+                        }
 #endif
                     } else {
                         distances[*i] = 100 + radius;
 #ifdef DEBUG_NODE_SHAPE
-                        if (DEBUGCOND) std::cout << "   no intersects dist=" << distances[*i]  << " currGeom=" << currGeom << " neighGeom=" << neighGeom << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+                        if (DEBUGCOND) {
+                            std::cout << "   no intersects dist=" << distances[*i]  << " currGeom=" << currGeom << " neighGeom=" << neighGeom << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
+                        }
 #endif
                     }
                 }
@@ -329,7 +351,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 // @dirty: update radius so it is exported to the network
                 const_cast<NBNode&>(myNode).setRadius(sCurveRadius);
 #ifdef DEBUG_NODE_SHAPE
-                if (DEBUGCOND) std::cout << "   stretching junction: sCurveWidth=" << sCurveWidth << " sCurveRadius=" << sCurveRadius << " dist=" << distances[*i]  << "\n";
+                if (DEBUGCOND) {
+                    std::cout << "   stretching junction: sCurveWidth=" << sCurveWidth << " sCurveRadius=" << sCurveRadius << " dist=" << distances[*i]  << "\n";
+                }
 #endif
             }
         }
@@ -364,7 +388,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
 #ifdef DEBUG_NODE_SHAPE
-        if (DEBUGCOND) std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
+        if (DEBUGCOND) {
+            std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
+        }
 #endif
         if (rectangularCut) {
             (*i)->setNodeBorder(&myNode, p);
@@ -502,7 +528,9 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 same[*i].insert(*j);
                 same[*j].insert(*i);
 #ifdef DEBUG_NODE_SHAPE
-                if (DEBUGCOND) std::cout << "   joinedSameDirectionEdges " << (*i)->getID() << "   " << (*j)->getID() << " isOpposite=" << isOpposite << " ambiguousGeometry=" << ambiguousGeometry << "\n";
+                if (DEBUGCOND) {
+                    std::cout << "   joinedSameDirectionEdges " << (*i)->getID() << "   " << (*j)->getID() << " isOpposite=" << isOpposite << " ambiguousGeometry=" << ambiguousGeometry << "\n";
+                }
 #endif
             }
         }
@@ -625,7 +653,9 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
 PositionVector
 NBNodeShapeComputer::computeNodeShapeSmall() {
 #ifdef DEBUG_NODE_SHAPE
-    if (DEBUGCOND) std::cout << "computeNodeShapeSmall node=" << myNode.getID() << "\n";
+    if (DEBUGCOND) {
+        std::cout << "computeNodeShapeSmall node=" << myNode.getID() << "\n";
+    }
 #endif
     PositionVector ret;
     EdgeVector::const_iterator i;

@@ -41,6 +41,7 @@ except ImportError:
 
 import traci
 
+
 def generate_routefile():
     random.seed(42)  # make tests reproducible
     N = 3600  # number of time steps

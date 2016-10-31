@@ -273,7 +273,7 @@ GNEApplicationWindow::create() {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("window-size")) {
         std::vector<std::string> windowSize = oc.getStringVector("window-size");
-        if (windowSize.size() != 2 
+        if (windowSize.size() != 2
                 || !TplCheck::_str2int(windowSize[0])
                 || !TplCheck::_str2int(windowSize[1])) {
             WRITE_ERROR("option window-size requires INT,INT");
@@ -848,7 +848,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
-    if(OptionsCont::getOptions().isSet("sumo-additionals-file")) {
+    if (OptionsCont::getOptions().isSet("sumo-additionals-file")) {
         std::string additionalFile = OptionsCont::getOptions().getString("sumo-additionals-file");
         WRITE_MESSAGE("Loading additionals from '" + additionalFile + "'");
         GNEAdditionalHandler additionalHandler(additionalFile, myNet->getViewNet());
@@ -1219,7 +1219,7 @@ long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     std::string filename;
-    if(!oc.isSet("additionals-output")) {
+    if (!oc.isSet("additionals-output")) {
         FXString file = MFXUtils::getFilename2Write(this,
                         "Select name of the additional file", ".xml",
                         GUIIconSubSys::getIcon(ICON_EMPTY),

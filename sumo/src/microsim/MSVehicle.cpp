@@ -1031,7 +1031,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
     }
 
 #ifdef DEBUG_STOPS
-    if(DEBUG_COND){
+    if (DEBUG_COND) {
         std::cout << "\nPROCESS_NEXT_STOP\n" << SIMTIME << " vehicle '" << getID() << "'" << std::endl;
     }
 #endif
@@ -1040,8 +1040,8 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
     if (stop.reached) {
 
 #ifdef DEBUG_STOPS
-        if(DEBUG_COND){
-        	std::cout << SIMTIME << " vehicle '" << getID() << "' reached stop." << std::endl;
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " vehicle '" << getID() << "' reached stop." << std::endl;
         }
 #endif
         // ok, we have already reached the next stop
@@ -1065,7 +1065,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForPerson();
                 myAmRegisteredAsWaitingForPerson = false;
 #ifdef DEBUG_STOPS
-                if(DEBUG_COND){
+                if (DEBUG_COND) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for person." << std::endl;
                 }
 #endif
@@ -1084,7 +1084,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForContainer();
                 myAmRegisteredAsWaitingForContainer = false;
 #ifdef DEBUG_STOPS
-                if(DEBUG_COND){
+                if (DEBUG_COND) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for container." << std::endl;
                 }
 #endif
@@ -1092,9 +1092,9 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         }
         if (stop.duration <= 0 && !stop.triggered && !stop.containerTriggered) {
 #ifdef DEBUG_STOPS
-                if(DEBUG_COND){
-                    std::cout << SIMTIME << " vehicle '" << getID() << "' resumes from stopping." << std::endl;
-                }
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " vehicle '" << getID() << "' resumes from stopping." << std::endl;
+            }
 #endif
             resumeFromStopping();
         } else {
@@ -1107,7 +1107,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 MSNet::getInstance()->getVehicleControl().registerOneWaitingForPerson();
                 myAmRegisteredAsWaitingForPerson = true;
 #ifdef DEBUG_STOPS
-                if(DEBUG_COND){
+                if (DEBUG_COND) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' registers as waiting for person." << std::endl;
                 }
 #endif
@@ -1121,7 +1121,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 MSNet::getInstance()->getVehicleControl().registerOneWaitingForContainer();
                 myAmRegisteredAsWaitingForContainer = true;
 #ifdef DEBUG_STOPS
-                if(DEBUG_COND){
+                if (DEBUG_COND) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' registers as waiting for container." << std::endl;
                 }
 #endif
@@ -1129,24 +1129,24 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             // we have to wait some more time
             stop.duration -= DELTA_T;
 
-            if(MSGlobals::gSemiImplicitEulerUpdate){
-            	// euler
-            	return 0;
+            if (MSGlobals::gSemiImplicitEulerUpdate) {
+                // euler
+                return 0;
             } else {
-            	// ballistic:
+                // ballistic:
                 SUMOReal haltingPos = stop.endPos;
-                if(stop.busstop != 0){
+                if (stop.busstop != 0) {
                     haltingPos = stop.busstop->getStoppingPosition(this);
-                } else if (stop.containerstop != 0){
+                } else if (stop.containerstop != 0) {
                     haltingPos = stop.containerstop->getStoppingPosition(this);
                 }
-            	return getCarFollowModel().stopSpeed(this, getSpeed(), haltingPos - myState.pos());
+                return getCarFollowModel().stopSpeed(this, getSpeed(), haltingPos - myState.pos());
             }
         }
     } else {
 
 #ifdef DEBUG_STOPS
-        if(DEBUG_COND){
+        if (DEBUG_COND) {
             std::cout << SIMTIME << " vehicle '" << getID() << "' hasn't reached next stop." << std::endl;
         }
 #endif
@@ -1199,12 +1199,12 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 }
             }
             // decelerate
-            if(MSGlobals::gSemiImplicitEulerUpdate){
-            	// euler
-            	return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos() + NUMERICAL_EPS);
+            if (MSGlobals::gSemiImplicitEulerUpdate) {
+                // euler
+                return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos() + NUMERICAL_EPS);
             } else {
-            	// ballistic
-            	return getCarFollowModel().stopSpeed(this, myState.mySpeed, endPos - myState.myPos);
+                // ballistic
+                return getCarFollowModel().stopSpeed(this, myState.mySpeed, endPos - myState.myPos);
             }
         }
     }
@@ -1227,8 +1227,8 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const SUMOReal 
 
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
-    std::cout
-    << "\nPLAN_MOVE\n"
+        std::cout
+                << "\nPLAN_MOVE\n"
                 << STEPS2TIME(t)
                 << " veh=" << getID()
                 << " lane=" << myLane->getID()
@@ -1300,7 +1300,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     }
 #endif
     // all links within dist are taken into account (potentially)
-    // the distance already "seen"; in the following always up to the end of the current "lane" 
+    // the distance already "seen"; in the following always up to the end of the current "lane"
     const SUMOReal dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
 
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
@@ -1329,10 +1329,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //  leader is given for the first edge only
         adaptToLeaders(ahead, 0, seen, lastLink, leaderLane, v, vLinkPass);
 #ifdef DEBUG_PLAN_MOVE
-      if(DEBUG_COND){
-          std::cout << "\nv = "<<v<<"\n";
+        if (DEBUG_COND) {
+            std::cout << "\nv = " << v << "\n";
 
-      }
+        }
 #endif
         // XXX efficiently adapt to shadow leaders using neighAhead by iteration over the whole edge in parallel (lanechanger-style)
         if (getLaneChangeModel().getShadowLane() != 0) {
@@ -1360,10 +1360,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             lfLinks.push_back(DriveProcessItem(v, myStopDist));
 
 #ifdef DEBUG_PLAN_MOVE
-      if(DEBUG_COND){
-          std::cout << "\n" << SIMTIME << " next stop: distance = "<< myStopDist << " requires stopSpeed = " << stopSpeed << "\n";
+            if (DEBUG_COND) {
+                std::cout << "\n" << SIMTIME << " next stop: distance = " << myStopDist << " requires stopSpeed = " << stopSpeed << "\n";
 
-      }
+            }
 #endif
 
             break;
@@ -1445,7 +1445,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         bool setRequest = (v > 0 && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
-        const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(),0.);
+        const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0.);
         if (yellowOrRed && seen >= brakeDist) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
@@ -1507,13 +1507,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         SUMOTime arrivalTime;
-        if(MSGlobals::gSemiImplicitEulerUpdate){
+        if (MSGlobals::gSemiImplicitEulerUpdate) {
             // @note intuitively it would make sense to compare arrivalSpeed with getSpeed() instead of v
             // however, due to the current position update rule (ticket #860) the vehicle moves with v in this step
             // subtract DELTA_T because t is the time at the end of this step and the movement is not carried out yet
-        	arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, v, arrivalSpeed);
+            arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, v, arrivalSpeed);
         } else {
-        	arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, myState.mySpeed, arrivalSpeed);
+            arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, myState.mySpeed, arrivalSpeed);
         }
 
         // compute arrival speed and arrival time if vehicle starts braking now
@@ -1522,7 +1522,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         SUMOTime arrivalTimeBraking = arrivalTime + TIME2STEPS(30);
         if (seen < cfModel.brakeGap(v)) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
             // vehicle cannot come to a complete stop in time
-            if(MSGlobals::gSemiImplicitEulerUpdate){
+            if (MSGlobals::gSemiImplicitEulerUpdate) {
                 arrivalSpeedBraking = cfModel.getMinimalArrivalSpeedEuler(seen, v);
                 // due to discrete/continuous mismatch (when using Euler update) we have to ensure that braking actually helps
                 arrivalSpeedBraking = MIN2(arrivalSpeedBraking, arrivalSpeed);
@@ -1667,23 +1667,23 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, SUMOReal> leader
 }
 
 SUMOReal
-MSVehicle::getDeltaPos(SUMOReal accel){
+MSVehicle::getDeltaPos(SUMOReal accel) {
     SUMOReal vNext = myState.mySpeed + ACCEL2SPEED(accel);
-    if(MSGlobals::gSemiImplicitEulerUpdate){
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
         // apply implicit Euler positional update
-        return SPEED2DIST(MAX2(vNext,(SUMOReal)0.));
-    }else{
+        return SPEED2DIST(MAX2(vNext, (SUMOReal)0.));
+    } else {
         // apply ballistic update
-        if(vNext >= 0){
+        if (vNext >= 0) {
             // assume constant acceleration during this time step
-            return SPEED2DIST(myState.mySpeed + 0.5*ACCEL2SPEED(accel));
+            return SPEED2DIST(myState.mySpeed + 0.5 * ACCEL2SPEED(accel));
         } else {
             // negative vNext indicates a stop within the middle of time step
             // The corresponding stop time is s = mySpeed/deceleration \in [0,dt], and the
             // covered distance is therefore deltaPos = mySpeed*s - 0.5*deceleration*s^2.
             // Here, deceleration = (myState.mySpeed - vNext)/dt is the constant deceleration
             // until the vehicle stops.
-            return -SPEED2DIST(0.5*myState.mySpeed*myState.mySpeed/ACCEL2SPEED(accel));
+            return -SPEED2DIST(0.5 * myState.mySpeed * myState.mySpeed / ACCEL2SPEED(accel));
         }
     }
 }
@@ -1697,11 +1697,11 @@ MSVehicle::executeMove() {
 #endif
 
 #ifdef DEBUG_EXEC_MOVE
-        if (DEBUG_COND) std::cout << "\nEXECUTE_MOVE\n"
-                    << SIMTIME
-                    << " veh=" << getID()
-                    << " speed=" << getSpeed() // toString(getSpeed(), 24)
-                    << std::endl;
+    if (DEBUG_COND) std::cout << "\nEXECUTE_MOVE\n"
+                                  << SIMTIME
+                                  << " veh=" << getID()
+                                  << " speed=" << getSpeed() // toString(getSpeed(), 24)
+                                  << std::endl;
 #endif
 
     // get safe velocities from DriveProcessItems
@@ -1796,11 +1796,11 @@ MSVehicle::executeMove() {
                     // make it across the minor link in one step, new traffic
                     // could appear on a major foe link and cause a collision. Refs. #1845, #2123
                     vSafeMinDist = myLane->getLength() - getPositionOnLane(); // distance that must be covered
-                	if(MSGlobals::gSemiImplicitEulerUpdate){
-                		vSafeMin = MIN2((SUMOReal) DIST2SPEED(vSafeMinDist + POSITION_EPS), (*i).myVLinkPass);
-                	} else {
-                		vSafeMin = MIN2((SUMOReal) DIST2SPEED(2*vSafeMinDist + NUMERICAL_EPS)-getSpeed(), (*i).myVLinkPass);
-                	}
+                    if (MSGlobals::gSemiImplicitEulerUpdate) {
+                        vSafeMin = MIN2((SUMOReal) DIST2SPEED(vSafeMinDist + POSITION_EPS), (*i).myVLinkPass);
+                    } else {
+                        vSafeMin = MIN2((SUMOReal) DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), (*i).myVLinkPass);
+                    }
                 }
             }
             // have waited; may pass if opened...
@@ -1889,19 +1889,21 @@ MSVehicle::executeMove() {
 
     // apply speed reduction due to dawdling / lane changing but ensure minimum safe speed
     SUMOReal vNext;
-    if(MSGlobals::gSemiImplicitEulerUpdate){
-    	vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
     } else {
-    	// in case of ballistic position update, negative speeds can indicate desired stops within next timestep.
-    	if(vSafeMin == 0){
-    		// (Leo) This should be an indication that it would even be safe to stop immediately ("implicit Euler logic")
-    		//       Hence, stopping within next the timestep (negative vNext) is tolerated.
-    		vNext = getCarFollowModel().moveHelper(this, vSafe);
-    	} else {
-    		vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
-    	}
-    	// (Leo) to avoid oscillations (< 1e-10) of vNext in a standing vehicle column, we cap off vNext
-    	if(fabs(vNext) < NUMERICAL_EPS) vNext = 0.;
+        // in case of ballistic position update, negative speeds can indicate desired stops within next timestep.
+        if (vSafeMin == 0) {
+            // (Leo) This should be an indication that it would even be safe to stop immediately ("implicit Euler logic")
+            //       Hence, stopping within next the timestep (negative vNext) is tolerated.
+            vNext = getCarFollowModel().moveHelper(this, vSafe);
+        } else {
+            vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
+        }
+        // (Leo) to avoid oscillations (< 1e-10) of vNext in a standing vehicle column, we cap off vNext
+        if (fabs(vNext) < NUMERICAL_EPS) {
+            vNext = 0.;
+        }
     }
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) {
@@ -1921,7 +1923,7 @@ MSVehicle::executeMove() {
     //            + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
     //}
 
-    if(MSGlobals::gSemiImplicitEulerUpdate){
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
         vNext = MAX2(vNext, (SUMOReal) 0.);
     } else {
         // (Leo) Ballistic: negative vNext can be used to indicate a stop within next step.
@@ -2036,7 +2038,7 @@ MSVehicle::executeMove() {
             WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID()
                           + "'" + emergencyReason
                           + " (decel=" + toString(myAcceleration - myState.mySpeed)
-                          + ", offset = " + toString(myState.myPos - myLane->getLength()) 
+                          + ", offset = " + toString(myState.myPos - myLane->getLength())
                           + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerEmergencyStop();
             myState.myPos = myLane->getLength();
@@ -2088,21 +2090,21 @@ void
 MSVehicle::updateState(SUMOReal vNext) {
     // update position and speed
     SUMOReal deltaPos; // positional change
-    if(MSGlobals::gSemiImplicitEulerUpdate){
-    	deltaPos = SPEED2DIST(vNext);
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        deltaPos = SPEED2DIST(vNext);
     } else {
-    	// ballistic
-    	// XXX: this is ok for the euler update, too. However, small differences
-    	//		will to the above formula result from rounding. (introduced this too have
-    	// 		exact cooincidence of test results, refactor after merge to trunk)
-    	deltaPos = getDeltaPos(SPEED2ACCEL(vNext - myState.mySpeed));
+        // ballistic
+        // XXX: this is ok for the euler update, too. However, small differences
+        //		will to the above formula result from rounding. (introduced this too have
+        // 		exact cooincidence of test results, refactor after merge to trunk)
+        deltaPos = getDeltaPos(SPEED2ACCEL(vNext - myState.mySpeed));
     }
 
-    // the *mean* acceleration during the next step (probably most appropriate for emission calculation) 
+    // the *mean* acceleration during the next step (probably most appropriate for emission calculation)
     // TODO: recheck, approve, refs. #2579
     // NOTE: for the ballistic update this is in general
     // not equal to  vNext - myState.mySpeed
-    myAcceleration = SPEED2ACCEL(MAX2(vNext,(SUMOReal)0.) - myState.mySpeed);
+    myAcceleration = SPEED2ACCEL(MAX2(vNext, (SUMOReal)0.) - myState.mySpeed);
 
 //#ifdef DEBUG_EXEC_MOVE
 //    if (DEBUG_COND) {
@@ -2111,7 +2113,7 @@ MSVehicle::updateState(SUMOReal vNext) {
 //#endif
 
     myState.myPreviousSpeed = myState.mySpeed;
-    myState.mySpeed = MAX2(vNext,(SUMOReal)0.);
+    myState.mySpeed = MAX2(vNext, (SUMOReal)0.);
 
 #ifndef NO_TRACI
     if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
@@ -2543,9 +2545,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
     } else {
         // normal move() isn't called so reset position here. must be done
-        // before calling reminders 
+        // before calling reminders
         // XXX: This seems strange to me since in activateReminders, which (e.g. for induction loops)
-        //      may call notifyEnter making use of the stored position to decide whether or not to add the vehicle... 
+        //      may call notifyEnter making use of the stored position to decide whether or not to add the vehicle...
         //      Please recheck (Leo), refs. #2579
         myState.myPos = 0;
         myCachedPosition = Position::INVALID;

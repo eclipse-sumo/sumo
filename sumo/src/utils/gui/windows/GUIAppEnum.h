@@ -338,7 +338,7 @@ enum {
     //@{
 
     /// set subset of elements
-    MID_CHOOSEN_ELEMENTS, 
+    MID_CHOOSEN_ELEMENTS,
     /// Load set
     MID_CHOOSEN_LOAD,
     /// Save set
@@ -494,19 +494,19 @@ enum {
     /** insert contents of another network */
     MID_GNE_INSERT_NETWORK,
     /** show connections **/
-    MID_GNE_SHOW_CONNECTIONS, 
+    MID_GNE_SHOW_CONNECTIONS,
     /** show junctions as bubbles **/
-    MID_GNE_SHOW_BUBBLES, 
+    MID_GNE_SHOW_BUBBLES,
     /** attribute edited */
     MID_GNE_SET_ATTRIBUTE,
     /** netEdit attribute blocking */
     MID_GNE_SET_BLOCKING,
     /** netEdit show connection */
     MID_GNE_SHOW_CONNECTION,
-    /** netEdit inspect connection */ 
-    MID_GNE_INSPECT_CONNECTION, 
+    /** netEdit inspect connection */
+    MID_GNE_INSPECT_CONNECTION,
     /** netEdit go back to the previous element */
-    MID_GNE_INSPECT_GOBACK, 
+    MID_GNE_INSPECT_GOBACK,
     /** netEdit add row */
     MID_GNE_ADDROW,
     /** netEdit remove row */

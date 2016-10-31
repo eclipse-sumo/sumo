@@ -70,15 +70,14 @@ int NUM_POINTS = 5;
 // method definitions
 // ===========================================================================
 
-GNEConnection::GNEConnection(GNELane *from, GNELane* to) :
-    GNENetElement(from->getNet(), 
-            std::string(":") + from->getMicrosimID() + "->" + to->getMicrosimID(), 
-            GLO_CONNECTION, SUMO_TAG_CONNECTION),
+GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
+    GNENetElement(from->getNet(),
+                  std::string(":") + from->getMicrosimID() + "->" + to->getMicrosimID(),
+                  GLO_CONNECTION, SUMO_TAG_CONNECTION),
     myFromLane(from),
     myToLane(to),
     myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-    myDrawConnection(true) 
-{
+    myDrawConnection(true) {
     // geometry will be updated later
 }
 
@@ -106,15 +105,15 @@ GNEConnection::updateGeometry() {
         return;
     }
     // Calculate shape of connection depending of the size of Junction shape
-    if(getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) { // value obtanied from GNEJunction::drawgl
+    if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) { // value obtanied from GNEJunction::drawgl
         // Calculate shape using a smooth shape
         myShape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
-                    laneShapeFrom, 
-                    laneShapeTo,
-                    NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
-                    (SUMOReal) 5. * (SUMOReal) getEdgeFrom()->getNBEdge()->getNumLanes(),
-                    (SUMOReal) 5. * (SUMOReal) nbCon.toEdge->getNumLanes());
-    
+                      laneShapeFrom,
+                      laneShapeTo,
+                      NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
+                      (SUMOReal) 5. * (SUMOReal) getEdgeFrom()->getNBEdge()->getNumLanes(),
+                      (SUMOReal) 5. * (SUMOReal) nbCon.toEdge->getNumLanes());
+
     } else {
         myShape.clear();
         myShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
@@ -136,7 +135,7 @@ GNEConnection::updateGeometry() {
 }
 
 
-Boundary 
+Boundary
 GNEConnection::getBoundary() const {
     return myShape.getBoxBoundary();
 }
@@ -154,13 +153,13 @@ GNEConnection::getEdgeTo() const {
 }
 
 
-GNELane* 
+GNELane*
 GNEConnection::getLaneFrom() const {
     return myFromLane;
 }
 
 
-GNELane* 
+GNELane*
 GNEConnection::getLaneTo() const {
     return myToLane;
 }
@@ -184,39 +183,39 @@ GNEConnection::getNBEdgeConnection() const {
 }
 
 
-NBConnection 
+NBConnection
 GNEConnection::getNBConnection() const {
     return NBConnection(getEdgeFrom()->getNBEdge(), getFromLaneIndex(),
-            getEdgeTo()->getNBEdge(), getToLaneIndex(),
-            (int)getNBEdgeConnection().tlLinkNo);
+                        getEdgeTo()->getNBEdge(), getToLaneIndex(),
+                        (int)getNBEdgeConnection().tlLinkNo);
 }
 
 
-LinkState 
+LinkState
 GNEConnection::getLinkState() const {
     return myLinkState;
 }
 
 
-void 
+void
 GNEConnection::updateLinkState() {
     NBEdge::Connection& nbCon = getNBEdgeConnection();
-    myLinkState = getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(getEdgeFrom()->getNBEdge(), 
-                                                              nbCon.toEdge, 
-                                                              nbCon.fromLane, 
-                                                              nbCon.toLane, 
-                                                              nbCon.mayDefinitelyPass, 
-                                                              nbCon.tlID); 
+    myLinkState = getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(getEdgeFrom()->getNBEdge(),
+                  nbCon.toEdge,
+                  nbCon.fromLane,
+                  nbCon.toLane,
+                  nbCon.mayDefinitelyPass,
+                  nbCon.tlID);
 }
 
 
-bool 
+bool
 GNEConnection::getDrawConnection() const {
     return myDrawConnection;
 }
 
 
-void 
+void
 GNEConnection::setDrawConnection(bool drawConnection) {
     myDrawConnection = drawConnection;
 }
@@ -254,7 +253,7 @@ GNEConnection::getCenteringBoundary() const {
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
-    if(myDrawConnection && (myNet->getViewNet()->showConnections())) {
+    if (myDrawConnection && (myNet->getViewNet()->showConnections())) {
         // Push draw matrix 1
         glPushMatrix();
         // Push name
@@ -356,7 +355,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOReal>(value);
         case SUMO_ATTR_UNCONTROLLED:
             return false; // XXX see #2599
-            //return canParse<bool>(value);
+        //return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return isPositive<SUMOReal>(value);
         default:
@@ -375,11 +374,11 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_KEEP_CLEAR:
             nbCon.keepClear = parse<bool>(value);
             break;
-            /*
+        /*
         case SUMO_ATTR_UNCONTROLLED:
-            // XXX see @2599
-            break;
-            */
+        // XXX see @2599
+        break;
+        */
         case SUMO_ATTR_CONTPOS:
             nbCon.contPos = parse<SUMOReal>(value);
             break;

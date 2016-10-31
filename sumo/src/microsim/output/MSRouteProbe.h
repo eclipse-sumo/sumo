@@ -75,8 +75,8 @@ public:
      * @param[in] lastID The id of the last completed distribution to use for getRoute
      */
     MSRouteProbe(const std::string& id, const MSEdge* edge,
-        const std::string& distID, const std::string& lastID,
-        const std::string& vTypes);
+                 const std::string& distID, const std::string& lastID,
+                 const std::string& vTypes);
 
 
     /// @brief Destructor

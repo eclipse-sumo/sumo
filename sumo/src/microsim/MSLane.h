@@ -688,8 +688,8 @@ public:
      * @param[in] permissions The new permissions
      * @param[in] transientID The id of the permission-modification or the special value PERMANENT
      */
-    void setPermissions(SVCPermissions permissions, long transientID); 
-    void resetPermissions(long transientID); 
+    void setPermissions(SVCPermissions permissions, long transientID);
+    void resetPermissions(long transientID);
 
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
@@ -974,8 +974,8 @@ public:
         return myCollisionAction == COLLISION_ACTION_TELEPORT;
     }
 
-    static const long CHANGE_PERMISSIONS_PERMANENT = 0; 
-    static const long CHANGE_PERMISSIONS_GUI = 1; 
+    static const long CHANGE_PERMISSIONS_PERMANENT = 0;
+    static const long CHANGE_PERMISSIONS_GUI = 1;
 
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure

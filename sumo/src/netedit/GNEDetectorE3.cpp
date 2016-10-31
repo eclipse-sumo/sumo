@@ -151,7 +151,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
         device.writeAttr(SUMO_ATTR_X, myPosition.x());
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
-        if(myBlocked) {
+        if (myBlocked) {
             device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
         }
         // Write childs of this element

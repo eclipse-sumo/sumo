@@ -121,7 +121,7 @@ GNEDetectorExit::writeAdditional(OutputDevice& device, const std::string&) {
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
-    if(myBlocked) {
+    if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag

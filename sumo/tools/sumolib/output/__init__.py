@@ -106,7 +106,7 @@ def compound_object(element_name, attrnames, warn=False):
 
         def toXML(self, initialIndent="", indent="    "):
             fields = ['%s="%s"' % (self.original_fields[i], getattr(self, k))
-                      for i,k in enumerate(self._fields) if getattr(self, k) is not None]
+                      for i, k in enumerate(self._fields) if getattr(self, k) is not None]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:
@@ -124,7 +124,7 @@ def compound_object(element_name, attrnames, warn=False):
 
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
-        heterogeneous=False, warn=False):
+          heterogeneous=False, warn=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
@@ -171,7 +171,8 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
         if len(attrnames) != len(set(attrnames)):
             raise Exception(
                 "non-unique attributes %s for element '%s'" % (attrnames, element_name))
-        elementTypes[element_name] = compound_object(element_name, attrnames, warn)
+        elementTypes[element_name] = compound_object(
+            element_name, attrnames, warn)
     # prepare children
     child_dict = _NO_CHILDREN  # conserve space by reusing singleton
     if len(node) > 0:

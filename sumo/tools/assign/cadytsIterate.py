@@ -93,7 +93,7 @@ def main():
         sumoBinary = sumolib.checkBinary("meso", options.path)
     else:
         sumoBinary = sumolib.checkBinary("sumo", options.path)
-    calibrator = ["java", "-cp", options.classpath, "-Xmx1G", 
+    calibrator = ["java", "-cp", options.classpath, "-Xmx1G",
                   "cadyts.interfaces.sumo.SumoController"]
     log = open("cadySumo-log.txt", "w+")
 

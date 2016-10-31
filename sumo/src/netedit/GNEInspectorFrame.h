@@ -207,19 +207,19 @@ public:
 
     private:
         /// @brief pointer to inspectorFrame Parent
-        GNEInspectorFrame *myInspectorFrameParent;
+        GNEInspectorFrame* myInspectorFrameParent;
 
         /// @brief pointer to current connection
-        GNEConnection *myConnection;
+        GNEConnection* myConnection;
 
         /// @brief Label for show information of connection
-        FXLabel *myConnectionInfoLabel;
+        FXLabel* myConnectionInfoLabel;
 
         /// @brief FXCheckBox to hide/show connection individually
-        FXCheckButton *myShowConnection;
+        FXCheckButton* myShowConnection;
 
         /// @brief FXCheckBox to hide/show connection individually
-        FXButton *myInspectConnection;
+        FXButton* myInspectConnection;
 
         /// @brief set show as private function
         void show();
@@ -281,12 +281,12 @@ protected:
 private:
     /// @brief groupBox for attributes
     FXGroupBox* myGroupBoxForAttributes;
-    
+
     /// @brief list of Attribute inputs
     std::vector<GNEInspectorFrame::AttrInput*> vectorOfAttrInput;
-    
+
     /// @brief back Button
-    FXButton *myBackButton;
+    FXButton* myBackButton;
 
     /// @brief groupBox for templates
     FXGroupBox* myGroupBoxForTemplates;

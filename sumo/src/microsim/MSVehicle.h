@@ -495,7 +495,7 @@ public:
      */
     SUMOReal
     getMaxSpeedOnLane() const {
-        if(myLane != 0){
+        if (myLane != 0) {
             return myLane->getVehicleMaxSpeed(this);
         } else {
             return myType->getMaxSpeed();

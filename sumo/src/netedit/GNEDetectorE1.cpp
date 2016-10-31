@@ -133,7 +133,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, const std::string&) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
     device.writeAttr(SUMO_ATTR_SPLIT_VTYPE, mySplitByType);
-    if(myBlocked) {
+    if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag

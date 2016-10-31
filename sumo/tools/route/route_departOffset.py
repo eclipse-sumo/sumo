@@ -19,7 +19,8 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import os, sys
+import os
+import sys
 import codecs
 import optparse
 
@@ -37,29 +38,35 @@ def intIfPossible(val):
     else:
         return val
 
+
 def get_options(args=None):
     optParser = optparse.OptionParser()
-    optParser.add_option("-r", "--input-file", dest="infile", help="the input route file (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile", help="the output route file (mandatory)")
-    optParser.add_option("-d", "--depart-offset", dest="offset", type="float", help="the depart offset to apply")
-    optParser.add_option("-i", "--depart-interval", dest="interval", 
-            help="time intervals a,b,c,d where all vehicles departing in the interval [a,b[ are mapped to the interval [c,d[")
-    optParser.add_option("--modify-ids", dest="modify_ids", action="store_true", default=False, help="whether ids should be modified as well")
+    optParser.add_option("-r", "--input-file", dest="infile",
+                         help="the input route file (mandatory)")
+    optParser.add_option("-o", "--output-file", dest="outfile",
+                         help="the output route file (mandatory)")
+    optParser.add_option("-d", "--depart-offset", dest="offset",
+                         type="float", help="the depart offset to apply")
+    optParser.add_option("-i", "--depart-interval", dest="interval",
+                         help="time intervals a,b,c,d where all vehicles departing in the interval [a,b[ are mapped to the interval [c,d[")
+    optParser.add_option("--modify-ids", dest="modify_ids", action="store_true",
+                         default=False, help="whether ids should be modified as well")
     optParser.add_option("--heterogeneous", dest="heterogeneous",
-            action="store_true", default=False, help="whether heterogeneous objects shall be parsed (i.e. vehicles with embeded and referenced routes)")
-    optParser.add_option("--depart-edges", dest="depart_edges", 
-            help="only modify departure times of vehicles departing on the given edges")
-    optParser.add_option("--depart-edges.file", dest="depart_edges_file", 
-            help="only modify departure times of vehicles departing on edges or lanes in the given selection file")
+                         action="store_true", default=False, help="whether heterogeneous objects shall be parsed (i.e. vehicles with embeded and referenced routes)")
+    optParser.add_option("--depart-edges", dest="depart_edges",
+                         help="only modify departure times of vehicles departing on the given edges")
+    optParser.add_option("--depart-edges.file", dest="depart_edges_file",
+                         help="only modify departure times of vehicles departing on edges or lanes in the given selection file")
 
     (options, args) = optParser.parse_args(args=args)
     if options.infile is None or options.outfile is None:
         optParser.print_help()
         sys.exit()
 
-    if ((options.offset is None and options.interval is None) 
+    if ((options.offset is None and options.interval is None)
             or (options.offset is not None and options.interval is not None)):
-        print("Either one of the options --depart-offset or --depart-interval must be given")
+        print(
+            "Either one of the options --depart-offset or --depart-interval must be given")
         sys.exit()
 
     if options.offset is not None:
@@ -80,7 +87,7 @@ def get_options(args=None):
                 options.depart_edges.append(line[5:])
             elif line.startswith("lane:"):
                 options.depart_edges.append(line[5:-2])
-            else: 
+            else:
                 options.depart_edges.append(line)
 
     return options
@@ -89,13 +96,14 @@ def get_options(args=None):
 def shiftInterval(val, interval):
     val = float(val)
     if interval[0] <= val < interval[1]:
-        val = (val - interval[0]) / (interval[1] - interval[0]) * (interval[3] - interval[2]) + interval[2]
+        val = (val - interval[0]) / (interval[1] - interval[0]
+                                     ) * (interval[3] - interval[2]) + interval[2]
     return str(intIfPossible(val))
 
 
 def main(options):
     # cache stand-alone routes
-    routesDepart = {} # first edge for each route
+    routesDepart = {}  # first edge for each route
 
     with codecs.open(options.outfile, 'w', encoding='utf8') as out:
         out.write("<routes>\n")
@@ -105,7 +113,7 @@ def main(options):
                 out.write(route.toXML('    '))
 
         for obj in parse(options.infile, ['vehicle', 'trip', 'flow', 'vType'],
-                heterogeneous=options.heterogeneous, warn=False):
+                         heterogeneous=options.heterogeneous, warn=False):
             if obj.name == 'vType':
                 # copy
                 pass
@@ -135,16 +143,21 @@ def main(options):
                     if options.offset is not None:
                         # shift by offset
                         if obj.name in ['trip', 'vehicle']:
-                            obj.depart = str(intIfPossible(float(obj.depart) + options.offset))
+                            obj.depart = str(intIfPossible(
+                                float(obj.depart) + options.offset))
                         else:
-                            obj.begin = str(intIfPossible(float(obj.begin) + options.offset))
-                            obj.end = str(intIfPossible(float(obj.end) + options.offset))
+                            obj.begin = str(intIfPossible(
+                                float(obj.begin) + options.offset))
+                            obj.end = str(intIfPossible(
+                                float(obj.end) + options.offset))
                     else:
                         # shift by interval
                         if obj.name in ['trip', 'vehicle']:
-                            obj.depart = shiftInterval(obj.depart, options.interval)
+                            obj.depart = shiftInterval(
+                                obj.depart, options.interval)
                         else:
-                            obj.begin = shiftInterval(obj.begin, options.interval)
+                            obj.begin = shiftInterval(
+                                obj.begin, options.interval)
                             obj.end = shiftInterval(obj.end, options.interval)
 
             out.write(obj.toXML('    '))
@@ -153,4 +166,3 @@ def main(options):
 
 if __name__ == "__main__":
     main(get_options(sys.argv))
-

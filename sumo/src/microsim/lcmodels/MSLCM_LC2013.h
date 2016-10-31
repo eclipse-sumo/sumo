@@ -37,8 +37,8 @@
 #include "MSAbstractLaneChangeModel.h"
 #include <vector>
 
-// INVALID_SPEED should be used when the construction of upper bound for the speed 
-// leads to no restrictions, e.g. during LC-messaging to followers or leaders. 
+// INVALID_SPEED should be used when the construction of upper bound for the speed
+// leads to no restrictions, e.g. during LC-messaging to followers or leaders.
 // Currently either std::numeric_limits<...>.max() or -1 is used for this purpose in many places.
 // TODO: implement this everywhere and remove workarounds for ballistic update in cases of possible '-1'-returns. Refs. #2577
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
@@ -171,7 +171,7 @@ protected:
     /// @param[out] roundaboutEdgesAheadNeigh Number of lanes in the next oncoming roundabout in neigh
     static void
     getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh,
-            SUMOReal& roundaboutDistanceAhead, SUMOReal& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh);
+                           SUMOReal& roundaboutDistanceAhead, SUMOReal& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh);
 
     /// @brief Computes the artificial bonus distance for roundabout lanes
     ///        this additional distance reduces the sense of urgency within

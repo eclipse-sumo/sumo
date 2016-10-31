@@ -537,7 +537,7 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string&
 
 bool
 SUMOVehicleParameter::parseArrivalPosLat(const std::string& val, const std::string& element, const std::string& id,
-                                        SUMOReal& pos, ArrivalPosLatDefinition& apd, std::string& error) {
+        SUMOReal& pos, ArrivalPosLatDefinition& apd, std::string& error) {
     bool ok = true;
     if (val == "right") {
         apd = ARRIVAL_POSLAT_RIGHT;

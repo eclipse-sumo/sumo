@@ -94,13 +94,13 @@ protected:
     FXVerticalFrame* myContentFrame;
 
     /// @brief fame for header elements
-    FXHorizontalFrame * myHeaderFrame;
+    FXHorizontalFrame* myHeaderFrame;
 
     /// @brief fame for left header elements
-    FXHorizontalFrame * myHeaderLeftFrame;
+    FXHorizontalFrame* myHeaderLeftFrame;
 
     /// @brief fame for right header elements
-    FXHorizontalFrame * myHeaderRightFrame;
+    FXHorizontalFrame* myHeaderRightFrame;
 
 private:
     /// @brief Invalidated copy constructor.

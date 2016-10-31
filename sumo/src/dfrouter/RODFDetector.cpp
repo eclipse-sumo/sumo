@@ -283,7 +283,7 @@ RODFDetector::hasRoutes() const {
 
 bool
 RODFDetector::writeEmitterDefinition(const std::string& file,
-const std::map<SUMOTime, RandomDistributor<int>* >& dists,
+                                     const std::map<SUMOTime, RandomDistributor<int>* >& dists,
                                      const RODFDetectorFlows& flows,
                                      SUMOTime startTime, SUMOTime endTime,
                                      SUMOTime stepOffset,
@@ -642,11 +642,11 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         // write separate types
         SUMOVTypeParameter pkwType = SUMOVTypeParameter("PKW", SVC_PASSENGER);
         setSpeedFactorAndDev(pkwType, net.getMaxSpeedFactorPKW(), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
-        pkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET; 
+        pkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
         pkwType.write(vTypeOut);
         SUMOVTypeParameter lkwType = SUMOVTypeParameter("LKW", SVC_TRUCK);
         setSpeedFactorAndDev(lkwType, net.getMaxSpeedFactorLKW(), net.getAvgSpeedFactorLKW(), speedDev, forceDev);
-        lkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET; 
+        lkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
         lkwType.write(vTypeOut);
     } else {
         // patch default type
@@ -697,7 +697,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
     }
 }
 
-void 
+void
 RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, SUMOReal maxFactor, SUMOReal avgFactor, SUMOReal dev, bool forceDev) {
     if (avgFactor > 1) {
         // systematically low speeds can easily be caused by traffic

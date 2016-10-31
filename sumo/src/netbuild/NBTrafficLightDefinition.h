@@ -333,7 +333,7 @@ public:
 
     /// @brief set the algorithm type (static etc..)
     virtual void setType(TrafficLightType type) {
-         myType = type;
+        myType = type;
     }
 
     /* @brief computes whether the given stream may have green minor while the

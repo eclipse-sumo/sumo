@@ -72,7 +72,7 @@ public:
     /// @brief change the position of the additional geometry
     void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
 
-    /// @brief updated geometry changes in the attributes of additional 
+    /// @brief updated geometry changes in the attributes of additional
     void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file

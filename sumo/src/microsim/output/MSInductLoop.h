@@ -82,8 +82,8 @@ public:
      * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
-        SUMOReal positionInMeters,
-        const std::string& vTypes);
+                 SUMOReal positionInMeters,
+                 const std::string& vTypes);
 
 
     /// @brief Destructor

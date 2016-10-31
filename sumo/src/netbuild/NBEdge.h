@@ -161,7 +161,7 @@ public:
          * @param[in] toLane_ The lane the connections yields in
          */
         Connection(int fromLane_, NBEdge* toEdge_, int toLane_);
-        
+
         /// @brief constructor with more parameters
         Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, SUMOReal visibility_, bool haveVia_ = false);
 
@@ -192,7 +192,7 @@ public:
         /// @brief custom position for internal junction on this connection
         SUMOReal contPos;
 
-        /// @brief custom foe visiblity for connection 
+        /// @brief custom foe visiblity for connection
         SUMOReal visibility;
 
         /// @brief origin ID
@@ -260,9 +260,9 @@ public:
     static const int UNSPECIFIED_INTERNAL_LANE_INDEX;
 
     /// @brief junction priority values set by setJunctionPriority
-    enum JunctionPriority { 
-        MINOR_ROAD = 0, 
-        PRIORITY_ROAD = 1, 
+    enum JunctionPriority {
+        MINOR_ROAD = 0,
+        PRIORITY_ROAD = 1,
         ROUNDABOUT = 1000
     };
 
@@ -559,7 +559,7 @@ public:
      * @param[in] exclusive Whether lanes that allow pedestrians along with other classes shall be counted as non-pedestrian
      */
     int getFirstNonPedestrianLaneIndex(int direction, bool exclusive = false) const;
-    
+
     /// @brif get first non-pedestrian lane
     NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
@@ -855,10 +855,10 @@ public:
 
     /// @brief replace in current connections of edge
     void replaceInConnections(NBEdge* which, NBEdge* by, int laneOff);
-    
+
     /// @brief replace in current connections of edge
     void replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection>& origConns);
-    
+
     /// @brief copy connections from antoher edge
     void copyConnectionsFrom(NBEdge* src);
 
@@ -1091,7 +1091,7 @@ public:
 
     /// @brief set allowed class for the given lane or for all lanes if -1 is given
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
-    
+
     /// @brief set disallowed class for the given lane or for all lanes if -1 is given
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
 
@@ -1270,12 +1270,12 @@ private:
     /// @name Setting and getting connections
     /// @{
     /** @briefmoves a connection one place to the left;
-     * @note Attention! no checking for field validity 
+     * @note Attention! no checking for field validity
      */
     void moveConnectionToLeft(int lane);
 
     /** @briefmoves a connection one place to the right;
-     * @noteAttention! no checking for field validity 
+     * @noteAttention! no checking for field validity
      */
     void moveConnectionToRight(int lane);
 
@@ -1291,7 +1291,7 @@ private:
     /// @brief computes the angle of this edge and stores it in myAngle
     void computeAngle();
 
-    /// @brief compute the first intersection point between the given lane geometries considering their rspective widths 
+    /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
     static SUMOReal firstIntersection(const PositionVector& v1, const PositionVector& v2, SUMOReal width2);
 
     /// @brief add a lane of the given width, restricted to the given class and shift existing connections
@@ -1299,7 +1299,7 @@ private:
 
     /// @brief restore a restricted lane
     void restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
-    
+
 private:
     /** @brief The building step
      * @see EdgeBuildingStep
@@ -1400,12 +1400,12 @@ private:
     /// @}
 
 public:
-     /// @class tls_disable_finder
+    /// @class tls_disable_finder
     class tls_disable_finder {
     public:
         /// @brief constructor
         tls_disable_finder(const TLSDisabledConnection& tpl) : myDefinition(tpl) { }
-        
+
         /// @brief operator ()
         bool operator()(const TLSDisabledConnection& e) const {
             if (e.to != myDefinition.to) {
@@ -1569,7 +1569,7 @@ public:
 
     };
 
-     /// @brief connections_sorter sort by fromLane, toEdge and toLane
+    /// @brief connections_sorter sort by fromLane, toEdge and toLane
     static bool connections_sorter(const Connection& c1, const Connection& c2);
 
     /**

@@ -1032,7 +1032,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             return;
         }
         if (fromLaneIdx < 0 || fromLaneIdx >= (int)from->getLanes().size() ||
-              toLaneIdx < 0 || toLaneIdx >= (int)to->getLanes().size()) {
+                toLaneIdx < 0 || toLaneIdx >= (int)to->getLanes().size()) {
             WRITE_ERROR("Invalid lane index in connection from '" + from->getID() + "' to '" + to->getID() + "'.");
             return;
         }

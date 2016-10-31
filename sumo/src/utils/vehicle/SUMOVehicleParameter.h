@@ -420,7 +420,7 @@ public:
      * @return Whether the given value is a valid arrivalPos definition
      */
     static bool parseArrivalPosLat(const std::string& val, const std::string& element, const std::string& id,
-                                  SUMOReal& pos, ArrivalPosLatDefinition& apd, std::string& error);
+                                   SUMOReal& pos, ArrivalPosLatDefinition& apd, std::string& error);
 
 
     /** @brief Validates a given arrivalSpeed value

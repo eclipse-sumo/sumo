@@ -84,8 +84,8 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle
     travelledDistance += travelledDistanceVehicleOnLane;
     const double a = veh.getAcceleration();
     myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
-            // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
-            meanSpeedVehicleOnLane, a, veh.getSlope()), timeOnLane);
+                          // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
+                          meanSpeedVehicleOnLane, a, veh.getSlope()), timeOnLane);
 }
 
 

@@ -352,7 +352,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
     // and the initial phase information
     PhasesVector::iterator pi = myPhases.begin() + myFirstPhase2Show;
-    
+
     SUMOTime fpo = myFirstPhaseOffset;
 
     // start drawing

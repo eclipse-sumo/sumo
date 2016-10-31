@@ -248,15 +248,15 @@ GNEJunction::getNBNode() const {
 }
 
 
-std::vector<GNEEdge*> 
+std::vector<GNEEdge*>
 GNEJunction::getGNEEdges() const {
     std::vector<GNEEdge*> edges;
     // iterate over incoming edges
-    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
+    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
         edges.push_back(myNet->retrieveEdge((*i)->getID()));
     }
     // iterate over outgoing edges
-    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
+    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
         edges.push_back(myNet->retrieveEdge((*i)->getID()));
     }
     return edges;
@@ -267,7 +267,7 @@ std::vector<GNEEdge*>
 GNEJunction::getGNEIncomingEdges() const {
     std::vector<GNEEdge*> incomingEdges;
     // iterate over incoming edges
-    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
+    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
         incomingEdges.push_back(myNet->retrieveEdge((*i)->getID()));
     }
     return incomingEdges;
@@ -278,7 +278,7 @@ std::vector<GNEEdge*>
 GNEJunction::getGNEOutgoingEdges() const {
     std::vector<GNEEdge*> outgoingEdges;
     // iterate over outgoing edges
-    for(std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
+    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
         outgoingEdges.push_back(myNet->retrieveEdge((*i)->getID()));
     }
     return outgoingEdges;
@@ -341,27 +341,27 @@ GNEJunction::updateShapesAndGeometries() {
     std::vector<GNEEdge*> GNEEdges = getGNEEdges();             // @Improve efficiency
     std::vector<GNEEdge*> edgesNeighbor;
     // Iterate over GNEEdges
-    for(std::vector<GNEEdge*>::const_iterator i = GNEEdges.begin(); i != GNEEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = GNEEdges.begin(); i != GNEEdges.end(); i++) {
         // Add source and destiny junctions
         affectedJunctions.insert((*i)->getGNEJunctionSource()); // @Improve efficiency
         affectedJunctions.insert((*i)->getGNEJunctionDest());   // @Improve efficiency
-         // Obtain neighbors of Junction source
+        // Obtain neighbors of Junction source
         edgesNeighbor = (*i)->getGNEJunctionSource()->getGNEEdges();    // @Improve efficiency
-        for(std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
+        for (std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
             affectedEdges.insert(*j);
         }
         // Obtain neighbors of Junction destiny
         edgesNeighbor = (*i)->getGNEJunctionDest()->getGNEEdges();  // @Improve efficiency
-        for(std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
+        for (std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
             affectedEdges.insert(*j);
         }
     }
     // Iterate over affected Junctions
-    for(std::set<GNEJunction*>::iterator i = affectedJunctions.begin(); i != affectedJunctions.end(); i++) {
+    for (std::set<GNEJunction*>::iterator i = affectedJunctions.begin(); i != affectedJunctions.end(); i++) {
         // Check that Node doesn't have a custom shape
         if ((*i)->getNBNode()->hasCustomShape() == false) {
             // Set new shape depending of the representation
-            if(myNet->getViewNet()->showJunctionAsBubbles() == true) {
+            if (myNet->getViewNet()->showJunctionAsBubbles() == true) {
                 // Only save Position to draw bubble
                 (*i)->getNBNode()->myPoly.clear();
                 (*i)->getNBNode()->myPoly.push_back((*i)->getNBNode()->getPosition());
@@ -374,8 +374,8 @@ GNEJunction::updateShapesAndGeometries() {
         }
     }
     // Iterate over affected Edges
-    for(std::set<GNEEdge*>::iterator i = affectedEdges.begin(); i != affectedEdges.end(); i++) {
-        if(myNet->getViewNet()->showJunctionAsBubbles() == true) {
+    for (std::set<GNEEdge*>::iterator i = affectedEdges.begin(); i != affectedEdges.end(); i++) {
+        if (myNet->getViewNet()->showJunctionAsBubbles() == true) {
             // Only compute lane shapes
             (*i)->getNBEdge()->computeLaneShapes();
         } else {
@@ -675,7 +675,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // clear guessed connections. previous connections will be restored
                 myNBNode.invalidateIncomingConnections();
                 std::vector<GNEEdge*> incomingEdges = getGNEIncomingEdges();
-                for(std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+                for (std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
                     (*i)->clearGNEConnections();
                 }
             }
@@ -690,7 +690,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_RADIUS:
             myNBNode.setRadius(parse<SUMOReal>(value));
             break;
-        case SUMO_ATTR_TLTYPE: { 
+        case SUMO_ATTR_TLTYPE: {
             const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
             for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
                 (*it)->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));

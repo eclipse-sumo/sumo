@@ -77,7 +77,7 @@ void
 NBNetBuilder::applyOptions(OptionsCont& oc) {
     // apply options to type control
     myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"),
-        oc.getInt("default.priority"), parseVehicleClasses("", oc.getString("default.disallow")));
+                           oc.getInt("default.priority"), parseVehicleClasses("", oc.getString("default.disallow")));
     // apply options to edge control
     myEdgeCont.applyOptions(oc);
     // apply options to traffic light logics control
@@ -453,7 +453,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
         PROGRESS_TIME_MESSAGE(before);
     }
-    // PATCH NODE SHAPES 
+    // PATCH NODE SHAPES
     if (OptionsCont::getOptions().getFloat("junctions.scurve-stretch") > 0) {
         // @note: notes have collected correction hints in buildInnerEdges()
         before = SysUtils::getCurrentMillis();

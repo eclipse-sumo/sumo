@@ -1169,7 +1169,7 @@ PositionVector::rotate2D(SUMOReal angle) {
 }
 
 
-PositionVector 
+PositionVector
 PositionVector::simplified() const {
     PositionVector result = *this;
     bool changed = true;
@@ -1185,7 +1185,7 @@ PositionVector::simplified() const {
             const SUMOReal distIK = p1.distanceTo2D(p2);
             if (distIK > NUMERICAL_EPS && triangleArea2 / distIK < NUMERICAL_EPS) {
                 changed = true;
-                result.erase(result.begin() + middleIndex); 
+                result.erase(result.begin() + middleIndex);
                 break;
             }
         }
@@ -1194,7 +1194,7 @@ PositionVector::simplified() const {
 }
 
 
-PositionVector 
+PositionVector
 PositionVector::getOrthogonal(const Position& p, SUMOReal extend, SUMOReal& distToClosest) const {
     PositionVector result;
     PositionVector tmp = *this;

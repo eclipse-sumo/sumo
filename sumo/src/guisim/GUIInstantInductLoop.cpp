@@ -53,8 +53,8 @@
  * GUIInstantInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
-    MSLane* const lane, SUMOReal positionInMeters,
-    const std::string& vTypes)
+        MSLane* const lane, SUMOReal positionInMeters,
+        const std::string& vTypes)
     : MSInstantInductLoop(id, od, lane, positionInMeters, vTypes) {}
 
 

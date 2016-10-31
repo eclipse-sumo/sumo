@@ -168,7 +168,7 @@ private:
      * @return The number of emitted vehicles (0 or 1)
      */
     int tryInsert(SUMOTime time, SUMOVehicle* veh,
-                           MSVehicleContainer::VehicleVector& refusedEmits);
+                  MSVehicleContainer::VehicleVector& refusedEmits);
 
 
     /** @brief Adds all vehicles that should have been emitted earlier to the refuse container

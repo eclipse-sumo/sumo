@@ -543,7 +543,7 @@ public:
      * @param[in] recordError The node itself if the displacement error during shape computation shall be recorded
      * @return The shape of the internal lane
      */
-    PositionVector computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError=0) const;
+    PositionVector computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError = 0) const;
 
 
     /** @brief Compute a smooth curve between the given geometries
@@ -562,7 +562,7 @@ public:
         int numPoints,
         bool isTurnaround,
         SUMOReal extrapolateBeg,
-        SUMOReal extrapolateEnd, 
+        SUMOReal extrapolateEnd,
         NBNode* recordError = 0) const;
 
     static PositionVector bezierControlPoints(
@@ -721,7 +721,7 @@ public:
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);
 
-    bool isSimpleContinuation(bool checkLaneNumbers=true) const;
+    bool isSimpleContinuation(bool checkLaneNumbers = true) const;
 
 
 private:

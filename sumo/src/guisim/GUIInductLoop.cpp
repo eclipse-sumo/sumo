@@ -53,7 +53,7 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-    SUMOReal position, const std::string& vTypes)
+                             SUMOReal position, const std::string& vTypes)
     : MSInductLoop(id, lane, position, vTypes) {}
 
 

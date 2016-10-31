@@ -224,14 +224,14 @@ class EdgeDomain(Domain):
             self._connection._beginMessage(
                 tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 8)
             self._connection._string += struct.pack("!BiBiBiBd",
-                                                    tc.TYPE_COMPOUND, 3, 
+                                                    tc.TYPE_COMPOUND, 3,
                                                     tc.TYPE_INTEGER, 1000 * begin,
                                                     tc.TYPE_INTEGER, 1000 * end,
                                                     tc.TYPE_DOUBLE, time)
             self._connection._sendExact()
         else:
-            raise TraCIException("Both, begin time and end time must be specified")
-
+            raise TraCIException(
+                "Both, begin time and end time must be specified")
 
     def setEffort(self, edgeID, effort, begin=None, end=None):
         """setEffort(string, double) -> None
@@ -243,21 +243,22 @@ class EdgeDomain(Domain):
         """
         if begin is None and end is None:
             self._connection._beginMessage(
-                    tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 8)
+                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 8)
             self._connection._string += struct.pack("!BiBd",
-                    tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, effort)
+                                                    tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, effort)
             self._connection._sendExact()
         elif begin is not None and end is not None:
             self._connection._beginMessage(
-                    tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 8)
+                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 8)
             self._connection._string += struct.pack("!BiBiBiBd",
-                    tc.TYPE_COMPOUND, 3, 
-                    tc.TYPE_INTEGER, 1000 * begin,
-                    tc.TYPE_INTEGER, 1000 * end,
-                    tc.TYPE_DOUBLE, effort)
+                                                    tc.TYPE_COMPOUND, 3,
+                                                    tc.TYPE_INTEGER, 1000 * begin,
+                                                    tc.TYPE_INTEGER, 1000 * end,
+                                                    tc.TYPE_DOUBLE, effort)
             self._connection._sendExact()
         else:
-            raise TraCIException("Both, begin time and end time must be specified")
+            raise TraCIException(
+                "Both, begin time and end time must be specified")
 
     def setMaxSpeed(self, edgeID, speed):
         """setMaxSpeed(string, double) -> None

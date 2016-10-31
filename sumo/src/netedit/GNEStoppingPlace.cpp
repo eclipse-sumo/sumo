@@ -94,8 +94,8 @@ GNEStoppingPlace::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
     UNUSED_PARAMETER(offsety);
     // Move to Right if distance is positive, to left if distance is negative
     if (((offsetx > 0) &&
-        ((myLane->getPositionRelativeToParametricLenght(myEndPos) + offsetx) < myLane->getLaneParametricLenght())) ||
-        ((offsetx < 0) && ((myLane->getPositionRelativeToParametricLenght(myStartPos) + offsetx) > 0))) {
+            ((myLane->getPositionRelativeToParametricLenght(myEndPos) + offsetx) < myLane->getLaneParametricLenght())) ||
+            ((offsetx < 0) && ((myLane->getPositionRelativeToParametricLenght(myStartPos) + offsetx) > 0))) {
         // change attribute
         myStartPos += offsetx;
         myEndPos += offsetx;

@@ -27,7 +27,8 @@ from sumolib.miscutils import Statistics
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     optParser = OptionParser()
-    optParser.add_option("-o", "--output-file", dest="outfile", help="name of output file")
+    optParser.add_option("-o", "--output-file",
+                         dest="outfile", help="name of output file")
     optParser.add_option(
         "--subpart", help="Restrict counts to routes that contain the given consecutive edge sequence")
     options, args = optParser.parse_args()

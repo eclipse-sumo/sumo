@@ -177,7 +177,7 @@ GUISUMOAbstractView::getPositionInformation() const {
 }
 
 
-Position 
+Position
 GUISUMOAbstractView::screenPos2NetPos(int x, int y) const {
     Boundary bound = myChanger->getViewport();
     SUMOReal xNet = bound.xmin() + bound.getWidth() * x / getWidth();
@@ -1000,11 +1000,11 @@ GUISUMOAbstractView::setViewportFromTo(const Position& lookFrom, const Position&
 }
 
 
-void 
+void
 GUISUMOAbstractView::copyViewportTo(GUISUMOAbstractView* view) {
     // look straight down
-    view->setViewportFromTo(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()), 
-            Position(myChanger->getXPos(), myChanger->getYPos(), 0));
+    view->setViewportFromTo(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()),
+                            Position(myChanger->getXPos(), myChanger->getYPos(), 0));
 }
 
 

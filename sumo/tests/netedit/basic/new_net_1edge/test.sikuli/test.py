@@ -1,5 +1,7 @@
 # Import libraries
-import os, sys, subprocess
+import os
+import sys
+import subprocess
 
 #** Common parameters **#
 Settings.MoveMouseDelay = 0.1
@@ -8,7 +10,8 @@ Settings.DelayAfterDrag = 0.1
 # SUMO Folder
 SUMOFolder = os.environ.get('SUMO_HOME', '.')
 # Current environment
-currentEnvironmentFile = open(SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "r")
+currentEnvironmentFile = open(
+    SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "r")
 # Get path to netEdit app
 neteditApp = currentEnvironmentFile.readline().replace("\n", "")
 # Get SandBox folder
@@ -19,29 +22,29 @@ netEditResources = SUMOFolder + "/tests/netedit/imageResources/" + currentOS + "
 currentEnvironmentFile.close()
 #****#
 
-#Open netedit
-netEditProcess = subprocess.Popen([neteditApp, 
-								  '--window-size', '800,600',
-								  '--new', 
-								  '-o', textTestSandBox + "/net.net.xml"], 
-								  env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+# Open netedit
+netEditProcess = subprocess.Popen([neteditApp,
+                                   '--window-size', '800,600',
+                                   '--new',
+                                   '-o', textTestSandBox + "/net.net.xml"],
+                                  env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
-# Wait to netedit	
+# Wait to netedit
 try:
-	match = wait(netEditResources + "neteditToolbar.png", 20)
+    match = wait(netEditResources + "neteditToolbar.png", 20)
 except:
-	netEditProcess.kill()
-	sys.exit("Killed netedit process. 'neteditToolbar.png' not found")
-	
+    netEditProcess.kill()
+    sys.exit("Killed netedit process. 'neteditToolbar.png' not found")
+
 # focusa
-click(match.getTarget().offset(0,-20))
+click(match.getTarget().offset(0, -20))
 
 # Change to create mode
 type("e")
 
 # Create two nodes
-click(match.getTarget().offset(-200,300))
-click(match.getTarget().offset(200,300))
+click(match.getTarget().offset(-200, 300))
+click(match.getTarget().offset(200, 300))
 
 # save network and quit
 type("s", Key.CTRL)

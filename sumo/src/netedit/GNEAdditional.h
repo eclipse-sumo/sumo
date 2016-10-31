@@ -79,7 +79,7 @@ public:
      * @param[in] offset offset of movement
      * @note simply call the function moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety)
      */
-    void moveAdditionalGeometry(const Position &offset);
+    void moveAdditionalGeometry(const Position& offset);
 
     /**@brief change the position of the additional geometry
      * @param[in] offsetx horizontal offset of movement
@@ -94,9 +94,9 @@ public:
      * @param[in] undoList The undoList on which to register changes
      * @note simply call function commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList)
      */
-    void commmitAdditionalGeometryMoved(const Position &oldPos, GNEUndoList* undoList);
-    
-    /**@brief updated geometry changes in the attributes of additional 
+    void commmitAdditionalGeometryMoved(const Position& oldPos, GNEUndoList* undoList);
+
+    /**@brief updated geometry changes in the attributes of additional
      * @param[in] oldPosx old position X of additional
      * @param[in] oldPosy old position Y of additional
      * @param[in] undoList The undoList on which to register changes
@@ -226,13 +226,13 @@ protected:
      * @throw exception if additional doesn't belong to an edge
      * @throw expcetion if edge doesn't exist
      */
-    void changeEdge(const std::string &edgeID);
+    void changeEdge(const std::string& edgeID);
 
     /**@brief change lane of additional
      * @throw exception if additional doesn't belong to a lane
      * @throw expcetion if edge doesn't exist
      */
-    void changeLane(const std::string &laneID);
+    void changeLane(const std::string& laneID);
 
 protected:
     /// @brief The GNEViewNet this additional element belongs

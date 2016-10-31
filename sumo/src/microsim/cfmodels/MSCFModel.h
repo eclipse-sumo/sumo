@@ -277,13 +277,13 @@ public:
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we lower the value of followerDecel which errs on the side of caution
-    	//
-    	// xxx (Leo, refs #2548) This is somewhat different from the approach in maximumSafeFollowSpeed, where
-    	// the leaderMaxDecel is increased instead. This is no perfect estimate either,
-    	// but without taking into account the reaction time it is less conservative than decreasing followDecel. 
-    	// Consider replacement by 'const leaderMaxDecel = MAX2(myDecel, leaderMaxDecel);' below and 'followDecel = myDecel;'
-    	// With maximumSafeSpeed = maximumSafeFollowSpeed(*secureGap*, speed, leaderSpeed, leaderMaxDecel) we should have:
-    	//        assert(maximumSafeSpeed <= speed + NUMERICAL_EPS && maximumSafeSpeed >= speed - NUMERICAL_EPS);
+        //
+        // xxx (Leo, refs #2548) This is somewhat different from the approach in maximumSafeFollowSpeed, where
+        // the leaderMaxDecel is increased instead. This is no perfect estimate either,
+        // but without taking into account the reaction time it is less conservative than decreasing followDecel.
+        // Consider replacement by 'const leaderMaxDecel = MAX2(myDecel, leaderMaxDecel);' below and 'followDecel = myDecel;'
+        // With maximumSafeSpeed = maximumSafeFollowSpeed(*secureGap*, speed, leaderSpeed, leaderMaxDecel) we should have:
+        //        assert(maximumSafeSpeed <= speed + NUMERICAL_EPS && maximumSafeSpeed >= speed - NUMERICAL_EPS);
 
         // XXX: this should fix #2548 (postponed after merge of branch {ticket860}):
         //        const SUMOReal maxDecel = MAX2(myDecel, leaderMaxDecel);
@@ -338,7 +338,7 @@ public:
      * @param[in] duration time span for the process
      * @return estimated gap after 'duration' seconds
      */
-    static SUMOReal gapExtrapolation(const SUMOReal duration, const SUMOReal currentGap, SUMOReal v1,  SUMOReal v2, SUMOReal a1=0, SUMOReal a2=0, const SUMOReal maxV1=std::numeric_limits<SUMOReal>::max(), const SUMOReal maxV2=std::numeric_limits<SUMOReal>::max());
+    static SUMOReal gapExtrapolation(const SUMOReal duration, const SUMOReal currentGap, SUMOReal v1,  SUMOReal v2, SUMOReal a1 = 0, SUMOReal a2 = 0, const SUMOReal maxV1 = std::numeric_limits<SUMOReal>::max(), const SUMOReal maxV2 = std::numeric_limits<SUMOReal>::max());
 
     /**
      * @brief Calculates the time at which the position passedPosition has been passed

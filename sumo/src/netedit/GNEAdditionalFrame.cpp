@@ -242,14 +242,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             SUMOReal startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLenght());
             SUMOReal endPos = setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLenght(), positionOfTheMouseOverEdge, myEditorParameters->getLenght());
             // Only set start position if are valid (!= -1)
-            if(startPos != -1) {
+            if (startPos != -1) {
                 valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
             } else {
                 WRITE_WARNING("Additonal '" + toString(myActualAdditionalType) + "' cannot be placed over edge. Attribute '" + toString(SUMO_ATTR_STARTPOS) + "' isn't valid");
                 return false;
             }
             // Only set end position if are valid (!= -1)
-            if(endPos != -1) {
+            if (endPos != -1) {
                 valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
             } else {
                 WRITE_WARNING("Additonal '" + toString(myActualAdditionalType) + "' cannot be placed over edge. Attribute '" + toString(SUMO_ATTR_ENDPOS) + "' isn't valid");
@@ -266,14 +266,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             SUMOReal startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLenght());
             SUMOReal endPos = setEndPosition(pointed_lane->getLaneShapeLenght(), positionOfTheMouseOverLane, myEditorParameters->getLenght());
             // Only set start position if are valid (!= -1)
-            if(startPos != -1) {
+            if (startPos != -1) {
                 valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
             } else {
                 WRITE_WARNING("Additonal '" + toString(myActualAdditionalType) + "' cannot be placed over lane. Attribute '" + toString(SUMO_ATTR_STARTPOS) + "' isn't valid");
                 return false;
             }
             // Only set end position if are valid (!= -1)
-            if(endPos != -1) {
+            if (endPos != -1) {
                 valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
             } else {
                 WRITE_WARNING("Additonal '" + toString(myActualAdditionalType) + "' cannot be placed over lane. Attribute '" + toString(SUMO_ATTR_ENDPOS) + "' isn't valid");

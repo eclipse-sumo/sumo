@@ -69,8 +69,8 @@ public:
      * @param[in] position Position of the detector within the lane.
      */
     MSInstantInductLoop(const std::string& id, OutputDevice& od,
-        MSLane* const lane, SUMOReal positionInMeters,
-        const std::string& vTypes);
+                        MSLane* const lane, SUMOReal positionInMeters,
+                        const std::string& vTypes);
 
 
     /// @brief Destructor

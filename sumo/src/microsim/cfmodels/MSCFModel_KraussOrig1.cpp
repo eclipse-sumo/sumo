@@ -47,7 +47,7 @@
 // ===========================================================================
 MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
         SUMOReal dawdle, SUMOReal headwayTime)
-    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel* headwayTime) {}
+    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel * headwayTime) {}
 
 
 MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() {}
@@ -71,25 +71,25 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //}
 #endif
 
-const SUMOReal vDawdle = MAX2(vMin, dawdle(vMax));
+    const SUMOReal vDawdle = MAX2(vMin, dawdle(vMax));
 
     SUMOReal vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
 
 #ifdef DEBUG_EXECUTE_MOVE
     if DEBUG_COND {
-        std::cout << "\nMOVE_HELPER\n"
-                << "veh '" << veh->getID() << "' vMin="<<vMin
-                << " vMax="<<vMax<<" vDawdle="<<vDawdle
-                << " vSafe"<< vSafe << " vNext="<< vNext
-                << "\n";
+    std::cout << "\nMOVE_HELPER\n"
+    << "veh '" << veh->getID() << "' vMin=" << vMin
+        << " vMax=" << vMax << " vDawdle=" << vDawdle
+        << " vSafe" << vSafe << " vNext=" << vNext
+        << "\n";
     }
 #endif
 
     // (Leo) At this point vNext may also be negative indicating a stop within next step.
     // This would have resulted from a call to maximumSafeStopSpeed(), which does not
     // consider deceleration bounds. Therefore, we cap vNext here.
-    if(!MSGlobals::gSemiImplicitEulerUpdate){
-    	vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
+    if (!MSGlobals::gSemiImplicitEulerUpdate) {
+        vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
     }
 
     return vNext;
@@ -98,52 +98,54 @@ const SUMOReal vDawdle = MAX2(vMin, dawdle(vMax));
 
 SUMOReal
 MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
-	if(MSGlobals::gSemiImplicitEulerUpdate){
-		return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)); // XXX: and why not cap with minNextSpeed!? (Leo)
-	} else {
-		return MAX2(MIN2(maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)), minNextSpeed(speed));
-	}
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)); // XXX: and why not cap with minNextSpeed!? (Leo)
+    } else {
+        return MAX2(MIN2(maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)), minNextSpeed(speed));
+    }
 }
 
 
 SUMOReal
 MSCFModel_KraussOrig1::insertionFollowSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
-	if(MSGlobals::gSemiImplicitEulerUpdate){
-		return followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
-	} else {
-		// ballistic update
-		return maximumSafeFollowSpeed(gap2pred, 0., predSpeed, predMaxDecel, true);
-	}
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
+    } else {
+        // ballistic update
+        return maximumSafeFollowSpeed(gap2pred, 0., predSpeed, predMaxDecel, true);
+    }
 }
 
 
 SUMOReal
 MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
-	if(MSGlobals::gSemiImplicitEulerUpdate){
-		return MIN2(vsafe(gap, 0., 0.), maxNextSpeed(speed, veh));
-	} else {
-		// XXX: using this here is probably in the spirit of Krauss, but we should consider,
-		// if the original vsafe should be kept instead (Leo), refs. #2575
-		return MIN2(maximumSafeStopSpeedBallistic(gap, speed), maxNextSpeed(speed, veh));
-	}
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return MIN2(vsafe(gap, 0., 0.), maxNextSpeed(speed, veh));
+    } else {
+        // XXX: using this here is probably in the spirit of Krauss, but we should consider,
+        // if the original vsafe should be kept instead (Leo), refs. #2575
+        return MIN2(maximumSafeStopSpeedBallistic(gap, speed), maxNextSpeed(speed, veh));
+    }
 }
 
 
 SUMOReal
 MSCFModel_KraussOrig1::dawdle(SUMOReal speed) const {
-	if(!MSGlobals::gSemiImplicitEulerUpdate){
-		// in case of the ballistic update, negative speeds indicate
-		// a desired stop before the completion of the next timestep.
-		// We do not allow dawdling to overwrite this indication
-		if(speed < 0) return speed;
-	}
+    if (!MSGlobals::gSemiImplicitEulerUpdate) {
+        // in case of the ballistic update, negative speeds indicate
+        // a desired stop before the completion of the next timestep.
+        // We do not allow dawdling to overwrite this indication
+        if (speed < 0) {
+            return speed;
+        }
+    }
     return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
 }
 
 
 /** Returns the SK-vsafe. */
 SUMOReal MSCFModel_KraussOrig1::vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal /* predMaxDecel */) const {
-	if (predSpeed == 0 && gap < 0.01) {
+    if (predSpeed == 0 && gap < 0.01) {
         return 0;
     } else if (predSpeed == 0 &&  gap <= ACCEL2SPEED(myDecel)) {
         // workaround for #2310

@@ -458,12 +458,12 @@ GUIOSGView::setViewportFromTo(const Position& lookFrom, const Position& lookAt) 
 
 
 
-void 
+void
 GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
-    view->setViewportFromTo(Position(lookFrom[0], lookFrom[1], lookFrom[2]), 
-            Position(lookAt[0], lookAt[1], lookAt[2]));
+    view->setViewportFromTo(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
+                            Position(lookAt[0], lookAt[1], lookAt[2]));
 }
 
 

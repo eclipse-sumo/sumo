@@ -45,7 +45,7 @@
 AGWorkPosition*
 AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition>* wps) {
     std::vector<AGWorkPosition*> freePos;
-    for (std::vector<AGWorkPosition>::iterator i = wps->begin(); i!= wps->end(); ++i) {
+    for (std::vector<AGWorkPosition>::iterator i = wps->begin(); i != wps->end(); ++i) {
         if (!i->isTaken()) {
             freePos.push_back(&*i);
         }

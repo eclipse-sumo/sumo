@@ -1342,9 +1342,9 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (fabs(latDist) <= NUMERICAL_EPS && (myCanChangeFully || (myPreviousState | LCA_SUBLANE) != 0)) {
         const SUMOReal halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
         const SUMOReal halfVehWidth = myVehicle.getVehicleType().getWidth() * 0.5;
-        if (myVehicle.getParameter().arrivalPosLatProcedure != ARRIVAL_POSLAT_DEFAULT 
+        if (myVehicle.getParameter().arrivalPosLatProcedure != ARRIVAL_POSLAT_DEFAULT
                 && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
-                && bestLaneOffset == 0 
+                && bestLaneOffset == 0
                 && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
             // vehicle is on its final edge, on the correct lane and close to
             // its arrival position. Change to the desired lateral position
@@ -1364,9 +1364,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                 default:
                     assert(false);
             }
-            if (gDebugFlag2) std::cout << SIMTIME 
-                << " arrivalPosLatProcedure=" << myVehicle.getParameter().arrivalPosLatProcedure 
-                << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
+            if (gDebugFlag2) std::cout << SIMTIME
+                                           << " arrivalPosLatProcedure=" << myVehicle.getParameter().arrivalPosLatProcedure
+                                           << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
 
         } else {
             switch (myVehicle.getVehicleType().getPreferredLateralAlignment()) {
@@ -1700,8 +1700,7 @@ int
 MSLCM_SL2015::checkBlockingVehicles(
     const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
     SUMOReal latDist, SUMOReal foeOffset, bool leaders, LaneChangeAction blockType,
-    std::vector<CLeaderDist>* collectBlockers) const
-{
+    std::vector<CLeaderDist>* collectBlockers) const {
     // determine borders where safety/no-overlap conditions must hold
     const SUMOReal vehWidth = ego->getVehicleType().getWidth();
     const SUMOReal rightVehSide = ego->getRightSideOnEdge();
@@ -1761,8 +1760,8 @@ MSLCM_SL2015::checkBlockingVehicles(
                     // for decelFactor == 1 this is equivalent to
                     // follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                     const SUMOReal followDecel = MIN2(follower->getCarFollowModel().getMaxDecel(), leader->getCarFollowModel().getMaxDecel()) * decelFactor;
-                    const SUMOReal secureGap = MAX2((SUMOReal) 0, MSCFModel::brakeGap(follower->getSpeed(), followDecel, follower->getCarFollowModel().getHeadwayTime()) 
-                            - MSCFModel::brakeGap(leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), 0));
+                    const SUMOReal secureGap = MAX2((SUMOReal) 0, MSCFModel::brakeGap(follower->getSpeed(), followDecel, follower->getCarFollowModel().getHeadwayTime())
+                                                    - MSCFModel::brakeGap(leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), 0));
                     if (vehDist.second < secureGap) {
                         if (gDebugFlag2) {
                             std::cout << "    blocked decelFactor=" << decelFactor << "\n";
@@ -2099,7 +2098,7 @@ MSLCM_SL2015::keepLatGap(int state,
         state = (state & ~LCA_STAY);
     }
     if (gDebugFlag2) {
-        std::cout << "    keepLatGap (checked)" 
+        std::cout << "    keepLatGap (checked)"
                   << " latDist2=" << latDist
                   << " blockedAfter=" << toString((LaneChangeAction)blocked)
                   << "\n";

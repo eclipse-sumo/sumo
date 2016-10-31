@@ -262,7 +262,7 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
 }
 
 
-void 
+void
 GUIDanielPerspectiveChanger::setViewportFrom(SUMOReal xPos, SUMOReal yPos, SUMOReal zPos) {
     setViewport(zPos2Zoom(zPos), xPos, yPos);
 }

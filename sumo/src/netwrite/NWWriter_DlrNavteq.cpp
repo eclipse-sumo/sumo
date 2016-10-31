@@ -334,7 +334,7 @@ NWWriter_DlrNavteq::getSpeedCategoryUpperBound(int kph) {
 int
 NWWriter_DlrNavteq::getNavteqLaneCode(const int numLanes) {
     const int code = (numLanes == 1 ? 1 :
-                               (numLanes < 4 ?  2 : 3));
+                      (numLanes < 4 ?  2 : 3));
     return numLanes * 10 + code;
 }
 

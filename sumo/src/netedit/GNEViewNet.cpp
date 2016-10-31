@@ -326,7 +326,7 @@ GNEViewNet::selectEdges() {
 
 bool
 GNEViewNet::showConnections() {
-    if(myEditMode == GNE_MODE_CONNECT) {
+    if (myEditMode == GNE_MODE_CONNECT) {
         return true;
     } else if (myShowConnections->shown() == false) {
         return false;
@@ -354,7 +354,7 @@ GNEViewNet::changeAllPhases() const {
 }
 
 
-bool 
+bool
 GNEViewNet::showJunctionAsBubbles() const {
     return (myEditMode == GNE_MODE_MOVE) && (myShowJunctionAsBubble->getCheck());
 }
@@ -538,13 +538,13 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         myMoveSelection = true;
                     } else {
                         // Only move additional if can be moved
-                        if(pointed_additional->isAdditionalBlocked() == false) {
+                        if (pointed_additional->isAdditionalBlocked() == false) {
                             myAdditionalToMove = pointed_additional;
                             if (myAdditionalToMove->getLane()) {
-                                if(GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
+                                if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
                                     // Obtain start position
                                     SUMOReal startPos = GNEAttributeCarrier::parse<SUMOReal>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
-                                    if(GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_ENDPOS)) {
+                                    if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_ENDPOS)) {
                                         // Obtain end position
                                         SUMOReal endPos = GNEAttributeCarrier::parse<SUMOReal>(myAdditionalToMove->getAttribute(SUMO_ATTR_ENDPOS));
                                         // Save both values in myOldAdditionalPosition
@@ -718,7 +718,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         myEdgeToMove->setAttribute(SUMO_ATTR_SHAPE, newShape, myUndoList);
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
-        if(myAdditionalToMove->getLane()) {
+        if (myAdditionalToMove->getLane()) {
             myAdditionalToMove->commmitAdditionalGeometryMoved(myOldAdditionalPosition, myUndoList);
             myAdditionalToMove = 0;
         } else {
@@ -1207,36 +1207,36 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
         // Declare map of edges and lanes
         std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
         // Iterate over selected lanes
-        for(std::vector<GNELane*>::iterator i = lanes.begin(); i != lanes.end(); i++) {
+        for (std::vector<GNELane*>::iterator i = lanes.begin(); i != lanes.end(); i++) {
             mapOfEdgesAndLanes[myNet->retrieveEdge((*i)->getParentEdge().getID())] = (*i);
         }
         // Throw warning dialog if there hare multiple lanes selected in the same edge
-        if(mapOfEdgesAndLanes.size() != lanes.size()) {
+        if (mapOfEdgesAndLanes.size() != lanes.size()) {
             FXMessageBox::information(getApp(), MBOX_OK,
-                ("Multiple lane in the same edge selected"),
-                ("There are selected lanes that belong to the same edge.\n Only  one lane pro edge will be restricted for " + toString(vclass) + ".").c_str());
+                                      ("Multiple lane in the same edge selected"),
+                                      ("There are selected lanes that belong to the same edge.\n Only  one lane pro edge will be restricted for " + toString(vclass) + ".").c_str());
         }
         // If we handeln a set of lanes
-        if(mapOfEdgesAndLanes.size() > 0) {
+        if (mapOfEdgesAndLanes.size() > 0) {
             // declare counter for number of Sidewalks
             int counter = 0;
             // iterate over selected lanes
             for (std::map<GNEEdge*, GNELane*>::iterator i = mapOfEdgesAndLanes.begin(); i != mapOfEdgesAndLanes.end(); i++) {
-                if(i->first->hasRestrictedLane(vclass)) {
+                if (i->first->hasRestrictedLane(vclass)) {
                     counter++;
                 }
             }
             // if all edges parent own a Sidewalk, stop function
-            if(counter == (int)mapOfEdgesAndLanes.size()) {
+            if (counter == (int)mapOfEdgesAndLanes.size()) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                    ("Set vclass for " + toString(vclass) + " to selected lanes").c_str(),
-                    ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
+                                          ("Set vclass for " + toString(vclass) + " to selected lanes").c_str(),
+                                          ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                    ("Set vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
-                    (toString(mapOfEdgesAndLanes.size() - counter) + " lanes will be restricted for " + toString(vclass) + ". continue?").c_str());
+                                                       ("Set vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
+                                                       (toString(mapOfEdgesAndLanes.size() - counter) + " lanes will be restricted for " + toString(vclass) + ". continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     return 0;
                 }
@@ -1261,7 +1261,7 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
     }
     return 1;
 }
-    
+
 
 bool
 GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
@@ -1274,7 +1274,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for(std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
+        for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
             setOfEdges.insert(*i);
         }
         // iterate over selected lanes
@@ -1283,27 +1283,27 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             setOfEdges.insert(myNet->retrieveEdge((*it)->getParentEdge().getID()));
         }
         // If we handeln a set of edges
-        if(setOfEdges.size() > 0) {
+        if (setOfEdges.size() > 0) {
             // declare counter for number of restrictions
             int counter = 0;
             // iterate over set of edges
             for (std::set<GNEEdge*>::iterator it = setOfEdges.begin(); it != setOfEdges.end(); it++) {
                 // update counter if edge has already a restricted lane of type "vclass"
-                if((*it)->hasRestrictedLane(vclass) == true) {
+                if ((*it)->hasRestrictedLane(vclass) == true) {
                     counter++;
                 }
             }
             // if all lanes own a Sidewalk, stop function
-            if(counter == (int)setOfEdges.size()) {
+            if (counter == (int)setOfEdges.size()) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                    ("Add vclass for" + toString(vclass) + " to selected lanes").c_str(),
-                    ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
+                                          ("Add vclass for" + toString(vclass) + " to selected lanes").c_str(),
+                                          ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                    ("Add vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
-                    (toString(setOfEdges.size() - counter) + " restrictions for " + toString(vclass) + " will be added. continue?").c_str());
+                                                       ("Add vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
+                                                       (toString(setOfEdges.size() - counter) + " restrictions for " + toString(vclass) + " will be added. continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     return 0;
                 }
@@ -1341,7 +1341,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for(std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
+        for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
             setOfEdges.insert(*i);
         }
         // iterate over selected lanes
@@ -1350,27 +1350,27 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             setOfEdges.insert(myNet->retrieveEdge((*it)->getParentEdge().getID()));
         }
         // If we handeln a set of edges
-        if(setOfEdges.size() > 0) {
+        if (setOfEdges.size() > 0) {
             // declare counter for number of restrictions
             int counter = 0;
             // iterate over set of edges
             for (std::set<GNEEdge*>::iterator it = setOfEdges.begin(); it != setOfEdges.end(); it++) {
                 // update counter if edge has already a restricted lane of type "vclass"
-                if((*it)->hasRestrictedLane(vclass) == true) {
+                if ((*it)->hasRestrictedLane(vclass) == true) {
                     counter++;
                 }
             }
             // if all lanes don't own a Sidewalk, stop function
-            if(counter == 0) {
+            if (counter == 0) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                    ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(),
-                    ("Selected lanes and edges haven't a restriction for " + toString(vclass)).c_str());
+                                          ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(),
+                                          ("Selected lanes and edges haven't a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                    ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
-                    (toString(counter) + " restrictions for " + toString(vclass) + " will be removed. continue?").c_str());
+                                                       ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
+                                                       (toString(counter) + " restrictions for " + toString(vclass) + " will be removed. continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     return 0;
                 }
@@ -1408,8 +1408,8 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
             // Get selected edgeds
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             // fill vector of lanes with the lanes of selected edges
-            for(std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
-                for(std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
+            for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
+                for (std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
                     lanes.push_back(*j);
                 }
             }
@@ -1418,28 +1418,28 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
             lanes = myNet->retrieveLanes(true);
         }
         // If we handeln a set of lanes
-        if(lanes.size() > 0) {
+        if (lanes.size() > 0) {
             // declare counter for number of Sidewalks
             int counter = 0;
             // iterate over selected lanes
             for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
-                if(((*it)->isRestricted(SVC_PEDESTRIAN)) || ((*it)->isRestricted(SVC_BICYCLE)) || ((*it)->isRestricted(SVC_BUS))) {
+                if (((*it)->isRestricted(SVC_PEDESTRIAN)) || ((*it)->isRestricted(SVC_BICYCLE)) || ((*it)->isRestricted(SVC_BUS))) {
                     counter++;
                 }
             }
             // if none of selected lanes has a transformation, stop
-            if(counter == 0) {
+            if (counter == 0) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                    "Revert restriction", "None of selected lanes has a previous restriction");
+                                          "Revert restriction", "None of selected lanes has a previous restriction");
                 return 0;
             } else {
-                    // Ask confirmation to user
-                    FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                        "Revert restriction", "%s",
-                        (toString(counter) + " restrictions of lanes lanes will be reverted. continue?").c_str());
-                    if (answer != 1) { //1:yes, 2:no, 4:esc
-                        return 0;
-                    }
+                // Ask confirmation to user
+                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
+                                                       "Revert restriction", "%s",
+                                                       (toString(counter) + " restrictions of lanes lanes will be reverted. continue?").c_str());
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                    return 0;
+                }
             }
             // begin undo operation
             myUndoList->p_begin("revert restrictions");
@@ -1531,7 +1531,7 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
     // Update Junction Shapes
     getNet()->updateJunctionShapes();
@@ -1553,7 +1553,7 @@ GNEViewNet::setEditMode(EditMode mode) {
         myPreviousEditMode = myEditMode;
         myEditMode = mode;
         // First check if previous mode was MOVE
-        if(myPreviousEditMode == GNE_MODE_MOVE) {
+        if (myPreviousEditMode == GNE_MODE_MOVE) {
             // Update junctions again to calculate connections and disable bubbles
             myNet->updateJunctionShapes();
             myShowJunctionAsBubble->setCheck(false);
@@ -1601,10 +1601,10 @@ GNEViewNet::buildEditModeControls() {
             "two-way\t\tAutomatically create an edge in the opposite direction", this, 0);
     mySelectEdges = new FXMenuCheck(myToolbar, "select edges\t\tToggle whether clicking should select edges or lanes", this, 0);
     mySelectEdges->setCheck();
-    
+
     myShowConnections = new FXMenuCheck(myToolbar, "show connections\t\tToggle show connections over junctions", this, MID_GNE_SHOW_CONNECTIONS);
     myShowConnections->setCheck(false);
-    
+
     myExtendToEdgeNodes = new FXMenuCheck(myToolbar, "auto-select nodes\t\tToggle whether selecting multiple edges should automatically select their nodes", this, 0);
 
     myWarnAboutMerge = new FXMenuCheck(myToolbar, "ask for merge\t\tAsk for confirmation before merging junctions.", this, 0);

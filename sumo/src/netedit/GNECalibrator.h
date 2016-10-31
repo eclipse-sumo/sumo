@@ -89,7 +89,7 @@ public:
     /// @brief change the position of the calibrator geometry
     void moveAdditionalGeometry(SUMOReal, SUMOReal);
 
-    /// @brief updated geometry changes in the attributes of additional 
+    /// @brief updated geometry changes in the attributes of additional
     void commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*);
 
     /// @brief update pre-computed geometry information

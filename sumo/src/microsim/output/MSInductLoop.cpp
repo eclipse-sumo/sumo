@@ -58,8 +58,8 @@
 // method definitions
 // ===========================================================================
 MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
-    SUMOReal positionInMeters,
-    const std::string& vTypes) :
+                           SUMOReal positionInMeters,
+                           const std::string& vTypes) :
     MSMoveReminder(id, lane),
     MSDetectorFileOutput(id, vTypes),
     myPosition(positionInMeters),
@@ -120,7 +120,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     if (newBackPos > myPosition) {
         // vehicle passed the detector (it may have changed onto this lane somewhere past the detector)
         assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed > 0 || myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end());
-        if(oldBackPos <= myPosition) {
+        if (oldBackPos <= myPosition) {
             const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
             const SUMOReal leaveTime = SIMTIME + timeBeforeLeave;
             leaveDetectorByMove(veh, leaveTime);

@@ -179,7 +179,7 @@ GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string&
             device.closeTag();
         }
     }
-    if(myBlocked) {
+    if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag
@@ -387,7 +387,7 @@ GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
-                case GNE_ATTR_BLOCK_MOVEMENT:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

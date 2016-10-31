@@ -158,7 +158,7 @@ GNEBusStop::writeAdditional(OutputDevice& device, const std::string&) {
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
     }
-    if(myBlocked) {
+    if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag
@@ -362,13 +362,13 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_STARTPOS:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos - 1));
         case SUMO_ATTR_ENDPOS: {
-            if(canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos) {
+            if (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos) {
                 // If extension is larger than Lane
-                if(parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+                if (parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
                     // Ask user if want to assign the lenght of lane as endPosition
                     FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
-                                            "EndPosition exceeds the size of the lane", "%s",
-                                            "EndPosition exceeds the size of the lane. You want to assign the size of the lane as endPosition?");
+                                                           "EndPosition exceeds the size of the lane", "%s",
+                                                           "EndPosition exceeds the size of the lane. You want to assign the size of the lane as endPosition?");
                     if (answer == 1) { //1:yes, 2:no, 4:esc
                         return true;
                     } else {
@@ -409,7 +409,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            if(parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+            if (parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
                 myEndPos = myLane->getLaneParametricLenght();
             } else {
                 myEndPos = parse<SUMOReal>(value);

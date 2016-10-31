@@ -67,8 +67,8 @@ class SUMOVehicle {
 public:
 
     // XXX: This definition was introduced to make the MSVehicle's previousSpeed
-    //      available in the context of MSMoveReminder::notifyMove(). Another solution 
-    //      would be to modify notifyMove()'s interface to work with MSVehicle instead 
+    //      available in the context of MSMoveReminder::notifyMove(). Another solution
+    //      would be to modify notifyMove()'s interface to work with MSVehicle instead
     //      of SUMOVehicle (it is only called with MSVehicles!). Refs. #2579
     /** @brief Returns the vehicle's previous speed
      * @return The vehicle's speed

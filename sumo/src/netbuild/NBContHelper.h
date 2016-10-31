@@ -105,14 +105,13 @@ public:
     public:
         /// constructor
         explicit straightness_sorter(const NBNode* n, const NBEdge* e):
-            myRefIncoming(e->getToNode() == n)
-        {
+            myRefIncoming(e->getToNode() == n) {
             if (myRefIncoming) {
                 myReferencePos = e->getLaneShape(0).back();
-                myReferenceAngle = e->getShapeEndAngle(); 
+                myReferenceAngle = e->getShapeEndAngle();
             } else {
                 myReferencePos = e->getLaneShape(0).front();
-                myReferenceAngle = e->getShapeStartAngle(); 
+                myReferenceAngle = e->getShapeStartAngle();
             }
         }
 

@@ -157,12 +157,12 @@ protected:
      *
      */
     void notifyMoveInternal(const SUMOVehicle& veh,
-                                    const SUMOReal frontOnLane,
-                                    const SUMOReal timeOnLane,
-                                    const SUMOReal meanSpeedFrontOnLane,
-                                    const SUMOReal meanSpeedVehicleOnLane,
-                                    const SUMOReal travelledDistanceFrontOnLane,
-                                    const SUMOReal travelledDistanceVehicleOnLane);
+                            const SUMOReal frontOnLane,
+                            const SUMOReal timeOnLane,
+                            const SUMOReal meanSpeedFrontOnLane,
+                            const SUMOReal meanSpeedVehicleOnLane,
+                            const SUMOReal travelledDistanceFrontOnLane,
+                            const SUMOReal travelledDistanceVehicleOnLane);
 
 private:
     /// @brief The lane the vehicle departed at

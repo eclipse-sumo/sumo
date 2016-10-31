@@ -53,7 +53,7 @@
  * GUIMEInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIMEInductLoop::GUIMEInductLoop(const std::string& id, MESegment* s,
-    SUMOReal position, const std::string& vTypes)
+                                 SUMOReal position, const std::string& vTypes)
     : MEInductLoop(id, s, position, vTypes) {}
 
 

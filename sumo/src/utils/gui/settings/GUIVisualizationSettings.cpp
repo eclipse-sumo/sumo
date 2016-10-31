@@ -57,7 +57,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
       cwaEdgeName(false, 50, RGBColor::MAGENTA),
       streetName(false, 55, RGBColor::YELLOW),
-      hideConnectors(false), 
+      hideConnectors(false),
       laneWidthExaggeration(1),
       laneMinSize(0),
       showLaneDirection(false),

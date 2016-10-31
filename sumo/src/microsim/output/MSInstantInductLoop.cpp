@@ -54,8 +54,8 @@
 // method definitions
 // ===========================================================================
 MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
-    OutputDevice& od, MSLane* const lane, SUMOReal positionInMeters,
-    const std::string& vTypes) :
+        OutputDevice& od, MSLane* const lane, SUMOReal positionInMeters,
+        const std::string& vTypes) :
     MSMoveReminder(id, lane),
     MSDetectorFileOutput(id, vTypes),
     myOutputDevice(od),
@@ -86,7 +86,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     if (newPos >= myPosition && oldPos < myPosition/* && static_cast<MSVehicle&>(veh).getLane() == myLane*/) {
         const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
         const SUMOReal entryTime = SIMTIME - TS + timeBeforeEnter;
-        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos-oldPos);
+        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos - oldPos);
         if (myLastExitTime >= 0) {
             write("enter", entryTime, veh, enterSpeed, "gap", entryTime - myLastExitTime);
         } else {

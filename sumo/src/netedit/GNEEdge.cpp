@@ -98,7 +98,7 @@ GNEEdge::~GNEEdge() {
     for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
-            delete (*i);
+            delete(*i);
         }
     }
     if (myAmResponsible) {
@@ -411,7 +411,7 @@ GNEEdge::remakeIncomingGNEConnections() {
     GNEJunction* from = getGNEJunctionSource();
     assert(from);
     std::vector<GNEEdge*> incomingEdges = from->getGNEIncomingEdges();
-    for(std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
         (*i)->remakeGNEConnections();
     }
 }
@@ -422,7 +422,7 @@ GNEEdge::remakeGNEConnections() {
     // Create connections (but reuse existing objects)
     std::vector<NBEdge::Connection>& myConnections = myNBEdge.getConnections();
     ConnectionVector newCons;
-    for(std::vector<NBEdge::Connection>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
+    for (std::vector<NBEdge::Connection>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
         const NBEdge::Connection& con = *i;
         newCons.push_back(retrieveConnection(con.fromLane, con.toEdge, con.toLane));
         newCons.back()->incRef("GNEEdge::GNEEdge");
@@ -437,12 +437,12 @@ GNEEdge::remakeGNEConnections() {
 void
 GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
-    for(ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); i++) {
+    for (ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); i++) {
         // Dec reference of connection
         (*i)->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced
-        if((*i)->unreferenced()) {
-            delete (*i);
+        if ((*i)->unreferenced()) {
+            delete(*i);
         }
     }
     myGNEConnections.clear();
@@ -899,7 +899,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
 }
 
 
-GNEConnection* 
+GNEConnection*
 GNEEdge::retrieveConnection(int fromLane, NBEdge* to, int toLane) {
     for (ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
         if ((*i)->getFromLaneIndex() == fromLane
@@ -939,11 +939,11 @@ GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
     // Declare iterator
     AdditionalVector::iterator i = myAdditionals.begin();
     // Find additional
-    while((*i != additional) && (i != myAdditionals.end())) {
+    while ((*i != additional) && (i != myAdditionals.end())) {
         i++;
     }
     // If additional was found, remove it
-    if(i == myAdditionals.end()) {
+    if (i == myAdditionals.end()) {
         throw ProcessError("additional element with ID='" + additional->getID() + "' doesn't exist in edge with ID='" + getID() + "'");
     } else {
         myAdditionals.erase(i);
@@ -993,8 +993,8 @@ GNEEdge::getAdditionalSets() {
 
 bool
 GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
-    for(std::vector<GNELane*>::const_iterator i = myLanes.begin(); i != myLanes.end(); i++) {
-        if((*i)->isRestricted(vclass)) {
+    for (std::vector<GNELane*>::const_iterator i = myLanes.begin(); i != myLanes.end(); i++) {
+        if ((*i)->isRestricted(vclass)) {
             return true;
         }
     }

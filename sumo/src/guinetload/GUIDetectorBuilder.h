@@ -82,7 +82,7 @@ public:
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
-        MSLane* lane, SUMOReal pos, const std::string& vTypes, bool show = true);
+            MSLane* lane, SUMOReal pos, const std::string& vTypes, bool show = true);
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -95,7 +95,7 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-        MSLane* lane, SUMOReal pos, const std::string& od, const std::string& vTypes);
+            MSLane* lane, SUMOReal pos, const std::string& od, const std::string& vTypes);
 
 
     /** @brief Creates an instance of an e2-detector (areal detector) using the given values

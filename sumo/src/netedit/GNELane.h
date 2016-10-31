@@ -244,7 +244,7 @@ protected:
     /// @brief Rotations of textures of restricted lanes
     std::vector<SUMOReal> myLaneRestrictedTextureRotations;
     /// @}
-    
+
     /// @brief list with the additonals vinculated with this lane
     AdditionalVector myAdditionals;
 

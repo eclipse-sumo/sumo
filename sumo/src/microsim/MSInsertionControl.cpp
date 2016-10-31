@@ -60,8 +60,8 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myMaxDepartDelay(maxDepartDelay),
     myCheckEdgesOnce(checkEdgesOnce),
     myMaxVehicleNumber(maxVehicleNumber),
-    myPendingEmitsUpdateTime(SUMOTime_MIN) 
-{ }
+    myPendingEmitsUpdateTime(SUMOTime_MIN) {
+}
 
 
 MSInsertionControl::~MSInsertionControl() {
@@ -281,7 +281,7 @@ MSInsertionControl::clearPendingVehicles(std::string& route) {
 }
 
 
-int 
+int
 MSInsertionControl::getPendingEmits(const MSLane* lane) {
     if (MSNet::getInstance()->getCurrentTimeStep() > myPendingEmitsUpdateTime) {
         // updated pending emits (only once per time step)

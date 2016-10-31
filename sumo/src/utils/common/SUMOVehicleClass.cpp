@@ -205,16 +205,15 @@ parseVehicleClasses(const std::string& allowedS) {
     while (sta.hasNext()) {
         const std::string s = sta.next();
         if (!SumoVehicleClassStrings.hasString(s)) {
-	    WRITE_ERROR("Unknown vehicle class '" + s + "' encountered. It will be ignored.");
+            WRITE_ERROR("Unknown vehicle class '" + s + "' encountered. It will be ignored.");
+        } else {
+            const SUMOVehicleClass vc = getVehicleClassID(s);
+            const std::string& realName = SumoVehicleClassStrings.getString(vc);
+            if (realName != s) {
+                deprecatedVehicleClassesSeen.insert(s);
+            }
+            result |= vc;
         }
-	else {
-	    const SUMOVehicleClass vc = getVehicleClassID(s);
-	    const std::string& realName = SumoVehicleClassStrings.getString(vc);
-	    if (realName != s) {
-		deprecatedVehicleClassesSeen.insert(s);
-	    }
-	    result |= vc;
-	}
     }
     return result;
 }

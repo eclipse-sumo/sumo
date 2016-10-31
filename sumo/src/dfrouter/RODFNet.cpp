@@ -54,14 +54,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFNet::RODFNet(bool amInHighwayMode) : 
+RODFNet::RODFNet(bool amInHighwayMode) :
     RONet(), myAmInHighwayMode(amInHighwayMode),
-      mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0),
-      myMaxSpeedFactorPKW(1),
-      myMaxSpeedFactorLKW(1),
-      myAvgSpeedFactorPKW(1),
-      myAvgSpeedFactorLKW(1)
-{
+    mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0),
+    myMaxSpeedFactorPKW(1),
+    myMaxSpeedFactorLKW(1),
+    myAvgSpeedFactorPKW(1),
+    myAvgSpeedFactorLKW(1) {
     myDisallowedEdges = OptionsCont::getOptions().getStringVector("disallowed-edges");
     myKeepTurnarounds = OptionsCont::getOptions().getBool("keep-turnarounds");
 }
@@ -1028,7 +1027,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
         myAvgSpeedFactorLKW = speedFactorSumLKW / speedFactorCountLKW;
         WRITE_MESSAGE("Average speedFactor for LKW is " + toString(myAvgSpeedFactorLKW) + " maximum speedFactor is " + toString(myMaxSpeedFactorLKW) + ".");
     }
-    
+
 }
 
 

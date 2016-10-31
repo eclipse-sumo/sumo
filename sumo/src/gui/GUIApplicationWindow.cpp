@@ -297,7 +297,7 @@ GUIApplicationWindow::create() {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("window-size")) {
         std::vector<std::string> windowSize = oc.getStringVector("window-size");
-        if (windowSize.size() != 2 
+        if (windowSize.size() != 2
                 || !TplCheck::_str2int(windowSize[0])
                 || !TplCheck::_str2int(windowSize[1])) {
             WRITE_ERROR("option window-size requires INT,INT");

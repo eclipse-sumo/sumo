@@ -77,8 +77,8 @@ public:
      * @param[in] defaultPermissions The default permissions of an edge
      */
     void setDefaults(int defaultNumLanes, SUMOReal defaultLaneWidth,
-        SUMOReal defaultSpeed, int defaultPriority,
-        SVCPermissions defaultPermissions);
+                     SUMOReal defaultSpeed, int defaultPriority,
+                     SVCPermissions defaultPermissions);
 
 
     /** @brief Adds a type into the list

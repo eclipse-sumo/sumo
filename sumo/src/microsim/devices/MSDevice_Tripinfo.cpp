@@ -122,12 +122,12 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
 
 void
 MSDevice_Tripinfo::notifyMoveInternal(const SUMOVehicle& veh,
-        const SUMOReal /* frontOnLane */,
-        const SUMOReal timeOnLane,
-        const SUMOReal /* meanSpeedFrontOnLane */,
-        const SUMOReal meanSpeedVehicleOnLane,
-        const SUMOReal /* travelledDistanceFrontOnLane */,
-        const SUMOReal /* travelledDistanceVehicleOnLane */){
+                                      const SUMOReal /* frontOnLane */,
+                                      const SUMOReal timeOnLane,
+                                      const SUMOReal /* meanSpeedFrontOnLane */,
+                                      const SUMOReal meanSpeedVehicleOnLane,
+                                      const SUMOReal /* travelledDistanceFrontOnLane */,
+                                      const SUMOReal /* travelledDistanceVehicleOnLane */) {
 
     // called by meso
     const SUMOReal vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);

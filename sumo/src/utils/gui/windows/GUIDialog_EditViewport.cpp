@@ -121,11 +121,11 @@ long
 GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
     myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
-                          Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
+                                Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
-                          Position::INVALID
+                                Position::INVALID
 #endif
-                         );
+                               );
     hide();
     return 1;
 }
@@ -148,11 +148,11 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     }
     myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
-                          Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
+                                Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
-                          Position::INVALID
+                                Position::INVALID
 #endif
-                         );
+                               );
     return 1;
 }
 

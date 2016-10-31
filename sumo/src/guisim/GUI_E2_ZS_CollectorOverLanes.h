@@ -74,8 +74,8 @@ public:
 
 protected:
     MSE2Collector* buildCollector(int c, int r,
-        MSLane* l, SUMOReal start, SUMOReal end,
-        const std::set<std::string>& vTypes);
+                                  MSLane* l, SUMOReal start, SUMOReal end,
+                                  const std::set<std::string>& vTypes);
 
 
 public:

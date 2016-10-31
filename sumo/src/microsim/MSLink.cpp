@@ -83,10 +83,10 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState 
     myMesoTLSPenalty(0),
     myParallelRight(0),
     myParallelLeft(0),
-    myJunction(0)
-{}
+    myJunction(0) {
+}
 #else
-MSLink::MSLink(MSLane * predLane, MSLane * succLane, MSLane * via, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic * logic, int tlIndex) :
+MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlIndex) :
     myLane(succLane),
     myLaneBefore(predLane),
     myIndex(-1),
@@ -105,8 +105,8 @@ MSLink::MSLink(MSLane * predLane, MSLane * succLane, MSLane * via, LinkDirection
     myMesoTLSPenalty(0),
     myParallelRight(0),
     myParallelLeft(0),
-    myJunction(0)
-{}
+    myJunction(0) {
+}
 #endif
 
 
@@ -585,7 +585,7 @@ MSLink::getInternalLengthsAfter() const {
 #ifdef HAVE_INTERNAL_LANES
     MSLane* lane = myInternalLane;
 
-    while (lane != 0 && lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL){
+    while (lane != 0 && lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         len += lane->getLength();
         lane = lane->getLinkCont()[0]->getViaLane();
     }

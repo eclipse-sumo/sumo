@@ -100,9 +100,9 @@ MSStoppingPlace::getWaitPosition() const {
 
 
 SUMOReal
-MSStoppingPlace::getStoppingPosition(const SUMOVehicle * veh) const {
+MSStoppingPlace::getStoppingPosition(const SUMOVehicle* veh) const {
     std::map<const SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::const_iterator i = myEndPositions.find(veh);
-    if(i != myEndPositions.end()){
+    if (i != myEndPositions.end()) {
         return i->second.second;
     } else {
         return getLastFreePos(*veh);

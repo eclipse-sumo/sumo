@@ -357,7 +357,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
                 break;
             }
             const int routeIndex = (int)std::distance(route->begin(),
-                                            std::find(route->begin(), route->end(), myEdge));
+                                   std::find(route->begin(), route->end(), myEdge));
             MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
             assert(route != 0 && vtype != 0);
             // build the vehicle

@@ -118,7 +118,7 @@ public:
          * @return True if vehicle hasn't passed the reminder completely.
          */
         bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-            SUMOReal newPos, SUMOReal newSpeed);
+                        SUMOReal newPos, SUMOReal newSpeed);
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -130,7 +130,7 @@ public:
          * @see MSMoveReminder::notifyLeave
          */
         virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-            MSMoveReminder::Notification reason);
+                                 MSMoveReminder::Notification reason);
 
 
         /** @brief Returns whether any data was collected.
@@ -152,8 +152,8 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice& dev, const SUMOTime period,
-            const SUMOReal numLanes, const SUMOReal defaultTravelTime,
-            const int numVehicles = -1) const = 0;
+                           const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+                           const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
         * @return the number of collected sample seconds

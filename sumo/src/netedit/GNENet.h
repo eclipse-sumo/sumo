@@ -201,7 +201,7 @@ public:
      * @param[in] connection The connection to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
-    void deleteConnection(GNEConnection *connection, GNEUndoList* undoList);
+    void deleteConnection(GNEConnection* connection, GNEUndoList* undoList);
 
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
@@ -227,14 +227,14 @@ public:
      * @param[in] edge The edge in which insert restricted lane
      * @param[in] undoList The undolist in which to mark changes
      */
-    bool addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge &edge, GNEUndoList* undoList);
+    bool addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList);
 
     /**@brief remove restricted lane
      * @param[in] vclass vehicle class to restrict
      * @param[in] edge the edge in which remove sidewalk
      * @param[in] undoList The undolist in which to mark changes
      */
-    bool removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge &edge, GNEUndoList* undoList);
+    bool removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList);
 
     /**@brief removes geometry when pos is close to a geometry node, deletes
      * the whole edge otherwise
@@ -347,7 +347,7 @@ public:
 
     /// @brief refreshes boundary information of an additional after a geometry update
     /// @note only non removed additional will be refresh
-    void refreshAdditional(GNEAdditional *additional);
+    void refreshAdditional(GNEAdditional* additional);
 
     /// @brief updates the map and reserves new id
     void renameEdge(GNEEdge* edge, const std::string& newID);
@@ -370,7 +370,7 @@ public:
     std::set<GUIGlID> getGlIDs(GUIGlObjectType type = GLO_MAX);
 
     /// @brief initialize GNEConnections
-    void initGNEConnections(); 
+    void initGNEConnections();
 
     /// @brief recompute the network and update lane geometries
     void computeAndUpdate(OptionsCont& oc);
@@ -430,11 +430,11 @@ public:
 
     /// @brief set additionals File
     /// @note used to load additionals throught command line
-    void setAdditionalsFile(const std::string &additionalFile);
+    void setAdditionalsFile(const std::string& additionalFile);
 
     /// @brief set additionals File
     /// @note used to set additionals output file throught command line
-    void setAdditionalsOutputFile(const std::string &additionalOutputFile);
+    void setAdditionalsOutputFile(const std::string& additionalOutputFile);
 
     /**@brief Insert a additional element previously created in GNEAdditionalHandler
      * @param[in] additional pointer to the additional element to add

@@ -109,7 +109,7 @@ private:
      * @param[in] speed The edge's speed used to help determinig the edge's lane number
      */
     int getLaneNo(OGRFeature& f,
-                           const std::string& edgeid, SUMOReal speed);
+                  const std::string& edgeid, SUMOReal speed);
 
     /** @brief Parses the priority of the edge currently processed
      * @param[in] f The entry to read the priority from

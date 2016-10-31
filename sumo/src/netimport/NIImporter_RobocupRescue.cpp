@@ -188,8 +188,8 @@ NIImporter_RobocupRescue::loadEdges(const std::string& file) {
     do {
         std::cout << "  left " << (noEdges) << std::endl;
         int entrySize, id, begNode, endNode, length, roadKind, carsToHead,
-                 carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
-                 linesToHead, linesToTail, widthForWalkers;
+            carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
+            linesToHead, linesToTail, widthForWalkers;
         dev >> entrySize >> id >> begNode >> endNode >> length >> roadKind >> carsToHead
             >> carsToTail >> humansToHead >> humansToTail >> width >> block >> repairCost
             >> median >> linesToHead >> linesToTail >> widthForWalkers;

@@ -111,7 +111,7 @@ GNESelectorFrame::GNESelectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     // Set netElements as default tag
     mySetBox->setCurrentItem(0);
     // Fill list of sub-items
-    onCmdSubset(0,0,0);
+    onCmdSubset(0, 0, 0);
     // Set speed as default attribute
     myMatchAttrBox->setCurrentItem(3);
     // Create TextField for Match string
@@ -156,7 +156,7 @@ GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
     // Clear items of myMatchTagBox
     myMatchTagBox->clearItems();
     // Set items depending of current items
-    if(mySetBox->getCurrentItem() == 0) {
+    if (mySetBox->getCurrentItem() == 0) {
         // If we want to work with net elementsn Get net Elements allowed tags
         const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedNetElementTags();
         // iterate over tags

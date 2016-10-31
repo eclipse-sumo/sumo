@@ -63,23 +63,23 @@ GNEChange_Selection::~GNEChange_Selection() {
 void GNEChange_Selection::undo() {
     if (myForward) {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
             }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
             }
         }
     } else {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
             }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
             }
         }
@@ -91,23 +91,23 @@ void GNEChange_Selection::undo() {
 void GNEChange_Selection::redo() {
     if (myForward) {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
             }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
             }
         }
     } else {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {   
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
             }
         }
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
-            if(GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
+            if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
             }
         }

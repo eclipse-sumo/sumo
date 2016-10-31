@@ -84,12 +84,12 @@ NBEdge::Connection::getInternalLaneID() const {
 }
 
 
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) : 
-    fromLane(fromLane_), 
-    toEdge(toEdge_), 
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
+    fromLane(fromLane_),
+    toEdge(toEdge_),
     toLane(toLane_),
-    mayDefinitelyPass(false), 
-    keepClear(true), 
+    mayDefinitelyPass(false),
+    keepClear(true),
     contPos(UNSPECIFIED_CONTPOS),
     visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
@@ -99,26 +99,26 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 {}
 
 
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, SUMOReal visibility_, bool haveVia_) : 
-    fromLane(fromLane_), 
-    toEdge(toEdge_), 
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, SUMOReal visibility_, bool haveVia_) :
+    fromLane(fromLane_),
+    toEdge(toEdge_),
     toLane(toLane_),
-    mayDefinitelyPass(mayDefinitelyPass_), 
-    keepClear(keepClear_), 
+    mayDefinitelyPass(mayDefinitelyPass_),
+    keepClear(keepClear_),
     contPos(contPos_),
     visibility(visibility_),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(haveVia_),
-    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX)
-{}
+    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX) {
+}
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
-    speed(e->getSpeed()), 
-    permissions(SVCAll), 
+    speed(e->getSpeed()),
+    permissions(SVCAll),
     preferred(0),
     endOffset(e->getEndOffset()), width(e->getLaneWidth()),
-    origID(origID_) 
-{}
+    origID(origID_) {
+}
 
 
 /* -------------------------------------------------------------------------
@@ -502,7 +502,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     computeAngle();
 }
 
-void 
+void
 NBEdge::setNodeBorder(const NBNode* node, const Position& p) {
     const SUMOReal extend = 200;
     const SUMOReal distanceOfClosestThreshold = 1.0; // very rough heuristic, actually depends on angle
@@ -902,7 +902,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
 }
 
 
-void 
+void
 NBEdge::insertConnection(NBEdge::Connection connection) {
     myConnections.push_back(connection);
 }
@@ -1095,8 +1095,8 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
 bool
 NBEdge::removeFromConnections(NBEdge::Connection connectionToRemove) {
     // iterate over connections
-    for(std::vector<Connection>::iterator i = myConnections.begin(); i !=  myConnections.end(); i++) {
-        if(((*i).toEdge == connectionToRemove.toEdge) && ((*i).fromLane == connectionToRemove.fromLane) && ((*i).toLane == connectionToRemove.toLane)) {
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i !=  myConnections.end(); i++) {
+        if (((*i).toEdge == connectionToRemove.toEdge) && ((*i).fromLane == connectionToRemove.fromLane) && ((*i).toLane == connectionToRemove.toLane)) {
             // remove connection
             myConnections.erase(i);
             return true;
@@ -1556,13 +1556,13 @@ NBEdge::computeAngle() {
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
     if (hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
-                || myFrom->getShape().around(shape[-1])
-                || !(myFrom->getShape().around(fromCenter)))) {
+                         || myFrom->getShape().around(shape[-1])
+                         || !(myFrom->getShape().around(fromCenter)))) {
         fromCenter = myFrom->getPosition();
     }
     if (hasToShape && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
-                || myTo->getShape().around(shape[0])
-                || !(myTo->getShape().around(toCenter)))) {
+                       || myTo->getShape().around(shape[0])
+                       || !(myTo->getShape().around(toCenter)))) {
         toCenter = myTo->getPosition();
     }
 
@@ -2919,7 +2919,7 @@ NBEdge::restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane>
     myTo->shiftTLConnectionLaneIndex(this, 0);
     computeLaneShapes();
 }
-   
+
 
 void
 NBEdge::shiftToLanesToEdge(NBEdge* to, int laneOff) {

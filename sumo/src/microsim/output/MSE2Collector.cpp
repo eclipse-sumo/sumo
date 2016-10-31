@@ -51,11 +51,11 @@
 // method definitions
 // ===========================================================================
 MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
-    MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
-    SUMOTime haltingTimeThreshold,
-    SUMOReal haltingSpeedThreshold,
-    SUMOReal jamDistThreshold,
-    const std::string& vTypes) :
+                             MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
+                             SUMOTime haltingTimeThreshold,
+                             SUMOReal haltingSpeedThreshold,
+                             SUMOReal jamDistThreshold,
+                             const std::string& vTypes) :
     MSMoveReminder(id, lane),
     MSDetectorFileOutput(id, vTypes),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
@@ -75,11 +75,11 @@ MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
 
 
 MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
-    MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
-    SUMOTime haltingTimeThreshold,
-    SUMOReal haltingSpeedThreshold,
-    SUMOReal jamDistThreshold,
-    const std::set<std::string>& vTypes) :
+                             MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
+                             SUMOTime haltingTimeThreshold,
+                             SUMOReal haltingSpeedThreshold,
+                             SUMOReal jamDistThreshold,
+                             const std::set<std::string>& vTypes) :
     MSMoveReminder(id, lane),
     MSDetectorFileOutput(id, vTypes),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
@@ -128,7 +128,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // Vehicle was not on this lane in the last time step
         const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, myStartPos, newPos, oldSpeed, newSpeed);
         timeOnDet -= timeBeforeEnter;
-        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos-oldPos);
+        enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos - oldPos);
         myPassedVeh++;
     }
 
@@ -138,21 +138,21 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     if (newBackPos > myEndPos) {
         assert(oldBackPos <= myEndPos);
         const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myEndPos, newBackPos, oldSpeed, newSpeed);
-        const SUMOReal timeAfterLeave = TS-timeBeforeLeave;
+        const SUMOReal timeAfterLeave = TS - timeBeforeLeave;
         timeOnDet -= timeAfterLeave;
-        leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos-oldPos);
+        leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos - oldPos);
         // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(timeOnDet) < NUMERICAL_EPS) { // reduce rounding errors
             timeOnDet = 0.;
         } else {
-            const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed)/2.;
+            const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed) / 2.;
             myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), averageSpeedOnDetector,
-                timeOnDet, lengthOnDet, newPos,
-                veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), false));
+                                                  timeOnDet, lengthOnDet, newPos,
+                                                  veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), false));
         }
         return false;
     }
-    const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed)/2.;
+    const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed) / 2.;
     myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), averageSpeedOnDetector,
                                           timeOnDet, lengthOnDet, newPos,
                                           veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), true));
@@ -319,8 +319,8 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     for (std::vector<JamInfo*>::iterator i = jams.begin(); i != jams.end(); ++i) {
         // compute current jam's values
         const SUMOReal jamLengthInMeters = (*i)->firstStandingVehicle->position
-            - (*i)->lastStandingVehicle->position
-            + (*i)->lastStandingVehicle->lengthOnDet;
+                                           - (*i)->lastStandingVehicle->position
+                                           + (*i)->lastStandingVehicle->lengthOnDet;
         const int jamLengthInVehicles = (int)distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics
         myCurrentMaxJamLengthInMeters = MAX2(myCurrentMaxJamLengthInMeters, jamLengthInMeters);
@@ -438,7 +438,7 @@ int
 MSE2Collector::getCurrentVehicleNumber() const {
     int result = 0;
     for (std::vector<VehicleInfo>::const_iterator it = myPreviousKnownVehicles.begin();
-        it != myPreviousKnownVehicles.end(); it++) {
+            it != myPreviousKnownVehicles.end(); it++) {
         if (it->stillOnDet) {
             result++;
         }
@@ -480,7 +480,7 @@ MSE2Collector::getEstimateQueueLength() const {
     SUMOReal realDistance = 0;
     bool flowing =  true;
     for (std::vector<VehicleInfo>::const_iterator it = myPreviousKnownVehicles.begin();
-        it != myPreviousKnownVehicles.end(); it++) {
+            it != myPreviousKnownVehicles.end(); it++) {
         if (it->stillOnDet) {
             if (it->position < distance) {
                 distance = it->position;
@@ -492,14 +492,14 @@ MSE2Collector::getEstimateQueueLength() const {
             }
             DBG(
                 std::ostringstream str;
-            str << time2string(MSNet::getInstance()->getCurrentTimeStep())
+                str << time2string(MSNet::getInstance()->getCurrentTimeStep())
                 << " MSE2Collector::getEstimateQueueLength::"
                 << " lane " << myLane->getID()
                 << " vehicle " << it->id
                 << " positionOnLane " << it->position
                 << " vel " << it->speed
                 << " realDistance " << realDistance;
-            WRITE_MESSAGE(str.str());
+                WRITE_MESSAGE(str.str());
             )
         }
     }

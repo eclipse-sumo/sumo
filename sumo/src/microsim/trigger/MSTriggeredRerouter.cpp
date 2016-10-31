@@ -284,10 +284,9 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
                 // routeProbReroute
                 i->routeProbs.getOverallProb() > 0 ||
                 // affected by closingReroute
-                veh.getRoute().containsAnyOf(i->closed) || 
+                veh.getRoute().containsAnyOf(i->closed) ||
                 // affected by closingLaneReroute
-                veh.getRoute().containsAnyOf(i->closedLanesAffected)) 
-            {
+                veh.getRoute().containsAnyOf(i->closedLanesAffected)) {
                 return &*i;
             }
         }
@@ -344,14 +343,18 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     const MSRoute& route = veh.getRoute();
     const MSEdge* lastEdge = route.getLastEdge();
 #ifdef DEBUG_REROUTER
-        if (DEBUGCOND) std::cout << SIMTIME << " veh=" << veh.getID() << " check rerouter " << getID() << " lane=" << veh.getLane()->getID() << " edge=" << veh.getEdge()->getID() << " finalEdge=" << lastEdge->getID() << " arrivalPos=" << veh.getArrivalPos() << "\n";
+    if (DEBUGCOND) {
+        std::cout << SIMTIME << " veh=" << veh.getID() << " check rerouter " << getID() << " lane=" << veh.getLane()->getID() << " edge=" << veh.getEdge()->getID() << " finalEdge=" << lastEdge->getID() << " arrivalPos=" << veh.getArrivalPos() << "\n";
+    }
 #endif
     // get rerouting params
     const MSRoute* newRoute = rerouteDef->routeProbs.getOverallProb() > 0 ? rerouteDef->routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute != 0) {
 #ifdef DEBUG_REROUTER
-        if (DEBUGCOND) std::cout << "    replacedRoute from routeDist " << newRoute->getID() << "\n";
+        if (DEBUGCOND) {
+            std::cout << "    replacedRoute from routeDist " << newRoute->getID() << "\n";
+        }
 #endif
         veh.replaceRoute(newRoute);
         return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
@@ -379,7 +382,9 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             }
         } else if (newEdge == 0) {
 #ifdef DEBUG_REROUTER
-        if (DEBUGCOND) std::cout << "   could not find new edge!\n";
+            if (DEBUGCOND) {
+                std::cout << "   could not find new edge!\n";
+            }
 #endif
             assert(false); // this should never happen
             newEdge = veh.getEdge();
@@ -396,7 +401,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
         const bool useNewRoute = veh.replaceRouteEdges(edges);
 #ifdef DEBUG_REROUTER
         if (DEBUGCOND) std::cout << "   rerouting:  newEdge=" << newEdge->getID() << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-            << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
+                                     << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
 #endif
         if (useNewRoute && newArrivalPos != -1) {
             // must be called here because replaceRouteEdges may also set the arrivalPos

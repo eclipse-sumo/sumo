@@ -142,7 +142,7 @@ GNELoadThread::run() {
             if (oc.getBool("ignore-errors")) {
                 MsgHandler::getErrorInstance()->clear();
             }
-            
+
             // check whether any errors occured
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
@@ -151,12 +151,12 @@ GNELoadThread::run() {
             }
 
             // enable load additionals after creation of net if was specified in the command line
-            if(myAdditionalFile != "") {
+            if (myAdditionalFile != "") {
                 net->setAdditionalsFile(myAdditionalFile);
             }
 
             // Set additionals output file
-            if(myAdditionalOutputFile != "") {
+            if (myAdditionalOutputFile != "") {
                 net->setAdditionalsOutputFile(myAdditionalOutputFile);
             }
         } catch (ProcessError& e) {
@@ -289,10 +289,10 @@ GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStar
     myLoadNet = isNet;
 
     const OptionsCont& OC = OptionsCont::getOptions();
-    if(OC.isSet("sumo-additionals-file")) {
+    if (OC.isSet("sumo-additionals-file")) {
         myAdditionalFile = OC.getString("sumo-additionals-file");
     }
-    if(OC.isSet("additionals-output")) {
+    if (OC.isSet("additionals-output")) {
         myAdditionalOutputFile = OC.getString("additionals-output");
     }
 

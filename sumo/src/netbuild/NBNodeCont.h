@@ -219,7 +219,7 @@ public:
      * @return The number of removed nodes
      */
     int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
-                                     NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
+                            NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
     /// @}
 
 

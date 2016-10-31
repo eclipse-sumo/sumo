@@ -169,7 +169,7 @@ public:
     /// @{
 
     bool writeEmitterDefinition(const std::string& file,
-        const std::map<SUMOTime, RandomDistributor<int>* >& dists,
+                                const std::map<SUMOTime, RandomDistributor<int>* >& dists,
                                 const RODFDetectorFlows& flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                 bool includeUnusedRoutes, SUMOReal scale,

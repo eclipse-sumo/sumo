@@ -238,8 +238,8 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
-    myDisplacementError(0)
-{ }
+    myDisplacementError(0) {
+}
 
 
 NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
@@ -252,9 +252,9 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
-    myCrossingsLoadedFromSumoNet(0), 
-    myDisplacementError(0)
-{ }
+    myCrossingsLoadedFromSumoNet(0),
+    myDisplacementError(0) {
+}
 
 
 NBNode::~NBNode() {
@@ -483,7 +483,9 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
     bool ok = true;
     PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok, recordError);
 #ifdef DEBUG_SMOOTH_GEOM
-    if (DEBUGCOND) std::cout << "computeSmoothShape node " << getID() << " init=" << init << "\n";
+    if (DEBUGCOND) {
+        std::cout << "computeSmoothShape node " << getID() << " init=" << init << "\n";
+    }
 #endif
     if (init.size() == 0) {
         PositionVector ret;
@@ -512,10 +514,10 @@ NBNode::bezierControlPoints(
     if (dist < POSITION_EPS || beg.distanceTo2D(begShape[-2]) < POSITION_EPS || end.distanceTo2D(endShape[1]) < POSITION_EPS) {
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end
-            << " dist=" << dist 
-            << " distBegLast=" << beg.distanceTo2D(begShape[-2])
-            << " distEndFirst=" << end.distanceTo2D(endShape[1])
-            << "\n";
+                                     << " dist=" << dist
+                                     << " distBegLast=" << beg.distanceTo2D(begShape[-2])
+                                     << " distEndFirst=" << end.distanceTo2D(endShape[1])
+                                     << "\n";
 #endif
         // typically, this node a is a simpleContinuation. see also #2539
         return init;
@@ -543,18 +545,18 @@ NBNode::bezierControlPoints(
                 if (fabs(displacementAngle) <= DEG2RAD(5)) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
-                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
+                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
 #endif
                     return PositionVector();
                 } else if (bendDeg > 22.5 && pow(bendDeg / 45, 2) / dist > 0.13) {
-                    // do not allow s-curves with extreme bends 
+                    // do not allow s-curves with extreme bends
                     // (a linear dependency is to restrictive at low displacementAngles and too permisive at high angles)
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints found extreme s-curve, falling back to straight line beg=" << beg << " end=" << end
-                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) 
-                        << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
-                        << " displacementError=" << sin(displacementAngle) * dist
-                        << " begShape=" << begShape << " endShape=" << endShape << "\n";
+                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
+                                                 << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
+                                                 << " displacementError=" << sin(displacementAngle) * dist
+                                                 << " begShape=" << begShape << " endShape=" << endShape << "\n";
 #endif
                     ok = false;
                     if (recordError != 0) {
@@ -569,8 +571,8 @@ NBNode::bezierControlPoints(
                     init.push_back(PositionVector::positionAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
-                        << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) 
-                        << " halfDistance=" << halfDistance << "\n";
+                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
+                                                 << " halfDistance=" << halfDistance << "\n";
 #endif
                 }
             } else {
@@ -612,7 +614,7 @@ NBNode::bezierControlPoints(
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
                 } else {
                     SUMOReal z;
-                    const SUMOReal z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z(); 
+                    const SUMOReal z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z();
                     const SUMOReal z2 = endShapeBegLine.positionAtOffset2D(endShapeBegLine.nearest_offset_to_point2D(intersect)).z();
                     const SUMOReal z3 = 0.5 * (beg.z() + end.z());
                     // if z1 and z2 are on the same side in regard to z3 then we

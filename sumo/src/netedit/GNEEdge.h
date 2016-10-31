@@ -213,7 +213,7 @@ public:
     /// @brief returns a reference to the GNEConnection vector
     const std::vector<GNEConnection*>& getGNEConnections();
 
-    /**@brief get connection 
+    /**@brief get connection
     */
     GNEConnection* retrieveConnection(int fromLane, NBEdge* to, int toLane);
 

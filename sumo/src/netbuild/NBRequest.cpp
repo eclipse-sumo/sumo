@@ -631,7 +631,7 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                 // merging bicycles should yield
                 ((((con.fromLane > prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
                    || (con.fromLane < prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)
-                   ) && !con.mayDefinitelyPass)
+                  ) && !con.mayDefinitelyPass)
                  || prohibitorCon.mayDefinitelyPass)));
 }
 

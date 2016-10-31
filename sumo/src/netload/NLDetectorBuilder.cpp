@@ -387,8 +387,8 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string& id, DetectorUsage usag
 
 MSDetectorFileOutput*
 NLDetectorBuilder::createInductLoop(const std::string& id,
-MSLane* lane, SUMOReal pos,
-const std::string& vTypes, bool) {
+                                    MSLane* lane, SUMOReal pos,
+                                    const std::string& vTypes, bool) {
     if (MSGlobals::gUseMesoSim) {
         return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes);
     }
@@ -398,8 +398,8 @@ const std::string& vTypes, bool) {
 
 MSDetectorFileOutput*
 NLDetectorBuilder::createInstantInductLoop(const std::string& id,
-MSLane* lane, SUMOReal pos, const std::string& od,
-const std::string& vTypes) {
+        MSLane* lane, SUMOReal pos, const std::string& od,
+        const std::string& vTypes) {
     return new MSInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos, vTypes);
 }
 

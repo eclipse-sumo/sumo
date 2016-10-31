@@ -490,7 +490,7 @@ MSLane::checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const
         if (patchSpeed) {
             speed = MIN2(nspeed, speed);
             dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-        } else if(speed>0) {
+        } else if (speed > 0) {
             if (errorMsg != "") {
                 WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (" + errorMsg + ")!");
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
@@ -515,8 +515,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 
 #ifdef DEBUG_INSERTION
     if (DEBUG_COND2(aVehicle)) std::cout << "\nIS_INSERTION_SUCCESS\n"
-            << SIMTIME  <<" lane=" << getID()
-            << " veh '" << aVehicle->getID()<< "'\n";
+                                             << SIMTIME  << " lane=" << getID()
+                                             << " veh '" << aVehicle->getID() << "'\n";
 #endif
 
     aVehicle->setTentativeLaneAndPosition(this, pos, posLat);
@@ -531,11 +531,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     // (the code is duplicated in the loop)
     if (aVehicle->hasStops()) {
         const MSVehicle::Stop& nextStop = aVehicle->getNextStop();
-        if(nextStop.lane == this){
-            std::stringstream msg; msg << "scheduled stop on lane '" << myID <<"' too close";
+        if (nextStop.lane == this) {
+            std::stringstream msg;
+            msg << "scheduled stop on lane '" << myID << "' too close";
             const SUMOReal distToStop = nextStop.endPos - pos; // XXX: Please approve whether endPos is appropriate, here. (Leo)
             if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
-                        patchSpeed, msg.str())) {
+                             patchSpeed, msg.str())) {
                 // we may not drive with the given velocity - we cannot stop at the stop
                 return false;
             }
@@ -590,11 +591,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 return false;
             }
 #ifdef DEBUG_INSERTION
-                if DEBUG_COND2(aVehicle) {
-                    std::cout << "trying insertion before minor link: "
-                            << "insertion speed = " << speed << " dist="<< dist
-                            << "\n";
-                }
+            if DEBUG_COND2(aVehicle) {
+                std::cout << "trying insertion before minor link: "
+                          << "insertion speed = " << speed << " dist=" << dist
+                          << "\n";
+            }
 #endif
             break;
         }
@@ -607,11 +608,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // (this block is duplicated before the loop to deal with the insertion lane)
             if (aVehicle->hasStops()) {
                 const MSVehicle::Stop& nextStop = aVehicle->getNextStop();
-                if(nextStop.lane == nextLane){
-                    std::stringstream msg; msg << "scheduled stop on lane '" << nextStop.lane->getID() <<"' too close";
+                if (nextStop.lane == nextLane) {
+                    std::stringstream msg;
+                    msg << "scheduled stop on lane '" << nextStop.lane->getID() << "' too close";
                     const SUMOReal distToStop = seen + nextStop.endPos; // XXX: Please approve whether endPos is appropriate, here. (Leo)
                     if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
-                                patchSpeed, msg.str())) {
+                                     patchSpeed, msg.str())) {
                         // we may not drive with the given velocity - we cannot stop at the stop
                         return false;
                     }
@@ -625,7 +627,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (leader != 0) {
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                		<< "leader on lane '" << nextLane->getID() << "': " << leader->getID() << "\n";
+                                                         << "leader on lane '" << nextLane->getID() << "': " << leader->getID() << "\n";
 #endif
                 gap = seen + leader->getBackPositionOnLane(nextLane) -  aVehicle->getVehicleType().getMinGap();
             }
@@ -696,7 +698,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
     const SUMOReal nspeed = safeInsertionSpeed(aVehicle, leaders, speed);
     if (nspeed < 0 || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
-    	// XXX: checking for nspeed<0... Might appear naturally with ballistic update (see #860, Leo)
+        // XXX: checking for nspeed<0... Might appear naturally with ballistic update (see #860, Leo)
         // TODO: check if ballistic update needs adjustments here, refs. #2577
 
         // we may not drive with the given velocity - we crash into the leader
@@ -716,10 +718,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         return false;
     }
 #ifdef DEBUG_INSERTION
-        if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-        		<< " speed = " << speed
-				<< " nspeed = " << nspeed
-								<< std::endl;
+    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
+                                             << " speed = " << speed
+                                             << " nspeed = " << nspeed
+                                             << std::endl;
 #endif
 
     MSLeaderDistanceInfo followers = getFollowersOnConsecutive(aVehicle, false);
@@ -2597,8 +2599,8 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
 }
 
 
-void 
-MSLane::setPermissions(SVCPermissions permissions, long transientID) { 
+void
+MSLane::setPermissions(SVCPermissions permissions, long transientID) {
     if (transientID == CHANGE_PERMISSIONS_PERMANENT) {
         myPermissions = permissions;
         myOriginalPermissions = permissions;
@@ -2609,8 +2611,8 @@ MSLane::setPermissions(SVCPermissions permissions, long transientID) {
 }
 
 
-void 
-MSLane::resetPermissions(long transientID) { 
+void
+MSLane::resetPermissions(long transientID) {
     myPermissionChanges.erase(transientID);
     if (myPermissionChanges.empty()) {
         myPermissions = myOriginalPermissions;

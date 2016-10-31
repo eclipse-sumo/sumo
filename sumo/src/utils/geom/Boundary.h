@@ -63,7 +63,7 @@ public:
     void reset();
 
     /// Makes the boundary include the given coordinate
-    void add(SUMOReal x, SUMOReal y, SUMOReal z=0);
+    void add(SUMOReal x, SUMOReal y, SUMOReal z = 0);
 
     /// Makes the boundary include the given coordinate
     void add(const Position& p);
@@ -129,7 +129,7 @@ public:
     void set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
 
     /// Moves the boundary by the given amount
-    void moveby(SUMOReal x, SUMOReal y, SUMOReal z=0);
+    void moveby(SUMOReal x, SUMOReal y, SUMOReal z = 0);
 
     /// Output operator
     friend std::ostream& operator<<(std::ostream& os, const Boundary& b);

@@ -179,7 +179,7 @@ public:
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
 
     /**@brief Called by FOX if the application shall be closed
-     * @note Called either by FileMenu->Quit, the normal close-menu or SIGINT  
+     * @note Called either by FileMenu->Quit, the normal close-menu or SIGINT
      */
     long onCmdQuit(FXObject*, FXSelector, void*);
 

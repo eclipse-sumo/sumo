@@ -93,7 +93,7 @@ private:
     /**@brief We only keep this to retain the GUIGlID
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
-    GNEConnection *myConnection;
+    GNEConnection* myConnection;
     /// @}
 
 };

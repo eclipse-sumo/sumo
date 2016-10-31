@@ -98,13 +98,13 @@ GNEAdditional::~GNEAdditional() {
 
 
 void
-GNEAdditional::moveAdditionalGeometry(const Position &offset) {
+GNEAdditional::moveAdditionalGeometry(const Position& offset) {
     moveAdditionalGeometry(offset.x(), offset.y());
 }
 
 
 void
-GNEAdditional::commmitAdditionalGeometryMoved(const Position &oldPos, GNEUndoList* undoList) {
+GNEAdditional::commmitAdditionalGeometryMoved(const Position& oldPos, GNEUndoList* undoList) {
     commmitAdditionalGeometryMoved(oldPos.x(), oldPos.y(), undoList);
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);
@@ -321,7 +321,7 @@ GNEAdditional::setBlockIconRotation(GNELane* lane) {
 
 void
 GNEAdditional::drawLockIcon(SUMOReal size) const {
-    if(myViewNet->showLockIcon()) {
+    if (myViewNet->showLockIcon()) {
         // Start pushing matrix
         glPushMatrix();
         // Traslate to middle of shape
@@ -364,9 +364,9 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
 }
 
 
-void 
-GNEAdditional::changeEdge(const std::string &edgeID) {
-    if(myEdge == NULL) {
+void
+GNEAdditional::changeEdge(const std::string& edgeID) {
+    if (myEdge == NULL) {
         throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' doesn't belong to a edge");
     } else {
         myEdge->removeAdditionalChild(this);
@@ -378,9 +378,9 @@ GNEAdditional::changeEdge(const std::string &edgeID) {
 }
 
 
-void 
-GNEAdditional::changeLane(const std::string &laneID) {
-    if(myLane == NULL) {
+void
+GNEAdditional::changeLane(const std::string& laneID) {
+    if (myLane == NULL) {
         throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' doesn't belong to a lane");
     } else {
         myLane->removeAdditionalChild(this);

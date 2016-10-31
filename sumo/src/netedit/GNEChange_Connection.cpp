@@ -51,8 +51,7 @@ GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbC
     GNEChange(0, forward),
     myEdge(edge),
     myNBEdgeConnection(nbCon),
-    myConnection(myEdge->retrieveConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane))
-{
+    myConnection(myEdge->retrieveConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane)) {
     assert(myEdge);
     //myEdge->incRef("GNEChange_Connection");
 }
