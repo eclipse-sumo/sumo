@@ -724,6 +724,13 @@ class VehicleDomain(Domain):
         edges is loaded and used for rerouting. If currentTravelTimes is False,
         travel times loaded from a weight file are used. In the absence of loaded
         weights, the minimum travel time is used (speed limit). 
+
+        When rerouteTravelTime has been called once with option
+        currentTravelTimes=True, all edge weights are set to the current travel
+        times at the time of that call (even for subsequent simulation steps). 
+        To speed up rerouting of many vehicles with currentTravelTimes=True,
+        only the first vehicle should set this option to True in each simulation
+        step (setting the edge weights is expensive for large networks).
         """
         if currentTravelTimes:
             for edge in self._connection.edge.getIDList():
