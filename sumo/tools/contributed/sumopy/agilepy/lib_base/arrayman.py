@@ -1140,7 +1140,8 @@ class ArrayObjman(Arrayman, TableMixin):
     def clear_rows(self):
         if self.plugin:
                 self.plugin.exec_events_ids(EVTDELITEM,self.get_ids())
-        self._ids = np.array([],np.int32)
+        self._inds = np.zeros((0,),int)
+        self._ids = np.zeros((0,),int)
         for colconfig in self.get_attrsman()._colconfigs:
             #print 'ArrayObjman.clear_rows',colconfig.attrname,len(colconfig.get_value())
             colconfig.clear()

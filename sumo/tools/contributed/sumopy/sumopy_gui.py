@@ -37,7 +37,8 @@ try:
 except:
     try:
         wxversion.select("2.9")
-    except: 'ERROR: neither wxPython versions 2.8 nor 2.9 are available. '
+    except:
+        sys.exit('ERROR: neither wxPython versions 2.8 nor 2.9 are available. ')
     
 import wx
 
@@ -114,4 +115,3 @@ class MyApp(wx.App):
 if __name__ == '__main__':
     myapp = MyApp(0)
     myapp.MainLoop()
-    

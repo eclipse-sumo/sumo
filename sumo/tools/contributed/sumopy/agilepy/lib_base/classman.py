@@ -4,51 +4,6 @@
 # TODO:
 # - store old values in attrcons and recover with undo
 
-# new structure
-##obj0
-##|
-##|-attr1
-##|-attr2
-##|
-##|-tab1
-##|  |
-##|  |-attr1
-##|  |-attr2
-##|  |
-##|  |-arraycol1
-##|  |  |
-##|  |  |-1:x1
-##|  |  |-2:x2
-##|  |
-##|  |-childcol1
-##|  |  |
-##|  |  |-1:obj1
-##|  |  |-2:obj2
-##|  |
-##|  |
-##|  |-tabchildcol1(tab2)
-##|  |  |
-##|  |  |-1:id1
-##|  |  |-2:id2 
-##|
-##|
-##|
-##|
-##|-child1[obj.child1]
-##|   |
-##|   |- attr1
-##
-##IDEA : make childof column
-##tab2
-##|
-##|-arraycol1
-##|  |-id1:x1
-##|  |-id2:x2
-##|
-##|
-##|-arraycol2
-##|  |-id1:y1
-##|  |-id2:y2
 
 ## To be or not to be.  -- Shakespeare 
 ## To do is to be.  -- Nietzsche 
@@ -100,21 +55,23 @@ def save_obj(obj,filename, is_not_save_parent=False):
     Filename may also include absolute or relative path.
     If operation fails a False is returned and True otherwise.
     """
+    #print 'save_obj',is_not_save_parent,filename,obj.parent
     try:
         file=open(filename,'wb')
     except:
         print 'WARNING in save: could not open',filename
         return False
-	
-	if is_not_save_parent:
-	    parent = obj.parent
-	    obj.parent = None
     
+    if is_not_save_parent:
+        parent = obj.parent
+        obj.parent = None
+    #print '  before',is_not_save_parent,parent,obj.parent
     pickle.dump(obj, file, protocol=2)
     file.close()
     #  set all objects and attrubutes to unsaved again
     # obj.set_unsaved()
     # no, decided to eliminate _is_saved restriction
+    #print '  after',is_not_save_parent,parent,obj.parent
     if is_not_save_parent:
         obj.parent=parent
     return True

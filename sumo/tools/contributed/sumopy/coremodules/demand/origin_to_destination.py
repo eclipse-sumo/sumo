@@ -3,7 +3,7 @@ import numpy as np
 from numpy import random          
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlmanager as xm
+import agilepy.lib_base.xmlman as xm
 #from coremodules.modules_common import *
 from coremodules.network.network import SumoIdsConf, MODES
 from agilepy.lib_base.processes import Process,CmlMixin
@@ -18,7 +18,9 @@ import demand as dm
 #OPTIONMAP_LANE_ARRIVAL 
 class OdTripgenerator(Process):
     def __init__(self, odintervals, trips, logger = None,**kwargs):
-        
+        """
+        CURRENTLY NOT IN USE!!
+        """
         self._init_common(  'odtripgenerator', name = 'OD tripgenerator', 
                             logger = logger,
                             info ='Generates trips from OD demand .',
@@ -36,7 +38,7 @@ class OdTripgenerator(Process):
                         info = 'SUMO Net file in XML format.',
                         )
         
-        self.workdirpath = attrsman.add(cm.AttrConf(  'workdirpath',rootdirpath,
+        self.workdirpath = attrsman.add(cm.AttrConf(  'workdirpath', rootdirpath,
                         groupnames = ['_private'],#['options'],#['_private'], 
                         perm='r', 
                         name = 'Workdir', 
@@ -44,7 +46,7 @@ class OdTripgenerator(Process):
                         info = 'Working directory for this scenario.',
                         ))
                         
-        self.rootname = attrsman.add(cm.AttrConf(  'rootname',rootname,
+        self.rootname = attrsman.add(cm.AttrConf(  'rootname', rootname,
                         groupnames = ['_private'], 
                         perm='r', 
                         name = 'Scenario shortname', 

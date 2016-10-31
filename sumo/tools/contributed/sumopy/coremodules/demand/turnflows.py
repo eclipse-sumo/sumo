@@ -3,7 +3,7 @@ import numpy as np
 from numpy import random          
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlmanager as xm
+import agilepy.lib_base.xmlman as xm
 from  agilepy.lib_base.geometry import *
 #from coremodules.modules_common import *
 from coremodules.network.network import SumoIdsConf, MODES
@@ -627,20 +627,21 @@ class TurnflowImporter(Process):
                                     info = 'End time of interval',
                                     ))
         
-        # here we ged classes not vehicle type
+        # here we get currently available vehicle classes not vehicle type
         # specific vehicle type within a class will be generated later 
-        self.id_mode = attrsman.add(am.AttrConf('id_mode', MODES['private'], 
+        self.id_mode = attrsman.add(am.AttrConf('id_mode', MODES['passenger'], 
                                             groupnames = ['options'],
-                                            choices = MODES,
+                                            choices = turnflows.parent.vtypes.get_modechoices(),
                                             name = 'ID mode', 
                                             info = 'ID of transport mode.',
                                             ))
-                                            
+                                           
+                                           
         self.tffilepath = attrsman.add(am.AttrConf('tffilepath',tffilepath,
                                                     groupnames = ['options'],# this will make it show up in the dialog
                                                     perm='rw', 
                                                     name = 'Turnflow file', 
-                                                    wildcards = 'Turnflow  file (*.csv)|*.csv',
+                                                    wildcards = "Turnflows CSV files (*.csv)|*.csv|CSV files (*.txt)|*.txt|All files (*.*)|*.*",
                                                     metatype = 'filepath',
                                                     info = 'CSV file with turnflow information for the specific mode and time interval.',
                                                     ))
@@ -715,6 +716,10 @@ class TurnflowImporter(Process):
                 print 'WARNING: inconsistent row in line %d, file %s'%(i_line,self.tffilepath)
             i_line +=1
         f.close()
+        if len(ids_sumoedge_notexist)>0:
+            print 'WARNING: inexistant edge IDs:',ids_sumoedge_notexist
+        if len(pairs_sumoedge_unconnected)>0:
+            print 'WARNING: unconnected edge pairs:',pairs_sumoedge_unconnected    
         return ids_sumoedge_notexist,pairs_sumoedge_unconnected
 
     

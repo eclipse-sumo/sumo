@@ -12,7 +12,7 @@ from coremodules.modules_common import *
 import numpy as np            
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlmanager as xm
+import agilepy.lib_base.xmlman as xm
 #from agilepy.lib_base.misc import get_inversemap
 #from agilepy.lib_base.geometry import find_area
 from agilepy.lib_base.processes import Process,CmlMixin,ff,call,P

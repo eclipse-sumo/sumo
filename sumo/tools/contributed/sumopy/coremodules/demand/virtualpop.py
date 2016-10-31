@@ -2,7 +2,7 @@ import numpy as np
 from numpy import random          
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlmanager as xm
+import agilepy.lib_base.xmlman as xm
 #from coremodules.modules_common import *
 from coremodules.network.network import SumoIdsConf, MODES
 from  coremodules.network import routing

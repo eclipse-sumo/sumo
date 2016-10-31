@@ -171,6 +171,12 @@ class Scenario(cm.BaseObjman):
             self.set_workdirpath(dirname)
             self.set_rootfilename(rootname)
         
+        def save(self, filepath = None):
+            if filepath==None:
+                filepath = self.get_rootfilepath()+'.obj'
+            self.set_filepath(filepath)    
+            cm.save_obj(self, filepath, is_not_save_parent = False)
+             
         def get_workdirpath(self):
             return self.workdirpath
         

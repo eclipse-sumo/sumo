@@ -23,7 +23,7 @@ from coremodules.modules_common import *
 import numpy as np            
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlmanager as xm
+import agilepy.lib_base.xmlman as xm
 from agilepy.lib_base.misc import get_inversemap
 #from agilepy.lib_base.geometry import find_area
 from agilepy.lib_base.processes import Process,CmlMixin,ff,call
@@ -699,7 +699,9 @@ class Trips(am.ArrayObjman):
     
     def get_route_first(self, id_trip):
         ids_route = self.ids_routes[id_trip]
-        if len(ids_route)>0:
+        if ids_route is None:
+            return -1
+        elif len(ids_route)>0:
             return ids_route[0]
         else:
             return -1 # no route found

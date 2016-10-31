@@ -4,141 +4,26 @@ from xml.sax import saxutils, parse, handler#, make_parser
 from collections import OrderedDict
 import numpy as np            
 
-import  matplotlib as mpl 
-from matplotlib.patches import Arrow,Circle, Wedge, Polygon
-from matplotlib.collections import PatchCollection
-import matplotlib.pyplot as plt
+
 
 from coremodules.modules_common import *
 
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlmanager as xm
+import agilepy.lib_base.xmlman as xm
+from agilepy.lib_base.geometry import *
 
 from agilepy.lib_base.processes import Process,CmlMixin,ff,call,P
 from coremodules.network.network import SumoIdsConf
 
-def init_plot():
-    plt.close("all")
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    return ax
     
-def plot_net(ax, net, color = "gray"):
-    for shape in net.edges.shapes.get_value():
-        x_vec = np.array(shape)[:,0]
-        y_vec = np.array(shape)[:,1]
-        ax.plot(x_vec, y_vec, color = color )
+def load_results(filepath, parent = None, logger = None):
+    # typically parent is the scenario
+    results = cm.load_obj(filepath, parent=parent)
+    if logger != None:
+        results.set_logger(logger)
+    return results
 
-    ax.axis('equal')
-    #ax.legend(loc='best',shadow=True)
-    ax.set_xlabel('East-West [m]')
-    ax.set_ylabel('South-North [m]')
-
-def plot_edgevalues(ax,  ids_result, config_ids_edge, config_values, width_max = 10.0):
-    edges = config_ids_edge.get_linktab()
-    ids_edges = config_ids_edge[ids_result]
-    values = config_values[ids_result]
-    values_norm = np.array(values,dtype = np.float32)/np.max(values)
-    colors =mpl.cm.cool_r(values_norm,1)
-    for shape,val_norm,val,color,_id in zip(edges.shapes[ids_edges],values_norm,values,colors,ids_result):
-        x_vec = np.array(shape)[:,0]
-        y_vec = np.array(shape)[:,1]
-        ax.text(x_vec[-1]+0.5*width_max,y_vec[-1]+0.5*width_max, config_values.format_value(_id) )
-        ax.plot(x_vec, y_vec, color = color, linewidth= width_max*val_norm )
-    #plt.colorbar() # no
-    
-def plot_edgevalues_patches(ax, edges, color = "gray"):
-    patches = []
-    for shape in edges.shapes.get_value():
-        x_vec = np.array(shape)[:,0]
-        y_vec = np.array(shape)[:,1]
-        deltax = x_vec[-1]-x_vec[0]
-        deltay = y_vec[-1]-y_vec[0]
-        #ax.plot(x_vec, y_vec, color = color )
-        arrow = Arrow(x_vec[0], y_vec[0],deltax , deltay, width=1)
-        patches.append(arrow)
-        
-    colors = 100*np.random.rand(len(patches))
-        
-    p = PatchCollection(patches, cmap=mpl.cm.jet, alpha=0.4)
-    p.set_array(np.array(colors))
-    ax.add_collection(p)
-    plt.colorbar(p)
-
-def show_plot():
-    plt.show()  
-    
-class Resultplotter(Process):
-    def __init__(self, results, name= 'Result plotter', 
-                    info = "Creates plots of different results using matplotlib",  
-                    logger = None):
-        
-        self._init_common('resultplotter', parent = results, name = name, info = info, logger = logger)
-        
-        print 'Resultplotter.__init__',results,self.parent
-        attrsman = self.get_attrsman()
-        
-        # edgeresultes....
-        attrnames_edgeresults = {}
-        edgeresultattrconfigs = self.parent.edgeresults.get_group_attrs('results')
-        edgeresultattrnames = edgeresultattrconfigs.keys()
-        edgeresultattrnames.sort()
-        for attrname in edgeresultattrnames:
-            attrconfig = edgeresultattrconfigs[attrname]
-            
-            attrnames_edgeresults[attrconfig.format_symbol()] = attrconfig.attrname
-        
-        #attrnames_edgeresults = {'Entered':'entered'}
-        self.edgeattrname = attrsman.add(cm.AttrConf(  'edgeattrname', 'entered',
-                                        choices = attrnames_edgeresults,
-                                        groupnames = ['options'], 
-                                        name = 'Edge Quantity', 
-                                        info = 'The edge related quantity to be plotted.',
-                                        ))
-                                        
-        self.axis = None
-        
-        
-
-    def show(self):
-        print 'show',self.edgeattrname
-        #if self.axis == None:
-        axis = init_plot()
-        #else:
-        net = self.parent.get_scenario().net
-        plot_net(axis, net)
-                
-        if self.edgeattrname != "":
-            resultattrconf = getattr(self.parent.edgeresults, self.edgeattrname)
-            ids = self.parent.edgeresults.get_ids()
-            #ids_edge = self.parent.edgeresults.ids_edge.get_value()
-            #values = resultattrconf.get_value()
-            title = resultattrconf.format_symbol()
-            
-            
-                
-            #ax.plot([0,0],[1,1] ) #color=cm.cool_r(weights_norm[i],1), linewidth=3)
-            
-            
-            
-            
-            #print '  ids_edge',ids_edge
-            #print '  values',values
-            
-            #values = [50,5,10,35]
-            plot_edgevalues(axis, ids, self.parent.edgeresults.ids_edge, resultattrconf)
-            axis.set_title(title)
-        
-        show_plot()
-        
-                
-    def do(self):
-        #print 'do',self.edgeattrname
-        self.show()
-
-    def get_scenario(self):
-        return self._scenario
     
 class Tripresults(am.ArrayObjman):
     def __init__(self, parent, trips, edges, is_add_default=True, **kwargs):
@@ -422,7 +307,12 @@ class Simresults(cm.BaseObjman):
             
             self.edgeresults = attrsman.add(     cm.ObjConf( Edgeresults(self, scenario.net.edges) ) )
             self.tripresults = attrsman.add(     cm.ObjConf( Tripresults(self, scenario.demand.trips, scenario.net.edges) ) )
-                                           
+        
+        def save(self, filepath = None, is_not_save_parent=True):
+            if filepath == None:
+                self.get_scenario().get_rootfilepath()+'.res.obj'
+            cm.save_obj(self, filepath, is_not_save_parent = is_not_save_parent)
+                                              
         def get_scenario(self):
             return self.parent
         

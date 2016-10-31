@@ -29,15 +29,16 @@ from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring
 
 #TESTNODES = [294,295]
 MODES = OrderedDict([\
+                    ("ignoring",0),
                     ("pedestrian",1),
                     ("bicycle",2),
                     ("motorcycle",3),
-                    ("private",4), 
+                    ("passenger",4), 
                     ("bus",5),
                     ("tram",6), 
                     ("rail_urban",7),  
                     ("delivery",8),
-                    ("passenger",9),
+                    ("private",9),
                     ("taxi",10),
                     ("hov",11),  
                     ("evehicle",12),        

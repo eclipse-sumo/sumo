@@ -545,7 +545,7 @@ class WxGui(ModuleGui):
             )
                 
         menubar.append_menu( 'landuse/zones',
-            #bitmap = self.get_icon("Document_Import_24px.png"),
+            bitmap = self.get_icon("fig_zone_24px.png"),
             )
         menubar.append_item( 'landuse/zones/identify zone edges',
             self.on_refresh_zoneedges, 
@@ -554,7 +554,7 @@ class WxGui(ModuleGui):
             ) 
         
         menubar.append_menu( 'landuse/facilities',
-            #bitmap = self.get_icon("Document_Import_24px.png"),
+            bitmap = self.get_icon("city-icon_24px.png"),
             )
         
         menubar.append_item(    'landuse/facilities/import from poly file...', 
@@ -594,15 +594,15 @@ class WxGui(ModuleGui):
             info='Find for each building the closes access to the network. This will be the point on the network where people  access the facility.',
             #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
             )  
-                   
-        menubar.append_menu( 'landuse/parking',
-            #bitmap = self.get_icon("Document_Import_24px.png"),
-            )
-        menubar.append_item( 'landuse/parking/make parking',
-            self.on_make_parking, 
-            info='Generate automatically parking areas on street network.',
-            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-            ) 
+        if 0:           
+            menubar.append_menu( 'landuse/parking',
+                #bitmap = self.get_icon("Document_Import_24px.png"),
+                )
+            menubar.append_item( 'landuse/parking/make parking',
+                self.on_make_parking, 
+                info='Generate automatically parking areas on street network.',
+                #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+                ) 
         
 
 ##        (self._menuitem_draw_route, id_item,) = menubar.append_item(
@@ -622,17 +622,21 @@ class WxGui(ModuleGui):
    
     def on_refresh_zoneedges(self, event=None):
         self._landuse.zones.refresh_zoneedges()
+        self._mainframe.browse_obj(self._landuse.zones)
     
     def on_identify_taz(self, event=None):
         self._landuse.facilities.identify_taz()
+        self._mainframe.browse_obj(self._landuse.facilities)
     
     def on_identify_closest_edge(self, event=None):
         self._landuse.facilities.identify_closest_edge()
+        self._mainframe.browse_obj(self._landuse.facilities)
             
     def on_make_parking(self, event=None):
         self._landuse.parking.make_parking()
         #self._canvas = canvas.draw()
         #drawing = self.get_drawing().get_drawobj_by_ident('parkingdraws')
+        self._mainframe.browse_obj(self._landuse.parking)
         self._mainframe.refresh_moduleguis()
     
     def on_clean_osm(self, event=None):
@@ -669,13 +673,11 @@ class WxGui(ModuleGui):
                     
                     
 
- 
+                self._mainframe.browse_obj(self._landuse)
                 self._mainframe.refresh_moduleguis()
-                #self._mainframe.browse_obj(self._landuse)
+                
                 ## inform plugins
-                #for plugin in  plugins:
-                #    plugin.set_scenario(self.scenario)
-         
+
 
         # Destroy the dialog. Don't do this until you are done with it!
         # BAD things can happen otherwise!
@@ -725,13 +727,9 @@ class WxGui(ModuleGui):
                     filename = filename_raw.split('.')[0]
                     self._landuse.import_polyxml(filename, dirname=dirname)
                     
- 
+                self._mainframe.browse_obj(self._landuse)
                 self._mainframe.refresh_moduleguis()
-                #self._mainframe.browse_obj(self._landuse)
-                ## inform plugins
-                #for plugin in  plugins:
-                #    plugin.set_scenario(self.scenario)
-         
+                
 
         # Destroy the dialog. Don't do this until you are done with it!
         # BAD things can happen otherwise!
@@ -766,10 +764,6 @@ class WxGui(ModuleGui):
                 self._landuse.export_polyxml(path)
                     
 
-         
-
-        # Destroy the dialog. Don't do this until you are done with it!
-        # BAD things can happen otherwise!
         dlg.Destroy()
         
     def on_import_osm(self, event = None):
@@ -788,11 +782,13 @@ class WxGui(ModuleGui):
         if dlg.get_status() == 'success':
             dlg.apply()
             dlg.Destroy()
+            self._mainframe.browse_obj(self._landuse)
             self._mainframe.refresh_moduleguis()
         
         
     def on_clear_backgroundmaps(self, event = None):
         self._landuse.maps.clear_all()
+        self._mainframe.browse_obj(self._landuse.maps)
            
     def on_import_backgroundmaps(self, event = None):
         # TODO: make a proper import mask that allows to set parameters
@@ -815,11 +811,6 @@ class WxGui(ModuleGui):
             # apply current widget values to scenario instance
             dlg.apply()
             dlg.Destroy()
-            
-            #del self._scenario
-            #self._scenario = scenariocreator.get_scenario()
-            
-            # this should update all widgets for the new scenario!!
-            #print 'call self._mainframe.refresh_moduleguis()'
-            #self._mainframe.refresh_moduleguis()
+            self._mainframe.browse_obj(self._landuse.maps)
+
             

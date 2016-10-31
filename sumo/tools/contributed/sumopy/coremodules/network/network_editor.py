@@ -168,8 +168,8 @@ class NodeDrawings(Circles):
                             is_parentobj = False,
                             is_fill = False, # Fill objects,
                             is_outline = True, # show outlines
-                            n_vert =7, # default number of vertex per circle
-                            linewidth=2, 
+                            n_vert = 21, # default number of vertex per circle
+                            linewidth = 3, 
                             **kwargs)
         
 
@@ -261,13 +261,7 @@ class EdgeDrawings(Polylines):
         self.delete('vertices')
         self.delete('widths')
         
-        # let's try to ids identical with edge ids
-        #self.add_col(am.IdsArrayConf( 'ids_edge', edges, 
-        #                                    groupnames = ['state'], 
-        #                                    name = 'ID edge', 
-        #                                    info = 'ID of network edge.',
-        #                                    xmltag = 'node',
-        #                                    ))
+
         
         
         self.add(cm.AttrConf(  'color_edge_default', np.array([0.2,0.2,1.0,1.0], np.float32),
@@ -302,16 +296,7 @@ class EdgeDrawings(Polylines):
                                         
         self.set_netelement(edges)
         
-        #self.add_col(am.ArrayConf( 'vertices',  None,
-        #                            dtype=np.object,
-        #                            groupnames = ['_private'], 
-        #                            perm='rw', 
-        #                            name = 'Vertex',
-        #                            unit = 'm',
-        #                            is_save = True,
-        #                            info = 'Vertex coordinate vectors of points. Example with 2 vertex: [[[x11,y11,z11],[x12,y12,z12]],[[x21,y21,z21],[x22,y22,z122]],...]',
-        #                            ))
-    
+
     
     def get_netelement(self):
         return self._edges

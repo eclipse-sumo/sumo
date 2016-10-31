@@ -2499,6 +2499,7 @@ class Fancylines(Lines):
         n_vert = 6
         if style =='bevel':
             n_vert = 6
+            arrowstretch = 1.0
             
         if style =='triangle':
             n_vert = 3
@@ -4342,7 +4343,11 @@ class OGLcanvas(glcanvas.GLCanvas):
         """Initialize OpenGL for use in the window."""
         glClearColor(0, 0, 0, 1)
         
-
+        
+    def set_color_background(self, color):
+        glClearColor(color[0], color[1], color[2], color[3])
+        self.draw()
+        
     def OnReshape(self, width, height):
         """Reshape the OpenGL viewport based on the dimensions of the window."""
         #global g_Width, g_Height

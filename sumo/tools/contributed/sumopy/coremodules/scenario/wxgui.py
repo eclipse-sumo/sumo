@@ -88,7 +88,7 @@ class WxGui(ModuleGui):
         #menubar.append_menu( 'Scenario/import',
         #    bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
         #    )
-        menubar.append_item( 'Scenario/new',
+        menubar.append_item( 'Scenario/new...',
             self.on_create, 
             info='Create new, empty scenario.',
             bitmap = wx.ArtProvider.GetBitmap(wx.ART_NEW,wx.ART_MENU),
@@ -180,6 +180,7 @@ class WxGui(ModuleGui):
             del self._scenario
             self._scenario = scenariocreator.get_scenario()
             self._scenario.import_xml()
+            self._mainframe.browse_obj(self._scenario)
             # this should update all widgets for the new scenario!!
             #print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
@@ -210,7 +211,7 @@ class WxGui(ModuleGui):
             
             del self._scenario
             self._scenario = scenariocreator.get_scenario()
-            
+            self._mainframe.browse_obj(self._scenario)
             # this should update all widgets for the new scenario!!
             #print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
@@ -218,15 +219,14 @@ class WxGui(ModuleGui):
        
     
     def on_open(self, event=None):
-        #scenario = self.get_scenario()
         wildcards_all = "All files (*.*)|*.*"
-        wildcards_xml = "Python binary files (*.obj)|*.obj"
-        wildcards = wildcards_xml+"|"+wildcards_all
+        wildcards_obj = "Python binary files (*.obj)|*.obj"
+        wildcards = wildcards_obj+"|"+wildcards_all
         
         # Finally, if the directory is changed in the process of getting files, this
         # dialog is set up to change the current working directory to the path chosen.
         dlg = wx.FileDialog(
-            self._mainframe, message="Choose one or more poly files",
+            self._mainframe, message="Open scenario file",
             #defaultDir = scenario.get_workdirpath(), 
             #defaultFile = os.path.join(scenario.get_workdirpath(), scenario.format_ident()+'.obj'),
             wildcard=wildcards,
@@ -242,7 +242,7 @@ class WxGui(ModuleGui):
                 
                 del self._scenario
                 self._scenario = scenario.load_scenario(filepath, logger = self._mainframe.get_logger())#
-                
+                self._mainframe.browse_obj(self._scenario)
                 # this should update all widgets for the new scenario!!
                 #print 'call self._mainframe.refresh_moduleguis()'
                 self._mainframe.refresh_moduleguis()
@@ -256,22 +256,20 @@ class WxGui(ModuleGui):
         
      
     def on_save(self, event=None):
-        scenario = self.get_scenario()
-        cm.save_obj(scenario,scenario.get_rootfilepath()+'.obj', 
-                        is_not_save_parent=False)
+        scenario = self.get_scenario().save()
         if event:
             event.Skip()
                 
     def on_save_as(self, event=None):
         scenario = self.get_scenario()
         wildcards_all = "All files (*.*)|*.*"
-        wildcards_xml = "Python binary files (*.obj)|*.obj"
-        wildcards = wildcards_xml+"|"+wildcards_all
+        wildcards_obj = "Python binary files (*.obj)|*.obj"
+        wildcards = wildcards_obj+"|"+wildcards_all
         
         # Finally, if the directory is changed in the process of getting files, this
         # dialog is set up to change the current working directory to the path chosen.
         dlg = wx.FileDialog(
-            self._mainframe, message="Choose one or more poly files",
+            self._mainframe, message="Save scenario to file",
             defaultDir = scenario.get_workdirpath(), 
             defaultFile = scenario.get_rootfilepath()+'.obj',
             wildcard=wildcards,
@@ -286,8 +284,7 @@ class WxGui(ModuleGui):
             if len(filepath)>0:
                 # now set new filename and workdir 
                 
-                scenario.set_filepath(filepath)
-                cm.save_obj(scenario,filepath, is_not_save_parent=False)
+                scenario.save(filepath)
                 self._mainframe.refresh_moduleguis()
 
         # Destroy the dialog. Don't do this until you are done with it!

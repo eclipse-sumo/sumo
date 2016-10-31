@@ -154,6 +154,9 @@ class MainSplitter(wx.SplitterWindow):
         #self._viewtabs.Show(True)
         return view
     
+    def select_view(self, ind = 0):
+        self._viewtabs.ChangeSelection(ind)
+        
     def browse_obj(self, obj, **kwargs):
         self._objbrowser.change_obj(obj, **kwargs)
         
@@ -345,7 +348,8 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         return view
         
     
-                    
+    def select_view(self, ind = 0):
+        self._splitter.select_view(ind=ind)        
     
     def on_size(self,event=None):
         print 'Mainframe.on_size'

@@ -76,13 +76,13 @@ class WxGui(ModuleGui):
             bitmap = self.get_icon("Document_Import_24px.png"),
             )
             
-        menubar.append_item( 'network/import/sumo net.xml',
+        menubar.append_item( 'network/import/from sumo net.xml ...',
             self.on_import_sumonet, 
             info='Import network from sumo net.xml file.',
             bitmap = self.get_icon('icon_sumo_24px.png'),#,
             )
             
-        menubar.append_item( 'network/import/osm',
+        menubar.append_item( 'network/import/from osm.xml ...',
             self.on_import_osm, 
             info='Import network from osm files.',
             bitmap = self.get_icon('Files-Osm-icon_24.png'),#
@@ -98,29 +98,29 @@ class WxGui(ModuleGui):
             bitmap = self.get_icon('icon_sumo_24px.png'),#,
             )
         
-        menubar.append_item( 'network/edit with netedit',
+        menubar.append_item( 'network/edit with SUMO netedit...',
             self.on_netedit, 
             info="Edit network with SUMO's netedit.",
-            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+            bitmap = self.get_icon('netedit.png'),
             )
         
-        menubar.append_item( 'network/edit with netedit on map',
+        menubar.append_item( 'network/edit with SUMO netedit on map...',
             self.on_netedit_on_map, 
             info="Edit network with SUMO's netedit. In addition to the network, backround maps are shown. You need to download the maps before with landuse/import maps.",
-            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+            bitmap = self.get_icon('netedit.png'),
             )
             
-        menubar.append_item( 'network/show..',
+        menubar.append_item( 'network/show with SUMO GUI...',
             self.on_sumogui, 
             info="Show network with sumo-gui.",
-            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+            bitmap = self.get_icon('icon_sumo_24px.png'),#,
             )
                                 
-        menubar.append_item( 'network/refresh',
-            self.on_refresh, 
-            info='Refresh graph.',
-            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
-            )
+        #menubar.append_item( 'network/refresh',
+        #    self.on_refresh, 
+        #    info='Refresh graph.',
+        #    #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+        #    )
         
         menubar.append_item( 'network/clean nodes',
             self.on_clean_codes, 
@@ -129,17 +129,17 @@ class WxGui(ModuleGui):
             )
             
             
-        menubar.append_item( 'network/correct spread',
-            self.on_correct_spread, 
-            info='Corrects spread type for older versions.',
-            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
-            )
+        #menubar.append_item( 'network/correct spread',
+        #    self.on_correct_spread, 
+        #    info='Corrects spread type for older versions.',
+        #    #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+        #    )
         
-        menubar.append_item( 'network/correct endpoint',
-            self.on_correct_endpoint, 
-            info='Corrects send points for older versions.',
-            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
-            )
+        #menubar.append_item( 'network/correct endpoint',
+        #    self.on_correct_endpoint, 
+        #    info='Corrects send points for older versions.',
+        #    #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+        #    )
         menubar.append_item( 'network/clear network',
             self.on_clear_net, 
             info='This will clear the entire network.',
@@ -205,6 +205,7 @@ class WxGui(ModuleGui):
             
     def on_clean_codes(self,event = None):
         self._net.nodes.clean(is_reshape_edgelanes = True)
+        self._mainframe.browse_obj(self._net.nodes)
         self._mainframe.refresh_moduleguis()# this will also replace the drawing!!
         if event:
             event.Skip()
@@ -215,7 +216,7 @@ class WxGui(ModuleGui):
         
         canvas = self._neteditor.get_canvas()
         wx.CallAfter(canvas.zoom_tofit)
-        
+        self._mainframe.browse_obj(self._net)
         if event:
             event.Skip()
     
@@ -233,6 +234,7 @@ class WxGui(ModuleGui):
         self._mainframe.refresh_moduleguis()
         if event:
             event.Skip()       
+            
     def on_import_sumonet(self, event = None):
         # TODO: here we should actually replace the current network
         # so we would need a clear net method in scenario
@@ -259,12 +261,12 @@ class WxGui(ModuleGui):
             #del self._scenario
             #self._scenario = scenariocreator.get_scenario()
             
+            self._mainframe.browse_obj(self._net)
+            
             # this should update all widgets for the new scenario!!
             #print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
-        
-        if event:
-            event.Skip()
+ 
     
     def on_import_osm(self, event = None):
         # TODO: here we should actually replace the current network
@@ -289,15 +291,14 @@ class WxGui(ModuleGui):
             dlg.apply()
             dlg.Destroy()
             
-            #del self._scenario
-            #self._scenario = scenariocreator.get_scenario()
+            
+            self._mainframe.browse_obj(self._net.nodes)
             
             # this should update all widgets for the new scenario!!
             #print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
         
-        if event:
-            event.Skip()
+
             
     
     def on_export_sumonet(self, event = None):
@@ -324,7 +325,7 @@ class WxGui(ModuleGui):
         
         self._net.export_netxml(filepath)
         
-        event.Skip()
+
         
         
         

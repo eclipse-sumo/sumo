@@ -1,8 +1,9 @@
 import os, sys, string
+from collections import OrderedDict
 import numpy as np            
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlmanager as xm
+import agilepy.lib_base.xmlman as xm
 from agilepy.lib_base.misc import get_inversemap
 
 from coremodules.network.network import SumoIdsConf, MODES
@@ -442,7 +443,7 @@ class VehicleTypes(am.ArrayObjman):
                         capacity_persons = 4,
                         dist_min = 1.0, 
                         speed_max = 180.0/3.6, 
-                        mode = 'private', # specifies mode for demand
+                        mode = 'passenger', # specifies mode for demand
                         color = np.array((185,85,255,255),np.float32)/255.0,
                         shape_gui = 'passenger', 
                         impatience = 1.0,
@@ -464,7 +465,7 @@ class VehicleTypes(am.ArrayObjman):
                         number_persons = 1,
                         capacity_persons = 1,
                         dist_min = 0.5, 
-                        speed_max = 20.0/3.6, 
+                        speed_max = 18.0/3.6, 
                         mode = 'bicycle', # specifies mode for demand
                         impatience = 1.0,
                         emissionclass= 'HBEFA3/zero',
@@ -474,7 +475,7 @@ class VehicleTypes(am.ArrayObjman):
                         lanechange_coop = 1.0,
                         lanechange_gain = 1.0,
                         lanechange_rightkeeping = 1.0,
-                        times_boarding = 2.0,
+                        times_boarding = 20.0,
                         times_loading = 0.0,
                         sublane_alignment_lat = 'right',
                         sublane_speed_max_lat = 0.8,
@@ -483,9 +484,10 @@ class VehicleTypes(am.ArrayObjman):
                         sublane_pushyfactor= 0.0,
                         )
         
-        self.add_vtype('motorcycle',  
+        
+        self.add_vtype('vespa',  
                         accel = 4.5, 
-                        decel = 4.5, 
+                        decel = 7.5, 
                         sigma = 0.7, 
                         length = 1.5,
                         height = 1.7,
@@ -493,13 +495,13 @@ class VehicleTypes(am.ArrayObjman):
                         number_persons = 1,
                         capacity_persons = 1, 
                         dist_min = 0.5, 
-                        speed_max = 13.0, 
-                        mode = 'motorcycle', # specifies mode for demand
+                        speed_max = 60.0/3.6,
+                        mode = 'moped', # specifies mode for demand
                         impatience = 1.0,
                         emissionclass= 'HBEFA3/LDV_G_EU3',
                         color = np.array((205,92,0,255),np.float32)/255.0,
                         shape_gui = 'motorcycle', 
-                        times_boarding = 2.0,
+                        times_boarding = 20.0,
                         times_loading = 90.0,
                         sublane_alignment_lat = 'left',
                         sublane_speed_max_lat = 1.0,
@@ -507,7 +509,57 @@ class VehicleTypes(am.ArrayObjman):
                         sublane_alignment_eager= 0.9,
                         sublane_pushyfactor= 0.8,
                         )
-                                        
+                        
+        self.add_vtype('motorcycle',  
+                        accel = 4.5, 
+                        decel = 7.5, 
+                        sigma = 0.7, 
+                        length = 1.5,
+                        height = 1.7,
+                        width = 0.95,
+                        number_persons = 1,
+                        capacity_persons = 1, 
+                        dist_min = 0.5, 
+                        speed_max = 180.0/3.6, 
+                        mode = 'motorcycle', # specifies mode for demand
+                        impatience = 1.0,
+                        emissionclass= 'HBEFA3/LDV_G_EU3',
+                        color = np.array((205,92,0,255),np.float32)/255.0,
+                        shape_gui = 'motorcycle', 
+                        times_boarding = 20.0,
+                        times_loading = 90.0,
+                        sublane_alignment_lat = 'left',
+                        sublane_speed_max_lat = 1.0,
+                        sublane_gap_min_lat = 0.12,
+                        sublane_alignment_eager= 0.9,
+                        sublane_pushyfactor= 0.8,
+                        )
+                        
+        
+        
+        self.add_vtype('taxi1',  
+                        accel = 1.9, 
+                        decel = 3.5, 
+                        sigma = 0.5, 
+                        length = 5.0, 
+                        height = 1.80,
+                        width = 1.8,
+                        number_persons = 1,
+                        capacity_persons = 4,
+                        dist_min = 1.0, 
+                        speed_max = 180.0/3.6, 
+                        mode = 'taxi', # specifies mode for demand
+                        color = np.array((185,185,255,255),np.float32)/255.0,
+                        shape_gui = 'passenger/sedan', 
+                        impatience = 1.0,
+                        emissionclass= 'HBEFA3/PC',
+                        times_boarding = 30.0,
+                        times_loading = 90.0,
+                        sublane_alignment_lat = 'center',
+                        sublane_speed_max_lat = 0.8,
+                        sublane_gap_min_lat = 0.12,
+                        )  
+                                                      
         self.add_vtype('bus',  
                         accel = 1.2, 
                         decel = 4.0, 
@@ -524,7 +576,7 @@ class VehicleTypes(am.ArrayObjman):
                         emissionclass= 'HBEFA3/Bus',
                         color = np.array((255,192,0,255),np.float32)/255.0,
                         shape_gui = 'bus', 
-                        times_boarding = 1.5,
+                        times_boarding = 2.0,
                         times_loading = 90.0,
                         sublane_alignment_lat = 'center',
                         sublane_speed_max_lat = 0.5,
@@ -548,7 +600,7 @@ class VehicleTypes(am.ArrayObjman):
                         emissionclass= 'HBEFA3/Bus',
                         color = np.array((255,192,255,255),np.float32)/255.0,
                         shape_gui = 'bus/flexible', 
-                        times_boarding = 1.5,
+                        times_boarding = 2.0,
                         times_loading = 90.0,
                         sublane_alignment_lat = 'center',
                         sublane_speed_max_lat = 0.5,
@@ -557,6 +609,7 @@ class VehicleTypes(am.ArrayObjman):
                         )
         
         
+                        
         self.add_vtype('tram1',  
                         accel = 1.0, 
                         decel = 3.0, 
@@ -604,6 +657,121 @@ class VehicleTypes(am.ArrayObjman):
                         sublane_alignment_eager = 1000000.0,
                         )
                                                         
+        self.add_vtype('van1',  
+                        accel = 1.9, 
+                        decel = 3.5, 
+                        sigma = 0.5, 
+                        length = 5.0, 
+                        height = 2.50,
+                        width = 1.9,
+                        number_persons = 1,
+                        capacity_persons = 2,
+                        dist_min = 1.0, 
+                        speed_max = 100.0/3.6, 
+                        mode = 'delivery', # specifies mode for demand
+                        color = np.array((185,185,255,255),np.float32)/255.0,
+                        shape_gui = 'passenger/van', 
+                        impatience = 1.0,
+                        emissionclass= 'HBEFA3/LDV_D_EU3',
+                        times_boarding = 5.0,
+                        times_loading = 90.0,
+                        sublane_alignment_lat = 'center',
+                        sublane_speed_max_lat = 1.0,
+                        sublane_gap_min_lat = 0.12,
+                        )
+        
+        self.add_vtype('truck',  
+                        accel = 1.5, 
+                        decel = 2.5, 
+                        sigma = 0.5, 
+                        length = 8.0, 
+                        height = 3.50,
+                        width = 2.0,
+                        number_persons = 1,
+                        capacity_persons = 2,
+                        dist_min = 1.0, 
+                        speed_max = 90.0/3.6, 
+                        mode = 'truck', # specifies mode for demand
+                        color = np.array((185,185,255,255),np.float32)/255.0,
+                        shape_gui = 'truck', 
+                        impatience = 1.0,
+                        emissionclass= 'HBEFA3/HDV_D_EU2',
+                        times_boarding = 5.0,
+                        times_loading = 180.0,
+                        sublane_alignment_lat = 'center',
+                        sublane_speed_max_lat = 1.0,
+                        sublane_gap_min_lat = 0.12,
+                        )
+        
+        self.add_vtype('truck_semitrailer',  
+                        accel = 1.0, 
+                        decel = 2.0, 
+                        sigma = 0.5, 
+                        length = 10.0, 
+                        height = 4.50,
+                        width = 2.0,
+                        number_persons = 1,
+                        capacity_persons = 2,
+                        dist_min = 1.0, 
+                        speed_max = 90.0/3.6, 
+                        mode = 'truck', # specifies mode for demand
+                        color = np.array((185,185,255,255),np.float32)/255.0,
+                        shape_gui = 'truck/semitrailer', 
+                        impatience = 1.0,
+                        emissionclass= 'HBEFA3/HDV_D_EU2',
+                        times_boarding = 5.0,
+                        times_loading = 300.0,
+                        sublane_alignment_lat = 'center',
+                        sublane_speed_max_lat = 1.0,
+                        sublane_gap_min_lat = 0.12,
+                        )
+                        
+        self.add_vtype('truck_trailer',  
+                        accel = 1.0, 
+                        decel = 2.0, 
+                        sigma = 0.5, 
+                        length = 12.0, 
+                        height = 3.50,
+                        width = 2.0,
+                        number_persons = 1,
+                        capacity_persons = 2,
+                        dist_min = 1.0, 
+                        speed_max = 90.0/3.6, 
+                        mode = 'truck', # specifies mode for demand
+                        color = np.array((185,185,255,255),np.float32)/255.0,
+                        shape_gui = 'truck/trailer', 
+                        impatience = 1.0,
+                        emissionclass= 'HBEFA3/HDV_D_EU2',
+                        times_boarding = 5.0,
+                        times_loading = 600.0,
+                        sublane_alignment_lat = 'center',
+                        sublane_speed_max_lat = 1.0,
+                        sublane_gap_min_lat = 0.12,
+                        )
+                                        
+        self.add_vtype('evehicle1',  
+                        accel = 2.5, 
+                        decel = 2.5, 
+                        sigma = 1.0, 
+                        length = 3.5,
+                        width = 1.6, 
+                        height = 1.7,
+                        number_persons = 1,
+                        capacity_persons = 4,
+                        dist_min = 0.5, 
+                        speed_max = 10.0, 
+                        emissionclass= 'HBEFA3/zero',
+                        mode = 'evehicle', # specifies mode for demand
+                        color = np.array((255,240,0,255),np.float32)/255.0, 
+                        shape_gui = 'evehicle',
+                        times_boarding = 1.5,
+                        times_loading = 20.0,
+                        sublane_alignment_lat = 'center',
+                        sublane_speed_max_lat = 0.5,
+                        sublane_gap_min_lat = 0.24, 
+                        sublane_alignment_eager = 1000000.0,
+                        )
+                        
         self.add_vtype('PRT',  
                         accel = 2.5, 
                         decel = 2.5, 
@@ -616,16 +784,19 @@ class VehicleTypes(am.ArrayObjman):
                         dist_min = 0.5, 
                         speed_max = 10.0, 
                         emissionclass= 'HBEFA3/zero',
-                        mode = 'taxi', # specifies mode for demand
+                        mode = 'custom1', # specifies mode for demand
                         color = np.array((255,240,0,255),np.float32)/255.0, 
                         shape_gui = 'evehicle',
                         times_boarding = 1.5,
-                        times_loading = 90.0,
+                        times_loading = 20.0,
                         sublane_alignment_lat = 'center',
                         sublane_speed_max_lat = 0.5,
                         sublane_gap_min_lat = 0.24, 
                         sublane_alignment_eager = 1000000.0,
                         )
+                        
+        
+                        
     
     
     def select_by_mode(self, id_mode=None, mode=None, is_sumoid = False):
@@ -647,10 +818,26 @@ class VehicleTypes(am.ArrayObjman):
     #    return self.select_ids(self.modes.value == mode)
     
     def get_modes(self):
+        """
+        Returns a list of mode ids for which there are 
+        currently vehicles in the database.
+        """
         #print 'getClasses',self._types
-        return list(set(self.modes.value))
+        return list(set(self.ids_mode.value))
             
-    
+    def get_modechoices(self):
+        """
+        Returns a dictionary of modes for which there are 
+        currently vehicles in the database.
+        Key is mode name and value is mode ID
+        """
+        mode_vtypes = self.get_modes()
+        mode_choice = OrderedDict()
+        for mode, id_mode in MODES.iteritems():
+            if id_mode in mode_vtypes:
+                mode_choice[mode] = id_mode
+        return  mode_choice   
+                
     def _write_xml_body(self, fd,  indent, objconfigs, idcolconfig_include_tab,colconfigs, 
                         objcolconfigs,
                         xmltag_item, attrconfig_id, xmltag_id, ids,ids_xml):

@@ -244,7 +244,16 @@ class ToolPalett(wx.Panel):
             if tool.get_ident()==newtool.get_ident():
                 return True
         return False
-        
+    
+    def get_tool_by_ident(self, ident):
+        #print 'get_tool_by_ident',ident
+        for tool,b in  self._id_to_tool.values():
+            #print '  tool',tool.get_ident()
+            if tool.get_ident() == ident:
+                return tool
+            
+        return None
+            
     def add_tool(self,tool):
         """
         Add a tool to the pallet. 
@@ -419,7 +428,7 @@ class ToolsPanel(wx.Panel):
     """
     Shows a toolpallet with different tools and an options panel.
     """
-    def __init__(self, parent, size = wx.DefaultSize, **kwargs):
+    def __init__(self, parent, size = wx.DefaultSize, size_title = 150,  **kwargs):
         
         #size = wx.DefaultSize
         #size = (300,-1)
@@ -437,7 +446,7 @@ class ToolsPanel(wx.Panel):
         # create initial option panel
         self._optionspanel = wx.Window(self)
         self._optionspanel.SetBackgroundColour("pink")
-        wx.StaticText(self._optionspanel, -1, "Tool Options", (150,-1))
+        wx.StaticText(self._optionspanel, -1, "Tool Options", (size_title,-1))
         
         # OK, but toolspane changes size with optionpanel
         #sizer.Add(self._toolspalett,0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)
@@ -491,7 +500,10 @@ class ToolsPanel(wx.Panel):
         
         # set options of current tool
         self.refresh_optionspanel(tool)
-                            
+    
+    def get_tool_by_ident(self, ident):
+        return self._toolspalett.get_tool_by_ident(ident)
+                                
     def refresh_optionspanel(self, tool):
         sizer=self.GetSizer()
         sizer.Remove(1)

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<testobj2>
-  <child1  netfilepath="pathtofile" workdirpath="pathtodir" access="bus bike tram" allowed="0" emissiontype="Euro 0" x="1.99"/>
-  <testobj3>
-  </testobj3>
-</testobj2>

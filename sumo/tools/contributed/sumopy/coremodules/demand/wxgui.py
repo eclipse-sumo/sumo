@@ -514,36 +514,27 @@ class WxGui(ModuleGui):
         
             
 #-------------------------------------------------------------------------------
-        
-        menubar.append_menu( 'demand/virtual population',
-                            bitmap = self.get_icon("icon_virtualpopulation.jpg")
-                            )   
-        menubar.append_item( 'demand/virtual population/create from O-D matrix',
-            self.on_create_pop_from_ods, 
-            info='Generates population from O-D matrix data.',
-            #bitmap = self.get_icon("Document_Import_24px.png"),
-            )
-        menubar.append_item( 'demand/virtual population/create plans for privates',
-            self.on_make_plans_private, 
-            info='create plans for private transport.',
-            #bitmap = self.get_icon("Document_Import_24px.png"),
-            )
-            
-        menubar.append_item( 'demand/virtual population/Export plans to SUMO xml...',
-            self.on_write_plans_to_sumoxml, 
-            info='Export all plans to SUMO routes XML format.',
-            #bitmap = self.get_icon("Document_Import_24px.png"),
-            )           
-        #menubar.append_item(    'Demand/import from poly file...', 
-        #                        self.on_import_poly, info='Import sumo poly xml file.',
-        #                        #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
-        #                        bitmap = self.get_icon("icon_sumo_24px.png"),
-        #                        )
-        #menubar.append_item( 'Demand/import from osm...',
-        #    self.on_import_osm, 
-        #    info='Import landuse from osm files.',
-        #    bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-        #    )
+        if 0:
+            menubar.append_menu( 'demand/virtual population',
+                                bitmap = self.get_icon("icon_virtualpopulation.jpg")
+                                )   
+            menubar.append_item( 'demand/virtual population/create from O-D matrix',
+                self.on_create_pop_from_ods, 
+                info='Generates population from O-D matrix data.',
+                #bitmap = self.get_icon("Document_Import_24px.png"),
+                )
+            menubar.append_item( 'demand/virtual population/create plans for privates',
+                self.on_make_plans_private, 
+                info='create plans for private transport.',
+                #bitmap = self.get_icon("Document_Import_24px.png"),
+                )
+                
+            menubar.append_item( 'demand/virtual population/Export plans to SUMO xml...',
+                self.on_write_plans_to_sumoxml, 
+                info='Export all plans to SUMO routes XML format.',
+                #bitmap = self.get_icon("Document_Import_24px.png"),
+                )           
+
 
 ##        (self._menuitem_draw_route, id_item,) = menubar.append_item(
 ##            'plugins/traces/draw selected route in network', 
@@ -561,19 +552,23 @@ class WxGui(ModuleGui):
 ##        
     def on_clear_vtypes(self, event=None):
         self._demand.vtypes.clear_vtypes()
+        self._mainframe.browse_obj(self._demand.vtypes)
         if event:  event.Skip()
         
     def on_load_vtypes_defaults(self, event=None):
         self._demand.vtypes.clear_vtypes()
         self._demand.vtypes.add_vtypes_default()
+        self._mainframe.browse_obj(self._demand.vtypes)
         if event:  event.Skip()
         
     def on_clear_trips(self, event=None):
         self._demand.trips.clear_trips()
+        self._mainframe.browse_obj(self._demand.trips)
         if event:  event.Skip()
     
     def on_clear_routes(self, event=None):
         self._demand.trips.clear_routes()
+        self._mainframe.browse_obj(self._demand.trips)
         if event:  event.Skip()    
             
     def on_create_pop_from_ods(self, event=None):
@@ -581,6 +576,7 @@ class WxGui(ModuleGui):
         Generates virtual population from ODM matrix.
         """
         self._demand.virtualpop.create_pop_from_ods()
+        self._mainframe.browse_obj(self._demand.virtualpop)
         event.Skip() 
          
     def on_make_plans_private(self, event=None):
@@ -588,6 +584,7 @@ class WxGui(ModuleGui):
         Generates virtual population from ODM matrix.
         """
         self._demand.virtualpop.make_plans_private()
+        self._mainframe.browse_obj(self._demand.virtualpop)
         event.Skip()           
     
     def on_write_plans_to_sumoxml(self, event = None):
@@ -617,6 +614,7 @@ class WxGui(ModuleGui):
         dlg = odgui.AddOdDialog(self._mainframe, self._demand.odintervals)
         dlg.Show()
         dlg.MakeModal(True) 
+        self._mainframe.browse_obj(self._demand.odintervals)
         #self.scenariopanel.refresh_panel(self.scenario)
     
     def on_generate_odtrips(self, event=None):
@@ -624,6 +622,7 @@ class WxGui(ModuleGui):
         Generates trips from origin to destination zone from current OD matrices.
         """
         self._demand.odintervals.generate_trips()
+        self._mainframe.browse_obj(self._demand.trips)
         event.Skip()
     
     
@@ -633,6 +632,7 @@ class WxGui(ModuleGui):
         Generates trips from origin to destination zone from current OD matrices.
         """
         self._demand.odintervals.clear_od_trips()
+        self._mainframe.browse_obj(self._demand.odintervals)
         event.Skip()
         
     def on_import_turnflows(self, event=None):
@@ -656,7 +656,7 @@ class WxGui(ModuleGui):
             # apply current widget values to scenario instance
             dlg.apply()
             dlg.Destroy()
-            
+            self._mainframe.browse_obj(self._demand.turnflows)
             #del self._scenario
             #self._scenario = scenariocreator.get_scenario()
             #self._scenario.import_xml()
@@ -672,6 +672,7 @@ class WxGui(ModuleGui):
         Makes sure that sum of turn probabilities from an edge equals 1.
         """
         self._demand.turnflows.normalize_turnprobabilities()
+        self._mainframe.browse_obj(self._demand.turnflows)
         if event:
             event.Skip() 
     
@@ -680,6 +681,7 @@ class WxGui(ModuleGui):
         This function will apply the JTROUTER for each transport mode separately.
         """
         self._demand.turnflows.clear_turnflows()
+        self._mainframe.browse_obj(self._demand.turnflows)
         if event:
             event.Skip()
             
@@ -688,7 +690,8 @@ class WxGui(ModuleGui):
         """Generates routes, based on flow information and turnflow probabilities.
         This function will apply the JTROUTER for each transport mode separately.
         """
-        self._demand.turnflows.turnflows_to_routes()
+        self._demand.turnflows.turnflows_to_routes(is_clear_trips = False)
+        self._mainframe.browse_obj(self._demand.trips)
         if event:
             event.Skip() 
                       
@@ -697,7 +700,7 @@ class WxGui(ModuleGui):
         """
         #self._demand.trips.clear_routes()
         self._demand.trips.route(is_export_net = True, is_export_trips = True)
-        
+        self._mainframe.browse_obj(self._demand.trips)
         #filepath = self._demand.trips.get_routefilepath()
         #defaultFile = os.path.basename(filepath)
         #dirpath = os.path.dirname(filepath)
@@ -739,7 +742,7 @@ class WxGui(ModuleGui):
         
         self._demand.trips.import_trips_xml( filepath, is_clear_trips = False, 
                                               is_generate_ids = True)
-    
+        self._mainframe.browse_obj(self._demand.trips)
         
         
     def on_import_triproutes_xml(self, event = None):
@@ -763,6 +766,7 @@ class WxGui(ModuleGui):
         self._demand.trips.import_routes_xml( filepath, is_clear_trips = False, 
                                               is_generate_ids = True,
                                               is_add = False)
+        self._mainframe.browse_obj(self._demand.trips)
     
         
                                   
@@ -789,6 +793,7 @@ class WxGui(ModuleGui):
         self._demand.trips.import_routes_xml(filepath,is_clear_trips = False, 
                                                 is_generate_ids = False,
                                                 is_add = True)
+        self._mainframe.browse_obj(self._demand.trips)
                                                                                                     
     def on_export_sumotrips(self, event = None):
         #print 'on_export_sumotrips'
