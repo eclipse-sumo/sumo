@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Oct 31 12:48:36 2016 by SUMO netconvert Version dev-SVN-r21846
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="1000.00,100.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,-100.00,1000.00,100.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="rail" speed="13.89" length="6.20" shape="998.35,101.45 998.35,95.25"/>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" allow="rail" speed="23.61" length="5.00" shape="998.35,101.45 998.54,100.09 999.12,99.12 1000.09,98.54 1001.45,98.35"/>
+    </edge>
+    <edge id=":C_2" function="internal">
+        <lane id=":C_2_0" index="0" allow="rail" speed="23.61" length="5.00" shape="995.25,98.35 996.61,98.16 997.57,97.57 998.16,96.61 998.35,95.25"/>
+    </edge>
+    <edge id=":C_3" function="internal">
+        <lane id=":C_3_0" index="0" allow="rail" speed="33.33" length="6.20" shape="995.25,98.35 1001.45,98.35"/>
+    </edge>
+
+    <edge id="CE" from="C" to="E" priority="2">
+        <lane id="CE_0" index="0" allow="rail" speed="33.33" length="998.55" shape="1001.45,98.35 2000.00,98.35"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="3">
+        <lane id="CS_0" index="0" allow="rail" speed="13.89" length="95.25" shape="998.35,95.25 998.35,0.00"/>
+    </edge>
+    <edge id="NC" from="N" to="C" priority="3">
+        <lane id="NC_0" index="0" allow="rail" speed="13.89" length="98.55" shape="998.35,200.00 998.35,101.45"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2">
+        <lane id="WC_0" index="0" allow="rail" speed="33.33" length="995.25" shape="0.00,98.35 995.25,98.35"/>
+    </edge>
+
+    <junction id="C" type="rail_crossing" x="1000.00" y="100.00" incLanes="NC_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0" shape="996.75,101.45 999.95,101.45 1001.45,99.95 1001.45,96.75 999.95,95.25 996.75,95.25 995.25,96.75 995.25,99.95">
+        <request index="0" response="0000" foes="1100" cont="0"/>
+        <request index="1" response="0000" foes="1000" cont="0"/>
+        <request index="2" response="0001" foes="0001" cont="0"/>
+        <request index="3" response="0011" foes="0011" cont="0"/>
+    </junction>
+    <junction id="E" type="unregulated" x="2000.00" y="100.00" incLanes="CE_0" intLanes="" shape="2000.00,96.75 2000.00,99.95"/>
+    <junction id="N" type="unregulated" x="1000.00" y="200.00" incLanes="" intLanes="" shape="999.95,200.00 996.75,200.00"/>
+    <junction id="S" type="unregulated" x="1000.00" y="0.00" incLanes="CS_0" intLanes="" shape="996.75,0.00 999.95,0.00"/>
+    <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,96.75"/>
+
+    <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="-1" dir="s" state="M"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="-1" dir="l" state="M"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="-1" dir="r" state="M"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_3_0" tl="C" linkIndex="-1" dir="s" state="M"/>
+
+    <connection from=":C_0" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_1" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_2" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_3" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
