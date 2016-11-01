@@ -236,8 +236,14 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("window-size", new Option_String());
     oc.addDescription("window-size", "Visualisation", "Create initial window with the given x,y size");
 
+    oc.doRegister("window-pos", new Option_String());
+    oc.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
+
     oc.doRegister("additionals-output", new Option_String());
     oc.addDescription("additionals-output", "Output", "default value for additionals output file");
+
+    oc.doRegister("gui-testing", new Option_Bool(false));
+    oc.addDescription("gui-testing", "Visualisation", "Enable ovelay for screen recognition");
 
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 

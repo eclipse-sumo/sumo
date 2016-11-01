@@ -37,6 +37,7 @@
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/common/RGBColor.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
@@ -136,7 +137,9 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModesCombo(0),
     myEditModeNames(),
     myUndoList(undoList),
-    myCurrentPoly(0) {
+    myCurrentPoly(0),
+    myTestingMode(OptionsCont::getOptions().getBool("gui-testing"))
+{
     // view must be the final member of actualParent
     reparent(actualParent);
 
@@ -394,6 +397,22 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         drawDecals();
         if (myVisualizationSettings->showGrid) {
             paintGLGrid();
+        }
+        if (myTestingMode) {
+            // draw pink square in the upper left corner on top of everything
+            glPushMatrix();
+            const SUMOReal size = p2m(32);
+            Position center = screenPos2NetPos(8, 8);
+            GLHelper::setColor(RGBColor::MAGENTA);
+            glTranslated(center.x(), center.y(), GLO_MAX - 1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glBegin(GL_QUADS);
+            glVertex2d(0, 0);
+            glVertex2d(0, -size);
+            glVertex2d(size, -size);
+            glVertex2d(size, 0);
+            glEnd();
+            glPopMatrix();
         }
     }
     glLineWidth(1);

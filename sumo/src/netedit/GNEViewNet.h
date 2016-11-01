@@ -372,6 +372,9 @@ private:
     /// @brief current polygon
     GNEPoly* myCurrentPoly;
 
+    /// @brief testing mode
+    bool myTestingMode;
+
 private:
     /// @brief set edit mode
     void setEditMode(EditMode mode);
