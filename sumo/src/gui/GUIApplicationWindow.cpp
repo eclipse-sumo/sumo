@@ -314,7 +314,7 @@ GUIApplicationWindow::create() {
     myCartesianFrame->setWidth(width);
     myGeoFrame->setWidth(width);
 
-    show(PLACEMENT_SCREEN);
+    show(PLACEMENT_DEFAULT);
     if (!OptionsCont::getOptions().isSet("window-size")) {
         if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 1) {
             maximize();

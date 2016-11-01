@@ -214,9 +214,24 @@ GUIMainWindow::setWindowSizeAndPos() {
             windowHeight = TplConvert::_str2int(windowSize[1]);
         }
     }
-    if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0) {
-        setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
-        setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
+    if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0 || oc.isSet("window-pos")) {
+        // when restoring previous pos, make sure the window fits fully onto the current screen
+        int x = MAX2(0, MIN2(getApp()->reg().readIntEntry("SETTINGS", "x", 150), getApp()->getRootWindow()->getWidth() - windowWidth));
+        int y = MAX2(0, MIN2(getApp()->reg().readIntEntry("SETTINGS", "y", 150), getApp()->getRootWindow()->getHeight() - windowHeight));
+        if (oc.isSet("window-pos")) {
+            std::vector<std::string> windowPos = oc.getStringVector("window-pos");
+            if (windowPos.size() != 2
+                    || !TplCheck::_str2int(windowPos[0])
+                    || !TplCheck::_str2int(windowPos[1])
+               ) {
+                WRITE_ERROR("option window-pos requires INT,INT");
+            } else {
+                x = TplConvert::_str2int(windowPos[0]);
+                y = TplConvert::_str2int(windowPos[1]);
+            }
+        }
+        setX(x);
+        setY(y);
         setWidth(windowWidth);
         setHeight(windowHeight);
     }

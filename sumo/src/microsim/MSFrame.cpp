@@ -408,6 +408,9 @@ MSFrame::fillOptions() {
     oc.doRegister("window-size", new Option_String());
     oc.addDescription("window-size", "GUI Only", "Create initial window with the given x,y size");
 
+    oc.doRegister("window-pos", new Option_String());
+    oc.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
+
 #ifdef HAVE_OSG
     oc.doRegister("osg-view", new Option_Bool(false));
     oc.addDescription("osg-view", "GUI Only", "Start with an OpenSceneGraph view instead of the regular 2D view");
