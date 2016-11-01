@@ -1479,7 +1479,7 @@ GNEViewNet::onCmdNodeShape(FXObject*, FXSelector, void*) {
                 }
                 PositionVector shape = junction->getNBNode()->getShape();
                 shape.closePolygon();
-                myCurrentPoly = new GNEPoly(myNet, junction, "node_shape:" + junction->getMicrosimID(), "node shape",
+                myCurrentPoly = new GNEPoly(myNet, junction, "junction_shape:" + junction->getMicrosimID(), "junction shape",
                                             shape, false, RGBColor::GREEN, GLO_POLYGON);
                 myCurrentPoly->setLineWidth(0.3);
                 myNet->getVisualisationSpeedUp().addAdditionalGLObject(myCurrentPoly);
@@ -1605,7 +1605,7 @@ GNEViewNet::buildEditModeControls() {
     myShowConnections = new FXMenuCheck(myToolbar, "show connections\t\tToggle show connections over junctions", this, MID_GNE_SHOW_CONNECTIONS);
     myShowConnections->setCheck(false);
 
-    myExtendToEdgeNodes = new FXMenuCheck(myToolbar, "auto-select nodes\t\tToggle whether selecting multiple edges should automatically select their nodes", this, 0);
+    myExtendToEdgeNodes = new FXMenuCheck(myToolbar, "auto-select junctions\t\tToggle whether selecting multiple edges should automatically select their junctions", this, 0);
 
     myWarnAboutMerge = new FXMenuCheck(myToolbar, "ask for merge\t\tAsk for confirmation before merging junctions.", this, 0);
     myWarnAboutMerge->setCheck(true);
