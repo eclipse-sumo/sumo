@@ -57,6 +57,10 @@ def get_options(args=None):
                          help="only modify departure times of vehicles departing on the given edges")
     optParser.add_option("--depart-edges.file", dest="depart_edges_file",
                          help="only modify departure times of vehicles departing on edges or lanes in the given selection file")
+    optParser.add_option("--arrival-edges", dest="arrival_edges",
+                         help="only modify departure times of vehicles arriving on the given edges")
+    optParser.add_option("--arrival-edges.file", dest="arrival_edges_file",
+                         help="only modify departure times of vehicles arriving on edges or lanes in the given selection file")
 
     (options, args) = optParser.parse_args(args=args)
     if options.infile is None or options.outfile is None:
@@ -90,6 +94,21 @@ def get_options(args=None):
             else:
                 options.depart_edges.append(line)
 
+    if options.arrival_edges is not None:
+        options.arrival_edges = options.arrival_edges.split(',')
+
+    if options.arrival_edges_file is not None:
+        if options.arrival_edges is None:
+            options.arrival_edges = []
+        for line in open(options.arrival_edges_file):
+            line = line.strip()
+            if line.startswith("edge:"):
+                options.arrival_edges.append(line[5:])
+            elif line.startswith("lane:"):
+                options.arrival_edges.append(line[5:-2])
+            else:
+                options.arrival_edges.append(line)
+
     return options
 
 
@@ -104,12 +123,14 @@ def shiftInterval(val, interval):
 def main(options):
     # cache stand-alone routes
     routesDepart = {}  # first edge for each route
+    routesArrival = {}  # last edge for each route
 
     with codecs.open(options.outfile, 'w', encoding='utf8') as out:
         out.write("<routes>\n")
         for route in parse(options.infile, "route"):
             if route.hasAttribute('id') and route.id is not None:
                 routesDepart[route.id] = route.edges.split()[0]
+                routesArrival[route.id] = route.edges.split()[-1]
                 out.write(route.toXML('    '))
 
         for obj in parse(options.infile, ['vehicle', 'trip', 'flow', 'vType'],
@@ -120,6 +141,8 @@ def main(options):
             else:
                 if options.modify_ids:
                     obj.id += options.name_suffix
+
+                # compute depart-edge filter
                 departEdge = None
                 if options.depart_edges is not None:
                     # determine the departEdge of the current vehicle
@@ -139,7 +162,31 @@ def main(options):
                         else:
                             # route child element
                             departEdge = obj.route[0].edges.split()[0]
-                if departEdge is None or departEdge in options.depart_edges:
+
+                # compute arrival-edge filter
+                arrivalEdge = None
+                if options.arrival_edges is not None:
+                    # determine the arrivalEdge of the current vehicle
+                    if obj.name == 'trip':
+                        arrivalEdge = obj.to
+                    elif obj.name == 'vehicle':
+                        if obj.hasAttribute('route') and obj.route is not None:
+                            arrivalEdge = routesArrival[obj.route]
+                        else:
+                            # route child element
+                            arrivalEdge = obj.route[0].edges.split()[-1]
+                    elif obj.name == 'flow':
+                        if obj.hasAttribute('to') and obj.attr_from is not None:
+                            arrivalEdge = obj.to
+                        elif obj.hasAttribute('route') and obj.route is not None:
+                            arrivalEdge = routesArrival[obj.route]
+                        else:
+                            # route child element
+                            arrivalEdge = obj.route[0].edges.split()[-1]
+
+                # modify departure time
+                if ((departEdge is None or departEdge in options.depart_edges)
+                        and (arrivalEdge is None or arrivalEdge in options.arrival_edges)):
                     if options.offset is not None:
                         # shift by offset
                         if obj.name in ['trip', 'vehicle']:
