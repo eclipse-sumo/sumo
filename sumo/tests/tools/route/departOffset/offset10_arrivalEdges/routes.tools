@@ -1,0 +1,14 @@
+<routes>
+    <route edges="a b c d" id="route0"/>
+    <vType id="foo" sigma="0"/>
+    <vehicle color="red" depart="11" id="veh0">
+        <route edges="c e f g"/>
+    </vehicle>
+    <vehicle color="red" depart="2" id="veh1" route="route0"/>
+    <trip color="blue" depart="3" from="h" id="trip0" to="j"/>
+    <flow begin="4" color="green" end="40" from="k" id="flow0" to="l"/>
+    <flow begin="4.5" color="green" end="40" id="flow1" route="route0"/>
+    <flow begin="15" color="green" end="50" id="flow2">
+        <route edges="c e f g"/>
+    </flow>
+</routes>
