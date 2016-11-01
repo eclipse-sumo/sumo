@@ -409,7 +409,7 @@ MSFrame::fillOptions() {
     oc.addDescription("window-size", "GUI Only", "Create initial window with the given x,y size");
 
     oc.doRegister("window-pos", new Option_String());
-    oc.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
+    oc.addDescription("window-pos", "GUI Only", "Create initial window at the given x,y position");
 
 #ifdef HAVE_OSG
     oc.doRegister("osg-view", new Option_Bool(false));

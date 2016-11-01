@@ -486,6 +486,9 @@
         <!-- Create initial window with the given x,y size -->
         <window-size value="" type="STR"/>
 
+        <!-- Create initial window at the given x,y position -->
+        <window-pos value="" type="STR"/>
+
     </gui_only>
 
 </configuration>

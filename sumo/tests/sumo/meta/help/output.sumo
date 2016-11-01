@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r21734
+SUMO Version dev-SVN-r21865
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -310,6 +310,8 @@ GUI Only Options:
   -T, --disable-textures               Do not load background pictures
   --window-size STR                    Create initial window with the given x,y
                                          size
+  --window-pos STR                     Create initial window at the given x,y
+                                         position
 
 
 Examples:

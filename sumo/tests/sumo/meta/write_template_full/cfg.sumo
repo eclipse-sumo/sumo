@@ -192,6 +192,7 @@
         <demo value="false" synonymes="D" type="BOOL" help="Restart the simulation after ending (demo mode)"/>
         <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
+        <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
     </gui_only>
 
 </configuration>
