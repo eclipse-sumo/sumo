@@ -59,8 +59,6 @@
 
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/TplCheck.h>
-#include <utils/common/TplConvert.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
@@ -292,27 +290,7 @@ GUIApplicationWindow::dependentBuild() {
 
 void
 GUIApplicationWindow::create() {
-    int windowWidth = getApp()->reg().readIntEntry("SETTINGS", "width", 600);
-    int windowHeight = getApp()->reg().readIntEntry("SETTINGS", "height", 400);
-    const OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("window-size")) {
-        std::vector<std::string> windowSize = oc.getStringVector("window-size");
-        if (windowSize.size() != 2
-                || !TplCheck::_str2int(windowSize[0])
-                || !TplCheck::_str2int(windowSize[1])) {
-            WRITE_ERROR("option window-size requires INT,INT");
-        } else {
-            windowWidth = TplConvert::_str2int(windowSize[0]);
-            windowHeight = TplConvert::_str2int(windowSize[1]);
-        }
-    }
-
-    if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0) {
-        setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
-        setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
-        setWidth(windowWidth);
-        setHeight(windowHeight);
-    }
+    setWindowSizeAndPos();
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
     myMenuBarDrag->create();

@@ -38,6 +38,9 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/TplCheck.h>
+#include <utils/common/TplConvert.h>
+#include <utils/options/OptionsCont.h>
 #include "GUIAppEnum.h"
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
@@ -193,6 +196,30 @@ GUIMainWindow::getActiveView() const {
         return w->getView();
     }
     return 0;
+}
+
+void
+GUIMainWindow::setWindowSizeAndPos() {
+    int windowWidth = getApp()->reg().readIntEntry("SETTINGS", "width", 600);
+    int windowHeight = getApp()->reg().readIntEntry("SETTINGS", "height", 400);
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("window-size")) {
+        std::vector<std::string> windowSize = oc.getStringVector("window-size");
+        if (windowSize.size() != 2
+                || !TplCheck::_str2int(windowSize[0])
+                || !TplCheck::_str2int(windowSize[1])) {
+            WRITE_ERROR("option window-size requires INT,INT");
+        } else {
+            windowWidth = TplConvert::_str2int(windowSize[0]);
+            windowHeight = TplConvert::_str2int(windowSize[1]);
+        }
+    }
+    if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0) {
+        setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
+        setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
+        setWidth(windowWidth);
+        setHeight(windowHeight);
+    }
 }
 
 /****************************************************************************/
