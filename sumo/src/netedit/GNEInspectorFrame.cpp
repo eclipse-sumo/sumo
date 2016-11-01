@@ -59,7 +59,7 @@
 // static
 // ===========================================================================
 
-const unsigned int MAXNUMBEROFATTRCONNECTIONS = 50;
+const int MAXNUMBEROFATTRCONNECTIONS = 50;
 
 // ===========================================================================
 // FOX callback mapping
@@ -280,7 +280,7 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttr
             const std::vector<GNEConnection*>& connections = dynamic_cast<GNEEdge*>(myACs.front())->getGNEConnections();
             if (connections.size() > 0) {
                 // Check if all connections are editables
-                if (connections.size() > MAXNUMBEROFATTRCONNECTIONS) {
+                if ((int)connections.size() > MAXNUMBEROFATTRCONNECTIONS) {
                     WRITE_WARNING("Number of connections of " + myACs.front()->getID() + " is greater than the number of editable connections (" + toString(MAXNUMBEROFATTRCONNECTIONS) + ")");
                 }
                 // Show AttrConnections
@@ -297,7 +297,7 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttr
             std::vector<GNEConnection*> connections = dynamic_cast<GNELane*>(myACs.front())->getGNEOutcomingConnections();
             if (connections.size() > 0) {
                 // Check if all connections are editables
-                if (connections.size() > MAXNUMBEROFATTRCONNECTIONS) {
+                if (connections.size() > (int)MAXNUMBEROFATTRCONNECTIONS) {
                     WRITE_WARNING("Number of connections of " + myACs.front()->getID() + " is greater than the number of editable connections (" + toString(MAXNUMBEROFATTRCONNECTIONS) + ")");
                 }
                 // Show AttrConnections
