@@ -1232,8 +1232,8 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
         // Throw warning dialog if there hare multiple lanes selected in the same edge
         if (mapOfEdgesAndLanes.size() != lanes.size()) {
             FXMessageBox::information(getApp(), MBOX_OK,
-                                      ("Multiple lane in the same edge selected"),
-                                      ("There are selected lanes that belong to the same edge.\n Only  one lane pro edge will be restricted for " + toString(vclass) + ".").c_str());
+                                      "Multiple lane in the same edge selected", "%s",
+                                      ("There are selected lanes that belong to the same edge.\n Only one lane per edge will be restricted for " + toString(vclass) + ".").c_str());
         }
         // If we handeln a set of lanes
         if (mapOfEdgesAndLanes.size() > 0) {
@@ -1248,7 +1248,7 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
             // if all edges parent own a Sidewalk, stop function
             if (counter == (int)mapOfEdgesAndLanes.size()) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                                          ("Set vclass for " + toString(vclass) + " to selected lanes").c_str(),
+                                          ("Set vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
                                           ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
@@ -1315,7 +1315,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             // if all lanes own a Sidewalk, stop function
             if (counter == (int)setOfEdges.size()) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                                          ("Add vclass for" + toString(vclass) + " to selected lanes").c_str(),
+                                          ("Add vclass for" + toString(vclass) + " to selected lanes").c_str(), "%s",
                                           ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
@@ -1382,7 +1382,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             // if all lanes don't own a Sidewalk, stop function
             if (counter == 0) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                                          ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(),
+                                          ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
                                           ("Selected lanes and edges haven't a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
@@ -1449,7 +1449,8 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
             // if none of selected lanes has a transformation, stop
             if (counter == 0) {
                 FXMessageBox::information(getApp(), MBOX_OK,
-                                          "Revert restriction", "None of selected lanes has a previous restriction");
+                                          "Revert restriction", "%s",
+                                          "None of selected lanes has a previous restriction");
                 return 0;
             } else {
                 // Ask confirmation to user

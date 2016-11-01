@@ -297,7 +297,7 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttr
             std::vector<GNEConnection*> connections = dynamic_cast<GNELane*>(myACs.front())->getGNEOutcomingConnections();
             if (connections.size() > 0) {
                 // Check if all connections are editables
-                if (connections.size() > (int)MAXNUMBEROFATTRCONNECTIONS) {
+                if ((int)connections.size() > MAXNUMBEROFATTRCONNECTIONS) {
                     WRITE_WARNING("Number of connections of " + myACs.front()->getID() + " is greater than the number of editable connections (" + toString(MAXNUMBEROFATTRCONNECTIONS) + ")");
                 }
                 // Show AttrConnections
