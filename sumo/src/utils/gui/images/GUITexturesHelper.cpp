@@ -32,7 +32,6 @@
 
 #include <iostream>
 #include <fx.h>
-#include <fx3d.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GLIncludes.h>

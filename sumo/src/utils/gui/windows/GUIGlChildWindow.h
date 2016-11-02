@@ -35,7 +35,6 @@
 #endif
 
 #include <fx.h>
-#include <fx3d.h>
 
 #include "GUISUMOAbstractView.h"
 
