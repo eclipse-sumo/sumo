@@ -53,8 +53,8 @@ def compound_object(element_name, attrnames, warn=False):
        Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
     class CompoundObject():
-        original_fields = sorted(attrnames)
-        _fields = [_prefix_keyword(a, warn) for a in original_fields]
+        _original_fields = sorted(attrnames)
+        _fields = [_prefix_keyword(a, warn) for a in _original_fields]
 
         def __init__(self, values, child_dict):
             for name, val in zip(self._fields, values):
@@ -70,7 +70,8 @@ def compound_object(element_name, attrnames, warn=False):
 
         def setAttribute(self, name, value):
             if name not in self._fields:
-                self._fields.append(name)
+                self._original_fields.append(name)
+                self._fields.append(_prefix_keyword(name, warn))
             self.__dict__[name] = value
 
         def hasChild(self, name):
@@ -96,7 +97,8 @@ def compound_object(element_name, attrnames, warn=False):
             else:
                 if name in self.__dict__:
                     del self.__dict__[name]
-                self._fields.remove(name)
+                self._original_fields.remove(name)
+                self._fields.remove(_prefix_keyword(name, False))
 
         def __getitem__(self, name):
             return self._child_dict[name]
@@ -105,7 +107,7 @@ def compound_object(element_name, attrnames, warn=False):
             return "<%s,child_dict=%s>" % (self.getAttributes(), dict(self._child_dict))
 
         def toXML(self, initialIndent="", indent="    "):
-            fields = ['%s="%s"' % (self.original_fields[i], getattr(self, k))
+            fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
@@ -181,7 +183,7 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
             child_dict[c.tag].append(_get_compound_object(
                 c, elementTypes, c.tag, element_attrs, attr_conversions,
                 heterogeneous, warn))
-    attrnames = elementTypes[element_name].original_fields
+    attrnames = elementTypes[element_name]._original_fields
     return elementTypes[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict)
