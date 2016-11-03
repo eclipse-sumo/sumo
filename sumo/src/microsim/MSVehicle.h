@@ -893,13 +893,13 @@ public:
      */
     std::pair<const MSVehicle* const, SUMOReal> getLeader(SUMOReal dist = 0) const;
 
-    /** @brief Returns the time gap in seconds to the leader of the vehicle looking for a fixed distance.
+    /** @brief Returns the time gap in seconds to the leader of the vehicle on the same lane.
      *
      * If the distance is too big -1 is returned.
      * The gap returned takes the minGap into account.
      * @return The time gap in seconds; -1 if no leader was found or speed is 0.
      */
-    SUMOReal getTimeGap() const;
+    SUMOReal getTimeGapOnLane() const;
 
 
     /// @name Emission retrieval

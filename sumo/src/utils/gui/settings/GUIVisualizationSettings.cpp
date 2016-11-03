@@ -334,7 +334,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(0,   0, 255, 255),  2.6 /* SUMOVTypeParameter::getDefaultAccel() */);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by time gap", RGBColor(255, 255, 0, 255), "0");
+    scheme = GUIColorScheme("by time gap on lane", RGBColor(255, 255, 0, 255), "0");
     scheme.addColor(RGBColor(179, 179, 179, 255), -1);
     scheme.addColor(RGBColor(0, 255, 255, 255), 1);
     scheme.addColor(RGBColor(0,   0, 255, 255), 2);

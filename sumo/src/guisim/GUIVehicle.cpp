@@ -123,11 +123,11 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (getChosenSpeedFactor() != 1) {
         ret->mkItem("speed factor", false, getChosenSpeedFactor());
     }
-    ret->mkItem("time gap [s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getTimeGap));
+    ret->mkItem("time gap on lane [s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getTimeGapOnLane));
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
-    ret->mkItem(("waiting time (accumlated, " + time2string(MSGlobals::gWaitingTimeMemory) + "s) [s]").c_str(), true,
+    ret->mkItem(("waiting time (accumulated, " + time2string(MSGlobals::gWaitingTimeMemory) + "s) [s]").c_str(), true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAccumulatedWaitingSeconds));
     ret->mkItem("impatience", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getImpatience));
@@ -412,7 +412,7 @@ GUIVehicle::getColorValue(int activeScheme) const {
         case 23:
             return getAcceleration();
         case 24:
-            return getTimeGap();
+            return getTimeGapOnLane();
         case 25:
             return STEPS2TIME(getDepartDelay());
         case 26:

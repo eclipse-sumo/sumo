@@ -3146,8 +3146,9 @@ MSVehicle::getLeader(SUMOReal dist) const {
 
 
 SUMOReal
-MSVehicle::getTimeGap() const {
-    std::pair<const MSVehicle* const, SUMOReal> leaderInfo = getLeader();
+MSVehicle::getTimeGapOnLane() const {
+    // calling getLeader with 0 would induce a dist calculation but we only want to look for the leaders on the current lane
+    std::pair<const MSVehicle* const, SUMOReal> leaderInfo = getLeader(-1);
     if (leaderInfo.first == 0 || getSpeed() == 0) {
         return -1;
     }

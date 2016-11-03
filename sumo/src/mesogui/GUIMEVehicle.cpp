@@ -211,7 +211,7 @@ GUIMEVehicle::getColorValue(int activeScheme) const {
         case 23:
             return 0; // invalid getAcceleration();
         case 24:
-            return 0; // invalid getTimeGap();
+            return 0; // invalid getTimeGapOnLane();
         case 25:
             return STEPS2TIME(getDepartDelay());
     }
