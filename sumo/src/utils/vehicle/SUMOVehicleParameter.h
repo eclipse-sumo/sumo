@@ -273,6 +273,8 @@ enum ArrivalSpeedDefinition {
  * @class SUMOVehicleParameter
  * @brief Structure representing possible vehicle parameter
  *
+ * When used within a vehicle, parameter are usually const except for selected items
+ *  adaptable via TraCI which are flagged as mutable below
  * The fields yielding with "Procedure" describe whether the according value
  *  shall be used or another procedure is used to choose the value.
  * @see DepartLaneDefinition
@@ -453,7 +455,7 @@ public:
     std::string routeid;
     /// @brief The vehicle's type id
     std::string vtypeid;
-    /// @brief The vehicle's color
+    /// @brief The vehicle's color, TraCI may change this
     mutable RGBColor color;
 
 
@@ -575,8 +577,8 @@ public:
         void write(OutputDevice& dev) const;
     };
 
-    /// @brief List of the stops the vehicle will make
-    std::vector<Stop> stops;
+    /// @brief List of the stops the vehicle will make, TraCI may add entries here
+    mutable std::vector<Stop> stops;
 
     /// @brief List of the via-edges the vehicle must visit
     std::vector<std::string> via;
@@ -587,7 +589,7 @@ public:
     /// @brief The static number of containers in the vehicle when it departs
     int containerNumber;
 
-    /// @brief Information for the router which parameter were set
+    /// @brief Information for the router which parameter were set, TraCI may modify this (whe changing color)
     mutable int setParameter;
 
 

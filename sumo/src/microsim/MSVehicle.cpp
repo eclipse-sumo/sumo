@@ -3586,6 +3586,9 @@ MSVehicle::addTraciStop(MSLane* const lane, const SUMOReal startPos, const SUMOR
     newStop.parking = parking;
     newStop.index = STOP_INDEX_FIT;
     const bool result = addStop(newStop, errorMsg);
+    if (result) {
+        myParameter->stops.push_back(newStop);
+    }
     if (myLane != 0) {
         updateBestLanes(true);
     }
@@ -3636,6 +3639,9 @@ MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime 
     newStop.endPos = bs->getEndLanePosition();
     newStop.startPos = bs->getBeginLanePosition();
     const bool result = addStop(newStop, errorMsg);
+    if (result) {
+        myParameter->stops.push_back(newStop);
+    }
     if (myLane != 0) {
         updateBestLanes(true);
     }
