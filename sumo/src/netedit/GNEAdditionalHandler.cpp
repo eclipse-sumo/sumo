@@ -4,10 +4,10 @@
 /// @date    Nov 2015
 /// @version $Id$
 ///
-/// Builds trigger objects for netEdit
+/// Builds trigger objects for netedit
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -1088,7 +1088,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, const std::string& id, G
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1103,7 +1103,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, const std::string&
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1118,7 +1118,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, const std::strin
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1133,7 +1133,7 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1148,7 +1148,7 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1163,7 +1163,7 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1175,7 +1175,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, const std::string&
     GNEDetectorE3* detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
     // Check if DetectorE3 parent is correct
     if (detectorE3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " '" + id + "' in netEdit; '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' don't valid.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " '" + id + "' in netedit; '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' don't valid.");
         return false;
     } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, id) == NULL) {
         // Create detector Entry if don't exist already in the net
@@ -1185,7 +1185,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, const std::string&
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1197,7 +1197,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, const std::string& 
     GNEDetectorE3* detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
     // Check if DetectorE3 parent is correct
     if (detectorE3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " '" + id + "' in netEdit; '" + idDetectorE3Parent + "' don't valid.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " '" + id + "' in netedit; '" + idDetectorE3Parent + "' don't valid.");
         return false;
     } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, id) == NULL) {
         // Create detector Exit if don't exist already in the net
@@ -1207,7 +1207,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, const std::string& 
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1222,7 +1222,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1237,7 +1237,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, 
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_REROUTER) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_REROUTER) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1252,7 +1252,7 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1267,7 +1267,7 @@ GNEAdditionalHandler::buildVariableSpeedSignal(GNEViewNet* viewNet, const std::s
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VSS) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VSS) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1282,7 +1282,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, const std::string& id,
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VAPORIZER) + " with id '" + id + "' in netEdit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VAPORIZER) + " with id '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
