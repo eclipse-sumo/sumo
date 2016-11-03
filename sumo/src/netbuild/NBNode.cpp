@@ -712,7 +712,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
         return false;
     }
     if (c.tlID != "" && !bothLeft) {
-        assert(myTrafficLights.size() > 0);
+        assert(myTrafficLights.size() > 0 || myType == NODETYPE_RAIL_CROSSING || myType == NODETYPE_RAIL_SIGNAL);
         for (std::set<NBTrafficLightDefinition*>::const_iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
             if ((*it)->needsCont(fromE, toE, otherFromE, otherToE)) {
                 return true;
