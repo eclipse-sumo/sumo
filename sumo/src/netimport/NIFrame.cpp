@@ -319,9 +319,15 @@ NIFrame::checkOptions() {
             }
         }
     }
-    if (oc.isSet("opendrive-files") && oc.isDefault("tls.left-green.time")) {
-        // legacy behavior. see #2114
-        oc.set("tls.left-green.time", "0");
+    if (oc.isSet("opendrive-files")) {
+        if (oc.isDefault("tls.left-green.time")) {
+            // legacy behavior. see #2114
+            oc.set("tls.left-green.time", "0");
+        }
+        if (oc.isDefault("rectangular-lane-cut")) {
+            // a better interpretation of imported geometries
+            oc.set("rectangular-lane-cut", "true");
+        }
     }
     return ok;
 }
