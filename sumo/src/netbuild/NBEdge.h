@@ -1071,17 +1071,11 @@ public:
     /// @brief restore an previously added sidewalk
     void restoreSidewalk(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
 
-    /// @brief check if current edge hat a sideWalk
-    bool hatSidewalk() const;
-
     /// add a bicycle lane of the given width and shift existing connctions
     void addBikeLane(SUMOReal width);
 
     /// @brief restore an previously added BikeLane
     void restoreBikelane(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
-
-    /// @brief check if current edge hat a bikelane
-    bool hatBikelane() const;
 
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
     void setPermissions(SVCPermissions permissions, int lane = -1);

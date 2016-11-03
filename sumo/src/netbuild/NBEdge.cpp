@@ -2832,16 +2832,6 @@ NBEdge::restoreSidewalk(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGe
 }
 
 
-bool
-NBEdge::hatSidewalk() const {
-    if (myLanes[0].permissions == SVC_PEDESTRIAN) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 void
 NBEdge::addBikeLane(SUMOReal width) {
     addRestrictedLane(width, SVC_BICYCLE);
@@ -2851,16 +2841,6 @@ NBEdge::addBikeLane(SUMOReal width) {
 void
 NBEdge::restoreBikelane(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections) {
     restoreRestrictedLane(SVC_BICYCLE, oldLanes, oldGeometry, oldConnections);
-}
-
-
-bool
-NBEdge::hatBikelane() const {
-    if (myLanes[0].permissions == SVC_BICYCLE) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 
