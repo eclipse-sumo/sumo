@@ -1193,12 +1193,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
         const SUMOReal nettoLength = veh->getVehicleType().getLength();
         const bool moved = veh->executeMove();
         MSLane* const target = veh->getLane();
-#ifndef NO_TRACI
-        const bool vtdControlled = veh->hasInfluencer() && veh->getInfluencer().isVTDControlled();
-        if (veh->hasArrived() && !vtdControlled) {
-#else
         if (veh->hasArrived()) {
-#endif
             // vehicle has reached its arrival position
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
