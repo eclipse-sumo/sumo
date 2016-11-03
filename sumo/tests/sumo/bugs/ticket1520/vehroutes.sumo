@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/20/16 14:21:05 by SUMO Version dev-SVN-r20765
+<!-- generated on 11/03/16 13:11:20 by SUMO Version dev-SVN-r21868
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -34,6 +34,7 @@
 
     <vehicle id="blocker" type="t0" depart="0.00" arrival="72.00">
         <route edges="beg end" exitTimes="11.00 72.00"/>
+        <stop lane="end_0" endPos="6.00" duration="50.00"/>
     </vehicle>
 
 </routes>
