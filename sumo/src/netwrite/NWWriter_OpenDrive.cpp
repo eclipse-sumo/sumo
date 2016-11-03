@@ -219,12 +219,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
                 SUMOReal length;
                 PositionVector fallBackShape;
+                fallBackShape.push_back(begShape.back());
+                fallBackShape.push_back(endShape.front());
                 const bool turnaround = inEdge->isTurningDirectionAt(outEdge);
                 bool ok = true;
                 PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok);
                 if (init.size() == 0) {
-                    fallBackShape.push_back(begShape.back());
-                    fallBackShape.push_back(endShape.front());
                     length = fallBackShape.length2D();
                     // problem with turnarounds is known, method currently returns 'ok' (#2539)
                     if (!ok) {
@@ -255,6 +255,11 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device.openTag("planView");
                 device.setPrecision(8); // geometry hdg requires higher precision
                 OutputDevice_String elevationOSS(false, 3);
+#ifdef DEBUG_SMOOTH_GEOM
+                if (DEBUGCOND) {
+                    std::cout << "write planview for internal edge " << c.getInternalLaneID() << " init=" << init << " fallback=" << fallBackShape << "\n";
+                }
+#endif
                 if (init.size() == 0) {
                     writeGeomLines(fallBackShape, device, elevationOSS);
                 } else {

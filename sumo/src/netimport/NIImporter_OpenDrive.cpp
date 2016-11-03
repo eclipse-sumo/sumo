@@ -212,6 +212,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     //   build nodes
     for (std::map<std::string, Boundary>::iterator i = posMap.begin(); i != posMap.end(); ++i) {
+        //std::cout << " import node=" << (*i).first << " z=" << (*i).second.getCenter() << " boundary=" << (*i).second << "\n";
         if (!nb.getNodeCont().insert((*i).first, (*i).second.getCenter())) {
             throw ProcessError("Could not add node '" + (*i).first + "'.");
         }
@@ -853,7 +854,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             while (k < (int)e.geom.size() && pos < sNext) {
                 const SUMOReal ds = pos - el.s;
                 const SUMOReal z = el.a + el.b * ds + el.c * ds * ds + el.d * ds * ds * ds;
-                //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " pos=" << pos << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
+                //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
                 e.geom[k].add(0, 0, z);
                 k++;
                 if (k < (int)e.geom.size()) {
