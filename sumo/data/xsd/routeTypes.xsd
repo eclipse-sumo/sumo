@@ -101,8 +101,10 @@
         <xsd:attribute name="laneChangeModel">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="default"/>
                     <xsd:enumeration value="DK2008"/>
                     <xsd:enumeration value="LC2013"/>
+                    <xsd:enumeration value="SL2015"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:attribute>
