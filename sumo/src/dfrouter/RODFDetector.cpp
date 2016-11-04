@@ -206,7 +206,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
                     ++j;
                     continue;
                 }
-                const std::map<RODFEdge*, SUMOReal>& tprobs = probs[(time - startTime) / stepOffset];
+                const std::map<RODFEdge*, SUMOReal>& tprobs = probs[(int)((time - startTime) / stepOffset)];
                 RODFEdge* splitEdge = 0;
                 for (std::map<RODFEdge*, SUMOReal>::const_iterator k = tprobs.begin(); k != tprobs.end(); ++k) {
                     if (find(j, (*ri).edges2Pass.end(), (*k).first) != (*ri).edges2Pass.end()) {

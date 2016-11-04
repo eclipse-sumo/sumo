@@ -429,8 +429,8 @@ GUILane::drawLane2LaneConnections() const {
         glBegin(GL_LINES);
         const Position& p1 = getShape()[-1];
         const Position& p2 = connected->getShape()[0];
-        glVertex2f(p1.x(), p1.y());
-        glVertex2f(p2.x(), p2.y());
+        glVertex2d(p1.x(), p1.y());
+        glVertex2d(p2.x(), p2.y());
         glEnd();
         GLHelper::drawTriangleAtEnd(p1, p2, (SUMOReal) .4, (SUMOReal) .2);
     }
@@ -535,7 +535,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 const SUMOReal halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
                 mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);
-                const int cornerDetail = drawDetails && !isInternal ? s.scale * exaggeration : 0;
+                const int cornerDetail = drawDetails && !isInternal ? (int)(s.scale * exaggeration) : 0;
                 const SUMOReal offset = halfWidth * MAX2((SUMOReal)0, (exaggeration - 1));
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
