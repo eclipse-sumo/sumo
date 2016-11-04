@@ -87,10 +87,19 @@ MESegment::MESegment(const std::string& id,
     myCapacity(length * parent.getLanes().size()),
     myOccupancy(0.f),
     myJunctionControl(junctionControl),
-    myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 && myNextSegment == 0 && (
+    myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 && 
+                     // only apply to the last segment of a tls-controlled edge
+                     myNextSegment == 0 && ( 
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT ||
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ||
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)),
+    myMinorPenalty(MSGlobals::gMesoMinorPenalty > 0 && 
+                     // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
+                     myNextSegment == 0 && 
+                     parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT &&
+                     parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION &&
+                     parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
+                     parent.hasMinorLink()),
     myEntryBlockTime(SUMOTime_MIN),
     myLengthGeometryFactor(lengthGeometryFactor),
     myMeanSpeed(speed),
@@ -128,6 +137,7 @@ MESegment::MESegment(const std::string& id):
     myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0), myTau_length(1),
     myHeadwayCapacity(0), myCapacity(0), myJunctionControl(false),
     myTLSPenalty(false),
+    myMinorPenalty(false),
     myLengthGeometryFactor(0) {
 }
 
@@ -511,7 +521,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     }
     std::vector<MEVehicle*>& cars = myCarQues[nextQueIndex];
     MEVehicle* newLeader = 0; // first vehicle in the current queue
-    SUMOTime tleave = MAX2(time + TIME2STEPS(myLength / uspeed) + veh->getStoptime(this) + getTLSPenalty(veh), myBlockTimes[nextQueIndex]);
+    SUMOTime tleave = MAX2(time + TIME2STEPS(myLength / uspeed) + veh->getStoptime(this) + getLinkPenalty(veh), myBlockTimes[nextQueIndex]);
     myEdge.lock();
     if (cars.empty()) {
         cars.push_back(veh);
@@ -675,11 +685,18 @@ MESegment::getFlow() const {
 
 
 SUMOTime
-MESegment::getTLSPenalty(const MEVehicle* veh) const {
-    const MSLink* link = getLink(veh, myTLSPenalty);
-    if (link != 0 && link->isTLSControlled()) {
-        // only apply to the last segment of a tls-controlled edge
-        return link->getMesoTLSPenalty();
+MESegment::getLinkPenalty(const MEVehicle* veh) const {
+    const MSLink* link = getLink(veh, myTLSPenalty || myMinorPenalty);
+    if (link != 0) {
+        SUMOTime result = 0;
+        if (link->isTLSControlled()) {
+            result += link->getMesoTLSPenalty();
+        }
+        if (!link->havePriority()) {
+            // minor tls links may get an additional penalty
+            result += MSGlobals::gMesoMinorPenalty;
+        }
+        return result;
     } else {
         return 0;
     }

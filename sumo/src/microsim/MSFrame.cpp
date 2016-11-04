@@ -376,6 +376,9 @@ MSFrame::fillOptions() {
     oc.doRegister("meso-tls-penalty", new Option_Float(0));
     oc.addDescription("meso-tls-penalty", "Mesoscopic",
                       "Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases");
+    oc.doRegister("meso-minor-penalty", new Option_String("0", "TIME"));
+    oc.addDescription("meso-minor-penalty", "Mesoscopic",
+                      "Apply fixed time penalty when driving across a minor link (without junction control)");
     oc.doRegister("meso-overtaking", new Option_Bool(false));
     oc.addDescription("meso-overtaking", "Mesoscopic", "Enable mesoscopic overtaking");
     oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
@@ -543,6 +546,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
     MSGlobals::gMesoOvertaking = oc.getBool("meso-overtaking");
     MSGlobals::gMesoTLSPenalty = oc.getFloat("meso-tls-penalty");
+    MSGlobals::gMesoMinorPenalty = string2time(oc.getString("meso-minor-penalty"));
     MSGlobals::gSemiImplicitEulerUpdate = !oc.getBool("step-method.ballistic");
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gUsingInternalLanes = false;

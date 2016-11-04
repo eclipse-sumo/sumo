@@ -265,11 +265,11 @@ MEVehicle::mayProceed() const {
 
 
 SUMOReal
-MEVehicle::getCurrentTLSPenaltySeconds() const {
+MEVehicle::getCurrentLinkPenaltySeconds() const {
     if (mySegment == 0) {
         return 0;
     } else {
-        return STEPS2TIME(mySegment->getTLSPenalty(this));
+        return STEPS2TIME(mySegment->getLinkPenalty(this));
     }
 }
 

@@ -288,8 +288,8 @@ public:
         return STEPS2TIME(getBlockTime());
     }
 
-    /// @brief Returns the delay that is accrued due to option --meso-tls-penalty
-    SUMOReal getCurrentTLSPenaltySeconds() const;
+    /// @brief Returns the delay that is accrued due to option --meso-tls-penalty or --meso-minor-penalty
+    SUMOReal getCurrentLinkPenaltySeconds() const;
 
 
     /// Replaces the current route by the given one

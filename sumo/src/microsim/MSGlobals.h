@@ -103,6 +103,9 @@ public:
     /** scaling factor for macroscopic time penalty when passing tls controlled intersection */
     static SUMOReal gMesoTLSPenalty;
 
+    /** penalty time for passing a minor link */
+    static SUMOTime gMesoMinorPenalty;
+
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
 

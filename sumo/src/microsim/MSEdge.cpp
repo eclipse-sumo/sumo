@@ -110,9 +110,6 @@ void
 MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     assert(lanes != 0);
     myLanes = lanes;
-    if (!lanes->empty()) {
-        recalcCache();
-    }
     if (myFunction == EDGEFUNCTION_DISTRICT) {
         myCombinedPermissions = SVCAll;
     }
@@ -140,7 +137,7 @@ void MSEdge::recalcCache() {
     myLength = myLanes->front()->getLength();
     myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
 
-    if (MSGlobals::gMesoTLSPenalty > 0) {
+    if (MSGlobals::gMesoTLSPenalty > 0 || MSGlobals::gMesoMinorPenalty > 0) {
         // add tls penalties to the minimum travel time
         SUMOTime minPenalty = -1;
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
@@ -148,10 +145,11 @@ void MSEdge::recalcCache() {
             const MSLinkCont& lc = l->getLinkCont();
             for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
                 MSLink* link = *j;
+                SUMOTime linkPenalty = link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty);
                 if (minPenalty == -1) {
-                    minPenalty = link->getMesoTLSPenalty();
+                    minPenalty = linkPenalty;
                 } else {
-                    minPenalty = MIN2(minPenalty, link->getMesoTLSPenalty());
+                    minPenalty = MIN2(minPenalty, linkPenalty);
                 }
             }
         }
@@ -199,6 +197,7 @@ MSEdge::closeBuilding() {
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
     rebuildAllowedLanes();
+    recalcCache();
     // segment building depends on the finished list of successors (for multi-queue)
     if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
         MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
@@ -857,6 +856,21 @@ bool
 MSEdge::canChangeToOpposite() {
     return !myLanes->empty() && myLanes->back()->getOpposite() != 0;
 }
+
+
+bool 
+MSEdge::hasMinorLink() const {
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        const MSLinkCont& lc = (*i)->getLinkCont();
+        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
+            if (!(*j)->havePriority()) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 
 /****************************************************************************/
 

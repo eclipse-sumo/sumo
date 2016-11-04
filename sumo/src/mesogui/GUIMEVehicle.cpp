@@ -133,7 +133,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("event time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getEventTimeSeconds));
     ret->mkItem("entry time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getLastEntryTimeSeconds));
     ret->mkItem("block time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getBlockTimeSeconds));
-    ret->mkItem("tls penalty [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getCurrentTLSPenaltySeconds));
+    ret->mkItem("link penalty [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getCurrentLinkPenaltySeconds));
     // close building
     ret->closeBuilding();
     return ret;

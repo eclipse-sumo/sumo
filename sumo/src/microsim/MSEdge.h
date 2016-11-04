@@ -657,6 +657,9 @@ public:
     /// @brief get the mean speed
     SUMOReal getMeanSpeed() const;
 
+    /// @brief whether any lane has a minor link
+    bool hasMinorLink() const;
+
     /// @brief grant exclusive access to the mesoscopic state
     virtual void lock() const {}
 

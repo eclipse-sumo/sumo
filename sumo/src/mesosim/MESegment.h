@@ -382,11 +382,11 @@ public:
         return myLengthGeometryFactor;
     }
 
-    /** @brief Returns the penalty time for passing a tls-controlled link (if using gMesoTLSPenalty > 0)
+    /** @brief Returns the penalty time for passing a link (if using gMesoTLSPenalty > 0 or gMesoMinorPenalty > 0)
      * @param[in] veh The vehicle in question
      * @return The time penalty
      */
-    SUMOTime getTLSPenalty(const MEVehicle* veh) const;
+    SUMOTime getLinkPenalty(const MEVehicle* veh) const;
 
 private:
     /** @brief Updates data of all detectors for a leaving vehicle
@@ -457,6 +457,9 @@ private:
 
     /// @brief Whether tls penalty is enabled
     const bool myTLSPenalty;
+
+    /// @brief Whether minor penalty is enabled
+    const bool myMinorPenalty;
 
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
     SUMOReal myJamThreshold;
