@@ -231,7 +231,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         const std::vector<NBNode::Crossing>& c = (*i)->getCrossings();
         if (!onlyConts) {
             // set tl indices for crossings
-            (*i)->setCrossingTLIndices(noLinksAll);
+            (*i)->setCrossingTLIndices(getID(), noLinksAll);
         }
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (int)c.size();

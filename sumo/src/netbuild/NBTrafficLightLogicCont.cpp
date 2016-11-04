@@ -293,6 +293,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
             NBOwnTLDef dummy(n->getID(), n, 0, TLTYPE_STATIC);
             dummy.setParticipantsInformation();
             dummy.setTLControllingInformation();
+            n->setCrossingTLIndices(dummy.getID(), dummy.getControlledLinks().size());
             n->removeTrafficLight(&dummy);
         }
     }

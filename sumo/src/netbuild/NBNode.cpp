@@ -1914,7 +1914,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                 }
                 return 0;
             }
-            if (!isTLControlled() && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
+            if (!isTLControlled() && myType != NODETYPE_RAIL_CROSSING && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
                 if (gDebugFlag1) {
                     std::cout << "no crossing added (uncontrolled, edge with speed > " << edge->getSpeed() << ")\n";
                 }
@@ -2562,9 +2562,10 @@ NBNode::getCrossing(const std::string& id) const {
 
 
 void
-NBNode::setCrossingTLIndices(int startIndex) {
+NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
     for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
         (*it).tlLinkNo = startIndex++;
+        (*it).tlID = tlID;
     }
 }
 

@@ -151,6 +151,8 @@ public:
         bool priority;
         /// @brief the traffic light index of this crossing (if controlled)
         int tlLinkNo;
+        /// @brief The id of the traffic light that controls this connection
+        std::string tlID;
     };
 
 
@@ -667,7 +669,7 @@ public:
     const Crossing& getCrossing(const std::string& id) const;
 
     /// @brief set tl indices of this nodes crossing starting at the given index
-    void setCrossingTLIndices(int startIndex);
+    void setCrossingTLIndices(const std::string& tlID, int startIndex);
 
     /// @brief return the number of lane-to-lane connections at this junction (excluding crossings)
     int numNormalConnections() const;

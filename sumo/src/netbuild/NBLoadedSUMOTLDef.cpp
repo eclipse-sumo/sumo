@@ -315,7 +315,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
     for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
         const std::vector<NBNode::Crossing>& c = (*i)->getCrossings();
         // set tl indices for crossings
-        (*i)->setCrossingTLIndices(noLinksAll);
+        (*i)->setCrossingTLIndices(getID(), noLinksAll);
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (int)c.size();
         oldCrossings += (*i)->numCrossingsFromSumoNet();
