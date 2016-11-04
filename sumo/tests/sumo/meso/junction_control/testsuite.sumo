@@ -19,3 +19,6 @@ no_control
 # - the network contains a faulty traffic light. This leads to bad flow if junction control is switched on
 network_problem
 tls_coordination
+
+# the basic net without tls
+priority

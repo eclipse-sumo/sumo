@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov  4 14:49:49 2016 by SUMO Version dev-SVN-r21897
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-minor-penalty value="10.0"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="route_first" depart="0.00" arrival="77.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg end"/>
+            <route edges="beg right end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="right" depart="20.00" arrival="98.00">
+        <route edges="beg right end"/>
+    </vehicle>
+
+    <vehicle id="left" depart="20.00" arrival="106.00">
+        <route edges="beg left end"/>
+    </vehicle>
+
+    <vehicle id="route_second" depart="500.00" arrival="577.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="500.00" probability="0" edges="beg end"/>
+            <route edges="beg right end"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

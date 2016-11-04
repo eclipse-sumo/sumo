@@ -14,3 +14,6 @@ jamming
 
 # tls_penalty should affect empty-network travel times
 tls_penalty_routing
+
+# minor_penalty should affect empty-network travel times
+minor_penalty_routing

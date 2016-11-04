@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 04 Nov 2016 02:32:45 PM CET by Netedit Version dev-SVN-r21897
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/meso/minor_penalty_routing/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/meso/minor_penalty_routing/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,500.00" convBoundary="0.00,409.93,1500.00,605.21" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="absBeg" to="beg" priority="-1">
+        <lane id="beg_0" index="0" speed="27.80" length="508.12" shape="0.00,498.35 500.24,498.35"/>
+    </edge>
+    <edge id="end" from="end" to="absEnd" priority="-1">
+        <lane id="end_0" index="0" speed="27.80" length="510.21" shape="1001.49,498.35 1500.00,498.35"/>
+    </edge>
+    <edge id="left" from="beg" to="end" priority="1" length="540.00" shape="500.00,500.00 762.06,605.21 1000.00,500.00">
+        <lane id="left_0" index="0" speed="13.89" length="540.00" shape="505.48,500.42 762.03,603.42 995.06,500.38"/>
+    </edge>
+    <edge id="right" from="beg" to="end" priority="2" length="550.00" shape="500.00,500.00 768.47,409.93 1000.00,500.00">
+        <lane id="right_0" index="0" speed="13.89" length="550.00" shape="505.59,496.38 768.51,408.18 994.97,496.27"/>
+    </edge>
+
+    <junction id="absBeg" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75"/>
+    <junction id="absEnd" type="unregulated" x="1500.00" y="500.00" incLanes="end_0" intLanes="" shape="1500.00,496.75 1500.00,499.95"/>
+    <junction id="beg" type="priority" x="500.00" y="500.00" incLanes="beg_0" intLanes="" shape="504.88,501.91 506.07,498.94 506.10,497.90 505.08,494.87 500.24,496.75 500.24,499.95">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="end" type="priority" x="1000.00" y="500.00" incLanes="right_0 left_0" intLanes="" shape="1001.49,499.95 1001.49,496.75 995.55,494.78 994.39,497.76 994.42,498.91 995.71,501.84">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+
+    <connection from="beg" to="right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to="left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="left" to="end" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="right" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

@@ -9,3 +9,6 @@ control.limited
 
 # smooth flow with penalty
 control.limited_tlsPenalty
+
+# smooth flow with some penalty
+control.limited_minorPenalty
