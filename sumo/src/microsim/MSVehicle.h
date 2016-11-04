@@ -1214,42 +1214,12 @@ public:
          */
         SUMOReal changeRequestRemainingSeconds(const SUMOTime currentTime) const;
 
-        /** @brief Sets whether the safe velocity shall be regarded
-         * @param[in] value Whether the safe velocity shall be regarded
-         */
-        void setConsiderSafeVelocity(bool value);
-
-
-        /** @brief Sets whether the maximum acceleration shall be regarded
-         * @param[in] value Whether the maximum acceleration shall be regarded
-         */
-        void setConsiderMaxAcceleration(bool value);
-
-
-        /** @brief Sets whether the maximum deceleration shall be regarded
-         * @param[in] value Whether the maximum deceleration shall be regarded
-         */
-        void setConsiderMaxDeceleration(bool value);
-
-
-        /** @brief Sets whether junction priority rules shall be respected
-         * @param[in] value Whether junction priority rules be respected
-         */
-        void setRespectJunctionPriority(bool value);
-
-
         /** @brief Returns whether junction priority rules shall be respected
          * @return Whether junction priority rules be respected
          */
         inline bool getRespectJunctionPriority() const {
             return myRespectJunctionPriority;
         }
-
-
-        /** @brief Sets whether red lights shall be a reason to brake
-         * @param[in] value Whether red lights shall be a reason to brake
-         */
-        void setEmergencyBrakeRedLight(bool value);
 
 
         /** @brief Returns whether red lights shall be a reason to brake
@@ -1259,6 +1229,10 @@ public:
             return myEmergencyBrakeRedLight;
         }
 
+        /** @brief Sets speed-constraining behaviors
+         * @param[in] value a bitset controlling the different modes
+         */
+        void setSpeedMode(int speedMode); 
 
         /** @brief Sets lane changing behavior
          * @param[in] value a bitset controlling the different modes

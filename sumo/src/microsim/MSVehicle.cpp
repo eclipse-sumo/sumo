@@ -401,32 +401,12 @@ MSVehicle::Influencer::changeRequestRemainingSeconds(const SUMOTime currentTime)
 
 
 void
-MSVehicle::Influencer::setConsiderSafeVelocity(bool value) {
-    myConsiderSafeVelocity = value;
-}
-
-
-void
-MSVehicle::Influencer::setConsiderMaxAcceleration(bool value) {
-    myConsiderMaxAcceleration = value;
-}
-
-
-void
-MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
-    myConsiderMaxDeceleration = value;
-}
-
-
-void
-MSVehicle::Influencer::setRespectJunctionPriority(bool value) {
-    myRespectJunctionPriority = value;
-}
-
-
-void
-MSVehicle::Influencer::setEmergencyBrakeRedLight(bool value) {
-    myEmergencyBrakeRedLight = value;
+MSVehicle::Influencer::setSpeedMode(int speedMode) {
+    myConsiderSafeVelocity = ((speedMode & 1) != 0);
+    myConsiderMaxAcceleration = ((speedMode & 2) != 0);
+    myConsiderMaxDeceleration = ((speedMode & 4) != 0);
+    myRespectJunctionPriority = ((speedMode & 8) != 0);
+    myEmergencyBrakeRedLight = ((speedMode & 16) != 0);
 }
 
 

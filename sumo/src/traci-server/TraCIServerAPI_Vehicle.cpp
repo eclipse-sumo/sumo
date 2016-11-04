@@ -1034,11 +1034,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingInt(inputStorage, speedMode)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed mode requires an integer.", outputStorage);
             }
-            v->getInfluencer().setConsiderSafeVelocity((speedMode & 1) != 0);
-            v->getInfluencer().setConsiderMaxAcceleration((speedMode & 2) != 0);
-            v->getInfluencer().setConsiderMaxDeceleration((speedMode & 4) != 0);
-            v->getInfluencer().setRespectJunctionPriority((speedMode & 8) != 0);
-            v->getInfluencer().setEmergencyBrakeRedLight((speedMode & 16) != 0);
+            v->getInfluencer().setSpeedMode(speedMode);
         }
         break;
         case VAR_LANECHANGE_MODE: {
