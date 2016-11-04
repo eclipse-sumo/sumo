@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r21865
+SUMO Version dev-SVN-r21902
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -290,6 +290,11 @@ Mesoscopic Options:
                                          across tls controlled junctions based
                                          on green split instead of checking
                                          actual phases
+  --meso-minor-penalty TIME            Apply fixed time penalty when driving
+                                         across a minor link. When using
+                                         --meso-junction-control.limited, the
+                                         penalty is not applied when limited
+                                         control is active.
   --meso-overtaking                    Enable mesoscopic overtaking
   --meso-recheck TIME                  Time interval for rechecking insertion
                                          into the next segment after failure
