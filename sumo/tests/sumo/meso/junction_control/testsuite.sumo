@@ -22,3 +22,6 @@ tls_coordination
 
 # the basic net without tls
 priority
+
+# the basic net without tls
+priority_no_control

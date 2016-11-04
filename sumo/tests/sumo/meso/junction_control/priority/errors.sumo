@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'WE.0'; waited too long, from edge 'WC':0, time 313.18.
+Warning: Vehicle 'WE.0' teleports beyond arrival edge 'CE', time 319.80.
+Warning: Teleporting vehicle 'EW.0'; waited too long, from edge 'EC':0, time 317.18.
+Warning: Vehicle 'EW.0' teleports beyond arrival edge 'CW', time 323.80.
