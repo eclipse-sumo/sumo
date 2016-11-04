@@ -589,7 +589,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             int until = -1;
             if (compoundSize >= 7) {
                 if (!server.readTypeCheckingInt(inputStorage, until)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The seventh stop parameter must be the waiting end time given as integer.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The seventh stop parameter must be the minimum departure time given as integer.", outputStorage);
                 }
             }
             std::string error;
