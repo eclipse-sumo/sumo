@@ -692,8 +692,10 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
         if (link->isTLSControlled()) {
             result += link->getMesoTLSPenalty();
         }
-        if (!link->havePriority()) {
-            // minor tls links may get an additional penalty
+        // minor tls links may get an additional penalty
+        if (!link->havePriority() && 
+                // do not apply penalty if limited control is active 
+                (!MSGlobals::gMesoLimitedJunctionControl || limitedControlOverride(link))) {
             result += MSGlobals::gMesoMinorPenalty;
         }
         return result;

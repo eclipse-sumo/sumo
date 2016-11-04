@@ -378,7 +378,7 @@ MSFrame::fillOptions() {
                       "Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases");
     oc.doRegister("meso-minor-penalty", new Option_String("0", "TIME"));
     oc.addDescription("meso-minor-penalty", "Mesoscopic",
-                      "Apply fixed time penalty when driving across a minor link (without junction control)");
+                      "Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied when limited control is active.");
     oc.doRegister("meso-overtaking", new Option_Bool(false));
     oc.addDescription("meso-overtaking", "Mesoscopic", "Enable mesoscopic overtaking");
     oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
