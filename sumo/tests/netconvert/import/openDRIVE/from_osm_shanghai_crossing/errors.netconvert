@@ -116,6 +116,11 @@ Warning: The traffic light '93246685' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '93246685'
 Warning: The traffic light '93246696' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '93246696'
+Warning: Edge '10358635' overlaps with edge '12262310#1' by 5.01.
+Warning: Edge '10358635' overlaps with edge '160077493' by 6.30.
+Warning: Edge '10725667#1' overlaps with edge '8756689#0' by 5.11.
+Warning: Edge '11635146#1' overlaps with edge '178702261' by 3.47.
+Warning: Edge '335802664' overlaps with edge '8756689#0' by 3.96.
 Warning: Could not compute smooth shape from lane '11635146#1_0' to lane '11635162#0-AddedOnRampEdge_3'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
 Warning: Could not compute smooth shape from lane '11635146#1_1' to lane '11635162#0-AddedOnRampEdge_4'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
 Warning: Could not compute smooth shape from lane '11635146#1_2' to lane '11635162#0-AddedOnRampEdge_5'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.

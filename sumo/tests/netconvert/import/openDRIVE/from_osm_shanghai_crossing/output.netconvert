@@ -13,10 +13,10 @@ Removing empty nodes and geometry nodes... done (1ms).
    260 nodes removed.
 Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
-Guessing and setting on-/off-ramps... done (0ms).
+Guessing and setting on-/off-ramps... done (1ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... 
-done (1ms).
+done (2ms).
 Computing edge shapes... done (0ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
@@ -28,12 +28,14 @@ Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
+Computing node logics... done (1ms).
 Computing traffic light logics... 
 done (0ms).
  0 traffic light(s) computed.
-Building inner edges... done (1ms).
-stretching junctions to smooth geometries... done (2ms).
+Building inner edges... done (0ms).
+stretching junctions to smooth geometries... done (3ms).
+Checking overlapping edges... 
+done (8ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -46,5 +48,5 @@ Summary:
   Converted boundary : 0.00,0.00,2390.45,4810.48
 -----------------------------------------------------
 Writing network... 
-done (25ms).
+done (29ms).
 Success.

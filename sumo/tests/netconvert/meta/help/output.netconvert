@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r21738
+SUMO netconvert Version dev-SVN-r21914
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -243,6 +243,11 @@ Processing Options:
   --geometry.junction-mismatch-threshold FLOAT  Warn if the junction shape is
                                          to far away from the original node
                                          position
+  --geometry.check-overlap FLOAT       Warn if edges overlap by more than the
+                                         given threshold value
+  --geometry.check-overlap.vertical-threshold FLOAT  Ignore overlapping edges
+                                         if they are separated vertically by the
+                                         given threshold.
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions

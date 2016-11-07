@@ -429,6 +429,12 @@
         <!-- Warn if the junction shape is to far away from the original node position -->
         <geometry.junction-mismatch-threshold value="20" type="FLOAT"/>
 
+        <!-- Warn if edges overlap by more than the given threshold value -->
+        <geometry.check-overlap value="0" type="FLOAT"/>
+
+        <!-- Ignore overlapping edges if they are separated vertically by the given threshold. -->
+        <geometry.check-overlap.vertical-threshold value="4" type="FLOAT"/>
+
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
 
