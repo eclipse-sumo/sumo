@@ -609,20 +609,23 @@ NBEdgeCont::computeLanes2Edges() {
 void
 NBEdgeCont::recheckLanes() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        i->second->recheckLanes();
+        NBEdge* edge = i->second;
+        edge->recheckLanes();
         // check opposites
-        if (i->second->getNumLanes() > 0) {
-            const std::string& oppositeID = i->second->getLanes().back().oppositeID;
+        if (edge->getNumLanes() > 0) {
+            const std::string& oppositeID = edge->getLanes().back().oppositeID;
             if (oppositeID != "" && oppositeID != "-") {
-                const NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
-                if (oppEdge == 0) {
-                    throw ProcessError("Unknown opposite lane '" + oppositeID + "' for edge '" + i->second->getID() + "'!");
+                NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
+                if (oppEdge == 0 || oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
+                    WRITE_WARNING("Removing unknown opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "'.");
+                    edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
+                    continue;
                 }
-                if (fabs(oppEdge->getLoadedLength() - i->second->getLoadedLength()) > POSITION_EPS) {
-                    throw ProcessError("Opposite lane '" + oppositeID + "' differs in length from edge '" + i->second->getID() + "'!");
+                if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > POSITION_EPS) {
+                    throw ProcessError("Opposite lane '" + oppositeID + "' differs in length from edge '" + edge->getID() + "'!");
                 }
-                if (oppEdge->getFromNode() != i->second->getToNode() || oppEdge->getToNode() != i->second->getFromNode()) {
-                    throw ProcessError("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + i->second->getID() + "'!");
+                if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
+                    throw ProcessError("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
                 }
             }
         }
