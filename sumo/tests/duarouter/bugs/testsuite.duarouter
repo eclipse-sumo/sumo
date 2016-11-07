@@ -1,3 +1,6 @@
+# giving a lower case emission class should work although the default is proper capitalized
+ticket2649
+
 # [ 2149069 ] DFROUTER does not work with internal lanes (test uses a network with internal lanes)
 2149069_internal_edges
 
