@@ -4,7 +4,6 @@ import  wx.py   as  py # pyshell
 import sys,os, string,time
 from collections import OrderedDict 
 
-#import metacanvas_editor,metanet_editor,surveymask_editor#, metanet_editor_standalone
 from wxmisc import KEYMAP,AgileMenuMixin,AgileToolbarFrameMixin,AgileStatusbar,AgileMenubar
 
 
@@ -21,10 +20,10 @@ wx.HelpProvider_Set(provider)
 
 
 
-def make_moduleguis(dirlist):
+def make_moduleguis(appdir, dirlist):
     moduleguilist = []
     for modulesdir in dirlist:
-        make_moduleguilist(moduleguilist, modulesdir)
+        make_moduleguilist(appdir, moduleguilist, modulesdir)
         #print 'make_moduleguis: moduleguilist=\n',moduleguilist
         
     moduleguilist.sort()
@@ -33,8 +32,9 @@ def make_moduleguis(dirlist):
         moduleguis[wxgui.get_ident()] = wxgui
     return moduleguis
     
-def make_moduleguilist(moduleguilist, modulesdir):
-    #print 'make_moduleguilist modulesdir',modulesdir,os.listdir(modulesdir)
+def make_moduleguilist(appdir, moduleguilist, modulesdir):
+    #print 'make_moduleguilist appdir,modulesdir',appdir,modulesdir
+    #print '  check dir',os.path.join(appdir, modulesdir)
     #for modulename in os.listdir(modulesdir):
     #    is_noimport = (modulename in ['__init__.py',]) | (modulename.split('.')[-1] == 'pyc')
     #    is_dir = os.path.isdir(os.path.join(modulesdir, modulename))
@@ -47,11 +47,11 @@ def make_moduleguilist(moduleguilist, modulesdir):
     #        #module = getattr(lib,mn)
     #        #print '  imported',mn,modulesdir+'.' + mn 
         
-    for modulename in os.listdir(modulesdir):# use walk module to get recursive
+    for modulename in os.listdir(os.path.join(appdir, modulesdir)):# use walk module to get recursive
         #if os.path.isdir(os.path.join(os.getcwd(), pluginname)): # is never a dir???
         
         is_noimport = (modulename in ['__init__.py',]) | (modulename.split('.')[-1] == 'pyc')
-        is_dir = os.path.isdir(os.path.join(modulesdir, modulename))
+        is_dir = os.path.isdir(os.path.join(appdir,modulesdir, modulename))
         
         #print '  modulename',modulename,is_noimport,is_dir
         if (not is_noimport)& is_dir:
@@ -178,14 +178,14 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
     
 
     def __init__(self, parent=None,   title ='mainframe', 
-                    moduledirs = [], args = [], 
+                    moduledirs = [], args = [], appdir = '',
                     is_maximize = False, is_centerscreen = True,
                     pos=wx.DefaultPosition, size=wx.DefaultSize, 
                     style=wx.DEFAULT_FRAME_STYLE,
                     name='theframe', size_toolbaricons = (24,24)):
                      
         self._args = args
-
+        #print 'AgileMainframe.__init__',title,appdir
             
         # Forcing a specific style on the window.
         #   Should this include styles passed?
@@ -267,7 +267,7 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         self._logger.add_callback(self.write_action, 'action')
         
         #################################################################
-        self._moduleguis = make_moduleguis(moduledirs)
+        self._moduleguis = make_moduleguis(appdir, moduledirs)
         
         for modulename, modulegui in self._moduleguis.iteritems():
             #print '  init gui of module',modulename

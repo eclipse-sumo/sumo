@@ -35,20 +35,21 @@ import wxversion
 try:
     wxversion.select("2.8")
 except:
-    try:
-        wxversion.select("2.9")
-    except:
-        sys.exit('ERROR: neither wxPython versions 2.8 nor 2.9 are available. ')
+    sys.exit('ERROR: wxPython versions 2.8 not available.')
     
 import wx
 
 moduledirs = ['coremodules','plugins']
-
+APPDIR=''
 if  __name__ == '__main__':
-    try:
-        APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
-        APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+    if False:#'SUMO_HOME' in os.environ:
+        APPDIR = os.path.join(os.environ['SUMO_HOME'],'tools','contributed','sumopy')
+    else:
+        try:
+            APPDIR = os.path.dirname(os.path.abspath(__file__))
+        except:
+            APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+    
     #print 'APPDIR',APPDIR
     #libpaths = [APPDIR,]
     sys.path.append(APPDIR)
@@ -73,6 +74,7 @@ class MyApp(wx.App):
         self.mainframe = AgileMainframe(
                 title=__appname__, 
                 moduledirs = moduledirs, # subdirectories containing modules
+                appdir = APPDIR,
                 args = sys.argv, 
                 is_maximize = False, is_centerscreen = True,
                 size_toolbaricons = (32,32),
@@ -115,3 +117,4 @@ class MyApp(wx.App):
 if __name__ == '__main__':
     myapp = MyApp(0)
     myapp.MainLoop()
+    
