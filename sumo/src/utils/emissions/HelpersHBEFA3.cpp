@@ -474,7 +474,7 @@ HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
     for (int i = 0; i < 12; i++) {
         myEmissionClassStrings.insert(heavy[i], index | PollutantsInterface::HEAVY_BIT);
         std::transform(heavy[i].begin(), heavy[i].end(), heavy[i].begin(), tolower);
-        myEmissionClassStrings.addAlias(heavy[i], index);
+        myEmissionClassStrings.addAlias(heavy[i], index | PollutantsInterface::HEAVY_BIT);
         index++;
     }
     myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("PC_G_EU4"));

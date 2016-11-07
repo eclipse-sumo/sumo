@@ -152,7 +152,7 @@ HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < clusterSizesH[i]; j++) {
             myEmissionClassStrings.insert("HDV_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
-            myEmissionClassStrings.addAlias("hdv_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index);
+            myEmissionClassStrings.addAlias("hdv_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
             index++;
         }
     }
@@ -166,7 +166,7 @@ HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < clusterSizesH[i]; j++) {
             myEmissionClassStrings.insert("HDV_A0_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
-            myEmissionClassStrings.addAlias("hdv_a0_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index);
+            myEmissionClassStrings.addAlias("hdv_a0_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
             index++;
         }
     }
