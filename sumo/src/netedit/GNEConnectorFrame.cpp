@@ -7,7 +7,7 @@
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2011-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -204,7 +204,6 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         const int fromIndex = myCurrentLane->getIndex();
         GNEEdge& srcEdge = myCurrentLane->getParentEdge();
         GNEEdge& destEdge = lane->getParentEdge();
-        const std::string& destEdgeID = destEdge.getMicrosimID();
         std::vector<NBEdge::Connection> connections = srcEdge.getNBEdge()->getConnectionsFromLane(fromIndex);
         bool changed = false;
         LaneStatus status = getLaneStatus(connections, lane);

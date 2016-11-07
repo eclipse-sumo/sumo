@@ -9,7 +9,7 @@
 // A connnection between lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -509,6 +509,11 @@ private:
     /// @brief The length of the link
     SUMOReal myLength;
 
+    /// @brief distance from which an approaching vehicle is able to
+    ///        see all relevant foes and may accelerate if the link is minor
+    ///        and no foe is approaching. Defaults to 4.5m.
+    SUMOReal myFoeVisibilityDistance;
+
     /// @brief Whether any foe links exist
     bool myHasFoes;
 
@@ -516,11 +521,6 @@ private:
     bool myAmCont;
 
     bool myKeepClear;
-
-    /// @brief distance from which an approaching vehicle is able to
-    ///        see all relevant foes and may accelerate if the link is minor
-    ///        and no foe is approaching. Defaults to 4.5m.
-    SUMOReal myFoeVisibilityDistance;
 
     /// @brief penalty time for mesoscopic simulation
     SUMOTime myMesoTLSPenalty;

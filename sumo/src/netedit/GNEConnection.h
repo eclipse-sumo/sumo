@@ -7,7 +7,7 @@
 // A class for represent connections between Lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2016-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -85,14 +85,14 @@ public:
     /// @brief get NBConnection
     NBConnection getNBConnection() const;
 
-    /// @brief get Draw connection
-    bool getDrawConnection() const;
-
     /// @brief get LinkState
     LinkState getLinkState() const;
 
     /// @brief recompute cached myLinkState
     void updateLinkState();
+
+    /// @brief get Draw connection
+    bool getDrawConnection() const;
 
     /// @brief enable or disable draw connection
     void setDrawConnection(bool drawConnection);
@@ -172,12 +172,12 @@ protected:
     std::vector<SUMOReal> myShapeLengths;
     /// @}
 
+    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
+    LinkState myLinkState;
+
     /// @brief Enable or disable draw connection
     /// @note by default is enabled
     bool myDrawConnection;
-
-    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
-    LinkState myLinkState;
 
 private:
     /// @brief set attribute after validation
