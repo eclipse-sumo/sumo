@@ -454,7 +454,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_TIME_MESSAGE(before);
     }
     // PATCH NODE SHAPES
-    if (OptionsCont::getOptions().getFloat("junctions.scurve-stretch") > 0) {
+    if (oc.getFloat("junctions.scurve-stretch") > 0) {
         // @note: notes have collected correction hints in buildInnerEdges()
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("stretching junctions to smooth geometries");
@@ -469,6 +469,13 @@ NBNetBuilder::compute(OptionsCont& oc,
     if (lefthand) {
         mirrorX();
     };
+
+    if (oc.exists("geometry.check-overlap")  && oc.getFloat("geometry.check-overlap") > 0) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Checking overlapping edges");
+        myEdgeCont.checkOverlap(oc.getFloat("geometry.check-overlap"), oc.getFloat("geometry.check-overlap.vertical-threshold"));
+        PROGRESS_TIME_MESSAGE(before);
+    }
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");

@@ -117,6 +117,31 @@ PositionVector::overlapsWith(const AbstractPoly& poly, SUMOReal offset) const {
 }
 
 
+SUMOReal 
+PositionVector::getOverlapWith(const PositionVector& poly, SUMOReal zThreshold) const {
+    SUMOReal result = 0;
+    // this points within poly
+    for (const_iterator i = begin(); i != end() - 1; i++) {
+        if (poly.around(*i)) {
+            Position closest = poly.positionAtOffset2D(poly.nearest_offset_to_point2D(*i));
+            if (fabs(closest.z() - (*i).z()) < zThreshold) {
+                result = MAX2(result, poly.distance2D(*i));
+            }
+        }
+    }
+    // polys points within this
+    for (const_iterator i = poly.begin(); i != poly.end() - 1; i++) {
+        if (around(*i)) {
+            Position closest = positionAtOffset2D(nearest_offset_to_point2D(*i));
+            if (fabs(closest.z() - (*i).z()) < zThreshold) {
+                result = MAX2(result, distance2D(*i));
+            }
+        }
+    }
+    return result;
+}
+
+
 bool
 PositionVector::intersects(const Position& p1, const Position& p2) const {
     if (size() < 2) {

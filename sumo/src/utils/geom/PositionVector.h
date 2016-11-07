@@ -131,6 +131,9 @@ public:
     /// @note Again a boundary may be specified
     bool overlapsWith(const AbstractPoly& poly, SUMOReal offset = 0) const;
 
+    /// @brief Returns the maximum overlaps between this and the given polygon (when not separated by at least zThreshold)
+    SUMOReal getOverlapWith(const PositionVector& poly, SUMOReal zThreshold) const;
+
     /// @brief Returns the information whether this list of points interesects the given line
     bool intersects(const Position& p1, const Position& p2) const;
 

@@ -144,6 +144,12 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("geometry.junction-mismatch-threshold", new Option_Float(20));
         oc.addDescription("geometry.junction-mismatch-threshold", "Processing", "Warn if the junction shape is to far away from the original node position");
+
+        oc.doRegister("geometry.check-overlap", new Option_Float(0));
+        oc.addDescription("geometry.check-overlap", "Processing", "Warn if edges overlap by more than the given threshold value");
+
+        oc.doRegister("geometry.check-overlap.vertical-threshold", new Option_Float(4));
+        oc.addDescription("geometry.check-overlap.vertical-threshold", "Processing", "Ignore overlapping edges if they are separated vertically by the given threshold.");
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));

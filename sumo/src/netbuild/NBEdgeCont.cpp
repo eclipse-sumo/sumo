@@ -1116,4 +1116,34 @@ NBEdgeCont::mapToNumericalIDs() {
     return (int)toChange.size();
 }
 
+
+void 
+NBEdgeCont::checkOverlap(SUMOReal threshold, SUMOReal zThreshold) const {
+    for (EdgeCont::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
+        const NBEdge* e1 = it->second;
+        Boundary b1 = e1->getGeometry().getBoxBoundary();
+        b1.grow(e1->getTotalWidth());
+        PositionVector outline1 = e1->getCCWBoundaryLine(*e1->getFromNode());
+        outline1.append(e1->getCCWBoundaryLine(*e1->getToNode()));
+        // check is symmetric. only check once per pair
+        for (EdgeCont::const_iterator it2 = it; it2 != myEdges.end(); it2++) {
+            const NBEdge* e2 = it2->second;
+            if (e1 == e2) {
+                continue;
+            }
+            Boundary b2 = e2->getGeometry().getBoxBoundary();
+            b2.grow(e2->getTotalWidth());
+            if (b1.overlapsWith(b2)) {
+                PositionVector outline2 = e2->getCCWBoundaryLine(*e2->getFromNode());
+                outline2.append(e2->getCCWBoundaryLine(*e2->getToNode()));
+                const SUMOReal overlap = outline1.getOverlapWith(outline2, zThreshold);
+                if (overlap > threshold) {
+                    WRITE_WARNING("Edge '" + e1->getID() + "' overlaps with edge '" + e2->getID() + "' by " + toString(overlap) + ".");
+                }
+            }
+        }
+    }
+
+}
+
 /****************************************************************************/
