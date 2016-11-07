@@ -257,6 +257,12 @@ public:
     /// @brief return true if junction must be showed as bubbles
     bool showJunctionAsBubbles() const;
 
+    /// @brief set flag of additionals saved
+    void setAdditionalsSaved(bool value);
+    
+    /// @brief get values of additionals saved
+    bool getAdditionalSaved();
+
 protected:
     /// @brief FOX needs this
     GNEViewNet() {}
@@ -371,6 +377,9 @@ private:
 
     /// @brief current polygon
     GNEPoly* myCurrentPoly;
+
+    /// @brief flag to check if additionals has to be saved
+    bool myAdditionalsSaved;
 
     /// @brief testing mode
     bool myTestingMode;

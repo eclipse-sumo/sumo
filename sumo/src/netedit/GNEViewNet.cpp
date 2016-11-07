@@ -138,6 +138,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeNames(),
     myUndoList(undoList),
     myCurrentPoly(0),
+    myAdditionalsSaved(false),
     myTestingMode(OptionsCont::getOptions().getBool("gui-testing"))
 {
     // view must be the final member of actualParent
@@ -360,6 +361,18 @@ GNEViewNet::changeAllPhases() const {
 bool
 GNEViewNet::showJunctionAsBubbles() const {
     return (myEditMode == GNE_MODE_MOVE) && (myShowJunctionAsBubble->getCheck());
+}
+
+
+void 
+GNEViewNet::setAdditionalsSaved(bool value) {
+    myAdditionalsSaved = value;
+}
+
+
+bool 
+GNEViewNet::getAdditionalSaved() {
+    return myAdditionalsSaved;
 }
 
 
@@ -615,7 +628,11 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     myNet->getShapeContainer().removePOI(pointed_poi->getMicrosimID());
                     update();
                 } else if (pointed_additional) {
+                    // Remove additional
                     myViewParent->getAdditionalFrame()->removeAdditional(pointed_additional);
+                    // Disable flag of additionals saved
+                    myAdditionalsSaved = false;
+                    // view has to be updated
                     update();
                 } else if (pointed_connection) {
                     myNet->deleteConnection(pointed_connection, myUndoList);
@@ -705,6 +722,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 if (pointed_additional == NULL) {
                     GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
                     if (myViewParent->getAdditionalFrame()->addAdditional(netElement, this)) {
+                        // Disable flag of additionals saved
+                        myAdditionalsSaved = false;
+                        // Update view to show the new created additional
                         update();
                     }
                 }
