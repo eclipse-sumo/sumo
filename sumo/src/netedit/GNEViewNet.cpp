@@ -138,8 +138,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeNames(),
     myUndoList(undoList),
     myCurrentPoly(0),
-    myTestingMode(OptionsCont::getOptions().getBool("gui-testing"))
-{
+    myTestingMode(OptionsCont::getOptions().getBool("gui-testing")) {
     // view must be the final member of actualParent
     reparent(actualParent);
 

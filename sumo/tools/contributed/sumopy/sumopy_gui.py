@@ -10,7 +10,7 @@ __version__ = "2.0"
 __licence__ = """SUMOPy as well as SUMO is licensed under the GPL."""
 __copyright__ = "(c) 2012-2016 University of Bologna - DICAM"
 __author__ = "Joerg Schweizer"
-__usage__="""USAGE:
+__usage__ = """USAGE:
 from command line:
     Open with empty scenario:
         python sumopy_gui.py
@@ -25,73 +25,79 @@ use for debugging:
     python sumopy_gui.py --debug > debug.txt 2>&1
 """
 
-print __appname__+' version'+__version__+'\n'+__copyright__
+print __appname__ + ' version' + __version__ + '\n' + __copyright__
 
 ###############################################################################
-## IMPORTS
-import os, sys
+# IMPORTS
+import os
+import sys
 
 import wxversion
 try:
     wxversion.select("2.8")
 except:
     sys.exit('ERROR: wxPython versions 2.8 not available.')
-    
+
 import wx
 
-moduledirs = ['coremodules','plugins']
-APPDIR=''
-if  __name__ == '__main__':
-    if False:#'SUMO_HOME' in os.environ:
-        APPDIR = os.path.join(os.environ['SUMO_HOME'],'tools','contributed','sumopy')
+moduledirs = ['coremodules', 'plugins']
+APPDIR = ''
+if __name__ == '__main__':
+    if False:  # 'SUMO_HOME' in os.environ:
+        APPDIR = os.path.join(
+            os.environ['SUMO_HOME'], 'tools', 'contributed', 'sumopy')
     else:
         try:
             APPDIR = os.path.dirname(os.path.abspath(__file__))
         except:
             APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
-    
-    #print 'APPDIR',APPDIR
+
+    # print 'APPDIR',APPDIR
     #libpaths = [APPDIR,]
     sys.path.append(APPDIR)
     #libpaths = [APPDIR, os.path.join(APPDIR,"agilepy"), os.path.join(APPDIR,"agilepy","lib_base"), os.path.join(APPDIR,"agilepy","lib_wx")]
     for moduledir in moduledirs:
         #    #print '  libpath=',libpath
-        lp = os.path.abspath(os.path.join(APPDIR,moduledir))
+        lp = os.path.abspath(os.path.join(APPDIR, moduledir))
         if not lp in sys.path:
-            #print ' append',lp
+            # print ' append',lp
             sys.path.append(lp)
-                
+
 #
 
 from agilepy.lib_wx.mainframe import AgileMainframe
 
 ###############################################################################
+
+
 class MyApp(wx.App):
-    
+
     def __init__(self, redirect=False, filename=None):
         wx.App.__init__(self, redirect, filename)
-        #print 'init',__appname__, sys.argv
+        # print 'init',__appname__, sys.argv
         self.mainframe = AgileMainframe(
-                title=__appname__, 
-                moduledirs = moduledirs, # subdirectories containing modules
-                appdir = APPDIR,
-                args = sys.argv, 
-                is_maximize = False, is_centerscreen = True,
-                size_toolbaricons = (32,32),
-                style = wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
-                )
-        icon = wx.Icon(os.path.join(APPDIR,'images','icon_sumopy.png'),wx.BITMAP_TYPE_PNG, 16,16)
-        self.mainframe.SetIcon(icon) 
+            title=__appname__,
+            moduledirs=moduledirs,  # subdirectories containing modules
+            appdir=APPDIR,
+            args=sys.argv,
+            is_maximize=False, is_centerscreen=True,
+            size_toolbaricons=(32, 32),
+            style=wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
+        )
+        icon = wx.Icon(os.path.join(APPDIR, 'images',
+                                    'icon_sumopy.png'), wx.BITMAP_TYPE_PNG, 16, 16)
+        self.mainframe.SetIcon(icon)
         self.mainframe.Show()
-        
+
         self.mainframe.refresh_moduleguis()
-        
+
         self.mainframe.menubar.append_menu('About')
-        self.mainframe.menubar.append_item('About/Info...',self.on_about,\
-            info='About SUMOPy',
-            bitmap = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION,wx.ART_MENU)
-            )
-            
+        self.mainframe.menubar.append_item('About/Info...', self.on_about,
+                                           info='About SUMOPy',
+                                           bitmap=wx.ArtProvider.GetBitmap(
+                                               wx.ART_INFORMATION, wx.ART_MENU)
+                                           )
+
     def on_about(self, event):
         info = wx.AboutDialogInfo()
 
@@ -101,20 +107,19 @@ class MyApp(wx.App):
         info.SetDescription(__doc__)
         info.SetCopyright(__copyright__)
         info.SetWebSite('http://sumo-sim.org/')
-        #info.SetWebSite('http://distart041.ing.unibo.it/~mait/projects/sim/users_guide/users_guide.html')
+        # info.SetWebSite('http://distart041.ing.unibo.it/~mait/projects/sim/users_guide/users_guide.html')
         info.SetLicence(__licence__)
         info.AddDeveloper(__author__)
-        info.AddDeveloper("Supported by the SUMO team at the German Aerospace Center (DLR)!")
+        info.AddDeveloper(
+            "Supported by the SUMO team at the German Aerospace Center (DLR)!")
         info.AddDocWriter(__author__)
         info.AddArtist(__author__)
         #info.AddTranslator('Jan Bodnar')
 
-        wx.AboutBox(info)  
+        wx.AboutBox(info)
         event.Skip()
-            
 
 
 if __name__ == '__main__':
     myapp = MyApp(0)
     myapp.MainLoop()
-    

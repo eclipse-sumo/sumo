@@ -1117,7 +1117,7 @@ NBEdgeCont::mapToNumericalIDs() {
 }
 
 
-void 
+void
 NBEdgeCont::checkOverlap(SUMOReal threshold, SUMOReal zThreshold) const {
     for (EdgeCont::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         const NBEdge* e1 = it->second;

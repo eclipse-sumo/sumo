@@ -87,19 +87,19 @@ MESegment::MESegment(const std::string& id,
     myCapacity(length * parent.getLanes().size()),
     myOccupancy(0.f),
     myJunctionControl(junctionControl),
-    myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 && 
-                     // only apply to the last segment of a tls-controlled edge
-                     myNextSegment == 0 && ( 
+    myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 &&
+                 // only apply to the last segment of a tls-controlled edge
+                 myNextSegment == 0 && (
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT ||
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ||
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)),
-    myMinorPenalty(MSGlobals::gMesoMinorPenalty > 0 && 
-                     // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
-                     myNextSegment == 0 && 
-                     parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT &&
-                     parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION &&
-                     parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
-                     parent.hasMinorLink()),
+    myMinorPenalty(MSGlobals::gMesoMinorPenalty > 0 &&
+                   // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
+                   myNextSegment == 0 &&
+                   parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT &&
+                   parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION &&
+                   parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
+                   parent.hasMinorLink()),
     myEntryBlockTime(SUMOTime_MIN),
     myLengthGeometryFactor(lengthGeometryFactor),
     myMeanSpeed(speed),
@@ -693,8 +693,8 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
             result += link->getMesoTLSPenalty();
         }
         // minor tls links may get an additional penalty
-        if (!link->havePriority() && 
-                // do not apply penalty if limited control is active 
+        if (!link->havePriority() &&
+                // do not apply penalty if limited control is active
                 (!MSGlobals::gMesoLimitedJunctionControl || limitedControlOverride(link))) {
             result += MSGlobals::gMesoMinorPenalty;
         }

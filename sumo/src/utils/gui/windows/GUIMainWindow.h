@@ -151,7 +151,7 @@ protected:
     GUIMainWindow() { }
 
     /// @brief perform initial window positioning and sizing according to user options / previous call
-    void setWindowSizeAndPos(); 
+    void setWindowSizeAndPos();
 
 
 };

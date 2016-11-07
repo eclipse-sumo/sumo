@@ -1232,7 +1232,7 @@ public:
         /** @brief Sets speed-constraining behaviors
          * @param[in] value a bitset controlling the different modes
          */
-        void setSpeedMode(int speedMode); 
+        void setSpeedMode(int speedMode);
 
         /** @brief Sets lane changing behavior
          * @param[in] value a bitset controlling the different modes

@@ -858,7 +858,7 @@ MSEdge::canChangeToOpposite() {
 }
 
 
-bool 
+bool
 MSEdge::hasMinorLink() const {
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
         const MSLinkCont& lc = (*i)->getLinkCont();

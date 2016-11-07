@@ -117,7 +117,7 @@ PositionVector::overlapsWith(const AbstractPoly& poly, SUMOReal offset) const {
 }
 
 
-SUMOReal 
+SUMOReal
 PositionVector::getOverlapWith(const PositionVector& poly, SUMOReal zThreshold) const {
     SUMOReal result = 0;
     // this points within poly
