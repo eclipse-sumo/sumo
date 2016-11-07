@@ -319,8 +319,6 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
-    // Disable flag of additionals saved
-    myViewNet->setAdditionalsSaved(false);
 }
 
 /****************************************************************************/
