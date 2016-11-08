@@ -393,8 +393,8 @@ MESegment::getNextInsertionTime(SUMOTime earliestEntry) const {
 
 
 MSLink*
-MESegment::getLink(const MEVehicle* veh, bool tlsPenalty) const {
-    if (myJunctionControl || tlsPenalty) {
+MESegment::getLink(const MEVehicle* veh, bool penalty) const {
+    if (myJunctionControl || penalty) {
         const MSEdge* const nextEdge = veh->succEdge(1);
         if (nextEdge == 0) {
             return 0;
