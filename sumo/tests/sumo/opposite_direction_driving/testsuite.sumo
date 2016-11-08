@@ -46,3 +46,6 @@ overtaking_vehicle_blocks_minor_road
 # as above but testing left turn from minor road
 overtaking_vehicle_blocks_minor_road2
 no_overtaking_across_minor_link
+
+# return from overtaking if there is no opposite leader
+return_no_opposite_leader
