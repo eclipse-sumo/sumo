@@ -787,7 +787,7 @@ MSVehicle::getRerouteOrigin() const {
     }
 #ifdef HAVE_INTERNAL_LANES
     if (myLane != 0) {
-        return myLane->getInternalFollower();
+        return myLane->getNextNormal();
     }
 #endif
     return *myCurrEdge;
@@ -2730,7 +2730,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         }
         // adapt best lanes to fit the current internal edge:
         // keep the entries that are reachable from this edge
-        const MSEdge* nextEdge = startLane->getInternalFollower();
+        const MSEdge* nextEdge = startLane->getNextNormal();
         assert(nextEdge->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL);
         for (std::vector<std::vector<LaneQ> >::iterator it = myBestLanes.begin(); it != myBestLanes.end();) {
             std::vector<LaneQ>& lanes = *it;

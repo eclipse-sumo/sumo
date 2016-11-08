@@ -1267,7 +1267,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
 
 
 const MSEdge*
-MSLane::getInternalFollower() const {
+MSLane::getNextNormal() const {
     const MSEdge* e = myEdge;
     while (e->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         e = e->getSuccessors()[0];
