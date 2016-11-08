@@ -492,34 +492,6 @@ MSLink::getLane() const {
     return myLane;
 }
 
-MSLane*
-MSLink::getApproachingLane() const {
-    MSLane* approachedLane; //the lane approached by this link; this lane may be an internal lane
-#ifdef HAVE_INTERNAL_LANES
-    if (myInternalLane != 0) {    // if there is an internal lane
-        approachedLane = myInternalLane;  //consider the internal lane as the approached lane
-    } else {    //if ther is no internal lane
-        approachedLane = myLane;
-    }
-#else
-    approachedLane = myLane;
-#endif
-    const std::vector<MSLane::IncomingLaneInfo> possibleLanes = approachedLane->getIncomingLanes();
-    std::vector<MSLane::IncomingLaneInfo>::const_iterator i;
-    for (i = possibleLanes.begin(); i != possibleLanes.end(); i++) {
-        MSLane* lane = (*i).lane;
-        MSLinkCont outgoingLinks = lane->getLinkCont(); //the links outgoing from lane
-        for (MSLinkCont::const_iterator j = outgoingLinks.begin(); j != outgoingLinks.end(); j++) {
-            if ((*j) == this) {
-                return lane;
-            }
-        }
-    }
-    WRITE_WARNING("No approaching lane found for the link with the index " + toString(this->getIndex()) + ".");
-    return 0;
-}
-
-
 bool
 MSLink::lastWasContMajor() const {
 #ifdef HAVE_INTERNAL_LANES

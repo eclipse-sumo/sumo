@@ -3458,7 +3458,7 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
                 bool found = false;
                 while (di != myLFLinkLanes.end() && !found) {
                     if ((*di).myLink != 0) {
-                        const MSLane* diPredLane = (*di).myLink->getApproachingLane();
+                        const MSLane* diPredLane = (*di).myLink->getLaneBefore();
                         if (diPredLane != 0) {
                             if (&diPredLane->getEdge() == &lane->getEdge()) {
                                 found = true;

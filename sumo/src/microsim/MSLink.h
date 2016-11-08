@@ -298,13 +298,6 @@ public:
     MSLane* getLane() const;
 
 
-    /** @brief Returns the lane leading to this link
-     *
-     * @return The lane leading to this link
-     */
-    MSLane* getApproachingLane() const;
-
-
     /** @brief Returns the respond index (for visualization)
      *
      * @return The respond index for this link
