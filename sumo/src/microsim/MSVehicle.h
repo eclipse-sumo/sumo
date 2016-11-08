@@ -662,9 +662,9 @@ public:
     /// @name strategical/tactical lane choosing methods
     /// @{
 
-    // TODO: improve documentation, refs. #2604
+    // 
     /** @struct LaneQ
-     * @brief A structure representing the best lanes for continuing the route
+     * @brief A structure representing the best lanes for continuing the current route starting at 'lane'
      */
     struct LaneQ {
         /// @brief The described lane
@@ -681,13 +681,16 @@ public:
         int bestLaneOffset;
         /// @brief Whether this lane allows to continue the drive
         bool allowsContinuation;
-        /// @brief Consecutive lane that can be followed without a lane change (contribute to length and occupation)
-        std::vector<MSLane*> bestContinuations; // XXX: Why "best"?, refs. #2604
+        /* @brief Longest sequence of (normal-edge) lanes that can be followed without a lane change 
+         * The 'length' attribute is the sum of these lane lengths
+         * (There may be alternative sequences that have equal length)
+         * It is the 'best' in the strategic sense of reducing required lane-changes
+         */
+        std::vector<MSLane*> bestContinuations;  
     };
 
-    // TODO: improve documentation ("best"?), refs. #2604
     /** @brief Returns the description of best lanes to use in order to continue the route
-     * @return The best lanes structure holding matching the current vehicle position and state ahead
+     * @return The LaneQ for all lanes of the current edge
      */
     const std::vector<LaneQ>& getBestLanes() const;
 
@@ -711,21 +714,23 @@ public:
     void updateBestLanes(bool forceRebuild = false, const MSLane* startLane = 0);
 
 
-    // TODO: improve documentation, refs. #2604
-    /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
-     * @return The best lane information for the vehicle's current lane
+    /** @brief Returns the best sequence of lanes to continue the route starting at myLane
+     * @return The bestContinuations of the LaneQ for myLane (see LaneQ)
      */
     const std::vector<MSLane*>& getBestLanesContinuation() const;
 
 
-    // TODO: improve documentation, refs. #2604
-    /** @brief Returns the subpart of best lanes that describes the given lane and their successors
-     * @return The best lane information for the given lane
+    /** @brief Returns the best sequence of lanes to continue the route starting at the given lane
+     * @return The bestContinuations of the LaneQ for the given lane (see LaneQ)
      */
     const std::vector<MSLane*>& getBestLanesContinuation(const MSLane* const l) const;
 
-    // TODO: improve documentation (which is the "best"?), refs. #2604
-    /// @brief returns the current offset from the best lane
+    /* @brief returns the current signed offset from the lane that is most
+     * suited for continuing the current route (in the strategic sense of reducing lane-changes)
+     * - 0 if the vehicle is one it's best lane 
+     * - negative if the vehicle should change to the right
+     * - positive if the vehicle should change to the left
+     */
     int getBestLaneOffset() const;
 
     /// @brief update occupation from MSLaneChanger
@@ -1418,8 +1423,18 @@ protected:
     const MSEdge* myLastBestLanesEdge;
     const MSLane* myLastBestLanesInternalLane;
 
-    std::vector<std::vector<LaneQ> > myBestLanes; // XXX: Documentation?, refs. #2604
+    /* @brief Complex data structure for keeping and updating LaneQ:
+     * Each element of the outer vector corresponds to an upcoming edge on the vehicles route
+     * The first element corresponds to the current edge and is returned in getBestLanes()
+     * The other elements are only used as a temporary structure in updateBestLanes();
+     */
+    std::vector<std::vector<LaneQ> > myBestLanes; 
+
+    /* @brief iterator to speed up retrival of the current lane's LaneQ in getBestLaneOffset() and getBestLanesContinuation()
+     * This is updated in updateOccupancyAndCurrentBestLane()
+     */
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
+
     static std::vector<MSLane*> myEmptyLaneVector;
     static std::vector<MSTransportable*> myEmptyTransportableVector;
 
