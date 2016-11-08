@@ -254,6 +254,13 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
     junctionColorer.addScheme(scheme);
     myVisualizationSettings->junctionColorer = junctionColorer;
+
+    if (myTestingMode && OptionsCont::getOptions().isSet("window-size")) {
+        std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
+        assert(windowSize.size() == 2);
+        myTestingWidth = TplConvert::_str2int(windowSize[0]);
+        myTestingHeight = TplConvert::_str2int(windowSize[1]);
+    }
 }
 
 
@@ -398,6 +405,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             paintGLGrid();
         }
         if (myTestingMode) {
+            if (getWidth() != myTestingWidth || getHeight() != myTestingHeight) {
+                myApp->resize(myTestingWidth + myTestingWidth - getWidth(), myTestingHeight + myTestingHeight - getHeight());
+                std::cout << "appSize=" << myApp->getWidth() << "," << myApp->getHeight() << " viewSize=" << getWidth() << "," << getHeight() << "\n";
+            }
             // draw pink square in the upper left corner on top of everything
             glPushMatrix();
             const SUMOReal size = p2m(32);
