@@ -407,7 +407,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         if (myTestingMode) {
             if (getWidth() != myTestingWidth || getHeight() != myTestingHeight) {
                 myApp->resize(myTestingWidth + myTestingWidth - getWidth(), myTestingHeight + myTestingHeight - getHeight());
-                std::cout << "appSize=" << myApp->getWidth() << "," << myApp->getHeight() << " viewSize=" << getWidth() << "," << getHeight() << "\n";
             }
             // draw pink square in the upper left corner on top of everything
             glPushMatrix();
