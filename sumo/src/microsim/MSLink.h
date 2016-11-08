@@ -529,8 +529,10 @@ private:
     /// @brief The following junction-internal lane if used
     MSLane* const myInternalLane;
 
-    /// @brief The preceding junction-internal lane if used
-    // XXX obsolete as this is identical with myLaneBefore
+    /* @brief The preceding junction-internal lane, only used at
+     * - exit links (from internal lane to normal lane)
+     * - internal junction links (from internal lane to internal lane)
+     */
     const MSLane* myInternalLaneBefore;
 
     /* @brief lengths after the crossing point with foeLane
