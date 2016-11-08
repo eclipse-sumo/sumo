@@ -1,0 +1,6 @@
+# left turnig vehicle with low visibility (should approach link slowly)
+left_turn
+
+# straight going vehicle on minor with low visibility (should approach link slowly)
+straight
+

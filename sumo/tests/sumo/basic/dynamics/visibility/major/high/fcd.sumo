@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Di 08 Nov 2016 16:09:21 CET by SUMO gui Version dev-SVN-r21650
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="veh1" x="101.65" y="-50.00" angle="0.00" type="1" speed="13.89" pos="0.00" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="veh1" x="101.65" y="-36.11" angle="0.00" type="1" speed="13.89" pos="13.89" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="veh1" x="101.65" y="-22.22" angle="0.00" type="1" speed="13.89" pos="27.78" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="veh1" x="101.65" y="-8.33" angle="0.00" type="1" speed="13.89" pos="41.67" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="veh1" x="101.65" y="5.56" angle="0.00" type="1" speed="13.89" pos="55.56" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="veh1" x="101.65" y="19.45" angle="0.00" type="1" speed="13.89" pos="69.45" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="veh1" x="101.65" y="33.34" angle="0.00" type="1" speed="13.89" pos="83.34" lane="SC_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="veh1" x="101.65" y="47.23" angle="0.00" type="1" speed="13.89" pos="1.98" lane=":C_7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="veh1" x="101.65" y="61.12" angle="0.00" type="1" speed="13.89" pos="6.37" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="veh1" x="101.65" y="75.01" angle="0.00" type="1" speed="13.89" pos="20.26" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="veh1" x="101.65" y="88.90" angle="0.00" type="1" speed="13.89" pos="34.15" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="veh1" x="101.65" y="102.79" angle="0.00" type="1" speed="13.89" pos="48.04" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="veh1" x="101.65" y="116.68" angle="0.00" type="1" speed="13.89" pos="61.93" lane="CN_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00"/>
+</fcd-export>
