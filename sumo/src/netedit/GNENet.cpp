@@ -384,10 +384,10 @@ void
 GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     undoList->p_begin("delete connection");
     NBConnection deleted = connection->getNBConnection();
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), false), true);
     GNEJunction* affected = connection->getEdgeFrom()->getGNEJunctionDest();
-    affected->invalidateTLS(myViewNet->getUndoList(), deleted);
     affected->markAsModified(undoList);
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), false), true);
+    affected->invalidateTLS(myViewNet->getUndoList(), deleted);
     if (gSelected.isSelected(GLO_CONNECTION, connection->getGlID())) {
         std::set<GUIGlID> deselected;
         deselected.insert(connection->getGlID());
