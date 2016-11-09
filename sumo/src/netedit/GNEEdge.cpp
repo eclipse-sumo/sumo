@@ -755,6 +755,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myConnectionStatus = value;
             if (value == GUESSED) {
                 myNBEdge.invalidateConnections(true);
+                clearGNEConnections();
             } else if (value != GUESSED) {
                 myNBEdge.declareConnectionsAsLoaded();
             }
