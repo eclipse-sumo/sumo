@@ -59,7 +59,7 @@ public:
      * @param[in] id Unique id
      * @param[in] lane Lane where detector woks on
      * @param[in] position Position of the detector within the lane
-     * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] vTypes which vehicle types are considered
      */
     GUIInductLoop(const std::string& id, MSLane* const lane, SUMOReal position, const std::string& vTypes);
 

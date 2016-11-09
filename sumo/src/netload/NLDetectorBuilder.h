@@ -92,7 +92,7 @@ public:
      * @param[in] splInterval The aggregation time span the detector shall use
      * @param[in] device The output device the detector shall write into
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
-     * @param[in] splitByType Whether vehicle types shall be disaggregated
+     * @param[in] vTypes which vehicle types are considered
      * @exception InvalidArgument If one of the values is invalid
      */
     void buildInductLoop(const std::string& id,
@@ -340,7 +340,7 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] lane The lane the detector is placed at
      * @param[in] pos The position on the lane the detector is placed at
-     * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] vTypes which vehicle types are considered
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
