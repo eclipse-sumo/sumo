@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 25 14:29:24 2016 by SUMO Version dev-SVN-r21650
+<!-- generated on Thu Nov 10 10:55:05 2016 by SUMO Version dev-SVN-r21953
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -61,11 +61,11 @@
         <vehicle id="stopped" x="44.98" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="44.98" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="overtaking" x="63.37" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.84" pos="8.62" lane="VODUGES_end_0" slope="0.00"/>
+        <vehicle id="overtaking" x="63.37" y="1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.84" pos="131.88" lane="-VODUGES_end_0" slope="0.00"/>
         <vehicle id="stopped" x="44.98" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="44.98" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="overtaking" x="76.85" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.47" pos="22.10" lane="VODUGES_end_0" slope="0.00"/>
+        <vehicle id="overtaking" x="76.85" y="1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.47" pos="118.40" lane="-VODUGES_end_0" slope="0.00"/>
         <vehicle id="stopped" x="44.98" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="44.98" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
