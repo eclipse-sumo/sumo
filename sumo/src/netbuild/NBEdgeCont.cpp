@@ -622,7 +622,8 @@ NBEdgeCont::recheckLanes() {
                     continue;
                 }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > POSITION_EPS) {
-                    throw ProcessError("Opposite lane '" + oppositeID + "' differs in length from edge '" + edge->getID() + "'!");
+                    throw ProcessError("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") differs in length from edge '" + edge->getID() + "' (length "
+                            + toString(edge->getLoadedLength()) + ")!");
                 }
                 if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
                     throw ProcessError("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
