@@ -113,6 +113,9 @@ fillOptions() {
     oc.doRegister("flow-output", new Option_FileName());
     oc.addDescription("flow-output", "Output", "Writes flow definitions into FILE");
 
+    oc.doRegister("flow-output.probability", new Option_Bool(false));
+    oc.addDescription("flow-output.probability", "Output", "Writes probabilistic flow instead of evenly spaced flow");
+
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
     oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
@@ -292,7 +295,8 @@ main(int argc, char** argv) {
         if (OutputDevice::createDeviceByOption("flow-output", "routes", "routes_file.xsd")) {
             matrix.writeFlows(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                               OutputDevice::getDeviceByOption("flow-output"),
-                              oc.getBool("ignore-vehicle-type"), oc.getString("prefix"));
+                              oc.getBool("ignore-vehicle-type"), oc.getString("prefix"),
+                              oc.getBool("flow-output.probability"));
             haveOutput = true;
         }
         if (!haveOutput) {

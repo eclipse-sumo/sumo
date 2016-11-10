@@ -20,6 +20,7 @@
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <output-file value="" synonymes="o output" type="FILE" help="Writes trip definitions into FILE"/>
         <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
+        <flow-output.probability value="false" type="BOOL" help="Writes probabilistic flow instead of evenly spaced flow"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
     </output>
 

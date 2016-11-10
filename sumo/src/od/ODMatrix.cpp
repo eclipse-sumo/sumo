@@ -290,7 +290,8 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
 void
 ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                      OutputDevice& dev, bool noVtype,
-                     const std::string& prefix) {
+                     const std::string& prefix,
+                     bool asProbability) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -302,7 +303,20 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
         if (c->end > begin && c->begin < end) {
             dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
             dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
-            dev.writeAttr(SUMO_ATTR_END, time2string(c->end)).writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
+            dev.writeAttr(SUMO_ATTR_END, time2string(c->end));
+            if(!asProbability) {
+                dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
+            } else {
+                const SUMOReal probability = float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin);
+                if (probability > 1) {
+                    WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
+                    dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
+                } else {
+                    dev.setPrecision(6);
+                    dev.writeAttr(SUMO_ATTR_PROB, probability);
+                    dev.setPrecision();
+                }
+            }
             writeDefaultAttrs(dev, noVtype, *i);
             dev.closeTag();
         }

@@ -1,4 +1,4 @@
-SUMO od2trips Version svn
+SUMO od2trips Version dev-SVN-r21953
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
@@ -25,6 +25,8 @@ Output Options:
                                      the current time.
   -o, --output-file FILE           Writes trip definitions into FILE
   --flow-output FILE               Writes flow definitions into FILE
+  --flow-output.probability        Writes probabilistic flow instead of evenly
+                                     spaced flow
   --ignore-vehicle-type            Does not save vtype information
 
 Time Options:

@@ -42,6 +42,9 @@
         <!-- Writes flow definitions into FILE -->
         <flow-output value="" type="FILE"/>
 
+        <!-- Writes probabilistic flow instead of evenly spaced flow -->
+        <flow-output.probability value="false" type="BOOL"/>
+
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
 

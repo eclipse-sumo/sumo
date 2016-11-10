@@ -175,10 +175,12 @@ public:
      * @param[in] dev The stream to write the generated vehicle trips to
      * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the flow names
+     * @param[in] asProbability Write probability to spawn per second instead of number of vehicles
      */
     void writeFlows(const SUMOTime begin, const SUMOTime end,
                     OutputDevice& dev, const bool noVtype,
-                    const std::string& prefix);
+                    const std::string& prefix,
+                    bool asProbability=false);
 
 
     /** @brief Returns the number of loaded vehicles
