@@ -242,7 +242,7 @@ MSLaneChanger::change() {
         return false;
     }
     std::pair<MSVehicle* const, SUMOReal> leader = getRealLeader(myCandi);
-    if (myChanger.size() == 1) {
+    if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite()) {
         if (changeOpposite(leader)) {
             return true;
         }
