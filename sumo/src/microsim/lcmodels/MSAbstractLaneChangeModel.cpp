@@ -192,6 +192,9 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
     myNoPartiallyOccupatedByShadow.clear();
     myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
     myVehicle.fixPosition();
+    if (myAmOpposite) {
+        changedToOpposite();
+    }
 }
 
 
