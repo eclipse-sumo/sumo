@@ -138,7 +138,154 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeNames(),
     myUndoList(undoList),
     myCurrentPoly(0),
-    myTestingMode(OptionsCont::getOptions().getBool("gui-testing")) {
+    myTestingMode(/*OptionsCont::getOptions().getBool("gui-testing")*/ false) {
+    // view must be the final member of actualParent
+    reparent(actualParent);
+
+    buildEditModeControls();
+    myUndoList->mark();
+    myNet->setViewNet(this);
+
+    ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
+
+    // init color schemes
+    GUIColorer laneColorer;
+    GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
+    scheme.addColor(RGBColor::GREY, 1, "Sidewalk");
+    scheme.addColor(RGBColor(192, 66, 44), 2, "bike lane");
+    scheme.addColor(RGBColor(200, 255, 200), 3, "green verge");
+    scheme.addColor(RGBColor(150, 200, 200), 4, "waterway");
+    scheme.addColor(RGBColor(92, 92, 92), 5, "no passenger"); // paths, service roads etc
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(128, 128, 128, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
+    scheme.addColor(RGBColor(10, 10, 10), (SUMOReal)SVC_PASSENGER, "passenger");
+    scheme.addColor(RGBColor(128, 128, 128), (SUMOReal)SVC_PEDESTRIAN, "pedestrian");
+    scheme.addColor(RGBColor(80, 80, 80), (SUMOReal)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");
+    scheme.addColor(RGBColor(192, 66, 44), (SUMOReal)SVC_BICYCLE, "bicycle");
+    scheme.addColor(RGBColor(40, 100, 40), (SUMOReal)SVC_BUS, "bus");
+    scheme.addColor(RGBColor(166, 147, 26), (SUMOReal)SVC_TAXI, "taxi");
+    scheme.addColor(RGBColor::BLACK, (SUMOReal)(SVCAll & ~SVC_NON_ROAD), "normal_road");
+    scheme.addColor(RGBColor::BLACK, (SUMOReal)(SVCAll & ~(SVC_PEDESTRIAN | SVC_NON_ROAD)), "disallow_pedestrian");
+    scheme.addColor(RGBColor(255, 206, 0), (SUMOReal)(SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_MOPED | SVC_NON_ROAD)), "motorway");
+    scheme.addColor(RGBColor(150, 200, 200), (SUMOReal)SVC_SHIP, "waterway");
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)SVCAll, "all");
+    laneColorer.addScheme(scheme);
+
+    scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(30 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(55 / 3.6));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)(80 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
+    laneColorer.addScheme(scheme);
+
+    scheme = GUIColorScheme("by lane number (streetwise)", RGBColor::RED);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)5);
+    laneColorer.addScheme(scheme);
+
+    scheme = GUIColorScheme("by given length/geometrical length", RGBColor::BLACK);
+    scheme.addColor(RGBColor::RED, (SUMOReal)0.25);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)0.5);
+    scheme.addColor(RGBColor(179, 179, 179, 255), (SUMOReal)1.0);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)2.0);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)4.0);
+    laneColorer.addScheme(scheme);
+    laneColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
+
+    scheme = GUIColorScheme("by priority", RGBColor::YELLOW);
+    scheme.addColor(RGBColor::RED, (SUMOReal) - 20);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)20);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by height at start", RGBColor::RED);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - 10);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)50);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)200);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by height at segment start", RGBColor::RED);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - 10);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)50);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)200);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by inclination", RGBColor::GREY);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal) .1);
+    scheme.addColor(RGBColor::RED, (SUMOReal) .3);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal) - .1);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - .3);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by segment inclination", RGBColor::GREY);
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal) .1);
+    scheme.addColor(RGBColor::RED, (SUMOReal) .3);
+    scheme.addColor(RGBColor::GREEN, (SUMOReal) - .1);
+    scheme.addColor(RGBColor::BLUE, (SUMOReal) - .3);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+
+    myVisualizationSettings->laneColorer = laneColorer;
+
+    GUIColorer junctionColorer;
+    scheme = GUIColorScheme("uniform", RGBColor(102, 0, 0), "", true);
+    scheme.addColor(RGBColor(204, 0, 0), 1, "shape not computed");
+    scheme.addColor(RGBColor(153, 0, 0), 2, "geometry points");
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
+    scheme.addColor(RGBColor(0, 128, 0), 1, "traffic_light_unregulated");
+    scheme.addColor(RGBColor::YELLOW, 2, "priority");
+    scheme.addColor(RGBColor::RED, 3, "priority_stop");
+    scheme.addColor(RGBColor::BLUE, 4, "right_before_left");
+    scheme.addColor(RGBColor::CYAN, 5, "allway_stop");
+    scheme.addColor(RGBColor::GREY, 6, "district");
+    scheme.addColor(RGBColor::MAGENTA, 7, "unregulated");
+    scheme.addColor(RGBColor::BLACK, 8, "dead_end");
+    scheme.addColor(RGBColor::ORANGE, 9, "rail_signal");
+    scheme.addColor(RGBColor(192, 128, 64), 10, "zipper");
+    scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
+    scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    junctionColorer.addScheme(scheme);
+    myVisualizationSettings->junctionColorer = junctionColorer;
+
+    if (myTestingMode && OptionsCont::getOptions().isSet("window-size")) {
+        std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
+        assert(windowSize.size() == 2);
+        myTestingWidth = TplConvert::_str2int(windowSize[0]);
+        myTestingHeight = TplConvert::_str2int(windowSize[1]);
+    }
+}
+
+
+GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
+                       GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
+                       FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar, int testingGuiWidth, int testingGuiHeight) :
+    GUISUMOAbstractView(tmpParent, app, viewParent, net->getVisualisationSpeedUp(), glVis, share, testingGuiWidth, testingGuiHeight),
+    myViewParent(viewParent),
+    myNet(net),
+    myEditMode(GNE_MODE_MOVE),
+    myPreviousEditMode(GNE_MODE_MOVE),
+    myShowConnectionActivated(false),
+    myCreateEdgeSource(0),
+    myJunctionToMove(0),
+    myEdgeToMove(0),
+    myPolyToMove(0),
+    myAdditionalToMove(0),
+    myMoveSelection(false),
+    myAmInRectSelect(false),
+    myToolbar(toolBar),
+    myEditModesCombo(0),
+    myEditModeNames(),
+    myUndoList(undoList),
+    myCurrentPoly(0),
+    myTestingMode(false) {
     // view must be the final member of actualParent
     reparent(actualParent);
 
@@ -406,7 +553,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         }
         if (myTestingMode) {
             if (getWidth() != myTestingWidth || getHeight() != myTestingHeight) {
-                myApp->resize(myTestingWidth + myTestingWidth - getWidth(), myTestingHeight + myTestingHeight - getHeight());
+                //myApp->set
+                //myApp->resize(myTestingWidth, myTestingHeight);
             }
             // draw pink square in the upper left corner on top of everything
             glPushMatrix();

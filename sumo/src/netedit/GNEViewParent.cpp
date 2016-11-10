@@ -129,8 +129,13 @@ GNEViewParent::GNEViewParent(
     FXComposite* tmp = new FXComposite(this);
 
     // Create view net
-    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share, myNavigationToolBar);
-
+    GNEViewNet* viewNet = NULL;
+    std::vector<std::string> guiTestingSize = OptionsCont::getOptions().getStringVector("gui-testing");
+    if(guiTestingSize.size() == 2) {
+        viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share, myNavigationToolBar, TplConvert::_str2int(guiTestingSize[0]), TplConvert::_str2int(guiTestingSize[1]));
+    } else {
+        viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share, myNavigationToolBar);
+    }
     // Set pointer myView with the created view net
     myView = viewNet;
 
