@@ -42,6 +42,7 @@
 #include "MSEdge.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/pedestrians/MSPModel.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -624,15 +625,23 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
             MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
             for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                 MSVehicle* leader = (MSVehicle*)*it_veh;
-                if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass && leader->isFrontOnLane(foeLane)) {
+                const bool isOpposite = leader->getLaneChangeModel().isOpposite();
+                if (gDebugFlag1) {
+                    std::cout << " candiate leader=" << leader->getID() 
+                        << " cannotIgnore=" << cannotIgnore 
+                        << " willPass=" << foeLane->getLinkCont()[0]->getApproaching(leader).willPass 
+                        << " isFrontOnLane=" << leader->isFrontOnLane(foeLane) 
+                        << " isOpposite=" << isOpposite << "\n";
+                }
+                if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass && leader->isFrontOnLane(foeLane) && !isOpposite) {
                     continue;
                 }
                 if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
                     // compute distance between vehicles on the the superimposition of both lanes
                     // where the crossing point is the common point
                     SUMOReal gap;
-                    if (contLane && !sameSource) {
-                        gap = -1; // always break for vehicles which are on a continuation lane
+                    if ((contLane && !sameSource) || isOpposite) {
+                        gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {
                         const SUMOReal leaderBack = leader->getBackPositionOnLane(foeLane);
                         const SUMOReal leaderBackDist = foeDistToCrossing - leaderBack;

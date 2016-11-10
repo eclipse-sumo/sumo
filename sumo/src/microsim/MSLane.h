@@ -718,7 +718,7 @@ public:
 
     /// @brief return the follower with the largest missing rear gap among all predecessor lanes (within dist)
     std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(
-        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist = -1) const;
+        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist = -1, bool ignoreMinorLinks=false) const;
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const;
@@ -915,8 +915,18 @@ public:
     /// @brief return the corresponding position on the opposite lane
     SUMOReal getOppositePos(SUMOReal pos) const;
 
-    std::pair<MSVehicle* const, SUMOReal> getOppositeLeader(const MSVehicle* ego, SUMOReal dist) const;
+    /* @brief find leader for a vehicle depending the relative driving direction
+     * @param[in] ego The ego vehicle
+     * @param[in] dist The look-ahead distance when looking at consecutive lanes
+     * @param[in] oppositeDir Whether the lane has the opposite driving direction of ego
+     * @return the leader vehicle and it's gap to ego
+     */
+    std::pair<MSVehicle* const, SUMOReal> getOppositeLeader(const MSVehicle* ego, SUMOReal dist, bool oppositeDir) const;
 
+    /* @brief find follower for a vehicle that is located on the opposite of this lane
+     * @param[in] ego The ego vehicle
+     * @return the follower vehicle and it's gap to ego
+     */
     std::pair<MSVehicle* const, SUMOReal> getOppositeFollower(const MSVehicle* ego) const;
 
 
@@ -924,9 +934,10 @@ public:
      * @param[in] ego The ego vehicle
      * @param[in] egoPos The ego position mapped to the current lane
      * @param[in] dist The look-back distance when looking at consecutive lanes
+     * @param[in] ignoreMinorLinks Whether backward search should stop at minor links
      * @return the follower vehicle and it's gap to ego
      */
-    std::pair<MSVehicle* const, SUMOReal> getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist) const;
+    std::pair<MSVehicle* const, SUMOReal> getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist, bool ignoreMinorLinks) const;
 
     /// @name State saving/loading
     /// @{

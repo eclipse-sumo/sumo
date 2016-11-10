@@ -1096,7 +1096,7 @@ MSLCM_LC2013::_wantsChange(
         neighDist = neigh.length;
         currentDist = curr.length;
     }
-    const SUMOReal posOnLane = isOpposite() ? myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() : myVehicle.getPositionOnLane();
+    const SUMOReal posOnLane = isOpposite() ? myVehicle.getLane()->getOppositePos(myVehicle.getPositionOnLane()) : myVehicle.getPositionOnLane();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
@@ -1713,7 +1713,7 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
     roundaboutDistanceAheadNeigh += distanceAlongNextRoundabout(neighPosition, neigh.lane, neigh.bestContinuations);
 
 #ifdef DEBUG_WANTS_CHANGE
-    if (DEBUG_COND) {
+    if (lcm->debugVehicle()) {
         std::cout << "roundaboutDistanceAhead = " << roundaboutDistanceAhead
                   << " roundaboutDistanceAheadNeigh = " << roundaboutDistanceAheadNeigh
                   << "\n";

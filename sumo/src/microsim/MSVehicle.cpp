@@ -1426,6 +1426,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0.);
+#ifdef DEBUG_PLAN_MOVE
+        gDebugFlag1 = DEBUG_COND;
+        if (DEBUG_COND) std::cout 
+            << " stopDist=" << stopDist
+            << " vLinkWait=" << vLinkWait
+            << " brakeDist=" << brakeDist
+            << "\n";
+#endif
         if (yellowOrRed && seen >= brakeDist) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
@@ -1477,6 +1485,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 //        SUMOReal foeRecognitionTime = 0.0;
 //        SUMOReal determinedFoePresence = seen < visibilityDistance - myState.mySpeed*foeRecognitionTime;
 
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND){
+            std::cout << " approaching link=" << (*link)->getViaLaneOrLane()->getID() << " prio=" << (*link)->havePriority() << " seen=" << seen << " visibilityDistance=" << visibilityDistance << " brakeDist=" << brakeDist << "\n";
+        }
+#endif
+
         if (!(*link)->havePriority() && !determinedFoePresence && brakeDist < seen) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
             SUMOReal maxSpeedAtVisibilityDist = cfModel.maximumSafeStopSpeed(visibilityDistance, myState.mySpeed, false, 0.);
@@ -1484,6 +1498,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             SUMOReal maxArrivalSpeed = cfModel.estimateSpeedAfterDistance(visibilityDistance, maxSpeedAtVisibilityDist, cfModel.getMaxAccel());
             arrivalSpeed = MIN2(vLinkPass, maxArrivalSpeed);
             slowedDownForMinor = true;
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND){
+                std::cout << "   slowedDownForMinor maxArrivalSpeed=" << maxArrivalSpeed << " arrivalSpeed=" << arrivalSpeed << "\n";
+            }
+#endif
         }
 
         SUMOTime arrivalTime;
