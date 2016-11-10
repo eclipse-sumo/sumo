@@ -174,9 +174,8 @@ MSLaneChanger::updateLanes(SUMOTime t) {
 
 MSLaneChanger::ChangerIt
 MSLaneChanger::findCandidate() {
-    // Find the vehicle in myChanger with the smallest position. If there
+    // Find the vehicle in myChanger with the largest position. If there
     // is no vehicle in myChanger (shouldn't happen) , return myChanger.end().
-    // XXX: To my impression this returns the vehicle with the *largest* position?! (Leo)
     ChangerIt max = myChanger.end();
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
         if (veh(ce) == 0) {
