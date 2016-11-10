@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Nov 10 08:26:18 2016 by SUMO od2trips Version dev-SVN-r21953
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_o.fma"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml"/>
+        <flow-output value="routes.rou.xml"/>
+        <flow-output.probability value="true"/>
+    </output>
+
+    <processing>
+        <no-step-log value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="0" begin="0.00" end="3600.00" probability="0.027778" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+</routes>
