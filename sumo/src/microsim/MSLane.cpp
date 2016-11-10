@@ -2514,7 +2514,7 @@ MSLane::getOppositePos(SUMOReal pos) const {
         throw ProcessError("Lane '" + getID() + "' cannot compute oppositePos as there is no opposite lane.");
     }
     // XXX transformations for curved geometries
-    return opposite->getLength() - pos;
+    return MAX2((SUMOReal)0, opposite->getLength() - pos);
 
 }
 
