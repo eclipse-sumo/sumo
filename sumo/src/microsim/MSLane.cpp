@@ -78,6 +78,8 @@
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_CONTEXT
 //#define DEBUG_OPPOSITE
+//#define DEBUG_VEHICLE_CONTAINER
+//#define DEBUG_COLLISIONS
 #define DEBUG_COND (getID() == "disabled")
 #define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 
@@ -995,15 +997,19 @@ MSLane::planMovements(SUMOTime t) {
 
 void
 MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
-    //std::vector<const MSVehicle*> all;
-    //for (AnyVehicleIterator last = anyVehiclesBegin(); last != anyVehiclesEnd(); ++last) {
-    //    all.push_back(*last);
-    //}
-    //std::cout << SIMTIME << " detectCollisions stage=" << stage << " lane=" << getID() << ":\n"
-    //    << "   vehs=" << toString(myVehicles) << "\n"
-    //    << "   part=" << toString(myPartialVehicles) << "\n"
-    //    << "   all=" << toString(all) << "\n"
-    //    << "\n";
+#ifdef DEBUG_COLLISIONS
+    if (DEBUGCOND) {
+        std::vector<const MSVehicle*> all;
+        for (AnyVehicleIterator last = anyVehiclesBegin(); last != anyVehiclesEnd(); ++last) {
+            all.push_back(*last);
+        }
+        std::cout << SIMTIME << " detectCollisions stage=" << stage << " lane=" << getID() << ":\n"
+            << "   vehs=" << toString(myVehicles) << "\n"
+            << "   part=" << toString(myPartialVehicles) << "\n"
+            << "   all=" << toString(all) << "\n"
+            << "\n";
+    }
+#endif
 
     if (myVehicles.size() == 0 || myCollisionAction == COLLISION_ACTION_NONE) {
         return;
@@ -1111,19 +1117,29 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
         return false;
     }
 #endif
-    const SUMOReal gap = victim->getBackPositionOnLane(this) - collider->getPositionOnLane() - collider->getVehicleType().getMinGap();
+    const bool bothOpposite = victim->getLaneChangeModel().isOpposite() && collider->getLaneChangeModel().isOpposite();
+    if (bothOpposite) {
+        std::swap(victim, collider);
+    }
+    SUMOReal gap = victim->getBackPositionOnLane(this) - collider->getPositionOnLane() - collider->getVehicleType().getMinGap();
+    if (bothOpposite) {
+        gap = -gap - 2 * collider->getVehicleType().getMinGap();
+    }
+#ifdef DEBUG_COLLISIONS
+    if (DEBUG_COND) std::cout << SIMTIME
+        << " thisLane=" << getID()
+            << " collider=" << collider->getID()
+            << " victim=" << victim->getID()
+            << " colliderLane=" << collider->getLane()->getID()
+            << " victimLane=" << victim->getLane()->getID()
+            << " colliderPos=" << collider->getPositionOnLane()
+            << " victimBackPos=" << victim->getBackPositionOnLane(this)
+            << " colliderLat=" << collider->getCenterOnEdge()
+            << " victimLat=" << victim->getCenterOnEdge(this)
+            << " gap=" << gap
+            << "\n";
+#endif
     if (gap < -NUMERICAL_EPS) {
-        //std::cout << SIMTIME
-        //    << " thisLane=" << getID()
-        //    << " collider=" << collider->getID()
-        //    << " victim=" << victim->getID()
-        //    << " colliderLane=" << collider->getLane()->getID()
-        //    << " victimLane=" << victim->getLane()->getID()
-        //    << " colliderPos=" << collider->getPositionOnLane()
-        //    << " victimBackPos=" << victim->getBackPositionOnLane(this)
-        //    << " colliderLat=" << collider->getCenterOnEdge()
-        //    << " victimLat=" << victim->getCenterOnEdge(this)
-        //    << "\n";
         SUMOReal latGap = 0;
         if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
             latGap = (fabs(victim->getCenterOnEdge(this) - collider->getCenterOnEdge())
@@ -1373,7 +1389,6 @@ MSLane::appropriate(const MSVehicle* veh) {
 
 bool
 MSLane::integrateNewVehicle(SUMOTime) {
-    //std::cout << SIMTIME << " integrateNewVehicle lane=" << getID() << "\n";
     bool wasInactive = myVehicles.size() == 0;
     sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter(this));
     for (std::vector<MSVehicle*>::const_iterator i = myVehBuffer.begin(); i != myVehBuffer.end(); ++i) {
@@ -1387,11 +1402,14 @@ MSLane::integrateNewVehicle(SUMOTime) {
     }
     myVehBuffer.clear();
     //std::cout << SIMTIME << " integrateNewVehicle lane=" << getID() << " myVehicles1=" << toString(myVehicles);
-    if (MSGlobals::gLateralResolution > 0) {
+    if (MSGlobals::gLateralResolution > 0 || myNeighs.size() > 0) {
         sort(myVehicles.begin(), myVehicles.end(), vehicle_natural_position_sorter(this));
     }
     sortPartialVehicles();
-    //std::cout << " myVehicles2=" << toString(myVehicles) << "\n";
+#ifdef DEBUG_VEHICLE_CONTAINER
+    if (DEBUG_COND) std::cout << SIMTIME << " integrateNewVehicle lane=" << getID() 
+        << " vhicles=" << toString(myVehicles) << " partials=" << toString(myPartialVehicles) << "\n";
+#endif
     return wasInactive && myVehicles.size() != 0;
 }
 
