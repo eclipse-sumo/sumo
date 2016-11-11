@@ -6,17 +6,17 @@ Simulation started with time: 0.00
 Simulation ended at time: 360.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 56ms
- Real time factor: 6428.57
- UPS: 185767.857143
+ Duration: 123ms
+ Real time factor: 2926.83
+ UPS: 82138.211382
 Vehicles: 
- Inserted: 304 (Loaded: 360)
+ Inserted: 319 (Loaded: 360)
  Running: 30
- Waiting: 56
+ Waiting: 41
 Statistics (avg):
- RouteLength: 986.31
- Duration: 35.97
+ RouteLength: 905.33
+ Duration: 33.06
  WaitingTime: 0.00
  TimeLoss: 0.00
- DepartDelay: 25.35
+ DepartDelay: 11.84
 
