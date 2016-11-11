@@ -85,9 +85,6 @@ public:
     ///@brief constructor
     GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share);
 
-    ///@brief constructor for testing GUI Mode
-    GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share, int testingGuiWidth, int testingGuiHeight);
-
     ///@brief destructor
     virtual ~GUISUMOAbstractView();
 

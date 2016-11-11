@@ -242,7 +242,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("additionals-output", new Option_String());
     oc.addDescription("additionals-output", "Output", "default value for additionals output file");
 
-    oc.doRegister("gui-testing", new Option_String());
+    oc.doRegister("gui-testing", new Option_Bool(false));
     oc.addDescription("gui-testing", "Visualisation", "Enable ovelay for screen recognition");
 
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too

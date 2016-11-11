@@ -103,23 +103,6 @@ public:
                GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar);
 
-    /* @brief constructor for gui testing mode
-     * @param[in] tmpParent temporal FXFrame parent so that we can add items to view area in the desired order
-     * @param[in] actualParent FXFrame parent of GNEViewNet
-     * @param[in] app main windows
-     * @param[in] viewParent viewParent of this viewNet
-     * @param[in] net traffic net
-     * @param[in] undoList pointer to UndoList modul
-     * @param[in] glVis a reference to GLVisuals
-     * @param[in] share a reference to FXCanvas
-     * @param[in] toolbar A reference to the parents toolbar
-     * @param[in] testingGuiWidth width of the view net for gui testing
-     * @param[in] testingGuiHeight height of the view net for gui testing
-     */
-    GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
-               GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
-               FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar, int testingGuiWidth, int testingGuiHeight);
-
     /// @brief destructor
     virtual ~GNEViewNet();
 

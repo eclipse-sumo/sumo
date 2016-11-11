@@ -61,7 +61,6 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/options/OptionsCont.h>
 
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"
@@ -110,34 +109,8 @@ FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, AR
  * GUISUMOAbstractView - methods
  * ----------------------------------------------------------------------- */
 GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share) :
-    FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
-    myApp(&app),
-    myParent(parent),
-    myGrid(&((SUMORTree&)grid)),
-    myChanger(0),
-    myMouseHotspotX(app.getDefaultCursor()->getHotX()),
-    myMouseHotspotY(app.getDefaultCursor()->getHotY()),
-    myPopup(0),
-    myUseToolTips(false),
-    myAmInitialised(false),
-    myViewportChooser(0),
-    myWindowCursorPositionX(getWidth() / 2),
-    myWindowCursorPositionY(getHeight() / 2),
-    myVisualizationChanger(0) {
-    setTarget(this);
-    enable();
-    flags |= FLAG_ENABLED;
-    myInEditMode = false;
-    // show the middle at the beginning
-    myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
-    myVisualizationSettings = &gSchemeStorage.getDefault();
-    myVisualizationSettings->gaming = myApp->isGaming();
-    gSchemeStorage.setViewport(this);
-}
-
-
-GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share, int testingGuiWidth, int testingGuiHeight) :
-    FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, testingGuiWidth, testingGuiHeight),
+    FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
+               LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
     myParent(parent),
     myGrid(&((SUMORTree&)grid)),
