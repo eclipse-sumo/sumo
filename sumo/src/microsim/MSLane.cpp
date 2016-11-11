@@ -262,19 +262,37 @@ MSLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, SUMORea
 
 
 bool
-MSLane::lastInsertion(MSVehicle& veh, SUMOReal mspeed) {
+MSLane::lastInsertion(MSVehicle& veh, SUMOReal mspeed, bool patchSpeed) {
     // XXX interpret departPosLat value
     const SUMOReal posLat = 0;
-    const bool adaptSpeed = false;
-    if (myVehicles.size() == 0) {
-        return isInsertionSuccess(&veh, mspeed, basePos(veh), posLat, adaptSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
+    SUMOReal pos = getLength() - POSITION_EPS;
+    MSVehicle* leader = getLastAnyVehicle(); 
+    // back position of leader relative to this lane
+    SUMOReal leaderBack;
+    if (leader == 0) {
+        /// look for a leaders on consecutive lanes
+        veh.setTentativeLaneAndPosition(this, pos, posLat);
+        veh.updateBestLanes(false, this);
+        std::pair<MSVehicle* const, SUMOReal> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation(), veh.getCarFollowModel().brakeGap(mspeed));
+        leader = leaderInfo.first;
+        leaderBack = pos + leaderInfo.second + veh.getVehicleType().getMinGap();
+    } else {
+        leaderBack = leader->getBackPositionOnLane(this);
+        //std::cout << " leaderPos=" << leader->getPositionOnLane(this) << " leaderBack=" << leader->getBackPositionOnLane(this) << " leaderLane=" << leader->getLane()->getID() << "\n";
     }
-    // try to insert behind the last vehicle
-    const MSVehicle* leader = myVehicles.front();
-    const SUMOReal leaderBack = leader->getPositionOnLane() - leader->getVehicleType().getLength();
-    const SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(mspeed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap() + POSITION_EPS;
-    if (leaderBack >= frontGapNeeded) {
-        return isInsertionSuccess(&veh, mspeed, leaderBack - frontGapNeeded, posLat, adaptSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
+    if (leader == 0) {
+        // insert at the end of this lane
+        return isInsertionSuccess(&veh, mspeed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
+    } else {
+        // try to insert behind the leader
+        const SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(mspeed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap() + POSITION_EPS;
+        if (leaderBack >= frontGapNeeded) {
+            pos = MIN2(pos, leaderBack - frontGapNeeded);
+            bool result = isInsertionSuccess(&veh, mspeed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
+            //if (!result) std::cout << " insertLast failed for " << veh.getID() << " pos=" << pos << " leaderBack=" << leaderBack << " frontGapNeeded=" << frontGapNeeded << "\n";
+            return result;
+        }
+        //std::cout << " insertLast failed for " << veh.getID() << " pos=" << pos << " leaderBack=" << leaderBack << " frontGapNeeded=" << frontGapNeeded << "\n";
     }
     return false;
 }
@@ -433,7 +451,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
         case DEPART_POS_FREE:
             return freeInsertion(veh, speed);
         case DEPART_POS_LAST:
-            return lastInsertion(veh, speed);
+            return lastInsertion(veh, speed, patchSpeed);
         case DEPART_POS_BASE:
         case DEPART_POS_DEFAULT:
         default:

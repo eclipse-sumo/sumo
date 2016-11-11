@@ -278,10 +278,10 @@ public:
     // XXX: Documentation?
     bool checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const SUMOReal nspeed, const bool patchSpeed, const std::string errorMsg) const;
 
-    /** @todo documentation
-     *
+    /** @brief inserts vehicle as close as possible to the last vehicle on this
+     * lane (or at the end of the lane if there is no leader)
      */
-    bool lastInsertion(MSVehicle& veh, SUMOReal mspeed);
+    bool lastInsertion(MSVehicle& veh, SUMOReal mspeed, bool patchSpeed);
 
     /** @brief Tries to insert the given vehicle on any place
      *
