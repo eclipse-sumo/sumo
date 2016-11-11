@@ -59,13 +59,13 @@ click(match.getTarget().offset(-145, 180))
 
 # Set name of lines
 doubleClick(match.getTarget().offset(-135, 100))
-type("Line1" + Key.ENTER)
+paste("Line1")
 doubleClick(match.getTarget().offset(-135, 125))
-type("Line2" + Key.ENTER)
+paste("Line2")
 doubleClick(match.getTarget().offset(-135, 150))
-type("Line3" + Key.ENTER)
+paste("Line3")
 doubleClick(match.getTarget().offset(-135, 175))
-type("Line4" + Key.ENTER)
+paste("Line4")
 
 # Remove last line
 click(match.getTarget().offset(-110, 195))
@@ -74,10 +74,13 @@ click(match.getTarget().offset(-110, 195))
 click(match.getTarget().offset(400, 300))
 
 # save additionals
+# XXX add a keyboard hotkey
 click(match.getTarget().offset(-200, -80))
 click(match.getTarget().offset(-200, 180))
 
 # quit
 type("q", Key.CTRL)
 
+# confirm unsafed network
 type("y", Key.ALT)
+type("z", Key.ALT) # work-around misinterpreted keyboard mapping
