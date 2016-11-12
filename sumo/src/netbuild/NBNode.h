@@ -73,12 +73,14 @@ class OutputDevice;
  */
 class NBNode : public Named {
     friend class NBNodeCont;
-    friend class GNEJunction; // < used for visualization (NETEDIT)
-    friend class NBNodesEdgesSorter; // < sorts the edges
-    friend class NBNodeTypeComputer; // < computes type
+    friend class GNEJunction;            // < used for visualization (NETEDIT)
+    friend class NBNodesEdgesSorter;     // < sorts the edges
+    friend class NBNodeTypeComputer;     // < computes type
     friend class NBEdgePriorityComputer; // < computes priorities of edges per intersection
+    friend class NBNodeShapeComputer;    // < computes node's shape
 
 public:
+    /// @brief map for custon shapes
     typedef std::map<std::string, PositionVector> CustomShapeMap;
 
     /**
@@ -104,7 +106,7 @@ public:
         std::vector<int> myAvailableLanes;
 
     public:
-        /** @brief Constructor
+        /**@brief Constructor
          * @param[in] approaching The list of the edges that approach the outgoing edge
          * @param[in] currentOutgoing The outgoing edge
          */
@@ -113,15 +115,15 @@ public:
         /// @brief Destructor
         ~ApproachingDivider();
 
+        /// @ get number of avaliable lanes
         int numAvailableLanes() const {
             return (int)myAvailableLanes.size();
         }
 
-        /** the bresenham-callback */
+        /// @brief the bresenham-callback
         void execute(const int src, const int dest);
 
-        /** the method that spreads the wished number of lanes from the
-            the lane given by the bresenham-call to both left and right */
+        /// @brief the method that spreads the wished number of lanes from the the lane given by the bresenham-call to both left and right
         std::deque<int>* spread(const std::vector<int>& approachingLanes, int dest) const;
 
     };
@@ -130,8 +132,13 @@ public:
      * @brief A definition of a pedestrian crossing
      */
     struct Crossing {
+        /// @brief constructor
         Crossing(const NBNode* _node, const EdgeVector& _edges, SUMOReal _width, bool _priority) :
-            node(_node), edges(_edges), width(_width), priority(_priority), tlLinkNo(-1) {
+            node(_node), 
+            edges(_edges), 
+            width(_width), 
+            priority(_priority), 
+            tlLinkNo(-1) {
         }
         /// @brief The parent node of this crossing
         const NBNode* node;
@@ -160,6 +167,7 @@ public:
      * @brief A definition of a pedestrian walking area
      */
     struct WalkingArea {
+        /// @brief constructor
         WalkingArea(const std::string& _id, SUMOReal _width) :
             id(_id),
             width(_width),
@@ -191,27 +199,24 @@ public:
     static const SUMOReal UNSPECIFIED_RADIUS;
 
 public:
-    /** @brief Constructor
+    /**@brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
     NBNode(const std::string& id, const Position& position, SumoXMLNodeType type);
 
-
-    /** @brief Constructor
+    /**@brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      * @param[in] district The district this district node represents, 0 means no district node
      */
     NBNode(const std::string& id, const Position& position, NBDistrict* district = 0);
 
-
     /// @brief Destructor
     ~NBNode();
 
-
-    /** @brief Resets initial values
+    /**@brief Resets initial values
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      * @param[in] updateEdgeGeometries Whether the geometires of all
@@ -220,107 +225,78 @@ public:
     void reinit(const Position& position, SumoXMLNodeType type,
                 bool updateEdgeGeometries = false);
 
-
     /// @name Atomar getter methods
     /// @{
-
-    /** @brief Returns the position of this node
-     * @return This node's position
-     */
+    /// @brief Returns the position of this node
     const Position& getPosition() const {
         return myPosition;
     }
 
-
-    /** @brief Returns a position that is guaranteed to lie within the node shape */
+    /// @brief Returns a position that is guaranteed to lie within the node shape
     Position getCenter() const;
 
-
-    /** @brief Returns this node's incoming edges
-     * @return The edges which yield in this node
-     */
+    /// @brief Returns this node's incoming edges (The edges which yield in this node)
     const EdgeVector& getIncomingEdges() const {
         return myIncomingEdges;
     }
 
-
-    /** @brief Returns this node's outgoing edges
-     * @return The edges which start at this node
-     */
+    /// @brief Returns this node's outgoing edges (The edges which start at this node)
     const EdgeVector& getOutgoingEdges() const {
         return myOutgoingEdges;
     }
 
-
-    /** @brief Returns all edges which participate in this node
-     * @return Edges that start or end at this node
-     */
+    /// @brief Returns all edges which participate in this node (Edges that start or end at this node)
     const EdgeVector& getEdges() const {
         return myAllEdges;
     }
 
-
-    /** @brief Returns the type of this node
-     * @return The type of this node
+    /**@brief Returns the type of this node
      * @see SumoXMLNodeType
      */
     SumoXMLNodeType getType() const {
         return myType;
     }
 
-    /** @brief Returns the turning radius of this node
-     * @return The turning radius of this node
-     */
+    /// @brief Returns the turning radius of this node
     SUMOReal getRadius() const {
         return myRadius;
     }
 
-    /** @brief Returns the keepClear flag
-     */
+    /// @brief Returns the keepClear flag 
     bool getKeepClear() const {
         return myKeepClear;
     }
     /// @}
 
-
-
     /// @name Methods for dealing with assigned traffic lights
     /// @{
-
-    /** @brief Adds a traffic light to the list of traffic lights that control this node
+    /**@brief Adds a traffic light to the list of traffic lights that control this node
      * @param[in] tld The traffic light that controls this node
      */
     void addTrafficLight(NBTrafficLightDefinition* tlDef);
 
-    /** @brief Removes the given traffic light from this node */
+    /// @brief Removes the given traffic light from this node
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
-    /** @brief Removes all references to traffic lights that control this tls
-     */
+    /// @brief Removes all references to traffic lights that control this tls 
     void removeTrafficLights();
 
-
-    /** @brief Returns whether this node is controlled by any tls
+    /**@brief Returns whether this node is controlled by any tls
      * @return Whether a traffic light was assigned to this node
      */
     bool isTLControlled() const {
         return myTrafficLights.size() != 0;
     }
 
-
-    /** @brief Returns whether this node is controlled by a tls that spans over more than one node
+    /**@brief Returns whether this node is controlled by a tls that spans over more than one node
      * @return Whether a "joined" traffic light was assigned to this node
      */
     bool isJoinedTLSControlled() const;
 
-
-    /** @brief Returns the traffic lights that were assigned to this node
-     * @return The set of tls that control this node
-     */
+    /// @brief Returns the traffic lights that were assigned to this node (The set of tls that control this node)
     const std::set<NBTrafficLightDefinition*>& getControllingTLS() const {
         return myTrafficLights;
     }
-
 
     /// @brief causes the traffic light to be computed anew
     void invalidateTLS(NBTrafficLightLogicCont& tlCont);
@@ -330,11 +306,10 @@ public:
     /// @}
 
 
-
     /// @name Prunning the input
     /// @{
 
-    /** @brief Removes edges which are both incoming and outgoing into this node
+    /**@brief Removes edges which are both incoming and outgoing into this node
      *
      * If given, the connections to other edges participating in this node are updated
      *
@@ -347,11 +322,9 @@ public:
     /// @}
 
 
-
     /// @name Applying offset
     /// @{
-
-    /** @brief Applies an offset to the node
+    /**@brief Applies an offset to the node
      * @param[in] xoff The x-offset to apply
      * @param[in] yoff The y-offset to apply
      */
@@ -361,65 +334,64 @@ public:
     void mirrorX();
     /// @}
 
-
-
-    /// adds an incoming edge
+    /// @brief adds an incoming edge
     void addIncomingEdge(NBEdge* edge);
 
-    /// adds an outgoing edge
+    /// @brief adds an outgoing edge
     void addOutgoingEdge(NBEdge* edge);
 
-
-
-
-    /// computes the connections of lanes to edges
+    /// @brief computes the connections of lanes to edges
     void computeLanes2Lanes();
 
-    /// computes the node's type, logic and traffic light
+    /// @brief computes the node's type, logic and traffic light
     void computeLogic(const NBEdgeCont& ec, OptionsCont& oc);
 
-    /** writes the XML-representation of the logic as a bitset-logic
-        XML representation */
+    /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
     bool writeLogic(OutputDevice& into, const bool checkLaneFoes) const;
 
-    /** @brief Returns something like the most unused direction
-        Should only be used to add source or sink nodes */
+    /// @brief Returns something like the most unused direction Should only be used to add source or sink nodes
     Position getEmptyDir() const;
 
-
-    /** @brief Returns whether the given edge ends at this node
+    /**@brief Returns whether the given edge ends at this node
      * @param[in] e The edge
      * @return Whether the given edge is one of this node's incoming edges
      */
     bool hasIncoming(const NBEdge* const e) const;
 
-
-    /** @brief Returns whether the given edge starts at this node
+    /**@brief Returns whether the given edge starts at this node
      * @param[in] e The edge
      * @return Whether the given edge is one of this node's outgoing edges
      */
     bool hasOutgoing(const NBEdge* const e) const;
 
-
+    /// @brief returns the opposite incoming edge of certain edge
     NBEdge* getOppositeIncoming(NBEdge* e) const;
+
+    /// @brief invalidate incoming connections
     void invalidateIncomingConnections();
+
+    /// @brief invalidate outgoing connections
     void invalidateOutgoingConnections();
 
+    /// @brief remove duble edges
     void removeDoubleEdges();
+
+    /// @brief get connection to certain node
     NBEdge* getConnectionTo(NBNode* n) const;
 
+    /// @brief add shorted link FOES
+    void addSortedLinkFoes(const NBConnection& mayDrive, const NBConnection& mustStop);
 
-    void addSortedLinkFoes(const NBConnection& mayDrive,
-                           const NBConnection& mustStop);
-
+    /// @brief get possibly splitted incoming  edge
     NBEdge* getPossiblySplittedIncoming(const std::string& edgeid);
+
+    /// @brief get possibly splitted outgoing edge
     NBEdge* getPossiblySplittedOutgoing(const std::string& edgeid);
 
-    /** @brief Removes edge from this node and optionally removes connections as well
-     */
+    /// @brief Removes edge from this node and optionally removes connections as well
     void removeEdge(NBEdge* edge, bool removeFromConnections = true);
 
-    /** @brief Computes whether the given connection is a left mover across the junction
+    /**@brief Computes whether the given connection is a left mover across the junction
      *
      * It is assumed, that it is a left-mover if the clockwise angle is lower
      *  than the counter-clockwise angle.
@@ -430,8 +402,7 @@ public:
      */
     bool isLeftMover(const NBEdge* const from, const NBEdge* const to) const;
 
-
-    /** @brief Returns the information whether the described flow must let any other flow pass
+    /**@brief Returns the information whether the described flow must let any other flow pass
      * @param[in] from The connection's start edge
      * @param[in] to The connection's end edge
      * @param[in] fromLane The lane the connection start at
@@ -441,7 +412,7 @@ public:
      */
     bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const;
 
-    /** @brief Returns the information whether the described flow must brake for the given crossing
+    /**@brief Returns the information whether the described flow must brake for the given crossing
      * @param[in] from The connection's start edge
      * @param[in] to The connection's end edge
      * @param[in] crossing The pedestrian crossing to check
@@ -449,12 +420,12 @@ public:
      */
     bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const Crossing& crossing) const;
 
-    /** @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
-     */
+    /// @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane, bool lefthand = false);
+                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane, 
+                                  bool lefthand = false);
 
-    /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
+    /**@brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
      * @param[in] possProhibitedTo The maybe prohibited connection's end
      * @param[in] possProhibitorFrom The maybe prohibiting connection's begin
@@ -466,8 +437,7 @@ public:
                  const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
                  bool regardNonSignalisedLowerPriority) const;
 
-
-    /** @brief Returns the information whether the given flows cross
+    /**@brief Returns the information whether the given flows cross
      * @param[in] from1 The starting edge of the first stream
      * @param[in] to1 The ending edge of the first stream
      * @param[in] from2 The starting edge of the second stream
@@ -477,8 +447,7 @@ public:
     bool foes(const NBEdge* const from1, const NBEdge* const to1,
               const NBEdge* const from2, const NBEdge* const to2) const;
 
-
-    /** @brief Returns the representation of the described stream's direction
+    /**@brief Returns the representation of the described stream's direction
      * @param[in] incoming The edge the stream starts at
      * @param[in] outgoing The edge the stream ends at
      * @param[in] leftHand Whether a lefthand network is being built. Should only be set at writing time
@@ -486,10 +455,11 @@ public:
      */
     LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand = false) const;
 
+    /// @brief get link state
     LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
                            int fromLane, int toLane, bool mayDefinitelyPass, const std::string& tlID) const;
 
-    /** @brief Compute the junction shape for this node
+    /**@brief Compute the junction shape for this node
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
     void computeNodeShape(SUMOReal mismatchThreshold);
@@ -523,22 +493,23 @@ public:
         return myHaveCustomPoly;
     }
 
+    /// @brief check if node is removable
     bool checkIsRemovable() const;
 
-
+    /// @brief get edges to join
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
-
-
-    friend class NBNodeShapeComputer;
-
+    
+    /// @chech if node is near district
     bool isNearDistrict() const;
+
+    /// @brief check if node is a district
     bool isDistrict() const;
 
     /// @brief whether an internal junction should be built at from and respect other
     bool needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
                    const NBEdge::Connection& c, const NBEdge::Connection& otherC) const;
 
-    /** @brief Compute the shape for an internal lane
+    /**@brief Compute the shape for an internal lane
      * @param[in] fromE The starting edge
      * @param[in] con The connection for this internal lane
      * @param[in] numPoints The number of geometry points for the internal lane
@@ -547,8 +518,7 @@ public:
      */
     PositionVector computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError = 0) const;
 
-
-    /** @brief Compute a smooth curve between the given geometries
+    /**@brief Compute a smooth curve between the given geometries
      * @param[in] begShape The geometry at the start
      * @param[in] endShape The geometry at the end
      * @param[in] numPoints The number of geometry points for the internal lane
@@ -558,23 +528,13 @@ public:
      * @param[in] recordError The node itself if the displacement error during shape computation shall be recorded
      * @return The shape of the internal lane
      */
-    PositionVector computeSmoothShape(
-        const PositionVector& begShape,
-        const PositionVector& endShape,
-        int numPoints,
-        bool isTurnaround,
-        SUMOReal extrapolateBeg,
-        SUMOReal extrapolateEnd,
-        NBNode* recordError = 0) const;
-
-    static PositionVector bezierControlPoints(
-        const PositionVector& begShape,
-        const PositionVector& endShape,
-        bool isTurnaround,
-        SUMOReal extrapolateBeg,
-        SUMOReal extrapolateEnd,
-        bool& ok,
-        NBNode* recordError = 0);
+    PositionVector computeSmoothShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints,
+                                      bool isTurnaround, SUMOReal extrapolateBeg, SUMOReal extrapolateEnd,
+                                      NBNode* recordError = 0) const;
+    /// @brief get bezier control points
+    static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
+                                              bool isTurnaround, SUMOReal extrapolateBeg, SUMOReal extrapolateEnd, 
+                                              bool& ok, NBNode* recordError = 0);
 
 
     /// @brief compute the displacement error during s-curve computation
@@ -582,20 +542,16 @@ public:
         return myDisplacementError;
     }
 
-    /** @brief Replaces occurences of the first edge within the list of incoming by the second
-        Connections are remapped, too */
+    /// @brief Replaces occurences of the first edge within the list of incoming by the second Connections are remapped, too
     void replaceIncoming(NBEdge* which, NBEdge* by, int laneOff);
 
-    /** @brief Replaces occurences of every edge from the given list within the list of incoming by the second
-        Connections are remapped, too */
+    /// @brief Replaces occurences of every edge from the given list within the list of incoming by the second Connections are remapped, too
     void replaceIncoming(const EdgeVector& which, NBEdge* by);
 
-    /** @brief Replaces occurences of the first edge within the list of outgoing by the second
-        Connections are remapped, too */
+    /// @brief Replaces occurences of the first edge within the list of outgoing by the second Connections are remapped, too
     void replaceOutgoing(NBEdge* which, NBEdge* by, int laneOff);
 
-    /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
-        Connections are remapped, too */
+    /// @brief Replaces occurences of every edge from the given list within the list of outgoing by the second Connections are remapped, too
     void replaceOutgoing(const EdgeVector& which, NBEdge* by);
 
     /// @brief guess pedestrian crossings and return how many were guessed
@@ -610,18 +566,17 @@ public:
     /// @brief build internal lanes, pedestrian crossings and walking areas
     void buildInnerEdges();
 
-    /* @brief build pedestrian crossings
+    /**@brief build pedestrian crossings
      * @return The next index for creating internal lanes
-     * */
+     **/
     int buildCrossings();
 
-    /* @brief build pedestrian walking areas and set connections from/to walkingAreas
+    /**@brief build pedestrian walking areas and set connections from/to walkingAreas
      * @param[in] cornerDetail The detail level when generating the inner curve
-     * */
+     */
     void buildWalkingAreas(int cornerDetail);
 
-    /* @brief build crossings, and walkingareas. Also removes invalid loaded
-     * crossings*/
+    /// @brief build crossings, and walkingareas. Also removes invalid loaded crossings
     void buildCrossingsAndWalkingAreas();
 
     /// @brief return all edges that lie clockwise between the given edges
@@ -630,12 +585,12 @@ public:
     /// @brief return true if the given edges are connected by a crossing
     bool crossingBetween(const NBEdge* e1, const NBEdge* e2) const;
 
+    /// @brief get prohibitions (BLocked connections)
     const NBConnectionProhibits& getProhibitions() {
         return myBlockedConnections;
     }
 
-    /** @brief whether this is structurally similar to a geometry node
-     */
+    /// @brief whether this is structurally similar to a geometry node 
     bool geometryLike() const;
 
     /// @brief update the type of this node as a roundabout
@@ -647,10 +602,12 @@ public:
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);
 
+    /// @brief discard all crossings
     void discardAllCrossings() {
         myDiscardAllCrossings = true;
     }
 
+    /// @brief get num of crossings from sumo net
     int numCrossingsFromSumoNet() const {
         return myCrossingsLoadedFromSumoNet;
     }
@@ -674,8 +631,7 @@ public:
     /// @brief return the number of lane-to-lane connections at this junction (excluding crossings)
     int numNormalConnections() const;
 
-    /** @brief fix overlap
-     */
+    /// @brief fix overlap
     void avoidOverlap();
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
@@ -690,21 +646,21 @@ public:
         /// @brief Constructor
         explicit nodes_by_id_sorter() { }
 
-        /** @brief Comparing operator
-         */
+        /// @brief Comparing operator 
         int operator()(NBNode* n1, NBNode* n2) const {
             return n1->getID() < n2->getID();
         }
-
     };
-
 
     /** @class edge_by_direction_sorter
      * @brief Sorts outgoing before incoming edges
      */
     class edge_by_direction_sorter {
     public:
+        /// @brief constructor
         explicit edge_by_direction_sorter(NBNode* n) : myNode(n) {}
+
+        /// @brief operator of selection
         int operator()(NBEdge* e1, NBEdge* e2) const {
             UNUSED_PARAMETER(e2);
             return e1->getFromNode() == myNode;
@@ -723,35 +679,30 @@ public:
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);
 
+    /// @brief check if node is a simple continuation
     bool isSimpleContinuation(bool checkLaneNumbers = true) const;
 
 
 private:
-    /// sets the priorites in case of a priority junction
+    /// @brief sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
 
-    /** returns a list of edges which are connected to the given
-        outgoing edge */
+    /// @brief returns a list of edges which are connected to the given outgoing edge
     EdgeVector* getEdgesThatApproach(NBEdge* currentOutgoing);
 
+    /// @brief replace incoming connections prohibitions
+    void replaceInConnectionProhibitions(NBEdge* which, NBEdge* by, int whichLaneOff, int byLaneOff);
 
-
-
-    void replaceInConnectionProhibitions(NBEdge* which, NBEdge* by,
-                                         int whichLaneOff, int byLaneOff);
-
-
-    void remapRemoved(NBTrafficLightLogicCont& tc,
-                      NBEdge* removed, const EdgeVector& incoming, const EdgeVector& outgoing);
-
+    /// @brief remap removed
+    void remapRemoved(NBTrafficLightLogicCont& tc, NBEdge* removed, const EdgeVector& incoming, const EdgeVector& outgoing);
 
     /// @brief return whether there is a non-sidewalk lane after the given index;
     bool forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalizedLanes, int startIndex);
 
-
     /// @brief returns the list of all edges sorted clockwise by getAngleAtNodeToCenter
     EdgeVector getEdgesSortedByAngleAtNodeCenter() const;
 
+    /// @brief check if is long enough
     static bool isLongEnough(NBEdge* out, SUMOReal minLength);
 
 private:
@@ -776,20 +727,22 @@ private:
     /// @brief The type of the junction
     SumoXMLNodeType myType;
 
-    /** The container for connection block dependencies */
+    /// @brief The container for connection block dependencies
     NBConnectionProhibits myBlockedConnections;
 
-    /// The district the node is the centre of
+    /// @brief The district the node is the centre of
     NBDistrict* myDistrict;
 
-    /// the (outer) shape of the junction
+    /// @brief the (outer) shape of the junction
     PositionVector myPoly;
 
     /// @brief whether this nodes shape was set by the user
     bool myHaveCustomPoly;
 
+    /// @brief Node requests
     NBRequest* myRequest;
 
+    /// @brief traffic lights of node
     std::set<NBTrafficLightDefinition*> myTrafficLights;
 
     /// @brief the turning radius (for all corners) at this node in m.
@@ -798,6 +751,7 @@ private:
     /// @brief whether the junction area must be kept clear
     bool myKeepClear;
 
+    /// @brief custom lane shapes
     CustomShapeMap myCustomLaneShapes;
 
     /// @brief whether to discard all pedestrian crossings
@@ -815,8 +769,6 @@ private:
 
     /// @brief invalidated assignment operator
     NBNode& operator=(const NBNode& s);
-
-
 };
 
 
