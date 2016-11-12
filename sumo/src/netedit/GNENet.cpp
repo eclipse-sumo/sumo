@@ -1308,8 +1308,7 @@ void
 GNENet::insertEdge(GNEEdge* edge) {
     NBEdge* nbe = edge->getNBEdge();
     myNetBuilder->getEdgeCont().insert(nbe); // should we ignore pruning double edges?
-    // if this edge was previouls extracted from the edgeContainer we have to
-    // rewire the nodes
+    // if this edge was previouls extracted from the edgeContainer we have to rewire the nodes
     nbe->getFromNode()->addOutgoingEdge(nbe);
     nbe->getToNode()->addIncomingEdge(nbe);
     registerEdge(edge);
@@ -1337,9 +1336,15 @@ GNEEdge*
 GNENet::registerEdge(GNEEdge* edge) {
     edge->incRef("GNENet::registerEdge");
     edge->setResponsible(false);
+    // add edge to internal container of GNENet
     myEdges[edge->getMicrosimID()] = edge;
+    // add edge to grid
     myGrid.add(edge->getBoundary());
     myGrid.addAdditionalGLObject(edge);
+    // Add references into GNEJunctions
+    edge->getGNEJunctionSource()->addOutgoingGNEEdge(edge);
+    edge->getGNEJunctionDestiny()->addIncomingGNEEdge(edge);
+    // update view
     update();
     return edge;
 }
@@ -1360,14 +1365,18 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
 
 void
 GNENet::deleteSingleEdge(GNEEdge* edge) {
+    // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
     myEdges.erase(edge->getMicrosimID());
-    myNetBuilder->getEdgeCont().extract(
-        myNetBuilder->getDistrictCont(), edge->getNBEdge());
+    // extract edge of district container
+    myNetBuilder->getEdgeCont().extract(myNetBuilder->getDistrictCont(), edge->getNBEdge());
     edge->decRef("GNENet::deleteSingleEdge");
     edge->setResponsible(true);
     // selection status is lost when removing edge via undo and the selection operation was not part of a command group
     gSelected.deselect(edge->getGlID());
+    // Remove refrences from GNEJunctions
+    edge->getGNEJunctionSource()->removeOutgoingGNEEdge(edge);
+    edge->getGNEJunctionDestiny()->removeIncomingGNEEdge(edge);
     // invalidate junction logic
     update();
 }

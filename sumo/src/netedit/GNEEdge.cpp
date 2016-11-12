@@ -410,8 +410,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
 
 void
 GNEEdge::remakeIncomingGNEConnections() {
-    std::vector<GNEEdge*> incomingEdges = myGNEJunctionSource->getGNEIncomingEdges();
-    for (std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myGNEJunctionSource->getGNEIncomingEdges().begin(); i != myGNEJunctionSource->getGNEIncomingEdges().end(); i++) {
         (*i)->remakeGNEConnections();
     }
 }
@@ -711,11 +710,21 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FROM:
             myNet->changeEdgeEndpoints(this, value, myGNEJunctionDestiny->getMicrosimID());
+            // update this edge of list of outgoings edges of the old GNEJunctionSource
+            myGNEJunctionSource->removeOutgoingGNEEdge(this);
+            // update GNEJunctionSource
             myGNEJunctionSource = myNet->retrieveJunction(myNBEdge.getFromNode()->getID());
+            // update this edge of list of outgoings edges of the new GNEJunctionSource
+            myGNEJunctionSource->addOutgoingGNEEdge(this);
             break;
         case SUMO_ATTR_TO:
             myNet->changeEdgeEndpoints(this, myGNEJunctionSource->getMicrosimID(), value);
+            // update this edge of list of incomings edges of the old GNEJunctionDestiny
+            myGNEJunctionDestiny->removeIncomingGNEEdge(this);
+            // update GNEJunctionDestiny
             myGNEJunctionDestiny = myNet->retrieveJunction(myNBEdge.getToNode()->getID());
+            // update this edge of list of incomings edges of the new GNEJunctionDestiny
+            myGNEJunctionDestiny->addIncomingGNEEdge(this);
             break;
         case SUMO_ATTR_NUMLANES:
             throw InvalidArgument("GNEEdge::setAttribute (private) called for attr SUMO_ATTR_NUMLANES. This should never happen");

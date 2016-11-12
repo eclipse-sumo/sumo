@@ -107,14 +107,26 @@ public:
     /// @brief Return net build node
     NBNode* getNBNode() const;
 
+    /// @brief add incoming GNEEdge
+    void addIncomingGNEEdge(GNEEdge *edge);
+
+    /// @brief add outgoing GNEEdge
+    void addOutgoingGNEEdge(GNEEdge *edge);
+
+    /// @brief remove incoming GNEEdge
+    void removeIncomingGNEEdge(GNEEdge *edge);
+
+    /// @brief remove outgoing GNEEdge
+    void removeOutgoingGNEEdge(GNEEdge *edge);
+
     /// @brief Return all GNEEdges vinculated with this Junction
-    std::vector<GNEEdge*> getGNEEdges() const;
+    const std::vector<GNEEdge*> &getGNEEdges() const;
 
     /// @brief Return incoming GNEEdges
-    std::vector<GNEEdge*> getGNEIncomingEdges() const;
+    const std::vector<GNEEdge*> &getGNEIncomingEdges() const;
 
     /// @brief Return incoming GNEEdges
-    std::vector<GNEEdge*> getGNEOutgoingEdges() const;
+    const std::vector<GNEEdge*> &getGNEOutgoingEdges() const;
 
     /// @brief marks as first junction in createEdge-mode
     void markAsCreateEdgeSource();
@@ -125,7 +137,7 @@ public:
     /// @brief notify the junction of being selected in tls-mode. (used to control drawing)
     void selectTLS(bool selected);
 
-    /**@brief Update the boundary of the junction */
+    /// @brief Update the boundary of the junction
     void updateGeometry();
 
     /**@brief reposition the node at pos and informs the edges
@@ -189,8 +201,7 @@ public:
      * @param[in] deletedConnection If a valid connection is given a replacement def with this connection removed
      *   but all other information intact will be computed instead of guessing a new tlDef
      * @note: this should always be called with an active command group */
-    void invalidateTLS(GNEUndoList* undoList,
-                       const NBConnection& deletedConnection = NBConnection::InvalidConnection);
+    void invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection = NBConnection::InvalidConnection);
 
     /// @brief removes the given edge from all pedestrian crossings
     void removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList);
@@ -204,6 +215,15 @@ public:
 private:
     /// @brief A reference to the represented junction
     NBNode& myNBNode;
+
+    /// @brief vector with the GNEEdges vinculated with this junction
+    std::vector<GNEEdge*> myGNEEdges;
+
+    /// @brief vector with the incomings GNEEdges vinculated with this junction
+    std::vector<GNEEdge*> myGNEIncomingEdges;
+
+    /// @brief vector with the outgoings GNEEdges vinculated with this junction
+    std::vector<GNEEdge*> myGNEOutgoingEdges;
 
     /// @brief restore point for undo
     Position myOrigPos;

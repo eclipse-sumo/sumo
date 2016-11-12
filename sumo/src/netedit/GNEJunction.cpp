@@ -248,40 +248,78 @@ GNEJunction::getNBNode() const {
 }
 
 
-std::vector<GNEEdge*>
+
+void 
+GNEJunction::addIncomingGNEEdge(GNEEdge *edge) {
+    // Check if incoming edge was already inserted
+    std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
+    if(i != myGNEIncomingEdges.end()) {
+        throw InvalidArgument("Incoming GNEEdge with id = '" + edge->getID() + "' was already inserted into junction with id = " + getID() + "'");
+    } else {
+        // Add edge into containers
+        myGNEIncomingEdges.push_back(edge);
+        myGNEEdges.push_back(edge);
+    }
+}
+
+
+void 
+GNEJunction::addOutgoingGNEEdge(GNEEdge *edge) {
+    // Check if outgoing edge was already inserted
+    std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
+    if(i != myGNEOutgoingEdges.end()) {
+        throw InvalidArgument("Outgoing GNEEdge with id = '" + edge->getID() + "' was already inserted into junction with id = " + getID() + "'");
+    } else {
+        // Add edge into containers
+        myGNEOutgoingEdges.push_back(edge);
+        myGNEEdges.push_back(edge);
+    }
+}
+
+
+void 
+GNEJunction::removeIncomingGNEEdge(GNEEdge *edge) {
+    // Check if incoming edge was already inserted
+    std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
+    if(i == myGNEIncomingEdges.end()) {
+        throw InvalidArgument("Incoming GNEEdge with id = '" + edge->getID() + "' doesn't found into junction with id = " + getID() + "'");
+    } else {
+        // remove edge from containers
+        myGNEIncomingEdges.erase(i);
+        myGNEEdges.erase(std::find(myGNEEdges.begin(), myGNEEdges.end(), edge));
+    }
+}
+
+
+void 
+GNEJunction::removeOutgoingGNEEdge(GNEEdge *edge) {
+    // Check if outgoing edge was already inserted
+    std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
+    if(i == myGNEOutgoingEdges.end()) {
+        throw InvalidArgument("Outgoing GNEEdge with id = '" + edge->getID() + "' doesn't found into junction with id = " + getID() + "'");
+    } else {
+        // remove edge from containers
+        myGNEOutgoingEdges.erase(i);
+        myGNEEdges.erase(std::find(myGNEEdges.begin(), myGNEEdges.end(), edge));
+    }
+}
+
+
+const std::vector<GNEEdge*>&
 GNEJunction::getGNEEdges() const {
-    std::vector<GNEEdge*> edges;
-    // iterate over incoming edges
-    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
-        edges.push_back(myNet->retrieveEdge((*i)->getID()));
-    }
-    // iterate over outgoing edges
-    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
-        edges.push_back(myNet->retrieveEdge((*i)->getID()));
-    }
-    return edges;
+    return myGNEEdges;
 }
 
 
-std::vector<GNEEdge*>
+const std::vector<GNEEdge*>&
 GNEJunction::getGNEIncomingEdges() const {
-    std::vector<GNEEdge*> incomingEdges;
-    // iterate over incoming edges
-    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getIncomingEdges().begin(); i != myNBNode.getIncomingEdges().end(); i++) {
-        incomingEdges.push_back(myNet->retrieveEdge((*i)->getID()));
-    }
-    return incomingEdges;
+    return myGNEIncomingEdges;
 }
 
 
-std::vector<GNEEdge*>
+const std::vector<GNEEdge*>&
 GNEJunction::getGNEOutgoingEdges() const {
-    std::vector<GNEEdge*> outgoingEdges;
-    // iterate over outgoing edges
-    for (std::vector<NBEdge*>::const_iterator i = myNBNode.getOutgoingEdges().begin(); i != myNBNode.getOutgoingEdges().end(); i++) {
-        outgoingEdges.push_back(myNet->retrieveEdge((*i)->getID()));
-    }
-    return outgoingEdges;
+    return myGNEOutgoingEdges;
 }
 
 
@@ -337,22 +375,17 @@ GNEJunction::updateShapesAndGeometries() {
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
-    // Fill sets
-    std::vector<GNEEdge*> GNEEdges = getGNEEdges();             // @Improve efficiency
-    std::vector<GNEEdge*> edgesNeighbor;
     // Iterate over GNEEdges
-    for (std::vector<GNEEdge*>::const_iterator i = GNEEdges.begin(); i != GNEEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myGNEEdges.begin(); i != myGNEEdges.end(); i++) {
         // Add source and destiny junctions
         affectedJunctions.insert((*i)->getGNEJunctionSource());
         affectedJunctions.insert((*i)->getGNEJunctionDestiny());
         // Obtain neighbors of Junction source
-        edgesNeighbor = (*i)->getGNEJunctionSource()->getGNEEdges();    // @Improve efficiency
-        for (std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
+        for (std::vector<GNEEdge*>::const_iterator j = (*i)->getGNEJunctionSource()->getGNEEdges().begin(); j != (*i)->getGNEJunctionSource()->getGNEEdges().end(); j++) {
             affectedEdges.insert(*j);
         }
         // Obtain neighbors of Junction destiny
-        edgesNeighbor = (*i)->getGNEJunctionDestiny()->getGNEEdges();  // @Improve efficiency
-        for (std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
+        for (std::vector<GNEEdge*>::const_iterator j = (*i)->getGNEJunctionDestiny()->getGNEEdges().begin(); j != (*i)->getGNEJunctionDestiny()->getGNEEdges().end(); j++) {
             affectedEdges.insert(*j);
         }
     }
@@ -674,8 +707,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myLogicStatus == GUESSED && value != GUESSED) {
                 // clear guessed connections. previous connections will be restored
                 myNBNode.invalidateIncomingConnections();
-                std::vector<GNEEdge*> incomingEdges = getGNEIncomingEdges();
-                for (std::vector<GNEEdge*>::iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
+                // Clear GNEConnections of incoming edges
+                for (std::vector<GNEEdge*>::iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
                     (*i)->clearGNEConnections();
                 }
             }
