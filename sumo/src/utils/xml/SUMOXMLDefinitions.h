@@ -88,8 +88,6 @@ enum SumoXMLTag {
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
-    /// @brief A variable speed sign over lane
-    SUMO_TAG_VSSLANE,
     /// @brief A calibrator
     SUMO_TAG_CALIBRATOR,
     /// @brief A rerouter
