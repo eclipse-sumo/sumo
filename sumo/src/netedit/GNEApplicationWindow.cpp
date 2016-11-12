@@ -288,6 +288,7 @@ GNEApplicationWindow::create() {
             maximize();
         }
     }
+
 }
 
 

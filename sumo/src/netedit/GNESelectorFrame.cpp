@@ -439,7 +439,7 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOpera
                 if (object->getType() == GLO_LANE && selectEdges) {
                     const GNEEdge& edge = (static_cast<GNELane*>(object))->getParentEdge();
                     idsSet.insert(edge.getGNEJunctionSource()->getGlID());
-                    idsSet.insert(edge.getGNEJunctionDest()->getGlID());
+                    idsSet.insert(edge.getGNEJunctionDestiny()->getGlID());
                 }
                 GUIGlObjectStorage::gIDStorage.unblockObject(id);
             }

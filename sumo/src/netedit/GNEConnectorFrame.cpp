@@ -217,8 +217,7 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
                     NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex());
                     myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, true), true);
                     lane->setSpecialColor(mayDefinitelyPass ? &targetPassColor : &targetColor);
-                    GNEJunction* affected = srcEdge.getGNEJunctionDest();
-                    affected->invalidateTLS(myViewNet->getUndoList());
+                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList());
                 }
                 break;
             case CONNECTED:
@@ -456,7 +455,7 @@ GNEConnectorFrame::updateDescription() const {
 void
 GNEConnectorFrame::initTargets() {
     // gather potential targets
-    NBNode* nbn = myCurrentLane->getParentEdge().getGNEJunctionDest()->getNBNode();
+    NBNode* nbn = myCurrentLane->getParentEdge().getGNEJunctionDestiny()->getNBNode();
 
     const EdgeVector& outgoing = nbn->getOutgoingEdges();
     for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {

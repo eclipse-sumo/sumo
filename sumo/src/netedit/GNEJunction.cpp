@@ -343,15 +343,15 @@ GNEJunction::updateShapesAndGeometries() {
     // Iterate over GNEEdges
     for (std::vector<GNEEdge*>::const_iterator i = GNEEdges.begin(); i != GNEEdges.end(); i++) {
         // Add source and destiny junctions
-        affectedJunctions.insert((*i)->getGNEJunctionSource()); // @Improve efficiency
-        affectedJunctions.insert((*i)->getGNEJunctionDest());   // @Improve efficiency
+        affectedJunctions.insert((*i)->getGNEJunctionSource());
+        affectedJunctions.insert((*i)->getGNEJunctionDestiny());
         // Obtain neighbors of Junction source
         edgesNeighbor = (*i)->getGNEJunctionSource()->getGNEEdges();    // @Improve efficiency
         for (std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
             affectedEdges.insert(*j);
         }
         // Obtain neighbors of Junction destiny
-        edgesNeighbor = (*i)->getGNEJunctionDest()->getGNEEdges();  // @Improve efficiency
+        edgesNeighbor = (*i)->getGNEJunctionDestiny()->getGNEEdges();  // @Improve efficiency
         for (std::vector<GNEEdge*>::const_iterator j = edgesNeighbor.begin(); j != edgesNeighbor.end(); j++) {
             affectedEdges.insert(*j);
         }

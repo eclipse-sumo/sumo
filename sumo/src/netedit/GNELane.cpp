@@ -321,7 +321,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             drawMarkings(selectedEdge, exaggeration);
         }
         // draw ROWs only if target junction has a valid logic)
-        if (myParentEdge.getGNEJunctionDest()->isLogicValid() && s.scale > 3) {
+        if (myParentEdge.getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
             drawArrows();
         }
         // Draw direction indicators if the correspondient option is enabled
