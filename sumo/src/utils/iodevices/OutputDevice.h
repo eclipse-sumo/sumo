@@ -175,14 +175,11 @@ public:
      *
      * @param[in] rootElement The root element to use
      * @param[in] attrs Additional attributes to save within the rootElement
-     * @param[in] comment Additional comment (saved in front the rootElement)
      * @return Whether the header could be written (stack was empty)
-     * @todo Check which parameter is used herein
      * @todo Describe what is saved
      */
     bool writeXMLHeader(const std::string& rootElement,
-                        const std::string& attrs = "",
-                        const std::string& comment = "");
+                        const std::string& attrs = "");
 
 
     template <typename E>

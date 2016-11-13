@@ -61,13 +61,10 @@ public:
      * @param[in] into The output stream to use
      * @param[in] rootElement The root element to use
      * @param[in] attrs Additional attributes to save within the rootElement
-     * @param[in] comment Additional comment (saved in front the rootElement)
-     * @todo Check which parameter is used herein
      * @todo Describe what is saved
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                        const std::string& attrs = "",
-                        const std::string& comment = "");
+                        const std::string& attrs = "");
 
 
     /** @brief Writes an XML header with optional configuration

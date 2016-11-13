@@ -59,12 +59,9 @@ PlainXMLFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement
 
 bool
 PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                                  const std::string& attrs, const std::string& comment) {
+                                  const std::string& attrs) {
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(into);
-        if (comment != "") {
-            into << comment << "\n";
-        }
         openTag(into, rootElement);
         if (attrs != "") {
             into << " " << attrs;

@@ -230,8 +230,8 @@ OutputDevice::setPrecision(int precision) {
 
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement,
-                             const std::string& attrs, const std::string& comment) {
-    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, comment);
+                             const std::string& attrs) {
+    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs);
 }
 
 
