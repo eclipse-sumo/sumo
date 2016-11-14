@@ -1568,7 +1568,9 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
     // Update Junction Shapes
-    getNet()->updateJunctionShapes();
+    if (!myShowJunctionAsBubble->getCheck()) {
+        getNet()->updateJunctionShapes();
+    }
     return 1;
 }
 
@@ -1587,7 +1589,7 @@ GNEViewNet::setEditMode(EditMode mode) {
         myPreviousEditMode = myEditMode;
         myEditMode = mode;
         // First check if previous mode was MOVE
-        if (myPreviousEditMode == GNE_MODE_MOVE) {
+        if (myPreviousEditMode == GNE_MODE_MOVE && myShowJunctionAsBubble->getCheck()) {
             // Update junctions again to calculate connections and disable bubbles
             myNet->updateJunctionShapes();
             myShowJunctionAsBubble->setCheck(false);
