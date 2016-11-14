@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 18:08:28 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on 11/14/16 16:07:17 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="three_split.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
@@ -20,13 +20,14 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<calibratorstats>
-   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="28" removed="0" inserted="27" cleared="0" flow="1008.00" aspiredFlow="1000.00" speed="27.80" aspiredSpeed="-1.00"/>
+<calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
+    <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="28" removed="0" inserted="27" cleared="0" flow="1008.00" aspiredFlow="1000.00" speed="27.80" aspiredSpeed="-1.00"/>
 </calibratorstats>

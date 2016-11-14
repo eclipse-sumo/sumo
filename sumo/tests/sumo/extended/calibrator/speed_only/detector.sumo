@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 16:34:12 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on 11/14/16 16:07:18 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,13 +16,14 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<calibratorstats>
-   <interval begin="0.00" end="3600.00" id="c1" nVehContrib="1430" removed="0" inserted="0" cleared="0" flow="1430.00" aspiredFlow="-1.00" speed="10.00" aspiredSpeed="10.00"/>
+<calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
+    <interval begin="0.00" end="3600.00" id="c1" nVehContrib="1430" removed="0" inserted="0" cleared="0" flow="1430.00" aspiredFlow="-1.00" speed="10.00" aspiredSpeed="10.00"/>
 </calibratorstats>

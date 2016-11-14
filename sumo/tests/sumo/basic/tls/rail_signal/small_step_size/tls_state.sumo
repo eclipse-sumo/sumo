@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/18/15 17:30:02 by SUMO Version dev-SVN-r17893
+<!-- generated on 11/14/16 16:02:16 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -22,14 +22,14 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<tls-states>
+<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
     <tlsState time="0.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="0.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="0.00" id="gneJ5" programID="0" phase="0" state="G"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  2 16:49:13 2015 by SUMO Version dev-SVN-r17985I
+<!-- generated on 11/14/16 16:05:27 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -18,14 +18,14 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<vehicle-type-probes>
+<vehicle-type-probes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/vtypeprobe_file.xsd">
     <timestep time="0.00" id="test1" vType="DEFAULT_VEHTYPE"/>
     <timestep time="10.00" id="test1" vType="DEFAULT_VEHTYPE"/>
     <timestep time="20.00" id="test1" vType="DEFAULT_VEHTYPE"/>

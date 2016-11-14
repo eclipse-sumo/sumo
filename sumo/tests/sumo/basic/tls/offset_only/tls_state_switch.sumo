@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  2 10:32:41 2015 by SUMO Version dev-SVN-r18992I
+<!-- generated on 11/14/16 16:02:17 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<tls-switch-states>
+<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
     <tlsstate time="100.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
     <tlsstate time="106.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
     <tlsstate time="110.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
@@ -45,4 +45,4 @@
     <tlsstate time="280.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
     <tlsstate time="286.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
     <tlsstate time="290.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
-</tls-switch-states>
+</tls-states>

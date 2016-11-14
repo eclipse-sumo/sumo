@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:15:39 by SUMO sumo Version 0.17.0
+<!-- generated on 11/14/16 16:05:39 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,14 +17,15 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<tls-switch-states>
+<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
     <tlsstate time="50.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
     <tlsstate time="76.00" id="0" programID="0" phase="5" state="rrrryyggrrrryygg"/>
     <tlsstate time="80.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
@@ -40,4 +41,4 @@
     <tlsstate time="260.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
     <tlsstate time="266.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
     <tlsstate time="270.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
-</tls-switch-states>
+</tls-states>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/15/16 05:11:43 by SUMO Version dev-SVN-r20951
+<!-- generated on 11/14/16 16:04:54 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,7 +24,7 @@
 </configuration>
 -->
 
-<instantE1>
+<instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
     <instantOut id="instant" time="5.43" state="enter" vehID="0" speed="25.60" length="5.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="instant" time="5.63" state="leave" vehID="0" speed="25.60" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.20"/>
     <instantOut id="instant" time="6.81" state="enter" vehID="1" speed="23.93" length="5.00" type="DEFAULT_VEHTYPE" gap="1.18"/>
