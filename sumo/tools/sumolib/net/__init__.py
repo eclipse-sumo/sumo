@@ -446,6 +446,7 @@ class NetReader(handler.ContentHandler):
                 if self._withInternal:
                     intLanes = attrs["intLanes"].split(" ")
                 self._currentNode = self._net.addNode(attrs['id'], attrs['type'], (float(
+                    attrs['x']), float(attrs['y']), float(attrs['z'])) if 'z' in attrs else (float(
                     attrs['x']), float(attrs['y'])), attrs['incLanes'].split(" "), intLanes)
         if name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
