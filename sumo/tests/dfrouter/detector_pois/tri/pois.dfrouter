@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:00:44 by SUMO dfrouter Version 0.17.0
+<!-- generated on 11/14/16 12:59:45 by SUMO dfrouter Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -14,10 +14,14 @@
         <detectors-poi-output value="detectors.poi.xml"/>
     </output>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
-<pois>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="MQ_beg" type="source_detector_position" color="green" lane="beg_0" pos="5.00"/>
     <poi id="MQ_middle" type="between_detector_position" color="blue" lane="middle_0" pos="500.00"/>
     <poi id="MQ_1toR" type="between_detector_position" color="blue" lane="1toR_0" pos="100.00"/>
@@ -27,4 +31,4 @@
     <poi id="MQ_L" type="between_detector_position" color="blue" lane="L_0" pos="500.00"/>
     <poi id="MQ_Lto2" type="between_detector_position" color="blue" lane="Lto2_0" pos="100.00"/>
     <poi id="MQ_end" type="sink_detector_position" color="red" lane="end_0" pos="50.00"/>
-</pois>
+</additional>

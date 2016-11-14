@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:00:44 by SUMO dfrouter Version 0.17.0
+<!-- generated on 11/14/16 12:59:44 by SUMO dfrouter Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -14,10 +14,14 @@
         <routes-output value="routes.rou.xml"/>
     </output>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <route id="ErnstRuska2O_to_HavestadtN" edges="ErnstRuska2O ErnstRuska231O HavestadtN"/>
     <route id="ErnstRuska2O_to_VolmerN" edges="ErnstRuska2O ErnstRuska231O ErnstRuska232O ErnstRuska3O VolmerN"/>

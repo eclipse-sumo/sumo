@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:28 by SUMO dfrouter Version 0.17.0
+<!-- generated on 11/14/16 12:59:54 by SUMO dfrouter Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -15,10 +15,14 @@
         <detector-output value="detectors_def.det.xml"/>
     </output>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
-<detectors>
+<detectors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/detectors_file.xsd">
     <detectorDefinition id="MQ_beg" lane="beg_0" pos="5.00" type="source"/>
     <detectorDefinition id="MQ_middle" lane="middle_0" pos="500.00" type="between"/>
     <detectorDefinition id="MQ_1toR" lane="1toR_0" pos="100.00" type="between"/>

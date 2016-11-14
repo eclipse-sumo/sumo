@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:24 by SUMO dfrouter Version 0.17.0
+<!-- generated on 11/14/16 12:59:54 by SUMO dfrouter Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -16,10 +16,14 @@
         <emitters-output value="emitters.add.xml"/>
     </output>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <route id="1to2_to_9to10" edges="1to2 2to9split 9to10"/>
     <route id="1to2_to_4to5" edges="1to2 2to3 3to4 4to5"/>

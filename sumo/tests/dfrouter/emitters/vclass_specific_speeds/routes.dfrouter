@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 28 08:33:24 2016 by SUMO dfrouter Version dev-SVN-r21246
+<!-- generated on 11/14/16 12:59:45 by SUMO dfrouter Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -24,7 +24,7 @@
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <route id="beg_to_end" edges="beg middle end"/>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:14 by SUMO dfrouter Version 0.17.0
+<!-- generated on 11/14/16 12:59:52 by SUMO dfrouter Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -16,13 +16,14 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
         <log value="log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<pois>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="MQ11Fs1" type="source_detector_position" color="green" lane="ErnstRuska2O_0" pos="5.00"/>
     <poi id="MQ11Fs2" type="source_detector_position" color="green" lane="ErnstRuska2O_1" pos="5.00"/>
     <poi id="MQ12Fs1" type="between_detector_position" color="blue" lane="ErnstRuska2W_0" pos="-5.00"/>
@@ -66,4 +67,4 @@
     <poi id="MQ45Fs1N" type="source_detector_position" color="green" lane="AltglienickerBreitN_0" pos="-5.00"/>
     <poi id="MQ45Fs2N" type="source_detector_position" color="green" lane="AltglienickerBreitN_1" pos="-5.00"/>
     <poi id="MQ45Fs1S" type="sink_detector_position" color="red" lane="AltglienickerBreitS_0" pos="5.00"/>
-</pois>
+</additional>
