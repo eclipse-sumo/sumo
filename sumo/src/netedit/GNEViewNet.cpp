@@ -1570,6 +1570,8 @@ GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
     // Update Junction Shapes
     if (!myShowJunctionAsBubble->getCheck()) {
         getNet()->updateJunctionShapes();
+    } else {
+        update();
     }
     return 1;
 }

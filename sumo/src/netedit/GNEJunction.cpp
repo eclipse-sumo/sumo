@@ -176,7 +176,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoxLine(myNBNode.getPosition(), 0, 1, 1);
     } else {
         // node shape has been computed and is valid for drawing
-        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
+        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape && !myNet->getViewNet()->showJunctionAsBubbles();
         const bool drawBubble = (!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape; // magic threshold
 
         if (drawShape) {
