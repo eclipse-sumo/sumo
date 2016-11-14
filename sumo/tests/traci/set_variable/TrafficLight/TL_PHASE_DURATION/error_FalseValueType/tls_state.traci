@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/07/13 19:07:25 by SUMO sumo Version 0.17.1
+<!-- generated on 11/14/16 16:42:44 by SUMO Version dev-SVN-r21978
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,18 +16,19 @@
     </time>
 
     <report>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="8863"/>
+        <remote-port value="55801"/>
     </traci_server>
 
 </configuration>
 -->
 
-<tls-states>
+<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
     <tlsState time="0.00" id="1/1" programID="0" phase="0" state="rrrrGGggrrrrGGgg"/>
     <tlsState time="1.00" id="1/1" programID="0" phase="0" state="rrrrGGggrrrrGGgg"/>
     <tlsState time="2.00" id="1/1" programID="0" phase="0" state="rrrrGGggrrrrGGgg"/>
