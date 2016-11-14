@@ -2627,18 +2627,20 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
         activateReminders(notification);
     }
     // build the list of lanes the vehicle is lapping into
-    SUMOReal leftLength = myType->getLength() - pos;
-    MSLane* clane = enteredLane;
-    while (leftLength > 0) {
-        clane = clane->getLogicalPredecessorLane();
-        if (clane == 0 || clane == myLane) {
-            break;
+    if (!myLaneChangeModel->isOpposite()) {
+        SUMOReal leftLength = myType->getLength() - pos;
+        MSLane* clane = enteredLane;
+        while (leftLength > 0) {
+            clane = clane->getLogicalPredecessorLane();
+            if (clane == 0 || clane == myLane) {
+                break;
+            }
+            myFurtherLanes.push_back(clane);
+            myFurtherLanesPosLat.push_back(myState.myPosLat);
+            leftLength -= (clane)->setPartialOccupation(this);
         }
-        myFurtherLanes.push_back(clane);
-        myFurtherLanesPosLat.push_back(myState.myPosLat);
-        leftLength -= (clane)->setPartialOccupation(this);
+        myState.myBackPos = -leftLength;
     }
-    myState.myBackPos = -leftLength;
     if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
         getLaneChangeModel().updateShadowLane();
     }
