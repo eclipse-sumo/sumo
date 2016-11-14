@@ -16,7 +16,7 @@
 			<xsd:attribute name="id" type="xsd:string" use="required"/>
 			<xsd:attribute name="lane" type="xsd:string" use="required"/>
 			<xsd:attribute name="pos" type="xsd:float" use="required"/>
-			<xsd:attribute name="type" type="xsd:string" use="optional">
+			<xsd:attribute name="type" use="optional">
 				<xsd:simpleType>
 					<xsd:restriction base="xsd:string">
 						<xsd:enumeration value="source"/>

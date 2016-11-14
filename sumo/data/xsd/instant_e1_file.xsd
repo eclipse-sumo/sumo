@@ -6,7 +6,7 @@
 	<xsd:element name="instantE1">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element maxOccurs="unbounded" ref="instantOut"/>
+				<xsd:element minOccurs="0" maxOccurs="unbounded" ref="instantOut"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -15,7 +15,7 @@
 		<xsd:complexType>
 			<xsd:attribute name="id" use="required" type="xsd:string"/>
 			<xsd:attribute name="time" use="required" type="nonNegativeFloatType"/>
-			<xsd:attribute name="state" use="required" type="xsd:string">
+			<xsd:attribute name="state" use="required">
 				<xsd:simpleType>
 					<xsd:restriction base="xsd:string">
 						<xsd:enumeration value="enter"/>
