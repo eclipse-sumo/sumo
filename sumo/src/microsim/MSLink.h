@@ -390,12 +390,12 @@ public:
 
     /** @brief Returns all potential link leaders (vehicles on foeLanes)
      * Valid during the planMove() phase
+     * @param[in] ego The ego vehicle that is looking for leaders
      * @param[in] dist The distance of the vehicle who is asking about the leader to this link
-     * @param[in] minGap The minGap of the vehicle who is asking about the leader to this link
      * @param[out] blocking Return blocking pedestrians if a vector is given
      * @return The all vehicles on foeLanes and their (virtual) distances to the asking vehicle
      */
-    LinkLeaders getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers = 0) const;
+    LinkLeaders getLeaderInfo(const MSVehicle* ego, SUMOReal dist, std::vector<const MSPerson*>* collectBlockers = 0) const;
 #endif
 
     /// @brief return the speed at which ego vehicle must approach the zipper link

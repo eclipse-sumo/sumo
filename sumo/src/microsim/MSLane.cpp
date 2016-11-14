@@ -1867,7 +1867,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         }
 #ifdef HAVE_INTERNAL_LANES
         // check for link leaders
-        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, veh.getVehicleType().getMinGap());
+        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(&veh, seen);
         nextLane->releaseVehicles();
         if (linkLeaders.size() > 0) {
             // XXX if there is more than one link leader we should return the most important
@@ -1938,7 +1938,7 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
         }
 #ifdef HAVE_INTERNAL_LANES
         // check for link leaders
-        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, veh.getVehicleType().getMinGap());
+        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(&veh, seen);
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             const MSVehicle* leader = (*it).vehAndGap.first;
             if (leader != 0 && leader != result.first) {
@@ -2447,7 +2447,7 @@ MSLane::getLeadersOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, co
         }
 #ifdef HAVE_INTERNAL_LANES
         // check for link leaders
-        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, ego->getVehicleType().getMinGap());
+        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
         if (linkLeaders.size() > 0) {
             const MSLink::LinkLeader ll = linkLeaders[0];
             if (ll.vehAndGap.first != 0) {

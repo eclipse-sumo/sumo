@@ -1445,7 +1445,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #ifdef HAVE_INTERNAL_LANES
         if (MSGlobals::gUsingInternalLanes) {
             // we want to pass the link but need to check for foes on internal lanes
-            const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, getVehicleType().getMinGap());
+            const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(this, seen);
             for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
                 // the vehicle to enter the junction first has priority
                 const MSVehicle* leader = (*it).vehAndGap.first;

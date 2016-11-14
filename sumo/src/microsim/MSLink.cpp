@@ -592,8 +592,12 @@ MSLink::fromInternalLane() const {
 }
 
 MSLink::LinkLeaders
-MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson*>* collectBlockers) const {
+MSLink::getLeaderInfo(const MSVehicle* ego, SUMOReal dist, std::vector<const MSPerson*>* collectBlockers) const {
     LinkLeaders result;
+    if (ego->getLaneChangeModel().isOpposite()) {
+        // ignore link leaders
+        return result;
+    }
     //gDebugFlag1 = true;
     // this link needs to start at an internal lane (either an exit link or between two internal lanes)
     if (fromInternalLane()) {
@@ -653,7 +657,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap, std::vector<const MSPerson
                             // or there is no crossing point
                             continue; // next vehicle
                         }
-                        gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
+                        gap = distToCrossing - leaderBackDist - (sameTarget ? ego->getVehicleType().getMinGap() : 0);
                     }
                     if (gDebugFlag1) {
                         std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << "\n";

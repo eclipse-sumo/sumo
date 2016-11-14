@@ -873,7 +873,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
                         std::cout << "   not enough space after columnLeader=" << leadLead.first->getID() << " gap=" << leadLead.second << " required=" << requiredSpace << "\n";
                     }
 #endif
-                    seen += leadLead.second + leadLead.first->getVehicleType().getLengthWithGap();
+                    seen += MAX2((SUMOReal)0, leadLead.second) + leadLead.first->getVehicleType().getLengthWithGap();
                     if (seen > maxLookAhead) {
 #ifdef DEBUG_CHANGE_OPPOSITE
                         if (DEBUG_COND) {
