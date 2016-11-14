@@ -317,7 +317,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 const ODCell* const c = *i;
                 if (lastEnd >= 0 && lastEnd <= c->begin) {
                     for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
-                        (*dev) << desc->second;
+                        dev->writePreformattedTag(desc->second);
                     }
                     sortedOut.clear();
                 }
@@ -367,7 +367,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 }
             }
             for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
-                (*dev) << desc->second;
+                dev->writePreformattedTag(desc->second);
             }
             haveOutput = true;
         }
