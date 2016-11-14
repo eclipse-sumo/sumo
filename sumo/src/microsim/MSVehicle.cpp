@@ -1308,6 +1308,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     while (true) {
         // check leader on lane
         //  leader is given for the first edge only
+        if (opposite && 
+                (leaderLane->getVehicleNumber() > 1 
+                || (leaderLane != myLane && leaderLane->getVehicleNumber() > 0))) {
+            // find opposite leader on the current lane
+            // XXX make sure to look no further than leaderLane
+            CLeaderDist leader = leaderLane->getOppositeLeader(this, getPositionOnLane(), true);
+            ahead.clear();
+            if (leader.first != 0 && leader.first->getLane() == leaderLane) {
+                ahead.addLeader(leader.first, true);
+            }
+        }
         adaptToLeaders(ahead, 0, seen, lastLink, leaderLane, v, vLinkPass);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
@@ -1558,8 +1569,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         v = MIN2(va, v);
         seenNonInternal += lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL ? 0 : lane->getLength();
         // do not restrict results to the current vehicle to allow caching for the current time step
-        leaderLane = lane; // (opposite && lane->getOpposite() != 0) ? lane->getOpposite() : lane;
-        // ignore leaders while overtaking through the opposite direction lane
+        leaderLane = opposite ? lane->getOpposite() : lane;
+        if (leaderLane == 0) {
+            break;
+        }
         ahead = opposite ? MSLeaderInfo(leaderLane) : leaderLane->getLastVehicleInformation(0, 0);
         seen += lane->getLength();
         vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(lane->getLength(), v, cfModel.getMaxAccel()), laneMaxV); // upper bound
