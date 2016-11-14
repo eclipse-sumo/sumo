@@ -124,7 +124,7 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                        const std::string& attrs = "");
+        const std::map<SumoXMLAttr, std::string>& attrs);
 
 
     /** @brief Writes a header with optional edge list and connections.

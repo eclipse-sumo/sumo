@@ -174,12 +174,14 @@ public:
      *  is written and false returned.
      *
      * @param[in] rootElement The root element to use
+     * @param[in] schemaFile  The basename of the schema file to use
      * @param[in] attrs Additional attributes to save within the rootElement
      * @return Whether the header could be written (stack was empty)
      * @todo Describe what is saved
      */
     bool writeXMLHeader(const std::string& rootElement,
-                        const std::string& attrs = "");
+                        const std::string& schemaFile,
+                        std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>());
 
 
     template <typename E>

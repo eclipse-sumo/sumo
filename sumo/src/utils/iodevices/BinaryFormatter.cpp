@@ -81,13 +81,16 @@ BinaryFormatter::writeStringList(std::ostream& into, const std::vector<std::stri
 bool
 BinaryFormatter::writeXMLHeader(std::ostream& into,
                                 const std::string& rootElement,
-                                const std::string& /* attrs */) {
+                                const std::map<SumoXMLAttr, std::string>& attrs) {
     if (myXMLStack.empty()) {
         writeStaticHeader(into);
         writeStringList(into, std::vector<std::string>());
         writeStringList(into, std::vector<std::string>());
         if (SUMOXMLDefinitions::Tags.hasString(rootElement)) {
             openTag(into, rootElement);
+            for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
+                writeAttr(into, it->first, it->second);
+            }
             return true;
         }
     }

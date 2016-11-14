@@ -146,7 +146,7 @@ MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, MSMov
 
 void
 MSInstantInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.writeXMLHeader("instantE1");
+    dev.writeXMLHeader("instantE1", "instant_e1_file.xsd");
 }
 
 

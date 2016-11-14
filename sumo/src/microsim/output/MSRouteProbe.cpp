@@ -122,7 +122,7 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
 
 void
 MSRouteProbe::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.writeXMLHeader("route-probes");
+    dev.writeXMLHeader("routes", "routes_file.xsd");
 }
 
 

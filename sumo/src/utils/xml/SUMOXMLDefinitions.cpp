@@ -493,15 +493,18 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "uniformRandomTraffic",   AGEN_ATTR_UNI_RAND_TRAFFIC },
     { "departureVariation",     AGEN_ATTR_DEP_VARIATION },
 
-    { "targetLanes",            SUMO_ATTR_TARGETLANE },
-    { "crossing",               SUMO_ATTR_CROSSING },
-
     // netEdit
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },
     { "shapeStartNotForPrinting",           GNE_ATTR_SHAPE_START },
     { "shapeEndNotForPrinting",             GNE_ATTR_SHAPE_END },
     { "blockMovement",                      GNE_ATTR_BLOCK_MOVEMENT },
     { "parentOfAdditional",                 GNE_ATTR_PARENT },
+
+    { "targetLanes", SUMO_ATTR_TARGETLANE },
+    { "crossing", SUMO_ATTR_CROSSING },
+
+    { "xmlns:xsi", SUMO_ATTR_XMLNS },
+    { "xsi:noNamespaceSchemaLocation", SUMO_ATTR_SCHEMA_LOCATION },
 
     // Other
     { "",                       SUMO_ATTR_NOTHING } //< must be the last one

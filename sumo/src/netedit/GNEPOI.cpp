@@ -182,7 +182,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& /* value */) {
 void
 GNEPOI::saveToFile(const std::string& file) {
     OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("pois");
+    out.writeXMLHeader("additional", "additional_file.xsd");
     GeoConvHelper::writeLocation(out);
     const std::vector<GUIGlObject_AbstractAdd*>& additionals = GUIGlObject_AbstractAdd::getObjectList();
     for (std::vector<GUIGlObject_AbstractAdd*>::const_iterator it = additionals.begin(); it != additionals.end(); ++it) {

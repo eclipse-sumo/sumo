@@ -54,7 +54,7 @@ MSVTypeProbe::MSVTypeProbe(const std::string& id,
                            OutputDevice& od, SUMOTime frequency)
     : Named(id), myVType(vType), myOutputDevice(od), myFrequency(frequency) {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice.writeXMLHeader("vehicle-type-probes");
+    myOutputDevice.writeXMLHeader("vehicle-type-probes", "vtypeprobe_file.xsd");
 }
 
 

@@ -59,12 +59,12 @@ PlainXMLFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement
 
 bool
 PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                                  const std::string& attrs) {
+                                  const std::map<SumoXMLAttr, std::string>& attrs) {
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(into);
         openTag(into, rootElement);
-        if (attrs != "") {
-            into << " " << attrs;
+        for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
+            writeAttr(into, it->first, it->second);
         }
         into << ">\n";
         myHavePendingOpener = false;

@@ -119,7 +119,7 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
         useGeo = false;
     }
     OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
+    out.writeXMLHeader("additional", "additional_file.xsd");
     if (useGeo) {
         out.setPrecision(GEO_OUTPUT_ACCURACY);
     } else if (gch.usingGeoProjection()) {

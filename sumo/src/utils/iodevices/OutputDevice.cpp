@@ -117,11 +117,7 @@ OutputDevice::createDeviceByOption(const std::string& optionName,
     }
     OutputDevice& dev = OutputDevice::getDevice(OptionsCont::getOptions().getString(optionName));
     if (rootElement != "") {
-        if (schemaFile != "") {
-            dev.writeXMLHeader(rootElement, "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/" + schemaFile + "\"");
-        } else {
-            dev.writeXMLHeader(rootElement);
-        }
+        dev.writeXMLHeader(rootElement, schemaFile);
     }
     return true;
 }
@@ -230,7 +226,12 @@ OutputDevice::setPrecision(int precision) {
 
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement,
-                             const std::string& attrs) {
+                             const std::string& schemaFile,
+                             std::map<SumoXMLAttr, std::string> attrs) {
+    if (schemaFile != "") {
+        attrs[SUMO_ATTR_XMLNS] = "http://www.w3.org/2001/XMLSchema-instance";
+        attrs[SUMO_ATTR_SCHEMA_LOCATION] = "http://sumo.dlr.de/xsd/" + schemaFile;
+    }
     return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs);
 }
 

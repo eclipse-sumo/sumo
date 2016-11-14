@@ -74,7 +74,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      */
     void writeXMLDetectorProlog(OutputDevice& dev) const {
-        dev.writeXMLHeader("detector");
+        dev.writeXMLHeader("detector", "meandata_file.xsd");
     }
 
 

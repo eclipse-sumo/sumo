@@ -47,7 +47,7 @@ Command_SaveTLSState::Command_SaveTLSState(const MSTLLogicControl::TLSLogicVaria
         OutputDevice& od)
     : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice.writeXMLHeader("tls-states");
+    myOutputDevice.writeXMLHeader("tls-states", "tlsstate_file.xsd");
 }
 
 

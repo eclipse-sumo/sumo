@@ -231,7 +231,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice& /*&dev*/,
 
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.writeXMLHeader("detector");
+    dev.writeXMLHeader("detector", "det_e2_file.xsd");
 }
 
 

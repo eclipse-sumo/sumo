@@ -84,7 +84,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myAmActive(false) {
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
-        myOutput->writeXMLHeader("calibratorstats");
+        myOutput->writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
     }
     if (aXMLFilename != "") {
         XMLSubSys::runParser(*this, aXMLFilename);
@@ -210,7 +210,7 @@ MSCalibrator::writeXMLOutput() {
         assert(discrepancy >= 0);
         const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
         const SUMOReal durationSeconds = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin);
-        (*myOutput) << "   <interval begin=\"" << time2string(myCurrentStateInterval->begin) <<
+        (*myOutput) << "    <interval begin=\"" << time2string(myCurrentStateInterval->begin) <<
                     "\" end=\"" << time2string(myCurrentStateInterval->end) <<
                     "\" id=\"" << myID <<
                     "\" nVehContrib=\"" << p <<

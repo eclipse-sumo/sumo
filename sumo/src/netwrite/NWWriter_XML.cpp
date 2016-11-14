@@ -88,7 +88,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
-    device.writeXMLHeader("nodes", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/nodes_file.xsd\"");
+    std::map<SumoXMLAttr, std::string> attrs;
+    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
+    device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
 
     // write network offsets and projection to allow reconstruction of original coordinates
     if (!useGeo) {
@@ -152,7 +154,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 void
 NWWriter_XML::writeTypes(const OptionsCont& oc, NBTypeCont& tc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".typ.xml");
-    device.writeXMLHeader("types", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/types_file.xsd\"");
+    std::map<SumoXMLAttr, std::string> attrs;
+    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
+    device.writeXMLHeader("types", "types_file.xsd", attrs);
     tc.writeTypes(device);
     device.close();
 }
@@ -164,10 +168,12 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
+    std::map<SumoXMLAttr, std::string> attrs;
+    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
     OutputDevice& edevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".edg.xml");
-    edevice.writeXMLHeader("edges", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/edges_file.xsd\"");
+    edevice.writeXMLHeader("edges", "edges_file.xsd", attrs);
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
-    cdevice.writeXMLHeader("connections", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/connections_file.xsd\"");
+    cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
@@ -303,8 +309,10 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
 
 void
 NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont& tc, NBEdgeCont& ec) {
+    std::map<SumoXMLAttr, std::string> attrs;
+    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".tll.xml");
-    device.writeXMLHeader("tlLogics", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/tllogic_file.xsd\"");
+    device.writeXMLHeader("tlLogics", "tllogic_file.xsd", attrs);
     NWWriter_SUMO::writeTrafficLights(device, tc);
     // we also need to remember the associations between tlLogics and connections
     // since the information in con.xml is insufficient
@@ -324,8 +332,10 @@ NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont&
 
 void
 NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
+    std::map<SumoXMLAttr, std::string> attrs;
+    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
     OutputDevice& device = OutputDevice::getDevice(oc.getString("junctions.join-output"));
-    device.writeXMLHeader("nodes", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/nodes_file.xsd\"");
+    device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
     const std::vector<std::set<std::string> >& clusters = nc.getJoinedClusters();
     for (std::vector<std::set<std::string> >::const_iterator it = clusters.begin(); it != clusters.end(); it++) {
         assert((*it).size() > 0);
@@ -347,7 +357,7 @@ NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
 void
 NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("street-sign-output"));
-    device.writeXMLHeader("additional", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/additional_file.xsd\"");
+    device.writeXMLHeader("additional", "additional_file.xsd");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
         const std::vector<NBSign>& signs =  e->getSigns();
@@ -357,5 +367,6 @@ NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     }
     device.close();
 }
-/****************************************************************************/
 
+
+/****************************************************************************/
