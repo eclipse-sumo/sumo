@@ -1092,6 +1092,9 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     // t = ((u - v - (((((2.0*(u - v))**2.0) + (8.0*a*g))**(1.0/2.0))*sign/2.0))/a)
     SUMOReal t = (u - v - sqrt(4 * (u - v) * (u - v) + 8 * a * g) * sign * 0.5) / a;
 
+    // round to multiples of step length (TS)
+    t = ceil(t / TS) * TS;
+
     /// XXX ignore speed limit when overtaking through the opposite lane?
     const SUMOReal timeToMaxSpeed = (vMax - v) / a;
 
@@ -1106,6 +1109,8 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
         // s + (t-m) * vMax = g + u*t
         // solve t
         t = (g - s + m * vMax) / (vMax - u);
+        // round to multiples of step length (TS)
+        t = ceil(t / TS) * TS;
         timeToOvertake = t;
         spaceToOvertake = s + (t - m) * vMax;
         //if (gDebugFlag1) std::cout << "     s=" << s << " m=" << m << " vMax=" << vMax << "\n";
