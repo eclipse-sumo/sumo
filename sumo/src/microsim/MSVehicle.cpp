@@ -2653,6 +2653,18 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
             leftLength -= (clane)->setPartialOccupation(this);
         }
         myState.myBackPos = -leftLength;
+    } else {
+        // clear partial occupation
+        for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " enterLaneAtInsertion \n";
+            }
+#endif
+            (*i)->resetPartialOccupation(this);
+        }
+        myFurtherLanes.clear();
+        myFurtherLanesPosLat.clear();
     }
     if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
         getLaneChangeModel().updateShadowLane();
