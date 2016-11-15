@@ -8,6 +8,8 @@ copy_test_path:net2.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
+copy_test_path:input_edges.edg.xml
+copy_test_path:input_nodes.nod.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml

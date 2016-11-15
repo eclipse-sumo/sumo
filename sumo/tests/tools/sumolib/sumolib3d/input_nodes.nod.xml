@@ -1,0 +1,4 @@
+<nodes>
+    <node id="first"  x="100.0" y="0.0" z="0.0" />
+    <node id="second" x="200.0" y="0.0" z="10.0" />
+</nodes>
