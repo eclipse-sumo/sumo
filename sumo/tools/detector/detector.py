@@ -116,7 +116,7 @@ class DetectorReader(handler.ContentHandler):
             for group in groupList:
                 group.clearFlow()
 
-    def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None):
+    def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None, timeMax=None):
         detIdx = -1
         flowIdx = -1
         speedIdx = -1
@@ -134,7 +134,12 @@ class DetectorReader(handler.ContentHandler):
                     if time in flowDef:
                         timeIdx = flowDef.index(time)
                 elif flowIdx != -1:
-                    if timeIdx == -1 or timeVal is None or float(flowDef[timeIdx]) == timeVal:
+                    if timeIdx == -1 or timeVal is None:
+                        timeIsValid = True
+                    else:
+                        curTime = float(flowDef[timeIdx])
+                        timeIsValid = (timeMax is None and curTime == timeVal) or (curTime >= timeVal and curTime < timeMax)
+                    if timeIsValid:
                         hadFlow = True
                         if speedIdx != -1:
                             self.addFlow(

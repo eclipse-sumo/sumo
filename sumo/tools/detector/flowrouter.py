@@ -524,11 +524,11 @@ class NetDetectorFlowReader(handler.ContentHandler):
                         sinks.add(det.lane[:det.lane.rfind("_")])
         return sources, sinks
 
-    def readFlows(self, flowFile, t=None):
+    def readFlows(self, flowFile, t=None, tMax=None):
         if t is None:
             return self._detReader.readFlows(flowFile, flow=options.flowcol)
         else:
-            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time", timeVal=t)
+            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time", timeVal=t, timeMax=tMax)
 
     def clearFlows(self):
         self._detReader.clearFlows()
@@ -622,7 +622,7 @@ if net.detectSourceSink(sources, sinks):
             if options.verbose:
                 print("Reading flows")
             for flow in options.flowfiles:
-                haveFlows = reader.readFlows(flow, start)
+                haveFlows = reader.readFlows(flow, start, start + options.interval)
             if haveFlows:
                 if options.verbose:
                     print("Calculating routes")
