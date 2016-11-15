@@ -505,7 +505,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // not enough time to overtake?        (skipped for a stopped leader [currently only for ballistic update XXX: check if appropriate for euler, too, refs. #2575] to ensure that it can be overtaken if only enough space is exists) (Leo)
                 || (remainingSeconds < overtakeTime && (MSGlobals::gSemiImplicitEulerUpdate || !nv->isStopped())))
                 // opposite driving and must overtake
-                && !(isOpposite() && neighLead.second < myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed(), myCarFollowModel.getMaxDecel(), 0.))) {
+                && !(isOpposite() && neighLead.second < 0 && neighLead.first->isStopped())) {
             // cannot overtake
             msgPass.informNeighLeader(new Info(std::numeric_limits<SUMOReal>::max(), dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader
