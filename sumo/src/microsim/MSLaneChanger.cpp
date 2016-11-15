@@ -843,6 +843,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
         // find a leader vehicle with sufficient space ahead for merging back
         const SUMOReal overtakingSpeed = source->getVehicleMaxSpeed(vehicle); // just a guess
         const SUMOReal mergeBrakeGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
+        // XXX maxLookAhead should be higher if all leaders are stopped and much lower otherwise
         const SUMOReal maxLookAhead = 150; // just a guess
         std::pair<MSVehicle*, SUMOReal> columnLeader = leader;
         SUMOReal egoGap = leader.second;
@@ -855,8 +856,11 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
                     + vehicle->getVehicleType().getLengthWithGap());
 
 
+            // all leader vehicles on the current laneChanger edge are already moved into MSLane::myTmpVehicles
+            const bool checkTmpVehicles = (&columnLeader.first->getLane()->getEdge() == &source->getEdge());
             std::pair<MSVehicle* const, SUMOReal> leadLead = columnLeader.first->getLane()->getLeader(
-                        columnLeader.first, columnLeader.first->getPositionOnLane(), conts, requiredSpaceAfterLeader + mergeBrakeGap, true);
+                        columnLeader.first, columnLeader.first->getPositionOnLane(), conts, requiredSpaceAfterLeader + mergeBrakeGap, 
+                        checkTmpVehicles);
 
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
