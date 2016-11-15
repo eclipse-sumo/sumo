@@ -9,7 +9,7 @@
     </vehicle>
 
     <vehicle id="oncoming1" route="r1" departPos="100"  depart="0"/>
-    <vehicle id="oncoming2" route="r1" departPos="0"  depart="0"/>
+    <vehicle id="oncoming2" route="r1" departPos="0"  depart="1"/>
 
     <vehicle id="overtaking" route="r0" departPos="0"  depart="1"/>
 </routes>
