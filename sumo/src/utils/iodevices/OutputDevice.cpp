@@ -94,7 +94,8 @@ OutputDevice::getDevice(const std::string& name) {
                 time_t rawtime;
                 char buffer [80];
                 time(&rawtime);
-                strftime(buffer, 80, "%F-%H-%M-%S", localtime(&rawtime));
+                struct tm* timeinfo = localtime(&rawtime);
+                strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
                 prefix.replace(metaTimeIndex, 4, std::string(buffer));
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
