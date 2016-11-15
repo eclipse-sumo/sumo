@@ -1065,15 +1065,27 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
 
 void
 MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* leader, SUMOReal gap, SUMOReal& timeToOvertake, SUMOReal& spaceToOvertake) {
-    // Assumption: leader maintains the current speed
+    // Assumptions: 
+    // - leader maintains the current speed
+    // - vehicle merges with maxSpeed ahead of leader
     // XXX affected by ticket #860 (the formula is invalid for the current position update rule)
 
     // first compute these values for the case where vehicle is accelerating
     // without upper bound on speed
+    const SUMOReal vMax = vehicle->getLane()->getVehicleMaxSpeed(vehicle);
     const SUMOReal v = vehicle->getSpeed();
     const SUMOReal u = leader->getSpeed();
     const SUMOReal a = vehicle->getCarFollowModel().getMaxAccel();
-    const SUMOReal g = gap + vehicle->getVehicleType().getMinGap() + leader->getVehicleType().getLengthWithGap();
+    const SUMOReal d = vehicle->getCarFollowModel().getMaxDecel();
+    const SUMOReal g = (
+            // drive up to the rear of leader
+            gap + vehicle->getVehicleType().getMinGap() 
+            // drive head-to-head with the leader
+            + leader->getVehicleType().getLengthWithGap() 
+            // drive past the leader
+            + vehicle->getVehicleType().getLength()
+            // allow for safe gap between leader and vehicle
+            + leader->getCarFollowModel().getSecureGap(v, vMax, d));
     const SUMOReal sign = -1; // XXX recheck
     // v*t + t*t*a*0.5 = g + u*t
     // solve t
@@ -1081,7 +1093,6 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     SUMOReal t = (u - v - sqrt(4 * (u - v) * (u - v) + 8 * a * g) * sign * 0.5) / a;
 
     /// XXX ignore speed limit when overtaking through the opposite lane?
-    const SUMOReal vMax = vehicle->getLane()->getVehicleMaxSpeed(vehicle);
     const SUMOReal timeToMaxSpeed = (vMax - v) / a;
 
     if (t <= timeToMaxSpeed) {
