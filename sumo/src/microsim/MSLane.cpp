@@ -998,7 +998,7 @@ MSLane::planMovements(SUMOTime t) {
 void
 MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 #ifdef DEBUG_COLLISIONS
-    if (DEBUGCOND) {
+    if (DEBUG_COND) {
         std::vector<const MSVehicle*> all;
         for (AnyVehicleIterator last = anyVehiclesBegin(); last != anyVehiclesEnd(); ++last) {
             all.push_back(*last);
