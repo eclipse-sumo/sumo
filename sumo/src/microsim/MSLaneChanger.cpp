@@ -307,11 +307,14 @@ MSLaneChanger::change() {
     }
     vehicle->getLaneChangeModel().setOwnState(state2 | state1);
 
-    if (!changeOpposite(leader)) {
+    // only emergency vehicles should change to the opposite side on a
+    // multi-lane road
+    if (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
+            && changeOpposite(leader)) {
+        return true;
+    } else {
         registerUnchanged(vehicle);
         return false;
-    } else {
-        return true;
     }
 }
 
@@ -1028,7 +1031,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
 
     bool changingAllowed = (state & LCA_BLOCKED) == 0;
     // change if the vehicle wants to and is allowed to change
-    if ((state & LCA_WANTS_LANECHANGE) != 0 && changingAllowed) {
+    if ((state & LCA_WANTS_LANECHANGE) != 0 && changingAllowed
+            // do not change to the opposite direction for cooperative reasons
+            && (isOpposite || (state & LCA_COOPERATIVE) == 0)) {
         vehicle->getLaneChangeModel().startLaneChangeManeuver(source, opposite, direction);
         /// XXX use a dedicated transformation function
         vehicle->myState.myPos = source->getOppositePos(vehicle->myState.myPos);
