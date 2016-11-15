@@ -1311,11 +1311,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         if (opposite && 
                 (leaderLane->getVehicleNumber() > 1 
                 || (leaderLane != myLane && leaderLane->getVehicleNumber() > 0))) {
-            // find opposite leader on the current lane
+            // find opposite-driving leader that must be respected on the currently looked at lane
             // XXX make sure to look no further than leaderLane
             CLeaderDist leader = leaderLane->getOppositeLeader(this, getPositionOnLane(), true);
             ahead.clear();
-            if (leader.first != 0 && leader.first->getLane() == leaderLane) {
+            if (leader.first != 0 && leader.first->getLane() == leaderLane && leader.first->getLaneChangeModel().isOpposite()) {
                 ahead.addLeader(leader.first, true);
             }
         }
