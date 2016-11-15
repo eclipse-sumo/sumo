@@ -176,7 +176,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoxLine(myNBNode.getPosition(), 0, 1, 1);
     } else {
         // node shape has been computed and is valid for drawing
-        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape && !myNet->getViewNet()->showJunctionAsBubbles();
+        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
         const bool drawBubble = (!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape; // magic threshold
 
         if (drawShape) {
@@ -198,6 +198,20 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledPolyTesselated(shape, true);
                 }
                 glPopMatrix();
+            }
+            // Check if a  buuble must be drawed over junction
+            if(myNet->getViewNet()->showJunctionAsBubbles()) {
+                setColor(s, true);
+                // recognize full transparency and simply don't draw
+                GLfloat color[4];
+                glGetFloatv(GL_CURRENT_COLOR, color);
+                if (color[3] != 0) {
+                    glPushMatrix();
+                    Position pos = myNBNode.getPosition();
+                    glTranslated(pos.x(), pos.y(), getType() + 0.05);
+                    GLHelper::drawFilledCircle(4 * exaggeration, 32);
+                    glPopMatrix();
+                }
             }
         }
         if (drawBubble) {
@@ -372,6 +386,8 @@ GNEJunction::registerMove(GNEUndoList* undoList) {
 
 void
 GNEJunction::updateShapesAndGeometries() {
+    // sort nodes edges so that arrows can be drawn correctly
+    NBNodesEdgesSorter::sortNodesEdges(myNet->getNetBuilder()->getNodeCont());
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
@@ -393,28 +409,16 @@ GNEJunction::updateShapesAndGeometries() {
     for (std::set<GNEJunction*>::iterator i = affectedJunctions.begin(); i != affectedJunctions.end(); i++) {
         // Check that Node doesn't have a custom shape
         if ((*i)->getNBNode()->hasCustomShape() == false) {
-            // Set new shape depending of the representation
-            if (myNet->getViewNet()->showJunctionAsBubbles() == true) {
-                // Only save Position to draw bubble
-                (*i)->getNBNode()->myPoly.clear();
-                (*i)->getNBNode()->myPoly.push_back((*i)->getNBNode()->getPosition());
-            } else {
-                // Compute polygon
-                (*i)->getNBNode()->computeNodeShape(-1);
-            }
-            // Update geometry of Junction
-            (*i)->updateGeometry();
+            // Compute polygon
+            (*i)->getNBNode()->computeNodeShape(-1);
         }
+        // Update geometry of Junction
+        (*i)->updateGeometry();
     }
     // Iterate over affected Edges
     for (std::set<GNEEdge*>::iterator i = affectedEdges.begin(); i != affectedEdges.end(); i++) {
-        if (myNet->getViewNet()->showJunctionAsBubbles() == true) {
-            // Only compute lane shapes
-            (*i)->getNBEdge()->computeLaneShapes();
-        } else {
-            // Compute full edge shape because this funcion is related to computeNodeShape
-            (*i)->getNBEdge()->computeEdgeShape();
-        }
+        // Compute full edge shape because this funcion is related to computeNodeShape
+        (*i)->getNBEdge()->computeEdgeShape();
         // Update edge geometry
         (*i)->updateGeometry();
     }

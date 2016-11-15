@@ -403,14 +403,14 @@ public:
      */
     void computeJunction(GNEJunction* junction);
 
-    /// @brief update junction shapes
-    void updateJunctionShapes();
-
     /// @brief inform the net about the need for recomputation
     void requireRecompute();
 
     /// @brief get pointer to the main App
     FXApp* getApp();
+
+    /// @brief get net builder
+    NBNetBuilder* getNetBuilder() const;
 
     /// @brief add edge id to the list of explicit turnarounds
     void addExplicitTurnaround(std::string id);

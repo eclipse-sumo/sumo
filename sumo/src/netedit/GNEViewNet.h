@@ -335,7 +335,7 @@ private:
     FXMenuCheck* myWarnAboutMerge;
 
     /// @brief show connection as buuble in "Move" mode.
-    FXMenuCheck* myShowJunctionAsBubble;
+    FXMenuCheck* myShowBubbleOverJunction;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode
