@@ -299,12 +299,11 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
         } else {
             compOp = '=';
         }
-        SUMOReal val;
-        std::istringstream buf(expr);
-        buf >> val;
-        if (!buf.fail() && (int)buf.tellg() == (int)expr.size()) {
-            handleIDs(getMatches(tag, attr, compOp, val, expr), false);
-        } else {
+        try {
+            handleIDs(getMatches(tag, attr, compOp, TplConvert::_2SUMOReal(expr.c_str()), expr), false);
+        } catch (EmptyData& e) {
+            valid = false;
+        } catch (NumberFormatException& e) {
             valid = false;
         }
     } else {
