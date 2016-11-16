@@ -625,6 +625,9 @@ public:
     /// @brief return the crossing with the given id
     const Crossing& getCrossing(const std::string& id) const;
 
+    /// @brief return a reference to the crossing with the given id
+    Crossing& getCrossingRef(const std::string& id);
+
     /// @brief set tl indices of this nodes crossing starting at the given index
     void setCrossingTLIndices(const std::string& tlID, int startIndex);
 

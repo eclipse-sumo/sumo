@@ -42,6 +42,7 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include "GNEFrameDesigns.h"
 #include "GNETLSEditorFrame.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
@@ -95,41 +96,34 @@ FXIMPLEMENT(GNETLSEditorFrame, FXScrollWindow, GNETLSEditorFrameMap, ARRAYNUMBER
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNETLSEditorFrame::GNETLSEditorFrame(FXComposite* parent, GNEViewNet* viewNet):
-    GNEFrame(parent, viewNet, "Edit Traffic Light"),
+GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
+    GNEFrame(horizontalFrameParent, viewNet, "Edit Traffic Light"),
     myTableFont(new FXFont(getApp(), "Courier New", 9)),
     myCurrentJunction(0),
     myHaveModifications(false),
     myEditedDef(0) {
     // heading
-    myDescription = new FXLabel(myContentFrame, "", 0, JUSTIFY_LEFT);
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
+    myDescription = new FXLabel(myContentFrame, "", 0, GNEDesignLabel);
+    new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
 
     // create tlDef button
-    new FXButton(myContentFrame, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_DEF_CREATE,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_DEF_CREATE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
 
     // delete tlDef button
-    new FXButton(myContentFrame,
-                 "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
-                 0, this, MID_GNE_DEF_DELETE, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_DEF_DELETE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
 
     // definitions list
-    new FXLabel(myContentFrame, "Name, Program");
-    myDefBox = new FXListBox(myContentFrame, this, MID_GNE_DEF_SWITCH,
-                             FRAME_SUNKEN | FRAME_THICK | LISTBOX_NORMAL | LAYOUT_FIX_WIDTH);
+    new FXLabel(myContentFrame, "Name, Program", 0, GNEDesignLabel);
+    myDefBox = new FXComboBox(myContentFrame, 10, this, MID_GNE_DEF_SWITCH, GNEDesignComboBox);
 
     // offset control
-    new FXLabel(myContentFrame, "Offset");
-    myOffset = new FXTextField(myContentFrame, 6,
-                               this, MID_GNE_DEF_OFFSET, TEXTFIELD_NORMAL | TEXTFIELD_REAL, 0, 0, 0, 0, 4, 2, 0, 2);
+    new FXLabel(myContentFrame, "Offset", 0, GNEDesignLabel);
+    myOffset = new FXTextField(myContentFrame, GNEDesignTextFieldNCol, this, MID_GNE_DEF_OFFSET, GNEDesignTextFieldAttributeReal, 0, 0, 0, 0, 4, 2, 0, 2);
 
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
+    new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
 
     // phase table
-    new FXLabel(myContentFrame, "Phases");
+    new FXLabel(myContentFrame, "Phases", 0, GNEDesignLabel);
     myPhaseTable = new FXTable(myContentFrame, this, MID_GNE_PHASE_TABLE, LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(0);
@@ -140,35 +134,25 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXComposite* parent, GNEViewNet* viewNet):
     myPhaseTable->setHelpText("phase duration in seconds | phase state");
 
     // total duration info
-    myCycleDuration = new FXLabel(myContentFrame, "");
+    myCycleDuration = new FXLabel(myContentFrame, "", 0, GNEDesignLabel);
 
     // insert new phase button
-    new FXButton(myContentFrame, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
 
     // delete phase button
-    new FXButton(myContentFrame, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_PHASE_DELETE,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_PHASE_DELETE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
 
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
+    new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
     // buttons
     // "Cancel"
-    new FXButton(myContentFrame, "Cancel\t\tDiscard program modifications (Esc)", 0, this, MID_CANCEL,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Cancel\t\tDiscard program modifications (Esc)", 0, this, MID_CANCEL, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     // "OK"
-    new FXButton(myContentFrame, "Save\t\tSave program modifications (Enter)", 0, this, MID_OK,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
+    new FXButton(myContentFrame, "Save\t\tSave program modifications (Enter)", 0, this, MID_OK, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
     // "Add 'off' program"
     /*
     new FXButton(myContentFrame, "Add \"Off\"-Program\t\tAdds a program for switching off this traffic light",
-            0, this, MID_GNE_DEF_ADDOFF,
-            ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-            0, 0, 0, 0, 4, 4, 3, 3);
+            0, this, MID_GNE_DEF_ADDOFF, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     */
 }
 
@@ -178,23 +162,6 @@ GNETLSEditorFrame::~GNETLSEditorFrame() {
     cleanup();
 }
 
-
-void
-GNETLSEditorFrame::show() {
-    // Show Scroll window
-    FXScrollWindow::show();
-    // Show and update Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->showFramesArea();
-}
-
-
-void
-GNETLSEditorFrame::hide() {
-    // Hide ScrollWindow
-    FXScrollWindow::hide();
-    // Hide Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->hideFramesArea();
-}
 
 void
 GNETLSEditorFrame::editJunction(GNEJunction* junction) {

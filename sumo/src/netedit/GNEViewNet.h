@@ -61,7 +61,9 @@ enum EditMode {
     ///@brief mode for editing tls
     GNE_MODE_TLS,
     ///@brief Mode for editing additionals
-    GNE_MODE_ADDITIONAL
+    GNE_MODE_ADDITIONAL,
+    ///@brief Mode for editing crossing
+    GNE_MODE_CROSSING
 };
 
 // ===========================================================================

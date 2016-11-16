@@ -42,6 +42,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include "GNEFrameDesigns.h"
 #include "GNESelectorFrame.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
@@ -79,70 +80,70 @@ FXIMPLEMENT(GNESelectorFrame, FXScrollWindow, GNESelectorFrameMap, ARRAYNUMBER(G
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNESelectorFrame::GNESelectorFrame(FXComposite* parent, GNEViewNet* viewNet):
-    GNEFrame(parent, viewNet, getStats().c_str()),
+GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
+    GNEFrame(horizontalFrameParent, viewNet, getStats().c_str()),
     mySetOperation(SET_ADD),
     mySetOperationTarget(mySetOperation),
     ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
     // selection modification mode
-    FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GNEDesignGroupBoxFrame);
     // Create all options buttons
     new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD, GNEDesignRadioButton);
     new FXRadioButton(selBox, "remove\t\tSelected objects are removed from the previous selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_SUB);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_SUB, GNEDesignRadioButton);
     new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT, GNEDesignRadioButton);
     new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE, GNEDesignRadioButton);
     // Create groupBox for selection by expression matching (match box)
-    FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GNEDesignGroupBoxFrame);
     // Create MatchTagBox for tags and fill it
-    mySetBox = new FXListBox(elementBox, this, MID_CHOOSEN_ELEMENTS, FRAME_GROOVE | LAYOUT_FILL_X);
-    mySetBox->appendItem("Net Element");
-    mySetBox->appendItem("Additional");
-    mySetBox->setNumVisible(mySetBox->getNumItems());
+    mySetComboBox = new FXComboBox(elementBox, 10, this, MID_CHOOSEN_ELEMENTS, GNEDesignComboBox);
+    mySetComboBox->appendItem("Net Element");
+    mySetComboBox->appendItem("Additional");
+    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // Create groupBox fro selection by expression matching (match box)
-    FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GNEDesignGroupBoxFrame);
     // Create MatchTagBox for tags
-    myMatchTagBox = new FXListBox(matchBox, this, MID_GNE_SELMB_TAG, FRAME_GROOVE | LAYOUT_FILL_X);
+    myMatchTagComboBox = new FXComboBox(matchBox, 12, this, MID_GNE_SELMB_TAG, GNEDesignComboBox);
     // Create listBox for Attributes
-    myMatchAttrBox = new FXListBox(matchBox, NULL, 0, FRAME_GROOVE | LAYOUT_FILL_X);
+    myMatchAttrComboBox = new FXComboBox(matchBox, 12, NULL, 0, GNEDesignComboBox);
     // Set netElements as default tag
-    mySetBox->setCurrentItem(0);
+    mySetComboBox->setCurrentItem(0);
     // Fill list of sub-items
     onCmdSubset(0, 0, 0);
     // Set speed as default attribute
-    myMatchAttrBox->setCurrentItem(3);
+    myMatchAttrComboBox->setCurrentItem(3);
     // Create TextField for Match string
-    myMatchString = new FXTextField(matchBox, 12, this, MID_GNE_SELMB_STRING, FRAME_THICK | LAYOUT_FILL_X);
+    myMatchString = new FXTextField(matchBox, GNEDesignTextFieldNCol, this, MID_GNE_SELMB_STRING, GNEDesignTextField);
     // Set default value for Match string
     myMatchString->setText(">10.0");
     // Create help button
-    new FXButton(matchBox, "Help", 0, this, MID_HELP);
+    new FXButton(matchBox, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
     // Create Groupbox for visual scalings
-    FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GNEDesignGroupBoxFrame);
     // Create spin button and configure it
-    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y);
+    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, GNEDesignDial);
     mySelectionScaling->setNumberFormat(1);
     mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setRange(1, 100);
     mySelectionScaling->setValue(1);
     mySelectionScaling->setHelpText("Enlarge selected objects");
     // Create groupbox for additional buttons
-    FXGroupBox* additionalButtons = new FXGroupBox(myContentFrame, "Operations for selections", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    FXGroupBox* additionalButtons = new FXGroupBox(myContentFrame, "Operations for selections", GNEDesignGroupBoxFrame);
     // Create "Clear List" Button
-    new FXButton(additionalButtons, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    new FXButton(additionalButtons, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, GNEDesignButton);
     // Create "Invert" Button
-    new FXButton(additionalButtons, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    new FXButton(additionalButtons, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, GNEDesignButton);
     // Create "Save" Button
-    new FXButton(additionalButtons, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    new FXButton(additionalButtons, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, GNEDesignButton);
     // Create "Load" Button
-    new FXButton(additionalButtons, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED);
+    new FXButton(additionalButtons, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, GNEDesignButton);
     // Create groupbox for information about selections
-    FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GNEDesignGroupBoxFrame);
     // Create Selection Hint
-    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, JUSTIFY_LEFT);
+    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GNEDesignLabel);
 }
 
 
@@ -153,19 +154,19 @@ GNESelectorFrame::~GNESelectorFrame() {
 
 long
 GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
-    // Clear items of myMatchTagBox
-    myMatchTagBox->clearItems();
+    // Clear items of myMatchTagComboBox
+    myMatchTagComboBox->clearItems();
     // Set items depending of current items
-    if (mySetBox->getCurrentItem() == 0) {
+    if(mySetComboBox->getCurrentItem() == 0) {
         // If we want to work with net elementsn Get net Elements allowed tags
         const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedNetElementTags();
         // iterate over tags
         for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
             // Add trag to MatchTagBox
-            myMatchTagBox->appendItem(toString(*it).c_str());
+            myMatchTagComboBox->appendItem(toString(*it).c_str());
         }
-        myMatchTagBox->setCurrentItem(1); // edges
-        myMatchTagBox->setNumVisible(myMatchTagBox->getNumItems());
+        myMatchTagComboBox->setCurrentItem(1); // edges
+        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
         // Fill attributes with the current element type
         onCmdSelMBTag(0, 0, 0);
     } else  {
@@ -174,10 +175,10 @@ GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
         // iterate over tags
         for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
             // Add trag to MatchTagBox
-            myMatchTagBox->appendItem(toString(*it).c_str());
+            myMatchTagComboBox->appendItem(toString(*it).c_str());
         }
-        myMatchTagBox->setCurrentItem(1); // busStops
-        myMatchTagBox->setNumVisible(myMatchTagBox->getNumItems());
+        myMatchTagComboBox->setCurrentItem(1); // busStops
+        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
         // Fill attributes with the current element type
         onCmdSelMBTag(0, 0, 0);
     }
@@ -261,15 +262,15 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags();
-    SumoXMLTag tag = tags[myMatchTagBox->getCurrentItem()];
-    myMatchAttrBox->clearItems();
+    SumoXMLTag tag = tags[myMatchTagComboBox->getCurrentItem()];
+    myMatchAttrComboBox->clearItems();
     const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(tag);
     for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
-        myMatchAttrBox->appendItem(toString(it->first).c_str());
+        myMatchAttrComboBox->appendItem(toString(it->first).c_str());
     }
 
     // @ToDo: Here can be placed a butto to set the default value
-    myMatchAttrBox->setNumVisible(myMatchAttrBox->getNumItems());
+    myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
     update();
     return 1;
 }
@@ -278,16 +279,16 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
     const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags();
-    SumoXMLTag tag = tags[myMatchTagBox->getCurrentItem()];
+    SumoXMLTag tag = tags[myMatchTagComboBox->getCurrentItem()];
     const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(tag);
-    SumoXMLAttr attr = attrs.at(myMatchAttrBox->getCurrentItem()).first;
+    SumoXMLAttr attr = attrs.at(myMatchAttrComboBox->getCurrentItem()).first;
     std::string expr(myMatchString->getText().text());
     bool valid = true;
 
     if (expr == "") {
         // the empty expression matches all objects
         handleIDs(getMatches(tag, attr, '@', 0, expr), false);
-    } else if (GNEAttributeCarrier::isNumerical(attr)) {
+    } else if (GNEAttributeCarrier::isNumerical(tag, attr)) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
@@ -334,7 +335,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(this, "Match Attribute Help", DECOR_CLOSE | DECOR_TITLE);
+    FXDialogBox* helpDialog = new FXDialogBox(this, "Match Attribute Help", GNEDesignDialogBox);
     std::ostringstream help;
     help
             << "The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection "
@@ -357,11 +358,9 @@ GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
             << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
             << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
             << "edge; speed; '>10' -> match all edges with a speed above 10\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, JUSTIFY_LEFT);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GNEDesignLabel);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT, GNEDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -378,20 +377,20 @@ GNESelectorFrame::onCmdScaleSelection(FXObject*, FXSelector, void*) {
 
 void
 GNESelectorFrame::show() {
+    // selection may have changed due to deletions
     gSelected.add2Update(this);
-    selectionUpdated(); // selection may have changed due to deletions
-    FXScrollWindow::show();
-    // Show and Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->showFramesArea();
+    selectionUpdated(); 
+    // Show frame
+    GNEFrame::show();
 }
 
 
 void
 GNESelectorFrame::hide() {
+    // selection may have changed due to deletions
     gSelected.remove2Update();
-    FXScrollWindow::hide();
-    // Hide Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->hideFramesArea();
+    // hide frame
+    GNEFrame::hide();
 }
 
 
@@ -493,7 +492,7 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, SUMO
     GNEAttributeCarrier* ac;
     std::vector<GUIGlID> result;
     const std::set<GUIGlID> allIDs = myViewNet->getNet()->getGlIDs();
-    const bool numerical = GNEAttributeCarrier::isNumerical(attr);
+    const bool numerical = GNEAttributeCarrier::isNumerical(tag, attr);
     for (std::set<GUIGlID>::const_iterator it = allIDs.begin(); it != allIDs.end(); it++) {
         GUIGlID id = *it;
         object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);

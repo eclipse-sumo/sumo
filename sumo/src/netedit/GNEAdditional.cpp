@@ -278,12 +278,12 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& paren
     UNUSED_PARAMETER(parent);
     // get attributes
     std::vector<SumoXMLAttr> attributes = getAttrs();
-    // Create tanñe
+    // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
     // Iterate over attributes
     for (std::vector<SumoXMLAttr>::iterator i = attributes.begin(); i != attributes.end(); i++) {
         // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::isUnique(*i)) {
+        if (GNEAttributeCarrier::isUnique(getTag(), *i)) {
             ret->mkItem(toString(*i).c_str(), false, getAttribute(*i));
         } else {
             ret->mkItem(toString(*i).c_str(), true, getAttribute(*i));

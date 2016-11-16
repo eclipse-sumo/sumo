@@ -59,10 +59,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXFrame in which this GNEFrame is placed
+     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNESelectorFrame(FXComposite* parent, GNEViewNet* viewNet);
+    GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNESelectorFrame();
@@ -131,13 +131,13 @@ private:
     FXDataTarget mySetOperationTarget;
 
     /// @brief tag of the sets of elements
-    FXListBox* mySetBox;
+    FXComboBox* mySetComboBox;
 
     /// @brief tag of the match box
-    FXListBox* myMatchTagBox;
+    FXComboBox* myMatchTagComboBox;
 
     /// @brief attributes of the match box
-    FXListBox* myMatchAttrBox;
+    FXComboBox* myMatchAttrComboBox;
 
     /// @brief string of the match
     FXTextField* myMatchString;

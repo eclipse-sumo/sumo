@@ -49,14 +49,11 @@ class GNEJunction;
  * editor (hence inheritance from FXDelegator)
  */
 class GNECrossing : public GNENetElement {
-
 public:
 
     /**@brief Constructor
-     * @param[in] editor The editor to notify about changes
-     * @param[in] id The id of this internal lane
-     * @param[in] shape The shape of the lane
-     * @param[in] tlIndex The tl-index of the lane
+     * @param[in] parentJunction GNEJunction in which this crossing is placed
+     * @param[in] id The id of the crossing (inmutable)
      */
     GNECrossing(GNEJunction& parentJunction, const std::string& id);
 
@@ -128,7 +125,7 @@ private:
     GNEJunction& myParentJunction;
 
     /// @brief the data for this crossing
-    NBNode::Crossing myCrossing;
+    NBNode::Crossing &myCrossing;
 
     /// @brief the shape of the edge
     const PositionVector myShape;
@@ -154,7 +151,6 @@ private:
 
     /// @brief Invalidated assignment operator.
     GNECrossing& operator=(const GNECrossing&);
-
 };
 
 

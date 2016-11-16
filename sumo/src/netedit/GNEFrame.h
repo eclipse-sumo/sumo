@@ -53,20 +53,24 @@ class GNEUndoList;
 class GNEFrame : public FXScrollWindow {
 public:
     /**@brief Constructor
-     * @brief parent FXFrame in which this GNEFrame is placed
+     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      * @brief frameLabel label of the frame
      */
-    GNEFrame(FXComposite* parent, GNEViewNet* viewNet, const std::string& frameLabel);
+    GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel);
 
     /// @brief destructor
     ~GNEFrame();
 
-    /// @brief show Frame
-    virtual void show() = 0;
+    /**@brief show Frame
+     * @note some GNEFrames needs a re-implementation
+     */
+    virtual void show();
 
-    /// @brief hide Frame
-    virtual void hide() = 0;
+    /**@brief hide Frame
+     * @note some GNEFrames needs a re-implementation
+     */
+    virtual void hide();
 
     /// @brief get view net
     GNEViewNet* getViewNet() const;
@@ -103,6 +107,9 @@ protected:
     FXHorizontalFrame* myHeaderRightFrame;
 
 private:
+    /// @brief horizontalFrameParent in which this frame is placed (needed to obtain the width in every recalc)
+    FXHorizontalFrame* myHorizontalFrameParent;
+
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&);
 

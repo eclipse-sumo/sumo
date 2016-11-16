@@ -119,6 +119,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Attribute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Additional.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Connection.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Crossing.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEConnectorFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEContainerStop.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNECrossing.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNECrossingFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDetector.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDetectorE1.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDetectorE2.cpp" />
@@ -181,6 +183,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Attribute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Additional.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Connection.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Crossing.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h" />
@@ -191,6 +194,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEConnectorFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEContainerStop.h" />
     <ClInclude Include="..\..\..\src\netedit\GNECrossing.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNECrossingFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDetector.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDetectorE1.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDetectorE2.h" />
@@ -202,6 +206,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEFrame.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEFrameDesigns.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEInspectorFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEInternalLane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEJunction.h" />

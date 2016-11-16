@@ -50,19 +50,13 @@ class GNEConnectorFrame : public GNEFrame {
 
 public:
     /**@brief Constructor
-     * @brief parent FXFrame in which this GNEFrame is placed
+     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEConnectorFrame(FXComposite* parent, GNEViewNet* viewNet);
+    GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEConnectorFrame();
-
-    /// @brief show Frame
-    void show();
-
-    /// @brief hide Frame
-    void hide();
 
     /**@brief either sets the current lane or toggles the connection of the
      * current lane to this lane (if they share a junction)

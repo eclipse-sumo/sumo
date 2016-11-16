@@ -2560,6 +2560,16 @@ NBNode::getCrossing(const std::string& id) const {
     throw ProcessError("Request for unknown crossing '" + id + "'");
 }
 
+NBNode::Crossing&
+NBNode::getCrossingRef(const std::string& id) {
+    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); ++it) {
+        if ((*it).id == id) {
+            return *it;
+        }
+    }
+    throw ProcessError("Request for unknown crossing '" + id + "'");
+}
+
 
 void
 NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {

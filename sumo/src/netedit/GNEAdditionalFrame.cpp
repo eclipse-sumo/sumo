@@ -35,11 +35,13 @@
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/TplCheck.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include "GNEFrameDesigns.h"
 #include "GNEAdditionalFrame.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
@@ -69,13 +71,18 @@ FXDEFMAP(GNEAdditionalFrame) GNEAdditionalMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_ITEM, GNEAdditionalFrame::onCmdSelectAdditional),
 };
 
-FXDEFMAP(GNEAdditionalFrame::additionalParameterList) GNEAdditionalParameterListMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDROW,    GNEAdditionalFrame::additionalParameterList::onCmdAddRow),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVEROW, GNEAdditionalFrame::additionalParameterList::onCmdRemoveRow),
+FXDEFMAP(GNEAdditionalFrame::singleAdditionalParameter) GNEsingleAdditionalParameterMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GNEAdditionalFrame::singleAdditionalParameter::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GNEAdditionalFrame::singleAdditionalParameter::onCmdSetBooleanAttribute),
 };
 
-FXDEFMAP(GNEAdditionalFrame::additionalParameters) GNEAdditionalParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_HELP, GNEAdditionalFrame::additionalParameters::onCmdHelp),
+FXDEFMAP(GNEAdditionalFrame::singleAdditionalParameterList) GNEsingleAdditionalParameterListMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDROW,    GNEAdditionalFrame::singleAdditionalParameterList::onCmdAddRow),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVEROW, GNEAdditionalFrame::singleAdditionalParameterList::onCmdRemoveRow),
+};
+
+FXDEFMAP(GNEAdditionalFrame::additionalParameters) GNEadditionalParametersMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,              GNEAdditionalFrame::additionalParameters::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::editorParameters) GNEEditorParametersMap[] = {
@@ -89,12 +96,12 @@ FXDEFMAP(GNEAdditionalFrame::additionalSet) GNEAdditionalSetMap[] = {
 };
 
 FXDEFMAP(GNEAdditionalFrame::edgesSelector) GNEEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_USESELECTEDEDGES,    GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEAREDGESELECTION,  GNEAdditionalFrame::edgesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTEDGESELECTION, GNEAdditionalFrame::edgesSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHEDGE,          GNEAdditionalFrame::edgesSelector::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTEDGE,          GNEAdditionalFrame::edgesSelector::onCmdSelectEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::edgesSelector::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWONLYSELECTEDEDGES, GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEAREDGESELECTION,    GNEAdditionalFrame::edgesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTEDGESELECTION,   GNEAdditionalFrame::edgesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHEDGE,            GNEAdditionalFrame::edgesSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTEDGE,            GNEAdditionalFrame::edgesSelector::onCmdSelectEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                      GNEAdditionalFrame::edgesSelector::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::lanesSelector) GNELanesMap[] = {
@@ -108,8 +115,9 @@ FXDEFMAP(GNEAdditionalFrame::lanesSelector) GNELanesMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEAdditionalFrame,                          FXScrollWindow, GNEAdditionalMap,              ARRAYNUMBER(GNEAdditionalMap))
-FXIMPLEMENT(GNEAdditionalFrame::additionalParameterList, FXMatrix,       GNEAdditionalParameterListMap, ARRAYNUMBER(GNEAdditionalParameterListMap))
-FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,    FXGroupBox,     GNEAdditionalParametersMap,    ARRAYNUMBER(GNEAdditionalParametersMap))
+FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameter,     FXMatrix,       GNEsingleAdditionalParameterMap,     ARRAYNUMBER(GNEsingleAdditionalParameterMap))
+FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameterList, FXMatrix,       GNEsingleAdditionalParameterListMap, ARRAYNUMBER(GNEsingleAdditionalParameterListMap))
+FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,    FXGroupBox,     GNEadditionalParametersMap,    ARRAYNUMBER(GNEadditionalParametersMap))
 FXIMPLEMENT(GNEAdditionalFrame::editorParameters,        FXGroupBox,     GNEEditorParametersMap,        ARRAYNUMBER(GNEEditorParametersMap))
 FXIMPLEMENT(GNEAdditionalFrame::additionalSet,           FXGroupBox,     GNEAdditionalSetMap,           ARRAYNUMBER(GNEAdditionalSetMap))
 FXIMPLEMENT(GNEAdditionalFrame::edgesSelector,           FXGroupBox,     GNEEdgesMap,                   ARRAYNUMBER(GNEEdgesMap))
@@ -119,18 +127,18 @@ FXIMPLEMENT(GNEAdditionalFrame::lanesSelector,           FXGroupBox,     GNELane
 // method definitions
 // ===========================================================================
 
-GNEAdditionalFrame::GNEAdditionalFrame(FXComposite* parent, GNEViewNet* viewNet):
-    GNEFrame(parent, viewNet, "Additionals"),
+GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
+    GNEFrame(horizontalFrameParent, viewNet, "Additionals"),
     myActualAdditionalType(SUMO_TAG_NOTHING) {
 
     // Create groupBox for myAdditionalMatchBox
-    myGroupBoxForMyAdditionalMatchBox = new FXGroupBox(myContentFrame, "Additional element", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X);
+    myGroupBoxForMyAdditionalMatchBox = new FXGroupBox(myContentFrame, "Additional element", GNEDesignGroupBoxFrame);
 
     // Create FXListBox in myGroupBoxForMyAdditionalMatchBox
-    myAdditionalMatchBox = new FXComboBox(myGroupBoxForMyAdditionalMatchBox, 12, this, MID_GNE_MODE_ADDITIONAL_ITEM,  FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC | LAYOUT_CENTER_Y | LAYOUT_FILL_X);
+    myAdditionalMatchBox = new FXComboBox(myGroupBoxForMyAdditionalMatchBox, 12, this, MID_GNE_MODE_ADDITIONAL_ITEM, GNEDesignComboBox);
 
     // Create additional parameters
-    myAdditionalParameters = new GNEAdditionalFrame::additionalParameters(myContentFrame, this);
+    myadditionalParameters = new GNEAdditionalFrame::additionalParameters(myContentFrame);
 
     // Create editor parameter
     myEditorParameters = new GNEAdditionalFrame::editorParameters(myContentFrame, this);
@@ -166,11 +174,10 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {
     gSelected.remove2Update();
 }
 
-
 bool
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent) {
     // Declare map to keep values
-    std::map<SumoXMLAttr, std::string> valuesOfElement = myAdditionalParameters->getAttributes();
+    std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributes();
 
     // Declare pointer to netElements
     GNEJunction* pointed_junction = NULL;
@@ -305,7 +312,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         if (myAdditionalSet->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalSet->getIdSelected();
         } else {
-            WRITE_WARNING("A " + toString(myAdditionalSet->getCurrentlyTag()) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
+            WRITE_WARNING("A " + toString(myAdditionalSet->getCurrentAdditionalTag()) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
             return false;
         }
     }
@@ -383,23 +390,12 @@ GNEAdditionalFrame::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
 
 void
 GNEAdditionalFrame::show() {
-    // Show Scroll window
-    FXScrollWindow::show();
-    // Show Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->showFramesArea();
-    // Update UseAelectedLane CheckBox
+    // Show frame
+    GNEFrame::show();
+    // Update UseSelectedLane CheckBox
     myEdgesSelector->updateUseSelectedEdges();
-    // Update UseAelectedLane CheckBox
+    // Update UseSelectedLane CheckBox
     myLanesSelector->updateUseSelectedLanes();
-}
-
-
-void
-GNEAdditionalFrame::hide() {
-    // Hide ScrollWindow
-    FXScrollWindow::hide();
-    // Hide Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->hideFramesArea();
 }
 
 
@@ -408,7 +404,7 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     // Set new actualAdditionalType
     myActualAdditionalType = actualAdditionalType;
     // Clear default parameters
-    myAdditionalParameters->clearAttributes();
+    myadditionalParameters->clearAttributes();
     // Hide lenght field and reference point
     myEditorParameters->hideLengthField();
     myEditorParameters->hideReferencePoint();
@@ -416,18 +412,18 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     std::vector<std::pair <SumoXMLAttr, std::string> > attrs = GNEAttributeCarrier::allowedAttributes(myActualAdditionalType);
     // Iterate over attributes of myActualAdditionalType
     for (std::vector<std::pair <SumoXMLAttr, std::string> >::iterator i = attrs.begin(); i != attrs.end(); i++) {
-        if (!GNEAttributeCarrier::isUnique(i->first)) {
-            myAdditionalParameters->addAttribute(myActualAdditionalType, i->first);
+        if (!GNEAttributeCarrier::isUnique(myActualAdditionalType, i->first)) {
+            myadditionalParameters->addAttribute(myActualAdditionalType, i->first);
         } else if (i->first == SUMO_ATTR_ENDPOS) {
             myEditorParameters->showLengthField();
             myEditorParameters->showReferencePoint();
         }
     }
     // if there are parmeters, show and Recalc groupBox
-    if (myAdditionalParameters->getNumberOfAddedAttributes() > 0) {
-        myAdditionalParameters->showAdditionalParameters();
+    if (myadditionalParameters->getNumberOfAddedAttributes() > 0) {
+        myadditionalParameters->showadditionalParameters();
     } else {
-        myAdditionalParameters->hideAdditionalParameters();
+        myadditionalParameters->hideadditionalParameters();
     }
     // Show set parameter if we're adding an additional with parent
     if (GNEAttributeCarrier::hasParent(myActualAdditionalType)) {
@@ -527,16 +523,18 @@ GNEAdditionalFrame::setEndPosition(SUMOReal laneLenght, SUMOReal positionOfTheMo
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::additionalParameter - methods
+// GNEAdditionalFrame::singleAdditionalParameter - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::additionalParameter::additionalParameter(FXComposite* parent, FXObject* tgt) :
-    FXMatrix(parent, 3, MATRIX_BY_COLUMNS | LAYOUT_FILL_X),
-    myAttr(SUMO_ATTR_NOTHING) {
-    // Create elements
-    myLabel = new FXLabel(this, "name", 0, JUSTIFY_RIGHT | LAYOUT_FIX_WIDTH, 0, 0, 60, 0);
-    myTextField = new FXTextField(this, 10, tgt, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X);
-    myMenuCheck = new FXMenuCheck(this, "", tgt, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, LAYOUT_FIX_WIDTH);
+GNEAdditionalFrame::singleAdditionalParameter::singleAdditionalParameter(FXComposite* parent) :
+    FXMatrix(parent, 3, GNEDesignMatrix),
+    myAdditionalTag(SUMO_TAG_NOTHING),
+    myAdditionalAttr(SUMO_ATTR_NOTHING),
+    myCurrentValueValid(true) {
+    // Create visual elements
+    myLabel = new FXLabel(this, "name", 0, GNEDesignLabelAttribute, 0, 0, 60, 0);
+    myTextField = new FXTextField(this, GNEDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GNEDesignTextFieldAttributeStr);
+    myMenuCheck = new FXMenuCheck(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GNEDesignCheckButtonAttribute);
     // Set widht of menuCheck manually
     myMenuCheck->setWidth(20);
     // Hide elements
@@ -544,13 +542,14 @@ GNEAdditionalFrame::additionalParameter::additionalParameter(FXComposite* parent
 }
 
 
-GNEAdditionalFrame::additionalParameter::~additionalParameter() {}
+GNEAdditionalFrame::singleAdditionalParameter::~singleAdditionalParameter() {}
 
 
 void
-GNEAdditionalFrame::additionalParameter::showParameter(SumoXMLAttr attr, std::string value) {
-    myAttr = attr;
-    myLabel->setText(toString(myAttr).c_str());
+GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::string value) {
+    myAdditionalTag = additionalTag;
+    myAdditionalAttr = additionalAttr;
+    myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
     myTextField->setText(value.c_str());
     myTextField->show();
@@ -559,9 +558,10 @@ GNEAdditionalFrame::additionalParameter::showParameter(SumoXMLAttr attr, std::st
 
 
 void
-GNEAdditionalFrame::additionalParameter::showParameter(SumoXMLAttr attr, int value) {
-    myAttr = attr;
-    myLabel->setText(toString(myAttr).c_str());
+GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, int value) {
+    myAdditionalTag = additionalTag;
+    myAdditionalAttr = additionalAttr;
+    myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
     myTextField->setText(toString(value).c_str());
     myTextField->show();
@@ -570,9 +570,10 @@ GNEAdditionalFrame::additionalParameter::showParameter(SumoXMLAttr attr, int val
 
 
 void
-GNEAdditionalFrame::additionalParameter::showParameter(SumoXMLAttr attr, SUMOReal value) {
-    myAttr = attr;
-    myLabel->setText(toString(myAttr).c_str());
+GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, SUMOReal value) {
+    myAdditionalTag = additionalTag;
+    myAdditionalAttr = additionalAttr;
+    myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
     myTextField->setText(toString(value).c_str());
     myTextField->show();
@@ -581,19 +582,29 @@ GNEAdditionalFrame::additionalParameter::showParameter(SumoXMLAttr attr, SUMORea
 
 
 void
-GNEAdditionalFrame::additionalParameter::showParameter(SumoXMLAttr attr, bool value) {
-    myAttr = attr;
-    myLabel->setText(toString(myAttr).c_str());
+GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value) {
+    myAdditionalTag = additionalTag;
+    myAdditionalAttr = additionalAttr;
+    myLabel->setText(toString(myAdditionalAttr).c_str());
+    myTextField->setTextColor(FXRGB(0, 0, 0));
     myLabel->show();
-    myMenuCheck->setCheck(value);
+    if(value) {
+        myMenuCheck->setCheck(true);
+        myMenuCheck->setText("Enabled");
+    } else {
+        myMenuCheck->setCheck(false);
+        myMenuCheck->setText("Disabled");
+    }
     myMenuCheck->show();
+    myCurrentValueValid = true;
     show();
 }
 
 
 void
-GNEAdditionalFrame::additionalParameter::hideParameter() {
-    myAttr = SUMO_ATTR_NOTHING;
+GNEAdditionalFrame::singleAdditionalParameter::hideParameter() {
+    myAdditionalTag = SUMO_TAG_NOTHING;
+    myAdditionalAttr = SUMO_ATTR_NOTHING;
     myLabel->hide();
     myTextField->hide();
     myMenuCheck->hide();
@@ -601,76 +612,139 @@ GNEAdditionalFrame::additionalParameter::hideParameter() {
 }
 
 
+SumoXMLTag 
+GNEAdditionalFrame::singleAdditionalParameter::getTag() const {
+    return myAdditionalTag;
+}
+
+
 SumoXMLAttr
-GNEAdditionalFrame::additionalParameter::getAttr() const {
-    return myAttr;
+GNEAdditionalFrame::singleAdditionalParameter::getAttr() const {
+    return myAdditionalAttr;
 }
 
 
 std::string
-GNEAdditionalFrame::additionalParameter::getValue() const {
-    if (GNEAttributeCarrier::isBool(myAttr)) {
+GNEAdditionalFrame::singleAdditionalParameter::getValue() const {
+    if (GNEAttributeCarrier::isBool(myAdditionalTag, myAdditionalAttr)) {
         return (myMenuCheck->getCheck() == 1) ? "true" : "false";
     } else {
         return myTextField->getText().text();
     }
 }
 
+
+long 
+GNEAdditionalFrame::singleAdditionalParameter::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+    // Check if format of current value of myTextField is correct
+    if (GNEAttributeCarrier::isInt(myAdditionalTag, myAdditionalAttr)) {
+         if(TplCheck::_str2int(myTextField->getText().text())) {
+            myCurrentValueValid = true;
+             // convert string to int
+            int intValue = TplConvert::_str2int(myTextField->getText().text());
+            // Check if int value must be positive
+            if(GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (intValue < 0)) {
+                myCurrentValueValid = false;
+            }
+         } else {
+             myCurrentValueValid = false;
+         }
+    } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr)) {
+        if(TplCheck::_str2SUMOReal(myTextField->getText().text())) {
+            myCurrentValueValid = true;
+            // convert string to double
+            SUMOReal SUMORealValue = TplConvert::_str2SUMOReal(myTextField->getText().text());
+            // Check if double value must be positive
+            if(GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (SUMORealValue < 0)) {
+                myCurrentValueValid = false;
+            // check if double value is a probability
+            } else if (GNEAttributeCarrier::isProbability(myAdditionalTag, myAdditionalAttr) && ((SUMORealValue < 0) || SUMORealValue > 1)) {
+                myCurrentValueValid = false;
+            }
+        } else {
+             myCurrentValueValid = false;
+         }
+    }
+    // change color of text field depending of myCurrentValueValid
+    if (myCurrentValueValid) {
+        myTextField->setTextColor(FXRGB(0, 0, 0));
+        myTextField->killFocus();
+    } else {
+        // IF value of TextField isn't valid, change their color to Red
+        myTextField->setTextColor(FXRGB(255, 0, 0));
+    }
+    // Update aditional frame
+    update();
+    return 1;
+}
+
+
+long 
+GNEAdditionalFrame::singleAdditionalParameter::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
+    if(myMenuCheck->getCheck()) {
+        myMenuCheck->setText("Enabled");
+    } else {
+        myMenuCheck->setText("Disabled");
+    }
+    return 1;
+}
+
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::additionalParameterList - methods
+// GNEAdditionalFrame::singleAdditionalParameterList - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::additionalParameterList::additionalParameterList(FXComposite* parent, FXObject* tgt) :
-    FXMatrix(parent, 2, MATRIX_BY_COLUMNS | LAYOUT_FILL_X),
-    myAttr(SUMO_ATTR_NOTHING),
+GNEAdditionalFrame::singleAdditionalParameterList::singleAdditionalParameterList(FXComposite* parent) :
+    FXMatrix(parent, 2, GNEDesignMatrix),
+    myAdditionalTag(SUMO_TAG_NOTHING),
+    myAdditionalAttr(SUMO_ATTR_NOTHING),
     numberOfVisibleTextfields(1),
     myMaxNumberOfValuesInParameterList(20) {
     // Create elements
     for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
-        myLabels.push_back(new FXLabel(this, "name", 0, JUSTIFY_RIGHT | LAYOUT_FIX_WIDTH, 0, 0, 60, 0));
-        myTextFields.push_back(new FXTextField(this, 10, tgt, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X));
+        myLabels.push_back(new FXLabel(this, "name", 0, GNEDesignLabelAttribute, 0, 0, 60, 0));
+        myTextFields.push_back(new FXTextField(this, GNEDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GNEDesignTextFieldAttributeStr));
     }
     // Create label Row
-    myLabels.push_back(new FXLabel(this, "Rows", 0, JUSTIFY_RIGHT | LAYOUT_FIX_WIDTH, 0, 0, 60, 0));
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X);
+    myLabels.push_back(new FXLabel(this, "Rows", 0, GNEDesignLabelAttribute, 0, 0, 60, 0));
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GNEDesignHorizontalFrame);
     // Create add button
-    add = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_ADDROW,
-                       ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED,
-                       0, 0, 20, 20);
+    add = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_ADDROW, GNEDesignButton, 0, 0, 20, 20);
     // Create delete buttons
-    remove = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), this, MID_GNE_REMOVEROW,
-                          ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED,
-                          0, 0, 20, 20);
+    remove = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), this, MID_GNE_REMOVEROW, GNEDesignButton, 0, 0, 20, 20);
     // Hide all para meters
     hideParameter();
 }
 
 
-GNEAdditionalFrame::additionalParameterList::~additionalParameterList() {}
+GNEAdditionalFrame::singleAdditionalParameterList::~singleAdditionalParameterList() {}
 
 
 void
-GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<int> /* value */) {
-    myAttr = attr;
+GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<int> /* value */) {
+    myAdditionalTag = additionalTag;
+    myAdditionalAttr = additionalAttr;
     std::cout << "FINISH" << std::endl;
 }
 
 void
-GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<SUMOReal> /* value */) {
-    myAttr = attr;
+GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<SUMOReal> /* value */) {
+    myAdditionalTag = additionalTag;
+    myAdditionalAttr = additionalAttr;
     std::cout << "FINISH" << std::endl;
 }
 
 void
-GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<bool> /* value */) {
-    myAttr = attr;
+GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<bool> /* value */) {
+    myAdditionalTag = additionalTag;
+    myAdditionalAttr = additionalAttr;
     std::cout << "FINISH" << std::endl;
 }
 
 void
-GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr, std::vector<std::string> value) {
+GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag tag, SumoXMLAttr attr, std::vector<std::string> value) {
     if ((int)value.size() < myMaxNumberOfValuesInParameterList) {
-        myAttr = attr;
+        myAdditionalTag = tag;
+        myAdditionalAttr = attr;
         numberOfVisibleTextfields = (int)value.size();
         if (numberOfVisibleTextfields == 0) {
             numberOfVisibleTextfields++;
@@ -690,8 +764,9 @@ GNEAdditionalFrame::additionalParameterList::showListParameter(SumoXMLAttr attr,
 
 
 void
-GNEAdditionalFrame::additionalParameterList::hideParameter() {
-    myAttr = SUMO_ATTR_NOTHING;
+GNEAdditionalFrame::singleAdditionalParameterList::hideParameter() {
+    myAdditionalTag = SUMO_TAG_NOTHING;
+    myAdditionalAttr = SUMO_ATTR_NOTHING;
     for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
         myLabels.at(i)->hide();
         myTextFields.at(i)->hide();
@@ -703,14 +778,19 @@ GNEAdditionalFrame::additionalParameterList::hideParameter() {
 }
 
 
+SumoXMLTag
+GNEAdditionalFrame::singleAdditionalParameterList::getTag() const {
+    return myAdditionalTag;
+}
+
 SumoXMLAttr
-GNEAdditionalFrame::additionalParameterList::getAttr() const {
-    return myAttr;
+GNEAdditionalFrame::singleAdditionalParameterList::getAttr() const {
+    return myAdditionalAttr;
 }
 
 
 std::string
-GNEAdditionalFrame::additionalParameterList::getListValues() {
+GNEAdditionalFrame::singleAdditionalParameterList::getListValues() {
     // Declare, fill and return a string with the list values
     std::string value;
     for (int i = 0; i < numberOfVisibleTextfields; i++) {
@@ -723,7 +803,7 @@ GNEAdditionalFrame::additionalParameterList::getListValues() {
 
 
 long
-GNEAdditionalFrame::additionalParameterList::onCmdAddRow(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::singleAdditionalParameterList::onCmdAddRow(FXObject*, FXSelector, void*) {
     if (numberOfVisibleTextfields < (myMaxNumberOfValuesInParameterList - 1)) {
         myLabels.at(numberOfVisibleTextfields)->show();
         myTextFields.at(numberOfVisibleTextfields)->show();
@@ -735,7 +815,7 @@ GNEAdditionalFrame::additionalParameterList::onCmdAddRow(FXObject*, FXSelector, 
 
 
 long
-GNEAdditionalFrame::additionalParameterList::onCmdRemoveRow(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::singleAdditionalParameterList::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     if (numberOfVisibleTextfields > 1) {
         numberOfVisibleTextfields--;
         myLabels.at(numberOfVisibleTextfields)->hide();
@@ -751,8 +831,8 @@ GNEAdditionalFrame::additionalParameterList::onCmdRemoveRow(FXObject*, FXSelecto
 // GNEAdditionalFrame::editorParameters- methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::additionalParameters::additionalParameters(FXComposite* parent, FXObject* tgt) :
-    FXGroupBox(parent, "Default parameters", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
+GNEAdditionalFrame::additionalParameters::additionalParameters(FXComposite* parent) :
+    FXGroupBox(parent, "Default parameters", GNEDesignGroupBoxFrame),
     myIndexParameter(0),
     myIndexParameterList(0),
     maxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
@@ -760,16 +840,16 @@ GNEAdditionalFrame::additionalParameters::additionalParameters(FXComposite* pare
 
     // Create widgets for parameters
     for (int i = 0; i < maxNumberOfParameters; i++) {
-        myVectorOfAdditionalParameter.push_back(new additionalParameter(this, tgt));
+        myVectorOfsingleAdditionalParameter.push_back(new singleAdditionalParameter(this));
     }
 
     // Create widgets for parameters
     for (int i = 0; i < maxNumberOfListParameters; i++) {
-        myVectorOfAdditionalParameterList.push_back(new additionalParameterList(this, tgt));
+        myVectorOfsingleAdditionalParameterList.push_back(new singleAdditionalParameterList(this));
     }
 
     // Create help button
-    helpAdditional = new FXButton(this, "Help", 0, this, MID_HELP);
+    helpAdditional = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
 }
 
 
@@ -781,12 +861,12 @@ void
 GNEAdditionalFrame::additionalParameters::clearAttributes() {
     // Hidde al fields
     for (int i = 0; i < maxNumberOfParameters; i++) {
-        myVectorOfAdditionalParameter.at(i)->hideParameter();
+        myVectorOfsingleAdditionalParameter.at(i)->hideParameter();
     }
 
     // Hidde al list fields
     for (int i = 0; i < maxNumberOfListParameters; i++) {
-        myVectorOfAdditionalParameterList.at(i)->hideParameter();
+        myVectorOfsingleAdditionalParameterList.at(i)->hideParameter();
     }
 
     // Reset indexs
@@ -796,22 +876,22 @@ GNEAdditionalFrame::additionalParameters::clearAttributes() {
 
 
 void
-GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additional, SumoXMLAttr attribute) {
+GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additionalTag, SumoXMLAttr additionalAttribute) {
     // Set current additional
-    myAdditional = additional;
+    myAdditionalTag = additionalTag;
     // If  parameter is of type list
-    if (GNEAttributeCarrier::isList(attribute)) {
+    if (GNEAttributeCarrier::isList(myAdditionalTag, additionalAttribute)) {
         // If parameter can be show
         if (myIndexParameterList < maxNumberOfListParameters) {
             // Check type of attribute list
-            if (GNEAttributeCarrier::isInt(attribute)) {
-                myVectorOfAdditionalParameterList.at(myIndexParameterList)->showListParameter(attribute, GNEAttributeCarrier::getDefaultValue< std::vector<int> >(additional, attribute));
-            } else if (GNEAttributeCarrier::isFloat(attribute)) {
-                myVectorOfAdditionalParameterList.at(myIndexParameterList)->showListParameter(attribute, GNEAttributeCarrier::getDefaultValue< std::vector<SUMOReal> >(additional, attribute));
-            } else if (GNEAttributeCarrier::isBool(attribute)) {
-                myVectorOfAdditionalParameterList.at(myIndexParameterList)->showListParameter(attribute, GNEAttributeCarrier::getDefaultValue< std::vector<bool> >(additional, attribute));
-            } else if (GNEAttributeCarrier::isString(attribute)) {
-                myVectorOfAdditionalParameterList.at(myIndexParameterList)->showListParameter(attribute, GNEAttributeCarrier::getDefaultValue< std::vector<std::string> >(additional, attribute));
+            if (GNEAttributeCarrier::isInt(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue< std::vector<int> >(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute,GNEAttributeCarrier::getDefaultValue< std::vector<SUMOReal> >(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isBool(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute,GNEAttributeCarrier::getDefaultValue< std::vector<bool> >(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isString(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue< std::vector<std::string> >(myAdditionalTag, additionalAttribute));
             }
             // Update index
             myIndexParameterList++;
@@ -821,16 +901,16 @@ GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additional, Su
     } else {
         if (myIndexParameter < maxNumberOfParameters) {
             // Check type of attribute list
-            if (GNEAttributeCarrier::isInt(attribute)) {
-                myVectorOfAdditionalParameter.at(myIndexParameter)->showParameter(attribute, GNEAttributeCarrier::getDefaultValue<int>(additional, attribute));
-            } else if (GNEAttributeCarrier::isFloat(attribute)) {
-                myVectorOfAdditionalParameter.at(myIndexParameter)->showParameter(attribute, GNEAttributeCarrier::getDefaultValue<SUMOReal>(additional, attribute));
-            } else if (GNEAttributeCarrier::isBool(attribute)) {
-                myVectorOfAdditionalParameter.at(myIndexParameter)->showParameter(attribute, GNEAttributeCarrier::getDefaultValue<bool>(additional, attribute));
-            } else if (GNEAttributeCarrier::isString(attribute)) {
-                myVectorOfAdditionalParameter.at(myIndexParameter)->showParameter(attribute, GNEAttributeCarrier::getDefaultValue<std::string>(additional, attribute));
+            if (GNEAttributeCarrier::isInt(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<int>(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<SUMOReal>(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isBool(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<bool>(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isString(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<std::string>(myAdditionalTag, additionalAttribute));
             } else {
-                WRITE_WARNING("Attribute '" + toString(attribute) + "' don't have a defined type. Check definition in GNEAttributeCarrier");
+                WRITE_WARNING("Attribute '" + toString(additionalAttribute) + "' don't have a defined type. Check definition in GNEAttributeCarrier");
             }
             // Update index parameter
             myIndexParameter++;
@@ -842,14 +922,14 @@ GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additional, Su
 
 
 void
-GNEAdditionalFrame::additionalParameters::showAdditionalParameters() {
+GNEAdditionalFrame::additionalParameters::showadditionalParameters() {
     recalc();
     show();
 }
 
 
 void
-GNEAdditionalFrame::additionalParameters::hideAdditionalParameters() {
+GNEAdditionalFrame::additionalParameters::hideadditionalParameters() {
     hide();
 }
 
@@ -859,11 +939,11 @@ GNEAdditionalFrame::additionalParameters::getAttributes() const {
     std::map<SumoXMLAttr, std::string> values;
     // get standar Parameters
     for (int i = 0; i < myIndexParameter; i++) {
-        values[myVectorOfAdditionalParameter.at(i)->getAttr()] = myVectorOfAdditionalParameter.at(i)->getValue();
+        values[myVectorOfsingleAdditionalParameter.at(i)->getAttr()] = myVectorOfsingleAdditionalParameter.at(i)->getValue();
     }
     // get list parameters
     for (int i = 0; i < myIndexParameterList; i++) {
-        values[myVectorOfAdditionalParameterList.at(i)->getAttr()] = myVectorOfAdditionalParameterList.at(i)->getListValues();
+        values[myVectorOfsingleAdditionalParameterList.at(i)->getAttr()] = myVectorOfsingleAdditionalParameterList.at(i)->getListValues();
     }
     return values;
 }
@@ -878,7 +958,7 @@ GNEAdditionalFrame::additionalParameters::getNumberOfAddedAttributes() const {
 long
 GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create help dialog
-    FXDialogBox* helpDialog = new FXDialogBox(this, ("Parameters of " + toString(myAdditional)).c_str(), DECOR_CLOSE | DECOR_TITLE);
+    FXDialogBox* helpDialog = new FXDialogBox(this, ("Parameters of " + toString(myAdditionalTag)).c_str(), GNEDesignDialogBox);
     // Create FXTable
     FXTable* myTable = new FXTable(helpDialog, this, MID_TABLE, TABLE_READONLY);
     myTable->setVisibleRows((FXint)(myIndexParameter + myIndexParameterList));
@@ -897,61 +977,63 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
     int maxSizeColumnDefinitions = 0;
     // Iterate over vector of additional parameters
     for (int i = 0; i < myIndexParameter; i++) {
-        SumoXMLAttr attr = myVectorOfAdditionalParameter.at(i)->getAttr();
+        SumoXMLTag tag = myVectorOfsingleAdditionalParameter.at(i)->getTag();
+        SumoXMLAttr attr = myVectorOfsingleAdditionalParameter.at(i)->getAttr();
         // Set name of attribute
         myTable->setItem(i, 0, new FXTableItem(toString(attr).c_str()));
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (GNEAttributeCarrier::isInt(attr)) {
+        if (GNEAttributeCarrier::isInt(tag, attr)) {
             type->setText("int");
-        } else if (GNEAttributeCarrier::isFloat(attr)) {
+        } else if (GNEAttributeCarrier::isFloat(tag, attr)) {
             type->setText("float");
-        } else if (GNEAttributeCarrier::isBool(attr)) {
+        } else if (GNEAttributeCarrier::isBool(tag, attr)) {
             type->setText("bool");
-        } else if (GNEAttributeCarrier::isString(attr)) {
+        } else if (GNEAttributeCarrier::isString(tag, attr)) {
             type->setText("string");
         }
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditional, attr).c_str());
+        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(myAdditional, attr).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditional, attr).size());
+        if ((int)GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size() > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size());
         }
     }
     // Iterate over vector of additional parameters list
     for (int i = 0; i < myIndexParameterList; i++) {
-        SumoXMLAttr attr = myVectorOfAdditionalParameterList.at(i)->getAttr();
+        SumoXMLTag tag = myVectorOfsingleAdditionalParameterList.at(i)->getTag();
+        SumoXMLAttr attr = myVectorOfsingleAdditionalParameterList.at(i)->getAttr();
         // Set name of attribute
         myTable->setItem(i, 0, new FXTableItem(toString(attr).c_str()));
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (GNEAttributeCarrier::isInt(attr)) {
+        if (GNEAttributeCarrier::isInt(tag, attr)) {
             type->setText("list of int");
-        } else if (GNEAttributeCarrier::isFloat(attr)) {
+        } else if (GNEAttributeCarrier::isFloat(tag, attr)) {
             type->setText("list of float");
-        } else if (GNEAttributeCarrier::isBool(attr)) {
+        } else if (GNEAttributeCarrier::isBool(tag, attr)) {
             type->setText("list of bool");
-        } else if (GNEAttributeCarrier::isString(attr)) {
+        } else if (GNEAttributeCarrier::isString(tag, attr)) {
             type->setText("list of string");
         }
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditional, attr).c_str());
+        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(myAdditional, attr).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditional, attr).size());
+        if ((int)GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size() > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size());
         }
     }
     // Set size of column
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, maxSizeColumnDefinitions * 6);
     // Button Close
-    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, GNEDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -962,34 +1044,31 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::editorParameters::editorParameters(FXComposite* parent, FXObject* tgt) :
-    FXGroupBox(parent, "editor parameters", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
+    FXGroupBox(parent, "editor parameters", GNEDesignGroupBoxFrame),
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT) {
     // Create FXListBox for the reference points
-    myReferencePointMatchBox = new FXComboBox(this, 12, this, MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT,
-            FRAME_SUNKEN | LAYOUT_LEFT  | COMBOBOX_STATIC | LAYOUT_FILL_X);
+    myReferencePointMatchBox = new FXComboBox(this, 12, this, MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT, GNEDesignComboBox);
 
     // Create Frame for Label and TextField
-    FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_LEFT);
+    FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GNEDesignHorizontalFrame);
 
     // Create length label
-    myLengthLabel = new FXLabel(lengthFrame, "Length:", 0, JUSTIFY_LEFT | LAYOUT_FILL_X);
+    myLengthLabel = new FXLabel(lengthFrame, "Length:", 0, GNEDesignLabelAttribute);
 
     // Create length text field
-    myLengthTextField = new FXTextField(lengthFrame, 10, tgt, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X);
+    myLengthTextField = new FXTextField(lengthFrame, GNEDesignTextFieldNCol, tgt, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GNEDesignTextField);
 
     // Set default value of length
     myLengthTextField->setText("10");
 
     // Create FXMenuCheck for the force option
-    myCheckForcePosition = new FXMenuCheck(this, "Force position", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION,
-                                           LAYOUT_LEFT | LAYOUT_FILL_X);
+    myCheckForcePosition = new FXMenuCheck(this, "Force position", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GNEDesignCheckButton);
 
     // Create FXMenuCheck for the force option
-    myCheckBlock = new FXMenuCheck(this, "Block movement", this, MID_GNE_SET_BLOCKING,
-                                   LAYOUT_LEFT | LAYOUT_FILL_X);
+    myCheckBlock = new FXMenuCheck(this, "Block movement", this, MID_GNE_SET_BLOCKING, GNEDesignCheckButton);
 
     // Create help button
-    helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP);
+    helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
 
     // Add options to myReferencePointMatchBox
     myReferencePointMatchBox->appendItem("reference left");
@@ -1066,7 +1145,7 @@ GNEAdditionalFrame::editorParameters::onCmdSelectReferencePoint(FXObject*, FXSel
 
 long
 GNEAdditionalFrame::editorParameters::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(this, "Parameter editor Help", DECOR_CLOSE | DECOR_TITLE);
+    FXDialogBox* helpDialog = new FXDialogBox(this, "Parameter editor Help", GNEDesignDialogBox);
     std::ostringstream help;
     help
             << "Referece point: Mark the initial position of the additional element.\n"
@@ -1082,11 +1161,9 @@ GNEAdditionalFrame::editorParameters::onCmdHelp(FXObject*, FXSelector, void*) {
             << "\n"
             << "Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
             << "the mouse. This option can be modified with the Inspector.";
-    new FXLabel(helpDialog, help.str().c_str(), 0, JUSTIFY_LEFT);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GNEDesignLabel);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, GNEDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -1115,18 +1192,18 @@ GNEAdditionalFrame::getIdsSelected(const FXList* list) {
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::additionalSet::additionalSet(FXComposite* parent, FXObject* tgt, GNEViewNet* viewNet) :
-    FXGroupBox(parent, "Additional Set", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
+    FXGroupBox(parent, "Additional Set", GNEDesignGroupBoxFrame),
     myType(SUMO_TAG_NOTHING),
     myViewNet(viewNet) {
 
     // Create label with the type of additionalSet
-    mySetLabel = new FXLabel(this, "Set Type:", 0, JUSTIFY_LEFT | LAYOUT_FILL_X);
+    mySetLabel = new FXLabel(this, "Set Type:", 0, GNEDesignLabelThick);
 
     // Create list
-    myList = new FXList(this, tgt, MID_GNE_SELECTADDITIONALSET, LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT, 0, 0, 0, 100);
+    myList = new FXList(this, tgt, MID_GNE_SELECTADDITIONALSET, GNEDesignList, 0, 0, 0, 100);
 
     // Create help button
-    helpAdditionalSet = new FXButton(this, "Help", 0, this, MID_HELP);
+    helpAdditionalSet = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
 
     // Hide List
     hideList();
@@ -1148,7 +1225,7 @@ GNEAdditionalFrame::additionalSet::getIdSelected() const {
 
 
 SumoXMLTag
-GNEAdditionalFrame::additionalSet::getCurrentlyTag() const {
+GNEAdditionalFrame::additionalSet::getCurrentAdditionalTag() const {
     return myType;
 }
 
@@ -1190,28 +1267,28 @@ GNEAdditionalFrame::additionalSet::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::edgesSelector::edgesSelector(FXComposite* parent, GNEViewNet* viewNet) :
-    FXGroupBox(parent, "Edges", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
+    FXGroupBox(parent, "Edges", GNEDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create CheckBox for selected edges
-    myUseSelectedEdges = new FXMenuCheck(this, "Use selected Edges", this, MID_GNE_USESELECTEDEDGES);
+    myUseSelectedEdges = new FXMenuCheck(this, "Use selected Edges", this, MID_GNE_SHOWONLYSELECTEDEDGES, GNEDesignCheckButton);
 
     // Create search box
-    myEdgesSearch = new FXTextField(this, 10, this, MID_GNE_SEARCHEDGE, LAYOUT_FILL_X);
+    myEdgesSearch = new FXTextField(this, GNEDesignTextFieldNCol, this, MID_GNE_SEARCHEDGE, GNEDesignTextField);
 
     // Create list
-    myList = new FXList(this, this, MID_GNE_SELECTEDGE, LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT, 0, 0, 0, 100);
+    myList = new FXList(this, this, MID_GNE_SELECTEDGE, GNEDesignList, 0, 0, 0, 100);
 
     // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, LAYOUT_FILL_X);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GNEDesignHorizontalFrame);
 
     // Create button for clear selection
-    clearEdgesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_CLEAREDGESELECTION);
+    myClearEdgesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_CLEAREDGESELECTION, GNEDesignButtonLittle);
 
     // Create button for invert selection
-    invertEdgesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTEDGESELECTION);
+    myInvertEdgesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTEDGESELECTION), GNEDesignButtonLittle;
 
     // Create help button
-    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP);
+    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
 
     // Hide List
     hideList();
@@ -1229,10 +1306,14 @@ GNEAdditionalFrame::edgesSelector::getIdsSelected() const {
 
 void
 GNEAdditionalFrame::edgesSelector::showList(std::string search) {
-    // FIll list
+    // clear list of egdge ids
     myList->clearItems();
+    // get all edges of net
+    /// @todo this function must be improved. 
     std::vector<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
+    // iterate over edges of net
     for (std::vector<GNEEdge*>::iterator i = vectorOfEdges.begin(); i != vectorOfEdges.end(); i++) {
+        // If search criterium is correct, then append ittem
         if ((*i)->getID().find(search) != std::string::npos) {
             myList->appendItem((*i)->getID().c_str());
         }
@@ -1280,14 +1361,14 @@ GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, 
     if (myUseSelectedEdges->getCheck()) {
         myEdgesSearch->hide();
         myList->hide();
-        clearEdgesSelection->hide();
-        invertEdgesSelection->hide();
+        myClearEdgesSelection->hide();
+        myInvertEdgesSelection->hide();
         helpEdges->hide();
     } else {
         myEdgesSearch->show();
         myList->show();
-        clearEdgesSelection->show();
-        invertEdgesSelection->show();
+        myClearEdgesSelection->show();
+        myInvertEdgesSelection->show();
         helpEdges->show();
     }
     // Recalc Frame
@@ -1347,28 +1428,28 @@ GNEAdditionalFrame::edgesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::lanesSelector::lanesSelector(FXComposite* parent, GNEViewNet* viewNet) :
-    FXGroupBox(parent, "lanesSelector", GROUPBOX_TITLE_CENTER | FRAME_GROOVE | LAYOUT_FILL_X),
+    FXGroupBox(parent, "Lanes", GNEDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create CheckBox for selected lanes
-    myUseSelectedLanes = new FXMenuCheck(this, "Use selected Lanes", this, MID_GNE_USESELECTEDLANES);
+    myUseSelectedLanes = new FXMenuCheck(this, "Use selected Lanes", this, MID_GNE_USESELECTEDLANES, GNEDesignCheckButton);
 
     // Create search box
-    myLanesSearch = new FXTextField(this, 10, this, MID_GNE_SEARCHLANE, LAYOUT_FILL_X);
+    myLanesSearch = new FXTextField(this, GNEDesignTextFieldNCol, this, MID_GNE_SEARCHLANE, GNEDesignTextField);
 
     // Create list
-    myList = new FXList(this, this, MID_GNE_SELECTLANE, LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT, 0, 0, 0, 100);
+    myList = new FXList(this, this, MID_GNE_SELECTLANE, GNEDesignList, 0, 0, 0, 100);
 
     // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, LAYOUT_FILL_X);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GNEDesignHorizontalFrame);
 
     // Create button for clear selection
-    clearLanesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_CLEARLANESELECTION);
+    clearLanesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_CLEARLANESELECTION, GNEDesignButtonLittle);
 
     // Create button for invert selection
-    invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTLANESELECTION);
+    invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTLANESELECTION, GNEDesignButtonLittle);
 
     // Create help button
-    helpLanes = new FXButton(this, "Help", 0, this, MID_HELP);
+    helpLanes = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
 
     // Hide List
     hideList();

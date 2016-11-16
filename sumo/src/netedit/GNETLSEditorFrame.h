@@ -54,19 +54,13 @@ class GNETLSEditorFrame : public GNEFrame {
 
 public:
     /**@brief Constructor
-     * @brief parent FXFrame in which this GNEFrame is placed
+     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETLSEditorFrame(FXComposite* parent, GNEViewNet* viewNet);
+    GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETLSEditorFrame();
-
-    /// @brief show Frame
-    void show();
-
-    /// @brief hide Frame
-    void hide();
 
     /// @brief edits the traffic light for the given junction
     /// @param[in] junction The junction of which the traffic light shall be edited
@@ -176,8 +170,8 @@ private:
     /// @brief the traffic light definition being edited
     NBLoadedSUMOTLDef* myEditedDef;
 
-    /// @brief the listbox for selecting the tl-definition to edit
-    FXListBox* myDefBox;
+    /// @brief the comboBox for selecting the tl-definition to edit
+    FXComboBox* myDefBox;
 
     /// @brief the control for modifying offset
     FXTextField* myOffset;

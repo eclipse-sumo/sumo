@@ -39,6 +39,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include "GNEFrameDesigns.h"
 #include "GNEInspectorFrame.h"
 #include "GNEConnectorFrame.h"
 #include "GNESelectorFrame.h"
@@ -87,65 +88,43 @@ RGBColor GNEConnectorFrame::conflictColor;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEConnectorFrame::GNEConnectorFrame(FXComposite* parent, GNEViewNet* viewNet):
-    GNEFrame(parent, viewNet, "Edit Connections"),
+GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
+    GNEFrame(horizontalFrameParent, viewNet, "Edit Connections"),
     myCurrentLane(0) {
     // heading
-    myDescription = new FXLabel(myContentFrame, "", 0, JUSTIFY_LEFT);
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
+    myDescription = new FXLabel(myContentFrame, "", 0, GNEDesignLabel);
+    new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
     updateDescription();
 
     // buttons
     // "Cancel"
-    new FXButton(myContentFrame, "Cancel\t\tDiscard connection modifications (Esc)", 0, this, MID_CANCEL,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Cancel\t\tDiscard connection modifications (Esc)", 0, this, MID_CANCEL, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     // "OK"
-    new FXButton(myContentFrame, "OK\t\tSave connection modifications (Enter)", 0, this, MID_OK,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
+    new FXButton(myContentFrame, "OK\t\tSave connection modifications (Enter)", 0, this, MID_OK, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
     // "Select Dead Ends"
-    new FXButton(myContentFrame,
-                 "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
-                 0, this, MID_GNE_SELECT_DEAD_ENDS,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
+                 0, this, MID_GNE_SELECT_DEAD_ENDS, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Select Dead Starts"
-    new FXButton(myContentFrame,
-                 "Select Dead Starts\t\tSelects all lanes that have no incoming connection (clears previous selection)",
-                 0, this, MID_GNE_SELECT_DEAD_STARTS,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Select Dead Starts\t\tSelects all lanes that have no incoming connection (clears previous selection)",
+                 0, this, MID_GNE_SELECT_DEAD_STARTS, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Select Conflicts"
-    new FXButton(myContentFrame,
-                 "Select Conflicts\t\tSelects all lanes with more than one incoming connection from the same edge (clears previous selection)",
-                 0, this, MID_GNE_SELECT_CONFLICTS,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Select Conflicts\t\tSelects all lanes with more than one incoming connection from the same edge (clears previous selection)",
+                 0, this, MID_GNE_SELECT_CONFLICTS, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Select Edges which may always pass"
-    new FXButton(myContentFrame,
-                 "Select Passing\t\tSelects all lanes with a connection that has has the 'pass' attribute set",
-                 0, this, MID_GNE_SELECT_PASS,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Select Passing\t\tSelects all lanes with a connection that has has the 'pass' attribute set",
+                 0, this, MID_GNE_SELECT_PASS, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Clear Selected"
-    new FXButton(myContentFrame,
-                 "Clear Selected\t\tClears all connections of all selected objects",
-                 0, this, MID_CHOOSEN_CLEAR,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Clear Selected\t\tClears all connections of all selected objects",
+                 0, this, MID_CHOOSEN_CLEAR, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Reset Selected"
-    new FXButton(myContentFrame,
-                 "Reset Selected\nJunctions\t\tRecomputes connections at all selected junctions",
-                 0, this, MID_CHOOSEN_RESET,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Reset Selected\nJunctions\t\tRecomputes connections at all selected junctions",
+                 0, this, MID_CHOOSEN_RESET, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
 
-    new FXHorizontalSeparator(this, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+    new FXHorizontalSeparator(this, GNEDesignHorizontalSeparator);
     // Selection Hint
-    new FXLabel(myContentFrame, "Hold <SHIFT> while\nclicking to create\nunyielding conn's.\n", 0, JUSTIFY_LEFT);
-    new FXLabel(myContentFrame, "Hold <CTRL> while\nclicking to create\nconflicting conn's.\n", 0, JUSTIFY_LEFT);
+    new FXLabel(myContentFrame, "Hold <SHIFT> while\nclicking to create\nunyielding conn's.\n", 0, GNEDesignLabel);
+    new FXLabel(myContentFrame, "Hold <CTRL> while\nclicking to create\nconflicting conn's.\n", 0, GNEDesignLabel);
     // Legend
     // init colors here to avoid static order fiasco (https://isocpp.org/wiki/faq/ctors#static-init-order)
     sourceColor = RGBColor::CYAN;
@@ -154,42 +133,23 @@ GNEConnectorFrame::GNEConnectorFrame(FXComposite* parent, GNEViewNet* viewNet):
     targetPassColor = RGBColor::MAGENTA;
     conflictColor = RGBColor::YELLOW;
 
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_FILL_X, 0, 0, 0, 2, 2, 2, 4, 4);
+    new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
     FXLabel* l;
-    new FXLabel(myContentFrame, "Color Legend:", 0, JUSTIFY_LEFT);
-    l = new FXLabel(myContentFrame, "Source", 0, JUSTIFY_LEFT);
+    new FXLabel(myContentFrame, "Color Legend:", 0, GNEDesignLabel);
+    l = new FXLabel(myContentFrame, "Source", 0, GNEDesignLabel);
     l->setBackColor(MFXUtils::getFXColor(sourceColor));
-    l = new FXLabel(myContentFrame, "Target", 0, JUSTIFY_LEFT);
+    l = new FXLabel(myContentFrame, "Target", 0, GNEDesignLabel);
     l->setBackColor(MFXUtils::getFXColor(targetColor));
-    l = new FXLabel(myContentFrame, "Possible Target", 0, JUSTIFY_LEFT);
+    l = new FXLabel(myContentFrame, "Possible Target", 0, GNEDesignLabel);
     l->setBackColor(MFXUtils::getFXColor(potentialTargetColor));
-    l = new FXLabel(myContentFrame, "Target (pass)", 0, JUSTIFY_LEFT);
+    l = new FXLabel(myContentFrame, "Target (pass)", 0, GNEDesignLabel);
     l->setBackColor(MFXUtils::getFXColor(targetPassColor));
-    l = new FXLabel(myContentFrame, "Conflict", 0, JUSTIFY_LEFT);
+    l = new FXLabel(myContentFrame, "Conflict", 0, GNEDesignLabel);
     l->setBackColor(MFXUtils::getFXColor(conflictColor));
 }
 
 
-GNEConnectorFrame::~GNEConnectorFrame() {
-}
-
-
-void
-GNEConnectorFrame::show() {
-    // Show Scroll window
-    FXScrollWindow::show();
-    // Show Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->showFramesArea();
-}
-
-
-void
-GNEConnectorFrame::hide() {
-    // Hide ScrollWindow
-    FXScrollWindow::hide();
-    // Hide Frame Area in which this GNEFrame is placed
-    myViewNet->getViewParent()->hideFramesArea();
-}
+GNEConnectorFrame::~GNEConnectorFrame() {}
 
 
 void

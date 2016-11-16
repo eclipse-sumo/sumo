@@ -40,7 +40,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-
+#include "GNEFrameDesigns.h"
 #include "GNEFrame.h"
 #include "GNEViewParent.h"
 #include "GNEViewNet.h"
@@ -53,32 +53,33 @@
 // method definitions
 // ===========================================================================
 
-GNEFrame::GNEFrame(FXComposite* parent, GNEViewNet* viewNet, const std::string& frameLabel) :
-    FXScrollWindow(parent, LAYOUT_FILL),
+GNEFrame::GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
+    FXScrollWindow(horizontalFrameParent, GNEDesigFrame),
+    myHorizontalFrameParent(horizontalFrameParent),
     myViewNet(viewNet) {
     // Create font
     myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold),
 
-    // Create frame for contect
-    myContentFrame = new FXVerticalFrame(this, LAYOUT_FILL);
+    // Create frame for content and update their width
+    myContentFrame = new FXVerticalFrame(this, GNEDesigContentFrame);
 
     // Create frame for header
-    myHeaderFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_FILL_X);
+    myHeaderFrame = new FXHorizontalFrame(myContentFrame, GNEDesignHorizontalFrame);
 
     // Create frame for left elements of header (By default unused)
-    myHeaderLeftFrame = new FXHorizontalFrame(myHeaderFrame);
+    myHeaderLeftFrame = new FXHorizontalFrame(myHeaderFrame, GNEDesignHorizontalFrame);
     myHeaderLeftFrame->hide();
 
     // Create titel frame
-    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), 0, JUSTIFY_LEFT | LAYOUT_FILL_X);
+    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), 0, GNEDesignLabel);
 
     // Create frame for right elements of header (By default unused)
-    myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame);
+    myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GNEDesignHorizontalFrame);
     myHeaderRightFrame->hide();
 
     // Set font of header
     myFrameHeaderLabel->setFont(myFrameHeaderFont);
-
+    
     // Hide Frame
     FXScrollWindow::hide();
 }
@@ -86,6 +87,24 @@ GNEFrame::GNEFrame(FXComposite* parent, GNEViewNet* viewNet, const std::string& 
 
 GNEFrame::~GNEFrame() {
     delete myFrameHeaderFont;
+}
+
+
+void 
+GNEFrame::show() {
+    // show scroll window
+    FXScrollWindow::show();
+    // Show and update Frame Area in which this GNEFrame is placed
+    myViewNet->getViewParent()->showFramesArea();
+}
+
+
+void 
+GNEFrame::hide() {
+    // hide scroll window
+    FXScrollWindow::hide();
+    // Hide Frame Area in which this GNEFrame is placed
+    myViewNet->getViewParent()->hideFramesArea();
 }
 
 
@@ -105,5 +124,6 @@ FXFont*
 GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
 }
+
 
 /****************************************************************************/

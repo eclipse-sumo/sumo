@@ -104,7 +104,7 @@ public:
     static SumoXMLTag getParentType(SumoXMLTag tag);
 
     /// @brief get all editable attributes for tag and their default values.
-    static const std::vector<std::pair <SumoXMLAttr, std::string> >& allowedAttributes(SumoXMLTag tag);
+    static const std::vector<std::pair<SumoXMLAttr, std::string> >& allowedAttributes(SumoXMLTag tag);
 
     /// @brief get all editable for tag.
     static const std::vector<SumoXMLTag>& allowedTags();
@@ -116,29 +116,37 @@ public:
     static const std::vector<SumoXMLTag>& allowedAdditionalTags();
 
     /// @brief whether an attribute is numerical (int or float)
-    static bool isNumerical(SumoXMLAttr attr);
+    static bool isNumerical(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is numerical or type int
-    static bool isInt(SumoXMLAttr attr);
+    static bool isInt(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is numerical of type float
-    static bool isFloat(SumoXMLAttr attr);
+    static bool isFloat(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief whether an attribute is of type bool
-    static bool isBool(SumoXMLAttr attr);
+    /// @brief whether an attribute is of type bool for a certain tag
+    static bool isBool(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is of type string
-    static bool isString(SumoXMLAttr attr);
+    static bool isString(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is of type bool
-    static bool isList(SumoXMLAttr attr);
+    static bool isList(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief whether an attribute is unique (may not be edited for a multi-selection)
-    /// @note unique attributes don't have a default value
-    static bool isUnique(SumoXMLAttr attr);
+    /// @brief whether an attribute is unique (may not be edited for a multi-selection and don't have a default value)
+    static bool isUnique(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is Discrete
     static bool isDiscrete(SumoXMLTag tag, SumoXMLAttr attr);
+
+    /// @brief whether an attribute is only Positive (i.e. cannot take negative values)
+    static bool isPositive(SumoXMLTag tag, SumoXMLAttr attr);
+
+    /// @brief whether an attribute is a probability (i.e. oly can values between [0, 1])
+    static bool isProbability(SumoXMLTag tag, SumoXMLAttr attr);
+
+    /// @brief whether an attribute is non editable
+    static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief check if a element with certain tag has another additional element as parent
     static bool hasParent(SumoXMLTag tag);
@@ -228,17 +236,29 @@ private:
     /// @brief vector with the allowed tags of additionals
     static std::vector<SumoXMLTag> myAllowedAdditionalTags;
 
-    /// @brief set with the numerical attributes of type Int
-    static std::set<SumoXMLAttr> myNumericalIntAttrs;
+    /// @brief map with the numerical attributes of type Int
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalIntAttrs;
 
-    /// @brief set with the numerical attributes of type Float
-    static std::set<SumoXMLAttr> myNumericalFloatAttrs;
+    /// @brief map with the numerical attributes of type Float
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalFloatAttrs;
 
-    /// @brief set with the attributes of type list
-    static std::set<SumoXMLAttr> myListAttrs;
+    /// @brief map with the boolean attributes
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myBoolAttrs;
 
-    /// @brief set with the unique attributes (i.e. attributes without default values)
-    static std::set<SumoXMLAttr> myUniqueAttrs;
+    /// @brief map with the attributes of type list
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myListAttrs;
+
+    /// @brief map with the unique attributes (i.e. attributes without default values)
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myUniqueAttrs;
+
+    /// @brief map with the non-editable attributes
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNonEditableAttrs;
+
+    /// @brief map with the positive attributes
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myPositiveAttrs;
+
+    /// @brief map with the probability attributes
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myProbabilityAttrs;
 
     /// @brief map with the allowed tags of additionals with parent and their parent
     static std::map<SumoXMLTag, SumoXMLTag> myAllowedAdditionalWithParentTags;

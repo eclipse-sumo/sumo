@@ -47,128 +47,153 @@
  * @see SUMOSAXHandler
  */
 enum SumoXMLTag {
-    /** invalid tag */
+    /// @brief invalid tag
     SUMO_TAG_NOTHING,
-    /** root element of a network file */
+    /// @brief root element of a network file
     SUMO_TAG_NET,
-    /** begin/end of the description of an edge */
+    /// @brief begin/end of the description of an edge
     SUMO_TAG_EDGE,
-    /** begin/end of the description of a single lane */
+    /// @brief begin/end of the description of a single lane
     SUMO_TAG_LANE,
-    /** begin/end of the description of a neighboring lane */
+    /// @brief begin/end of the description of a neighboring lane
     SUMO_TAG_NEIGH,
-    /** begin/end of the description of a polygon */
+    /// @brief begin/end of the description of a polygon
     SUMO_TAG_POI,
-    /** begin/end of the description of a polygon */
+    /// @brief begin/end of the description of a polygon
     SUMO_TAG_POLY,
-    /** begin/end of the description of a junction */
+    /// @brief begin/end of the description of a junction
     SUMO_TAG_JUNCTION,
-    /** begin/end of the description of an edge restriction */
+    /// @brief begin/end of the description of an edge restriction
     SUMO_TAG_RESTRICTION,
-    /** an e1 detector */
+    /// @brief an e1 detector
     SUMO_TAG_E1DETECTOR,
+    /// @brief alternative tag for e1 detector
     SUMO_TAG_INDUCTION_LOOP,
-    /** an e2 detector */
+    /// @brief an e2 detector
     SUMO_TAG_E2DETECTOR,
+    /// @brief alternative tag for e2 detector
     SUMO_TAG_LANE_AREA_DETECTOR,
-    /** an e3 detector */
+    /// @brief an e3 detector
     SUMO_TAG_E3DETECTOR,
+    /// @brief alternative tag for e3 detector
     SUMO_TAG_ENTRY_EXIT_DETECTOR,
-    /** an edge based mean data detector */
+    /// @brief an edge based mean data detector
     SUMO_TAG_MEANDATA_EDGE,
-    /** a lane based mean data detector */
+    /// @brief a lane based mean data detector
     SUMO_TAG_MEANDATA_LANE,
-    /** an e3 entry point*/
+    /// @brief an e3 entry point
     SUMO_TAG_DET_ENTRY,
-    /** an e3 exit point */
+    /// @brief an e3 exit point
     SUMO_TAG_DET_EXIT,
-    /// @brief An edge-following detector
+    /// @brief  An edge-following detector
     SUMO_TAG_EDGEFOLLOWDETECTOR,
-    /// @brief An instantenous induction loop
+    /// @brief  An instantenous induction loop
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
-    /// @brief A variable speed sign
+    /// @brief  A variable speed sign
     SUMO_TAG_VSS,
-    /// @brief A calibrator
+    /// @brief  A calibrator
     SUMO_TAG_CALIBRATOR,
-    /// @brief A rerouter
+    /// @brief  A rerouter
     SUMO_TAG_REROUTER,
-    /// @brief A bus stop
+    /// @brief  A bus stop
     SUMO_TAG_BUS_STOP,
-    /// @brief A train stop (alias for bus stop)
+    /// @brief  A train stop (alias for bus stop)
     SUMO_TAG_TRAIN_STOP,
-    /// @brief An access point for a train stop
+    /// @brief  An access point for a train stop
     SUMO_TAG_ACCESS,
-    /// @brief A container stop
+    /// @brief  A container stop
     SUMO_TAG_CONTAINER_STOP,
-    /// @brief A Charging Station
+    /// @brief  A Charging Station
     SUMO_TAG_CHARGING_STATION,
-    /** a vtypeprobe detector */
+    /// @brief a vtypeprobe detector
     SUMO_TAG_VTYPEPROBE,
-    /** a routeprobe detector */
+    /// @brief a routeprobe detector
     SUMO_TAG_ROUTEPROBE,
-    /** root element of a route file */
+    /// @brief root element of a route file
     SUMO_TAG_ROUTES,
-    /** description of a vehicle */
+    /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
-    /** description of a vehicle type */
+    /// @brief description of a vehicle type
     SUMO_TAG_VTYPE,
-    /** begin/end of the description of a route */
+    /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
-    /** description of a logic request within the junction */
+    /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
-    /** a source */
+    /// @brief a source
     SUMO_TAG_SOURCE,
-    /** a traffic assignment zone */
+    /// @brief a traffic assignment zone
     SUMO_TAG_TAZ,
-    /** a source within a district (connection road) */
+    /// @brief a source within a district (connection road)
     SUMO_TAG_TAZSOURCE,
-    /** a sink within a district (connection road) */
+    /// @brief a sink within a district (connection road)
     SUMO_TAG_TAZSINK,
-    /** a traffic light logic */
+    /// @brief a traffic light logic
     SUMO_TAG_TLLOGIC,
-    /** a single phase description */
+    /// @brief a single phase description
     SUMO_TAG_PHASE,
-    /** a single trip definition (used by router) */
+    /// @brief a single trip definition (used by router)
     SUMO_TAG_TRIP,
-    /** a flow definition (used by router) */
+    /// @brief a flow definition (used by router)
     SUMO_TAG_FLOW,
-    /** trigger: a step description */
+    /// @brief trigger: a step description
     SUMO_TAG_STEP,
-    /** an aggreagated-output interval */
+    /// @brief an aggreagated-output interval
     SUMO_TAG_INTERVAL,
-    /// The definition of a periodic event
+    /// @brief The definition of a periodic event
     SUMO_TAG_TIMEDEVENT,
-    /// Incoming edge specification (jtrrouter)
+    /// @brief Incoming edge specification (jtrrouter)
     SUMO_TAG_FROMEDGE,
-    /// Outgoing edge specification (jtrrouter)
+    /// @brief Outgoing edge specification (jtrrouter)
     SUMO_TAG_TOEDGE,
-    /// Sink(s) specification
+    /// @brief Sink(s) specification
     SUMO_TAG_SINK,
+    /// @brief parameter associated to a certain key
     SUMO_TAG_PARAM,
     SUMO_TAG_WAUT,
     SUMO_TAG_WAUT_SWITCH,
     SUMO_TAG_WAUT_JUNCTION,
     SUMO_TAG_SEGMENT,
+    /// @brief delete certain element
     SUMO_TAG_DELETE,
+    /// @brief stop for vehicles
     SUMO_TAG_STOP,
+    /// @brief probability of destiny of a reroute
     SUMO_TAG_DEST_PROB_REROUTE,
+    /// @brief reroute of type closing
     SUMO_TAG_CLOSING_REROUTE,
+    /// @brief lane of a reroute of type closing
     SUMO_TAG_CLOSING_LANE_REROUTE,
+    /// @brief probability of route of a reroute
     SUMO_TAG_ROUTE_PROB_REROUTE,
+    /// @brief type of poligon
     SUMO_TAG_POLYTYPE,
+    /// @brief connectio between two lanes
     SUMO_TAG_CONNECTION,
+    /// @brief prohibition of circulation between two edges
     SUMO_TAG_PROHIBITION,
+    /// @brief split something
     SUMO_TAG_SPLIT,
+    /// @brief alternative definition for junction
     SUMO_TAG_NODE,
+    /// @brief type
     SUMO_TAG_TYPE,
+    /// @brief definition of a detector
     SUMO_TAG_DETECTOR_DEFINITION,
+    /// @brief distribution of a route
     SUMO_TAG_ROUTE_DISTRIBUTION,
+    /// @brief distribution of a vehicle type
     SUMO_TAG_VTYPE_DISTRIBUTION,
+    /// @brief vaporizer of vehicles
     SUMO_TAG_VAPORIZER,
+    /// @brief roundabout defined in junction
     SUMO_TAG_ROUNDABOUT,
+    /// @brief Join operation
     SUMO_TAG_JOIN,
+    /// @brief join exlude operation
     SUMO_TAG_JOINEXCLUDE,
+    /// @brief crossing between edges for pedestrians
     SUMO_TAG_CROSSING,
+    /// @brief Custom shape for an element
     SUMO_TAG_CUSTOMSHAPE,
 
     SUMO_TAG_WAY,
@@ -230,42 +255,43 @@ enum SumoXMLTag {
     SUMO_TAG_MOTIONSTATE,
     SUMO_TAG_OD_PAIR,
 
-    /**
-     * ActivityGen Tags
-     **/
+    /// @brief ActivityGen Tags
     AGEN_TAG_GENERAL,
-    /* streets object */
+    /// @brief streets object
     AGEN_TAG_STREET,
-
-    /* workingHours object */
+    /// @brief workingHours object
     AGEN_TAG_WORKHOURS,
+    /// @brief opening for workingHours object
     AGEN_TAG_OPENING,
+    /// @brief closing for workingHours object
     AGEN_TAG_CLOSING,
-
-    /* school object */
+    /// @brief school object
     AGEN_TAG_SCHOOLS,
+    /// @brief schools object
     AGEN_TAG_SCHOOL,
-
-    /* busStation and bus objects */
+    /// @brief busStation and bus objects
     AGEN_TAG_BUSSTATION,
+    /// @brief  bus line
     AGEN_TAG_BUSLINE,
+    /// @brief stations for certain vehicles
     AGEN_TAG_STATIONS,
+    /// @brief rev stations for certain vehicles
     AGEN_TAG_REV_STATIONS,
+    /// @brief station for a certain vehicle
     AGEN_TAG_STATION,
+    /// @brief frequency of a object
     AGEN_TAG_FREQUENCY,
-
-    /* population and children accompaniment brackets */
+    /// @brief population and children accompaniment brackets
     AGEN_TAG_POPULATION,
+    /// @brief alternative definition for Population
     AGEN_TAG_BRACKET,
     //AGEN_TAG_CHILD_ACOMP,
-
-    /* city entrances */
+    /// @brief city entrances
     AGEN_TAG_CITYGATES,
+    /// @brief alternative definition for city entrances
     AGEN_TAG_ENTRANCE,
-
-    /* parameters */
+    /// @brief parameters
     AGEN_TAG_PARAM
-
 };
 
 
@@ -340,11 +366,14 @@ enum SumoXMLAttr {
     SUMO_ATTR_MINGAP,
     SUMO_ATTR_BOARDING_DURATION,
     SUMO_ATTR_LOADING_DURATION,
-    /* Charging Station */
-    SUMO_ATTR_CHARGINGPOWER,    // charge in W of the Charging Stations
-    SUMO_ATTR_EFFICIENCY,       // Eficiency of the charge inCharging Stations
-    SUMO_ATTR_CHARGEINTRANSIT,  // Allow/disallow charge in transit in Charging Stations
-    SUMO_ATTR_CHARGEDELAY,      // Delay in the charge of charging stations
+    /// @brief charge in W/s of the Charging Stations
+    SUMO_ATTR_CHARGINGPOWER,
+    /// @brief Eficiency of the charge in Charging Stations
+    SUMO_ATTR_EFFICIENCY,
+    /// @brief Allow/disallow charge in transit in Charging Stations
+    SUMO_ATTR_CHARGEINTRANSIT,
+    /// @brief Delay in the charge of charging stations
+    SUMO_ATTR_CHARGEDELAY,      
     /* Car following model attributes */
     SUMO_ATTR_SIGMA,    // used by: Krauss
     SUMO_ATTR_TAU,      // Krauss
@@ -737,21 +766,21 @@ enum LinkState {
  * used in netbuild (formerly NBMMLDirection) and MSLink
  */
 enum LinkDirection {
-    /// The link is a straight direction
+    /// @brief The link is a straight direction
     LINKDIR_STRAIGHT = 0,
-    /// The link is a 180 degree turn
+    /// @brief The link is a 180 degree turn
     LINKDIR_TURN,
-    /// The link is a 180 degree turn (left-hand network)
+    /// @brief The link is a 180 degree turn (left-hand network)
     LINKDIR_TURN_LEFTHAND,
-    /// The link is a (hard) left direction
+    /// @brief The link is a (hard) left direction
     LINKDIR_LEFT,
-    /// The link is a (hard) right direction
+    /// @brief The link is a (hard) right direction
     LINKDIR_RIGHT,
-    /// The link is a partial left direction
+    /// @brief The link is a partial left direction
     LINKDIR_PARTLEFT,
-    /// The link is a partial right direction
+    /// @brief The link is a partial right direction
     LINKDIR_PARTRIGHT,
-    /// The link has no direction (is a dead end link)
+    /// @brief The link has no direction (is a dead end link)
     LINKDIR_NODIR
 };
 
@@ -780,7 +809,6 @@ enum TrafficLightType {
 enum LaneChangeAction {
     /// @name currently wanted lane-change action
     /// @{
-
     /// @brief No action desired
     LCA_NONE = 0,
     /// @brief Needs to stay on the current lane
@@ -789,7 +817,6 @@ enum LaneChangeAction {
     LCA_LEFT = 1 << 1,
     /// @brief Wants go to the right
     LCA_RIGHT = 1 << 2,
-
     /// @brief The action is needed to follow the route (navigational lc)
     LCA_STRATEGIC = 1 << 3,
     /// @brief The action is done to help someone else
@@ -800,59 +827,49 @@ enum LaneChangeAction {
     LCA_KEEPRIGHT = 1 << 6,
     /// @brief The action is due to a TraCI request
     LCA_TRACI = 1 << 7,
-
     /// @brief The action is urgent (to be defined by lc-model)
     LCA_URGENT = 1 << 8,
-
     /// @}
 
     /// @name External state
     /// @{
-
     /// @brief The vehicle is blocked by left leader
     LCA_BLOCKED_BY_LEFT_LEADER = 1 << 9,
     /// @brief The vehicle is blocked by left follower
     LCA_BLOCKED_BY_LEFT_FOLLOWER = 1 << 10,
-
     /// @brief The vehicle is blocked by right leader
     LCA_BLOCKED_BY_RIGHT_LEADER = 1 << 11,
     /// @brief The vehicle is blocked by right follower
     LCA_BLOCKED_BY_RIGHT_FOLLOWER = 1 << 12,
-
-    // The vehicle is blocked being overlapping
+    /// @brief The vehicle is blocked being overlapping
     LCA_OVERLAPPING =  1 << 13,
-
-    // The vehicle does not have enough space to complete a continuous lane
-    // change before the next turning movement
+    /// @brief The vehicle does not have enough space to complete a continuous lane and change before the next turning movement
     LCA_INSUFFICIENT_SPACE =  1 << 14,
-
-    // used by the sublane model
+    /// @brief used by the sublane model
     LCA_SUBLANE = 1 << 15,
-
+    /// @brief lane can change
     LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
+    /// @brief lane can change or stay
     LCA_WANTS_LANECHANGE_OR_STAY = LCA_WANTS_LANECHANGE | LCA_STAY,
-
+    /// @brief blocked left
     LCA_BLOCKED_LEFT = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_LEFT_FOLLOWER,
+    /// @brief blocked right
     LCA_BLOCKED_RIGHT = LCA_BLOCKED_BY_RIGHT_LEADER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
+    /// @brief blocked by leader
     LCA_BLOCKED_BY_LEADER = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_RIGHT_LEADER,
+    /// @brief blocker by follower
     LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
+    /// @brief blocked in all directions
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE,
-
+    /// @brief reasons of lane change
     LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE)
-
-                         // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
-                         // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
-                         /// @}
-
+    // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
+    // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
+    /// @}
 };
 
 
-
-
-
-/**
- * @enum LaneChangeModel
- */
+/// @enum LaneChangeModel
 enum LaneChangeModel {
     LCM_DK2008,
     LCM_LC2013,
@@ -869,36 +886,42 @@ enum LaneChangeModel {
  * Information how vehicles align themselves within their lane by default
  */
 enum LateralAlignment {
-    LATALIGN_RIGHT,      // drive on the right side
-    LATALIGN_CENTER,     // drive in the middle
-    LATALIGN_ARBITRARY,  // maintain the current alignment
-    LATALIGN_NICE,       // align with the closest sublane border
-    LATALIGN_COMPACT,    // align with the rightmost sublane that allows keeping the current speed
-    LATALIGN_LEFT        // drive on the left side
+    /// @brief drive on the right side
+    LATALIGN_RIGHT,      
+    /// @brief drive in the middle
+    LATALIGN_CENTER,     
+    /// @brief maintain the current alignment
+    LATALIGN_ARBITRARY,  
+    /// @brief align with the closest sublane border
+    LATALIGN_NICE,       
+    /// @brief align with the rightmost sublane that allows keeping the current speed
+    LATALIGN_COMPACT,    
+    /// @brief drive on the left side
+    LATALIGN_LEFT        
 };
+
 
 /**
  * @class SUMOXMLDefinitions
  * @brief class for maintaining associations between enums and xml-strings
  */
-
 class SUMOXMLDefinitions {
 
 public:
-    /// The names of SUMO-XML elements (for passing to GenericSAXHandler)
+    /// @brief The names of SUMO-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry tags[];
 
-    /// The names of SUMO-XML attributes (for passing to GenericSAXHandler)
+    /// @brief The names of SUMO-XML attributes (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry attrs[];
 
-    /// The names of SUMO-XML elements for use in netbuild
+    /// @brief The names of SUMO-XML elements for use in netbuild
     static StringBijection<int> Tags;
 
-    /// The names of SUMO-XML attributes for use in netbuild
+    /// @brief The names of SUMO-XML attributes for use in netbuild
     static StringBijection<int> Attrs;
 
     /// @name Special values of SUMO-XML attributes
-    //@{
+    /// @{
     static StringBijection<SumoXMLNodeType> NodeTypes;
 
     static StringBijection<SumoXMLEdgeFunc> EdgeFunctions;
@@ -918,21 +941,20 @@ public:
     static StringBijection<LateralAlignment> LateralAlignments;
 
     static StringBijection<LaneChangeAction> LaneChangeActions;
-    //@}
+    /// @}
 
     /// @name Helper functions for ID-string manipulations
-    //@{
-
+    /// @{
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
 
     /// @brief return edge id when given the lane ID
     static std::string getEdgeIDFromLane(const std::string laneID);
-
-    //@}
+    /// @}
 
 private:
-
+    /// @brief containers for the different SUMOXMLDefinitions
+    /// @{
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
 
     static StringBijection<SumoXMLEdgeFunc>::Entry sumoEdgeFuncValues[];
@@ -952,7 +974,7 @@ private:
     static StringBijection<LateralAlignment>::Entry lateralAlignmentValues[];
 
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
-
+    // /@}
 };
 
 #endif

@@ -230,19 +230,13 @@ public:
 
 public:
     /**@brief Constructor
-     * @brief parent FXFrame in which this GNEFrame is placed
+     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEInspectorFrame(FXComposite* parent, GNEViewNet* viewNet);
+    GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEInspectorFrame();
-
-    /// @brief show Frame
-    void show();
-
-    /// @brief hide Frame
-    void hide();
 
     /// @brief Inspect a single element
     void inspect(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement = NULL);

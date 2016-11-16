@@ -417,6 +417,8 @@ enum {
     MID_GNE_MODE_TLS,
     /** mode for editing additional */
     MID_GNE_MODE_ADDITIONAL,
+    /** mode for editing crossing */
+    MID_GNE_MODE_CROSSING,
 
     /// selector match box messages
     MID_GNE_SELMB_TAG,
@@ -522,7 +524,7 @@ enum {
     /** netEdit search edge */
     MID_GNE_SEARCHEDGE,
     /** netEdit use selected edge */
-    MID_GNE_USESELECTEDEDGES,
+    MID_GNE_SHOWONLYSELECTEDEDGES,
     /** netEdit select edge */
     MID_GNE_SELECTEDGE,
     /** netEdit clear selection of edges */
@@ -601,7 +603,10 @@ enum {
     MID_GNE_SELECT_PASS,
     /** changes the visual scaling of selected items */
     MID_GNE_SELECT_SCALE,
-
+    /** Create crossing */
+    MID_GNE_CREATE_CROSSING,
+    /** Size of frame area updated */
+    MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED,
     //@}
 
     MID_LAST

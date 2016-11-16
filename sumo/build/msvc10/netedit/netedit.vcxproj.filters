@@ -258,6 +258,12 @@
     <ClCompile Include="..\..\..\src\netedit\GNEVaporizer.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Crossing.cpp">
+      <Filter>Quellcodedateien\Items\Changes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECrossingFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -438,6 +444,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEVaporizer.h">
       <Filter>Header-Dateien\Items\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Crossing.h">
+      <Filter>Header-Dateien\Items\Changes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECrossingFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEFrameDesigns.h">
+      <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
