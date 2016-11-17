@@ -76,7 +76,7 @@ GNECalibrator.h GNECalibrator.cpp \
 GNECalibratorDialog.h GNECalibratorDialog.cpp \
 GNEVariableSpeedSignal.h GNEVariableSpeedSignal.cpp \
 GNEVariableSpeedSignalDialog.h GNEVariableSpeedSignalDialog.cpp \
-GNEReferenceCounter.h \
+GNEReferenceCounter.h GNEFrameDesigns.h \
 GNEEvent_NetworkLoaded.h
 
 
