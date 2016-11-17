@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 10 13:07:35 2016 by SUMO Version dev-SVN-r21957
+<!-- generated on Thu Nov 17 15:45:45 2016 by SUMO Version dev-SVN-r22052
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -113,14 +113,14 @@
     <timestep time="13.00">
         <vehicle id="oncoming2" x="43.82" y="1.65" angle="248.62" type="DEFAULT_VEHTYPE" speed="10.16" pos="1.43" lane="-VODUGES_beg_0" slope="0.00"/>
         <vehicle id="oncoming3" x="48.35" y="18.58" angle="180.00" type="DEFAULT_VEHTYPE" speed="7.83" pos="81.42" lane="NC_0" slope="0.00"/>
-        <vehicle id="overtaking" x="76.38" y="1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.39" pos="118.87" lane="-VODUGES_end_0" slope="0.00"/>
+        <vehicle id="overtaking" x="76.38" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.39" pos="21.63" lane="VODUGES_end_0" slope="0.00"/>
         <vehicle id="stopped" x="62.74" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="7.99" lane="VODUGES_end_0" slope="0.00"/>
         <vehicle id="stopped2" x="45.00" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="45.00" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
         <vehicle id="oncoming2" x="31.29" y="1.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="12.53" pos="13.96" lane="-VODUGES_beg_0" slope="0.00"/>
         <vehicle id="oncoming3" x="48.35" y="9.87" angle="180.00" type="DEFAULT_VEHTYPE" speed="8.71" pos="90.13" lane="NC_0" slope="0.00"/>
-        <vehicle id="overtaking" x="89.43" y="1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.06" pos="105.82" lane="-VODUGES_end_0" slope="0.00"/>
+        <vehicle id="overtaking" x="89.43" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.06" pos="34.68" lane="VODUGES_end_0" slope="0.00"/>
         <vehicle id="stopped" x="62.74" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="7.99" lane="VODUGES_end_0" slope="0.00"/>
         <vehicle id="stopped2" x="45.00" y="-1.65" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="45.00" lane="VODUGES_beg_0" slope="0.00"/>
     </timestep>
