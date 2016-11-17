@@ -2,7 +2,7 @@
 /// @file    GNECrossingFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id: GNECrossingFrame.cpp 21640 2016-10-09 20:28:52Z palcraft $
+/// @version $Id$
 ///
 /// The Widget for add additional elements
 /****************************************************************************/

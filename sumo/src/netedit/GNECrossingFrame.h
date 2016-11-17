@@ -2,7 +2,7 @@
 /// @file    GNECrossingFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id: GNECrossingFrame.h 21131 2016-07-08 07:59:22Z behrisch $
+/// @version $Id$
 ///
 /// The Widget for add Crossing elements
 /****************************************************************************/

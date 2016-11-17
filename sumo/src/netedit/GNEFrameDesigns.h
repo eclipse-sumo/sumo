@@ -2,7 +2,7 @@
 /// @file    GNEFrameDesigns.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id: GNEFrameDesigns.h 21773 2016-10-25 09:07:56Z palcraft $
+/// @version $Id$
 ///
 /// File with the definitions of standard style of FXObjects in netedit
 /****************************************************************************/

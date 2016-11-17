@@ -2,7 +2,7 @@
 /// @file    GNEChange_Crossing.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id: GNEChange_Crossing.h 21640 2016-10-09 20:28:52Z palcraft $
+/// @version $Id$
 ///
 // A network change in which a single crossing is created or deleted
 /****************************************************************************/
