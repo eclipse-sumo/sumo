@@ -1180,11 +1180,13 @@ MSLCM_LC2013::_wantsChange(
     // Next we assign to roundabout edges a larger distance than to normal edges
     // in order to decrease sense of lc urgency and induce higher usage of inner roundabout lanes.
     // 1) get information about the next upcoming roundabout
-    SUMOReal roundaboutDistanceAhead;
-    SUMOReal roundaboutDistanceAheadNeigh;
-    int roundaboutEdgesAhead;
-    int roundaboutEdgesAheadNeigh;
-    getRoundaboutAheadInfo(this, curr, neigh, roundaboutDistanceAhead, roundaboutDistanceAheadNeigh, roundaboutEdgesAhead, roundaboutEdgesAheadNeigh);
+    SUMOReal roundaboutDistanceAhead = 0;
+    SUMOReal roundaboutDistanceAheadNeigh = 0;
+    int roundaboutEdgesAhead = 0;
+    int roundaboutEdgesAheadNeigh = 0;
+    if (!isOpposite()) {
+        getRoundaboutAheadInfo(this, curr, neigh, roundaboutDistanceAhead, roundaboutDistanceAheadNeigh, roundaboutEdgesAhead, roundaboutEdgesAheadNeigh);
+    }
     // 2) add a distance bonus for roundabout edges
     currentDist += roundaboutDistBonus(roundaboutDistanceAhead, roundaboutEdgesAhead);
     neighDist += roundaboutDistBonus(roundaboutDistanceAheadNeigh, roundaboutEdgesAheadNeigh);
