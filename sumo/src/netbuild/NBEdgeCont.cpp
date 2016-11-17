@@ -188,7 +188,15 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
     // check whether the edge is a named edge to keep
     if (!myRemoveEdgesAfterJoining && myEdges2Keep.size() != 0) {
         if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID()) == myEdges2Keep.end()) {
-            return true;
+            // explicit whitelisting may be combined additively with other filters
+            if (myVehicleClasses2Keep == 0 && myVehicleClasses2Remove == 0 
+                    && myTypes2Keep.size() == 0 && myTypes2Remove.size() == 0
+                    && myPrunningBoundary.size() == 0) {
+                return true;
+            }
+        } else {
+            // explicit whitelisting overrides other filters
+            return false;
         }
     }
     // check whether the edge is a named edge to remove
