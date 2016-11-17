@@ -956,7 +956,7 @@ NBEdge::hasConnectionTo(NBEdge* destEdge, int destLane, int fromLane) const {
 
 
 bool
-NBEdge::isConnectedTo(NBEdge* e) {
+NBEdge::isConnectedTo(const NBEdge* e) const {
     if (e == myTurnDestination) {
         return true;
     }
@@ -1011,6 +1011,19 @@ NBEdge::getConnectedEdges() const {
     for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         if (find(ret.begin(), ret.end(), (*i).toEdge) == ret.end()) {
             ret.push_back((*i).toEdge);
+        }
+    }
+    return ret;
+}
+
+
+EdgeVector
+NBEdge::getIncomingEdges() const {
+    EdgeVector ret;
+    const EdgeVector& candidates = myFrom->getIncomingEdges();
+    for (EdgeVector::const_iterator i = candidates.begin(); i != candidates.end(); i++) {
+        if ((*i)->isConnectedTo(this)) {
+            ret.push_back(*i);
         }
     }
     return ret;

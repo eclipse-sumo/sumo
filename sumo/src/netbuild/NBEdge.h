@@ -795,7 +795,7 @@ public:
      * @param[in] e The destination edge
      * @return Whether a connection to the specified edge exists
      */
-    bool isConnectedTo(NBEdge* e);
+    bool isConnectedTo(const NBEdge* e) const;
 
     /** @brief Returns the connections
      * @return This edge's connections to following edges
@@ -820,6 +820,11 @@ public:
      * @return Connected edges
      */
     EdgeVector getConnectedEdges() const;
+
+    /** @brief Returns the list of incoming edges unsorted
+     * @return Connected predecessor edges
+     */
+    EdgeVector getIncomingEdges() const;
 
     /** @brief Returns the list of lanes that may be used to reach the given edge
      * @return Lanes approaching the given edge
@@ -1428,7 +1433,7 @@ public:
     class connections_toedge_finder {
     public:
         /// @brief constructor
-        connections_toedge_finder(NBEdge* const edge2find, bool hasFromLane = false) :
+        connections_toedge_finder(const NBEdge* const edge2find, bool hasFromLane = false) :
             myHasFromLane(hasFromLane),
             myEdge2Find(edge2find) { }
 
@@ -1442,7 +1447,7 @@ public:
         const bool myHasFromLane;
 
         /// @brief edge to find
-        NBEdge* const myEdge2Find;
+        const NBEdge* const myEdge2Find;
 
     private:
         /// @brief invalidated assignment operator
