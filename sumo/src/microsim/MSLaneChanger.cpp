@@ -970,6 +970,11 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
         assert(bestLaneConts.size() >= 1);
         std::vector<MSLane*>::const_iterator it = bestLaneConts.begin() + 1;
         while (usableDist < spaceToOvertake && it != bestLaneConts.end()) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "      usableDist=" << usableDist << " opposite=" << Named::getIDSecure((*it)->getOpposite()) << "\n";
+            }
+#endif
             if ((*it)->getOpposite() == 0) {
                 // opposite lane ends
                 break;
