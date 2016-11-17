@@ -1796,10 +1796,11 @@ MSLane::getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector
             }
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(veh)) {
-                std::cout << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane() << "\n";
+                std::cout << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos 
+                    << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << " predBack=" << pred->getBackPositionOnLane(this) << "\n";
             }
 #endif
-            if (pred->getPositionOnLane() > vehPos + NUMERICAL_EPS) {
+            if (pred->getPositionOnLane(this) > vehPos + NUMERICAL_EPS) {
                 return std::pair<MSVehicle* const, SUMOReal>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
@@ -2561,10 +2562,10 @@ MSLane::getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist, bool i
         MSVehicle* pred = (MSVehicle*)*first;
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(ego)) {
-            std::cout << "   getFollower lane=" << getID() << " egoPos=" << egoPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane() << "\n";
+            std::cout << "   getFollower lane=" << getID() << " egoPos=" << egoPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << "\n";
         }
 #endif
-        if (pred->getPositionOnLane() < egoPos && pred != ego) {
+        if (pred->getPositionOnLane(this) < egoPos && pred != ego) {
             return std::pair<MSVehicle* const, SUMOReal>(pred, egoPos - pred->getPositionOnLane(this) - ego->getVehicleType().getLength() - pred->getVehicleType().getMinGap());
         }
     }
