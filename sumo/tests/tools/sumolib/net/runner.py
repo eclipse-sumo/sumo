@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    runner.py
-@author  Jakob Erdmann Krajzewicz
+@author  Jakob Erdmann
 @version $Id$
 
 This script tests sumolib functions
