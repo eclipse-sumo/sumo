@@ -68,10 +68,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("opendrive-output")) {
         return;
     }
+    const NBNodeCont& nc = nb.getNodeCont();
+    const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
     // some internal mapping containers
-    int edgeID = 1;
     int nodeID = 1;
+    int edgeID = nc.size() * 10; // distinct from node ids
     StringBijection<int> edgeMap;
     StringBijection<int> nodeMap;
     //
@@ -80,8 +82,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.openTag("OpenDRIVE");
     time_t now = time(0);
     std::string dstr(ctime(&now));
-    const NBNodeCont& nc = nb.getNodeCont();
-    const NBEdgeCont& ec = nb.getEdgeCont();
     const Boundary& b = GeoConvHelper::getFinal().getConvBoundary();
     // write header
     device.openTag("header");
