@@ -2005,6 +2005,9 @@ MSVehicle::executeMove() {
 #ifndef NO_TRACI
                     }
 #endif
+                } else if (myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
+                    approachedLane = myLane;
+                    myState.myPos = myLane->getLength();
                 } else {
                     emergencyReason = " because there is no connection to the next edge";
                     approachedLane = 0;
