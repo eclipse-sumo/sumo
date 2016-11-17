@@ -2764,7 +2764,16 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
     assert(startLane != 0);
     if (getLaneChangeModel().isOpposite()) {
-        return;
+        // depending on the calling context, startLane might be the forward lane
+        // or the reverse-direction lane. In the latter case we need to
+        // transform it to the forward lane.
+        bool startLaneIsOpposite = (startLane->isInternal()
+                ? &(startLane->getLinkCont()[0]->getLane()->getEdge()) != *(myCurrEdge + 1)
+                : &startLane->getEdge() != *myCurrEdge);
+        if (startLaneIsOpposite) {
+            startLane = startLane->getOpposite();
+            assert(startLane != 0);
+        }
     }
     if (myBestLanes.size() > 0 && !forceRebuild && myLastBestLanesEdge == &startLane->getEdge()) {
         updateOccupancyAndCurrentBestLane(startLane);
