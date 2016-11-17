@@ -465,6 +465,7 @@
         <xsd:sequence>
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="optional"/>
         <xsd:attribute name="edges" type="xsd:string"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="cost" type="xsd:float"/>
