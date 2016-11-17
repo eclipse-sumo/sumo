@@ -21,3 +21,6 @@ by-vclass
 
 # Only keep edges with the given vclass. (from plain xml)
 by-vclass2
+
+# Only keep edges with the given type and *all* that are named explicitly
+by-type_and_explicit
