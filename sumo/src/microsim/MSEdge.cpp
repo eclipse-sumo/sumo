@@ -854,7 +854,9 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
 
 bool
 MSEdge::canChangeToOpposite() {
-    return !myLanes->empty() && myLanes->back()->getOpposite() != 0;
+    return (!myLanes->empty() && myLanes->back()->getOpposite() != 0 && 
+            // do not change on curved internal lanes
+            (!isInternal() || myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LINKDIR_STRAIGHT));
 }
 
 
