@@ -1425,7 +1425,6 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
         it->second->updateGeometry();
         refreshElement(it->second);
     }
-    // Set flag to false
     myNeedRecompute = false;
 }
 
