@@ -1988,7 +1988,6 @@ MSVehicle::executeMove() {
             MSLane* approachedLane = myLane;
             // move the vehicle forward
             for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end() && approachedLane != 0 && myState.myPos > approachedLane->getLength(); ++i) {
-                leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
                 MSLink* link = (*i).myLink;
                 // check whether the vehicle was allowed to enter lane
                 //  otherwise it is decelerated and we do not need to test for it's
@@ -2012,6 +2011,7 @@ MSVehicle::executeMove() {
                     break;
                 }
                 if (approachedLane != myLane && approachedLane != 0) {
+                    leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
                     myState.myPos -= myLane->getLength();
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
