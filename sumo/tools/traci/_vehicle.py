@@ -72,6 +72,7 @@ def _readNextTLS(result):
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
+                      tc.VAR_POSITION3D: lambda result: result.read("!ddd"),
                       tc.VAR_ANGLE:           Storage.readDouble,
                       tc.VAR_ROAD_ID:         Storage.readString,
                       tc.VAR_LANE_ID:         Storage.readString,
@@ -169,6 +170,13 @@ class VehicleDomain(Domain):
         Returns the position of the named vehicle within the last step [m,m].
         """
         return self._getUniversal(tc.VAR_POSITION, vehID)
+
+    def getPosition3D(self, vehID):
+        """getPosition(string) -> (double, double, double)
+
+        Returns the position of the named vehicle within the last step [m,m,m].
+        """
+        return self._getUniversal(tc.VAR_POSITION3D, vehID)
 
     def getAngle(self, vehID):
         """getAngle(string) -> double

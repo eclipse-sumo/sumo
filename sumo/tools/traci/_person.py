@@ -64,7 +64,7 @@ class PersonDomain(Domain):
         return self._getUniversal(tc.VAR_POSITION, personID)
 
     def getPosition3D(self, personID):
-        """getPosition(string) -> (double, double)
+        """getPosition(string) -> (double, double, double)
 
         Returns the position of the named person within the last step [m,m,m].
         """

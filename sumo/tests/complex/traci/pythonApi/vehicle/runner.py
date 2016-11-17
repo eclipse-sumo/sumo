@@ -105,6 +105,7 @@ def checkOffRoad(vehID):
     print(("veh", vehID,
            "speed", traci.vehicle.getSpeed(vehID),
            "pos", traci.vehicle.getPosition(vehID),
+           "pos3d", traci.vehicle.getPosition3D(vehID),
            "angle", traci.vehicle.getAngle(vehID),
            "road", traci.vehicle.getRoadID(vehID),
            "lane", traci.vehicle.getLaneID(vehID),
