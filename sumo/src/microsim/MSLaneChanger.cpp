@@ -828,9 +828,6 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
         // XXX also check whether the leader is so far away as to be irrelevant
         return false;
     }
-    if (!source->getEdge().canChangeToOpposite()) {
-        return false;
-    }
     MSLane* opposite = source->getOpposite();
     if (opposite == 0) {
         return false;
