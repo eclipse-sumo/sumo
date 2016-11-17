@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r21914
+SUMO netconvert Version dev-SVN-r22044
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -134,10 +134,14 @@ Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
                                          meters/second > FLOAT
   --remove-edges.explicit STR          Remove edges in STR
-  --keep-edges.explicit STR            Only keep edges in STR
+  --keep-edges.explicit STR            Only keep edges in STR or those which
+                                         are kept due to other keep-edges or
+                                         remove-edges options
   --keep-edges.input-file FILE         Only keep edges in FILE (Each id on a
                                          single line. Selection files from
-                                         SUMO-GUI are also supported)
+                                         SUMO-GUI are also supported) or those
+                                         which are kept due to other keep-edges
+                                         or remove-edges options
   --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
                                          single line. Selection files from
                                          SUMO-GUI are also supported)
