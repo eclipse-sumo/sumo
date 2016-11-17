@@ -289,7 +289,7 @@ SUMOReal
 MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) {
     const int id = e->getNumericalID();
     if (id < (int)myEdgeSpeeds.size()) {
-        SUMOReal effort = MAX2(e->getLength() / myEdgeSpeeds[id], e->getMinimumTravelTime(v));
+        SUMOReal effort = MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
         if (myRandomizeWeightsFactor != 1) {
             effort *= RandHelper::rand((SUMOReal)1, myRandomizeWeightsFactor);
         }
