@@ -877,14 +877,14 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
                 } else {
 #ifdef DEBUG_CHANGE_OPPOSITE
                     if (DEBUG_COND) {
-                        std::cout << "   not enough space after columnLeader=" << leadLead.first->getID() << " gap=" << leadLead.second << " required=" << requiredSpace << "\n";
+                        std::cout << "   not enough space after columnLeader=" << columnLeader.first->getID() << " required=" << requiredSpace << "\n";
                     }
 #endif
                     seen += MAX2((SUMOReal)0, leadLead.second) + leadLead.first->getVehicleType().getLengthWithGap();
                     if (seen > maxLookAhead) {
 #ifdef DEBUG_CHANGE_OPPOSITE
                         if (DEBUG_COND) {
-                            std::cout << "   cannot changeOpposite due to insufficient free space after columnLeader (seen=" << seen << " columnLeader=" << leadLead.first->getID() << ")\n";
+                            std::cout << "   cannot changeOpposite due to insufficient free space after columnLeader (seen=" << seen << " columnLeader=" << columnLeader.first->getID() << ")\n";
                         }
 #endif
                         return false;
@@ -1031,7 +1031,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, SUMOReal> leader) {
         } 
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << vehicle->getID() << " remaining dist " << laneQ.length - forwardPos << " forwardPos=" << forwardPos << " laneQ.length=" << laneQ.length << "\n";
+            std::cout << SIMTIME << " veh=" << vehicle->getID() << " remaining dist=" << laneQ.length - forwardPos << " forwardPos=" << forwardPos << " laneQ.length=" << laneQ.length << "\n";
         }
 #endif
     }
