@@ -23,6 +23,7 @@ import subprocess
 import optparse
 import shutil
 import os
+import sys
 
 optParser = optparse.OptionParser()
 optParser.add_option("-b", "--begin", type="int",
@@ -32,6 +33,11 @@ optParser.add_option("-e", "--end", type="int",
 optParser.add_option("-s", "--step", type="int",
                      default=1, help="increment")
 options, args = optParser.parse_args()
+
+LOCK = "history.lock"
+if os.path.exists(LOCK):
+    sys.exit("History building is still locked!")
+open(LOCK, 'w').close()
 
 if not options.end:
     for line in subprocess.check_output('svn info http://svn.code.sf.net/p/sumo/code/trunk/sumo', shell=True).splitlines():
@@ -55,3 +61,4 @@ for line in subprocess.check_output('fdupes -1 -q bin*', shell=True).splitlines(
     dups = line.split()
     for d in dups[1:]:
         subprocess.call('ln -sf ../%s %s' % (dups[0], d), shell=True)
+os.remove(LOCK)
