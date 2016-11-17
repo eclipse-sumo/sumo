@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Nov 17 09:24:48 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Nov 17 10:51:49 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
     <road name="Teltowkanalbrücke" length="56.01" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -3079,10 +3079,6 @@
         <userData code="sumoId" value="24214694"/>
     </road>
     <road name="" length="87.76" id="947" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="67"/>
-            <successor elementType="junction" elementId="68"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="609.98112408" y="546.24228902" hdg="-3.01485542" length="58.99809764">
@@ -3122,10 +3118,6 @@
         <userData code="sumoId" value="25944590#0"/>
     </road>
     <road name="" length="32.81" id="948" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="68"/>
-            <successor elementType="junction" elementId="69"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="517.61531561" y="531.07300180" hdg="-2.87276220" length="32.80891361">
@@ -3159,10 +3151,6 @@
         <userData code="sumoId" value="25944590#1"/>
     </road>
     <road name="" length="83.44" id="949" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="69"/>
-            <successor elementType="junction" elementId="70"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="481.29428892" y="521.07712811" hdg="-2.73476510" length="66.00877726">
@@ -3199,10 +3187,6 @@
         <userData code="sumoId" value="25944590#2"/>
     </road>
     <road name="" length="32.84" id="950" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="70"/>
-            <successor elementType="junction" elementId="49"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="400.82352591" y="484.06107239" hdg="-2.57951804" length="32.83727072">
@@ -3236,10 +3220,6 @@
         <userData code="sumoId" value="25944590#3"/>
     </road>
     <road name="" length="15.76" id="951" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="53"/>
-            <successor elementType="junction" elementId="70"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="391.47185128" y="501.06958348" hdg="-0.87333940" length="15.76370901">
@@ -3273,10 +3253,6 @@
         <userData code="sumoId" value="25944601#0"/>
     </road>
     <road name="" length="9.24" id="952" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="70"/>
-            <successor elementType="junction" elementId="50"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="405.05570224" y="484.87510785" hdg="-0.86949759" length="9.24284419">
@@ -3310,10 +3286,6 @@
         <userData code="sumoId" value="25944601#1"/>
     </road>
     <road name="" length="22.22" id="953" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="51"/>
-            <successor elementType="junction" elementId="68"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="534.62210724" y="512.95458174" hdg="1.96089513" length="9.89872406">
@@ -3350,10 +3322,6 @@
         <userData code="sumoId" value="25944603#0"/>
     </road>
     <road name="" length="16.68" id="954" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="68"/>
-            <successor elementType="junction" elementId="71"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="517.61577870" y="534.58859606" hdg="2.22639598" length="16.68028908">
@@ -3387,10 +3355,6 @@
         <userData code="sumoId" value="25944603#1"/>
     </road>
     <road name="" length="4.29" id="955" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="71"/>
-            <successor elementType="junction" elementId="54"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="504.84013952" y="552.14986219" hdg="1.96642305" length="4.29375694">
@@ -3424,10 +3388,6 @@
         <userData code="sumoId" value="25944603#2"/>
     </road>
     <road name="" length="30.71" id="956" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="71"/>
-            <successor elementType="junction" elementId="69"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="505.54736529" y="547.86859004" hdg="-2.28725616" length="15.50161974">
@@ -3501,10 +3461,6 @@
         <userData code="sumoId" value="25951490"/>
     </road>
     <road name="" length="26.62" id="958" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="30"/>
-            <successor elementType="junction" elementId="72"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1047.00132576" y="521.68936580" hdg="2.83495895" length="26.61911927">
@@ -3538,10 +3494,6 @@
         <userData code="sumoId" value="26004787#0"/>
     </road>
     <road name="" length="37.54" id="959" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="72"/>
-            <successor elementType="junction" elementId="73"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1016.57735079" y="531.21554225" hdg="2.87282148" length="37.53772964">
@@ -3575,10 +3527,6 @@
         <userData code="sumoId" value="26004787#1"/>
     </road>
     <road name="" length="35.20" id="960" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="73"/>
-            <successor elementType="junction" elementId="43"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="973.52505132" y="543.10964451" hdg="2.85619096" length="35.19694734">
@@ -3612,10 +3560,6 @@
         <userData code="sumoId" value="26004787#2"/>
     </road>
     <road name="" length="14.51" id="961" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="74"/>
-            <successor elementType="junction" elementId="72"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1027.00442238" y="546.84317348" hdg="-1.96888437" length="14.51133555">
@@ -3649,10 +3593,6 @@
         <userData code="sumoId" value="26004861#0"/>
     </road>
     <road name="" length="19.75" id="962" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="72"/>
-            <successor elementType="junction" elementId="75"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1019.16246395" y="528.59174307" hdg="-2.02506059" length="19.74575686">
@@ -3686,10 +3626,6 @@
         <userData code="sumoId" value="26004861#1"/>
     </road>
     <road name="" length="17.76" id="963" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="75"/>
-            <successor elementType="junction" elementId="42"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1008.01792874" y="505.46206164" hdg="-1.98003214" length="17.76087869">
@@ -3723,10 +3659,6 @@
         <userData code="sumoId" value="26004861#2"/>
     </road>
     <road name="" length="30.77" id="964" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="30"/>
-            <successor elementType="junction" elementId="74"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1048.90123656" y="523.99814822" hdg="2.29233314" length="30.76958653">
@@ -3760,10 +3692,6 @@
         <userData code="sumoId" value="26004868#0"/>
     </road>
     <road name="" length="26.08" id="965" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="74"/>
-            <successor elementType="junction" elementId="76"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1025.13612795" y="551.03107971" hdg="2.28590072" length="26.08319554">
@@ -3797,10 +3725,6 @@
         <userData code="sumoId" value="26004868#1"/>
     </road>
     <road name="" length="16.08" id="966" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="77"/>
-            <successor elementType="junction" elementId="76"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1021.48026422" y="585.09489845" hdg="-2.40030471" length="16.08127642">
@@ -3834,10 +3758,6 @@
         <userData code="sumoId" value="26004966#0"/>
     </road>
     <road name="" length="37.43" id="967" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="76"/>
-            <successor elementType="junction" elementId="73"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1005.96356424" y="570.82276072" hdg="-2.38073382" length="37.42947178">
@@ -3871,10 +3791,6 @@
         <userData code="sumoId" value="26004966#1"/>
     </road>
     <road name="" length="39.67" id="968" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="73"/>
-            <successor elementType="junction" elementId="75"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="979.96422151" y="540.48492394" hdg="-0.82024298" length="39.66805868">
@@ -3908,10 +3824,6 @@
         <userData code="sumoId" value="26004966#2"/>
     </road>
     <road name="" length="11.51" id="969" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="75"/>
-            <successor elementType="junction" elementId="29"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1011.09977665" y="507.11178244" hdg="-0.81764239" length="11.50602196">
@@ -4564,7 +4476,6 @@
     </road>
     <road name="Rudower Chaussee" length="235.31" id="985" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="78"/>
             <successor elementType="junction" elementId="46"/>
         </link>
         <type s="0" type="town"/>
@@ -4620,7 +4531,7 @@
     <road name="Rudower Chaussee" length="242.45" id="986" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="46"/>
-            <successor elementType="junction" elementId="79"/>
+            <successor elementType="junction" elementId="67"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -4662,8 +4573,8 @@
     </road>
     <road name="Rudower Chaussee" length="17.47" id="987" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="79"/>
-            <successor elementType="junction" elementId="80"/>
+            <predecessor elementType="junction" elementId="67"/>
+            <successor elementType="junction" elementId="68"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -4699,7 +4610,7 @@
     </road>
     <road name="Rudower Chaussee" length="47.11" id="988" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="80"/>
+            <predecessor elementType="junction" elementId="68"/>
             <successor elementType="junction" elementId="64"/>
         </link>
         <type s="0" type="town"/>
@@ -4740,7 +4651,7 @@
     <road name="Rudower Chaussee" length="112.58" id="989" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="64"/>
-            <successor elementType="junction" elementId="81"/>
+            <successor elementType="junction" elementId="69"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -4777,7 +4688,7 @@
     <road name="Rudower Chaussee" length="7.03" id="990" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="66"/>
-            <successor elementType="junction" elementId="82"/>
+            <successor elementType="junction" elementId="70"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -4813,8 +4724,8 @@
     </road>
     <road name="Rudower Chaussee" length="7.57" id="991" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="81"/>
-            <successor elementType="junction" elementId="83"/>
+            <predecessor elementType="junction" elementId="69"/>
+            <successor elementType="junction" elementId="71"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -4893,7 +4804,7 @@
     </road>
     <road name="Rudower Chaussee" length="481.86" id="993" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="83"/>
+            <predecessor elementType="junction" elementId="71"/>
             <successor elementType="junction" elementId="65"/>
         </link>
         <type s="0" type="town"/>
@@ -4945,8 +4856,8 @@
     </road>
     <road name="Wegedornstraße" length="7.94" id="994" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="82"/>
-            <successor elementType="junction" elementId="81"/>
+            <predecessor elementType="junction" elementId="70"/>
+            <successor elementType="junction" elementId="69"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -4982,7 +4893,7 @@
     </road>
     <road name="Rudower Chaussee" length="111.87" id="995" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="82"/>
+            <predecessor elementType="junction" elementId="70"/>
             <successor elementType="junction" elementId="41"/>
         </link>
         <type s="0" type="town"/>
@@ -5020,7 +4931,7 @@
     <road name="Rudower Chaussee" length="42.84" id="996" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="41"/>
-            <successor elementType="junction" elementId="84"/>
+            <successor elementType="junction" elementId="72"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -5059,7 +4970,7 @@
     </road>
     <road name="Rudower Chaussee" length="131.48" id="997" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="84"/>
+            <predecessor elementType="junction" elementId="72"/>
             <successor elementType="junction" elementId="33"/>
         </link>
         <type s="0" type="town"/>
@@ -5155,7 +5066,6 @@
     <road name="Rudower Chaussee" length="235.43" id="999" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="44"/>
-            <successor elementType="junction" elementId="85"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -6207,7 +6117,7 @@
     </road>
     <road name="Max-Born-Straße" length="111.17" id="1026" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="79"/>
+            <predecessor elementType="junction" elementId="67"/>
             <successor elementType="junction" elementId="56"/>
         </link>
         <type s="0" type="town"/>
@@ -6254,7 +6164,6 @@
     <road name="Max-Born-Straße" length="203.23" id="1027" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="56"/>
-            <successor elementType="junction" elementId="86"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -6293,7 +6202,6 @@
     </road>
     <road name="Max-Born-Straße" length="194.57" id="1028" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="87"/>
             <successor elementType="junction" elementId="55"/>
         </link>
         <type s="0" type="town"/>
@@ -6334,7 +6242,7 @@
     <road name="Max-Born-Straße" length="7.98" id="1029" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="55"/>
-            <successor elementType="junction" elementId="67"/>
+            <successor elementType="junction" elementId="73"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -6370,7 +6278,7 @@
     </road>
     <road name="Max-Born-Straße" length="2.44" id="1030" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="67"/>
+            <predecessor elementType="junction" elementId="73"/>
             <successor elementType="junction" elementId="52"/>
         </link>
         <type s="0" type="town"/>
@@ -6408,7 +6316,7 @@
     <road name="Max-Born-Straße" length="92.21" id="1031" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="52"/>
-            <successor elementType="junction" elementId="80"/>
+            <successor elementType="junction" elementId="68"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -7069,7 +6977,7 @@
     </road>
     <road name="Wegedornstraße" length="7.40" id="1048" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="83"/>
+            <predecessor elementType="junction" elementId="71"/>
             <successor elementType="junction" elementId="66"/>
         </link>
         <type s="0" type="town"/>
@@ -7306,7 +7214,7 @@
     <road name="Wegedornstraße" length="69.98" id="1053" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="61"/>
-            <successor elementType="junction" elementId="82"/>
+            <successor elementType="junction" elementId="70"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -7498,10 +7406,6 @@
         <userData code="sumoId" value="7727483#3"/>
     </road>
     <road name="" length="88.61" id="1058" junction="-1">
-        <link>
-            <predecessor elementType="junction" elementId="84"/>
-            <successor elementType="junction" elementId="39"/>
-        </link>
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="665.36637440" y="433.70238607" hdg="-0.87117518" length="88.60998810">
@@ -8598,7 +8502,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":283018817_0_0" length="5.18" id="1087" junction="67">
+    <road name=":283018817_0_0" length="5.18" id="1087" junction="73">
         <link>
             <predecessor elementType="road" elementId="1029" contactPoint="end"/>
             <successor elementType="road" elementId="1030" contactPoint="start"/>
@@ -13804,7 +13708,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":301292612_0_0" length="6.21" id="1224" junction="81">
+    <road name=":301292612_0_0" length="6.21" id="1224" junction="69">
         <link>
             <predecessor elementType="road" elementId="989" contactPoint="end"/>
             <successor elementType="road" elementId="991" contactPoint="start"/>
@@ -13842,7 +13746,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":301292612_1_0" length="2.38" id="1225" junction="81">
+    <road name=":301292612_1_0" length="2.38" id="1225" junction="69">
         <link>
             <predecessor elementType="road" elementId="994" contactPoint="end"/>
             <successor elementType="road" elementId="991" contactPoint="start"/>
@@ -20720,7 +20624,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":38919668_0_0" length="8.52" id="1406" junction="79">
+    <road name=":38919668_0_0" length="8.52" id="1406" junction="67">
         <link>
             <predecessor elementType="road" elementId="986" contactPoint="end"/>
             <successor elementType="road" elementId="1026" contactPoint="start"/>
@@ -20758,7 +20662,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":38919668_1_0" length="7.62" id="1407" junction="79">
+    <road name=":38919668_1_0" length="7.62" id="1407" junction="67">
         <link>
             <predecessor elementType="road" elementId="986" contactPoint="end"/>
             <successor elementType="road" elementId="987" contactPoint="start"/>
@@ -20796,7 +20700,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":38919703_0_0" length="6.62" id="1408" junction="80">
+    <road name=":38919703_0_0" length="6.62" id="1408" junction="68">
         <link>
             <predecessor elementType="road" elementId="987" contactPoint="end"/>
             <successor elementType="road" elementId="988" contactPoint="start"/>
@@ -20834,7 +20738,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":38919703_1_0" length="7.80" id="1409" junction="80">
+    <road name=":38919703_1_0" length="7.80" id="1409" junction="68">
         <link>
             <predecessor elementType="road" elementId="1031" contactPoint="end"/>
             <successor elementType="road" elementId="988" contactPoint="start"/>
@@ -22050,7 +21954,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":38919945_0_0" length="6.20" id="1441" junction="83">
+    <road name=":38919945_0_0" length="6.20" id="1441" junction="71">
         <link>
             <predecessor elementType="road" elementId="991" contactPoint="end"/>
             <successor elementType="road" elementId="993" contactPoint="start"/>
@@ -22088,7 +21992,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":38919945_1_0" length="2.63" id="1442" junction="83">
+    <road name=":38919945_1_0" length="2.63" id="1442" junction="71">
         <link>
             <predecessor elementType="road" elementId="991" contactPoint="end"/>
             <successor elementType="road" elementId="1048" contactPoint="start"/>
@@ -22620,7 +22524,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":56231397_0_0" length="7.99" id="1456" junction="82">
+    <road name=":56231397_0_0" length="7.99" id="1456" junction="70">
         <link>
             <predecessor elementType="road" elementId="1053" contactPoint="end"/>
             <successor elementType="road" elementId="995" contactPoint="start"/>
@@ -22658,7 +22562,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":56231397_1_0" length="6.42" id="1457" junction="82">
+    <road name=":56231397_1_0" length="6.42" id="1457" junction="70">
         <link>
             <predecessor elementType="road" elementId="1053" contactPoint="end"/>
             <successor elementType="road" elementId="994" contactPoint="start"/>
@@ -22696,7 +22600,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":56231397_2_0" length="6.71" id="1458" junction="82">
+    <road name=":56231397_2_0" length="6.71" id="1458" junction="70">
         <link>
             <predecessor elementType="road" elementId="990" contactPoint="end"/>
             <successor elementType="road" elementId="995" contactPoint="start"/>
@@ -22734,7 +22638,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":56231397_3_0" length="3.01" id="1459" junction="82">
+    <road name=":56231397_3_0" length="3.01" id="1459" junction="70">
         <link>
             <predecessor elementType="road" elementId="990" contactPoint="end"/>
             <successor elementType="road" elementId="994" contactPoint="start"/>
@@ -23456,7 +23360,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":56242425_0_0" length="4.81" id="1478" junction="84">
+    <road name=":56242425_0_0" length="4.81" id="1478" junction="72">
         <link>
             <predecessor elementType="road" elementId="996" contactPoint="end"/>
             <successor elementType="road" elementId="997" contactPoint="start"/>
@@ -24005,7 +23909,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="283018817" id="67">
+    <junction name="283018817" id="73">
     <connection id="0" incomingRoad="1029" connectingRoad="1087" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
@@ -24460,7 +24364,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="301292612" id="81">
+    <junction name="301292612" id="69">
     <connection id="0" incomingRoad="989" connectingRoad="1224" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
@@ -25056,7 +24960,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="38919668" id="79">
+    <junction name="38919668" id="67">
     <connection id="0" incomingRoad="986" connectingRoad="1406" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
@@ -25064,7 +24968,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="38919703" id="80">
+    <junction name="38919703" id="68">
     <connection id="0" incomingRoad="987" connectingRoad="1408" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
@@ -25177,7 +25081,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="38919945" id="83">
+    <junction name="38919945" id="71">
     <connection id="0" incomingRoad="991" connectingRoad="1441" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
@@ -25228,7 +25132,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="56231397" id="82">
+    <junction name="56231397" id="70">
     <connection id="0" incomingRoad="1053" connectingRoad="1456" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
@@ -25300,7 +25204,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="56242425" id="84">
+    <junction name="56242425" id="72">
     <connection id="0" incomingRoad="996" connectingRoad="1478" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>

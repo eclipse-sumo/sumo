@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Nov 17 09:24:48 2016" north="284.53" south="0.00" east="1103.40" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Nov 17 10:51:49 2016" north="284.53" south="0.00" east="1103.40" west="0.00"/>
     <road name="延安高架" length="345.17" id="30" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
-            <successor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -60,7 +59,6 @@
     </road>
     <road name="延安高架" length="818.88" id="31" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>

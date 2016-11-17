@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Nov 17 09:24:48 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Nov 17 10:51:49 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="70.66" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
-            <successor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -46,8 +45,7 @@
     </road>
     <road name="" length="316.63" id="101" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="3"/>
-            <successor elementType="junction" elementId="4"/>
+            <predecessor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -83,8 +81,7 @@
     </road>
     <road name="" length="316.63" id="102" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="5"/>
-            <successor elementType="junction" elementId="6"/>
+            <successor elementType="junction" elementId="3"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -120,8 +117,7 @@
     </road>
     <road name="" length="498.50" id="103" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="7"/>
-            <successor elementType="junction" elementId="6"/>
+            <successor elementType="junction" elementId="3"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -169,8 +165,8 @@
     </road>
     <road name="" length="398.35" id="104" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="8"/>
-            <successor elementType="junction" elementId="9"/>
+            <predecessor elementType="junction" elementId="4"/>
+            <successor elementType="junction" elementId="5"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -218,8 +214,8 @@
     </road>
     <road name="" length="90.93" id="105" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="6"/>
-            <successor elementType="junction" elementId="8"/>
+            <predecessor elementType="junction" elementId="3"/>
+            <successor elementType="junction" elementId="4"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -273,8 +269,8 @@
     </road>
     <road name="" length="370.51" id="106" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="9"/>
-            <successor elementType="junction" elementId="10"/>
+            <predecessor elementType="junction" elementId="5"/>
+            <successor elementType="junction" elementId="6"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -322,8 +318,8 @@
     </road>
     <road name="" length="63.09" id="107" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="10"/>
-            <successor elementType="junction" elementId="3"/>
+            <predecessor elementType="junction" elementId="6"/>
+            <successor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -377,7 +373,7 @@
     </road>
     <road name="" length="469.16" id="108" junction="-1">
         <link>
-            <predecessor elementType="junction" elementId="3"/>
+            <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
@@ -539,7 +535,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_0_0" length="3.97" id="112" junction="3">
+    <road name=":2_0_0" length="3.97" id="112" junction="2">
         <link>
             <predecessor elementType="road" elementId="107" contactPoint="end"/>
             <successor elementType="road" elementId="101" contactPoint="start"/>
@@ -577,7 +573,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_1_0" length="9.07" id="113" junction="3">
+    <road name=":2_1_0" length="9.07" id="113" junction="2">
         <link>
             <predecessor elementType="road" elementId="107" contactPoint="end"/>
             <successor elementType="road" elementId="108" contactPoint="start"/>
@@ -615,7 +611,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_1_1" length="9.07" id="114" junction="3">
+    <road name=":2_1_1" length="9.07" id="114" junction="2">
         <link>
             <predecessor elementType="road" elementId="107" contactPoint="end"/>
             <successor elementType="road" elementId="108" contactPoint="start"/>
@@ -653,7 +649,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_1_2" length="9.07" id="115" junction="3">
+    <road name=":2_1_2" length="9.07" id="115" junction="2">
         <link>
             <predecessor elementType="road" elementId="107" contactPoint="end"/>
             <successor elementType="road" elementId="108" contactPoint="start"/>
@@ -691,7 +687,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":3_0_0" length="0.30" id="116" junction="9">
+    <road name=":3_0_0" length="0.30" id="116" junction="5">
         <link>
             <predecessor elementType="road" elementId="104" contactPoint="end"/>
             <successor elementType="road" elementId="106" contactPoint="start"/>
@@ -729,7 +725,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":3_0_1" length="0.30" id="117" junction="9">
+    <road name=":3_0_1" length="0.30" id="117" junction="5">
         <link>
             <predecessor elementType="road" elementId="104" contactPoint="end"/>
             <successor elementType="road" elementId="106" contactPoint="start"/>
@@ -767,7 +763,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":3_0_2" length="0.30" id="118" junction="9">
+    <road name=":3_0_2" length="0.30" id="118" junction="5">
         <link>
             <predecessor elementType="road" elementId="104" contactPoint="end"/>
             <successor elementType="road" elementId="106" contactPoint="start"/>
@@ -805,7 +801,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_0_0" length="3.94" id="119" junction="6">
+    <road name=":4_0_0" length="3.94" id="119" junction="3">
         <link>
             <predecessor elementType="road" elementId="102" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
@@ -843,7 +839,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_1_0" length="9.07" id="120" junction="6">
+    <road name=":4_1_0" length="9.07" id="120" junction="3">
         <link>
             <predecessor elementType="road" elementId="103" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
@@ -881,7 +877,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_1_1" length="9.07" id="121" junction="6">
+    <road name=":4_1_1" length="9.07" id="121" junction="3">
         <link>
             <predecessor elementType="road" elementId="103" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
@@ -919,7 +915,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_1_2" length="9.07" id="122" junction="6">
+    <road name=":4_1_2" length="9.07" id="122" junction="3">
         <link>
             <predecessor elementType="road" elementId="103" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
@@ -957,7 +953,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s2-AddedOnRampNode_0_0" length="3.00" id="123" junction="8">
+    <road name=":s2-AddedOnRampNode_0_0" length="3.00" id="123" junction="4">
         <link>
             <predecessor elementType="road" elementId="105" contactPoint="end"/>
             <successor elementType="road" elementId="104" contactPoint="start"/>
@@ -995,7 +991,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s2-AddedOnRampNode_0_1" length="3.00" id="124" junction="8">
+    <road name=":s2-AddedOnRampNode_0_1" length="3.00" id="124" junction="4">
         <link>
             <predecessor elementType="road" elementId="105" contactPoint="end"/>
             <successor elementType="road" elementId="104" contactPoint="start"/>
@@ -1033,7 +1029,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s2-AddedOnRampNode_0_2" length="3.00" id="125" junction="8">
+    <road name=":s2-AddedOnRampNode_0_2" length="3.00" id="125" junction="4">
         <link>
             <predecessor elementType="road" elementId="105" contactPoint="end"/>
             <successor elementType="road" elementId="104" contactPoint="start"/>
@@ -1071,7 +1067,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s3-AddedOffRampNode_0_0" length="58.77" id="126" junction="10">
+    <road name=":s3-AddedOffRampNode_0_0" length="58.77" id="126" junction="6">
         <link>
             <predecessor elementType="road" elementId="106" contactPoint="end"/>
             <successor elementType="road" elementId="107" contactPoint="start"/>
@@ -1109,7 +1105,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s3-AddedOffRampNode_0_1" length="58.69" id="127" junction="10">
+    <road name=":s3-AddedOffRampNode_0_1" length="58.69" id="127" junction="6">
         <link>
             <predecessor elementType="road" elementId="106" contactPoint="end"/>
             <successor elementType="road" elementId="107" contactPoint="start"/>
@@ -1147,7 +1143,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s3-AddedOffRampNode_0_2" length="58.69" id="128" junction="10">
+    <road name=":s3-AddedOffRampNode_0_2" length="58.69" id="128" junction="6">
         <link>
             <predecessor elementType="road" elementId="106" contactPoint="end"/>
             <successor elementType="road" elementId="107" contactPoint="start"/>
@@ -1185,7 +1181,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s3-AddedOffRampNode_0_3" length="58.69" id="129" junction="10">
+    <road name=":s3-AddedOffRampNode_0_3" length="58.69" id="129" junction="6">
         <link>
             <predecessor elementType="road" elementId="106" contactPoint="end"/>
             <successor elementType="road" elementId="107" contactPoint="start"/>
@@ -1234,7 +1230,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="2" id="3">
+    <junction name="2" id="2">
     <connection id="0" incomingRoad="107" connectingRoad="112" contactPoint="start">
         <laneLink from="-4" to="-1"/>
     </connection>
@@ -1248,7 +1244,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="3" id="9">
+    <junction name="3" id="5">
     <connection id="0" incomingRoad="104" connectingRoad="116" contactPoint="start">
         <laneLink from="-3" to="-1"/>
     </connection>
@@ -1259,7 +1255,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="4" id="6">
+    <junction name="4" id="3">
     <connection id="0" incomingRoad="102" connectingRoad="119" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
@@ -1273,7 +1269,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="s2-AddedOnRampNode" id="8">
+    <junction name="s2-AddedOnRampNode" id="4">
     <connection id="0" incomingRoad="105" connectingRoad="123" contactPoint="start">
         <laneLink from="-3" to="-1"/>
     </connection>
@@ -1284,7 +1280,7 @@
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
-    <junction name="s3-AddedOffRampNode" id="10">
+    <junction name="s3-AddedOffRampNode" id="6">
     <connection id="0" incomingRoad="106" connectingRoad="126" contactPoint="start">
         <laneLink from="-3" to="-1"/>
     </connection>
