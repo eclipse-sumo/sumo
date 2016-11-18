@@ -3,7 +3,7 @@
 @file    runSikulixServer.py
 @date    2016-08-31
 @author  Pablo Alvarez Lopez
-@version $Id: sikulixTestRunner.py 20433 2016-04-13 08:00:14Z behrisch $
+@version $Id$
 
 Wrapper script for running sikulix server
 
@@ -62,11 +62,11 @@ def checkStatus():
 def startSikulixServer():
     # Call a subprocess of this Python Script to run Sikulix Server depending of operating system
     if platform.system() == 'Linux':
-        subprocess.Popen([os.environ.get('SIKULIX', "runsikulix"), "-s"], 
-                        env=os.environ, stdout=None, stderr=None, shell=False)
+        subprocess.Popen([os.path.join(os.environ.get('SIKULIX_HOME', ''), "runsikulix"), "-s"], 
+                         env=os.environ, stdout=None, stderr=None, shell=False)
     else :
-        subprocess.Popen([os.environ.get('SIKULIX', "runSikulix.cmd")] + ["-s"], 
-                        env=os.environ, stdout=None, stderr=None, shell=True)
+        subprocess.Popen([os.path.join(os.environ.get('SIKULIX_HOME', ''), "runSikulix.cmd"), "-s"], 
+                         env=os.environ, stdout=None, stderr=None, shell=True)
     
     #return status of sikulixServer
     return checkStatus()
