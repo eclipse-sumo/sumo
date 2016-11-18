@@ -37,6 +37,9 @@ except:
     neteditProcess.kill()
     sys.exit("Killed netedit process. 'reference.png' not found")
 
+# obtain match for additionalsComboBox
+additionalsComboBox = match.getTarget().offset(-75, 50)
+	
 # Focus netedit window
 click(match)
 	
@@ -50,75 +53,119 @@ click(match.getTarget().offset(500, 300))
 # Change to create additional
 type("a")
 
+# go to additionalsComboBox
+click(additionalsComboBox)
+
 # by default, additional is busstop, then isn't needed to select "busstop"
 
 # Add three extra lines
-doubleClick(find(neteditResources + "attributes/attributeLines0.png").offset(75, 0))
+for x in range(0, 3):
+	type(Key.TAB)
+	
+for x in range(0, 3):
+	type(Key.SPACE)
+	
+#add extra lines
+click(additionalsComboBox)
+
+for x in range(0, 2):
+	type(Key.TAB)
+	
 paste("Line1")
-
-click(find(neteditResources + "additionalMode/add.png"))
-doubleClick(find(neteditResources + "attributes/attributeLines1.png").offset(75, 0))
+type(Key.TAB)
 paste("Line2")
-
-click(find(neteditResources + "additionalMode/add.png"))
-doubleClick(find(neteditResources + "attributes/attributeLines2.png").offset(75, 0))
+type(Key.TAB)
 paste("Line3")
-
-click(find(neteditResources + "additionalMode/add.png"))
-doubleClick(find(neteditResources + "attributes/attributeLines3.png").offset(75, 0))
+type(Key.TAB)
 paste("Line4")
 
-# remove last line
-click(find(neteditResources + "additionalMode/remove.png"))
+# remove last line (line 4)
+click(additionalsComboBox)
+
+for x in range(0, 7):
+	type(Key.TAB)
+	
+type(Key.SPACE)
 
 # create busstop in mode "reference left"
 click(match.getTarget().offset(450, 300))
 
 # change reference to right
-click(find(neteditResources + "additionalMode/referenceLeft.png"))
+click(additionalsComboBox)
+for x in range(0, 8):
+	type(Key.TAB)
+	
 type(Key.DOWN)
 
 # create busstop in mode "reference right"
 click(match.getTarget().offset(300, 300))
 
 # change reference to center
-click(find(neteditResources + "additionalMode/referenceRight.png"))
+click(additionalsComboBox)
+for x in range(0, 8):
+	type(Key.TAB)
+	
 type(Key.DOWN)
 
 # create busstop in mode "reference center"
 click(match.getTarget().offset(350, 300))
 
 # return to mode "reference left"
-click(find(neteditResources + "additionalMode/referenceCenter.png"))
-type(Key.UP)
-type(Key.UP)
+click(additionalsComboBox)
+
+for x in range(0, 8):
+	type(Key.TAB)
+	
+for x in range(0, 2):
+	type(Key.UP)
 
 # Change length
-doubleClick(find(neteditResources + "attributes/attributeLength.png").offset(75, 0))
+click(additionalsComboBox)
+
+for x in range(0, 10):
+	type(Key.TAB)
+	
 paste("30")
 
 # try to create a busstop (Warning)
 click(match.getTarget().offset(500, 300))
 
 # change reference to right
-click(find(neteditResources + "additionalMode/referenceLeft.png"))
+click(additionalsComboBox)
+
+for x in range(0, 8):
+	type(Key.TAB)
+	
 type(Key.DOWN)
 
 # try busstop in mode "reference right" (Warning)
 click(match.getTarget().offset(250, 300))
 
 # return to mode "reference left"
-click(find(neteditResources + "additionalMode/referenceCenter.png"))
+click(additionalsComboBox)
+
+for x in range(0, 8):
+	type(Key.TAB)
+	
 type(Key.UP)
 
 # enable force position
-click(find(neteditResources + "additionalMode/attributeForcePosition.png"))
+click(additionalsComboBox)
+
+for x in range(0, 11):
+	type(Key.TAB)
+	
+type(Key.SPACE)
 
 # create a busstop forcing position
 click(match.getTarget().offset(500, 300))
 
 # change reference to right
-click(find(neteditResources + "additionalMode/referenceLeft.png"))
+click(additionalsComboBox)
+
+for x in range(0, 8):
+	type(Key.TAB)
+	
 type(Key.DOWN)
 
 # create a busstop forcing position
