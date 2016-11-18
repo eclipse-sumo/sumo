@@ -66,6 +66,9 @@
 // definitions
 // ===========================================================================
 #define C_LENGTH 10.
+#define POLY_RES 2.
+#define PARAMPOLY3_RES 2.
+#define SPIRAL_RES 1.
 
 // ===========================================================================
 // static variables
@@ -945,7 +948,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
     try {
         EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd - curveStart) / g.length, g.length);
         std::vector<Point2D<double> > into;
-        s.computeSpiral(into, 1.);
+        s.computeSpiral(into, SPIRAL_RES);
         for (std::vector<Point2D<double> >::iterator i = into.begin(); i != into.end(); ++i) {
             ret.push_back(Position((*i).getX(), (*i).getY()));
         }
@@ -1008,7 +1011,7 @@ NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeomet
     const SUMOReal s = sin(g.hdg);
     const SUMOReal c = cos(g.hdg);
     PositionVector ret;
-    for (SUMOReal off = 0; off < g.length + 2.; off += 2.) {
+    for (SUMOReal off = 0; off < g.length + 2.; off += POLY_RES) {
         SUMOReal x = off;
         SUMOReal y = g.params[0] + g.params[1] * off + g.params[2] * pow(off, 2.) + g.params[3] * pow(off, 3.);
         SUMOReal xnew = x * c - y * s;
@@ -1026,7 +1029,7 @@ NIImporter_OpenDrive::geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveG
     const SUMOReal c = cos(g.hdg);
     const SUMOReal pMax = g.params[8];
     // import with 2m resolution
-    const SUMOReal pStep = pMax / ceil(g.length / 2.0);
+    const SUMOReal pStep = pMax / ceil(g.length / PARAMPOLY3_RES);
     PositionVector ret;
     for (SUMOReal p = 0; p < pMax + pStep; p += pStep) {
         SUMOReal x = g.params[0] + g.params[1] * p + g.params[2] * pow(p, 2.) + g.params[3] * pow(p, 3.);
