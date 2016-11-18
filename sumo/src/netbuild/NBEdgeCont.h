@@ -529,7 +529,7 @@ public:
     /// @brief Returns true if this edge matches one of the removal criteria
     bool ignoreFilterMatch(NBEdge* edge);
 
-    /// @brief ensure that all edge ids are integers
+    /// @brief ensure that all edge ids are numerical (long) and return the number of modified edge ids
     int mapToNumericalIDs();
 
     /// @brief check whether edges overlap

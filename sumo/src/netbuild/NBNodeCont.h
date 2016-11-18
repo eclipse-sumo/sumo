@@ -325,7 +325,7 @@ public:
         mySplit.insert(node);
     }
 
-    /// @brief ensure that all node ids are integers
+    /// @brief ensure that all node ids are numerical (long) and return the number of modified node ids
     int mapToNumericalIDs();
 
 private:

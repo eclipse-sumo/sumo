@@ -1227,7 +1227,7 @@ NBNodeCont::mapToNumericalIDs() {
     std::vector<NBNode*> toChange;
     for (NodeCont::iterator it = myNodes.begin(); it != myNodes.end(); it++) {
         try {
-            TplConvert::_str2int(it->first);
+            TplConvert::_str2long(it->first);
         } catch (NumberFormatException&) {
             toChange.push_back(it->second);
         }

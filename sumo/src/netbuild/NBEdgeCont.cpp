@@ -1114,7 +1114,7 @@ NBEdgeCont::mapToNumericalIDs() {
     EdgeVector toChange;
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         try {
-            TplConvert::_str2int(it->first);
+            TplConvert::_str2long(it->first);
         } catch (NumberFormatException&) {
             toChange.push_back(it->second);
         }

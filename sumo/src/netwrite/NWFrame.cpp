@@ -135,6 +135,9 @@ NWFrame::checkOptions() {
     if (oc.isSet("opendrive-output") && !oc.getBool("rectangular-lane-cut")) {
         WRITE_WARNING("OpenDRIVE cannot represent oblique lane cuts and should use option 'rectangular-lane-cut'.");
     }
+    if (oc.isSet("dlr-navteq-output") && oc.isDefault("numerical-ids")) {
+        oc.set("numerical-ids", "true");
+    }
     return ok;
 }
 

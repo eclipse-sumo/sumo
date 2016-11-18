@@ -226,6 +226,10 @@ public:
         return ret * sgn;
     }
 
+    static int _str2long(const std::string& sData) {
+        return _2long(sData.c_str());
+    }
+
     /// @brief converts a char-type array with a hex value into the long value described by it
     /// @throw an EmptyData - exception if the given string is empty
     /// @throw a NumberFormatException - exception when the string does not contain a long
