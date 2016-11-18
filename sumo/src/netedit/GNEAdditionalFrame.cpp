@@ -1285,7 +1285,7 @@ GNEAdditionalFrame::edgesSelector::edgesSelector(FXComposite* parent, GNEViewNet
     myClearEdgesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_CLEAREDGESELECTION, GNEDesignButtonLittle);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTEDGESELECTION), GNEDesignButtonLittle;
+    myInvertEdgesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTEDGESELECTION, GNEDesignButtonLittle);
 
     // Create help button
     helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
