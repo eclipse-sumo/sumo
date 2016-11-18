@@ -1,4 +1,4 @@
-# Generated on 01/16/14 15:21:20 by SUMO netconvert Version dev-SVN-r15397
+# Generated on Fri Nov 18 10:18:47 2016 by SUMO netconvert Version dev-SVN-r22057
 # Format matches Extraction version: V6.0 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -19,6 +19,7 @@
 # 
 #     <processing>
 #         <no-internal-links value="true"/>
+#         <numerical-ids value="true"/>
 #     </processing>
 # 
 #     <report>
