@@ -1,0 +1,41 @@
+Parsing types from '/scr1/sumoI/sumo/data/typemap/opendriveNetconvert.typ.xml'... done.
+Parsing opendrive from 'opendrive.xodr'... 
+done.
+ Import done:
+   2 nodes loaded.
+   21 types loaded.
+   2 edges loaded.
+Removing self-loops... done (0ms).
+Removing empty nodes... done (0ms).
+   0 nodes removed.
+Moving network to origin... done (0ms).
+Computing turning directions... done (0ms).
+Sorting nodes' edges... done (0ms).
+Computing node shapes... done (0ms).
+Computing edge shapes... done (0ms).
+Computing node types... done (0ms).
+Computing priorities... done (0ms).
+Computing approached edges... done (0ms).
+Computing approaching lanes... done (0ms).
+Dividing of lanes on approached lanes... done (0ms).
+Processing turnarounds... done (0ms).
+Rechecking of lane endings... done (0ms).
+Assigning nodes to traffic lights... done (0ms).
+Computing traffic light control information... done (0ms).
+Computing node logics... done (0ms).
+Computing traffic light logics... done (0ms).
+ 0 traffic light(s) computed.
+Building inner edges... done (0ms).
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 2
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 0.00,0.00,50.00,0.00
+  Applied offset     : 0.00,0.00
+  Converted boundary : 0.00,0.00,50.00,0.00
+-----------------------------------------------------
+Writing network... done (1ms).
+Success.

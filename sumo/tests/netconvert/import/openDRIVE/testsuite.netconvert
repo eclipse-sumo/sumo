@@ -20,6 +20,7 @@ Crossing8Course_no_widths
 
 # own examples (roundtrip)
 simple1
+simple1_remove
 simple1_noturnarounds
 simple1_left_nt
 simple1_right_nt
