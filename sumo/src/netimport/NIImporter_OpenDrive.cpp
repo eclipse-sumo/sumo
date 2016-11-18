@@ -385,9 +385,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if ((*j).rightLaneNumber > 0) {
                 currRight = new NBEdge("-" + id, sFrom, sTo, (*j).rightType, defaultSpeed, (*j).rightLaneNumber, priorityR,
                                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, e->streetName, id, LANESPREAD_RIGHT, true);
-                if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
-                    throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
-                }
                 lanesBuilt = true;
                 const std::vector<OpenDriveLane>& lanes = (*j).lanesByDir[OPENDRIVE_TAG_RIGHT];
                 for (std::vector<OpenDriveLane>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
@@ -403,14 +400,21 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.width = myImportWidths && odLane.width != 0 ? odLane.width : tc.getWidth(odLane.type);
                     }
                 }
-                // connect lane sections
-                if (prevRight != 0) {
-                    std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_RIGHT, *(j - 1));
-                    for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
-                        prevRight->addLane2LaneConnection((*k).first, currRight, (*k).second, NBEdge::L2L_VALIDATED);
-                    }
+                if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
+                    throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
                 }
-                prevRight = currRight;
+                if (nb.getEdgeCont().wasIgnored(id)) {
+                    prevRight = 0;
+                } else {
+                    // connect lane sections
+                    if (prevRight != 0) {
+                        std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_RIGHT, *(j - 1));
+                        for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
+                            prevRight->addLane2LaneConnection((*k).first, currRight, (*k).second, NBEdge::L2L_VALIDATED);
+                        }
+                    }
+                    prevRight = currRight;
+                }
             }
 
             // build lanes to left
@@ -418,9 +422,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if ((*j).leftLaneNumber > 0) {
                 currLeft = new NBEdge(id, sTo, sFrom, (*j).leftType, defaultSpeed, (*j).leftLaneNumber, priorityL,
                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), e->streetName, id, LANESPREAD_RIGHT, true);
-                if (!nb.getEdgeCont().insert(currLeft, myImportAllTypes)) {
-                    throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
-                }
                 lanesBuilt = true;
                 const std::vector<OpenDriveLane>& lanes = (*j).lanesByDir[OPENDRIVE_TAG_LEFT];
                 for (std::vector<OpenDriveLane>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
@@ -436,14 +437,21 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.width = myImportWidths && odLane.width != 0 ? odLane.width : tc.getWidth(odLane.type);
                     }
                 }
-                // connect lane sections
-                if (prevLeft != 0) {
-                    std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_LEFT, *(j - 1));
-                    for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
-                        currLeft->addLane2LaneConnection((*k).first, prevLeft, (*k).second, NBEdge::L2L_VALIDATED);
-                    }
+                if (!nb.getEdgeCont().insert(currLeft, myImportAllTypes)) {
+                    throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
                 }
-                prevLeft = currLeft;
+                if (nb.getEdgeCont().wasIgnored(id)) {
+                    prevLeft = 0;
+                } else {
+                    // connect lane sections
+                    if (prevLeft != 0) {
+                        std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_LEFT, *(j - 1));
+                        for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
+                            currLeft->addLane2LaneConnection((*k).first, prevLeft, (*k).second, NBEdge::L2L_VALIDATED);
+                        }
+                    }
+                    prevLeft = currLeft;
+                }
             }
             (*j).sumoID = id;
 
