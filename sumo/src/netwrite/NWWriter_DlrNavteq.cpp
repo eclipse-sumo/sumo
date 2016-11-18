@@ -178,7 +178,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
                << betweenNodeID << "\t"
                << getGraphLength(e) << "\t"
                << getAllowedTypes(e->getPermissions()) << "\t"
-               << "3\t" // Speed Category 1-8 XXX refine this
+               << "3\t" // Form of way XXX
                << UNDEFINED << "\t" // no special brunnel type (we don't know yet)
                << getRoadClass(e) << "\t"
                << getSpeedCategory(kph) << "\t"
