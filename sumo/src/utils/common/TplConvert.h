@@ -191,7 +191,7 @@ public:
     }
     //@}
 
-    /// @name Conversion to basic type long
+    /// @name Conversion to basic type long integer (at least 64 bit)
     //@{
     /// @brief converts a char-type array into the long value described by it
     /// @throw an EmptyData - exception if the given string is empty
@@ -226,7 +226,10 @@ public:
         return ret * sgn;
     }
 
-    static int _str2long(const std::string& sData) {
+    /// @brief converts a string into the long value described by it by calling the char-type converter, which
+    /// @throw an EmptyData - exception if the given string is empty
+    /// @throw NumberFormatException - exception when the string does not contain a long integer
+    static long long int _str2long(const std::string& sData) {
         return _2long(sData.c_str());
     }
 
