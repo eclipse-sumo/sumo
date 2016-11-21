@@ -29,8 +29,8 @@ import subprocess
 import types
 import shutil
 import glob
+import argparse
 from datetime import datetime
-from argparse import ArgumentParser
 from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
@@ -47,13 +47,13 @@ def addGenericOptions(argParser):
     argParser.add_argument("-+", "--additional", dest="additional",
                            default="", help="Additional files")
     argParser.add_argument("-b", "--begin",
-                           type=int, default=0, help="Set simulation/routing begin [default: %default]")
+                           type=int, default=0, help="Set simulation/routing begin")
     argParser.add_argument("-e", "--end",
-                           type=int, help="Set simulation/routing end [default: %default]")
+                           type=int, help="Set simulation/routing end")
     argParser.add_argument("-R", "--route-steps", dest="routeSteps",
-                           type=int, default=200, help="Set simulation route steps [default: %default]")
+                           type=int, default=200, help="Set simulation route steps")
     argParser.add_argument("-a", "--aggregation",
-                           type=int, default=900, help="Set main weights aggregation period [default: %default]")
+                           type=int, default=900, help="Set main weights aggregation period")
     argParser.add_argument("-m", "--mesosim", action="store_true",
                            default=False, help="Whether mesosim shall be used")
     argParser.add_argument("-p", "--path", help="Path to binaries")
@@ -85,10 +85,10 @@ def addGenericOptions(argParser):
 
 
 def initOptions():
-    argParser = ArgumentParser(
+    argParser = argparse.ArgumentParser(
         description=""" Any options of the form sumo--long-option-name will be passed to sumo. 
 These must be given after all the other options
-example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""")
+example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     addGenericOptions(argParser)
 
     argParser.add_argument("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
@@ -100,9 +100,9 @@ example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo."""
     argParser.add_argument("-F", "--flows",
                            help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
     argParser.add_argument("-A", "--gA",
-                           type=float, default=.5, help="Sets Gawron's Alpha [default: %default]")
+                           type=float, default=.5, help="Sets Gawron's Alpha")
     argParser.add_argument("-B", "--gBeta",
-                           type=float, default=.9, help="Sets Gawron's Beta [default: %default]")
+                           type=float, default=.9, help="Sets Gawron's Beta")
     argParser.add_argument("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
                            default=False, help="No summaries are written by the simulation")
     argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
@@ -120,13 +120,13 @@ example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo."""
     argParser.add_argument("--time-inc", dest="timeInc",
                            type=int, default=0, help="Give the time incrementation")
     argParser.add_argument("-f", "--first-step", dest="firstStep",
-                           type=int, default=0, help="First DUA step [default: %default]")
+                           type=int, default=0, help="First DUA step")
     argParser.add_argument("-l", "--last-step", dest="lastStep",
-                           type=int, default=50, help="Last DUA step [default: %default]")
+                           type=int, default=50, help="Last DUA step")
     argParser.add_argument("--convergence-iterations", dest="convIt",
-                           type=int, default=10, help="Number of iterations to use for convergence calculation [default: %default]")
+                           type=int, default=10, help="Number of iterations to use for convergence calculation")
     argParser.add_argument("--max-convergence-deviation", dest="convDev",
-                           type=float, help="Maximum relative standard deviation in travel times [default: %default]")
+                           type=float, help="Maximum relative standard deviation in travel times")
     argParser.add_argument(
         "-D", "--districts", help="use districts as sources and targets", metavar="FILE")
     argParser.add_argument("-x", "--vehroute-file",  dest="routefile",
