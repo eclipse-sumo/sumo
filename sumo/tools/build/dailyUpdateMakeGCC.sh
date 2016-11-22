@@ -69,6 +69,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
     tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV &> $TESTLOG
     if which Xvfb &>/dev/null; then
       tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV >> $TESTLOG 2>&1
+      tools/build/runSikulixServer.pyw &
       tests/runTests.sh -a netedit.daily -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV >> $TESTLOG 2>&1
     fi
   fi
