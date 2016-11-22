@@ -2,7 +2,8 @@
 """
 @file    createVehTypeDistribution.py
 @author  Mirko Barthauer (Technische Universitaet Braunschweig, Institut fuer Verkehr und Stadtbauwesen)
-@author  Jakob.Erdmann@dlr.de
+@author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2016-06-09
 @version $Id$
 
@@ -44,76 +45,62 @@ import argparse
 
 class FixDistribution(object):
 
-    def __init__(self, loc, isNumeric=True):
+    def __init__(self, params, isNumeric=True):
         if isNumeric:
-            loc = float(loc)
-        self._loc = loc
+            self._params = tuple([float(p) for p in params])
+        else:
+            self._params = params
         self._limits = (0, None)
-        self._discreteStep = None
-        self.isNumeric = isNumeric
+        self._isNumeric = isNumeric
 
     def setLimits(self, limits):
         self._limits = limits
 
     def sampleValue(self):
         value = self._sampleValue()
-        if self.isNumeric:
-            if(self._limits[0] is not None and value < self._limits[0]):
+        if self._isNumeric:
+            if self._limits[0] is not None and value < self._limits[0]:
                 value = self._limits[0]
-            elif (self._limits[1] is not None and value > self._limits[1]):
+            elif self._limits[1] is not None and value > self._limits[1]:
                 value = self._limits[1]
 
         return value
 
-    def isComplete(self):
-        return self._loc is not None
+    def sampleValueString(self, decimalPlaces):
+        if self._isNumeric:
+            decimalPattern = "%." + str(decimalPlaces) + "f"
+            return decimalPattern % self.sampleValue()
+        return self.sampleValue()
 
     def _sampleValue(self):
-        return self._loc
+        return self._params[0]
 
 
 class NormalDistribution(FixDistribution):
-    isNumeric = True
 
     def __init__(self, loc, scale):
-        FixDistribution.__init__(self, loc)
-        self._scale = scale
+        FixDistribution.__init__(self, (loc, scale))
 
     def _sampleValue(self):
-        return random.normalvariate(self._loc, self._scale)
-
-    def isComplete(self):
-        return self._loc is not None and self._scale is not None
+        return random.normalvariate(self._params[0], self._params[1])
 
 
 class UniformDistribution(FixDistribution):
-    isNumeric = True
 
-    def __init__(self, limits):
-        FixDistribution.__init__(self, 0)
-        self.setLimits(limits)
+    def __init__(self, lower, upper):
+        FixDistribution.__init__(self, (lower, upper))
 
     def _sampleValue(self):
-        return random.uniform(self._limits[0], self._limits[1])
-
-    def isComplete(self):
-        return self._limits[0] is not None and self._limits[1] is not None
+        return random.uniform(self._params[0], self._params[1])
 
 
 class GammaDistribution(FixDistribution):
-    isNumeric = True
 
-    def __init__(self, a, loc, scale):
-        FixDistribution.__init__(self, 0)
-        self._scale = scale
-        self._a = a
-        self._loc = loc
+    def __init__(self, loc, scale):
+        FixDistribution.__init__(self, (loc, 1.0 / scale))
 
     def _sampleValue(self):
-        return random.gammavariate(self._a, 1.0 / self._scale)
-
-    def isComplete(self):
-        return self._scale is not None and self._a is not None and self._loc is not None
+        return random.gammavariate(self._params[0], self._params[1])
 
 
 def get_options(args=None):
@@ -156,7 +143,7 @@ def readConfigFile(filePath):
                     # syntax
                     attValue = row[1].strip()
                     distFound = False
-                    for distName, distSyntax in distSyntaxes.iteritems():
+                    for distName, distSyntax in distSyntaxes.items():
                         items = re.findall(distSyntax, attValue)
                         distFound = len(items) > 0
                         if distFound:  # found distribution
@@ -174,7 +161,7 @@ def readConfigFile(filePath):
                     if not distFound:
                         isNumeric = len(re.findall(
                             '(-?[0-9]+(\.[0-9]+)?)', attValue)) > 0
-                        value = FixDistribution(attValue, isNumeric)
+                        value = FixDistribution((attValue,), isNumeric)
 
                     # get optional limits
                     if len(row) == 3:
@@ -204,25 +191,19 @@ def main(options):
     else:
         domTree = xml.dom.minidom.Document()
     vTypeDistNode = domTree.createElement("vTypeDistribution")
-    vTypeDistNode.setAttribute("ID", options.vehDistName)
+    vTypeDistNode.setAttribute("id", options.vehDistName)
 
     for i in range(0, options.vehicleCount):
         vTypeNode = domTree.createElement("vType")
-        vTypeNode.setAttribute("ID", options.vehDistName + str(i))
-        vTypeNode.setAttribute("probability", "1")
-        for attName, attValue in vTypeParameters.iteritems():
-            if attValue.isNumeric:
-                decimalPattern = "%." + str(options.decimalPlaces) + "f"
-                vTypeNode.setAttribute(
-                    attName, decimalPattern % attValue.sampleValue())
-            else:
-                vTypeNode.setAttribute(attName, attValue.sampleValue())
+        vTypeNode.setAttribute("id", options.vehDistName + str(i))
+        for attName, attValue in vTypeParameters.items():
+            vTypeNode.setAttribute(attName, attValue.sampleValueString(options.decimalPlaces))
         vTypeDistNode.appendChild(vTypeNode)
 
     existingDistNodes = domTree.getElementsByTagName("vTypeDistribution")
     replaceNode = None
     for existingDistNode in existingDistNodes:
-        if existingDistNode.hasAttribute("ID") and existingDistNode.getAttribute("ID") == options.vehDistName:
+        if existingDistNode.hasAttribute("id") and existingDistNode.getAttribute("id") == options.vehDistName:
             replaceNode = existingDistNode
             break
     if useExistingFile:
@@ -232,11 +213,13 @@ def main(options):
             domTree.documentElement.appendChild(vTypeDistNode)
     else:
         additionalNode = domTree.createElement("additional")
+        additionalNode.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
+        additionalNode.setAttribute("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/additional_file.xsd")
         additionalNode.appendChild(vTypeDistNode)
         domTree.appendChild(additionalNode)
     try:
         fileHandle = open(options.outputFile, "wb")
-        domTree.documentElement.writexml(fileHandle, addindent="  ", newl="\n")
+        domTree.documentElement.writexml(fileHandle, addindent="    ", newl="\n")
         fileHandle.close()
     except Exception as e:
         sys.exit(str(e))
