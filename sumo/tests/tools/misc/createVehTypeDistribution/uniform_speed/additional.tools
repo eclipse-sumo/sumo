@@ -1,0 +1,14 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vTypeDistribution id="exampleDist">
+        <vType id="exampleDist0" maxSpeed="42.380"/>
+        <vType id="exampleDist1" maxSpeed="20.875"/>
+        <vType id="exampleDist2" maxSpeed="29.626"/>
+        <vType id="exampleDist3" maxSpeed="27.812"/>
+        <vType id="exampleDist4" maxSpeed="45.776"/>
+        <vType id="exampleDist5" maxSpeed="43.684"/>
+        <vType id="exampleDist6" maxSpeed="51.226"/>
+        <vType id="exampleDist7" maxSpeed="23.043"/>
+        <vType id="exampleDist8" maxSpeed="34.767"/>
+        <vType id="exampleDist9" maxSpeed="21.043"/>
+    </vTypeDistribution>
+</additional>

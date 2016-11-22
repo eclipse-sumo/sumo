@@ -1,0 +1,14 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vTypeDistribution id="exampleDist">
+        <vType id="exampleDist0" minGap="0.229"/>
+        <vType id="exampleDist1" minGap="0.724"/>
+        <vType id="exampleDist2" minGap="0.334"/>
+        <vType id="exampleDist3" minGap="0.192"/>
+        <vType id="exampleDist4" minGap="0.050"/>
+        <vType id="exampleDist5" minGap="0.572"/>
+        <vType id="exampleDist6" minGap="0.193"/>
+        <vType id="exampleDist7" minGap="0.910"/>
+        <vType id="exampleDist8" minGap="0.273"/>
+        <vType id="exampleDist9" minGap="0.107"/>
+    </vTypeDistribution>
+</additional>
