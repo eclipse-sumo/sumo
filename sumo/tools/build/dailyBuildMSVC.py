@@ -35,6 +35,7 @@ import shutil
 import datetime
 import sys
 
+import runSikulixServer
 import status
 import wix
 
@@ -106,8 +107,10 @@ def runTests(options, env, svnrev, debugSuffix=""):
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-        subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
+        runSikulixServer.startSikulixServer()
+        subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
+        runSikulixServer.closeSikulixServer()
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
