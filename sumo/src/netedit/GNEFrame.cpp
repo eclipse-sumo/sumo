@@ -55,7 +55,6 @@
 
 GNEFrame::GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXScrollWindow(horizontalFrameParent, GNEDesigFrame),
-    myHorizontalFrameParent(horizontalFrameParent),
     myViewNet(viewNet) {
     // Create font
     myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold),

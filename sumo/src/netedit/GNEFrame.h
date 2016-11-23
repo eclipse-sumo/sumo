@@ -107,9 +107,6 @@ protected:
     FXHorizontalFrame* myHeaderRightFrame;
 
 private:
-    /// @brief horizontalFrameParent in which this frame is placed (needed to obtain the width in every recalc)
-    FXHorizontalFrame* myHorizontalFrameParent;
-
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&);
 

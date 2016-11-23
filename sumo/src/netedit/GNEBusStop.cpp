@@ -431,4 +431,5 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
 /****************************************************************************/

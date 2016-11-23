@@ -155,7 +155,7 @@ protected:
     bool myChargeInTransit;
 
     /// @brief delay in the starting of charge
-    int myChargeDelay;
+    SUMOReal myChargeDelay;
 
 private:
     /// @brief set attribute after validation

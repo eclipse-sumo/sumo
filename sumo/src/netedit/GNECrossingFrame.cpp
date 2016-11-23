@@ -99,8 +99,8 @@ FXIMPLEMENT(GNECrossingFrame::crossingParameters, FXGroupBox,     GNECrossingPar
 
 GNECrossingFrame::edgesSelector::edgesSelector(FXComposite* parent, GNECrossingFrame* crossingFrameParent) :
     FXGroupBox(parent, "selection of Edges", GNEDesignGroupBoxFrame),
-    myCurrentJunction(0),
-    myCrossingFrameParent(crossingFrameParent) {
+    myCrossingFrameParent(crossingFrameParent),
+    myCurrentJunction(0) {
     // Create CheckBox for selected edges
     myShowOnlySelectedEdges = new FXMenuCheck(this, "Show only selected Edges", this, MID_GNE_SHOWONLYSELECTEDEDGES, GNEDesignCheckButton);
 
@@ -535,7 +535,7 @@ GNECrossingFrame::crossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
     header->setItemSize(1, 80);
     int maxSizeColumnDefinitions = 0;
     // Iterate over vector of additional parameters
-    for (int i = 0; i < GNEAttributeCarrier::allowedAttributes(SUMO_TAG_CROSSING).size(); i++) {
+    for (int i = 0; i < (int)GNEAttributeCarrier::allowedAttributes(SUMO_TAG_CROSSING).size(); i++) {
         SumoXMLAttr attr = GNEAttributeCarrier::allowedAttributes(SUMO_TAG_CROSSING).at(i).first;
         // Attribute ID cannot be edited in crossings
         if (attr != SUMO_ATTR_ID) {

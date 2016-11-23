@@ -200,7 +200,7 @@ GNEChargingStation::setChargingPower(SUMOReal chargingPower) {
     if (chargingPower > 0) {
         myChargingPower = chargingPower;
     } else {
-        throw InvalidArgument("Value of charging Power must be greather than 0");
+        throw InvalidArgument("Value of charging Power must be greater than 0");
     }
 }
 
@@ -224,10 +224,9 @@ GNEChargingStation::setChargeInTransit(bool chargeInTransit) {
 void
 GNEChargingStation::setChargeDelay(SUMOReal chargeDelay) {
     if (chargeDelay < 0) {
-        myChargeDelay = chargeDelay;
-    } else {
         throw InvalidArgument("Value of chargeDelay cannot be negative");
     }
+    myChargeDelay = chargeDelay;
 }
 
 
@@ -498,7 +497,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myChargeInTransit = parse<bool>(value);
             break;
         case SUMO_ATTR_CHARGEDELAY:
-            myChargeDelay = parse<int>(value);
+            myChargeDelay = parse<SUMOReal>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
@@ -508,5 +507,6 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getType()) + "attribute '" + toString(key) + "' not allowed");
     }
 }
+
 
 /****************************************************************************/

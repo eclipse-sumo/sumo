@@ -302,9 +302,9 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
         }
         try {
             handleIDs(getMatches(tag, attr, compOp, TplConvert::_2SUMOReal(expr.c_str()), expr), false);
-        } catch (EmptyData& e) {
+        } catch (EmptyData&) {
             valid = false;
-        } catch (NumberFormatException& e) {
+        } catch (NumberFormatException&) {
             valid = false;
         }
     } else {

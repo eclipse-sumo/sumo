@@ -96,3 +96,6 @@ FXString
 GNEChange_Attribute::redoName() const {
     return ("Redo change " + myAC->getDescription() + " attribute").c_str();
 }
+
+
+/****************************************************************************/
