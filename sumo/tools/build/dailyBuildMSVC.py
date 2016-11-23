@@ -107,10 +107,11 @@ def runTests(options, env, svnrev, debugSuffix=""):
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-        runSikulixServer.startSikulixServer()
+        # Check if sikulixServer is already opened
+        if runSikulixServer.checkStatus() == False :
+            runSikulixServer.startSikulixServer()
         subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-        runSikulixServer.closeSikulixServer()
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
