@@ -1,8 +1,3 @@
-# Import libraries
-import os
-import sys
-import subprocess
-
 #** Common parameters **#
 Settings.MoveMouseDelay = 0.1
 Settings.DelayBeforeDrop = 0.1
@@ -10,87 +5,93 @@ Settings.DelayAfterDrag = 0.1
 # SUMO Folder
 SUMOFolder = os.environ.get('SUMO_HOME', '.')
 # Current environment
-currentEnvironmentFile = open(
-    SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "r")
+currentEnvironmentFile = open(SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "r")
 # Get path to netEdit app
 neteditApp = currentEnvironmentFile.readline().replace("\n", "")
 # Get SandBox folder
 textTestSandBox = currentEnvironmentFile.readline().replace("\n", "")
 # Get resources depending of the current Operating system
 currentOS = currentEnvironmentFile.readline().replace("\n", "")
-netEditResources = SUMOFolder + "/tests/netedit/imageResources/" + currentOS + "/"
+neteditResources = SUMOFolder + "/tests/netedit/imageResources/" + currentOS + "/"
+neteditReference = SUMOFolder + "/tests/netedit/imageResources/reference.png"
 currentEnvironmentFile.close()
+
+def neteditUndo(match):
+	type("e", Key.ALT)
+	try:
+		click(neteditResources + "/undoredo/edit-undo.png")
+		click(match)
+	except:
+		neteditProcess.kill()
+		sys.exit("Killed netedit process. 'edit-undo.png' not found")
+	
+def neteditRedo(match):
+	type("e", Key.ALT)
+	try:
+		click(neteditResources + "/undoredo/edit-redo.png")
+		click(match)
+	except:
+		neteditProcess.kill()
+		sys.exit("Killed netedit process. 'edit-redo.png' not found")
 #****#
 
 # Open netedit
-netEditProcess = subprocess.Popen([neteditApp,
-                                   '--window-size', '800,600',
+neteditProcess = subprocess.Popen([neteditApp,
+                                   '--gui-testing',
+                                   '--window-size', '700,500',
                                    '--new',
                                    '--additionals-output', textTestSandBox + "/additionals.xml"],
-                                  env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+                                   env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
-# Wait 10 seconds to netedit main windows
+# Wait to netedit and focus
 try:
-    match = wait(netEditResources + "neteditToolbar.png", 10)
+    match = wait(neteditReference, 20)
 except:
-    netEditProcess.kill()
-    sys.exit("Killed netedit process. 'neteditToolbar.png' not found")
+    neteditProcess.kill()
+    sys.exit("Killed netedit process. 'reference.png' not found")
 
-# focus netEdit window
-click(match.getTarget().offset(0, -20))
-
+# obtain match for additionalsComboBox
+additionalsComboBox = match.getTarget().offset(-75, 50)
+	
+# Focus netedit window
+click(match)
+	
 # Change to create mode
 type("e")
 
 # Create two nodes
-click(match.getTarget().offset(-250, 400))
-click(match.getTarget().offset(250, 400))
+click(match.getTarget().offset(100, 300))
+click(match.getTarget().offset(500, 300))
 
 # Change to create additional
 type("a")
 
+# go to additionalsComboBox
+click(additionalsComboBox)
+
 # by default, additional is busstop, then isn't needed to select "busstop"
 
-# Go to reference mode
-click(match.getTarget().offset(-300, 300))
-
-# Change to reference center
-click(match.getTarget().offset(-300, 360))
-
-# create busstop in mode "reference center"
-click(match.getTarget().offset(100, 400))
+# create busstop in mode "reference left"
+click(match.getTarget().offset(450, 300))
 
 # Change to delete
 type("d")
 
-# delete busstop
-click(match.getTarget().offset(100, 405))
+# delete created busstop
+click(match.getTarget().offset(460, 315))
 
-# Check Undo
-try:
-    click(match.getTarget().offset(-325, 5))
-    click(netEditResources + "undoredo/edit-undo.png")
-except:
-    netEditProcess.kill()
-    sys.exit("Killed netedit process. 'edit-undo.png' not found")
-
-# Check Redo
-try:
-    click(match.getTarget().offset(-325, 5))
-    click(netEditResources + "undoredo/edit-redo.png")
-except:
-    netEditProcess.kill()
-    sys.exit("Killed netedit process. 'edit-redo.png' not found")
+# Check undo redo
+neteditUndo(match)
+neteditRedo(match)
 
 # save additionals
-click(match.getTarget().offset(-375, 5))
-click(match.getTarget().offset(-350, 265))
+# XXX add a keyboard hotkey
+click(match.getTarget().offset(-200, -80))
+click(match.getTarget().offset(-200, 180))
 
 # quit
 type("q", Key.CTRL)
-try:
-    find(netEditResources + "confirmClosingNetworkDialog.png")
-    type("y", Key.ALT)
-except:
-    netEditProcess.kill()
-    sys.exit("Killed netedit process. 'confirmClosingNetworkDialog.png' not found")
+
+# confirm unsafed network
+type("y", Key.ALT)
+type("z", Key.ALT) # work-around misinterpreted keyboard mapping
