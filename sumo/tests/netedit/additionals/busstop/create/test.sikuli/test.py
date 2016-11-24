@@ -20,6 +20,24 @@ currentOS = currentEnvironmentFile.readline().replace("\n", "")
 neteditResources = SUMOFolder + "/tests/netedit/imageResources/" + currentOS + "/"
 neteditReference = SUMOFolder + "/tests/netedit/imageResources/reference.png"
 currentEnvironmentFile.close()
+
+def neteditUndo(match):
+	type("e", Key.ALT)
+	try:
+		click(neteditResources + "edit-undo.png")
+		click(match)
+	except:
+		neteditProcess.kill()
+		sys.exit("Killed netedit process. 'edit-undo.png' not found")
+	
+def neteditRedo(match):
+	type("e", Key.ALT)
+	try:
+		click(neteditResources + "edit-redo.png")
+		click(match)
+	except:
+		neteditProcess.kill()
+		sys.exit("Killed netedit process. 'edit-redo.png' not found")
 #****#
 
 # Open netedit
@@ -170,6 +188,13 @@ type(Key.DOWN)
 
 # create a busstop forcing position
 click(match.getTarget().offset(250, 300))
+
+# Check undo redo
+for x in range(0, 6):
+	neteditUndo(match)
+
+for x in range(0, 6):
+	neteditRedo(match)
 
 # save additionals
 # XXX add a keyboard hotkey
