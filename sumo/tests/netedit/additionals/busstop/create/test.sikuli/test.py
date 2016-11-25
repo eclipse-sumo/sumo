@@ -1,44 +1,6 @@
-# Import libraries
+# import common functions for netedit tests
 import os
-import sys
-import subprocess
-
-#** Common parameters **#
-Settings.MoveMouseDelay = 0.1
-Settings.DelayBeforeDrop = 0.1
-Settings.DelayAfterDrag = 0.1
-# SUMO Folder
-SUMOFolder = os.environ.get('SUMO_HOME', '.')
-# Current environment
-currentEnvironmentFile = open(SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "r")
-# Get path to netEdit app
-neteditApp = currentEnvironmentFile.readline().replace("\n", "")
-# Get SandBox folder
-textTestSandBox = currentEnvironmentFile.readline().replace("\n", "")
-# Get resources depending of the current Operating system
-currentOS = currentEnvironmentFile.readline().replace("\n", "")
-neteditResources = SUMOFolder + "/tests/netedit/imageResources/" + currentOS + "/"
-neteditReference = SUMOFolder + "/tests/netedit/imageResources/reference.png"
-currentEnvironmentFile.close()
-
-def neteditUndo(match):
-	type("e", Key.ALT)
-	try:
-		click(neteditResources + "edit-undo.png")
-		click(match)
-	except:
-		neteditProcess.kill()
-		sys.exit("Killed netedit process. 'edit-undo.png' not found")
-	
-def neteditRedo(match):
-	type("e", Key.ALT)
-	try:
-		click(neteditResources + "edit-redo.png")
-		click(match)
-	except:
-		neteditProcess.kill()
-		sys.exit("Killed netedit process. 'edit-redo.png' not found")
-#****#
+execfile(os.environ.get('SUMO_HOME', '.') + "/tests/netedit/neteditTestFunctions.py")
 
 # Open netedit
 neteditProcess = subprocess.Popen([neteditApp,
@@ -48,7 +10,7 @@ neteditProcess = subprocess.Popen([neteditApp,
                                    '--additionals-output', textTestSandBox + "/additionals.xml"],
                                    env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
-# Wait to netedit and focus
+# Wait to netedit reference
 try:
     match = wait(neteditReference, 20)
 except:
@@ -109,33 +71,19 @@ type(Key.SPACE)
 click(match.getTarget().offset(450, 300))
 
 # change reference to right
-click(additionalsComboBox)
-for x in range(0, 8):
-	type(Key.TAB)
-	
-type(Key.DOWN)
+modifyStoppingPlaceReference(parametersReference, 8, 1)
 
 # create busstop in mode "reference right"
 click(match.getTarget().offset(300, 300))
 
 # change reference to center
-click(additionalsComboBox)
-for x in range(0, 8):
-	type(Key.TAB)
-	
-type(Key.DOWN)
+modifyStoppingPlaceReference(parametersReference, 8, 2)
 
 # create busstop in mode "reference center"
 click(match.getTarget().offset(350, 300))
 
 # return to mode "reference left"
-click(additionalsComboBox)
-
-for x in range(0, 8):
-	type(Key.TAB)
-	
-for x in range(0, 2):
-	type(Key.UP)
+modifyStoppingPlaceReference(parametersReference, 8, 0)
 
 # Change length
 click(additionalsComboBox)
@@ -149,23 +97,13 @@ paste("30")
 click(match.getTarget().offset(500, 300))
 
 # change reference to right
-click(additionalsComboBox)
-
-for x in range(0, 8):
-	type(Key.TAB)
-	
-type(Key.DOWN)
+modifyStoppingPlaceReference(parametersReference, 8, 1)
 
 # try busstop in mode "reference right" (Warning)
 click(match.getTarget().offset(250, 300))
 
 # return to mode "reference left"
-click(additionalsComboBox)
-
-for x in range(0, 8):
-	type(Key.TAB)
-	
-type(Key.UP)
+modifyStoppingPlaceReference(parametersReference, 8, 0)
 
 # enable force position
 click(additionalsComboBox)
@@ -179,31 +117,17 @@ type(Key.SPACE)
 click(match.getTarget().offset(500, 300))
 
 # change reference to right
-click(additionalsComboBox)
-
-for x in range(0, 8):
-	type(Key.TAB)
-	
-type(Key.DOWN)
+modifyStoppingPlaceReference(parametersReference, 8, 1)
 
 # create a busstop forcing position
 click(match.getTarget().offset(250, 300))
 
 # Check undo redo
-for x in range(0, 6):
-	neteditUndo(match)
-
-for x in range(0, 6):
-	neteditRedo(match)
+neteditUndo(neteditProcess, match, 6)
+neteditRedo(neteditProcess, match, 6)
 
 # save additionals
-# XXX add a keyboard hotkey
-click(match.getTarget().offset(-200, -80))
-click(match.getTarget().offset(-200, 180))
+neteditSaveAdditionals(match)
 
-# quit
-type("q", Key.CTRL)
-
-# confirm unsafed network
-type("y", Key.ALT)
-type("z", Key.ALT) # work-around misinterpreted keyboard mapping
+# quit netedit without saving
+neteditQuit(True, True)
