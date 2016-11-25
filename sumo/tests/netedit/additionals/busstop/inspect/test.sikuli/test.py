@@ -1,85 +1,12 @@
-# Import libraries
+# import common functions for netedit tests
 import os
-import sys
-import subprocess
-
-#** Common parameters **#
-Settings.MoveMouseDelay = 0.1
-Settings.DelayBeforeDrop = 0.1
-Settings.DelayAfterDrag = 0.1
-# SUMO Folder
-SUMOFolder = os.environ.get('SUMO_HOME', '.')
-# Current environment
-currentEnvironmentFile = open(SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "r")
-# Get path to netEdit app
-neteditApp = currentEnvironmentFile.readline().replace("\n", "")
-# Get SandBox folder
-textTestSandBox = currentEnvironmentFile.readline().replace("\n", "")
-# Get resources depending of the current Operating system
-currentOS = currentEnvironmentFile.readline().replace("\n", "")
-neteditResources = SUMOFolder + "/tests/netedit/imageResources/" + currentOS + "/"
-neteditReference = SUMOFolder + "/tests/netedit/imageResources/reference.png"
-currentEnvironmentFile.close()
-
-def neteditUndo(match) :
-	type("e", Key.ALT)
-	try:
-		click(neteditResources + "edit-undo.png")
-		click(match)
-	except:
-		neteditProcess.kill()
-		sys.exit("Killed netedit process. 'edit-undo.png' not found")
-	
-def neteditRedo(match) :
-	type("e", Key.ALT)
-	try:
-		click(neteditResources + "edit-redo.png")
-		click(match)
-	except:
-		neteditProcess.kill()
-		sys.exit("Killed netedit process. 'edit-redo.png' not found")
-
-def modifyAttribute(parametersReference, attributeNumber, value) :
-	click(parametersReference)
-	for x in range(0, attributeNumber) :
-		type(Key.TAB)
-	type("a", Key.CTRL)
-	paste(value)
-	type(Key.ENTER)
-	
-def waitQuestion(answer) :
-	try:
-		wait(neteditResources + "question.png", 5)
-	except:
-		neteditProcess.kill()
-		sys.exit("Killed netedit process. 'question.png' not found")
-	#Answer can be "y" or "n"
-	type(answer, Key.ALT)
-	
-	
-def neteditQuit() :
-	# quit
-	type("q", Key.CTRL)
-
-	# confirm unsafed network
-	type("y", Key.ALT)
-	type("z", Key.ALT) # work-around misinterpreted keyboard mapping
-#****#
+execfile(os.environ.get('SUMO_HOME', '.') + "/tests/netedit/neteditTestFunctions.py")
 
 # Open netedit
-neteditProcess = subprocess.Popen([neteditApp,
-                                   '--gui-testing',
-                                   '--window-size', '700,500',
-                                   '--new',
-                                   '--additionals-output', textTestSandBox + "/additionals.xml"],
-                                   env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+neteditProcess = openNetedit(True)
 
-# Wait to netedit and focus
-try:
-    match = wait(neteditReference, 20)
-except:
-    neteditProcess.kill()
-    sys.exit("Killed netedit process. 'reference.png' not found")
+# Wait to netedit reference
+match = getNeteditMatch(neteditProcess)
 
 # obtain match for additionalsComboBox
 additionalsComboBox = match.getTarget().offset(-75, 50)
@@ -110,12 +37,11 @@ type("a")
 
 # by default, additional is busstop, then isn't needed to select "busstop"
 
+# obtain reference for parameters (In this case, is the same as the additionalsComboBox)
+parametersReference = additionalsComboBox
+
 # change reference to center
-click(additionalsComboBox)
-for x in range(0, 6):
-	type(Key.TAB)
-for x in range(0, 2):
-	type(Key.DOWN)
+modifyStoppingPlaceReference(parametersReference, 6, 2)
 	
 # create first busstop in mode "reference center"
 click(match.getTarget().offset(400, 150))
@@ -128,9 +54,6 @@ type("i")
 
 # inspect first busstop
 click(match.getTarget().offset(400, 170))
-
-# obtain reference for parameters (In this case, is the same as the additionalsComboBox)
-parametersReference = additionalsComboBox
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 modifyAttribute(parametersReference, 0, "busStop_gneE1_0_1")
@@ -160,13 +83,13 @@ modifyAttribute(parametersReference, 2, "20")
 modifyAttribute(parametersReference, 3, "3000")
 
 # Answer "no" to the answer dialog
-waitQuestion("n")
+waitQuestion(neteditProcess, "n")
 
 # Change parameter 3 with a valid value (out of range, but adapted to the end of lane)
 modifyAttribute(parametersReference, 3, "3000")
 
 # Answer "yes" to the answer dialog
-waitQuestion("y")
+waitQuestion(neteditProcess, "y")
 
 # Change parameter 3 with a non valid value (<startPos)
 modifyAttribute(parametersReference, 3, "10")
@@ -183,12 +106,12 @@ modifyAttribute(parametersReference, 4, "line1 line2")
 # go to a empty area
 click(match);
 
-# Check undo redo
-for x in range(0, 13):
-	neteditUndo(match)
+# Check undos and redos
+neteditUndo(neteditProcess, match, 13)
+neteditRedo(neteditProcess, match, 13)
 
-for x in range(0, 13):
-	neteditRedo(match)
+# Save additionals
+neteditSaveAdditionals(match)
 
-# quit netedit
-neteditQuit()
+# quit netedit saving net
+neteditQuit(True, True)
