@@ -107,7 +107,15 @@ def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns) :
 	for x in range(0, numDowns):
 		type(Key.DOWN)
 	
-	
+# block additional
+def changeBlockAdditional(numTabs) :
+	click(parametersReference)
+	# place cursor in block movement checkbox
+	for x in range(0, numTabs):
+		type(Key.TAB)
+	# Change current value
+	type(Key.SPACE)
+
 # netedit wait question
 def waitQuestion(NEProcess, answer) :
 	try:
