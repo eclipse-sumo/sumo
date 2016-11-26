@@ -3,28 +3,14 @@ import os
 execfile(os.environ.get('SUMO_HOME', '.') + "/tests/netedit/neteditTestFunctions.py")
 
 # Open netedit
-neteditProcess = subprocess.Popen([neteditApp,
-                                   '--gui-testing',
-                                   '--window-size', '700,500',
-                                   '--new',
-                                   '--additionals-output', textTestSandBox + "/additionals.xml"],
-                                   env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+neteditProcess = openNetedit(True)
 
 # Wait to netedit reference
-try:
-    match = wait(neteditReference, 20)
-except:
-    neteditProcess.kill()
-    sys.exit("Killed netedit process. 'reference.png' not found")
+match = getNeteditMatch(neteditProcess)
 
-# obtain match for additionalsComboBox
-additionalsComboBox = match.getTarget().offset(-75, 50)
-	
-# Focus netedit window
-click(match)
-	
 # Change to create mode
 type("e")
+
 
 # Create two nodes
 click(match.getTarget().offset(100, 300))
@@ -32,6 +18,12 @@ click(match.getTarget().offset(500, 300))
 
 # Change to create additional
 type("a")
+
+# obtain match for additionalsComboBox
+additionalsComboBox = match.getTarget().offset(-75, 50)
+
+# obtain reference for parameters (In this case, is the same as the additionalsComboBox)
+parametersReference = additionalsComboBox
 
 # go to additionalsComboBox
 click(additionalsComboBox)
