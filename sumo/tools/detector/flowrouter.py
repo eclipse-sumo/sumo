@@ -423,17 +423,16 @@ class Net:
                 continue
             assert len(srcEdge.target.outEdges) == 1
             edge = srcEdge.target.outEdges[0]
-            vtype = ' type="%s"' % options.vtype if options.vtype else ""
             if len(srcEdge.routes) == 1:
-                print('    <flow id="src_%s%s"%s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
-                    edge.label, suffix, vtype, edge.label, suffix, srcEdge.flow, begin, end), file=emitOut)
+                print('    <flow id="src_%s%s" %s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
+                    edge.label, suffix, options.params, edge.label, suffix, srcEdge.flow, begin, end), file=emitOut)
             else:
                 ids = " ".join(["%s.%s%s" % (edge.label, id, suffix)
                                 for id in range(len(srcEdge.routes))])
                 probs = " ".join([str(route.frequency)
                                   for route in srcEdge.routes])
-                print('    <flow id="src_%s%s"%s number="%s" begin="%s" end="%s">' % (
-                    edge.label, suffix, vtype, srcEdge.flow, begin, end), file=emitOut)
+                print('    <flow id="src_%s%s" %s number="%s" begin="%s" end="%s">' % (
+                    edge.label, suffix, options.params, srcEdge.flow, begin, end), file=emitOut)
                 print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
                     ids, probs), file=emitOut)
                 print('    </flow>', file=emitOut)
@@ -564,7 +563,8 @@ optParser.add_option("-o", "--routes-output", dest="routefile",
                      help="write routes to FILE", metavar="FILE")
 optParser.add_option("-e", "--emitters-output", dest="emitfile",
                      help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
-optParser.add_option("-y", "--vtype", help="vType to use", metavar="STRING")
+optParser.add_option("-y", "--params", help="vehicle / flow params to use (vType, departPos etc.)",
+                     default='departSpeed="max" departPos="last" departLane="best"', metavar="STRING")
 optParser.add_option("-t", "--trimmed-output", dest="trimfile",
                      help="write edges of trimmed network to FILE", metavar="FILE")
 optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",

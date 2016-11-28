@@ -1,12 +1,12 @@
 """
-@file    geomhelper.py
+@file    testGeomhelper.py
 @author  Daniel Krajzewicz
 @author  Jakob Erdmann
 @author  Michael Behrisch
 @date    2013-02-25
 @version $Id$
 
-Some helper functions for geometrical computations.
+Tests for some helper functions for geometrical computations.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2016 DLR (http://www.dlr.de/) and contributors
@@ -20,8 +20,9 @@ the Free Software Foundation; either version 3 of the License, or
 import os
 import sys
 import unittest
-TOOLS_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'tools')
-sys.path.append(TOOLS_DIR)
+# Do not use SUMO_HOME here to ensure you are always testing the
+# functions from the same tree the test is in
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 import sumolib
 
 

@@ -32,7 +32,6 @@ make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STA
 ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make >> $MAKELOG 2>&1; then
   $PREFIX/sumo/unittest/src/sumo-unittest >> $MAKELOG 2>&1 || (echo "unit tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-  $PREFIX/sumo/unittest/testSuiteTools.py >> $MAKELOG 2>&1 || (echo "python unit tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
   if make install >> $MAKELOG 2>&1; then
     if test -d "$NIGHTDIR"; then
       make distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)

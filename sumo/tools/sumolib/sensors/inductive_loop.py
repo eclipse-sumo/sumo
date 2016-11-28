@@ -25,7 +25,7 @@ from xml.sax import handler, parse
 
 class InductiveLoop:
 
-    def __init__(self, id, lane, pos, frequency, file, friendlyPos=True):
+    def __init__(self, id, lane, pos, frequency=60, file="NUL", friendlyPos=True):
         self.id = id
         self.lane = lane
         self.pos = pos

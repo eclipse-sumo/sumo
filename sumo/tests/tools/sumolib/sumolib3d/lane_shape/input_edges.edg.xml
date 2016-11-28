@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+
+  <!-- straight edge both ways -->
+  <edge id="straight_with_counter"         from="a0"  to="a1" speed="13.89" width="2.0" />
+  <edge id="straight_with_counter_back"    from="a1"  to="a0" speed="13.89" width="2.0" />
+
+  <!-- straight edge one way  -->
+  <edge id="straight_no_counter"           from="b0"  to="b1" speed="13.89" width="2.0" spreadType="center"/>
+
+  <!-- sloopy edge -->
+  <edge id="sloopy_we"                     from="sloopy_west"  to="sloopy_east" speed="13.89" width="2.0"
+	                                   shape="3250,250,10" />
+  <edge id="sloopy_ew"                     from="sloopy_east"  to="sloopy_west" speed="13.89" width="2.0"
+	                                   shape="3500,200,10 3250,250,10 3000,200,10" />
+  
+
+  
+  <!-- edge to build the H both ways  -->
+  <!-- edge to build the H both ways - left side   -->
+  <edge id="left_lower_sn"           from="left_botton"  to="left_center"  speed="13.89" width="2.0" />
+  <edge id="left_upper_sn"           from="left_center"  to="left_top"     speed="13.89" width="2.0" />
+
+  <edge id="left_upper_ns"           from="left_top"     to="left_center"  speed="13.89" width="2.0" />
+  <edge id="left_lower_ns"           from="left_center"  to="left_botton"  speed="13.89" width="2.0" />
+
+  
+  <!-- edge to build the H both ways - center bar   -->
+
+  <!-- edge to build the H both ways - right side   -->
+  <edge id="center_we"               from="left_center"  to="right_center" speed="13.89" width="2.0" />
+  <edge id="center_ew"               from="right_center" to="left_center"  speed="13.89" width="2.0"
+	numLanes="2"
+ 	shape="1200,100,10 1100,125,10 1000,100,10"  lanes="2"/>
+
+  
+  <edge id="right_upper_sn"           from="right_center"  to="right_top" speed="13.89" width="2.0" />
+  <edge id="right_upper_ns"           from="right_top"     to="right_center" speed="13.89" width="2.0" />
+    
+  <edge id="right_lower_sn"           from="right_botton"  to="right_center" speed="13.89" width="2.0" />
+  <edge id="right_lower_ns"           from="right_center"  to="right_botton" speed="13.89" width="2.0" />
+
+
+</edges>
