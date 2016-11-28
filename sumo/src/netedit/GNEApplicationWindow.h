@@ -96,7 +96,10 @@ public:
     void dependentBuild();
 
     /// @brief set text of the statusBar
-    void setStatusBarText(const std::string&);
+    void setStatusBarText(const std::string& statusBarText);
+
+    /// @brief set additionals file
+    void setAdditionalsFile(const std::string& additionalsFile);
 
     /// @name Inter-thread event handling
     /// @{
@@ -326,6 +329,9 @@ protected:
 
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;
+
+    /// @brief filename for load/save additionals
+    std::string myAdditionalsFile;
 
     /**
      * @class GNEShapeHandler

@@ -1168,18 +1168,6 @@ GNENet::getShapeContainer() {
 
 
 void
-GNENet::setAdditionalsFile(const std::string& additionalFile) {
-    OptionsCont::getOptions().set("sumo-additionals-file", additionalFile);
-}
-
-
-void
-GNENet::setAdditionalsOutputFile(const std::string& additionalOutputFile) {
-    OptionsCont::getOptions().set("additionals-output", additionalOutputFile);
-}
-
-
-void
 GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
     // Check if additional element exists before insertion
     if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {

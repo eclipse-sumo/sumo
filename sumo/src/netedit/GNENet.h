@@ -428,14 +428,6 @@ public:
     /// @brief get shape container
     ShapeContainer& getShapeContainer();
 
-    /// @brief set additionals File
-    /// @note used to load additionals throught command line
-    void setAdditionalsFile(const std::string& additionalFile);
-
-    /// @brief set additionals File
-    /// @note used to set additionals output file throught command line
-    void setAdditionalsOutputFile(const std::string& additionalOutputFile);
-
     /**@brief Insert a additional element previously created in GNEAdditionalHandler
      * @param[in] additional pointer to the additional element to add
      * @param[in] hardFail enable or disable exception if additional to insert is duplicated
@@ -531,8 +523,6 @@ private:
 
     /// @brief inserts a single edge into the net and into the underlying netbuild-container
     void insertEdge(GNEEdge* edge);
-
-
 
     /// @brief registers a junction with GNENet containers
     GNEJunction* registerJunction(GNEJunction* junction);

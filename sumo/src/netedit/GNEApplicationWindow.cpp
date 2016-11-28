@@ -832,13 +832,14 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
+    // check if additionals has to be loaded at start
     if (OptionsCont::getOptions().isSet("sumo-additionals-file")) {
-        std::string additionalFile = OptionsCont::getOptions().getString("sumo-additionals-file");
-        WRITE_MESSAGE("Loading additionals from '" + additionalFile + "'");
-        GNEAdditionalHandler additionalHandler(additionalFile, myNet->getViewNet());
+        myAdditionalsFile = OptionsCont::getOptions().getString("sumo-additionals-file");
+        WRITE_MESSAGE("Loading additionals from '" + myAdditionalsFile + "'");
+        GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
         // Run parser
-        if (!XMLSubSys::runParser(additionalHandler, additionalFile, false)) {
-            WRITE_ERROR("Loading of " + additionalFile + " failed.");
+        if (!XMLSubSys::runParser(additionalHandler, myAdditionalsFile, false)) {
+            WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         }
     }
     update();
@@ -971,9 +972,15 @@ GNEApplicationWindow::loadOptionOnStartup() {
 
 
 void
-GNEApplicationWindow::setStatusBarText(const std::string& text) {
-    myStatusbar->getStatusLine()->setText(text.c_str());
-    myStatusbar->getStatusLine()->setNormalText(text.c_str());
+GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
+    myStatusbar->getStatusLine()->setText(statusBarText.c_str());
+    myStatusbar->getStatusLine()->setNormalText(statusBarText.c_str());
+}
+
+
+void
+GNEApplicationWindow::setAdditionalsFile(const std::string& additionalsFile) {
+    myAdditionalsFile = additionalsFile;
 }
 
 
@@ -1201,25 +1208,27 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
-    OptionsCont& oc = OptionsCont::getOptions();
-    std::string filename;
-    if (!oc.isSet("additionals-output")) {
-        FXString file = MFXUtils::getFilename2Write(this,
-                        "Select name of the additional file", ".xml",
-                        GUIIconSubSys::getIcon(ICON_EMPTY),
-                        gCurrentFolder);
-        if (file == "") {
-            return 1;
+    // Check if additionals file was already set at start of netedit or with a previous save
+    if (myAdditionalsFile == "") {
+        if(OptionsCont::getOptions().isSet("additionals-output") == false) {
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Select name of the additional file", ".xml",
+                            GUIIconSubSys::getIcon(ICON_EMPTY),
+                            gCurrentFolder);
+            if (file == "") {
+                // None additionals file was selected, then stop function
+                return 1;
+            } else {
+                myAdditionalsFile = file.text();
+            }
         } else {
-            oc.set("additionals-output", file.text());
-            filename = file.text();
+            myAdditionalsFile = OptionsCont::getOptions().getString("additionals-output");
         }
-    } else {
-        filename = oc.getString("additionals-output");
     }
+    // Start saving additionals
     getApp()->beginWaitCursor();
     try {
-        myNet->saveAdditionals(filename);
+        myNet->saveAdditionals(myAdditionalsFile);
         myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved.\n");
     } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
@@ -1232,17 +1241,18 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
+    // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the additional file", ".xml",
                     GUIIconSubSys::getIcon(ICON_EMPTY),
                     gCurrentFolder);
     if (file != "") {
-        OptionsCont& oc = OptionsCont::getOptions();
-        oc.set("additionals-output", file.text());
-        std::string filename = file.text();
+        // Set new additional file
+        myAdditionalsFile = file.text();
+        // Start saving additionals
         getApp()->beginWaitCursor();
         try {
-            myNet->saveAdditionals(filename);
+            myNet->saveAdditionals(myAdditionalsFile);
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved.\n");
         } catch (IOError& e) {
             FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());

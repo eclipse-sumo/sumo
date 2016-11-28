@@ -112,12 +112,6 @@ protected:
 
     /// @brief if true, a new net is created
     bool myNewNet;
-
-    /// @brief filename with additionals input
-    std::string myAdditionalFile;
-
-    /// @brief filename for the additionals output
-    std::string myAdditionalOutputFile;
 };
 
 

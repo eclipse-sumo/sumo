@@ -150,15 +150,6 @@ GNELoadThread::run() {
                 net = new GNENet(netBuilder);
             }
 
-            // enable load additionals after creation of net if was specified in the command line
-            if (myAdditionalFile != "") {
-                net->setAdditionalsFile(myAdditionalFile);
-            }
-
-            // Set additionals output file
-            if (myAdditionalOutputFile != "") {
-                net->setAdditionalsOutputFile(myAdditionalOutputFile);
-            }
         } catch (ProcessError& e) {
             if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
                 WRITE_ERROR(e.what());
@@ -219,7 +210,10 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addDescription("new", "Input", "Start with a new network");
 
     oc.doRegister("sumo-additionals-file", new Option_String());
-    oc.addDescription("sumo-additionals-file", "Input", "load additionals");
+    oc.addDescription("sumo-additionals-file", "Input", "file in which additionals are loaded");
+
+    oc.doRegister("additionals-output", new Option_String());
+    oc.addDescription("additionals-output", "Input", "file in which additionals must be saved");
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
@@ -238,9 +232,6 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("window-pos", new Option_String());
     oc.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
-
-    oc.doRegister("additionals-output", new Option_String());
-    oc.addDescription("additionals-output", "Output", "default value for additionals output file");
 
     oc.doRegister("gui-testing", new Option_Bool(false));
     oc.addDescription("gui-testing", "Visualisation", "Enable ovelay for screen recognition");
@@ -293,14 +284,7 @@ void
 GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStartupOptions, bool newNet) {
     myFile = file;
     myLoadNet = isNet;
-
     const OptionsCont& OC = OptionsCont::getOptions();
-    if (OC.isSet("sumo-additionals-file")) {
-        myAdditionalFile = OC.getString("sumo-additionals-file");
-    }
-    if (OC.isSet("additionals-output")) {
-        myAdditionalOutputFile = OC.getString("additionals-output");
-    }
 
     if (myFile != "" && !useStartupOptions) {
         OptionsIO::setArgs(0, 0);
