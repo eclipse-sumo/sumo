@@ -71,7 +71,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
-    const SUMOReal angleThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
+    const SUMOReal straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
     int edgeID = nc.size() * 10; // distinct from node ids
@@ -145,7 +145,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             // foot paths may contain sharp angles
             writeGeomLines(ls, device, elevationOSS);
         } else {
-            bool ok = writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS, angleThresh);
+            bool ok = writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS, straightThresh);
             if (!ok) {
                 WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
             }
@@ -232,7 +232,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 fallBackShape.push_back(endShape.front());
                 const bool turnaround = inEdge->isTurningDirectionAt(outEdge);
                 bool ok = true;
-                PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok);
+                PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
                 if (init.size() == 0) {
                     length = fallBackShape.length2D();
                     // problem with turnarounds is known, method currently returns 'ok' (#2539)
@@ -545,7 +545,7 @@ NWWriter_OpenDrive::writeGeomPP3(
 
 
 bool
-NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal angleThresh) {
+NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal straightThresh) {
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
@@ -576,7 +576,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
             std::cout << "   j=" << j << " dAngle=" << RAD2DEG(dAngle) << " length1=" << length1 << " length2=" << length2 << "\n";
         }
 #endif
-        if (dAngle > angleThresh
+        if (dAngle > straightThresh
                 && (length1 > longThresh || j == 1)
                 && (length2 > longThresh || j == (int)shape.size() - 2)) {
             shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 - MIN2(length1 - POSITION_EPS, curveCutout)));
@@ -592,7 +592,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
     }
 #endif
 
-    if (maxAngleDiff < angleThresh) {
+    if (maxAngleDiff < straightThresh) {
         writeGeomLines(shape2, device, elevationDevice, 0);
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND) {
@@ -650,7 +650,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
                 endShape.push_back(shape2[j + 2]);
                 endShape.add(p1 - endShape.front());
             }
-            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, 25, 25, ok);
+            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, 25, 25, ok, 0, straightThresh);
             if (init.size() == 0) {
                 // could not compute control points, write line
                 offset = writeGeomLines(line, device, elevationDevice, offset);
