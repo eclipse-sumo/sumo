@@ -843,6 +843,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 }
                 e.geom.pop_back();
             }
+            //std::cout << " adding geometry to road=" << e.id << " old=" << e.geom << " new=" << geom << "\n";
             for (PositionVector::iterator k = geom.begin(); k != geom.end(); ++k) {
                 e.geom.push_back_noDoublePos(*k);
             }
@@ -1028,10 +1029,9 @@ NIImporter_OpenDrive::geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveG
     const SUMOReal s = sin(g.hdg);
     const SUMOReal c = cos(g.hdg);
     const SUMOReal pMax = g.params[8];
-    // import with 2m resolution
     const SUMOReal pStep = pMax / ceil(g.length / PARAMPOLY3_RES);
     PositionVector ret;
-    for (SUMOReal p = 0; p < pMax + pStep; p += pStep) {
+    for (SUMOReal p = 0; p <= pMax + pStep; p += pStep) {
         SUMOReal x = g.params[0] + g.params[1] * p + g.params[2] * pow(p, 2.) + g.params[3] * pow(p, 3.);
         SUMOReal y = g.params[4] + g.params[5] * p + g.params[6] * pow(p, 2.) + g.params[7] * pow(p, 3.);
         SUMOReal xnew = x * c - y * s;
