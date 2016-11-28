@@ -495,7 +495,8 @@ NBNode::bezierControlPoints(
     SUMOReal extrapolateBeg,
     SUMOReal extrapolateEnd,
     bool& ok,
-    NBNode* recordError) {
+    NBNode* recordError, 
+    SUMOReal straightThresh) {
 
     const Position beg = begShape.back();
     const Position end = endShape.front();
@@ -532,7 +533,7 @@ NBNode::bezierControlPoints(
                 const SUMOReal displacementAngle = GeomHelper::angleDiff(begShape.angleAt2D(-2), beg.angleTo2D(end));
                 const SUMOReal bendDeg = RAD2DEG(fabs(displacementAngle - angle));
                 const SUMOReal halfDistance = dist / 2;
-                if (fabs(displacementAngle) <= DEG2RAD(5)) {
+                if (fabs(displacementAngle) <= straightThresh) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
                                                  << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";

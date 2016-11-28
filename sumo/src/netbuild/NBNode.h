@@ -41,6 +41,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/Named.h>
 #include <utils/geom/Bresenham.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
@@ -534,7 +535,7 @@ public:
     /// @brief get bezier control points
     static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
                                               bool isTurnaround, SUMOReal extrapolateBeg, SUMOReal extrapolateEnd, 
-                                              bool& ok, NBNode* recordError = 0);
+                                              bool& ok, NBNode* recordError = 0, SUMOReal straightThresh=DEG2RAD(5));
 
 
     /// @brief compute the displacement error during s-curve computation
