@@ -2,7 +2,7 @@
 """
 @file    unittest_sumolib_3d.py
 @author  Marek Heinrich
-@version $Id: unittest_sumolib_3d.py 22026 2016-11-17 08:15:22Z behrisch $
+@version $Id$
 
 This script tests sumolib 3D functions
 
