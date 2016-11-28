@@ -9,8 +9,9 @@ neteditProcess = openNetedit(False)
 match = getNeteditMatch(neteditProcess)
 
 # save additionals
-neteditSaveAdditionals(match)
+neteditSaveAdditionals(match, True)
 
 #quit without saving
-neteditQuit(False, False)
+##### BUG: Must be neteditQuit(False, False)
+neteditQuit(True, True)
 

@@ -59,7 +59,7 @@ def getNeteditMatch(NEProcess) :
 
 # netedit undo
 def neteditUndo(NEProcess, match, number) :
-	for x in range(0, number):
+	for x in range(0, number) :
 		#open "edit" options in toolbar
 		type("e", Key.ALT)
 		try:
@@ -71,7 +71,7 @@ def neteditUndo(NEProcess, match, number) :
 	
 # netedit redo
 def neteditRedo(NEProcess, match, number) :
-	for x in range(0, number):
+	for x in range(0, number) :
 		#open "edit" options in toolbar
 		type("e", Key.ALT)
 		try:
@@ -98,20 +98,20 @@ def modifyAttribute(parametersReference, attributeNumber, value) :
 def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns) :
 	click(parametersReference)
 	# place cursor in comboBox Reference
-	for x in range(0, numTabs):
+	for x in range(0, numTabs) :
 		type(Key.TAB)
 	# Set comboBox in the first element
-	for x in range(0, 3):
+	for x in range(0, 3) :
 		type(Key.UP)
 	# select new reference
-	for x in range(0, numDowns):
+	for x in range(0, numDowns) :
 		type(Key.DOWN)
 	
 # block additional
 def changeBlockAdditional(numTabs) :
 	click(parametersReference)
 	# place cursor in block movement checkbox
-	for x in range(0, numTabs):
+	for x in range(0, numTabs) :
 		type(Key.TAB)
 	# Change current value
 	type(Key.SPACE)
@@ -140,14 +140,18 @@ def neteditQuit(mustBeSaved, save) :
 	
 
 # netedit save additionals
-def neteditSaveAdditionals(match) :
+def neteditSaveAdditionals(match, neteditLoadedAtStart = False) :
 	# first move cursor
 	click(match.getTarget().offset(0, -120))
 	
 	# open file menu
 	type("f", Key.ALT)
 	
-	# select option "save additionals"
-	for x in range(0, 12):
-		type(Key.DOWN)
+	# select option "save additionals" depending of neteditLoadedAtStart
+	if(neteditLoadedAtStart == True) :
+		for x in range(0, 13) :
+			type(Key.DOWN)
+	else :
+		for x in range(0, 12) :
+			type(Key.DOWN)
 	type(Key.ENTER)
