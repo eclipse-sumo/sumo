@@ -60,26 +60,12 @@ def getNeteditMatch(NEProcess) :
 # netedit undo
 def neteditUndo(NEProcess, match, number) :
     for x in range(0, number) :
-        #open "edit" options in toolbar
-        type("e", Key.ALT)
-        try:
-            click(neteditResourceEditUndo)
-            click(match)
-        except:
-            NEProcess.kill()
-            sys.exit("Killed netedit process. Image resource 'edit-undo.png' not found")
+        type("z", Key.CTRL)
     
 # netedit redo
 def neteditRedo(NEProcess, match, number) :
     for x in range(0, number) :
-        #open "edit" options in toolbar
-        type("e", Key.ALT)
-        try:
-            click(neteditResourceEditRedo)
-            click(match)
-        except:
-            NEProcess.kill()
-            sys.exit("Killed netedit process. Image resource 'edit-redo.png' not found")
+        type("y", Key.CTRL)
 
         
 # netedit modify attribute
@@ -141,8 +127,8 @@ def neteditQuit(mustBeSaved, save) :
 
 # netedit save additionals
 def neteditSaveAdditionals(match, neteditLoadedAtStart = False) :
-    # first move cursor
-    click(match.getTarget().offset(0, -120))
+    # first move cursor to ensure no menu item is highlighted
+    hover(match.getTarget().offset(0, -120))
     
     # open file menu
     type("f", Key.ALT)
