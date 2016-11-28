@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Nov 17 10:51:49 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 28 14:57:25 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="70.66" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -801,15 +801,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_0_0" length="3.94" id="119" junction="3">
+    <road name=":4_0_0" length="3.97" id="119" junction="3">
         <link>
             <predecessor elementType="road" elementId="102" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="1496.27821913" y="10.50482283" hdg="-2.92275955" length="3.93762987">
-                <line/>
+            <geometry s="0.00000000" x="1496.27821913" y="10.50482283" hdg="-2.85488263" length="3.96776271">
+                <paramPoly3 aU="-0.00000000" bU="5.90644480" cU="-5.69254274" dU="3.71466041" aV="0.00000000" bV="0.00000000" cV="0.86912427" dV="-1.13619326"/>
             </geometry>
         </planView>
         <elevationProfile>

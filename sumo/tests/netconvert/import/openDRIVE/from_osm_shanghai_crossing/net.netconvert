@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 15:44:02 2016 by SUMO netconvert Version dev-SVN-r21818
+<!-- generated on Mon Nov 28 14:57:25 2016 by SUMO netconvert Version dev-SVN-r22106
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -35,6 +35,8 @@
         <osm.layer-elevation value="6"/>
         <no-internal-links value="false"/>
         <geometry.remove value="true"/>
+        <geometry.check-overlap value="3"/>
+        <geometry.check-overlap.vertical-threshold value="2"/>
         <roundabouts.guess value="true"/>
         <junctions.join value="false"/>
         <junctions.scurve-stretch value="0.8"/>
@@ -161,8 +163,8 @@
         <lane id=":12262310#0-AddedOffRampNode_0_4" index="4" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="20.99" shape="1326.19,3101.32,14.98 1327.65,3080.46,14.98"/>
     </edge>
     <edge id=":154902031_0" function="internal">
-        <lane id=":154902031_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="12.46" shape="1425.92,2686.40,12.37 1426.43,2683.31,12.37 1426.35,2680.79,12.37 1425.97,2678.05,12.37 1425.55,2674.29,12.37"/>
-        <lane id=":154902031_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="12.46" shape="1425.92,2686.40,12.37 1428.84,2674.04,12.37"/>
+        <lane id=":154902031_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="12.52" shape="1425.92,2686.40,12.37 1426.43,2683.31,12.37 1426.35,2680.79,12.37 1425.97,2678.05,12.37 1425.55,2674.29,12.37"/>
+        <lane id=":154902031_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="12.52" shape="1425.92,2686.40,12.37 1426.94,2683.31,12.37 1428.00,2680.77,12.37 1428.75,2677.96,12.37 1428.84,2674.04,12.37"/>
     </edge>
     <edge id=":154902118_0" function="internal">
         <lane id=":154902118_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="3.53" shape="1406.75,2624.36,12.37 1406.20,2623.47,12.37 1405.77,2622.89,12.37 1405.25,2622.38,12.37 1404.45,2621.72,12.37"/>
@@ -170,7 +172,7 @@
     <edge id=":15525299#0-AddedOffRampNode_0" function="internal">
         <lane id=":15525299#0-AddedOffRampNode_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="21.71" shape="1378.56,2779.25,14.44 1379.45,2775.29,14.44 1379.63,2770.20,14.44 1380.52,2764.19,14.44 1383.56,2757.46,14.44"/>
         <lane id=":15525299#0-AddedOffRampNode_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="21.71" shape="1378.56,2779.25,14.44 1379.92,2775.52,14.44 1381.10,2770.96,14.44 1382.96,2765.55,14.44 1386.32,2759.27,14.44"/>
-        <lane id=":15525299#0-AddedOffRampNode_0_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="21.71" shape="1378.56,2779.25,14.44 1389.08,2761.08,14.44"/>
+        <lane id=":15525299#0-AddedOffRampNode_0_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="21.71" shape="1378.56,2779.25,14.44 1380.37,2775.77,14.44 1382.53,2771.79,14.44 1385.34,2767.00,14.44 1389.08,2761.08,14.44"/>
     </edge>
     <edge id=":160077492#0-AddedOnRampNode_0" function="internal">
         <lane id=":160077492#0-AddedOnRampNode_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="3.01" shape="1341.55,3079.02,17.27 1341.67,3082.03,17.27"/>
@@ -214,28 +216,28 @@
         <lane id=":178702256#1-AddedOnRampNode_0_3" index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="0.30" shape="2013.49,2868.93,15.35 2013.22,2868.80,15.35"/>
     </edge>
     <edge id=":1890531875_0" function="internal">
-        <lane id=":1890531875_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="5.00" shape="2166.34,2964.60 2162.09,2961.96"/>
+        <lane id=":1890531875_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="5.00" shape="2166.34,2964.60 2165.04,2963.88 2164.17,2963.36 2163.32,2962.79 2162.09,2961.96"/>
     </edge>
     <edge id=":1890531875_1" function="internal">
         <lane id=":1890531875_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="5.47" shape="2168.62,2961.96 2167.14,2961.29 2166.18,2960.75 2165.25,2960.12 2163.91,2959.21"/>
     </edge>
     <edge id=":1890531922_0" function="internal">
-        <lane id=":1890531922_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="2.49" shape="1918.67,2790.63,8.39 1920.85,2791.85,8.39"/>
+        <lane id=":1890531922_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="2.50" shape="1918.67,2790.63,8.39 1919.34,2790.95,8.39 1919.79,2791.19,8.39 1920.22,2791.45,8.39 1920.85,2791.85,8.39"/>
     </edge>
     <edge id=":1890531922_1" function="internal">
-        <lane id=":1890531922_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="1.88" shape="1917.27,2793.62,8.39 1919.25,2794.60,8.39"/>
-        <lane id=":1890531922_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="1.88" shape="1915.87,2796.60,8.39 1917.56,2797.43,8.39"/>
-        <lane id=":1890531922_1_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="1.88" shape="1914.46,2799.59,8.39 1915.87,2800.26,8.39"/>
+        <lane id=":1890531922_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="1.89" shape="1917.27,2793.62,8.39 1917.87,2793.89,8.39 1918.28,2794.07,8.39 1918.68,2794.27,8.39 1919.25,2794.60,8.39"/>
+        <lane id=":1890531922_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="1.89" shape="1915.87,2796.60,8.39 1916.38,2796.83,8.39 1916.73,2796.99,8.39 1917.07,2797.15,8.39 1917.56,2797.43,8.39"/>
+        <lane id=":1890531922_1_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="1.89" shape="1914.46,2799.59,8.39 1914.89,2799.78,8.39 1915.18,2799.90,8.39 1915.46,2800.04,8.39 1915.87,2800.26,8.39"/>
     </edge>
     <edge id=":1890531930_0" function="internal">
-        <lane id=":1890531930_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="2.72" shape="2144.81,2910.66,8.39 2147.06,2912.18,8.39"/>
+        <lane id=":1890531930_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="2.72" shape="2144.81,2910.66,8.39 2145.50,2911.07,8.39 2145.97,2911.37,8.39 2146.41,2911.70,8.39 2147.06,2912.18,8.39"/>
     </edge>
     <edge id=":1890531930_1" function="internal">
-        <lane id=":1890531930_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="2.13" shape="2143.15,2913.52,8.39 2145.13,2914.76,8.39"/>
-        <lane id=":1890531930_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="2.13" shape="2141.50,2916.38,8.39 2143.14,2917.39,8.39"/>
+        <lane id=":1890531930_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="2.13" shape="2143.15,2913.52,8.39 2143.76,2913.86,8.39 2144.17,2914.10,8.39 2144.57,2914.35,8.39 2145.13,2914.76,8.39"/>
+        <lane id=":1890531930_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="2.13" shape="2141.50,2916.38,8.39 2142.00,2916.66,8.39 2142.34,2916.85,8.39 2142.67,2917.06,8.39 2143.14,2917.39,8.39"/>
     </edge>
     <edge id=":1890531937_0" function="internal">
-        <lane id=":1890531937_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="2.67" shape="1797.75,2746.51,8.39 1800.08,2747.82,8.39"/>
+        <lane id=":1890531937_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="2.67" shape="1797.75,2746.51,8.39 1798.46,2746.86,8.39 1798.94,2747.12,8.39 1799.41,2747.40,8.39 1800.08,2747.82,8.39"/>
     </edge>
     <edge id=":1890531937_1" function="internal">
         <lane id=":1890531937_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="3.06" shape="1796.31,2749.48,8.39 1799.03,2750.69,8.39"/>
@@ -269,8 +271,8 @@
         <lane id=":477602055_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="2.68" shape="1637.31,2528.10,15.00 1635.65,2530.20,15.00"/>
     </edge>
     <edge id=":477602055_1" function="internal">
-        <lane id=":477602055_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="3.32" shape="1634.74,2526.03,15.00 1632.42,2528.64,15.00"/>
-        <lane id=":477602055_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="3.32" shape="1632.17,2523.96,15.00 1630.07,2526.32,15.00"/>
+        <lane id=":477602055_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="3.33" shape="1634.74,2526.03,15.00 1634.09,2526.84,15.00 1633.63,2527.38,15.00 1633.15,2527.90,15.00 1632.42,2528.64,15.00"/>
+        <lane id=":477602055_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="3.33" shape="1632.17,2523.96,15.00 1631.58,2524.69,15.00 1631.17,2525.18,15.00 1630.73,2525.65,15.00 1630.07,2526.32,15.00"/>
     </edge>
     <edge id=":477602071_0" function="internal">
         <lane id=":477602071_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="8.30" shape="1607.49,2571.64,12.56 1606.68,2573.86,12.56 1606.57,2575.52,12.56 1606.60,2577.23,12.56 1606.20,2579.61,12.56"/>
@@ -291,8 +293,8 @@
         <lane id=":477603212_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="5.06" shape="1640.87,2711.76,18.00 1636.40,2709.38,18.00"/>
     </edge>
     <edge id=":477603212_1" function="internal">
-        <lane id=":477603212_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="4.74" shape="1642.27,2708.77,18.00 1637.97,2706.37,18.00"/>
-        <lane id=":477603212_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="4.74" shape="1643.67,2705.78,18.00 1639.69,2703.56,18.00"/>
+        <lane id=":477603212_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="4.75" shape="1642.27,2708.77,18.00 1640.95,2708.13,18.00 1640.07,2707.66,18.00 1639.21,2707.14,18.00 1637.97,2706.37,18.00"/>
+        <lane id=":477603212_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="4.75" shape="1643.67,2705.78,18.00 1642.45,2705.19,18.00 1641.63,2704.75,18.00 1640.84,2704.27,18.00 1639.69,2703.56,18.00"/>
     </edge>
     <edge id=":477603243_0" function="internal">
         <lane id=":477603243_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="8.38" shape="1554.02,2679.17,18.00 1551.62,2679.20,18.00 1550.01,2679.67,18.00 1548.39,2680.28,18.00 1545.99,2680.70,18.00"/>
@@ -338,11 +340,11 @@
         <lane id=":600144559_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.59" shape="1627.83,2509.97,24.00 1623.22,2514.50,24.00 1619.43,2517.11,24.00 1615.74,2519.61,24.00 1611.37,2523.80,24.00"/>
     </edge>
     <edge id=":63288809_0" function="internal">
-        <lane id=":63288809_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="12.88" shape="1463.78,2582.93,18.00 1466.96,2583.04,18.00 1469.61,2582.71,18.00 1472.53,2582.27,18.00 1476.52,2582.06,18.00"/>
-        <lane id=":63288809_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="12.88" shape="1463.78,2582.93,18.00 1476.51,2585.36,18.00"/>
+        <lane id=":63288809_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="12.90" shape="1463.78,2582.93,18.00 1466.96,2583.04,18.00 1469.61,2582.71,18.00 1472.53,2582.27,18.00 1476.52,2582.06,18.00"/>
+        <lane id=":63288809_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="12.90" shape="1463.78,2582.93,18.00 1466.95,2583.56,18.00 1469.57,2584.36,18.00 1472.48,2585.06,18.00 1476.51,2585.36,18.00"/>
     </edge>
     <edge id=":63288811_0" function="internal">
-        <lane id=":63288811_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="11.29" shape="1518.38,2574.97,18.00 1529.13,2571.52,18.00"/>
+        <lane id=":63288811_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="11.34" shape="1518.38,2574.97,18.00 1521.67,2573.90,18.00 1524.10,2573.41,18.00 1526.37,2572.83,18.00 1529.13,2571.52,18.00"/>
     </edge>
     <edge id=":63288812_0" function="internal">
         <lane id=":63288812_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="12.40" shape="1571.96,2539.25,18.00 1574.03,2536.88,18.00 1575.31,2534.63,18.00 1576.69,2532.15,18.00 1579.02,2529.12,18.00"/>
@@ -352,10 +354,10 @@
         <lane id=":63288812_1_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="14.71" shape="1575.33,2545.54,18.00 1578.17,2542.23,18.00 1579.72,2539.64,18.00 1581.21,2537.00,18.00 1583.91,2533.55,18.00"/>
     </edge>
     <edge id=":64841426_0" function="internal">
-        <lane id=":64841426_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.90" shape="1424.62,2742.98,24.00 1421.53,2748.11,24.00 1420.16,2752.24,24.00 1419.04,2756.66,24.00 1416.73,2762.64,24.00"/>
-        <lane id=":64841426_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.90" shape="1421.96,2741.03,24.00 1418.84,2746.20,24.00 1417.39,2750.46,24.00 1416.17,2755.05,24.00 1413.74,2761.22,24.00"/>
-        <lane id=":64841426_0_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.90" shape="1421.96,2741.03,24.00 1418.38,2745.98,24.00 1415.90,2749.74,24.00 1413.66,2753.84,24.00 1410.76,2759.81,24.00"/>
-        <lane id=":64841426_0_3" index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.90" shape="1421.96,2741.03,24.00 1407.78,2758.40,24.00"/>
+        <lane id=":64841426_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.93" shape="1424.62,2742.98,24.00 1421.53,2748.11,24.00 1420.16,2752.24,24.00 1419.04,2756.66,24.00 1416.73,2762.64,24.00"/>
+        <lane id=":64841426_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.93" shape="1421.96,2741.03,24.00 1418.84,2746.20,24.00 1417.39,2750.46,24.00 1416.17,2755.05,24.00 1413.74,2761.22,24.00"/>
+        <lane id=":64841426_0_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.93" shape="1421.96,2741.03,24.00 1418.38,2745.98,24.00 1415.90,2749.74,24.00 1413.66,2753.84,24.00 1410.76,2759.81,24.00"/>
+        <lane id=":64841426_0_3" index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="21.93" shape="1421.96,2741.03,24.00 1417.93,2745.72,24.00 1414.45,2748.94,24.00 1411.19,2752.54,24.00 1407.78,2758.40,24.00"/>
     </edge>
     <edge id=":64841428_0" function="internal">
         <lane id=":64841428_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="2.98" shape="1343.22,3029.04,18.00 1342.94,3032.05,18.00"/>
