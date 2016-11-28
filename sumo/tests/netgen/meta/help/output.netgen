@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r22044
+SUMO netgenerate Version dev-SVN-r22106
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -93,6 +93,9 @@ Output Options:
   --output.original-names              Writes original names, if given, as
                                          parameter
   --street-sign-output FILE            Writes street signs as POIs to FILE
+  --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
+                                         whenever the angular change  between
+                                         straight segments exceeds FLOAT degrees
 
 TLS Building Options:
   --tls.set STR                        Interprets STR as list of junctions to

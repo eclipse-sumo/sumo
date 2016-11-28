@@ -147,6 +147,9 @@
         <!-- Writes street signs as POIs to FILE -->
         <street-sign-output value="" type="FILE"/>
 
+        <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
+        <opendrive-output.straight-threshold value="5" type="FLOAT"/>
+
     </output>
 
     <tls_building>

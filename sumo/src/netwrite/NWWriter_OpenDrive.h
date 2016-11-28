@@ -66,8 +66,11 @@ protected:
     /// @brief write geometry as sequence of lines (sumo style)
     static SUMOReal writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset = 0);
 
-    /// @brief write geometry as sequence of lines and bezier curves
-    static bool writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice);
+    /* @brief write geometry as sequence of lines and bezier curves
+     *
+     * @param[in] angleThresh changes below threshold are considered to be straight and no curve will be fitted between the segments
+     */
+    static bool writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal angleThresh);
 
     /// @brief write geometry as a single bezier curve (paramPoly3)
     static SUMOReal writeGeomPP3(OutputDevice& device,

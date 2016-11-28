@@ -71,6 +71,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
+    const SUMOReal angleThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
     int edgeID = nc.size() * 10; // distinct from node ids
@@ -144,7 +145,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             // foot paths may contain sharp angles
             writeGeomLines(ls, device, elevationOSS);
         } else {
-            bool ok = writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS);
+            bool ok = writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS, angleThresh);
             if (!ok) {
                 WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
             }
@@ -544,14 +545,13 @@ NWWriter_OpenDrive::writeGeomPP3(
 
 
 bool
-NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice) {
+NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal angleThresh) {
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
     }
 #endif
     bool ok = true;
-    const SUMOReal angleThresh = DEG2RAD(5); // changes below thresh are considered to be straight (make configurable)
     const SUMOReal longThresh = speed; //  16.0; // make user-configurable (should match the sampling rate of the source data)
     const SUMOReal curveCutout = longThresh / 2; // 8.0; // make user-configurable (related to the maximum turning rate)
     // the length of the segment that is added for cutting a corner can be bounded by 2*curveCutout (prevent the segment to be classified as 'long')
