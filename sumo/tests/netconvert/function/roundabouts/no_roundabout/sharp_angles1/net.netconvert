@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:40 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Mon Nov 28 14:38:25 2016 by SUMO netconvert Version dev-SVN-r22106
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,11 +42,11 @@
         <lane id=":54536788_0_0" index="0" speed="13.89" length="4.82" shape="11840.27,16140.91 11839.16,16141.90 11838.26,16142.10 11837.56,16141.49 11837.07,16140.09"/>
     </edge>
     <edge id=":n0_0" function="internal">
-        <lane id=":n0_0_0" index="0" speed="13.89" length="0.27" shape="11742.92,15899.35 11742.80,15899.10"/>
+        <lane id=":n0_0_0" index="0" speed="13.89" length="0.27" shape="11742.92,15899.35 11742.88,15899.28 11742.85,15899.23 11742.83,15899.18 11742.80,15899.10"/>
     </edge>
     <edge id=":n1_0" function="internal">
-        <lane id=":n1_0_0" index="0" speed="13.89" length="16.36" shape="11732.47,15838.94 11738.59,15853.50"/>
-        <lane id=":n1_0_1" index="1" speed="13.89" length="16.36" shape="11729.38,15840.10 11736.07,15855.64"/>
+        <lane id=":n1_0_0" index="0" speed="13.89" length="16.55" shape="11732.47,15838.94 11733.88,15843.49 11734.65,15846.74 11735.86,15849.73 11738.59,15853.50"/>
+        <lane id=":n1_0_1" index="1" speed="13.89" length="16.55" shape="11729.38,15840.10 11730.91,15844.96 11731.79,15848.42 11733.13,15851.60 11736.07,15855.64"/>
     </edge>
     <edge id=":n1_2" function="internal">
         <lane id=":n1_2_0" index="0" speed="13.89" length="18.24" shape="11721.26,15846.36 11724.25,15846.31 11727.72,15847.84 11731.66,15850.95 11736.07,15855.64"/>
@@ -59,10 +59,10 @@
         <lane id=":n1_4_1" index="1" speed="13.89" length="11.20" shape="11728.07,15852.02 11728.57,15849.01 11728.35,15846.73 11727.54,15844.41 11726.29,15841.26"/>
     </edge>
     <edge id=":n1_6" function="internal">
-        <lane id=":n1_6_0" index="0" speed="13.89" length="6.15" shape="11728.07,15852.02 11728.99,15850.56 11730.62,15850.67 11732.89,15852.30"/>
+        <lane id=":n1_6_0" index="0" speed="13.89" length="4.03" shape="11728.07,15852.02 11728.99,15850.56 11730.62,15850.67 11731.17,15851.06"/>
     </edge>
     <edge id=":n1_7" function="internal">
-        <lane id=":n1_7_0" index="0" speed="13.89" length="4.61" shape="11732.89,15852.30 11732.98,15852.37 11736.07,15855.64"/>
+        <lane id=":n1_7_0" index="0" speed="13.89" length="6.73" shape="11731.17,15851.06 11732.98,15852.37 11736.07,15855.64"/>
     </edge>
     <edge id=":n2_0" function="internal">
         <lane id=":n2_0_0" index="0" speed="13.89" length="0.73" shape="11755.23,15896.32 11755.27,15896.42 11755.30,15896.49 11755.33,15896.55 11755.39,15896.64"/>
@@ -156,7 +156,7 @@
         <request index="2" response="001" foes="001" cont="1"/>
     </junction>
 
-    <junction id=":n1_7_0" type="internal" x="11732.89" y="15852.30" incLanes=":n1_6_0 51811895_0 51811895_1" intLanes=":n1_0_0 :n1_0_1 :n1_2_0"/>
+    <junction id=":n1_7_0" type="internal" x="11731.17" y="15851.06" incLanes=":n1_6_0 51811895_0 51811895_1" intLanes=":n1_0_0 :n1_0_1 :n1_2_0"/>
     <junction id=":n4_3_0" type="internal" x="11850.23" y="16051.98" incLanes=":n4_2_0 -51805615_0" intLanes=":n4_0_0"/>
 
     <connection from="-51805615" to="e0" fromLane="0" toLane="0" via=":n4_0_0" dir="s" state="M"/>

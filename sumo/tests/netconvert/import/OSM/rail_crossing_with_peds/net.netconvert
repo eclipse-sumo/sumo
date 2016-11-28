@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  3 16:21:19 2016 by SUMO netconvert Version dev-SVN-r21890
+<!-- generated on Mon Nov 28 14:38:22 2016 by SUMO netconvert Version dev-SVN-r22106
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -73,7 +73,7 @@
         <lane id=":1398803915_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="4.82" shape="1999.58,721.01 1998.45,721.98 1997.54,722.15 1996.86,721.53 1996.40,720.12"/>
     </edge>
     <edge id=":1403553705_0" function="internal">
-        <lane id=":1403553705_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="4.43" shape="2031.61,744.12 2027.23,743.51"/>
+        <lane id=":1403553705_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="4.43" shape="2031.61,744.12 2030.32,743.87 2029.43,743.72 2028.54,743.61 2027.23,743.51"/>
     </edge>
     <edge id=":1403553705_1" function="internal">
         <lane id=":1403553705_1_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="2.41" shape="2031.61,744.12 2030.55,743.08 2030.30,742.19"/>
@@ -82,19 +82,19 @@
         <lane id=":1403553705_4_0" index="0" speed="8.33" length="2.41" shape="2030.30,742.19 2030.85,741.46 2032.22,740.88"/>
     </edge>
     <edge id=":1403553705_2" function="internal">
-        <lane id=":1403553705_2_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="4.82" shape="2027.45,740.22 2032.22,740.88"/>
+        <lane id=":1403553705_2_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="4.82" shape="2027.45,740.22 2028.88,740.33 2029.85,740.44 2030.82,740.61 2032.22,740.88"/>
     </edge>
     <edge id=":1403553705_3" function="internal">
-        <lane id=":1403553705_3_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="2.58" shape="2027.45,740.22 2028.63,741.13 2028.99,741.98 2028.90,742.13"/>
+        <lane id=":1403553705_3_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="2.41" shape="2027.45,740.22 2028.63,741.13 2028.99,741.98"/>
     </edge>
     <edge id=":1403553705_5" function="internal">
-        <lane id=":1403553705_5_0" index="0" speed="8.33" length="2.24" shape="2028.90,742.13 2028.52,742.77 2027.23,743.51"/>
+        <lane id=":1403553705_5_0" index="0" speed="8.33" length="2.41" shape="2028.99,741.98 2028.52,742.77 2027.23,743.51"/>
     </edge>
     <edge id=":247120010_0" function="internal">
-        <lane id=":247120010_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="10.04" shape="2005.35,745.81 1996.35,750.25"/>
+        <lane id=":247120010_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="10.05" shape="2005.35,745.81 2002.61,746.96 2000.77,747.85 1998.96,748.83 1996.35,750.25"/>
     </edge>
     <edge id=":247120010_1" function="internal">
-        <lane id=":247120010_1_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="10.35" shape="1994.80,747.33 2004.08,742.76"/>
+        <lane id=":247120010_1_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="10.36" shape="1994.80,747.33 1997.46,745.89 1999.36,744.87 2001.30,743.93 2004.08,742.76"/>
     </edge>
     <edge id=":247120010_2" function="internal">
         <lane id=":247120010_2_0" index="0" allow="rail rail_electric" speed="33.33" length="14.76" shape="1999.46,752.89 2003.84,738.79"/>
@@ -151,19 +151,19 @@
         <lane id=":2476940083_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.15" width="4.00" shape="2021.43,735.14 2022.40,731.26 2021.09,732.40 2020.46,734.30"/>
     </edge>
     <edge id=":267009909_0" function="internal">
-        <lane id=":267009909_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="6.46" shape="2025.14,743.37 2018.68,743.24"/>
+        <lane id=":267009909_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="6.47" shape="2025.14,743.37 2023.23,743.24 2021.91,743.17 2020.60,743.18 2018.68,743.24"/>
     </edge>
     <edge id=":267009909_1" function="internal">
         <lane id=":267009909_1_0" index="0" allow="rail_urban" speed="27.78" length="9.13" shape="2022.44,737.93 2020.01,746.74"/>
     </edge>
     <edge id=":267009909_2" function="internal">
-        <lane id=":267009909_2_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="6.82" shape="2018.55,739.95 2025.37,740.08"/>
+        <lane id=":267009909_2_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="6.83" shape="2018.55,739.95 2020.57,739.88 2021.96,739.87 2023.34,739.94 2025.37,740.08"/>
     </edge>
     <edge id=":291194164_0" function="internal">
-        <lane id=":291194164_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="6.57" shape="2018.48,743.25 2011.95,744.01"/>
+        <lane id=":291194164_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="6.58" shape="2018.48,743.25 2016.53,743.35 2015.20,743.47 2013.88,743.68 2011.95,744.01"/>
     </edge>
     <edge id=":291194164_1" function="internal">
-        <lane id=":291194164_1_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="7.00" shape="2011.40,740.76 2018.35,739.96"/>
+        <lane id=":291194164_1_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="7.01" shape="2011.40,740.76 2013.45,740.40 2014.85,740.19 2016.27,740.06 2018.35,739.96"/>
     </edge>
     <edge id=":291194164_2" function="internal">
         <lane id=":291194164_2_0" index="0" allow="rail_urban" speed="27.78" length="11.37" shape="2013.80,747.41 2016.97,736.50"/>
@@ -353,7 +353,7 @@
     </junction>
 
     <junction id=":1403553705_4_0" type="internal" x="2030.30" y="742.19" incLanes=":1403553705_1_0 126100196#4_0" intLanes=":1403553705_2_0"/>
-    <junction id=":1403553705_5_0" type="internal" x="2028.90" y="742.13" incLanes=":1403553705_3_0 -126654660_0" intLanes=":1403553705_0_0"/>
+    <junction id=":1403553705_5_0" type="internal" x="2028.99" y="741.98" incLanes=":1403553705_3_0 -126654660_0" intLanes=":1403553705_0_0"/>
 
     <connection from="-126100196#0" to="4930543" fromLane="0" toLane="0" via=":56455689_0_0" dir="t" state="M"/>
     <connection from="-126100196#1" to="-126100196#0" fromLane="0" toLane="0" via=":247120010_0_0" tl="247120010" linkIndex="0" dir="s" state="o"/>

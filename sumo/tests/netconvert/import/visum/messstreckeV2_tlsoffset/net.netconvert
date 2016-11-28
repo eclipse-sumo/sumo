@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:31 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Mon Nov 28 14:38:19 2016 by SUMO netconvert Version dev-SVN-r22106
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -135,7 +135,7 @@
         <lane id=":15_0_0" index="0" speed="13.89" length="5.93" shape="1062.57,556.92 1061.82,555.50 1060.84,554.96 1059.62,555.33 1058.16,556.59"/>
     </edge>
     <edge id=":15_1" function="internal">
-        <lane id=":15_1_0" index="0" speed="13.89" length="6.95" shape="1062.57,556.92 1060.37,550.33"/>
+        <lane id=":15_1_0" index="0" speed="13.89" length="7.00" shape="1062.57,556.92 1061.79,554.99 1061.14,553.69 1060.66,552.36 1060.37,550.33"/>
     </edge>
     <edge id=":15_2" function="internal">
         <lane id=":15_2_0" index="0" speed="13.89" length="4.13" shape="1055.74,554.35 1056.38,553.51 1056.82,552.60 1057.05,551.61 1057.08,550.56"/>
@@ -177,12 +177,12 @@
         <lane id=":23_3_1" index="1" speed="19.44" length="3.08" shape="503.38,538.50 506.39,538.26"/>
     </edge>
     <edge id=":24_0" function="internal">
-        <lane id=":24_0_0" index="0" speed="13.89" length="2.40" shape="435.56,661.90 435.57,664.30"/>
+        <lane id=":24_0_0" index="0" speed="13.89" length="2.41" shape="435.56,661.90 435.62,662.61 435.63,663.10 435.62,663.59 435.57,664.30"/>
     </edge>
     <edge id=":24_1" function="internal">
         <lane id=":24_1_0" index="0" speed="13.89" length="4.11" shape="432.28,664.10 425.70,662.76"/>
         <lane id=":24_1_1" index="1" speed="13.89" length="4.11" shape="432.28,664.10 428.99,662.47"/>
-        <lane id=":24_1_2" index="2" speed="13.89" length="4.11" shape="432.28,664.10 432.27,662.18"/>
+        <lane id=":24_1_2" index="2" speed="13.89" length="4.11" shape="432.28,664.10 432.32,663.53 432.33,663.14 432.32,662.75 432.27,662.18"/>
     </edge>
     <edge id=":25_0" function="internal">
         <lane id=":25_0_0" index="0" speed="13.89" length="0.25" shape="414.37,445.27 414.34,445.02"/>
@@ -353,10 +353,10 @@
         <lane id=":8_0_1" index="1" speed="19.44" length="8.77" shape="1684.14,475.25 1682.14,473.59 1681.20,471.87 1680.21,470.26 1678.07,468.91"/>
     </edge>
     <edge id=":8_2" function="internal">
-        <lane id=":8_2_0" index="0" speed="16.67" length="3.79" shape="1685.71,472.34 1683.84,470.66 1683.42,469.46"/>
+        <lane id=":8_2_0" index="0" speed="16.67" length="4.07" shape="1685.71,472.34 1683.84,470.66 1683.33,469.19"/>
     </edge>
     <edge id=":8_8" function="internal">
-        <lane id=":8_8_0" index="0" speed="16.67" length="8.77" shape="1683.42,469.46 1682.99,468.20 1683.18,464.97 1684.40,460.95"/>
+        <lane id=":8_8_0" index="0" speed="16.67" length="8.48" shape="1683.33,469.19 1682.99,468.20 1683.18,464.97 1684.40,460.95"/>
     </edge>
     <edge id=":8_3" function="internal">
         <lane id=":8_3_0" index="0" speed="16.67" length="5.11" shape="1687.47,462.16 1687.11,463.56 1687.22,464.75 1687.81,465.75 1688.85,466.54"/>
@@ -368,8 +368,8 @@
         <lane id=":8_5_0" index="0" speed="16.67" length="4.98" shape="1680.39,462.74 1681.72,463.03 1682.83,462.83 1683.72,462.14 1684.40,460.95"/>
     </edge>
     <edge id=":8_6" function="internal">
-        <lane id=":8_6_0" index="0" speed="19.44" length="9.05" shape="1680.39,462.74 1688.85,466.54"/>
-        <lane id=":8_6_1" index="1" speed="19.44" length="9.05" shape="1679.23,465.83 1687.28,469.44"/>
+        <lane id=":8_6_0" index="0" speed="19.44" length="9.07" shape="1680.39,462.74 1682.97,463.71 1684.72,464.42 1686.42,465.24 1688.85,466.54"/>
+        <lane id=":8_6_1" index="1" speed="19.44" length="9.07" shape="1679.23,465.83 1681.69,466.75 1683.35,467.43 1684.97,468.21 1687.28,469.44"/>
     </edge>
     <edge id=":9_0" function="internal">
         <lane id=":9_0_0" index="0" speed="16.67" length="5.07" shape="1768.30,544.11 1767.16,543.30 1766.05,543.07 1764.97,543.42 1763.92,544.34"/>
@@ -776,7 +776,7 @@
     <junction id=":4_8_0" type="internal" x="582.99" y="534.99" incLanes=":4_7_0 -33_0 -33_1" intLanes=":4_1_0 :4_2_0 :4_3_0 :4_3_1"/>
     <junction id=":6_6_0" type="internal" x="1083.61" y="489.97" incLanes=":6_5_0 -6_0 -6_1" intLanes=":6_1_0 :6_1_1"/>
     <junction id=":7_8_0" type="internal" x="1452.26" y="457.10" incLanes=":7_7_0 -7_0 -7_1" intLanes=":7_1_0 :7_2_0 :7_3_0 :7_3_1"/>
-    <junction id=":8_8_0" type="internal" x="1683.42" y="469.46" incLanes=":8_2_0 7_0 7_1" intLanes=":8_4_0 :8_5_0 :8_6_0 :8_6_1"/>
+    <junction id=":8_8_0" type="internal" x="1683.33" y="469.19" incLanes=":8_2_0 7_0 7_1" intLanes=":8_4_0 :8_5_0 :8_6_0 :8_6_1"/>
     <junction id=":9_8_0" type="internal" x="1766.65" y="535.76" incLanes=":9_5_0 -9_0 -9_1" intLanes=":9_0_0 :9_1_0 :9_1_1 :9_7_0"/>
 
     <connection from="-13" to="23" fromLane="0" toLane="0" via=":4_0_0" dir="r" state="m"/>

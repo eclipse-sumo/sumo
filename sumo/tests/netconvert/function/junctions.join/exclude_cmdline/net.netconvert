@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 15:44:05 2016 by SUMO netconvert Version dev-SVN-r21818
+<!-- generated on Mon Nov 28 14:38:25 2016 by SUMO netconvert Version dev-SVN-r22106
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -37,7 +37,7 @@
         <lane id=":59993001_0_0" index="0" speed="18.05" length="5.62" shape="29.13,43.70 30.44,43.61 31.52,43.01 32.35,41.92 32.94,40.32"/>
     </edge>
     <edge id=":59993001_1" function="internal">
-        <lane id=":59993001_1_0" index="0" speed="22.22" length="12.75" shape="29.13,43.70 41.70,45.78"/>
+        <lane id=":59993001_1_0" index="0" speed="22.22" length="12.76" shape="29.13,43.70 32.51,44.08 35.47,44.47 38.40,45.00 41.70,45.78"/>
     </edge>
     <edge id=":59993001_2" function="internal">
         <lane id=":59993001_2_0" index="0" speed="20.84" length="7.19" shape="34.85,47.11 34.68,45.06 33.80,43.69 32.96,42.33 32.94,40.32"/>
@@ -47,9 +47,9 @@
         <lane id=":59993001_4_0" index="0" speed="25.00" length="4.72" shape="38.10,47.67 38.50,46.54 39.24,45.85 40.30,45.59 41.70,45.78"/>
     </edge>
     <edge id=":cluster_301292612_56231397_0" function="internal">
-        <lane id=":cluster_301292612_56231397_0_0" index="0" speed="18.05" length="7.48" shape="47.83,60.83 45.87,60.40 44.41,60.84 42.90,61.40 40.82,61.33"/>
-        <lane id=":cluster_301292612_56231397_0_1" index="1" speed="18.05" length="7.48" shape="49.21,57.83 47.09,57.32 45.50,57.71 43.87,58.24 41.61,58.12"/>
-        <lane id=":cluster_301292612_56231397_0_2" index="2" speed="18.05" length="7.48" shape="49.21,57.83 42.40,54.92"/>
+        <lane id=":cluster_301292612_56231397_0_0" index="0" speed="18.05" length="7.49" shape="47.83,60.83 45.87,60.40 44.41,60.84 42.90,61.40 40.82,61.33"/>
+        <lane id=":cluster_301292612_56231397_0_1" index="1" speed="18.05" length="7.49" shape="49.21,57.83 47.09,57.32 45.50,57.71 43.87,58.24 41.61,58.12"/>
+        <lane id=":cluster_301292612_56231397_0_2" index="2" speed="18.05" length="7.49" shape="49.21,57.83 47.24,56.84 45.90,56.12 44.51,55.53 42.40,54.92"/>
     </edge>
     <edge id=":cluster_301292612_56231397_3" function="internal">
         <lane id=":cluster_301292612_56231397_3_0" index="0" speed="13.89" length="7.69" shape="49.21,57.83 47.58,55.18 47.51,53.25 49.02,52.04 49.72,51.92"/>
@@ -62,11 +62,11 @@
         <lane id=":cluster_301292612_56231397_4_1" index="1" speed="13.89" length="7.27" shape="48.55,43.57 48.12,46.15 48.57,48.34 49.90,50.14 52.10,51.55"/>
     </edge>
     <edge id=":cluster_301292612_56231397_6" function="internal">
-        <lane id=":cluster_301292612_56231397_6_0" index="0" speed="18.05" length="10.80" shape="48.55,43.57 46.77,48.76 45.15,52.38 44.08,53.90"/>
-        <lane id=":cluster_301292612_56231397_6_1" index="1" speed="18.05" length="10.80" shape="48.55,43.57 47.18,47.38 45.84,50.00 44.51,51.45 43.20,51.72"/>
+        <lane id=":cluster_301292612_56231397_6_0" index="0" speed="18.05" length="10.72" shape="48.55,43.57 46.77,48.76 45.15,52.38 44.17,53.76"/>
+        <lane id=":cluster_301292612_56231397_6_1" index="1" speed="18.05" length="10.72" shape="48.55,43.57 47.18,47.38 45.84,50.00 44.51,51.45 43.20,51.72"/>
     </edge>
     <edge id=":cluster_301292612_56231397_11" function="internal">
-        <lane id=":cluster_301292612_56231397_11_0" index="0" speed="18.05" length="2.04" shape="44.08,53.90 43.69,54.44 42.40,54.92"/>
+        <lane id=":cluster_301292612_56231397_11_0" index="0" speed="18.05" length="2.20" shape="44.17,53.76 43.69,54.44 42.40,54.92"/>
     </edge>
     <edge id=":cluster_301292612_56231397_8" function="internal">
         <lane id=":cluster_301292612_56231397_8_0" index="0" speed="18.05" length="9.24" shape="44.49,46.50 46.96,47.50 48.39,48.74 49.78,50.12 52.10,51.55"/>
@@ -161,7 +161,7 @@
     <junction id="gneJ1" type="unregulated" x="59.75" y="2.19" incLanes="" intLanes="" shape="59.80,2.20 66.00,4.14"/>
 
     <junction id=":cluster_301292612_56231397_10_0" type="internal" x="49.72" y="51.92" incLanes=":cluster_301292612_56231397_3_0 27441168_0 27441289.95_0 27441289.95_1" intLanes=":cluster_301292612_56231397_4_0 :cluster_301292612_56231397_4_1 :cluster_301292612_56231397_8_0"/>
-    <junction id=":cluster_301292612_56231397_11_0" type="internal" x="44.08" y="53.90" incLanes=":cluster_301292612_56231397_6_0 27437972_0 27437972_1" intLanes=":cluster_301292612_56231397_0_0 :cluster_301292612_56231397_0_1 :cluster_301292612_56231397_0_2 :cluster_301292612_56231397_8_0 :cluster_301292612_56231397_9_0"/>
+    <junction id=":cluster_301292612_56231397_11_0" type="internal" x="44.17" y="53.76" incLanes=":cluster_301292612_56231397_6_0 27437972_0 27437972_1" intLanes=":cluster_301292612_56231397_0_0 :cluster_301292612_56231397_0_1 :cluster_301292612_56231397_0_2 :cluster_301292612_56231397_8_0 :cluster_301292612_56231397_9_0"/>
     <junction id=":cluster_301292612_56231397_12_0" type="internal" x="46.45" y="49.75" incLanes=":cluster_301292612_56231397_9_0 27437972_0 27437972_1 27441289.95_1" intLanes=":cluster_301292612_56231397_0_0 :cluster_301292612_56231397_0_1 :cluster_301292612_56231397_0_2 :cluster_301292612_56231397_6_0 :cluster_301292612_56231397_6_1"/>
 
     <connection from="27437972" to="27441189" fromLane="0" toLane="0" via=":cluster_301292612_56231397_0_0" tl="cluster_301292612_56231397" linkIndex="0" dir="s" state="o"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:01 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Mon Nov 28 14:38:26 2016 by SUMO netconvert Version dev-SVN-r22106
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -40,8 +40,8 @@
         <lane id=":cluster_828110366_828110369_0_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="11.65" shape="1150.76,1044.40 1149.70,1042.40 1147.74,1040.87 1144.86,1039.81 1141.07,1039.22"/>
     </edge>
     <edge id=":cluster_828110366_828110369_1" function="internal">
-        <lane id=":cluster_828110366_828110369_1_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="23.53" shape="1150.76,1044.40 1145.39,1021.20"/>
-        <lane id=":cluster_828110366_828110369_1_1" index="1" disallow="rail_urban rail rail_electric" speed="27.78" length="23.53" shape="1153.95,1043.54 1148.68,1020.88"/>
+        <lane id=":cluster_828110366_828110369_1_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="23.58" shape="1150.76,1044.40 1148.96,1038.10 1147.46,1032.91 1146.27,1027.67 1145.39,1021.20"/>
+        <lane id=":cluster_828110366_828110369_1_1" index="1" disallow="rail_urban rail rail_electric" speed="27.78" length="23.58" shape="1153.95,1043.54 1152.16,1037.32 1150.70,1032.32 1149.54,1027.26 1148.68,1020.88"/>
     </edge>
     <edge id=":cluster_828110366_828110369_3" function="internal">
         <lane id=":cluster_828110366_828110369_3_0" index="0" disallow="rail_urban rail rail_electric" speed="27.78" length="17.91" shape="1153.95,1043.54 1152.58,1036.79 1152.66,1032.02 1154.16,1029.20 1157.10,1028.36"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:38 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Mon Nov 28 14:38:24 2016 by SUMO netconvert Version dev-SVN-r22106
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -36,16 +36,16 @@
         <lane id=":n12_0_0" index="0" speed="13.89" length="4.82" shape="225.76,155.97 227.22,156.27 227.91,156.88 227.84,157.80 227.00,159.03"/>
     </edge>
     <edge id=":n6_0" function="internal">
-        <lane id=":n6_0_0" index="0" speed="13.89" length="9.01" shape="133.81,196.66 125.63,200.44"/>
+        <lane id=":n6_0_0" index="0" speed="13.89" length="9.02" shape="133.81,196.66 131.33,197.66 129.64,198.39 128.00,199.19 125.63,200.44"/>
     </edge>
     <edge id=":n6_1" function="internal">
-        <lane id=":n6_1_0" index="0" speed="13.89" length="4.93" shape="133.81,196.66 130.93,197.37 128.99,197.02"/>
+        <lane id=":n6_1_0" index="0" speed="13.89" length="5.35" shape="133.81,196.66 130.93,197.37 128.58,196.95"/>
     </edge>
     <edge id=":n6_2" function="internal">
         <lane id=":n6_2_0" index="0" speed="13.89" length="2.41" shape="133.81,196.66 132.35,196.36 131.66,195.75"/>
     </edge>
     <edge id=":n6_9" function="internal">
-        <lane id=":n6_9_0" index="0" speed="13.89" length="5.76" shape="128.99,197.02 128.58,196.95 126.76,195.41 125.46,192.75"/>
+        <lane id=":n6_9_0" index="0" speed="13.89" length="5.35" shape="128.58,196.95 126.76,195.41 125.46,192.75"/>
     </edge>
     <edge id=":n6_10" function="internal">
         <lane id=":n6_10_0" index="0" speed="13.89" length="2.41" shape="131.66,195.75 131.73,194.83 132.57,193.60"/>
@@ -66,13 +66,13 @@
         <lane id=":n6_6_0" index="0" speed="13.89" length="5.46" shape="124.07,197.54 125.09,196.74 125.67,195.67 125.79,194.34 125.46,192.75"/>
     </edge>
     <edge id=":n6_7" function="internal">
-        <lane id=":n6_7_0" index="0" speed="13.89" length="9.37" shape="124.07,197.54 132.57,193.60"/>
+        <lane id=":n6_7_0" index="0" speed="13.89" length="9.38" shape="124.07,197.54 126.53,196.23 128.24,195.40 129.99,194.64 132.57,193.60"/>
     </edge>
     <edge id=":n6_8" function="internal">
-        <lane id=":n6_8_0" index="0" speed="13.89" length="2.57" shape="124.07,197.54 125.55,197.68 126.30,198.21 126.31,198.37"/>
+        <lane id=":n6_8_0" index="0" speed="13.89" length="2.41" shape="124.07,197.54 125.55,197.68 126.30,198.21"/>
     </edge>
     <edge id=":n6_12" function="internal">
-        <lane id=":n6_12_0" index="0" speed="13.89" length="2.25" shape="126.31,198.37 126.33,199.13 125.63,200.44"/>
+        <lane id=":n6_12_0" index="0" speed="13.89" length="2.41" shape="126.30,198.21 126.33,199.13 125.63,200.44"/>
     </edge>
 
     <edge id="e14" from="n6" to="n1" priority="-1">
@@ -124,10 +124,10 @@
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
-    <junction id=":n6_9_0" type="internal" x="128.99" y="197.02" incLanes=":n6_1_0 e15_0" intLanes=":n6_4_0 :n6_5_0 :n6_6_0 :n6_7_0"/>
+    <junction id=":n6_9_0" type="internal" x="128.58" y="196.95" incLanes=":n6_1_0 e15_0" intLanes=":n6_4_0 :n6_5_0 :n6_6_0 :n6_7_0"/>
     <junction id=":n6_10_0" type="internal" x="131.66" y="195.75" incLanes=":n6_2_0 e15_0 e17_0" intLanes=":n6_3_0 :n6_7_0"/>
     <junction id=":n6_11_0" type="internal" x="127.31" y="193.78" incLanes=":n6_5_0 e15_0 e18_0" intLanes=":n6_1_0 :n6_6_0"/>
-    <junction id=":n6_12_0" type="internal" x="126.31" y="198.37" incLanes=":n6_8_0 e17_0 e18_0" intLanes=":n6_0_0 :n6_4_0"/>
+    <junction id=":n6_12_0" type="internal" x="126.30" y="198.21" incLanes=":n6_8_0 e17_0 e18_0" intLanes=":n6_0_0 :n6_4_0"/>
 
     <connection from="e14" to="e15" fromLane="0" toLane="0" via=":n1_0_0" dir="t" state="M"/>
     <connection from="e15" to="e19" fromLane="0" toLane="0" via=":n6_6_0" tl="n6" linkIndex="6" dir="r" state="o"/>
