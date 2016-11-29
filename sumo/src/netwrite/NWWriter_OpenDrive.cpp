@@ -105,9 +105,41 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
+
+        // buffer output because some fields are computed out of order
+        OutputDevice_String elevationOSS(false, 3);
+        elevationOSS.setPrecision(8);
+        OutputDevice_String planViewOSS(false, 2);
+        planViewOSS.setPrecision(8);
+        SUMOReal length = 0;
+
+        planViewOSS.openTag("planView");
+        planViewOSS.setPrecision(8); // geometry hdg requires higher precision
+        // for the shape we need to use the leftmost border of the leftmost lane
+        const std::vector<NBEdge::Lane>& lanes = e->getLanes();
+        PositionVector ls = getLeftLaneBorder(e);
+#ifdef DEBUG_SMOOTH_GEOM
+        if (DEBUGCOND) {
+            std::cout << "write planview for edge " << e->getID() << "\n";
+        }
+#endif
+
+        if (ls.size() == 2 || e->getPermissions() == SVC_PEDESTRIAN) {
+            // foot paths may contain sharp angles
+            length = writeGeomLines(ls, planViewOSS, elevationOSS);
+        } else {
+            bool ok = writeGeomSmooth(ls, e->getSpeed(), planViewOSS, elevationOSS, straightThresh, length);
+            if (!ok) {
+                WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
+            }
+        }
+        planViewOSS.closeTag();
+
         device.openTag("road");
         device.writeAttr("name", StringUtils::escapeXML(e->getStreetName()));
-        device.writeAttr("length", e->getLength());
+        device.setPrecision(8); // length requires higher precision
+        device.writeAttr("length", length);
+        device.setPrecision(OUTPUT_ACCURACY); 
         device.writeAttr("id", getID(e->getID(), edgeMap, edgeID));
         device.writeAttr("junction", -1);
         const bool hasSucc = e->getConnections().size() > 0;
@@ -129,49 +161,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             device.closeTag();
         }
         device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
-        device.openTag("planView");
-        device.setPrecision(8); // geometry hdg requires higher precision
-        // for the shape we need to use the leftmost border of the leftmost lane
-        const std::vector<NBEdge::Lane>& lanes = e->getLanes();
-        PositionVector ls = getLeftLaneBorder(e);
-#ifdef DEBUG_SMOOTH_GEOM
-        if (DEBUGCOND) {
-            std::cout << "write planview for edge " << e->getID() << "\n";
-        }
-#endif
-        OutputDevice_String elevationOSS(false, 3);
-        elevationOSS.setPrecision(8);
-        if (ls.size() == 2 || e->getPermissions() == SVC_PEDESTRIAN) {
-            // foot paths may contain sharp angles
-            writeGeomLines(ls, device, elevationOSS);
-        } else {
-            bool ok = writeGeomSmooth(ls, e->getSpeed(), device, elevationOSS, straightThresh);
-            if (!ok) {
-                WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
-            }
-        }
-        // check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
-        if (e->getNumLanes() > 1) {
-            // compute 'stop line' of rightmost lane
-            const PositionVector shape0 = e->getLaneShape(0);
-            assert(shape0.size() >= 2);
-            const Position& from = shape0[-2];
-            const Position& to = shape0[-1];
-            PositionVector stopLine;
-            stopLine.push_back(to);
-            stopLine.push_back(to - PositionVector::sideOffset(from, to, -1000.0));
-            // endpoints of all other lanes should be on the stop line
-            for (int lane = 1; lane < e->getNumLanes(); ++lane) {
-                const SUMOReal dist = stopLine.distance2D(e->getLaneShape(lane)[-1]);
-                if (dist > NUMERICAL_EPS) {
-                    WRITE_WARNING("Uneven stop line at lane '" + e->getLaneID(lane) + "' (dist=" + toString(dist) + ") cannot be represented in OpenDRIVE.");
-                }
-            }
-        }
-
-
-        device.setPrecision(OUTPUT_ACCURACY);
-        device.closeTag();
+        device << planViewOSS.getString();
         writeElevationProfile(ls, device, elevationOSS);
         device << "        <lateralProfile/>\n";
         device << "        <lanes>\n";
@@ -206,8 +196,10 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
         }
         device.closeTag();
+        checkLaneGeometries(e);
     }
     device.lf();
+
     // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
@@ -545,7 +537,7 @@ NWWriter_OpenDrive::writeGeomPP3(
 
 
 bool
-NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal straightThresh) {
+NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal straightThresh, SUMOReal& length) {
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
@@ -593,7 +585,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
 #endif
 
     if (maxAngleDiff < straightThresh) {
-        writeGeomLines(shape2, device, elevationDevice, 0);
+        length = writeGeomLines(shape2, device, elevationDevice, 0);
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND) {
             std::cout << "   special case: all lines. maxAngleDiff=" << maxAngleDiff << "\n";
@@ -673,6 +665,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
             }
         }
     }
+    length = offset;
     return ok;
 }
 
@@ -698,6 +691,27 @@ NWWriter_OpenDrive::writeElevationProfile(const PositionVector& shape, OutputDev
 
 }
 
+
+void 
+NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
+    if (e->getNumLanes() > 1) {
+        // compute 'stop line' of rightmost lane
+        const PositionVector shape0 = e->getLaneShape(0);
+        assert(shape0.size() >= 2);
+        const Position& from = shape0[-2];
+        const Position& to = shape0[-1];
+        PositionVector stopLine;
+        stopLine.push_back(to);
+        stopLine.push_back(to - PositionVector::sideOffset(from, to, -1000.0));
+        // endpoints of all other lanes should be on the stop line
+        for (int lane = 1; lane < e->getNumLanes(); ++lane) {
+            const SUMOReal dist = stopLine.distance2D(e->getLaneShape(lane)[-1]);
+            if (dist > NUMERICAL_EPS) {
+                WRITE_WARNING("Uneven stop line at lane '" + e->getLaneID(lane) + "' (dist=" + toString(dist) + ") cannot be represented in OpenDRIVE.");
+            }
+        }
+    }
+}
 
 /****************************************************************************/
 

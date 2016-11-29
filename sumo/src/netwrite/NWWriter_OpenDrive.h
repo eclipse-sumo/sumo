@@ -68,9 +68,10 @@ protected:
 
     /* @brief write geometry as sequence of lines and bezier curves
      *
-     * @param[in] angleThresh changes below threshold are considered to be straight and no curve will be fitted between the segments
+     * @param[in] straightThresh angular changes below threshold are considered to be straight and no curve will be fitted between the segments
+     * @param[out] length Return the total length of the reference line
      */
-    static bool writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal angleThresh);
+    static bool writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal straightThresh, SUMOReal& length);
 
     /// @brief write geometry as a single bezier curve (paramPoly3)
     static SUMOReal writeGeomPP3(OutputDevice& device,
@@ -88,6 +89,9 @@ protected:
 
     /// @brief get the left border of the given lane (the leftmost one by default)
     static PositionVector getLeftLaneBorder(const NBEdge* edge, int laneIndex = -1);
+
+    /// @brief check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
+    static void checkLaneGeometries(const NBEdge* e);
 };
 
 
