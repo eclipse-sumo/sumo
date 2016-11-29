@@ -248,14 +248,14 @@ NWWriter_DlrNavteq::getRoadClass(NBEdge* edge) {
     } else if (StringUtils::startsWith(type, "trunk")) {
         return 1;
     } else if (StringUtils::startsWith(type, "primary")) {
-        return 2;
+        return 1;
     } else if (StringUtils::startsWith(type, "secondary")) {
         return 2;
     } else if (StringUtils::startsWith(type, "tertiary")) {
         return 3;
-    } else if (type == "unclassified" || type == "residential") {
+    } else if (type == "unclassified") {
         return 3;
-    } else if (type == "living_street" || type == "road" || type == "service" || type == "track" || type == "cycleway" || type == "path" || type == "footway") {
+    } else if (type == "living_street" || type == "residential" || type == "road" || type == "service" || type == "track" || type == "cycleway" || type == "path" || type == "footway") {
         return 4;
     }
     // as a fallback we do a simple speed / lane-count mapping anyway
