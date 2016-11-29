@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 28 14:57:25 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 10:56:32 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="70.66" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -421,15 +421,15 @@
         <userData code="sumoId" value="s4"/>
     </road>
 
-    <road name=":1_0_0" length="58.77" id="109" junction="1">
+    <road name=":1_0_0" length="58.80" id="109" junction="1">
         <link>
             <predecessor elementType="road" elementId="108" contactPoint="end"/>
             <successor elementType="road" elementId="100" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="29.34375000" y="6.45000000" hdg="-3.08712050" length="58.77467700">
-                <line/>
+            <geometry s="0.00000000" x="29.34375000" y="6.45000000" hdg="3.14159265" length="58.80070234">
+                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="-48.93750000" dU="32.62500000" aV="-0.00000000" bV="0.00000000" cV="9.60000000" dV="-6.40000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -459,15 +459,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":1_0_1" length="58.77" id="110" junction="1">
+    <road name=":1_0_1" length="58.80" id="110" junction="1">
         <link>
             <predecessor elementType="road" elementId="108" contactPoint="end"/>
             <successor elementType="road" elementId="100" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="29.34375000" y="3.25000000" hdg="-3.08712050" length="58.77467700">
-                <line/>
+            <geometry s="0.00000000" x="29.34375000" y="3.25000000" hdg="3.14159265" length="58.80070234">
+                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="-48.93750000" dU="32.62500000" aV="-0.00000000" bV="0.00000000" cV="9.60000000" dV="-6.40000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -1067,15 +1067,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":s3-AddedOffRampNode_0_0" length="58.77" id="126" junction="6">
+    <road name=":s3-AddedOffRampNode_0_0" length="58.80" id="126" junction="6">
         <link>
             <predecessor elementType="road" elementId="106" contactPoint="end"/>
             <successor elementType="road" elementId="107" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="629.34375000" y="6.45000000" hdg="3.08712050" length="58.77467700">
-                <line/>
+            <geometry s="0.00000000" x="629.34375000" y="6.45000000" hdg="3.14159265" length="58.80070234">
+                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="-48.93750000" dU="32.62500000" aV="-0.00000000" bV="0.00000000" cV="-9.60000000" dV="6.40000000"/>
             </geometry>
         </planView>
         <elevationProfile>
