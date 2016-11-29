@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 10:56:32 2016" north="354.45" south="0.00" east="236.27" west="0.00"/>
-    <road name="Uhlandstraße" length="333.76" id="40" junction="-1">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 12:23:05 2016" north="354.45" south="0.00" east="236.27" west="0.00"/>
+    <road name="Uhlandstraße" length="333.76502494" id="40" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="2"/>
@@ -55,7 +55,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Grünstraße" length="103.85" id="41" junction="-1">
+    <road name="Grünstraße" length="103.85281907" id="41" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="3"/>
@@ -91,7 +91,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Grünstraße" length="131.19" id="42" junction="-1">
+    <road name="Grünstraße" length="131.18905734" id="42" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="1"/>
@@ -133,7 +133,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Uhlandstraße" length="333.77" id="43" junction="-1">
+    <road name="Uhlandstraße" length="333.76511978" id="43" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="1"/>
@@ -187,7 +187,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Grünstraße" length="103.85" id="44" junction="-1">
+    <road name="Grünstraße" length="103.85281907" id="44" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="1"/>
@@ -223,7 +223,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Grünstraße" length="131.19" id="45" junction="-1">
+    <road name="Grünstraße" length="131.18898957" id="45" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="4"/>

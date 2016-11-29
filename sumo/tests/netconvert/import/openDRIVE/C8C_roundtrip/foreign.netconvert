@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 10:56:31 2016" north="173.36" south="0.00" east="400.00" west="0.00"/>
-    <road name="" length="8.55" id="50" junction="-1">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 12:23:05 2016" north="173.36" south="0.00" east="400.00" west="0.00"/>
+    <road name="" length="8.54999851" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="2"/>
@@ -37,7 +37,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="8.55" id="51" junction="-1">
+    <road name="" length="8.54999851" id="51" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="3"/>
@@ -73,7 +73,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="550.05" id="52" junction="-1">
+    <road name="" length="541.33937100" id="52" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="2"/>
@@ -358,7 +358,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="531.89" id="53" junction="-1">
+    <road name="" length="540.86742013" id="53" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="5"/>
             <successor elementType="junction" elementId="3"/>
@@ -643,7 +643,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="8.55" id="54" junction="-1">
+    <road name="" length="8.54999851" id="54" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="5"/>
@@ -679,7 +679,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="8.55" id="55" junction="-1">
+    <road name="" length="8.54999851" id="55" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="4"/>
@@ -715,7 +715,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="8.55" id="56" junction="-1">
+    <road name="" length="8.54999851" id="56" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="1"/>
@@ -751,7 +751,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="8.55" id="57" junction="-1">
+    <road name="" length="8.54999851" id="57" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="1"/>
@@ -787,7 +787,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="531.89" id="58" junction="-1">
+    <road name="" length="540.86742442" id="58" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="4"/>
@@ -1072,7 +1072,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="550.05" id="59" junction="-1">
+    <road name="" length="541.33936607" id="59" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="5"/>
@@ -1357,7 +1357,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="8.55" id="60" junction="-1">
+    <road name="" length="8.54999851" id="60" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="5"/>
             <successor elementType="junction" elementId="1"/>
@@ -1393,7 +1393,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="8.55" id="61" junction="-1">
+    <road name="" length="8.54999851" id="61" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="1"/>

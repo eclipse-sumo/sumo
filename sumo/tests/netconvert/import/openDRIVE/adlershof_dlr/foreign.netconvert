@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 10:56:32 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
-    <road name="Teltowkanalbrücke" length="56.01" id="870" junction="-1">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 12:23:06 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <road name="Teltowkanalbrücke" length="56.01306154" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="2"/>
@@ -38,7 +38,7 @@
         <signals/>
         <userData code="sumoId" value="-22917251"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="443.35" id="871" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="443.33374476" id="871" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="4"/>
@@ -87,7 +87,7 @@
         <signals/>
         <userData code="sumoId" value="-24214693#0"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="19.18" id="872" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="19.17589505" id="872" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="5"/>
             <successor elementType="junction" elementId="3"/>
@@ -130,7 +130,7 @@
         <signals/>
         <userData code="sumoId" value="-24214693#1"/>
     </road>
-    <road name="Wegedornstraße" length="3.10" id="873" junction="-1">
+    <road name="Wegedornstraße" length="3.10353378" id="873" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="4"/>
@@ -167,7 +167,7 @@
         <signals/>
         <userData code="sumoId" value="-24214694"/>
     </road>
-    <road name="" length="461.30" id="874" junction="-1">
+    <road name="" length="461.30416069" id="874" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="6"/>
@@ -204,7 +204,7 @@
         <signals/>
         <userData code="sumoId" value="-25951490"/>
     </road>
-    <road name="" length="57.66" id="875" junction="-1">
+    <road name="" length="57.65987386" id="875" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="7"/>
             <successor elementType="junction" elementId="8"/>
@@ -241,7 +241,7 @@
         <signals/>
         <userData code="sumoId" value="-26816413#0"/>
     </road>
-    <road name="" length="20.27" id="876" junction="-1">
+    <road name="" length="20.27300966" id="876" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="9"/>
             <successor elementType="junction" elementId="7"/>
@@ -278,7 +278,7 @@
         <signals/>
         <userData code="sumoId" value="-26816413#1"/>
     </road>
-    <road name="" length="215.27" id="877" junction="-1">
+    <road name="" length="213.46848080" id="877" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="10"/>
             <successor elementType="junction" elementId="9"/>
@@ -339,7 +339,7 @@
         <signals/>
         <userData code="sumoId" value="-26816553"/>
     </road>
-    <road name="" length="0.20" id="878" junction="-1">
+    <road name="" length="0.20000000" id="878" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="11"/>
             <successor elementType="junction" elementId="9"/>
@@ -376,7 +376,7 @@
         <signals/>
         <userData code="sumoId" value="-26816590#0"/>
     </road>
-    <road name="" length="4.86" id="879" junction="-1">
+    <road name="" length="4.85860862" id="879" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="12"/>
             <successor elementType="junction" elementId="11"/>
@@ -413,7 +413,7 @@
         <signals/>
         <userData code="sumoId" value="-26816590#1"/>
     </road>
-    <road name="" length="40.00" id="880" junction="-1">
+    <road name="" length="40.00632026" id="880" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="13"/>
             <successor elementType="junction" elementId="12"/>
@@ -456,7 +456,7 @@
         <signals/>
         <userData code="sumoId" value="-26816590#2"/>
     </road>
-    <road name="" length="151.90" id="881" junction="-1">
+    <road name="" length="151.89823486" id="881" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="14"/>
             <successor elementType="junction" elementId="11"/>
@@ -493,7 +493,7 @@
         <signals/>
         <userData code="sumoId" value="-26816627"/>
     </road>
-    <road name="" length="89.38" id="882" junction="-1">
+    <road name="" length="89.38433081" id="882" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="15"/>
             <successor elementType="junction" elementId="16"/>
@@ -530,7 +530,7 @@
         <signals/>
         <userData code="sumoId" value="-26843019"/>
     </road>
-    <road name="" length="34.41" id="883" junction="-1">
+    <road name="" length="34.40507899" id="883" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="17"/>
             <successor elementType="junction" elementId="18"/>
@@ -567,7 +567,7 @@
         <signals/>
         <userData code="sumoId" value="-26843038#0"/>
     </road>
-    <road name="" length="91.87" id="884" junction="-1">
+    <road name="" length="96.27227063" id="884" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="19"/>
             <successor elementType="junction" elementId="17"/>
@@ -616,7 +616,7 @@
         <signals/>
         <userData code="sumoId" value="-26843038#1"/>
     </road>
-    <road name="" length="26.26" id="885" junction="-1">
+    <road name="" length="26.26143299" id="885" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="17"/>
             <successor elementType="junction" elementId="19"/>
@@ -653,7 +653,7 @@
         <signals/>
         <userData code="sumoId" value="-26843038#2"/>
     </road>
-    <road name="" length="0.56" id="886" junction="-1">
+    <road name="" length="0.56405352" id="886" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="20"/>
             <successor elementType="junction" elementId="12"/>
@@ -690,7 +690,7 @@
         <signals/>
         <userData code="sumoId" value="-26843133#0"/>
     </road>
-    <road name="" length="136.13" id="887" junction="-1">
+    <road name="" length="127.61848392" id="887" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="21"/>
             <successor elementType="junction" elementId="20"/>
@@ -739,7 +739,7 @@
         <signals/>
         <userData code="sumoId" value="-26843133#1"/>
     </road>
-    <road name="" length="29.89" id="888" junction="-1">
+    <road name="" length="29.89432413" id="888" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="20"/>
             <successor elementType="junction" elementId="21"/>
@@ -776,7 +776,7 @@
         <signals/>
         <userData code="sumoId" value="-26843133#2"/>
     </road>
-    <road name="Justus-von-Liebig-Straße" length="519.50" id="889" junction="-1">
+    <road name="Justus-von-Liebig-Straße" length="519.55576867" id="889" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="22"/>
             <successor elementType="junction" elementId="23"/>
@@ -819,7 +819,7 @@
         <signals/>
         <userData code="sumoId" value="-5198584"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="138.00" id="890" junction="-1">
+    <road name="Albert-Einstein-Straße" length="136.26963738" id="890" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="10"/>
             <successor elementType="junction" elementId="24"/>
@@ -868,7 +868,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#0"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="50.39" id="891" junction="-1">
+    <road name="Albert-Einstein-Straße" length="50.39309872" id="891" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="25"/>
             <successor elementType="junction" elementId="10"/>
@@ -905,7 +905,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#1"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="164.25" id="892" junction="-1">
+    <road name="Albert-Einstein-Straße" length="164.24677067" id="892" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="26"/>
             <successor elementType="junction" elementId="25"/>
@@ -942,7 +942,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#2"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="32.33" id="893" junction="-1">
+    <road name="Albert-Einstein-Straße" length="32.33155111" id="893" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="15"/>
             <successor elementType="junction" elementId="26"/>
@@ -979,7 +979,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#3"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="40.56" id="894" junction="-1">
+    <road name="Albert-Einstein-Straße" length="40.56348814" id="894" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="27"/>
             <successor elementType="junction" elementId="15"/>
@@ -1016,7 +1016,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#4"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="48.39" id="895" junction="-1">
+    <road name="Albert-Einstein-Straße" length="48.38842319" id="895" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="28"/>
             <successor elementType="junction" elementId="27"/>
@@ -1053,7 +1053,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#5"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="16.91" id="896" junction="-1">
+    <road name="Albert-Einstein-Straße" length="16.90920801" id="896" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="29"/>
             <successor elementType="junction" elementId="28"/>
@@ -1090,7 +1090,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#6"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="33.96" id="897" junction="-1">
+    <road name="Albert-Einstein-Straße" length="33.95542783" id="897" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="30"/>
             <successor elementType="junction" elementId="29"/>
@@ -1127,7 +1127,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#7"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="287.06" id="898" junction="-1">
+    <road name="Albert-Einstein-Straße" length="287.18081807" id="898" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="31"/>
             <successor elementType="junction" elementId="30"/>
@@ -1176,7 +1176,7 @@
         <signals/>
         <userData code="sumoId" value="-5198585#8"/>
     </road>
-    <road name="Magnusstraße" length="67.07" id="899" junction="-1">
+    <road name="Magnusstraße" length="67.06968427" id="899" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="32"/>
             <successor elementType="junction" elementId="33"/>
@@ -1213,7 +1213,7 @@
         <signals/>
         <userData code="sumoId" value="-5198586#0"/>
     </road>
-    <road name="Magnusstraße" length="89.24" id="900" junction="-1">
+    <road name="Magnusstraße" length="89.24048655" id="900" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="26"/>
             <successor elementType="junction" elementId="32"/>
@@ -1250,7 +1250,7 @@
         <signals/>
         <userData code="sumoId" value="-5198586#1"/>
     </road>
-    <road name="Magnusstraße" length="136.08" id="901" junction="-1">
+    <road name="Magnusstraße" length="136.07829458" id="901" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="34"/>
             <successor elementType="junction" elementId="26"/>
@@ -1287,7 +1287,7 @@
         <signals/>
         <userData code="sumoId" value="-5198586#2"/>
     </road>
-    <road name="Magnusstraße" length="99.11" id="902" junction="-1">
+    <road name="Magnusstraße" length="99.10978001" id="902" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="23"/>
             <successor elementType="junction" elementId="34"/>
@@ -1324,7 +1324,7 @@
         <signals/>
         <userData code="sumoId" value="-5198586#3"/>
     </road>
-    <road name="Magnusstraße" length="90.03" id="903" junction="-1">
+    <road name="Magnusstraße" length="90.28683771" id="903" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="35"/>
             <successor elementType="junction" elementId="23"/>
@@ -1367,7 +1367,7 @@
         <signals/>
         <userData code="sumoId" value="-5198586#4"/>
     </road>
-    <road name="Gustav-Kirchhoff-Straße" length="134.56" id="904" junction="-1">
+    <road name="Gustav-Kirchhoff-Straße" length="134.55734313" id="904" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="36"/>
             <successor elementType="junction" elementId="27"/>
@@ -1404,7 +1404,7 @@
         <signals/>
         <userData code="sumoId" value="-5198587"/>
     </road>
-    <road name="Max-Planck-Straße" length="82.02" id="905" junction="-1">
+    <road name="Max-Planck-Straße" length="82.01532915" id="905" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="36"/>
             <successor elementType="junction" elementId="34"/>
@@ -1441,7 +1441,7 @@
         <signals/>
         <userData code="sumoId" value="-5198588#0"/>
     </road>
-    <road name="Max-Planck-Straße" length="181.76" id="906" junction="-1">
+    <road name="Max-Planck-Straße" length="181.75596991" id="906" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="37"/>
             <successor elementType="junction" elementId="36"/>
@@ -1478,7 +1478,7 @@
         <signals/>
         <userData code="sumoId" value="-5198588#1"/>
     </road>
-    <road name="Kekuléstraße" length="49.66" id="907" junction="-1">
+    <road name="Kekuléstraße" length="49.65975798" id="907" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="18"/>
             <successor elementType="junction" elementId="38"/>
@@ -1515,7 +1515,7 @@
         <signals/>
         <userData code="sumoId" value="-5198596#0"/>
     </road>
-    <road name="Kekuléstraße" length="34.73" id="908" junction="-1">
+    <road name="Kekuléstraße" length="34.73187004" id="908" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="16"/>
             <successor elementType="junction" elementId="18"/>
@@ -1552,7 +1552,7 @@
         <signals/>
         <userData code="sumoId" value="-5198596#1"/>
     </road>
-    <road name="Kekuléstraße" length="30.89" id="909" junction="-1">
+    <road name="Kekuléstraße" length="30.88891594" id="909" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="32"/>
             <successor elementType="junction" elementId="16"/>
@@ -1589,7 +1589,7 @@
         <signals/>
         <userData code="sumoId" value="-5198596#2"/>
     </road>
-    <road name="Kekuléstraße" length="132.54" id="910" junction="-1">
+    <road name="Kekuléstraße" length="132.53727325" id="910" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="39"/>
             <successor elementType="junction" elementId="32"/>
@@ -1626,7 +1626,7 @@
         <signals/>
         <userData code="sumoId" value="-5198596#3"/>
     </road>
-    <road name="Kekuléstraße" length="32.17" id="911" junction="-1">
+    <road name="Kekuléstraße" length="32.16605209" id="911" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="40"/>
             <successor elementType="junction" elementId="39"/>
@@ -1663,7 +1663,7 @@
         <signals/>
         <userData code="sumoId" value="-5198596#4"/>
     </road>
-    <road name="Rutherfordstraße" length="87.45" id="912" junction="-1">
+    <road name="Rutherfordstraße" length="87.45390250" id="912" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="40"/>
             <successor elementType="junction" elementId="25"/>
@@ -1700,7 +1700,7 @@
         <signals/>
         <userData code="sumoId" value="-5198597#0"/>
     </road>
-    <road name="Rutherfordstraße" length="71.29" id="913" junction="-1">
+    <road name="Rutherfordstraße" length="69.98949114" id="913" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="8"/>
             <successor elementType="junction" elementId="40"/>
@@ -1743,7 +1743,7 @@
         <signals/>
         <userData code="sumoId" value="-5198597#1"/>
     </road>
-    <road name="Rutherfordstraße" length="31.34" id="914" junction="-1">
+    <road name="Rutherfordstraße" length="31.34187234" id="914" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="41"/>
             <successor elementType="junction" elementId="8"/>
@@ -1786,7 +1786,7 @@
         <signals/>
         <userData code="sumoId" value="-5198597#2"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="1.28" id="915" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="1.27833653" id="915" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="42"/>
             <successor elementType="junction" elementId="28"/>
@@ -1823,7 +1823,7 @@
         <signals/>
         <userData code="sumoId" value="-5784968#0"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="80.77" id="916" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="80.76881514" id="916" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="38"/>
             <successor elementType="junction" elementId="42"/>
@@ -1860,7 +1860,7 @@
         <signals/>
         <userData code="sumoId" value="-5784968#1"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="0.20" id="917" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="0.20000000" id="917" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="43"/>
             <successor elementType="junction" elementId="38"/>
@@ -1897,7 +1897,7 @@
         <signals/>
         <userData code="sumoId" value="-5784968#2"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="45.05" id="918" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="45.05308586" id="918" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="44"/>
             <successor elementType="junction" elementId="43"/>
@@ -1934,7 +1934,7 @@
         <signals/>
         <userData code="sumoId" value="-5784968#3"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="5.97" id="919" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="5.96824138" id="919" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="45"/>
             <successor elementType="junction" elementId="44"/>
@@ -1971,7 +1971,7 @@
         <signals/>
         <userData code="sumoId" value="-5784968#4"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="4.21" id="920" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="4.20957343" id="920" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="46"/>
             <successor elementType="junction" elementId="45"/>
@@ -2008,7 +2008,7 @@
         <signals/>
         <userData code="sumoId" value="-5784968#5"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="38.50" id="921" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="38.50030466" id="921" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="47"/>
             <successor elementType="junction" elementId="48"/>
@@ -2045,7 +2045,7 @@
         <signals/>
         <userData code="sumoId" value="-6137233#0"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="25.11" id="922" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="25.10649363" id="922" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="49"/>
             <successor elementType="junction" elementId="47"/>
@@ -2082,7 +2082,7 @@
         <signals/>
         <userData code="sumoId" value="-6137233#1"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="36.87" id="923" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="36.86711771" id="923" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="50"/>
             <successor elementType="junction" elementId="49"/>
@@ -2119,7 +2119,7 @@
         <signals/>
         <userData code="sumoId" value="-6137233#2"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="124.55" id="924" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="124.72459300" id="924" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="51"/>
             <successor elementType="junction" elementId="50"/>
@@ -2162,7 +2162,7 @@
         <signals/>
         <userData code="sumoId" value="-6137233#3"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="80.45" id="925" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="80.44959476" id="925" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="52"/>
             <successor elementType="junction" elementId="51"/>
@@ -2199,7 +2199,7 @@
         <signals/>
         <userData code="sumoId" value="-6137233#4"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="67.20" id="926" junction="-1">
+    <road name="Carl-Scheele-Straße" length="64.97112844" id="926" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="53"/>
             <successor elementType="junction" elementId="47"/>
@@ -2248,7 +2248,7 @@
         <signals/>
         <userData code="sumoId" value="-6137239#0"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="121.99" id="927" junction="-1">
+    <road name="Carl-Scheele-Straße" length="121.98917309" id="927" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="54"/>
             <successor elementType="junction" elementId="53"/>
@@ -2285,7 +2285,7 @@
         <signals/>
         <userData code="sumoId" value="-6137239#1"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="95.49" id="928" junction="-1">
+    <road name="Carl-Scheele-Straße" length="94.99465631" id="928" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="55"/>
             <successor elementType="junction" elementId="54"/>
@@ -2328,7 +2328,7 @@
         <signals/>
         <userData code="sumoId" value="-6137239#2"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="2.01" id="929" junction="-1">
+    <road name="Carl-Scheele-Straße" length="2.01348807" id="929" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="56"/>
             <successor elementType="junction" elementId="55"/>
@@ -2365,7 +2365,7 @@
         <signals/>
         <userData code="sumoId" value="-6137239#3"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="165.81" id="930" junction="-1">
+    <road name="Carl-Scheele-Straße" length="167.23122460" id="930" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="57"/>
             <successor elementType="junction" elementId="56"/>
@@ -2411,7 +2411,7 @@
         <signals/>
         <userData code="sumoId" value="-6137239#4"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="597.52" id="931" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="595.69426554" id="931" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="58"/>
             <successor elementType="junction" elementId="59"/>
@@ -2481,7 +2481,7 @@
         <signals/>
         <userData code="sumoId" value="-7216737#0"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="23.54" id="932" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="23.53773233" id="932" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="60"/>
             <successor elementType="junction" elementId="58"/>
@@ -2524,7 +2524,7 @@
         <signals/>
         <userData code="sumoId" value="-7216737#1"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="470.46" id="933" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="470.08792855" id="933" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="24"/>
             <successor elementType="junction" elementId="60"/>
@@ -2585,7 +2585,7 @@
         <signals/>
         <userData code="sumoId" value="-7216737#2"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="153.28" id="934" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="153.27705507" id="934" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="24"/>
@@ -2628,7 +2628,7 @@
         <signals/>
         <userData code="sumoId" value="-7216737#3"/>
     </road>
-    <road name="Wegedornstraße" length="0.20" id="935" junction="-1">
+    <road name="Wegedornstraße" length="0.20000000" id="935" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="13"/>
             <successor elementType="junction" elementId="61"/>
@@ -2665,7 +2665,7 @@
         <signals/>
         <userData code="sumoId" value="-7727483#0"/>
     </road>
-    <road name="Wegedornstraße" length="21.61" id="936" junction="-1">
+    <road name="Wegedornstraße" length="21.61141819" id="936" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="62"/>
             <successor elementType="junction" elementId="13"/>
@@ -2702,7 +2702,7 @@
         <signals/>
         <userData code="sumoId" value="-7727483#1"/>
     </road>
-    <road name="Wegedornstraße" length="113.82" id="937" junction="-1">
+    <road name="Wegedornstraße" length="113.81680051" id="937" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="63"/>
             <successor elementType="junction" elementId="62"/>
@@ -2751,7 +2751,7 @@
         <signals/>
         <userData code="sumoId" value="-7727483#2"/>
     </road>
-    <road name="Wegedornstraße" length="38.22" id="938" junction="-1">
+    <road name="Wegedornstraße" length="38.22272401" id="938" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="63"/>
@@ -2788,7 +2788,7 @@
         <signals/>
         <userData code="sumoId" value="-7727483#3"/>
     </road>
-    <road name="" length="2.38" id="939" junction="-1">
+    <road name="" length="2.38290771" id="939" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="41"/>
             <successor elementType="junction" elementId="64"/>
@@ -2825,7 +2825,7 @@
         <signals/>
         <userData code="sumoId" value="-7730464"/>
     </road>
-    <road name="Rudower Chaussee" length="491.13" id="940" junction="-1">
+    <road name="Rudower Chaussee" length="489.42365409" id="940" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="65"/>
             <successor elementType="junction" elementId="66"/>
@@ -2889,7 +2889,7 @@
         <signals/>
         <userData code="sumoId" value="20430080"/>
     </road>
-    <road name="Teltowkanalbrücke" length="56.01" id="941" junction="-1">
+    <road name="Teltowkanalbrücke" length="56.01306154" id="941" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="1"/>
@@ -2926,7 +2926,7 @@
         <signals/>
         <userData code="sumoId" value="22917251"/>
     </road>
-    <road name="Havestadtplatz" length="77.73" id="942" junction="-1">
+    <road name="Havestadtplatz" length="71.92579566" id="942" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="58"/>
             <successor elementType="junction" elementId="35"/>
@@ -2969,7 +2969,7 @@
         <signals/>
         <userData code="sumoId" value="24152812#0"/>
     </road>
-    <road name="Havestadtplatz" length="48.86" id="943" junction="-1">
+    <road name="Havestadtplatz" length="48.86485866" id="943" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="35"/>
             <successor elementType="junction" elementId="60"/>
@@ -3006,7 +3006,7 @@
         <signals/>
         <userData code="sumoId" value="24152812#1"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="443.32" id="944" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="443.33324335" id="944" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="3"/>
@@ -3055,7 +3055,7 @@
         <signals/>
         <userData code="sumoId" value="24214693#0"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="19.18" id="945" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="19.17589505" id="945" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="5"/>
@@ -3098,7 +3098,7 @@
         <signals/>
         <userData code="sumoId" value="24214693#1"/>
     </road>
-    <road name="Wegedornstraße" length="3.10" id="946" junction="-1">
+    <road name="Wegedornstraße" length="3.10353378" id="946" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="2"/>
@@ -3135,7 +3135,7 @@
         <signals/>
         <userData code="sumoId" value="24214694"/>
     </road>
-    <road name="" length="87.76" id="947" junction="-1">
+    <road name="" length="87.54932829" id="947" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="609.98112408" y="546.24228902" hdg="-3.01485542" length="58.99809764">
@@ -3174,7 +3174,7 @@
         <signals/>
         <userData code="sumoId" value="25944590#0"/>
     </road>
-    <road name="" length="32.81" id="948" junction="-1">
+    <road name="" length="32.80891361" id="948" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="517.61531561" y="531.07300180" hdg="-2.87276220" length="32.80891361">
@@ -3207,7 +3207,7 @@
         <signals/>
         <userData code="sumoId" value="25944590#1"/>
     </road>
-    <road name="" length="83.44" id="949" junction="-1">
+    <road name="" length="83.34836220" id="949" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="481.29428892" y="521.07712811" hdg="-2.73476510" length="66.00877726">
@@ -3243,7 +3243,7 @@
         <signals/>
         <userData code="sumoId" value="25944590#2"/>
     </road>
-    <road name="" length="32.84" id="950" junction="-1">
+    <road name="" length="32.83727072" id="950" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="400.82352591" y="484.06107239" hdg="-2.57951804" length="32.83727072">
@@ -3276,7 +3276,7 @@
         <signals/>
         <userData code="sumoId" value="25944590#3"/>
     </road>
-    <road name="" length="15.76" id="951" junction="-1">
+    <road name="" length="15.76370901" id="951" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="391.47185128" y="501.06958348" hdg="-0.87333940" length="15.76370901">
@@ -3309,7 +3309,7 @@
         <signals/>
         <userData code="sumoId" value="25944601#0"/>
     </road>
-    <road name="" length="9.24" id="952" junction="-1">
+    <road name="" length="9.24284419" id="952" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="405.05570224" y="484.87510785" hdg="-0.86949759" length="9.24284419">
@@ -3342,7 +3342,7 @@
         <signals/>
         <userData code="sumoId" value="25944601#1"/>
     </road>
-    <road name="" length="22.22" id="953" junction="-1">
+    <road name="" length="21.75724876" id="953" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="534.62210724" y="512.95458174" hdg="1.96089513" length="9.89872406">
@@ -3378,7 +3378,7 @@
         <signals/>
         <userData code="sumoId" value="25944603#0"/>
     </road>
-    <road name="" length="16.68" id="954" junction="-1">
+    <road name="" length="16.68028908" id="954" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="517.61577870" y="534.58859606" hdg="2.22639598" length="16.68028908">
@@ -3411,7 +3411,7 @@
         <signals/>
         <userData code="sumoId" value="25944603#1"/>
     </road>
-    <road name="" length="4.29" id="955" junction="-1">
+    <road name="" length="4.29375694" id="955" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="504.84013952" y="552.14986219" hdg="1.96642305" length="4.29375694">
@@ -3444,7 +3444,7 @@
         <signals/>
         <userData code="sumoId" value="25944603#2"/>
     </road>
-    <road name="" length="30.71" id="956" junction="-1">
+    <road name="" length="30.73716407" id="956" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="505.54736529" y="547.86859004" hdg="-2.28725616" length="15.50161974">
@@ -3480,7 +3480,7 @@
         <signals/>
         <userData code="sumoId" value="25944605"/>
     </road>
-    <road name="" length="461.30" id="957" junction="-1">
+    <road name="" length="461.30416069" id="957" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="6"/>
             <successor elementType="junction" elementId="2"/>
@@ -3517,7 +3517,7 @@
         <signals/>
         <userData code="sumoId" value="25951490"/>
     </road>
-    <road name="" length="26.62" id="958" junction="-1">
+    <road name="" length="26.61911927" id="958" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1047.00132576" y="521.68936580" hdg="2.83495895" length="26.61911927">
@@ -3550,7 +3550,7 @@
         <signals/>
         <userData code="sumoId" value="26004787#0"/>
     </road>
-    <road name="" length="37.54" id="959" junction="-1">
+    <road name="" length="37.53772964" id="959" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1016.57735079" y="531.21554225" hdg="2.87282148" length="37.53772964">
@@ -3583,7 +3583,7 @@
         <signals/>
         <userData code="sumoId" value="26004787#1"/>
     </road>
-    <road name="" length="35.20" id="960" junction="-1">
+    <road name="" length="35.19694734" id="960" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="973.52505132" y="543.10964451" hdg="2.85619096" length="35.19694734">
@@ -3616,7 +3616,7 @@
         <signals/>
         <userData code="sumoId" value="26004787#2"/>
     </road>
-    <road name="" length="14.51" id="961" junction="-1">
+    <road name="" length="14.51133555" id="961" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1027.00442238" y="546.84317348" hdg="-1.96888437" length="14.51133555">
@@ -3649,7 +3649,7 @@
         <signals/>
         <userData code="sumoId" value="26004861#0"/>
     </road>
-    <road name="" length="19.75" id="962" junction="-1">
+    <road name="" length="19.74575686" id="962" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1019.16246395" y="528.59174307" hdg="-2.02506059" length="19.74575686">
@@ -3682,7 +3682,7 @@
         <signals/>
         <userData code="sumoId" value="26004861#1"/>
     </road>
-    <road name="" length="17.76" id="963" junction="-1">
+    <road name="" length="17.76087869" id="963" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1008.01792874" y="505.46206164" hdg="-1.98003214" length="17.76087869">
@@ -3715,7 +3715,7 @@
         <signals/>
         <userData code="sumoId" value="26004861#2"/>
     </road>
-    <road name="" length="30.77" id="964" junction="-1">
+    <road name="" length="30.76958653" id="964" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1048.90123656" y="523.99814822" hdg="2.29233314" length="30.76958653">
@@ -3748,7 +3748,7 @@
         <signals/>
         <userData code="sumoId" value="26004868#0"/>
     </road>
-    <road name="" length="26.08" id="965" junction="-1">
+    <road name="" length="26.08319554" id="965" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1025.13612795" y="551.03107971" hdg="2.28590072" length="26.08319554">
@@ -3781,7 +3781,7 @@
         <signals/>
         <userData code="sumoId" value="26004868#1"/>
     </road>
-    <road name="" length="16.08" id="966" junction="-1">
+    <road name="" length="16.08127642" id="966" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1021.48026422" y="585.09489845" hdg="-2.40030471" length="16.08127642">
@@ -3814,7 +3814,7 @@
         <signals/>
         <userData code="sumoId" value="26004966#0"/>
     </road>
-    <road name="" length="37.43" id="967" junction="-1">
+    <road name="" length="37.42947178" id="967" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1005.96356424" y="570.82276072" hdg="-2.38073382" length="37.42947178">
@@ -3847,7 +3847,7 @@
         <signals/>
         <userData code="sumoId" value="26004966#1"/>
     </road>
-    <road name="" length="39.67" id="968" junction="-1">
+    <road name="" length="39.66805868" id="968" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="979.96422151" y="540.48492394" hdg="-0.82024298" length="39.66805868">
@@ -3880,7 +3880,7 @@
         <signals/>
         <userData code="sumoId" value="26004966#2"/>
     </road>
-    <road name="" length="11.51" id="969" junction="-1">
+    <road name="" length="11.50602196" id="969" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1011.09977665" y="507.11178244" hdg="-0.81764239" length="11.50602196">
@@ -3913,7 +3913,7 @@
         <signals/>
         <userData code="sumoId" value="26004966#3"/>
     </road>
-    <road name="" length="57.66" id="970" junction="-1">
+    <road name="" length="57.65987386" id="970" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="8"/>
             <successor elementType="junction" elementId="7"/>
@@ -3950,7 +3950,7 @@
         <signals/>
         <userData code="sumoId" value="26816413#0"/>
     </road>
-    <road name="" length="20.27" id="971" junction="-1">
+    <road name="" length="20.27300966" id="971" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="7"/>
             <successor elementType="junction" elementId="9"/>
@@ -3987,7 +3987,7 @@
         <signals/>
         <userData code="sumoId" value="26816413#1"/>
     </road>
-    <road name="" length="109.11" id="972" junction="-1">
+    <road name="" length="114.05775392" id="972" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="9"/>
             <successor elementType="junction" elementId="7"/>
@@ -4042,7 +4042,7 @@
         <signals/>
         <userData code="sumoId" value="26816541"/>
     </road>
-    <road name="" length="215.73" id="973" junction="-1">
+    <road name="" length="213.48232185" id="973" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="9"/>
             <successor elementType="junction" elementId="10"/>
@@ -4103,7 +4103,7 @@
         <signals/>
         <userData code="sumoId" value="26816553"/>
     </road>
-    <road name="" length="0.20" id="974" junction="-1">
+    <road name="" length="0.20000000" id="974" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="9"/>
             <successor elementType="junction" elementId="11"/>
@@ -4140,7 +4140,7 @@
         <signals/>
         <userData code="sumoId" value="26816590#0"/>
     </road>
-    <road name="" length="4.86" id="975" junction="-1">
+    <road name="" length="4.85860862" id="975" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="11"/>
             <successor elementType="junction" elementId="12"/>
@@ -4177,7 +4177,7 @@
         <signals/>
         <userData code="sumoId" value="26816590#1"/>
     </road>
-    <road name="" length="40.02" id="976" junction="-1">
+    <road name="" length="40.00696706" id="976" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="12"/>
             <successor elementType="junction" elementId="13"/>
@@ -4220,7 +4220,7 @@
         <signals/>
         <userData code="sumoId" value="26816590#2"/>
     </road>
-    <road name="" length="151.90" id="977" junction="-1">
+    <road name="" length="151.89823486" id="977" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="11"/>
             <successor elementType="junction" elementId="14"/>
@@ -4257,7 +4257,7 @@
         <signals/>
         <userData code="sumoId" value="26816627"/>
     </road>
-    <road name="" length="89.38" id="978" junction="-1">
+    <road name="" length="89.38433081" id="978" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="16"/>
             <successor elementType="junction" elementId="15"/>
@@ -4294,7 +4294,7 @@
         <signals/>
         <userData code="sumoId" value="26843019"/>
     </road>
-    <road name="" length="34.41" id="979" junction="-1">
+    <road name="" length="34.40507899" id="979" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="18"/>
             <successor elementType="junction" elementId="17"/>
@@ -4331,7 +4331,7 @@
         <signals/>
         <userData code="sumoId" value="26843038#0"/>
     </road>
-    <road name="" length="105.43" id="980" junction="-1">
+    <road name="" length="96.68316097" id="980" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="17"/>
             <successor elementType="junction" elementId="19"/>
@@ -4380,7 +4380,7 @@
         <signals/>
         <userData code="sumoId" value="26843038#1"/>
     </road>
-    <road name="" length="26.26" id="981" junction="-1">
+    <road name="" length="26.26143299" id="981" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="19"/>
             <successor elementType="junction" elementId="17"/>
@@ -4417,7 +4417,7 @@
         <signals/>
         <userData code="sumoId" value="26843038#2"/>
     </road>
-    <road name="" length="0.56" id="982" junction="-1">
+    <road name="" length="0.56405352" id="982" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="12"/>
             <successor elementType="junction" elementId="20"/>
@@ -4454,7 +4454,7 @@
         <signals/>
         <userData code="sumoId" value="26843133#0"/>
     </road>
-    <road name="" length="122.92" id="983" junction="-1">
+    <road name="" length="127.21812504" id="983" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="20"/>
             <successor elementType="junction" elementId="21"/>
@@ -4503,7 +4503,7 @@
         <signals/>
         <userData code="sumoId" value="26843133#1"/>
     </road>
-    <road name="" length="29.89" id="984" junction="-1">
+    <road name="" length="29.89432413" id="984" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="21"/>
             <successor elementType="junction" elementId="20"/>
@@ -4540,7 +4540,7 @@
         <signals/>
         <userData code="sumoId" value="26843133#2"/>
     </road>
-    <road name="Rudower Chaussee" length="235.31" id="985" junction="-1">
+    <road name="Rudower Chaussee" length="235.64338250" id="985" junction="-1">
         <link>
             <successor elementType="junction" elementId="46"/>
         </link>
@@ -4603,7 +4603,7 @@
         <signals/>
         <userData code="sumoId" value="27437972#0"/>
     </road>
-    <road name="Rudower Chaussee" length="242.45" id="986" junction="-1">
+    <road name="Rudower Chaussee" length="242.28698812" id="986" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="46"/>
             <successor elementType="junction" elementId="67"/>
@@ -4652,7 +4652,7 @@
         <signals/>
         <userData code="sumoId" value="27437972#1"/>
     </road>
-    <road name="Rudower Chaussee" length="17.47" id="987" junction="-1">
+    <road name="Rudower Chaussee" length="17.47454438" id="987" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="67"/>
             <successor elementType="junction" elementId="68"/>
@@ -4689,7 +4689,7 @@
         <signals/>
         <userData code="sumoId" value="27437972#2"/>
     </road>
-    <road name="Rudower Chaussee" length="47.11" id="988" junction="-1">
+    <road name="Rudower Chaussee" length="47.23127701" id="988" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="68"/>
             <successor elementType="junction" elementId="64"/>
@@ -4732,7 +4732,7 @@
         <signals/>
         <userData code="sumoId" value="27437972#3"/>
     </road>
-    <road name="Rudower Chaussee" length="112.58" id="989" junction="-1">
+    <road name="Rudower Chaussee" length="112.58171606" id="989" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="64"/>
             <successor elementType="junction" elementId="69"/>
@@ -4769,7 +4769,7 @@
         <signals/>
         <userData code="sumoId" value="27437972#4"/>
     </road>
-    <road name="Rudower Chaussee" length="7.03" id="990" junction="-1">
+    <road name="Rudower Chaussee" length="7.03388917" id="990" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="66"/>
             <successor elementType="junction" elementId="70"/>
@@ -4806,7 +4806,7 @@
         <signals/>
         <userData code="sumoId" value="27441168"/>
     </road>
-    <road name="Rudower Chaussee" length="7.57" id="991" junction="-1">
+    <road name="Rudower Chaussee" length="7.56920788" id="991" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="69"/>
             <successor elementType="junction" elementId="71"/>
@@ -4843,7 +4843,7 @@
         <signals/>
         <userData code="sumoId" value="27441189"/>
     </road>
-    <road name="Wegedornstraße" length="68.04" id="992" junction="-1">
+    <road name="Wegedornstraße" length="68.26486449" id="992" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="66"/>
             <successor elementType="junction" elementId="61"/>
@@ -4886,7 +4886,7 @@
         <signals/>
         <userData code="sumoId" value="27441289"/>
     </road>
-    <road name="Rudower Chaussee" length="481.86" id="993" junction="-1">
+    <road name="Rudower Chaussee" length="482.16580923" id="993" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="71"/>
             <successor elementType="junction" elementId="65"/>
@@ -4947,7 +4947,7 @@
         <signals/>
         <userData code="sumoId" value="27445000"/>
     </road>
-    <road name="Wegedornstraße" length="7.94" id="994" junction="-1">
+    <road name="Wegedornstraße" length="7.94418027" id="994" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="70"/>
             <successor elementType="junction" elementId="69"/>
@@ -4984,7 +4984,7 @@
         <signals/>
         <userData code="sumoId" value="27445003"/>
     </road>
-    <road name="Rudower Chaussee" length="111.87" id="995" junction="-1">
+    <road name="Rudower Chaussee" length="111.86657871" id="995" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="70"/>
             <successor elementType="junction" elementId="41"/>
@@ -5021,7 +5021,7 @@
         <signals/>
         <userData code="sumoId" value="27445015#0"/>
     </road>
-    <road name="Rudower Chaussee" length="42.84" id="996" junction="-1">
+    <road name="Rudower Chaussee" length="42.74097779" id="996" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="41"/>
             <successor elementType="junction" elementId="72"/>
@@ -5064,7 +5064,7 @@
         <signals/>
         <userData code="sumoId" value="27445015#1"/>
     </road>
-    <road name="Rudower Chaussee" length="131.48" id="997" junction="-1">
+    <road name="Rudower Chaussee" length="131.20129731" id="997" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="72"/>
             <successor elementType="junction" elementId="33"/>
@@ -5119,7 +5119,7 @@
         <signals/>
         <userData code="sumoId" value="27445015#2"/>
     </road>
-    <road name="Rudower Chaussee" length="139.48" id="998" junction="-1">
+    <road name="Rudower Chaussee" length="139.77015282" id="998" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="33"/>
             <successor elementType="junction" elementId="44"/>
@@ -5168,7 +5168,7 @@
         <signals/>
         <userData code="sumoId" value="27445015#3"/>
     </road>
-    <road name="Rudower Chaussee" length="235.43" id="999" junction="-1">
+    <road name="Rudower Chaussee" length="235.03100005" id="999" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="44"/>
         </link>
@@ -5234,7 +5234,7 @@
         <signals/>
         <userData code="sumoId" value="27445015#4"/>
     </road>
-    <road name="Justus-von-Liebig-Straße" length="519.62" id="1000" junction="-1">
+    <road name="Justus-von-Liebig-Straße" length="519.55952129" id="1000" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="23"/>
             <successor elementType="junction" elementId="22"/>
@@ -5277,7 +5277,7 @@
         <signals/>
         <userData code="sumoId" value="5198584"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="135.48" id="1001" junction="-1">
+    <road name="Albert-Einstein-Straße" length="136.19309834" id="1001" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="24"/>
             <successor elementType="junction" elementId="10"/>
@@ -5326,7 +5326,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#0"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="50.39" id="1002" junction="-1">
+    <road name="Albert-Einstein-Straße" length="50.39309872" id="1002" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="10"/>
             <successor elementType="junction" elementId="25"/>
@@ -5363,7 +5363,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#1"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="164.25" id="1003" junction="-1">
+    <road name="Albert-Einstein-Straße" length="164.24677067" id="1003" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="25"/>
             <successor elementType="junction" elementId="26"/>
@@ -5400,7 +5400,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#2"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="32.33" id="1004" junction="-1">
+    <road name="Albert-Einstein-Straße" length="32.33155111" id="1004" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="26"/>
             <successor elementType="junction" elementId="15"/>
@@ -5437,7 +5437,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#3"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="40.56" id="1005" junction="-1">
+    <road name="Albert-Einstein-Straße" length="40.56348814" id="1005" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="15"/>
             <successor elementType="junction" elementId="27"/>
@@ -5474,7 +5474,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#4"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="48.39" id="1006" junction="-1">
+    <road name="Albert-Einstein-Straße" length="48.38842319" id="1006" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="27"/>
             <successor elementType="junction" elementId="28"/>
@@ -5511,7 +5511,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#5"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="16.91" id="1007" junction="-1">
+    <road name="Albert-Einstein-Straße" length="16.90920801" id="1007" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="28"/>
             <successor elementType="junction" elementId="29"/>
@@ -5548,7 +5548,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#6"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="33.96" id="1008" junction="-1">
+    <road name="Albert-Einstein-Straße" length="33.95542783" id="1008" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="29"/>
             <successor elementType="junction" elementId="30"/>
@@ -5585,7 +5585,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#7"/>
     </road>
-    <road name="Albert-Einstein-Straße" length="287.32" id="1009" junction="-1">
+    <road name="Albert-Einstein-Straße" length="287.18873320" id="1009" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="30"/>
             <successor elementType="junction" elementId="31"/>
@@ -5634,7 +5634,7 @@
         <signals/>
         <userData code="sumoId" value="5198585#8"/>
     </road>
-    <road name="Magnusstraße" length="67.07" id="1010" junction="-1">
+    <road name="Magnusstraße" length="67.06968427" id="1010" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="33"/>
             <successor elementType="junction" elementId="32"/>
@@ -5671,7 +5671,7 @@
         <signals/>
         <userData code="sumoId" value="5198586#0"/>
     </road>
-    <road name="Magnusstraße" length="89.24" id="1011" junction="-1">
+    <road name="Magnusstraße" length="89.24048655" id="1011" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="32"/>
             <successor elementType="junction" elementId="26"/>
@@ -5708,7 +5708,7 @@
         <signals/>
         <userData code="sumoId" value="5198586#1"/>
     </road>
-    <road name="Magnusstraße" length="136.08" id="1012" junction="-1">
+    <road name="Magnusstraße" length="136.07829458" id="1012" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="26"/>
             <successor elementType="junction" elementId="34"/>
@@ -5745,7 +5745,7 @@
         <signals/>
         <userData code="sumoId" value="5198586#2"/>
     </road>
-    <road name="Magnusstraße" length="99.11" id="1013" junction="-1">
+    <road name="Magnusstraße" length="99.10978001" id="1013" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="34"/>
             <successor elementType="junction" elementId="23"/>
@@ -5782,7 +5782,7 @@
         <signals/>
         <userData code="sumoId" value="5198586#3"/>
     </road>
-    <road name="Magnusstraße" length="90.67" id="1014" junction="-1">
+    <road name="Magnusstraße" length="90.30614519" id="1014" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="23"/>
             <successor elementType="junction" elementId="35"/>
@@ -5825,7 +5825,7 @@
         <signals/>
         <userData code="sumoId" value="5198586#4"/>
     </road>
-    <road name="Gustav-Kirchhoff-Straße" length="134.56" id="1015" junction="-1">
+    <road name="Gustav-Kirchhoff-Straße" length="134.55734313" id="1015" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="27"/>
             <successor elementType="junction" elementId="36"/>
@@ -5862,7 +5862,7 @@
         <signals/>
         <userData code="sumoId" value="5198587"/>
     </road>
-    <road name="Max-Planck-Straße" length="82.02" id="1016" junction="-1">
+    <road name="Max-Planck-Straße" length="82.01532915" id="1016" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="34"/>
             <successor elementType="junction" elementId="36"/>
@@ -5899,7 +5899,7 @@
         <signals/>
         <userData code="sumoId" value="5198588#0"/>
     </road>
-    <road name="Max-Planck-Straße" length="181.76" id="1017" junction="-1">
+    <road name="Max-Planck-Straße" length="181.75596991" id="1017" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="36"/>
             <successor elementType="junction" elementId="37"/>
@@ -5936,7 +5936,7 @@
         <signals/>
         <userData code="sumoId" value="5198588#1"/>
     </road>
-    <road name="Kekuléstraße" length="49.66" id="1018" junction="-1">
+    <road name="Kekuléstraße" length="49.65975798" id="1018" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="38"/>
             <successor elementType="junction" elementId="18"/>
@@ -5973,7 +5973,7 @@
         <signals/>
         <userData code="sumoId" value="5198596#0"/>
     </road>
-    <road name="Kekuléstraße" length="34.73" id="1019" junction="-1">
+    <road name="Kekuléstraße" length="34.73187004" id="1019" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="18"/>
             <successor elementType="junction" elementId="16"/>
@@ -6010,7 +6010,7 @@
         <signals/>
         <userData code="sumoId" value="5198596#1"/>
     </road>
-    <road name="Kekuléstraße" length="30.89" id="1020" junction="-1">
+    <road name="Kekuléstraße" length="30.88891594" id="1020" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="16"/>
             <successor elementType="junction" elementId="32"/>
@@ -6047,7 +6047,7 @@
         <signals/>
         <userData code="sumoId" value="5198596#2"/>
     </road>
-    <road name="Kekuléstraße" length="132.54" id="1021" junction="-1">
+    <road name="Kekuléstraße" length="132.53727325" id="1021" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="32"/>
             <successor elementType="junction" elementId="39"/>
@@ -6084,7 +6084,7 @@
         <signals/>
         <userData code="sumoId" value="5198596#3"/>
     </road>
-    <road name="Kekuléstraße" length="32.17" id="1022" junction="-1">
+    <road name="Kekuléstraße" length="32.16605209" id="1022" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="39"/>
             <successor elementType="junction" elementId="40"/>
@@ -6121,7 +6121,7 @@
         <signals/>
         <userData code="sumoId" value="5198596#4"/>
     </road>
-    <road name="Rutherfordstraße" length="87.45" id="1023" junction="-1">
+    <road name="Rutherfordstraße" length="87.45390250" id="1023" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="25"/>
             <successor elementType="junction" elementId="40"/>
@@ -6158,7 +6158,7 @@
         <signals/>
         <userData code="sumoId" value="5198597#0"/>
     </road>
-    <road name="Rutherfordstraße" length="69.45" id="1024" junction="-1">
+    <road name="Rutherfordstraße" length="69.93374451" id="1024" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="40"/>
             <successor elementType="junction" elementId="8"/>
@@ -6201,7 +6201,7 @@
         <signals/>
         <userData code="sumoId" value="5198597#1"/>
     </road>
-    <road name="Rutherfordstraße" length="31.34" id="1025" junction="-1">
+    <road name="Rutherfordstraße" length="31.34186976" id="1025" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="8"/>
             <successor elementType="junction" elementId="41"/>
@@ -6244,7 +6244,7 @@
         <signals/>
         <userData code="sumoId" value="5198597#2"/>
     </road>
-    <road name="Max-Born-Straße" length="111.17" id="1026" junction="-1">
+    <road name="Max-Born-Straße" length="112.75509477" id="1026" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="67"/>
             <successor elementType="junction" elementId="56"/>
@@ -6290,7 +6290,7 @@
         <signals/>
         <userData code="sumoId" value="5784947#0"/>
     </road>
-    <road name="Max-Born-Straße" length="203.23" id="1027" junction="-1">
+    <road name="Max-Born-Straße" length="203.24520521" id="1027" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="56"/>
         </link>
@@ -6332,7 +6332,7 @@
         <signals/>
         <userData code="sumoId" value="5784947#1"/>
     </road>
-    <road name="Max-Born-Straße" length="194.57" id="1028" junction="-1">
+    <road name="Max-Born-Straße" length="194.56035655" id="1028" junction="-1">
         <link>
             <successor elementType="junction" elementId="55"/>
         </link>
@@ -6374,7 +6374,7 @@
         <signals/>
         <userData code="sumoId" value="5784950#0"/>
     </road>
-    <road name="Max-Born-Straße" length="7.98" id="1029" junction="-1">
+    <road name="Max-Born-Straße" length="7.98322154" id="1029" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="55"/>
             <successor elementType="junction" elementId="73"/>
@@ -6411,7 +6411,7 @@
         <signals/>
         <userData code="sumoId" value="5784950#1"/>
     </road>
-    <road name="Max-Born-Straße" length="2.44" id="1030" junction="-1">
+    <road name="Max-Born-Straße" length="2.44482161" id="1030" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="73"/>
             <successor elementType="junction" elementId="52"/>
@@ -6448,7 +6448,7 @@
         <signals/>
         <userData code="sumoId" value="5784950#2"/>
     </road>
-    <road name="Max-Born-Straße" length="92.21" id="1031" junction="-1">
+    <road name="Max-Born-Straße" length="92.21411574" id="1031" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="52"/>
             <successor elementType="junction" elementId="68"/>
@@ -6485,7 +6485,7 @@
         <signals/>
         <userData code="sumoId" value="5784950#3"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="1.28" id="1032" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="1.27833653" id="1032" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="28"/>
             <successor elementType="junction" elementId="42"/>
@@ -6522,7 +6522,7 @@
         <signals/>
         <userData code="sumoId" value="5784968#0"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="80.77" id="1033" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="80.76881514" id="1033" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="42"/>
             <successor elementType="junction" elementId="38"/>
@@ -6559,7 +6559,7 @@
         <signals/>
         <userData code="sumoId" value="5784968#1"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="0.20" id="1034" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="0.20000000" id="1034" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="38"/>
             <successor elementType="junction" elementId="43"/>
@@ -6596,7 +6596,7 @@
         <signals/>
         <userData code="sumoId" value="5784968#2"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="45.05" id="1035" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="45.05308586" id="1035" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="43"/>
             <successor elementType="junction" elementId="44"/>
@@ -6633,7 +6633,7 @@
         <signals/>
         <userData code="sumoId" value="5784968#3"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="5.97" id="1036" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="5.96824138" id="1036" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="44"/>
             <successor elementType="junction" elementId="45"/>
@@ -6670,7 +6670,7 @@
         <signals/>
         <userData code="sumoId" value="5784968#4"/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="4.21" id="1037" junction="-1">
+    <road name="Gottfried-Leibniz-Straße" length="4.20957343" id="1037" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="45"/>
             <successor elementType="junction" elementId="46"/>
@@ -6707,7 +6707,7 @@
         <signals/>
         <userData code="sumoId" value="5784968#5"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="38.50" id="1038" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="38.50030466" id="1038" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="48"/>
             <successor elementType="junction" elementId="47"/>
@@ -6744,7 +6744,7 @@
         <signals/>
         <userData code="sumoId" value="6137233#0"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="25.11" id="1039" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="25.10649363" id="1039" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="47"/>
             <successor elementType="junction" elementId="49"/>
@@ -6781,7 +6781,7 @@
         <signals/>
         <userData code="sumoId" value="6137233#1"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="36.87" id="1040" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="36.86711771" id="1040" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="49"/>
             <successor elementType="junction" elementId="50"/>
@@ -6818,7 +6818,7 @@
         <signals/>
         <userData code="sumoId" value="6137233#2"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="124.95" id="1041" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="124.73649106" id="1041" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="50"/>
             <successor elementType="junction" elementId="51"/>
@@ -6861,7 +6861,7 @@
         <signals/>
         <userData code="sumoId" value="6137233#3"/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="80.45" id="1042" junction="-1">
+    <road name="Ludwig-Boltzmann-Straße" length="80.44959476" id="1042" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="51"/>
             <successor elementType="junction" elementId="52"/>
@@ -6898,7 +6898,7 @@
         <signals/>
         <userData code="sumoId" value="6137233#4"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="64.04" id="1043" junction="-1">
+    <road name="Carl-Scheele-Straße" length="64.87685516" id="1043" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="47"/>
             <successor elementType="junction" elementId="53"/>
@@ -6947,7 +6947,7 @@
         <signals/>
         <userData code="sumoId" value="6137239#0"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="121.99" id="1044" junction="-1">
+    <road name="Carl-Scheele-Straße" length="121.98917309" id="1044" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="53"/>
             <successor elementType="junction" elementId="54"/>
@@ -6984,7 +6984,7 @@
         <signals/>
         <userData code="sumoId" value="6137239#1"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="94.38" id="1045" junction="-1">
+    <road name="Carl-Scheele-Straße" length="94.96093090" id="1045" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="54"/>
             <successor elementType="junction" elementId="55"/>
@@ -7027,7 +7027,7 @@
         <signals/>
         <userData code="sumoId" value="6137239#2"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="2.01" id="1046" junction="-1">
+    <road name="Carl-Scheele-Straße" length="2.01348807" id="1046" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="55"/>
             <successor elementType="junction" elementId="56"/>
@@ -7064,7 +7064,7 @@
         <signals/>
         <userData code="sumoId" value="6137239#3"/>
     </road>
-    <road name="Carl-Scheele-Straße" length="168.54" id="1047" junction="-1">
+    <road name="Carl-Scheele-Straße" length="167.31426573" id="1047" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="56"/>
             <successor elementType="junction" elementId="57"/>
@@ -7110,7 +7110,7 @@
         <signals/>
         <userData code="sumoId" value="6137239#4"/>
     </road>
-    <road name="Wegedornstraße" length="7.40" id="1048" junction="-1">
+    <road name="Wegedornstraße" length="7.40433614" id="1048" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="71"/>
             <successor elementType="junction" elementId="66"/>
@@ -7147,7 +7147,7 @@
         <signals/>
         <userData code="sumoId" value="6137245"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="593.78" id="1049" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="595.63756675" id="1049" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="59"/>
             <successor elementType="junction" elementId="58"/>
@@ -7217,7 +7217,7 @@
         <signals/>
         <userData code="sumoId" value="7216737#0"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="23.54" id="1050" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="23.53773233" id="1050" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="58"/>
             <successor elementType="junction" elementId="60"/>
@@ -7260,7 +7260,7 @@
         <signals/>
         <userData code="sumoId" value="7216737#1"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="469.73" id="1051" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="470.07673812" id="1051" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="60"/>
             <successor elementType="junction" elementId="24"/>
@@ -7321,7 +7321,7 @@
         <signals/>
         <userData code="sumoId" value="7216737#2"/>
     </road>
-    <road name="Ernst-Ruska-Ufer" length="153.28" id="1052" junction="-1">
+    <road name="Ernst-Ruska-Ufer" length="153.27705507" id="1052" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="24"/>
             <successor elementType="junction" elementId="4"/>
@@ -7364,7 +7364,7 @@
         <signals/>
         <userData code="sumoId" value="7216737#3"/>
     </road>
-    <road name="Wegedornstraße" length="69.98" id="1053" junction="-1">
+    <road name="Wegedornstraße" length="69.96999537" id="1053" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="61"/>
             <successor elementType="junction" elementId="70"/>
@@ -7407,7 +7407,7 @@
         <signals/>
         <userData code="sumoId" value="7727482"/>
     </road>
-    <road name="Wegedornstraße" length="0.12" id="1054" junction="-1">
+    <road name="Wegedornstraße" length="0.11612282" id="1054" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="61"/>
             <successor elementType="junction" elementId="13"/>
@@ -7444,7 +7444,7 @@
         <signals/>
         <userData code="sumoId" value="7727483#0"/>
     </road>
-    <road name="Wegedornstraße" length="21.61" id="1055" junction="-1">
+    <road name="Wegedornstraße" length="21.61141819" id="1055" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="13"/>
             <successor elementType="junction" elementId="62"/>
@@ -7481,7 +7481,7 @@
         <signals/>
         <userData code="sumoId" value="7727483#1"/>
     </road>
-    <road name="Wegedornstraße" length="113.82" id="1056" junction="-1">
+    <road name="Wegedornstraße" length="113.81680481" id="1056" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="62"/>
             <successor elementType="junction" elementId="63"/>
@@ -7530,7 +7530,7 @@
         <signals/>
         <userData code="sumoId" value="7727483#2"/>
     </road>
-    <road name="Wegedornstraße" length="38.22" id="1057" junction="-1">
+    <road name="Wegedornstraße" length="38.22272401" id="1057" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="63"/>
             <successor elementType="junction" elementId="4"/>
@@ -7567,7 +7567,7 @@
         <signals/>
         <userData code="sumoId" value="7727483#3"/>
     </road>
-    <road name="" length="88.61" id="1058" junction="-1">
+    <road name="" length="88.60998810" id="1058" junction="-1">
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="665.36637440" y="433.70238607" hdg="-0.87117518" length="88.60998810">
@@ -7600,7 +7600,7 @@
         <signals/>
         <userData code="sumoId" value="7730463"/>
     </road>
-    <road name="" length="2.38" id="1059" junction="-1">
+    <road name="" length="2.38290771" id="1059" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="64"/>
             <successor elementType="junction" elementId="41"/>

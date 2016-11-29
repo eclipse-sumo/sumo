@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 28 14:57:25 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
-    <road name="" length="98.50" id="100" junction="-1">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 12:23:05 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <road name="" length="98.50000000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
         </link>
@@ -43,7 +43,7 @@
         <signals/>
         <userData code="sumoId" value="gneE0"/>
     </road>
-    <road name="" length="316.63" id="101" junction="-1">
+    <road name="" length="316.63275953" id="101" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
         </link>
@@ -79,7 +79,7 @@
         <signals/>
         <userData code="sumoId" value="off"/>
     </road>
-    <road name="" length="316.63" id="102" junction="-1">
+    <road name="" length="316.63275953" id="102" junction="-1">
         <link>
             <successor elementType="junction" elementId="3"/>
         </link>
@@ -115,7 +115,7 @@
         <signals/>
         <userData code="sumoId" value="on"/>
     </road>
-    <road name="" length="498.50" id="103" junction="-1">
+    <road name="" length="498.50000000" id="103" junction="-1">
         <link>
             <successor elementType="junction" elementId="3"/>
         </link>
@@ -163,7 +163,7 @@
         <signals/>
         <userData code="sumoId" value="s1"/>
     </road>
-    <road name="" length="398.35" id="104" junction="-1">
+    <road name="" length="398.35000000" id="104" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="4"/>
             <successor elementType="junction" elementId="5"/>
@@ -212,7 +212,7 @@
         <signals/>
         <userData code="sumoId" value="s2"/>
     </road>
-    <road name="" length="90.93" id="105" junction="-1">
+    <road name="" length="90.93449608" id="105" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="4"/>
@@ -267,7 +267,7 @@
         <signals/>
         <userData code="sumoId" value="s2-AddedOnRampEdge"/>
     </road>
-    <road name="" length="398.35" id="106" junction="-1">
+    <road name="" length="398.35000000" id="106" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="5"/>
             <successor elementType="junction" elementId="6"/>
@@ -316,7 +316,7 @@
         <signals/>
         <userData code="sumoId" value="s3"/>
     </road>
-    <road name="" length="90.93" id="107" junction="-1">
+    <road name="" length="90.93449608" id="107" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="6"/>
             <successor elementType="junction" elementId="2"/>
@@ -371,7 +371,7 @@
         <signals/>
         <userData code="sumoId" value="s3-AddedOffRampEdge"/>
     </road>
-    <road name="" length="497.00" id="108" junction="-1">
+    <road name="" length="497.00000000" id="108" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="1"/>
