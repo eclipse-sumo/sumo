@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 12:23:05 2016" north="284.53" south="0.00" east="1103.40" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 13:36:05 2016" north="284.53" south="0.00" east="1103.40" west="0.00"/>
     <road name="延安高架" length="344.90488876" id="30" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -156,7 +156,7 @@
         <signals/>
     </road>
 
-    <road name=":-117529_0_0" length="0.37" id="32" junction="1">
+    <road name=":-117529_0_0" length="0.36923258" id="32" junction="1">
         <link>
             <predecessor elementType="road" elementId="31" contactPoint="end"/>
             <successor elementType="road" elementId="30" contactPoint="start"/>
@@ -194,7 +194,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":-117529_0_1" length="0.51" id="33" junction="1">
+    <road name=":-117529_0_1" length="0.51218525" id="33" junction="1">
         <link>
             <predecessor elementType="road" elementId="31" contactPoint="end"/>
             <successor elementType="road" elementId="30" contactPoint="start"/>
@@ -232,7 +232,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":-117529_0_2" length="0.66" id="34" junction="1">
+    <road name=":-117529_0_2" length="0.65513792" id="34" junction="1">
         <link>
             <predecessor elementType="road" elementId="31" contactPoint="end"/>
             <successor elementType="road" elementId="30" contactPoint="start"/>

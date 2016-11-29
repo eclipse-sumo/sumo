@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 12:23:05 2016" north="173.36" south="0.00" east="400.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 13:36:04 2016" north="173.36" south="0.00" east="400.00" west="0.00"/>
     <road name="" length="8.54999851" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1430,7 +1430,7 @@
         <signals/>
     </road>
 
-    <road name=":2_0_0" length="8.51" id="62" junction="1">
+    <road name=":2_0_0" length="8.51469829" id="62" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
             <successor elementType="road" elementId="51" contactPoint="start"/>
@@ -1468,7 +1468,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_1_0" length="10.60" id="63" junction="1">
+    <road name=":2_1_0" length="10.60000297" id="63" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
             <successor elementType="road" elementId="54" contactPoint="start"/>
@@ -1506,7 +1506,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_2_0" length="8.68" id="64" junction="1">
+    <road name=":2_2_0" length="8.67688297" id="64" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
             <successor elementType="road" elementId="55" contactPoint="start"/>
@@ -1544,7 +1544,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_3_0" length="8.51" id="65" junction="1">
+    <road name=":2_3_0" length="8.51469829" id="65" junction="1">
         <link>
             <predecessor elementType="road" elementId="61" contactPoint="end"/>
             <successor elementType="road" elementId="50" contactPoint="start"/>
@@ -1582,7 +1582,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_4_0" length="10.60" id="66" junction="1">
+    <road name=":2_4_0" length="10.60000297" id="66" junction="1">
         <link>
             <predecessor elementType="road" elementId="61" contactPoint="end"/>
             <successor elementType="road" elementId="51" contactPoint="start"/>
@@ -1620,7 +1620,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_5_0" length="8.68" id="67" junction="1">
+    <road name=":2_5_0" length="8.67688297" id="67" junction="1">
         <link>
             <predecessor elementType="road" elementId="61" contactPoint="end"/>
             <successor elementType="road" elementId="54" contactPoint="start"/>
@@ -1658,7 +1658,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_6_0" length="8.51" id="68" junction="1">
+    <road name=":2_6_0" length="8.51469829" id="68" junction="1">
         <link>
             <predecessor elementType="road" elementId="60" contactPoint="end"/>
             <successor elementType="road" elementId="55" contactPoint="start"/>
@@ -1696,7 +1696,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_7_0" length="10.60" id="69" junction="1">
+    <road name=":2_7_0" length="10.60000297" id="69" junction="1">
         <link>
             <predecessor elementType="road" elementId="60" contactPoint="end"/>
             <successor elementType="road" elementId="50" contactPoint="start"/>
@@ -1734,7 +1734,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_8_0" length="8.68" id="70" junction="1">
+    <road name=":2_8_0" length="8.67688297" id="70" junction="1">
         <link>
             <predecessor elementType="road" elementId="60" contactPoint="end"/>
             <successor elementType="road" elementId="51" contactPoint="start"/>
@@ -1772,7 +1772,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_9_0" length="8.51" id="71" junction="1">
+    <road name=":2_9_0" length="8.51469829" id="71" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
             <successor elementType="road" elementId="54" contactPoint="start"/>
@@ -1810,7 +1810,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_10_0" length="10.60" id="72" junction="1">
+    <road name=":2_10_0" length="10.60000297" id="72" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
             <successor elementType="road" elementId="55" contactPoint="start"/>
@@ -1848,7 +1848,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_11_0" length="8.68" id="73" junction="1">
+    <road name=":2_11_0" length="8.67688297" id="73" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
             <successor elementType="road" elementId="50" contactPoint="start"/>
@@ -1886,7 +1886,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":508.501_0_0" length="0.30" id="74" junction="2">
+    <road name=":508.501_0_0" length="0.29999999" id="74" junction="2">
         <link>
             <predecessor elementType="road" elementId="52" contactPoint="end"/>
             <successor elementType="road" elementId="56" contactPoint="start"/>
@@ -1924,7 +1924,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":508.501_1_0" length="0.30" id="75" junction="2">
+    <road name=":508.501_1_0" length="0.30000001" id="75" junction="2">
         <link>
             <predecessor elementType="road" elementId="50" contactPoint="end"/>
             <successor elementType="road" elementId="58" contactPoint="start"/>
@@ -1962,7 +1962,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":509.502_0_0" length="0.30" id="76" junction="3">
+    <road name=":509.502_0_0" length="0.30000001" id="76" junction="3">
         <link>
             <predecessor elementType="road" elementId="51" contactPoint="end"/>
             <successor elementType="road" elementId="59" contactPoint="start"/>
@@ -2000,7 +2000,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":509.502_1_0" length="0.30" id="77" junction="3">
+    <road name=":509.502_1_0" length="0.29999999" id="77" junction="3">
         <link>
             <predecessor elementType="road" elementId="53" contactPoint="end"/>
             <successor elementType="road" elementId="57" contactPoint="start"/>
@@ -2038,7 +2038,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":514.509_0_0" length="0.30" id="78" junction="5">
+    <road name=":514.509_0_0" length="0.30000001" id="78" junction="5">
         <link>
             <predecessor elementType="road" elementId="54" contactPoint="end"/>
             <successor elementType="road" elementId="53" contactPoint="start"/>
@@ -2076,7 +2076,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":514.509_1_0" length="0.30" id="79" junction="5">
+    <road name=":514.509_1_0" length="0.29999999" id="79" junction="5">
         <link>
             <predecessor elementType="road" elementId="59" contactPoint="end"/>
             <successor elementType="road" elementId="60" contactPoint="start"/>
@@ -2114,7 +2114,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":516.508_0_0" length="0.30" id="80" junction="4">
+    <road name=":516.508_0_0" length="0.29999999" id="80" junction="4">
         <link>
             <predecessor elementType="road" elementId="58" contactPoint="end"/>
             <successor elementType="road" elementId="61" contactPoint="start"/>
@@ -2152,7 +2152,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":516.508_1_0" length="0.30" id="81" junction="4">
+    <road name=":516.508_1_0" length="0.30000001" id="81" junction="4">
         <link>
             <predecessor elementType="road" elementId="55" contactPoint="end"/>
             <successor elementType="road" elementId="52" contactPoint="start"/>
