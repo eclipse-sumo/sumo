@@ -42,7 +42,6 @@
 // static members
 // ===========================================================================
 std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > GNEAttributeCarrier::_allowedAttributes;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
@@ -56,6 +55,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myProbabilityA
 std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalWithParentTags;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::string > > GNEAttributeCarrier::myAttrDefinitions;
+int GNEAttributeCarrier::myMaxNumAttribute = 0;
 
 const std::string GNEAttributeCarrier::LOADED = "loaded";
 const std::string GNEAttributeCarrier::GUESSED = "guessed";
@@ -352,34 +352,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
 
 
 const std::vector<SumoXMLTag>&
-GNEAttributeCarrier::allowedTags() {
-    // define on first access
-    if (myAllowedTags.empty()) {
-        myAllowedTags.push_back(SUMO_TAG_BUS_STOP);
-        myAllowedTags.push_back(SUMO_TAG_CALIBRATOR);
-        myAllowedTags.push_back(SUMO_TAG_CHARGING_STATION);
-        myAllowedTags.push_back(SUMO_TAG_CONNECTION);
-        myAllowedTags.push_back(SUMO_TAG_CONTAINER_STOP);
-        myAllowedTags.push_back(SUMO_TAG_CROSSING);
-        myAllowedTags.push_back(SUMO_TAG_DET_ENTRY);
-        myAllowedTags.push_back(SUMO_TAG_DET_EXIT);
-        myAllowedTags.push_back(SUMO_TAG_E1DETECTOR);
-        myAllowedTags.push_back(SUMO_TAG_E2DETECTOR);
-        myAllowedTags.push_back(SUMO_TAG_E3DETECTOR);
-        myAllowedTags.push_back(SUMO_TAG_EDGE);
-        myAllowedTags.push_back(SUMO_TAG_JUNCTION);
-        myAllowedTags.push_back(SUMO_TAG_LANE);
-        myAllowedTags.push_back(SUMO_TAG_REROUTER);
-        myAllowedTags.push_back(SUMO_TAG_ROUTEPROBE);
-        myAllowedTags.push_back(SUMO_TAG_VAPORIZER);
-        myAllowedTags.push_back(SUMO_TAG_VSS);
-    }
-    return myAllowedTags;
-}
-
-
-const std::vector<SumoXMLTag>&
-GNEAttributeCarrier::allowedNetElementTags() {
+GNEAttributeCarrier::allowedTags(bool net) {
     // define on first access
     if (myAllowedNetElementTags.empty()) {
         myAllowedNetElementTags.push_back(SUMO_TAG_CONNECTION);
@@ -388,13 +361,6 @@ GNEAttributeCarrier::allowedNetElementTags() {
         myAllowedNetElementTags.push_back(SUMO_TAG_JUNCTION);
         myAllowedNetElementTags.push_back(SUMO_TAG_LANE);
     }
-    return myAllowedNetElementTags;
-}
-
-
-const std::vector<SumoXMLTag>&
-GNEAttributeCarrier::allowedAdditionalTags() {
-    // define on first access
     if (myAllowedAdditionalTags.empty()) {
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
@@ -410,7 +376,7 @@ GNEAttributeCarrier::allowedAdditionalTags() {
         myAllowedAdditionalTags.push_back(SUMO_TAG_VAPORIZER);
         myAllowedAdditionalTags.push_back(SUMO_TAG_VSS);
     }
-    return myAllowedAdditionalTags;
+    return net ? myAllowedNetElementTags : myAllowedAdditionalTags;
 }
 
 
@@ -857,13 +823,15 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
 
 int
 GNEAttributeCarrier::getHigherNumberOfAttributes() {
-    int higherNumber = 0;
-    for (std::vector<SumoXMLTag>::const_iterator i = allowedTags().begin(); i != allowedTags().end(); i++) {
-        if ((int)allowedAttributes(*i).size() > higherNumber) {
-            higherNumber = (int)allowedAttributes(*i).size();
+    if (myMaxNumAttribute == 0) {
+        for (std::vector<SumoXMLTag>::const_iterator i = myAllowedNetElementTags.begin(); i != myAllowedNetElementTags.end(); i++) {
+            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(*i).size());
+        }
+        for (std::vector<SumoXMLTag>::const_iterator i = myAllowedAdditionalTags.begin(); i != myAllowedAdditionalTags.end(); i++) {
+            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(*i).size());
         }
     }
-    return higherNumber;
+    return myMaxNumAttribute;
 }
 
 

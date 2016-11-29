@@ -106,14 +106,8 @@ public:
     /// @brief get all editable attributes for tag and their default values.
     static const std::vector<std::pair<SumoXMLAttr, std::string> >& allowedAttributes(SumoXMLTag tag);
 
-    /// @brief get all editable for tag.
-    static const std::vector<SumoXMLTag>& allowedTags();
-
-    /// @brief get all editable tags for netElements
-    static const std::vector<SumoXMLTag>& allowedNetElementTags();
-
-    /// @brief get all editable tags for additionals
-    static const std::vector<SumoXMLTag>& allowedAdditionalTags();
+    /// @brief get all editable for tag (net or additional).
+    static const std::vector<SumoXMLTag>& allowedTags(bool net);
 
     /// @brief whether an attribute is numerical (int or float)
     static bool isNumerical(SumoXMLTag tag, SumoXMLAttr attr);
@@ -227,9 +221,6 @@ private:
     /// @brief map with the allowed attributes
     static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > _allowedAttributes;
 
-    /// @brief vector with the allowed tags
-    static std::vector<SumoXMLTag> myAllowedTags;
-
     /// @brief vector with the allowed tags of netElements
     static std::vector<SumoXMLTag> myAllowedNetElementTags;
 
@@ -268,6 +259,9 @@ private:
 
     /// @brief map with the definition of attributes
     static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::string> > myAttrDefinitions;
+
+    /// @brief maximum number of attributes of all tags
+    static int myMaxNumAttribute;
 
 private:
     /// @brief Invalidated assignment operator

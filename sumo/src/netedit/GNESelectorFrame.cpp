@@ -157,31 +157,15 @@ GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
     // Clear items of myMatchTagComboBox
     myMatchTagComboBox->clearItems();
     // Set items depending of current items
-    if(mySetComboBox->getCurrentItem() == 0) {
-        // If we want to work with net elementsn Get net Elements allowed tags
-        const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedNetElementTags();
-        // iterate over tags
-        for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
-            // Add trag to MatchTagBox
-            myMatchTagComboBox->appendItem(toString(*it).c_str());
-        }
-        myMatchTagComboBox->setCurrentItem(1); // edges
-        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
-        // Fill attributes with the current element type
-        onCmdSelMBTag(0, 0, 0);
-    } else  {
-        // If we want to work with additionals, get net additionals allowed tags
-        const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedAdditionalTags();
-        // iterate over tags
-        for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
-            // Add trag to MatchTagBox
-            myMatchTagComboBox->appendItem(toString(*it).c_str());
-        }
-        myMatchTagComboBox->setCurrentItem(1); // busStops
-        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
-        // Fill attributes with the current element type
-        onCmdSelMBTag(0, 0, 0);
+    const bool netElements = mySetComboBox->getCurrentItem() == 0;
+    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
+    for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
+        myMatchTagComboBox->appendItem(toString(*it).c_str());
     }
+    myMatchTagComboBox->setCurrentItem(1); // edges
+    myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
+    // Fill attributes with the current element type
+    onCmdSelMBTag(0, 0, 0);
     return 1;
 }
 
@@ -261,7 +245,8 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
-    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags();
+    const bool netElements = mySetComboBox->getCurrentItem() == 0;
+    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
     SumoXMLTag tag = tags[myMatchTagComboBox->getCurrentItem()];
     myMatchAttrComboBox->clearItems();
     const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(tag);
@@ -278,7 +263,8 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
-    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags();
+    const bool netElements = mySetComboBox->getCurrentItem() == 0;
+    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
     SumoXMLTag tag = tags[myMatchTagComboBox->getCurrentItem()];
     const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(tag);
     SumoXMLAttr attr = attrs.at(myMatchAttrComboBox->getCurrentItem()).first;
