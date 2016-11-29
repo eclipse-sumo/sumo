@@ -237,7 +237,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
                 device.openTag("road");
                 device.writeAttr("name", c.getInternalLaneID());
+                device.setPrecision(8); // length requires higher precision
                 device.writeAttr("length", length);
+                device.setPrecision(OUTPUT_ACCURACY); 
                 device.writeAttr("id", getID(c.getInternalLaneID(), edgeMap, edgeID));
                 device.writeAttr("junction", getID(n->getID(), nodeMap, nodeID));
                 device.openTag("link");
