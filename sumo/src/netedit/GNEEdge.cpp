@@ -773,13 +773,15 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SHAPE_START: {
             PositionVector geom = myNBEdge.getGeometry();
-            geom[0] = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+            geom.erase(geom.begin());
+            geom.push_front_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             setGeometry(geom, false);
             break;
         }
         case GNE_ATTR_SHAPE_END: {
             PositionVector geom = myNBEdge.getGeometry();
-            geom[-1] = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+            geom.pop_back();
+            geom.push_back_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             setGeometry(geom, false);
             break;
         }
