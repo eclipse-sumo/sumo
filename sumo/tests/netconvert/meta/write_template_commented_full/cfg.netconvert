@@ -378,6 +378,9 @@
         <!-- Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m -->
         <osm.layer-elevation value="0" type="FLOAT"/>
 
+        <!-- Whether one-way roads should be spread to the side instead of centered -->
+        <osm.oneway-spread-right value="false" type="BOOL"/>
+
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 
