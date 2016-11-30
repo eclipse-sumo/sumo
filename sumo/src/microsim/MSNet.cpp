@@ -423,15 +423,21 @@ MSNet::closeSimulation(SUMOTime start) {
 void
 MSNet::simulationStep() {
 #ifndef NO_TRACI
+    if (myLogExecutionTime) {
+        myTraCIStepDuration = SysUtils::getCurrentMillis();
+    }
     TraCIServer::processCommandsUntilSimStep(myStep);
     TraCIServer* t = TraCIServer::getInstance();
+    if (myLogExecutionTime) {
+        myTraCIStepDuration = SysUtils::getCurrentMillis() - myTraCIStepDuration;
+    }
     if (t != 0 && t->getTargetTime() != 0 && t->getTargetTime() < myStep) {
         return;
     }
 #endif
     // execute beginOfTimestepEvents
     if (myLogExecutionTime) {
-        mySimStepBegin = SysUtils::getCurrentMillis();
+        mySimStepDuration = SysUtils::getCurrentMillis();
     }
     // simulation state output
     std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
@@ -503,15 +509,20 @@ MSNet::simulationStep() {
 
 #ifndef NO_TRACI
     if (TraCIServer::getInstance() != 0) {
+        if (myLogExecutionTime) {
+            myTraCIStepDuration -= SysUtils::getCurrentMillis();
+        }
         TraCIServer::getInstance()->postProcessVTD();
+        if (myLogExecutionTime) {
+            myTraCIStepDuration += SysUtils::getCurrentMillis();
+        }
     }
 #endif
     // update and write (if needed) detector values
     writeOutput();
 
     if (myLogExecutionTime) {
-        mySimStepEnd = SysUtils::getCurrentMillis();
-        mySimStepDuration = mySimStepEnd - mySimStepBegin;
+        mySimStepDuration = SysUtils::getCurrentMillis() - mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
     myStep += DELTA_T;
@@ -735,16 +746,23 @@ MSNet::postSimStepOutput() const {
         oss.setf(std::ios::showpoint);    // print decimal point
         oss << std::setprecision(OUTPUT_ACCURACY);
         if (mySimStepDuration != 0) {
+            const SUMOReal durationSec = (SUMOReal)mySimStepDuration / 1000.;
             oss << " (" << mySimStepDuration << "ms ~= "
-                << (1000. / (SUMOReal) mySimStepDuration) << "*RT, ~"
-                << ((SUMOReal) myVehicleControl->getRunningVehicleNo() / (SUMOReal) mySimStepDuration * 1000.);
+                << (TS / durationSec) << "*RT, ~"
+                << ((SUMOReal) myVehicleControl->getRunningVehicleNo() / durationSec);
         } else {
             oss << " (0ms ?*RT. ?";
         }
-        oss << "UPS, vehicles"
-            << " TOT " << myVehicleControl->getDepartedVehicleNo()
-            << " ACT " << myVehicleControl->getRunningVehicleNo()
-            << ")                                              ";
+        oss << "UPS, ";
+#ifndef NO_TRACI
+        if (TraCIServer::getInstance() != 0) {
+            oss << "TraCI: " << myTraCIStepDuration << "ms, ";
+        }
+#endif
+            oss << "vehicles TOT " << myVehicleControl->getDepartedVehicleNo()
+                << " ACT " << myVehicleControl->getRunningVehicleNo()
+                << " BUF " << myInserter->getWaitingVehicleNo()
+                << ")                                              ";
         std::string prev = "Step #" + time2string(myStep - DELTA_T);
         std::cout << oss.str().substr(0, 78 - prev.length());
     }

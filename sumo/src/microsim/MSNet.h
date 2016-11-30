@@ -718,8 +718,8 @@ protected:
     /// @brief Information whether the number of the simulation step shall be logged
     bool myLogStepNumber;
 
-    /// @brief The last simulation step begin, end and duration
-    long mySimStepBegin, mySimStepEnd, mySimStepDuration;
+    /// @brief The last simulation step duration
+    long myTraCIStepDuration, mySimStepDuration;
 
     /// @brief The overall simulation duration
     long mySimBeginMillis;
