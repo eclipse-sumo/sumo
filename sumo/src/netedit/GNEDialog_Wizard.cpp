@@ -89,17 +89,19 @@ GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int widt
         const std::vector<std::string> entries = oc.getSubTopicsEntries(topic);
         for (std::vector<std::string>::const_iterator it_opt = entries.begin(); it_opt != entries.end(); it_opt++) {
             std::string name = *it_opt;
-            std::string type = oc.getTypeName(name);
-            if (type == "STR" || type == "FILE") {
-                new InputString(tabContent, name);
-            } else if (type == "BOOL") {
-                new InputBool(tabContent, name);
-            } else if (type == "INT") {
-                new InputInt(tabContent, name);
-            } else if (type == "FLOAT") {
-                new InputFloat(tabContent, name);
+            if (name != "geometry.remove" && name != "edges.join" && name != "geometry.split" && name != "ramps.guess" && name != "ramps.set") {
+                std::string type = oc.getTypeName(name);
+                if (type == "STR" || type == "FILE") {
+                    new InputString(tabContent, name);
+                } else if (type == "BOOL") {
+                    new InputBool(tabContent, name);
+                } else if (type == "INT") {
+                    new InputInt(tabContent, name);
+                } else if (type == "FLOAT") {
+                    new InputFloat(tabContent, name);
+                }
+                // @todo missing types (type INT[] is only used in microsim)
             }
-            // @todo missing types (type INT[] is only used in microsim)
         }
     }
 
