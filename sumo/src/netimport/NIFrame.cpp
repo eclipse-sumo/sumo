@@ -258,6 +258,9 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.layer-elevation", new Option_Float(0));
     oc.addDescription("osm.layer-elevation", "Processing", "Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m");
 
+    oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
+    oc.addDescription("osm.oneway-spread-right", "Processing", "Whether one-way roads should be spread to the side instead of centered");
+
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types");
