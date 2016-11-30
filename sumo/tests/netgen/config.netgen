@@ -18,3 +18,4 @@ errors:delete: freed
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
+cfg:0.000000001
