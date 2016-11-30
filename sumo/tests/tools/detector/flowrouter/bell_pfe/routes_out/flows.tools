@@ -1,24 +1,24 @@
 <additional>
-    <flow id="src_51_50" number="141" begin="0" end="3600">
+    <flow id="src_51_50" departSpeed="max" departPos="last" departLane="best" number="141" begin="0" end="3600">
         <routeDistribution routes="51_50.0 51_50.1" probabilities="54 87"/>
     </flow>
-    <flow id="src_35_65" route="35_65.0" number="3" begin="0" end="3600"/>
-    <flow id="src_45_2" route="45_2.0" number="16" begin="0" end="3600"/>
-    <flow id="src_28_57" route="28_57.0" number="1" begin="0" end="3600"/>
-    <flow id="src_29" number="578" begin="0" end="3600">
+    <flow id="src_35_65" departSpeed="max" departPos="last" departLane="best" route="35_65.0" number="3" begin="0" end="3600"/>
+    <flow id="src_45_2" departSpeed="max" departPos="last" departLane="best" route="45_2.0" number="16" begin="0" end="3600"/>
+    <flow id="src_28_57" departSpeed="max" departPos="last" departLane="best" route="28_57.0" number="1" begin="0" end="3600"/>
+    <flow id="src_29" departSpeed="max" departPos="last" departLane="best" number="578" begin="0" end="3600">
         <routeDistribution routes="29.0 29.1 29.2" probabilities="396 85 97"/>
     </flow>
-    <flow id="src_1" route="1.0" number="26" begin="0" end="3600"/>
-    <flow id="src_4" route="4.0" number="15" begin="0" end="3600"/>
-    <flow id="src_7" number="191" begin="0" end="3600">
+    <flow id="src_1" departSpeed="max" departPos="last" departLane="best" route="1.0" number="26" begin="0" end="3600"/>
+    <flow id="src_4" departSpeed="max" departPos="last" departLane="best" route="4.0" number="15" begin="0" end="3600"/>
+    <flow id="src_7" departSpeed="max" departPos="last" departLane="best" number="191" begin="0" end="3600">
         <routeDistribution routes="7.0 7.1 7.2" probabilities="49 95 47"/>
     </flow>
-    <flow id="src_33_60_61" number="95" begin="0" end="3600">
+    <flow id="src_33_60_61" departSpeed="max" departPos="last" departLane="best" number="95" begin="0" end="3600">
         <routeDistribution routes="33_60_61.0 33_60_61.1 33_60_61.2" probabilities="15 39 41"/>
     </flow>
-    <flow id="src_10" route="10.0" number="249" begin="0" end="3600"/>
-    <flow id="src_17" route="17.0" number="2" begin="0" end="3600"/>
-    <flow id="src_36_62" number="346" begin="0" end="3600">
+    <flow id="src_10" departSpeed="max" departPos="last" departLane="best" route="10.0" number="249" begin="0" end="3600"/>
+    <flow id="src_17" departSpeed="max" departPos="last" departLane="best" route="17.0" number="2" begin="0" end="3600"/>
+    <flow id="src_36_62" departSpeed="max" departPos="last" departLane="best" number="346" begin="0" end="3600">
         <routeDistribution routes="36_62.0 36_62.1 36_62.2 36_62.3" probabilities="70 200 49 27"/>
     </flow>
 </additional>
