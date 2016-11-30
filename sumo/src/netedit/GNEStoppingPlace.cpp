@@ -131,11 +131,11 @@ GNEStoppingPlace::getEndPosition() const {
 void
 GNEStoppingPlace::setStartPosition(SUMOReal startPos) {
     if (startPos < 0) {
-        throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Must be greather than 0");
+        throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Must be greater than 0");
     } else if (startPos >= myEndPos) {
         throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
     } else if ((myEndPos - startPos) < 1) {
-        throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Lenght of StoppingPlace must be equal or greather than 1");
+        throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
     } else {
         myStartPos = startPos;
     }
@@ -149,7 +149,7 @@ GNEStoppingPlace::setEndPosition(SUMOReal endPos) {
     } else if (myStartPos >= endPos) {
         throw InvalidArgument("End position '" + toString(endPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
     } else if ((endPos - myStartPos) < 1) {
-        throw InvalidArgument("End position '" + toString(endPos) + "' not allowed. Lenght of StoppingPlace must be equal or greather than 1");
+        throw InvalidArgument("End position '" + toString(endPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
     } else {
         myEndPos = endPos;
     }
