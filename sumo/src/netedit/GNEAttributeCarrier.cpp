@@ -824,6 +824,8 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
 int
 GNEAttributeCarrier::getHigherNumberOfAttributes() {
     if (myMaxNumAttribute == 0) {
+        // initialize both vectors
+        GNEAttributeCarrier::allowedTags(true);
         for (std::vector<SumoXMLTag>::const_iterator i = myAllowedNetElementTags.begin(); i != myAllowedNetElementTags.end(); i++) {
             myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(*i).size());
         }
