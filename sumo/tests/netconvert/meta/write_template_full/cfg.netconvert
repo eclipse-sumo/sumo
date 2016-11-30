@@ -119,6 +119,7 @@
         <ignore-errors.edge-type value="false" type="BOOL" help="Continue on unknown edge types"/>
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
+        <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>

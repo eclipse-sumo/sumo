@@ -1,0 +1,2 @@
+--no-internal-links --dlr-navteq-prefix=elmar --output=net.net.xml -v
+--construction-date 2016-01-01

@@ -20,6 +20,9 @@ write_numerical_ids
 # use osm types for determining FRC (functional road class)
 import_from_osm
 
+# testing timerestrictions
+timerestriction
+
 # tests for input data generated with gdfExtractor version 3.1
 version_3.1
 

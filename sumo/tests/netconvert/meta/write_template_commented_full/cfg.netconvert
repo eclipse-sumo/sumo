@@ -303,6 +303,9 @@
         <!-- vmax is parsed as given in km/h (some) -->
         <speed-in-kmh value="false" type="BOOL"/>
 
+        <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
+        <construction-date value="" type="STR"/>
+
         <!-- If edge shapes do not end at the node positions, extend them -->
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
 

@@ -1,0 +1,47 @@
+Loading nodes... done.
+Loading edges... done.
+Loading time restrictions... 
+Parsed 3 construction entries between 2005-04-01 and 2032-12-16.
+Removed 2 edges not yet constructed at 2016-01-01.
+   not yet started: 1
+   under construction: 1
+   finished: 1
+
+done.
+ Import done:
+   5 nodes loaded.
+   6 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops... done (0ms).
+Removing empty nodes... done (0ms).
+   1 nodes removed.
+Moving network to origin... done (0ms).
+Computing turning directions... done (0ms).
+Sorting nodes' edges... done (0ms).
+Computing node shapes... done (0ms).
+Computing edge shapes... done (0ms).
+Computing node types... done (0ms).
+Computing priorities... done (1ms).
+Computing approached edges... done (0ms).
+Computing approaching lanes... done (0ms).
+Dividing of lanes on approached lanes... done (0ms).
+Processing turnarounds... done (0ms).
+Rechecking of lane endings... done (0ms).
+Assigning nodes to traffic lights... done (0ms).
+Computing traffic light control information... done (0ms).
+Computing node logics... done (0ms).
+Computing traffic light logics... done (0ms).
+ 0 traffic light(s) computed.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 4
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 1248456.00,5211834.00,1306826.00,5235677.00
+  Applied offset     : -328248.16,-5776623.10
+  Converted boundary : 0.00,0.00,17417.81,26514.76
+-----------------------------------------------------
+Writing network... done (1ms).
+Success.

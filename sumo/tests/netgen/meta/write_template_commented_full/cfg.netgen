@@ -148,7 +148,7 @@
         <street-sign-output value="" type="FILE"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
-        <opendrive-output.straight-threshold value="5" type="FLOAT"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
     </output>
 
