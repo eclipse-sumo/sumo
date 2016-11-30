@@ -123,6 +123,21 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         lr.readAll(handler3);
         PROGRESS_DONE_MESSAGE();
     }
+
+    // load time restrictions if given
+    file = oc.getString("dlr-navteq-prefix") + "_links_timerestrictions.txt";
+    if (lr.setFile(file)) {
+        PROGRESS_BEGIN_MESSAGE("Loading time restrictions");
+        time_t csTime;
+        time(&csTime);
+        if (!oc.isDefault("construction-date")) {
+            csTime = readDate(oc.getString("construction-date"));
+        }
+        TimeRestrictionsHandler handler5(nb.getEdgeCont(), nb.getDistrictCont(), csTime);
+        lr.readAll(handler5);
+        handler5.printSummary();
+        PROGRESS_DONE_MESSAGE();
+    }
 }
 
 
@@ -487,4 +502,166 @@ NIImporter_DlrNavteq::NamesHandler::report(const std::string& result) {
     myStreetNames[id] = joinToString(st.getVector(), " ");
     return true;
 }
+
+
+// ---------------------------------------------------------------------------
+// definitions of NIImporter_DlrNavteq::TimeRestrictionsHandler-methods
+// ---------------------------------------------------------------------------
+NIImporter_DlrNavteq::TimeRestrictionsHandler::TimeRestrictionsHandler(NBEdgeCont& ec, NBDistrictCont& dc, time_t constructionTime):
+    myEdgeCont(ec),
+    myDistrictCont(dc),
+    myConstructionTime(constructionTime),
+    myCS_min(std::numeric_limits<time_t>::max()),
+    myCS_max(std::numeric_limits<time_t>::min()),
+    myConstructionEntries(0),
+    myNotStarted(0),
+    myUnderConstruction(0),
+    myFinished(0),
+    myRemovedEdges(0)
+{
+}
+
+
+NIImporter_DlrNavteq::TimeRestrictionsHandler::~TimeRestrictionsHandler() {}
+
+
+bool
+NIImporter_DlrNavteq::TimeRestrictionsHandler::report(const std::string& result) {
+// # NAME_ID    Name
+    if (result[0] == '#') {
+        return true;
+    }
+    StringTokenizer st(result, StringTokenizer::WHITECHARS);
+    const std::string id = st.next();
+    const std::string type = st.next();
+    const std::string directionOfFlow = st.next(); // can be ignored since unidirectional edge ids are referenced in the file
+    const std::string throughTraffic = st.next();
+    const std::string vehicleType = st.next();
+    const std::string validityPeriod = st.next();
+    const std::string warning = "Unrecognized TIME_REC '" + validityPeriod + "'";
+    if (type == "CS") {
+        myConstructionEntries++;
+        if (validityPeriod.size() > 1024) {
+            WRITE_WARNING(warning);
+        }
+        // construction
+        char start[1024];
+        char duration[1024];
+        struct tm startTime;
+        struct tm endTime;
+
+        int matched;
+        int year, month, week, day;
+
+        matched = sscanf(validityPeriod.c_str(), "[(%[^)]){%[^}]}]", start, duration);
+        if (matched == 2) {
+            time_t tStart = readTimeRec(start, "");
+            time_t tEnd = readTimeRec(start, duration);
+            myCS_min = MIN2(myCS_min, tStart);
+            myCS_max = MAX2(myCS_max, tEnd);
+            //std::cout << " start=" << start << " tStart=" << tStart<< " translation=" << asctime(localtime(&tStart)) << "";
+            //std::cout << " duration=" << duration << " tEnd=" << tEnd << " translation=" << asctime(localtime(&tEnd)) << "\n";
+            if (myConstructionTime < tEnd) {
+                NBEdge* edge = myEdgeCont.retrieve(id);
+                if (edge != 0) {
+                    myRemovedEdges++;
+                    myEdgeCont.extract(myDistrictCont, edge, true);
+                }
+                if (myConstructionTime < tStart) {
+                    myNotStarted++;
+                } else {
+                    myUnderConstruction++;
+                }
+            } else {
+                myFinished++;
+            }
+        } else {
+            WRITE_WARNING(warning);
+        };
+    }
+    return true;
+}
+
+
+void 
+NIImporter_DlrNavteq::TimeRestrictionsHandler::printSummary() {
+    if (myConstructionEntries > 0) {
+        char buff[1024];
+        std::ostringstream msg;
+        strftime(buff, 1024, "%Y-%m-%d", localtime(&myCS_min));
+        msg << "Parsed " << myConstructionEntries << " construction entries between " << buff;
+        strftime(buff, 1024, "%Y-%m-%d", localtime(&myCS_max));
+        msg << " and " << buff << ".\n";
+        strftime(buff, 1024, "%Y-%m-%d", localtime(&myConstructionTime));
+        msg << "Removed " << myRemovedEdges << " edges not yet constructed at " << buff << ".\n";
+        msg << "   not yet started: " << myNotStarted << "\n";
+        msg << "   under construction: " << myUnderConstruction << "\n";
+        msg << "   finished: " << myFinished << "\n";
+        WRITE_MESSAGE(msg.str());
+    }
+}
+
+
+int 
+NIImporter_DlrNavteq::readPrefixedInt(const std::string& s, const std::string& prefix, int fallBack) {
+    int result = fallBack;
+    size_t pos = s.find(prefix);
+    if (pos != std::string::npos) {
+        sscanf(s.substr(pos).c_str(), (prefix + "%i").c_str(), &result);
+    }
+    return result;
+}
+
+time_t 
+NIImporter_DlrNavteq::readTimeRec(const std::string& start, const std::string& duration) {
+    // http://www.cplusplus.com/reference/ctime/mktime/
+    struct tm timeinfo;
+    timeinfo.tm_hour = 0;
+    timeinfo.tm_min = 0;
+    timeinfo.tm_sec = 0;
+    timeinfo.tm_year = 0;
+    timeinfo.tm_mon = 0;
+    timeinfo.tm_mday = 1;
+    timeinfo.tm_wday = 0;
+    timeinfo.tm_yday = 0;
+    timeinfo.tm_isdst = 0;
+
+    timeinfo.tm_year = readPrefixedInt(start, "y") + readPrefixedInt(duration, "y") - 1900; 
+    timeinfo.tm_mon = readPrefixedInt(start, "M") + readPrefixedInt(duration, "M") - 1;
+    timeinfo.tm_mday = 7 * (readPrefixedInt(start, "w") + readPrefixedInt(duration, "w"));
+    timeinfo.tm_mday += readPrefixedInt(start, "d") + readPrefixedInt(duration, "d");
+
+    time_t result =  mktime(&timeinfo);
+    return result;
+}
+
+
+time_t 
+NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
+    struct tm timeinfo;
+    timeinfo.tm_hour = 0;
+    timeinfo.tm_min = 0;
+    timeinfo.tm_sec = 0;
+    timeinfo.tm_wday = 0;
+    timeinfo.tm_yday = 0;
+    timeinfo.tm_isdst = 0;
+
+    if (yyyymmdd.size() == 10 
+            && yyyymmdd[4] == '-' 
+            && yyyymmdd[7] == '-' ) {
+        try {
+            timeinfo.tm_year = TplConvert::_str2int(yyyymmdd.substr(0, 4)) - 1900;
+            timeinfo.tm_mon = TplConvert::_str2int(yyyymmdd.substr(5, 2)) - 1;
+            timeinfo.tm_mday = TplConvert::_str2int(yyyymmdd.substr(8, 2));
+            return mktime(&timeinfo);
+        } catch (...) {
+        }
+    }
+    WRITE_ERROR("Could not parse YYYY-MM-DD date '" + yyyymmdd + "'");
+    time_t now;
+    time(&now);
+    return now;
+}
+
+
 /****************************************************************************/

@@ -158,6 +158,8 @@ NIFrame::fillOptions() {
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
 
+    oc.doRegister("construction-date", new Option_String());
+    oc.addDescription("construction-date", "Processing", "Use YYYY-MM-DD date to determine the readiness of features under construction");
 
 
     // register xml options
