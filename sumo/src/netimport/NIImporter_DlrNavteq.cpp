@@ -547,11 +547,8 @@ NIImporter_DlrNavteq::TimeRestrictionsHandler::report(const std::string& result)
         // construction
         char start[1024];
         char duration[1024];
-        struct tm startTime;
-        struct tm endTime;
 
         int matched;
-        int year, month, week, day;
 
         matched = sscanf(validityPeriod.c_str(), "[(%[^)]){%[^}]}]", start, duration);
         if (matched == 2) {
