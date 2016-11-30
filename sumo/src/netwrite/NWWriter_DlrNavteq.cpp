@@ -107,6 +107,30 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     }
     // write format specifier
     device << "# NODE_ID\tIS_BETWEEN_NODE\tamount_of_geocoordinates\tx1\ty1\t[x2 y2  ... xn  yn]\n";
+    // write header
+    Boundary boundary = gch.getConvBoundary();
+    Position min(boundary.xmin(), boundary.ymin());
+    Position max(boundary.xmax(), boundary.ymax());
+    gch.cartesian2geo(min);
+    min.mul(geoScale);
+    gch.cartesian2geo(max);
+    max.mul(geoScale);
+    int multinodes = 0;
+    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
+        if ((*i).second->getGeometry().size() > 2) {
+            multinodes++;
+        }
+    }
+    device << "# [xmin_region] " << min.x() << "\n";
+    device << "# [xmax_region] " << max.x() << "\n";
+    device << "# [ymin_region] " << min.y() << "\n";
+    device << "# [ymax_region] " << max.y() << "\n";
+    device << "# [elements_multinode] " << multinodes << "\n";
+    device << "# [elements_normalnode] " << nc.size() << "\n";
+    device << "# [xmin] " << min.x() << "\n";
+    device << "# [xmax] " << max.x() << "\n";
+    device << "# [ymin] " << min.y() << "\n";
+    device << "# [ymax] " << max.y() << "\n";
     // write normal nodes
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
