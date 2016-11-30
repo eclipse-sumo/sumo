@@ -183,9 +183,11 @@ public:
      * @param[in] filled Whether only set (and not default) options shall be written
      * @param[in] complete Whether all options shall be written
      * @param[in] addComments Whether comments (option descriptions) shall be written
+     * @param[in] maskDoubleHyphen Whether -- in input shall be converted to &#45;&#45; (semantically equivalent but allowed in XML comments)
      */
-    void writeConfiguration(std::ostream& os, bool filled,
-                            bool complete, bool addComments) const;
+    void writeConfiguration(std::ostream& os, const bool filled,
+                            const bool complete, const bool addComments,
+                            const bool maskDoubleHyphen=false) const;
 
 
     /** @brief Writes the xml schema for the configuration

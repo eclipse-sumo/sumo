@@ -76,9 +76,10 @@ public:
      * The strings &, <, >, ", and ' are replaced by &amp;, &lt;, &gt;, &quot;, and &apos;
      *
      * @param[in] orig The original string
+     * @param[in] maskDoubleHyphen Whether -- in input shall be converted to &#45;&#45; (semantically equivalent but allowed in XML comments)
      * @return the string with the escaped sequences
      */
-    static std::string escapeXML(const std::string& orig);
+    static std::string escapeXML(const std::string& orig, const bool maskDoubleHyphen = false);
 
     /// An empty string
     static std::string emptyString;
