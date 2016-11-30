@@ -88,7 +88,7 @@ NBNetBuilder::applyOptions(OptionsCont& oc) {
 void
 NBNetBuilder::compute(OptionsCont& oc,
                       const std::set<std::string>& explicitTurnarounds,
-                      bool removeElements) {
+                      bool mayAddOrRemove) {
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
 
@@ -163,7 +163,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
     //
-    if (removeElements) {
+    if (mayAddOrRemove) {
         int no = 0;
         const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");
         before = SysUtils::getCurrentMillis();
@@ -199,7 +199,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     // @note: removing geometry can create similar edges so joinSimilarEdges  must come afterwards
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
-    if (removeElements && oc.getBool("edges.join")) {
+    if (mayAddOrRemove && oc.getBool("edges.join")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Joining similar edges");
         myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
@@ -211,7 +211,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_DONE_MESSAGE();
     }
     //
-    if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
+    if (mayAddOrRemove && oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
         myEdgeCont.splitGeometry(myNodeCont);
@@ -225,12 +225,14 @@ NBNetBuilder::compute(OptionsCont& oc,
     // correct edge geometries to avoid overlap
     myNodeCont.avoidOverlap();
     // guess ramps
-    if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
-        NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
-        NBRampsComputer::computeRamps(*this, oc);
-        PROGRESS_TIME_MESSAGE(before);
+    if (mayAddOrRemove) {
+        if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
+            before = SysUtils::getCurrentMillis();
+            PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
+            NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
+            NBRampsComputer::computeRamps(*this, oc);
+            PROGRESS_TIME_MESSAGE(before);
+        }
     }
     // guess sidewalks
     if (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")) {

@@ -135,12 +135,12 @@ public:
      *
      * @param[in] oc Container that contains options for building
      * @param[in] explicitTurnarounds List of edge ids for which turn-arounds should be added (used by NETEDIT)
-     * @param[in] removeElements whether processing steps which cause nodes and edges to be removed shall be triggered
+     * @param[in] mayAddOrRemove whether processing steps which cause nodes and edges to be added or removed shall be triggered (used by netedit)
      * @exception ProcessError (recheck)
      */
     void compute(OptionsCont& oc,
                  const std::set<std::string>& explicitTurnarounds = std::set<std::string>(),
-                 bool removeElements = true);
+                 bool mayAddOrRemove = true);
 
 
 
