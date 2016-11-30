@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOTime startTime, SUMOTime end, bool blocked) :
+GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const SUMOReal startTime, const SUMOReal end, bool blocked) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, NULL, blocked),
     myStartTime(startTime),
     myEnd(end) {
@@ -157,26 +157,26 @@ GNEVaporizer::writeAdditional(OutputDevice& device, const std::string&) {
 }
 
 
-SUMOTime
+SUMOReal
 GNEVaporizer::getStartTime() const {
     return myStartTime;
 }
 
 
-SUMOTime
+SUMOReal
 GNEVaporizer::getEnd() const {
     return myEnd;
 }
 
 
 void
-GNEVaporizer::setStartTime(SUMOTime startTime) {
+GNEVaporizer::setStartTime(const SUMOReal startTime) {
     myStartTime = startTime;
 }
 
 
 void
-GNEVaporizer::setEndTime(SUMOTime end) {
+GNEVaporizer::setEndTime(const SUMOReal end) {
     myEnd = end;
 }
 
@@ -313,9 +313,9 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTTIME:
-            return canParse<int>(value);
+            return canParse<SUMOReal>(value);
         case SUMO_ATTR_END:
-            return canParse<int>(value);
+            return canParse<SUMOReal>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -332,10 +332,10 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeEdge(value);
             break;
         case SUMO_ATTR_STARTTIME:
-            myStartTime = parse<int>(value);
+            myStartTime = parse<SUMOReal>(value);
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<int>(value);
+            myEnd = parse<SUMOReal>(value);
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");

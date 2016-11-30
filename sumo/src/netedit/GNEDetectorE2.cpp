@@ -62,8 +62,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,
-                             bool cont, SUMOTime timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked) :
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, SUMOReal length, const SUMOReal freq, const std::string& filename,
+                             bool cont, const SUMOReal timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked) :
     GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, lane, pos, freq, filename, blocked),
     myLength(length),
     myCont(cont),
@@ -157,7 +157,7 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, const std::string&) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
     device.writeAttr(SUMO_ATTR_CONT, myCont);
-    device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
+    device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
     device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
     if (myBlocked) {
@@ -230,7 +230,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CONT:
             return toString(myCont);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return time2string(myTimeThreshold);
+            return toString(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
@@ -287,7 +287,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) <= (myLane->getLaneParametricLenght()));
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
+            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) > 0);
         case SUMO_ATTR_LENGTH:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
         case SUMO_ATTR_FILE:
@@ -295,7 +295,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CONT:
             return canParse<bool>(value);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<int>(value);
+            return canParse<SUMOReal>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<SUMOReal>(value);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
@@ -340,7 +340,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myCont = parse<bool>(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myTimeThreshold = string2time(value);
+            myTimeThreshold = parse<SUMOReal>(value);
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<SUMOReal>(value);

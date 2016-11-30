@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, int freq, const std::string& filename, SUMOTime timeThreshold, SUMOReal speedThreshold, bool blocked) :
+GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, const SUMOReal freq, const std::string& filename, const SUMOReal timeThreshold, SUMOReal speedThreshold, bool blocked) :
     GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_E3DETECTOR, blocked),
     myFreq(freq),
     myFilename(filename),
@@ -263,12 +263,11 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
+            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) > 0);
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            // @ToDo SUMOTIME
-            return canParse<int>(value);
+            return canParse<SUMOReal>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<SUMOReal>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -298,8 +297,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            // @todo SUMOTIME
-            myTimeThreshold = parse<int>(value);
+            myTimeThreshold = parse<SUMOReal>(value);
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<SUMOReal>(value);

@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay, bool blocked) :
+GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, const SUMOReal chargeDelay, bool blocked) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, blocked),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
@@ -452,7 +452,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGEINTRANSIT:
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGEDELAY:
-            return (canParse<int>(value) && parse<int>(value) >= 0);
+            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:

@@ -62,7 +62,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, SUMOReal freq, const std::string& filename, bool splitByType, bool blocked) :
+GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, const SUMOReal freq, const std::string& filename, bool splitByType, bool blocked) :
     GNEDetector(id, viewNet, SUMO_TAG_E1DETECTOR, lane, pos, freq, filename, blocked),
     mySplitByType(splitByType) {
     // Update geometry;
@@ -273,7 +273,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) <= (myLane->getLaneParametricLenght()));
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
+            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) > 0);
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_SPLIT_VTYPE:

@@ -58,7 +58,7 @@ public:
      * @param[in] blocked set initial blocking state of item
      * @param[in] parent pointer to parent, if this additional belongs to an additionalSet
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, int freq, const std::string& filename, bool blocked = false, GNEAdditionalSet* parent = NULL);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, const SUMOReal freq, const std::string& filename, bool blocked = false, GNEAdditionalSet* parent = NULL);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -85,7 +85,7 @@ public:
     SUMOReal getPositionOverLane() const;
 
     /// @brief returns the aggregation period the values the detector collects shall be summed up.
-    int getFrequency() const;
+    SUMOReal getFrequency() const;
 
     /// @brief returns the path to the output file
     std::string getFilename() const;
@@ -100,7 +100,7 @@ public:
      * @param[in] freq new frequency of detector
      * @throws InvalidArgument if value of frequency isn't valid
      */
-    void setFrequency(int freq);
+    void setFrequency(const SUMOReal freq);
 
     /**@brief Set a new filename in detector
      * @param[in] filename new filename of detector
@@ -145,7 +145,7 @@ public:
 
 protected:
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    int myFreq;
+    SUMOReal myFreq;
 
     /// @brief The path to the output file
     std::string myFilename;

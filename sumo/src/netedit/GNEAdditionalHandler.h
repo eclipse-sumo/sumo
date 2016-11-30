@@ -240,7 +240,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE1(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, int freq, const std::string& filename, bool splitByType, bool blocked);
+    static bool buildDetectorE1(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, const SUMOReal freq, const std::string& filename, bool splitByType, bool blocked);
 
     /**@brief Builds a lane Area Detector (E2)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -258,8 +258,8 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE2(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,
-                                bool cont, int timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked);
+    static bool buildDetectorE2(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, SUMOReal length, const SUMOReal freq, const std::string& filename,
+                                bool cont, const SUMOReal timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked);
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -273,7 +273,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE3(GNEViewNet* viewNet, const std::string& id, Position pos, int freq, const std::string& filename, SUMOTime timeThreshold, SUMOReal speedThreshold, bool blocked);
+    static bool buildDetectorE3(GNEViewNet* viewNet, const std::string& id, Position pos, const SUMOReal freq, const std::string& filename, const SUMOReal timeThreshold, SUMOReal speedThreshold, bool blocked);
 
     /**@brief Builds a entry detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -362,7 +362,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static bool buildVaporizer(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, SUMOTime startTime, SUMOTime end, bool blocked);
+    static bool buildVaporizer(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, const SUMOReal startTime, const SUMOReal end, bool blocked);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from

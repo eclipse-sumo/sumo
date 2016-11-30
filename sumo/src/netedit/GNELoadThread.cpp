@@ -284,8 +284,6 @@ void
 GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStartupOptions, bool newNet) {
     myFile = file;
     myLoadNet = isNet;
-    const OptionsCont& OC = OptionsCont::getOptions();
-
     if (myFile != "" && !useStartupOptions) {
         OptionsIO::setArgs(0, 0);
     }

@@ -63,7 +63,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, int freq, const std::string& filename, bool blocked, GNEAdditionalSet* parent) :
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, const SUMOReal freq, const std::string& filename, bool blocked, GNEAdditionalSet* parent) :
     GNEAdditional(id, viewNet, Position(posOverLane, 0), tag, parent, blocked),
     myFreq(freq),
     myFilename(filename) {
@@ -113,7 +113,7 @@ GNEDetector::getPositionOverLane() const {
 }
 
 
-int
+SUMOReal
 GNEDetector::getFrequency() const {
     return myFreq;
 }
@@ -128,7 +128,7 @@ GNEDetector::getFilename() const {
 void
 GNEDetector::setPositionOverLane(SUMOReal pos) {
     if (pos < 0) {
-        throw InvalidArgument("Position '" + toString(pos) + "' not allowed. Must be greather than 0");
+        throw InvalidArgument("Position '" + toString(pos) + "' not allowed. Must be greater than 0");
     } else if (pos > myLane->getLaneShapeLenght()) {
         throw InvalidArgument("Position '" + toString(pos) + "' not allowed. Must be smaller than lane length");
     } else {
@@ -138,11 +138,11 @@ GNEDetector::setPositionOverLane(SUMOReal pos) {
 
 
 void
-GNEDetector::setFrequency(int freq) {
-    if (freq >= 0) {
+GNEDetector::setFrequency(const SUMOReal freq) {
+    if (freq > 0) {
         myFreq = freq;
     } else {
-        throw InvalidArgument("Frequency '" + toString(freq) + "' not allowed. Must be greather than 0");
+        throw InvalidArgument("Frequency '" + toString(freq) + "' not allowed. Must be greater than 0");
     }
 }
 

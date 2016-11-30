@@ -650,7 +650,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
         abort = true;
     }
     // Load frequency
-    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+    const SUMOReal frequency = attrs.get<SUMOReal>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
     if (!ok) {
         WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FREQUENCY) + "' of additional " + toString(tag) + " is missing");
         ok = true;
@@ -706,7 +706,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
         abort = true;
     }
     // Load frequency
-    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+    const SUMOReal frequency = attrs.get<SUMOReal>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
     if (!ok) {
         WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FREQUENCY) + "' of additional " + toString(tag) + " is missing");
         ok = true;
@@ -727,7 +727,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
         abort = true;
     }
     // get Rest of parameters
-    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1), false);
+    const SUMOReal haltingTimeThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, 1., false);
     const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f, false);
     const SUMOReal jamDistThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f, false);
     const bool cont = attrs.getOpt<bool>(SUMO_ATTR_CONT, id.c_str(), ok, false);
@@ -759,7 +759,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
         abort = true;
     }
     // Load frequency
-    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
+    const SUMOReal frequency = attrs.get<SUMOReal>(SUMO_ATTR_FREQUENCY, id.c_str(), ok, false);
     if (!ok) {
         WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_FREQUENCY) + "' of additional " + toString(tag) + " is missing");
         ok = true;
@@ -773,7 +773,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
         abort = true;
     }
     // Load rest of parameters
-    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1), false);
+    const SUMOReal haltingTimeThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, 1., false);
     const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f, false);
     const SUMOReal posx = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok, 0, false);
     const SUMOReal posy = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok, 0, false);
@@ -1125,7 +1125,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, const std::strin
 
 
 bool
-GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, int freq, const std::string& filename, bool splitByType, bool blocked) {
+GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, const SUMOReal freq, const std::string& filename, bool splitByType, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E1DETECTOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E1DETECTOR));
         GNEDetectorE1* detectorE1 = new GNEDetectorE1(id, lane, viewNet, pos, freq, filename, splitByType, blocked);
@@ -1140,7 +1140,8 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,  bool cont, int timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked) {
+GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, SUMOReal length, const SUMOReal freq, const std::string& filename,
+                                      bool cont, const SUMOReal timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E2DETECTOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR));
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, cont, timeThreshold, speedThreshold, jamThreshold, blocked);
@@ -1155,7 +1156,7 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id, Position pos, int freq, const std::string& filename, SUMOTime timeThreshold, SUMOReal speedThreshold, bool blocked) {
+GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id, Position pos, const SUMOReal freq, const std::string& filename, const SUMOReal timeThreshold, SUMOReal speedThreshold, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
         GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, timeThreshold, speedThreshold, blocked);
@@ -1274,7 +1275,7 @@ GNEAdditionalHandler::buildVariableSpeedSignal(GNEViewNet* viewNet, const std::s
 
 
 bool
-GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, SUMOTime startTime, SUMOTime end, bool blocked) {
+GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, const SUMOReal startTime, const SUMOReal end, bool blocked) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_VAPORIZER, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
         GNEVaporizer* vaporizer = new GNEVaporizer(id, viewNet, edge, startTime, end, blocked);
