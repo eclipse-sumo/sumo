@@ -1190,19 +1190,24 @@ GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
-    getApp()->beginWaitCursor();
-    try {
-        OptionsCont& oc = OptionsCont::getOptions();
-        myNet->save(oc);
-        myUndoList->unmark();
-        myUndoList->mark();
-    } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
+    OptionsCont& oc = OptionsCont::getOptions();
+    // function onCmdSaveAsNetwork must be executed if this is the first save
+    if (oc.getString("output-file") == "") {
+        return onCmdSaveAsNetwork(0, 0, 0);
+    } else {
+        getApp()->beginWaitCursor();
+        try {
+            myNet->save(oc);
+            myUndoList->unmark();
+            myUndoList->mark();
+        } catch (IOError& e) {
+            FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
+        }
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Network saved.\n");
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        return 1;
     }
-    myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Network saved.\n");
-    myMessageWindow->addSeparator();
-    getApp()->endWaitCursor();
-    return 1;
 }
 
 
