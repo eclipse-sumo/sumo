@@ -43,11 +43,13 @@ click(additionalsComboBox)
 for x in range(0, 2):
     type(Key.TAB)
     
-paste("Line1")
+type("yes;=")
+sleep(2)
 type(Key.TAB)
 paste("Line2")
 type(Key.TAB)
-paste("Line3")
+paste("yes;=")
+sleep(2)
 type(Key.TAB)
 paste("Line4")
 

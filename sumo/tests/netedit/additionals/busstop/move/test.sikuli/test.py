@@ -77,6 +77,7 @@ neteditUndo(neteditProcess, match, 10)
 neteditRedo(neteditProcess, match, 10)
 
 # save additionals
+sleep(5)
 neteditSaveAdditionals(match)
 
 # quit netedit without saving

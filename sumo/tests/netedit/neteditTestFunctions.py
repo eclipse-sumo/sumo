@@ -62,6 +62,7 @@ def neteditUndo(NEProcess, match, number) :
     click(match) #bug mit ctrl+z founded
     for x in range(0, number) :
         type("z", Key.CTRL)
+        sleep(1)
     
 # netedit redo
 def neteditRedo(NEProcess, match, number) :
@@ -69,6 +70,7 @@ def neteditRedo(NEProcess, match, number) :
     #bug mit ctrl+y founded
     for x in range(0, number) :
         type("y", Key.CTRL)
+        sleep(1)
 
         
 # netedit modify attribute

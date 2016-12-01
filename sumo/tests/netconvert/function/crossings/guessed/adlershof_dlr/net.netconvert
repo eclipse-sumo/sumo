@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 28 14:38:27 2016 by SUMO netconvert Version dev-SVN-r22106
+<!-- generated on Thu Dec  1 14:40:40 2016 by SUMO netconvert Version dev-SVN-r22164
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -2681,7 +2681,7 @@
         <lane id=":1597984543_1_2" index="2" disallow="bicycle pedestrian" speed="22.22" length="35.04" shape="3740.31,545.43 3749.56,542.34 3757.23,540.21 3764.80,537.83 3773.73,534.01"/>
     </edge>
     <edge id=":1597984547_0" function="internal">
-        <lane id=":1597984547_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.55" shape="3707.63,538.73 3708.61,538.86 3709.23,539.34 3709.85,539.83 3710.83,539.97"/>
+        <lane id=":1597984547_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.54" shape="3708.08,542.00 3708.99,541.61 3709.45,540.98 3709.92,540.34 3710.83,539.97"/>
     </edge>
     <edge id=":1599958746_0" function="internal">
         <lane id=":1599958746_0_0" index="0" allow="delivery pedestrian" speed="5.56" length="5.03" shape="4111.81,655.04 4110.45,655.13 4109.44,655.65 4108.78,656.58 4108.47,657.93"/>
@@ -3798,7 +3798,7 @@
         <lane id=":2165987554_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.64" width="3.00" shape="3864.12,602.24 3862.92,599.49 3861.73,601.71 3862.64,604.57"/>
     </edge>
     <edge id=":2165987555_0" function="internal">
-        <lane id=":2165987555_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.55" shape="3351.86,653.93 3350.87,653.89 3350.21,653.45 3349.55,653.02 3348.57,652.98"/>
+        <lane id=":2165987555_0_0" index="0" disallow="bicycle pedestrian" speed="22.22" length="3.55" shape="3351.13,650.71 3350.26,651.17 3349.85,651.85 3349.44,652.52 3348.57,652.98"/>
     </edge>
     <edge id=":2165987556_0" function="internal">
         <lane id=":2165987556_0_0" index="0" disallow="pedestrian" speed="13.89" length="2.82" shape="3925.89,665.47 3925.35,668.24"/>
@@ -14107,12 +14107,12 @@
     <connection from="145586617#5" to="145586617#6" fromLane="1" toLane="1" via=":2222983836_4_0" dir="s" state="M"/>
     <connection from="145586617#5" to="-145586617#5" fromLane="1" toLane="1" via=":2222983836_5_0" dir="t" state="m"/>
     <connection from="145586617#6" to="-145586617#7" fromLane="1" toLane="1" via=":138562259_0_0" dir="t" state="M"/>
-    <connection from="145586634" to="206579083" fromLane="0" toLane="0" via=":2165987555_0_0" dir="s" state="M"/>
+    <connection from="145586634" to="206579083" fromLane="1" toLane="0" via=":2165987555_0_0" dir="s" state="M"/>
     <connection from="145586635" to="-206579059" fromLane="0" toLane="1" via=":158710664_8_0" dir="r" state="m"/>
     <connection from="145586635" to="146511465" fromLane="0" toLane="0" via=":158710664_9_0" dir="s" state="M"/>
     <connection from="145586635" to="146511465" fromLane="1" toLane="1" via=":158710664_9_1" dir="s" state="M"/>
     <connection from="145586635" to="96834893" fromLane="1" toLane="2" via=":158710664_11_0" dir="l" state="m"/>
-    <connection from="146511465" to="206579084" fromLane="0" toLane="0" via=":1597984547_0_0" dir="s" state="M"/>
+    <connection from="146511465" to="206579084" fromLane="1" toLane="0" via=":1597984547_0_0" dir="s" state="M"/>
     <connection from="146511467" to="145586634" fromLane="0" toLane="0" via=":158710666_0_0" dir="s" state="M"/>
     <connection from="146511467" to="145586634" fromLane="1" toLane="1" via=":158710666_0_1" dir="s" state="M"/>
     <connection from="146511467" to="-96834893" fromLane="1" toLane="1" via=":158710666_2_0" dir="l" state="m"/>
