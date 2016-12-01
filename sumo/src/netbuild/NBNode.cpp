@@ -919,7 +919,7 @@ NBNode::computeLanes2Lanes() {
         }
     }
     // special case f):
-    //  one in, one out, same number of lanes
+    //  one in, one out, out has reduced or same number of lanes
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1) {
         NBEdge* in = myIncomingEdges[0];
         NBEdge* out = myOutgoingEdges[0];
@@ -928,14 +928,17 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
-        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        const int reduction = (in->getNumLanes() - inOffset) - (out->getNumLanes() - outOffset);
         if (in->getStep() <= NBEdge::LANES2EDGES
-                && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset
+                && reduction >= 0
                 && in != out
                 && in->isConnectedTo(out)) {
-            for (int i = inOffset; i < in->getNumLanes(); ++i) {
-                in->setConnection(i, out, i - inOffset + outOffset, NBEdge::L2L_COMPUTED);
+            // in case of reduced lane number, let the rightmost lanse end
+            inOffset += reduction;
+            for (int i = outOffset; i < out->getNumLanes(); ++i) {
+                in->setConnection(i + inOffset - outOffset, out, i, NBEdge::L2L_COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
             return;
