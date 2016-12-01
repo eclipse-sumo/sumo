@@ -527,6 +527,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
+            nbe->addParameter(*e);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -547,6 +548,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
+            nbe->addParameter(*e);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -771,9 +773,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 key = "ignore";
             }
         }
+        if (key == "bridge" || key == "tunnel") {
+            myCurrentEdge->addParameter(key, "true"); // could be differentiated further if necessary
+        }
 
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route") {
+        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") 
+                && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);

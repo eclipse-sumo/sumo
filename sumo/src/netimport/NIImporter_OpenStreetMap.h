@@ -37,6 +37,7 @@
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -118,7 +119,7 @@ protected:
 
     /** @brief An internal definition of a loaded edge
      */
-    struct Edge {
+    struct Edge : public Parameterised {
 
         Edge(long long int _id) :
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),

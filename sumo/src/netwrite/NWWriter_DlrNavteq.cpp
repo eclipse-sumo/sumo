@@ -203,7 +203,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
                << getGraphLength(e) << "\t"
                << getAllowedTypes(e->getPermissions()) << "\t"
                << "3\t" // Form of way XXX
-               << UNDEFINED << "\t" // no special brunnel type (we don't know yet)
+               << getBrunnelType(e) << "\t" 
                << getRoadClass(e) << "\t"
                << getSpeedCategory(kph) << "\t"
                << getNavteqLaneCode(e->getNumLanes()) << "\t"
@@ -360,6 +360,19 @@ NWWriter_DlrNavteq::getNavteqLaneCode(const int numLanes) {
     const int code = (numLanes == 1 ? 1 :
                       (numLanes < 4 ?  2 : 3));
     return numLanes * 10 + code;
+}
+
+
+int
+NWWriter_DlrNavteq::getBrunnelType(NBEdge* edge) {
+    if (edge->knowsParameter("bridge")) {
+        return 1;
+    } else if (edge->knowsParameter("tunnel")) {
+        return 4;
+    } else if (edge->getTypeID() == "route.ferry") {
+        return 10;
+    }
+    return -1; // UNDEFINED;
 }
 
 
