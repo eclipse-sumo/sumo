@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 13:36:05 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec  1 14:13:04 2016" north="767.39" south="0.00" east="1737.68" west="0.00"/>
     <road name="Teltowkanalbrücke" length="56.01306154" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -10032,7 +10032,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_7_0" length="0.09999999" id="1123" junction="9">
+    <road name=":294168098_7_0" length="0.10000000" id="1123" junction="9">
         <link>
             <predecessor elementType="road" elementId="877" contactPoint="end"/>
             <successor elementType="road" elementId="973" contactPoint="start"/>
@@ -11438,7 +11438,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294169339_8_0" length="0.09999954" id="1160" junction="12">
+    <road name=":294169339_8_0" length="0.10000000" id="1160" junction="12">
         <link>
             <predecessor elementType="road" elementId="880" contactPoint="end"/>
             <successor elementType="road" elementId="976" contactPoint="start"/>
@@ -11666,7 +11666,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294169342_5_0" length="0.09999499" id="1166" junction="13">
+    <road name=":294169342_5_0" length="0.10000000" id="1166" junction="13">
         <link>
             <predecessor elementType="road" elementId="976" contactPoint="end"/>
             <successor elementType="road" elementId="880" contactPoint="start"/>
@@ -22268,7 +22268,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":38920501_2_0" length="0.08235966" id="1445" junction="61">
+    <road name=":38920501_2_0" length="0.10000000" id="1445" junction="61">
         <link>
             <predecessor elementType="road" elementId="935" contactPoint="end"/>
             <successor elementType="road" elementId="1053" contactPoint="start"/>
@@ -23712,7 +23712,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":57343359_0_0" length="0.00000000" id="1483" junction="65">
+    <road name=":57343359_0_0" length="0.10000000" id="1483" junction="65">
         <link>
             <predecessor elementType="road" elementId="993" contactPoint="end"/>
             <successor elementType="road" elementId="940" contactPoint="start"/>
