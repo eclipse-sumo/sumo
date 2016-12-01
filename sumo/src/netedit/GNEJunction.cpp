@@ -393,8 +393,6 @@ GNEJunction::registerMove(GNEUndoList* undoList) {
 
 void
 GNEJunction::updateShapesAndGeometries() {
-    // sort nodes edges so that arrows can be drawn correctly
-    NBNodesEdgesSorter::sortNodesEdges(myNet->getNetBuilder()->getNodeCont());
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
@@ -417,6 +415,7 @@ GNEJunction::updateShapesAndGeometries() {
         // Check that Node doesn't have a custom shape
         if ((*i)->getNBNode()->hasCustomShape() == false) {
             // Compute polygon
+            (*i)->getNBNode()->sortEdges(false);
             (*i)->getNBNode()->computeNodeShape(-1);
         }
         // Update geometry of Junction
