@@ -144,7 +144,6 @@ public:
         crossing_by_junction_angle_sorter& operator=(const crossing_by_junction_angle_sorter& s);
 
     };
-private:
     /** @brief Assures correct order for same-angle opposite-direction edges
      * @param[in] n The currently processed node
      * @param[in] i1 Pointer to first edge

@@ -133,73 +133,7 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
 void
 NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool useNodeShape) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* const n = i->second;
-        if (n->myAllEdges.size() == 0) {
-            continue;
-        }
-        EdgeVector& allEdges = n->myAllEdges;
-        EdgeVector& incoming = n->myIncomingEdges;
-        EdgeVector& outgoing = n->myOutgoingEdges;
-        std::vector<NBNode::Crossing>& crossings = n->myCrossings;
-        if (!useNodeShape || n->getShape().area() < 1) {
-            // if the area is too small (i.e. for simple-continuation nodes) we better not use it
-            // sort by the angle of the adjoining line segment of the edge geometry
-            // sort the edges
-            std::sort(allEdges.begin(), allEdges.end(), edge_by_junction_angle_sorter(n));
-            std::sort(incoming.begin(), incoming.end(), edge_by_junction_angle_sorter(n));
-            std::sort(outgoing.begin(), outgoing.end(), edge_by_junction_angle_sorter(n));
-            std::vector<NBEdge*>::iterator j;
-            for (j = allEdges.begin(); j != allEdges.end() - 1 && j != allEdges.end(); ++j) {
-                swapWhenReversed(n, j, j + 1);
-            }
-            if (allEdges.size() > 1 && j != allEdges.end()) {
-                swapWhenReversed(n, allEdges.end() - 1, allEdges.begin());
-            }
-        } else {
-            NBEdge* firstOfAll = allEdges.front();
-            NBEdge* firstOfIncoming = incoming.size() > 0 ? incoming.front() : 0;
-            NBEdge* firstOfOutgoing = outgoing.size() > 0 ? outgoing.front() : 0;
-            // sort by the angle between the node shape center and the point where the edge meets the node shape
-            sort(allEdges.begin(), allEdges.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(n));
-            sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(n));
-            sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(n));
-            // let the first edge remain the first
-            rotate(allEdges.begin(), std::find(allEdges.begin(), allEdges.end(), firstOfAll), allEdges.end());
-            if (firstOfIncoming != 0) {
-                rotate(incoming.begin(), std::find(incoming.begin(), incoming.end(), firstOfIncoming), incoming.end());
-            }
-            if (firstOfOutgoing != 0) {
-                rotate(outgoing.begin(), std::find(outgoing.begin(), outgoing.end(), firstOfOutgoing), outgoing.end());
-            }
-        }
-        // fixing some pathological all edges orderings
-        // if every of the edges a,b,c has a turning edge a',b',c' the all edges ordering should be a,a',b,b',c,c'
-        if (incoming.size() == outgoing.size() && incoming.front() == allEdges.front()) {
-            std::vector<NBEdge*>::const_iterator in, out;
-            std::vector<NBEdge*> allTmp;
-            for (in = incoming.begin(), out = outgoing.begin(); in != incoming.end(); ++in, ++out) {
-                if ((*in)->isTurningDirectionAt(*out)) {
-                    allTmp.push_back(*in);
-                    allTmp.push_back(*out);
-                } else {
-                    break;
-                }
-            }
-            if (allTmp.size() == allEdges.size()) {
-                allEdges = allTmp;
-            }
-        }
-        // sort the crossings
-        std::sort(crossings.begin(), crossings.end(), crossing_by_junction_angle_sorter(n, allEdges));
-        // DEBUG
-        //if (n->getID() == "cluster_492462300_671564296") {
-        //    if (crossings.size() > 0) {
-        //        std::cout << " crossings at " << n->getID() << "\n";
-        //        for (std::vector<NBNode::Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
-        //            std::cout << "  " << toString((*it).edges) << "\n";
-        //        }
-        //    }
-        //}
+        i->second->sortEdges(useNodeShape);
     }
 }
 

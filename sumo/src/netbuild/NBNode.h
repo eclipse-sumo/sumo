@@ -641,6 +641,10 @@ public:
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
     bool rightOnRedConflict(int index, int foeIndex) const;
 
+
+    /// @brief sort all edge containers for this node
+    void sortEdges(bool useNodeShape);
+
     /**
      * @class nodes_by_id_sorter
      * @brief Used for sorting the cells by the begin time they describe
