@@ -135,7 +135,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame *horizontalFrameParent,
     myGroupBoxForMyAdditionalMatchBox = new FXGroupBox(myContentFrame, "Additional element", GNEDesignGroupBoxFrame);
 
     // Create FXListBox in myGroupBoxForMyAdditionalMatchBox
-    myAdditionalMatchBox = new FXComboBox(myGroupBoxForMyAdditionalMatchBox, 12, this, MID_GNE_MODE_ADDITIONAL_ITEM, GNEDesignComboBox);
+    myAdditionalMatchBox = new FXComboBox(myGroupBoxForMyAdditionalMatchBox, GNEDesignComboBoxNCol, this, MID_GNE_MODE_ADDITIONAL_ITEM, GNEDesignComboBox);
 
     // Create additional parameters
     myadditionalParameters = new GNEAdditionalFrame::additionalParameters(myContentFrame);
@@ -1047,7 +1047,7 @@ GNEAdditionalFrame::editorParameters::editorParameters(FXComposite* parent, FXOb
     FXGroupBox(parent, "editor parameters", GNEDesignGroupBoxFrame),
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT) {
     // Create FXListBox for the reference points
-    myReferencePointMatchBox = new FXComboBox(this, 12, this, MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT, GNEDesignComboBox);
+    myReferencePointMatchBox = new FXComboBox(this, GNEDesignComboBoxNCol, this, MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT, GNEDesignComboBox);
 
     // Create Frame for Label and TextField
     FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GNEDesignHorizontalFrame);

@@ -99,16 +99,16 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     // Create groupBox for selection by expression matching (match box)
     FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GNEDesignGroupBoxFrame);
     // Create MatchTagBox for tags and fill it
-    mySetComboBox = new FXComboBox(elementBox, 10, this, MID_CHOOSEN_ELEMENTS, GNEDesignComboBox);
+    mySetComboBox = new FXComboBox(elementBox, GNEDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GNEDesignComboBox);
     mySetComboBox->appendItem("Net Element");
     mySetComboBox->appendItem("Additional");
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // Create groupBox fro selection by expression matching (match box)
     FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GNEDesignGroupBoxFrame);
     // Create MatchTagBox for tags
-    myMatchTagComboBox = new FXComboBox(matchBox, 12, this, MID_GNE_SELMB_TAG, GNEDesignComboBox);
+    myMatchTagComboBox = new FXComboBox(matchBox, GNEDesignComboBoxNCol, this, MID_GNE_SELMB_TAG, GNEDesignComboBox);
     // Create listBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(matchBox, 12, NULL, 0, GNEDesignComboBox);
+    myMatchAttrComboBox = new FXComboBox(matchBox, GNEDesignComboBoxNCol, NULL, 0, GNEDesignComboBox);
     // Set netElements as default tag
     mySetComboBox->setCurrentItem(0);
     // Fill list of sub-items

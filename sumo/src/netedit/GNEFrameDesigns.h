@@ -89,6 +89,18 @@
     #define GNEDesignLabelAttribute (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 /// @}
 
+/// @name FXComboBox
+/// @{
+    /// @brief Combo box static (cannot be dited) extended over the all frame
+    #define GNEDesignComboBox               (FRAME_THICK | LAYOUT_FILL_X)
+
+    /// @brief Combo box static (cannot be dited) extended over the matrix column
+    #define GNEDesignComboBoxAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+
+    /// @brief number of column of every combo box
+    #define GNEDesignComboBoxNCol 12
+/// @}
+
 /// @name FXPackers
 /// @{
     /// @brief Horizontal design extended over frame
@@ -105,8 +117,18 @@
 /// @}
 
 
-/// @brief Combo box static (cannot be dited) extended over the matrix column or all frame with thick frame and limited to integers
-#define GNEDesignComboBox               (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+/// @name General design for frames
+/// @{
+    /// @brief design for frames area
+    #define GNEDesignFrameArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    /// @brief design for viewn area
+    #define GNEDesignViewnArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    /// @brief design for the content frame of every frame
+    #define GNEDesigContentFrame            (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+    /// @brief design for all frames
+    #define GNEDesigFrame                   (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+/// @}
+
 
 #define GNEDesignRadioButton            (RADIOBUTTON_NORMAL)
 
@@ -118,15 +140,8 @@
 
 #define GNEDesignSplitter               (SPLITTER_HORIZONTAL | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK)
 
-#define GNEDesignFrameArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
-
-#define GNEDesignViewnArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
-
 #define GNEDesignToolbarGrip            (TOOLBARGRIP_SINGLE | FRAME_SUNKEN)
 
-#define GNEDesigContentFrame            (LAYOUT_FILL_X | LAYOUT_FILL_Y)
-
-#define GNEDesigFrame                   (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
 #endif
 

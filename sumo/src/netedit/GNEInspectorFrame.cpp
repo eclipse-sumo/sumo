@@ -423,7 +423,7 @@ GNEInspectorFrame::AttrInput::AttrInput(FXComposite* parent, GNEInspectorFrame* 
     myTextFieldStrings = new FXTextField(this, GNEDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GNEDesignTextFieldAttributeStr);
     myTextFieldStrings->hide();
     // Create and hide ComboBox
-    myChoicesCombo = new FXComboBox(this, GNEDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GNEDesignComboBox);
+    myChoicesCombo = new FXComboBox(this, GNEDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GNEDesignComboBoxAttribute);
     myChoicesCombo->hide();
     // Create and hide checkButton
     myCheckBox = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GNEDesignCheckButtonAttribute);

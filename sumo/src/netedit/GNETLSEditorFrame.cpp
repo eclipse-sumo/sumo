@@ -114,7 +114,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, G
 
     // definitions list
     new FXLabel(myContentFrame, "Name, Program", 0, GNEDesignLabel);
-    myDefBox = new FXComboBox(myContentFrame, 10, this, MID_GNE_DEF_SWITCH, GNEDesignComboBox);
+    myDefBox = new FXComboBox(myContentFrame, GNEDesignComboBoxNCol, this, MID_GNE_DEF_SWITCH, GNEDesignComboBox);
 
     // offset control
     new FXLabel(myContentFrame, "Offset", 0, GNEDesignLabel);
