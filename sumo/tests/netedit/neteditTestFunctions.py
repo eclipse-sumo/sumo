@@ -59,11 +59,14 @@ def getNeteditMatch(NEProcess) :
 
 # netedit undo
 def neteditUndo(NEProcess, match, number) :
+    click(match) #bug mit ctrl+z founded
     for x in range(0, number) :
         type("z", Key.CTRL)
     
 # netedit redo
 def neteditRedo(NEProcess, match, number) :
+    click(match)
+    #bug mit ctrl+y founded
     for x in range(0, number) :
         type("y", Key.CTRL)
 
@@ -103,26 +106,31 @@ def changeBlockAdditional(numTabs) :
     type(Key.SPACE)
 
 # netedit wait question
-def waitQuestion(NEProcess, answer) :
-    try:
-        wait(neteditResourceQuestion, 5)
-    except:
-        NEProcess.kill()
-        sys.exit("Killed netedit process. 'question.png' not found")
+def waitQuestion(answer) :
+    # wait 0.5 second to question dialog
+    wait(0.5)
     #Answer can be "y" or "n"
     type(answer, Key.ALT)
     
 # netedit quit
-def neteditQuit(mustBeSaved, save) :
+def neteditQuit(neteditProcess, mustBeSaved, save) :
     # quit
     type("q", Key.CTRL)
 
     # Check if net must be saved
     if(mustBeSaved == True) :
         if(save == True) :
-            waitQuestion(neteditProcess, "y")
+            waitQuestion("y")
         else :
-            waitQuestion(neteditProcess, "n")
+            waitQuestion("n")
+            
+    # wait 1 second
+    wait(0.5)
+    if(neteditProcess.poll() != None) :
+        print ("netedit was closed sucesfully")
+    else :
+        neteditProcess.kill()
+        print ("error closing netedit")
     
 
 # netedit save additionals
