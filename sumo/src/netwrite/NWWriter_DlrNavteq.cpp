@@ -202,7 +202,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
                << betweenNodeID << "\t"
                << getGraphLength(e) << "\t"
                << getAllowedTypes(e->getPermissions()) << "\t"
-               << "3\t" // Form of way XXX
+               << getFormOfWay(e) << "\t"
                << getBrunnelType(e) << "\t" 
                << getRoadClass(e) << "\t"
                << getSpeedCategory(kph) << "\t"
@@ -373,6 +373,21 @@ NWWriter_DlrNavteq::getBrunnelType(NBEdge* edge) {
         return 10;
     }
     return -1; // UNDEFINED;
+}
+
+
+int
+NWWriter_DlrNavteq::getFormOfWay(NBEdge* edge) {
+    if (edge->getPermissions() == SVC_PEDESTRIAN) {
+        return 15;
+    } else if (edge->getJunctionPriority(edge->getToNode()) == NBEdge::ROUNDABOUT) {
+        return 4;
+    } else if (edge->getTypeID() == "highway.service") {
+        return 14;
+    } else if (edge->getTypeID().find("_link") != std::string::npos) {
+        return 10;
+    }
+    return 3; // speed category 1-8;
 }
 
 
