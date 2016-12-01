@@ -63,4 +63,4 @@ Settings.MoveMouseDelay = 0.1
 neteditSaveAdditionals(match)
 
 # quit netedit without saving
-neteditQuit(True, True)
+neteditQuit(neteditProcess, True, True)

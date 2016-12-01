@@ -32,17 +32,17 @@ click(additionalsComboBox)
 
 # Add three extra lines
 for x in range(0, 3):
-	type(Key.TAB)
-	
+    type(Key.TAB)
+    
 for x in range(0, 3):
-	type(Key.SPACE)
-	
+    type(Key.SPACE)
+    
 #add extra lines
 click(additionalsComboBox)
 
 for x in range(0, 2):
-	type(Key.TAB)
-	
+    type(Key.TAB)
+    
 paste("Line1")
 type(Key.TAB)
 paste("Line2")
@@ -55,8 +55,8 @@ paste("Line4")
 click(additionalsComboBox)
 
 for x in range(0, 7):
-	type(Key.TAB)
-	
+    type(Key.TAB)
+    
 type(Key.SPACE)
 
 # create busstop in mode "reference left"
@@ -81,8 +81,8 @@ modifyStoppingPlaceReference(parametersReference, 8, 0)
 click(additionalsComboBox)
 
 for x in range(0, 10):
-	type(Key.TAB)
-	
+    type(Key.TAB)
+    
 paste("30")
 
 # try to create a busstop (Warning)
@@ -101,8 +101,8 @@ modifyStoppingPlaceReference(parametersReference, 8, 0)
 click(additionalsComboBox)
 
 for x in range(0, 11):
-	type(Key.TAB)
-	
+    type(Key.TAB)
+    
 type(Key.SPACE)
 
 # create a busstop forcing position
@@ -122,4 +122,4 @@ neteditRedo(neteditProcess, match, 6)
 neteditSaveAdditionals(match)
 
 # quit netedit without saving
-neteditQuit(True, True)
+neteditQuit(neteditProcess, True, True)

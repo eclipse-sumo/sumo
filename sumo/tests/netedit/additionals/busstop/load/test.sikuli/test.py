@@ -13,5 +13,5 @@ neteditSaveAdditionals(match, True)
 
 #quit without saving
 ##### BUG: Must be neteditQuit(False, False)
-neteditQuit(True, True)
+neteditQuit(neteditProcess, True, True)
 

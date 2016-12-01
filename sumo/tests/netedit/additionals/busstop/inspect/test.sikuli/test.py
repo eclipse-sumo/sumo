@@ -83,13 +83,13 @@ modifyAttribute(parametersReference, 2, "20")
 modifyAttribute(parametersReference, 3, "3000")
 
 # Answer "no" to the answer dialog
-waitQuestion(neteditProcess, "n")
+waitQuestion("n")
 
 # Change parameter 3 with a valid value (out of range, but adapted to the end of lane)
 modifyAttribute(parametersReference, 3, "3000")
 
 # Answer "yes" to the answer dialog
-waitQuestion(neteditProcess, "y")
+waitQuestion("y")
 
 # Change parameter 3 with a non valid value (<startPos)
 modifyAttribute(parametersReference, 3, "10")
@@ -114,4 +114,4 @@ neteditRedo(neteditProcess, match, 13)
 neteditSaveAdditionals(match)
 
 # quit netedit saving net
-neteditQuit(True, True)
+neteditQuit(neteditProcess, True, True)

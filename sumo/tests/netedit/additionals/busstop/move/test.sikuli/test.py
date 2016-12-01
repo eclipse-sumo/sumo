@@ -80,5 +80,5 @@ neteditRedo(neteditProcess, match, 10)
 neteditSaveAdditionals(match)
 
 # quit netedit without saving
-neteditQuit(True, True)
+neteditQuit(neteditProcess, True, True)
 
