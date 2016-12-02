@@ -36,14 +36,21 @@
 # </configuration>
 # 
 #
-#Traffic signal related to LINK_ID and NODE_ID with location relative to driving direction.
-#column format like pointcollection.
-#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK -1-keineAngabe
-#RELATREC_ID	POICOL_TYPE	DESCRIPTION	LONGITUDE	LATITUDE	LINK_ID
-27445076	12	LSA;NODEIDS#261599791#;LOCATION#-1#;	1352015	5242682	27445076
-27445017	12	LSA;NODEIDS#261599791#;LOCATION#-1#;	1352015	5242682	27445017
-27445171	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	27445171
-27445167	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	27445167
--24214694	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	-24214694
-27445016	12	LSA;NODEIDS#32266935#;LOCATION#-1#;	1352671	5242640	27445016
-27445066	12	LSA;NODEIDS#94487954#;LOCATION#-1#;	1354525	5242572	27445066
+# NAME_ID	PERMANENT_ID_INFO	Name
+16
+6	0	Albert-Einstein-Straße
+13	0	Carl-Scheele-Straße
+5	0	Ernst-Ruska-Ufer
+11	0	Gottfried-Leibniz-Straße
+3	0	Gustav-Kirchhoff-Straße
+14	0	Havestadtplatz
+2	0	Justus-von-Liebig-Straße
+9	0	Kekuléstraße
+12	0	Ludwig-Boltzmann-Straße
+7	0	Magnusstraße
+15	0	Max-Born-Straße
+8	0	Max-Planck-Straße
+4	0	Rudower Chaussee
+10	0	Rutherfordstraße
+0	0	Teltowkanalbrücke
+1	0	Wegedornstraße
