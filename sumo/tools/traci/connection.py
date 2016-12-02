@@ -223,10 +223,11 @@ class Connection:
             if parameters and v in parameters:
                 self._string += parameters[v]
         result = self._sendExact()
-        objectID, response = self._readSubscription(result)
-        if response - cmdID != 16 or objectID != objID:
-            raise FatalTraCIError("Received answer %02x,%s for subscription command %02x,%s." % (
-                response, objectID, cmdID, objID))
+        if varIDs:
+            objectID, response = self._readSubscription(result)
+            if response - cmdID != 16 or objectID != objID:
+                raise FatalTraCIError("Received answer %02x,%s for subscription command %02x,%s." % (
+                    response, objectID, cmdID, objID))
 
     def _getSubscriptionResults(self, cmdID):
         return self._subscriptionMapping[cmdID]
@@ -244,10 +245,11 @@ class Connection:
         for v in varIDs:
             self._string += struct.pack("!B", v)
         result = self._sendExact()
-        objectID, response = self._readSubscription(result)
-        if response - cmdID != 16 or objectID != objID:
-            raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (
-                response, objectID, cmdID, objID))
+        if varIDs:
+            objectID, response = self._readSubscription(result)
+            if response - cmdID != 16 or objectID != objID:
+                raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (
+                    response, objectID, cmdID, objID))
 
     def isEmbedded(self):
         return _embedded

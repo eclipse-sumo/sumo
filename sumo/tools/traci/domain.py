@@ -140,6 +140,14 @@ class Domain:
         self._connection._subscribe(
             self._subscribeID, begin, end, objectID, varIDs)
 
+    def unsubscribe(self, objectID):
+        """unsubscribe(string) -> None
+
+        Unsubscribe from receiving object values.
+        """
+        self._connection._subscribe(
+            self._subscribeID, 0, 2**31-1, objectID, [])
+
     def getSubscriptionResults(self, objectID=None):
         """getSubscriptionResults(string) -> dict(integer: <value_type>)
 
@@ -160,6 +168,10 @@ class Domain:
                 varIDs = (tc.ID_LIST,)
         self._connection._subscribeContext(
             self._contextID, begin, end, objectID, domain, dist, varIDs)
+
+    def unsubscribeContext(self, objectID, domain, dist):
+        self._connection._subscribeContext(
+            self._contextID, 0, 2**31-1, objectID, domain, dist, [])
 
     def getContextSubscriptionResults(self, objectID=None):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(objectID)
