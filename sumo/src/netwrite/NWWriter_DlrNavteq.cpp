@@ -227,9 +227,12 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
         OutputDevice& namesDevice = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_names.txt");
         writeHeader(namesDevice, oc);
         // write format specifier
-        namesDevice << "# NAME_ID\tName\n" << nameIDs.size() << "\n";
+        namesDevice << "# NAME_ID\tPERMANENT_ID_INFO\tName\n" << nameIDs.size() << "\n";
         for (std::map<const std::string, std::string>::const_iterator i = nameIDs.begin(); i != nameIDs.end(); ++i) {
-            namesDevice << i->second << "\t" << i->first << "\n";
+            namesDevice 
+                << i->second << "\t" 
+                << 0 << "\t" 
+                << i->first << "\n";
         }
     }
 }
