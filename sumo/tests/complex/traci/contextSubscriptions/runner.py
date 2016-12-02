@@ -31,17 +31,14 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib
 import traci
 
-PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
 
 if sys.argv[1] == "sumo":
-    sumoBinary = os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    addOption = "--remote-port %s" % PORT
+    sumoCall = [os.environ.get(
+        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
 else:
-    sumoBinary = os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-S -Q --remote-port %s" % PORT
+    sumoCall = [os.environ.get(
+        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
 
 
 def dist2(v, w):
@@ -64,10 +61,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
     seen1 = 0
     seen2 = 0
     step = 0
-    sumoProcess = subprocess.Popen(
-        "%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
-#    time.sleep(20)
-    traci.init(PORT)
+    traci.start(sumoCall + ["-c", "sumo.sumocfg"])
     traci.poi.add("poi", 400, 500, (1, 0, 0, 0))
     traci.polygon.add(
         "poly", ((400, 400), (450, 400), (450, 400)), (1, 0, 0, 0))
@@ -121,10 +115,15 @@ def runSingle(traciEndTime, viewRange, module, objID):
                         "timestep %s: %s is missing in surrounding vehicles" % (step, v))
 
         step += 1
+    module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    responses = traci.simulationStep()
+    if responses:
+        print("Error: Unsubscribe did not work")
+    else:
+        print("Ok: Unsubscribe successful")
     print("Print ended at step %s" %
           (traci.simulation.getCurrentTime() / DELTA_T))
     traci.close()
-    sumoProcess.wait()
     sys.stdout.flush()
     print("uncheck: seen %s vehicles via subscription, %s in surrounding" %
           (seen1, seen2))

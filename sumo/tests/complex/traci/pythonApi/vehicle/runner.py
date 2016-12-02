@@ -317,7 +317,10 @@ for i in range(5):
     print("step", step())
     print("failVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition("failVeh"),
                                        traci.vehicle.getRoute("failVeh")))
-
+#unsubscribe
+traci.vehicle.unsubscribe(vehID)
+print("step", step())
+print(traci.vehicle.getSubscriptionResults(vehID))
 # done
 traci.close()
 sumoProcess.wait()
