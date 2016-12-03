@@ -5,7 +5,7 @@
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///
-// Some list definitions
+// Some typedef definitions fir containers
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
@@ -44,15 +44,13 @@ class NBEdge;
 // ===========================================================================
 // container definitions
 // ===========================================================================
-/** container for (sorted) edges */
+/// @brief container for (sorted) edges
 typedef std::vector<NBEdge*> EdgeVector;
 
-/** container for unique edges */
+/// @brief container for unique edges
 typedef std::set<NBEdge*> EdgeSet;
 
-
-/** container for (sorted) lanes.
-    The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1) */
+/// @brief container for (sorted) lanes. The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1) 
 typedef std::vector<int> LaneVector;
 
 

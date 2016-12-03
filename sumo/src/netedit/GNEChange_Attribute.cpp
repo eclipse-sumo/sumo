@@ -46,10 +46,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, NULL, 0)
 // ===========================================================================
 
 GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
-        SumoXMLAttr key,
-        const std::string& value,
-        bool customOrigValue,
-        const std::string& origValue) :
+        SumoXMLAttr key, const std::string& value,
+        bool customOrigValue, const std::string& origValue) :
     GNEChange(0, true),
     myAC(ac),
     myKey(key),

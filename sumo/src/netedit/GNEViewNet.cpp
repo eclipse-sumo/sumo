@@ -85,7 +85,15 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CHANGE,             GNEViewNet::onCmdChangeMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CREATE_EDGE,       GNEViewNet::onCmdSetModeCreateEdge),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_MOVE,              GNEViewNet::onCmdSetModeMove),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_DELETE,            GNEViewNet::onCmdSetModeDelete),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_INSPECT,           GNEViewNet::onCmdSetModeInspect),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_SELECT,            GNEViewNet::onCmdSetModeSelect),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CONNECT,           GNEViewNet::onCmdSetModeConnect),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_TLS,               GNEViewNet::onCmdSetModeTLS),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL,        GNEViewNet::onCmdSetModeAdditional),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CROSSING,          GNEViewNet::onCmdSetModeCrossing),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SPLIT_EDGE,              GNEViewNet::onCmdSplitEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SPLIT_EDGE_BIDI,         GNEViewNet::onCmdSplitEdgeBidi),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_REVERSE_EDGE,            GNEViewNet::onCmdReverseEdge),
@@ -135,7 +143,15 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myMoveSelection(false),
     myAmInRectSelect(false),
     myToolbar(toolBar),
-    myEditModesCombo(0),
+    myEditModeCreateEdge(0),
+    myEditModeMove(0),
+    myEditModeDelete(0),
+    myEditModeInspect(0),
+    myEditMoveSelect(0),
+    myEditModeConnection(0),
+    myEditModeTrafficLight(0),
+    myEditModeAdditional(0),
+    myEditModeCrossing(0),
     myEditModeNames(),
     myUndoList(undoList),
     myCurrentPoly(0),
@@ -635,6 +651,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 } else if (pointed_connection) {
                     myNet->deleteConnection(pointed_connection, myUndoList);
                     update();
+                } else if (pointed_crossing) {
+                    myNet->deleteCrossing(pointed_crossing, myUndoList);
+                    update();
                 } else {
                     GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 }
@@ -896,13 +915,6 @@ GNEViewNet::hotkeyEnter() {
 }
 
 
-long
-GNEViewNet::onCmdChangeMode(FXObject*, FXSelector, void* data) {
-    setEditMode(myEditModeNames.get((char*) data));
-    return 1;
-}
-
-
 void
 GNEViewNet::setEditModeFromHotkey(FXushort selid) {
     switch (selid) {
@@ -937,7 +949,6 @@ GNEViewNet::setEditModeFromHotkey(FXushort selid) {
             FXMessageBox::error(this, MBOX_OK, "invalid edit mode", "%s", "...");
             break;
     }
-    myEditModesCombo->setCurrentItem(myEditModesCombo->findItem(myEditModeNames.getString(myEditMode).c_str()));
 }
 
 
@@ -1064,6 +1075,69 @@ GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
         }
     }
     return result;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeCreateEdge(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_CREATE_EDGE);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeMove(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_MOVE);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeDelete(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_DELETE);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeInspect(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_INSPECT);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeSelect(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_SELECT);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeConnect(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_CONNECT);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeTLS(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_TLS);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeAdditional(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_ADDITIONAL);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModeCrossing(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_CROSSING);
+    return 1;
 }
 
 
@@ -1625,21 +1699,31 @@ GNEViewNet::buildEditModeControls() {
     myEditModeNames.insert("(a) Additionals", GNE_MODE_ADDITIONAL);
     myEditModeNames.insert("(r) Crossings", GNE_MODE_CROSSING);
 
-    // initialize combo for modes
-    myEditModesCombo =
-        new FXComboBox(myToolbar, 12, this, MID_GNE_MODE_CHANGE,
-                       FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC | LAYOUT_CENTER_Y);
+    // initialize buttons for modes
+    myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.", 
+                                                  GUIIconSubSys::getIcon(ICON_GNEMODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.", 
+                                            GUIIconSubSys::getIcon(ICON_GNEMODEMOVE), this, MID_GNE_MODE_MOVE, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.", 
+                                              GUIIconSubSys::getIcon(ICON_GNEMODEDELETE), this, MID_GNE_MODE_DELETE, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.", 
+                                               GUIIconSubSys::getIcon(ICON_GNEMODEINSPECT), this, MID_GNE_MODE_INSPECT, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditMoveSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.", 
+                                              GUIIconSubSys::getIcon(ICON_GNEMODESELECT), this, MID_GNE_MODE_SELECT, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditModeConnection = new MFXCheckableButton(false, myToolbar, "\tset connection mode\tMode for edit connections between lanes.", 
+                                                  GUIIconSubSys::getIcon(ICON_GNEMODECONNECTION), this, MID_GNE_MODE_CONNECT, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditModeTrafficLight = new MFXCheckableButton(false, myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.", 
+                                                    GUIIconSubSys::getIcon(ICON_GNEMODETLS), this, MID_GNE_MODE_TLS, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditModeAdditional = new MFXCheckableButton(false, myToolbar, "\tset additional mode\tMode for adding additional elements.", 
+                                                  GUIIconSubSys::getIcon(ICON_GNEMODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
+    myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.", 
+                                                GUIIconSubSys::getIcon(ICON_GNEMODECROSSING), this, MID_GNE_MODE_CROSSING, BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 23, 23);
 
-    std::vector<std::string> names = myEditModeNames.getStrings();
-    for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
-        myEditModesCombo->appendItem(it->c_str());
-    }
-    myEditModesCombo->setNumVisible((int)myEditModeNames.size());
+    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GNEDesignToolbarGrip);
 
     // initialize mode specific controls
     myChainCreateEdge = new FXMenuCheck(myToolbar, "chain\t\tCreate consecutive edges with a single click (hit ESC to cancel chain).", this, 0);
-    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar,
-            "two-way\t\tAutomatically create an edge in the opposite direction", this, 0);
+    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar,"two-way\t\tAutomatically create an edge in the opposite direction", this, 0);
     mySelectEdges = new FXMenuCheck(myToolbar, "select edges\t\tToggle whether clicking should select edges or lanes", this, 0);
     mySelectEdges->setCheck();
 
@@ -1704,16 +1788,60 @@ GNEViewNet::updateModeSpecificControls() {
         case GNE_MODE_CREATE_EDGE:
             myChainCreateEdge->show();
             myAutoCreateOppositeEdge->show();
+            // update editor mode buttons
+            myEditModeCreateEdge->setChecked(true);
+            myEditModeMove->setChecked(false);
+            myEditModeDelete->setChecked(false);
+            myEditModeInspect->setChecked(false);
+            myEditMoveSelect->setChecked(false);
+            myEditModeConnection->setChecked(false);
+            myEditModeTrafficLight->setChecked(false);
+            myEditModeAdditional->setChecked(false);
+            myEditModeCrossing->setChecked(false);
+            break;
+        case GNE_MODE_MOVE:
+            myWarnAboutMerge->show();
+            myShowBubbleOverJunction->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(true);
+	        myEditModeDelete->setChecked(false);
+	        myEditModeInspect->setChecked(false);
+	        myEditMoveSelect->setChecked(false);
+	        myEditModeConnection->setChecked(false);
+	        myEditModeTrafficLight->setChecked(false);
+	        myEditModeAdditional->setChecked(false);
+	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_DELETE:
             mySelectEdges->show();
             myShowConnections->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(false);
+	        myEditModeDelete->setChecked(true);
+	        myEditModeInspect->setChecked(false);
+	        myEditMoveSelect->setChecked(false);
+	        myEditModeConnection->setChecked(false);
+	        myEditModeTrafficLight->setChecked(false);
+	        myEditModeAdditional->setChecked(false);
+	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_INSPECT:
             widthChange -= myViewParent->getInspectorFrame()->getWidth() + addChange;
             myViewParent->getInspectorFrame()->show();
             mySelectEdges->show();
             myShowConnections->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(false);
+	        myEditModeDelete->setChecked(false);
+	        myEditModeInspect->setChecked(true);
+	        myEditMoveSelect->setChecked(false);
+	        myEditModeConnection->setChecked(false);
+	        myEditModeTrafficLight->setChecked(false);
+	        myEditModeAdditional->setChecked(false);
+	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_SELECT:
             widthChange -= myViewParent->getSelectorFrame()->getWidth() + addChange;
@@ -1721,32 +1849,89 @@ GNEViewNet::updateModeSpecificControls() {
             mySelectEdges->show();
             myShowConnections->show();
             myExtendToEdgeNodes->show();
-            break;
-        case GNE_MODE_MOVE:
-            myWarnAboutMerge->show();
-            myShowBubbleOverJunction->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(false);
+	        myEditModeDelete->setChecked(false);
+	        myEditModeInspect->setChecked(false);
+	        myEditMoveSelect->setChecked(true);
+	        myEditModeConnection->setChecked(false);
+	        myEditModeTrafficLight->setChecked(false);
+	        myEditModeAdditional->setChecked(false);
+	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_CONNECT:
             widthChange -= myViewParent->getConnectorFrame()->getWidth() + addChange;
             myViewParent->getConnectorFrame()->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(false);
+	        myEditModeDelete->setChecked(false);
+	        myEditModeInspect->setChecked(false);
+	        myEditMoveSelect->setChecked(false);
+	        myEditModeConnection->setChecked(true);
+	        myEditModeTrafficLight->setChecked(false);
+	        myEditModeAdditional->setChecked(false);
+	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_TLS:
             widthChange -= myViewParent->getTLSEditorFrame()->getWidth() + addChange;
             myViewParent->getTLSEditorFrame()->show();
             myChangeAllPhases->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(false);
+	        myEditModeDelete->setChecked(false);
+	        myEditModeInspect->setChecked(false);
+	        myEditMoveSelect->setChecked(false);
+	        myEditModeConnection->setChecked(false);
+	        myEditModeTrafficLight->setChecked(true);
+	        myEditModeAdditional->setChecked(false);
+	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_ADDITIONAL:
             widthChange -= myViewParent->getAdditionalFrame()->getWidth() + addChange;
             myViewParent->getAdditionalFrame()->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(false);
+	        myEditModeDelete->setChecked(false);
+	        myEditModeInspect->setChecked(false);
+	        myEditMoveSelect->setChecked(false);
+	        myEditModeConnection->setChecked(false);
+	        myEditModeTrafficLight->setChecked(false);
+	        myEditModeAdditional->setChecked(true);
+	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_CROSSING:
             widthChange -= myViewParent->getCrossingFrame()->getWidth() + addChange;
             myViewParent->getCrossingFrame()->show();
+            // update editor mode buttons
+	        myEditModeCreateEdge->setChecked(false);
+	        myEditModeMove->setChecked(false);
+	        myEditModeDelete->setChecked(false);
+	        myEditModeInspect->setChecked(false);
+	        myEditMoveSelect->setChecked(false);
+	        myEditModeConnection->setChecked(false);
+	        myEditModeTrafficLight->setChecked(false);
+	        myEditModeAdditional->setChecked(false);
+	        myEditModeCrossing->setChecked(true);
             break;
         default:
             break;
     }
-    myChanger->changeCanvassLeft(widthChange);
+    // Update buttons
+    myEditModeCreateEdge->update();
+    myEditModeMove->update();
+    myEditModeDelete->update();
+    myEditModeInspect->update();
+    myEditMoveSelect->update();
+    myEditModeConnection->update();
+    myEditModeTrafficLight->update();
+    myEditModeAdditional->update();
+    myEditModeCrossing->update();
+    // Change can
+    myChanger->changeCanvasSizeLeft(widthChange);
     myToolbar->recalc();
     recalc();
     onPaint(0, 0, 0); // force repaint because different modes draw different things

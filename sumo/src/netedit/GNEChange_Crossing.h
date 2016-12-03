@@ -40,8 +40,8 @@
 // class declarations
 // ===========================================================================
 class GNENet;
-class GNECrossing;
-class GNEEdge;
+class GNEJunction;
+class NBEdge;
 
 // ===========================================================================
 // class definitions
@@ -56,11 +56,13 @@ class GNEChange_Crossing : public GNEChange {
 
 public:
     /**@brief Constructor for creating/deleting an crossing
-     * @param[in] net The net on which to apply changes
-     * @param[in] crossing The crossing to be created/deleted
+     * @param[in] JunctionParent GNEJunction in which the crossing will be created/deleted
+     * @param[in] edges vector of edges of crossing
+     * @param[in] width value with the width of crossing
+     * @param[in] priority boolean with the priority of crossing
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Crossing(GNENet* net, GNECrossing* crossing, bool forward);
+    GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*> &edges, SUMOReal width, bool priority, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Crossing();
@@ -81,10 +83,17 @@ public:
     /// @}
 
 private:
-    /**@brief full information regarding the crossing that is to be created/deleted
-     * @note we assume shared responsibility for the pointer (via reference counting)
-     */
-    GNECrossing* myCrossing;
+    /// @brief full information regarding the Junction in which GNECRossing is created
+    GNEJunction* myJunctionParent;
+
+    /// @brief vector to save all edges of GNECrossing
+    std::vector<NBEdge*> myEdges;
+
+    /// @brief width of GNECrossing
+    SUMOReal myWidth;
+
+    /// @brief priority of GNECrossing 
+    bool myPriority;
 };
 
 #endif

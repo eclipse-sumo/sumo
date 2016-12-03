@@ -99,10 +99,9 @@ GNEJunction::updateGeometry() {
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     // Update geometries of crossings
-    getNBNode()->buildCrossings();
+    getNBNode()->buildCrossingsAndWalkingAreas();
     for (std::vector<GNECrossing*>::const_iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
         (*it)->updateGeometry();
-  
     }
 }
 
@@ -119,11 +118,12 @@ GNEJunction::rebuildCrossings(bool deleteOnly) {
     if (!deleteOnly) {
         const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
         for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-            myCrossings.push_back(new GNECrossing(*this, (*it).id));
+            myCrossings.push_back(new GNECrossing(this, (*it).id));
             myCrossings.back()->incRef();
         }
     }
-
+    // Update geometry
+    updateGeometry();
 }
 
 
@@ -431,7 +431,9 @@ GNEJunction::updateShapesAndGeometries() {
     // Finally update geometry of this edge
     updateGeometry();
     // Update view to show the new shapes
-    myNet->getViewNet()->update();
+    if(myNet->getViewNet()) {
+        myNet->getViewNet()->update();
+    }
 }
 
 

@@ -52,11 +52,10 @@ class GNEChange_Junction : public GNEChange {
 
 public:
     /**@brief Constructor for creating/deleting a junction
-     * @param[in] net The net on which to apply changes
      * @param[in] junction The junction to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Junction(GNENet* net, GNEJunction* junction, bool forward);
+    GNEChange_Junction(GNEJunction* junction, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Junction();
@@ -78,9 +77,8 @@ public:
 
 
 private:
-
     /**@brief full information regarding the junction that is to be created/deleted
-     * we assume shared responsibility for the pointer (via reference counting)
+     * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEJunction* myJunction;
 };

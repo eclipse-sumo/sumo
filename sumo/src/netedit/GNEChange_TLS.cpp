@@ -50,12 +50,12 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, NULL, 0)
 
 
 // Constructor for creating an edge
-GNEChange_TLS::GNEChange_TLS(
-    GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID):
-    GNEChange(0, forward),
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID):
+    GNEChange(junction->getNet(), forward),
     myJunction(junction),
     myTlDef(tlDef),
     myForceInsert(forceInsert) {
+    assert(myNet);
     myJunction->incRef("GNEChange_TLS");
     if (myTlDef == 0) {
         assert(forward);
@@ -75,7 +75,8 @@ GNEChange_TLS::~GNEChange_TLS() {
 }
 
 
-void GNEChange_TLS::undo() {
+void 
+GNEChange_TLS::undo() {
     if (myForward) {
         myJunction->removeTrafficLight(myTlDef);
     } else {
@@ -84,7 +85,8 @@ void GNEChange_TLS::undo() {
 }
 
 
-void GNEChange_TLS::redo() {
+void 
+GNEChange_TLS::redo() {
     if (myForward) {
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     } else {
@@ -93,7 +95,8 @@ void GNEChange_TLS::redo() {
 }
 
 
-FXString GNEChange_TLS::undoName() const {
+FXString 
+GNEChange_TLS::undoName() const {
     if (myForward) {
         return ("Undo create traffic light");
     } else {
@@ -102,7 +105,8 @@ FXString GNEChange_TLS::undoName() const {
 }
 
 
-FXString GNEChange_TLS::redoName() const {
+FXString 
+GNEChange_TLS::redoName() const {
     if (myForward) {
         return ("Redo create traffic light");
     } else {

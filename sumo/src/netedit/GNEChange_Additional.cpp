@@ -46,8 +46,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, NULL, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Additional::GNEChange_Additional(GNENet* net, GNEAdditional* additional, bool forward) :
-    GNEChange(net, forward),
+GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
+    GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional) {
     assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
@@ -63,7 +63,8 @@ GNEChange_Additional::~GNEChange_Additional() {
 }
 
 
-void GNEChange_Additional::undo() {
+void 
+GNEChange_Additional::undo() {
     if (myForward) {
         myNet->deleteAdditional(myAdditional);
     } else {
@@ -72,7 +73,8 @@ void GNEChange_Additional::undo() {
 }
 
 
-void GNEChange_Additional::redo() {
+void 
+GNEChange_Additional::redo() {
     if (myForward) {
         myNet->insertAdditional(myAdditional);
     } else {
@@ -81,19 +83,21 @@ void GNEChange_Additional::redo() {
 }
 
 
-FXString GNEChange_Additional::undoName() const {
+FXString 
+GNEChange_Additional::undoName() const {
     if (myForward) {
-        return ("Undo create additional");
+        return ("Undo create " + toString(myAdditional->getTag())).c_str();
     } else {
-        return ("Undo delete additional");
+        return ("Undo delete " + toString(myAdditional->getTag())).c_str();
     }
 }
 
 
-FXString GNEChange_Additional::redoName() const {
+FXString 
+GNEChange_Additional::redoName() const {
     if (myForward) {
-        return ("Redo create additional");
+        return ("Redo create " + toString(myAdditional->getTag())).c_str();
     } else {
-        return ("Redo delete additional");
+        return ("Redo delete " + toString(myAdditional->getTag())).c_str();
     }
 }

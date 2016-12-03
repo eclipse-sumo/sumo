@@ -90,7 +90,10 @@ public:
         SumoXMLAttr getAttr() const;
 
         /// @brief return value
-        std::string getValue() const ;
+        std::string getValue() const;
+
+        /// @brief check if the current value is valid
+        bool isCurrentValueValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -163,6 +166,9 @@ public:
 
         /// @brief return the value of list
         std::string getListValues();
+        
+        /// @brief check that current list is valid
+        bool isCurrentListValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -225,13 +231,16 @@ public:
         void addAttribute(SumoXMLTag additionalTag, SumoXMLAttr additionalAttribute);
 
         /// @brief show group box
-        void showadditionalParameters();
+        void showAdditionalParameters();
 
         /// @brief hide group box
-        void hideadditionalParameters();
+        void hideAdditionalParameters();
 
-        /// @brief get attributes
-        std::map<SumoXMLAttr, std::string> getAttributes() const;
+        /// @brief get attributes and their values
+        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
+
+        /// @brief check if all values defined by user are valid
+        bool isValuesValid() const;
 
         /// @brief get number of added attributes
         int getNumberOfAddedAttributes() const;
@@ -289,7 +298,7 @@ public:
         };
 
         /// @brief constructor
-        editorParameters(FXComposite* parent, FXObject* tgt);
+        editorParameters(FXComposite* parent);
 
         /// @brief destructor
         ~editorParameters();
@@ -318,12 +327,16 @@ public:
         /// @brief check if force position is enabled
         bool isForcePositionEnabled();
 
+        /// @brief check if current lenght is valid
+        bool isCurrentLenghtValid() const;
+
         /// @name FOX-callbacks
         /// @{
+        /// @brief Called when the user enters a new lenght
+        long onCmdSetLength(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user enters another reference point
         long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
-
-        /*** @todo write callback for LENGTH **/
 
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);
@@ -354,22 +367,25 @@ public:
 
         /// @brief checkBox for blocking movement
         FXMenuCheck* myCheckBlock;
+
+        /// @brief Flag to check if current lenght is valid
+        bool myCurrentLengthValid;
     };
 
     // ===========================================================================
-    // class additionalSet
+    // class additionalSetsSelector
     // ===========================================================================
 
-    class additionalSet : public FXGroupBox {
+    class additionalSetsSelector : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::additionalSet)
+        FXDECLARE(GNEAdditionalFrame::additionalSetsSelector)
 
     public:
         /// @brief constructor
-        additionalSet(FXComposite* parent, FXObject* tgt, GNEViewNet* viewNet);
+        additionalSetsSelector(FXComposite* parent, GNEViewNet* viewNet);
 
         /// @brief destructor
-        ~additionalSet();
+        ~additionalSetsSelector();
 
         /// @brief get if currently additional Set
         std::string getIdSelected() const;
@@ -377,15 +393,15 @@ public:
         /// @brief get current tag
         SumoXMLTag getCurrentAdditionalTag() const;
 
-        /// @brief Show list of additionalSet
+        /// @brief Show list of additionalSetsSelector
         void showList(SumoXMLTag type);
 
-        /// @brief hide additionalSet
+        /// @brief hide additionalSetsSelector
         void hideList();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user select an additionalSet of the list
+        /// @brief called when user select an additionalSetsSelector of the list
         long onCmdSelectAdditionalSet(FXObject*, FXSelector, void*);
 
         /// @brief Called when help button is pressed
@@ -394,7 +410,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        additionalSet() {}
+        additionalSetsSelector() {}
 
     private:
         /// @brief current type
@@ -632,7 +648,7 @@ private:
     GNEAdditionalFrame::editorParameters* myEditorParameters;
 
     /// @brief list of additional Set
-    GNEAdditionalFrame::additionalSet* myAdditionalSet;
+    GNEAdditionalFrame::additionalSetsSelector* myAdditionalSet;
 
     /// @brief list of edgesSelector
     GNEAdditionalFrame::edgesSelector* myEdgesSelector;

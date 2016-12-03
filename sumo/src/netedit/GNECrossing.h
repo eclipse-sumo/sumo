@@ -55,13 +55,19 @@ public:
      * @param[in] parentJunction GNEJunction in which this crossing is placed
      * @param[in] id The id of the crossing (inmutable)
      */
-    GNECrossing(GNEJunction& parentJunction, const std::string& id);
+    GNECrossing(GNEJunction* parentJunction, const std::string& id);
 
     /// @brief Destructor
     virtual ~GNECrossing();
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief get parent Junction
+    GNEJunction* getParentJunction() const;
+
+    ///@brief get referente to NBode::Crossing
+    NBNode::Crossing& getNBCrossing() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -122,7 +128,7 @@ public:
 
 private:
     /// @brief the parent junction of this crossing
-    GNEJunction& myParentJunction;
+    GNEJunction* myParentJunction;
 
     /// @brief the data for this crossing
     NBNode::Crossing &myCrossing;

@@ -109,7 +109,7 @@ public:
      *
      * @param[in] change The horizontal change in canvas size in pixels
      */
-    void changeCanvassLeft(int change);
+    void changeCanvasSizeLeft(int change);
 
     /* @brief avoid unwanted flicker
      * @param[in] delay The minimum time delay in nanoseconds after

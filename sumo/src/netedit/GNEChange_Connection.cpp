@@ -48,22 +48,21 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, NULL, 0)
 
 
 GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool forward) :
-    GNEChange(0, forward),
+    GNEChange(edge->getNet(), forward),
     myEdge(edge),
     myNBEdgeConnection(nbCon),
     myConnection(myEdge->retrieveConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane)) {
     assert(myEdge);
-    //myEdge->incRef("GNEChange_Connection");
 }
 
 
 GNEChange_Connection::~GNEChange_Connection() {
     assert(myEdge);
-    //myEdge->decRef("GNEChange_Connection");
 }
 
 
-void GNEChange_Connection::undo() {
+void 
+GNEChange_Connection::undo() {
     if (myForward) {
         myEdge->removeConnection(myNBEdgeConnection);
     } else {
@@ -72,7 +71,8 @@ void GNEChange_Connection::undo() {
 }
 
 
-void GNEChange_Connection::redo() {
+void 
+GNEChange_Connection::redo() {
     if (myForward) {
         myEdge->addConnection(myNBEdgeConnection, myConnection);
     } else {
@@ -81,7 +81,8 @@ void GNEChange_Connection::redo() {
 }
 
 
-FXString GNEChange_Connection::undoName() const {
+FXString 
+GNEChange_Connection::undoName() const {
     if (myForward) {
         return ("Undo create connection");
     } else {
@@ -90,7 +91,8 @@ FXString GNEChange_Connection::undoName() const {
 }
 
 
-FXString GNEChange_Connection::redoName() const {
+FXString 
+GNEChange_Connection::redoName() const {
     if (myForward) {
         return ("Redo create connection");
     } else {

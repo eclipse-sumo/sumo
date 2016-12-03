@@ -55,7 +55,7 @@ class GNEJunction : public GNENetElement {
 
     /// @brief Declare friend class
     friend class GNEChange_TLS;
-    friend class GNECrossingFrame;
+    friend class GNEChange_Crossing;
 
 public:
     /**@brief Constructor

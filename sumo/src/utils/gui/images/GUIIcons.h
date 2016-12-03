@@ -41,6 +41,8 @@
  * @brief An enumeration of icons used by the gui applications
  */
 enum GUIIcon {
+    /// @name general Interface icons
+    /// @{
     ICON_APP = 0,
     ICON_EMPTY,
     ICON_OPEN_CONFIG,
@@ -50,17 +52,29 @@ enum GUIIcon {
     ICON_RELOAD,
     ICON_SAVE,
     ICON_CLOSE,
+    /// @}
 
+    /// @name simulation control icons
+    /// @{
     ICON_START,
     ICON_STOP,
     ICON_STEP,
+    /// @}
 
+    /// @name simulation view icons
+    /// @{
     ICON_MICROVIEW,
     ICON_LAGGRVIEW,
+    /// @}
 
+    /// @name simulation view icons (other) 
+    /// @{
     ICON_RECENTERVIEW,
     ICON_ALLOWROTATION,
+    /// @}
 
+    /// @name locate objects icons
+    /// @{
     ICON_LOCATE,
     ICON_LOCATEJUNCTION,
     ICON_LOCATEEDGE,
@@ -70,43 +84,66 @@ enum GUIIcon {
     ICON_LOCATEADD,
     ICON_LOCATEPOI,
     ICON_LOCATEPOLY,
+    /// @}
 
+    /// @name green and yellow objects icons
+    /// @{
     ICON_GREENEDGE,
     ICON_GREENVEHICLE,
     ICON_GREENPERSON,
     ICON_YELLOWEDGE,
     ICON_YELLOWVEHICLE,
     ICON_YELLOWPERSON,
+    /// @}
 
+    /// @name options icons
+    /// @{
     ICON_COLORWHEEL,
     ICON_SAVEDB,
     ICON_REMOVEDB,
     ICON_SHOWTOOLTIPS,
     ICON_EDITVIEWPORT,
     ICON_ZOOMSTYLE,
+    /// @}
 
+    /// @name app icons
+    /// @{
     ICON_APP_TRACKER,
     ICON_APP_FINDER,
     ICON_APP_BREAKPOINTS,
     ICON_APP_TLSTRACKER,
     ICON_APP_TABLE,
     ICON_APP_SELECTOR,
+    /// @}
 
-
+    /// @name decision icons
+    /// @{
     ICON_YES,
     ICON_NO,
+    /// @}
 
+    /// @name flags icons
+    /// @{
     ICON_FLAG,
     ICON_FLAG_PLUS,
     ICON_FLAG_MINUS,
+    /// @}
 
+    /// @name windows icosn
+    /// @{
     ICON_WINDOWS_CASCADE,
     ICON_WINDOWS_TILE_VERT,
     ICON_WINDOWS_TILE_HORI,
+    /// @}
 
+    /// @name manipulation icons
+    /// @{
     ICON_MANIP,
     ICON_CAMERA,
+    /// @}
 
+    /// @name graph icons
+    /// @{
     ICON_EXTRACT,
     ICON_DILATE,
     ICON_ERODE,
@@ -130,10 +167,16 @@ enum GUIIcon {
     ICON_RUBBER4X,
     ICON_RUBBER5X,
     ICON_EDITGRAPH,
+    /// @}
 
+    /// @name other tools
+    /// @{
     ICON_EXT,
     ICON_CUT_SWELL,
+    /// @}
 
+    /// @name net edit icons
+    /// @{
     ICON_UNDO,
     ICON_REDO,
     ICON_NETEDIT,
@@ -141,16 +184,37 @@ enum GUIIcon {
     ICON_ADD,
     ICON_REMOVE,
     ICON_NETEDITARROW,
+    /// @}
 
+    /// @name lane icons
+    /// @{
     ICON_LANEPEDESTRIAN,
     ICON_LANEBUS,
     ICON_LANEBIKE,
+    /// @}
 
+    /// @name netedit modes icons
+    /// @{
+    ICON_GNEMODEADDITIONAL,
+    ICON_GNEMODECONNECTION,
+    ICON_GNEMODECREATEEDGE,
+    ICON_GNEMODECROSSING,
+    ICON_GNEMODEDELETE,
+    ICON_GNEMODEINSPECT,
+    ICON_GNEMODEMOVE,
+    ICON_GNEMODESELECT,
+    ICON_GNEMODETLS,
+    /// @}
+
+    /// @name netedit processing icons
+    /// @{
     ICON_CLEANJUNCTIONS,
     ICON_COMPUTEJUNCTIONS,
     ICON_JOINJUNCTIONS,
     ICON_OPTIONS,
+    /// @}
 
+    /// @brief max number of icons
     ICON_MAX
 };
 

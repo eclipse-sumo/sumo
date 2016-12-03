@@ -1084,7 +1084,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, const std::string& id, G
     if (viewNet->getNet()->getAdditional(SUMO_TAG_BUS_STOP, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
         GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, lines, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), busStop, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1099,7 +1099,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, const std::string&
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CONTAINER_STOP, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
         GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, lines, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), containerStop, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1114,7 +1114,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, const std::strin
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CHARGING_STATION, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CHARGING_STATION));
         GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, chargingPower, efficiency, chargeInTransit, chargeDelay, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), chargingStation, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1129,7 +1129,7 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, const std::string& id
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E1DETECTOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E1DETECTOR));
         GNEDetectorE1* detectorE1 = new GNEDetectorE1(id, lane, viewNet, pos, freq, filename, splitByType, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), detectorE1, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(detectorE1, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1145,7 +1145,7 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E2DETECTOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR));
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, cont, timeThreshold, speedThreshold, jamThreshold, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), detectorE2, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1160,7 +1160,7 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
         GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, timeThreshold, speedThreshold, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), detectorE3, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(detectorE3, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1182,7 +1182,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, const std::string&
         // Create detector Entry if don't exist already in the net
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_ENTRY));
         GNEDetectorEntry* entry = new GNEDetectorEntry(id, viewNet, lane, pos, detectorE3Parent, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), entry, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(entry, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1204,7 +1204,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, const std::string& 
         // Create detector Exit if don't exist already in the net
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_EXIT));
         GNEDetectorExit* exit = new GNEDetectorExit(id, viewNet, lane, pos, detectorE3Parent, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), exit, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(exit, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1219,7 +1219,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
         GNECalibrator* calibrator = new GNECalibrator(id, edge, viewNet, pos, freq, outfile, flowValues, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), calibrator, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1234,7 +1234,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, 
     if (viewNet->getNet()->getAdditional(SUMO_TAG_REROUTER, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
         GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, file, prob, off, rerouterIntervals, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), rerouter, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1249,7 +1249,7 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, const std::string& id
     if (viewNet->getNet()->getAdditional(SUMO_TAG_REROUTER, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_ROUTEPROBE));
         GNERouteProbe* routeProbe = new GNERouteProbe(id, viewNet, edge, freq, file, begin, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), routeProbe, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1264,7 +1264,7 @@ GNEAdditionalHandler::buildVariableSpeedSignal(GNEViewNet* viewNet, const std::s
     if (viewNet->getNet()->getAdditional(SUMO_TAG_VSS, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
         GNEVariableSpeedSignal* variableSpeedSignal = new GNEVariableSpeedSignal(id, viewNet, pos, lanes, file, VSSValues, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), variableSpeedSignal, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSignal, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {
@@ -1279,7 +1279,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, const std::string& id,
     if (viewNet->getNet()->getAdditional(SUMO_TAG_VAPORIZER, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
         GNEVaporizer* vaporizer = new GNEVaporizer(id, viewNet, edge, startTime, end, blocked);
-        viewNet->getUndoList()->add(new GNEChange_Additional(viewNet->getNet(), vaporizer, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {

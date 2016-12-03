@@ -55,7 +55,6 @@ public:
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
-     * @param[in] net Optionally the net on which to apply changes
      */
     GNEChange_Attribute(GNEAttributeCarrier* ac,
                         const SumoXMLAttr key,
@@ -87,7 +86,7 @@ public:
 
 private:
     /**@brief the net to which all operations shall be applied
-     * (we are not responsible for the pointer)
+     * @note we are not responsible for the pointer
      */
     GNEAttributeCarrier* myAC;
 

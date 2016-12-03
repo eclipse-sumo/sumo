@@ -58,10 +58,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNECrossing::GNECrossing(GNEJunction& parentJunction, const std::string& id) :
-    GNENetElement(parentJunction.getNet(), id, GLO_CROSSING, SUMO_TAG_CROSSING),
+GNECrossing::GNECrossing(GNEJunction* parentJunction, const std::string& id) :
+    GNENetElement(parentJunction->getNet(), id, GLO_CROSSING, SUMO_TAG_CROSSING),
     myParentJunction(parentJunction),
-    myCrossing(parentJunction.getNBNode()->getCrossingRef(id)) {
+    myCrossing(parentJunction->getNBNode()->getCrossingRef(id)) {
     // Update geometry
     updateGeometry();
 }
@@ -87,6 +87,18 @@ GNECrossing::updateGeometry() {
             myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
         }
     }
+}
+
+
+GNEJunction* 
+GNECrossing::getParentJunction() const {
+    return myParentJunction;
+}
+
+
+NBNode::Crossing& 
+GNECrossing::getNBCrossing() const {
+    return myCrossing;
 }
 
 
@@ -146,8 +158,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 GUIParameterTableWindow*
-GNECrossing::getParameterWindow(GUIMainWindow& app,
-                                GUISUMOAbstractView&) {
+GNECrossing::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 2);
     // add items
@@ -244,4 +255,5 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");
     }
 }
+
 /****************************************************************************/

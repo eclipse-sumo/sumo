@@ -105,8 +105,8 @@ GNEViewParent::GNEViewParent(
     //}
 
     // add undo/redo buttons
-    new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GNEDesignButtonNavigationToolbar);
-    new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GNEDesignButtonNavigationToolbar);
+    new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GNEDesignButtonNavToolbar);
+    new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GNEDesignButtonNavToolbar);
 
     // Create FXToolBarGrip
     new FXToolBarGrip(myNavigationToolBar, NULL, 0, GNEDesignToolbarGrip);

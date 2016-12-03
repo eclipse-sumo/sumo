@@ -55,6 +55,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs) {
+    assert(myNet);
     myEdge->incRef("GNEChange_Lane");
     if (myLane) {
         // non-zero pointer is passsed in case of removal or duplication
@@ -83,7 +84,8 @@ GNEChange_Lane::~GNEChange_Lane() {
 }
 
 
-void GNEChange_Lane::undo() {
+void 
+GNEChange_Lane::undo() {
     if (myForward) {
         myEdge->removeLane(myLane);
         // Remove additional sets vinculated with this lane of net
@@ -113,7 +115,8 @@ void GNEChange_Lane::undo() {
 }
 
 
-void GNEChange_Lane::redo() {
+void 
+GNEChange_Lane::redo() {
     if (myForward) {
         myEdge->addLane(myLane, myLaneAttrs);
         // add additional sets vinculated with this lane of net
@@ -143,7 +146,8 @@ void GNEChange_Lane::redo() {
 }
 
 
-FXString GNEChange_Lane::undoName() const {
+FXString 
+GNEChange_Lane::undoName() const {
     if (myForward) {
         return ("Undo create lane");
     } else {
@@ -152,7 +156,8 @@ FXString GNEChange_Lane::undoName() const {
 }
 
 
-FXString GNEChange_Lane::redoName() const {
+FXString 
+GNEChange_Lane::redoName() const {
     if (myForward) {
         return ("Redo create lane");
     } else {

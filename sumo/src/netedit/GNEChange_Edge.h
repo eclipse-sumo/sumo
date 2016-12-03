@@ -58,11 +58,10 @@ class GNEChange_Edge : public GNEChange {
 
 public:
     /**@brief Constructor for creating/deleting an edge
-     * @param[in] net The net on which to apply changes
      * @param[in] edge The edge to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Edge(GNENet* net, GNEEdge* edge, bool forward);
+    GNEChange_Edge(GNEEdge* edge, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Edge();

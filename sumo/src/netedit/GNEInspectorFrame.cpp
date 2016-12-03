@@ -106,7 +106,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myPreviousElement(0) {
 
     // Create back button
-    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECT_GOBACK, GNEDesignButtonLittle);
+    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECT_GOBACK, GNEDesignButtonHelp);
     myBackButton->hide();
 
     // Create groupBox for attributes
@@ -403,12 +403,12 @@ GNEInspectorFrame::getACs() const {
 // ===========================================================================
 
 GNEInspectorFrame::AttrInput::AttrInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent) :
-    FXMatrix(parent, 7, GNEDesignMatrix),
+    FXMatrix(parent, 7, GNEDesignMatrixAttributes),
     myInspectorFrameParent(inspectorFrameParent),
     myTag(SUMO_TAG_NOTHING),
     myAttr(SUMO_ATTR_NOTHING) {
     // Create and hide ButtonCombinableChoices
-    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEDesignButton);
+    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEDesignButtonAttribute);
     myButtonCombinableChoices->hide();
     // Create and hide label
     myLabel = new FXLabel(this, "attributeLabel", 0, GNEDesignLabelAttribute);
@@ -618,7 +618,7 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput* attrInputParent, FXTextFiel
     myAttrInputParent(attrInputParent),
     myTextFieldAttr(textFieldAttr) {
     // Create matrix
-    myCheckBoxMatrix = new FXMatrix(this, 2, GNEDesignMatrix);
+    myCheckBoxMatrix = new FXMatrix(this, 2, GNEDesignMatrixAttributes);
 
     // Obtain vector with the choices
     const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myAttrInputParent->getTag(), myAttrInputParent->getAttr());
@@ -632,7 +632,7 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput* attrInputParent, FXTextFiel
     // Iterate over choices
     for (int i = 0; i < (int)choices.size(); i++) {
         // Create checkBox
-        myVectorOfCheckBox.at(i) = new FXCheckButton(myCheckBoxMatrix, choices.at(i).c_str(),NULL, 0, GNEDesignCheckButton);
+        myVectorOfCheckBox.at(i) = new FXCheckButton(myCheckBoxMatrix, choices.at(i).c_str(),NULL, 0, GNEDesignCheckButtonAttribute);
         // Set initial value
         if (oldValue.find(choices.at(i)) != std::string::npos) {
             myVectorOfCheckBox.at(i)->setCheck(true);

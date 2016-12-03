@@ -29,8 +29,9 @@
 
 #include "GNEChange_Crossing.h"
 #include "GNENet.h"
+#include "GNEViewNet.h"
 #include "GNECrossing.h"
-#include "GNEEdge.h"
+#include "GNEJunction.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -48,42 +49,55 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, NULL, 0)
 
 
 // Constructor for creating an crossing
-GNEChange_Crossing::GNEChange_Crossing(GNENet* net, GNECrossing* crossing, bool forward):
-    GNEChange(net, forward),
-    myCrossing(crossing) {
+GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*> &edges, SUMOReal width, bool priority, bool forward):
+    GNEChange(junctionParent->getNet(), forward),
+    myJunctionParent(junctionParent),
+    myEdges(edges),
+    myWidth(width),
+    myPriority(priority) {
     assert(myNet);
-    crossing->incRef("GNEChange_Crossing");
 }
 
 
-GNEChange_Crossing::~GNEChange_Crossing() {
-    assert(myCrossing);
-    myCrossing->decRef("GNEChange_Crossing");
-    if (myCrossing->unreferenced()) {
-        delete myCrossing;
-    }
-}
+GNEChange_Crossing::~GNEChange_Crossing() {}
 
 
 void GNEChange_Crossing::undo() {
     if (myForward) {
-        ;//myNet->deleteSingleCrossing(myCrossing);
+        // remove crossing of NBNode an rebuild crossing of GNEJunction
+        myJunctionParent->getNBNode()->removeCrossing(myEdges);
+        myJunctionParent->rebuildCrossings(false);
+        // Update view
+        myNet->getViewNet()->update();
     } else {
-        ;//myNet->insertCrossing(myCrossing);
+        // add crossing of NBNode an rebuild crossing of GNEJunction
+        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
+        myJunctionParent->rebuildCrossings(false);
+        // Update view
+        myNet->getViewNet()->update();
     }
 }
 
 
 void GNEChange_Crossing::redo() {
     if (myForward) {
-        ;//myNet->insertCrossing(myCrossing);
+        // add crossing of NBNode an rebuild crossing of GNEJunction
+        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
+        myJunctionParent->rebuildCrossings(false);
+        // Update view
+        myNet->getViewNet()->update();
     } else {
-        ;//myNet->deleteSingleCrossing(myCrossing);
+        // remove crossing of NBNode an rebuild crossing of GNEJunction
+        myJunctionParent->getNBNode()->removeCrossing(myEdges);
+        myJunctionParent->rebuildCrossings(false);
+        // Update view
+        myNet->getViewNet()->update();
     }
 }
 
 
-FXString GNEChange_Crossing::undoName() const {
+FXString 
+GNEChange_Crossing::undoName() const {
     if (myForward) {
         return ("Undo create crossing");
     } else {
@@ -92,7 +106,8 @@ FXString GNEChange_Crossing::undoName() const {
 }
 
 
-FXString GNEChange_Crossing::redoName() const {
+FXString 
+GNEChange_Crossing::redoName() const {
     if (myForward) {
         return ("Redo create crossing");
     } else {

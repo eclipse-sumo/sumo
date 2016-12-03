@@ -51,7 +51,7 @@ class GNEChange : public FXCommand {
 
 public:
     /**@brief Constructor
-     * @param[in] net The net on which to apply changes
+     * @param[in] net GNENet net on which to apply changes
      * @param[in] forward The direction of this change
      */
     GNEChange(GNENet* net, bool forward);

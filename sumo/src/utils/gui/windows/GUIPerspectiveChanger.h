@@ -145,7 +145,7 @@ public:
      *
      * @param[in] change The horizontal change in canvas size in pixels
      */
-    virtual void changeCanvassLeft(int change) = 0;
+    virtual void changeCanvasSizeLeft(int change) = 0;
 
     /// @brief get viewport
     Boundary getViewport(bool fixRatio = true);

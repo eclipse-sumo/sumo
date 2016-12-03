@@ -152,6 +152,7 @@ enum SumoXMLTag {
     SUMO_TAG_WAUT,
     SUMO_TAG_WAUT_SWITCH,
     SUMO_TAG_WAUT_JUNCTION,
+    /// @brief segment of a lane
     SUMO_TAG_SEGMENT,
     /// @brief delete certain element
     SUMO_TAG_DELETE,
@@ -202,6 +203,8 @@ enum SumoXMLTag {
     SUMO_TAG_RELATION,
     SUMO_TAG_MEMBER,
 
+    /// @name parameters associated to view settings
+    /// @{
     SUMO_TAG_VIEWSETTINGS,
     SUMO_TAG_VIEWSETTINGS_DECAL,
     SUMO_TAG_VIEWSETTINGS_LIGHT,
@@ -228,7 +231,10 @@ enum SumoXMLTag {
     SUMO_TAG_COLORSCHEME,
     SUMO_TAG_SCALINGSCHEME,
     SUMO_TAG_ENTRY,
+    /// @}
 
+    /// @name Car-Following models
+    /// @{
     SUMO_TAG_CF_KRAUSS,
     SUMO_TAG_CF_KRAUSS_PLUS_SLOPE,
     SUMO_TAG_CF_KRAUSS_ORIG1,
@@ -239,11 +245,15 @@ enum SumoXMLTag {
     SUMO_TAG_CF_PWAGNER2009,
     SUMO_TAG_CF_BKERNER,
     SUMO_TAG_CF_WIEDEMANN,
+    /// @}
 
+    /// @name Pedestrians
+    /// @{
     SUMO_TAG_PERSON,
     SUMO_TAG_PERSONTRIP,
     SUMO_TAG_RIDE,
     SUMO_TAG_WALK,
+    /// @}
 
     SUMO_TAG_CONTAINER,
     SUMO_TAG_TRANSPORT,
@@ -302,9 +312,11 @@ enum SumoXMLTag {
  * @see SUMOSAXHandler
  */
 enum SumoXMLAttr {
-    /** invalid attribute */
+    /// @brief invalid attribute
     SUMO_ATTR_NOTHING,
-    /* common attributes */
+
+    /// @name common attributes
+    /// @{
     SUMO_ATTR_ID,
     SUMO_ATTR_REFID,
     SUMO_ATTR_NAME,
@@ -324,7 +336,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_CENTER_X,
     SUMO_ATTR_CENTER_Y,
     SUMO_ATTR_CENTER_Z,
-    /* sumo-junction attributes */
+    /// @}
+
+    /// @name sumo-junction attributes
+    /// @{
     SUMO_ATTR_KEY,
     SUMO_ATTR_REQUESTSIZE,
     SUMO_ATTR_REQUEST,
@@ -334,13 +349,20 @@ enum SumoXMLAttr {
     SUMO_ATTR_ENDOFFSET,
     SUMO_ATTR_INCLANES,
     SUMO_ATTR_INTLANES,
-    /// the weight of a district's source or sink
+    /// @}
+
+    /// @name the weight of a district's source or sink
+    /// @{
     SUMO_ATTR_WEIGHT,
     SUMO_ATTR_NODE,
     SUMO_ATTR_EDGE,
-    /// the edges of a route
+    /// @}
+    
+    /// @brief the edges of a route
     SUMO_ATTR_EDGES,
-    /* vehicle attributes */
+
+    /// @name vehicle attributes
+    /// @{
     SUMO_ATTR_DEPART,
     SUMO_ATTR_DEPARTLANE,
     SUMO_ATTR_DEPARTPOS,
@@ -366,6 +388,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_MINGAP,
     SUMO_ATTR_BOARDING_DURATION,
     SUMO_ATTR_LOADING_DURATION,
+    /// @}
+
+    /// @name charging stations attributes
+    /// @{
     /// @brief charge in W/s of the Charging Stations
     SUMO_ATTR_CHARGINGPOWER,
     /// @brief Eficiency of the charge in Charging Stations
@@ -374,7 +400,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHARGEINTRANSIT,
     /// @brief Delay in the charge of charging stations
     SUMO_ATTR_CHARGEDELAY,      
-    /* Car following model attributes */
+    /// @}
+
+    /// @name Car following model attributes
+    /// @{
     SUMO_ATTR_SIGMA,    // used by: Krauss
     SUMO_ATTR_TAU,      // Krauss
     SUMO_ATTR_TMP1,
@@ -382,7 +411,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_TMP3,
     SUMO_ATTR_TMP4,
     SUMO_ATTR_TMP5,
-    /* Lane changing model attributes */
+    /// @}
+
+    /// @name Lane changing model attributes
+    /// @{
     SUMO_ATTR_LCA_STRATEGIC_PARAM,
     SUMO_ATTR_LCA_COOPERATIVE_PARAM,
     SUMO_ATTR_LCA_SPEEDGAIN_PARAM,
@@ -390,14 +422,20 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_SUBLANE_PARAM,
     SUMO_ATTR_LCA_PUSHY,
     SUMO_ATTR_LCA_ASSERTIVE,
-    /* route alternatives / distribution attributes */
+    /// @}
+
+    /// @name route alternatives / distribution attributes
+    /// @{
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
     SUMO_ATTR_PROB,
     SUMO_ATTR_PROBS,
     SUMO_ATTR_ROUTES,
     SUMO_ATTR_VTYPES,
-    /* trip definition attributes */
+    /// @}
+
+    /// @name trip definition attributes
+    /// @{
     SUMO_ATTR_LANE,
     SUMO_ATTR_LANES,
     SUMO_ATTR_FROM,
@@ -411,7 +449,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_PERSON_NUMBER,
     SUMO_ATTR_CONTAINER_NUMBER,
     SUMO_ATTR_MODES,
-    /* source definitions */
+    /// @}
+
+    /// @name source definitions
+    /// @{
     SUMO_ATTR_FUNCTION,
     SUMO_ATTR_POSITION,
     SUMO_ATTR_POSITION_LAT,
@@ -423,41 +464,43 @@ enum SumoXMLAttr {
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
     SUMO_ATTR_ROUTEPROBE,
-    /* the edges crossed by a pedestrian crossing */
+    /// @}
+
+    /// @brief the edges crossed by a pedestrian crossing
     SUMO_ATTR_CROSSING_EDGES,
-    /** trigger: the time of the step */
+    /// @brief trigger: the time of the step
     SUMO_ATTR_TIME,
-    /** weights: time range begin */
+    /// @brief weights: time range begin
     SUMO_ATTR_BEGIN,
-    /** weights: time range end */
+    /// @brief weights: time range end
     SUMO_ATTR_END,
-    /** link,node: the traffic light id responsible for this link */
+    /// @brief link,node: the traffic light id responsible for this link
     SUMO_ATTR_TLID,
-    /** node: the type of traffic light */
+    /// @brief node: the type of traffic light
     SUMO_ATTR_TLTYPE,
-    /** link: the index of the link within the traffic light */
+    /// @brief link: the index of the link within the traffic light
     SUMO_ATTR_TLLINKINDEX,
-    /** edge: the shape in xml-definition */
+    /// @brief edge: the shape in xml-definition
     SUMO_ATTR_SHAPE,
-    /// The information about how to spread the lanes from the given position
+    /// @brief The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADTYPE,
-    /// The turning radius at an intersection in m
+    /// @brief The turning radius at an intersection in m
     SUMO_ATTR_RADIUS,
-    /// Whether vehicles must keep the junction clear
+    /// @brief Whether vehicles must keep the junction clear
     SUMO_ATTR_KEEP_CLEAR,
-    /// whether a given shape is user-defined
+    /// @brief whether a given shape is user-defined
     SUMO_ATTR_CUSTOMSHAPE,
-    /// A color information
+    /// @brief A color information
     SUMO_ATTR_COLOR,
-    /// The abstract direction of a link
+    /// @brief The abstract direction of a link
     SUMO_ATTR_DIR,
-    /// The state of a link
+    /// @brief The state of a link
     SUMO_ATTR_STATE,
-    /// foe visibility distance of a link
+    /// @brief foe visibility distance of a link
     SUMO_ATTR_VISIBILITY_DISTANCE,
-    /// A layer number
+    /// @brief A layer number
     SUMO_ATTR_LAYER,
-    /// Fill the polygon
+    /// @brief Fill the polygon
     SUMO_ATTR_FILL,
     SUMO_ATTR_PREFIX,
     SUMO_ATTR_DISCARD,
@@ -467,23 +510,32 @@ enum SumoXMLAttr {
     SUMO_ATTR_DEST,
     SUMO_ATTR_SOURCE,
     SUMO_ATTR_VIA,
-    /// a list of node ids, used for controlling joining
+    /// @brief a list of node ids, used for controlling joining
     SUMO_ATTR_NODES,
-    // Attributes for actuated traffic lights:
-    /// minimum duration of a phase
+
+    /// @name Attributes for actuated traffic lights:
+    /// @{
+    /// @brief minimum duration of a phase
     SUMO_ATTR_MINDURATION,
-    /// maximum duration of a phase
+    /// @brief maximum duration of a phase
     SUMO_ATTR_MAXDURATION,
-    // Attributes for junction-internal lanes
-    /// Information within the junction logic which internal lanes block external
+    /// @}
+
+    /// @name Attributes for junction-internal lanes
+    /// @{
+    /// @brief Information within the junction logic which internal lanes block external
     SUMO_ATTR_FOES,
-    // Attributes for detectors
-    /// Information whether the detector shall be continued on the folowing lanes
+    /// @}
+
+    /// @name Attributes for detectors
+    /// @{
+    /// @brief Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
     SUMO_ATTR_CONTPOS,
     SUMO_ATTR_HALTING_TIME_THRESHOLD,
     SUMO_ATTR_HALTING_SPEED_THRESHOLD,
     SUMO_ATTR_JAM_DIST_THRESHOLD,
+    /// @}
 
     SUMO_ATTR_WAUT_ID,
     SUMO_ATTR_JUNCTION_ID,
@@ -550,6 +602,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_ORIG_BOUNDARY,
     SUMO_ATTR_ORIG_PROJ,
 
+    /// @name car-following model attributes
+    /// @{
     SUMO_ATTR_CF_PWAGNER2009_TAULAST,
     SUMO_ATTR_CF_PWAGNER2009_APPROB,
     SUMO_ATTR_CF_IDM_DELTA,
@@ -559,6 +613,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_CF_KERNER_PHI,
     SUMO_ATTR_CF_WIEDEMANN_SECURITY,
     SUMO_ATTR_CF_WIEDEMANN_ESTIMATION,
+    /// @}
 
     SUMO_ATTR_GENERATE_WALKS,
     SUMO_ATTR_ACTTYPE,
@@ -580,10 +635,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_DESTINATION,
 
 
-    /**
-     * ActivityGen Tags
-     **/
-    /* general object */
+    /// @name ActivityGen Tags
+    /// @{
+
+    /// @name general object
+    /// @{
     AGEN_ATTR_INHABITANTS,
     AGEN_ATTR_HOUSEHOLDS,
     AGEN_ATTR_CHILDREN,
@@ -593,58 +649,73 @@ enum SumoXMLAttr {
     AGEN_ATTR_MAX_FOOT_DIST,
     AGEN_ATTR_IN_TRAFFIC,
     AGEN_ATTR_OUT_TRAFFIC,
+    /// @}
 
-    /* streets object */
+    /// @name streets object
+    /// @{
     //SUMO_ATTR_EDGE already defined
     AGEN_ATTR_POPULATION,
     AGEN_ATTR_OUT_WORKPOSITION,
+    /// @}
 
-    /* workHours object */
+    /// @name workHours object
+    /// @{
     AGEN_ATTR_HOUR,
     AGEN_ATTR_PROP,
+    /// @}
 
-    /* school object */
+    /// @name school object
+    /// @{
     //SUMO_ATTR_EDGE, SUMO_ATTR_POSITION, SUMO_ATTR_TYPE already defined
     AGEN_ATTR_CAPACITY,
     AGEN_ATTR_OPENING,
     AGEN_ATTR_CLOSING,
+    /// @}
 
-    /* busStation and Bus objects */
+    /// @name busStation and Bus objects
+    /// @{
     // ID, EDGE, POSITION, REFID, BEGIN and END are already defined
     AGEN_ATTR_MAX_TRIP_DURATION,
     //AGEN_ATTR_ORDER,
     AGEN_ATTR_RATE,
+    /// @}
 
-    /* population and children accompaniment brackets */
+    /// @name population and children accompaniment brackets
+    /// @{
     AGEN_ATTR_BEGINAGE,
     AGEN_ATTR_ENDAGE,
     AGEN_ATTR_PEOPLENBR,
+    /// @}
 
-    /* parameters */
+    /// @name parameters
+    /// @{
     AGEN_ATTR_CARPREF,
     AGEN_ATTR_CITYSPEED,
     AGEN_ATTR_FREETIMERATE,
     AGEN_ATTR_UNI_RAND_TRAFFIC,
     AGEN_ATTR_DEP_VARIATION,
+    /// @}
 
-    /* city gates */
+    /// @name city gates
+    /// @{
     AGEN_ATTR_INCOMING,
     AGEN_ATTR_OUTGOING,
+    /// @}
+    /// @}
 
     //@name Netedit Attributes (used as virtual property holders, must be in SumoXMLAttr)
-    //
     //@{
-    /* whether a feature has been loaded,guessed,modified or approved */
+    /// @brief whether a feature has been loaded,guessed,modified or approved
     GNE_ATTR_MODIFICATION_STATUS,
-    /* first coordinate of edge shape */
+    /// @brief first coordinate of edge shape
     GNE_ATTR_SHAPE_START,
-    /* last coordinate of edge shape */
+    /// @brief last coordinate of edge shape
     GNE_ATTR_SHAPE_END,
-    /* block movement of a graphic element*/
+    /// @brief block movement of a graphic element
     GNE_ATTR_BLOCK_MOVEMENT,
-    /* parent of an additional element*/
+    /// @brief parent of an additional element
     GNE_ATTR_PARENT,
-    //@}
+    // @}
 
     SUMO_ATTR_TARGETLANE,
     SUMO_ATTR_CROSSING,
@@ -653,7 +724,7 @@ enum SumoXMLAttr {
 };
 
 /*
- * definitions of special SumoXML-attribute values.
+ * @brief definitions of special SumoXML-attribute values.
  * Since these enums shall be used in switch statements we keep them separated
  * @{
  */
@@ -785,9 +856,7 @@ enum LinkDirection {
 };
 
 
-/**
- * @enum TrafficLightType
- */
+/// @enum TrafficLightType
 enum TrafficLightType {
     TLTYPE_STATIC,
     TLTYPE_RAIL,
@@ -802,6 +871,7 @@ enum TrafficLightType {
     TLTYPE_HILVL_DETERMINISTIC,
     TLTYPE_INVALID //< must be the last one
 };
+
 
 /** @enum LaneChangeAction
  * @brief The state of a vehicle's lane-change behavior
@@ -877,9 +947,6 @@ enum LaneChangeModel {
     LCM_DEFAULT
 };
 
-
-//@}
-//
 /**
  * @enum LateralAlignment
  * @brief Numbers representing special SUMO-XML-attribute values
@@ -900,6 +967,7 @@ enum LateralAlignment {
     LATALIGN_LEFT        
 };
 
+// @}
 
 /**
  * @class SUMOXMLDefinitions
@@ -922,24 +990,34 @@ public:
 
     /// @name Special values of SUMO-XML attributes
     /// @{
+    /// @brief node types
     static StringBijection<SumoXMLNodeType> NodeTypes;
 
+    /// @brief edge functions
     static StringBijection<SumoXMLEdgeFunc> EdgeFunctions;
 
+    /// @brief lane spread functions
     static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
 
+    /// @brief link states
     static StringBijection<LinkState> LinkStates;
 
+    /// @brief link directions
     static StringBijection<LinkDirection> LinkDirections;
 
+    /// @brief traffic light types
     static StringBijection<TrafficLightType> TrafficLightTypes;
 
+    /// @brief lane change models
     static StringBijection<LaneChangeModel> LaneChangeModels;
 
+    /// @brief car following models
     static StringBijection<SumoXMLTag> CarFollowModels;
 
+    /// @brief lateral alignments
     static StringBijection<LateralAlignment> LateralAlignments;
 
+    /// @brief lane change actions
     static StringBijection<LaneChangeAction> LaneChangeActions;
     /// @}
 
@@ -955,29 +1033,38 @@ public:
 private:
     /// @brief containers for the different SUMOXMLDefinitions
     /// @{
+    /// @brief node type values
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
 
+    /// @brief edge function values
     static StringBijection<SumoXMLEdgeFunc>::Entry sumoEdgeFuncValues[];
 
+    /// @brief lane spread function values
     static StringBijection<LaneSpreadFunction>::Entry laneSpreadFunctionValues[];
 
+    /// @brief link state values
     static StringBijection<LinkState>::Entry linkStateValues[];
 
+    /// @brief link direction values
     static StringBijection<LinkDirection>::Entry linkDirectionValues[];
 
+    /// @brief traffic light types values
     static StringBijection<TrafficLightType>::Entry trafficLightTypesVales[];
 
+    /// @brief lane change model values
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];
 
+    /// @brief car follwing model values
     static StringBijection<SumoXMLTag>::Entry carFollowModelValues[];
 
+    /// @brief lanteral alignment values
     static StringBijection<LateralAlignment>::Entry lateralAlignmentValues[];
 
+    /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
-    // /@}
+    /// @}
 };
 
 #endif
 
 /****************************************************************************/
-

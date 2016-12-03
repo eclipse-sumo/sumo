@@ -120,7 +120,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     // Set default value for Match string
     myMatchString->setText(">10.0");
     // Create help button
-    new FXButton(matchBox, "Help", 0, this, MID_HELP, GNEDesignButtonLittle);
+    new FXButton(matchBox, "Help", 0, this, MID_HELP, GNEDesignButtonHelp);
     // Create Groupbox for visual scalings
     FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GNEDesignGroupBoxFrame);
     // Create spin button and configure it

@@ -42,7 +42,9 @@ GNETexture_Lock.cpp GNETexture_LockSelected.cpp \
 GNETexture_Empty.cpp GNETexture_EmptySelected.cpp \
 GNETexture_NotMoving.cpp GNETexture_NotMovingSelected.cpp \
 GNETexture_LaneBus.cpp GNETexture_LaneBike.cpp \
-GNETexture_LanePedestrian.cpp GNETexture_TLS.cpp
+GNETexture_LanePedestrian.cpp GNETexture_TLS.cpp \
+GNEModeAdditional.xpm GNEModeConnection.xpm GNEModeCreateEdge.xpm GNEModeCrossing.xpm \
+GNEModeDelete.xpm GNEModeInspect.xpm GNEModeMove.xpm GNEModeSelect.xpm GNEModeTrafficLight.xpm
 
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
 GUITextureSubSys.cpp GUITextureSubSys.h \

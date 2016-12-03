@@ -39,6 +39,7 @@
 #include <utils/shapes/Polygon.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/StringBijection.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 
 // ===========================================================================
 // enum
@@ -114,7 +115,7 @@ public:
     /// @brief set color schieme
     bool setColorScheme(const std::string& name);
 
-    /// @brief overloaded handlers
+    /// @name overloaded handlers
     /// @{
     /// @brief called when user press mouse's left button
     long onLeftBtnPress(FXObject*, FXSelector, void*);
@@ -129,8 +130,35 @@ public:
     long onMouseMove(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief sets edit mode via combo box
-    long onCmdChangeMode(FXObject*, FXSelector, void*);
+    /// @name set mode call backs
+    /// @{
+    /// @brief called when user press the button for create edge mode
+    long onCmdSetModeCreateEdge(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for move mode
+    long onCmdSetModeMove(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for delete mode
+    long onCmdSetModeDelete(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for inspect mode
+    long onCmdSetModeInspect(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for select mode
+    long onCmdSetModeSelect(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for connect mode
+    long onCmdSetModeConnect(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for traffic lights mode
+    long onCmdSetModeTLS(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for additional mode
+    long onCmdSetModeAdditional(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for crossing mode
+    long onCmdSetModeCrossing(FXObject*, FXSelector, void*);
+    /// @}
 
     /// @brief split edge at cursor position
     long onCmdSplitEdge(FXObject*, FXSelector, void*);
@@ -357,11 +385,42 @@ private:
     /// @brief a reference to the toolbar in myParent
     FXToolBar* myToolbar;
 
-    /// @brief combo box for selecting the  edit mode
-    FXComboBox* myEditModesCombo;
+    /// @name buttons  for selecting the edit mode
+    /// @{
+    /// @brief chekable button for edit mode create edge
+    MFXCheckableButton *myEditModeCreateEdge;
+    
+    /// @brief chekable button for edit mode move
+    MFXCheckableButton *myEditModeMove;
+    
+    /// @brief chekable button for edit mode delete
+    MFXCheckableButton *myEditModeDelete;
+    
+    /// @brief chekable button for edit mode inspect
+    MFXCheckableButton *myEditModeInspect;
+
+    /// @brief chekable button for edit mode select
+    MFXCheckableButton *myEditMoveSelect;
+    
+    /// @brief chekable button for edit mode connection
+    MFXCheckableButton *myEditModeConnection;
+
+    /// @brief chekable button for edit mode traffic light
+    MFXCheckableButton *myEditModeTrafficLight;
+    
+    /// @brief chekable button for edit mode additional
+    MFXCheckableButton *myEditModeAdditional;
+    
+    /// @brief chekable button for edit mode crossing
+    MFXCheckableButton *myEditModeCrossing;
+    /// @}
 
     /// @brief since we cannot switch on strings we map the mode names to an enum
+    /// @{
+    /// @brief stringBijection for edit mode names
     StringBijection<EditMode> myEditModeNames;
+
+    /// @brief stringBijection for edit additional mode names
     StringBijection<EditMode> myEditAdditionalModeNames;
     /// @}
 

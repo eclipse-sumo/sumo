@@ -130,10 +130,21 @@
 #include "cut.xpm"
 #include "ext.xpm"
 
+#include "GNEModeAdditional.xpm"
+#include "GNEModeConnection.xpm"
+#include "GNEModeCreateEdge.xpm"
+#include "GNEModeCrossing.xpm"
+#include "GNEModeDelete.xpm"
+#include "GNEModeInspect.xpm"
+#include "GNEModeMove.xpm"
+#include "GNEModeSelect.xpm"
+#include "GNEModeTrafficLight.xpm"
+
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
 #include "joinjunctions.xpm"
 #include "options.xpm"
+
 
 static const char* empty_xpm[] = {
     "    1    1        1            1",
@@ -256,6 +267,16 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
+
+    myIcons[ICON_GNEMODEADDITIONAL] = new FXXPMIcon(a, gnemodeadditional_xpm);
+    myIcons[ICON_GNEMODECONNECTION] = new FXXPMIcon(a, gnemodeconnection_xpm);
+    myIcons[ICON_GNEMODECREATEEDGE] = new FXXPMIcon(a, gnemodecreateedge_xpm);
+    myIcons[ICON_GNEMODECROSSING] = new FXXPMIcon(a, gnemodecrossing_xpm);
+    myIcons[ICON_GNEMODEDELETE] = new FXXPMIcon(a, gnemodedelete_xpm);
+    myIcons[ICON_GNEMODEINSPECT] = new FXXPMIcon(a, gnemodeinspect_xpm);
+    myIcons[ICON_GNEMODEMOVE] = new FXXPMIcon(a, gnemodemove_xpm);
+    myIcons[ICON_GNEMODESELECT] = new FXXPMIcon(a, gnemodeselect_xpm);
+    myIcons[ICON_GNEMODETLS] = new FXXPMIcon(a, gnemodetrafficlight_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);

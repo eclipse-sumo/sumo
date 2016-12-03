@@ -182,6 +182,15 @@
     <None Include="..\..\..\src\utils\gui\images\fileopen.xpm" />
     <None Include="..\..\..\src\utils\gui\images\fileprint.xpm" />
     <None Include="..\..\..\src\utils\gui\images\filesave.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeAdditional.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeConnection.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeCreateEdge.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeCrossing.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeDelete.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeInspect.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeMove.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeSelect.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\GNEModeTrafficLight.xpm" />
     <None Include="..\..\..\src\utils\gui\images\green_edge.xpm" />
     <None Include="..\..\..\src\utils\gui\images\green_person.xpm" />
     <None Include="..\..\..\src\utils\gui\images\green_vehicle.xpm" />

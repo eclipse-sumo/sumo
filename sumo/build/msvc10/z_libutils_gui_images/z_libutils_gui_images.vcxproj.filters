@@ -13,7 +13,7 @@
       <UniqueIdentifier>{df2e0a92-e7d4-499a-a0fe-87d3deca6f20}</UniqueIdentifier>
     </Filter>
     <Filter Include="Icons">
-      <UniqueIdentifier>{d8fe6df2-ff76-48f7-838f-c40aff25ae6f}</UniqueIdentifier>
+      <UniqueIdentifier>{651e2245-4896-4a75-bda2-dda15d6c3330}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,10 +129,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\utils\gui\images\add.xpm">
+    <None Include="..\..\..\src\utils\gui\images\filesave.xpm">
       <Filter>Icons</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\filesave.xpm">
+    <None Include="..\..\..\src\utils\gui\images\add.xpm">
       <Filter>Icons</Filter>
     </None>
     <None Include="..\..\..\src\utils\gui\images\allow_rotation.xpm">
@@ -213,10 +213,37 @@
     <None Include="..\..\..\src\utils\gui\images\fileprint.xpm">
       <Filter>Icons</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\magnify.xpm">
+    <None Include="..\..\..\src\utils\gui\images\GNEModeAdditional.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeTrafficLight.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeConnection.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeCreateEdge.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeCrossing.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeDelete.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeInspect.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeMove.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\GNEModeSelect.xpm">
       <Filter>Icons</Filter>
     </None>
     <None Include="..\..\..\src\utils\gui\images\green_edge.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\zoomstyle.xpm">
       <Filter>Icons</Filter>
     </None>
     <None Include="..\..\..\src\utils\gui\images\green_person.xpm">
@@ -267,10 +294,10 @@
     <None Include="..\..\..\src\utils\gui\images\lock.xpm">
       <Filter>Icons</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\netedit.xpm">
+    <None Include="..\..\..\src\utils\gui\images\magnify.xpm">
       <Filter>Icons</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\zoomstyle.xpm">
+    <None Include="..\..\..\src\utils\gui\images\netedit.xpm">
       <Filter>Icons</Filter>
     </None>
     <None Include="..\..\..\src\utils\gui\images\neteditarrow.xpm">
@@ -393,16 +420,16 @@
     <None Include="..\..\..\src\utils\gui\images\yes.xpm">
       <Filter>Icons</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\options.xpm">
-      <Filter>Icons</Filter>
-    </None>
     <None Include="..\..\..\src\utils\gui\images\cleanjunctions.xpm">
       <Filter>Icons</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\joinjunctions.xpm">
+    <None Include="..\..\..\src\utils\gui\images\options.xpm">
       <Filter>Icons</Filter>
     </None>
     <None Include="..\..\..\src\utils\gui\images\computejunctions.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\joinjunctions.xpm">
       <Filter>Icons</Filter>
     </None>
   </ItemGroup>

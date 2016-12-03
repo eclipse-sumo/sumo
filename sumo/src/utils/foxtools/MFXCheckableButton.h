@@ -4,7 +4,7 @@
 /// @date    2004-03-19
 /// @version $Id$
 ///
-// missing_desc
+// Checkable button similar to a FXButton but mainntain the check
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2004-2016 DLR (http://www.dlr.de/) and contributors
@@ -32,33 +32,62 @@
 
 #include <fx.h>
 
+/**
+ * @class MFXCheckableButton
+ */
 class MFXCheckableButton : public FXButton {
+    /// @brief fox declaration
     FXDECLARE(MFXCheckableButton)
+
 public:
+    /// @brief constructor (Very similar to the FXButton constructor)
     MFXCheckableButton(bool amChecked, FXComposite* p, const FXString& text,
                        FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0,
                        FXuint opts = BUTTON_NORMAL,
                        FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                        FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
-    ~MFXCheckableButton();
-    bool amChecked() const;
-    void setChecked(bool val);
-    long onPaint(FXObject*, FXSelector, void*);
-    long onUpdate(FXObject*, FXSelector, void*);
 
+    /// @brief destructor (Called automatically)
+    ~MFXCheckableButton();
+
+    /// @brief check if this MFXCheckableButton is checked 
+    bool amChecked() const;
+
+    /// @brief check or uncheck this MFXCheckableButton
+    void setChecked(bool val);
+
+    /// @name FOX callbacks
+    /// @{
+    /// @brief called when this MFXCheckableButton is painted 
+    long onPaint(FXObject*, FXSelector, void*);
+
+    /// @brief called when this MFXCheckableButton is updated
+    long onUpdate(FXObject*, FXSelector, void*);
+    /// @}
+
+protected:
+    /// @brief fox need this
+    MFXCheckableButton() {}
 
 private:
+    /// @brief build color of this MFXCheckableButton
     void buildColors();
+
+    /// @brief set colors of this MFXCheckableButton
     void setColors();
 
 private:
+    /// @brief flag to indicate if this MFXCheckableButton is checked
     bool myAmChecked;
-    FXColor myBackColor, myDarkColor, myHiliteColor, myShadowColor;
 
+    /// @brief colors of this MFXCheckableButton
+    FXColor myBackColor, 
+            myDarkColor, 
+            myHiliteColor, 
+            myShadowColor;
+
+    /// @brief check if this MFXCheckableButton is initialised
     bool myAmInitialised;
-
-protected:
-    MFXCheckableButton() { }
 };
 
 

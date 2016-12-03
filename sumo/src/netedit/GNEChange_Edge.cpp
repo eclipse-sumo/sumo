@@ -49,8 +49,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, NULL, 0)
 
 
 // Constructor for creating an edge
-GNEChange_Edge::GNEChange_Edge(GNENet* net, GNEEdge* edge, bool forward):
-    GNEChange(net, forward),
+GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
+    GNEChange(edge->getNet(), forward),
     myEdge(edge) {
     assert(myNet);
     edge->incRef("GNEChange_Edge");
@@ -75,7 +75,8 @@ GNEChange_Edge::~GNEChange_Edge() {
 }
 
 
-void GNEChange_Edge::undo() {
+void 
+GNEChange_Edge::undo() {
     if (myForward) {
         myNet->deleteSingleEdge(myEdge);
         // 1 - Remove additional sets vinculated with this edge of net
@@ -134,7 +135,8 @@ void GNEChange_Edge::undo() {
 }
 
 
-void GNEChange_Edge::redo() {
+void 
+GNEChange_Edge::redo() {
     if (myForward) {
         myNet->insertEdge(myEdge);
         // 1 - Add additional sets vinculated with this edge to the net
@@ -193,7 +195,8 @@ void GNEChange_Edge::redo() {
 }
 
 
-FXString GNEChange_Edge::undoName() const {
+FXString 
+GNEChange_Edge::undoName() const {
     if (myForward) {
         return ("Undo create edge");
     } else {
@@ -202,7 +205,8 @@ FXString GNEChange_Edge::undoName() const {
 }
 
 
-FXString GNEChange_Edge::redoName() const {
+FXString 
+GNEChange_Edge::redoName() const {
     if (myForward) {
         return ("Redo create edge");
     } else {

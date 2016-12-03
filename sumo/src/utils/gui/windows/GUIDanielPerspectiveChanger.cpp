@@ -269,7 +269,7 @@ GUIDanielPerspectiveChanger::setViewportFrom(SUMOReal xPos, SUMOReal yPos, SUMOR
 
 
 void
-GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
+GUIDanielPerspectiveChanger::changeCanvasSizeLeft(int change) {
     myViewPort = Boundary(
                      myViewPort.xmin() - myCallback.p2m(change),
                      myViewPort.ymin(),
