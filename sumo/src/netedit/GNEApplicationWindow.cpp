@@ -441,16 +441,16 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuTitle(myMenuBar, "&Processing", 0, myProcessingMenu);
     new FXMenuCommand(myProcessingMenu,
                       "Compute Junctions\tF5\tComputes junction shape and logic.",
-                      0, this, MID_GNE_COMPUTE_JUNCTIONS);
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_COMPUTE_JUNCTIONS);
     new FXMenuCommand(myProcessingMenu,
                       "Clean Junctions\tF6\tRemoves solitary junctions.",
-                      0, this, MID_GNE_CLEAN_JUNCTIONS);
+                      GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_CLEAN_JUNCTIONS);
     new FXMenuCommand(myProcessingMenu,
                       "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
-                      0, this, MID_GNE_JOIN_JUNCTIONS);
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_JOIN_JUNCTIONS);
     new FXMenuCommand(myProcessingMenu,
                       "Options\tF10\t\tConfigure Processing Options.",
-                      0, this, MID_GNE_OPTIONS);
+                      GUIIconSubSys::getIcon(ICON_OPTIONS), this, MID_GNE_OPTIONS);
 
     // build settings menu
     /*
