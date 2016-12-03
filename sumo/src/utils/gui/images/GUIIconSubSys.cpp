@@ -130,6 +130,10 @@
 #include "cut.xpm"
 #include "ext.xpm"
 
+#include "computejunctions.xpm"
+#include "cleanjunctions.xpm"
+#include "joinjunctions.xpm"
+#include "options.xpm"
 
 static const char* empty_xpm[] = {
     "    1    1        1            1",
@@ -236,23 +240,27 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
     myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
     myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
-    myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
+    myIcons[ICON_EDITGRAPH] = new FXXPMIcon(a, edit_graph_xpm);
 
-    myIcons[ICON_UNDO]    = new FXXPMIcon(a, undo_xpm);
-    myIcons[ICON_REDO]    = new FXXPMIcon(a, redo_xpm);
+    myIcons[ICON_UNDO] = new FXXPMIcon(a, undo_xpm);
+    myIcons[ICON_REDO] = new FXXPMIcon(a, redo_xpm);
     myIcons[ICON_NETEDIT] = new FXXPMIcon(a, netedit_xpm);
-    myIcons[ICON_LOCK]    = new FXXPMIcon(a, lock_xpm);
-    myIcons[ICON_ADD]     = new FXXPMIcon(a, add_xpm);
-    myIcons[ICON_REMOVE]  = new FXXPMIcon(a, remove_xpm);
-    myIcons[ICON_NETEDITARROW]  = new FXXPMIcon(a, netEditArrow_xmp);
+    myIcons[ICON_LOCK] = new FXXPMIcon(a, lock_xpm);
+    myIcons[ICON_ADD] = new FXXPMIcon(a, add_xpm);
+    myIcons[ICON_REMOVE] = new FXXPMIcon(a, remove_xpm);
+    myIcons[ICON_NETEDITARROW] = new FXXPMIcon(a, netEditArrow_xmp);
 
-    myIcons[ICON_LANEPEDESTRIAN]  = new FXXPMIcon(a, lanepedestrian);
-    myIcons[ICON_LANEBUS]  = new FXXPMIcon(a, lanebus);
-    myIcons[ICON_LANEBIKE]  = new FXXPMIcon(a, lanebike);
+    myIcons[ICON_LANEPEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
+    myIcons[ICON_LANEBUS] = new FXXPMIcon(a, lanebus);
+    myIcons[ICON_LANEBIKE] = new FXXPMIcon(a, lanebike);
 
+    myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
+    myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
 
-    myIcons[ICON_EXT]    = new FXXPMIcon(a, ext_xpm);
-    myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
+    myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
+    myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
+    myIcons[ICON_JOINJUNCTIONS] = new FXXPMIcon(a, joinjunctions_xpm);
+    myIcons[ICON_OPTIONS] = new FXXPMIcon(a, options_xpm);
 
     // ... and create them
     for (int i = 0; i < ICON_MAX; i++) {
