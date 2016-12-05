@@ -193,14 +193,14 @@ public:
         crossingParameters() {}
 
     private:
+        /// @brief pointer to GNECrossingFrame parent
+        GNECrossingFrame *myCrossingFrameParent;
+
         /// @brief pointer to edge selector
         GNECrossingFrame::edgesSelector *myEdgeSelector;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;
-
-        /// @brief pointer to GNECrossingFrame parent
-        GNECrossingFrame *myCrossingFrameParent;
 
         /// @brief FXMatrix for place attributes
         FXMatrix *myAttributesMatrix;
