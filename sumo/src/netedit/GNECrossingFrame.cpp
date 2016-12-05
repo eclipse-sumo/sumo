@@ -135,8 +135,14 @@ GNECrossingFrame::edgesSelector::enableEdgeSelector(GNEJunction *currentJunction
     myCurrentJunction = currentJunction;
     // Update view net to show the new colors
     myCrossingFrameParent->getViewNet()->update();
-    // enable all elements of the edgesSelector
-    myUseSelectedEdges->enable();
+    // check if use selected eges must be enabled
+    myUseSelectedEdges->disable();
+    for(std::vector<GNEEdge*>::const_iterator i = myCurrentJunction->getGNEEdges().begin(); i != myCurrentJunction->getGNEEdges().end(); i++) {
+        if(gSelected.isSelected((*i)->getType(), (*i)->getGlID())) {
+            myUseSelectedEdges->enable();
+        }
+    }
+    // Enable rest of elements
     helpEdges->enable();
     myClearEdgesSelection->enable();
     myInvertEdgesSelection->enable();
@@ -316,7 +322,6 @@ GNECrossingFrame::crossingParameters::clearEdges() {
 
 void 
 GNECrossingFrame::crossingParameters::invertEdges(GNEJunction *parentJunction) {
-
     std::vector<std::string> crossingEdges;
     for(std::vector<GNEEdge*>::const_iterator i = parentJunction->getGNEEdges().begin(); i != parentJunction->getGNEEdges().end(); i++) {
         if(std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), (*i)) == myCurrentSelectedEdges.end()) {
@@ -331,7 +336,15 @@ GNECrossingFrame::crossingParameters::invertEdges(GNEJunction *parentJunction) {
 
 void 
 GNECrossingFrame::crossingParameters::useSelectedEdges(GNEJunction *parentJunction) {
-
+    std::vector<std::string> crossingEdges;
+    for(std::vector<GNEEdge*>::const_iterator i = parentJunction->getGNEEdges().begin(); i != parentJunction->getGNEEdges().end(); i++) {
+        if(gSelected.isSelected((*i)->getType(), (*i)->getGlID())) {
+            crossingEdges.push_back((*i)->getID());
+        }
+    }
+    myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
+    // Update colors and attributes
+    onCmdSetAttribute(0,0,0);
 }
 
 
