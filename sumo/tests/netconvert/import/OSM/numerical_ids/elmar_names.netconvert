@@ -1,5 +1,5 @@
-# Generated on Fri Dec  2 15:12:15 2016 by SUMO netconvert Version dev-SVN-r22174
-# Format matches Extraction version: V6.0 
+# Generated on Mon Dec  5 08:45:05 2016 by SUMO netconvert Version dev-SVN-r22185
+# Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
 # <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -37,7 +37,7 @@
 # 
 #
 # NAME_ID	PERMANENT_ID_INFO	Name
-16
+# [elements] 16
 6	0	Albert-Einstein-Straße
 13	0	Carl-Scheele-Straße
 5	0	Ernst-Ruska-Ufer

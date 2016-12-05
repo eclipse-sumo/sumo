@@ -1,5 +1,5 @@
-# Generated on Thu Dec  1 09:21:27 2016 by SUMO netconvert Version dev-SVN-r22157
-# Format matches Extraction version: V6.0 
+# Generated on Mon Dec  5 08:45:04 2016 by SUMO netconvert Version dev-SVN-r22185
+# Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
 # <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
