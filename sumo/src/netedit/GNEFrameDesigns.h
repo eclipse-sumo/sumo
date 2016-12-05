@@ -56,7 +56,7 @@
 /// @name FXButtons
 /// @{
     /// @brief button extended over over GNEFrame with thick and raise frame 
-    #define GNEDesignButton                 (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X)
+    #define GNEDesignButton                 (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X) , 0, 0, 0, 0, 4, 4, 3, 3
 
     /// @brief button extended over over column with thick and raise frame 
     #define GNEDesignButtonAttribute        (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
@@ -82,11 +82,23 @@
 
 /// @name FXLabels
 /// @{
-    /// @brief label extended over over GNEFrame without thick
-    #define GNEDesignLabel                  (JUSTIFY_LEFT | LAYOUT_FILL_X)
+    /// @brief label extended over over GNEFrame without thick and with text justify to left
+    #define GNEDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X)
 
-    /// @brief label extended over over GNEFrame with thick
-    #define GNEDesignLabelThick             (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X)
+    /// @brief label extended over over GNEFrame without thick and with text justify to right
+    #define GNEDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X)
+
+    /// @brief label extended over over GNEFrame without thickand  with text justify to center
+    #define GNEDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X)
+
+    /// @brief label extended over over GNEFrame with thick and with text justify to left
+    #define GNEDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X)
+
+    /// @brief label extended over over GNEFrame with thick and with text justify to right
+    #define GNEDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X)
+
+    /// @brief label extended over over GNEFrame with thick and with text justify to center
+    #define GNEDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X)
 
     /// @brief label extended over the matrix column with thick frame
     #define GNEDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)

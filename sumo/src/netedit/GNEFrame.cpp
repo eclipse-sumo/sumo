@@ -70,7 +70,7 @@ GNEFrame::GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet
     myHeaderLeftFrame->hide();
 
     // Create titel frame
-    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), 0, GNEDesignLabel);
+    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), 0, GNEDesignLabelLeft);
 
     // Create frame for right elements of header (By default unused)
     myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GNEDesignHorizontalFrame);

@@ -97,9 +97,69 @@ private:
         CONFLICTED
     };
 
-    /// @brief the label that shows the current editing state
-    FXLabel* myDescription;
+    /// @brief Groupbox for description
+    FXGroupBox* myGroupBoxDescription;
 
+    /// @brief the label that shows the current editing state
+    FXLabel* myLaneDescriptionLabel;
+
+    /// @brief GroupBox for Buttons
+    FXGroupBox* myGroupBoxModifications;
+    
+    /// @brief "Cancel" button
+    FXButton *myCancelButton;
+
+    /// @brief "OK" button
+    FXButton *mySaveButton;
+    
+    /// @brief groupbox for operations
+    FXGroupBox* myGroupBoxOperations;
+    
+    /// @brief "Select Dead Ends" button
+    FXButton *mySelectDeadEndsButton;
+
+    /// @brief "Select Dead Starts" button
+    FXButton *mySelectDeadStartsButton;
+
+    /// @brief "Select Conflicts" button
+    FXButton *mySelectConflictsButton;
+
+    /// @brief "Select Edges which may always pass"
+    FXButton *mySelectPassingButton;
+
+    /// @brief "Clear Selected"
+    FXButton *myClearSelectedButton;
+
+    /// @brief "Reset Selected"
+    FXButton *myResetSelectedButton;
+
+    /// @brief groupbox for selection hints
+    FXGroupBox* myGroupBoxSelection;
+    
+    /// @brief Selection Hint
+    FXLabel *myHoldShiftLabel;
+    
+    /// @brief hold control label
+    FXLabel *myHoldControlLabel;
+
+    /// @brief group box for legend
+    FXGroupBox* myGroupBoxLegend;
+
+    /// @brief source label
+    FXLabel *mySourceLabel;
+
+    /// @brief target label
+    FXLabel *myTargetLabel;
+
+    /// @brief possible target label
+    FXLabel *myPossibleTargetLabel;
+
+    /// @brief target pass label
+    FXLabel *myTargetPassLabel;
+
+    /// @brief conflict label 
+    FXLabel *myConflictLabel;
+    
     /// @brief the lane of which connections are to be modified
     GNELane* myCurrentLane;
 

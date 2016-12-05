@@ -123,11 +123,11 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myGroupBoxForTemplates->hide();
 
     // Create copy template button
-    myCopyTemplateButton = new FXButton(myGroupBoxForTemplates, "", 0, this, MID_GNE_COPY_TEMPLATE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    myCopyTemplateButton = new FXButton(myGroupBoxForTemplates, "", 0, this, MID_GNE_COPY_TEMPLATE, GNEDesignButton);
     myCopyTemplateButton->hide();
 
     // Create set template button
-    mySetTemplateButton = new FXButton(myGroupBoxForTemplates, "Set as Template\t\t", 0, this, MID_GNE_SET_TEMPLATE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    mySetTemplateButton = new FXButton(myGroupBoxForTemplates, "Set as Template\t\t", 0, this, MID_GNE_SET_TEMPLATE, GNEDesignButton);
     mySetTemplateButton->hide();
 
     // Create groupBox for editor parameters
@@ -698,7 +698,7 @@ GNEInspectorFrame::AttrConnection::AttrConnection(FXComposite* parent, GNEInspec
     myInspectorFrameParent(inspectorFrameParent),
     myConnection(NULL) {
     // Create label for connection
-    myConnectionInfoLabel = new FXLabel(this, "", NULL, GNEDesignLabelThick);
+    myConnectionInfoLabel = new FXLabel(this, "", NULL, GNEDesignLabelLeftThick);
     // Create checkButton for show connection
     myShowConnection = new FXCheckButton(this,"Show", this, MID_GNE_SHOW_CONNECTION, GNEDesignCheckButton);
     // Create FXButton for inspectConnection

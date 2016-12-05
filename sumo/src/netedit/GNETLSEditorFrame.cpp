@@ -103,27 +103,27 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myHaveModifications(false),
     myEditedDef(0) {
     // heading
-    myDescription = new FXLabel(myContentFrame, "", 0, GNEDesignLabel);
+    myDescription = new FXLabel(myContentFrame, "", 0, GNEDesignLabelLeft);
     new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
 
     // create tlDef button
-    new FXButton(myContentFrame, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_DEF_CREATE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_DEF_CREATE, GNEDesignButton);
 
     // delete tlDef button
-    new FXButton(myContentFrame, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_DEF_DELETE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_DEF_DELETE, GNEDesignButton);
 
     // definitions list
-    new FXLabel(myContentFrame, "Name, Program", 0, GNEDesignLabel);
+    new FXLabel(myContentFrame, "Name, Program", 0, GNEDesignLabelLeft);
     myDefBox = new FXComboBox(myContentFrame, GNEDesignComboBoxNCol, this, MID_GNE_DEF_SWITCH, GNEDesignComboBox);
 
     // offset control
-    new FXLabel(myContentFrame, "Offset", 0, GNEDesignLabel);
+    new FXLabel(myContentFrame, "Offset", 0, GNEDesignLabelLeft);
     myOffset = new FXTextField(myContentFrame, GNEDesignTextFieldNCol, this, MID_GNE_DEF_OFFSET, GNEDesignTextFieldAttributeReal, 0, 0, 0, 0, 4, 2, 0, 2);
 
     new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
 
     // phase table
-    new FXLabel(myContentFrame, "Phases", 0, GNEDesignLabel);
+    new FXLabel(myContentFrame, "Phases", 0, GNEDesignLabelLeft);
     myPhaseTable = new FXTable(myContentFrame, this, MID_GNE_PHASE_TABLE, LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(0);
@@ -134,25 +134,25 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myPhaseTable->setHelpText("phase duration in seconds | phase state");
 
     // total duration info
-    myCycleDuration = new FXLabel(myContentFrame, "", 0, GNEDesignLabel);
+    myCycleDuration = new FXLabel(myContentFrame, "", 0, GNEDesignLabelLeft);
 
     // insert new phase button
-    new FXButton(myContentFrame, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE, GNEDesignButton);
 
     // delete phase button
-    new FXButton(myContentFrame, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_PHASE_DELETE, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_PHASE_DELETE, GNEDesignButton);
 
     new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
     // buttons
     // "Cancel"
-    new FXButton(myContentFrame, "Cancel\t\tDiscard program modifications (Esc)", 0, this, MID_CANCEL, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Cancel\t\tDiscard program modifications (Esc)", 0, this, MID_CANCEL, GNEDesignButton);
     // "OK"
-    new FXButton(myContentFrame, "Save\t\tSave program modifications (Enter)", 0, this, MID_OK, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(myContentFrame, "Save\t\tSave program modifications (Enter)", 0, this, MID_OK, GNEDesignButton);
     new FXHorizontalSeparator(myContentFrame, GNEDesignHorizontalSeparator);
     // "Add 'off' program"
     /*
     new FXButton(myContentFrame, "Add \"Off\"-Program\t\tAdds a program for switching off this traffic light",
-            0, this, MID_GNE_DEF_ADDOFF, GNEDesignButton, 0, 0, 0, 0, 4, 4, 3, 3);
+            0, this, MID_GNE_DEF_ADDOFF, GNEDesignButton);
     */
 }
 

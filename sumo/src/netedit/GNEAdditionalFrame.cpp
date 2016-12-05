@@ -1236,7 +1236,7 @@ GNEAdditionalFrame::editorParameters::onCmdHelp(FXObject*, FXSelector, void*) {
             << "\n"
             << "Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
             << "the mouse. This option can be modified with the Inspector.";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GNEDesignLabel);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GNEDesignLabelLeft);
     // "OK"
     new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, GNEDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
@@ -1272,7 +1272,7 @@ GNEAdditionalFrame::additionalSetsSelector::additionalSetsSelector(FXComposite* 
     myViewNet(viewNet) {
 
     // Create label with the type of additionalSetsSelector
-    mySetLabel = new FXLabel(this, "Set Type:", 0, GNEDesignLabelThick);
+    mySetLabel = new FXLabel(this, "Set Type:", 0, GNEDesignLabelLeftThick);
 
     // Create list
     myList = new FXList(this, this, MID_GNE_SELECTADDITIONALSET, GNEDesignList, 0, 0, 0, 100);

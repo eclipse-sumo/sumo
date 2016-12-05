@@ -529,7 +529,7 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     GNEFrame(horizontalFrameParent, viewNet, "Crossings") {
     // Create Groupbox for labels
     myGroupBoxLabel = new FXGroupBox(myContentFrame, "Junction", GNEDesignGroupBoxFrame);
-    myCurrentJunctionLabel = new FXLabel(myGroupBoxLabel, "No junction selected", 0, GNEDesignLabel);
+    myCurrentJunctionLabel = new FXLabel(myGroupBoxLabel, "No junction selected", 0, GNEDesignLabelLeft);
 
     // Create edge Selector
     myEdgeSelector = new edgesSelector(myContentFrame, this);
@@ -543,10 +543,10 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     myCreateCrossingButton->disable();
 
     // Create groupbox and labels for legends
-    myGroupBoxLegend = new FXGroupBox(myContentFrame, "Color Legend", GNEDesignGroupBoxFrame);
-    myColorCandidateLabel = new FXLabel(myGroupBoxLegend, "Candidate", 0, GNEDesignLabel);
+    myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GNEDesignGroupBoxFrame);
+    myColorCandidateLabel = new FXLabel(myGroupBoxLegend, "Candidate", 0, GNEDesignLabelLeft);
     myColorCandidateLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getCandidateColor()));
-    myColorSelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GNEDesignLabel);
+    myColorSelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GNEDesignLabelLeft);
     myColorSelectedLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getSelectedColor()));
 
     // disable edge selector

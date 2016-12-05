@@ -143,7 +143,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     // Create groupbox for information about selections
     FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GNEDesignGroupBoxFrame);
     // Create Selection Hint
-    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GNEDesignLabel);
+    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GNEDesignLabelLeft);
 }
 
 
@@ -344,7 +344,7 @@ GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
             << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
             << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
             << "edge; speed; '>10' -> match all edges with a speed above 10\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GNEDesignLabel);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GNEDesignLabelLeft);
     // "OK"
     new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT, GNEDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
