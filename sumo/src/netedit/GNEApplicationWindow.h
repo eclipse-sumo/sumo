@@ -277,7 +277,6 @@ protected:
     /// @brief the submenus
     FXMenuPane* myFileMenu,
                 *myEditMenu,
-                *myModesMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
                 *myWindowsMenu,
