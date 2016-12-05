@@ -495,7 +495,7 @@ NIImporter_DlrNavteq::NamesHandler::report(const std::string& result) {
     }
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     if (st.size() == 1) {
-        return true; // one line with the number of data containing lines in it
+        return true; // one line with the number of data containing lines in it (also starts with a comment # since ersion 6.5)
     }
     assert(st.size() >= 2);
     const std::string id = st.next();

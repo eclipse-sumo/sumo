@@ -50,6 +50,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define OUTPUT_VERSION "6.5"
+
 
 // ---------------------------------------------------------------------------
 // static members
@@ -77,7 +79,7 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
     char buffer [80];
     strftime(buffer, 80, "on %c", localtime(&rawtime));
     device << "# Generated " << buffer << " by " << oc.getFullName() << "\n";
-    device << "# Format matches Extraction version: V6.0 \n";
+    device << "# Format matches Extraction version: V" << OUTPUT_VERSION << " \n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);
@@ -227,7 +229,8 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
         OutputDevice& namesDevice = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_names.txt");
         writeHeader(namesDevice, oc);
         // write format specifier
-        namesDevice << "# NAME_ID\tPERMANENT_ID_INFO\tName\n" << nameIDs.size() << "\n";
+        namesDevice << "# NAME_ID\tPERMANENT_ID_INFO\tName\n";
+        namesDevice << "# [elements] " << nameIDs.size() << "\n";
         for (std::map<const std::string, std::string>::const_iterator i = nameIDs.begin(); i != nameIDs.end(); ++i) {
             namesDevice 
                 << i->second << "\t" 
