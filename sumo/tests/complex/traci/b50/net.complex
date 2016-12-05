@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct  4 12:37:45 2016 by SUMO netconvert Version dev-SVN-r21591
+<!-- generated on Mon Dec  5 08:35:26 2016 by SUMO netconvert Version dev-SVN-r22185
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -48,7 +48,7 @@
         <lane id=":f6_0_2" index="2" speed="13.90" length="7.90" shape="1.65,690.15 2.16,693.74 3.70,696.30 6.26,697.84 9.85,698.35"/>
     </edge>
     <edge id=":f7_0" function="internal">
-        <lane id=":f7_0_0" index="0" speed="13.90" length="7.25" shape="388.50,691.75 391.50,698.35"/>
+        <lane id=":f7_0_0" index="0" speed="13.90" length="3.00" shape="388.50,698.35 391.50,698.35"/>
     </edge>
     <edge id=":z0_0" function="internal">
         <lane id=":z0_0_0" index="0" speed="13.90" length="6.93" shape="702.19,690.11 702.98,690.82 703.86,691.34 704.83,691.65 705.89,691.75"/>
@@ -293,7 +293,7 @@
     <connection from="i6" to="i7" fromLane="0" toLane="0" via=":f6_0_0" dir="r" state="M"/>
     <connection from="i6" to="i7" fromLane="1" toLane="1" via=":f6_0_1" dir="r" state="M"/>
     <connection from="i6" to="i7" fromLane="2" toLane="2" via=":f6_0_2" dir="r" state="M"/>
-    <connection from="i7" to="o" fromLane="0" toLane="0" via=":f7_0_0" dir="s" state="M"/>
+    <connection from="i7" to="o" fromLane="2" toLane="0" via=":f7_0_0" dir="s" state="M"/>
     <connection from="o" to="e1" fromLane="0" toLane="1" via=":z0_3_0" dir="s" state="m"/>
     <connection from="o" to="e1" fromLane="0" toLane="2" via=":z0_3_1" dir="s" state="m"/>
 
