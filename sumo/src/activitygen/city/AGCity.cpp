@@ -41,6 +41,7 @@
 #include <map>
 #include <iomanip>
 #include <utils/common/RandHelper.h>
+#include <utils/options/OptionsCont.h>
 #include <router/RONet.h>
 #include <router/ROEdge.h>
 #include "AGStreet.h"
@@ -290,6 +291,7 @@ AGCity::schoolAllocation() {
 
 void
 AGCity::workAllocation() {
+    const bool debug = OptionsCont::getOptions().getBool("debug");
     statData.AdultNbr = 0;
     //end tests
     /**
@@ -297,6 +299,10 @@ AGCity::workAllocation() {
      */
     std::list<AGHousehold>::iterator it;
     bool shortage;
+
+    if (debug) {
+        std::cout << "\n";
+    }
 
     for (it = households.begin(); it != households.end(); ++it) {
         if (it->retiredHouseholders()) {
@@ -307,6 +313,9 @@ AGCity::workAllocation() {
             std::cout << "===> ERROR: Not enough work positions in the city for all working people..." << std::endl;
         }
         statData.AdultNbr += it->getAdultNbr(); //TESTING
+        if (debug) {
+            std::cout << " processed " << statData.AdultNbr << " adults\r";
+        }
     }
 
     /**
