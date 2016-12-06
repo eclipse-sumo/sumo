@@ -105,11 +105,11 @@ GNEViewParent::GNEViewParent(
     //}
 
     // add undo/redo buttons
-    new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GNEDesignButtonNavToolbar);
-    new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GNEDesignButtonNavToolbar);
+    new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GNEDesignButtonToolbar);
+    new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GNEDesignButtonToolbar);
 
-    // Create FXToolBarGrip
-    new FXToolBarGrip(myNavigationToolBar, NULL, 0, GNEDesignToolbarGrip);
+    // Create Vertical separator
+    new FXVerticalSeparator(myNavigationToolBar, GNEDesignVerticalSeparator);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GNEDesignSplitter, 0, 0, 0, 0);

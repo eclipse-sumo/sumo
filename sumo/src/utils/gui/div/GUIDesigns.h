@@ -68,7 +68,9 @@
     #define GNEDesignButtonHelp             (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_NORMAL)
 
     /// @brief little button placed in navigation toolbar
-    #define GNEDesignButtonNavToolbar       (ICON_BEFORE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT)
+    #define GNEDesignButtonToolbar          (ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT)
+
+
 /// @}
 
 /// @name FXCheckBoxs
@@ -136,10 +138,13 @@
 /// @{
     /// @brief design for frames area
     #define GNEDesignFrameArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    
     /// @brief design for viewn area
     #define GNEDesignViewnArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    
     /// @brief design for the content frame of every frame
     #define GNEDesigContentFrame            (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+    
     /// @brief design for all frames
     #define GNEDesigFrame                   (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 /// @}
@@ -157,7 +162,11 @@
 
 #define GNEDesignSplitter               (SPLITTER_HORIZONTAL | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK)
 
-#define GNEDesignToolbarGrip            (TOOLBARGRIP_SINGLE | FRAME_SUNKEN)
+#define GNEDesignVerticalSeparator      (SEPARATOR_GROOVE | LAYOUT_FILL_Y)
+
+
+
+#define GNEDesignBar                (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
 
 
 #endif

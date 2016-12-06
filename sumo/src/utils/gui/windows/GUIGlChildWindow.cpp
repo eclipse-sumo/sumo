@@ -34,6 +34,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include "GUIGlChildWindow.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -98,7 +99,9 @@ GUIGlChildWindow::create() {
 
 void
 GUIGlChildWindow::buildNavigationToolBar() {
-    myNavigationToolBar = new FXToolBar(myContentFrame, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
+    // Build navigation toolbar
+    myNavigationToolBar = new FXToolBar(myContentFrame, GNEDesignBar);
+    
     // build the view settings
     // recenter view
     new FXButton(myNavigationToolBar,
@@ -135,10 +138,8 @@ GUIGlChildWindow::buildNavigationToolBar() {
 
 void
 GUIGlChildWindow::buildColoringToolBar() {
-    // in fact, we currently are not able to build another bar
-    //  we just add somthing to the navigation bar
-//    myColoringToolBar = new FXToolBar(myContentFrame,LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-    new FXToolBarGrip(myNavigationToolBar, NULL, 0, TOOLBARGRIP_SINGLE | FRAME_SUNKEN);
+    // Create Vertical separator
+    new FXVerticalSeparator(myNavigationToolBar, GNEDesignVerticalSeparator);
 
     // build coloring tools
     // combo
@@ -155,10 +156,8 @@ GUIGlChildWindow::buildColoringToolBar() {
 
 void
 GUIGlChildWindow::buildScreenshotToolBar() {
-    // in fact, we currently are not able to build another bar
-    //  we just add somthing to the navigation bar
-//    myScreenshotToolBar = new FXToolBar(myContentFrame,LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-    new FXToolBarGrip(myNavigationToolBar, NULL, 0, TOOLBARGRIP_SINGLE | FRAME_SUNKEN);
+    // Create Vertical separator
+    new FXVerticalSeparator(myNavigationToolBar, GNEDesignVerticalSeparator);
     // snapshot
     new MFXCheckableButton(false, myNavigationToolBar,
                            "\tMake Snapshot\tMakes a snapshot of the view.",

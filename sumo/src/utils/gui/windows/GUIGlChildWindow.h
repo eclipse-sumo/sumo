@@ -68,9 +68,9 @@ public:
     long onCmdZoomStyle(FXObject* sender, FXSelector, void*);
     long onCmdChangeColorScheme(FXObject*, FXSelector sel, void*);
 
-    virtual void buildNavigationToolBar();
-    virtual void buildColoringToolBar();
-    virtual void buildScreenshotToolBar();
+    void buildNavigationToolBar();
+    void buildColoringToolBar();
+    void buildScreenshotToolBar();
 
 
     FXToolBar& getNavigationToolBar(GUISUMOAbstractView& v);

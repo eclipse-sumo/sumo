@@ -49,6 +49,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIUserIO.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
@@ -213,8 +214,7 @@ GNEApplicationWindow::dependentBuild() {
 
     // build menu bar
     myMenuBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
-    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag,
-                              LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
+    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GNEDesignBar);
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP,
                       TOOLBARGRIP_DOUBLE);
     // build the thread - io
