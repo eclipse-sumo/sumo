@@ -80,8 +80,7 @@ public:
               SUMOTime tauff, SUMOTime taufj,
               SUMOTime taujf, SUMOTime taujj,
               SUMOReal jamThresh,
-              bool multiQueue, bool junctionControl,
-              SUMOReal lengthGeometryFactor);
+              bool multiQueue, bool junctionControl);
 
 
     typedef std::vector<MEVehicle*> Queue;
@@ -377,11 +376,6 @@ public:
     /// @brief add this lanes MoveReminders to the given vehicle
     void addReminders(MEVehicle* veh) const;
 
-    /// @brief return precomputed geometrical length / myLength
-    inline SUMOReal getLengthGeometryFactor() const {
-        return myLengthGeometryFactor;
-    }
-
     /** @brief Returns the penalty time for passing a link (if using gMesoTLSPenalty > 0 or gMesoMinorPenalty > 0)
      * @param[in] veh The vehicle in question
      * @return The time penalty
@@ -480,9 +474,6 @@ private:
      * @note since we do not know which queue will be used there is only one
      * value for all queues */
     SUMOTime myEntryBlockTime;
-
-    // precomputed factor between geometrical length and given length
-    const SUMOReal myLengthGeometryFactor;
 
     /* @brief segment for signifying vaporization. This segment has invalid
      * data and should only be used as a unique pointer */

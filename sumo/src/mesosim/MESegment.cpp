@@ -74,8 +74,7 @@ MESegment::MESegment(const std::string& id,
                      int idx,
                      SUMOTime tauff, SUMOTime taufj,
                      SUMOTime taujf, SUMOTime taujj,
-                     SUMOReal jamThresh, bool multiQueue, bool junctionControl,
-                     SUMOReal lengthGeometryFactor) :
+                     SUMOReal jamThresh, bool multiQueue, bool junctionControl) :
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_ff((SUMOTime)(tauff / parent.getLanes().size())),
@@ -101,7 +100,6 @@ MESegment::MESegment(const std::string& id,
                    parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink()),
     myEntryBlockTime(SUMOTime_MIN),
-    myLengthGeometryFactor(lengthGeometryFactor),
     myMeanSpeed(speed),
     myLastMeanSpeedUpdate(SUMOTime_MIN) {
     myCarQues.push_back(std::vector<MEVehicle*>());
@@ -137,8 +135,7 @@ MESegment::MESegment(const std::string& id):
     myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0), myTau_length(1),
     myHeadwayCapacity(0), myCapacity(0), myJunctionControl(false),
     myTLSPenalty(false),
-    myMinorPenalty(false),
-    myLengthGeometryFactor(0) {
+    myMinorPenalty(false) {
 }
 
 

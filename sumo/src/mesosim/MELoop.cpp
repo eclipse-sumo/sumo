@@ -266,7 +266,6 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     const SUMOReal length = e.getLength();
     int no = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
     const SUMOReal slength = length / (SUMOReal)no;
-    const SUMOReal lengthGeometryFactor = e.getLanes()[0]->getLengthGeometryFactor();
     MESegment* newSegment = 0;
     MESegment* nextSegment = 0;
     bool multiQueue = oc.getBool("meso-multi-queue");
@@ -278,8 +277,7 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
                           e.getLanes()[0]->getSpeedLimit(), s,
                           string2time(oc.getString("meso-tauff")), string2time(oc.getString("meso-taufj")),
                           string2time(oc.getString("meso-taujf")), string2time(oc.getString("meso-taujj")),
-                          oc.getFloat("meso-jam-threshold"), multiQueue, junctionControl,
-                          lengthGeometryFactor);
+                          oc.getFloat("meso-jam-threshold"), multiQueue, junctionControl);
         multiQueue = false;
         junctionControl = false;
         nextSegment = newSegment;
