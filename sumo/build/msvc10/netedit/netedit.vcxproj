@@ -206,7 +206,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEFrame.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEFrameDesigns.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEInspectorFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEInternalLane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEJunction.h" />

@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GNEFrameDesigns.h
+/// @file    GUIDesigns.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id$
+/// @version $Id: GUIDesigns.h 22199 2016-12-06 09:15:52Z palcraft $
 ///
-/// File with the definitions of standard style of FXObjects in netedit
+/// File with the definitions of standard style of FXObjects in SUMO
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GNEFrameDesigns_h
-#define GNEFrameDesigns_h
+#ifndef GUIDesigns_h
+#define GUIDesigns_h
 
 // ===========================================================================
 // included modules

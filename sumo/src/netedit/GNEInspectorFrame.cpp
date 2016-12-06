@@ -39,7 +39,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include "GNEFrameDesigns.h"
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "GNEInspectorFrame.h"
 #include "GNEUndoList.h"
 #include "GNEEdge.h"

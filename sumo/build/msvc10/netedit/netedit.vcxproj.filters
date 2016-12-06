@@ -451,8 +451,5 @@
     <ClInclude Include="..\..\..\src\netedit\GNECrossingFrame.h">
       <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEFrameDesigns.h">
-      <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
