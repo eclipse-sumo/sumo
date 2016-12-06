@@ -151,8 +151,68 @@ private:
     /// @brief font for the phase table
     FXFont* myTableFont;
 
+    /// @brief groupbox for current junction
+    FXGroupBox *myGroupBoxJunction;
+
     /// @brief the label that shows the current editing state
     FXLabel* myDescription;
+    
+    /// @brief groupbox for TLS Definition buttons
+    FXGroupBox *myGroupBoxTLSDef;
+    
+    /// @brief button for create new Traffic light program
+    FXButton *myNewTLProgram;
+
+    /// @brief button for delete traffic light program
+    FXButton *myDeleteTLProgram;
+
+    /// @brief groupbox for TLS attributes
+    FXGroupBox *myGroupBoxAttributes;
+
+    /// @brief matrix for attributes
+    FXMatrix *myAttributeMatrix;
+
+    /// @brief name label
+    FXLabel *myNameLabel;
+
+    /// @brief name text field
+    FXTextField *myNameTextField;
+
+    /// @brief program label
+    FXLabel *myProgramLabel;
+
+    /// @brief the comboBox for selecting the tl-definition to edit
+    FXComboBox* myProgramComboBox;
+
+    /// @brief offset label
+    FXLabel *myOffsetLabel;
+    
+    /// @brief the control for modifying offset
+    FXTextField* myOffset;
+
+    /// @brief groupbox for phases
+    FXGroupBox *myGroupBoxPhases;
+
+    /// @brief table for selecting and rearranging phases and for changing duration
+    FXTable* myPhaseTable;
+
+    /// @brief label with the cycle duration
+    FXLabel* myCycleDuration;
+
+    /// @brief insert new phase button
+    FXButton *myInsertDuplicateButton;
+
+    /// @brief delete phase button
+    FXButton *myDeleteSelectedPhaseButton;
+
+    /// @brief groupbox for buttons modifications
+    FXGroupBox *myGroupBoxModifications;
+    
+    /// @brief button for cancel modifications
+    FXButton *myDiscardModificationsButtons;
+
+    /// @brief button for save modifications
+    FXButton *mySaveModificationsButtons;
 
     /// @brief the junction of the tls is being modified
     GNEJunction* myCurrentJunction;
@@ -170,22 +230,9 @@ private:
     /// @brief the traffic light definition being edited
     NBLoadedSUMOTLDef* myEditedDef;
 
-    /// @brief the comboBox for selecting the tl-definition to edit
-    FXComboBox* myDefBox;
-
-    /// @brief the control for modifying offset
-    FXTextField* myOffset;
-
-    /// @brief label with the cycle duration
-    FXLabel* myCycleDuration;
-
-    /// @brief table for selecting and rearranging phases and for changing duration
-    FXTable* myPhaseTable;
-
     /// @brief index of the phase being shown
     int myPhaseIndex;
 
-private:
     /// @brief update descrition
     void updateDescription() const;
 
@@ -198,8 +245,9 @@ private:
     /// @brief initializes the definitions and corresponding listbox
     void initDefinitions();
 
-    /// @brief initialies the phase table
-    /// @param[in] index The index to select
+    /**@brief initialies the phase table
+     * @param[in] index The index to select
+     */
     void initPhaseTable(int index = 0);
 
     /// @brief the phase of the current traffic light

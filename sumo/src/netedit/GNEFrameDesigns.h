@@ -147,6 +147,8 @@
 
 #define GNEDesignRadioButton            (RADIOBUTTON_NORMAL)
 
+#define GNEDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
+
 #define GNEDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
 
 #define GNEDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
