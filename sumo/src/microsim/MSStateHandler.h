@@ -102,6 +102,16 @@ private:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
 
+    /// @brief the current vehicle being parsed
+    SUMOVehicleParameter* myVehicleParameter;
+
+    /// @brief cached attrs (used when loading vehicles)
+    SUMOSAXAttributes* myAttrs;
+
+    /// @brief the last object that potentially carries parameters
+    Parameterised* myLastParameterised;
+
+
 private:
     /// @brief Invalidated copy constructor
     MSStateHandler(const MSStateHandler& s);

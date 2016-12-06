@@ -4,6 +4,7 @@ libxml_a_SOURCES = GenericSAXHandler.h GenericSAXHandler.cpp \
 SUMOSAXAttributes.cpp SUMOSAXAttributes.h \
 SUMOSAXAttributesImpl_Binary.cpp SUMOSAXAttributesImpl_Binary.h \
 SUMOSAXAttributesImpl_Xerces.cpp SUMOSAXAttributesImpl_Xerces.h \
+SUMOSAXAttributesImpl_Cached.cpp SUMOSAXAttributesImpl_Cached.h \
 SUMORouteHandler.cpp SUMORouteHandler.h \
 SUMORouteLoader.cpp SUMORouteLoader.h \
 SUMORouteLoaderControl.cpp SUMORouteLoaderControl.h \

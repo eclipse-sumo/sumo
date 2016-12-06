@@ -6,7 +6,7 @@
 /// @date    Fri, 30 Mar 2007
 /// @version $Id$
 ///
-// Encapsulated Xerces-SAX-attributes
+// Encapsulated xml-attributes that are retrieved from the sumo-binary-xml format (already typed)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2007-2016 DLR (http://www.dlr.de/) and contributors
@@ -63,7 +63,6 @@ public:
     SUMOSAXAttributesImpl_Binary(const std::map<int, std::string>& predefinedTagsMML,
                                  const std::string& objectType,
                                  BinaryInputDevice* in);
-
 
     /// @brief Destructor
     virtual ~SUMOSAXAttributesImpl_Binary();
@@ -288,6 +287,8 @@ public:
      */
     void serialize(std::ostream& os) const;
 
+    /// @brief return a new deep-copy attributes object
+    SUMOSAXAttributes* clone() const;
 
 private:
     /// @brief Map of attribute ids to names

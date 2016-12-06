@@ -3794,6 +3794,12 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
+    for (std::map<std::string, std::string>::const_iterator j = myParameter->getMap().begin(); j != myParameter->getMap().end(); ++j) {
+        out.openTag(SUMO_TAG_PARAM);
+        out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+        out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+        out.closeTag();
+    }
     out.closeTag();
 }
 

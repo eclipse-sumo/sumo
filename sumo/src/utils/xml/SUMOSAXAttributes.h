@@ -378,6 +378,9 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src);
 
+    /// @brief return a new deep-copy attributes object
+    virtual SUMOSAXAttributes* clone() const = 0;
+
     /** @brief The encoding of parsed strings */
     static const std::string ENCODING;
 

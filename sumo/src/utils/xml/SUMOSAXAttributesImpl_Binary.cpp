@@ -6,7 +6,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Encapsulated Xerces-SAX-attributes
+// Encapsulated xml-attributes that are retrieved from the sumo-binary-xml format (already typed)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2002-2016 DLR (http://www.dlr.de/) and contributors
@@ -39,6 +39,7 @@
 #include <utils/iodevices/BinaryFormatter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
+#include "SUMOSAXAttributesImpl_Cached.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -329,6 +330,32 @@ SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
     }
 }
 
+
+SUMOSAXAttributes* 
+SUMOSAXAttributesImpl_Binary::clone() const {
+    std::map<std::string, std::string> attrs;
+    for (std::map<int, char>::const_iterator it = myCharValues.begin(); it != myCharValues.end(); ++it) {
+        const std::string attrName = myAttrIds.find(it->first)->second;
+        attrs[attrName] = toString(it->second);
+    }
+    for (std::map<int, int>::const_iterator it = myIntValues.begin(); it != myIntValues.end(); ++it) {
+        const std::string attrName = myAttrIds.find(it->first)->second;
+        attrs[attrName] = toString(it->second);
+    }
+    for (std::map<int, SUMOReal>::const_iterator it = myFloatValues.begin(); it != myFloatValues.end(); ++it) {
+        const std::string attrName = myAttrIds.find(it->first)->second;
+        attrs[attrName] = toString(it->second);
+    }
+    for (std::map<int, std::string>::const_iterator it = myStringValues.begin(); it != myStringValues.end(); ++it) {
+        const std::string attrName = myAttrIds.find(it->first)->second;
+        attrs[attrName] = it->second;
+    }
+    for (std::map<int, PositionVector>::const_iterator it = myPositionVectors.begin(); it != myPositionVectors.end(); ++it) {
+        const std::string attrName = myAttrIds.find(it->first)->second;
+        attrs[attrName] = toString(it->second);
+    }
+    return new SUMOSAXAttributesImpl_Cached(attrs, myAttrIds, getObjectType());
+}
 
 /****************************************************************************/
 

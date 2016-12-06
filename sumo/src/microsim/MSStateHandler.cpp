@@ -63,7 +63,11 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     SUMOSAXHandler(file), myOffset(offset),
     mySegment(0),
     myEdgeAndLane(0, -1),
-    myCurrentVType(0) {
+    myCurrentVType(0),
+    myVehicleParameter(0),
+    myAttrs(0),
+    myLastParameterised(0)
+{
 }
 
 
@@ -149,6 +153,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_VTYPE: {
             myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
+            myLastParameterised = myCurrentVType;
             break;
         }
         case SUMO_TAG_VTYPE_DISTRIBUTION: {
@@ -170,33 +175,14 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_VEHICLE: {
-            SUMOVehicleParameter* p = new SUMOVehicleParameter();
-            p->id = attrs.getString(SUMO_ATTR_ID);
-            p->depart = string2time(attrs.getString(SUMO_ATTR_DEPART)) - myOffset;
-            p->routeid = attrs.getString(SUMO_ATTR_ROUTE);
-            p->vtypeid = attrs.getString(SUMO_ATTR_TYPE);
-            const MSRoute* route = MSRoute::dictionary(p->routeid);
-            const MSVehicleType* type = vc.getVType(p->vtypeid);
-            assert(route != 0);
-            assert(type != 0);
-            assert(vc.getVehicle(p->id) == 0);
-
-            SUMOVehicle* v = vc.buildVehicle(p, route, type, true);
-            vc.discountStateLoaded(); // already included (see SUMO_TAG_DELAY)
-            v->loadState(attrs, myOffset);
-            if (!vc.addVehicle(p->id, v)) {
-                throw ProcessError("Error: Could not build vehicle " + p->id + "!");
-            }
-            if (!v->hasDeparted()) {
-                // !!! the save did not keep the order in which the vehicles are checked for insertion
-                MSNet::getInstance()->getInsertionControl().add(v);
-            } else {
-                // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
-                MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
-                if (routingDevice != 0) {
-                    routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
-                }
-            }
+            myVehicleParameter = new SUMOVehicleParameter();
+            myVehicleParameter->id = attrs.getString(SUMO_ATTR_ID);
+            myVehicleParameter->depart = string2time(attrs.getString(SUMO_ATTR_DEPART)) - myOffset;
+            myVehicleParameter->routeid = attrs.getString(SUMO_ATTR_ROUTE);
+            myVehicleParameter->vtypeid = attrs.getString(SUMO_ATTR_TYPE);
+            myLastParameterised = myVehicleParameter;
+            myAttrs = attrs.clone();
+            // vehicle creation must be delayed until all <param>s have been read
             break;
         }
         case SUMO_TAG_SEGMENT: {
@@ -229,6 +215,17 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             break;
         }
+        case SUMO_TAG_PARAM: {
+            bool ok;
+            const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+            // circumventing empty string test
+            const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+            assert(myLastParameterised != 0);
+            if (myLastParameterised != 0) {
+                myLastParameterised->addParameter(key, val);
+            }
+            break;
+        }
         default:
             // parse embedded vtype information
             if (myCurrentVType != 0) {
@@ -247,8 +244,37 @@ MSStateHandler::myEndElement(int element) {
             delete myCurrentVType;
             myCurrentVType = 0;
             break;
+        case SUMO_TAG_VEHICLE: {
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+            const MSRoute* route = MSRoute::dictionary(myVehicleParameter->routeid);
+            const MSVehicleType* type = vc.getVType(myVehicleParameter->vtypeid);
+            assert(route != 0);
+            assert(type != 0);
+            SUMOVehicle* v = vc.buildVehicle(myVehicleParameter, route, type, true);
+            assert(vc.getVehicle(myVehicleParameter->id) == 0);
+            vc.discountStateLoaded(); // already included (see SUMO_TAG_DELAY)
+            v->loadState(*myAttrs, myOffset);
+            if (!vc.addVehicle(myVehicleParameter->id, v)) {
+                throw ProcessError("Error: Could not build vehicle " + myVehicleParameter->id + "!");
+            }
+            if (!v->hasDeparted()) {
+                // !!! the save did not keep the order in which the vehicles are checked for insertion
+                MSNet::getInstance()->getInsertionControl().add(v);
+            } else {
+                // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
+                MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
+                if (routingDevice != 0) {
+                    routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
+                }
+            }
+            delete myAttrs;
+            myVehicleParameter = 0; // managed by the new vehicle
+        }
         default:
             break;
+    }
+    if (element != SUMO_TAG_PARAM && myVehicleParameter == 0 && myCurrentVType == 0) {
+        myLastParameterised = 0;
     }
 }
 

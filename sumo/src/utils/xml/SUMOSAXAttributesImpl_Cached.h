@@ -1,12 +1,10 @@
 /****************************************************************************/
-/// @file    SUMOSAXAttributesImpl_Xerces.h
-/// @author  Daniel Krajzewicz
+/// @file    SUMOSAXAttributesImpl_Cached.cpp
 /// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @date    Fri, 30 Mar 2007
-/// @version $Id$
+/// @date    Dec 2016
+/// @version $Id: SUMOSAXAttributesImpl_Cached.cpp 20433 2016-04-13 08:00:14Z behrisch $
 ///
-// Encapsulated Xerces-SAX-attributes
+// Encapsulated xml-attributes that use a map from string-attr-names to string-attr-values as backend
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2007-2016 DLR (http://www.dlr.de/) and contributors
@@ -19,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef SUMOSAXAttributesImpl_Xerces_h
-#define SUMOSAXAttributesImpl_Xerces_h
+#ifndef SUMOSAXAttributesImpl_Cached_h
+#define SUMOSAXAttributesImpl_Cached_h
 
 
 // ===========================================================================
@@ -45,12 +43,12 @@
 // class definitions
 // ===========================================================================
 /**
- * @class SUMOSAXAttributesImpl_Xerces
+ * @class SUMOSAXAttributesImpl_Cached
  * @brief Encapsulated Xerces-SAX-attributes
  *
  * @see SUMOSAXAttributes
  */
-class SUMOSAXAttributesImpl_Xerces : public SUMOSAXAttributes {
+class SUMOSAXAttributesImpl_Cached : public SUMOSAXAttributes {
 public:
     /** @brief Constructor
      *
@@ -58,14 +56,13 @@ public:
      * @param[in] predefinedTags Map of attribute ids to their xerces-representation
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
-    SUMOSAXAttributesImpl_Xerces(const XERCES_CPP_NAMESPACE::Attributes& attrs,
-                                 const std::map<int, XMLCh*>& predefinedTags,
+    SUMOSAXAttributesImpl_Cached(const std::map<std::string, std::string>& attrs,
                                  const std::map<int, std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 
 
     /// @brief Destructor
-    virtual ~SUMOSAXAttributesImpl_Xerces();
+    virtual ~SUMOSAXAttributesImpl_Cached();
 
 
 
@@ -296,17 +293,12 @@ private:
      * @param[in] id The id of the attribute to retrieve the vale of
      * @return The xerces-value of the attribute
      */
-    const XMLCh* getAttributeValueSecure(int id) const;
+    const char* getAttributeValueSecure(int id) const;
 
 
 private:
     /// @brief The encapsulated attributes
-    const XERCES_CPP_NAMESPACE::Attributes& myAttrs;
-
-    /// @brief Definition of a map of attribute ids to their xerces-representation
-    typedef std::map<int, XMLCh*> AttrMap;
-    /// @brief Map of attribute ids to their xerces-representation
-    const AttrMap& myPredefinedTags;
+    std::map<std::string, std::string> myAttrs;
 
     /// @brief Map of attribute ids to their (readable) string-representation
     const std::map<int, std::string>& myPredefinedTagsMML;
@@ -314,10 +306,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    SUMOSAXAttributesImpl_Xerces(const SUMOSAXAttributesImpl_Xerces& src);
+    SUMOSAXAttributesImpl_Cached(const SUMOSAXAttributesImpl_Cached& src);
 
     /// @brief Invalidated assignment operator.
-    SUMOSAXAttributesImpl_Xerces& operator=(const SUMOSAXAttributesImpl_Xerces& src);
+    SUMOSAXAttributesImpl_Cached& operator=(const SUMOSAXAttributesImpl_Cached& src);
 
 
 };

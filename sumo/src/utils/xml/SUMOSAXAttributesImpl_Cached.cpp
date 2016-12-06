@@ -1,12 +1,10 @@
 /****************************************************************************/
-/// @file    SUMOSAXAttributesImpl_Xerces.cpp
-/// @author  Daniel Krajzewicz
+/// @file    SUMOSAXAttributesImpl_Cached.cpp
 /// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @date    Sept 2002
-/// @version $Id$
+/// @date    Dec 2016
+/// @version $Id: SUMOSAXAttributesImpl_Cached.cpp 20433 2016-04-13 08:00:14Z behrisch $
 ///
-// Encapsulated Xerces-SAX-attributes
+// Encapsulated xml-attributes that use a map from string-attr-names to string-attr-values as backend
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2002-2016 DLR (http://www.dlr.de/) and contributors
@@ -39,9 +37,10 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
+#include <utils/common/StringBijection.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
-#include "SUMOSAXAttributesImpl_Xerces.h"
+#include "SUMOSAXAttributesImpl_Cached.h"
 #include "SUMOSAXAttributesImpl_Cached.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -52,141 +51,101 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const XERCES_CPP_NAMESPACE::Attributes& attrs,
-        const std::map<int, XMLCh*>& predefinedTags,
+SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
+        const std::map<std::string, std::string>& attrs,
         const std::map<int, std::string>& predefinedTagsMML,
         const std::string& objectType) :
     SUMOSAXAttributes(objectType),
     myAttrs(attrs),
-    myPredefinedTags(predefinedTags),
     myPredefinedTagsMML(predefinedTagsMML) { }
 
 
-SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() {
+SUMOSAXAttributesImpl_Cached::~SUMOSAXAttributesImpl_Cached() {
 }
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
-    AttrMap::const_iterator i = myPredefinedTags.find(id);
-    if (i == myPredefinedTags.end()) {
+SUMOSAXAttributesImpl_Cached::hasAttribute(int id) const {
+    std::map<int, std::string>::const_iterator i = myPredefinedTagsMML.find(id);
+    if (i == myPredefinedTagsMML.end()) {
         return false;
     }
-    return myAttrs.getIndex((*i).second) >= 0;
+    return myAttrs.find((*i).second) != myAttrs.end();
 }
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::getBool(int id) const {
+SUMOSAXAttributesImpl_Cached::getBool(int id) const {
     return TplConvert::_2bool(getAttributeValueSecure(id));
 }
 
 
 int
-SUMOSAXAttributesImpl_Xerces::getInt(int id) const {
+SUMOSAXAttributesImpl_Cached::getInt(int id) const {
     return TplConvert::_2int(getAttributeValueSecure(id));
 }
 
 
 long long int
-SUMOSAXAttributesImpl_Xerces::getLong(int id) const {
+SUMOSAXAttributesImpl_Cached::getLong(int id) const {
     return TplConvert::_2long(getAttributeValueSecure(id));
 }
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getString(int id) const {
-    const XMLCh* utf16 = getAttributeValueSecure(id);
-#if _XERCES_VERSION < 30100
-    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(utf16);
-    std::string result(t);
-    XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
-#else
-    if (XERCES_CPP_NAMESPACE::XMLString::stringLen(utf16) == 0) {
-        // TranscodeToStr and debug_new interact badly in this case;
-        return "";
-    } else {
-        try {
-            XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
-            return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
-        } catch (XERCES_CPP_NAMESPACE::TranscodingException e) {
-            return "?";
-        }
-    }
-#endif
+SUMOSAXAttributesImpl_Cached::getString(int id) const {
+    return getAttributeValueSecure(id);
 }
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
+SUMOSAXAttributesImpl_Cached::getStringSecure(int id,
         const std::string& str) const {
-    const XMLCh* utf16 = getAttributeValueSecure(id);
-#if _XERCES_VERSION < 30100
-    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(utf16);
-    std::string result(TplConvert::_2strSec(t, str));
-    XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
-#else
-    if (XERCES_CPP_NAMESPACE::XMLString::stringLen(utf16) == 0) {
-        // TranscodeToStr and debug_new interact badly in this case;
-        return "";
-    } else {
-        try {
-            XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
-            return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
-        } catch (XERCES_CPP_NAMESPACE::TranscodingException e) {
-            return "?";
-        }
-    }
-#endif
+    std::string result = getAttributeValueSecure(id);
+    return result.size() == 0 ? str : result;
 }
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
+SUMOSAXAttributesImpl_Cached::getFloat(int id) const {
     return TplConvert::_2SUMOReal(getAttributeValueSecure(id));
 }
 
 
-const XMLCh*
-SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
-    AttrMap::const_iterator i = myPredefinedTags.find(id);
-    assert(i != myPredefinedTags.end());
-    return myAttrs.getValue((*i).second);
+const char*
+SUMOSAXAttributesImpl_Cached::getAttributeValueSecure(int id) const {
+    std::map<int, std::string>::const_iterator i = myPredefinedTagsMML.find(id);
+    assert(i != myPredefinedTagsMML.end());
+    return myAttrs.find((*i).second)->second.c_str();
 }
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const {
-    XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    SUMOReal result = TplConvert::_2SUMOReal(myAttrs.getValue(t));
-    XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
+SUMOSAXAttributesImpl_Cached::getFloat(const std::string& id) const {
+    return TplConvert::_2SUMOReal(myAttrs.find(id)->second.c_str());
 }
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const {
-    XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    bool result = myAttrs.getIndex(t) >= 0;
-    XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
+SUMOSAXAttributesImpl_Cached::hasAttribute(const std::string& id) const {
+    return myAttrs.find(id) != myAttrs.end();
 }
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
+SUMOSAXAttributesImpl_Cached::getStringSecure(const std::string& id,
         const std::string& str) const {
-    XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    std::string result = TplConvert::_2strSec(myAttrs.getValue(t), str);
-    XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
+    std::map<std::string, std::string>::const_iterator it = myAttrs.find(id);
+    if (it != myAttrs.end() && it->second != "") {
+        return it->second;
+    } else {
+        return str;
+    }
 }
 
 
 SumoXMLEdgeFunc
-SUMOSAXAttributesImpl_Xerces::getEdgeFunc(bool& ok) const {
+SUMOSAXAttributesImpl_Cached::getEdgeFunc(bool& ok) const {
     if (hasAttribute(SUMO_ATTR_FUNCTION)) {
         std::string funcString = getString(SUMO_ATTR_FUNCTION);
         if (SUMOXMLDefinitions::EdgeFunctions.hasString(funcString)) {
@@ -199,7 +158,7 @@ SUMOSAXAttributesImpl_Xerces::getEdgeFunc(bool& ok) const {
 
 
 SumoXMLNodeType
-SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
+SUMOSAXAttributesImpl_Cached::getNodeType(bool& ok) const {
     if (hasAttribute(SUMO_ATTR_TYPE)) {
         std::string typeString = getString(SUMO_ATTR_TYPE);
         if (SUMOXMLDefinitions::NodeTypes.hasString(typeString)) {
@@ -212,13 +171,13 @@ SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
 
 
 RGBColor
-SUMOSAXAttributesImpl_Xerces::getColor() const {
+SUMOSAXAttributesImpl_Cached::getColor() const {
     return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
 }
 
 
 PositionVector
-SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
+SUMOSAXAttributesImpl_Cached::getShape(int attr) const {
     StringTokenizer st(getString(attr));
     PositionVector shape;
     while (st.hasNext()) {
@@ -240,7 +199,7 @@ SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
 
 
 Boundary
-SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
+SUMOSAXAttributesImpl_Cached::getBoundary(int attr) const {
     std::string def = getString(attr);
     StringTokenizer st(def, ",");
     if (st.size() != 4) {
@@ -255,7 +214,7 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
 
 
 std::vector<std::string>
-SUMOSAXAttributesImpl_Xerces::getStringVector(int attr) const {
+SUMOSAXAttributesImpl_Cached::getStringVector(int attr) const {
     std::string def = getString(attr);
     std::vector<std::string> ret;
     parseStringVector(def, ret);
@@ -264,7 +223,7 @@ SUMOSAXAttributesImpl_Xerces::getStringVector(int attr) const {
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
+SUMOSAXAttributesImpl_Cached::getName(int attr) const {
     if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
         return "?";
     }
@@ -273,21 +232,17 @@ SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
 
 
 void
-SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
-    for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        os << " " << TplConvert::_2str(myAttrs.getLocalName(i));
-        os << "=\"" << TplConvert::_2str(myAttrs.getValue(i)) << "\"";
+SUMOSAXAttributesImpl_Cached::serialize(std::ostream& os) const {
+    for (std::map<std::string, std::string>::const_iterator it = myAttrs.begin(); it != myAttrs.end(); ++it) {
+        os << " " << it->first;
+        os << "=\"" << it->second << "\"";
     }
 }
 
 
 SUMOSAXAttributes* 
-SUMOSAXAttributesImpl_Xerces::clone() const {
-    std::map<std::string, std::string> attrs;
-    for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        attrs[TplConvert::_2str(myAttrs.getLocalName(i))] = TplConvert::_2str(myAttrs.getValue(i));
-    }
-    return new SUMOSAXAttributesImpl_Cached(attrs, myPredefinedTagsMML, getObjectType());
+SUMOSAXAttributesImpl_Cached::clone() const {
+    return new SUMOSAXAttributesImpl_Cached(myAttrs, myPredefinedTagsMML, getObjectType());
 }
 
 /****************************************************************************/
