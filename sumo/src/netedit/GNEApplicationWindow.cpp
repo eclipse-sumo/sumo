@@ -215,8 +215,7 @@ GNEApplicationWindow::dependentBuild() {
     // build menu bar
     myMenuBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
     myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GNEDesignBar);
-    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP,
-                      TOOLBARGRIP_DOUBLE);
+    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
     // build the thread - io
     myLoadThreadEvent.setTarget(this),
                                 myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);

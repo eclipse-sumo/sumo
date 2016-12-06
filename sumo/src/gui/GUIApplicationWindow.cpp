@@ -226,8 +226,7 @@ GUIApplicationWindow::dependentBuild() {
     myMenuBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
     myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag,
                               LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
-    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP,
-                      TOOLBARGRIP_DOUBLE);
+    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
     buildToolBars();
     // build the thread - io
     myLoadThreadEvent.setTarget(this),
@@ -563,39 +562,28 @@ GUIApplicationWindow::buildToolBars() {
     {
         // file and simulation tool bar
         myToolBarDrag1 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar1 = new FXToolBar(myTopDock, myToolBarDrag1,
-                                   LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP,
-                          TOOLBARGRIP_DOUBLE);
+        myToolBar1 = new FXToolBar(myTopDock, myToolBarDrag1, GNEDesignToolBarShell1);
+        new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
         // build file tools
-        new FXButton(myToolBar1, "\t\tOpen a simulation (Configuration file).",
-                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG, GNEDesignButtonToolbar);
-        new FXButton(myToolBar1, "\t\tOpen a network.",
-                     GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK, GNEDesignButtonToolbar);
-        new FXButton(myToolBar1, "\t\tReloads the simulation / the network.",
-                     GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD, GNEDesignButtonToolbar);
+        new FXButton(myToolBar1, "\t\tOpen a simulation (Configuration file).", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG, GNEDesignButtonToolbar);
+        new FXButton(myToolBar1, "\t\tOpen a network.", GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK, GNEDesignButtonToolbar);
+        new FXButton(myToolBar1, "\t\tReloads the simulation / the network.", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD, GNEDesignButtonToolbar);
     }
     {
-        // build simulation tools
+        // simulation toolbar
         myToolBarDrag2 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2,
-                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP,
-                          TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar2, "\t\tStart the loaded simulation.",
-                     GUIIconSubSys::getIcon(ICON_START), this, MID_START, GNEDesignButtonToolbar);
-        new FXButton(myToolBar2, "\t\tStop the running simulation.",
-                     GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP, GNEDesignButtonToolbar);
-        new FXButton(myToolBar2, "\t\tPerform a single simulation step.",
-                     GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP, GNEDesignButtonToolbar);
+        myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GNEDesignToolBarShell2);
+        new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
+        // build simulation tools
+        new FXButton(myToolBar2, "\t\tStart the loaded simulation.", GUIIconSubSys::getIcon(ICON_START), this, MID_START, GNEDesignButtonToolbar);
+        new FXButton(myToolBar2, "\t\tStop the running simulation.", GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP, GNEDesignButtonToolbar);
+        new FXButton(myToolBar2, "\t\tPerform a single simulation step.", GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP, GNEDesignButtonToolbar);
     }
     {
         // Simulation Step Display
         myToolBarDrag3 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar3 = new FXToolBar(myTopDock, myToolBarDrag3,
-                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
-                          TOOLBARGRIP_DOUBLE);
+        myToolBar3 = new FXToolBar(myTopDock, myToolBarDrag3, GNEDesignToolBarShell2);
+        new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
         new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE, GNEDesignButtonToolbarText);
 
         myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 13, 0, 0, JUSTIFY_RIGHT);
@@ -608,13 +596,11 @@ GUIApplicationWindow::buildToolBars() {
     {
         // Simulation Delay
         myToolBarDrag4 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED | LAYOUT_FILL_Y);
-        new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+        myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GNEDesignToolBarShell2 | LAYOUT_FILL_Y);
+        new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
         new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE, GNEDesignButtonToolbarText);
 
-        mySimDelayTarget =
-            new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y);
+        mySimDelayTarget = new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY, GNEDesignSpinDial);
         mySimDelayTarget->setNumberFormat(0);
         mySimDelayTarget->setIncrements(1, 10, 10);
         mySimDelayTarget->setRange(0, 1000);
@@ -623,10 +609,8 @@ GUIApplicationWindow::buildToolBars() {
     {
         // Views
         myToolBarDrag5 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar5 = new FXToolBar(myTopDock, myToolBarDrag5,
-                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP,
-                          TOOLBARGRIP_DOUBLE);
+        myToolBar5 = new FXToolBar(myTopDock, myToolBarDrag5, GNEDesignToolBarShell2);
+        new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
         // build view tools
         new FXButton(myToolBar5, "\t\tOpen a new microscopic view.",
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW, GNEDesignButtonToolbar);
@@ -639,8 +623,8 @@ GUIApplicationWindow::buildToolBars() {
         /// game specific stuff
         // total waitingTime
         myToolBarDrag6 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+        myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, GNEDesignToolBarShell2);
+        new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
         new FXLabel(myToolBar6, "Waiting Time:\t\tTime spent waiting accumulated for all vehicles", 0, LAYOUT_TOP | LAYOUT_LEFT);
         myWaitingTimeLabel = new FXEX::FXLCDLabel(myToolBar6, 13, 0, 0, JUSTIFY_RIGHT);
         myWaitingTimeLabel->setHorizontal(2);
@@ -651,8 +635,8 @@ GUIApplicationWindow::buildToolBars() {
 
         // idealistic time loss
         myToolBarDrag7 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+        myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, GNEDesignToolBarShell2);
+        new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
         new FXLabel(myToolBar7, "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for all vehicles", 0, LAYOUT_TOP | LAYOUT_LEFT);
         myTimeLossLabel = new FXEX::FXLCDLabel(myToolBar7, 13, 0, 0, JUSTIFY_RIGHT);
         myTimeLossLabel->setHorizontal(2);

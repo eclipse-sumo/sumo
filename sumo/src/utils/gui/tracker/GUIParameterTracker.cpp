@@ -109,7 +109,7 @@ void
 GUIParameterTracker::buildToolBar() {
     myToolBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
-    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
     // save button
     new FXButton(myToolBar, "\t\tSave the data...",
                  GUIIconSubSys::getIcon(ICON_SAVE), this, GUIParameterTracker::MID_SAVE, GNEDesignButtonToolbar);

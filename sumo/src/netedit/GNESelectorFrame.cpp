@@ -125,7 +125,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     // Create Groupbox for visual scalings
     FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GNEDesignGroupBoxFrame);
     // Create spin button and configure it
-    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, GNEDesignDial);
+    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, GNEDesignSpinDial);
     mySelectionScaling->setNumberFormat(1);
     mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setRange(1, 100);

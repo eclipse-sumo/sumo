@@ -99,7 +99,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     myLookAtZ = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
 #endif
     // ok/cancel
-    new FXHorizontalSeparator(f1, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+    new FXHorizontalSeparator(f1, GNEDesignHorizontalSeparator);
     FXHorizontalFrame* f6 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 0);
     FXButton* initial =
         new FXButton(f6, "&OK", NULL, this, GUIDialog_EditViewport::MID_OK,

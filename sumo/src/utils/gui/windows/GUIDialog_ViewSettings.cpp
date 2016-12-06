@@ -150,7 +150,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                                             LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
                                             0, 0, 100, 0,   0, 0, 0, 0);
 
-        new FXHorizontalSeparator(frame1, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame1, GNEDesignHorizontalSeparator);
 
         FXVerticalFrame* frame11 =
             new FXVerticalFrame(frame1, LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
@@ -160,7 +160,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXButton(frame111, "&Load Decals", NULL, this, MID_SIMPLE_VIEW_LOAD_DECALS, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 20, 20, 4, 4);
         new FXButton(frame111, "&Save Decals", NULL, this, MID_SIMPLE_VIEW_SAVE_DECALS, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 20, 20, 4, 4);
 
-        new FXHorizontalSeparator(frame1, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame1, GNEDesignHorizontalSeparator);
 
         FXMatrix* m12 =
             new FXMatrix(frame1, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -205,7 +205,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
-        new FXHorizontalSeparator(frame2, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame2, GNEDesignHorizontalSeparator);
         //  ... scale settings
         FXVerticalFrame* frame23 =
             new FXVerticalFrame(frame2, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
@@ -229,7 +229,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
             myLaneEdgeScaleMode->setNumVisible((int)mySettings->laneScaler.size());
         }
 
-        new FXHorizontalSeparator(frame2, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame2, GNEDesignHorizontalSeparator);
         FXMatrix* m22 =
             new FXMatrix(frame2, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
@@ -291,7 +291,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myVehicleShapeDetail->setNumVisible(4);
         myVehicleShapeDetail->setCurrentItem(settings->vehicleQuality);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m32 =
             new FXMatrix(frame3, 3, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -305,7 +305,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myVehicleColorSettingFrame =
             new FXVerticalFrame(frame3, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m33 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -332,7 +332,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         tmpc->disable();
         */
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m34 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -359,7 +359,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myPersonShapeDetail->setNumVisible(4);
         myPersonShapeDetail->setCurrentItem(settings->personQuality);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m102 =
             new FXMatrix(frame3, 3, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -373,14 +373,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myPersonColorSettingFrame =
             new FXVerticalFrame(frame3, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m103 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myPersonNamePanel = new NamePanel(m103, this, "Show person name", mySettings->personName);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m104 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -407,7 +407,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myContainerShapeDetail->setNumVisible(4);
         myContainerShapeDetail->setCurrentItem(settings->containerQuality);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m102 =
             new FXMatrix(frame3, 3, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -421,14 +421,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myContainerColorSettingFrame =
             new FXVerticalFrame(frame3, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m103 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myContainerNamePanel = new NamePanel(m103, this, "Show container name", mySettings->containerName);
 
-        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3, GNEDesignHorizontalSeparator);
 
         FXMatrix* m104 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -453,7 +453,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myJunctionColorSettingFrame =
             new FXVerticalFrame(frame4, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
-        new FXHorizontalSeparator(frame4, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame4, GNEDesignHorizontalSeparator);
         FXMatrix* m42 =
             new FXMatrix(frame4, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
@@ -471,7 +471,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myDrawCrossingsAndWalkingAreas = new FXCheckButton(m42, "Draw crossings/walkingareas", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myDrawCrossingsAndWalkingAreas->setCheck(mySettings->drawCrossingsAndWalkingareas);
 
-        new FXHorizontalSeparator(frame4, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame4, GNEDesignHorizontalSeparator);
 
         FXMatrix* m43 =
             new FXMatrix(frame4, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -488,7 +488,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
             new FXMatrix(frame5, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myAddNamePanel = new NamePanel(m51, this, "Show detector name", mySettings->addName);
-        new FXHorizontalSeparator(frame5 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame5 , GNEDesignHorizontalSeparator);
 
         FXMatrix* m52 =
             new FXMatrix(frame5, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -514,7 +514,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
         myPOITypePanel = new NamePanel(m61, this, "Show poi types", mySettings->poiType);
-        new FXHorizontalSeparator(frame6 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame6 , GNEDesignHorizontalSeparator);
 
         FXMatrix* m62 =
             new FXMatrix(frame6, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -533,7 +533,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         myPolyNamePanel = new NamePanel(m91, this, "Show polygon names", mySettings->polyName);
         myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
-        new FXHorizontalSeparator(frame9 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame9 , GNEDesignHorizontalSeparator);
 
         myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
 
@@ -1105,7 +1105,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         FXVerticalFrame* content = new FXVerticalFrame(&dialog, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10);
         new FXLabel(content, "Please enter an alphanumeric name: ", NULL, LAYOUT_FILL_X | JUSTIFY_LEFT);
         FXTextField* text = new FXTextField(content, 40, &dialog, FXDialogBox::ID_ACCEPT, TEXTFIELD_ENTER_ONLY | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X);
-        new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        new FXHorizontalSeparator(content, GNEDesignHorizontalSeparator);
         FXHorizontalFrame* buttons = new FXHorizontalFrame(content, LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 0, 0, 0, 0);
         new FXButton(buttons, "&OK", NULL, &dialog, FXDialogBox::ID_ACCEPT, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_RIGHT);
         new FXButton(buttons, "&Cancel", NULL, &dialog, FXDialogBox::ID_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_RIGHT, 0, 0, 0, 0, 20, 20);

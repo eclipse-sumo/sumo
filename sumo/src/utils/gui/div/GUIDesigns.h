@@ -135,13 +135,10 @@
     
     /// @brief Group box design extended over frame
     #define GNEDesignGroupBoxFrame          (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
-
-    /// @brief Horizontal separator
-    #define GNEDesignHorizontalSeparator    (LAYOUT_FILL_X | SEPARATOR_GROOVE), 0, 0, 0, 2, 2, 2, 4, 4
 /// @}
 
 
-/// @name General design for frames
+/// @name General design for netedit frames
 /// @{
     /// @brief design for frames area
     #define GNEDesignFrameArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
@@ -157,24 +154,42 @@
 /// @}
 
 
-#define GNEDesignRadioButton            (RADIOBUTTON_NORMAL)
+/// @name designs for toolbars
+/// @{
+    /// @brief design for all toolbars and menubars
+    #define GNEDesignBar                    (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
 
-#define GNEDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
+    /// @brief design for toolbar grip (used to change the position of toolbar with mouse)
+    #define GNEDesignToolBarGrip            (TOOLBARGRIP_DOUBLE)
 
-#define GNEDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
+    /// @brief design for first toolbar shell positioned in the next position of dock
+    #define GNEDesignToolBarShell1          (LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED)
 
-#define GNEDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
+    /// @brief design for first toolbar shell positioned in the same  position of dock
+    #define GNEDesignToolBarShell2          (LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED)
+/// @}
 
-#define GNEDesignDial                   (LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y)
+/// @name designs for separators
+/// @{
+    /// @brief horizontal separator
+    #define GNEDesignHorizontalSeparator    (SEPARATOR_GROOVE | LAYOUT_FILL_X)
 
-#define GNEDesignSplitter               (SPLITTER_HORIZONTAL | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK)
+    /// @brief vertical separator
+    #define GNEDesignVerticalSeparator      (SEPARATOR_GROOVE | LAYOUT_FILL_Y)
+/// @{
 
-#define GNEDesignVerticalSeparator      (SEPARATOR_GROOVE | LAYOUT_FILL_Y)
 
+    #define GNEDesignRadioButton            (RADIOBUTTON_NORMAL)
 
+    #define GNEDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
 
-#define GNEDesignBar                (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
+    #define GNEDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
 
+    #define GNEDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
+
+    #define GNEDesignSpinDial               (LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y)
+
+    #define GNEDesignSplitter               (SPLITTER_HORIZONTAL | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK)
 
 #endif
 
