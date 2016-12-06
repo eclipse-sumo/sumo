@@ -79,6 +79,7 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -568,14 +569,11 @@ GUIApplicationWindow::buildToolBars() {
                           TOOLBARGRIP_DOUBLE);
         // build file tools
         new FXButton(myToolBar1, "\t\tOpen a simulation (Configuration file).",
-                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG, GNEDesignButtonToolbar);
         new FXButton(myToolBar1, "\t\tOpen a network.",
-                     GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK, GNEDesignButtonToolbar);
         new FXButton(myToolBar1, "\t\tReloads the simulation / the network.",
-                     GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD, GNEDesignButtonToolbar);
     }
     {
         // build simulation tools
@@ -585,14 +583,11 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         new FXButton(myToolBar2, "\t\tStart the loaded simulation.",
-                     GUIIconSubSys::getIcon(ICON_START), this, MID_START,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_START), this, MID_START, GNEDesignButtonToolbar);
         new FXButton(myToolBar2, "\t\tStop the running simulation.",
-                     GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP, GNEDesignButtonToolbar);
         new FXButton(myToolBar2, "\t\tPerform a single simulation step.",
-                     GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP, GNEDesignButtonToolbar);
     }
     {
         // Simulation Step Display
@@ -601,8 +596,8 @@ GUIApplicationWindow::buildToolBars() {
                                    LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE,
-                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE, GNEDesignButtonToolbarText);
+
         myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 13, 0, 0, JUSTIFY_RIGHT);
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
@@ -613,12 +608,10 @@ GUIApplicationWindow::buildToolBars() {
     {
         // Simulation Delay
         myToolBarDrag4 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4,
-                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED | LAYOUT_FILL_Y);
-        new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
-                          TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE,
-                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+        myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED | LAYOUT_FILL_Y);
+        new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+        new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE, GNEDesignButtonToolbarText);
+
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y);
@@ -636,12 +629,10 @@ GUIApplicationWindow::buildToolBars() {
                           TOOLBARGRIP_DOUBLE);
         // build view tools
         new FXButton(myToolBar5, "\t\tOpen a new microscopic view.",
-                     GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW, GNEDesignButtonToolbar);
 #ifdef HAVE_OSG
         new FXButton(myToolBar5, "\t\tOpen a new 3D view.",
-                     GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_OSGVIEW,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_OSGVIEW, GNEDesignButtonToolbar);
 #endif
     }
     {

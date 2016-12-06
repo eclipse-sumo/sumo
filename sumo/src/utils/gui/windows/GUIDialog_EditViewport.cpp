@@ -38,6 +38,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include "GUISUMOAbstractView.h"
 #include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include "GUIDialog_EditViewport.h"
 
@@ -74,11 +75,9 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         FXHorizontalFrame* frame0 =
             new FXHorizontalFrame(f1, FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
         new FXButton(frame0, "\t\tLoad viewport from file",
-                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD, GNEDesignButtonToolbar);
         new FXButton(frame0, "\t\tSave viewport to file",
-                     GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE,
-                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE, GNEDesignButtonToolbar);
     }
     FXMatrix* m1 = new FXMatrix(f1, 2, MATRIX_BY_COLUMNS);
     new FXLabel(m1, "Zoom:", 0, LAYOUT_CENTER_Y);

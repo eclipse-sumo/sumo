@@ -106,32 +106,26 @@ GUIGlChildWindow::buildNavigationToolBar() {
     // recenter view
     new FXButton(myNavigationToolBar,
                  "\tRecenter View\tRecenter view to the simulated area.",
-                 GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW,
-                 ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                 GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW, GNEDesignButtonToolbar);
     // add viewport button
     new FXButton(myNavigationToolBar,
                  "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
-                 GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
-                 ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                 GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT, GNEDesignButtonToolbar);
     // toggle button for zooming style
     MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myNavigationToolBar,
             "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
-            GUIIconSubSys::getIcon(ICON_ZOOMSTYLE), this, MID_ZOOM_STYLE,
-            BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT,
-            0, 0, 23, 23);
+            GUIIconSubSys::getIcon(ICON_ZOOMSTYLE), this, MID_ZOOM_STYLE, GNEDesignButtonToolbarCheckable);
     zoomBut->setChecked(getApp()->reg().readIntEntry("gui", "zoomAtCenter", 1) != 1);
 
     // build the locator popup
     myLocatorPopup = new FXPopup(myNavigationToolBar, POPUP_VERTICAL);
     myLocatorButton = new FXMenuButton(myNavigationToolBar, "\tLocate Structures\tLocate structures within the network.",
                                        GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup,
-                                       MENUBUTTON_RIGHT | LAYOUT_TOP | BUTTON_TOOLBAR | FRAME_RAISED | FRAME_THICK);
+                                       GNEDesignButtonToolbarLocator);
     // add toggle button for tool-tips on/off
     new MFXCheckableButton(false, myNavigationToolBar,
                            "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
-                           GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS,
-                           BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT,
-                           0, 0, 23, 23);
+                           GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GNEDesignButtonToolbarCheckable);
 
 }
 
@@ -149,8 +143,7 @@ GUIGlChildWindow::buildColoringToolBar() {
     // editor
     new FXButton(myNavigationToolBar,
                  "\tEdit Coloring Schemes...\tOpens a menu which lets you edit the coloring schemes.",
-                 GUIIconSubSys::getIcon(ICON_COLORWHEEL), this, MID_EDITVIEWSCHEME,
-                 ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                 GUIIconSubSys::getIcon(ICON_COLORWHEEL), this, MID_EDITVIEWSCHEME, GNEDesignButtonToolbar);
 }
 
 
@@ -161,8 +154,7 @@ GUIGlChildWindow::buildScreenshotToolBar() {
     // snapshot
     new MFXCheckableButton(false, myNavigationToolBar,
                            "\tMake Snapshot\tMakes a snapshot of the view.",
-                           GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT,
-                           ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                           GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT, GNEDesignButtonToolbar);
 }
 
 
