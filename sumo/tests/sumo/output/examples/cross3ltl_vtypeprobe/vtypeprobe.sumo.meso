@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 31 12:55:34 2016 by SUMO Version dev-SVN-r20823
+<!-- generated on Tue Dec  6 12:30:58 2016 by SUMO Version dev-SVN-r22190
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<vehicle-type-probes>
+<vehicle-type-probes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/vtypeprobe_file.xsd">
     <timestep time="0.00" id="test1" vType="DEFAULT_VEHTYPE"/>
     <timestep time="10.00" id="test1" vType="DEFAULT_VEHTYPE"/>
     <timestep time="20.00" id="test1" vType="DEFAULT_VEHTYPE"/>

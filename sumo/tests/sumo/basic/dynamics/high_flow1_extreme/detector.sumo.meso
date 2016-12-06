@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 31 12:55:28 2016 by SUMO Version dev-SVN-r20823
+<!-- generated on Tue Dec  6 12:30:50 2016 by SUMO Version dev-SVN-r22190
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
 </configuration>
 -->
 
-<detector>
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1372.68" density="15.77" occupancy="4.73" waitingTime="0.00" speed="33.93" departed="0" arrived="480" entered="483" left="0"/>
     <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="3041.26" density="34.94" occupancy="10.48" waitingTime="0.00" speed="18.69" departed="131" arrived="579" entered="466" left="0"/>
     <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1674.24" density="19.23" occupancy="5.77" waitingTime="0.00" speed="29.14" departed="0" arrived="514" entered="494" left="0"/>

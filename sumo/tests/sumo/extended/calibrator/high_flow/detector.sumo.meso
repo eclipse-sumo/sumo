@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  1 15:29:09 2016 by SUMO Version dev-SVN-r21086
+<!-- generated on Tue Dec  6 12:31:00 2016 by SUMO Version dev-SVN-r22190
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,9 +27,9 @@
 </configuration>
 -->
 
-<calibratorstats>
-   <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="28.12" aspiredSpeed="27.80"/>
-   <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1245" removed="0" inserted="1245" cleared="0" flow="2490.00" aspiredFlow="2500.00" speed="14.80" aspiredSpeed="15.00"/>
-   <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1189" removed="0" inserted="1189" cleared="0" flow="2378.00" aspiredFlow="2500.00" speed="8.79" aspiredSpeed="10.00"/>
-   <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="1075" removed="0" inserted="1075" cleared="0" flow="2150.00" aspiredFlow="2500.00" speed="5.09" aspiredSpeed="5.00"/>
+<calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
+    <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="28.12" aspiredSpeed="27.80"/>
+    <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1245" removed="0" inserted="1245" cleared="0" flow="2490.00" aspiredFlow="2500.00" speed="14.80" aspiredSpeed="15.00"/>
+    <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1189" removed="0" inserted="1189" cleared="0" flow="2378.00" aspiredFlow="2500.00" speed="8.79" aspiredSpeed="10.00"/>
+    <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="1075" removed="0" inserted="1075" cleared="0" flow="2150.00" aspiredFlow="2500.00" speed="5.09" aspiredSpeed="5.00"/>
 </calibratorstats>
