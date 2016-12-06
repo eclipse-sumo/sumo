@@ -430,6 +430,17 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Edit", 0, myEditMenu);
 
+    // build undo/redo command
+    new FXMenuCommand(myEditMenu,
+                      "&Undo\tCtrl+Z\tUndo the last change.",
+                      GUIIconSubSys::getIcon(ICON_UNDO), myUndoList, FXUndoList::ID_UNDO);
+    new FXMenuCommand(myEditMenu,
+                      "&Redo\tCtrl+Y\tRedo the last change.",
+                      GUIIconSubSys::getIcon(ICON_REDO), myUndoList, FXUndoList::ID_REDO);
+    
+    new FXMenuSeparator(myEditMenu);
+    
+    // build modes command
     new FXMenuCommand(myEditMenu, 
                       "&Edge mode\tE\tCreate junction and edges.", 
                       GUIIconSubSys::getIcon(ICON_GNEMODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE);
@@ -457,14 +468,6 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "C&rossing mode\tR\tCreate crossings between edges.", 
                       GUIIconSubSys::getIcon(ICON_GNEMODECROSSING), this, MID_GNE_MODE_CROSSING);
-
-    new FXMenuSeparator(myEditMenu);
-    new FXMenuCommand(myEditMenu,
-                      "&Undo\tCtrl+Z\tUndo the last change.",
-                      GUIIconSubSys::getIcon(ICON_UNDO), myUndoList, FXUndoList::ID_UNDO);
-    new FXMenuCommand(myEditMenu,
-                      "&Redo\tCtrl+Y\tRedo the last change.",
-                      GUIIconSubSys::getIcon(ICON_REDO), myUndoList, FXUndoList::ID_REDO);
 
     /*
     new FXMenuSeparator(myEditMenu);
