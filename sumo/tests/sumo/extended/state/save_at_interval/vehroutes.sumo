@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 21 08:48:54 2013 by SUMO sumo Version dev-SVN-r15177
+<!-- generated on Tue Dec  6 14:48:54 2016 by SUMO Version dev-SVN-r22185
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -12,13 +12,14 @@
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
-        <save-state.times value="1,10"/>
-        <save-state.files value="state.xml,state2.xml"/>
+        <save-state.period value="4"/>
+        <save-state.suffix value=".xml"/>
     </output>
 
     <report>
         <verbose value="true"/>
-        <no-duration-log value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -28,6 +29,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="v0" type="type1" depart="0.00" arrival="26.00">
         <route edges="beg middle end"/>
+        <param key="has.rerouting.device" value="false"/>
     </vehicle>
 
     <vehicle id="v1" type="type2" depart="4.00" arrival="30.00">
