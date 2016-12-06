@@ -292,23 +292,25 @@ GNECrossingFrame::crossingParameters::isCrossingParametersEnabled() const {
 
 void 
 GNECrossingFrame::crossingParameters::markEdge(GNEEdge *edge) {
-    // Check if edge belongs to junction's edge
     GNEJunction * currentJunction = myCrossingFrameParent->getEdgeSelector()->getCurrentJunction();
-    if(std::find(currentJunction->getGNEEdges().begin(), currentJunction->getGNEEdges().end(), edge) != currentJunction->getGNEEdges().end()) {
-        // Update text field with the new edge
-        std::vector<std::string> crossingEdges;
-        SUMOSAXAttributes::parseStringVector(myCrossingEdges->getText().text(), crossingEdges);
-        // Check if new edge must be added or removed
-        std::vector<std::string>::iterator itFinder = std::find(crossingEdges.begin(), crossingEdges.end(), edge->getID());
-        if(itFinder == crossingEdges.end()) {
-            crossingEdges.push_back(edge->getID());
-        } else {
-            crossingEdges.erase(itFinder);
+    if(currentJunction != NULL) {
+        // Check if edge belongs to junction's edge
+        if(std::find(currentJunction->getGNEEdges().begin(), currentJunction->getGNEEdges().end(), edge) != currentJunction->getGNEEdges().end()) {
+            // Update text field with the new edge
+            std::vector<std::string> crossingEdges;
+            SUMOSAXAttributes::parseStringVector(myCrossingEdges->getText().text(), crossingEdges);
+            // Check if new edge must be added or removed
+            std::vector<std::string>::iterator itFinder = std::find(crossingEdges.begin(), crossingEdges.end(), edge->getID());
+            if(itFinder == crossingEdges.end()) {
+                crossingEdges.push_back(edge->getID());
+            } else {
+                crossingEdges.erase(itFinder);
+            }
+            myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
         }
-        myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
+        // Update colors and attributes
+        onCmdSetAttribute(0,0,0);
     }
-    // Update colors and attributes
-    onCmdSetAttribute(0,0,0);
 }
 
 
