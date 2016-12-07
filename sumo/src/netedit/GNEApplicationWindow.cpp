@@ -367,7 +367,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "&Save Network...\tCtrl+S\tSave the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_NETWORK);
     new FXMenuCommand(myFileMenu,
-                      "Save Net&work As...\tCtrl+Shift+S\tSave the network.",
+                      "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_AS_NETWORK);
     new FXMenuCommand(myFileMenu,
                       "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
@@ -379,10 +379,10 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save POIs As ...\tCtrl+Shift+P\tSave the POIs.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_POIS);
     new FXMenuCommand(myFileMenu,
-                      "Save additionals\t\tSave additional elements.",
+                      "Save additionals\tCtrl+Shift+D\tSave additional elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_ADDITIONALS);
     new FXMenuCommand(myFileMenu,
-                      "Save additionals As...\tCtrl+Shift+D\tSave additional elements.",
+                      "Save additionals As...\t\tSave additional elements in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_ADDITIONALS_AS);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
