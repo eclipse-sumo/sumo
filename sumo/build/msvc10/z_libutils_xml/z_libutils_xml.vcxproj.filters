@@ -50,6 +50,9 @@
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXReader.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Cached.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\xml\GenericSAXHandler.h">
@@ -89,6 +92,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXReader.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Cached.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

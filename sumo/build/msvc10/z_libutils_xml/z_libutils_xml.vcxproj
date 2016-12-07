@@ -152,6 +152,7 @@
     <ClCompile Include="..\..\..\src\utils\xml\SUMORouteLoaderControl.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributes.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.cpp" />
+    <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Cached.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXHandler.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXReader.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="..\..\..\src\utils\xml\SUMORouteLoaderControl.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributes.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.h" />
+    <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Cached.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXHandler.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXReader.h" />
