@@ -1355,10 +1355,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             Position pos(x, y);
             SUMOReal angle = origAngle;
-            if (angle >= 180.) {
-                angle = -360. + angle;
-            } else if (angle <= -180.) {
-                angle = 360. + angle;
+            // angle must be in [0,360] because it will be compared against those returned by naviDegree()
+            while (angle >= 360.) {
+                angle -= 360.;
+            }
+            while (angle < 0.) {
+                angle += 360.;
             }
 
             Position vehPos = v->getPosition();
@@ -1538,18 +1540,19 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
 
         // weight the lanes...
         const std::vector<MSLane*>& lanes = e->getLanes();
+        const bool perpendicular = true;
         for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
             MSLane* lane = *k;
-            SUMOReal off = lane->getShape().nearest_offset_to_point2D(pos);
+            SUMOReal off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
             SUMOReal langle = 180.;
             SUMOReal dist = 1000.;
             if (off >= 0) {
-                dist = lane->getShape().distance2D(pos);
+                dist = lane->getShape().distance2D(pos, perpendicular);
                 if (dist > lane->getLength()) { // this is a workaround
                     // a SmartDB, running at :49_2 delivers off=~9.24 while dist>24.?
                     dist = 1000.;
                 } else {
-                    langle = GeomHelper::naviDegree(lane->getShape().rotationDegreeAtOffset(off));
+                    langle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(off));
                 }
             }
             bool sameEdge = v.isOnRoad() && &lane->getEdge() == &v.getLane()->getEdge() && v.getEdge()->getLanes()[0]->getLength() > v.getPositionOnLane() + SPEED2DIST(speed);
@@ -1561,7 +1564,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             }
             */
 #ifdef DEBUG_VTD_ANGLE
-            std::cout << lane->getID() << ": " << langle << " " << off << std::endl;
+            std::cout << lane->getID() << " langle:" << langle << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) << " off:" << off << std::endl;
 #endif
             lane2utility[lane] = LaneUtility(
                                      dist, GeomHelper::getMinAngleDiff(angle, langle),
