@@ -20,10 +20,11 @@ import socket
 import os
 import sys
 import platform
+import subprocess
 
 # get enviroment values
 SUMOFolder = os.environ.get('SUMO_HOME', '.')
-neteditApp = os.environ.get('NETEDIT_BINARY', '.')
+neteditApp = os.environ.get('NETEDIT_BINARY', 'netedit')
 textTestSandBox = os.environ.get('TEXTTEST_SANDBOX', '.')
 
 # Get current operating system
@@ -42,12 +43,15 @@ try:
     statusReceived = statusSocket.recv(1024)
     statusSocket.close()
     # If status of server contains "200 OK", Sikulix server is ready, in other
-    # case is ocupped
+    # case is ocuppied
     if "200 OK" not in statusReceived:
         sys.exit("Sikulix server not ready")
 except:
     # Cannot connect to SikulixServer, then Sikulix Server isn't running
-    sys.exit("Sikulix server isn't running")
+    # we try to run sikulix directly
+    runSik = os.path.join(os.environ["SIKULIX_HOME"], "runsikulix")
+    subprocess.call([runSik] + sys.argv[1:])
+    sys.exit()
 
 # IMAGES
 imagesSocket = socket.socket()
@@ -67,8 +71,7 @@ scriptSocket.send("GET /scripts/" + textTestSandBox + " HTTP/1.1\n\n")
 scriptReceived = (scriptSocket.recv(1024))
 scriptSocket.close()
 if "200 OK" not in scriptReceived:
-    sys.exit("Error adding script folder '" + SUMOFolder + +
-             "/tests/netedit/" + sys.argv[1] + "'")
+    sys.exit("Error adding script folder '" + textTestSandBox + "'")
 
 # RUN
 runSocket = socket.socket()

@@ -1,19 +1,21 @@
 # import common functions for netedit tests
 import os
-execfile(os.environ.get('SUMO_HOME', '.') + "/tests/netedit/neteditTestFunctions.py")
+import sys
+
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+sys.path.append(neteditTestRoot)
+import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess = openNetedit(True)
-
-# Wait to netedit reference
-match = getNeteditMatch(neteditProcess)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 
 # obtain match for additionalsComboBox
 additionalsComboBox = match.getTarget().offset(-75, 50)
-	
+
 # Focus netedit window
 click(match)
-	
+
 # Change to create mode
 type("e")
 
@@ -39,11 +41,11 @@ type("d")
 click(match.getTarget().offset(460, 315))
 
 # Check undo redo
-neteditUndo(neteditProcess, match, 3)
-neteditRedo(neteditProcess, match, 3)
+netedit.undo(match, 3)
+netedit.redo(match, 3)
 
 # save additionals
-neteditSaveAdditionals(match)
+netedit.saveAdditionals(match)
 
 # quit netedit without saving
-neteditQuit(neteditProcess, False, True)
+netedit.quit(neteditProcess, False, True)

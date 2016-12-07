@@ -1,19 +1,20 @@
-# import common functions for netedit tests
 import os
-execfile(os.environ.get('SUMO_HOME', '.') + "/tests/netedit/neteditTestFunctions.py")
+import sys
+
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+sys.path.append(neteditTestRoot)
+import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess = openNetedit(True)
-
-# Wait to netedit reference
-match = getNeteditMatch(neteditProcess)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 
 # obtain match for additionalsComboBox
 additionalsComboBox = match.getTarget().offset(-75, 50)
-	
+
 # Focus netedit window
 click(match)
-	
+
 # Change to create mode
 type("e")
 
@@ -41,8 +42,8 @@ type("a")
 parametersReference = additionalsComboBox
 
 # change reference to center
-modifyStoppingPlaceReference(parametersReference, 6, 2)
-	
+netedit.modifyStoppingPlaceReference(parametersReference, 6, 2)
+
 # create first busstop in mode "reference center"
 click(match.getTarget().offset(400, 150))
 
@@ -56,62 +57,62 @@ type("i")
 click(match.getTarget().offset(400, 170))
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-modifyAttribute(parametersReference, 0, "busStop_gneE1_0_1")
+netedit.modifyAttribute(parametersReference, 0, "busStop_gneE1_0_1")
 
 # Change parameter 0 with a valid value
-modifyAttribute(parametersReference, 0, "correct ID")
+netedit.modifyAttribute(parametersReference, 0, "correct ID")
 
 # Change parameter 1 with a non valid value (dummy lane)
-modifyAttribute(parametersReference, 1, "dummy lane")
+netedit.modifyAttribute(parametersReference, 1, "dummy lane")
 
 # Change parameter 1 with a valid value (different edge)
-modifyAttribute(parametersReference, 1, "gneE0_0")
+netedit.modifyAttribute(parametersReference, 1, "gneE0_0")
 
 # Change parameter 1 with a valid value (same edge, different lane)
-modifyAttribute(parametersReference, 1, "gneE0_1")
+netedit.modifyAttribute(parametersReference, 1, "gneE0_1")
 
 # Change parameter 2 with a non valid value (negative)
-modifyAttribute(parametersReference, 2, "-5")
+netedit.modifyAttribute(parametersReference, 2, "-5")
 
 # Change parameter 2 with a non valid value (> endPos)
-modifyAttribute(parametersReference, 2, "400")
+netedit.modifyAttribute(parametersReference, 2, "400")
 
 # Change parameter 2 with a valid value
-modifyAttribute(parametersReference, 2, "20")
+netedit.modifyAttribute(parametersReference, 2, "20")
 
 # Change parameter 3 with a non valid value (out of range, and not accepted)
-modifyAttribute(parametersReference, 3, "3000")
+netedit.modifyAttribute(parametersReference, 3, "3000")
 
 # Answer "no" to the answer dialog
-waitQuestion("n")
+netedit.waitQuestion("n")
 
 # Change parameter 3 with a valid value (out of range, but adapted to the end of lane)
-modifyAttribute(parametersReference, 3, "3000")
+netedit.modifyAttribute(parametersReference, 3, "3000")
 
 # Answer "yes" to the answer dialog
-waitQuestion("y")
+netedit.waitQuestion("y")
 
 # Change parameter 3 with a non valid value (<startPos)
-modifyAttribute(parametersReference, 3, "10")
+netedit.modifyAttribute(parametersReference, 3, "10")
 
 # Change parameter 3 with a valid value
-modifyAttribute(parametersReference, 3, "30")
+netedit.modifyAttribute(parametersReference, 3, "30")
 
 # Change parameter 4 with a non valid value (throw warning)
-modifyAttribute(parametersReference, 4, "line1, line2")
+netedit.modifyAttribute(parametersReference, 4, "line1, line2")
 
 # Change parameter 4 with a valid value
-modifyAttribute(parametersReference, 4, "line1 line2")
+netedit.modifyAttribute(parametersReference, 4, "line1 line2")
 
 # go to a empty area
 click(match);
 
 # Check undos and redos
-neteditUndo(neteditProcess, match, 13)
-neteditRedo(neteditProcess, match, 13)
+netedit.undo(match, 13)
+netedit.redo(match, 13)
 
 # Save additionals
-neteditSaveAdditionals(match)
+netedit.saveAdditionals(match)
 
 # quit netedit saving net
-neteditQuit(neteditProcess, True, True)
+netedit.quit(neteditProcess, True, True)

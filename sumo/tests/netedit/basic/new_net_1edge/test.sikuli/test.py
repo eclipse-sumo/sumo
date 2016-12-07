@@ -1,43 +1,16 @@
 # Import libraries
 import os
 import sys
-import subprocess
 
-#** Common parameters **#
-Settings.MoveMouseDelay = 0.1
-Settings.DelayBeforeDrop = 0.1
-Settings.DelayAfterDrag = 0.1
-# SUMO Folder
-SUMOFolder = os.environ.get('SUMO_HOME', '.')
-# Current environment
-currentEnvironmentFile = open(SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "r")
-# Get path to netEdit app
-neteditApp = currentEnvironmentFile.readline().replace("\n", "")
-# Get SandBox folder
-textTestSandBox = currentEnvironmentFile.readline().replace("\n", "")
-# Get resources depending of the current Operating system
-currentOS = currentEnvironmentFile.readline().replace("\n", "")
-neteditResources = SUMOFolder + "/tests/netedit/imageResources/" + currentOS + "/"
-neteditReference = SUMOFolder + "/tests/netedit/imageResources/reference.png"
-currentEnvironmentFile.close()
-#****#
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+sys.path.append(neteditTestRoot)
+import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess = subprocess.Popen([neteditApp,
-                                   '--gui-testing',
-                                   '--window-size', '700,500',
-                                   '--new',
-                                   '-o', textTestSandBox + "/net.net.xml"],
-								   env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+_, match = netedit.setupAndStart(neteditTestRoot, True)
 
-# Wait to netedit and focus
-try:
-    match = wait(neteditReference, 20)
-except:
-    neteditProcess.kill()
-    sys.exit("Killed netedit process. 'reference.png' not found")
-
-# Focus netedid window
+# Focus netedit window
 click(match.getTarget().offset(0, -105))
 
 # Change to create mode
