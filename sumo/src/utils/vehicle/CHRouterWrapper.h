@@ -90,7 +90,7 @@ public:
 
     ~CHRouterWrapper() {
         for (typename RouterMap::iterator i = myRouters.begin(); i != myRouters.end(); ++i) {
-            for (std::vector<CHRouterType*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
+            for (typename std::vector<CHRouterType*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
                 delete *j;
             }
         }
@@ -100,7 +100,7 @@ public:
     virtual SUMOAbstractRouter<E, V>* clone() {
         CHRouterWrapper<E, V, PF>* clone = new CHRouterWrapper<E, V, PF>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, myMaxNumInstances);
         for (typename RouterMap::iterator i = myRouters.begin(); i != myRouters.end(); ++i) {
-            for (std::vector<CHRouterType*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
+            for (typename std::vector<CHRouterType*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
                 clone->myRouters[i->first].push_back(static_cast<CHRouterType*>((*j)->clone()));
             }
         }
