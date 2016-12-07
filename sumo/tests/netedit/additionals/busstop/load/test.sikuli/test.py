@@ -1,17 +1,18 @@
 # import common functions for netedit tests
 import os
-execfile(os.environ.get('SUMO_HOME', '.') + "/tests/netedit/neteditTestFunctions.py")
+import sys
+
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+sys.path.append(neteditTestRoot)
+import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess = openNetedit(False)
-
-# Wait to netedit reference
-match = getNeteditMatch(neteditProcess)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 
 # save additionals
-neteditSaveAdditionals(match, True)
+netedit.saveAdditionals(match)
 
 #quit without saving
 ##### BUG: Must be neteditQuit(False, False)
-neteditQuit(neteditProcess, True, True)
-
+netedit.quit(neteditProcess, True, True)

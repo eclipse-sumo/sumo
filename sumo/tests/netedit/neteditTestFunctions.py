@@ -18,9 +18,10 @@ def setup(neteditTests):
     envFile = os.path.join(neteditTests, "currentEnvironment.tmp")
     if os.path.exists(envFile):
         global neteditApp, textTestSandBox, currentOS
-        neteditApp, textTestSandBox = [l.strip() for l in open(envFile).readlines()]
-        if not os.path.exists(textTestSandBox):
-            textTestSandBox = "."
+        neteditApp, sandBox = [l.strip() for l in open(envFile).readlines()]
+        if os.path.exists(sandBox):
+            textTestSandBox = sandBox
+        os.remove(envFile)
     # get reference for match
     global referenceImage
     referenceImage = os.path.join(neteditTests, "imageResources", "reference.png")
@@ -39,7 +40,7 @@ def Popen(newNet):
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
         neteditParameters += ['--sumo-additionals-file', os.path.join(textTestSandBox, "input_additionals.add.xml")]
-    else :
+    else:
         neteditParameters.append('--additionals-output')
         neteditParameters.append(textTestSandBox + "/additionals.xml")
     
@@ -77,7 +78,7 @@ def redo(match, number) :
 
         
 # netedit modify attribute
-def modifyAttribute(parametersReference, attributeNumber, value) :
+def modifyAttribute(parametersReference, attributeNumber, value):
     click(parametersReference)
     for x in range(0, attributeNumber) :
         type(Key.TAB)
@@ -89,7 +90,7 @@ def modifyAttribute(parametersReference, attributeNumber, value) :
     type(Key.ENTER)
     
 # netedit modify attribute
-def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns) :
+def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns):
     click(parametersReference)
     # place cursor in comboBox Reference
     for x in range(0, numTabs) :
@@ -102,7 +103,7 @@ def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns) :
         type(Key.DOWN)
     
 # block additional
-def changeBlockAdditional(numTabs) :
+def changeBlockAdditional(parametersReference, numTabs):
     click(parametersReference)
     # place cursor in block movement checkbox
     for x in range(0, numTabs) :

@@ -1,12 +1,14 @@
 # import common functions for netedit tests
 import os
-execfile(os.environ.get('SUMO_HOME', '.') + "/tests/netedit/neteditTestFunctions.py")
+import sys
+
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+sys.path.append(neteditTestRoot)
+import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess = openNetedit(True)
-
-# Wait to netedit reference
-match = getNeteditMatch(neteditProcess)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 
 # Change to create mode
 type("e")
@@ -18,19 +20,19 @@ click(match.getTarget().offset(300, 300))
 # Change to create additional
 type("a")
 
-# go to additionalsComboBox
-click(additionalsComboBox)
-
 # by default, additional is busstop, then isn't needed to select "busstop"
 
 # obtain match for additionalsComboBox
 additionalsComboBox = match.getTarget().offset(-75, 50)
 
+# go to additionalsComboBox
+click(additionalsComboBox)
+
 # obtain reference for parameters (In this case, is the same as the additionalsComboBox)
 parametersReference = additionalsComboBox
 
 # change reference to center
-modifyStoppingPlaceReference(parametersReference, 6, 2)
+netedit.modifyStoppingPlaceReference(parametersReference, 6, 2)
 
 # create busstop in mode "reference center"
 click(match.getTarget().offset(300, 300))
@@ -73,12 +75,11 @@ dragDrop(match.getTarget().offset(500, 235), match.getTarget().offset(300, 235))
 Settings.MoveMouseDelay = 0.1
 
 # Check undos and redos
-neteditUndo(neteditProcess, match, 10)
-neteditRedo(neteditProcess, match, 10)
+netedit.undo(match, 10)
+netedit.redo(match, 10)
 
 # save additionals
-neteditSaveAdditionals(match)
+netedit.saveAdditionals(match)
 
 # quit netedit without saving
-neteditQuit(neteditProcess, True, True)
-
+netedit.quit(neteditProcess, True, True)
