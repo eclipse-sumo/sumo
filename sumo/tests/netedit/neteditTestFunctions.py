@@ -69,14 +69,13 @@ def setupAndStart(testRoot, newNet):
 
 # netedit undo
 def undo(match, number) :
-    click(match) #bug mit ctrl+z founded
+    click(match)
     for x in range(0, number) :
         type("z", Key.CTRL)
     
 # netedit redo
 def redo(match, number) :
     click(match)
-    #bug mit ctrl+y founded
     for x in range(0, number) :
         type("y", Key.CTRL)
 
@@ -124,7 +123,7 @@ def waitQuestion(answer) :
     
 # netedit quit
 def quit(neteditProcess, mustBeSaved, save) :
-    # quit
+    # quit using hotkey
     type("q", Key.CTRL)
 
     # Check if net must be saved
@@ -144,18 +143,6 @@ def quit(neteditProcess, mustBeSaved, save) :
     
 
 # netedit save additionals
-def saveAdditionals(match, neteditLoadedAtStart = False) :
-    # first move cursor to ensure no menu item is highlighted
-    hover(match.getTarget().offset(0, -120))
-    
-    # open file menu
-    type("f", Key.ALT)
-    
-    # select option "save additionals" depending of neteditLoadedAtStart
-    if neteditLoadedAtStart:
-        for x in range(0, 13):
-            type(Key.DOWN)
-    else:
-        for x in range(0, 12):
-            type(Key.DOWN)
-    type(Key.ENTER)
+def saveAdditionals(match) :
+    # save additionals using hotkey
+    type("d", Key.CTRL + Key.SHIFT)
