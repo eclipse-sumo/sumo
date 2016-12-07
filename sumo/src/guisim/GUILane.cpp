@@ -452,7 +452,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     }
-    const bool drawDetails =  s.scale * exaggeration > 5;
+    const bool drawDetails =  s.scale * exaggeration > 5 && !s.drawForSelecting;
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
