@@ -406,10 +406,10 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, myHolder.getVClass(), weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
-            const SUMOTime begin = string2time(oc.getString("begin"));
             const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
             myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
-                MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, begin, weightPeriod);
+                MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort,
+                string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, oc.getInt("device.rerouting.threads"));
         } else {
             throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
         }

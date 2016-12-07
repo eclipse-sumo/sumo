@@ -129,9 +129,6 @@ public:
         /// Connections to higher ranked nodes
         std::vector<Connection> upward;
 
-        /// the contraction rank (higher means more important)
-        int rank;
-
         inline void reset() {
             traveltime = std::numeric_limits<SUMOReal>::max();
             visited = false;
@@ -315,8 +312,7 @@ public:
     /** @brief Constructor
      * @param[in] validatePermissions Whether a multi-permission hierarchy shall be built
      *            If set to false, the net is pruned in synchronize() and the
-     *            hierarchy is tailored to the vClass of the defaultVehicle
-     * @note: defaultVehicle is not transient and must be kept after constructor finishes
+     *            hierarchy is tailored to the svc
      */
     CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation,
              const SUMOVehicleClass svc,
@@ -344,8 +340,29 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
+        CHRouter<E, V, PF>* clone = new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                                       mySVC, myWeightPeriod, mySPTree->validatePermissions());
+        clone->myValidUntil = myValidUntil;
+        // add outgoing connections to the forward search
+        for (typename std::vector<E*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+            EdgeInfo* origEdgeInfoFW = myForwardSearch.getEdgeInfo(*i);
+            EdgeInfo* clonedEdgeInfoFW = clone->myForwardSearch.getEdgeInfo(*i);
+            for (typename std::vector<Connection>::const_iterator it = origEdgeInfoFW->upward.begin(); it != origEdgeInfoFW->upward.end(); ++it) {
+                EdgeInfo* followerInfoFW = clone->myForwardSearch.getEdgeInfo(it->target->edge);
+                clonedEdgeInfoFW->upward.push_back(Connection(followerInfoFW, it->cost, it->permissions));
+            }
+        }
+        // add incoming connections to the backward search
+        for (typename std::vector<E*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+            EdgeInfo* origEdgeInfoBW = myBackwardSearch.getEdgeInfo(*i);
+            EdgeInfo* clonedEdgeInfoBW = clone->myBackwardSearch.getEdgeInfo(*i);
+            for (typename std::vector<Connection>::const_iterator it = origEdgeInfoBW->upward.begin(); it != origEdgeInfoBW->upward.end(); ++it) {
+                EdgeInfo* approachingInfoBW = clone->myBackwardSearch.getEdgeInfo(it->target->edge);
+                clonedEdgeInfoBW->upward.push_back(Connection(approachingInfoBW, it->cost, it->permissions));
+            }
+        }
+        clone->myShortcuts = myShortcuts;
+        return clone;
     }
 
     /** @brief Builds the route between the given edges using the minimum traveltime in the contracted graph
@@ -497,7 +514,7 @@ public:
         void updateShortcuts(SPTree<CHInfo, CHConnection>* spTree) {
             const bool validatePermissions = spTree->validatePermissions();
 #ifdef CHRouter_DEBUG_CONTRACTION_DEGREE
-            const int degree = approaching.size() + followers.size();
+            const int degree = (int)approaching.size() + (int)followers.size();
             std::cout << "computing shortcuts for '" + edge->getID() + "' with degree " + toString(degree) + "\n";
 #endif
             shortcuts.clear();
@@ -698,7 +715,7 @@ private:
         assert(false);
     }
 
-
+public:
     void buildContractionHierarchy(SUMOTime time, const V* const vehicle) {
         const int numEdges = (int)myCHInfos.size();
         const std::string vClass = (mySPTree->validatePermissions() ?
@@ -738,7 +755,6 @@ private:
             E* edge = max->edge;
             // add outgoing connections to the forward search
             EdgeInfo* edgeInfoFW = myForwardSearch.getEdgeInfo(edge);
-            edgeInfoFW->rank = contractionRank;
             for (typename CHConnections::iterator it = max->followers.begin(); it != max->followers.end(); it++) {
                 CHConnection& con = *it;
                 EdgeInfo* followerInfoFW = myForwardSearch.getEdgeInfo(con.target->edge);
@@ -748,7 +764,6 @@ private:
             }
             // add incoming connections to the backward search
             EdgeInfo* edgeInfoBW = myBackwardSearch.getEdgeInfo(edge);
-            edgeInfoBW->rank = contractionRank;
             for (typename CHConnections::iterator it = max->approaching.begin(); it != max->approaching.end(); it++) {
                 CHConnection& con = *it;
                 EdgeInfo* approachingInfoBW = myBackwardSearch.getEdgeInfo(con.target->edge);
@@ -794,6 +809,7 @@ private:
         myUpdateCount = 0;
     }
 
+private:
     // retrieve the via edge for a shortcut
     const E* getVia(const E* forwardFrom, const E* forwardTo) {
         ConstEdgePair forward(forwardFrom, forwardTo);
@@ -864,7 +880,7 @@ private:
     SUMOTime myValidUntil;
 
     /// @brief the permissions for which the hierarchy was constructed
-    SUMOVehicleClass mySVC;
+    const SUMOVehicleClass mySVC;
 
     /// @brief counters for performance logging
     int myUpdateCount;

@@ -549,12 +549,19 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
 #ifdef HAVE_FOX
                     // add task
                     if (maxNumThreads > 0) {
-                        // add thread if necessary
                         const int numThreads = (int)myThreadPool.size();
-                        if (numThreads < maxNumThreads && myThreadPool.isFull()) {
+                        if (numThreads == 0) {
+                            // This is the very first routing. Since at least the CHRouter needs initialization
+                            // before it gets cloned, we do not do this in parallel
+                            routable->computeRoute(provider, removeLoops, myErrorHandler);
                             new WorkerThread(myThreadPool, provider);
+                        } else {
+                            // add thread if necessary
+                            if (numThreads < maxNumThreads && myThreadPool.isFull()) {
+                                new WorkerThread(myThreadPool, provider);
+                            }
+                            myThreadPool.add(new RoutingTask(routable, removeLoops, myErrorHandler));
                         }
-                        myThreadPool.add(new RoutingTask(routable, removeLoops, myErrorHandler));
                         continue;
                     }
 #endif

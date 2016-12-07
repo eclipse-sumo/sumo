@@ -116,6 +116,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     SUMOAbstractRouter<ROEdge, ROVehicle>* router;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
+    const SUMOTime begin = string2time(oc.getString("begin"));
+    const SUMOTime end = string2time(oc.getString("end"));
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
             if (net.hasPermissions()) {
@@ -145,13 +147,12 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
-            const SUMOTime begin = string2time(oc.getString("begin"));
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
-
             router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, begin, weightPeriod);
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
+                begin, end, weightPeriod, oc.getInt("routing-threads"));
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
@@ -189,8 +190,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // process route definitions
     try {
         net.openOutput(oc, altFilename);
-        loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
-                             string2time(oc.getString("route-steps")), net, provider);
+        loader.processRoutes(begin, end, string2time(oc.getString("route-steps")), net, provider);
         // end the processing
         net.cleanup();
     } catch (ProcessError&) {
