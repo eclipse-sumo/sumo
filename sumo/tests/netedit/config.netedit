@@ -1,5 +1,5 @@
 import_config_file:../config_all
-binary:$TEXTTEST_HOME/sikulixTestRunner.py
+binary:$SIKULIX_HOME/runsikulix
 copy_test_path:input_net.net.xml
 copy_test_path:input_additionals.add.xml
 copy_test_path_merge:test.sikuli

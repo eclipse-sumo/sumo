@@ -19,20 +19,15 @@ the Free Software Foundation; either version 3 of the License, or
 import socket
 import os
 import sys
-import platform
-import subprocess
 
 # get enviroment values
 SUMOFolder = os.environ.get('SUMO_HOME', '.')
 neteditApp = os.environ.get('NETEDIT_BINARY', 'netedit')
 textTestSandBox = os.environ.get('TEXTTEST_SANDBOX', '.')
 
-# Get current operating system
-currentOS = platform.system()
-
 # Write enviroment variables in currentEnvironment.tmp
 file = open(SUMOFolder + "/tests/netedit/currentEnvironment.tmp", "w")
-file.write(neteditApp + "\n" + textTestSandBox + "\n" + currentOS)
+file.write(neteditApp + "\n" + textTestSandBox)
 file.close()
 
 # Check status of sikulix Server
@@ -48,10 +43,7 @@ try:
         sys.exit("Sikulix server not ready")
 except:
     # Cannot connect to SikulixServer, then Sikulix Server isn't running
-    # we try to run sikulix directly
-    runSik = os.path.join(os.environ["SIKULIX_HOME"], "runsikulix")
-    subprocess.call([runSik] + sys.argv[1:])
-    sys.exit()
+    sys.exit("Sikulix server isn't running")
 
 # IMAGES
 imagesSocket = socket.socket()

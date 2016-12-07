@@ -1,0 +1,32 @@
+# basic tests for opening and creating networks
+basic
+
+# test shortcuts
+shortcuts
+
+# test create edge mode
+create
+
+# test move mode
+move
+
+# test delete mode
+delete
+
+# test inspect mode
+inspect
+
+# tests select mode
+select
+
+# test connect mode
+connect
+
+# test tls editing
+tls
+
+# test additional mode
+additionals
+
+# bugs
+bugs

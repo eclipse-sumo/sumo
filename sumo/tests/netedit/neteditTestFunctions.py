@@ -11,22 +11,19 @@ Settings.DelayAfterDrag = 0.1
 
 neteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
-currentOS = platform.system()
-images = {}
+referenceImage = os.path.join("imageResources", "reference.png")
 
 def setup(neteditTests):
     # Open current environment file to obtain path to the netedit app, textTestSandBox
     envFile = os.path.join(neteditTests, "currentEnvironment.tmp")
     if os.path.exists(envFile):
         global neteditApp, textTestSandBox, currentOS
-        neteditApp, textTestSandBox, currentOS = [l.strip() for l in open(envFile).readlines()]
+        neteditApp, textTestSandBox = [l.strip() for l in open(envFile).readlines()]
         if not os.path.exists(textTestSandBox):
             textTestSandBox = "."
     # get reference for match
-    images.update({"reference": os.path.join(neteditTests, "imageResources", "reference.png"),
-                   "edit-undo": os.path.join(neteditTests, "imageResources", currentOS, "edit-undo.png"),
-                   "edit-redo": os.path.join(neteditTests, "imageResources", currentOS, "edit-redo.png"),
-                   "question":  os.path.join(neteditTests, "imageResources", currentOS, "question.png")})
+    global referenceImage
+    referenceImage = os.path.join(neteditTests, "imageResources", "reference.png")
 
 
 def Popen(newNet):
@@ -50,10 +47,9 @@ def Popen(newNet):
 
 
 # obtain match 
-def getMatch(neProcess) :
+def getReferenceMatch(neProcess):
     try:
-        print images["reference"]
-        return wait(images["reference"], 20)
+        return wait(referenceImage, 20)
     except:
         neProcess.kill()
         sys.exit("Killed netedit process. 'reference.png' not found")
@@ -64,7 +60,7 @@ def setupAndStart(testRoot, newNet):
     # Open netedit
     neteditProcess = Popen(newNet)
     # Wait for netedit reference
-    return neteditProcess, getMatch(neteditProcess)
+    return neteditProcess, getReferenceMatch(neteditProcess)
 
 
 # netedit undo
