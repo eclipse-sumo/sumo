@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r20783
+SUMO polyconvert Version dev-SVN-r22219
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -44,6 +44,8 @@ Output Options:
                                      The special string 'TIME' is replaced by
                                      the current time.
   -o, --output-file FILE           Write generated polygons/pois to FILE
+  --dlr-tdp-output FILE            Write generated polygons/pois to a dlr-tdp
+                                     file with the given prefix
 
 Projection Options:
   --simple-projection              Uses a simple method for projection

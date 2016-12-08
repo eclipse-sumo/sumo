@@ -30,7 +30,8 @@
 
     <output>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
-        <output-file value="polygons.xml" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
+        <output-file value="" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
+        <dlr-tdp-output value="" type="FILE" help="Write generated polygons/pois to a dlr-tdp file with the given prefix"/>
     </output>
 
     <projection>
