@@ -294,12 +294,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getRoute().getStops().begin(); i != myHolder.getRoute().getStops().end(); ++i) {
         i->write(od);
     }
-    for (std::map<std::string, std::string>::const_iterator j = myHolder.getParameter().getMap().begin(); j != myHolder.getParameter().getMap().end(); ++j) {
-        od.openTag(SUMO_TAG_PARAM);
-        od.writeAttr(SUMO_ATTR_KEY, (*j).first);
-        od.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-        od.closeTag();
-    }
+    myHolder.getParameter().writeParams(od);
     od.closeTag();
     od.lf();
     if (mySorted) {
