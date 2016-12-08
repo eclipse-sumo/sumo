@@ -46,9 +46,11 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 /* -------------------------------------------------------------------------
  * for GUISelectedStorage::SingleTypeSelections
  * ----------------------------------------------------------------------- */
+
 GUISelectedStorage::SingleTypeSelections::SingleTypeSelections() {}
 
 
@@ -90,11 +92,10 @@ GUISelectedStorage::SingleTypeSelections::getSelected() const {
     return mySelected;
 }
 
-
-
 /* -------------------------------------------------------------------------
  * for GUISelectedStorage
  * ----------------------------------------------------------------------- */
+
 GUISelectedStorage::GUISelectedStorage() {}
 
 
@@ -285,4 +286,5 @@ GUISelectedStorage::save(const std::string& filename, const std::set<GUIGlID>& i
     }
     dev.close();
 }
+
 /****************************************************************************/

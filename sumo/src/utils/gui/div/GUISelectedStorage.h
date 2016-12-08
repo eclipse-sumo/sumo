@@ -77,9 +77,14 @@ class OutputDevice;
 class GUISelectedStorage {
 
 public:
+    /// @class update target
     class UpdateTarget {
+
     public:
+        /// @brief virtual destructor
         virtual ~UpdateTarget() {};
+
+        /// @brief called when selection is updated
         virtual void selectionUpdated() = 0;
     };
 
@@ -87,10 +92,8 @@ public:
     /// @brief Constructor
     GUISelectedStorage();
 
-
     /// @brief Destructor
     ~GUISelectedStorage();
-
 
     /** @brief Returns the information whether the object with the given type and id is selected
      *
@@ -110,7 +113,6 @@ public:
      */
     bool isSelected(GUIGlObjectType type, GUIGlID id);
 
-
     /** @brief Adds the object with the given id
      *
      * The id of the object is added to the sub-container that is
@@ -127,7 +129,6 @@ public:
      * @see GUIDialog_GLChosenEditor
      */
     void select(GUIGlID id, bool update = true);
-
 
     /** @brief Deselects the object with the given id
      *
@@ -146,7 +147,6 @@ public:
      */
     void deselect(GUIGlID id);
 
-
     /** @brief Toggles selection of an object
      *
      * If the object can not be obtained a ProcessError is thrown.
@@ -163,14 +163,8 @@ public:
      */
     void toggleSelection(GUIGlID id);
 
-
-    /** @brief Returns the list of ids of all selected objects
-     *
-     *
-     * @return The set of all selected objects (ids)
-     */
+    /// @brief Returns the set of ids of all selected objects
     const std::set<GUIGlID>& getSelected() const;
-
 
     /**  @brief Returns the set of ids of all selected objects' of a certain type
      *
@@ -180,7 +174,6 @@ public:
      */
     const std::set<GUIGlID>& getSelected(GUIGlObjectType type);
 
-
     /** @brief Clears the list of selected objects
      *
      * Clears the global container and all sub-containers via SingleTypeSelections::clear.
@@ -189,7 +182,6 @@ public:
      */
     void clear();
 
-
     /** @brief Loads a selection list (optionally with restricted type)
      *
      * @param[in] filename The name of the file to load the list of selected objects from
@@ -197,7 +189,6 @@ public:
      * @return error messages if errors occured or the empty string
      */
     std::string load(const std::string& filename, GUIGlObjectType type = GLO_MAX);
-
 
     /** @brief Loads a selection list (optionally with restricted type) and
      * returns the ids of all active objects
@@ -209,7 +200,6 @@ public:
      * @return the set of loaded ids
      */
     std::set<GUIGlID> loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type = GLO_MAX, int maxErrors = 16);
-
 
     /** @brief Saves a selection list
      *
@@ -224,23 +214,20 @@ public:
      */
     void save(const std::string& filename) const;
 
-
     /** @brief Adds a dialog to be updated
      * @param[in] updateTarget the callback for selection changes
      */
     void add2Update(UpdateTarget* updateTarget);
 
-
-    /** @brief Removes the dialog to be updated
-     */
+    /// @brief @brief Removes the dialog to be updated
     void remove2Update();
-
 
     /**
      * @class SingleTypeSelections
      * @brief A container for ids of selected objects of a certain type.
      */
     class SingleTypeSelections {
+
     public:
         /// @brief Constructor
         SingleTypeSelections();
@@ -248,35 +235,29 @@ public:
         /// @brief Destructor
         ~SingleTypeSelections();
 
-
         /** @brief Returns the information whether the object with the given id is qithin the selection
          * @param[in] id The id of the object
          * @return Whether the object is selected
          */
         bool isSelected(GUIGlID id);
 
-
         /** @brief Adds the object with the given id to the list of selected objects
          * @param[in] id The id of the object
          */
         void select(GUIGlID id);
-
 
         /** @brief Deselects the object with the given id from the list of selected objects
          * @param[in] id The id of the object
          */
         void deselect(GUIGlID id);
 
-
         /// @brief Clears the list of selected objects
         void clear();
-
 
         /** @brief Saves the list of selected objects to a file named as given
          * @param[in] filename The name of the file to save the list into
          */
         void save(const std::string& filename);
-
 
         /** @brief Returns the list of selected ids
          * @return A list containing the ids of all selected objects
@@ -288,10 +269,13 @@ public:
         std::set<GUIGlID> mySelected;
 
     };
+
+    /// @brief set SingleTypeSelections as friend class
     friend class SingleTypeSelections;
 
 
 private:
+    /// @brief map with the selections
     std::map<GUIGlObjectType, SingleTypeSelections> mySelections;
 
     /// @brief List of selected objects
@@ -300,14 +284,11 @@ private:
     /// @brief The dialog to be updated
     UpdateTarget* myUpdateTarget;
 
-    /* @brief load items into the given set, optionally restricting to type
-     */
+    /// @brief load items into the given set, optionally restricting to type
     std::string load(GUIGlObjectType type, const std::string& filename, bool restrictType, std::set<GUIGlID>& into);
-
 
     /// @brief saves items from the given set
     static void save(const std::string& filename, const std::set<GUIGlID>& ids);
-
 };
 
 
