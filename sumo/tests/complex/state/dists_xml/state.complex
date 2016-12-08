@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 27 08:42:37 2016 by SUMO Version dev-SVN-r20555
+<!-- generated on Thu Dec  8 13:31:21 2016 by SUMO Version dev-SVN-r22228
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,7 +24,7 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r20555" time="50.00">
+<snapshot version="dev-SVN-r22228" time="50.00">
     <route id="r#0" state="1" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
     <route id="r#1" state="1" edges="2/1to1/1 1/1to0/1"/>
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
@@ -41,8 +41,8 @@
         <carFollowing-Krauss accel="2.80" decel="4.50" sigma="0.00"/>
     </vType>
     <vTypeDistribution id="v" vTypes="v1 v2" probabilities="0.10 0.90"/>
-    <vehicle id="0" depart="0.00" route="r1" type="DEFAULT_VEHTYPE" state="0 1" pos="21.40" speed="5.60" posLat="0.00"/>
-    <vehicle id="1" depart="5.00" route="r1" type="DEFAULT_VEHTYPE" state="5000 1" pos="10.80" speed="4.80" posLat="0.00"/>
+    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" state="0 1" pos="21.40" speed="5.60" posLat="0.00"/>
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" state="5000 1" pos="10.80" speed="4.80" posLat="0.00"/>
     <lane id="0/0to0/1_0">
         <vehicles value=""/>
     </lane>

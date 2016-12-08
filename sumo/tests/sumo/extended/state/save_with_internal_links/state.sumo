@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  6 14:48:54 2016 by SUMO Version dev-SVN-r22185
+<!-- generated on Thu Dec  8 13:27:50 2016 by SUMO Version dev-SVN-r22228
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r22185" time="1.00">
+<snapshot version="dev-SVN-r22228" time="1.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
@@ -42,10 +42,11 @@
         <param key="has.rerouting.device" value="false"/>
     </vType>
     <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
-    <vehicle id="v0" depart="0.00" route="r0" type="type1" state="0 0" pos="5.10" speed="0.00" posLat="0.00">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" state="0 0" pos="5.10" speed="0.00" posLat="0.00">
+        <stop lane="middle_0" startPos="198.30" endPos="198.50" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
     </vehicle>
-    <vehicle id="v1" depart="0.00" route="r0" type="type2" state="9223372036854775807 0" pos="5.10" speed="0.00" posLat="0.00"/>
+    <vehicle id="v1" type="type2" depart="0.00" route="r0" state="9223372036854775807 0" pos="5.10" speed="0.00" posLat="0.00"/>
     <lane id=":gneJ0_0_0">
         <vehicles value=""/>
     </lane>
