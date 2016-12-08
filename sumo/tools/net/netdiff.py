@@ -91,6 +91,11 @@ ATTRIBUTE_NAMES = {
 DEFAULT_VALUES = defaultdict(lambda: "")
 DEFAULT_VALUES['width'] = "-1"
 DEFAULT_VALUES['offset'] = "0"
+DEFAULT_VALUES['spreadType'] = "right"
+DEFAULT_VALUES['customShape'] = "false"
+DEFAULT_VALUES['keepClear'] = "true"
+DEFAULT_VALUES['contPos'] = "-1"
+DEFAULT_VALUES['visibility'] = "-1"
 RESET = 0
 
 
