@@ -622,6 +622,8 @@ enum {
     MID_GNE_SELECT_SCALE,
     /// @brief Create crossing 
     MID_GNE_CREATE_CROSSING,
+    /// @brief Create split crossing 
+    MID_GNE_CREATE_SPLITCROSSING,
     /// @brief Size of frame area updated 
     MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED,
     /// @}
