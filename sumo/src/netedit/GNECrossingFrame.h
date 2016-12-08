@@ -86,6 +86,8 @@ public:
         /// @brief return selected color
         const RGBColor &getSelectedColor() const;
 
+
+
         /// @name FOX-callbacks
         /// @{
         /// @brief called when useSelectedEdges button edge is pressed
@@ -245,6 +247,9 @@ public:
 
     /// @brief Destructor
     ~GNECrossingFrame();
+
+    /// @brief hide crossing frame 
+    void hide();
 
     /**@brief add Crossing element
      * @param[in] netElement clicked netElement. if user didn't clicked over a GNENetElement in view, netElement will be NULL

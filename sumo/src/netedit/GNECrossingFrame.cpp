@@ -562,6 +562,23 @@ GNECrossingFrame::~GNECrossingFrame() {
 }
 
 
+void 
+GNECrossingFrame::hide() {
+    // Set default colors of edges (if a junction is yet selected)
+    if(myEdgeSelector->getCurrentJunction() != NULL) {
+        // remove color of edges
+        for(std::vector<GNEEdge*>::const_iterator i = myEdgeSelector->getCurrentJunction()->getGNEEdges().begin(); i != myEdgeSelector->getCurrentJunction()->getGNEEdges().end(); i++) {
+            for(std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
+                (*j)->setSpecialColor(0);
+            }
+        }
+    }
+
+    // hide frame
+    GNEFrame::hide();
+}
+
+
 bool
 GNECrossingFrame::addCrossing(GNENetElement* netElement) {
     // cast netElement
