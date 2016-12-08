@@ -429,10 +429,11 @@ MSBaseVehicle::getDevice(const std::type_info& type) const {
 
 void
 MSBaseVehicle::saveState(OutputDevice& out) {
-    out.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, myParameter->id);
-    out.writeAttr(SUMO_ATTR_DEPART, time2string(myParameter->depart));
+    // this saves lots of departParameters which are only needed for vehicles that did not yet depart
+    // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
+    myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, getVehicleType().getID());
+    // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
-    out.writeAttr(SUMO_ATTR_TYPE, myType->getID());
     // here starts the vehicle internal part (see loading)
     // @note: remember to close the vehicle tag when calling this in a subclass!
 }

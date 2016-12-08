@@ -3782,6 +3782,44 @@ MSVehicle::isRemoteControlled() const {
 }
 
 
+void 
+MSVehicle::Stop::write(OutputDevice& dev) const {
+    // lots of duplication with SUMOVehicleParameter::Stop::write()
+    dev.openTag(SUMO_TAG_STOP);
+    if (busstop != 0) {
+        dev.writeAttr(SUMO_ATTR_BUS_STOP, busstop->getID());
+    }
+    if (containerstop != 0) {
+        dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, containerstop->getID());
+    }
+    if (busstop == 0 && containerstop == 0) {
+        dev.writeAttr(SUMO_ATTR_LANE, lane->getID());
+        dev.writeAttr(SUMO_ATTR_STARTPOS, startPos);
+        dev.writeAttr(SUMO_ATTR_ENDPOS, endPos);
+    }
+    if (duration >= 0) {
+        dev.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(duration));
+    }
+    if (until >= 0) {
+        dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(until));
+    }
+    if (triggered) {
+        dev.writeAttr(SUMO_ATTR_TRIGGERED, triggered);
+    }
+    if (containerTriggered) {
+        dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, containerTriggered);
+    }
+    if (parking) {
+        dev.writeAttr(SUMO_ATTR_PARKING, parking);
+    }
+    if (awaitedPersons.size() > 0) {
+        dev.writeAttr(SUMO_ATTR_EXPECTED, joinToString(awaitedPersons, " "));
+    }
+    if (awaitedContainers.size() > 0) {
+        dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, joinToString(awaitedContainers, " "));
+    }
+    dev.closeTag();
+}
 
 void
 MSVehicle::saveState(OutputDevice& out) {
@@ -3794,12 +3832,11 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
-    for (std::map<std::string, std::string>::const_iterator j = myParameter->getMap().begin(); j != myParameter->getMap().end(); ++j) {
-        out.openTag(SUMO_TAG_PARAM);
-        out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-        out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-        out.closeTag();
+    // save stops and parameters
+    for (std::list<Stop>::iterator it = myStops.begin(); it != myStops.end(); ++it) {
+        (*it).write(out);
     }
+    myParameter->writeParams(out);
     out.closeTag();
 }
 

@@ -129,7 +129,7 @@ protected:
     void closeRouteDistribution();
 
     /// Ends the processing of a vehicle
-    void closeVehicle();
+    virtual void closeVehicle();
 
     /// Ends the processing of a person
     void closePerson();
@@ -173,6 +173,9 @@ protected:
 
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
+
+    /// @brief whether a state file is being loaded 
+    bool myAmLoadingState;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
     static MTRand myParsingRNG;

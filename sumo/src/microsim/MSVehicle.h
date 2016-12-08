@@ -816,6 +816,7 @@ public:
         /// @brief The time at which the vehicle is able to load another container
         SUMOTime timeToLoadNextContainer;
 
+        void write(OutputDevice& dev) const;
     };
 
 

@@ -78,7 +78,9 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myActiveContainerPlan(0),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
-    myCurrentRouteDistribution(0) {
+    myCurrentRouteDistribution(0),
+    myAmLoadingState(false)
+{
     myActiveRoute.reserve(100);
 }
 
@@ -675,7 +677,7 @@ MSRouteHandler::closeVehicle() {
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
-        if (!(myAddVehiclesDirectly || checkLastDepart()) || myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin"))) {
+        if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
             if (route != 0) {
                 route->addReference();
                 route->release();

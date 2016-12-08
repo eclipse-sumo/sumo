@@ -36,6 +36,7 @@
 
 #include <sstream>
 #include <utils/common/TplConvert.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -60,19 +61,18 @@
 // method definitions
 // ===========================================================================
 MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
-    SUMOSAXHandler(file), myOffset(offset),
+    MSRouteHandler(file, true), 
+    myOffset(offset),
     mySegment(0),
     myEdgeAndLane(0, -1),
-    myCurrentVType(0),
-    myVehicleParameter(0),
     myAttrs(0),
     myLastParameterised(0)
 {
+    myAmLoadingState = true;
 }
 
 
 MSStateHandler::~MSStateHandler() {
-    delete myCurrentVType;
 }
 
 
@@ -103,6 +103,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
 
 void
 MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    MSRouteHandler::myStartElement(element, attrs);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     switch (element) {
         case SUMO_TAG_SNAPSHOT: {
@@ -121,68 +122,13 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                         attrs.getFloat(SUMO_ATTR_TIME));
             break;
         }
-        case SUMO_TAG_ROUTE: {
-            const std::string id = attrs.getString(SUMO_ATTR_ID);
-            if (MSRoute::dictionary(id) == 0) {
-                ConstMSEdgeVector edges;
-                MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_EDGES), edges, id);
-                MSRoute* r = new MSRoute(id, edges, attrs.getBool(SUMO_ATTR_STATE),
-                                         0, std::vector<SUMOVehicleParameter::Stop>());
-                MSRoute::dictionary(id, r);
-            }
-            break;
-        }
-        case SUMO_TAG_ROUTE_DISTRIBUTION: {
-            const std::string id = attrs.getString(SUMO_ATTR_ID);
-            if (MSRoute::dictionary(id) == 0) {
-                RandomDistributor<const MSRoute*>* dist = new RandomDistributor<const MSRoute*>();
-                std::vector<std::string> routeIDs;
-                std::istringstream iss(attrs.getString(SUMO_ATTR_PROBS));
-                SUMOSAXAttributes::parseStringVector(attrs.getString(SUMO_ATTR_ROUTES), routeIDs);
-                for (std::vector<std::string>::const_iterator it = routeIDs.begin(); it != routeIDs.end(); ++it) {
-                    SUMOReal prob;
-                    iss >> prob;
-                    const MSRoute* r = MSRoute::dictionary(*it);
-                    assert(r != 0);
-                    dist->add(prob, r, false);
-                    r->addReference();
-                }
-                MSRoute::dictionary(id, dist, attrs.getBool(SUMO_ATTR_STATE));
-            }
-            break;
-        }
         case SUMO_TAG_VTYPE: {
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
             myLastParameterised = myCurrentVType;
             break;
         }
-        case SUMO_TAG_VTYPE_DISTRIBUTION: {
-            const std::string id = attrs.getString(SUMO_ATTR_ID);
-            if (vc.getVType(id) == 0) {
-                RandomDistributor<MSVehicleType*>* dist = new RandomDistributor<MSVehicleType*>();
-                std::vector<std::string> typeIDs;
-                std::istringstream iss(attrs.getString(SUMO_ATTR_PROBS));
-                SUMOSAXAttributes::parseStringVector(attrs.getString(SUMO_ATTR_VTYPES), typeIDs);
-                for (std::vector<std::string>::const_iterator it = typeIDs.begin(); it != typeIDs.end(); ++it) {
-                    SUMOReal prob;
-                    iss >> prob;
-                    MSVehicleType* t = vc.getVType(*it);
-                    assert(t != 0);
-                    dist->add(prob, t, false);
-                }
-                vc.addVTypeDistribution(id, dist);
-            }
-            break;
-        }
         case SUMO_TAG_VEHICLE: {
-            myVehicleParameter = new SUMOVehicleParameter();
-            myVehicleParameter->id = attrs.getString(SUMO_ATTR_ID);
-            myVehicleParameter->depart = string2time(attrs.getString(SUMO_ATTR_DEPART)) - myOffset;
-            myVehicleParameter->routeid = attrs.getString(SUMO_ATTR_ROUTE);
-            myVehicleParameter->vtypeid = attrs.getString(SUMO_ATTR_TYPE);
             myLastParameterised = myVehicleParameter;
             myAttrs = attrs.clone();
-            // vehicle creation must be delayed until all <param>s have been read
             break;
         }
         case SUMO_TAG_SEGMENT: {
@@ -227,10 +173,6 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         default:
-            // parse embedded vtype information
-            if (myCurrentVType != 0) {
-                SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
-            }
             break;
     }
 }
@@ -238,45 +180,34 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 void
 MSStateHandler::myEndElement(int element) {
-    switch (element) {
-        case SUMO_TAG_VTYPE:
-            MSNet::getInstance()->getVehicleControl().addVType(MSVehicleType::build(*myCurrentVType));
-            delete myCurrentVType;
-            myCurrentVType = 0;
-            break;
-        case SUMO_TAG_VEHICLE: {
-            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-            const MSRoute* route = MSRoute::dictionary(myVehicleParameter->routeid);
-            const MSVehicleType* type = vc.getVType(myVehicleParameter->vtypeid);
-            assert(route != 0);
-            assert(type != 0);
-            SUMOVehicle* v = vc.buildVehicle(myVehicleParameter, route, type, true);
-            assert(vc.getVehicle(myVehicleParameter->id) == 0);
-            vc.discountStateLoaded(); // already included (see SUMO_TAG_DELAY)
-            v->loadState(*myAttrs, myOffset);
-            if (!vc.addVehicle(myVehicleParameter->id, v)) {
-                throw ProcessError("Error: Could not build vehicle " + myVehicleParameter->id + "!");
-            }
-            if (!v->hasDeparted()) {
-                // !!! the save did not keep the order in which the vehicles are checked for insertion
-                MSNet::getInstance()->getInsertionControl().add(v);
-            } else {
-                // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
-                MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
-                if (routingDevice != 0) {
-                    routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
-                }
-            }
-            delete myAttrs;
-            myVehicleParameter = 0; // managed by the new vehicle
-        }
-        default:
-            break;
-    }
+    MSRouteHandler::myEndElement(element);
     if (element != SUMO_TAG_PARAM && myVehicleParameter == 0 && myCurrentVType == 0) {
         myLastParameterised = 0;
     }
 }
+
+
+void
+MSStateHandler::closeVehicle() {
+    assert(myVehicleParameter != 0);
+    // make a copy because myVehicleParameter is reset in closeVehicle()
+    const std::string vehID = myVehicleParameter->id;
+    MSRouteHandler::closeVehicle();
+    // reset depart
+    MSVehicleControl& vc =  MSNet::getInstance()->getVehicleControl();
+    vc.discountStateLoaded();
+    SUMOVehicle* v = vc.getVehicle(vehID);
+    v->loadState(*myAttrs, myOffset);
+    if (v->hasDeparted()) {
+        // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
+        MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
+        if (routingDevice != 0) {
+            routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
+        }
+    }
+    delete myAttrs;
+}
+
 
 
 /****************************************************************************/

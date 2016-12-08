@@ -60,18 +60,24 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0), setParameter(0) {
 }
 
+SUMOVehicleParameter::~SUMOVehicleParameter() {
+}
 
 bool
 SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::string& optionName) const {
-    return oc.isSet(optionName) && oc.getBool("defaults-override");
+    return oc.exists(optionName) && oc.isSet(optionName) && oc.getBool("defaults-override");
 }
 
 
 void
-SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag) const {
+SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag, const std::string& typeID) const {
     dev.openTag(tag).writeAttr(SUMO_ATTR_ID, id);
-    if (wasSet(VEHPARS_VTYPE_SET)) {
-        dev.writeAttr(SUMO_ATTR_TYPE, vtypeid);
+    if (typeID == "") {
+        if (wasSet(VEHPARS_VTYPE_SET)) {
+            dev.writeAttr(SUMO_ATTR_TYPE, vtypeid);
+        }
+    } else {
+            dev.writeAttr(SUMO_ATTR_TYPE, typeID);
     }
     if (departProcedure == DEPART_TRIGGERED) {
         dev.writeAttr(SUMO_ATTR_DEPART, "triggered");
@@ -109,7 +115,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
                 break;
         }
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, val);
-    } else if (oc.isSet("departlane")) {
+    } else if (oc.exists("departlane") && oc.isSet("departlane")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
     }
     //  departpos
@@ -139,7 +145,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
                 break;
         }
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, val);
-    } else if (oc.isSet("departpos")) {
+    } else if (oc.exists("departpos") && oc.isSet("departpos")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
     }
     //  departPosLat
@@ -191,7 +197,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
                 break;
         }
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, val);
-    } else if (oc.isSet("departspeed")) {
+    } else if (oc.exists("departspeed") && oc.isSet("departspeed")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
     }
 
@@ -210,7 +216,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
                 break;
         }
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, val);
-    } else if (oc.isSet("arrivallane")) {
+    } else if (oc.exists("arrivallane") && oc.isSet("arrivallane")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
     }
     //  arrivalpos
@@ -231,7 +237,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
                 break;
         }
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, val);
-    } else if (oc.isSet("arrivalpos")) {
+    } else if (oc.exists("arrivalpos") && oc.isSet("arrivalpos")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
     }
     //  arrivalPosLat
@@ -271,7 +277,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
                 break;
         }
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, val);
-    } else if (oc.isSet("arrivalspeed")) {
+    } else if (oc.exists("arrivalspeed") && oc.isSet("arrivalspeed")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
     }
 

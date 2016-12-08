@@ -33,7 +33,7 @@
 #endif
 
 #include <utils/common/SUMOTime.h>
-#include <utils/xml/SUMOSAXHandler.h>
+#include "MSRouteHandler.h"
 
 
 // ===========================================================================
@@ -49,7 +49,7 @@ class MESegment;
  * @class MSStateHandler
  * @brief Parser and output filter for routes and vehicles state saving and loading
  */
-class MSStateHandler : public SUMOSAXHandler {
+class MSStateHandler : public MSRouteHandler {
 public:
     /// standard constructor
     MSStateHandler(const std::string& file, const SUMOTime offset);
@@ -91,6 +91,8 @@ protected:
     void myEndElement(int element);
     //@}
 
+    /// Ends the processing of a vehicle
+    void closeVehicle();
 
 private:
     const SUMOTime myOffset;
@@ -98,12 +100,6 @@ private:
     MESegment* mySegment;
     std::pair<int, int> myEdgeAndLane;
     int myQueIndex;
-
-    /// @brief The currently parsed vehicle type
-    SUMOVTypeParameter* myCurrentVType;
-
-    /// @brief the current vehicle being parsed
-    SUMOVehicleParameter* myVehicleParameter;
 
     /// @brief cached attrs (used when loading vehicles)
     SUMOSAXAttributes* myAttrs;
