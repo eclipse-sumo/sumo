@@ -1,0 +1,34 @@
+# Generated on Thu Dec  8 09:46:24 2016 by SUMO polyconvert Version dev-SVN-r22219
+# Format matches Extraction version: V6.5 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+# 
+#     <input>
+#         <osm-files value="osm.xml"/>
+#         <osm.keep-full-type value="true"/>
+#     </input>
+# 
+#     <output>
+#         <dlr-tdp-output value="tdp_output"/>
+#     </output>
+# 
+#     <projection>
+#         <proj.scale value="0"/>
+#         <proj.utm value="true"/>
+#     </projection>
+# 
+#     <processing>
+#         <poi-layer-offset value="5"/>
+#     </processing>
+# 
+#     <report>
+#         <verbose value="true"/>
+#         <xml-validation value="never"/>
+#     </report>
+# 
+# </configuration>
+# 
+#
+# ID	CITY	TYPE	NAME	geo_x	geo_y
+0		amenity.parking	32266935	1352671	5242640	

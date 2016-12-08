@@ -1,0 +1,1 @@
+-v --osm osm.xml --osm.keep-full-type --dlr-tdp-output tdp_output

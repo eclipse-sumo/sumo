@@ -19,4 +19,7 @@ error_missing_node
 error_missing_shape
 error_missing_shape__ignored
 geo-output
+
+# output in dlr-tdp format (formerly known as dlr-navteq)
+dlr-tdp-output
 buildings_from_relation
