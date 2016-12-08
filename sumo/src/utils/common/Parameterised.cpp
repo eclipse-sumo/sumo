@@ -29,6 +29,7 @@
 #endif
 
 #include "Parameterised.h"
+#include "utils/iodevices/OutputDevice.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -92,6 +93,15 @@ Parameterised::clearParameter() {
     myMap.clear();
 }
 
+void 
+Parameterised::writeParams(OutputDevice& out) const {
+    for (std::map<std::string, std::string>::const_iterator j = myMap.begin(); j != myMap.end(); ++j) {
+        out.openTag(SUMO_TAG_PARAM);
+        out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+        out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+        out.closeTag();
+    }
+}
 
 /****************************************************************************/
 

@@ -36,6 +36,10 @@
 #include <map>
 #include <string>
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
 
 // ===========================================================================
 // class definitions
@@ -107,6 +111,8 @@ public:
     const std::map<std::string, std::string>& getMap() const {
         return myMap;
     }
+
+    void writeParams(OutputDevice& out) const;
 
 
 private:
