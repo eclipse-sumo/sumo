@@ -262,19 +262,13 @@ public:
      */
     void removeCrossing(GNECrossing* Crossing);
 
-    /// @brief enable or disable button create crossing
+    /// @brief enable or disable button create edges
     void setCreateCrossingButton(bool value);
-
-    /// @brief enable or disable button create split crossing
-    void setCreateSplitCrossingButton(bool value);
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief Called when the user press the button create crossing
+    /// @brief Called when the user press the button create edge
     long onCmdCreateCrossing(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user press the button create split crossing
-    long onCmdCreateSplitCrossing(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief get list of selecte id's in string format
@@ -308,9 +302,6 @@ private:
 
     /// @field FXButton for create Crossing
     FXButton *myCreateCrossingButton;
-
-    /// @field FXButton for create split Crossing
-    FXButton *myCreateSplitCrossingButton;
 
     /// @brief groupbox for Legend
     FXGroupBox *myGroupBoxLegend;

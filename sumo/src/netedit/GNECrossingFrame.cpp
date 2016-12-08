@@ -68,12 +68,11 @@
 // ===========================================================================
 
 FXDEFMAP(GNECrossingFrame) GNECrossingMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE_CROSSING,      GNECrossingFrame::onCmdCreateCrossing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE_SPLITCROSSING, GNECrossingFrame::onCmdCreateSplitCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE_CROSSING, GNECrossingFrame::onCmdCreateCrossing),
 };
 
 FXDEFMAP(GNECrossingFrame::edgesSelector) GNEEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,           MID_GNE_USEONLYSELECTEDEDGES,  GNECrossingFrame::edgesSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,           MID_GNE_USEONLYSELECTEDEDGES, GNECrossingFrame::edgesSelector::onCmdUseSelectedEdges),
     FXMAPFUNC(SEL_COMMAND,           MID_GNE_CLEAREDGESELECTION,    GNECrossingFrame::edgesSelector::onCmdClearSelection),
     FXMAPFUNC(SEL_COMMAND,           MID_GNE_INVERTEDGESELECTION,   GNECrossingFrame::edgesSelector::onCmdInvertSelection),
     FXMAPFUNC(SEL_COMMAND,           MID_HELP,                      GNECrossingFrame::edgesSelector::onCmdHelp),
@@ -283,7 +282,6 @@ GNECrossingFrame::crossingParameters::disableCrossingParameters() {
     myCrossingWidth->disable();
     myHelpCrossingAttribute->disable();
     myCrossingFrameParent->setCreateCrossingButton(false);
-    myCrossingFrameParent->setCreateSplitCrossingButton(false);
 }
 
 
@@ -309,12 +307,7 @@ GNECrossingFrame::crossingParameters::markEdge(GNEEdge *edge) {
             } else {
                 crossingEdges.erase(itFinder);
             }
-
-            // short edges
-            std::vector<std::string> crossingEdgesSorted = crossingEdges;
-            std::sort(crossingEdgesSorted.begin(), crossingEdgesSorted.end());
-            // Update text field with the crossing edge Ids
-            myCrossingEdges->setText(joinToString(crossingEdgesSorted, " ").c_str());
+            myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
         }
         // Update colors and attributes
         onCmdSetAttribute(0,0,0);
@@ -410,16 +403,6 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     std::vector<std::string> crossingEdges;
     SUMOSAXAttributes::parseStringVector(myCrossingEdges->getText().text(), crossingEdges);
 
-    // first check that edges are uniques and sorted
-    std::vector<std::string> crossingEdgesSorted = crossingEdges;
-    std::sort(crossingEdgesSorted.begin(), crossingEdgesSorted.end());
-    crossingEdgesSorted.erase(unique(crossingEdgesSorted.begin(), crossingEdgesSorted.end()), crossingEdgesSorted.end());
-
-    if(std::equal(crossingEdgesSorted.begin(), crossingEdgesSorted.end(), crossingEdges.begin())) {
-        myCrossingEdges->setText(joinToString(crossingEdgesSorted, " ").c_str());
-        crossingEdges = crossingEdgesSorted;
-    }
-
     // Clear selected edges
     myCurrentSelectedEdges.clear();
     // iterate over vector of edge IDs
@@ -479,13 +462,8 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         myCrossingWidth->setTextColor(FXRGB(255, 0, 0));
         myCurrentParametersValid = false;
     }
-    // Enable or disable create crossing buttons depending of the current parameters and number of edges
+    // Enable or disable create crossing button depending of the current parameters
     myCrossingFrameParent->setCreateCrossingButton(myCurrentParametersValid);
-    if(myCurrentSelectedEdges.size() == 1) {
-        myCrossingFrameParent->setCreateSplitCrossingButton(myCurrentParametersValid);
-    } else {
-        myCrossingFrameParent->setCreateSplitCrossingButton(false);
-    }
     return 0;
 }
 
@@ -562,12 +540,10 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     // Create crossingParameters
     myCrossingParameters = new crossingParameters(this, myEdgeSelector);
     
-    /// Create groupbox for create crossings buttons
+    /// Create groupbox for create crossings 
     myGroupBoxButtons = new FXGroupBox(myContentFrame, "Create", GNEDesignGroupBoxFrame);
     myCreateCrossingButton = new FXButton(myGroupBoxButtons, "Create crossing", 0, this, MID_GNE_CREATE_CROSSING, GNEDesignButton);
     myCreateCrossingButton->disable();
-    myCreateSplitCrossingButton = new FXButton(myGroupBoxButtons, "Create split crossing", 0, this, MID_GNE_CREATE_SPLITCROSSING, GNEDesignButton);
-    myCreateSplitCrossingButton->disable();
 
     // Create groupbox and labels for legends
     myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GNEDesignGroupBoxFrame);
@@ -588,12 +564,16 @@ GNECrossingFrame::~GNECrossingFrame() {
 
 void 
 GNECrossingFrame::hide() {
-    // disable junction selected
-    myCurrentJunctionLabel->setText("No junction selected");
-    // restore  color of all lanes of edge candidates
-    myEdgeSelector->restoreEdgeColors();
-    // Disable edge selector
-    myEdgeSelector->disableEdgeSelector();
+    // Set default colors of edges (if a junction is yet selected)
+    if(myEdgeSelector->getCurrentJunction() != NULL) {
+        // remove color of edges
+        for(std::vector<GNEEdge*>::const_iterator i = myEdgeSelector->getCurrentJunction()->getGNEEdges().begin(); i != myEdgeSelector->getCurrentJunction()->getGNEEdges().end(); i++) {
+            for(std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
+                (*j)->setSpecialColor(0);
+            }
+        }
+    }
+
     // hide frame
     GNEFrame::hide();
 }
@@ -646,44 +626,12 @@ GNECrossingFrame::onCmdCreateCrossing(FXObject*, FXSelector, void*) {
 }
 
 
-long
-GNECrossingFrame::onCmdCreateSplitCrossing(FXObject*, FXSelector, void*) {
-    // First check that current parameters are valid
-    if(myCrossingParameters->isCurrentParametersValid()) {
-        // duplicate selected edge
-        std::vector<NBEdge*> edgeDuplicated;
-        edgeDuplicated.push_back(myCrossingParameters->getCrossingEdges().front());
-        edgeDuplicated.push_back(myCrossingParameters->getCrossingEdges().front());
-
-        // create new split crossing
-        myViewNet->getUndoList()->add(new GNEChange_Crossing(myEdgeSelector->getCurrentJunction(), 
-                                                             edgeDuplicated, 
-                                                             myCrossingParameters->getCrossingWidth(), 
-                                                             myCrossingParameters->getCrossingPriority(), 
-                                                             true), true);
-        // clear selected edges
-        myEdgeSelector->onCmdClearSelection(0, 0, 0);
-    }
-    return 1;
-}
-
-
 void
 GNECrossingFrame::setCreateCrossingButton(bool value) {
     if(value) {
         myCreateCrossingButton->enable();
     } else {
         myCreateCrossingButton->disable();
-    }
-}
-
-
-void
-GNECrossingFrame::setCreateSplitCrossingButton(bool value) {
-    if(value) {
-        myCreateSplitCrossingButton->enable();
-    } else {
-        myCreateSplitCrossingButton->disable();
     }
 }
 
