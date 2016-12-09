@@ -526,6 +526,9 @@ public:
     /// @brief mark edge priorities and prohibit turn-arounds for all roundabout edges
     void markRoundabouts();
 
+    /// @brief fix roundabout information after splitting an edge
+    void patchRoundabouts(NBEdge* orig, NBEdge* part1, NBEdge* part2, std::set<EdgeSet>& roundabouts);
+
     /// @brief Returns true if this edge matches one of the removal criteria
     bool ignoreFilterMatch(NBEdge* edge);
 
