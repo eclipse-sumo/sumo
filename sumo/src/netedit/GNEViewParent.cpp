@@ -162,6 +162,12 @@ GNEViewParent::~GNEViewParent() {
 }
 
 
+void 
+GNEViewParent::hideAllFrames() {
+    for(std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+        i->second->hide();
+    }
+}
 
 GNEInspectorFrame*
 GNEViewParent::getInspectorFrame() const {

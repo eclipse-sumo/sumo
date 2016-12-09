@@ -400,7 +400,7 @@ private:
     MFXCheckableButton *myEditModeInspect;
 
     /// @brief chekable button for edit mode select
-    MFXCheckableButton *myEditMoveSelect;
+    MFXCheckableButton *myEditModeSelect;
     
     /// @brief chekable button for edit mode connection
     MFXCheckableButton *myEditModeConnection;

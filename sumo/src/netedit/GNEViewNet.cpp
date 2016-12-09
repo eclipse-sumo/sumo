@@ -149,7 +149,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeMove(0),
     myEditModeDelete(0),
     myEditModeInspect(0),
-    myEditMoveSelect(0),
+    myEditModeSelect(0),
     myEditModeConnection(0),
     myEditModeTrafficLight(0),
     myEditModeAdditional(0),
@@ -1710,7 +1710,7 @@ GNEViewNet::buildEditModeControls() {
                                               GUIIconSubSys::getIcon(ICON_GNEMODEDELETE), this, MID_GNE_MODE_DELETE, GNEDesignButtonToolbarCheckable);
     myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.", 
                                                GUIIconSubSys::getIcon(ICON_GNEMODEINSPECT), this, MID_GNE_MODE_INSPECT, GNEDesignButtonToolbarCheckable);
-    myEditMoveSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.", 
+    myEditModeSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.", 
                                               GUIIconSubSys::getIcon(ICON_GNEMODESELECT), this, MID_GNE_MODE_SELECT, GNEDesignButtonToolbarCheckable);
     myEditModeConnection = new MFXCheckableButton(false, myToolbar, "\tset connection mode\tMode for edit connections between lanes.", 
                                                   GUIIconSubSys::getIcon(ICON_GNEMODECONNECTION), this, MID_GNE_MODE_CONNECT, GNEDesignButtonToolbarCheckable);
@@ -1747,10 +1747,7 @@ GNEViewNet::buildEditModeControls() {
 
 void
 GNEViewNet::updateModeSpecificControls() {
-    // MAGIC modifier to avoid flicker. at least it is consistent for move AND
-    // zoom. Probably has to do with spacing
-    const int addChange = 4;
-    // hide all controls
+    // hide all controls (checkboxs)
     myChainCreateEdge->hide();
     myAutoCreateOppositeEdge->hide();
     mySelectEdges->hide();
@@ -1759,183 +1756,86 @@ GNEViewNet::updateModeSpecificControls() {
     myChangeAllPhases->hide();
     myWarnAboutMerge->hide();
     myShowBubbleOverJunction->hide();
-    int widthChange = 0;
-    // Close all Frames
-    if (myViewParent->getInspectorFrame()->shown()) {
-        widthChange += myViewParent->getInspectorFrame()->getWidth() + addChange;
-        myViewParent->getInspectorFrame()->hide();
-    }
-    if (myViewParent->getSelectorFrame()->shown()) {
-        widthChange += myViewParent->getSelectorFrame()->getWidth() + addChange;
-        myViewParent->getSelectorFrame()->hide();
-    }
-    if (myViewParent->getConnectorFrame()->shown()) {
-        widthChange += myViewParent->getConnectorFrame()->getWidth() + addChange;
-        myViewParent->getConnectorFrame()->hide();
-    }
-    if (myViewParent->getTLSEditorFrame()->shown()) {
-        widthChange += myViewParent->getTLSEditorFrame()->getWidth() + addChange;
-        myViewParent->getTLSEditorFrame()->hide();
-    }
-    if (myViewParent->getAdditionalFrame()->shown()) {
-        widthChange += myViewParent->getAdditionalFrame()->getWidth() + addChange;
-        myViewParent->getAdditionalFrame()->hide();
-    }
-    if (myViewParent->getCrossingFrame()->shown()) {
-        widthChange += myViewParent->getCrossingFrame()->getWidth() + addChange;
-        myViewParent->getCrossingFrame()->hide();
-    }
-    if (myViewParent->getDeleteFrame()->shown()) {
-        widthChange += myViewParent->getDeleteFrame()->getWidth() + addChange;
-        myViewParent->getDeleteFrame()->hide();
-    }
+    // unckeck all edit modes
+    myEditModeCreateEdge->setChecked(false);
+    myEditModeMove->setChecked(false);
+    myEditModeDelete->setChecked(false);
+    myEditModeInspect->setChecked(false);
+    myEditModeSelect->setChecked(false);
+    myEditModeConnection->setChecked(false);
+    myEditModeTrafficLight->setChecked(false);
+    myEditModeAdditional->setChecked(false);
+    myEditModeCrossing->setChecked(false);
+    // hide all Frames
+    myViewParent->hideAllFrames();
     // enable selected controls
     switch (myEditMode) {
         case GNE_MODE_CREATE_EDGE:
             // show additionals checkboxs
             myChainCreateEdge->show();
             myAutoCreateOppositeEdge->show();
-            // update editor mode buttons
+            // check create edge mode button
             myEditModeCreateEdge->setChecked(true);
-            myEditModeMove->setChecked(false);
-            myEditModeDelete->setChecked(false);
-            myEditModeInspect->setChecked(false);
-            myEditMoveSelect->setChecked(false);
-            myEditModeConnection->setChecked(false);
-            myEditModeTrafficLight->setChecked(false);
-            myEditModeAdditional->setChecked(false);
-            myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_MOVE:
             // show additionals checkboxs
             myWarnAboutMerge->show();
             myShowBubbleOverJunction->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
+            // check move mode button
 	        myEditModeMove->setChecked(true);
-	        myEditModeDelete->setChecked(false);
-	        myEditModeInspect->setChecked(false);
-	        myEditMoveSelect->setChecked(false);
-	        myEditModeConnection->setChecked(false);
-	        myEditModeTrafficLight->setChecked(false);
-	        myEditModeAdditional->setChecked(false);
-	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_DELETE:
             // Show delete frame
-            widthChange -= myViewParent->getDeleteFrame()->getWidth() + addChange;
             myViewParent->getDeleteFrame()->show();
             // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
-	        myEditModeMove->setChecked(false);
+            // check delete mode button
 	        myEditModeDelete->setChecked(true);
-	        myEditModeInspect->setChecked(false);
-	        myEditMoveSelect->setChecked(false);
-	        myEditModeConnection->setChecked(false);
-	        myEditModeTrafficLight->setChecked(false);
-	        myEditModeAdditional->setChecked(false);
-	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_INSPECT:
             // show inspector frame
-            widthChange -= myViewParent->getInspectorFrame()->getWidth() + addChange;
             myViewParent->getInspectorFrame()->show();
             // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
-	        myEditModeMove->setChecked(false);
-	        myEditModeDelete->setChecked(false);
+            // check inspect mode button
 	        myEditModeInspect->setChecked(true);
-	        myEditMoveSelect->setChecked(false);
-	        myEditModeConnection->setChecked(false);
-	        myEditModeTrafficLight->setChecked(false);
-	        myEditModeAdditional->setChecked(false);
-	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_SELECT:
             // show selector frame
-            widthChange -= myViewParent->getSelectorFrame()->getWidth() + addChange;
             myViewParent->getSelectorFrame()->show();
             // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
             myExtendToEdgeNodes->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
-	        myEditModeMove->setChecked(false);
-	        myEditModeDelete->setChecked(false);
-	        myEditModeInspect->setChecked(false);
-	        myEditMoveSelect->setChecked(true);
-	        myEditModeConnection->setChecked(false);
-	        myEditModeTrafficLight->setChecked(false);
-	        myEditModeAdditional->setChecked(false);
-	        myEditModeCrossing->setChecked(false);
+            // check select mode button
+	        myEditModeSelect->setChecked(true);
             break;
         case GNE_MODE_CONNECT:
             // show connector frame
-            widthChange -= myViewParent->getConnectorFrame()->getWidth() + addChange;
             myViewParent->getConnectorFrame()->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
-	        myEditModeMove->setChecked(false);
-	        myEditModeDelete->setChecked(false);
-	        myEditModeInspect->setChecked(false);
-	        myEditMoveSelect->setChecked(false);
+            // check connection mode button
 	        myEditModeConnection->setChecked(true);
-	        myEditModeTrafficLight->setChecked(false);
-	        myEditModeAdditional->setChecked(false);
-	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_TLS:
             // show TLS Frame
-            widthChange -= myViewParent->getTLSEditorFrame()->getWidth() + addChange;
             myViewParent->getTLSEditorFrame()->show();
             // show additionals checkboxs
             myChangeAllPhases->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
-	        myEditModeMove->setChecked(false);
-	        myEditModeDelete->setChecked(false);
-	        myEditModeInspect->setChecked(false);
-	        myEditMoveSelect->setChecked(false);
-	        myEditModeConnection->setChecked(false);
+            // check TLS mode button
 	        myEditModeTrafficLight->setChecked(true);
-	        myEditModeAdditional->setChecked(false);
-	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_ADDITIONAL:
             // show additional frame
-            widthChange -= myViewParent->getAdditionalFrame()->getWidth() + addChange;
             myViewParent->getAdditionalFrame()->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
-	        myEditModeMove->setChecked(false);
-	        myEditModeDelete->setChecked(false);
-	        myEditModeInspect->setChecked(false);
-	        myEditMoveSelect->setChecked(false);
-	        myEditModeConnection->setChecked(false);
-	        myEditModeTrafficLight->setChecked(false);
+            // check additional mode button
 	        myEditModeAdditional->setChecked(true);
-	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_CROSSING:
             // show crossing frame
-            widthChange -= myViewParent->getCrossingFrame()->getWidth() + addChange;
             myViewParent->getCrossingFrame()->show();
-            // update editor mode buttons
-	        myEditModeCreateEdge->setChecked(false);
-	        myEditModeMove->setChecked(false);
-	        myEditModeDelete->setChecked(false);
-	        myEditModeInspect->setChecked(false);
-	        myEditMoveSelect->setChecked(false);
-	        myEditModeConnection->setChecked(false);
-	        myEditModeTrafficLight->setChecked(false);
-	        myEditModeAdditional->setChecked(false);
+            // check crossing mode button
 	        myEditModeCrossing->setChecked(true);
             break;
         default:
@@ -1946,15 +1846,11 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeMove->update();
     myEditModeDelete->update();
     myEditModeInspect->update();
-    myEditMoveSelect->update();
+    myEditModeSelect->update();
     myEditModeConnection->update();
     myEditModeTrafficLight->update();
     myEditModeAdditional->update();
     myEditModeCrossing->update();
-    // Change canvas
-    myChanger->changeCanvasSizeLeft(widthChange);
-    myToolbar->recalc();
-    recalc();
     // force repaint because different modes draw different things
     onPaint(0, 0, 0);
     update();

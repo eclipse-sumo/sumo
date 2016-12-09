@@ -98,6 +98,9 @@ public:
     /// @brief Destructor
     ~GNEViewParent();
 
+    /// @brief hide all frames
+    void hideAllFrames();
+
     /// @brief get frame for GNE_MODE_INSPECT
     GNEInspectorFrame* getInspectorFrame() const;
 
