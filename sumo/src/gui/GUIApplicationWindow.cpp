@@ -498,13 +498,13 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuTitle(myMenuBar, "Simulation", NULL, myControlMenu);
     new FXMenuCommand(myControlMenu,
                       "Run\tCtrl+A\tStart running the simulation.",
-                      NULL, this, MID_START);
+                      GUIIconSubSys::getIcon(ICON_START), this, MID_START);
     new FXMenuCommand(myControlMenu,
                       "Stop\tCtrl+S\tStop running the simulation.",
-                      NULL, this, MID_STOP);
+                      GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP);
     new FXMenuCommand(myControlMenu,
                       "Step\tCtrl+D\tPerform one simulation step.",
-                      NULL, this, MID_STEP);
+                      GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP);
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
