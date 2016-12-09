@@ -221,8 +221,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "sidewalkWidth",          SUMO_ATTR_SIDEWALKWIDTH },
     { "bikeLaneWidth",          SUMO_ATTR_BIKELANEWIDTH },
     { "remove",                 SUMO_ATTR_REMOVE },
-    // Lenght
     { "length",                 SUMO_ATTR_LENGTH },
+    // Split
+    { "idBefore",               SUMO_ATTR_ID_BEFORE },
+    { "idAfter",                SUMO_ATTR_ID_AFTER },
     // Positions
     { "x",                      SUMO_ATTR_X },
     { "y",                      SUMO_ATTR_Y },
