@@ -1852,6 +1852,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeAdditional->update();
     myEditModeCrossing->update();
     // force repaint because different modes draw different things
+    myToolbar->recalc();
     onPaint(0, 0, 0);
     update();
 }
