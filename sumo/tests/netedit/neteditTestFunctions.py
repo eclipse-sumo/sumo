@@ -18,7 +18,8 @@ def setup(neteditTests):
     envFile = os.path.join(neteditTests, "currentEnvironment.tmp")
     if os.path.exists(envFile):
         global neteditApp, textTestSandBox, currentOS
-        neteditApp, sandBox = [l.strip() for l in open(envFile).readlines()]
+        with open(envFile) as env:
+            neteditApp, sandBox = [l.strip() for l in env.readlines()]
         if os.path.exists(sandBox):
             textTestSandBox = sandBox
         os.remove(envFile)
@@ -35,14 +36,14 @@ def Popen(newNet):
     if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
         neteditParameters += ['--sumo-net-file', os.path.join(textTestSandBox, "input_net.net.xml")]
     elif newNet:
-        neteditParameters += ['--new', '--output-file', 'net.net.xml']
+        neteditParameters += ['--new', '--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
     
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
         neteditParameters += ['--sumo-additionals-file', os.path.join(textTestSandBox, "input_additionals.add.xml")]
     else:
         neteditParameters.append('--additionals-output')
-        neteditParameters.append(textTestSandBox + "/additionals.xml")
+        neteditParameters.append(os.path.join(textTestSandBox, "additionals.xml"))
     
     return subprocess.Popen(neteditParameters, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 

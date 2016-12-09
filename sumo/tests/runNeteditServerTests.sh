@@ -15,9 +15,10 @@ fi
 cd $OLDDIR
 export NETEDIT_BINARY="$SUMO_BINDIR/netedit"
 
+python $SUMO_HOME/tools/build/runSikulixServer.pyw &
 if which texttest &> /dev/null; then
-  texttest -a netedit.gui "$@"
+  texttest -a netedit.server "$@"
 else
-  texttest.py -a netedit.gui "$@"
+  texttest.py -a netedit.server "$@"
 fi
 
