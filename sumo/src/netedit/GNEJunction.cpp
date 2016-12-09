@@ -121,9 +121,9 @@ GNEJunction::rebuildCrossings(bool deleteOnly) {
             myCrossings.push_back(new GNECrossing(this, (*it).id));
             myCrossings.back()->incRef();
         }
+        // Update geometry
+        updateGeometry();
     }
-    // Update geometry
-    updateGeometry();
 }
 
 
