@@ -424,6 +424,8 @@ class NetReader(handler.ContentHandler):
                                                       attrs.get('from', None), attrs.get('to', None), prio, function, name)
                 if 'shape' in attrs:
                     self.processShape(self._currentEdge, attrs['shape'])
+                else:
+                    self._currentEdge.setShape([])
             else:
                 if function in ['crossing', 'walkingarea']:
                     self._net._crossings_and_walkingAreas.add(attrs['id'])
