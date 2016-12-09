@@ -32,3 +32,6 @@ set_type
 
 # three lanes, changing the speed and changing it back, modifying navteq input
 speed_navteq
+
+# split edge into 3 parts with custom ids
+3_parts_rename
