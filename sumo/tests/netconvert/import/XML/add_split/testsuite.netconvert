@@ -35,3 +35,6 @@ speed_navteq
 
 # split edge into 3 parts with custom ids
 3_parts_rename
+
+# split an edge that is part of a roundabout
+roundabout
