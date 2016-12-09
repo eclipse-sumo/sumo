@@ -62,6 +62,7 @@
 #include "GNETLSEditorFrame.h"
 #include "GNEAdditionalFrame.h"
 #include "GNECrossingFrame.h"
+#include "GNEDeleteFrame.h"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -139,7 +140,7 @@ GNEViewParent::GNEViewParent(
     myGNEFrames[MID_GNE_MODE_TLS] = new GNETLSEditorFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_MODE_ADDITIONAL] = new GNEAdditionalFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_MODE_CROSSING] = new GNECrossingFrame(myFramesArea, viewNet);
-    // myGNEFrames[MID_GNE_MODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet); not already implemented
+    myGNEFrames[MID_GNE_MODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(0,0,0);
@@ -191,9 +192,16 @@ GNEViewParent::getAdditionalFrame() const {
     return dynamic_cast<GNEAdditionalFrame*>(myGNEFrames.at(MID_GNE_MODE_ADDITIONAL));
 }
 
+
 GNECrossingFrame*
 GNEViewParent::getCrossingFrame() const {
     return dynamic_cast<GNECrossingFrame*>(myGNEFrames.at(MID_GNE_MODE_CROSSING));
+}
+
+
+GNEDeleteFrame*
+GNEViewParent::getDeleteFrame() const {
+    return dynamic_cast<GNEDeleteFrame*>(myGNEFrames.at(MID_GNE_MODE_DELETE));
 }
 
 

@@ -264,6 +264,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNECrossingFrame.cpp">
       <Filter>Quellcodedateien\Frames</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDeleteFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -449,6 +452,9 @@
       <Filter>Header-Dateien\Items\Changes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNECrossingFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDeleteFrame.h">
       <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
   </ItemGroup>

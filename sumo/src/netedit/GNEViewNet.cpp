@@ -68,6 +68,7 @@
 #include "GNETLSEditorFrame.h"
 #include "GNEAdditionalFrame.h"
 #include "GNECrossingFrame.h"
+#include "GNEDeleteFrame.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEPoly.h"
 #include "GNECrossing.h"
@@ -1784,9 +1785,14 @@ GNEViewNet::updateModeSpecificControls() {
         widthChange += myViewParent->getCrossingFrame()->getWidth() + addChange;
         myViewParent->getCrossingFrame()->hide();
     }
+    if (myViewParent->getDeleteFrame()->shown()) {
+        widthChange += myViewParent->getDeleteFrame()->getWidth() + addChange;
+        myViewParent->getDeleteFrame()->hide();
+    }
     // enable selected controls
     switch (myEditMode) {
         case GNE_MODE_CREATE_EDGE:
+            // show additionals checkboxs
             myChainCreateEdge->show();
             myAutoCreateOppositeEdge->show();
             // update editor mode buttons
@@ -1801,6 +1807,7 @@ GNEViewNet::updateModeSpecificControls() {
             myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_MOVE:
+            // show additionals checkboxs
             myWarnAboutMerge->show();
             myShowBubbleOverJunction->show();
             // update editor mode buttons
@@ -1815,6 +1822,10 @@ GNEViewNet::updateModeSpecificControls() {
 	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_DELETE:
+            // Show delete frame
+            widthChange -= myViewParent->getDeleteFrame()->getWidth() + addChange;
+            myViewParent->getDeleteFrame()->show();
+            // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
             // update editor mode buttons
@@ -1829,8 +1840,10 @@ GNEViewNet::updateModeSpecificControls() {
 	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_INSPECT:
+            // show inspector frame
             widthChange -= myViewParent->getInspectorFrame()->getWidth() + addChange;
             myViewParent->getInspectorFrame()->show();
+            // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
             // update editor mode buttons
@@ -1845,8 +1858,10 @@ GNEViewNet::updateModeSpecificControls() {
 	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_SELECT:
+            // show selector frame
             widthChange -= myViewParent->getSelectorFrame()->getWidth() + addChange;
             myViewParent->getSelectorFrame()->show();
+            // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
             myExtendToEdgeNodes->show();
@@ -1862,6 +1877,7 @@ GNEViewNet::updateModeSpecificControls() {
 	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_CONNECT:
+            // show connector frame
             widthChange -= myViewParent->getConnectorFrame()->getWidth() + addChange;
             myViewParent->getConnectorFrame()->show();
             // update editor mode buttons
@@ -1876,8 +1892,10 @@ GNEViewNet::updateModeSpecificControls() {
 	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_TLS:
+            // show TLS Frame
             widthChange -= myViewParent->getTLSEditorFrame()->getWidth() + addChange;
             myViewParent->getTLSEditorFrame()->show();
+            // show additionals checkboxs
             myChangeAllPhases->show();
             // update editor mode buttons
 	        myEditModeCreateEdge->setChecked(false);
@@ -1891,6 +1909,7 @@ GNEViewNet::updateModeSpecificControls() {
 	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_ADDITIONAL:
+            // show additional frame
             widthChange -= myViewParent->getAdditionalFrame()->getWidth() + addChange;
             myViewParent->getAdditionalFrame()->show();
             // update editor mode buttons
@@ -1905,6 +1924,7 @@ GNEViewNet::updateModeSpecificControls() {
 	        myEditModeCrossing->setChecked(false);
             break;
         case GNE_MODE_CROSSING:
+            // show crossing frame
             widthChange -= myViewParent->getCrossingFrame()->getWidth() + addChange;
             myViewParent->getCrossingFrame()->show();
             // update editor mode buttons
@@ -1931,11 +1951,12 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeTrafficLight->update();
     myEditModeAdditional->update();
     myEditModeCrossing->update();
-    // Change can
+    // Change canvas
     myChanger->changeCanvasSizeLeft(widthChange);
     myToolbar->recalc();
     recalc();
-    onPaint(0, 0, 0); // force repaint because different modes draw different things
+    // force repaint because different modes draw different things
+    onPaint(0, 0, 0);
     update();
 }
 
