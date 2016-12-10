@@ -85,18 +85,18 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     myZoom->setRange(0.0001, 100000);
     myZoom->setNumberFormat(4);
     new FXLabel(m1, "X:", 0, LAYOUT_CENTER_Y);
-    myXOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myXOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
     new FXLabel(m1, "Y:", 0, LAYOUT_CENTER_Y);
-    myYOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myYOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
     new FXLabel(m1, "Z:", 0, LAYOUT_CENTER_Y);
-    myZOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myZOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
 #ifdef HAVE_OSG
     new FXLabel(m1, "LookAtX:", 0, LAYOUT_CENTER_Y);
-    myLookAtX = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myLookAtX = new FXRealSpinDial(m1, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
     new FXLabel(m1, "LookAtY:", 0, LAYOUT_CENTER_Y);
-    myLookAtY = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myLookAtY = new FXRealSpinDial(m1, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
     new FXLabel(m1, "LookAtZ:", 0, LAYOUT_CENTER_Y);
-    myLookAtZ = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myLookAtZ = new FXRealSpinDial(m1, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
 #endif
     // ok/cancel
     new FXHorizontalSeparator(f1, GUIDesignHorizontalSeparator);

@@ -246,7 +246,7 @@ GUIApplicationWindow::dependentBuild() {
     }
 
     // make the window a mdi-window
-    myMainSplitter = new FXSplitter(this, GUIDesignSplitterVertical);
+    myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
     new FXMDIWindowButton(myMenuBar, myMDIMenu, myMDIClient, FXMDIClient::ID_MDI_MENUWINDOW, GUIDesignMDIButtonLeft);

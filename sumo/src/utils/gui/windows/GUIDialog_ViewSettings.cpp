@@ -1348,7 +1348,7 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
-            FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX | dialerOptions);
+            FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
             buttons.push_back(new FXButton(m, buttonText, NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 20, 20, 4, 4));
@@ -1398,7 +1398,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
     FX::FXString buttonText = "Add";
     while (scaleIt != scheme.getColors().end()) {
-        FXRealSpinDial* scaleDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX);
+        FXRealSpinDial* scaleDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX);
         scaleDialer->setValue(*scaleIt);
         scales.push_back(scaleDialer);
         if (fixed) {
@@ -1406,7 +1406,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
-            FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX | dialerOptions);
+            FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
             buttons.push_back(new FXButton(m, buttonText, NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 20, 20, 4, 4));

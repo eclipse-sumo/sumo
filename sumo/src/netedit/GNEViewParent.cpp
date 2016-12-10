@@ -113,7 +113,7 @@ GNEViewParent::GNEViewParent(
     new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
 
     // Create Frame Splitter
-    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GUIDesignSplitterHorizontal, 0, 0, 0, 0);
+    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GUIDesignSplitter | SPLITTER_HORIZONTAL);
 
     // Create frames Area
     myFramesArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignFrameArea);

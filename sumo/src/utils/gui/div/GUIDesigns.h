@@ -122,10 +122,10 @@
 
 /// @name FXComboBox
 /// @{
-    /// @brief Combo box static (cannot be dited) extended over the all frame
+    /// @brief Combo box editable extended over the all frame
     #define GUIDesignComboBox               (FRAME_THICK | LAYOUT_FILL_X)
 
-
+    /// @brief Combo box static (not editable)
     #define GUIDesignComboBoxStatic         (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_CENTER_Y)
 
     /// @brief Combo box static (cannot be dited) extended over the matrix column
@@ -199,15 +199,17 @@
 
 /// @name designs for splitters
 /// @{
-    /// @brief horizontal splitter
-    #define GUIDesignSplitterHorizontal     (SPLITTER_HORIZONTAL | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK)
-
-    /// @brief vertical splitter
-    #define GUIDesignSplitterVertical       (SPLITTER_VERTICAL   | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK | SPLITTER_REVERSED)
+    /// @brief general design for  splitters
+    #define GUIDesignSplitter               (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK | SPLITTER_TRACKING)
 
     /// @brief MDI Splitter
     #define GUIDesignSplitterMDI            (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK)
 /// @}
+
+
+    /// @brief desing for standard spin dial
+    #define GUIDesignSpinDial               (LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK)
+
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
 
@@ -216,8 +218,6 @@
     #define GUIDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
 
     #define GUIDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
-
-    #define GUIDesignSpinDial               (LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y)
 
 #endif
 
