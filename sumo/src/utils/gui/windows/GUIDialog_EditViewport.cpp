@@ -75,9 +75,9 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         FXHorizontalFrame* frame0 =
             new FXHorizontalFrame(f1, FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
         new FXButton(frame0, "\t\tLoad viewport from file",
-                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD, GNEDesignButtonToolbar);
+                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbar);
         new FXButton(frame0, "\t\tSave viewport to file",
-                     GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE, GNEDesignButtonToolbar);
+                     GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbar);
     }
     FXMatrix* m1 = new FXMatrix(f1, 2, MATRIX_BY_COLUMNS);
     new FXLabel(m1, "Zoom:", 0, LAYOUT_CENTER_Y);
@@ -99,7 +99,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     myLookAtZ = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
 #endif
     // ok/cancel
-    new FXHorizontalSeparator(f1, GNEDesignHorizontalSeparator);
+    new FXHorizontalSeparator(f1, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* f6 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 0);
     FXButton* initial =
         new FXButton(f6, "&OK", NULL, this, GUIDialog_EditViewport::MID_OK,

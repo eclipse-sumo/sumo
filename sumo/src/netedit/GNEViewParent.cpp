@@ -106,23 +106,23 @@ GNEViewParent::GNEViewParent(
     //}
 
     // add undo/redo buttons
-    new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GNEDesignButtonToolbar);
-    new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GNEDesignButtonToolbar);
+    new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GUIDesignButtonToolbar);
+    new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GUIDesignButtonToolbar);
 
     // Create Vertical separator
-    new FXVerticalSeparator(myNavigationToolBar, GNEDesignVerticalSeparator);
+    new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
 
     // Create Frame Splitter
-    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GNEDesignSplitter, 0, 0, 0, 0);
+    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GUIDesignSplitterHorizontal, 0, 0, 0, 0);
 
     // Create frames Area
-    myFramesArea = new FXHorizontalFrame(myFramesSplitter, GNEDesignFrameArea);
+    myFramesArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignFrameArea);
 
     // Set default width of frames area
     myFramesArea->setWidth(200);
 
     // Create view area
-    myViewArea = new FXHorizontalFrame(myFramesSplitter, GNEDesignViewnArea);
+    myViewArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignViewnArea);
 
     // Add the view to a temporary parent so that we can add items to myViewArea in the desired order
     FXComposite* tmp = new FXComposite(this);

@@ -91,7 +91,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent,
                  ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 3, 3);
 
-    new FXHorizontalSeparator(layout, GNEDesignHorizontalSeparator);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
 
     // "Deselect Chosen"
     new FXButton(layout, "Deselect Chosen\t\t", 0, this, MID_CHOOSEN_DESELECT,
@@ -102,7 +102,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent,
                  ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 3, 3);
 
-    new FXHorizontalSeparator(layout, GNEDesignHorizontalSeparator);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
 
     // "Close"
     new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,

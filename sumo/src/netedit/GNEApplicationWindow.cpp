@@ -48,6 +48,7 @@
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/events/GUIEvent_Message.h>
@@ -213,39 +214,31 @@ GNEApplicationWindow::dependentBuild() {
     setSelector(MID_WINDOW);
 
     // build menu bar
-    myMenuBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
-    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GNEDesignBar);
-    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
+    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
+    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignBar);
+    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build the thread - io
     myLoadThreadEvent.setTarget(this),
                                 myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
 
     // build the status bar
-    myStatusbar = new FXStatusBar(this, LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X | FRAME_RAISED);
+    myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     {
         myGeoFrame =
-            new FXHorizontalFrame(myStatusbar, LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN,
-                                  0, 0, 20, 0, 0, 0, 0, 0, 0, 0);
+            new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in NETCONVERT)", 0, LAYOUT_CENTER_Y);
         myCartesianFrame =
-            new FXHorizontalFrame(myStatusbar, LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN,
-                                  0, 0, 20, 0, 0, 0, 0, 0, 0, 0);
+            new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", 0, LAYOUT_CENTER_Y);
     }
     // make the window a mdi-window
-    myMainSplitter = new FXSplitter(this,
-                                    SPLITTER_REVERSED | SPLITTER_VERTICAL | LAYOUT_FILL_X | LAYOUT_FILL_Y | SPLITTER_TRACKING | FRAME_RAISED | FRAME_THICK);
-    myMDIClient = new FXMDIClient(myMainSplitter,
-                                  LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK);
+    myMainSplitter = new FXSplitter(this, GUIDesignSplitterVertical);
+    myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
-    new FXMDIWindowButton(myMenuBar, myMDIMenu, myMDIClient,
-                          FXMDIClient::ID_MDI_MENUWINDOW, LAYOUT_LEFT);
-    new FXMDIDeleteButton(myMenuBar, myMDIClient,
-                          FXMDIClient::ID_MDI_MENUCLOSE, FRAME_RAISED | LAYOUT_RIGHT);
-    new FXMDIRestoreButton(myMenuBar, myMDIClient,
-                           FXMDIClient::ID_MDI_MENURESTORE, FRAME_RAISED | LAYOUT_RIGHT);
-    new FXMDIMinimizeButton(myMenuBar, myMDIClient,
-                            FXMDIClient::ID_MDI_MENUMINIMIZE, FRAME_RAISED | LAYOUT_RIGHT);
+    new FXMDIWindowButton(myMenuBar, myMDIMenu, myMDIClient, FXMDIClient::ID_MDI_MENUWINDOW, GUIDesignMDIButtonLeft);
+    new FXMDIDeleteButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUCLOSE, GUIDesignMDIButtonRight);
+    new FXMDIRestoreButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENURESTORE, GUIDesignMDIButtonRight);
+    new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
 
     // build the message window
     myMessageWindow = new GUIMessageWindow(myMainSplitter);

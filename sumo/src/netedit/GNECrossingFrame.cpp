@@ -103,21 +103,21 @@ RGBColor GNECrossingFrame::crossingParameters::mySelectedColor;
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::edgesSelector::edgesSelector(FXComposite* parent, GNECrossingFrame* crossingFrameParent) :
-    FXGroupBox(parent, "selection of Edges", GNEDesignGroupBoxFrame),
+    FXGroupBox(parent, "selection of Edges", GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent),
     myCurrentJunction(0) {
 
     // Create button for selected edges
-    myUseSelectedEdges =new FXButton(this, "Use selected Edges", 0, this, MID_GNE_USEONLYSELECTEDEDGES, GNEDesignButton);
+    myUseSelectedEdges =new FXButton(this, "Use selected Edges", 0, this, MID_GNE_USEONLYSELECTEDEDGES, GUIDesignButton);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(this, "clear edges", 0, this, MID_GNE_CLEAREDGESELECTION, GNEDesignButton);
+    myClearEdgesSelection = new FXButton(this, "clear edges", 0, this, MID_GNE_CLEAREDGESELECTION, GUIDesignButton);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(this, "invert edges", 0, this, MID_GNE_INVERTEDGESELECTION, GNEDesignButton);
+    myInvertEdgesSelection = new FXButton(this, "invert edges", 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButton);
 
     // Create help button
-    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonHelp);
+    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
 }
 
 
@@ -213,32 +213,32 @@ GNECrossingFrame::edgesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::crossingParameters::crossingParameters(GNECrossingFrame *crossingFrameParent, GNECrossingFrame::edgesSelector *es) :
-    FXGroupBox(crossingFrameParent->myContentFrame, "Crossing parameters", GNEDesignGroupBoxFrame),
+    FXGroupBox(crossingFrameParent->myContentFrame, "Crossing parameters", GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent),
     myEdgeSelector(es),
     myCurrentParametersValid(true) {
     // Create a Matrix for parameters
-    myAttributesMatrix = new FXMatrix(this, 2, GNEDesignMatrixAttributes);
+    myAttributesMatrix = new FXMatrix(this, 2, GUIDesignMatrixAttributes);
     // create label for edges
-    myCrossingEdgesLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_EDGES).c_str(), 0, GNEDesignLabelAttribute);
+    myCrossingEdgesLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_EDGES).c_str(), 0, GUIDesignLabelAttribute);
     myCrossingEdgesLabel->disable();
     // create string textField for edges
-    myCrossingEdges = new FXTextField(myAttributesMatrix, GNEDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GNEDesignTextFieldAttributeStr);
+    myCrossingEdges = new FXTextField(myAttributesMatrix, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldAttributeStr);
     myCrossingEdges->disable();
     // create label for Priority
-    myCrossingPriorityLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GNEDesignLabelAttribute);
+    myCrossingPriorityLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GUIDesignLabelAttribute);
     myCrossingPriorityLabel->disable();
     // create CheckBox for Priority
-    myCrossingPriority = new FXMenuCheck(myAttributesMatrix, "", this, MID_GNE_SET_ATTRIBUTE, GNEDesignCheckButtonAttribute);
+    myCrossingPriority = new FXMenuCheck(myAttributesMatrix, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myCrossingPriority->disable();
     // create label for width
-    myCrossingWidthLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_WIDTH).c_str(), 0, GNEDesignLabelAttribute);
+    myCrossingWidthLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_WIDTH).c_str(), 0, GUIDesignLabelAttribute);
     myCrossingWidthLabel->disable();
     // create extField for width
-    myCrossingWidth = new FXTextField(myAttributesMatrix, GNEDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GNEDesignTextFieldAttributeReal);
+    myCrossingWidth = new FXTextField(myAttributesMatrix, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldAttributeReal);
     myCrossingWidth->disable();
     // Create help button
-    myHelpCrossingAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GNEDesignButtonHelp);
+    myHelpCrossingAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
     myHelpCrossingAttribute->disable();
     // set colors
     myCandidateColor = RGBColor(0, 64, 0, 255);
@@ -471,7 +471,7 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
 long
 GNECrossingFrame::crossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create help dialog
-    FXDialogBox* helpDialog = new FXDialogBox(this, ("Parameters of " + toString(SUMO_TAG_CROSSING)).c_str(), GNEDesignDialogBox);
+    FXDialogBox* helpDialog = new FXDialogBox(this, ("Parameters of " + toString(SUMO_TAG_CROSSING)).c_str(), GUIDesignDialogBox);
     // Create FXTable
     FXTable* myTable = new FXTable(helpDialog, this, MID_TABLE, TABLE_READONLY);
     myTable->setVisibleRows((FXint)(GNEAttributeCarrier::allowedAttributes(SUMO_TAG_CROSSING).size()));
@@ -518,7 +518,7 @@ GNECrossingFrame::crossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, maxSizeColumnDefinitions * 6);
     // Button Close
-    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, GNEDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -531,8 +531,8 @@ GNECrossingFrame::crossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Crossings") {
     // Create Groupbox for labels
-    myGroupBoxLabel = new FXGroupBox(myContentFrame, "Junction", GNEDesignGroupBoxFrame);
-    myCurrentJunctionLabel = new FXLabel(myGroupBoxLabel, "No junction selected", 0, GNEDesignLabelLeft);
+    myGroupBoxLabel = new FXGroupBox(myContentFrame, "Junction", GUIDesignGroupBoxFrame);
+    myCurrentJunctionLabel = new FXLabel(myGroupBoxLabel, "No junction selected", 0, GUIDesignLabelLeft);
 
     // Create edge Selector
     myEdgeSelector = new edgesSelector(myContentFrame, this);
@@ -541,15 +541,15 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     myCrossingParameters = new crossingParameters(this, myEdgeSelector);
     
     /// Create groupbox for create crossings 
-    myGroupBoxButtons = new FXGroupBox(myContentFrame, "Create", GNEDesignGroupBoxFrame);
-    myCreateCrossingButton = new FXButton(myGroupBoxButtons, "Create crossing", 0, this, MID_GNE_CREATE_CROSSING, GNEDesignButton);
+    myGroupBoxButtons = new FXGroupBox(myContentFrame, "Create", GUIDesignGroupBoxFrame);
+    myCreateCrossingButton = new FXButton(myGroupBoxButtons, "Create crossing", 0, this, MID_GNE_CREATE_CROSSING, GUIDesignButton);
     myCreateCrossingButton->disable();
 
     // Create groupbox and labels for legends
-    myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GNEDesignGroupBoxFrame);
-    myColorCandidateLabel = new FXLabel(myGroupBoxLegend, "Candidate", 0, GNEDesignLabelLeft);
+    myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
+    myColorCandidateLabel = new FXLabel(myGroupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
     myColorCandidateLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getCandidateColor()));
-    myColorSelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GNEDesignLabelLeft);
+    myColorSelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
     myColorSelectedLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getSelectedColor()));
 
     // disable edge selector

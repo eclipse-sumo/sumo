@@ -87,29 +87,29 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     mySetOperationTarget(mySetOperation),
     ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
     // selection modification mode
-    FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GNEDesignGroupBoxFrame);
+    FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
     new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD, GNEDesignRadioButton);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD, GUIDesignRadioButton);
     new FXRadioButton(selBox, "remove\t\tSelected objects are removed from the previous selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_SUB, GNEDesignRadioButton);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_SUB, GUIDesignRadioButton);
     new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT, GNEDesignRadioButton);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT, GUIDesignRadioButton);
     new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE, GNEDesignRadioButton);
+                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE, GUIDesignRadioButton);
     // Create groupBox for selection by expression matching (match box)
-    FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GNEDesignGroupBoxFrame);
+    FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
     // Create MatchTagBox for tags and fill it
-    mySetComboBox = new FXComboBox(elementBox, GNEDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GNEDesignComboBox);
+    mySetComboBox = new FXComboBox(elementBox, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
     mySetComboBox->appendItem("Net Element");
     mySetComboBox->appendItem("Additional");
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // Create groupBox fro selection by expression matching (match box)
-    FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GNEDesignGroupBoxFrame);
+    FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame);
     // Create MatchTagBox for tags
-    myMatchTagComboBox = new FXComboBox(matchBox, GNEDesignComboBoxNCol, this, MID_GNE_SELMB_TAG, GNEDesignComboBox);
+    myMatchTagComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, this, MID_GNE_SELMB_TAG, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(matchBox, GNEDesignComboBoxNCol, NULL, 0, GNEDesignComboBox);
+    myMatchAttrComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, NULL, 0, GUIDesignComboBox);
     // Set netElements as default tag
     mySetComboBox->setCurrentItem(0);
     // Fill list of sub-items
@@ -117,34 +117,34 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     // Set speed as default attribute
     myMatchAttrComboBox->setCurrentItem(3);
     // Create TextField for Match string
-    myMatchString = new FXTextField(matchBox, GNEDesignTextFieldNCol, this, MID_GNE_SELMB_STRING, GNEDesignTextField);
+    myMatchString = new FXTextField(matchBox, GUIDesignTextFieldNCol, this, MID_GNE_SELMB_STRING, GUIDesignTextField);
     // Set default value for Match string
     myMatchString->setText(">10.0");
     // Create help button
-    new FXButton(matchBox, "Help", 0, this, MID_HELP, GNEDesignButtonHelp);
+    new FXButton(matchBox, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
     // Create Groupbox for visual scalings
-    FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GNEDesignGroupBoxFrame);
+    FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GUIDesignGroupBoxFrame);
     // Create spin button and configure it
-    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, GNEDesignSpinDial);
+    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, GUIDesignSpinDial);
     mySelectionScaling->setNumberFormat(1);
     mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setRange(1, 100);
     mySelectionScaling->setValue(1);
     mySelectionScaling->setHelpText("Enlarge selected objects");
     // Create groupbox for additional buttons
-    FXGroupBox* additionalButtons = new FXGroupBox(myContentFrame, "Operations for selections", GNEDesignGroupBoxFrame);
+    FXGroupBox* additionalButtons = new FXGroupBox(myContentFrame, "Operations for selections", GUIDesignGroupBoxFrame);
     // Create "Clear List" Button
-    new FXButton(additionalButtons, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, GNEDesignButton);
+    new FXButton(additionalButtons, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Invert" Button
-    new FXButton(additionalButtons, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, GNEDesignButton);
+    new FXButton(additionalButtons, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, GUIDesignButton);
     // Create "Save" Button
-    new FXButton(additionalButtons, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, GNEDesignButton);
+    new FXButton(additionalButtons, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, GUIDesignButton);
     // Create "Load" Button
-    new FXButton(additionalButtons, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, GNEDesignButton);
+    new FXButton(additionalButtons, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, GUIDesignButton);
     // Create groupbox for information about selections
-    FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GNEDesignGroupBoxFrame);
+    FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
     // Create Selection Hint
-    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GNEDesignLabelLeft);
+    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GUIDesignLabelLeft);
 }
 
 
@@ -322,7 +322,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(this, "Match Attribute Help", GNEDesignDialogBox);
+    FXDialogBox* helpDialog = new FXDialogBox(this, "Match Attribute Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
             << "The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection "
@@ -345,9 +345,9 @@ GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
             << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
             << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
             << "edge; speed; '>10' -> match all edges with a speed above 10\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GNEDesignLabelLeft);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT, GNEDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;

@@ -98,11 +98,11 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     myCenterButton = new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
                                   this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                                   0, 0, 0, 0, 4, 4, 4, 4);
-    new FXHorizontalSeparator(layout, GNEDesignHorizontalSeparator);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG),
                  this, MID_CHOOSER_FILTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
-    new FXHorizontalSeparator(layout, GNEDesignHorizontalSeparator);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO),
                  this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);

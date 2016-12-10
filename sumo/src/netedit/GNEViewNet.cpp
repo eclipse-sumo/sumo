@@ -1703,25 +1703,25 @@ GNEViewNet::buildEditModeControls() {
 
     // initialize buttons for modes
     myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.", 
-                                                  GUIIconSubSys::getIcon(ICON_GNEMODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GNEDesignButtonToolbarCheckable);
+                                                  GUIIconSubSys::getIcon(ICON_GNEMODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
     myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.", 
-                                            GUIIconSubSys::getIcon(ICON_GNEMODEMOVE), this, MID_GNE_MODE_MOVE, GNEDesignButtonToolbarCheckable);
+                                            GUIIconSubSys::getIcon(ICON_GNEMODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
     myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.", 
-                                              GUIIconSubSys::getIcon(ICON_GNEMODEDELETE), this, MID_GNE_MODE_DELETE, GNEDesignButtonToolbarCheckable);
+                                              GUIIconSubSys::getIcon(ICON_GNEMODEDELETE), this, MID_GNE_MODE_DELETE, GUIDesignButtonToolbarCheckable);
     myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.", 
-                                               GUIIconSubSys::getIcon(ICON_GNEMODEINSPECT), this, MID_GNE_MODE_INSPECT, GNEDesignButtonToolbarCheckable);
+                                               GUIIconSubSys::getIcon(ICON_GNEMODEINSPECT), this, MID_GNE_MODE_INSPECT, GUIDesignButtonToolbarCheckable);
     myEditModeSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.", 
-                                              GUIIconSubSys::getIcon(ICON_GNEMODESELECT), this, MID_GNE_MODE_SELECT, GNEDesignButtonToolbarCheckable);
+                                              GUIIconSubSys::getIcon(ICON_GNEMODESELECT), this, MID_GNE_MODE_SELECT, GUIDesignButtonToolbarCheckable);
     myEditModeConnection = new MFXCheckableButton(false, myToolbar, "\tset connection mode\tMode for edit connections between lanes.", 
-                                                  GUIIconSubSys::getIcon(ICON_GNEMODECONNECTION), this, MID_GNE_MODE_CONNECT, GNEDesignButtonToolbarCheckable);
+                                                  GUIIconSubSys::getIcon(ICON_GNEMODECONNECTION), this, MID_GNE_MODE_CONNECT, GUIDesignButtonToolbarCheckable);
     myEditModeTrafficLight = new MFXCheckableButton(false, myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.", 
-                                                    GUIIconSubSys::getIcon(ICON_GNEMODETLS), this, MID_GNE_MODE_TLS, GNEDesignButtonToolbarCheckable);
+                                                    GUIIconSubSys::getIcon(ICON_GNEMODETLS), this, MID_GNE_MODE_TLS, GUIDesignButtonToolbarCheckable);
     myEditModeAdditional = new MFXCheckableButton(false, myToolbar, "\tset additional mode\tMode for adding additional elements.", 
-                                                  GUIIconSubSys::getIcon(ICON_GNEMODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL, GNEDesignButtonToolbarCheckable);
+                                                  GUIIconSubSys::getIcon(ICON_GNEMODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
     myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.", 
-                                                GUIIconSubSys::getIcon(ICON_GNEMODECROSSING), this, MID_GNE_MODE_CROSSING, GNEDesignButtonToolbarCheckable);
+                                                GUIIconSubSys::getIcon(ICON_GNEMODECROSSING), this, MID_GNE_MODE_CROSSING, GUIDesignButtonToolbarCheckable);
 
-    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GNEDesignToolbarGrip);
+    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 
     // initialize mode specific controls
     myChainCreateEdge = new FXMenuCheck(myToolbar, "chain\t\tCreate consecutive edges with a single click (hit ESC to cancel chain).", this, 0);

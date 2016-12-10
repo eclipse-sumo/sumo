@@ -99,10 +99,10 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
     new FXButton(layout, "&Load\t\t", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Save"
     new FXButton(layout, "&Save\t\t", 0, this, MID_CHOOSEN_SAVE, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
-    new FXHorizontalSeparator(layout, GNEDesignHorizontalSeparator);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Clear List"
     new FXButton(layout, "Clea&r\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
-    new FXHorizontalSeparator(layout, GNEDesignHorizontalSeparator);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Close"
     new FXButton(layout, "&Close\t\t", 0, this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
 

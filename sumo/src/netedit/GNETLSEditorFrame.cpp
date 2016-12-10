@@ -103,47 +103,47 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myHaveModifications(false),
     myEditedDef(0) {
     // create groupbox for description
-    myGroupBoxJunction = new FXGroupBox(myContentFrame, "Junction", GNEDesignGroupBoxFrame);
+    myGroupBoxJunction = new FXGroupBox(myContentFrame, "Junction", GUIDesignGroupBoxFrame);
 
     // create description label 
-    myDescription = new FXLabel(myGroupBoxJunction, "No Junction Selected\n", 0, GNEDesignLabelLeft);
+    myDescription = new FXLabel(myGroupBoxJunction, "No Junction Selected\n", 0, GUIDesignLabelLeft);
 
     // create groupbox for tl df
-    myGroupBoxTLSDef = new FXGroupBox(myContentFrame, "Traffic lights definition", GNEDesignGroupBoxFrame);
+    myGroupBoxTLSDef = new FXGroupBox(myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame);
 
     // create create tlDef button
-    myNewTLProgram = new FXButton(myGroupBoxTLSDef, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_DEF_CREATE, GNEDesignButton);
+    myNewTLProgram = new FXButton(myGroupBoxTLSDef, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_DEF_CREATE, GUIDesignButton);
 
     // create delete tlDef button
-    myDeleteTLProgram = new FXButton(myGroupBoxTLSDef, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_DEF_DELETE, GNEDesignButton);
+    myDeleteTLProgram = new FXButton(myGroupBoxTLSDef, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_DEF_DELETE, GUIDesignButton);
 
     // create groupbox for phases
-    myGroupBoxAttributes = new FXGroupBox(myContentFrame, "Attributes", GNEDesignGroupBoxFrame);
+    myGroupBoxAttributes = new FXGroupBox(myContentFrame, "Attributes", GUIDesignGroupBoxFrame);
 
     // Create matrix
-    myAttributeMatrix = new FXMatrix(myGroupBoxAttributes, 2, GNEDesignMatrixAttributes);
+    myAttributeMatrix = new FXMatrix(myGroupBoxAttributes, 2, GUIDesignMatrixAttributes);
 
     // create label for name
-    myNameLabel = new FXLabel(myAttributeMatrix, "Name", 0, GNEDesignLabelAttribute);
+    myNameLabel = new FXLabel(myAttributeMatrix, "Name", 0, GUIDesignLabelAttribute);
 
     // create text field for name
-    myNameTextField = new FXTextField(myAttributeMatrix, GNEDesignTextFieldNCol, this, MID_GNE_DEF_SWITCH, GNEDesignTextFieldAttributeStr);
+    myNameTextField = new FXTextField(myAttributeMatrix, GUIDesignTextFieldNCol, this, MID_GNE_DEF_SWITCH, GUIDesignTextFieldAttributeStr);
 
     // create label for program
-    myProgramLabel = new FXLabel(myAttributeMatrix, "Program", 0, GNEDesignLabelAttribute);
+    myProgramLabel = new FXLabel(myAttributeMatrix, "Program", 0, GUIDesignLabelAttribute);
 
     // create combo box for program
-    myProgramComboBox = new FXComboBox(myAttributeMatrix, GNEDesignComboBoxNCol, this, MID_GNE_DEF_SWITCH, GNEDesignComboBoxAttribute);
+    myProgramComboBox = new FXComboBox(myAttributeMatrix, GUIDesignComboBoxNCol, this, MID_GNE_DEF_SWITCH, GUIDesignComboBoxAttribute);
 
     // create offset control
-    myOffsetLabel = new FXLabel(myAttributeMatrix, "Offset", 0, GNEDesignLabelAttribute);
-    myOffset = new FXTextField(myAttributeMatrix, GNEDesignTextFieldNCol, this, MID_GNE_DEF_OFFSET, GNEDesignTextFieldAttributeReal);
+    myOffsetLabel = new FXLabel(myAttributeMatrix, "Offset", 0, GUIDesignLabelAttribute);
+    myOffset = new FXTextField(myAttributeMatrix, GUIDesignTextFieldNCol, this, MID_GNE_DEF_OFFSET, GUIDesignTextFieldAttributeReal);
 
     // create groupbox for phases
-    myGroupBoxPhases = new FXGroupBox(myContentFrame, "Phases", GNEDesignGroupBoxFrame);
+    myGroupBoxPhases = new FXGroupBox(myContentFrame, "Phases", GUIDesignGroupBoxFrame);
     
     // create and configure phase table
-    myPhaseTable = new FXTable(myGroupBoxPhases, this, MID_GNE_PHASE_TABLE, GNEDesignTable);
+    myPhaseTable = new FXTable(myGroupBoxPhases, this, MID_GNE_PHASE_TABLE, GUIDesignTable);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(0);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
@@ -153,28 +153,28 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myPhaseTable->setHelpText("phase duration in seconds | phase state");
 
     // create total duration info label
-    myCycleDuration = new FXLabel(myGroupBoxPhases, "", 0, GNEDesignLabelLeft);
+    myCycleDuration = new FXLabel(myGroupBoxPhases, "", 0, GUIDesignLabelLeft);
 
     // create new phase button
-    myInsertDuplicateButton = new FXButton(myGroupBoxPhases, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE, GNEDesignButton);
+    myInsertDuplicateButton = new FXButton(myGroupBoxPhases, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE, GUIDesignButton);
 
     // create delete phase button
-    myDeleteSelectedPhaseButton = new FXButton(myGroupBoxPhases, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_PHASE_DELETE, GNEDesignButton);
+    myDeleteSelectedPhaseButton = new FXButton(myGroupBoxPhases, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_PHASE_DELETE, GUIDesignButton);
 
     // create groupbox for modifications
-    myGroupBoxModifications = new FXGroupBox(myContentFrame, "Modifications", GNEDesignGroupBoxFrame);
+    myGroupBoxModifications = new FXGroupBox(myContentFrame, "Modifications", GUIDesignGroupBoxFrame);
     
     // create discard modifications buttons
-    myDiscardModificationsButtons = new FXButton(myGroupBoxModifications, "Cancel\t\tDiscard program modifications (Esc)", 0, this, MID_CANCEL, GNEDesignButton);
+    myDiscardModificationsButtons = new FXButton(myGroupBoxModifications, "Cancel\t\tDiscard program modifications (Esc)", 0, this, MID_CANCEL, GUIDesignButton);
     
     // create save modifications button
-    mySaveModificationsButtons = new FXButton(myGroupBoxModifications, "Save\t\tSave program modifications (Enter)", 0, this, MID_OK, GNEDesignButton);
+    mySaveModificationsButtons = new FXButton(myGroupBoxModifications, "Save\t\tSave program modifications (Enter)", 0, this, MID_OK, GUIDesignButton);
 
 
     // "Add 'off' program"
     /*
     new FXButton(myContentFrame, "Add \"Off\"-Program\t\tAdds a program for switching off this traffic light",
-            0, this, MID_GNE_DEF_ADDOFF, GNEDesignButton);
+            0, this, MID_GNE_DEF_ADDOFF, GUIDesignButton);
     */
 }
 

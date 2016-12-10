@@ -38,113 +38,126 @@
 /// @name FXTextFields
 /// @{
     /// @brief text field extended over GNEFrame with thick frame
-    #define GNEDesignTextField              (FRAME_THICK | LAYOUT_FILL_X)
+    #define GUIDesignTextField              (FRAME_THICK | LAYOUT_FILL_X)
 
     /// @brief text field extended over the matrix column with thick frame and limited to integers
-    #define GNEDesignTextFieldAttributeInt  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
+    #define GUIDesignTextFieldAttributeInt  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
 
     /// @brief text field extended over the matrix column with thick frame and limited to real
-    #define GNEDesignTextFieldAttributeReal (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_REAL)
+    #define GUIDesignTextFieldAttributeReal (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_REAL)
 
     /// @brief text field extended over the matrix column with thick frame
-    #define GNEDesignTextFieldAttributeStr  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+    #define GUIDesignTextFieldAttributeStr  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
     /// @brief Num of column of text field
-    #define GNEDesignTextFieldNCol          5
+    #define GUIDesignTextFieldNCol          5
 /// @}
 
 /// @name FXButtons
 /// @{
     /// @brief button extended over over GNEFrame with thick and raise frame 
-    #define GNEDesignButton                 (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X) , 0, 0, 0, 0, 4, 4, 3, 3
+    #define GUIDesignButton                 (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X) , 0, 0, 0, 0, 4, 4, 3, 3
 
     /// @brief button extended over over column with thick and raise frame 
-    #define GNEDesignButtonAttribute        (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+    #define GUIDesignButtonAttribute        (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
     /// @brief button with size limited by text, centered over GNEFrame with thick and raise frame 
-    #define GNEDesignButtonDialog           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_CENTER_X | JUSTIFY_NORMAL)
+    #define GUIDesignButtonDialog           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_CENTER_X | JUSTIFY_NORMAL)
 
     /// @brief little button for help in frames
-    #define GNEDesignButtonHelp             (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_NORMAL)
+    #define GUIDesignButtonHelp             (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_NORMAL)
 
     /// @brief little button with text placed in navigation toolbar
-    #define GNEDesignButtonToolbarText      (BUTTON_TOOLBAR | ICON_ABOVE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_Y | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23
+    #define GUIDesignButtonToolbarText      (BUTTON_TOOLBAR | ICON_ABOVE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_Y | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23
     
     /// @brief little button with icon placed in navigation toolbar
-    #define GNEDesignButtonToolbar          (BUTTON_TOOLBAR | ICON_ABOVE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+    #define GUIDesignButtonToolbar          (BUTTON_TOOLBAR | ICON_ABOVE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
 
     /// @brief little checkable button with icon placed in navigation toolbar used specify for Locator
-    #define GNEDesignButtonToolbarLocator   (BUTTON_TOOLBAR | MENUBUTTON_RIGHT | LAYOUT_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+    #define GUIDesignButtonToolbarLocator   (BUTTON_TOOLBAR | MENUBUTTON_RIGHT | LAYOUT_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
 
     /// @brief little checkable button with icon placed in navigation toolbar
-    #define GNEDesignButtonToolbarCheckable (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+    #define GUIDesignButtonToolbarCheckable (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+
+    /// @brief MDIButton oriented to left
+    #define GUIDesignMDIButtonLeft          (LAYOUT_LEFT)
+
+    /// @brief MDIButton oriented to right
+    #define GUIDesignMDIButtonRight         (FRAME_RAISED | LAYOUT_RIGHT)
+
 /// @}
 
 /// @name FXCheckBoxs
 /// @{
     /// @brief Check button for GNEFrames extended over the frame
-    #define GNEDesignCheckButton            (LAYOUT_LEFT | ICON_BEFORE_TEXT)
+    #define GUIDesignCheckButton            (LAYOUT_LEFT | ICON_BEFORE_TEXT)
     
     /// @brief Check button for attributes extended over the matrix column
-    #define GNEDesignCheckButtonAttribute   (LAYOUT_LEFT | LAYOUT_FILL_COLUMN | ICON_BEFORE_TEXT)
+    #define GUIDesignCheckButtonAttribute   (LAYOUT_LEFT | LAYOUT_FILL_COLUMN | ICON_BEFORE_TEXT)
 /// @}
 
 /// @name FXLabels
 /// @{
     /// @brief label extended over over GNEFrame without thick and with text justify to left
-    #define GNEDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X)
+    #define GUIDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X)
 
     /// @brief label extended over over GNEFrame without thick and with text justify to right
-    #define GNEDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X)
+    #define GUIDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X)
 
     /// @brief label extended over over GNEFrame without thickand  with text justify to center
-    #define GNEDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X)
+    #define GUIDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X)
 
     /// @brief label extended over over GNEFrame with thick and with text justify to left
-    #define GNEDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X)
+    #define GUIDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X)
 
     /// @brief label extended over over GNEFrame with thick and with text justify to right
-    #define GNEDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X)
+    #define GUIDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X)
 
     /// @brief label extended over over GNEFrame with thick and with text justify to center
-    #define GNEDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X)
+    #define GUIDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X)
 
     /// @brief label extended over the matrix column with thick frame
-    #define GNEDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+    #define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 /// @}
 
 /// @name FXComboBox
 /// @{
     /// @brief Combo box static (cannot be dited) extended over the all frame
-    #define GNEDesignComboBox               (FRAME_THICK | LAYOUT_FILL_X)
+    #define GUIDesignComboBox               (FRAME_THICK | LAYOUT_FILL_X)
+
+
+    #define GUIDesignComboBoxStatic         (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_CENTER_Y)
 
     /// @brief Combo box static (cannot be dited) extended over the matrix column
-    #define GNEDesignComboBoxAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+    #define GUIDesignComboBoxAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
     /// @brief number of column of every combo box
-    #define GNEDesignComboBoxNCol           12
+    #define GUIDesignComboBoxNCol           12
 /// @}
 
 /// @name FXPackers
 /// @{
-    /// @brief Horizontal design extended over frame
-    #define GNEDesignHorizontalFrame        (LAYOUT_FILL_X | LAYOUT_LEFT)
+    /// @brief Horizontal frame extended over frame
+    #define GUIDesignHorizontalFrame        (LAYOUT_FILL_X | LAYOUT_LEFT)
+
+    /// @brief Horizontal frame used in status bar
+    #define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
     
     /// @brief Matrix design extended over frame and used for represent attributes and their values
-    #define GNEDesignMatrixAttributes       (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
+    #define GUIDesignMatrixAttributes       (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
     
     /// @brief Group box design extended over frame
-    #define GNEDesignGroupBoxFrame          (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
+    #define GUIDesignGroupBoxFrame          (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
 /// @}
 
 
 /// @name General design for netedit frames
 /// @{
     /// @brief design for frames area
-    #define GNEDesignFrameArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    #define GUIDesignFrameArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
     
     /// @brief design for viewn area
-    #define GNEDesignViewnArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    #define GUIDesignViewnArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
     
     /// @brief design for the content frame of every frame
     #define GNEDesigContentFrame            (LAYOUT_FILL_X | LAYOUT_FILL_Y)
@@ -157,39 +170,54 @@
 /// @name designs for toolbars
 /// @{
     /// @brief design for all toolbars and menubars
-    #define GNEDesignBar                    (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
+    #define GUIDesignBar                    (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
+
+    /// @brief design used in status bar
+    #define GUIDesignStatusBar              (LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X | FRAME_RAISED)
 
     /// @brief design for toolbar grip (used to change the position of toolbar with mouse)
-    #define GNEDesignToolBarGrip            (TOOLBARGRIP_DOUBLE)
+    #define GUIDesignToolBarGrip            (TOOLBARGRIP_DOUBLE)
 
     /// @brief design for first toolbar shell positioned in the next position of dock
-    #define GNEDesignToolBarShell1          (LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED)
+    #define GUIDesignToolBarShell1          (LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED)
 
     /// @brief design for first toolbar shell positioned in the same  position of dock
-    #define GNEDesignToolBarShell2          (LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED)
+    #define GUIDesignToolBarShell2          (LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED)
+
+    #define GUIDesignToolBarShell3          (FRAME_NORMAL)
 /// @}
 
 /// @name designs for separators
 /// @{
     /// @brief horizontal separator
-    #define GNEDesignHorizontalSeparator    (SEPARATOR_GROOVE | LAYOUT_FILL_X)
+    #define GUIDesignHorizontalSeparator    (SEPARATOR_GROOVE | LAYOUT_FILL_X)
 
     /// @brief vertical separator
-    #define GNEDesignVerticalSeparator      (SEPARATOR_GROOVE | LAYOUT_FILL_Y)
+    #define GUIDesignVerticalSeparator      (SEPARATOR_GROOVE | LAYOUT_FILL_Y)
+/// @}
+
+
+/// @name designs for splitters
 /// @{
+    /// @brief horizontal splitter
+    #define GUIDesignSplitterHorizontal     (SPLITTER_HORIZONTAL | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK)
 
+    /// @brief vertical splitter
+    #define GUIDesignSplitterVertical       (SPLITTER_VERTICAL   | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK | SPLITTER_REVERSED)
 
-    #define GNEDesignRadioButton            (RADIOBUTTON_NORMAL)
+    /// @brief MDI Splitter
+    #define GUIDesignSplitterMDI            (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK)
+/// @}
 
-    #define GNEDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
+    #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
 
-    #define GNEDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
+    #define GUIDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
 
-    #define GNEDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
+    #define GUIDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
 
-    #define GNEDesignSpinDial               (LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y)
+    #define GUIDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
 
-    #define GNEDesignSplitter               (SPLITTER_HORIZONTAL | SPLITTER_TRACKING | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_RAISED | FRAME_THICK)
+    #define GUIDesignSpinDial               (LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y)
 
 #endif
 

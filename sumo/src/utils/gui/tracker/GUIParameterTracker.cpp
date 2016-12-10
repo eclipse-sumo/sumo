@@ -107,16 +107,16 @@ GUIParameterTracker::create() {
 
 void
 GUIParameterTracker::buildToolBar() {
-    myToolBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
+    myToolBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
-    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
+    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // save button
     new FXButton(myToolBar, "\t\tSave the data...",
-                 GUIIconSubSys::getIcon(ICON_SAVE), this, GUIParameterTracker::MID_SAVE, GNEDesignButtonToolbar);
+                 GUIIconSubSys::getIcon(ICON_SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
     // aggregation interval combo
     myAggregationInterval =
         new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
-                       FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
+                       GUIDesignComboBoxStatic);
     myAggregationInterval->appendItem("1s");
     myAggregationInterval->appendItem("1min");
     myAggregationInterval->appendItem("5min");

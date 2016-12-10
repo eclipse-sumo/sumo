@@ -160,9 +160,9 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
                    20, 20, 300, 200),
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
     // build the toolbar
-    myToolBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
+    myToolBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
-    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GNEDesignToolBarGrip);
+    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // interval manipulation
     myBeginOffset = new FXRealSpinDial(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
     myBeginOffset->setFormatString("%.0f");
