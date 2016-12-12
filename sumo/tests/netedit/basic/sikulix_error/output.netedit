@@ -1,0 +1,7 @@
++++ running this Java
++++ trying to run SikuliX
++++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar D:\behr_mi\lib\sikulix\sikulix.jar -run test.sikuli
+[error] script [ C:\Users\behr_mi\.texttest\tmp\netedit.gui.12Dec180804.15236\netedit.gui\basic\sikulix_error\test.sikuli ] stopped with error in line 11
+[error] NameError ( name 'blub' is not defined )
+[log] ( Strg )  TYPE "q"
+[log] netedit closed successfully

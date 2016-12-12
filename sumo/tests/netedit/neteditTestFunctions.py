@@ -3,6 +3,7 @@ import os
 import sys
 import subprocess
 import platform
+import atexit
 from sikuli import *
 
 Settings.MoveMouseDelay = 0.1
@@ -61,6 +62,7 @@ def setupAndStart(testRoot, newNet):
     setup(testRoot)
     # Open netedit
     neteditProcess = Popen(newNet)
+    atexit.register(quit, neteditProcess, False, False)
     # Wait for netedit reference
     return neteditProcess, getReferenceMatch(neteditProcess)
 
@@ -94,26 +96,26 @@ def modifyAttribute(parametersReference, attributeNumber, value):
 def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns):
     click(parametersReference)
     # place cursor in comboBox Reference
-    for x in range(0, numTabs) :
+    for x in range(numTabs):
         type(Key.TAB)
     # Set comboBox in the first element
-    for x in range(0, 3) :
+    for x in range(3):
         type(Key.UP)
     # select new reference
-    for x in range(0, numDowns) :
+    for x in range(numDowns):
         type(Key.DOWN)
     
 # block additional
 def changeBlockAdditional(parametersReference, numTabs):
     click(parametersReference)
     # place cursor in block movement checkbox
-    for x in range(0, numTabs) :
+    for x in range(numTabs):
         type(Key.TAB)
     # Change current value
     type(Key.SPACE)
 
 # netedit wait question
-def waitQuestion(answer) :
+def waitQuestion(answer):
     # wait 0.5 second to question dialog
     wait(0.5)
     #Answer can be "y" or "n"
@@ -128,17 +130,18 @@ def quit(neteditProcess, mustBeSaved, save) :
     if mustBeSaved:
         if save:
             waitQuestion("y")
-        else :
+        else:
             waitQuestion("n")
             
-    # wait 1 second
-    wait(0.5)
-    if neteditProcess.poll() is not None:
-        print ("netedit was closed sucesfully")
-    else:
-        neteditProcess.kill()
-        print ("error closing netedit")
-    
+    # wait some seconds
+    for t in xrange(3):
+        wait(t)
+        if neteditProcess.poll() is not None:
+            print("[log] netedit closed successfully")
+            return
+    neteditProcess.kill()
+    print("error closing netedit")
+
 
 # netedit save additionals
 def saveAdditionals(match) :
