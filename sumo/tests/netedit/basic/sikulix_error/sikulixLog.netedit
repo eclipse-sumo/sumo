@@ -1,5 +1,0 @@
-[error] SystemExit ( Killed netedit process. 'edit-redo.png or toolbar-file.png' not found )
-[error] --- Traceback --- error source first
-line: module ( function ) statement 
-10: main (  abort )     sys.exit("Killed netedit process. '" + reason + "' not found")
-[error] --- Traceback --- end --------------

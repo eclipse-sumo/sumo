@@ -14,6 +14,8 @@ sikulixLog:sikulixLog.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
+output:[log]
+output:sikulix.jar
 output:done \(.*\)\.{REPLACE done.}
 log:done \(.*\)\.{REPLACE done.}
 errors:Leaked object at 

@@ -30,22 +30,22 @@ def setup(neteditTests):
 
 def Popen(newNet):
     # set the default parameters of netedit
-    neteditParameters = [neteditApp, '--gui-testing', '--window-size', '700,500']
+    neteditCall = [neteditApp, '--gui-testing', '--window-size', '700,500',
+                   '--no-warnings', '--error-log', os.path.join(textTestSandBox, 'log.txt')]
     
     # check if a new net must be created, or a existent net must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
-        neteditParameters += ['--sumo-net-file', os.path.join(textTestSandBox, "input_net.net.xml")]
+        neteditCall += ['--sumo-net-file', os.path.join(textTestSandBox, "input_net.net.xml")]
     elif newNet:
-        neteditParameters += ['--new', '--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
+        neteditCall += ['--new', '--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
     
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
-        neteditParameters += ['--sumo-additionals-file', os.path.join(textTestSandBox, "input_additionals.add.xml")]
+        neteditCall += ['--sumo-additionals-file', os.path.join(textTestSandBox, "input_additionals.add.xml")]
     else:
-        neteditParameters.append('--additionals-output')
-        neteditParameters.append(os.path.join(textTestSandBox, "additionals.xml"))
+        neteditCall += ['--additionals-output', os.path.join(textTestSandBox, "additionals.xml")]
     
-    return subprocess.Popen(neteditParameters, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+    return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
 # obtain match 
