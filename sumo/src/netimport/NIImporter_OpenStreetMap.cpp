@@ -523,6 +523,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
+            } else if (nbe->getPermissions(0) == SVC_BUS) {
+                // bikes drive on buslanes if no separate cycle lane is available
+                nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
@@ -544,6 +547,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
+            } else if (nbe->getPermissions(0) == SVC_BUS) {
+                // bikes drive on buslanes if no separate cycle lane is available
+                nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
