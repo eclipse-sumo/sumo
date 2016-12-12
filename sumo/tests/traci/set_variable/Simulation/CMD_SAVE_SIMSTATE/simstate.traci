@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 27 08:36:59 2016 by SUMO Version dev-SVN-r20555
+<!-- generated on Mon Dec 12 07:54:58 2016 by SUMO Version dev-SVN-r22256
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -22,19 +22,19 @@
     </report>
 
     <traci_server>
-        <remote-port value="39257"/>
+        <remote-port value="41690"/>
     </traci_server>
 
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r20555" time="1.00">
+<snapshot version="dev-SVN-r22256" time="1.00">
     <route id="r" state="1" edges="e_m0"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="h" depart="0.00" route="r" type="DEFAULT_VEHTYPE" state="0 0" pos="5.10" speed="0.00" posLat="0.00"/>
-    <vehicle id="h1" depart="0.00" route="r" type="DEFAULT_VEHTYPE" state="9223372036854775807 0" pos="5.10" speed="0.00" posLat="0.00"/>
+    <vehicle id="h" type="DEFAULT_VEHTYPE" depart="0.00" route="r" state="0 0" pos="5.10" speed="0.00" posLat="0.00"/>
+    <vehicle id="h1" type="DEFAULT_VEHTYPE" depart="0.00" route="r" state="9223372036854775807 0" pos="5.10" speed="0.00" posLat="0.00"/>
     <lane id="e_m0_0">
         <vehicles value="h"/>
     </lane>

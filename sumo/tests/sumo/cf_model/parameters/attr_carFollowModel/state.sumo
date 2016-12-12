@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 19 08:29:38 2016 by SUMO Version dev-SVN-r20445
+<!-- generated on Mon Dec 12 07:54:08 2016 by SUMO Version dev-SVN-r22256
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r20445" time="2.00">
+<snapshot version="dev-SVN-r22256" time="2.00">
     <route id="!0" state="0" edges="1si"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
@@ -31,7 +31,7 @@
     <vType id="idm" length="5.00" minGap="2.00">
         <carFollowing-IDM accel="0.50" decel="3.00" tau="1.00" delta="1.00"/>
     </vType>
-    <vehicle id="0" depart="0.00" route="!0" type="idm" state="0 0" pos="5.60" speed="0.50" posLat="0.00"/>
+    <vehicle id="0" type="idm" depart="0.00" route="!0" state="0 0" pos="5.60" speed="0.50" posLat="0.00"/>
     <lane id="1fi_0">
         <vehicles value=""/>
     </lane>

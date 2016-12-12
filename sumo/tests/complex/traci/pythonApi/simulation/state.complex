@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 27 08:44:15 2016 by SUMO Version dev-SVN-r20555
+<!-- generated on Mon Dec 12 07:49:52 2016 by SUMO Version dev-SVN-r22256
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -8,6 +8,7 @@
     <input>
         <net-file value="input_net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional2.add.xml"/>
     </input>
 
     <processing>
@@ -20,19 +21,19 @@
     </report>
 
     <traci_server>
-        <remote-port value="46176"/>
+        <remote-port value="46695"/>
     </traci_server>
 
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r20555" time="6.00">
+<snapshot version="dev-SVN-r22256" time="6.00">
     <route id="horizontal" state="1" edges="o"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="horiz" depart="0.00" route="horizontal" type="DEFAULT_VEHTYPE" state="0 0" pos="32.38" speed="9.45" posLat="0.00"/>
-    <vehicle id="horiz1" depart="5.00" route="horizontal" type="DEFAULT_VEHTYPE" state="5000 0" pos="5.10" speed="0.00" posLat="0.00"/>
+    <vehicle id="horiz" type="DEFAULT_VEHTYPE" depart="0.00" route="horizontal" state="0 0" pos="32.38" speed="9.45" posLat="0.00"/>
+    <vehicle id="horiz1" type="DEFAULT_VEHTYPE" depart="5.00" route="horizontal" state="5000 0" pos="5.10" speed="0.00" posLat="0.00"/>
     <lane id=":0_0_0">
         <vehicles value=""/>
     </lane>
