@@ -58,6 +58,10 @@ public:
     /// @brief Destructor
     ~GNEDeleteFrame();
 
+    /**@brief fill frame with the globject information
+     * @param globjectID gl id of object
+     */
+    void getGLObjectInformation(int globjectID);
 
 protected:
     /// @brief FOX needs this

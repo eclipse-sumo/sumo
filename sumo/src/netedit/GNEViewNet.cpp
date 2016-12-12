@@ -836,31 +836,40 @@ GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
-    if (myPolyToMove) {
-        myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, getPositionInformation());
-    } else if (myJunctionToMove) {
-        myJunctionToMove->move(getPositionInformation());
-    } else if (myEdgeToMove) {
-        myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, getPositionInformation());
-    } else if (myAdditionalToMove) {
-        // If additional is placed over lane, move it across it
-        if (myAdditionalToMove->getLane()) {
-            SUMOReal posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
-            myAdditionalToMove->moveAdditionalGeometry(posOfMouseOverLane - myAdditionalMovingReference.x(), 0);
-            myAdditionalMovingReference.set(posOfMouseOverLane, 0, 0);
-        } else {
-            // Calculate offset movement
-            Position offsetPosition = getPositionInformation() - myOldAdditionalPosition;
-            myAdditionalToMove->moveAdditionalGeometry(myOldAdditionalPosition + offsetPosition + myAdditionalMovingReference);
+    // in delete mode object under cursor must be checked in every mouse movement
+    if( myEditMode == GNE_MODE_DELETE) {
+        setFocus();
+        // show object information in delete frame
+        if (makeCurrent()) {
+            myViewParent->getDeleteFrame()->getGLObjectInformation(getObjectUnderCursor());
         }
-        update();
-    } else if (myMoveSelection) {
-        Position moveTarget = getPositionInformation();
-        myNet->moveSelection(myMoveSrc, moveTarget);
-        myMoveSrc = moveTarget;
-    } else if (myAmInRectSelect) {
-        mySelCorner2 = getPositionInformation();
-        update();
+    } else {
+        if (myPolyToMove) {
+            myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, getPositionInformation());
+        } else if (myJunctionToMove) {
+            myJunctionToMove->move(getPositionInformation());
+        } else if (myEdgeToMove) {
+            myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, getPositionInformation());
+        } else if (myAdditionalToMove) {
+            // If additional is placed over lane, move it across it
+            if (myAdditionalToMove->getLane()) {
+                SUMOReal posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
+                myAdditionalToMove->moveAdditionalGeometry(posOfMouseOverLane - myAdditionalMovingReference.x(), 0);
+                myAdditionalMovingReference.set(posOfMouseOverLane, 0, 0);
+            } else {
+                // Calculate offset movement
+                Position offsetPosition = getPositionInformation() - myOldAdditionalPosition;
+                myAdditionalToMove->moveAdditionalGeometry(myOldAdditionalPosition + offsetPosition + myAdditionalMovingReference);
+            }
+            update();
+        } else if (myMoveSelection) {
+            Position moveTarget = getPositionInformation();
+            myNet->moveSelection(myMoveSrc, moveTarget);
+            myMoveSrc = moveTarget;
+        } else if (myAmInRectSelect) {
+            mySelCorner2 = getPositionInformation();
+            update();
+        }
     }
     return 1;
 }

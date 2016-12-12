@@ -84,4 +84,9 @@ GNEDeleteFrame::~GNEDeleteFrame() {
 }
 
 
+void 
+GNEDeleteFrame::getGLObjectInformation(int globjectID) {
+
+}
+
 /****************************************************************************/
