@@ -200,7 +200,12 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, SU
     // this part of the angle comes from the orientation of our current lane
     SUMOReal laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
     // this part of the angle comes from the vehicle's lateral movement
-    SUMOReal changeAngle = atan2(latDist, SPEED2DIST(vehicle->getSpeed()));
+    SUMOReal changeAngle = 0;
+    // avoid flicker
+    if (fabs(latDist) > NUMERICAL_EPS) {
+        // avoid extreme angles by using vehicle length as a proxy for turning radius
+        changeAngle = atan2(latDist, SPEED2DIST(MAX2(vehicle->getVehicleType().getLength(), vehicle->getSpeed())));
+    }
     vehicle->setAngle(laneAngle + changeAngle);
 
     return changedToNewLane;
