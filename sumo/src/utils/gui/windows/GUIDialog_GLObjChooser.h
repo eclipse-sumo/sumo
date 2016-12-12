@@ -105,6 +105,9 @@ public:
 
     /// @brief Callback: Hides unselected items if pressed
     long onCmdFilter(FXObject*, FXSelector, void*);
+
+    /// @brief Callback: Toggle selection status of current object
+    long onCmdToggleSelection(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief sets the focus after the window is created to work-around bug in libfox

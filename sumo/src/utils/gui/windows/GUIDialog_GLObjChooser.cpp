@@ -59,6 +59,7 @@ FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
     FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER, GUIDialog_GLObjChooser::onCmdFilter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,  GUIDialog_GLObjChooser::onCmdToggleSelection),
 };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -101,6 +102,9 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG),
                  this, MID_CHOOSER_FILTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 4, 4);
+    new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG),
+                 this, MID_CHOOSEN_INVERT, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO),
@@ -203,6 +207,24 @@ GUIDialog_GLObjChooser::onCmdFilter(FXObject*, FXSelector, void*) {
         myList->appendItem(selectedMicrosimIDs[i], flag, (void*) & (*myIDs.find(selectedGlIDs[i])));
     }
     myList->update();
+    return 1;
+}
+
+long
+GUIDialog_GLObjChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
+    FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
+    int i = myList->getCurrentItem();
+    if (i >= 0) {
+        GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(i));
+        gSelected.toggleSelection(*glID);
+        if (myList->getItemIcon(i) == flag) {
+            myList->setItemIcon(i, 0);
+        } else {
+            myList->setItemIcon(i, flag);
+        }
+    }
+    myList->update();
+    myParent->getView()->update();
     return 1;
 }
 
