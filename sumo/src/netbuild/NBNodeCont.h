@@ -65,24 +65,18 @@ public:
     /// @brief Constructor
     NBNodeCont();
 
-
     /// @brief Destructor
     ~NBNodeCont();
 
-
-
     /// @name Insertion/removal/retrieval of nodes
     /// @{
-
     /** @brief Inserts a node into the map
      * @param[in] id The node's id
      * @param[in] position The node's position
      * @param[in] A district assigned to the node
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(const std::string& id, const Position& position,
-                NBDistrict* district = 0);
-
+    bool insert(const std::string& id, const Position& position, NBDistrict* district = 0);
 
     /** @brief Inserts a node into the map
      * @param[in] node The node to insert
@@ -90,13 +84,11 @@ public:
      */
     bool insert(NBNode* node);
 
-
     /** @brief Removes the given node, deleting it
      * @param[in] node The node to delete and remove
      * @return Whether the node could be removed (existed)
      */
     bool erase(NBNode* node);
-
 
     /** @brief Removes the given node but does not delete it
      * @param[in] node The node to delete and remove
@@ -111,7 +103,6 @@ public:
      */
     NBNode* retrieve(const std::string& id) const;
 
-
     /** @brief Returns the node with the given coordinates
      * @param[in] position The position at which the node to retrieve lies
      * @param[in] offset An offset which can be applied in the case positions are blurred
@@ -119,28 +110,19 @@ public:
      */
     NBNode* retrieve(const Position& position, const SUMOReal offset = 0.) const;
 
-
-    /** @brief Returns the pointer to the begin of the stored nodes
-     * @return The iterator to the beginning of stored nodes
-     */
+    /// @brief Returns the pointer to the begin of the stored nodes
     std::map<std::string, NBNode*>::const_iterator begin() const {
         return myNodes.begin();
     }
 
-
-    /** @brief Returns the pointer to the end of the stored nodes
-     * @return The iterator to the end of stored nodes
-     */
+    /// @brief Returns the pointer to the end of the stored nodes
     std::map<std::string, NBNode*>::const_iterator end() const {
         return myNodes.end();
     }
     /// @}
 
-
-
     /// @name Methods for for joining nodes
     /// @{
-
     /* @brief add ids of nodes wich shall not be joined
      * @param[in] ids A list of ids to exclude from joining
      * @param[in] check Whether to check if these nodes are known
@@ -148,28 +130,20 @@ public:
      */
     void addJoinExclusion(const std::vector<std::string>& ids, bool check = false);
 
-
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
      */
     void addCluster2Join(std::set<std::string> cluster);
 
-
-    /** @brief Joins loaded junction clusters (see NIXMLNodesHandler)
-     */
+    /// @brief Joins loaded junction clusters (see NIXMLNodesHandler)
     int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
-
-    /** @brief Joins junctions that are very close together
-     */
+    /// @brief Joins junctions that are very close together
     int joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
     /// @}
 
-
-
     /// @name Adapting the input
     /// @{
-
     /** @brief Removes self-loop edges (edges where the source and the destination node are the same)
      * @param[in, opt. changed] dc The districts container to update
      * @param[in, opt. changed] ec The edge container to remove the edges from
@@ -177,7 +151,6 @@ public:
      * @post Each edge is a uni-directional connection between two different nodes
      */
     void removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
-
 
     /** @brief Joins edges connecting the same nodes
      * @param[in, opt. changed] dc The districts container to update
@@ -187,11 +160,8 @@ public:
      */
     void joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
-
-    /** @brief fix overlap
-     */
+    /// @brief fix overlap
     void avoidOverlap();
-
 
     /** @brief Removes sequences of edges that are not connected with a junction.
      * Simple roads without junctions sometimes remain when converting from OpenStreetMake,
@@ -202,7 +172,6 @@ public:
      * @param[in, opt. changed] tc The traffic lights container to update
      */
     void removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
-
 
     /** @brief Removes "unwished" nodes
      *
@@ -218,15 +187,11 @@ public:
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
      * @return The number of removed nodes
      */
-    int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
-                            NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
+    int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
     /// @}
-
-
 
     /// @name Methods for guessing/computing traffic lights
     /// @{
-
     /** @brief Guesses which junctions or junction clusters shall be controlled by tls
      * @param[in] oc The options that steer the guessing process
      * @param[filled] tlc The traffic lights control into which new traffic light definitions shall be stored
@@ -234,14 +199,12 @@ public:
      */
     void guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc);
 
-
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
      * @param[in] maxdist The maximum distance between nodes for clustering
      * @todo Recheck exception handling
      */
     void joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist);
-
 
     /** @brief Sets the given node as being controlled by a tls
      * @param[in] node The node that shall be controlled by a tls
@@ -253,11 +216,8 @@ public:
     void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, TrafficLightType type, std::string id = "");
     /// @}
 
-
-    /** @brief Renames the node. Throws exception if newID already exists
-     */
+    /// @brief Renames the node. Throws exception if newID already exists
     void rename(NBNode* node, const std::string& newID);
-
 
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();
@@ -265,18 +225,15 @@ public:
     /// build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
 
-    /** @brief Returns the number of known nodes
-     * @return The number of nodes stored in this container
-     */
+    /// @brief Returns the number of nodes stored in this container
     int size() const {
         return (int) myNodes.size();
     }
 
-    /** deletes all nodes */
+    /// @brief deletes all nodes
     void clear();
 
-
-
+    /// @brief generates a new node ID
     std::string getFreeID();
 
     /** @brief Compute the junction shape for this node
@@ -291,10 +248,8 @@ public:
      */
     void printBuiltNodesStatistics() const;
 
-
     /// @brief get all node names
     std::vector<std::string> getAllNames() const;
-
 
     /* @brief analyzes a cluster of nodes which shall be joined
      * @param[in] cluster The nodes to be joined
@@ -303,8 +258,7 @@ public:
      * @param[out] hasTLS Whether the new node has a traffic light
      * @param[out] tlType The type of traffic light (if any)
      */
-    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos,
-                        bool& hasTLS, TrafficLightType& type);
+    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS, TrafficLightType& type);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     void registerJoinedCluster(const std::set<NBNode*>& cluster);
@@ -313,7 +267,6 @@ public:
     const std::vector<std::set<std::string> >& getJoinedClusters() const {
         return myJoinedClusters;
     }
-
 
     /* @brief discards traffic lights
      * @param[in] geometryLike Whether only tls at geometry-like nodes shall be discarded
@@ -329,14 +282,12 @@ public:
     int mapToNumericalIDs();
 
 private:
-    /// @name Helper methods for for joining nodes
-    /// @{
-
     /// @brief Definition of a node cluster container
     typedef std::vector<std::set<NBNode*> > NodeClusters;
     typedef std::pair<NBNode*, SUMOReal> NodeAndDist;
 
-
+    /// @name Helper methods for for joining nodes
+    /// @{
     /** @brief Builds node clusters
      *
      * A node cluster is made up from nodes which are near by (distance<maxDist) and connected.
@@ -346,18 +297,13 @@ private:
      */
     void generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const;
 
-
-    // @brief joins the given node clusters
-    void joinNodeClusters(NodeClusters clusters,
-                          NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    /// @brief joins the given node clusters
+    void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
     /// @}
 
-
-
     /// @name Helper methods for guessing/computing traffic lights
     /// @{
-
     /** @brief Returns whethe the given node cluster should be controlled by a tls
      * @param[in] c The node cluster
      * @return Whether this node cluster shall be controlled by a tls
@@ -379,12 +325,13 @@ private:
     /// @brief The extracted nodes which are kept for reference
     std::set<NBNode*> myExtractedNodes;
 
-    // @brief set of node ids which should not be joined
+    /// @brief set of node ids which should not be joined
     std::set<std::string> myJoinExclusions;
 
-    // @brief loaded sets of node ids to join (cleared after use)
+    /// @brief loaded sets of node ids to join (cleared after use)
     std::vector<std::set<std::string> > myClusters2Join;
-    // @brief sets of node ids which were joined
+
+    /// @brief sets of node ids which were joined
     std::vector<std::set<std::string> > myJoinedClusters;
 
     /// @brief ids found in loaded join clusters used for error checking

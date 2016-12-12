@@ -119,7 +119,6 @@ public:
     /// @brief Destructor
     ~NBNetBuilder();
 
-
     /** @brief Initialises the storage by applying given options
      *
      * Options, mainly steering the acceptance of edges, are parsed
@@ -130,7 +129,6 @@ public:
      */
     void applyOptions(OptionsCont& oc);
 
-
     /** @brief Performs the network building steps
      *
      * @param[in] oc Container that contains options for building
@@ -138,55 +136,35 @@ public:
      * @param[in] mayAddOrRemove whether processing steps which cause nodes and edges to be added or removed shall be triggered (used by netedit)
      * @exception ProcessError (recheck)
      */
-    void compute(OptionsCont& oc,
-                 const std::set<std::string>& explicitTurnarounds = std::set<std::string>(),
-                 bool mayAddOrRemove = true);
-
-
+    void compute(OptionsCont& oc, const std::set<std::string>& explicitTurnarounds = std::set<std::string>(), bool mayAddOrRemove = true);
 
     /// @name Retrieval of subcontainers
     /// @{
-
-    /** @brief Returns the edge container
-     * @return The edge container (reference)
-     */
+    /// @brief Returns a reference to edge container
     NBEdgeCont& getEdgeCont() {
         return myEdgeCont;
     }
 
-
-    /** @brief Returns the node container
-     * @return The node container (reference)
-     */
+    /// @brief Returns a reference to the node container
     NBNodeCont& getNodeCont() {
         return myNodeCont;
     }
 
-
-    /** @brief Returns the type container
-     * @return The type container (reference)
-     */
+    /// @brief Returns a reference to the type container
     NBTypeCont& getTypeCont() {
         return myTypeCont;
     }
 
-
-    /** @brief Returns the traffic light logics container
-     * @return The traffic light logics container (reference)
-     */
+    /// @brief Returns a reference to the traffic light logics container
     NBTrafficLightLogicCont& getTLLogicCont() {
         return myTLLCont;
     }
 
-
-    /** @brief Returns the districts container
-     * @return The districts container (reference)
-     */
+    /// @brief Returns a reference the districts container
     NBDistrictCont& getDistrictCont() {
         return myDistrictCont;
     }
     /// @}
-
 
     /// @brief notify about style of loaded network
     void haveLoadedNetworkWithoutInternalEdges() {
@@ -213,12 +191,12 @@ protected:
     class by_id_sorter {
     public:
         /// @brief constructor
-        explicit by_id_sorter() { }
+        explicit by_id_sorter() {}
 
+        /// @brief selection operator
         int operator()(const NBNode* n1, const NBNode* n2) const {
             return n1->getID() < n2->getID();
         }
-
     };
 
 protected:
@@ -253,7 +231,6 @@ private:
 
     /// @brief invalidated assignment operator
     NBNetBuilder& operator=(const NBNetBuilder& s);
-
 };
 
 
