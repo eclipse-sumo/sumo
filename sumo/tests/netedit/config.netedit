@@ -20,6 +20,7 @@ output:\[info\]
 output:SIKULIX_HOME in environment specified as
 output:running SikuliX:
 output:+++
+output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
