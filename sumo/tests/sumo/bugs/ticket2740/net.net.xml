@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mo 12 Dez 2016 09:27:19 CET by Netedit Version dev-SVN-r21650
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-1000.00,0.00,400.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ2_0" function="internal">
+        <lane id=":gneJ2_0_0" index="0" speed="13.89" length="0.10" shape="200.00,-4.95 200.00,-4.95"/>
+        <lane id=":gneJ2_0_1" index="1" speed="13.89" length="0.10" shape="200.00,-1.65 200.00,-1.65"/>
+    </edge>
+
+    <edge id="beg" from="gneJ0" to="gneJ2" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="1200.00" shape="-1000.00,-4.95 200.00,-4.95"/>
+        <lane id="beg_1" index="1" allow="vip" speed="13.89" length="1200.00" shape="-1000.00,-1.65 200.00,-1.65"/>
+    </edge>
+    <edge id="end" from="gneJ2" to="gneJ1" priority="1">
+        <lane id="end_0" index="0" speed="13.89" length="200.00" shape="200.00,-4.95 400.00,-4.95"/>
+        <lane id="end_1" index="1" speed="13.89" length="200.00" shape="200.00,-1.65 400.00,-1.65"/>
+    </edge>
+
+    <tlLogic id="gneJ2" type="static" programID="0" offset="0">
+        <phase duration="86" state="GG"/>
+        <phase duration="4" state="yy"/>
+    </tlLogic>
+
+    <junction id="gneJ0" type="unregulated" x="-1000.00" y="0.00" incLanes="" intLanes="" shape="-1000.00,-0.05 -1000.00,-6.55"/>
+    <junction id="gneJ1" type="unregulated" x="400.00" y="0.00" incLanes="end_0 end_1" intLanes="" shape="400.00,-6.55 400.00,-0.05"/>
+    <junction id="gneJ2" type="traffic_light" x="200.00" y="0.00" incLanes="beg_0 beg_1" intLanes=":gneJ2_0_0 :gneJ2_0_1" shape="200.00,-0.05 200.00,-6.55 200.00,-0.05">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" via=":gneJ2_0_0" tl="gneJ2" linkIndex="0" dir="s" state="o"/>
+    <connection from="beg" to="end" fromLane="1" toLane="1" via=":gneJ2_0_1" tl="gneJ2" linkIndex="1" dir="s" state="o"/>
+
+    <connection from=":gneJ2_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ2_0" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>
