@@ -1095,10 +1095,15 @@ NBNodeCont::clear() {
 
 std::string
 NBNodeCont::getFreeID() {
-    // !!! not guaranteed to be free
-    std::string ret = "SUMOGenerated" + toString<int>(size());
-    assert(retrieve(ret) == 0);
-    return ret;
+    int counter = 0;
+    std::string freeID = "SUMOGenerated" + toString<int>(counter);
+    // While there is a node with id equal to freeID
+    while(retrieve(freeID) != 0) {
+        // update counter and generate a new freeID
+        counter++;
+        freeID = "SUMOGenerated" + toString<int>(counter);
+    }
+    return freeID;
 }
 
 
