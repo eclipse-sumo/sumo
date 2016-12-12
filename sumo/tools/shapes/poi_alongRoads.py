@@ -82,7 +82,7 @@ for edge in net._edges:
             data.append(edge._id)
             data.append(edge._from._id)
             data.append(edge._to._id)
-            data.append(edge._shape)
+            data.append(edge.getShape())
             nodeList.append(data)
 
 # find connected edges
@@ -133,9 +133,9 @@ for elm in connEdges:
         y2 = shapes[i + 1][1]
         dX = x2 - x1
         dY = y2 - y1
-        eucDist = pow(pow(dX, 2) + pow(dY, 2), 0.5)  # Euclidean distance
-        normAscX = dX / eucDist						# normalized Euclidean distance in x
-        normAscY = dY / eucDist						# normalized Euclidean distance in y
+        eucDist = pow(pow(dX, 2) + pow(dY, 2), 0.5) # Euclidean distance
+        normAscX = 0 if dX == 0 else dX / eucDist	# normalized Euclidean distance in x
+        normAscY = 0 if dY == 0 else dY / eucDist	# normalized Euclidean distance in y
         xCur = x1									# the current POI position
         yCur = y1
         if i == 0:
