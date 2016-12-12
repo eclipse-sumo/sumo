@@ -2,7 +2,7 @@
 /// @file    GNEDeleteFrame.cpp
 /// @author  Pablo Alvarez Lopex
 /// @date    Dec 2016
-/// @version $Id: GNEDeleteFrame.cpp 22208 2016-12-06 12:34:26Z palcraft $
+/// @version $Id$
 ///
 // The Widget for remove network-elements
 /****************************************************************************/

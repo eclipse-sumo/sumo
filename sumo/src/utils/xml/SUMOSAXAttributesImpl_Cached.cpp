@@ -2,7 +2,7 @@
 /// @file    SUMOSAXAttributesImpl_Cached.cpp
 /// @author  Jakob Erdmann
 /// @date    Dec 2016
-/// @version $Id: SUMOSAXAttributesImpl_Cached.cpp 20433 2016-04-13 08:00:14Z behrisch $
+/// @version $Id$
 ///
 // Encapsulated xml-attributes that use a map from string-attr-names to string-attr-values as backend
 /****************************************************************************/
