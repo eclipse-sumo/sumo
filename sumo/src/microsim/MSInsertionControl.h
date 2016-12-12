@@ -215,7 +215,7 @@ private:
     SUMOTime myMaxDepartDelay;
 
     /// @brief Whether an edge on which a vehicle could not depart should be ignored in the same step
-    bool myCheckEdgesOnce;
+    bool myEagerInsertionCheck;
 
     /// @brief Storage for maximum vehicle number
     int myMaxVehicleNumber;

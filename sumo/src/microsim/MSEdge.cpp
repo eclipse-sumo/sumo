@@ -468,7 +468,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
 
 
 bool
-MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const {
+MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const bool forceCheck) const {
     // when vaporizing, no vehicles are inserted, but checking needs to be successful to trigger removal
     if (isVaporizing()) {
         return checkOnly;
@@ -569,7 +569,28 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly) const
         return false;
     }
     MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
-    return insertionLane != 0 && insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
+    if (insertionLane == 0){
+        return false;
+    }
+
+    if (!forceCheck){
+        if (myLastFailedInsertionTime == time) {
+            if (myFailedInsertionMemory.count(insertionLane->getIndex())){
+                // A vehicle was already rejected for the proposed insertionLane in this timestep
+                return false;
+            }
+        } else {
+            // last rejection occured in a previous timestep, clear cache
+            myFailedInsertionMemory.clear();
+        }
+    }
+
+    bool success = insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
+
+    if(!success){
+        myFailedInsertionMemory.insert(insertionLane->getIndex());
+    }
+    return success;
 }
 
 

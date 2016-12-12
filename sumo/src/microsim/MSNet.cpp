@@ -183,7 +183,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myStep = string2time(oc.getString("begin"));
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
-    myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), !oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"));
+    myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;

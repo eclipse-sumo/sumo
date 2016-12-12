@@ -487,11 +487,14 @@ public:
      *
      * @param[in] v The vehicle to insert
      * @param[in] time The current simulation time
-     * @param[in] checkOnly whether we perform only the check without actually inserting
+     * @param[in] checkOnly Whether we perform only the check without actually inserting
+     * @param[in] forceCheck Whether the full insertion check should be run for each pending vehicle
+     *            or whether insertion on lanes for which an insertion has already a failed should be ignored
+     *            in the current time step.
      * @return Whether the vehicle could be inserted
      * @see MSLane::insertVehicle
      */
-    bool insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly = false) const;
+    bool insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly = false, const bool forceCheck = false) const;
 
 
     /** @brief Finds the emptiest lane allowing the vehicle class
@@ -779,6 +782,11 @@ protected:
 
     /// @brief The time of last insertion failure
     mutable SUMOTime myLastFailedInsertionTime;
+
+    /// @brief A cache for the rejected insertion attempts. Used to assure that no
+    ///        further insertion attempts are made on a lane where an attempt has
+    ///        already failed in the current time step if MSInsertionControl::myEagerInsertionCheck is off.
+    mutable std::set<int> myFailedInsertionMemory;
 
     /// @brief The crossed edges id for a crossing edge. On not crossing edges it is empty
     std::vector<std::string> myCrossingEdges;

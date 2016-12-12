@@ -54,11 +54,11 @@
 // ===========================================================================
 MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
                                        SUMOTime maxDepartDelay,
-                                       bool checkEdgesOnce,
+                                       bool eagerInsertionCheck,
                                        int maxVehicleNumber) :
     myVehicleControl(vc),
     myMaxDepartDelay(maxDepartDelay),
-    myCheckEdgesOnce(checkEdgesOnce),
+    myEagerInsertionCheck(eagerInsertionCheck),
     myMaxVehicleNumber(maxVehicleNumber),
     myPendingEmitsUpdateTime(SUMOTime_MIN) {
 }
@@ -129,8 +129,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         return 1;
     }
     if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
-            && (!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time)
-            && edge.insertVehicle(*veh, time)) {
+            && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck)) {
         // Successful insertion
         return 1;
     }
@@ -165,7 +164,7 @@ MSInsertionControl::checkCandidates(SUMOTime time, const bool preCheck) {
         for (veh = myPendingEmits.begin(); veh != myPendingEmits.end(); veh++) {
             SUMOVehicle* const v = *veh;
             const MSEdge* const edge = v->getEdge();
-            if ((!myCheckEdgesOnce || edge->getLastFailedInsertionTime() != time) && edge->insertVehicle(*v, time, true)) {
+            if (edge->insertVehicle(*v, time, true, myEagerInsertionCheck)) {
                 myEmitCandidates.insert(v);
             } else {
                 MSDevice_Routing* dev = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
