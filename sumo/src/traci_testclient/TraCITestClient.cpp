@@ -697,10 +697,16 @@ TraCITestClient::testAPI() {
     vehicletype.setHeight("t1", 1.8);
     answerLog << "    getHeight: " << vehicletype.getHeight("t1") << "\n";
     answerLog << "  vehicle:\n";
+    vehicle.setLine("0", "S42");
+    std::vector<std::string> via;
+    via.push_back("e_m1");
+    vehicle.setVia("0", via);
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     answerLog << "    getSpeedMode: " << vehicle.getSpeedMode("0") << "\n";
     answerLog << "    getSlope: " << vehicle.getSlope("0") << "\n";
+    answerLog << "    getLine: " << vehicle.getLine("0") << "\n";
+    answerLog << "    getVia: " << joinToString(vehicle.getVia("0"), ",") << "\n";
     TraCIColor col1;
     col1.r = 255;
     col1.g = 255;

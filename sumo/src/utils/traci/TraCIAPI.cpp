@@ -1975,6 +1975,17 @@ TraCIAPI::VehicleScope::getSlope(const std::string& vehID) const {
 }
 
 
+std::string
+TraCIAPI::VehicleScope::getLine(const std::string& typeID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_LINE, typeID);
+}
+
+std::vector<std::string>
+TraCIAPI::VehicleScope::getVia(const std::string& vehicleID) const {
+    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, VAR_VIA, vehicleID);
+}
+
+
 std::vector<TraCIAPI::VehicleScope::NextTLSData>
 TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     tcpip::Storage inMsg;
@@ -2136,6 +2147,30 @@ TraCIAPI::VehicleScope::setColor(const std::string& vehicleID, const TraCIColor&
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
+
+void
+TraCIAPI::VehicleScope::setLine(const std::string& vehicleID, const std::string& line) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(line);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_LINE, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+void 
+TraCIAPI::VehicleScope::setVia(const std::string& vehicleID, const std::vector<std::string>& via) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRINGLIST);
+    content.writeInt((int)via.size());
+    for (int i = 0; i < (int)via.size(); ++i) {
+        content.writeString(via[i]);
+    }
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_VIA, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
 
 
 // ---------------------------------------------------------------------------

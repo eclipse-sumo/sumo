@@ -747,6 +747,8 @@ public:
         std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
         int getSpeedMode(const std::string& vehicleID) const;
         SUMOReal getSlope(const std::string& vehicleID) const;
+        std::string getLine(const std::string& vehicleID) const;
+        std::vector<std::string> getVia(const std::string& vehicleID) const;
 
         /* /// not yet implemented
         SUMOReal getCO2Emissions(const std::string& vehicleID) const;
@@ -795,6 +797,8 @@ public:
         void setSpeed(const std::string& vehicleID, SUMOReal speed) const;
         void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
         void setColor(const std::string& vehicleID, const TraCIColor& c) const;
+        void setLine(const std::string& vehicleID, const std::string& line) const;
+        void setVia(const std::string& vehicleID, const std::vector<std::string>& via) const;
 
     private:
         /// @brief invalidated copy constructor
