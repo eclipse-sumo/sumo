@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    areal.py
+@file    _lanearea.py
 @author  Mario Krumnow
 @author  Laura Bieker
 @date    2011-03-16
@@ -34,13 +34,13 @@ _RETURN_VALUE_FUNC = {tc.JAM_LENGTH_METERS:         Storage.readDouble,
                       tc.LAST_STEP_OCCUPANCY:       Storage.readDouble}
 
 
-class ArealDomain(Domain):
+class LaneAreaDomain(Domain):
 
-    def __init__(self):
-        Domain.__init__(self, "areal", tc.CMD_GET_AREAL_DETECTOR_VARIABLE, None,
+    def __init__(self, name="lanearea", deprecatedFor=None):
+        Domain.__init__(self, name, tc.CMD_GET_AREAL_DETECTOR_VARIABLE, None,
                         tc.CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE, tc.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE,
                         tc.CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT, tc.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        _RETURN_VALUE_FUNC, deprecatedFor)
 
     def getJamLengthVehicle(self, detID):
         """getJamLengthVehicle(string) -> integer
@@ -106,4 +106,5 @@ class ArealDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, detID)
 
 
-ArealDomain()
+LaneAreaDomain()
+LaneAreaDomain("areal", "lanearea")
