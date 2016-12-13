@@ -540,7 +540,7 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame *horizontalFrameParent, GNE
     // Create crossingParameters
     myCrossingParameters = new crossingParameters(this, myEdgeSelector);
     
-    /// Create groupbox for create crossings 
+    // Create groupbox for create crossings 
     myGroupBoxButtons = new FXGroupBox(myContentFrame, "Create", GUIDesignGroupBoxFrame);
     myCreateCrossingButton = new FXButton(myGroupBoxButtons, "Create crossing", 0, this, MID_GNE_CREATE_CROSSING, GUIDesignButton);
     myCreateCrossingButton->disable();

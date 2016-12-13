@@ -35,6 +35,7 @@
 // class declarations
 // ===========================================================================
 class GNEAttributeCarrier;
+class GNENetElement;
 
 // ===========================================================================
 // class definitions
@@ -45,7 +46,7 @@ class GNEAttributeCarrier;
  */
 class GNEDeleteFrame : public GNEFrame{
     /// @brief FOX-declaration
-    //FXDECLARE(GNEDeleteFrame)
+    FXDECLARE(GNEDeleteFrame)
 
 public:
 
@@ -58,17 +59,54 @@ public:
     /// @brief Destructor
     ~GNEDeleteFrame();
 
-    /**@brief fill frame with the globject information
-     * @param globjectID gl id of object
+    /// @brief show child of attributeCarrier (element) in frame
+    void showAttributeCarrierChilds(GNEAttributeCarrier *ac);
+
+    /// @brief remove attribute carrier (element)
+    void removeAttributeCarrier(GNEAttributeCarrier *ac);
+
+    /**@brief mark attribute carrier (element)
+     * @note if ac == NULL current marked attribute carrier will be dismarked
      */
-    void getGLObjectInformation(int globjectID);
+    void markAttributeCarrier(GNEAttributeCarrier *ac);
+
+    /// @brief returns marked atrribute carrier
+    GNEAttributeCarrier *getMarkedAttributeCarrier() const;
+
+
+    long onCmdSelectItem(FXObject*, FXSelector, void*);
 
 protected:
     /// @brief FOX needs this
     GNEDeleteFrame() {}
 
 private:
-   
+    /// @brief groupbox for current element
+    FXGroupBox *myGroupBoxCurrentElement;
+
+    /// @brief label for current element
+    FXLabel *myCurrentElementLabel;
+
+    /// @brief label for marked element
+    FXLabel *myMarkedElementLabel;
+
+    /// @brief groupbox options
+    FXGroupBox *myGroupBoxOptions;
+    
+    /// @brief groupbox for tree list
+    FXGroupBox *myGroupBoxTreeList;
+
+    /// @brief groupbox for information
+    FXGroupBox *myGroupBoxInformation;
+
+    /// @brief Label for information 1
+    FXLabel *myInformationLabel;
+
+    /// @brief tree list to show the childs of the element to erase
+    FXTreeList *myTreelist;
+
+    /// @brief pointer to marked attributeCarrier(element)
+    GNEAttributeCarrier *myMarkedAc;
 };
 
 

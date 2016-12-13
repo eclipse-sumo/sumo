@@ -519,7 +519,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
 
         // decide what to do based on mode
         switch (myEditMode) {
-            case GNE_MODE_CREATE_EDGE:
+            case GNE_MODE_CREATE_EDGE: {
                 if ((e->state & CONTROLMASK) == 0) {
                     // allow moving when control is held down
                     if (!myUndoList->hasCommandGroup()) {
@@ -566,8 +566,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 }
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 break;
-
-            case GNE_MODE_MOVE:
+            }
+            case GNE_MODE_MOVE: {
                 if (pointed_poly) {
                     myPolyToMove = pointed_poly;
                     myMoveSrc = getPositionInformation();
@@ -625,42 +625,25 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 }
                 update();
                 break;
-
-            case GNE_MODE_DELETE:
-                if (pointed_junction) {
-                    /*
-                    if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
-                        deleteSelectedJunctions();
-                    }
-                    */
-                    myNet->deleteJunction(pointed_junction, myUndoList);
-                } else if (pointed_lane && !mySelectEdges->getCheck()) {
-                    myNet->deleteLane(pointed_lane, myUndoList);
-                } else if (pointed_edge) {
-                    /*
-                    if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
-                        deleteSelectedEdges();
-                    }
-                    */
-                    myNet->deleteGeometryOrEdge(pointed_edge, getPositionInformation(), myUndoList);
-                } else if (pointed_poi) {
-                    // XXX this is a dirty dirty hack! implemente GNEChange_POI
-                    myNet->getShapeContainer().removePOI(pointed_poi->getMicrosimID());
-                    update();
-                } else if (pointed_additional) {
-                    myViewParent->getAdditionalFrame()->removeAdditional(pointed_additional);
-                    update();
-                } else if (pointed_connection) {
-                    myNet->deleteConnection(pointed_connection, myUndoList);
-                    update();
-                } else if (pointed_crossing) {
-                    myNet->deleteCrossing(pointed_crossing, myUndoList);
-                    update();
+            }
+            case GNE_MODE_DELETE: {
+                // Check if Control key is pressed
+                bool markElementMode = (((FXEvent*)data)->state & CONTROLMASK) != 0;
+                GNEAttributeCarrier *ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
+                if (ac) {
+                    // if pointed element is an attribute carrier, remove it or mark it
+                    if(markElementMode) {
+                        myViewParent->getDeleteFrame()->markAttributeCarrier(ac);
+                    } else if(myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != NULL) {
+                        myViewParent->getDeleteFrame()->markAttributeCarrier(NULL);
+                    } else {
+                        myViewParent->getDeleteFrame()->removeAttributeCarrier(ac);
+                    }   
                 } else {
                     GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 }
                 break;
-
+            }
             case GNE_MODE_INSPECT: {
                 GNEAttributeCarrier* pointedAC = 0;
                 GUIGlObject* pointedO = 0;
@@ -701,7 +684,6 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 update();
                 break;
             }
-
             case GNE_MODE_SELECT:
                 if (pointed_lane && selectEdges()) {
                     gSelected.toggleSelection(pointed_edge->getGlID());
@@ -719,7 +701,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 update();
                 break;
 
-            case GNE_MODE_CONNECT:
+            case GNE_MODE_CONNECT: {
                 if (pointed_lane) {
                     const bool mayPass = (((FXEvent*)data)->state & SHIFTMASK) != 0;
                     const bool allowConflict = (((FXEvent*)data)->state & CONTROLMASK) != 0;
@@ -728,16 +710,16 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 }
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 break;
-
-            case GNE_MODE_TLS:
+            }
+            case GNE_MODE_TLS: {
                 if (pointed_junction) {
                     myViewParent->getTLSEditorFrame()->editJunction(pointed_junction);
                     update();
                 }
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 break;
-
-            case GNE_MODE_ADDITIONAL:
+            }
+            case GNE_MODE_ADDITIONAL: {
                 if (pointed_additional == NULL) {
                     GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
                     if (myViewParent->getAdditionalFrame()->addAdditional(netElement, this)) {
@@ -746,7 +728,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 }
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 break;
-            case GNE_MODE_CROSSING:
+            }
+            case GNE_MODE_CROSSING: {
                 if (pointed_crossing == NULL) {
                     GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
                     if (myViewParent->getCrossingFrame()->addCrossing(netElement)) {
@@ -755,8 +738,10 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 }
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 break;
-            default:
+            }
+            default: {
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+            }
         }
         makeNonCurrent();
     }
@@ -841,7 +826,12 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         setFocus();
         // show object information in delete frame
         if (makeCurrent()) {
-            myViewParent->getDeleteFrame()->getGLObjectInformation(getObjectUnderCursor());
+            // obtain ac of globjectID
+            int glid = getObjectUnderCursor();
+            GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(glid));
+            GUIGlObjectStorage::gIDStorage.unblockObject(glid);
+            // show childs of object in GNEDeleteFrame
+            myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
         }
     } else {
         if (myPolyToMove) {
