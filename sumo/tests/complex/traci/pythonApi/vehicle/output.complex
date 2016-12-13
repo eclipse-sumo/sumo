@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:60908 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:48687 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -51,6 +51,8 @@ person number 0
 waiting time 0.0
 driving dist 2992.34286403
 driving dist 2D 1090.34286403
+line 
+via []
 {80: '2fi', 86: 9.657135966210626}
 step 3
 {80: '2fi', 86: 15.313460015063175}
@@ -105,6 +107,8 @@ person number 0
 waiting time 0.0
 driving dist 2969.61859065
 driving dist 2D 1067.61859065
+line S46
+via ['3o', '4o']
 vehicles ['horiz']
 vehicle count 1
 examining bla
@@ -156,6 +160,8 @@ person number 0
 waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
+line 
+via []
 routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 step 6
@@ -219,6 +225,8 @@ person number 0
 waiting time 0.0
 driving dist 2991.71057563
 driving dist 2D 1089.71057563
+line t
+via []
 nextTLS [('0', 5, 489.7105756313773, 'r'), ('0', 12, 1489.7105756313772, 'r'), ('0', 9, 2489.710575631377, 'G')]
 speedmode 0
 slope 0.0
@@ -366,7 +374,7 @@ step 76
 vehicle 'bus' lane=2fi_0 lanePos=31.4957390345 stopped=False
 step 77
 vehicle 'bus' lane=2fi_0 lanePos=35.4153896706 stopped=False
-['3si', '4o', '4fi', '4si']
+triptest route: ['3si', '4o', '4fi', '4si']
 step 78
 ('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'pos3d', (1000.0, 501.65000000000003, 0.0), 'angle', 55.96766302073293, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 2624.722222222222)
 step 79
@@ -503,6 +511,8 @@ person number 0
 waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
+line 
+via []
 tazVeh edges ['taz34-source', 'taz12-sink']
 step 127
 tazVeh pos=0.0 edges=['3fi', '3si', '1o', '1fi']

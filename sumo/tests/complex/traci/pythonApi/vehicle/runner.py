@@ -97,8 +97,9 @@ def check(vehID):
     print("person number", traci.vehicle.getPersonNumber(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
-    print(
-        "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
+    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
+    print("line", traci.vehicle.getLine(vehID))
+    print("via", traci.vehicle.getVia(vehID))
 
 
 def checkOffRoad(vehID):
@@ -134,6 +135,8 @@ traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setHeight(vehID, 1.6)
 traci.vehicle.setColor(vehID, (255, 0, 0, 255))
+traci.vehicle.setLine(vehID, "S46")
+traci.vehicle.setVia(vehID, ["3o", "4o"])
 traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
 traci.vehicle.setStop(
     vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
@@ -248,8 +251,9 @@ for i in range(14):
 # test for adding a trip
 traci.route.add("trip", ["3si"])
 traci.vehicle.add("triptest", "trip")
+traci.vehicle.setVia("triptest", ["2o"])
 traci.vehicle.changeTarget("triptest", "4si")
-print(traci.vehicle.getRoute("triptest"))
+print("triptest route:", traci.vehicle.getRoute("triptest"))
 # test returned values of parking vehicle
 parkingVeh = "parking"
 traci.vehicle.add(parkingVeh, "horizontal")
