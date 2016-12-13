@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/23/16 11:15:15 by SUMO Version dev-SVN-r20284
+<!-- generated on Tue Dec 13 13:39:49 2016 by SUMO Version dev-SVN-r22280
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,7 +32,7 @@
 <full-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/full_file.xsd">
     <data timestep="0.00">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="100.00" speed="10.00" angle="270.00" x="1497.63" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="100.00" speed="10.00" angle="270.00" x="1497.62" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -153,7 +153,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -188,7 +188,7 @@
     </data>
     <data timestep="0.10">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="101.00" speed="10.00" angle="270.00" x="1496.65" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="101.00" speed="10.00" angle="270.00" x="1496.65" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -309,7 +309,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -344,7 +344,7 @@
     </data>
     <data timestep="0.20">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="102.00" speed="10.00" angle="270.00" x="1495.67" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="102.00" speed="10.00" angle="270.00" x="1495.67" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -465,7 +465,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -500,7 +500,7 @@
     </data>
     <data timestep="0.30">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="103.00" speed="10.00" angle="270.00" x="1494.70" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="103.00" speed="10.00" angle="270.00" x="1494.70" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -621,7 +621,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -656,7 +656,7 @@
     </data>
     <data timestep="0.40">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="104.00" speed="10.00" angle="270.00" x="1493.72" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="104.00" speed="10.00" angle="270.00" x="1493.72" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -777,7 +777,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -812,7 +812,7 @@
     </data>
     <data timestep="0.50">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="105.00" speed="10.00" angle="270.00" x="1492.74" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="105.00" speed="10.00" angle="270.00" x="1492.74" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -933,7 +933,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -968,7 +968,7 @@
     </data>
     <data timestep="0.60">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="106.00" speed="10.00" angle="270.00" x="1491.77" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="106.00" speed="10.00" angle="270.00" x="1491.77" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1089,7 +1089,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -1124,7 +1124,7 @@
     </data>
     <data timestep="0.70">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="107.00" speed="10.00" angle="270.00" x="1490.79" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="107.00" speed="10.00" angle="270.00" x="1490.79" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1245,7 +1245,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -1280,7 +1280,7 @@
     </data>
     <data timestep="0.80">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="108.00" speed="10.00" angle="270.00" x="1489.82" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="108.00" speed="10.00" angle="270.00" x="1489.82" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1401,7 +1401,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -1436,7 +1436,7 @@
     </data>
     <data timestep="0.90">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="109.00" speed="10.00" angle="270.00" x="1488.84" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="109.00" speed="10.00" angle="270.00" x="1488.84" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1557,7 +1557,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -1592,7 +1592,7 @@
     </data>
     <data timestep="1.00">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="110.00" speed="10.00" angle="270.00" x="1487.86" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="110.00" speed="10.00" angle="270.00" x="1487.86" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1713,7 +1713,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -1748,7 +1748,7 @@
     </data>
     <data timestep="1.10">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="111.00" speed="10.00" angle="270.00" x="1486.89" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="111.00" speed="10.00" angle="270.00" x="1486.89" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1869,7 +1869,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -1904,7 +1904,7 @@
     </data>
     <data timestep="1.20">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="112.00" speed="10.00" angle="270.00" x="1485.91" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="112.00" speed="10.00" angle="270.00" x="1485.91" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2025,7 +2025,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -2060,7 +2060,7 @@
     </data>
     <data timestep="1.30">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="113.00" speed="10.00" angle="270.00" x="1484.93" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="113.00" speed="10.00" angle="270.00" x="1484.93" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2181,7 +2181,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -2216,7 +2216,7 @@
     </data>
     <data timestep="1.40">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="114.00" speed="10.00" angle="270.00" x="1483.96" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="114.00" speed="10.00" angle="270.00" x="1483.96" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2337,7 +2337,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -2372,7 +2372,7 @@
     </data>
     <data timestep="1.50">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="115.00" speed="10.00" angle="270.00" x="1482.98" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="115.00" speed="10.00" angle="270.00" x="1482.98" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2493,7 +2493,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -2528,7 +2528,7 @@
     </data>
     <data timestep="1.60">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="116.00" speed="10.00" angle="270.00" x="1482.01" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="116.00" speed="10.00" angle="270.00" x="1482.01" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2649,7 +2649,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -2684,7 +2684,7 @@
     </data>
     <data timestep="1.70">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="117.00" speed="10.00" angle="270.00" x="1481.03" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="117.00" speed="10.00" angle="270.00" x="1481.03" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2805,7 +2805,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -2840,7 +2840,7 @@
     </data>
     <data timestep="1.80">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="118.00" speed="10.00" angle="270.00" x="1480.05" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="118.00" speed="10.00" angle="270.00" x="1480.05" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2961,7 +2961,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
@@ -2996,7 +2996,7 @@
     </data>
     <data timestep="1.90">
         <vehicles>
-            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" fuel="0.67" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="119.00" speed="10.00" angle="270.00" x="1479.08" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2112.22" CO="19.25" HC="0.13" NOx="0.70" PMx="0.01" fuel="0.91" electricity="0.00" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos="119.00" speed="10.00" angle="270.00" x="1479.08" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -3117,7 +3117,7 @@
                 <lane id="4/0to4/1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="4/1to3/1" traveltime="40.00">
-                <lane id="4/1to3/1_0" CO="0.00" CO2="1680.07" NOx="2.67" PMx="0.10" HC="0.29" noise="61.77" fuel="0.67" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
+                <lane id="4/1to3/1_0" CO="19.25" CO2="2112.22" NOx="0.70" PMx="0.01" HC="0.13" noise="61.77" fuel="0.91" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.01" vehicle_count="1"/>
             </edge>
             <edge id="4/1to4/0" traveltime="40.00">
                 <lane id="4/1to4/0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="10.00" meanspeed="36.00" occupancy="0.00" vehicle_count="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/08/14 14:04:26 by SUMO sumo Version dev-SVN-rUNKNOWN
+<!-- generated on Tue Dec 13 13:39:48 2016 by SUMO Version dev-SVN-r22280
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -29,7 +29,7 @@
 -->
 
 <trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
-    <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro0" ref="DEFAULT_VEHTYPE"/>
+    <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro4" ref="DEFAULT_VEHTYPE"/>
     <vehicle id="0" actorConfig="0" startTime="100000" ref="always_left.0"/>
     <motionState vehicle="0" speed="0" time="100000" acceleration="0"/>
     <vehicle id="1" actorConfig="0" startTime="100000" ref="always_right.0"/>
