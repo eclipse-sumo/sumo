@@ -66,13 +66,13 @@ void GNEChange_Crossing::undo() {
     if (myForward) {
         // remove crossing of NBNode an rebuild crossing of GNEJunction
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
-        myJunctionParent->rebuildCrossings(false);
+        myJunctionParent->updateGeometry();
         // Update view
         myNet->getViewNet()->update();
     } else {
         // add crossing of NBNode an rebuild crossing of GNEJunction
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
-        myJunctionParent->rebuildCrossings(false);
+        myJunctionParent->updateGeometry();
         // Update view
         myNet->getViewNet()->update();
     }
@@ -83,13 +83,13 @@ void GNEChange_Crossing::redo() {
     if (myForward) {
         // add crossing of NBNode an rebuild crossing of GNEJunction
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
-        myJunctionParent->rebuildCrossings(false);
+        myJunctionParent->updateGeometry();
         // Update view
         myNet->getViewNet()->update();
     } else {
         // remove crossing of NBNode an rebuild crossing of GNEJunction
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
-        myJunctionParent->rebuildCrossings(false);
+        myJunctionParent->updateGeometry();
         // Update view
         myNet->getViewNet()->update();
     }

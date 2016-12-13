@@ -76,7 +76,6 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
     myHasValidLogic(loaded),
     myAmTLSSelected(false) {
     updateGeometry();
-    rebuildCrossings(false);
 }
 
 
@@ -100,6 +99,7 @@ GNEJunction::updateGeometry() {
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     // Update geometries of crossings
     getNBNode()->buildCrossingsAndWalkingAreas();
+    rebuildCrossings(false);
     for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
         (*it)->updateGeometry();
     }
@@ -121,8 +121,6 @@ GNEJunction::rebuildCrossings(bool deleteOnly) {
             myGNECrossings.push_back(new GNECrossing(this, (*it).id));
             myGNECrossings.back()->incRef();
         }
-        // Update geometry
-        updateGeometry();
     }
 }
 

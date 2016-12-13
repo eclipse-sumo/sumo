@@ -153,11 +153,6 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
-
-    // Update all Junction's shapes
-    for(GNEJunctions::iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
-        i->second->updateShapesAndGeometries();
-    }
 }
 
 
@@ -199,8 +194,7 @@ GNENet::getBoundary() const {
 
 
 GUIGLObjectPopupMenu*
-GNENet::getPopUpMenu(GUIMainWindow& app,
-                     GUISUMOAbstractView& parent) {
+GNENet::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
