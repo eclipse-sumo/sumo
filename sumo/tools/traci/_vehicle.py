@@ -108,6 +108,8 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
                       tc.VAR_SLOPE:           Storage.readDouble,
                       tc.VAR_WIDTH:           Storage.readDouble,
                       tc.VAR_HEIGHT:          Storage.readDouble,
+                      tc.VAR_LINE:            Storage.readString,
+                      tc.VAR_VIA:             Storage.readStringList,
                       tc.VAR_MINGAP:          Storage.readDouble,
                       tc.VAR_SHAPECLASS:      Storage.readString,
                       tc.VAR_ACCEL:           Storage.readDouble,
@@ -428,6 +430,20 @@ class VehicleDomain(Domain):
         Returns the height in m of this vehicle.
         """
         return self._getUniversal(tc.VAR_HEIGHT, vehID)
+
+    def getLine(self, vehID):
+        """getLine(string) -> string
+
+        Returns the line information of this vehicle.
+        """
+        return self._getUniversal(tc.VAR_LINE, vehID)
+
+    def getVia(self, vehID):
+        """getVia(string) -> list(string)
+
+        Returns the ids of via edges for this vehicle
+        """
+        return self._getUniversal(tc.VAR_VIA, vehID)
 
     def getMinGap(self, vehID):
         """getMinGap(string) -> double
@@ -846,6 +862,31 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_HEIGHT, vehID, height)
+
+    def setLine(self, vehID, line):
+        """setHeight(string, string) -> None
+
+        Sets the line information for this vehicle.
+        """
+        self._connection._sendStringCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LINE, vehID, line)
+
+    def setVia(self, vehID, edgeList):
+        """
+        setVia(string, list) ->  None
+
+        changes the via edges to the given edges list (to be used during
+        subsequent rerouting calls).
+
+        Note: a single edgeId as argument is allowed as shorthand for a list of length 1
+        """
+        if isinstance(edgeList, str):
+            edgeList = [edgeList]
+        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_VIA, vehID,
+                                       1 + 4 + sum(map(len, edgeList)) + 4 * len(edgeList))
+        self._connection._packStringList(edgeList)
+        self._connection._sendExact()
+
 
     def setMinGap(self, vehID, minGap):
         """setMinGap(string, double) -> None
