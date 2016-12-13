@@ -527,7 +527,7 @@ public:
 
 
     /// @brief The vehicle's line (mainly for public transport)
-    std::string line;
+    mutable std::string line;
 
     /// @brief The vehicle's origin zone (district)
     std::string fromTaz;
@@ -584,7 +584,7 @@ public:
     mutable std::vector<Stop> stops;
 
     /// @brief List of the via-edges the vehicle must visit
-    std::vector<std::string> via;
+    mutable std::vector<std::string> via;
 
     /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
     int personNumber;

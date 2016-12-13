@@ -646,6 +646,12 @@
 // get/set vehicle height (vehicle, vtypes)
 #define VAR_HEIGHT 0xbc
 
+// get/set vehicle line 
+#define VAR_LINE 0xbd
+
+// get/set vehicle via 
+#define VAR_VIA 0xbe
+
 // current CO2 emission of a node (get: vehicle, lane, edge)
 #define VAR_CO2EMISSION 0x60
 

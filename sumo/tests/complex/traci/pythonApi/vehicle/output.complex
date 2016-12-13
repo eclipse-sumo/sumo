@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:48687 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:53518 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -374,7 +374,7 @@ step 76
 vehicle 'bus' lane=2fi_0 lanePos=31.4957390345 stopped=False
 step 77
 vehicle 'bus' lane=2fi_0 lanePos=35.4153896706 stopped=False
-triptest route: ['3si', '4o', '4fi', '4si']
+triptest route: ['3si', '2o', '2fi', '2si', '4o', '4fi', '4si']
 step 78
 ('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'pos3d', (1000.0, 501.65000000000003, 0.0), 'angle', 55.96766302073293, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 2624.722222222222)
 step 79

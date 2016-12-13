@@ -104,6 +104,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_NEXT_TLS
             && variable != VAR_SLOPE
             && variable != VAR_HEIGHT
+            && variable != VAR_LINE
+            && variable != VAR_VIA
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -472,6 +474,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(v->getInfluencer().getSpeedMode());
                 break;
+            case VAR_LINE:
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(v->getParameter().line);
+                break;
+            case VAR_VIA:
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(v->getParameter().via);
+                break;
             case VAR_PARAMETER: {
                 std::string paramName = "";
                 if (!server.readTypeCheckingString(inputStorage, paramName)) {
@@ -512,6 +522,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != ADD_FULL && variable != REMOVE
             && variable != VAR_HEIGHT
+            && variable != VAR_LINE
+            && variable != VAR_VIA
             && variable != VAR_MOVE_TO_VTD && variable != VAR_PARAMETER/* && variable != VAR_SPEED_TIME_LINE && variable != VAR_LANE_TIME_LINE*/
        ) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -749,8 +761,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             MSNet::getInstance()->getRouterTT().compute(
                 currentEdge, destEdge, (const MSVehicle * const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             // replace the vehicle's route by the new one
-            if (!v->replaceRouteEdges(newRoute, v->getLane() == 0)) {
+            const bool onInit = v->getLane() == 0;
+            if (!v->replaceRouteEdges(newRoute, onInit)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Route replacement failed for " + v->getID(), outputStorage);
+            }
+            // route again to ensure usage of via/stops
+            try {
+                v->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterTT(), onInit);
+            } catch (ProcessError& e) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
             }
         }
         break;
@@ -1427,6 +1446,29 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed factor requires a double.", outputStorage);
             }
             v->setChosenSpeedFactor(factor);
+        }
+        break;
+        case VAR_LINE: {
+            std::string line;
+            if (!server.readTypeCheckingString(inputStorage, line)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The line must be given as a string.", outputStorage);
+            }
+            v->getParameter().line = line;
+        }
+        break;
+        case VAR_VIA: {
+            std::vector<std::string> edgeIDs;
+            if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vias must be defined as a list of edge ids.", outputStorage);
+            }
+            try {
+                // ensure edges exist
+                ConstMSEdgeVector edges;
+                MSEdge::parseEdgesList(edgeIDs, edges, "<via-edges>");
+            } catch (ProcessError& e) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
+            }
+            v->getParameter().via = edgeIDs;
         }
         break;
         case VAR_PARAMETER: {
