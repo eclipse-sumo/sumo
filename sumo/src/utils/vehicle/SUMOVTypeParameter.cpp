@@ -44,6 +44,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define EMPREFIX std::string("HBEFA3/")
+
 
 // ===========================================================================
 // member method definitions
@@ -52,7 +54,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     : id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor(1.0), speedDev(0.0),
-      emissionClass(PollutantsInterface::getClassByName("unknown", vclass)), color(RGBColor::DEFAULT_COLOR),
+      emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
       vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
       loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
       cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_DEFAULT),
@@ -66,6 +68,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 0.478;
             height = 1.719;
             shape = SVS_PEDESTRIAN;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
         case SVC_BICYCLE:
             length = 1.6;
@@ -75,6 +78,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 1.7;
             shape = SVS_BICYCLE;
             personCapacity = 1;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
         case SVC_MOPED:
             length = 2.1;
@@ -83,6 +87,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 1.7;
             shape = SVS_MOPED;
             personCapacity = 1;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV_G_EU6", vclass);
             break;
         case SVC_MOTORCYCLE:
             length = 2.2;
@@ -90,6 +95,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 1.5;
             shape = SVS_MOTORCYCLE;
             personCapacity = 1;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV_G_EU6", vclass);
             break;
         case SVC_TRUCK:
             length = 7.1;
@@ -100,6 +106,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             osgFile = "car-microcargo-citrus.obj";
             personCapacity = 2;
             containerCapacity = 1;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV", vclass);
             break;
         case SVC_TRAILER:
             length = 16.5;
@@ -110,6 +117,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             osgFile = "car-microcargo-citrus.obj";
             personCapacity = 2;
             containerCapacity = 2;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV", vclass);
             break;
         case SVC_BUS:
             length = 12.;
@@ -119,6 +127,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             shape = SVS_BUS;
             osgFile = "car-minibus-citrus.obj";
             personCapacity = 85;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "Bus", vclass);
             break;
         case SVC_COACH:
             length = 14.;
@@ -128,6 +137,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             shape = SVS_BUS_COACH;
             osgFile = "car-minibus-citrus.obj";
             personCapacity = 70;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "Coach", vclass);
             break;
         case SVC_TRAM:
             length = 22.;
@@ -136,6 +146,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 3.2;
             shape = SVS_RAIL_CAR;
             personCapacity = 120;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
         case SVC_RAIL_URBAN:
             length = 36.5 * 3;
@@ -144,6 +155,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 3.6;
             shape = SVS_RAIL_CAR;
             personCapacity = 300;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
         case SVC_RAIL:
             length = 67.5 * 2;
@@ -152,6 +164,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 3.75;
             shape = SVS_RAIL;
             personCapacity = 434;
+            // slight understatement (-:
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV_D_EU0", vclass);
             break;
         case SVC_RAIL_ELECTRIC:
             length = 25. * 8;
@@ -160,6 +174,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 3.89;
             shape = SVS_RAIL;
             personCapacity = 425;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
         case SVC_DELIVERY:
             length = 6.5;
@@ -167,6 +182,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 2.86;
             shape = SVS_DELIVERY;
             personCapacity = 2;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV", vclass);
             break;
         case SVC_EMERGENCY:
             length = 6.5;
@@ -174,12 +190,14 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 2.86;
             shape = SVS_DELIVERY;
             personCapacity = 2;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV", vclass);
             break;
         case SVC_PASSENGER:
             shape = SVS_PASSENGER;
             break;
         case SVC_E_VEHICLE:
             shape = SVS_E_VEHICLE;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
         case SVC_SHIP:
             length = 17;
@@ -187,6 +205,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             maxSpeed = 8 / 1.94; // 8 knots
             height = 4;
             shape = SVS_SHIP;
+            // slight understatement (-:
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV_D_EU0", vclass);
             break;
         default:
             break;
