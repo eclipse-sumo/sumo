@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:8696 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:58334 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -16,7 +16,7 @@ decel 4.5
 imperfection 0.5
 tau 1.0
 vClass passenger
-emissionclass HBEFA2/P_7_7
+emissionclass HBEFA3/PC_G_EU4
 shape passenger
 MinGap 2.5
 width 1.8

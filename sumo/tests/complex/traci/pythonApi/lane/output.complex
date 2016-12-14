@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:33141 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -15,12 +17,12 @@ links [('2si_0', True, True, True), ('2si_1', True, True, True), ('2si_2', True,
 linksExtended [('2si_0', True, True, True, '', 'M', 's', 7.249827584156712), ('2si_1', True, True, True, '', 'M', 's', 4.459820624195518), ('2si_2', True, True, True, '', 'M', 's', 3.0)]
 shape [(1000.0, 501.65000000000003), (751.5, 501.65000000000003)]
 edge 2fi
-CO2 1904.97775406
-CO 23.3928317774
-HC 0.701641785426
-PMx 0.185285081526
-NOx 3.68172726534
-Fuel 0.759484900622
+CO2 3655.93323154
+CO 134.995693729
+HC 0.700169768806
+PMx 0.0768979695635
+NOx 1.60551769858
+Fuel 1.57157465769
 Noise 64.5318330666
 Elec 0.0
 meanSpeed 3.1154472965

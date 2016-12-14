@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:40259 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:56955 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -9,12 +9,12 @@ edge count 16
 examining 2fi
 adaptedTraveltime -1.0
 effort -1.0
-CO2 1904.97775406
-CO 23.3928317774
-HC 0.701641785426
-PMx 0.185285081526
-NOx 3.68172726534
-Fuel 0.759484900622
+CO2 3655.93323154
+CO 134.995693729
+HC 0.700169768806
+PMx 0.0768979695635
+NOx 1.60551769858
+Fuel 1.57157465769
 Noise 64.5318330666
 Elec 0.0
 meanSpeed 3.1154472965
