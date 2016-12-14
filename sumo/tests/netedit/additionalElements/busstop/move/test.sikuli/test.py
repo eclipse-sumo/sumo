@@ -48,28 +48,28 @@ type("m")
 Settings.MoveMouseDelay = 0.5
 
 # move bus stop to left
-dragDrop(match.getTarget().offset(300, 235), match.getTarget().offset(200, 235))
+dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(200, 240))
 
 # move back
-dragDrop(match.getTarget().offset(200, 235), match.getTarget().offset(300, 235))
+dragDrop(match.getTarget().offset(200, 240), match.getTarget().offset(250, 240))
 
 # move bus stop to right
-dragDrop(match.getTarget().offset(300, 235), match.getTarget().offset(400, 235))
+dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(300, 240))
 
 # move back
-dragDrop(match.getTarget().offset(400, 235), match.getTarget().offset(300, 235))
+dragDrop(match.getTarget().offset(300, 240), match.getTarget().offset(250, 240))
 
 # move bus stop to left overpassing lane
-dragDrop(match.getTarget().offset(300, 235), match.getTarget().offset(50, 235))
+dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(-50, 240))
 
 # move back
-dragDrop(match.getTarget().offset(100, 235), match.getTarget().offset(300, 235))
+dragDrop(match.getTarget().offset(50, 240), match.getTarget().offset(250, 240))
 
 # move bus stop to right overpassing lane
-dragDrop(match.getTarget().offset(300, 235), match.getTarget().offset(550, 235))
+dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(550, 240))
 
-# move back
-dragDrop(match.getTarget().offset(500, 235), match.getTarget().offset(300, 235))
+# move back to another different position of initial
+dragDrop(match.getTarget().offset(500, 240), match.getTarget().offset(300, 240))
 
 # set back mouse
 Settings.MoveMouseDelay = 0.1

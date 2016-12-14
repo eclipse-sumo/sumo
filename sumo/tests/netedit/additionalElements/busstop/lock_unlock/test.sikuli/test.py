@@ -49,7 +49,7 @@ type("m")
 
 # try to move bus stop (must be blocked)
 Settings.MoveMouseDelay = 0.5
-dragDrop(match.getTarget().offset(300, 235), match.getTarget().offset(200, 235))
+dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(200, 240))
 Settings.MoveMouseDelay = 0.1
 
 # Check undo redo
@@ -58,7 +58,7 @@ netedit.redo(match, 2)
 
 # try to move again bus stop (must be blocked)
 Settings.MoveMouseDelay = 0.5
-dragDrop(match.getTarget().offset(300, 235), match.getTarget().offset(200, 235))
+dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(200, 240))
 Settings.MoveMouseDelay = 0.1
 
 # save additionals
