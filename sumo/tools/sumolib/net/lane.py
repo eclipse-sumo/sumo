@@ -121,7 +121,7 @@ class Lane:
     def getShape3D(self, includeJunctions=False):
         if includeJunctions:
             if self._shapeWithJunctions3D is None:
-                self._shapeWithJunctions3D = addJunctionPos(self._shape,
+                self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
                         self._edge.getFromNode().getCoord3D(),
                         self._edge.getToNode().getCoord3D())
             return self._shapeWithJunctions3D
