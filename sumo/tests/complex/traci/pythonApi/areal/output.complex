@@ -1,10 +1,12 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:54592 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
 step 3
-areals ['det0']
-areal count 1
+laneareas ['det0']
+lanearea count 1
 examining det0
 pos 100.0
 length 25.0
