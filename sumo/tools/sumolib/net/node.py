@@ -81,6 +81,9 @@ class Node:
         return ps[-(possProhibitorIndex - 1)] == '1'
 
     def getCoord(self):
+        return tuple(self._coord[:2])
+
+    def getCoord3D(self):
         return self._coord
 
     def getType(self):

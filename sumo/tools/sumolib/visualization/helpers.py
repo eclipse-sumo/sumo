@@ -188,7 +188,7 @@ def plotNet(net, colors, widths, options):
     for e in net._edges:
         gx = []
         gy = []
-        for s in e._shape:
+        for s in e.getShape():
             gx.append(s[0])
             gy.append(s[1])
         if e._id in colors:

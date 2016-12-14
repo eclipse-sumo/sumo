@@ -20,6 +20,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from .connection import Connection
+from .lane import addJunctionPos
 
 
 class Edge:
@@ -41,7 +42,11 @@ class Edge:
         self._incoming = {}
         self._outgoing = {}
         self._shape = None
-        self._cachedShapeWithJunctions = None
+        self._shapeWithJunctions = None
+        self._shape3D = None
+        self._shapeWithJunctions3D = None
+        self._rawShape = None
+        self._rawShape3D = None
         self._function = function
         self._tls = None
         self._name = name
@@ -76,9 +81,8 @@ class Edge:
             self._incoming[conn._from] = []
         self._incoming[conn._from].append(conn)
 
-    def setShape(self, shape):
-        self._shape = shape
-        self._cachedShapeWithJunctions = None
+    def setRawShape(self, shape):
+        self._rawShape3D = shape
 
     def getID(self):
         return self._id
@@ -89,23 +93,32 @@ class Edge:
     def getOutgoing(self):
         return self._outgoing
 
+    def getRawShape(self):
+        """Return the shape that was used in netconvert for building this edge (2D)."""
+        if self._shape is None:
+            self.rebuildShape()
+        return self._rawShape
+
+    def getRawShape3D(self):
+        """Return the shape that was used in netconvert for building this edge (3D)."""
+        if self._shape is None:
+            self.rebuildShape()
+        return self._rawShape3D
+
     def getShape(self, includeJunctions=False):
-        if not self._shape:
-            if self._cachedShapeWithJunctions == None:
-                self._cachedShapeWithJunctions = [
-                    self._from._coord, self._to._coord]
-            return self._cachedShapeWithJunctions
+        """Return the 2D shape that is the average of all lane shapes (segment-wise)"""
+        if self._shape is None:
+            self.rebuildShape()
         if includeJunctions:
-            if self._cachedShapeWithJunctions == None:
-                if self._from._coord != self._shape[0]:
-                    self._cachedShapeWithJunctions = [
-                        self._from._coord] + self._shape
-                else:
-                    self._cachedShapeWithJunctions = list(self._shape)
-                if self._to._coord != self._shape[-1]:
-                    self._cachedShapeWithJunctions += [self._to._coord]
-            return self._cachedShapeWithJunctions
+            return self._shapeWithJunctions
         return self._shape
+
+    def getShape3D(self, includeJunctions=False):
+        if self._shape is None:
+            self.rebuildShape()
+        if includeJunctions:
+            return self._shapeWithJunctions3D
+        return self._shape3D
 
     def getBoundingBox(self, includeJunctions=True):
         s = self.getShape(includeJunctions)
@@ -148,7 +161,7 @@ class Edge:
     def rebuildShape(self):
         noShapes = len(self._lanes)
         if noShapes % 2 == 1:
-            self.setShape(self._lanes[int(noShapes / 2)]._shape)
+            self._shape3D = self._lanes[int(noShapes / 2)].getShape3D()
         else:
             shape = []
             minLen = -1
@@ -158,13 +171,27 @@ class Edge:
             for i in range(0, minLen):
                 x = 0.
                 y = 0.
+                z = 0.
                 for j in range(0, len(self._lanes)):
-                    x = x + self._lanes[j]._shape[i][0]
-                    y = y + self._lanes[j]._shape[i][1]
+                    x = x + self._lanes[j].getShape3D()[i][0]
+                    y = y + self._lanes[j].getShape3D()[i][1]
+                    z = z + self._lanes[j].getShape3D()[i][2]
+
                 x = x / float(len(self._lanes))
                 y = y / float(len(self._lanes))
-                shape.append([x, y])
-            self.setShape(shape)
+                z = z / float(len(self._lanes))
+                shape.append([x, y, z])
+            self._shape3D = shape
+
+        self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
+                self._from.getCoord3D(), self._to.getCoord3D())
+        if self._rawShape3D == []:
+            self._rawShape = [self._from.getCoord3D(), self._to.getCoord3D()]
+        self._rawShape = [(x,y) for x,y,z in self._rawShape3D]
+
+        self._shape = [(x,y) for x,y,z in self._shape3D]
+        self._shapeWithJunctions = [(x,y) for x,y,z in self._shapeWithJunctions3D]
+
 
     def getLength(self):
         return self._lanes[0].getLength()

@@ -71,6 +71,16 @@ def get_allowed(allow, disallow):
         disallow = disallow.split()
         return tuple([c for c in SUMO_VEHICLE_CLASSES if not c in disallow])
 
+def addJunctionPos(shape, fromPos, toPos):
+    """Extends shape with the given positions in case they differ from the
+    existing endpoints. assumes that shape and positions have the same dimensionality"""
+    result = list(shape)
+    if fromPos != shape[0]:
+        result = [fromPos] + result
+    if toPos != shape[-1]:
+        result.append(toPos)
+    return result
+
 
 class Lane:
 
@@ -80,8 +90,10 @@ class Lane:
         self._edge = edge
         self._speed = speed
         self._length = length
-        self._shape = []
-        self._cachedShapeWithJunctions = None
+        self._shape = None
+        self._shape3D = None
+        self._shapeWithJunctions = None
+        self._shapeWithJunctions3D = None
         self._outgoing = []
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
@@ -94,21 +106,26 @@ class Lane:
         return self._length
 
     def setShape(self, shape):
-        self._shape = shape
+        self._shape3D = shape
+        self._shape = [(x,y) for x,y,z in shape]
 
     def getShape(self, includeJunctions=False):
         if includeJunctions:
-            if self._cachedShapeWithJunctions == None:
-                if self._edge.getFromNode()._coord != self._shape[0]:
-                    self._cachedShapeWithJunctions = [
-                        self._edge.getFromNode()._coord] + self._shape
-                else:
-                    self._cachedShapeWithJunctions = list(self._shape)
-                if self._edge.getToNode()._coord != self._shape[-1]:
-                    self._cachedShapeWithJunctions += [
-                        self._edge.getToNode()._coord]
-            return self._cachedShapeWithJunctions
+            if self._shapeWithJunctions is None:
+                self._shapeWithJunctions = addJunctionPos(self._shape,
+                        self._edge.getFromNode().getCoord(),
+                        self._edge.getToNode().getCoord())
+            return self._shapeWithJunctions
         return self._shape
+
+    def getShape3D(self, includeJunctions=False):
+        if includeJunctions:
+            if self._shapeWithJunctions3D is None:
+                self._shapeWithJunctions3D = addJunctionPos(self._shape,
+                        self._edge.getFromNode().getCoord3D(),
+                        self._edge.getToNode().getCoord3D())
+            return self._shapeWithJunctions3D
+        return self._shape3D
 
     def getBoundingBox(self, includeJunctions=True):
         s = self.getShape(includeJunctions)
