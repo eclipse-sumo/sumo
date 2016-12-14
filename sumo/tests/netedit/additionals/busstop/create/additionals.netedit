@@ -1,7 +1,0 @@
-<additionals>
-    <busStop id="busStop_gneE0_0_0" lane="gneE0_0" startPos="49.60" endPos="59.60" lines="Line1 Line2 Line3 "/>
-    <busStop id="busStop_gneE0_0_1" lane="gneE0_0" startPos="9.60" endPos="19.60" lines="Line1 Line2 Line3 "/>
-    <busStop id="busStop_gneE0_0_2" lane="gneE0_0" startPos="24.60" endPos="34.60" lines="Line1 Line2 Line3 "/>
-    <busStop id="busStop_gneE0_0_3" lane="gneE0_0" startPos="59.60" endPos="79.99" lines="Line1 Line2 Line3 "/>
-    <busStop id="busStop_gneE0_0_4" lane="gneE0_0" startPos="0.01" endPos="9.60" lines="Line1 Line2 Line3 "/>
-</additionals>

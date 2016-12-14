@@ -1,0 +1,14 @@
+# basic tests for opening and creating networks
+basic
+
+# tests for net elements (Junctions, edges, crossings, etc..)
+netElements
+
+# test for routes elements (Routes, Vehicles, etc.)
+routeElements
+
+# tests for additional elements (Busstops, charging stations, etc.)
+additionalElements
+
+# bugs
+bugs

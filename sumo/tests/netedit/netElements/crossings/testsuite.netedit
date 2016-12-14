@@ -1,0 +1,14 @@
+# create crossing
+create
+
+# delete crossing
+delete
+
+# load small net with crossings
+load_small
+
+# load big net with crossigns
+load_big
+
+#inspect crossing
+inspect
