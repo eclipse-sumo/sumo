@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr  8 14:45:01 2016 by SUMO Version svn
+<!-- generated on Thu Dec 15 12:29:55 2016 by SUMO Version dev-SVN-r22302
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,8 +30,8 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="30.00" id="dump_15">
-        <edge id="4/1to3/1" sampledSeconds="53.00" CO_abs="0" CO2_abs="89043.745498" HC_abs="15.592441" PMx_abs="5.191111" NOx_abs="141.281464" fuel_abs="35.500392" electricity_abs="0"
-            CO_normed="0" CO2_normed="26713.123649" HC_normed="4.677732" PMx_normed="1.557333" NOx_normed="42.384439" fuel_normed="10.650118" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="0" CO2_perVeh="67202.826791" HC_perVeh="11.767880" PMx_perVeh="3.917819" NOx_perVeh="106.627520" fuel_perVeh="26.792749" electricity_perVeh="0"/>
+        <edge id="4/1to3/1" sampledSeconds="53.00" CO_abs="1020.250000" CO2_abs="111947.777778" HC_abs="7.051944" PMx_abs="0.661028" NOx_abs="36.849722" fuel_abs="48.123016" electricity_abs="0"
+            CO_normed="306.075000" CO2_normed="33584.333333" HC_normed="2.115583" PMx_normed="0.198308" NOx_normed="11.054917" fuel_normed="14.436905" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="36.319257" electricity_perVeh="0"/>
     </interval>
 </meandata>

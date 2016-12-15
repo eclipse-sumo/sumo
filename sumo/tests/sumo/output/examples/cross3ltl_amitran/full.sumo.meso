@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 31 12:55:34 2016 by SUMO Version dev-SVN-r20823
+<!-- generated on Thu Dec 15 12:29:58 2016 by SUMO Version dev-SVN-r22302
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -33,7 +33,7 @@
 -->
 
 <trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
-    <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro0" ref="DEFAULT_VEHTYPE"/>
+    <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro4" ref="DEFAULT_VEHTYPE"/>
     <vehicle id="0" actorConfig="0" startTime="100000" ref="always_left.0"/>
     <motionState vehicle="0" speed="1111" time="100000" acceleration="0"/>
     <vehicle id="1" actorConfig="0" startTime="100000" ref="always_right.0"/>
