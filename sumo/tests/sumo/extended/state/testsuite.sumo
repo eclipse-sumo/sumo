@@ -15,3 +15,9 @@ load_and_save
 
 # save state for a network with internal links
 save_with_internal_links
+
+# save a parking vehicle
+save_parking
+
+# the input is taken from test save/save_parking/state.sumo
+load_parking

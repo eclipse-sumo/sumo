@@ -108,7 +108,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myShapeContainer(myGrid),
     myNeedRecompute(true),
-    myNetHasCrossings(true) {
+    myNetHasCrossings(false) {
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
     // init junctions
@@ -1443,8 +1443,8 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
         refreshElement(it->second);
     }
     // Check if net own crossings
-    myNetHasCrossings = false;
-    for (std::map<std::string, NBNode*>::const_iterator i = myNetBuilder->getNodeCont().begin(); i != myNetBuilder->getNodeCont().end(); i++) {
+    myNetHasCrossings = oc.getBool("crossings.guess");
+    for (std::map<std::string, NBNode*>::const_iterator i = myNetBuilder->getNodeCont().begin(); i != myNetBuilder->getNodeCont().end() && !myNetHasCrossings; i++) {
         if(i->second->getCrossings().size() > 0) {
             myNetHasCrossings = true;
         }
