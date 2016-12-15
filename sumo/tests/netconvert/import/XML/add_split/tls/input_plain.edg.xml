@@ -1,0 +1,11 @@
+<edges>
+    <edge id="beg">
+        <split pos="30" lanes="1" idBefore="beg.begin" idAfter="beg"/>
+        <split pos="60" idAfter="beg.end"/>
+    </edge>
+
+    <edge id="end">
+        <split pos="30" lanes="1" idBefore="end.begin" idAfter="end"/>
+        <split pos="60" idAfter="end.end"/>
+    </edge>
+</edges>

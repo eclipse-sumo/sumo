@@ -38,3 +38,6 @@ speed_navteq
 
 # split an edge that is part of a roundabout
 roundabout
+
+# add splits before and after a traffic light node
+tls
