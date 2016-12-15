@@ -130,7 +130,9 @@ NBConnection::replaceFrom(NBEdge* which, int whichLane,
         } else {
             myFromID = "invalidFrom";
         }
-        myFromLane = byLane;
+        if (byLane >= 0) {
+            myFromLane = byLane;
+        }
         return true;
     }
     return false;
@@ -162,7 +164,9 @@ NBConnection::replaceTo(NBEdge* which, int whichLane,
         } else {
             myToID = "invalidTo";
         }
-        myToLane = byLane;
+        if (byLane >= 0) {
+            myToLane = byLane;
+        }
         return true;
     }
     return false;
