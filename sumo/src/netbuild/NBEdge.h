@@ -163,7 +163,11 @@ public:
         Connection(int fromLane_, NBEdge* toEdge_, int toLane_);
 
         /// @brief constructor with more parameters
-        Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, SUMOReal visibility_, bool haveVia_ = false);
+        Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, 
+                bool keepClear_=true, 
+                SUMOReal contPos_=UNSPECIFIED_CONTPOS, 
+                SUMOReal visibility_=UNSPECIFIED_VISIBILITY_DISTANCE, 
+                bool haveVia_ = false);
 
         /// @brief destructor
         ~Connection() { }
