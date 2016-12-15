@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Dec 15 15:29:04 2016 by SUMO Version dev-SVN-r22307
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="20"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot version="dev-SVN-r22307" time="20.00">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="t0">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" state="0 1" pos="60.00" speed="0.00" posLat="0.00">
+        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="16.00" parking="1"/>
+        <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00" parking="1"/>
+    </vehicle>
+    <lane id="beg_0">
+        <vehicles value=""/>
+    </lane>
+    <lane id="end_0">
+        <vehicles value=""/>
+    </lane>
+    <lane id="middle_0">
+        <vehicles value=""/>
+    </lane>
+</snapshot>
