@@ -73,17 +73,6 @@
         <xsd:attribute name="endOffset" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="splitType">
-        <xsd:attribute name="lanes" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="\d+(([,;]|\s)\d+)*"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="pos" type="xsd:float" use="required"/>
-    </xsd:complexType>
-
     <xsd:complexType name="deleteType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
     </xsd:complexType>
