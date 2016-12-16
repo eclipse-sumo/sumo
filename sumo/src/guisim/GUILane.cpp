@@ -548,37 +548,40 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
             glPopMatrix();
             // draw ROWs (not for inner lanes)
-            if ((!isInternal || isCrossing) && drawDetails) {
+            if ((!isInternal || isCrossing) && (drawDetails || s.drawForSelecting)) {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
-                if (MSGlobals::gLateralResolution > 0 && s.showSublanes) {
-                    // draw sublane-borders
-                    GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
-                    for (SUMOReal offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
-                        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, offset);
+                if (drawDetails) {
+                    if (MSGlobals::gLateralResolution > 0 && s.showSublanes) {
+                        // draw sublane-borders
+                        GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
+                        for (SUMOReal offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
+                            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, offset);
+                        }
+                    }
+                    if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
+                        drawArrows();
+                    }
+                    if (s.showLane2Lane) {
+                        // this should be independent to the geometry:
+                        //  draw from end of first to the begin of second
+                        drawLane2LaneConnections();
+                    }
+                    if (s.showLaneDirection) {
+                        drawDirectionIndicators();
+                    }
+                    glTranslated(0, 0, .1);
+                    if (s.drawLinkJunctionIndex.show) {
+                        drawLinkNo(s);
+                    }
+                    if (s.drawLinkTLIndex.show) {
+                        drawTLSLinkNo(s, *net);
                     }
                 }
+                // make sure link rules are drawn so tls can be selected via right-click
                 if (s.showLinkRules) {
                     drawLinkRules(s, *net);
-                }
-                if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
-                    drawArrows();
-                }
-                if (s.showLane2Lane) {
-                    // this should be independent to the geometry:
-                    //  draw from end of first to the begin of second
-                    drawLane2LaneConnections();
-                }
-                if (s.showLaneDirection) {
-                    drawDirectionIndicators();
-                }
-                glTranslated(0, 0, .1);
-                if (s.drawLinkJunctionIndex.show) {
-                    drawLinkNo(s);
-                }
-                if (s.drawLinkTLIndex.show) {
-                    drawTLSLinkNo(s, *net);
                 }
                 glPopMatrix();
             }
