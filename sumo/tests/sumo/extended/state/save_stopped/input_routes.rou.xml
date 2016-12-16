@@ -1,0 +1,14 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg middle end"/>
+
+    <vehicle id="v0" type="t0" route="r0" depart="0">
+        <!-- this stop is already completed when saving state -->
+        <stop lane="middle_0" duration="2" endPos="10" parking="false"/>
+        <!-- the vehicle is stopped here when saving state -->
+        <stop lane="middle_0" duration="20" endPos="60" parking="false"/>
+        <!-- this stop is yet to come when saving state -->
+        <stop lane="middle_0" duration="20" endPos="150" parking="false"/>
+    </vehicle>
+
+</routes>

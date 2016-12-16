@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 16 08:15:31 2016 by SUMO Version dev-SVN-r22307
+<!-- generated on Fri Dec 16 08:41:49 2016 by SUMO Version dev-SVN-r22307
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -34,10 +34,9 @@
         <carFollowing-Krauss sigma="0.00"/>
     </vType>
     <vehicle id="v0" type="t0" depart="0.00" route="r0" state="0 1" pos="60.00" speed="0.00" posLat="0.00">
-        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="16.00" parking="1"/>
-        <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00" parking="1"/>
+        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="17.00"/>
+        <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00"/>
     </vehicle>
-    <vehicleTransfer id="v0" depart="216000" parking="middle_0"/>
     <lane id="beg_0">
         <vehicles value=""/>
     </lane>
@@ -45,6 +44,6 @@
         <vehicles value=""/>
     </lane>
     <lane id="middle_0">
-        <vehicles value=""/>
+        <vehicles value="v0"/>
     </lane>
 </snapshot>
