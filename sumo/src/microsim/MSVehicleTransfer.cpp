@@ -32,12 +32,14 @@
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include "MSNet.h"
 #include "MSLane.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSVehicleControl.h"
+#include "MSInsertionControl.h"
 #include "MSVehicleTransfer.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -192,6 +194,44 @@ MSVehicleTransfer::getParkingVehicles(const MSLane* lane) const {
         return myEmptyVehicleSet;
     }
 }
+
+
+void
+MSVehicleTransfer::saveState(OutputDevice& out) const {
+    std::map<const MSVehicle*,  const MSLane*> parkingLanes;
+    for (ParkingVehicles::const_iterator it = myParkingVehicles.begin(); it != myParkingVehicles.end(); ++it) {
+        const std::set<const MSVehicle*>& vehs = it->second;
+        for (std::set<const MSVehicle*>::const_iterator it2 = vehs.begin(); it2 != vehs.end(); ++it2) {
+            parkingLanes[*it2] = it->first;
+        }
+    }
+    for (VehicleInfVector::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
+        out.openTag(SUMO_TAG_VEHICLETRANSFER);
+        out.writeAttr(SUMO_ATTR_ID, it->myVeh->getID());
+        out.writeAttr(SUMO_ATTR_DEPART, it->myProceedTime);
+        if (it->myParking) {
+            out.writeAttr(SUMO_ATTR_PARKING, parkingLanes[it->myVeh]->getID());
+        }
+        out.closeTag();
+    }
+}
+
+
+void
+MSVehicleTransfer::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc) {
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vc.getVehicle(attrs.getString(SUMO_ATTR_ID)));
+    assert(veh != 0);
+    SUMOTime proceedTime = (SUMOTime)attrs.getLong(SUMO_ATTR_DEPART);
+    MSLane* parkingLane = attrs.hasAttribute(SUMO_ATTR_PARKING) ? MSLane::dictionary(attrs.getString(SUMO_ATTR_PARKING)): 0;
+    myVehicles.push_back(VehicleInformation(veh, proceedTime + offset, parkingLane != 0));
+    if (parkingLane != 0) {
+        myParkingVehicles[parkingLane].insert(veh);
+        veh->setTentativeLaneAndPosition(parkingLane, veh->getPositionOnLane());
+        veh->processNextStop(veh->getSpeed());
+    }
+    MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
+}
+
 
 
 /****************************************************************************/

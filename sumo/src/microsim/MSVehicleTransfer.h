@@ -112,6 +112,12 @@ public:
     /// @brief return parking vehicles on the given lane
     const std::set<const MSVehicle*>& getParkingVehicles(const MSLane* lane) const;
 
+    /** @brief Saves the current state into the given stream */
+    void saveState(OutputDevice& out) const; 
+
+    /** @brief Loads one transfer vehicle state from the given descriptionn */
+    void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc);
+
     /** @brief Returns the instance of this object
      * @return The singleton instance
      */

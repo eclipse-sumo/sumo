@@ -156,6 +156,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "colorScheme",                SUMO_TAG_COLORSCHEME },
     { "scalingScheme",              SUMO_TAG_SCALINGSCHEME },
     { "entry",                      SUMO_TAG_ENTRY },
+    { "vehicleTransfer",            SUMO_TAG_VEHICLETRANSFER },
     // Cars
     { "carFollowing-IDM",           SUMO_TAG_CF_IDM },
     { "carFollowing-IDMM",          SUMO_TAG_CF_IDMM },

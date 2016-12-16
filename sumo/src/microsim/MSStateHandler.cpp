@@ -45,7 +45,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSInsertionControl.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSRoute.h>
 #include "MSStateHandler.h"
 
@@ -83,6 +83,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step));
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
+    MSVehicleTransfer::getInstance()->saveState(out);
     if (MSGlobals::gUseMesoSim) {
         for (int i = 0; i < MSEdge::dictSize(); i++) {
             for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[i]); s != 0; s = s->getNextSegment()) {
@@ -129,6 +130,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_VEHICLE: {
             myLastParameterised = myVehicleParameter;
             myAttrs = attrs.clone();
+            break;
+        }
+        case SUMO_TAG_VEHICLETRANSFER: {
+            MSVehicleTransfer::getInstance()->loadState(attrs, myOffset, vc);
             break;
         }
         case SUMO_TAG_SEGMENT: {

@@ -2298,6 +2298,7 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
         v->updateBestLanes(false, this);
         incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
                            MSMoveReminder::NOTIFICATION_JUNCTION);
+        v->processNextStop(v->getSpeed());
     }
 }
 

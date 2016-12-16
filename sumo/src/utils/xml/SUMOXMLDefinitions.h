@@ -233,6 +233,8 @@ enum SumoXMLTag {
     SUMO_TAG_ENTRY,
     /// @}
 
+    SUMO_TAG_VEHICLETRANSFER,
+
     /// @name Car-Following models
     /// @{
     SUMO_TAG_CF_KRAUSS,
