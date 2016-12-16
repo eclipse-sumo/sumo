@@ -119,6 +119,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_FULLSCREEN,         GUIApplicationWindow::onCmdFullScreen),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,       GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,        GUIApplicationWindow::onCmdListParking),
+    FXMAPFUNC(SEL_COMMAND,  MID_LISTTELEPORTING,    GUIApplicationWindow::onCmdListTeleporting),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewView),
 #ifdef HAVE_OSG
@@ -484,6 +485,9 @@ GUIApplicationWindow::fillMenuBar() {
                     "Show Parking Vehicles\t\tShow parking vehicles in locator dialog.",
                     this, MID_LISTPARKING);
     listParking->setCheck(myListParking);
+    new FXMenuCheck(myLocatorMenu,
+                    "Show Teleporting Vehicles\t\tShow teleporting vehicles in locator dialog.",
+                    this, MID_LISTTELEPORTING);
     // build control menu
     myControlMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "Simulation", NULL, myControlMenu);
@@ -1108,6 +1112,12 @@ GUIApplicationWindow::onCmdListInternal(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdListParking(FXObject*, FXSelector, void*) {
     myListParking = !myListParking;
+    return 1;
+}
+
+long
+GUIApplicationWindow::onCmdListTeleporting(FXObject*, FXSelector, void*) {
+    myListTeleporting = !myListTeleporting;
     return 1;
 }
 

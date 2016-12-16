@@ -70,7 +70,8 @@ GUIMainWindow::GUIMainWindow(FXApp* a) :
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),
     myAmGaming(false), 
     myListInternal(false),
-    myListParking(true)
+    myListParking(true),
+    myListTeleporting(false)
 {
 
     FXFontDesc fdesc;

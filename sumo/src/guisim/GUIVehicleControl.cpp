@@ -87,12 +87,12 @@ GUIVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
 
 
 void
-GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into, bool listParking) {
+GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into, bool listParking, bool listTeleporting) {
     AbstractMutex::ScopedLocker locker(myLock);
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         SUMOVehicle* veh = (*i).second;
-        if (veh->isOnRoad() || (listParking && veh->isParking())) {
+        if (veh->isOnRoad() || (listParking && veh->isParking()) || listTeleporting) {
             into.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
         }
     }

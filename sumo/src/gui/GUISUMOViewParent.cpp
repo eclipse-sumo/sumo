@@ -208,7 +208,8 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             if (MSGlobals::gUseMesoSim) {
                 static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(ids);
             } else {
-                static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids, myParent->listParking());
+                static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
+                        ids, myParent->listParking(), myParent->listTeleporting());
             }
             icon = ICON_LOCATEVEHICLE;
             title = "Vehicle Chooser";

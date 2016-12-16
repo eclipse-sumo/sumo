@@ -146,6 +146,7 @@ enum {
     /// @brief Locator configuration - menu entry
     MID_LISTINTERNAL,
     MID_LISTPARKING,
+    MID_LISTTELEPORTING,
     /// @brief The Simulation delay control
     MID_SIMDELAY,
     /// @}
