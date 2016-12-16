@@ -145,6 +145,7 @@ enum {
     MID_FULLSCREEN,
     /// @brief Locator configuration - menu entry
     MID_LISTINTERNAL,
+    MID_LISTPARKING,
     /// @brief The Simulation delay control
     MID_SIMDELAY,
     /// @}

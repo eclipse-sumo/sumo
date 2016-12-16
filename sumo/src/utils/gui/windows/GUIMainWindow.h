@@ -91,6 +91,11 @@ public:
         return myListInternal;
     }
 
+    /// @brief return whether to list parking vehicles
+    bool listParking() const {
+        return myListParking;
+    }
+
     static GUIMainWindow* getInstance();
 
     /** @brief Returns the delay (should be overwritten by subclasses if applicable)
@@ -143,6 +148,9 @@ protected:
 
     /// information whether the locator should list internal structures
     bool myListInternal;
+
+    /// information whether the locator should list internal structures
+    bool myListParking;
 
     /// the singleton window instance
     static GUIMainWindow* myInstance;

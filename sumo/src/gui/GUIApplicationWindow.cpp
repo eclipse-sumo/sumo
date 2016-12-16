@@ -118,6 +118,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GAMING,             GUIApplicationWindow::onCmdGaming),
     FXMAPFUNC(SEL_COMMAND,  MID_FULLSCREEN,         GUIApplicationWindow::onCmdFullScreen),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,       GUIApplicationWindow::onCmdListInternal),
+    FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,        GUIApplicationWindow::onCmdListParking),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewView),
 #ifdef HAVE_OSG
@@ -479,6 +480,10 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCheck(myLocatorMenu,
                     "Show Internal Structures\t\tShow internal junctions and streets in locator dialog.",
                     this, MID_LISTINTERNAL);
+    FXMenuCheck* listParking = new FXMenuCheck(myLocatorMenu,
+                    "Show Parking Vehicles\t\tShow parking vehicles in locator dialog.",
+                    this, MID_LISTPARKING);
+    listParking->setCheck(myListParking);
     // build control menu
     myControlMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "Simulation", NULL, myControlMenu);
@@ -1097,6 +1102,12 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdListInternal(FXObject*, FXSelector, void*) {
     myListInternal = !myListInternal;
+    return 1;
+}
+
+long
+GUIApplicationWindow::onCmdListParking(FXObject*, FXSelector, void*) {
+    myListParking = !myListParking;
     return 1;
 }
 

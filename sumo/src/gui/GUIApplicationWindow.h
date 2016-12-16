@@ -178,6 +178,9 @@ public:
     /// @brief Toggle listing of internal structures
     long onCmdListInternal(FXObject*, FXSelector, void*);
 
+    /// @brief Toggle listing of parking vehicles
+    long onCmdListParking(FXObject*, FXSelector, void*);
+
     /// @brief Shows the about dialog
     long onCmdAbout(FXObject*, FXSelector, void*);
 

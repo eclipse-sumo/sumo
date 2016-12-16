@@ -110,9 +110,10 @@ public:
 
     /** @brief Returns the list of all known vehicles by gl-id
      * @param[fill] into The list to fill with vehicle ids
+     * @param[listParking] Whether parking vehicles shall be listed as well
      * @todo Well, what about concurrent modifications?
      */
-    void insertVehicleIDs(std::vector<GUIGlID>& into);
+    void insertVehicleIDs(std::vector<GUIGlID>& into, bool listParking);
 
 
     /// @brief lock access to vehicle removal/additions for thread synchronization
