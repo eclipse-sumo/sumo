@@ -76,9 +76,14 @@ public:
 
     long onCmdSelectItem(FXObject*, FXSelector, void*);
 
+    long onCmdShowMenu(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief FOX needs this
     GNEDeleteFrame() {}
+
+    // @brief create pop-up menu
+    void createPopUpMenu();
 
 private:
     /// @brief groupbox for current element
@@ -107,6 +112,9 @@ private:
 
     /// @brief pointer to marked attributeCarrier(element)
     GNEAttributeCarrier *myMarkedAc;
+
+    /// @brief current attribute carrier selected in three
+    GNEAttributeCarrier *mySelectedAc;
 };
 
 

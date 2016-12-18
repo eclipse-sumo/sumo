@@ -130,6 +130,9 @@ public:
     /// @note this function is called in GNEFrame::Show();
     void hideFramesArea();
 
+    /// @brief get App (GUIMainWindow)
+    GUIMainWindow* getApp() const;
+
     /// @name FOX-callbacks
     /// @{
     /// @brief Called if the user wants to make a snapshot (screenshot)

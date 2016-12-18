@@ -247,6 +247,12 @@ GNEViewParent::hideFramesArea() {
 }
 
 
+GUIMainWindow*
+GNEViewParent::getApp() const {
+    return myParent;
+}
+
+
 long
 GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     // get the new file name

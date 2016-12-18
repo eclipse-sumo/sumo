@@ -1259,6 +1259,21 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
 }
 
 
+GNEAdditional* 
+GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
+    for(GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if(i->second->getID() == id) {
+            return i->second;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant additional");
+    } else {
+        return NULL;
+    }
+}
+
+
 GNEAdditional*
 GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
     if (myAdditionals.empty()) {

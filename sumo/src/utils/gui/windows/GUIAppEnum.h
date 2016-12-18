@@ -355,6 +355,14 @@ enum {
     MID_CHOOSEN_INVERT,
     /// @}
 
+        /// @name GNEDeleteFrame - childs
+    /// @{
+
+    /// @brief tree list with the childs
+    MID_GNEDELETE_CHILDS,
+
+    /// @}
+
 
     /// @name IDs for visualization settings - Dialog
     /// @{

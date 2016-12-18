@@ -35,6 +35,7 @@
 #include <iostream>
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXUtils.h>
+#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -42,6 +43,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GNEDeleteFrame.h"
 #include "GNEAdditionalFrame.h"
@@ -68,7 +71,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEDeleteFrame) GNEDeleteFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNEDeleteFrame::onCmdSelectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNEDELETE_CHILDS,   GNEDeleteFrame::onCmdSelectItem),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNEDELETE_CHILDS,   GNEDeleteFrame::onCmdShowMenu),
 };
 
 // Object implementation
@@ -90,7 +94,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEView
     
     // Create groupbox for create crossings 
     myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
-    myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_CHOOSEN_ELEMENTS, FRAME_SUNKEN | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT, 0, 0, 0, 200);
+    myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_GNEDELETE_CHILDS, TREELIST_SHOWS_LINES | TREELIST_SINGLESELECT | TREELIST_AUTOSELECT | FRAME_SUNKEN | FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT, 0, 0, 0, 200);
     
     // Create groupbox for help
     myGroupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
@@ -278,9 +282,62 @@ GNEDeleteFrame::getMarkedAttributeCarrier() const {
     return myMarkedAc;
 }
 
+
 long 
 GNEDeleteFrame::onCmdSelectItem(FXObject*, FXSelector, void*) {
     return 1;
 }
+
+
+long 
+GNEDeleteFrame::onCmdShowMenu(FXObject*, FXSelector, void*) {
+    std::string acID;
+    // get ID of element under pointer
+    for(FXTreeItem* i = myTreelist->getFirstItem(); i != NULL; i = i->getBelow()){
+        if(i->hasFocus()) {
+            acID = i->getText().text();
+        }
+    }
+
+    if(myViewNet->getNet()->retrieveJunction(acID, false)) {
+        mySelectedAc = myViewNet->getNet()->retrieveJunction(acID, false);
+        createPopUpMenu();
+    } else if(myViewNet->getNet()->retrieveEdge(acID, false)) {
+        mySelectedAc = myViewNet->getNet()->retrieveEdge(acID, false);
+        createPopUpMenu();
+    } else if(myViewNet->getNet()->retrieveLane(acID, false)) {
+        mySelectedAc = myViewNet->getNet()->retrieveLane(acID, false);
+        createPopUpMenu();
+    } else if(myViewNet->getNet()->retrieveAdditional(acID, false)) {
+        mySelectedAc = myViewNet->getNet()->retrieveAdditional(acID, false);
+        createPopUpMenu();
+    }
+
+    // Create panel for lane operations
+    return 1;
+}
+
+
+void 
+GNEDeleteFrame::createPopUpMenu() {
+    // create FXMenuPane
+    FXMenuPane *pane = new FXMenuPane(myTreelist);
+    // set name
+    new MFXMenuHeader(pane, myViewNet->getViewParent()->getApp()->getBoldFont(), (toString(mySelectedAc->getTag()) + ": " + mySelectedAc->getID()).c_str());
+    new FXMenuSeparator(pane);
+    // Fill FXMenuCommand
+    new FXMenuCommand(pane, "Center", 0, this, MID_GNE_DUPLICATE_LANE);
+    new FXMenuCommand(pane, "Inspect", 0, this, MID_GNE_DUPLICATE_LANE);
+    new FXMenuCommand(pane, "Delete", 0, this, MID_GNE_DUPLICATE_LANE);
+    // Center and create pane
+    int x, y;
+    FXuint b;
+    myViewNet->getViewParent()->getApp()->getCursorPosition(x, y, b);
+    pane->setX(x + myViewNet->getViewParent()->getApp()->getX());
+    pane->setY(y + myViewNet->getViewParent()->getApp()->getY());
+    pane->create();
+    pane->show();
+}
+
 
 /****************************************************************************/
