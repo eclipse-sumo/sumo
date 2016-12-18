@@ -4,7 +4,7 @@
 /// @date    2004-07-02
 /// @version $Id$
 ///
-// missing_desc
+// Header for menu commands
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2004-2016 DLR (http://www.dlr.de/) and contributors
@@ -34,11 +34,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-MFXMenuHeader::MFXMenuHeader(FXComposite* p, FXFont* fnt,
-                             const FXString& text,
-                             FXIcon* ic, FXObject* tgt,
-                             FXSelector sel, FXuint opts)
-    : FXMenuCommand(p, text, ic, tgt, sel, opts) {
+MFXMenuHeader::MFXMenuHeader(FXComposite* p, FXFont* fnt, const FXString& text, FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts) :
+    FXMenuCommand(p, text, ic, tgt, sel, opts) {
     setFont(fnt);
 }
 
