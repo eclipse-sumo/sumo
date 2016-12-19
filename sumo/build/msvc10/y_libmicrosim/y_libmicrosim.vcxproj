@@ -126,6 +126,7 @@
     <ClCompile Include="..\..\..\src\microsim\MSMoveReminder.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSNet.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSNoLogicJunction.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSParkingArea.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRightOfWayJunction.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRoute.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRouteHandler.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="..\..\..\src\microsim\MSMoveReminder.h" />
     <ClInclude Include="..\..\..\src\microsim\MSNet.h" />
     <ClInclude Include="..\..\..\src\microsim\MSNoLogicJunction.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSParkingArea.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRightOfWayJunction.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRoute.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRouteHandler.h" />

@@ -165,6 +165,7 @@
     <ClCompile Include="..\..\..\src\guisim\GUIContainer.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIContainerStop.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIInstantInductLoop.cpp" />
+    <ClCompile Include="..\..\..\src\guisim\GUIParkingArea.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIPerson.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUITransportableControl.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\..\src\guisim\GUIContainer.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIContainerStop.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIInstantInductLoop.h" />
+    <ClInclude Include="..\..\..\src\guisim\GUIParkingArea.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIPerson.h" />
     <ClInclude Include="..\..\..\src\guisim\GUITransportableControl.h" />
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.h" />

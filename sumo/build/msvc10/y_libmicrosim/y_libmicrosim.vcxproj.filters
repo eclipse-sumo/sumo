@@ -118,6 +118,9 @@
     <ClCompile Include="..\..\..\src\microsim\MSLeaderInfo.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\MSParkingArea.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h">
@@ -229,6 +232,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSLeaderInfo.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\MSParkingArea.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
