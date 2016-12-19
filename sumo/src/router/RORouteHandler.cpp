@@ -623,11 +623,21 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = containerstop->endPos;
         stop.startPos = containerstop->startPos;
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+    } // try to parse the assigned parking area
+    else if (stop.parkingarea != "") {
+        const SUMOVehicleParameter::Stop* parkingarea = myNet.getParkingArea(stop.parkingarea);
+        if (parkingarea == 0) {
+            myErrorOutput->inform("Unknown parking area '" + stop.parkingarea + "'" + errorSuffix);
+        }
+        stop.lane = parkingarea->lane;
+        stop.endPos = parkingarea->endPos;
+        stop.startPos = parkingarea->startPos;
+        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
     } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, 0, ok, "");
         if (!ok || stop.lane == "") {
-            myErrorOutput->inform("A stop must be placed on a bus stop, a container stop or a lane" + errorSuffix);
+            myErrorOutput->inform("A stop must be placed on a bus stop, a container stop, a parking area or a lane" + errorSuffix);
             return;
         }
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));

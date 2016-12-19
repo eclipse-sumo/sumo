@@ -921,7 +921,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         // ok, we have a bus stop
         MSStoppingPlace* bs = MSNet::getInstance()->getBusStop(stop.busstop);
         if (bs == 0) {
-            WRITE_ERROR("The bus stop '" + stop.busstop + "' is not known" + errorSuffix);
+            WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix);
             return;
         }
         const MSLane& l = bs->getLane();
@@ -934,13 +934,26 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         // ok, we have obviously a container stop
         MSStoppingPlace* cs = MSNet::getInstance()->getContainerStop(stop.containerstop);
         if (cs == 0) {
-            WRITE_ERROR("The container stop '" + stop.containerstop + "' is not known" + errorSuffix);
+            WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
             return;
         }
         const MSLane& l = cs->getLane();
         stop.lane = l.getID();
         stop.endPos = cs->getEndLanePosition();
         stop.startPos = cs->getBeginLanePosition();
+        edge = &l.getEdge();
+    } //try to parse the assigned parking area
+    else if (stop.parkingarea != "") {
+        // ok, we have obviously a parking area
+        MSStoppingPlace* pa = MSNet::getInstance()->getParkingArea(stop.parkingarea);
+        if (pa == 0) {
+            WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
+            return;
+        }
+        const MSLane& l = pa->getLane();
+        stop.lane = l.getID();
+        stop.endPos = pa->getEndLanePosition();
+        stop.startPos = pa->getBeginLanePosition();
         edge = &l.getEdge();
     } else if (stop.chargingStation != "") {
         // ok, we have a charging station
@@ -951,7 +964,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             stop.endPos = cs->getEndLanePosition();
             stop.startPos = cs->getBeginLanePosition();
         } else {
-            WRITE_ERROR("The charging station '" + stop.chargingStation + "' is not known" + errorSuffix);
+            WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known" + errorSuffix);
             return;
         }
     } else {
@@ -978,7 +991,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     stop.startPos = stop.endPos - POSITION_EPS;
                 }
             } else {
-                WRITE_ERROR("A stop must be placed on a bus stop, a charging station, a container stop or a lane" + errorSuffix);
+                WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, a containerStop a parkingArea or a lane" + errorSuffix);
                 return;
             }
         }

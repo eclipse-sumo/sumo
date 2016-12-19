@@ -19,7 +19,7 @@
 //
 /****************************************************************************/
 #ifndef MSCModel_NonInteracting_h
-#define	MSCModel_NonInteracting_h
+#define MSCModel_NonInteracting_h
 
 // ===========================================================================
 // included modules
@@ -133,5 +133,5 @@ private:
 };
 
 
-#endif	/* MSCModel_NonInteracting_h */
+#endif /* MSCModel_NonInteracting_h */
 

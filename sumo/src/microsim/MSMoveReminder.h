@@ -110,7 +110,9 @@ public:
         /// @brief The vehicle got vaporized
         NOTIFICATION_VAPORIZED,
         /// @brief The vehicle was teleported out of the net
-        NOTIFICATION_TELEPORT_ARRIVED
+        NOTIFICATION_TELEPORT_ARRIVED,
+        /// @brief The vehicle needs another parking area
+        NOTIFICATION_PARKING_REROUTE
     };
 
 

@@ -37,6 +37,7 @@
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
 #include <guisim/GUIContainerStop.h>
+#include <guisim/GUIParkingArea.h>
 #include <guisim/GUICalibrator.h>
 #include <guisim/GUIChargingStation.h>
 #include "GUITriggerBuilder.h"
@@ -99,6 +100,24 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id, const s
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(o);
 }
 
+
+void
+GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
+                                    const std::vector<std::string>& lines,
+                                    MSLane* lane,
+                                    SUMOReal frompos, SUMOReal topos, 
+                                    unsigned int capacity,
+                                    SUMOReal width, SUMOReal length, SUMOReal angle) {
+    assert(myParkingArea == 0);
+    
+    GUIParkingArea* stop = new GUIParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle);
+    if (!net.addParkingArea(stop)) {
+        delete stop;
+        throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
+    } else
+        myParkingArea = stop;
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
+}
 
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos,

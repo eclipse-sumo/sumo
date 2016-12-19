@@ -68,7 +68,7 @@
 // method definitions
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder()
-    : myHandler(0) {}
+    : myHandler(0), myParkingArea(0) {}
 
 
 NLTriggerBuilder::~NLTriggerBuilder() {}
@@ -229,6 +229,61 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
 
 
 void
+NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    // get the id, throw if not given or empty...
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        throw ProcessError();
+    }
+    // get the lane
+    MSLane* lane = getLane(attrs, "parkingArea", id);
+    // get the positions
+    SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    unsigned int capacity = attrs.getOpt<int>(SUMO_ATTR_PARKING_CAPACITY, id.c_str(), ok, 0);
+    SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, 0);
+    SUMOReal length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
+    SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, 0);
+    if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
+        throw InvalidArgument("Invalid position for parking area '" + id + "'.");
+    }
+    // get the lines
+    std::vector<std::string> lines;
+    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+    // build the parking area
+    beginParkingArea(net, id, lines, lane, frompos, topos, capacity, width, length, angle);
+}
+
+
+
+void
+NLTriggerBuilder::parseAndAddLotEntry(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    // Check for open parking area
+    if (myParkingArea == 0) {
+        throw ProcessError();
+    }
+    // get the positions
+    SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, "", ok);
+    if (!ok) {
+        throw InvalidArgument("Invalid x position for lot entry.");
+    }
+    SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, "", ok);
+    if (!ok) {
+        throw InvalidArgument("Invalid y position for lot entry.");
+    }
+    SUMOReal z = attrs.getOpt<SUMOReal>(SUMO_ATTR_Z, "", ok, 0.);
+    SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, "", ok, myParkingArea->getWidth());
+    SUMOReal length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, "", ok, myParkingArea->getLength());
+    SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, "", ok, myParkingArea->getAngle());
+    // add the lot entry
+    addLotEntry(x, y, z, width, length, angle);
+}
+
+
+void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
         const std::string& base) {
     bool ok = true;
@@ -354,6 +409,42 @@ NLTriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id,
         delete myCurrentStop;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
+}
+
+
+void
+NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
+        const std::vector<std::string>& lines,
+        MSLane* lane, SUMOReal frompos, SUMOReal topos,
+        unsigned int capacity,
+        SUMOReal width, SUMOReal length, SUMOReal angle) {
+    // Close previous parking area if there are not lots inside
+
+    MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle);
+    if (!net.addParkingArea(stop)) {
+        delete stop;
+        throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
+    } else
+        myParkingArea = stop;
+}
+
+
+void
+NLTriggerBuilder::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
+        SUMOReal width, SUMOReal length, SUMOReal angle) {                          
+    if (myParkingArea != 0) {
+        myParkingArea->addLotEntry(x, y, z, width, length, angle);
+    } else
+        throw InvalidArgument("Could not add lot entry outside a parking area.");
+}
+
+
+void
+NLTriggerBuilder::endParkingArea() {
+    if (myParkingArea != 0) {
+        myParkingArea = 0;
+    } else
+        throw InvalidArgument("Could not end a parking area that is not opened.");
 }
 
 

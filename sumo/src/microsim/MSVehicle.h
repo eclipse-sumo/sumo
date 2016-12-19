@@ -62,6 +62,7 @@ class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSStoppingPlace;
 class MSChargingStation;
+class MSParkingArea;
 class MSPerson;
 class MSDevice;
 class MSEdgeWeightsStorage;
@@ -789,6 +790,8 @@ public:
         MSStoppingPlace* busstop;
         /// @brief (Optional) container stop if one is assigned to the stop
         MSStoppingPlace* containerstop;
+        /// @brief (Optional) parkingArea if one is assigned to the stop
+        MSParkingArea* parkingarea;
         /// @brief (Optional) charging station if one is assigned to the stop
         MSChargingStation* chargingStation;
         /// @brief The stopping position start
@@ -817,6 +820,9 @@ public:
         SUMOTime timeToLoadNextContainer;
 
         void write(OutputDevice& dev) const;
+
+        /// @brief return halting position for upcoming stop;
+        SUMOReal getEndPos(const SUMOVehicle& veh) const;
     };
 
 
@@ -828,6 +834,18 @@ public:
      */
     bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0);
 
+    /// @brief list of stops before stop replacing operation
+    std::list<Stop> myReplacedStops;
+
+
+    /** @brief replace the current parking area stop with a new stop with merge duration
+     */
+    bool replaceParkingArea(MSParkingArea* parkingArea = 0);
+    
+
+    /** @brief get the current parking area stop
+     */
+    MSParkingArea* getNextParkingArea();
 
     /** @brief Returns whether the vehicle has to stop somewhere
      * @return Whether the vehicle has to stop somewhere

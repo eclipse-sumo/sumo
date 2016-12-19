@@ -177,6 +177,18 @@ public:
      */
     const ConstMSEdgeVector getStopEdges() const;
 
+    /** @brief replace the current parking area stop with a new stop with merge duration
+     */
+    bool replaceParkingArea(MSParkingArea* parkingArea = 0) { 
+        throw ProcessError("parkingZoneReroute not implemented for meso");
+    }
+    
+    /** @brief get the current parking area stop
+     */
+    MSParkingArea* getNextParkingArea() {
+        throw ProcessError("parkingZoneReroute not implemented for meso");
+    }
+
     /** @brief Sets the (planned) time at which the vehicle leaves his current cell
      * @param[in] t The leaving time
      */

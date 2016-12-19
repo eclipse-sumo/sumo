@@ -51,6 +51,7 @@
 #include <utils/common/SUMOTime.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/MSParkingArea.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
@@ -501,6 +502,36 @@ public:
      */
     std::string getContainerStopID(const MSLane* lane, const SUMOReal pos) const;
     /// @}
+    
+    /// @name Insertion and retrieval of parking areas
+    /// @{
+
+    /** @brief Adds a parking area
+     *
+     * If another parking area with the same id exists, false is returned.
+     *  Otherwise, the parking area is added to the internal parking area
+     *  container "myParkingAreaDict".
+     *
+     * This control gets responsible for deletion of the added parking area.
+     *
+     * @param[in] parkingArea The parking area to add
+     * @return Whether the parking area could be added
+     */
+    bool addParkingArea(MSParkingArea* parkingArea);
+
+    /** @brief Returns the named parking area
+     * @param[in] id The id of the parking area to return.
+     * @return The named parking area, or 0 if no such stop exists
+     */
+    MSParkingArea* getParkingArea(const std::string& id) const;
+
+    /** @brief Returns the parking area close to the given position
+     * @param[in] lane the lane of the parking area to return.
+     * @param[in] pos the position of the parking area to return.
+     * @return The parking area id on the location, or "" if no such stop exists
+     */
+    std::string getParkingAreaID(const MSLane* lane, const SUMOReal pos) const;
+    /// @}
 
     /** @brief Adds a chargingg station
      *
@@ -772,6 +803,9 @@ protected:
 
     /// @brief Dictionary of container stops
     NamedObjectCont<MSStoppingPlace*> myContainerStopDict;
+
+    /// @brief Dictionary of parking areas
+    NamedObjectCont<MSParkingArea*> myParkingAreaDict;
 
     /// @brief Dictionary of charging Stations
     NamedObjectCont<MSChargingStation*> myChargingStationDict;

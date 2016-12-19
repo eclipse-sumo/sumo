@@ -545,6 +545,8 @@ public:
         std::string busstop;
         /// @brief (Optional) container stop if one is assigned to the stop
         std::string containerstop;
+        /// @brief (Optional) parking area if one is assigned to the stop
+        std::string parkingarea;
         /// @brief (Optional) charging station if one is assigned to the stop
         std::string chargingStation;
         /// @brief The stopping position start

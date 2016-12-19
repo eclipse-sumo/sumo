@@ -287,12 +287,15 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, 0, ok, "");
     stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, 0, ok, "");
+    stop.parkingarea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, 0, ok, "");
     if (stop.busstop != "") {
         errorSuffix = " at '" + stop.busstop + "'" + errorSuffix;
     } else if (stop.chargingStation != "") {
         errorSuffix = " at '" + stop.chargingStation + "'" + errorSuffix;
     } else if (stop.containerstop != "") {
         errorSuffix = " at '" + stop.containerstop + "'" + errorSuffix;
+    } else if (stop.parkingarea != "") {
+        errorSuffix = " at '" + stop.parkingarea + "'" + errorSuffix;
     } else {
         errorSuffix = " on lane '" + stop.lane + "'" + errorSuffix;
     }

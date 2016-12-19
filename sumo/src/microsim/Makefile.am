@@ -21,6 +21,7 @@ MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
 MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
 MSRoute.cpp MSRoute.h MSRouteHandler.cpp MSRouteHandler.h \
 MSStoppingPlace.cpp MSStoppingPlace.h \
+MSParkingArea.cpp MSParkingArea.h \
 MSVehicle.cpp MSVehicle.h \
 MSLeaderInfo.cpp MSLeaderInfo.h \
 MSVehicleContainer.cpp MSVehicleContainer.h \

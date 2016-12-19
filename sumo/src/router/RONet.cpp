@@ -220,6 +220,17 @@ RONet::addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop)
 }
 
 
+void
+RONet::addParkingArea(const std::string& id, SUMOVehicleParameter::Stop* stop) {
+    std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myParkingAreas.find(id);
+    if (it != myParkingAreas.end()) {
+        WRITE_ERROR("The parking area '" + id + "' occurs at least twice.");
+        delete stop;
+    }
+    myParkingAreas[id] = stop;
+}
+
+
 bool
 RONet::addRouteDef(RORouteDef* def) {
     return myRoutes.add(def->getID(), def);

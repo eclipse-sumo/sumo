@@ -844,6 +844,28 @@ MSNet::getContainerStopID(const MSLane* lane, const SUMOReal pos) const {
     return "";
 }
 
+// ------ Insertion and retrieval of container stops ------
+bool
+MSNet::addParkingArea(MSParkingArea* parkingArea) {
+    return myParkingAreaDict.add(parkingArea->getID(), parkingArea);
+}
+
+MSParkingArea*
+MSNet::getParkingArea(const std::string& id) const {
+    return myParkingAreaDict.get(id);
+}
+
+std::string
+MSNet::getParkingAreaID(const MSLane* lane, const SUMOReal pos) const {
+    const std::map<std::string, MSParkingArea*>& vals = myParkingAreaDict.getMyMap();
+    for (std::map<std::string, MSParkingArea*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
+        MSParkingArea* stop = it->second;
+        if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
+            return stop->getID();
+        }
+    }
+    return "";
+}
 
 bool
 MSNet::addChargingStation(MSChargingStation* chargingStation) {

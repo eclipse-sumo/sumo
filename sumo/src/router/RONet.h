@@ -221,6 +221,16 @@ public:
     void addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop);
 
 
+    /* @brief Adds a read parking area to the network
+     *
+     * If the parking area is already known (another one with the same id exists),
+     *  an error is generated and given to msg-error-handler. The stop
+     *  is deleted in this case
+     *
+     * @param[in] node The stop to add
+     */
+    void addParkingArea(const std::string& id, SUMOVehicleParameter::Stop* stop);
+
     /** @brief Retrieves a bus stop from the network
      *
      * @param[in] name The name of the stop to retrieve
@@ -243,6 +253,20 @@ public:
     const SUMOVehicleParameter::Stop* getContainerStop(const std::string& id) const {
         std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myContainerStops.find(id);
         if (it == myContainerStops.end()) {
+            return 0;
+        }
+        return it->second;
+    }
+
+
+    /** @brief Retrieves a parking area from the network
+     *
+     * @param[in] name The name of the stop to retrieve
+     * @return The named stop if known, otherwise 0
+     */
+    const SUMOVehicleParameter::Stop* getParkingArea(const std::string& id) const {
+        std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myParkingAreas.find(id);
+        if (it == myParkingAreas.end()) {
             return 0;
         }
         return it->second;
@@ -491,6 +515,9 @@ private:
 
     /// @brief Known container stops
     std::map<std::string, SUMOVehicleParameter::Stop*> myContainerStops;
+
+    /// @brief Known parking areas
+    std::map<std::string, SUMOVehicleParameter::Stop*> myParkingAreas;
 
     /// @brief Known vehicle types
     NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;

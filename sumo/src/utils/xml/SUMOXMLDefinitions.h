@@ -103,6 +103,10 @@ enum SumoXMLTag {
     SUMO_TAG_ACCESS,
     /// @brief  A container stop
     SUMO_TAG_CONTAINER_STOP,
+    /// @brief A parking area
+    SUMO_TAG_PARKING_AREA,
+    /// @brief A parking lot within a parking area
+    SUMO_TAG_LOT_ENTRY,
     /// @brief  A Charging Station
     SUMO_TAG_CHARGING_STATION,
     /// @brief a vtypeprobe detector
@@ -166,6 +170,8 @@ enum SumoXMLTag {
     SUMO_TAG_CLOSING_LANE_REROUTE,
     /// @brief probability of route of a reroute
     SUMO_TAG_ROUTE_PROB_REROUTE,
+    /// @brief entry for an alternative parking zone
+    SUMO_TAG_PARKING_ZONE_REROUTE,
     /// @brief type of poligon
     SUMO_TAG_POLYTYPE,
     /// @brief connectio between two lanes
@@ -555,6 +561,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_PASS,
     SUMO_ATTR_BUS_STOP,
     SUMO_ATTR_CONTAINER_STOP,
+    SUMO_ATTR_PARKING_AREA,
+    SUMO_ATTR_PARKING_CAPACITY,
     SUMO_ATTR_CHARGING_STATION,
     SUMO_ATTR_LINE,
     SUMO_ATTR_LINES,
