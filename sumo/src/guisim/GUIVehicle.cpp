@@ -105,7 +105,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 35);
     // add items
-    ret->mkItem("lane [id]", false, myLane->getID());
+    ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0) {
         const MSLane* shadowLane = getLaneChangeModel().getShadowLane();
         ret->mkItem("shadow lane [id]", false, shadowLane == 0 ? "" : shadowLane->getID());

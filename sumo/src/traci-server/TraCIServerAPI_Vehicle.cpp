@@ -1613,9 +1613,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
                                      lane->getParameter("origId", "") == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
-            if (dist < 1000) {
-                maxDist = MAX2(maxDist, dist);
-            }
+            maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
 
         }
     }
@@ -1631,7 +1629,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
         SUMOReal idN = u.ID ? 1 : 0;
         SUMOReal onRouteN = u.onRoute ? 1 : 0;
         SUMOReal sameEdgeN = u.sameEdge ? MIN2(v.getEdge()->getLength() / speed, (SUMOReal)1.) : 0;
-        SUMOReal value = (distN * .35
+        SUMOReal value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
                           + angleDiffN * 0.35 /*.5 */
                           + idN * .1
                           + onRouteN * 0.1

@@ -486,7 +486,7 @@ GUIApplicationWindow::fillMenuBar() {
                     this, MID_LISTPARKING);
     listParking->setCheck(myListParking);
     new FXMenuCheck(myLocatorMenu,
-                    "Show Teleporting Vehicles\t\tShow teleporting vehicles in locator dialog.",
+                    "Show vehicles outside the road network\t\tShow vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog.",
                     this, MID_LISTTELEPORTING);
     // build control menu
     myControlMenu = new FXMenuPane(this);

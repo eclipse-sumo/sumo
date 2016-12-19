@@ -465,9 +465,14 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
         if (!wasOnRoad) {
             v->drawOutsideNetwork(false);
         }
+        //std::cout << "on road network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << "\n";
     } else {
+        if (v->getDeparture() == NOT_YET_DEPARTED) {
+            v->onDepart();
+        }
         v->setVTDState(myVTDXYPos);
         v->drawOutsideNetwork(true);
+        //std::cout << "outside network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << "\n";
     }
     // inverse of GeomHelper::naviDegree
     v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
@@ -755,7 +760,8 @@ MSVehicle::getSlope() const {
 Position
 MSVehicle::getPosition(const SUMOReal offset) const {
     if (myLane == 0) {
-        if (isRemoteControlled()) {
+        // when called in the context of GUI-Drawing, the simulation step is already incremented
+        if (myInfluencer != 0 && myInfluencer->isVTDAffected(MSNet::getInstance()->getCurrentTimeStep())) {
             return myCachedPosition;
         } else {
             return Position::INVALID;
@@ -3165,7 +3171,7 @@ MSVehicle::getLeader(SUMOReal dist) const {
     }
     const MSVehicle* lead = 0;
     const MSLane::VehCont& vehs = myLane->getVehiclesSecure();
-    assert(vehs.size() > 0);
+    // vehicle might be outside the road network
     MSLane::VehCont::const_iterator it = std::find(vehs.begin(), vehs.end(), this);
     if (it != vehs.end() && it + 1 != vehs.end()) {
         lead = *(it + 1);
