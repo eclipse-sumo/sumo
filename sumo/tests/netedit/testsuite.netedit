@@ -1,14 +1,3 @@
-# basic tests for opening and creating networks
-basic
-
-# tests for net elements (Junctions, edges, crossings, etc..)
-netElements
-
-# test for routes elements (Routes, Vehicles, etc.)
-routeElements
-
-# tests for additional elements (Busstops, charging stations, etc.)
-additionalElements
-
-# bugs
-bugs
+# this file needs to be intentionally blank until textest figures out
+# how to handle two applications where only one needs sequential
+# execution of tests while the other may run parallel
