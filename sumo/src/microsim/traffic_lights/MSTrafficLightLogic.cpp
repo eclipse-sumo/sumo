@@ -289,7 +289,7 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
 void MSTrafficLightLogic::initMesoTLSPenalties() {
     // set mesoscopic time penalties
     const Phases& phases = getPhases();
-    const int numLinks = myLinks.size();
+    const int numLinks = (int)myLinks.size();
     // warning already given if not all states are used
     assert(numLinks <= (int)phases.front()->getState().size());
     SUMOTime duration = 0;

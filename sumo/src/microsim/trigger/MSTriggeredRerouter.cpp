@@ -402,7 +402,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             if (edgesFromPark.size() > 0)
                 edges.insert( edges.end(), edgesFromPark.begin() + 1, edgesFromPark.end() );
 
-            bool stopsAreChanged = veh.replaceParkingArea(newParkingArea);
+            veh.replaceParkingArea(newParkingArea);
             veh.replaceRouteEdges(edges, false);
         }
         return false;

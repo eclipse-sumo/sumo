@@ -7,7 +7,7 @@
 // A area where vehicles can park next to the road
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2015-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -91,14 +91,14 @@ public:
      *
      * @return The capacity
      */
-    unsigned int getCapacity() const;
+    int getCapacity() const;
 
 
     /** @brief Returns the area occupancy
      *
      * @return The occupancy computed as number of vehicles in myEndPositions 
      */
-    unsigned int getOccupancy() const;
+    int getOccupancy() const;
     
 
     /** @brief Called if a vehicle enters this stop
@@ -221,10 +221,10 @@ protected:
     void computeLastFreePos();
 
     /// @brief Last free lot number (0 no free lot)
-    unsigned int myLastFreeLot;
+    int myLastFreeLot;
 
     /// @brief Stop area capacity
-    unsigned int myCapacity;
+    int myCapacity;
 
     /// @brief The default width of the lot rectangle
     SUMOReal myWidth;

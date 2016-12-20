@@ -7,7 +7,7 @@
 // A area where vehicles can park next to the road
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2015 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2015-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -56,7 +56,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
     // Initialize space occupancies if there is a road-side capacity
     // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
     if (myCapacity > 0) {
-        for (unsigned int i = 1; i <= myCapacity; ++i) {
+        for (int i = 1; i <= myCapacity; ++i) {
             mySpaceOccupancies[i] = LotSpaceDefinition();
             mySpaceOccupancies[i].index = i;
             mySpaceOccupancies[i].vehicle = 0;
@@ -73,7 +73,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
 MSParkingArea::~MSParkingArea() {}
 
 SUMOReal
-MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle) const {
+MSParkingArea::getLastFreePos(const SUMOVehicle& /* forVehicle */) const {
     return myLastFreePos;
 }
 
@@ -105,7 +105,7 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) {
 
 SUMOReal
 MSParkingArea::getSpaceDim() const {
-    return ((myEndPos - myBegPos) / myCapacity);
+    return (myEndPos - myBegPos) / myCapacity;
 }
 
 
@@ -113,7 +113,7 @@ void
 MSParkingArea::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
                            SUMOReal width, SUMOReal length, SUMOReal angle) {
 
-    unsigned int i = mySpaceOccupancies.size() + 1;
+    const int i = (int)mySpaceOccupancies.size() + 1;
 
     mySpaceOccupancies[i] = LotSpaceDefinition();
     mySpaceOccupancies[i].index = i;
@@ -123,7 +123,7 @@ MSParkingArea::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
     mySpaceOccupancies[i].myFGLength = length;
     mySpaceOccupancies[i].myFGRotation = angle;
     mySpaceOccupancies[i].myEndPos = myEndPos;
-    myCapacity = mySpaceOccupancies.size();
+    myCapacity = (int)mySpaceOccupancies.size();
     computeLastFreePos();
 }
 
@@ -186,15 +186,15 @@ MSParkingArea::getAngle() const {
 }
 
 
-unsigned int
+int
 MSParkingArea::getCapacity() const {
     return myCapacity;
 }
 
 
-unsigned int
+int
 MSParkingArea::getOccupancy() const {
-    return myEndPositions.size();
+    return (int)myEndPositions.size();
 }
 
 

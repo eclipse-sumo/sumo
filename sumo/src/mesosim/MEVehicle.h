@@ -179,7 +179,7 @@ public:
 
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
-    bool replaceParkingArea(MSParkingArea* parkingArea = 0) { 
+    bool replaceParkingArea(MSParkingArea* /* parkingArea = 0 */) { 
         throw ProcessError("parkingZoneReroute not implemented for meso");
     }
     
