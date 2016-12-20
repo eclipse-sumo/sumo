@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    MSParkingArea.h
+/// @file    GUIParkingArea.h
 /// @author  Mirco Sturari
 /// @date    Tue, 19.01.2016
-/// @version $Id: MSParkingArea.h 19388 2015-11-19 21:33:01Z behrisch $
+/// @version $Id: GUIParkingArea.h 19388 2015-11-19 21:33:01Z behrisch $
 ///
 // A area where vehicles can park next to the road (gui version)
 /****************************************************************************/
@@ -34,7 +34,6 @@
 #include <string>
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/PositionVector.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSParkingArea.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -138,29 +137,16 @@ public:
 
 private:
     /// @brief The rotations of the shape parts
-    std::vector<SUMOReal> myFGShapeRotations;
+    std::vector<SUMOReal> myShapeRotations;
 
     /// @brief The lengths of the shape parts
-    std::vector<SUMOReal> myFGShapeLengths;
-
-    /// @brief The shape
-    PositionVector myFGShape;
+    std::vector<SUMOReal> myShapeLengths;
 
     /// @brief The position of the sign
-    Position myFGSignPos;
+    Position mySignPos;
 
     /// @brief The rotation of the sign
-    SUMOReal myFGSignRot;
-
-    /// @brief The default width of the lot
-    SUMOReal myFGWidth;
-
-    /// @brief The default length of the lot
-    SUMOReal myFGLength;
-
-    /// @brief The default angle of the lot (0 is along the lane, 90° is perpendicular)
-    SUMOReal myFGAngle;
-
+    SUMOReal mySignRot;
 
 };
 

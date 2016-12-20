@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    MSParkingArea.h
 /// @author  Mirco Sturari
+/// @author  Jakob Erdmann
 /// @date    Tue, 19.01.2016
 /// @version $Id: MSParkingArea.h 19388 2015-11-19 21:33:01Z behrisch $
 ///
@@ -50,9 +51,24 @@ MSParkingArea::MSParkingArea(const std::string& id,
                              MSLane& lane,
                              SUMOReal begPos, SUMOReal endPos,
                              unsigned int capacity,
-                             SUMOReal width, SUMOReal length, SUMOReal angle)
-    : MSStoppingPlace(id, lines, lane, begPos, endPos), myCapacity(capacity), myWidth(width), myLength(length), myAngle(angle) {
+                             SUMOReal width, SUMOReal length, SUMOReal angle) : 
+    MSStoppingPlace(id, lines, lane, begPos, endPos), 
+    myCapacity(capacity), 
+    myWidth(width), 
+    myLength(length), 
+    myAngle(angle) 
+{
+    // initialize unspecified defaults
+    if (myWidth == 0) {
+        myWidth = SUMO_const_laneWidth;
+    }
+    if (myLength == 0) {
+        myLength = getSpaceDim();
+    }
         
+    myShape = lane.getShape();
+    myShape.move2side(lane.getWidth() / 2. + myWidth / 2.);
+    myShape = myShape.getSubpart(begPos, endPos);
     // Initialize space occupancies if there is a road-side capacity
     // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
     if (myCapacity > 0) {
@@ -60,11 +76,22 @@ MSParkingArea::MSParkingArea(const std::string& id,
             mySpaceOccupancies[i] = LotSpaceDefinition();
             mySpaceOccupancies[i].index = i;
             mySpaceOccupancies[i].vehicle = 0;
-            mySpaceOccupancies[i].myFGPosition = Position(0.,0.,0.);
-            mySpaceOccupancies[i].myFGWidth = width;
-            mySpaceOccupancies[i].myFGLength = length;
-            mySpaceOccupancies[i].myFGRotation = angle;
+            mySpaceOccupancies[i].myWidth = myWidth;
+            mySpaceOccupancies[i].myLength = myLength;
             mySpaceOccupancies[i].myEndPos = myBegPos + getSpaceDim() * i;
+
+            const Position& f = myShape.positionAtOffset(getSpaceDim() * (i - 1));
+            const Position& s = myShape.positionAtOffset(getSpaceDim() * (i));
+            SUMOReal lot_angle = ((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI) + myAngle;
+            mySpaceOccupancies[i].myRotation = lot_angle;
+            if (myAngle == 0) {
+                // parking parallel to the road
+                mySpaceOccupancies[i].myPosition = s;
+            } else {
+                // angled parking
+                mySpaceOccupancies[i].myPosition = (f + s) * 0.5;
+            }
+
         }
     }
     computeLastFreePos();
@@ -82,10 +109,7 @@ MSParkingArea::getVehiclePosition(const SUMOVehicle& forVehicle) {
     std::map<unsigned int, LotSpaceDefinition >::iterator i;
     for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
         if ((*i).second.vehicle == &forVehicle) { 
-            Position pos = (*i).second.myFGPosition;
-            SUMOReal len = forVehicle.getVehicleType().getLength() / 2.;
-            SUMOReal angle = (((*i).second.myFGRotation - 90.) * (SUMOReal) PI / (SUMOReal) 180.0);
-            return Position(pos.x() + len * cos(angle), pos.y() + len * sin(angle));
+            return (*i).second.myPosition;
         }
     }
     return Position::INVALID;
@@ -96,7 +120,7 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) {
     std::map<unsigned int, LotSpaceDefinition >::iterator i;
     for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
         if ((*i).second.vehicle == &forVehicle) {  
-            return (((*i).second.myFGRotation - 90.) * (SUMOReal) PI / (SUMOReal) 180.0);
+            return (((*i).second.myRotation - 90.) * (SUMOReal) PI / (SUMOReal) 180.0);
         }
     }
     return 0.;
@@ -118,10 +142,10 @@ MSParkingArea::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
     mySpaceOccupancies[i] = LotSpaceDefinition();
     mySpaceOccupancies[i].index = i;
     mySpaceOccupancies[i].vehicle = 0;
-    mySpaceOccupancies[i].myFGPosition = Position(x, y, z);
-    mySpaceOccupancies[i].myFGWidth = width;
-    mySpaceOccupancies[i].myFGLength = length;
-    mySpaceOccupancies[i].myFGRotation = angle;
+    mySpaceOccupancies[i].myPosition = Position(x, y, z);
+    mySpaceOccupancies[i].myWidth = width;
+    mySpaceOccupancies[i].myLength = length;
+    mySpaceOccupancies[i].myRotation = angle;
     mySpaceOccupancies[i].myEndPos = myEndPos;
     myCapacity = (int)mySpaceOccupancies.size();
     computeLastFreePos();

@@ -34,6 +34,7 @@
 #include <algorithm>
 #include <map>
 #include <string>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/Named.h>
 #include "MSStoppingPlace.h"
 
@@ -197,16 +198,16 @@ protected:
     struct LotSpaceDefinition {
         /// @brief the running index
         unsigned int index;
-        /// @brief The last created vehicle
+        /// @brief The last parked vehicle or 0
         SUMOVehicle* vehicle;
-        /// @brief The position
-        Position myFGPosition;
+        /// @brief The position of the vehicle when parking in this space
+        Position myPosition; 
         /// @brief The rotation
-        SUMOReal myFGRotation;
+        SUMOReal myRotation;
         /// @brief The width
-        SUMOReal myFGWidth;
+        SUMOReal myWidth;
         /// @brief The length
-        SUMOReal myFGLength;
+        SUMOReal myLength;
         /// @brief The position along the lane that the vehicle needs to reach for entering this lot
         SUMOReal myEndPos;
     };
@@ -226,18 +227,21 @@ protected:
     /// @brief Stop area capacity
     int myCapacity;
 
-    /// @brief The default width of the lot rectangle
+    /// @brief The default width of each parking space
     SUMOReal myWidth;
 
-    /// @brief The default length of the lot rectangle
+    /// @brief The default length of each parking space
     SUMOReal myLength;
 
-    /// @brief The default angle of the lot rectangle
+    /// @brief The default angle of each parking space
     SUMOReal myAngle;
 
 
     /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
     std::map<unsigned int, LotSpaceDefinition > mySpaceOccupancies;
+
+    /// @brief The roadside shape of this parkingArea
+    PositionVector myShape;
 
 private:
 

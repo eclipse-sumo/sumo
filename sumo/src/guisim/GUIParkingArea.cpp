@@ -1,8 +1,9 @@
 /****************************************************************************/
-/// @file    MSParkingArea.h
+/// @file    GUIParkingArea.h
 /// @author  Mirco Sturari
+/// @author  Jakob Erdmann
 /// @date    Tue, 19.01.2016
-/// @version $Id: MSParkingArea.h 19388 2015-11-19 21:33:01Z behrisch $
+/// @version $Id: GUIParkingArea.h 19388 2015-11-19 21:33:01Z behrisch $
 ///
 // A area where vehicles can park next to the road (gui version)
 /****************************************************************************/
@@ -67,47 +68,23 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
     : MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle),
       GUIGlObject_AbstractAdd("parkingArea", GLO_TRIGGER, id) {
 
-    // if width and length of lot rectangle is not specified set to a default value
-    if (width == 0) width = lane.getWidth();
-    if (length == 0) length = getSpaceDim();
-    
-    myFGShape = lane.getShape();
-    myFGWidth = width;
-    myFGLength = length;
-    myFGAngle = angle;
-    myFGShape.move2side(lane.getWidth() / 2. + myFGWidth / 2.);
-    myFGShape = myFGShape.getSubpart(frompos, topos);
-    myFGShapeRotations.reserve(myFGShape.size() - 1);
-    myFGShapeLengths.reserve(myFGShape.size() - 1);
-    int e = (int) myFGShape.size() - 1;
+    myShapeRotations.reserve(myShape.size() - 1);
+    myShapeLengths.reserve(myShape.size() - 1);
+    int e = (int) myShape.size() - 1;
     for (int i = 0; i < e; ++i) {
-        const Position& f = myFGShape[i];
-        const Position& s = myFGShape[i + 1];
-        myFGShapeLengths.push_back(f.distanceTo(s));
-        myFGShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+        const Position& f = myShape[i];
+        const Position& s = myShape[i + 1];
+        myShapeLengths.push_back(f.distanceTo(s));
+        myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
     }
-    PositionVector tmp = myFGShape;
-    tmp.move2side(lane.getWidth() + myFGWidth);
-    myFGSignPos = tmp.getLineCenter();
-    myFGSignRot = 0;
+    PositionVector tmp = myShape;
+    tmp.move2side(lane.getWidth() + myWidth);
+    mySignPos = tmp.getLineCenter();
+    mySignRot = 0;
     if (tmp.length() != 0) {
-        myFGSignRot = myFGShape.rotationDegreeAtOffset(SUMOReal((myFGShape.length() / 2.)));
-        myFGSignRot -= 90;
+        mySignRot = myShape.rotationDegreeAtOffset(SUMOReal((myShape.length() / 2.)));
+        mySignRot -= 90;
     }
-    // If not specified put angle and position relative to lane
-    if (capacity > 0) {
-        for (unsigned int i = 1; i <= capacity; ++i) {
-            const Position& f = myFGShape.positionAtOffset(length * (i - 1));
-            const Position& s = myFGShape.positionAtOffset(length * (i));
-            SUMOReal lot_angle = ((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI) + angle;
-            Position pos = myFGShape.positionAtOffset(length * ((double)i - 0.5));
-            mySpaceOccupancies[i].myFGRotation = lot_angle;
-            mySpaceOccupancies[i].myFGPosition = pos;
-            mySpaceOccupancies[i].myFGLength = length;
-            mySpaceOccupancies[i].myFGWidth = width;
-        }
-    }
-
 }
 
 GUIParkingArea::~GUIParkingArea() {}
@@ -154,32 +131,31 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGWidth / 2.);
+    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
     // draw details unless zoomed out to far
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 10) {
         // draw the lots
         glTranslated(0, 0, .1);
-        std::map<unsigned int, LotSpaceDefinition > mySpaces = mySpaceOccupancies;
-        std::map<unsigned int, LotSpaceDefinition >::iterator i;
-        for (i = mySpaces.begin(); i != mySpaces.end(); i++) {
+        std::map<unsigned int, LotSpaceDefinition >::const_iterator i;
+        for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
             glPushMatrix();
-            glTranslated((*i).second.myFGPosition.x(), (*i).second.myFGPosition.y(), (*i).second.myFGPosition.z());
-            glRotated((*i).second.myFGRotation, 0, 0, 1);
-            Position pos = (*i).second.myFGPosition;
+            glTranslated((*i).second.myPosition.x(), (*i).second.myPosition.y(), (*i).second.myPosition.z());
+            glRotated((*i).second.myRotation, 0, 0, 1);
+            Position pos = (*i).second.myPosition;
             PositionVector geom;
-            SUMOReal w = (*i).second.myFGWidth / 2.;
-            SUMOReal h = (*i).second.myFGLength / 2.;
-            geom.push_back(Position(- w, + h, 0.));
+            SUMOReal w = (*i).second.myWidth / 2.;
+            SUMOReal h = (*i).second.myLength;
+            geom.push_back(Position(- w, + 0, 0.));
+            geom.push_back(Position(+ w, + 0, 0.));
             geom.push_back(Position(+ w, + h, 0.));
-            geom.push_back(Position(+ w, - h, 0.));
-            geom.push_back(Position(- w, - h, 0.));
             geom.push_back(Position(- w, + h, 0.));
+            geom.push_back(Position(- w, + 0, 0.));
             /*
             geom.push_back(Position(pos.x(), pos.y(), pos.z()));
-            geom.push_back(Position(pos.x() + (*l).second.myFGWidth, pos.y(), pos.z()));
-            geom.push_back(Position(pos.x() + (*l).second.myFGWidth, pos.y() - (*l).second.myFGLength, pos.z()));
-            geom.push_back(Position(pos.x(), pos.y() - (*l).second.myFGLength, pos.z()));
+            geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y(), pos.z()));
+            geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y() - (*l).second.myLength, pos.z()));
+            geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
             geom.push_back(Position(pos.x(), pos.y(), pos.z()));
             */
             GLHelper::setColor((*i).second.vehicle == 0 ? green : red);
@@ -190,9 +166,9 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw the lines
         for (size_t i = 0; i != myLines.size(); ++i) {
             glPushMatrix();
-            glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(180, 1, 0, 0);
-            glRotated(myFGSignRot, 0, 0, 1);
+            glRotated(mySignRot, 0, 0, 1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.f);
@@ -202,7 +178,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         }
         // draw the sign
-        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+        glTranslated(mySignPos.x(), mySignPos.y(), 0);
         int noPoints = 9;
         if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
@@ -213,7 +189,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(grey);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("P", Position(), .1, 1.6 * exaggeration, blue, myFGSignRot);
+            GLHelper::drawText("P", Position(), .1, 1.6 * exaggeration, blue, mySignRot);
         }
     }
     glPopMatrix();
@@ -228,7 +204,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
 
 Boundary
 GUIParkingArea::getCenteringBoundary() const {
-    Boundary b = myFGShape.getBoxBoundary();
+    Boundary b = myShape.getBoxBoundary();
     b.grow(20);
     return b;
 }
