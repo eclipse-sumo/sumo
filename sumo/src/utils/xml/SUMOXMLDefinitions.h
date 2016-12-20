@@ -105,8 +105,8 @@ enum SumoXMLTag {
     SUMO_TAG_CONTAINER_STOP,
     /// @brief A parking area
     SUMO_TAG_PARKING_AREA,
-    /// @brief A parking lot within a parking area
-    SUMO_TAG_LOT_ENTRY,
+    /// @brief A parking space for a single vehicle within a parking area
+    SUMO_TAG_PARKING_SPACE,
     /// @brief  A Charging Station
     SUMO_TAG_CHARGING_STATION,
     /// @brief a vtypeprobe detector
@@ -562,7 +562,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_BUS_STOP,
     SUMO_ATTR_CONTAINER_STOP,
     SUMO_ATTR_PARKING_AREA,
-    SUMO_ATTR_PARKING_CAPACITY,
+    SUMO_ATTR_ROADSIDE_CAPACITY,
     SUMO_ATTR_CHARGING_STATION,
     SUMO_ATTR_LINE,
     SUMO_ATTR_LINES,

@@ -170,7 +170,7 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CONTAINER_STOP:
                 myTriggerBuilder.parseAndBuildStoppingPlace(myNet, attrs, (SumoXMLTag)element);
                 break;
-            case SUMO_TAG_LOT_ENTRY:
+            case SUMO_TAG_PARKING_SPACE:
                 myTriggerBuilder.parseAndAddLotEntry(attrs);
                 break;
             case SUMO_TAG_PARKING_AREA:
