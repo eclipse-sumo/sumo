@@ -321,8 +321,11 @@ for i in range(5):
     print("step", step())
     print("failVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition("failVeh"),
                                        traci.vehicle.getRoute("failVeh")))
-#unsubscribe
-traci.vehicle.unsubscribe(vehID)
+# add vehicle and reroute by travel time
+traci.vehicle.add("rerouteTT", "horizontal")
+traci.vehicle.rerouteTraveltime("rerouteTT")
+# reroute again but travel times should only be updated once
+traci.vehicle.rerouteTraveltime("rerouteTT")
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 # done

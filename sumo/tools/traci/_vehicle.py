@@ -742,6 +742,7 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
         self._connection._sendExact()
 
+    LAST_TRAVEL_TIME_UPDATE = -1;
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None Reroutes a vehicle. If
         currentTravelTimes is True (default) then the current traveltime of the
@@ -757,9 +758,12 @@ class VehicleDomain(Domain):
         step (setting the edge weights is expensive for large networks).
         """
         if currentTravelTimes:
-            for edge in self._connection.edge.getIDList():
-                self._connection.edge.adaptTraveltime(
-                    edge, self._connection.edge.getTraveltime(edge))
+            time = self._connection.simulation.getCurrentTime()
+            if time != self.LAST_TRAVEL_TIME_UPDATE:
+                self.LAST_TRAVEL_TIME_UPDATE = time
+                for edge in self._connection.edge.getIDList():
+                    self._connection.edge.adaptTraveltime(
+                        edge, self._connection.edge.getTraveltime(edge))
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_REROUTE_TRAVELTIME, vehID, 1 + 4)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
