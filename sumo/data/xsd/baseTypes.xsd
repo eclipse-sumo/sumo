@@ -36,6 +36,12 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:simpleType name="nonNegativeIntType">
+        <xsd:restriction base="xsd:int">
+            <xsd:minInclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <xsd:simpleType name="boolType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="true"/>

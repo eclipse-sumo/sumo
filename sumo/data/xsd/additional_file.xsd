@@ -30,6 +30,7 @@
             <xsd:element name="trainStop" type="stoppingPlaceType" minOccurs="0"/>
             <xsd:element name="containerStop" type="stoppingPlaceType" minOccurs="0"/>
             <xsd:element name="chargingStation" type="chargingStationType" minOccurs="0"/>
+            <xsd:element name="parkingArea" type="parkingAreaType" minOccurs="0"/>
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
 
@@ -281,6 +282,30 @@
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="parkingAreaType">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="lotEntry" type="lotEntryType" minOccurs="0"/>
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="parkingCapacity" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="startPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="endPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="lines" type="xsd:string" use="optional"/>
+        <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="lotEntryType">
+        <xsd:attribute name="x" type="xsd:float" use="required"/>
+        <xsd:attribute name="y" type="xsd:float" use="required"/>
+        <xsd:attribute name="z" type="xsd:float" use="optional"/>
+        <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="calibratorType">
