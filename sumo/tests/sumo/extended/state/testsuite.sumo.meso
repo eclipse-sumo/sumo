@@ -1,0 +1,17 @@
+# save 2 states
+save2
+
+# save multiple states
+save_at_interval
+
+# the input is taken from test save2/state2.sumo
+load
+
+# the input is taken from test save2/state.sumo
+load_late_insertion
+
+# the input is taken from test save2/state.sumo
+load_and_save
+
+# save state for a network with internal links
+save_with_internal_links
