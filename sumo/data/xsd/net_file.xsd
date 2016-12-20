@@ -125,7 +125,7 @@
         <xsd:attribute name="incLanes" type="xsd:string" use="required"/>
         <xsd:attribute name="intLanes" type="xsd:string" use="required"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
-        <xsd:attribute name="radius" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="radius" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="customShape" type="boolType" use="optional"/>
     </xsd:complexType>
 

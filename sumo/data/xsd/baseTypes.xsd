@@ -273,7 +273,7 @@
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
-        <xsd:attribute name="radius" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="radius" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="keepClear" type="boolType" use="optional"/>
         <xsd:attribute name="idBefore" type="xsd:string" use="optional"/>
         <xsd:attribute name="idAfter" type="xsd:string" use="optional"/>
