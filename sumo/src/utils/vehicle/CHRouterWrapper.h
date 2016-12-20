@@ -112,20 +112,25 @@ public:
                  SUMOTime msTime, std::vector<const E*>& into) {
         const std::pair<const SUMOVehicleClass, const SUMOReal> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
         int index = 0;
-        int numRouters = 1;
+        int numIntervals = 1;
 #ifdef HAVE_FOX
-        if (myMaxNumInstances >= 2 && myEnd > 0 && myEnd < std::numeric_limits<int>::max()) {
+        if (myMaxNumInstances >= 2 && myEnd < std::numeric_limits<int>::max()) {
             index = (int)((msTime - myBegin) / myWeightPeriod);
-            numRouters = (int)((myEnd - myBegin) / myWeightPeriod);
-            while ((int)myThreadPool.size() < myMaxNumInstances) {
-                new FXWorkerThread(myThreadPool);
+            numIntervals = (int)((myEnd - myBegin) / myWeightPeriod);
+            if (numIntervals > 0) {
+                while ((int)myThreadPool.size() < myMaxNumInstances) {
+                    new FXWorkerThread(myThreadPool);
+                }
+            } else {
+                // this covers the cases of negative (unset) end time and unset weight period (no weight file)
+                numIntervals = 1;
             }
         }
 #endif
         if (myRouters.count(svc) == 0) {
             // create new router for the given permissions and maximum speed
             // XXX a new router may also be needed if vehicles differ in speed factor
-            for (int i = 0; i < numRouters; i++) {
+            for (int i = 0; i < numIntervals; i++) {
                 myRouters[svc].push_back(new CHRouterType(
                     myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false));
 #ifdef HAVE_FOX

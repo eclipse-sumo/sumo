@@ -340,6 +340,7 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
+        WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
         CHRouter<E, V, PF>* clone = new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                                       mySVC, myWeightPeriod, mySPTree->validatePermissions());
         clone->myValidUntil = myValidUntil;
