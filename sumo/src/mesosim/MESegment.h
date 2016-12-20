@@ -393,7 +393,7 @@ private:
 
     bool overtake();
 
-    SUMOTime getTimeHeadway(bool predecessorIsFree, SUMOReal leaderLength);
+    SUMOTime getTimeHeadway(const MESegment* pred, SUMOReal leaderLength);
 
     void setSpeedForQueue(SUMOReal newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);

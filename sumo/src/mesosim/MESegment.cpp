@@ -359,8 +359,8 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 
 
 SUMOTime
-MESegment::getTimeHeadway(bool predecessorIsFree, SUMOReal leaderLength) {
-    if (predecessorIsFree) {
+MESegment::getTimeHeadway(const MESegment* pred, SUMOReal leaderLength) {
+    if (pred->free()) {
         return (free() ? myTau_ff : myTau_fj) + (SUMOTime)(leaderLength / myTau_length);
     } else {
         if (free()) {
@@ -459,7 +459,7 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
     MEVehicle* lc = removeCar(veh, time, next); // new leaderCar
     myBlockTimes[veh->getQueIndex()] = time;
     if (!isInvalid(next)) {
-        myBlockTimes[veh->getQueIndex()] += next->getTimeHeadway(free(), veh->getVehicleType().getLengthWithGap());
+        myBlockTimes[veh->getQueIndex()] += next->getTimeHeadway(this, veh->getVehicleType().getLengthWithGap());
     }
     if (lc != 0) {
         lc->setEventTime(MAX2(lc->getEventTime(), myBlockTimes[veh->getQueIndex()]));
