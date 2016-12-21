@@ -107,18 +107,19 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="traffic_light"/>
-                    <xsd:enumeration value="right_before_left"/>
-                    <xsd:enumeration value="priority"/>
-                    <xsd:enumeration value="dead_end"/>
-                    <xsd:enumeration value="unregulated"/>
                     <xsd:enumeration value="traffic_light_unregulated"/>
-                    <xsd:enumeration value="allway_stop"/>
-                    <xsd:enumeration value="priority_stop"/>
-                    <xsd:enumeration value="rail_signal"/>
-                    <xsd:enumeration value="zipper"/>
-                    <xsd:enumeration value="rail_crossing"/>
                     <xsd:enumeration value="traffic_light_right_on_red"/>
+                    <xsd:enumeration value="rail_signal"/>
+                    <xsd:enumeration value="rail_crossing"/>
+                    <xsd:enumeration value="priority"/>
+                    <xsd:enumeration value="priority_stop"/>
+                    <xsd:enumeration value="right_before_left"/>
+                    <xsd:enumeration value="allway_stop"/>
+                    <xsd:enumeration value="zipper"/>
+                    <xsd:enumeration value="district"/>
+                    <xsd:enumeration value="unregulated"/>
                     <xsd:enumeration value="internal"/>
+                    <xsd:enumeration value="dead_end"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
