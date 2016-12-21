@@ -67,10 +67,11 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position of view in which additional is located
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
+     * @param[in] icon GUIIcon associated to the additional
      * @param[in] additionalSetParent pointer to parent, if this additional belongs to an additionalSet
      * @param[in] blocked enable or disable blocking. By default additional element isn't blocked (i.e. value is false)
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet* additionalSetParent = NULL, bool blocked = false);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon, GNEAdditionalSet* additionalSetParent = NULL, bool blocked = false);
 
     /// @brief Destructor
     ~GNEAdditional();

@@ -36,6 +36,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
+#include <utils/gui/images/GUIIcons.h>
 #include "GNEReferenceCounter.h"
 
 
@@ -61,8 +62,9 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 public:
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
+     * @param[in] icon GUIIcon associated to the type of object
      */
-    GNEAttributeCarrier(SumoXMLTag tag);
+    GNEAttributeCarrier(SumoXMLTag tag, GUIIcon icon);
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier() {};
@@ -91,8 +93,11 @@ public:
     /// @brief how should this attribute carrier be called
     virtual std::string getDescription();
 
-    /// @brief get Tag assigned to this object
+    /// @brief get XML Tag assigned to this object
     SumoXMLTag getTag() const;
+
+    /// @brief get icon assigned to this object
+    GUIIcon getIcon() const;
 
     /// @brief get vector of attributes
     std::vector<SumoXMLAttr> getAttrs() const;
@@ -215,8 +220,11 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief the xml tag to which this carrier corresponds
+    /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
+
+    /// @brief icon associated to this AC
+    GUIIcon myIcon;
 
     /// @brief map with the allowed attributes
     static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > _allowedAttributes;

@@ -64,7 +64,7 @@
 // ===========================================================================
 
 GNEDetectorEntry::GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent, bool blocked) :
-    GNEDetector(id, viewNet, SUMO_TAG_DET_ENTRY, lane, pos, 0, "", blocked, parent) {
+    GNEDetector(id, viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, "", blocked, parent) {
     // Update geometry;
     updateGeometry();
     // Set colors

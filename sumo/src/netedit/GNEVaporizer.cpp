@@ -66,7 +66,7 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const SUMOReal startTime, const SUMOReal end, bool blocked) :
-    GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, NULL, blocked),
+    GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER, NULL, blocked),
     myStartTime(startTime),
     myEnd(end) {
     // This additional belongs to a edge

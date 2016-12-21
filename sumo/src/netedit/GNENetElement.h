@@ -60,8 +60,9 @@ public:
      * @param[in] id of the element
      * @param[in] type type of GL object
      * @param[in] tag sumo xml tag of the element
+     * @param[in] icon GUIIcon associated to the additional
      */
-    GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag);
+    GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon);
 
     /// @brief Destructor
     ~GNENetElement();

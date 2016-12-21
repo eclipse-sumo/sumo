@@ -65,7 +65,7 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines, bool blocked) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, blocked),
+    GNEStoppingPlace(id, viewNet, SUMO_TAG_CONTAINER_STOP, ICON_CONTAINERSTOP, lane, startPos, endPos, blocked),
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
     updateGeometry();

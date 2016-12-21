@@ -52,13 +52,14 @@ public:
      * @param[in] lane Lane of this detector belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
+     * @param[in] icon GUIIcon associated to the detector
      * @param[in] posOverLane position of detector in lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] blocked set initial blocking state of item
      * @param[in] parent pointer to parent, if this additional belongs to an additionalSet
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GNELane* lane, SUMOReal posOverLane, const SUMOReal freq, const std::string& filename, bool blocked = false, GNEAdditionalSet* parent = NULL);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, SUMOReal posOverLane, const SUMOReal freq, const std::string& filename, bool blocked = false, GNEAdditionalSet* parent = NULL);
 
     /// @brief Destructor
     ~GNEDetector();

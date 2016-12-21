@@ -64,9 +64,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GNEAdditionalSet* additionalSetParent, bool blocked) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon, GNEAdditionalSet* additionalSetParent, bool blocked) :
     GUIGlObject(GLO_ADDITIONAL, id),
-    GNEAttributeCarrier(tag),
+    GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
     myEdge(NULL),
     myLane(NULL),

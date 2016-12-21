@@ -65,7 +65,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOTime, SUMOReal>& VSSValues, bool blocked) :
-    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_VSS, blocked, std::vector<GNEAdditional * >(), std::vector<GNEEdge * >(), lanes),
+    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL, blocked, std::vector<GNEAdditional * >(), std::vector<GNEEdge * >(), lanes),
     myFilename(filename),
     myVSSValues(VSSValues),
     mySaveInFilename(false) {

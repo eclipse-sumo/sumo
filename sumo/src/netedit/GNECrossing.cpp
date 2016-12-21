@@ -59,7 +59,7 @@
 // method definitions
 // ===========================================================================
 GNECrossing::GNECrossing(GNEJunction* parentJunction, const std::string& id) :
-    GNENetElement(parentJunction->getNet(), id, GLO_CROSSING, SUMO_TAG_CROSSING),
+    GNENetElement(parentJunction->getNet(), id, GLO_CROSSING, SUMO_TAG_CROSSING, ICON_MODECROSSING),
     myParentJunction(parentJunction),
     myCrossing(parentJunction->getNBNode()->getCrossingRef(id)) {
     // Update geometry

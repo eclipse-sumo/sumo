@@ -65,8 +65,9 @@ const std::string GNEAttributeCarrier::APPROVED = "approved";
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag) :
-    myTag(tag) {
+GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag, GUIIcon icon) :
+    myTag(tag),
+    myIcon(icon) {
 }
 
 
@@ -104,6 +105,12 @@ GNEAttributeCarrier::getDescription() {
 SumoXMLTag
 GNEAttributeCarrier::getTag() const {
     return myTag;
+}
+
+
+GUIIcon
+GNEAttributeCarrier::getIcon() const {
+    return myIcon;
 }
 
 
