@@ -175,7 +175,7 @@
         <meso-junction-control value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling"/>
         <meso-junction-control.limited value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations"/>
         <meso-tls-penalty value="0" type="FLOAT" help="Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases"/>
-        <meso-minor-penalty value="0" type="TIME" help="Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied when limited control is active."/>
+        <meso-minor-penalty value="0" type="TIME" help="Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied whenever limited control is active."/>
         <meso-overtaking value="false" type="BOOL" help="Enable mesoscopic overtaking"/>
         <meso-recheck value="0" type="TIME" help="Time interval for rechecking insertion into the next segment after failure"/>
     </mesoscopic>
