@@ -228,6 +228,7 @@ enum GUIIcon {
     ICON_ROUTEPROBE,
     ICON_VAPORIZER,
     ICON_VARIABLESPEEDSIGNAL,
+    ICON_CALIBRATOR,
     /// @}
 
     /// @brief max number of icons

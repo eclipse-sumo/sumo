@@ -157,6 +157,7 @@
 #include "routeprobe.xpm"
 #include "vaporizer.xpm"
 #include "variablespeedsignal.xpm"
+#include "calibrator.xpm"
 
 
 static const char* empty_xpm[] = {
@@ -308,6 +309,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
     myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
     myIcons[ICON_VARIABLESPEEDSIGNAL] = new FXXPMIcon(a, variablespeedsignal_xpm);
+    myIcons[ICON_CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
 
     // ... and create them
     for (int i = 0; i < ICON_MAX; i++) {
