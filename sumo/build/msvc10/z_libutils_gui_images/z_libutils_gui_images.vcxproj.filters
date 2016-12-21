@@ -468,5 +468,8 @@
     <None Include="..\..\..\src\utils\gui\images\modetrafficlight.xpm">
       <Filter>Icons</Filter>
     </None>
+    <None Include="..\..\..\src\utils\gui\images\calibrator.xpm">
+      <Filter>Icons</Filter>
+    </None>
   </ItemGroup>
 </Project>

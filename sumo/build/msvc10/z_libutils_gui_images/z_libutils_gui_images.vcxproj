@@ -161,6 +161,7 @@
     <None Include="..\..\..\src\utils\gui\images\app_tlstracker.xpm" />
     <None Include="..\..\..\src\utils\gui\images\app_tracker.xpm" />
     <None Include="..\..\..\src\utils\gui\images\busstop.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\calibrator.xpm" />
     <None Include="..\..\..\src\utils\gui\images\camera.xpm" />
     <None Include="..\..\..\src\utils\gui\images\chargingstation.xpm" />
     <None Include="..\..\..\src\utils\gui\images\cleanjunctions.xpm" />
