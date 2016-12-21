@@ -96,8 +96,11 @@ public:
     /// @brief get XML Tag assigned to this object
     SumoXMLTag getTag() const;
 
-    /// @brief get icon assigned to this object
-    GUIIcon getIcon() const;
+    /// @brief get FXIcon assigned to this object
+    FXIcon* getIcon() const;
+
+    /// @brief get GUI icon assigned to this object
+    GUIIcon getGUIIcon() const;
 
     /// @brief get vector of attributes
     std::vector<SumoXMLAttr> getAttrs() const;

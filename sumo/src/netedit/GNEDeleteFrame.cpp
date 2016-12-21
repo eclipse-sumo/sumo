@@ -127,31 +127,31 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
             case GLO_JUNCTION: {
                 GNEJunction *junction = dynamic_cast<GNEJunction*>(ac);
                 // insert junction root
-                FXTreeItem *junctionItem = myTreelist->insertItem(0, 0, junction->getID().c_str());
+                FXTreeItem *junctionItem = myTreelist->insertItem(0, 0, junction->getID().c_str(), junction->getIcon(), junction->getIcon());
                 junctionItem->setExpanded(true);
                 // insert edges
                 for(std::vector<GNEEdge*>::const_iterator i = junction->getGNEEdges().begin(); i != junction->getGNEEdges().end(); i++) {
-                    FXTreeItem *edgeItem = myTreelist->insertItem(0, junctionItem, (*i)->getID().c_str());
+                    FXTreeItem *edgeItem = myTreelist->insertItem(0, junctionItem, (*i)->getID().c_str(), (*i)->getIcon(), (*i)->getIcon());
                     edgeItem->setExpanded(true);
                     // insert lanes
                     for(std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
-                        FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (*j)->getID().c_str());
+                        FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (*j)->getID().c_str(), (*j)->getIcon(), (*j)->getIcon());
                         laneItem->setExpanded(true);
                         // insert additionals of lanes
                         for(std::vector<GNEAdditional*>::const_iterator k = (*j)->getAdditionalChilds().begin(); k != (*j)->getAdditionalChilds().end(); k++) {
-                            FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (*k)->getID().c_str());
+                            FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (*k)->getID().c_str(), (*k)->getIcon(), (*k)->getIcon());
                             additionalItem->setExpanded(true);
                         }
                     }
                     // insert additionals of edge
                     for(std::vector<GNEAdditional*>::const_iterator j = (*i)->getAdditionalChilds().begin(); j != (*i)->getAdditionalChilds().end(); j++) {
-                        FXTreeItem *additionalItem = myTreelist->insertItem(0, edgeItem, (*j)->getID().c_str());
+                        FXTreeItem *additionalItem = myTreelist->insertItem(0, edgeItem, (*j)->getID().c_str(), (*j)->getIcon(), (*j)->getIcon());
                         additionalItem->setExpanded(true);
                     }
                 }
                 // insert crossings
                 for(std::vector<GNECrossing*>::const_iterator i = junction->getGNECrossings().begin(); i != junction->getGNECrossings().end(); i++) {
-                    FXTreeItem *crossingItem = myTreelist->insertItem(0, junctionItem, (*i)->getID().c_str());
+                    FXTreeItem *crossingItem = myTreelist->insertItem(0, junctionItem, (*i)->getID().c_str(), (*i)->getIcon(), (*i)->getIcon());
                     crossingItem->setExpanded(true);
                 }
 
@@ -160,21 +160,21 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
             case GLO_EDGE: {
                 GNEEdge *edge = dynamic_cast<GNEEdge*>(ac);
                 // insert edge root
-                FXTreeItem *edgeItem = myTreelist->insertItem(0, 0, edge->getID().c_str());
+                FXTreeItem *edgeItem = myTreelist->insertItem(0, 0, edge->getID().c_str(), edge->getIcon(), edge->getIcon());
                 edgeItem->setExpanded(true);
                 // insert lanes
                 for(std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
-                    FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (*i)->getID().c_str());
+                    FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (*i)->getID().c_str(), (*i)->getIcon(), (*i)->getIcon());
                     laneItem->setExpanded(true);
                     // insert additionals of lane
                     for(std::vector<GNEAdditional*>::const_iterator j = (*i)->getAdditionalChilds().begin(); j != (*i)->getAdditionalChilds().end(); j++) {
-                        FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (*j)->getID().c_str());
+                        FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (*j)->getID().c_str(), (*j)->getIcon(), (*j)->getIcon());
                         additionalItem->setExpanded(true);
                     }
                 }
                 // insert additionals of edge
                 for(std::vector<GNEAdditional*>::const_iterator i = edge->getAdditionalChilds().begin(); i != edge->getAdditionalChilds().end(); i++) {
-                    FXTreeItem *additionalItem = myTreelist->insertItem(0, edgeItem, (*i)->getID().c_str());
+                    FXTreeItem *additionalItem = myTreelist->insertItem(0, edgeItem, (*i)->getID().c_str(), (*i)->getIcon(), (*i)->getIcon());
                     additionalItem->setExpanded(true);
                 }
                 break;
@@ -182,11 +182,11 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
             case GLO_LANE: {
                 GNELane *lane = dynamic_cast<GNELane*>(ac);
                 // insert edge root
-                FXTreeItem *laneItem = myTreelist->insertItem(0, 0, lane->getID().c_str());
+                FXTreeItem *laneItem = myTreelist->insertItem(0, 0, lane->getID().c_str(), lane->getIcon(), lane->getIcon());
                 laneItem->setExpanded(true);
                 // insert additionals of lane
                 for(std::vector<GNEAdditional*>::const_iterator i = lane->getAdditionalChilds().begin(); i != lane->getAdditionalChilds().end(); i++) {
-                    FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (*i)->getID().c_str());
+                    FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (*i)->getID().c_str(), (*i)->getIcon(), (*i)->getIcon());
                     additionalItem->setExpanded(true);
                 }
                 break;

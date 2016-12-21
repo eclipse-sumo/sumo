@@ -31,6 +31,7 @@
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
 
@@ -108,8 +109,14 @@ GNEAttributeCarrier::getTag() const {
 }
 
 
-GUIIcon
+FXIcon*
 GNEAttributeCarrier::getIcon() const {
+    return GUIIconSubSys::getIcon(myIcon);
+}
+
+
+GUIIcon
+GNEAttributeCarrier::getGUIIcon() const {
     return myIcon;
 }
 
