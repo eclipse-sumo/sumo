@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec 21 13:26:50 2016 by SUMO Version dev-SVN-r22350
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="no_stop" depart="0.00" arrival="24.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="SC NC"/>
+            <route edges="SC CN NC"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="stop_first" depart="10.00" arrival="43.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="10.00" probability="0" edges="SC SC NC"/>
+            <route edges="SC CN NC"/>
+        </routeDistribution>
+        <stop lane="SC_0" endPos="81.95" duration="5.00"/>
+    </vehicle>
+
+    <vehicle id="stop_last" depart="15.00" arrival="48.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="14.00" probability="0" edges="SC NC NC"/>
+            <route edges="SC CN NC"/>
+        </routeDistribution>
+        <stop lane="NC_0" endPos="81.95" duration="5.00"/>
+    </vehicle>
+
+    <vehicle id="stop_middle" depart="12.00" arrival="54.00">
+        <route edges="SC CN NC"/>
+        <stop lane="CN_0" endPos="81.95" duration="5.00"/>
+    </vehicle>
+
+</routes>

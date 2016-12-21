@@ -1,0 +1,16 @@
+<trips>
+     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+	<trip id="no_stop" depart="0" from="SC" to="NC"/>
+
+	<trip id="stop_first" depart="10" from="SC" to="NC">
+        <stop lane="SC_0" duration="5" endPos="-10"/>
+    </trip>
+
+	<trip id="stop_middle" depart="12" from="SC" to="NC">
+        <stop lane="CN_0" duration="5" endPos="-10"/>
+    </trip>
+
+	<trip id="stop_last" depart="14" from="SC" to="NC">
+        <stop lane="NC_0" duration="5" endPos="-10"/>
+    </trip>
+</trips>
