@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:42367 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:60410 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -527,6 +527,5 @@ step 131
 failVeh pos=2.44567394375 edges=['3fi', 'disconnected']
 step 132
 failVeh pos=6.62293354494 edges=['3fi', 'disconnected']
-updating current travel times
 step 133
 {80: '4o', 86: 246.16000000000003}
