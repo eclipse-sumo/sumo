@@ -441,9 +441,19 @@ public:
         return myMesoTLSPenalty;
     }
 
+    /** @brief Returns the average proportion of green time to cycle time */
+    SUMOReal getGreenFraction() const {
+        return myGreenFraction;
+    }
+
     /** @brief Sets the time penalty for passing a tls-controlled link (meso) */
     void setMesoTLSPenalty(const SUMOTime penalty) {
         myMesoTLSPenalty = penalty;
+    }
+
+    /** @brief Sets the green fraction for passing a tls-controlled link (meso) */
+    void setGreenFraction(const SUMOReal fraction) {
+        myGreenFraction = fraction;
     }
 
     const std::vector<const MSLane*>& getFoeLanes() {
@@ -517,6 +527,7 @@ private:
 
     /// @brief penalty time for mesoscopic simulation
     SUMOTime myMesoTLSPenalty;
+    SUMOReal myGreenFraction;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used

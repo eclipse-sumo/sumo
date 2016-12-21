@@ -359,9 +359,10 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 
 
 SUMOTime
-MESegment::getTimeHeadway(const MESegment* pred, SUMOReal leaderLength) {
+MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
     if (pred->free()) {
-        return (free() ? myTau_ff : myTau_fj) + (SUMOTime)(leaderLength / myTau_length);
+        const SUMOReal tau = (free() ? myTau_ff : myTau_fj) + (SUMOTime)(veh->getVehicleType().getLengthWithGap() / myTau_length);
+        return tau / pred->getTLSCapacity(veh);
     } else {
         if (free()) {
             return myTau_jf;
@@ -459,7 +460,7 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
     MEVehicle* lc = removeCar(veh, time, next); // new leaderCar
     myBlockTimes[veh->getQueIndex()] = time;
     if (!isInvalid(next)) {
-        myBlockTimes[veh->getQueIndex()] += next->getTimeHeadway(this, veh->getVehicleType().getLengthWithGap());
+        myBlockTimes[veh->getQueIndex()] += next->getTimeHeadway(this, veh);
     }
     if (lc != 0) {
         lc->setEventTime(MAX2(lc->getEventTime(), myBlockTimes[veh->getQueIndex()]));
@@ -699,6 +700,20 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
     } else {
         return 0;
     }
+}
+
+
+SUMOReal
+MESegment::getTLSCapacity(const MEVehicle* veh) const {
+    if (myTLSPenalty) {
+        const MSLink* link = getLink(veh, true);
+        if (link != 0) {
+            assert(link->isTLSControlled());
+            assert(link->getGreenFraction() > 0);
+            return link->getGreenFraction();
+        }
+    } 
+    return 1;
 }
 
 /****************************************************************************/

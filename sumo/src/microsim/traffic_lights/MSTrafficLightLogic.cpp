@@ -294,6 +294,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     assert(numLinks <= (int)phases.front()->getState().size());
     SUMOTime duration = 0;
     std::vector<SUMOReal> redDuration(numLinks, 0);
+    std::vector<SUMOReal> totalRedDuration(numLinks, 0);
     std::vector<SUMOReal> penalty(numLinks, 0);
     for (int i = 0; i < (int)phases.size(); ++i) {
         const std::string& state = phases[i]->getState();
@@ -303,6 +304,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
             if ((LinkState)state[j] == LINKSTATE_TL_RED
                     || (LinkState)state[j] == LINKSTATE_TL_REDYELLOW) {
                 redDuration[j] += STEPS2TIME(phases[i]->duration);
+                totalRedDuration[j] += STEPS2TIME(phases[i]->duration);
             } else if (redDuration[j] > 0) {
                 penalty[j] += 0.5 * (redDuration[j] * redDuration[j] + redDuration[j]);
                 redDuration[j] = 0;
@@ -321,8 +323,9 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     for (int j = 0; j < numLinks; ++j) {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             myLinks[j][k]->setMesoTLSPenalty(TIME2STEPS(MSGlobals::gMesoTLSPenalty * penalty[j] / durationSeconds));
+            myLinks[j][k]->setGreenFraction(MAX2((durationSeconds - MSGlobals::gMesoTLSPenalty * totalRedDuration[j]) / durationSeconds, NUMERICAL_EPS)); // avoid zero capacity (warning issued before)
             controlledJunctions.insert(myLinks[j][k]->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
-            //std::cout << " tls=" << getID() << " link=" << j << " penalty=" << penalty[j] / durationSeconds << " durSecs=" << durationSeconds << "\n";
+            //std::cout << " tls=" << getID() << " i=" << j << " link=" << myLinks[j][k]->getViaLaneOrLane()->getID() << " penalty=" << penalty[j] / durationSeconds << " durSecs=" << durationSeconds << " greenTime=" << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
         }
     }
     // initialize empty-net travel times

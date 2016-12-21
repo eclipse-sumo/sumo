@@ -82,6 +82,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState 
     myAmCont(false),
     myKeepClear(keepClear),
     myMesoTLSPenalty(0),
+    myGreenFraction(1),
     myParallelRight(0),
     myParallelLeft(0),
     myJunction(0) {
@@ -104,6 +105,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myInternalLane(via),
     myInternalLaneBefore(0),
     myMesoTLSPenalty(0),
+    myGreenFraction(1),
     myParallelRight(0),
     myParallelLeft(0),
     myJunction(0) {

@@ -382,6 +382,12 @@ public:
      */
     SUMOTime getLinkPenalty(const MEVehicle* veh) const;
 
+    /** @brief Returns the average green time as fraction of cycle time
+     * @param[in] veh The vehicle in question for determining the link
+     * @return The green fraction or 1 if the vehicle does not continue after this edge
+     */
+    SUMOReal getTLSCapacity(const MEVehicle* veh) const;
+
 private:
     /** @brief Updates data of all detectors for a leaving vehicle
      *
@@ -393,7 +399,7 @@ private:
 
     bool overtake();
 
-    SUMOTime getTimeHeadway(const MESegment* pred, SUMOReal leaderLength);
+    SUMOTime getTimeHeadway(const MESegment* pred, const MEVehicle* veh);
 
     void setSpeedForQueue(SUMOReal newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);
