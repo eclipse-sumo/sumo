@@ -50,7 +50,7 @@
     #define GUIDesignTextFieldAttributeStr  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
     /// @brief Num of column of text field
-    #define GUIDesignTextFieldNCol          5
+    #define GUIDesignTextFieldNCol          1
 /// @}
 
 /// @name FXButtons
@@ -132,7 +132,7 @@
     #define GUIDesignComboBoxAttribute      (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
     /// @brief number of column of every combo box
-    #define GUIDesignComboBoxNCol           12
+    #define GUIDesignComboBoxNCol           1
 /// @}
 
 /// @name FXPackers
