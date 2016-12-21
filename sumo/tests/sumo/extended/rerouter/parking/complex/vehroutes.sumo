@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 19 16:10:39 2016 by SUMO Version dev-SVN-r22323
+<!-- generated on Wed Dec 21 09:03:50 2016 by SUMO Version dev-SVN-r22342
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,60 +25,60 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="flow3.0" depart="40.00" arrival="308.00">
+    <vehicle id="flow3.0" depart="40.00" arrival="309.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow3.1" depart="45.00" arrival="313.00">
+    <vehicle id="flow3.1" depart="45.00" arrival="314.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow3.2" depart="50.00" arrival="318.00">
+    <vehicle id="flow3.2" depart="50.00" arrival="319.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow3.3" depart="55.00" arrival="323.00">
+    <vehicle id="flow3.3" depart="55.00" arrival="324.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow3.4" depart="60.00" arrival="328.00">
+    <vehicle id="flow3.4" depart="60.00" arrival="329.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow3.5" depart="65.00" arrival="333.00">
+    <vehicle id="flow3.5" depart="65.00" arrival="334.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow3.6" depart="70.00" arrival="338.00">
+    <vehicle id="flow3.6" depart="70.00" arrival="339.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow1.0" depart="0.00" arrival="472.00">
-        <route edges="a b c"/>
-        <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
-        <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
-    </vehicle>
-
-    <vehicle id="flow1.5" depart="25.00" arrival="494.00">
+    <vehicle id="flow1.0" depart="0.00" arrival="473.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
         <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow1.6" depart="30.00" arrival="498.00">
+    <vehicle id="flow1.5" depart="25.00" arrival="495.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
         <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow1.1" depart="5.00" arrival="597.00">
+    <vehicle id="flow1.6" depart="30.00" arrival="499.00">
+        <route edges="a b c"/>
+        <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
+        <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
+    </vehicle>
+
+    <vehicle id="flow1.1" depart="5.00" arrival="599.00">
         <routeDistribution>
             <route replacedOnEdge="b" replacedAtTime="249.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>
@@ -87,7 +87,7 @@
         <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow1.2" depart="10.00" arrival="602.00">
+    <vehicle id="flow1.2" depart="10.00" arrival="604.00">
         <routeDistribution>
             <route replacedOnEdge="b" replacedAtTime="249.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>
@@ -96,7 +96,7 @@
         <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow1.3" depart="15.00" arrival="606.00">
+    <vehicle id="flow1.3" depart="15.00" arrival="609.00">
         <routeDistribution>
             <route replacedOnEdge="b" replacedAtTime="249.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>
@@ -105,7 +105,7 @@
         <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow1.4" depart="20.00" arrival="611.00">
+    <vehicle id="flow1.4" depart="20.00" arrival="615.00">
         <routeDistribution>
             <route replacedOnEdge="b" replacedAtTime="250.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>

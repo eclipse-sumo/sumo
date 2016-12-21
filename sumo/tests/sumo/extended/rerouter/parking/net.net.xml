@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 16 Dec 2016 01:19:34 PM CET by Netedit Version dev-SVN-r22316
+<!-- generated on Wed 21 Dec 2016 09:03:45 AM CET by Netedit Version dev-SVN-r22342
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="roads.net.xml"/>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/extended/rerouter/parking/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="roads.net.xml"/>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/extended/rerouter/parking/net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -21,10 +21,6 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
     </processing>
-
-    <visualisation>
-        <registry-viewport value="true"/>
-    </visualisation>
 
 </configuration>
 -->
@@ -70,7 +66,9 @@
         <lane id="f_0" index="0" speed="13.89" length="273.44" shape="688.10,728.57 567.11,496.98,60.00"/>
     </edge>
 
-    <junction id="12" type="district" x="654.41" y="92.53" z="57.00" incLanes="-a_0" intLanes="" shape="654.46,92.51,57.00 651.36,93.66,57.00 654.36,92.55,57.00"/>
+    <junction id="12" type="priority" x="654.41" y="92.53" z="57.00" incLanes="-a_0" intLanes="" shape="654.46,92.51,57.00 651.36,93.66,57.00 654.36,92.55,57.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
     <junction id="14" type="priority_stop" x="748.05" y="382.54" z="51.00" incLanes="-b_0 a_0 e_0" intLanes="" shape="746.48,387.73,51.00 752.59,385.51,51.00 749.91,376.95,51.00 743.64,378.64,51.00 742.56,380.41,51.00 743.95,386.76,51.00">
         <request index="0" response="000000" foes="001000"/>
         <request index="1" response="000000" foes="111000"/>
@@ -79,12 +77,19 @@
         <request index="4" response="000010" foes="000010"/>
         <request index="5" response="001110" foes="001110"/>
     </junction>
-    <junction id="18" type="district" x="843.87" y="672.62" z="65.00" incLanes="-c_0 b_0 d_0" intLanes="" shape="849.65,673.90,65.00 847.34,667.82,65.00 845.49,666.92,65.00 839.29,668.87,65.00 838.45,671.19,65.00 840.74,677.27,65.00"/>
+    <junction id="18" type="priority" x="843.87" y="672.62" z="65.00" incLanes="-c_0 b_0 d_0" intLanes="" shape="849.65,673.90,65.00 847.34,667.82,65.00 845.49,666.92,65.00 839.29,668.87,65.00 838.45,671.19,65.00 840.74,677.27,65.00">
+        <request index="0" response="000000" foes="001000"/>
+        <request index="1" response="110000" foes="111000"/>
+        <request index="2" response="100000" foes="100000"/>
+        <request index="3" response="100011" foes="100011"/>
+        <request index="4" response="000000" foes="000010"/>
+        <request index="5" response="000000" foes="001110"/>
+    </junction>
     <junction id="9" type="priority" x="567.01" y="493.22" z="60.00" incLanes="f_0 -e_0" intLanes="" shape="565.69,497.72,60.00 571.45,494.71,60.00 568.66,488.84,60.00">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="gneJ0" type="district" x="1054.57" y="592.37" incLanes="c_0" intLanes="" shape="1054.59,592.42 1053.41,589.33 1054.55,592.32"/>
+    <junction id="gneJ0" type="dead_end" x="1054.57" y="592.37" incLanes="c_0" intLanes="" shape="1054.59,592.42 1053.41,589.33 1054.55,592.32"/>
     <junction id="gneJ2" type="priority" x="690.90" y="730.36" incLanes="-d_0 -f_0" intLanes="" shape="694.74,732.38 692.45,726.30 686.69,729.31">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
@@ -94,14 +99,14 @@
     <connection from="-b" to="-e" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-b" to="-a" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-c" to="-d" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-c" to="-b" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="-c" to="-b" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-d" to="f" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="-e" to="-f" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-f" to="d" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="a" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="a" to="-e" fromLane="0" toLane="0" dir="l" state="s"/>
-    <connection from="b" to="c" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="b" to="-d" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="b" to="c" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="b" to="-d" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="d" to="-b" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="d" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="e" to="-a" fromLane="0" toLane="0" dir="r" state="s"/>
