@@ -128,8 +128,8 @@
     /// @brief Combo box static (not editable)
     #define GUIDesignComboBoxStatic         (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_CENTER_Y)
 
-    /// @brief Combo box static (cannot be dited) extended over the matrix column
-    #define GUIDesignComboBoxAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+    /// @brief Combo box static (cannot be edited) extended over the matrix column
+    #define GUIDesignComboBoxAttribute      (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
     /// @brief number of column of every combo box
     #define GUIDesignComboBoxNCol           12
