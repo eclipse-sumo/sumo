@@ -436,7 +436,7 @@ private:
 
     /// @brief The time headway parameters, see the Eissfeldt thesis
     const SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
-    /// @brief Headway paramter for computing gross time headyway from net time heawdway, length and edge speed
+    /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
     SUMOReal myTau_length;
 
     /// @brief slope and axis offset for the jam-jam headway function
