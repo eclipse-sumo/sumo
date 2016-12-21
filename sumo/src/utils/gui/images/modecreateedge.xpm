@@ -1,5 +1,5 @@
 /* XPM */
-static const char *gnemodecreateedge_xpm[] = {
+static const char *modecreateedge_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 12 1 ",
 "  c black",

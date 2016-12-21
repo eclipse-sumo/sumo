@@ -130,20 +130,33 @@
 #include "cut.xpm"
 #include "ext.xpm"
 
-#include "GNEModeAdditional.xpm"
-#include "GNEModeConnection.xpm"
-#include "GNEModeCreateEdge.xpm"
-#include "GNEModeCrossing.xpm"
-#include "GNEModeDelete.xpm"
-#include "GNEModeInspect.xpm"
-#include "GNEModeMove.xpm"
-#include "GNEModeSelect.xpm"
-#include "GNEModeTrafficLight.xpm"
+#include "modeadditional.xpm"
+#include "modeconnection.xpm"
+#include "modecreateedge.xpm"
+#include "modecrossing.xpm"
+#include "modedelete.xpm"
+#include "modeinspect.xpm"
+#include "modemove.xpm"
+#include "modeselect.xpm"
+#include "modetrafficlight.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
 #include "joinjunctions.xpm"
 #include "options.xpm"
+
+#include "busstop.xpm"
+#include "chargingstation.xpm"
+#include "containerstop.xpm"
+#include "e1.xpm"
+#include "e2.xpm"
+#include "e3.xpm"
+#include "e3entry.xpm"
+#include "e3exit.xpm"
+#include "rerouter.xpm"
+#include "routeprobe.xpm"
+#include "vaporizer.xpm"
+#include "variablespeedsignal.xpm"
 
 
 static const char* empty_xpm[] = {
@@ -268,20 +281,33 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
 
-    myIcons[ICON_GNEMODEADDITIONAL] = new FXXPMIcon(a, gnemodeadditional_xpm);
-    myIcons[ICON_GNEMODECONNECTION] = new FXXPMIcon(a, gnemodeconnection_xpm);
-    myIcons[ICON_GNEMODECREATEEDGE] = new FXXPMIcon(a, gnemodecreateedge_xpm);
-    myIcons[ICON_GNEMODECROSSING] = new FXXPMIcon(a, gnemodecrossing_xpm);
-    myIcons[ICON_GNEMODEDELETE] = new FXXPMIcon(a, gnemodedelete_xpm);
-    myIcons[ICON_GNEMODEINSPECT] = new FXXPMIcon(a, gnemodeinspect_xpm);
-    myIcons[ICON_GNEMODEMOVE] = new FXXPMIcon(a, gnemodemove_xpm);
-    myIcons[ICON_GNEMODESELECT] = new FXXPMIcon(a, gnemodeselect_xpm);
-    myIcons[ICON_GNEMODETLS] = new FXXPMIcon(a, gnemodetrafficlight_xpm);
+    myIcons[ICON_MODEADDITIONAL] = new FXXPMIcon(a, modeadditional_xpm);
+    myIcons[ICON_MODECONNECTION] = new FXXPMIcon(a, modeconnection_xpm);
+    myIcons[ICON_MODECREATEEDGE] = new FXXPMIcon(a, modecreateedge_xpm);
+    myIcons[ICON_MODECROSSING] = new FXXPMIcon(a, modecrossing_xpm);
+    myIcons[ICON_MODEDELETE] = new FXXPMIcon(a, modedelete_xpm);
+    myIcons[ICON_MODEINSPECT] = new FXXPMIcon(a, modeinspect_xpm);
+    myIcons[ICON_MODEMOVE] = new FXXPMIcon(a, modemove_xpm);
+    myIcons[ICON_MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
+    myIcons[ICON_MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[ICON_JOINJUNCTIONS] = new FXXPMIcon(a, joinjunctions_xpm);
     myIcons[ICON_OPTIONS] = new FXXPMIcon(a, options_xpm);
+
+    myIcons[ICON_BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
+    myIcons[ICON_CONTAINERSTOP] = new FXXPMIcon(a, chargingstation_xpm);
+    myIcons[ICON_CHARGINGSTATION] = new FXXPMIcon(a, containerstop_xpm);
+    myIcons[ICON_E1] = new FXXPMIcon(a, e1_xpm);
+    myIcons[ICON_E2] = new FXXPMIcon(a, e2_xpm);
+    myIcons[ICON_E3] = new FXXPMIcon(a, e3_xpm);
+    myIcons[ICON_E3ENTRY] = new FXXPMIcon(a, e3entry_xpm);
+    myIcons[ICON_E3EXIT] = new FXXPMIcon(a, e3exit_xpm);
+    myIcons[ICON_REROUTER] = new FXXPMIcon(a, rerouter_xpm);
+    myIcons[ICON_ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
+    myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
+    myIcons[ICON_VARIABLESPEEDSIGNAL] = new FXXPMIcon(a, variablespeedsignal_xpm);
 
     // ... and create them
     for (int i = 0; i < ICON_MAX; i++) {

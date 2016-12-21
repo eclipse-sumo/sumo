@@ -195,15 +195,15 @@ enum GUIIcon {
 
     /// @name netedit modes icons
     /// @{
-    ICON_GNEMODEADDITIONAL,
-    ICON_GNEMODECONNECTION,
-    ICON_GNEMODECREATEEDGE,
-    ICON_GNEMODECROSSING,
-    ICON_GNEMODEDELETE,
-    ICON_GNEMODEINSPECT,
-    ICON_GNEMODEMOVE,
-    ICON_GNEMODESELECT,
-    ICON_GNEMODETLS,
+    ICON_MODEADDITIONAL,
+    ICON_MODECONNECTION,
+    ICON_MODECREATEEDGE,
+    ICON_MODECROSSING,
+    ICON_MODEDELETE,
+    ICON_MODEINSPECT,
+    ICON_MODEMOVE,
+    ICON_MODESELECT,
+    ICON_MODETLS,
     /// @}
 
     /// @name netedit processing icons
@@ -212,6 +212,22 @@ enum GUIIcon {
     ICON_COMPUTEJUNCTIONS,
     ICON_JOINJUNCTIONS,
     ICON_OPTIONS,
+    /// @}
+
+    /// @name netedit additional icons
+    /// @{
+    ICON_BUSSTOP,
+    ICON_CONTAINERSTOP,
+    ICON_CHARGINGSTATION,
+    ICON_E1,
+    ICON_E2,
+    ICON_E3,
+    ICON_E3ENTRY,
+    ICON_E3EXIT,
+    ICON_REROUTER,
+    ICON_ROUTEPROBE,
+    ICON_VAPORIZER,
+    ICON_VARIABLESPEEDSIGNAL,
     /// @}
 
     /// @brief max number of icons

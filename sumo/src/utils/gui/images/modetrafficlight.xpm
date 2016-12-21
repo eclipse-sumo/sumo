@@ -1,5 +1,5 @@
 /* XPM */
-static const char *gnemodetrafficlight_xpm[] = {
+static const char *modetrafficlight_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 256 2 ",
 "   c None",

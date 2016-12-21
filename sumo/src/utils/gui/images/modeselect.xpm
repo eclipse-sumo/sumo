@@ -1,5 +1,5 @@
 /* XPM */
-static const char *gnemodeselect_xpm[] = {
+static const char *modeselect_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 256 2 ",
 "   c None",

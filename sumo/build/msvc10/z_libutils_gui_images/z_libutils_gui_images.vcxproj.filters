@@ -213,33 +213,6 @@
     <None Include="..\..\..\src\utils\gui\images\fileprint.xpm">
       <Filter>Icons</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeAdditional.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeTrafficLight.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeConnection.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeCreateEdge.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeCrossing.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeDelete.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeInspect.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeMove.xpm">
-      <Filter>Icons</Filter>
-    </None>
-    <None Include="..\..\..\src\utils\gui\images\GNEModeSelect.xpm">
-      <Filter>Icons</Filter>
-    </None>
     <None Include="..\..\..\src\utils\gui\images\green_edge.xpm">
       <Filter>Icons</Filter>
     </None>
@@ -430,6 +403,69 @@
       <Filter>Icons</Filter>
     </None>
     <None Include="..\..\..\src\utils\gui\images\joinjunctions.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vaporizer.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\variablespeedsignal.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\busstop.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\chargingstation.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\containerstop.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e1.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e2.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e3.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e3entry.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e3exit.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rerouter.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\routeprobe.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeadditional.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeconnection.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modecreateedge.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modecrossing.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modedelete.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeinspect.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modemove.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeselect.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modetrafficlight.xpm">
       <Filter>Icons</Filter>
     </None>
   </ItemGroup>

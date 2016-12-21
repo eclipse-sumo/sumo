@@ -1,5 +1,5 @@
 /* XPM */
-static const char *gnemodeadditional_xpm[] = {
+static const char *modeadditional_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 9 1 ",
 "  c #4CAA32",

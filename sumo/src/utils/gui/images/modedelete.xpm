@@ -1,5 +1,5 @@
 /* XPM */
-static const char *gnemodedelete_xpm[] = {
+static const char *modedelete_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 104 2 ",
 "   c #C56B7D",
