@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec 21 13:30:16 2016 by SUMO Version dev-SVN-r22350
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v0" depart="0.00" departLane="SC_0" departPos="60.00" departSpeed="0.00" departDelay="0.00" arrival="1.00" arrivalLane="SC_0" arrivalPos="60.00" arrivalSpeed="2.60" duration="1.00" routeLength="0.00" waitSteps="0" timeLoss="0.81" rerouteNo="1" devices="tripinfo_v0 routing_v0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>

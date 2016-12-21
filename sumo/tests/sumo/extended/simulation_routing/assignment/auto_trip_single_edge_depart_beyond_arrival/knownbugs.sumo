@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 21Dec13:33:17]
+search_string:routeLength="0.00"
+trigger_on_absence:1
+search_file:tripinfos
+full_description:invalid route length
+brief_description:see #2757
