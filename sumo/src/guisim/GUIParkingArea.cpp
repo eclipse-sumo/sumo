@@ -3,7 +3,7 @@
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
 /// @date    Tue, 19.01.2016
-/// @version $Id: GUIParkingArea.h 19388 2015-11-19 21:33:01Z behrisch $
+/// @version $Id$
 ///
 // A area where vehicles can park next to the road (gui version)
 /****************************************************************************/
