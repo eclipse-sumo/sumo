@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  6 12:30:50 2016 by SUMO Version dev-SVN-r22190
+<!-- generated on Wed Dec 21 09:24:17 2016 by SUMO Version dev-SVN-r22342
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
 </configuration>
 -->
 
-<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
     <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3017.50" density="34.65" occupancy="8.66" waitingTime="0.00" speed="32.32" departed="58" arrived="0" entered="953" left="1005"/>
     <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3017.50" density="34.65" occupancy="8.66" waitingTime="0.00" speed="32.32" departed="58" arrived="0" entered="953" left="1005"/>
     <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="4958.02" density="56.93" occupancy="14.23" waitingTime="0.00" speed="26.72" departed="196" arrived="0" entered="1172" left="1369"/>
