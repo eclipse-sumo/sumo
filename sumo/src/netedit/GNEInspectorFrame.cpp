@@ -219,7 +219,7 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttr
             myAttrConnections.at(i)->hideAttrConnection();
         }
 
-        // Gets tag and tattributes of element
+        // Gets tag and attributes of element
         SumoXMLTag tag = myACs.front()->getTag();
         const std::vector<SumoXMLAttr>& attrs = myACs.front()->getAttrs();
 
