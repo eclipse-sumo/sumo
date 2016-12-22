@@ -126,6 +126,9 @@ public:
     /// @brief whether an attribute is numerical of type float
     static bool isFloat(SumoXMLTag tag, SumoXMLAttr attr);
 
+    /// @brief whether an attribute is time
+    static bool isTime(SumoXMLTag tag, SumoXMLAttr attr);
+
     /// @brief whether an attribute is of type bool for a certain tag
     static bool isBool(SumoXMLTag tag, SumoXMLAttr attr);
 
@@ -243,6 +246,9 @@ private:
 
     /// @brief map with the numerical attributes of type Float
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalFloatAttrs;
+
+    /// @brief map with the attributes of type time
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myTimeAttrs;
 
     /// @brief map with the boolean attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myBoolAttrs;
