@@ -187,6 +187,7 @@
     #define GUIDesignToolBarShell3          (FRAME_NORMAL)
 /// @}
 
+
 /// @name designs for separators
 /// @{
     /// @brief horizontal separator
@@ -207,8 +208,14 @@
 /// @}
 
 
+/// @name designs for Spin dials
+/// @{
     /// @brief desing for standard spin dial
-    #define GUIDesignSpinDial               (LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK)
+    #define GUIDesignSpinDial               (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y)
+
+    /// @brief  spin dial extended over the matrix column with thick frame
+    #define GUIDesignSpinDialAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | SPIN_NOMAX)
+/// @}
 
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)

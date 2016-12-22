@@ -31,7 +31,6 @@
 #endif
 
 #include <map>
-#include <utils/common/SUMOTime.h>
 #include "GNEAdditionalDialog.h"
 
 
@@ -86,7 +85,7 @@ protected:
     GNEVariableSpeedSignal* myVariableSpeedSignalParent;
 
     /// @brief Map with the temporal VSSValues
-    std::map<SUMOTime, SUMOReal> myVSSValues;
+    std::map<SUMOReal, SUMOReal> myVSSValues;
 
     /// @brief Table with the data
     FXTable* myDataList;

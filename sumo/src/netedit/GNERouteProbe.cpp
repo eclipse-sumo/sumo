@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, int frequency, const std::string& filename, int begin, bool blocked) :
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, int begin, bool blocked) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE, NULL, blocked),
     myFrequency(frequency),
     myFilename(filename),
@@ -169,7 +169,7 @@ GNERouteProbe::getFilename() const {
 }
 
 
-int
+SUMOReal
 GNERouteProbe::getFrequency() const {
     return myFrequency;
 }
@@ -188,7 +188,7 @@ GNERouteProbe::setFilename(std::string filename) {
 
 
 void
-GNERouteProbe::setFrequency(int frequency) {
+GNERouteProbe::setFrequency(SUMOReal frequency) {
     myFrequency = frequency;
 }
 

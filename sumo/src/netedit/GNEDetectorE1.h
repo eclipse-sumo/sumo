@@ -56,7 +56,7 @@ public:
      * @param[in] splitByType If set, the collected values will be additionally reported on per-vehicle type base.
      * @param[in] blocked set initial blocking state of item
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, const SUMOReal freq, const std::string& filename, bool splitByType, bool blocked);
+    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, SUMOReal freq, const std::string& filename, bool splitByType, bool blocked);
 
     /// @brief Destructor
     ~GNEDetectorE1();

@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOTime, SUMOReal>& VSSValues, bool blocked) :
+GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues, bool blocked) :
     GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL, blocked, std::vector<GNEAdditional * >(), std::vector<GNEEdge * >(), lanes),
     myFilename(filename),
     myVSSValues(VSSValues),
@@ -156,7 +156,7 @@ GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string&
         // Save values in a different file
         OutputDevice& deviceVSS = OutputDevice::getDevice(currentDirectory + myFilename);
         deviceVSS.openTag("VSS");
-        for (std::map<SUMOTime, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
+        for (std::map<SUMOReal, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
             // Open VSS tag
             deviceVSS.openTag(SUMO_TAG_STEP);
             // Write TimeSTep
@@ -168,7 +168,7 @@ GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string&
         }
         deviceVSS.close();
     } else {
-        for (std::map<SUMOTime, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
+        for (std::map<SUMOReal, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
             // Open VSS tag
             device.openTag(SUMO_TAG_STEP);
             // Write TimeSTep
@@ -193,7 +193,7 @@ GNEVariableSpeedSignal::getFilename() const {
 }
 
 
-std::map<SUMOTime, SUMOReal>
+std::map<SUMOReal, SUMOReal>
 GNEVariableSpeedSignal::getVariableSpeedSignalSteps() const {
     return myVSSValues;
 }
@@ -206,13 +206,13 @@ GNEVariableSpeedSignal::setFilename(std::string filename) {
 
 
 void
-GNEVariableSpeedSignal::setVariableSpeedSignalSteps(const std::map<SUMOTime, SUMOReal>& vssValues) {
+GNEVariableSpeedSignal::setVariableSpeedSignalSteps(const std::map<SUMOReal, SUMOReal>& vssValues) {
     myVSSValues = vssValues;
 }
 
 
 bool
-GNEVariableSpeedSignal::insertStep(const SUMOTime time, const SUMOReal speed) {
+GNEVariableSpeedSignal::insertStep(const SUMOReal time, const SUMOReal speed) {
     if (myVSSValues.find(time) == myVSSValues.end()) {
         myVSSValues[time] = speed;
         return true;

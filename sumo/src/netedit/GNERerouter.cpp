@@ -226,8 +226,8 @@ GNERerouter::routeProbReroute::setProbability(SUMOReal probability) {
 // GNERerouter::rerouterInterval - methods
 // ---------------------------------------------------------------------------
 
-GNERerouter::rerouterInterval::rerouterInterval(SUMOTime begin, SUMOTime end) :
-    std::pair<SUMOTime, SUMOTime>(begin, end) {
+GNERerouter::rerouterInterval::rerouterInterval(SUMOReal begin, SUMOReal end) :
+    std::pair<SUMOReal, SUMOReal>(begin, end) {
 }
 
 
@@ -316,13 +316,13 @@ GNERerouter::rerouterInterval::removeRouteProbReroute(GNERerouter::routeProbRero
 }
 
 
-SUMOTime
+SUMOReal
 GNERerouter::rerouterInterval::getBegin() const {
     return first;
 }
 
 
-SUMOTime
+SUMOReal
 GNERerouter::rerouterInterval::getEnd() const {
     return second;
 }

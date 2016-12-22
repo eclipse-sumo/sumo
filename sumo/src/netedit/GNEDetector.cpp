@@ -63,7 +63,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, SUMOReal posOverLane, const SUMOReal freq, const std::string& filename, bool blocked, GNEAdditionalSet* parent) :
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, SUMOReal posOverLane, SUMOReal freq, const std::string& filename, bool blocked, GNEAdditionalSet* parent) :
     GNEAdditional(id, viewNet, Position(posOverLane, 0), tag, icon, parent, blocked),
     myFreq(freq),
     myFilename(filename) {

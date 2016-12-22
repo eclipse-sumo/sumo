@@ -160,10 +160,10 @@ public:
     // class rerouterInterval
     // ===========================================================================
 
-    class rerouterInterval : public std::pair<SUMOTime, SUMOTime> {
+    class rerouterInterval : public std::pair<SUMOReal, SUMOReal> {
     public:
         /// @brief constructor
-        rerouterInterval(SUMOTime begin, SUMOTime end);
+        rerouterInterval(SUMOReal begin, SUMOReal end);
 
         /// @brief destructor
         ~rerouterInterval();
@@ -193,10 +193,10 @@ public:
         void removeRouteProbReroute(routeProbReroute* rpr);
 
         /// @brief get time begin
-        SUMOTime getBegin() const;
+        SUMOReal getBegin() const;
 
         /// @brief get time end
-        SUMOTime getEnd() const;
+        SUMOReal getEnd() const;
 
         /// @brief get closing reroutes
         std::vector<closingReroute*> getClosingReroutes() const;

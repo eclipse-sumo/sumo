@@ -546,13 +546,14 @@ GNEAdditionalFrame::setEndPosition(SUMOReal laneLenght, SUMOReal positionOfTheMo
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::singleAdditionalParameter::singleAdditionalParameter(FXComposite* parent) :
-    FXMatrix(parent, 3, GUIDesignMatrixAttributes),
+    FXMatrix(parent, 4, GUIDesignMatrixAttributes),
     myAdditionalTag(SUMO_TAG_NOTHING),
     myAdditionalAttr(SUMO_ATTR_NOTHING),
     myCurrentValueValid(true) {
     // Create visual elements
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute, 0, 0, 60, 0);
     myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldAttributeStr);
+    myTimeSpinDial = new FXSpinner(this, 7, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_DIAL, GUIDesignSpinDialAttribute);
     myMenuCheck = new FXMenuCheck(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignCheckButtonAttribute);
     // Set widht of menuCheck manually
     myMenuCheck->setWidth(20);
@@ -589,13 +590,18 @@ GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag addition
 
 
 void
-GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, SUMOReal value) {
+GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, SUMOReal value, bool isTime) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
-    myTextField->setText(toString(value).c_str());
-    myTextField->show();
+    if(isTime) {
+        myTimeSpinDial->setValue((int)value);
+        myTimeSpinDial->show();
+    } else {
+        myTextField->setText(toString(value).c_str());
+        myTextField->show();
+    }
     show();
 }
 
@@ -627,6 +633,7 @@ GNEAdditionalFrame::singleAdditionalParameter::hideParameter() {
     myLabel->hide();
     myTextField->hide();
     myMenuCheck->hide();
+    myTimeSpinDial->hide();
     hide();
 }
 
@@ -647,7 +654,9 @@ std::string
 GNEAdditionalFrame::singleAdditionalParameter::getValue() const {
     if (GNEAttributeCarrier::isBool(myAdditionalTag, myAdditionalAttr)) {
         return (myMenuCheck->getCheck() == 1) ? "true" : "false";
-    } else {
+    } else if (GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
+        return toString(myTimeSpinDial->getValue());
+    } else  {
         return myTextField->getText().text();
     }
 }
@@ -751,12 +760,14 @@ GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag 
     std::cout << "FINISH" << std::endl;
 }
 
+
 void
-GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<SUMOReal> /* value */) {
+GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<SUMOReal> /* value */, bool /*isTime*/) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
     std::cout << "FINISH" << std::endl;
 }
+
 
 void
 GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<bool> /* value */) {
@@ -764,6 +775,7 @@ GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag 
     myAdditionalAttr = additionalAttr;
     std::cout << "FINISH" << std::endl;
 }
+
 
 void
 GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag tag, SumoXMLAttr attr, std::vector<std::string> value) {
@@ -920,6 +932,8 @@ GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additionalTag,
                 myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue< std::vector<int> >(myAdditionalTag, additionalAttribute));
             } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, additionalAttribute)) {
                 myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute,GNEAttributeCarrier::getDefaultValue< std::vector<SUMOReal> >(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isTime(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute,GNEAttributeCarrier::getDefaultValue< std::vector<SUMOReal> >(myAdditionalTag, additionalAttribute), true);
             } else if (GNEAttributeCarrier::isBool(myAdditionalTag, additionalAttribute)) {
                 myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, additionalAttribute,GNEAttributeCarrier::getDefaultValue< std::vector<bool> >(myAdditionalTag, additionalAttribute));
             } else if (GNEAttributeCarrier::isString(myAdditionalTag, additionalAttribute)) {
@@ -937,6 +951,8 @@ GNEAdditionalFrame::additionalParameters::addAttribute(SumoXMLTag additionalTag,
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<int>(myAdditionalTag, additionalAttribute));
             } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, additionalAttribute)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<SUMOReal>(myAdditionalTag, additionalAttribute));
+            } else if (GNEAttributeCarrier::isTime(myAdditionalTag, additionalAttribute)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<SUMOReal>(myAdditionalTag, additionalAttribute), true);
             } else if (GNEAttributeCarrier::isBool(myAdditionalTag, additionalAttribute)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, additionalAttribute, GNEAttributeCarrier::getDefaultValue<bool>(myAdditionalTag, additionalAttribute));
             } else if (GNEAttributeCarrier::isString(myAdditionalTag, additionalAttribute)) {
@@ -1039,6 +1055,8 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
             type->setText("int");
         } else if (GNEAttributeCarrier::isFloat(tag, attr)) {
             type->setText("float");
+        } else if (GNEAttributeCarrier::isTime(tag, attr)) {
+            type->setText("time");
         } else if (GNEAttributeCarrier::isBool(tag, attr)) {
             type->setText("bool");
         } else if (GNEAttributeCarrier::isString(tag, attr)) {
@@ -1063,13 +1081,15 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
         // Set type
         FXTableItem* type = new FXTableItem("");
         if (GNEAttributeCarrier::isInt(tag, attr)) {
-            type->setText("list of int");
+            type->setText("list of integers");
         } else if (GNEAttributeCarrier::isFloat(tag, attr)) {
-            type->setText("list of float");
+            type->setText("list of floats");
+        } else if (GNEAttributeCarrier::isTime(tag, attr)) {
+            type->setText("list of times");
         } else if (GNEAttributeCarrier::isBool(tag, attr)) {
-            type->setText("list of bool");
+            type->setText("list of booleans");
         } else if (GNEAttributeCarrier::isString(tag, attr)) {
-            type->setText("list of string");
+            type->setText("list of strings");
         }
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);

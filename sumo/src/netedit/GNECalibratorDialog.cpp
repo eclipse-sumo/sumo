@@ -154,16 +154,14 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     if (myTextFieldBegin->getText().empty()) {
         return 0;
     } else {
-        // @todo SUMOTIME
-        calibratorFlow.begin = TplConvert::_str2int(myTextFieldBegin->getText().text());
+        calibratorFlow.begin = TplConvert::_str2SUMOReal(myTextFieldBegin->getText().text());
     }
 
     // set End
     if (myTextFieldEnd->getText().empty()) {
         return 0;
     } else {
-        // @todo SUMOTIME
-        calibratorFlow.end = TplConvert::_str2int(myTextFieldEnd->getText().text());
+        calibratorFlow.end = TplConvert::_str2SUMOReal(myTextFieldEnd->getText().text());
     }
 
     // set Type

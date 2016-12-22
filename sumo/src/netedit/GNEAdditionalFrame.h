@@ -74,8 +74,8 @@ public:
         /// @brief show name and value of parameters of type int
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, int value);
 
-        /// @brief show name and value of parameters of type float/real
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, SUMOReal value);
+        /// @brief show name and value of parameters of type float/real/time
+        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, SUMOReal value, bool isTime = false);
 
         /// @brief show name and value of parameters of type bool
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value);
@@ -118,10 +118,13 @@ public:
         /// @brief lael with the name of the parameter
         FXLabel* myLabel;
 
-        /// @brief textField to modify the value of parameter
+        /// @brief textField to modify the value of int/float/string parameters
         FXTextField* myTextField;
 
-        /// @brief menuCheck to enable/disable the value of parameter
+        /// @brief spindial  to modify the value of time parameters
+        FXSpinner* myTimeSpinDial;
+
+        /// @brief menuCheck to enable/disable the value of boolean parameters
         FXMenuCheck* myMenuCheck;
 
         /// @brief Flag which indicates that the current value is correct
@@ -147,7 +150,7 @@ public:
         void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<int> value);
 
         /// @brief show name and value of parameters of type float
-        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<SUMOReal> value);
+        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<SUMOReal> value, bool isTime = false);
 
         /// @brief show name and value of parameters of type bool
         void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<bool> value);

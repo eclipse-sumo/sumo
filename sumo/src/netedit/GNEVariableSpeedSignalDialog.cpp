@@ -96,15 +96,13 @@ GNEVariableSpeedSignalDialog::~GNEVariableSpeedSignalDialog() {
 long
 GNEVariableSpeedSignalDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
-    SUMOTime time;
-    SUMOReal speed;
+    SUMOReal time, speed;
 
     // Get Time
-    if (TplCheck::_str2SUMOTime(myRowStep->getText().text()) == false) {
+    if (TplCheck::_str2SUMOReal(myRowStep->getText().text()) == false) {
         return 0;
     } else {
-// @toDo IMPLEMENT _str2Time TO TIME
-        time = TplConvert::_str2int(myRowStep->getText().text());
+        time = TplConvert::_str2SUMOReal(myRowStep->getText().text());
     }
 
     // get SPeed
@@ -133,7 +131,6 @@ GNEVariableSpeedSignalDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myDataList->getNumRows(); i++) {
         if (myDataList->getItem(i, 2)->isSelected()) {
             // Remove element of table and map
-// @todo IMPLEMENT _2SUMOTIme
             myVSSValues.erase(TplConvert::_2int(myDataList->getItem(i, 0)->getText().text()));
             myDataList->removeRows(i);
             // update table
@@ -191,7 +188,7 @@ GNEVariableSpeedSignalDialog::updateTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::map<SUMOTime, SUMOReal>::iterator i = myVSSValues.begin(); i != myVSSValues.end(); i++) {
+    for (std::map<SUMOReal, SUMOReal>::iterator i = myVSSValues.begin(); i != myVSSValues.end(); i++) {
         // Set time
         item = new FXTableItem(toString(i->first).c_str());
         myDataList->setItem(indexRow, 0, item);

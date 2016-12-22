@@ -126,7 +126,7 @@ private:
     int getFrequency() const;
 
     /// @brief Invalidated set filename
-    void setFrequency(int freq);
+    void setFrequency(SUMOReal freq);
 
     /// @brief Invalidated
     void setFilename(std::string filename);

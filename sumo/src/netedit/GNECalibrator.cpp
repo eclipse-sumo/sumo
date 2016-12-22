@@ -66,7 +66,7 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOTime frequency, const std::string& output, const std::map<std::string, CalibratorFlow>& flowValues, bool blocked) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOReal frequency, const std::string& output, const std::map<std::string, CalibratorFlow>& flowValues, bool blocked) :
     GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR, NULL, blocked),
     myFrequency(frequency),
     myOutput(output),
@@ -151,7 +151,7 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string&) {
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANE, myEdge->getLanes().at(0)->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
-    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
+    device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // Write all flows of this calibrator
     for (std::map<std::string, CalibratorFlow>::iterator i = myFlowValues.begin(); i != myFlowValues.end(); ++i) {
@@ -301,7 +301,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
         case SUMO_ATTR_FREQUENCY:
-            return time2string(myFrequency);
+            return toString(myFrequency);
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
@@ -388,7 +388,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = string2time(value);
+            myFrequency = parse<SUMOReal>(value);
             break;
         case SUMO_ATTR_OUTPUT:
             myOutput = value;

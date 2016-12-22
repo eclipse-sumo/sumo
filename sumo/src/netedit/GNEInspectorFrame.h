@@ -101,13 +101,16 @@ public:
         /// @brief pointer to label
         FXLabel* myLabel;
 
-        /// @brief textField to modify the value of int values
+        /// @brief textField to modify the value of int attributes
         FXTextField* myTextFieldInt;
 
-        /// @brief textField to modify the value of real values
+        /// @brief textField to modify the value of real attributes
         FXTextField* myTextFieldReal;
 
-        /// @brief textField to modify the value of strings values
+        /// @rief SpinDial to modify the value of time attributes
+        FXSpinner* myTimeSpinDial;
+
+        /// @brief textField to modify the value of string attributes
         FXTextField* myTextFieldStrings;
 
         /// @brief pointer to combo box choices

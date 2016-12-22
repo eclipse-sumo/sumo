@@ -55,7 +55,7 @@ public:
      * @param[in] end
      * @param[in] blocked set initial blocking state of item
      */
-    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const SUMOReal startTime, const SUMOReal end, bool blocked);
+    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal startTime, SUMOReal end, bool blocked);
 
     /// @brief Destructor
     ~GNEVaporizer();
@@ -89,10 +89,10 @@ public:
     SUMOReal getEnd() const;
 
     /// @brief set start time
-    void setStartTime(const SUMOReal startTime);
+    void setStartTime(SUMOReal startTime);
 
     /// @brief set end
-    void setEndTime(const SUMOReal end);
+    void setEndTime(SUMOReal end);
 
     /// @name inherited from GUIGlObject
     /// @{

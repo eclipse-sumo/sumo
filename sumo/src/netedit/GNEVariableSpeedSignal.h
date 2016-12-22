@@ -51,7 +51,7 @@ public:
      * @param[in] VSSValues values with the interval and speeds of variable speed signals
      * @param[in] blocked set initial blocking state of item
      */
-    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOTime, SUMOReal>& VSSValues, bool blocked);
+    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues, bool blocked);
 
     /// @brief Destructor
     ~GNEVariableSpeedSignal();
@@ -82,17 +82,17 @@ public:
     std::string getFilename() const;
 
     /// @brief get values of variable speed signal
-    std::map<SUMOTime, SUMOReal> getVariableSpeedSignalSteps() const;
+    std::map<SUMOReal, SUMOReal> getVariableSpeedSignalSteps() const;
 
     /// @brief set filename of rerouter
     void setFilename(std::string filename);
 
     /// @brief set values of variable speed signal
-    void setVariableSpeedSignalSteps(const std::map<SUMOTime, SUMOReal>& vssValues);
+    void setVariableSpeedSignalSteps(const std::map<SUMOReal, SUMOReal>& vssValues);
 
     /// @brief insert a new step in variable speed signal
     /// @return true if step was sucesfully inserted, false in other case (Time duplicated)
-    bool insertStep(const SUMOTime time, const SUMOReal speed);
+    bool insertStep(const SUMOReal time, const SUMOReal speed);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -135,7 +135,7 @@ protected:
     std::string myFilename;
 
     /// @brief values of variable speed signal
-    std::map<SUMOTime, SUMOReal> myVSSValues;
+    std::map<SUMOReal, SUMOReal> myVSSValues;
 
     /// @brief enable or disable save in external filename
     bool mySaveInFilename;
