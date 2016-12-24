@@ -543,6 +543,8 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WIDTH:
             if (myNBEdge.hasLaneSpecificWidth()) {
                 return "lane specific";
+            } else if (myNBEdge.getLaneWidth() == -1){
+                return "default";
             } else {
                 return toString(myNBEdge.getLaneWidth());
             }
@@ -683,7 +685,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
             break;
         case SUMO_ATTR_WIDTH:
-            return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH);
+            if(value == "default") {
+                return true;
+            } else {
+                return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH);
+            }
             break;
         case SUMO_ATTR_ENDOFFSET:
             return canParse<SUMOReal>(value);
@@ -702,6 +708,7 @@ GNEEdge::setResponsible(bool newVal) {
 // ===========================================================================
 // private
 // ===========================================================================
+
 void
 GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
@@ -753,7 +760,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.setSpeed(-1, parse<SUMOReal>(value));
             break;
         case SUMO_ATTR_WIDTH:
-            myNBEdge.setLaneWidth(-1, parse<SUMOReal>(value));
+            if(value == "default") {
+                myNBEdge.setLaneWidth(-1, -1);
+            } else {
+                myNBEdge.setLaneWidth(-1, parse<SUMOReal>(value));
+            }
             break;
         case SUMO_ATTR_ENDOFFSET:
             myNBEdge.setEndOffset(-1, parse<SUMOReal>(value));
