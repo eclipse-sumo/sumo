@@ -557,29 +557,48 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
             newVal = myChoicesCombo->getText().text();
         }
     } else if (GNEAttributeCarrier::isFloat(myTag, myAttr)) {
-        // obtain value of myTextFieldReal
-        newVal = myTextFieldReal->getText().text();
+        // Check if default value of attribute must be set
+        if(myTextFieldReal->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+            myTextFieldReal->setText(newVal.c_str());
+        } else {
+            // obtain value of myTextFieldReal
+            newVal = myTextFieldReal->getText().text();
+        }
     } else if (GNEAttributeCarrier::isInt(myTag, myAttr)) {
-        // obtain value of myTextFieldInt
-        newVal = myTextFieldInt->getText().text();
+        // Check if default value of attribute must be set
+        if(myTextFieldInt->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+            myTextFieldInt->setText(newVal.c_str());
+        } else {
+            // obtain value of myTextFieldInt
+            newVal = myTextFieldInt->getText().text();
+        }
     } else if (GNEAttributeCarrier::isTime(myTag, myAttr)) {
-        // obtain value of myTextFieldInt
+        // obtain value of myTimeSpinDial
         newVal = toString(myTimeSpinDial->getValue());
     } else if (GNEAttributeCarrier::isString(myTag, myAttr)) {
-        // obtain value of myTextFieldStrings
-        newVal = myTextFieldStrings->getText().text();
+        // Check if default value of attribute must be set
+        if(myTextFieldStrings->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+            myTextFieldStrings->setText(newVal.c_str());
+        } else {
+            // obtain value of myTextFieldStrings
+            newVal = myTextFieldStrings->getText().text();
+        }
     }
 
-    // Check if newvalue is valid
-    if (myInspectorFrameParent->getACs().front()->isValid(myAttr, newVal)) {
+    // Check if attribute must be changed
+    if(myInspectorFrameParent->getACs().front()->isValid(myAttr, newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myInspectorFrameParent->getACs().size() > 1) {
             myInspectorFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
-        // Set all attributes
+        // Set new value of attribute in all selected ACs
         for (std::vector<GNEAttributeCarrier*>::const_iterator it_ac = myInspectorFrameParent->getACs().begin(); it_ac != myInspectorFrameParent->getACs().end(); it_ac++) {
             (*it_ac)->setAttribute(myAttr, newVal, myInspectorFrameParent->getViewNet()->getUndoList());
         }
+        // finish change multiple attributes
         if (myInspectorFrameParent->getACs().size() > 1) {
             myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
         }

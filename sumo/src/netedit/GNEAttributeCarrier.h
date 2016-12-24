@@ -153,11 +153,14 @@ public:
     /// @brief whether an attribute is non editable
     static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief check if a element with certain tag has another additional element as parent
+    /// @brief check if an element with certain tag has another additional element as parent
     static bool hasParent(SumoXMLTag tag);
 
-    /// @brief check if a element with certain tag has a certain attribute
+    /// @brief check if an element with certain tag has a certain attribute
     static bool hasAttribute(SumoXMLTag tag, SumoXMLAttr attr);
+
+    /// @brief check if attribute of an element has a default avlue
+    static bool hasDefaultValue(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief return a list of discrete choices for this attribute or an empty vector
     static const std::vector<std::string>& discreteChoices(SumoXMLTag tag, SumoXMLAttr attr);
@@ -232,7 +235,7 @@ private:
     /// @brief icon associated to this AC
     GUIIcon myIcon;
 
-    /// @brief map with the allowed attributes
+    /// @brief map with the allowed attributes and their default values
     static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > _allowedAttributes;
 
     /// @brief vector with the allowed tags of netElements
