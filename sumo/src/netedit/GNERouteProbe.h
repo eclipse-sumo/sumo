@@ -56,7 +56,7 @@ public:
      * @param[in] begin The time at which to start generating output
      * @param[in] blocked set initial blocking state of item
      */
-    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, int begin, bool blocked);
+    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, SUMOReal begin, bool blocked);
 
     /// @brief Destructor
     ~GNERouteProbe();
@@ -90,7 +90,7 @@ public:
     SUMOReal getFrequency() const;
 
     /// @brief get begin of RouteProbe
-    int getBegin() const;
+    SUMOReal getBegin() const;
 
     /// @brief set filename of RouteProbe
     void setFilename(std::string filename);
@@ -99,7 +99,7 @@ public:
     void setFrequency(SUMOReal frequency);
 
     /// @brief set begin of RouteProbe
-    void setBegin(int begin);
+    void setBegin(SUMOReal begin);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -145,7 +145,7 @@ protected:
     std::string myFilename;
 
     /// @brief begin of rerouter
-    int myBegin;
+    SUMOReal myBegin;
 
     /// @brief route probe logo offset
     Position myRouteProbeLogoOffset;

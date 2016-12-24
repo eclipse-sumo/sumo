@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, int begin, bool blocked) :
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, SUMOReal begin, bool blocked) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE, NULL, blocked),
     myFrequency(frequency),
     myFilename(filename),
@@ -175,7 +175,7 @@ GNERouteProbe::getFrequency() const {
 }
 
 
-int
+SUMOReal
 GNERouteProbe::getBegin() const {
     return myBegin;
 }
@@ -194,7 +194,7 @@ GNERouteProbe::setFrequency(SUMOReal frequency) {
 
 
 void
-GNERouteProbe::setBegin(int begin) {
+GNERouteProbe::setBegin(SUMOReal begin) {
     myBegin = begin;
 }
 
@@ -335,7 +335,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return canParse<int>(value);
         case SUMO_ATTR_BEGIN:
-            return canParse<int>(value);
+            return canParse<SUMOReal>(value);
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -358,7 +358,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFrequency = parse<int>(value);
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<int>(value);
+            myBegin = parse<SUMOReal>(value);
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
