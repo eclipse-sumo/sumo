@@ -76,7 +76,7 @@ FXDEFMAP(GNESelectorFrame) GNESelectorFrameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNESelectorFrame, FXScrollWindow, GNESelectorFrameMap, ARRAYNUMBER(GNESelectorFrameMap))
+FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(GNESelectorFrameMap))
 
 // ===========================================================================
 // method definitions
@@ -388,7 +388,7 @@ GNESelectorFrame::getStats() const {
            toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n" +
            toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n" +
            toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n" +
-           toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n";
+           toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals";
 }
 
 

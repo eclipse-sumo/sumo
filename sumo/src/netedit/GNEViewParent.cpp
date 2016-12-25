@@ -119,7 +119,7 @@ GNEViewParent::GNEViewParent(
     myFramesArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignFrameArea);
 
     // Set default width of frames area
-    myFramesArea->setWidth(200);
+    myFramesArea->setWidth(220);
 
     // Create view area
     myViewArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignViewnArea);
@@ -362,13 +362,13 @@ GNEViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
     return 0;
 }
 
+
 long 
 GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {    
-    // Iterate over frames
-    //for(std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
-    //    // update size of content frame of GNEFrame
-    //    i->second->updateContentFrame();
-    //}
+    for(std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+        // update size of all GNEFrame
+        i->second->setFrameWidth(myFramesArea->getWidth());
+    }
     return 0;
 }
 

@@ -50,7 +50,7 @@ class GNEUndoList;
  * @class GNEFrame
  * Abstract class for lateral frames in NetEdit
  */
-class GNEFrame : public FXScrollWindow {
+class GNEFrame : public FXVerticalFrame {
 public:
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
@@ -71,6 +71,9 @@ public:
      * @note some GNEFrames needs a re-implementation
      */
     virtual void hide();
+
+    /// @brief set width of GNEFrame
+    void setFrameWidth(int width);
 
     /// @brief get view net
     GNEViewNet* getViewNet() const;
@@ -94,7 +97,7 @@ protected:
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel;
 
-    /// @brief the panel to hold all member widgets
+    /// @brief Vertical frame that holds all widgets of frame
     FXVerticalFrame* myContentFrame;
 
     /// @brief fame for header elements
@@ -107,6 +110,9 @@ protected:
     FXHorizontalFrame* myHeaderRightFrame;
 
 private:
+    /// @brief scroll windows that holds the content frame
+    FXScrollWindow* myScrollWindowsContents;
+
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&);
 

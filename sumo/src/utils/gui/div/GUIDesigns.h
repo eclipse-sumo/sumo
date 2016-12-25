@@ -129,7 +129,7 @@
     #define GUIDesignComboBoxStatic         (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_CENTER_Y)
 
     /// @brief Combo box static (cannot be edited) extended over the matrix column
-    #define GUIDesignComboBoxAttribute      (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+    #define GUIDesignComboBoxAttribute      (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
     /// @brief number of column of every combo box
     #define GUIDesignComboBoxNCol           1
@@ -160,10 +160,13 @@
     #define GUIDesignViewnArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
     
     /// @brief design for the content frame of every frame
-    #define GNEDesigContentFrame            (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+    #define GUIDesignContentsScrollWindow   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
+
+    /// @brief design for the content frame of every frame
+    #define GUIDesignContentsFrame          (LAYOUT_FILL_X | LAYOUT_FILL_Y)
     
     /// @brief design for all frames
-    #define GNEDesigFrame                   (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+    #define GUIDesignFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 /// @}
 
 

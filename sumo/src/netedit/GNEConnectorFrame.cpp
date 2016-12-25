@@ -75,7 +75,7 @@ FXDEFMAP(GNEConnectorFrame) GNEConnectorFrameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEConnectorFrame, FXScrollWindow, GNEConnectorFrameMap, ARRAYNUMBER(GNEConnectorFrameMap))
+FXIMPLEMENT(GNEConnectorFrame, FXVerticalFrame, GNEConnectorFrameMap, ARRAYNUMBER(GNEConnectorFrameMap))
 
 // ===========================================================================
 // static members
@@ -135,8 +135,8 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myGroupBoxSelection = new FXGroupBox(myContentFrame, "Selection", GUIDesignGroupBoxFrame);
     
     // Selection Hint
-    myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding conn's (pass=true).", 0, GUIDesignLabelLeft);
-    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto createconflicting conn's.(i.e. at zipper nodes)", 0, GUIDesignLabelLeft);
+    myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelLeft);
+    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes)", 0, GUIDesignLabelLeft);
 
     // init colors here to avoid static order fiasco (https://isocpp.org/wiki/faq/ctors#static-init-order)
     sourceColor = RGBColor::CYAN;

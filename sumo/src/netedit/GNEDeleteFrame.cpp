@@ -76,7 +76,7 @@ FXDEFMAP(GNEDeleteFrame) GNEDeleteFrameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDeleteFrame, FXScrollWindow, GNEDeleteFrameMap, ARRAYNUMBER(GNEDeleteFrameMap))
+FXIMPLEMENT(GNEDeleteFrame, FXVerticalFrame, GNEDeleteFrameMap, ARRAYNUMBER(GNEDeleteFrameMap))
 
 // ===========================================================================
 // method definitions

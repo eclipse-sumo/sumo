@@ -84,7 +84,7 @@ FXDEFMAP(GNECrossingFrame::crossingParameters) GNECrossingParametersMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECrossingFrame,                     FXScrollWindow, GNECrossingMap,           ARRAYNUMBER(GNECrossingMap))
+FXIMPLEMENT(GNECrossingFrame,                     FXVerticalFrame, GNECrossingMap,           ARRAYNUMBER(GNECrossingMap))
 FXIMPLEMENT(GNECrossingFrame::edgesSelector,      FXGroupBox,     GNEEdgesMap,              ARRAYNUMBER(GNEEdgesMap))
 FXIMPLEMENT(GNECrossingFrame::crossingParameters, FXGroupBox,     GNECrossingParametersMap, ARRAYNUMBER(GNECrossingParametersMap))
 

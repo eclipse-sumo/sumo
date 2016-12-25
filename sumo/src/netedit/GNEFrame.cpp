@@ -55,16 +55,13 @@
 // ===========================================================================
 
 GNEFrame::GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
-    FXScrollWindow(horizontalFrameParent, GNEDesigFrame),
+    FXVerticalFrame(horizontalFrameParent, GUIDesignFrame),
     myViewNet(viewNet) {
     // Create font
     myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold),
 
-    // Create frame for content and update their width
-    myContentFrame = new FXVerticalFrame(this, GNEDesigContentFrame);
-
     // Create frame for header
-    myHeaderFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrame);
+    myHeaderFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
 
     // Create frame for left elements of header (By default unused)
     myHeaderLeftFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignHorizontalFrame);
@@ -76,12 +73,21 @@ GNEFrame::GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet
     // Create frame for right elements of header (By default unused)
     myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignHorizontalFrame);
     myHeaderRightFrame->hide();
+    
+    // Add separator
+    new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
+
+    // Create frame for contents
+    myScrollWindowsContents = new FXScrollWindow(this, GUIDesignContentsScrollWindow);
+
+    // Create frame for contents
+    myContentFrame = new FXVerticalFrame(myScrollWindowsContents, GUIDesignContentsFrame);
 
     // Set font of header
     myFrameHeaderLabel->setFont(myFrameHeaderFont);
-    
+
     // Hide Frame
-    FXScrollWindow::hide();
+    FXVerticalFrame::hide();
 }
 
 
@@ -93,7 +99,7 @@ GNEFrame::~GNEFrame() {
 void 
 GNEFrame::show() {
     // show scroll window
-    FXScrollWindow::show();
+    FXVerticalFrame::show();
     // Show and update Frame Area in which this GNEFrame is placed
     myViewNet->getViewParent()->showFramesArea();
 }
@@ -102,9 +108,16 @@ GNEFrame::show() {
 void 
 GNEFrame::hide() {
     // hide scroll window
-    FXScrollWindow::hide();
+    FXVerticalFrame::hide();
     // Hide Frame Area in which this GNEFrame is placed
     myViewNet->getViewParent()->hideFramesArea();
+}
+
+
+void 
+GNEFrame::setFrameWidth(int width) {
+    setWidth(width);
+    myScrollWindowsContents->setWidth(width);
 }
 
 

@@ -91,7 +91,7 @@ FXDEFMAP(GNEInspectorFrame::AttrConnection) AttrConnectionMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame, FXScrollWindow, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame, FXVerticalFrame, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
 FXIMPLEMENT(GNEInspectorFrame::AttrInput, FXMatrix, AttrInputMap, ARRAYNUMBER(AttrInputMap))
 FXIMPLEMENT(GNEInspectorFrame::AttrEditor, FXDialogBox, AttrEditorMap, ARRAYNUMBER(AttrEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::AttrConnection, FXHorizontalFrame, AttrConnectionMap, ARRAYNUMBER(AttrConnectionMap))

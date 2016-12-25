@@ -91,7 +91,7 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNETLSEditorFrame, FXScrollWindow, GNETLSEditorFrameMap, ARRAYNUMBER(GNETLSEditorFrameMap))
+FXIMPLEMENT(GNETLSEditorFrame, FXVerticalFrame, GNETLSEditorFrameMap, ARRAYNUMBER(GNETLSEditorFrameMap))
 
 // ===========================================================================
 // method definitions

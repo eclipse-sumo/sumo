@@ -116,7 +116,7 @@ FXDEFMAP(GNEAdditionalFrame::lanesSelector) GNELanesSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAdditionalFrame,                                FXScrollWindow, GNEAdditionalMap,                    ARRAYNUMBER(GNEAdditionalMap))
+FXIMPLEMENT(GNEAdditionalFrame,                                FXVerticalFrame, GNEAdditionalMap,                    ARRAYNUMBER(GNEAdditionalMap))
 FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameter,     FXMatrix,       GNEsingleAdditionalParameterMap,     ARRAYNUMBER(GNEsingleAdditionalParameterMap))
 FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameterList, FXMatrix,       GNEsingleAdditionalParameterListMap, ARRAYNUMBER(GNEsingleAdditionalParameterListMap))
 FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,          FXGroupBox,     GNEadditionalParametersMap,          ARRAYNUMBER(GNEadditionalParametersMap))
