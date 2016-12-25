@@ -1122,7 +1122,7 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the plain-xml edge-file (other names will be deduced from this)", ".edg.xml",
+                    "Select name of the plain-xml edge-file (other names will be deduced from this)", "",
                     GUIIconSubSys::getIcon(ICON_EMPTY),
                     gCurrentFolder);
     if (file == "") {
@@ -1133,7 +1133,10 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     std::string oldPrefix = oc.getString("plain-output-prefix");
     oc.resetWritable();
     std::string prefix = file.text();
-    prefix = prefix.substr(0, prefix.size() - 8);
+    // if last character is a dot, remove it
+    if(prefix.back() == '.') {
+        prefix = prefix.substr(0, prefix.size()-1);
+    }
     oc.set("plain-output-prefix", prefix);
     getApp()->beginWaitCursor();
     try {
