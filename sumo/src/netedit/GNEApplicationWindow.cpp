@@ -1134,7 +1134,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     oc.resetWritable();
     std::string prefix = file.text();
     // if last character is a dot, remove it
-    if(prefix.back() == '.') {
+    if(prefix.at(prefix.size()-1) == '.') {
         prefix = prefix.substr(0, prefix.size()-1);
     }
     oc.set("plain-output-prefix", prefix);
