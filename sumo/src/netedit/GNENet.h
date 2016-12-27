@@ -413,9 +413,6 @@ public:
     /// @brief check if net has crossings
     bool netHasCrossings() const;
 
-    /// @brief change crossing flag
-    void setNetHasCrossings(bool value);
-
     /// @brief get pointer to the main App
     FXApp* getApp();
 
@@ -571,9 +568,6 @@ private:
 
     /// @brief marker for whether the z-boundary is initialized
     static const SUMOReal Z_INITIALIZED;
-
-    /// @brief flag to check if net has crossings
-    bool myNetHasCrossings;
 };
 
 #endif

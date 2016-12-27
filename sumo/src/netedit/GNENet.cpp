@@ -107,8 +107,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myShapeContainer(myGrid),
-    myNeedRecompute(true),
-    myNetHasCrossings(false) {
+    myNeedRecompute(true) {
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
     // init junctions
@@ -974,13 +973,12 @@ GNENet::requireRecompute() {
 
 bool 
 GNENet::netHasCrossings() const {
-    return myNetHasCrossings;
-}
-
-
-void 
-GNENet::setNetHasCrossings(bool value) {
-    myNetHasCrossings = value;
+    for (std::map<std::string, NBNode*>::const_iterator i = myNetBuilder->getNodeCont().begin(); i != myNetBuilder->getNodeCont().end() ; i++) {
+        if(i->second->getCrossings().size() > 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -1451,18 +1449,12 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
     myNetBuilder->compute(oc, liveExplicitTurnarounds, false);
     // update precomputed geometries
     initGNEConnections();
+
     for (GNEJunctions::const_iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
         it->second->setLogicValid(true);
         // updated shape
         it->second->updateGeometry();
         refreshElement(it->second);
-    }
-    // Check if net own crossings
-    myNetHasCrossings = oc.getBool("crossings.guess");
-    for (std::map<std::string, NBNode*>::const_iterator i = myNetBuilder->getNodeCont().begin(); i != myNetBuilder->getNodeCont().end() && !myNetHasCrossings; i++) {
-        if(i->second->getCrossings().size() > 0) {
-            myNetHasCrossings = true;
-        }
     }
 
     myNeedRecompute = false;
