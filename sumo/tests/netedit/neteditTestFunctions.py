@@ -36,7 +36,7 @@ def Popen(newNet):
     
     # check if a new net must be created, or a existent net must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
-        neteditCall += ['--sumo-net-file', os.path.join(textTestSandBox, "input_net.net.xml")]
+        neteditCall += ['--sumo-net-file', os.path.join(textTestSandBox, "input_net.net.xml"), '--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
     elif newNet:
         neteditCall += ['--new', '--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
     
@@ -68,9 +68,9 @@ def setupAndStart(testRoot, newNet):
 
 
 def rebuildNetwork() :
-	type(Key.F5)
+    type(Key.F5)
 
-	
+    
 # netedit undo
 def undo(match, number) :
     click(match)
@@ -94,8 +94,8 @@ def createCrossing(match) :
         type(Key.TAB)
     # type enter to create crossing
     type(Key.SPACE)
-	
-	
+    
+    
 def modifyCrossingEdges(match, value):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
@@ -105,17 +105,17 @@ def modifyCrossingEdges(match, value):
     paste(value)
     # type enter to save change
     type(Key.ENTER)
-	
-	
+    
+    
 def modifyCrossingPriority(match):
-	# select edges attribute
-	click(match.getTarget().offset(-100, 250))
-	# jump to priority
-	type(Key.TAB)
-	# type enter to save change
-	type(Key.SPACE)
-	
-	
+    # select edges attribute
+    click(match.getTarget().offset(-100, 250))
+    # jump to priority
+    type(Key.TAB)
+    # type enter to save change
+    type(Key.SPACE)
+    
+    
 def modifyCrossingWidth(match, value):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
@@ -128,26 +128,26 @@ def modifyCrossingWidth(match, value):
     paste(value)
     # type enter to save change
     type(Key.ENTER)
-	
+    
 def clearCrossings(match):
-	# select edges attribute
-	click(match.getTarget().offset(-100, 250))
-	# jump to clear button
-	for x in range(0, 3) :
-		type(Key.TAB, Key.SHIFT)
-	# type space to activate button
-	type(Key.SPACE)
+    # select edges attribute
+    click(match.getTarget().offset(-100, 250))
+    # jump to clear button
+    for x in range(0, 3) :
+        type(Key.TAB, Key.SHIFT)
+    # type space to activate button
+    type(Key.SPACE)
 
 def invertCrossings(match):
-	# select edges attribute
-	click(match.getTarget().offset(-100, 250))
-	# jump to invert button
-	for x in range(0, 2) :
-		type(Key.TAB, Key.SHIFT)
-	# type space to activate button
-	type(Key.SPACE)
+    # select edges attribute
+    click(match.getTarget().offset(-100, 250))
+    # jump to invert button
+    for x in range(0, 2) :
+        type(Key.TAB, Key.SHIFT)
+    # type space to activate button
+    type(Key.SPACE)
 
-	
+    
 # netedit modify attribute
 def modifyAttribute(parametersReference, attributeNumber, value):
     click(parametersReference)
@@ -238,9 +238,9 @@ def quit(neteditProcess, mustBeSaved, save) :
 def saveNetwork() :
     # save newtork using hotkey
     type("s", Key.CTRL)
-	
+    
 # save additionals
 def saveAdditionals(match) :
     # save additionals using hotkey
     type("d", Key.CTRL + Key.SHIFT)
-	
+    
