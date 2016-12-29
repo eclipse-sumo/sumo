@@ -67,30 +67,111 @@ def setupAndStart(testRoot, newNet):
     return neteditProcess, getReferenceMatch(neteditProcess)
 
 
-def rebuildNetwork() :
+def rebuildNetwork():
     type(Key.F5)
 
     
 # netedit undo
-def undo(match, number) :
+def undo(match, number):
     click(match)
-    for x in range(0, number) :
+    for x in range(0, number):
         type("z", Key.CTRL)
 
 
 # netedit redo
-def redo(match, number) :
+def redo(match, number):
     click(match)
-    for x in range(0, number) :
+    for x in range(0, number):
         type("y", Key.CTRL)
 
+		
+# netedit modify attribute
+def modifyAttribute(parametersReference, attributeNumber, value):
+    click(parametersReference)
+    # jump to attribute
+    for x in range(0, attributeNumber):
+        type(Key.TAB)
+    # select all values
+    type("a", Key.CTRL)
+    # paste the new value
+    paste(value)
+    # type enter to save change
+    type(Key.ENTER)
+
+	
+# zoom in
+def zoomIn(position, level):
+    # set mouse over position
+    hover(position)
+    # apply zoom it using key +
+    for x in range(level):
+        type(Key.ADD)
+    
+    
+# zoom out
+def zoomOut(position, level):
+    # set mouse over position
+    hover(position)
+    # apply zoom it using key -
+    for x in range(level):
+        type(Key.MINUS)
+
         
+# netedit wait question
+def waitQuestion(answer):
+    # wait 0.5 second to question dialog
+    wait(0.5)
+    #Answer can be "y" or "n"
+    type(answer, Key.ALT)
+
+
+# netedit quit
+def quit(neteditProcess, mustBeSaved, save):
+    # quit using hotkey
+    type("q", Key.CTRL)
+
+    # Check if net must be saved
+    if mustBeSaved:
+        if save:
+            waitQuestion("y")
+        else:
+            waitQuestion("n")
+            
+    # wait some seconds
+    for t in xrange(3):
+        wait(t)
+        if neteditProcess.poll() is not None:
+            print("[log] netedit closed successfully")
+            return
+    neteditProcess.kill()
+    print("error closing netedit")
+
+
+# save network
+def saveNetwork():
+    # save newtork using hotkey
+    type("s", Key.CTRL)
+    
+	
+# save additionals
+def saveAdditionals():
+    # save additionals using hotkey
+    type("d", Key.CTRL + Key.SHIFT)
+    
+################################################# 
+### crossings
+################################################# 
+
+# Change to crossing mode
+def crossingMode():
+	type("r")
+
 # create crossing
-def createCrossing(match) :
+def createCrossing(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
     # jump to create edge
-    for x in range(0, 4) :    
+    for x in range(0, 4):    
         type(Key.TAB)
     # type enter to create crossing
     type(Key.SPACE)
@@ -120,7 +201,7 @@ def modifyCrossingWidth(match, value):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
     # jump to create edge
-    for x in range(0, 2) :
+    for x in range(0, 2):
         type(Key.TAB)
     # select all values
     type("a", Key.CTRL)
@@ -129,42 +210,68 @@ def modifyCrossingWidth(match, value):
     # type enter to save change
     type(Key.ENTER)
     
+	
 def clearCrossings(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
     # jump to clear button
-    for x in range(0, 3) :
+    for x in range(0, 3):
         type(Key.TAB, Key.SHIFT)
     # type space to activate button
     type(Key.SPACE)
 
+	
 def invertCrossings(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
     # jump to invert button
-    for x in range(0, 2) :
+    for x in range(0, 2):
         type(Key.TAB, Key.SHIFT)
     # type space to activate button
     type(Key.SPACE)
 
+################################################# 
+### additionals
+################################################# 
     
-# netedit modify attribute
-def modifyAttribute(parametersReference, attributeNumber, value):
-    click(parametersReference)
-    # jump to attribute
-    for x in range(0, attributeNumber) :
-        type(Key.TAB)
-    # select all values
-    type("a", Key.CTRL)
-    # paste the new value
-    paste(value)
-    # type enter to save change
-    type(Key.ENTER)
-    
+# Change to create additional mode
+def additionalMode():
+	type("a")
+	
+	
+def getComboBoxAdditional(match):
+	return match.getTarget().offset(-75, 50)
+	
+	
+def changeAdditional(comboboxAdditional, numDowns):
+	click(comboboxAdditional)
+	# select type of additionals depending of numDowns
+	for x in range(numDowns):
+		type(Key.TAB)
 
-# netedit modify attribute
-def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns):
-    click(parametersReference)
+		
+def modifyStoppingPlaceLength(comboboxAdditional, numTabs, length):
+	click(comboboxAdditional)
+	# go to length textfield
+	for x in range(0, numTabs):
+		type(Key.TAB)
+	# paste new lenght
+	paste(length)
+
+
+# force position
+def modifyStoppingPlaceForcePosition(comboboxAdditional, numTabs):
+    click(comboboxAdditional)
+    # place cursor in force position checkbox
+    for x in range(numTabs):
+        type(Key.TAB)
+    # Change current value
+    type(Key.SPACE)
+	
+
+# modify stopping place reference
+def modifyStoppingPlaceReference(comboboxAdditional, numTabs, numDowns):
+    click(comboboxAdditional)
     # place cursor in comboBox Reference
     for x in range(numTabs):
         type(Key.TAB)
@@ -175,72 +282,34 @@ def modifyStoppingPlaceReference(parametersReference, numTabs, numDowns):
     for x in range(numDowns):
         type(Key.DOWN)
 
-
+		
+# modify stopping place lines
+def modifyNumberOfStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
+	click(comboboxAdditional)
+	# go to add line
+	for x in range(0, numTabs):
+		type(Key.TAB)
+	# add lines
+	for x in range(0, numLines):
+		type(Key.SPACE)
+		
+		
+def addStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
+	click(comboboxAdditional)
+	# place cursor in the first line
+	for x in range(0, 2):
+		type(Key.TAB)
+	# fill lines
+	for x in range(0, numLines):
+		paste("Line" + str(x))
+		type(Key.TAB)
+		
+		
 # block additional
-def changeBlockAdditional(parametersReference, numTabs):
-    click(parametersReference)
+def changeBlockAdditional(comboboxAdditional, numTabs):
+    click(comboboxAdditional)
     # place cursor in block movement checkbox
     for x in range(numTabs):
         type(Key.TAB)
     # Change current value
     type(Key.SPACE)
-    
-
-# zoom in
-def zoomIn(position, level):
-    # set mouse over position
-    hover(position)
-    # apply zoom it using key +
-    for x in range(level):
-        type(Key.ADD)
-    
-    
-# zoom out
-def zoomOut(position, level):
-    # set mouse over position
-    hover(position)
-    # apply zoom it using key -
-    for x in range(level):
-        type(Key.MINUS)
-
-        
-# netedit wait question
-def waitQuestion(answer):
-    # wait 0.5 second to question dialog
-    wait(0.5)
-    #Answer can be "y" or "n"
-    type(answer, Key.ALT)
-
-
-# netedit quit
-def quit(neteditProcess, mustBeSaved, save) :
-    # quit using hotkey
-    type("q", Key.CTRL)
-
-    # Check if net must be saved
-    if mustBeSaved:
-        if save:
-            waitQuestion("y")
-        else:
-            waitQuestion("n")
-            
-    # wait some seconds
-    for t in xrange(3):
-        wait(t)
-        if neteditProcess.poll() is not None:
-            print("[log] netedit closed successfully")
-            return
-    neteditProcess.kill()
-    print("error closing netedit")
-
-
-# save network
-def saveNetwork() :
-    # save newtork using hotkey
-    type("s", Key.CTRL)
-    
-# save additionals
-def saveAdditionals(match) :
-    # save additionals using hotkey
-    type("d", Key.CTRL + Key.SHIFT)
-    
