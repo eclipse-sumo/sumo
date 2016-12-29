@@ -10,118 +10,78 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 
-# Change to create mode
-type("e")
-
-
-# Create two nodes
-click(match.getTarget().offset(100, 300))
-click(match.getTarget().offset(500, 300))
-
 # Change to create additional
-type("a")
+netedit.additionalMode()
 
-# obtain match for additionalsComboBox
-additionalsComboBox = match.getTarget().offset(-75, 50)
+# obtain match for comboboxAdditional
+comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# obtain reference for parameters (In this case, is the same as the additionalsComboBox)
-parametersReference = additionalsComboBox
-
-# go to additionalsComboBox
-click(additionalsComboBox)
-
-# by default, additional is busstop, then isn't needed to select "busstop"
+# select busstop
+netedit.changeAdditional(comboboxAdditional, 0)
 
 # Add three extra lines
-for x in range(0, 3):
-    type(Key.TAB)
-    
-for x in range(0, 3):
-    type(Key.SPACE)
+netedit.modifyNumberOfStoppingPlaceLines(comboboxAdditional, 3, 3)
     
 #add extra lines
-click(additionalsComboBox)
-
-for x in range(0, 2):
-    type(Key.TAB)
-    
-paste("Line1")
-type(Key.TAB)
-paste("Line2")
-type(Key.TAB)
-paste("Line3")
-type(Key.TAB)
-paste("Line4")
+netedit.addStoppingPlaceLines(comboboxAdditional, 2, 4)
 
 # remove last line (line 4)
-click(additionalsComboBox)
-
-for x in range(0, 7):
-    type(Key.TAB)
-    
-type(Key.SPACE)
+netedit.modifyNumberOfStoppingPlaceLines(comboboxAdditional, 7, 1)
 
 # create busstop in mode "reference left"
-click(match.getTarget().offset(450, 300))
+click(match.getTarget().offset(250, 250))
 
 # change reference to right
-netedit.modifyStoppingPlaceReference(parametersReference, 8, 1)
+netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
 
 # create busstop in mode "reference right"
-click(match.getTarget().offset(300, 300))
+click(match.getTarget().offset(240, 250))
 
 # change reference to center
-netedit.modifyStoppingPlaceReference(parametersReference, 8, 2)
+netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
 # create busstop in mode "reference center"
-click(match.getTarget().offset(350, 300))
+click(match.getTarget().offset(400, 250))
 
 # return to mode "reference left"
-netedit.modifyStoppingPlaceReference(parametersReference, 8, 0)
+netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 0)
 
 # Change length
-click(additionalsComboBox)
+netedit.modifyStoppingPlaceLength(comboboxAdditional, 10, "30")
 
-for x in range(0, 10):
-    type(Key.TAB)
-    
-paste("30")
-
-# try to create a busstop (Warning)
-click(match.getTarget().offset(500, 300))
+# try to create a busstop in mode "reference left" (Warning)
+click(match.getTarget().offset(500, 250))
 
 # change reference to right
-netedit.modifyStoppingPlaceReference(parametersReference, 8, 1)
+netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
 
 # try busstop in mode "reference right" (Warning)
-click(match.getTarget().offset(250, 300))
-
-# return to mode "reference left"
-netedit.modifyStoppingPlaceReference(parametersReference, 8, 0)
+click(match.getTarget().offset(110, 250))
 
 # enable force position
-click(additionalsComboBox)
+netedit.modifyStoppingPlaceForcePosition(comboboxAdditional, 11)
 
-for x in range(0, 11):
-    type(Key.TAB)
-    
-type(Key.SPACE)
+# change reference to "reference left"
+netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 0)
 
-# create a busstop forcing position
-click(match.getTarget().offset(500, 300))
+# create a busstop in mode "reference left" forcing poisition
+click(match.getTarget().offset(500, 250))
 
-# change reference to right
-netedit.modifyStoppingPlaceReference(parametersReference, 8, 1)
+# change reference to "reference right"
+netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
 
-# create a busstop forcing position
-click(match.getTarget().offset(250, 300))
+# create a busstop in mode "reference right" forcing position
+click(match.getTarget().offset(110, 250))
 
 # Check undo redo
 netedit.undo(match, 6)
 netedit.redo(match, 6)
 
 # save additionals
-netedit.saveAdditionals(match)
+netedit.saveAdditionals()
 
-# quit netedit without saving
-netedit.quit(neteditProcess, True, True)
+# save newtork
+netedit.saveNetwork()
+
+# quit netedit 
+netedit.quit(neteditProcess, False, False)
