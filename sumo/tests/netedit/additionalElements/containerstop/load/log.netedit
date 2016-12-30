@@ -1,0 +1,12 @@
+Warning: Parameter 'id' of additional containerStop is missing
+Warning: Could not build containerStop with id 'containerStop_gneE0_0_0' in netedit; probably declared twice.
+Warning: Parameter 'lane' of additional containerStop is missing
+Warning: The lane 'dummyLane' to use within the containerStop 'containerStop_gneE0_0_2' is not known.
+Warning: Parameter 'startPos' of additional containerStop is missing
+Warning: Invalid position for containerStop 'containerStop_gneE0_0_4'.
+Warning: Invalid position for containerStop 'containerStop_gneE0_0_5'.
+Warning: Parameter 'endPos' of additional containerStop is missing
+Warning: Invalid position for containerStop 'containerStop_gneE0_0_7'.
+Warning: Invalid position for containerStop 'containerStop_gneE0_0_8'.
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
