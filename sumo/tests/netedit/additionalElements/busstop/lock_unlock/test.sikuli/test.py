@@ -8,61 +8,74 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
-
-# Change to create mode
-type("e")
-
-# Create two nodes
-click(match.getTarget().offset(100, 300))
-click(match.getTarget().offset(300, 300))
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # Change to create additional
-type("a")
+netedit.additionalMode()
 
-# by default, additional is busstop, then isn't needed to select "busstop"
+# obtain match for comboboxAdditional
+comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# obtain match for additionalsComboBox
-additionalsComboBox = match.getTarget().offset(-75, 50)
-
-# go to additionalsComboBox
-click(additionalsComboBox)
-
-# obtain reference for parameters (In this case, is the same as the additionalsComboBox)
-parametersReference = additionalsComboBox
+# select busstop
+netedit.changeAdditional(comboboxAdditional, 0)
 
 # change reference to center
-netedit.modifyStoppingPlaceReference(parametersReference, 6, 2)
-
-# block additional
-netedit.changeBlockAdditional(parametersReference, 10)
+netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
 # create busstop in mode "reference center"
-click(match.getTarget().offset(300, 300))
-
-# center edge
-rightClick(match.getTarget().offset(305, 305))
-click(match.getTarget().offset(330, 330))
+netedit.leftClick(match, 250, 250)
 
 # change to move mode
-type("m")
+netedit.moveMode()
 
-# try to move bus stop (must be blocked)
-Settings.MoveMouseDelay = 0.5
-dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(200, 240))
-Settings.MoveMouseDelay = 0.1
+# move bus stop to right
+netedit.moveElement(match, 150, 275, 250, 275)
 
-# Check undo redo
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+# Change to inspect mode
+netedit.inspectMode()
 
-# try to move again bus stop (must be blocked)
-Settings.MoveMouseDelay = 0.5
-dragDrop(match.getTarget().offset(250, 240), match.getTarget().offset(200, 240))
-Settings.MoveMouseDelay = 0.1
+# inspect busstop
+netedit.leftClick(match, 300, 250)
+
+# obtain parameters reference
+parametersReference = netedit.getParametersReference(match)
+
+# block additional
+netedit.changeBlockAdditional(comboboxAdditional, 5)
+
+# change to move mode
+netedit.moveMode()
+
+# try to move bus stop to right (must be blocked)
+netedit.moveElement(match, 250, 275, 350, 275)
+
+# Change to inspect mode
+netedit.inspectMode()
+
+# inspect busstop
+netedit.leftClick(match, 300, 250)
+
+# obtain parameters reference
+parametersReference = netedit.getParametersReference(match)
+
+# unblock additional
+netedit.changeBlockAdditional(comboboxAdditional, 5)
+
+# change to move mode
+netedit.moveMode()
+
+# move bus stop to right (must be allowed)
+netedit.moveElement(match, 250, 275, 350, 275)
+
+# Check undos and redos
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
-netedit.saveAdditionals(match)
+netedit.saveAdditionals()
 
-# quit netedit without saving
-netedit.quit(neteditProcess, True, True)
+# save newtork
+netedit.saveNetwork()
+
+# quit netedit 
+netedit.quit(neteditProcess, False, False)
