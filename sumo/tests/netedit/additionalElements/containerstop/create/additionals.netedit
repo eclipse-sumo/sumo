@@ -1,0 +1,7 @@
+<additionals>
+    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="17.40" endPos="27.40" lines="Line0 Line1 Line2 "/>
+    <containerStop id="containerStop_gneE0_0_1" lane="gneE0_0" startPos="6.40" endPos="16.40" lines="Line0 Line1 Line2 "/>
+    <containerStop id="containerStop_gneE0_0_2" lane="gneE0_0" startPos="29.90" endPos="39.90" lines="Line0 Line1 Line2 "/>
+    <containerStop id="containerStop_gneE0_0_3" lane="gneE0_0" startPos="42.40" endPos="49.99" lines="Line0 Line1 Line2 "/>
+    <containerStop id="containerStop_gneE0_0_4" lane="gneE0_0" startPos="0.01" endPos="3.40" lines="Line0 Line1 Line2 "/>
+</additionals>
