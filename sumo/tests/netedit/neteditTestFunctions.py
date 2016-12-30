@@ -34,17 +34,23 @@ def Popen(newNet):
     neteditCall = [neteditApp, '--gui-testing', '--window-size', '700,500',
                    '--no-warnings', '--error-log', os.path.join(textTestSandBox, 'log.txt')]
     
-    # check if a new net must be created, or a existent net must be loaded
-    if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
-        neteditCall += ['--sumo-net-file', os.path.join(textTestSandBox, "input_net.net.xml"), '--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
-    elif newNet:
-        neteditCall += ['--new', '--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
+    # check if a new net must be created
+    if newNet:
+        neteditCall += ['--new']
     
-    # Check if additionals must be loaded
+    # check if an existent net must be loaded
+    if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
+        neteditCall += ['--sumo-net-file', os.path.join(textTestSandBox, "input_net.net.xml")]
+    
+    # set output for net
+    neteditCall += ['--output-file', os.path.join(textTestSandBox, 'net.net.xml')]
+    
+    # Check if additionals must be loaded (additionals output will be automatically set)
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
         neteditCall += ['--sumo-additionals-file', os.path.join(textTestSandBox, "input_additionals.add.xml")]
-    else:
-        neteditCall += ['--additionals-output', os.path.join(textTestSandBox, "additionals.xml")]
+
+    # set output for additionals
+    neteditCall += ['--additionals-output', os.path.join(textTestSandBox, "additionals.xml")]
     
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
@@ -84,7 +90,7 @@ def redo(match, number):
     for x in range(0, number):
         type("y", Key.CTRL)
 
-		
+        
 # netedit modify attribute
 def modifyAttribute(parametersReference, attributeNumber, value):
     click(parametersReference)
@@ -98,7 +104,12 @@ def modifyAttribute(parametersReference, attributeNumber, value):
     # type enter to save change
     type(Key.ENTER)
 
-	
+
+#def left click over element
+def leftClick(match, positionx, positiony):
+    click(match.getTarget().offset(positionx, positiony))
+    
+
 # zoom in
 def zoomIn(position, level):
     # set mouse over position
@@ -152,7 +163,7 @@ def saveNetwork():
     # save newtork using hotkey
     type("s", Key.CTRL)
     
-	
+    
 # save additionals
 def saveAdditionals():
     # save additionals using hotkey
@@ -164,7 +175,7 @@ def saveAdditionals():
 
 # Change to crossing mode
 def crossingMode():
-	type("r")
+    type("r")
 
 # create crossing
 def createCrossing(match):
@@ -210,7 +221,7 @@ def modifyCrossingWidth(match, value):
     # type enter to save change
     type(Key.ENTER)
     
-	
+    
 def clearCrossings(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
@@ -220,7 +231,7 @@ def clearCrossings(match):
     # type space to activate button
     type(Key.SPACE)
 
-	
+    
 def invertCrossings(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
@@ -236,27 +247,27 @@ def invertCrossings(match):
     
 # Change to create additional mode
 def additionalMode():
-	type("a")
-	
-	
+    type("a")
+    
+    
 def getComboBoxAdditional(match):
-	return match.getTarget().offset(-75, 50)
-	
-	
+    return match.getTarget().offset(-75, 50)
+    
+    
 def changeAdditional(comboboxAdditional, numDowns):
-	click(comboboxAdditional)
-	# select type of additionals depending of numDowns
-	for x in range(numDowns):
-		type(Key.TAB)
+    click(comboboxAdditional)
+    # select type of additionals depending of numDowns
+    for x in range(numDowns):
+        type(Key.TAB)
 
-		
+        
 def modifyStoppingPlaceLength(comboboxAdditional, numTabs, length):
-	click(comboboxAdditional)
-	# go to length textfield
-	for x in range(0, numTabs):
-		type(Key.TAB)
-	# paste new lenght
-	paste(length)
+    click(comboboxAdditional)
+    # go to length textfield
+    for x in range(0, numTabs):
+        type(Key.TAB)
+    # paste new lenght
+    paste(length)
 
 
 # force position
@@ -267,7 +278,7 @@ def modifyStoppingPlaceForcePosition(comboboxAdditional, numTabs):
         type(Key.TAB)
     # Change current value
     type(Key.SPACE)
-	
+    
 
 # modify stopping place reference
 def modifyStoppingPlaceReference(comboboxAdditional, numTabs, numDowns):
@@ -282,29 +293,29 @@ def modifyStoppingPlaceReference(comboboxAdditional, numTabs, numDowns):
     for x in range(numDowns):
         type(Key.DOWN)
 
-		
+        
 # modify stopping place lines
 def modifyNumberOfStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
-	click(comboboxAdditional)
-	# go to add line
-	for x in range(0, numTabs):
-		type(Key.TAB)
-	# add lines
-	for x in range(0, numLines):
-		type(Key.SPACE)
-		
-		
+    click(comboboxAdditional)
+    # go to add line
+    for x in range(0, numTabs):
+        type(Key.TAB)
+    # add lines
+    for x in range(0, numLines):
+        type(Key.SPACE)
+        
+        
 def addStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
-	click(comboboxAdditional)
-	# place cursor in the first line
-	for x in range(0, 2):
-		type(Key.TAB)
-	# fill lines
-	for x in range(0, numLines):
-		paste("Line" + str(x))
-		type(Key.TAB)
-		
-		
+    click(comboboxAdditional)
+    # place cursor in the first line
+    for x in range(0, 2):
+        type(Key.TAB)
+    # fill lines
+    for x in range(0, numLines):
+        paste("Line" + str(x))
+        type(Key.TAB)
+        
+        
 # block additional
 def changeBlockAdditional(comboboxAdditional, numTabs):
     click(comboboxAdditional)
@@ -313,3 +324,11 @@ def changeBlockAdditional(comboboxAdditional, numTabs):
         type(Key.TAB)
     # Change current value
     type(Key.SPACE)
+    
+################################################# 
+### delete
+################################################# 
+
+# Change to delete  mode
+def deleteMode():
+    type("d")

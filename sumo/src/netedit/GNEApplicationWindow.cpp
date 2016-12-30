@@ -881,6 +881,11 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         }
     }
+    // check if additionals output must be changed
+    if (OptionsCont::getOptions().isSet("additionals-output")) {
+        myAdditionalsFile = OptionsCont::getOptions().getString("additionals-output");
+    }
+
     update();
 }
 
@@ -1245,7 +1250,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         } catch (IOError& e) {
             FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
         }
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Network saved.\n");
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Network saved in " + oc.getString("output-file") + ".\n");
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
         return 1;
@@ -1257,26 +1262,22 @@ long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
     // Check if additionals file was already set at start of netedit or with a previous save
     if (myAdditionalsFile == "") {
-        if(OptionsCont::getOptions().isSet("additionals-output") == false) {
-            FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the additional file", ".xml",
-                            GUIIconSubSys::getIcon(ICON_EMPTY),
-                            gCurrentFolder);
-            if (file == "") {
-                // None additionals file was selected, then stop function
-                return 1;
-            } else {
-                myAdditionalsFile = file.text();
-            }
+        FXString file = MFXUtils::getFilename2Write(this,
+                        "Select name of the additional file", ".xml",
+                        GUIIconSubSys::getIcon(ICON_EMPTY),
+                        gCurrentFolder);
+        if (file == "") {
+            // None additionals file was selected, then stop function
+            return 1;
         } else {
-            myAdditionalsFile = OptionsCont::getOptions().getString("additionals-output");
+            myAdditionalsFile = file.text();
         }
     }
     // Start saving additionals
     getApp()->beginWaitCursor();
     try {
         myNet->saveAdditionals(myAdditionalsFile);
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved.\n");
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved in " + myAdditionalsFile + ".\n");
     } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
     }
@@ -1296,18 +1297,11 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     if (file != "") {
         // Set new additional file
         myAdditionalsFile = file.text();
-        // Start saving additionals
-        getApp()->beginWaitCursor();
-        try {
-            myNet->saveAdditionals(myAdditionalsFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved.\n");
-        } catch (IOError& e) {
-            FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
-        }
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
+        // save additionals
+        return onCmdSaveAdditionals(0,0,0);
+    } else {
+        return 1;
     }
-    return 1;
 }
 
 
