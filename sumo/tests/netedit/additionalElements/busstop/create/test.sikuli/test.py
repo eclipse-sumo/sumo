@@ -41,7 +41,7 @@ click(match.getTarget().offset(240, 250))
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
 # create busstop in mode "reference center"
-netedit.leftClick(match, 400, 250)
+netedit.leftClick(match, 425, 250)
 
 # return to mode "reference left"
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 0)
