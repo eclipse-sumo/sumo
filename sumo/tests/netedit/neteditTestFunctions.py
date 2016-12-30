@@ -63,7 +63,7 @@ def getReferenceMatch(neProcess):
         neProcess.kill()
         sys.exit("Killed netedit process. 'reference.png' not found")
 
-
+# setup and start netedit
 def setupAndStart(testRoot, newNet):
     setup(testRoot)
     # Open netedit
@@ -72,7 +72,8 @@ def setupAndStart(testRoot, newNet):
     # Wait for netedit reference
     return neteditProcess, getReferenceMatch(neteditProcess)
 
-
+    
+# rebuild network
 def rebuildNetwork():
     type(Key.F5)
 
@@ -89,20 +90,6 @@ def redo(match, number):
     click(match)
     for x in range(0, number):
         type("y", Key.CTRL)
-
-        
-# netedit modify attribute
-def modifyAttribute(parametersReference, attributeNumber, value):
-    click(parametersReference)
-    # jump to attribute
-    for x in range(0, attributeNumber):
-        type(Key.TAB)
-    # select all values
-    type("a", Key.CTRL)
-    # paste the new value
-    paste(value)
-    # type enter to save change
-    type(Key.ENTER)
 
 
 #def left click over element
@@ -168,6 +155,27 @@ def saveNetwork():
 def saveAdditionals():
     # save additionals using hotkey
     type("d", Key.CTRL + Key.SHIFT)
+    
+################################################# 
+### Inspect mode
+################################################# 
+
+# netedit parameters reference
+def getParametersReference(match):
+    return match.getTarget().offset(-75, 50)
+        
+# netedit modify attribute
+def modifyAttribute(parametersReference, attributeNumber, value):
+    click(parametersReference)
+    # jump to attribute
+    for x in range(0, attributeNumber):
+        type(Key.TAB)
+    # select all values
+    type("a", Key.CTRL)
+    # paste the new value
+    paste(value)
+    # type enter to save change
+    type(Key.ENTER)
     
 ################################################# 
 ### crossings
