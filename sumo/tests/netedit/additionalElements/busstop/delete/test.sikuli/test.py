@@ -8,44 +8,38 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
-
-# obtain match for additionalsComboBox
-additionalsComboBox = match.getTarget().offset(-75, 50)
-
-# Focus netedit window
-click(match)
-
-# Change to create mode
-type("e")
-
-# Create two nodes
-click(match.getTarget().offset(100, 300))
-click(match.getTarget().offset(500, 300))
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # Change to create additional
-type("a")
+netedit.additionalMode()
 
-# go to additionalsComboBox
-click(additionalsComboBox)
+# obtain match for comboboxAdditional
+comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# by default, additional is busstop, then isn't needed to select "busstop"
+# select busstop
+netedit.changeAdditional(comboboxAdditional, 0)
 
 # create busstop in mode "reference left"
-click(match.getTarget().offset(450, 300))
+netedit.leftClick(match, 250, 250)
 
 # Change to delete
-type("d")
+netedit.deleteMode()
 
 # delete created busstop
-click(match.getTarget().offset(460, 315))
+netedit.leftClick(match, 260, 250)
+
+# delete loaded busstop
+netedit.leftClick(match, 450, 250)
 
 # Check undo redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(match, 2)
+netedit.redo(match, 2)
 
 # save additionals
-netedit.saveAdditionals(match)
+netedit.saveAdditionals()
 
-# quit netedit without saving
-netedit.quit(neteditProcess, False, True)
+# save newtork
+netedit.saveNetwork()
+
+# quit netedit 
+netedit.quit(neteditProcess, False, False)
