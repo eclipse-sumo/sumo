@@ -16,25 +16,25 @@ netedit.additionalMode()
 # obtain match for comboboxAdditional
 comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# select busstop
+# select busStop
 netedit.changeAdditional(comboboxAdditional, 0)
 
 # change reference to center
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
-# create busstop in mode "reference center"
+# create busStop in mode "reference center"
 netedit.leftClick(match, 250, 250)
 
 # change to move mode
 netedit.moveMode()
 
-# move bus stop to right
+# move busStop to right
 netedit.moveElement(match, 150, 275, 250, 275)
 
 # Change to inspect mode
 netedit.inspectMode()
 
-# inspect busstop
+# inspect busStop
 netedit.leftClick(match, 300, 250)
 
 # obtain parameters reference
@@ -46,13 +46,13 @@ netedit.changeBlockAdditional(comboboxAdditional, 5)
 # change to move mode
 netedit.moveMode()
 
-# try to move bus stop to right (must be blocked)
+# try to move busStop to right (must be blocked)
 netedit.moveElement(match, 250, 275, 350, 275)
 
 # Change to inspect mode
 netedit.inspectMode()
 
-# inspect busstop
+# inspect busStop
 netedit.leftClick(match, 300, 250)
 
 # obtain parameters reference
@@ -64,7 +64,7 @@ netedit.changeBlockAdditional(comboboxAdditional, 5)
 # change to move mode
 netedit.moveMode()
 
-# move bus stop to right (must be allowed)
+# move busStop to right (must be allowed)
 netedit.moveElement(match, 250, 275, 350, 275)
 
 # Check undos and redos

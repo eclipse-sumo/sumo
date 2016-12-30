@@ -16,7 +16,7 @@ netedit.additionalMode()
 # obtain match for comboboxAdditional
 comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# select busstop
+# select busStop
 netedit.changeAdditional(comboboxAdditional, 0)
 
 # Add three extra lines
@@ -28,19 +28,19 @@ netedit.addStoppingPlaceLines(comboboxAdditional, 2, 4)
 # remove last line (line 4)
 netedit.modifyNumberOfStoppingPlaceLines(comboboxAdditional, 7, 1)
 
-# create busstop in mode "reference left"
+# create busStop in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
 # change reference to right
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
 
-# create busstop in mode "reference right"
+# create busStop in mode "reference right"
 click(match.getTarget().offset(240, 250))
 
 # change reference to center
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
-# create busstop in mode "reference center"
+# create busStop in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
 # return to mode "reference left"
@@ -49,13 +49,13 @@ netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 0)
 # Change length
 netedit.modifyStoppingPlaceLength(comboboxAdditional, 10, "30")
 
-# try to create a busstop in mode "reference left" (Warning)
+# try to create a busStop in mode "reference left" (Warning)
 netedit.leftClick(match, 500, 250)
 
 # change reference to right
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
 
-# try busstop in mode "reference right" (Warning)
+# try busStop in mode "reference right" (Warning)
 netedit.leftClick(match, 110, 250)
 
 # enable force position
@@ -64,13 +64,13 @@ netedit.modifyStoppingPlaceForcePosition(comboboxAdditional, 11)
 # change reference to "reference left"
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 0)
 
-# create a busstop in mode "reference left" forcing poisition
+# create a busStop in mode "reference left" forcing poisition
 netedit.leftClick(match, 500, 250)
 
 # change reference to "reference right"
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
 
-# create a busstop in mode "reference right" forcing position
+# create a busStop in mode "reference right" forcing position
 netedit.leftClick(match, 110, 250)
 
 # Check undo redo

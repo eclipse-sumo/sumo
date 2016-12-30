@@ -16,22 +16,22 @@ netedit.additionalMode()
 # obtain match for comboboxAdditional
 comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# select busstop
+# select busStop
 netedit.changeAdditional(comboboxAdditional, 0)
 
 # change reference to center
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
-# create busstop 1 in mode "reference center"
+# create busStop 1 in mode "reference center"
 netedit.leftClick(match, 250, 150)
 
-# create busstop 2 in mode "reference center"
+# create busStop 2 in mode "reference center"
 netedit.leftClick(match, 450, 150)
 
 # Change to inspect mode
 netedit.inspectMode()
 
-# inspect first busstop
+# inspect first busStop
 netedit.leftClick(match, 250, 170)
 
 # obtain parameters reference

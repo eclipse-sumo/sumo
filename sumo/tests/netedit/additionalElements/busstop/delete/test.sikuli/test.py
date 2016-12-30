@@ -16,19 +16,19 @@ netedit.additionalMode()
 # obtain match for comboboxAdditional
 comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# select busstop
+# select busStop
 netedit.changeAdditional(comboboxAdditional, 0)
 
-# create busstop in mode "reference left"
+# create busStop in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
 # Change to delete
 netedit.deleteMode()
 
-# delete created busstop
+# delete created busStop
 netedit.leftClick(match, 260, 250)
 
-# delete loaded busstop
+# delete loaded busStop
 netedit.leftClick(match, 450, 250)
 
 # Check undo redo

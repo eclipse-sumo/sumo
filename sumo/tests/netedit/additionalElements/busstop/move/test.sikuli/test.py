@@ -16,37 +16,37 @@ netedit.additionalMode()
 # obtain match for comboboxAdditional
 comboboxAdditional = netedit.getComboBoxAdditional(match)
 
-# select busstop
+# select busStop
 netedit.changeAdditional(comboboxAdditional, 0)
 
 # change reference to center
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
-# create busstop in mode "reference center"
+# create busStop in mode "reference center"
 netedit.leftClick(match, 250, 250)
 
 # change to move mode
 netedit.moveMode()
 
-# move bus stop to left
+# move busStop to left
 netedit.moveElement(match, 150, 275, 50, 275)
 
 # move back
 netedit.moveElement(match, 50, 275, 150, 275)
 
-# move bus stop to right
+# move busStop to right
 netedit.moveElement(match, 150, 275, 250, 275)
 
 # move back
 netedit.moveElement(match, 250, 275, 150, 275)
 
-# move bus stop to left overpassing lane
+# move busStop to left overpassing lane
 netedit.moveElement(match, 150, 275, -100, 275)
 
 # move back
 netedit.moveElement(match, 0, 275, 150, 275)
 
-# move bus stop to right overpassing lane
+# move busStop to right overpassing lane
 netedit.moveElement(match, 150, 275, 550, 275)
 
 # move back to another different position of initial
