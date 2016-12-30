@@ -287,9 +287,19 @@ def changeAdditional(comboboxAdditional, numDowns):
     click(comboboxAdditional)
     # select type of additionals depending of numDowns
     for x in range(numDowns):
-        type(Key.TAB)
+        type(Key.DOWN)
 
-        
+
+# block additional
+def changeBlockAdditional(comboboxAdditional, numTabs):
+    click(comboboxAdditional)
+    # place cursor in block movement checkbox
+    for x in range(numTabs):
+        type(Key.TAB)
+    # Change current value
+    type(Key.SPACE)
+
+
 def modifyStoppingPlaceLength(comboboxAdditional, numTabs, length):
     click(comboboxAdditional)
     # go to length textfield
@@ -343,16 +353,6 @@ def addStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
     for x in range(0, numLines):
         paste("Line" + str(x))
         type(Key.TAB)
-        
-        
-# block additional
-def changeBlockAdditional(comboboxAdditional, numTabs):
-    click(comboboxAdditional)
-    # place cursor in block movement checkbox
-    for x in range(numTabs):
-        type(Key.TAB)
-    # Change current value
-    type(Key.SPACE)
     
 ################################################# 
 ### delete
