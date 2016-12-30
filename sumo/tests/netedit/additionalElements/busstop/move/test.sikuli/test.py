@@ -28,9 +28,6 @@ netedit.leftClick(match, 250, 250)
 # change to move mode
 netedit.moveMode()
 
-# change mouse move delay
-Settings.MoveMouseDelay = 0.5
-
 # move bus stop to left
 netedit.moveElement(match, 150, 275, 50, 275)
 
@@ -54,9 +51,6 @@ netedit.moveElement(match, 150, 275, 550, 275)
 
 # move back to another different position of initial
 netedit.moveElement(match, 500, 275, 300, 275)
-
-# set back mouse
-Settings.MoveMouseDelay = 0.1
 
 # Check undos and redos
 netedit.undo(match, 10)
