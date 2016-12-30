@@ -1,0 +1,4 @@
+<additionals>
+    <containerStop id="containerStop_gneE2_1_1" lane="gneE2_1" startPos="32.40" endPos="42.40"/>
+    <containerStop id="correct ID" lane="gneE2_0" startPos="20.00" endPos="30.00" lines="line1 line2"/>
+</additionals>
