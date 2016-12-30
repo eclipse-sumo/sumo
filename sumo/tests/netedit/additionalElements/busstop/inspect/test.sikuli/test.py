@@ -22,14 +22,14 @@ netedit.changeAdditional(comboboxAdditional, 0)
 # change reference to center
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
 
-# create busstop 1 in mode "reference center left"
+# create busstop 1 in mode "reference center"
 netedit.leftClick(match, 250, 150)
 
-# create busstop 2 in mode "reference center left"
+# create busstop 2 in mode "reference center"
 netedit.leftClick(match, 450, 150)
 
 # Change to inspect mode
-type("i")
+netedit.inspectMode()
 
 # inspect first busstop
 netedit.leftClick(match, 250, 170)
