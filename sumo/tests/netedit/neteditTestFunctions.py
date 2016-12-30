@@ -160,6 +160,10 @@ def saveAdditionals():
 ### Inspect mode
 ################################################# 
 
+# set inspect mode
+def inspectMode():
+    type("i")
+
 # netedit parameters reference
 def getParametersReference(match):
     return match.getTarget().offset(-75, 50)
@@ -177,6 +181,23 @@ def modifyAttribute(parametersReference, attributeNumber, value):
     # type enter to save change
     type(Key.ENTER)
     
+################################################# 
+### Move mode
+################################################# 
+
+# set move mode
+def moveMode():
+    type("m")
+    
+# move element
+def moveElement(match, startX, startY, endX, endY):
+    # change mouse move delay
+    Settings.MoveMouseDelay = 0.5
+    # move element
+    dragDrop(match.getTarget().offset(startX, startY), match.getTarget().offset(endX, endY))
+    # set back mouse move delay
+    Settings.MoveMouseDelay = 0.1
+
 ################################################# 
 ### crossings
 ################################################# 
