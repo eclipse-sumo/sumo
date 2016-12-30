@@ -8,11 +8,13 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # save additionals
-netedit.saveAdditionals(match)
+netedit.saveAdditionals()
 
-#quit without saving
-##### BUG: Must be neteditQuit(False, False)
-netedit.quit(neteditProcess, True, True)
+# save newtork
+netedit.saveNetwork()
+
+# quit netedit 
+netedit.quit(neteditProcess, False, False)

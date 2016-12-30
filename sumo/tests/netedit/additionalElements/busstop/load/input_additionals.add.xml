@@ -1,5 +1,5 @@
 <additionals>
-	<!-- Without errors-->
+	<!-- Without errors (BusStop Nº 1) -->
 	<busStop id="busStop_gneE0_0_0" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2"/>
 	
 	<!-- missing ID -->
@@ -17,7 +17,7 @@
 	<!-- non valid start position 1 -->
 	<busStop id="busStop_gneE0_0_4" lane="gneE0_0" startPos="-25" endPos="25" lines="line1 line2"/>
 	<!-- non valid start position 2 -->
-	<busStop id="busStop_gneE0_0_5" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2"/>
+	<busStop id="busStop_gneE0_0_5" lane="gneE0_0" startPos="500" endPos="25" lines="line1 line2"/>
 	
 	<!-- missing end position -->
 	<busStop id="busStop_gneE0_0_6" lane="gneE0_0" startPos="35" lines="line1 line2"/>
@@ -26,9 +26,9 @@
 	<!-- non valid end position 2 -->
 	<busStop id="busStop_gneE0_0_8" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2"/>
 	
-	<!-- missing lines -->
-	<busStop id="busStop_gneE0_0_9" lane="gneE0_0" startPos="45" endPos="50"/>
+	<!-- missing lines (BusStop Nº 2) -->
+	<busStop id="busStop_gneE0_0_9" lane="gneE0_0" startPos="25" endPos="30"/>
 	
-	<!-- non valid format lines -->
-	<busStop id="busStop_gneE0_0_10" lane="gneE0_0" startPos="55" endPos="60" lines="line1, line2"/>
+	<!-- non valid format lines (BusStop Nº 3) -->
+	<busStop id="busStop_gneE0_0_10" lane="gneE0_0" startPos="35" endPos="40" lines="line1, line2"/>
 </additionals>
