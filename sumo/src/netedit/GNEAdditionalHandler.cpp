@@ -1083,6 +1083,10 @@ template <typename T> T
 GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool &abort, bool report) {
     bool ok = true;
     T parsedAttribute = attrs.get<T>(attribute, objectid, ok, false);
+    // Time attributes requieres a extra check
+    if(GNEAttributeCarrier::isTime(tag, attribute) && (GNEAttributeCarrier::parse<SUMOReal>(toString(parsedAttribute)) < 0)) {
+        ok = false;
+    }
     // If attribute doesn't exists or has an invalid format
     if (!ok) {
         std::string additionalOfWarningMessage;
