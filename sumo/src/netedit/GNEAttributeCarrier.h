@@ -108,6 +108,9 @@ public:
     /// @brief function to support debugging
     const std::string getID() const;
 
+    /// @brief get type of attribute
+    static std::string getAttributeType(SumoXMLTag tag, SumoXMLAttr attr);
+
     /// @brief get parent's tag of a certain additional element
     static SumoXMLTag getParentType(SumoXMLTag tag);
 

@@ -140,6 +140,26 @@ GNEAttributeCarrier::getID() const {
 }
 
 
+std::string 
+GNEAttributeCarrier::getAttributeType(SumoXMLTag tag, SumoXMLAttr attr) {
+    if (isInt(tag, attr)) {
+        return "int";
+    } else if (isFloat(tag, attr)) {
+        return "float";
+    } else if (isTime(tag, attr)) {
+        return "time";
+    } else if (isBool(tag, attr)) {
+        return "bool";
+    } else if (isString(tag, attr)) {
+        return "string";
+    } else if (isList(tag, attr)) {
+        return "list";
+    } else {
+        throw ProcessError("Undeterminted type for '" + toString(tag) + "' '" + toString(attr) + "'");
+    }
+}
+
+
 SumoXMLTag
 GNEAttributeCarrier::getParentType(SumoXMLTag tag) {
     if (hasParent(tag)) {
