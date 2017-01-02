@@ -401,6 +401,14 @@ protected:
 
     /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
     GNERerouter::rerouterInterval* rerouterIntervalToInsertValues;
+
+private:
+    /// @brief get parsed attribute of XML and show warnings if there are problems
+    template<typename T>
+    static T getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool &abort, bool report = true);
+
+    /// @brief get special attribute friendly position, used in stopping places
+    bool getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid);
 };
 
 
