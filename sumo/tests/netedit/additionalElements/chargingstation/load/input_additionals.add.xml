@@ -1,0 +1,51 @@
+<additionals>
+	<!-- Without errors (ChargingStation Nº 1) -->
+	<chargingStation id="chargingStation_gneE0_0_0" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	
+	<!-- missing ID -->
+	<chargingStation lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- Duplicated ID -->
+	<chargingStation id="chargingStation_gneE0_0_0" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	
+	<!-- missing lane -->
+	<chargingStation id="chargingStation_gneE0_0_1" startPos="15" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- non valid lane -->
+	<chargingStation id="chargingStation_gneE0_0_2" lane="dummyLane" startPos="15" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	
+	<!-- missing start position -->
+	<chargingStation id="chargingStation_gneE0_0_3" lane="gneE0_0" endPos="30" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- non valid start position 1 -->
+	<chargingStation id="chargingStation_gneE0_0_4" lane="gneE0_0" startPos="-25" endPos="25" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- non valid start position 2 -->
+	<chargingStation id="chargingStation_gneE0_0_5" lane="gneE0_0" startPos="500" endPos="25" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	
+	<!-- missing end position -->
+	<chargingStation id="chargingStation_gneE0_0_6" lane="gneE0_0" startPos="35" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- non valid end position 1 -->
+	<chargingStation id="chargingStation_gneE0_0_7" lane="gneE0_0" startPos="35" endPos="40000" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- non valid end position 2 -->
+	<chargingStation id="chargingStation_gneE0_0_8" lane="gneE0_0" startPos="35" endPos="25" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	
+	<!-- non valid power 1 -->
+	<chargingStation id="chargingStation_gneE0_1_9" lane="gneE1_0" startPos="0" endPos="5" power="dummyPower" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- non valid power 2 -->
+	<chargingStation id="chargingStation_gneE0_1_10" lane="gneE1_0" startPos="6" endPos="10" power="-22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+	
+	<!-- non valid power efficiency 1 -->
+	<chargingStation id="chargingStation_gneE0_1_11" lane="gneE1_0" startPos="11" endPos="15" power="22000.00" efficiency="dummyEfficiency" chargeInTransit="0" chargeDelay="0.00"/>
+	<!-- non valid power efficiency 2 -->
+	<chargingStation id="chargingStation_gneE0_1_12" lane="gneE1_0" startPos="16" endPos="20" power="22000.00" efficiency="500" chargeInTransit="0" chargeDelay="0.00"/>
+	
+	<!-- non valid charge in transit 1 -->
+	<chargingStation id="chargingStation_gneE0_1_13" lane="gneE1_0" startPos="21" endPos="25" power="22000.00" efficiency="0.95" chargeInTransit="dummyChargeInTransit" chargeDelay="0.00"/>
+	<!-- non valid charge in transit 2 -->
+	<chargingStation id="chargingStation_gneE0_1_14" lane="gneE1_0" startPos="26" endPos="30" power="22000.00" efficiency="0.95" chargeInTransit="2" chargeDelay="0.00"/>
+	<!-- non valid charge in transit 3 -->
+	<chargingStation id="chargingStation_gneE0_1_15" lane="gneE1_0" startPos="31" endPos="35" power="22000.00" efficiency="0.95" chargeInTransit="-1" chargeDelay="0.00"/>
+	
+	<!-- non valid charge delay 1 -->
+	<chargingStation id="chargingStation_gneE0_1_16" lane="gneE1_0" startPos="36" endPos="40" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="dummyCharge"/>
+	<!-- non valid charge delay 2 -->
+	<chargingStation id="chargingStation_gneE0_1_17" lane="gneE1_0" startPos="41" endPos="45" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="-3"/>
+
+</additionals>
