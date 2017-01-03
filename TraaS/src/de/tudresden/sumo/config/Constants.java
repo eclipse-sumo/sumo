@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2017 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -27,6 +27,11 @@ package de.tudresden.sumo.config;
 
 public class Constants {
 	
+	public static final int TRACI_VERSION = 13;
+	
+	public static final int INVALID_DOUBLE_VALUE = -1001;
+	
+	public static final int INVALID_INT_VALUE = -1;
 	
 	public static final int ADD_FULL = 0x85;
 	
@@ -57,6 +62,12 @@ public class Constants {
 	public static final int GENERIC_ATTRIBUTE = 0x03;
 	
 	public static final int VAR_SLOPE = 0x36;
+	
+	public static final int VAR_VIA = 0xbe;
+	
+	public static final int VAR_LINE = 0xbd;
+	
+	
 	
 	/**sets/retrieves abstract parameter*/
 	public static final int VAR_PARAMETER = 0x7e;
@@ -306,6 +317,9 @@ public class Constants {
 
 	/**width (get: vehicle types, lanes)*/
 	public static final int VAR_WIDTH = 0x4d;
+	
+	/**height (get: vehicle)*/
+	public static final int VAR_HEIGHT = 0xbc;
 
 	/**get area detector (e2) variable*/
 	public static final int CMD_GET_AREAL_DETECTOR_VARIABLE = 0xad;

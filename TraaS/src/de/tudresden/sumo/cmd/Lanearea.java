@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2017 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -27,7 +27,7 @@ import de.tudresden.sumo.util.SumoCommand;
  *
  */
 
-public class ArealDetector {
+public class Lanearea {
 
 	//getter methods
 

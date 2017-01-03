@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2017 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -88,6 +88,15 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ALLOWED_SPEED, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
+	/**
+	 * Returns the height in m of this vehicle.
+	 * @param vehID id of the vehicle
+     * @return height in m
+	 */
+
+	public static SumoCommand getHeight(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_HEIGHT, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
 	
 	/**
 	 * Return the leading vehicle id together with the distance.
@@ -312,6 +321,16 @@ public class Vehicle {
 	}
 
 	/**
+	 * Returns the length (in m) of the named vehicle.
+	 * @param vehID id of the vehicle
+	 * @return length
+	 */
+
+	public static SumoCommand getLine(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LINE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRING);
+	}
+	
+	/**
 	 * Returns the maximum speed(in m/s) of the named vehicle.
 	 * @param vehID id of the vehicle
 	 * @return max speed
@@ -406,6 +425,7 @@ public class Vehicle {
 	public static SumoCommand getPosition3D(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_POSITION3D, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.POSITION_3D);
 	}
+
 	
 	/**
 	 * Returns the id of the edge the named vehicle was at within the last step.
@@ -550,6 +570,16 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_TAU, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	/**
+	 * Returns the ids of via edges for this vehicle
+	 * @param vehID id of the vehicle
+	 * @return ids of via edges for this vehicle
+	 */
+
+	public static SumoCommand getVia(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_VIA, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+	
 	/**
 	 * The waiting time of a vehicle is defined as the time (in seconds) spent with a speed below 0.1m/s since the last time it was faster than 0.1m/s. (basically, the waiting time of a vehicle is reset to 0 every time it moves).
 	 * @param vehID id of the vehicle
@@ -850,6 +880,16 @@ public class Vehicle {
 	}
 
 	/**
+	 *  Sets the height in m for this vehicle.
+	 * @param vehID id of the vehicle
+	 * @param height in m
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setHeight(String vehID, double height){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_HEIGHT, vehID, height);
+	}
+	
+	/**
 	 * Sets the vehicle's lane change mode as a bitset.
 	 * @param vehID id of the vehicle
 	 * @param lcm lane change model
@@ -858,6 +898,7 @@ public class Vehicle {
 	public static SumoCommand setLaneChangeMode(String vehID, int lcm){
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LANECHANGE_MODE, vehID, lcm);
 	}
+	
 	
 	/**
 	 * Sets the IDs of the edges the vehicle's route is made of.
@@ -928,6 +969,32 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LENGTH, vehID, length);
 	}
 
+	/**
+	 * Sets the line information for this vehicle.
+	 * @param vehID vehicle id
+	 * @param line line
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setLine(String vehID, String line){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LINE, vehID, line);
+	}
+	
+	/**
+	 * Sets the line information for this vehicle.
+	 *  changes the via edges to the given edges list (to be used during
+        subsequent rerouting calls).
+
+        Note: a single edgeId as argument is allowed as shorthand for a list of length 1
+	 * @param vehID vehicle id
+	 * @param edgeList edges
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setVia(String vehID, SumoStringList edgeList){
+		Object[] array = new Object[]{edgeList};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_VIA, vehID, array);
+	}
+	
+	
 	/**
 	 * Sets the maximum speed (in m/s) of the named vehicle.
 	 * @param vehID vehicle id

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2017 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -25,7 +25,7 @@ import de.tudresden.sumo.cmd.Edge;
 import de.tudresden.sumo.cmd.Gui;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Junction;
-import de.tudresden.sumo.cmd.ArealDetector;
+import de.tudresden.sumo.cmd.Lanearea;
 import de.tudresden.sumo.cmd.Lane;
 import de.tudresden.sumo.cmd.Multientryexit;
 import de.tudresden.sumo.cmd.Person;
@@ -558,40 +558,35 @@ public class Traci{
 	}
 	
 	
-	@WebMethod(action="ArealDetector: getIDList")
-	public SumoStringList ArealDetector_getIDList(){
-		return this.helper.getStringList(this.sumo.get_cmd(ArealDetector.getIDList()));
+	@WebMethod(action="Lanearea: getIDList")
+	public SumoStringList Lanearea_getIDList(){
+		return this.helper.getStringList(this.sumo.get_cmd(Lanearea.getIDList()));
 	}
 	
-	@WebMethod(action="ArealDetector: getIDCount")
-	public int ArealDetector_getIDCount(){
-		return this.helper.getInt(this.sumo.get_cmd(ArealDetector.getIDCount()));
+	@WebMethod(action="Lanearea: getIDCount")
+	public int Lanearea_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Lanearea.getIDCount()));
 	}
 	
-	@WebMethod(action="ArealDetector: getJamLengthVehicle")
-	public int ArealDetector_getJamLengthVehicle(@WebParam(name = "loopID") String loopID){
-		return this.helper.getInt(this.sumo.get_cmd(ArealDetector.getJamLengthVehicle(loopID)));
+	@WebMethod(action="Lanearea: getJamLengthVehicle")
+	public int Lanearea_getJamLengthVehicle(@WebParam(name = "loopID") String loopID){
+		return this.helper.getInt(this.sumo.get_cmd(Lanearea.getJamLengthVehicle(loopID)));
 	}
 	
-	@WebMethod(action="ArealDetector: getJamLengthMeters")
-	public double ArealDetector_getJamLengthMeters(@WebParam(name = "loopID") String loopID){
-		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getJamLengthMeters(loopID)));
+	@WebMethod(action="Lanearea: getJamLengthMeters")
+	public double Lanearea_getJamLengthMeters(@WebParam(name = "loopID") String loopID){
+		return this.helper.getDouble(this.sumo.get_cmd(Lanearea.getJamLengthMeters(loopID)));
 	}
 	
-	@WebMethod(action="ArealDetector: getLastStepMeanSpeed")
-	public double ArealDetector_getLastStepMeanSpeed(@WebParam(name = "loopID") String loopID){
-		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getLastStepMeanSpeed(loopID)));
+	@WebMethod(action="Lanearea: getLastStepMeanSpeed")
+	public double Lanearea_getLastStepMeanSpeed(@WebParam(name = "loopID") String loopID){
+		return this.helper.getDouble(this.sumo.get_cmd(Lanearea.getLastStepMeanSpeed(loopID)));
 	}
 	
-	@WebMethod(action="ArealDetector: getLastStepOccupancy")
-	public double ArealDetector_getLastStepOccupancy(@WebParam(name = "loopID") String loopID){
-		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getLastStepOccupancy(loopID)));
+	@WebMethod(action="Lanearea: getLastStepOccupancy")
+	public double Lanearea_getLastStepOccupancy(@WebParam(name = "loopID") String loopID){
+		return this.helper.getDouble(this.sumo.get_cmd(Lanearea.getLastStepOccupancy(loopID)));
 	}
-	
-	
-	
-	//new
-	
 	
 	@WebMethod(action="Person: getIDList")
 	public SumoStringList Person_getIDList(){
