@@ -184,12 +184,12 @@ def modifyAttribute(parametersReference, attributeNumber, value):
 # netedit modify bool
 def modifyBoolAttribute(parametersReference, attributeNumber):
     click(parametersReference)
-    # jump to attribute
+    # jump to bool attribute
     for x in range(0, attributeNumber):
         type(Key.TAB)
     # change value
     type(Key.SPACE)
-	
+
 ################################################# 
 ### Move mode
 ################################################# 
