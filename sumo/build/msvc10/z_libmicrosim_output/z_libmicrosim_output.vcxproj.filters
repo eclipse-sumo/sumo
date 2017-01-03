@@ -74,6 +74,9 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSBatteryExport.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSStopOut.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h">
@@ -143,6 +146,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\output\MSBatteryExport.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\output\MSStopOut.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
