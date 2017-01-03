@@ -589,16 +589,17 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
 
         std::vector<MSParkingArea*> parks = rerouteDef->parkProbs.getVals();
         std::vector<SUMOReal> probs = rerouteDef->parkProbs.getProbs();
-        std::vector<SUMOReal>::iterator p = probs.begin();
 
-        for (std::vector<MSParkingArea*>::const_iterator i = parks.begin(); i != parks.end(), p != probs.end(); ++i, ++p) {
-            if ((*i)->getOccupancy() < (*i)->getCapacity()) {
+        for (int i = 0; i < (int)parks.size(); ++i) {
+            MSParkingArea* pa = parks[i];
+            const SUMOReal prob = probs[i];
+            if (pa->getOccupancy() < pa->getCapacity()) {
                 
                 // a map stores the parking values
                 ParkingParamMap_t parkValues;
 
                 const RGBColor& c = route.getColor();
-                const MSEdge* parkEdge = &((*i)->getLane().getEdge());
+                const MSEdge* parkEdge = &(pa->getLane().getEdge());
 
                 const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
                 
@@ -613,12 +614,12 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
                 
                     if (edgesFromPark.size() > 0) {
                     
-                        parkValues["probability"] = (*p);
+                        parkValues["probability"] = prob;
                 
                         if (parkValues["probability"] > maxValues["probability"]) maxValues["probability"] = parkValues["probability"];
 
-                        parkValues["capacity"] = (double)((*i)->getCapacity());
-                        parkValues["absfreespace"] = (double)((*i)->getCapacity() - (*i)->getOccupancy());
+                        parkValues["capacity"] = (double)(pa->getCapacity());
+                        parkValues["absfreespace"] = (double)(pa->getCapacity() - pa->getOccupancy());
                         parkValues["relfreespace"] = parkValues["absfreespace"] / parkValues["capacity"];
                 
                         if (parkValues["capacity"] > maxValues["capacity"]) maxValues["capacity"] = parkValues["capacity"];
@@ -630,7 +631,7 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
                         MSRoute routeToPark(route.getID() + "!topark#1", edgesToPark, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), route.getStops());
 
                         // The distance from the current edge to the new parking area
-                        parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), (*i)->getBeginLanePosition(),
+                        parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), pa->getBeginLanePosition(),
                                                                                     routeToPark.begin(), routeToPark.end(), includeInternalLengths);
 
                         // The time to reach the new parking area
@@ -643,7 +644,7 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
                         MSRoute routeFromPark(route.getID() + "!frompark#1", edgesFromPark, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), route.getStops());
                     
                         // The distance from the new parking area to the end of the route
-                        parkValues["distancefrom"] = routeFromPark.getDistanceBetween((*i)->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
+                        parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
                                                                                         routeFromPark.begin(), routeFromPark.end(), includeInternalLengths);
 
                         // The time to reach this area
@@ -653,7 +654,7 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
 
                         if (parkValues["timefrom"] > maxValues["timefrom"]) maxValues["timefrom"] = parkValues["timefrom"];
 
-                        parkAreas[(*i)] = parkValues;
+                        parkAreas[pa] = parkValues;
                     }
                 }
             }
