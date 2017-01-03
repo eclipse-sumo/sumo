@@ -2,7 +2,7 @@
 /// @file    MSStopOut.h
 /// @author  Jakob Erdmann
 /// @date    Wed, 21.12.2016
-/// @version $Id: MSStopOut.h 20433 2016-04-13 08:00:14Z namdre $
+/// @version $Id$
 ///
 // Ouput information about planned vehicle stop
 /****************************************************************************/
