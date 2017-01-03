@@ -168,7 +168,7 @@ def inspectMode():
 def getParametersReference(match):
     return match.getTarget().offset(-75, 50)
         
-# netedit modify attribute
+# netedit modify int/float/string
 def modifyAttribute(parametersReference, attributeNumber, value):
     click(parametersReference)
     # jump to attribute
@@ -180,7 +180,16 @@ def modifyAttribute(parametersReference, attributeNumber, value):
     paste(value)
     # type enter to save change
     type(Key.ENTER)
-    
+
+# netedit modify bool
+def modifyBoolAttribute(parametersReference, attributeNumber):
+    click(parametersReference)
+    # jump to attribute
+    for x in range(0, attributeNumber):
+        type(Key.TAB)
+    # change value
+    type(Key.SPACE)
+	
 ################################################# 
 ### Move mode
 ################################################# 
