@@ -38,9 +38,6 @@
     <ClCompile Include="..\..\..\src\utils\gui\div\GUIUserIO.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\div\GUIDesigns.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\div\GLHelper.h">

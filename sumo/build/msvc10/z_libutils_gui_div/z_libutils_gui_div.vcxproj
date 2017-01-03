@@ -113,7 +113,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\utils\gui\div\GLHelper.cpp" />
-    <ClCompile Include="..\..\..\src\utils\gui\div\GUIDesigns.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\div\GUIGlobalSelection.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\div\GUIIOGlobals.cpp" />
