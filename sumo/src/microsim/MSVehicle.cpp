@@ -59,6 +59,7 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/devices/MSDevice_Transportable.h>
+#include <microsim/output/MSStopOut.h>
 #include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
 #include "MSGlobals.h"
@@ -1283,6 +1284,9 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
+                if (MSStopOut::active()) {
+                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber());
+                }
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
@@ -3852,6 +3856,9 @@ MSVehicle::resumeFromStopping() {
         updateBestLanes(true);
         // continue as wished...
         MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
+        if (MSStopOut::active()) {
+            MSStopOut::getInstance()->stopEnded(this);
+        }
         return true;
     }
     return false;

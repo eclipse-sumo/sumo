@@ -53,6 +53,7 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/output/MSStopOut.h>
 #include <utils/common/RandHelper.h>
 #include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
@@ -203,6 +204,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("lanechange-output", new Option_FileName());
     oc.addDescription("lanechange-output", "Output", "Record lane changes and their motivations for all vehicles into FILE");
+
+    oc.doRegister("stop-output", new Option_FileName());
+    oc.addDescription("stop-output", "Output", "Record stops and loading/unloading of passenger and containers for all vehicles into FILE");
 
 #ifdef _DEBUG
     oc.doRegister("movereminder-output", new Option_FileName());
@@ -441,12 +445,14 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("link-output", "link-output");
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
+    OutputDevice::createDeviceByOption("stop-output", "stops");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
 #endif
 
     MSDevice_Vehroutes::init();
+    MSStopOut::init();
 }
 
 
