@@ -132,11 +132,8 @@
         <!-- Record lane changes and their motivations for all vehicles into FILE -->
         <lanechange-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
+        <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
+        <stop-output value="" type="FILE"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
