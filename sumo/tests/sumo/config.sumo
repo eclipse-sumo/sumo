@@ -29,6 +29,7 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 bt:bt.xml
 tripinfos:tripinfos.xml
+stopinfos:stopinfos.xml
 vtypeprobe:vtypeprobe.xml
 vehroutes:vehroutes.xml
 vehroutes_ignore_arrival:vehroutes_ignore_arrival.xml
@@ -90,6 +91,7 @@ aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+stopinfos:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
@@ -152,6 +154,7 @@ aggregated900:0.0101
 fcd:0.0101
 links:0.0101
 tripinfos:0.0101
+stopinfos:0.0101
 rawdump:0.0101
 errors:0.0101
 full:0.0101
