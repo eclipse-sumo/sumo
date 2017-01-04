@@ -32,6 +32,7 @@
 
 #include <map>
 #include <utils/common/SUMOTime.h>
+#include <microsim/MSVehicle.h>
 
 
 // ===========================================================================
@@ -82,7 +83,7 @@ public:
     void loadedContainers(const SUMOVehicle* veh, int n);
     void unloadedContainers(const SUMOVehicle* veh, int n);
 
-    void stopEnded(const SUMOVehicle* veh);
+    void stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop);
 
 
 private:

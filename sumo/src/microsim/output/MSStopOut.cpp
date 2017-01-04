@@ -92,7 +92,7 @@ MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
 }
 
 void 
-MSStopOut::stopEnded(const SUMOVehicle* veh) {
+MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
     assert(veh != 0);
     if (myStopped.count(veh) == 0) {
         WRITE_WARNING("Vehicle '" + veh->getID() + "' is not stopped.");
@@ -100,7 +100,10 @@ MSStopOut::stopEnded(const SUMOVehicle* veh) {
     }
     StopInfo& si = myStopped[veh];
     myDevice.openTag("stopinfo");
-    myDevice.writeAttr("id", veh->getID());
+    myDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
+    myDevice.writeAttr(SUMO_ATTR_LANE, stop.lane->getID());
+    myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
+    myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
     myDevice.writeAttr("started", time2string(si.started));
     myDevice.writeAttr("ended", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     myDevice.writeAttr("initialPersons", si.initialNumPersons);
@@ -109,6 +112,18 @@ MSStopOut::stopEnded(const SUMOVehicle* veh) {
     myDevice.writeAttr("initialContainers", si.initialNumContainers);
     myDevice.writeAttr("loadedContainers", si.loadedContainers);
     myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
+    if (stop.busstop != 0) {
+        myDevice.writeAttr(SUMO_ATTR_BUS_STOP, stop.busstop->getID());
+    }
+    if (stop.containerstop != 0) {
+        myDevice.writeAttr(SUMO_ATTR_CONTAINER_STOP, stop.containerstop->getID());
+    }
+    if (stop.parkingarea != 0) {
+        myDevice.writeAttr(SUMO_ATTR_PARKING_AREA, stop.parkingarea->getID());
+    }
+    if (stop.chargingStation != 0) {
+        myDevice.writeAttr(SUMO_ATTR_CHARGING_STATION, stop.chargingStation->getID());
+    }
     myDevice.closeTag();
     myStopped.erase(veh);
 }

@@ -3848,6 +3848,9 @@ MSVehicle::resumeFromStopping() {
         }
         // the current stop is no longer valid
         MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
+        if (MSStopOut::active()) {
+            MSStopOut::getInstance()->stopEnded(this, myStops.front());
+        }
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.
@@ -3856,9 +3859,6 @@ MSVehicle::resumeFromStopping() {
         updateBestLanes(true);
         // continue as wished...
         MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
-        if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this);
-        }
         return true;
     }
     return false;
