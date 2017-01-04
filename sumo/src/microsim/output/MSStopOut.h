@@ -113,10 +113,10 @@ private:
         SUMOTime started;
         int initialNumPersons;
         int loadedPersons;
-        int unloadedPersons;;
+        int unloadedPersons;
         int initialNumContainers;
         int loadedContainers;
-        int unloadedContainers;;
+        int unloadedContainers;
     };
 
     typedef std::map<const SUMOVehicle*, StopInfo> Stopped;

@@ -361,8 +361,8 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 SUMOTime
 MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
     if (pred->free()) {
-        const SUMOReal tau = (free() ? myTau_ff : myTau_fj) + (SUMOTime)(veh->getVehicleType().getLengthWithGap() / myTau_length);
-        return tau / pred->getTLSCapacity(veh);
+        const SUMOReal tau = (SUMOReal)(free() ? myTau_ff : myTau_fj) + veh->getVehicleType().getLengthWithGap() / myTau_length;
+        return (SUMOTime)(tau / pred->getTLSCapacity(veh));
     } else {
         if (free()) {
             return myTau_jf;

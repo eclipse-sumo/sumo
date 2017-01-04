@@ -154,7 +154,7 @@ MSParkingArea::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
 
 void
 MSParkingArea::enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) {
-    if (myLastFreeLot >= 1 && myLastFreeLot <= mySpaceOccupancies.size()) {
+    if (myLastFreeLot >= 1 && myLastFreeLot <= (int)mySpaceOccupancies.size()) {
         mySpaceOccupancies[myLastFreeLot].vehicle = what;
         myEndPositions[what] = std::pair<SUMOReal, SUMOReal>(beg, end);
         computeLastFreePos();
