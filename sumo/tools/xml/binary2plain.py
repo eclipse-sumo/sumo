@@ -160,7 +160,7 @@ def typedValueStr(content):
 
 out = sys.stdout
 content = open(sys.argv[1], 'rb')
-read(content, "BBB")  # type, sbx version, type
+_, version, _ = read(content, "BBB")  # type, sbx version, type
 readString(content)  # sumo version
 read(content, "B")  # type
 elements = readStringList(content)
@@ -197,7 +197,10 @@ while True:
         if len(stack) == 0:
             break
     elif typ == XML_ATTRIBUTE:
+        attr = readByte(content)
+        if version > 1:
+            attr += 256 * readByte(content)
         out.write(' %s="%s"' %
-                  (attributes[readByte(content)], typedValueStr(content)))
+                  (attributes[attr], typedValueStr(content)))
     else:
         print("Unknown type %s" % typ, file=sys.stderr)
