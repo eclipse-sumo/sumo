@@ -116,6 +116,8 @@ private:
 
     BinaryInputDevice* myBinaryInput;
 
+    char mySbxVersion;
+
     LocalSchemaResolver mySchemaResolver;
 
 private:

@@ -52,10 +52,17 @@
 SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
     const std::map<int, std::string>& predefinedTagsMML,
     const std::string& objectType,
-    BinaryInputDevice* in) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
+    BinaryInputDevice* in, const char version) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
     while (in->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
-        unsigned char attr;
-        *in >> attr;
+        int attr;
+        unsigned char attrByte;
+        *in >> attrByte;
+        attr = attrByte;
+        if (version > 1) {
+            in->putback(BinaryFormatter::BF_BYTE);
+            *in >> attrByte;
+            attr += 256 * attrByte;
+        }
         int type = in->peek();
         switch (type) {
             case BinaryFormatter::BF_BYTE:

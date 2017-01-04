@@ -57,7 +57,7 @@ BinaryFormatter::BinaryFormatter() {
 void
 BinaryFormatter::writeStaticHeader(std::ostream& into) {
     FileHelpers::writeByte(into, BF_BYTE);
-    FileHelpers::writeByte(into, 1);
+    FileHelpers::writeByte(into, 2);
     FileHelpers::writeByte(into, BF_STRING);
     FileHelpers::writeString(into, VERSION_STRING);
     writeStringList(into, SUMOXMLDefinitions::Tags.getStrings());

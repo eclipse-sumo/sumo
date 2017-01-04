@@ -160,13 +160,6 @@ FileHelpers::writeInt(std::ostream& strm, int value) {
 
 
 std::ostream&
-FileHelpers::writeUInt(std::ostream& strm, int value) {
-    strm.write((char*) &value, sizeof(int));
-    return strm;
-}
-
-
-std::ostream&
 FileHelpers::writeFloat(std::ostream& strm, SUMOReal value) {
     strm.write((char*) &value, sizeof(SUMOReal));
     return strm;
@@ -184,7 +177,7 @@ std::ostream&
 FileHelpers::writeString(std::ostream& strm, const std::string& value) {
     int size = (int)value.length();
     const char* cstr = value.c_str();
-    writeUInt(strm, (int) size);
+    writeInt(strm, size);
     strm.write((char*) cstr, (std::streamsize)(sizeof(char)*size));
     return strm;
 }

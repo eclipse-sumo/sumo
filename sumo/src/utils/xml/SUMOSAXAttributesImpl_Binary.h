@@ -62,7 +62,7 @@ public:
      */
     SUMOSAXAttributesImpl_Binary(const std::map<int, std::string>& predefinedTagsMML,
                                  const std::string& objectType,
-                                 BinaryInputDevice* in);
+                                 BinaryInputDevice* in, const char version);
 
     /// @brief Destructor
     virtual ~SUMOSAXAttributesImpl_Binary();

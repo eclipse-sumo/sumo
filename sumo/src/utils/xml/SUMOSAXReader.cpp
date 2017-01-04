@@ -121,9 +121,8 @@ bool
 SUMOSAXReader::parseFirst(std::string systemID) {
     if (systemID.substr(systemID.length() - 4) == ".sbx") {
         myBinaryInput = new BinaryInputDevice(systemID, true, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always);
-        char sbxVer;
-        *myBinaryInput >> sbxVer;
-        if (sbxVer != 1) {
+        *myBinaryInput >> mySbxVersion;
+        if (mySbxVersion < 1 || mySbxVersion > 2) {
             throw ProcessError("Unknown sbx version");
         }
         std::string sumoVer;
@@ -169,7 +168,7 @@ SUMOSAXReader::parseNext() {
             case BinaryFormatter::BF_XML_TAG_START: {
                 char t;
                 *myBinaryInput >> t;
-                SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)t), myBinaryInput);
+                SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)t), myBinaryInput, mySbxVersion);
                 myHandler->myStartElement(t, attrs);
                 break;
             }
