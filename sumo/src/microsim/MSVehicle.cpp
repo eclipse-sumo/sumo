@@ -2183,7 +2183,7 @@ MSVehicle::executeMove() {
     }
     // update time loss (depends on the updated edge)
     if (!isStopped()) {
-        const SUMOReal vmax = getEdge()->getVehicleMaxSpeed(this);
+        const SUMOReal vmax = myLane->getVehicleMaxSpeed(this);
         if (vmax > 0) {
             myTimeLoss += TIME2STEPS(TS * (vmax - vNext) / vmax);
         }
