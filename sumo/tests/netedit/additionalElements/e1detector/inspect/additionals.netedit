@@ -1,0 +1,4 @@
+<additionals>
+    <e1Detector id="correct ID" lane="gneE2_0" pos="20.00" freq="120.00" file="myOwnOutput.txt" splitByType="1"/>
+    <e1Detector id="e1Detector_gneE2_1_1" lane="gneE2_1" pos="37.40" freq="100.00" file="e1Detector_gneE2_1_1.txt" splitByType="0"/>
+</additionals>
