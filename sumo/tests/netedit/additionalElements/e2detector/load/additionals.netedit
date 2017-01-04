@@ -1,16 +1,3 @@
 <additionals>
-    <e1Detector id="E1_gneE0_0_01" lane="gneE0_0" pos="3.00" freq="100.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_04" lane="gneE0_0" pos="0.00" freq="100.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_05" lane="gneE0_0" pos="-10.00" freq="100.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_06" lane="gneE0_0" pos="3000.00" freq="100.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_07" lane="gneE0_0" pos="15.00" freq="100.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_08" lane="gneE0_0" pos="18.00" freq="100.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_09" lane="gneE0_0" pos="21.00" freq="100.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_10" lane="gneE0_0" pos="24.00" freq="120.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_11" lane="gneE0_0" pos="27.00" freq="120.00" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_12" lane="gneE0_0" pos="30.00" freq="120.00" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_13" lane="gneE0_0" pos="33.00" freq="120.00" file="myOwnFile.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_14" lane="gneE0_0" pos="36.00" freq="120.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_15" lane="gneE0_0" pos="39.00" freq="120.00" file="e1Detector_gneE0_0_1.txt" splitByType="0"/>
-    <e1Detector id="E1_gneE0_0_16" lane="gneE0_0" pos="42.00" freq="120.00" file="e1Detector_gneE0_0_1.txt" splitByType="1"/>
+    <e2Detector id="E1_gneE0_0_01" lane="gneE0_0" pos="1.00" length="10.00" freq="100.00" file="e2Detector_gneE0_0_01.txt" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00"/>
 </additionals>
