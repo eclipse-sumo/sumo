@@ -167,13 +167,13 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             msg << "Error in definition file: " << lineCommand << " is not a valid command";
             errorMsg(msg);
             commandClose();
-            close();
+            closeSocket();
             return false;
         }
     }
     defFile.close();
     commandClose();
-    close();
+    closeSocket();
     return true;
 }
 

@@ -160,7 +160,7 @@ public:
     void connect(const std::string& host, int port);
 
 
-    /// @brief Closes the connection
+    /// @brief ends the simulation and closes the connection
     void close();
     /// @}
 
@@ -958,6 +958,9 @@ protected:
         oss << t;
         return oss.str();
     }
+
+    /// @brief Closes the connection
+    void closeSocket();
 
 protected:
     /// @brief The socket

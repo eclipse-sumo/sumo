@@ -78,6 +78,16 @@ TraCIAPI::connect(const std::string& host, int port) {
 
 void
 TraCIAPI::close() {
+    send_commandClose();
+    tcpip::Storage inMsg;
+    std::string acknowledgement;
+    check_resultState(inMsg, CMD_CLOSE, false, &acknowledgement);
+    closeSocket();
+}
+
+
+void
+TraCIAPI::closeSocket() {
     if (mySocket == 0) {
         return;
     }
