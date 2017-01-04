@@ -66,7 +66,7 @@ public:
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
     /// @brief update tripinfo statistics
-    void updateStatistics() const;
+    void updateStatistics(SUMOTime timeLoss) const;
 
     /// @brief generate output for vehicles which are still in the network
     static void generateOutputForUnfinished();
@@ -193,7 +193,7 @@ private:
     SUMOReal myArrivalSpeed;
 
     /// @brief The time loss when compared to the desired and allowed speed
-    SUMOTime myTimeLoss;
+    SUMOTime myMesoTimeLoss;
 
     /// @brief devices which may still need to produce output
     typedef std::set<const MSDevice_Tripinfo*, Named::NamedLikeComparatorIdLess<MSDevice_Tripinfo> > DeviceSet;

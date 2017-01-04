@@ -522,6 +522,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     MSBaseVehicle(pars, route, type, speedFactor),
     myWaitingTime(0),
     myWaitingTimeCollector(),
+    myTimeLoss(0),
     myState(0, 0, 0, 0), //
     myLane(0),
     myLastBestLanesEdge(0),
@@ -2178,6 +2179,13 @@ MSVehicle::executeMove() {
                 }
                 passedLanes.push_back(approachedLane);
             }
+        }
+    }
+    // update time loss (depends on the updated edge)
+    if (!isStopped()) {
+        const SUMOReal vmax = getEdge()->getVehicleMaxSpeed(this);
+        if (vmax > 0) {
+            myTimeLoss += TIME2STEPS(TS * (vmax - vNext) / vmax);
         }
     }
 
