@@ -78,6 +78,7 @@ class GNEViewParent;
 class GNEUndoList;
 class GNEAdditional;
 class GNEPoly;
+class GNEPOI;
 
 // ===========================================================================
 // class definitions
@@ -345,6 +346,9 @@ private:
 
     /// @brief the poly of which geometry is being moved
     GNEPoly* myPolyToMove;
+
+    /// @brief the poi which is being moved
+    GNEPOI* myPoiToMove;
 
     /// @brief the stoppingPlace element which shape is being moved
     GNEAdditional* myAdditionalToMove;

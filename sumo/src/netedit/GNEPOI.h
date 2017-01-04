@@ -55,19 +55,19 @@ class GNEPOI : public GUIPointOfInterest, public GNEAttributeCarrier {
 
 public:
     /// @brief Constructor
-    GNEPOI(const std::string& id, const std::string& type,
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type,
            const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
            const Position& pos, SUMOReal width, SUMOReal height);
 
     /// @brief Destructor
     virtual ~GNEPOI();
 
-    /**@brief reposition the node at pos and informs the edges
+    /**@brief reposition the POI at pos and informs the edges
      * @param[in] pos The new position
      * @note: those operations are not added to the undoList. This is handled in
      * registerMove to avoids merging lots of tiny movements
      */
-    //void move(Position pos);
+    void move(Position pos);
 
     /// @brief registers completed movement with the undoList
     //void registerMove(GNEUndoList *undoList);
@@ -97,6 +97,10 @@ public:
 
     /// @brief save POIs to file
     static void saveToFile(const std::string& file);
+
+protected:
+    /// @brief the net for querying updates
+    GNENet* myNet;
 
 private:
     /// @brief Invalidated copy constructor.

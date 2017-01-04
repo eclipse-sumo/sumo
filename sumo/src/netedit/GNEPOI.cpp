@@ -70,30 +70,25 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPOI::GNEPOI(const std::string& id, const std::string& type,
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type,
                const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
                const Position& pos, SUMOReal width, SUMOReal height) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
-    GNEAttributeCarrier(SUMO_TAG_POI, ICON_LOCATEPOI) {
+    GNEAttributeCarrier(SUMO_TAG_POI, ICON_LOCATEPOI),
+    myNet(net) {
 }
 
 
 GNEPOI::~GNEPOI() { }
 
 
-//void
-//GNEPOI::move(Position pos) {
-//    const Position orig = myNBNode.getPosition();
-//    setPosition(pos);
-//    myNet->refreshElement(this);
-//    const EdgeVector& incident = getNBNode()->getEdges();
-//    for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
-//        GNEEdge *edge = myNet->retrieveEdge((*it)->getID());
-//        edge->updateJunctionPosition(this, orig);
-//    }
-//}
-//
-//
+void
+GNEPOI::move(Position pos) {
+    set(pos);
+    myNet->refreshElement(this);
+}
+
+
 //void
 //GNEPOI::registerMove(GNEUndoList *undoList) {
 //    Position newPos = myNBNode.getPosition();

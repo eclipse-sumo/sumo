@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    GNEViewNet.cpp
 /// @author  Jakob Erdmann
+/// @author  Pablo Alvarez Lopez
 /// @date    Feb 2011
 /// @version $Id$
 ///
@@ -141,6 +142,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myJunctionToMove(0),
     myEdgeToMove(0),
     myPolyToMove(0),
+    myPoiToMove(0),
     myAdditionalToMove(0),
     myMoveSelection(false),
     myAmInRectSelect(false),
@@ -571,6 +573,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 if (pointed_poly) {
                     myPolyToMove = pointed_poly;
                     myMoveSrc = getPositionInformation();
+                } else if (pointed_poi) {
+                    myPoiToMove = pointed_poi;
+                    myMoveSrc = getPositionInformation();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         myMoveSelection = true;
@@ -754,6 +759,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, data);
     if (myPolyToMove) {
         myPolyToMove = 0;
+    } else if (myPoiToMove) {
+        myPoiToMove = 0;
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myJunctionToMove)) {
@@ -836,6 +843,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     } else {
         if (myPolyToMove) {
             myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, getPositionInformation());
+        } else if (myPoiToMove) {
+            myPoiToMove->move(getPositionInformation());
         } else if (myJunctionToMove) {
             myJunctionToMove->move(getPositionInformation());
         } else if (myEdgeToMove) {
