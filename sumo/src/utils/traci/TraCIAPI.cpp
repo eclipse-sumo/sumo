@@ -475,6 +475,11 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                 case TYPE_STRING:
                     v.string = inMsg.readString();
                     break;
+                case POSITION_2D:
+                    v.position.x = inMsg.readDouble();
+                    v.position.y = inMsg.readDouble();
+                    v.position.z = 0;
+                    break;
                 case POSITION_3D:
                     v.position.x = inMsg.readDouble();
                     v.position.y = inMsg.readDouble();
