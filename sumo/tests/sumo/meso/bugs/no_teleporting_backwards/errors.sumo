@@ -1,388 +1,682 @@
+Warning: Teleporting vehicle 'flow1.0'; waited too long, from edge 'start1':0 to edge 'start2':1, time 14.99.
 Warning: Teleporting vehicle 'flow3.0'; waited too long, from edge 'start3':0 to edge 'start2':1, time 14.99.
-Warning: Teleporting vehicle 'flow1.1'; waited too long, from edge 'start1':0 to edge 'start2':1, time 23.11.
-Warning: Teleporting vehicle 'flow3.1'; waited too long, from edge 'start3':0 to edge 'start2':1, time 23.11.
-Warning: Teleporting vehicle 'flow1.2'; waited too long, from edge 'start1':0 to edge 'start2':1, time 31.24.
-Warning: Teleporting vehicle 'flow3.2'; waited too long, from edge 'start3':0 to edge 'start2':1, time 31.24.
-Warning: Teleporting vehicle 'flow1.3'; waited too long, from edge 'start1':0 to edge 'start2':1, time 34.24.
-Warning: Teleporting vehicle 'flow3.3'; waited too long, from edge 'start3':0 to edge 'start2':1, time 34.24.
-Warning: Teleporting vehicle 'flow1.4'; waited too long, from edge 'start1':0 to edge 'start2':1, time 37.25.
-Warning: Teleporting vehicle 'flow3.4'; waited too long, from edge 'start3':0 to edge 'start2':1, time 37.25.
-Warning: Teleporting vehicle 'flow0.2'; waited too long, from edge 'start0':0 to edge 'start2':1, time 40.11.
-Warning: Teleporting vehicle 'flow1.5'; waited too long, from edge 'start1':0 to edge 'start2':1, time 40.25.
-Warning: Teleporting vehicle 'flow3.5'; waited too long, from edge 'start3':0 to edge 'start2':1, time 40.25.
-Warning: Teleporting vehicle 'flow0.3'; waited too long, from edge 'start0':0 to edge 'start2':1, time 43.11.
-Warning: Teleporting vehicle 'flow1.6'; waited too long, from edge 'start1':0 to edge 'start2':1, time 43.25.
-Warning: Teleporting vehicle 'flow3.6'; waited too long, from edge 'start3':0 to edge 'start2':2, time 43.25.
-Warning: Teleporting vehicle 'flow0.4'; waited too long, from edge 'start0':0 to edge 'start2':2, time 46.11.
-Warning: Teleporting vehicle 'flow3.7'; waited too long, from edge 'start3':0 to edge 'start2':2, time 46.25.
-Warning: Teleporting vehicle 'flow0.5'; waited too long, from edge 'start0':0 to edge 'start2':2, time 49.11.
-Warning: Teleporting vehicle 'flow3.8'; waited too long, from edge 'start3':0 to edge 'start2':2, time 49.25.
-Warning: Teleporting vehicle 'flow0.6'; waited too long, from edge 'start0':0 to edge 'start2':2, time 52.12.
-Warning: Teleporting vehicle 'flow3.9'; waited too long, from edge 'start3':0 to edge 'start2':2, time 52.25.
-Warning: Teleporting vehicle 'flow0.7'; waited too long, from edge 'start0':0 to edge 'start2':2, time 55.12.
-Warning: Teleporting vehicle 'flow3.10'; waited too long, from edge 'start3':0 to edge 'start2':2, time 55.25.
-Warning: Teleporting vehicle 'flow0.8'; waited too long, from edge 'start0':0 to edge 'start2':2, time 58.12.
-Warning: Teleporting vehicle 'flow3.11'; waited too long, from edge 'start3':0 to edge 'start2':2, time 58.25.
-Warning: Teleporting vehicle 'flow1.7'; waited too long, from edge 'start1':0 to edge 'start2':2, time 60.24.
-Warning: Teleporting vehicle 'flow0.9'; waited too long, from edge 'start0':0 to edge 'start2':2, time 61.12.
-Warning: Teleporting vehicle 'flow3.12'; waited too long, from edge 'start3':0 to edge 'start2':2, time 61.25.
-Warning: Teleporting vehicle 'flow1.8'; waited too long, from edge 'start1':0 to edge 'start2':3, time 63.24.
-Warning: Teleporting vehicle 'flow0.10'; waited too long, from edge 'start0':0 to edge 'start2':3, time 64.12.
-Warning: Teleporting vehicle 'flow1.9'; waited too long, from edge 'start1':0 to edge 'start2':3, time 66.25.
-Warning: Teleporting vehicle 'flow0.11'; waited too long, from edge 'start0':0 to edge 'start2':3, time 67.12.
-Warning: Teleporting vehicle 'flow1.10'; waited too long, from edge 'start1':0 to edge 'start2':3, time 69.25.
-Warning: Teleporting vehicle 'flow0.12'; waited too long, from edge 'start0':0 to edge 'start2':3, time 70.12.
-Warning: Teleporting vehicle 'flow1.11'; waited too long, from edge 'start1':0 to edge 'start2':3, time 72.25.
-Warning: Teleporting vehicle 'flow0.13'; waited too long, from edge 'start0':0 to edge 'start2':3, time 73.12.
-Warning: Teleporting vehicle 'flow1.12'; waited too long, from edge 'start1':0 to edge 'start2':3, time 75.25.
-Warning: Teleporting vehicle 'flow0.14'; waited too long, from edge 'start0':0 to edge 'start2':3, time 76.12.
-Warning: Teleporting vehicle 'flow3.13'; waited too long, from edge 'start3':0 to edge 'start2':3, time 78.25.
-Warning: Teleporting vehicle 'flow1.13'; waited too long, from edge 'start1':0 to edge 'start2':3, time 78.25.
-Warning: Teleporting vehicle 'flow0.15'; waited too long, from edge 'start0':0 to edge 'start2':3, time 79.12.
-Warning: Teleporting vehicle 'flow3.14'; waited too long, from edge 'start3':0 to edge 'start2':3, time 81.25.
-Warning: Teleporting vehicle 'flow1.14'; waited too long, from edge 'start1':0, time 81.25.
-Warning: Teleporting vehicle 'flow0.16'; waited too long, from edge 'start0':0, time 82.12.
-Warning: Teleporting vehicle 'flow1.15'; waited too long, from edge 'start1':0, time 82.25.
-Warning: Teleporting vehicle 'flow0.17'; waited too long, from edge 'start0':0, time 83.13.
-Warning: Teleporting vehicle 'flow1.16'; waited too long, from edge 'start1':0, time 83.25.
-Warning: Teleporting vehicle 'flow0.18'; waited too long, from edge 'start0':0, time 84.13.
-Warning: Teleporting vehicle 'flow1.17'; waited too long, from edge 'start1':0, time 84.25.
-Warning: Teleporting vehicle 'flow0.19'; waited too long, from edge 'start0':0, time 85.13.
-Warning: Teleporting vehicle 'flow1.18'; waited too long, from edge 'start1':0, time 85.25.
-Warning: Teleporting vehicle 'flow0.20'; waited too long, from edge 'start0':0, time 86.13.
-Warning: Teleporting vehicle 'flow1.19'; waited too long, from edge 'start1':0, time 86.26.
-Warning: Teleporting vehicle 'flow0.21'; waited too long, from edge 'start0':0, time 87.13.
-Warning: Teleporting vehicle 'flow1.20'; waited too long, from edge 'start1':0, time 87.26.
-Warning: Vehicle 'flow1.14' ends teleporting on edge 'dest':0, time 88.11.
-Warning: Teleporting vehicle 'flow0.22'; waited too long, from edge 'start0':0, time 88.13.
-Warning: Teleporting vehicle 'flow1.21'; waited too long, from edge 'start1':0, time 88.26.
-Warning: Vehicle 'flow0.16' teleports beyond arrival edge 'dest', time 484.23.
-Warning: Vehicle 'flow1.15' teleports beyond arrival edge 'dest', time 484.36.
-Warning: Teleporting vehicle 'flow0.23'; waited too long, from edge 'start0':0, time 89.13.
-Warning: Teleporting vehicle 'flow1.22'; waited too long, from edge 'start1':0, time 89.26.
-Warning: Vehicle 'flow0.17' teleports beyond arrival edge 'dest', time 485.23.
-Warning: Vehicle 'flow1.16' teleports beyond arrival edge 'dest', time 485.36.
-Warning: Teleporting vehicle 'flow0.24'; waited too long, from edge 'start0':0, time 90.13.
-Warning: Teleporting vehicle 'flow1.23'; waited too long, from edge 'start1':0, time 90.26.
-Warning: Vehicle 'flow0.18' teleports beyond arrival edge 'dest', time 486.23.
-Warning: Vehicle 'flow1.17' teleports beyond arrival edge 'dest', time 486.36.
-Warning: Teleporting vehicle 'flow0.25'; waited too long, from edge 'start0':0, time 91.13.
-Warning: Teleporting vehicle 'flow1.24'; waited too long, from edge 'start1':0, time 91.26.
-Warning: Vehicle 'flow0.19' ends teleporting on edge 'dest':0, time 91.98.
-Warning: Vehicle 'flow1.18' teleports beyond arrival edge 'dest', time 487.36.
-Warning: Teleporting vehicle 'flow0.26'; waited too long, from edge 'start0':0, time 92.14.
-Warning: Teleporting vehicle 'flow1.25'; waited too long, from edge 'start1':0, time 92.26.
-Warning: Vehicle 'flow0.20' teleports beyond arrival edge 'dest', time 488.24.
-Warning: Vehicle 'flow1.19' teleports beyond arrival edge 'dest', time 488.36.
-Warning: Teleporting vehicle 'flow0.27'; waited too long, from edge 'start0':0, time 93.14.
-Warning: Teleporting vehicle 'flow1.26'; waited too long, from edge 'start1':0, time 93.26.
-Warning: Vehicle 'flow0.21' teleports beyond arrival edge 'dest', time 489.24.
-Warning: Vehicle 'flow1.20' teleports beyond arrival edge 'dest', time 489.36.
-Warning: Teleporting vehicle 'flow0.28'; waited too long, from edge 'start0':0, time 94.14.
-Warning: Teleporting vehicle 'flow1.27'; waited too long, from edge 'start1':0, time 94.26.
-Warning: Vehicle 'flow0.22' teleports beyond arrival edge 'dest', time 490.24.
-Warning: Vehicle 'flow1.21' teleports beyond arrival edge 'dest', time 490.37.
-Warning: Teleporting vehicle 'flow0.29'; waited too long, from edge 'start0':0, time 95.14.
-Warning: Teleporting vehicle 'flow1.28'; waited too long, from edge 'start1':0, time 95.27.
-Warning: Vehicle 'flow0.23' ends teleporting on edge 'dest':0, time 95.99.
-Warning: Vehicle 'flow1.22' teleports beyond arrival edge 'dest', time 491.37.
-Warning: Teleporting vehicle 'flow0.30'; waited too long, from edge 'start0':0, time 96.14.
-Warning: Teleporting vehicle 'flow1.29'; waited too long, from edge 'start1':0, time 96.27.
-Warning: Vehicle 'flow0.24' teleports beyond arrival edge 'dest', time 492.24.
-Warning: Vehicle 'flow1.23' teleports beyond arrival edge 'dest', time 492.37.
-Warning: Teleporting vehicle 'flow0.31'; waited too long, from edge 'start0':0, time 97.14.
-Warning: Teleporting vehicle 'flow1.30'; waited too long, from edge 'start1':0, time 97.27.
-Warning: Vehicle 'flow0.25' teleports beyond arrival edge 'dest', time 493.24.
-Warning: Vehicle 'flow1.24' teleports beyond arrival edge 'dest', time 493.37.
-Warning: Teleporting vehicle 'flow0.32'; waited too long, from edge 'start0':0, time 98.14.
-Warning: Teleporting vehicle 'flow3.15'; waited too long, from edge 'start3':0, time 98.25.
-Warning: Teleporting vehicle 'flow1.31'; waited too long, from edge 'start1':0, time 98.27.
-Warning: Vehicle 'flow0.26' teleports beyond arrival edge 'dest', time 494.24.
-Warning: Vehicle 'flow1.25' teleports beyond arrival edge 'dest', time 494.37.
-Warning: Teleporting vehicle 'flow0.33'; waited too long, from edge 'start0':0, time 99.14.
-Warning: Teleporting vehicle 'flow3.16'; waited too long, from edge 'start3':0, time 99.25.
-Warning: Teleporting vehicle 'flow1.32'; waited too long, from edge 'start1':0, time 99.27.
+Warning: Teleporting vehicle 'flow0.1'; waited too long, from edge 'start0':0 to edge 'start2':1, time 15.99.
+Warning: Teleporting vehicle 'flow1.1'; waited too long, from edge 'start1':0 to edge 'start2':1, time 17.99.
+Warning: Teleporting vehicle 'flow3.1'; waited too long, from edge 'start3':0 to edge 'start2':1, time 17.99.
+Warning: Teleporting vehicle 'flow0.2'; waited too long, from edge 'start0':0 to edge 'start2':1, time 18.99.
+Warning: Teleporting vehicle 'flow1.2'; waited too long, from edge 'start1':0 to edge 'start2':1, time 20.99.
+Warning: Teleporting vehicle 'flow3.2'; waited too long, from edge 'start3':0 to edge 'start2':1, time 20.99.
+Warning: Teleporting vehicle 'flow0.3'; waited too long, from edge 'start0':0 to edge 'start2':1, time 21.99.
+Warning: Teleporting vehicle 'flow1.3'; waited too long, from edge 'start1':0 to edge 'start2':1, time 23.99.
+Warning: Teleporting vehicle 'flow3.3'; waited too long, from edge 'start3':0 to edge 'start2':1, time 23.99.
+Warning: Teleporting vehicle 'flow0.4'; waited too long, from edge 'start0':0 to edge 'start2':1, time 24.99.
+Warning: Teleporting vehicle 'flow1.4'; waited too long, from edge 'start1':0 to edge 'start2':1, time 26.99.
+Warning: Teleporting vehicle 'flow3.4'; waited too long, from edge 'start3':0 to edge 'start2':1, time 26.99.
+Warning: Teleporting vehicle 'flow0.5'; waited too long, from edge 'start0':0 to edge 'start2':2, time 27.99.
+Warning: Teleporting vehicle 'flow1.5'; waited too long, from edge 'start1':0 to edge 'start2':2, time 29.99.
+Warning: Teleporting vehicle 'flow0.6'; waited too long, from edge 'start0':0 to edge 'start2':2, time 30.99.
+Warning: Teleporting vehicle 'flow1.6'; waited too long, from edge 'start1':0 to edge 'start2':2, time 32.99.
+Warning: Teleporting vehicle 'flow0.7'; waited too long, from edge 'start0':0 to edge 'start2':2, time 33.99.
+Warning: Teleporting vehicle 'flow1.7'; waited too long, from edge 'start1':0 to edge 'start2':2, time 35.99.
+Warning: Teleporting vehicle 'flow0.8'; waited too long, from edge 'start0':0 to edge 'start2':2, time 36.99.
+Warning: Teleporting vehicle 'flow1.8'; waited too long, from edge 'start1':0 to edge 'start2':2, time 38.99.
+Warning: Teleporting vehicle 'flow0.9'; waited too long, from edge 'start0':0 to edge 'start2':2, time 40.00.
+Warning: Teleporting vehicle 'flow1.9'; waited too long, from edge 'start1':0 to edge 'start2':2, time 41.99.
+Warning: Teleporting vehicle 'flow0.10'; waited too long, from edge 'start0':0 to edge 'start2':2, time 43.00.
+Warning: Teleporting vehicle 'flow3.5'; waited too long, from edge 'start3':0 to edge 'start2':2, time 43.99.
+Warning: Teleporting vehicle 'flow1.10'; waited too long, from edge 'start1':0 to edge 'start2':2, time 45.00.
+Warning: Teleporting vehicle 'flow0.11'; waited too long, from edge 'start0':0 to edge 'start2':2, time 46.00.
+Warning: Teleporting vehicle 'flow3.6'; waited too long, from edge 'start3':0 to edge 'start2':3, time 46.99.
+Warning: Teleporting vehicle 'flow1.11'; waited too long, from edge 'start1':0 to edge 'start2':3, time 48.00.
+Warning: Teleporting vehicle 'flow3.7'; waited too long, from edge 'start3':0 to edge 'start2':3, time 49.99.
+Warning: Teleporting vehicle 'flow1.12'; waited too long, from edge 'start1':0 to edge 'start2':3, time 51.00.
+Warning: Teleporting vehicle 'flow3.8'; waited too long, from edge 'start3':0 to edge 'start2':3, time 52.99.
+Warning: Teleporting vehicle 'flow1.13'; waited too long, from edge 'start1':0 to edge 'start2':3, time 54.00.
+Warning: Teleporting vehicle 'flow3.9'; waited too long, from edge 'start3':0 to edge 'start2':3, time 55.99.
+Warning: Teleporting vehicle 'flow1.14'; waited too long, from edge 'start1':0 to edge 'start2':3, time 57.00.
+Warning: Teleporting vehicle 'flow3.10'; waited too long, from edge 'start3':0 to edge 'start2':3, time 58.99.
+Warning: Teleporting vehicle 'flow1.15'; waited too long, from edge 'start1':0 to edge 'start2':3, time 60.00.
+Warning: Teleporting vehicle 'flow3.11'; waited too long, from edge 'start3':0 to edge 'start2':3, time 61.99.
+Warning: Teleporting vehicle 'flow0.12'; waited too long, from edge 'start0':0 to edge 'start2':3, time 62.99.
+Warning: Teleporting vehicle 'flow1.16'; waited too long, from edge 'start1':0 to edge 'start2':3, time 63.00.
+Warning: Teleporting vehicle 'flow3.12'; waited too long, from edge 'start3':0 to edge 'start2':3, time 64.99.
+Warning: Teleporting vehicle 'flow0.13'; waited too long, from edge 'start0':0, time 66.00.
+Warning: Teleporting vehicle 'flow1.17'; waited too long, from edge 'start1':0, time 66.00.
+Warning: Teleporting vehicle 'flow0.14'; waited too long, from edge 'start0':0, time 67.00.
+Warning: Teleporting vehicle 'flow1.18'; waited too long, from edge 'start1':0, time 67.00.
+Warning: Teleporting vehicle 'flow0.15'; waited too long, from edge 'start0':0, time 68.00.
+Warning: Teleporting vehicle 'flow1.19'; waited too long, from edge 'start1':0, time 68.00.
+Warning: Teleporting vehicle 'flow0.16'; waited too long, from edge 'start0':0, time 69.00.
+Warning: Teleporting vehicle 'flow1.20'; waited too long, from edge 'start1':0, time 69.01.
+Warning: Teleporting vehicle 'flow0.17'; waited too long, from edge 'start0':0, time 70.00.
+Warning: Teleporting vehicle 'flow1.21'; waited too long, from edge 'start1':0, time 70.01.
+Warning: Teleporting vehicle 'flow0.18'; waited too long, from edge 'start0':0, time 71.00.
+Warning: Teleporting vehicle 'flow1.22'; waited too long, from edge 'start1':0, time 71.01.
+Warning: Teleporting vehicle 'flow0.19'; waited too long, from edge 'start0':0, time 72.00.
+Warning: Teleporting vehicle 'flow1.23'; waited too long, from edge 'start1':0, time 72.01.
+Warning: Vehicle 'flow0.13' ends teleporting on edge 'dest':0, time 72.85.
+Warning: Vehicle 'flow1.17' teleports beyond arrival edge 'dest', time 468.11.
+Warning: Teleporting vehicle 'flow0.20'; waited too long, from edge 'start0':0, time 73.00.
+Warning: Teleporting vehicle 'flow1.24'; waited too long, from edge 'start1':0, time 73.01.
+Warning: Vehicle 'flow0.14' teleports beyond arrival edge 'dest', time 469.10.
+Warning: Vehicle 'flow1.18' teleports beyond arrival edge 'dest', time 469.11.
+Warning: Teleporting vehicle 'flow0.21'; waited too long, from edge 'start0':0, time 74.00.
+Warning: Teleporting vehicle 'flow1.25'; waited too long, from edge 'start1':0, time 74.01.
+Warning: Vehicle 'flow0.15' teleports beyond arrival edge 'dest', time 470.10.
+Warning: Vehicle 'flow1.19' teleports beyond arrival edge 'dest', time 470.11.
+Warning: Teleporting vehicle 'flow0.22'; waited too long, from edge 'start0':0, time 75.00.
+Warning: Teleporting vehicle 'flow1.26'; waited too long, from edge 'start1':0, time 75.01.
+Warning: Vehicle 'flow0.16' teleports beyond arrival edge 'dest', time 471.11.
+Warning: Vehicle 'flow1.20' teleports beyond arrival edge 'dest', time 471.11.
+Warning: Teleporting vehicle 'flow0.23'; waited too long, from edge 'start0':0, time 76.00.
+Warning: Teleporting vehicle 'flow1.27'; waited too long, from edge 'start1':0, time 76.01.
+Warning: Vehicle 'flow0.17' ends teleporting on edge 'dest':0, time 76.86.
+Warning: Vehicle 'flow1.21' teleports beyond arrival edge 'dest', time 472.11.
+Warning: Teleporting vehicle 'flow0.24'; waited too long, from edge 'start0':0, time 77.01.
+Warning: Teleporting vehicle 'flow1.28'; waited too long, from edge 'start1':0, time 77.01.
+Warning: Vehicle 'flow0.18' teleports beyond arrival edge 'dest', time 473.11.
+Warning: Vehicle 'flow1.22' teleports beyond arrival edge 'dest', time 473.12.
+Warning: Teleporting vehicle 'flow0.25'; waited too long, from edge 'start0':0, time 78.01.
+Warning: Teleporting vehicle 'flow1.29'; waited too long, from edge 'start1':0, time 78.02.
+Warning: Vehicle 'flow0.19' teleports beyond arrival edge 'dest', time 474.11.
+Warning: Vehicle 'flow1.23' teleports beyond arrival edge 'dest', time 474.12.
+Warning: Teleporting vehicle 'flow0.26'; waited too long, from edge 'start0':0, time 79.01.
+Warning: Teleporting vehicle 'flow1.30'; waited too long, from edge 'start1':0, time 79.02.
+Warning: Vehicle 'flow0.20' teleports beyond arrival edge 'dest', time 475.11.
+Warning: Vehicle 'flow1.24' teleports beyond arrival edge 'dest', time 475.12.
+Warning: Teleporting vehicle 'flow0.27'; waited too long, from edge 'start0':0, time 80.01.
+Warning: Teleporting vehicle 'flow1.31'; waited too long, from edge 'start1':0, time 80.02.
+Warning: Vehicle 'flow0.21' ends teleporting on edge 'dest':0, time 80.86.
+Warning: Vehicle 'flow1.25' teleports beyond arrival edge 'dest', time 476.12.
+Warning: Teleporting vehicle 'flow0.28'; waited too long, from edge 'start0':0, time 81.01.
+Warning: Teleporting vehicle 'flow1.32'; waited too long, from edge 'start1':0, time 81.02.
+Warning: Vehicle 'flow0.22' teleports beyond arrival edge 'dest', time 477.11.
+Warning: Vehicle 'flow1.26' teleports beyond arrival edge 'dest', time 477.12.
+Warning: Teleporting vehicle 'flow3.13'; waited too long, from edge 'start3':0, time 81.99.
+Warning: Teleporting vehicle 'flow0.29'; waited too long, from edge 'start0':0, time 82.01.
+Warning: Teleporting vehicle 'flow1.33'; waited too long, from edge 'start1':0, time 82.02.
+Warning: Vehicle 'flow0.23' teleports beyond arrival edge 'dest', time 478.11.
+Warning: Vehicle 'flow1.27' teleports beyond arrival edge 'dest', time 478.12.
+Warning: Teleporting vehicle 'flow3.14'; waited too long, from edge 'start3':0, time 82.99.
+Warning: Teleporting vehicle 'flow0.30'; waited too long, from edge 'start0':0, time 83.01.
+Warning: Teleporting vehicle 'flow1.34'; waited too long, from edge 'start1':0, time 83.02.
+Warning: Vehicle 'flow0.24' teleports beyond arrival edge 'dest', time 479.11.
+Warning: Vehicle 'flow1.28' teleports beyond arrival edge 'dest', time 479.12.
+Warning: Teleporting vehicle 'flow3.15'; waited too long, from edge 'start3':0, time 83.99.
+Warning: Teleporting vehicle 'flow0.31'; waited too long, from edge 'start0':0, time 84.01.
+Warning: Teleporting vehicle 'flow1.35'; waited too long, from edge 'start1':0, time 84.02.
+Warning: Vehicle 'flow0.25' ends teleporting on edge 'dest':0, time 84.86.
+Warning: Vehicle 'flow1.29' teleports beyond arrival edge 'dest', time 480.12.
+Warning: Teleporting vehicle 'flow3.16'; waited too long, from edge 'start3':0, time 84.99.
+Warning: Teleporting vehicle 'flow0.32'; waited too long, from edge 'start0':0, time 85.01.
+Warning: Teleporting vehicle 'flow1.36'; waited too long, from edge 'start1':0, time 85.02.
+Warning: Vehicle 'flow0.26' teleports beyond arrival edge 'dest', time 481.12.
+Warning: Vehicle 'flow1.30' teleports beyond arrival edge 'dest', time 481.12.
+Warning: Teleporting vehicle 'flow3.17'; waited too long, from edge 'start3':0, time 85.99.
+Warning: Teleporting vehicle 'flow0.33'; waited too long, from edge 'start0':0, time 86.02.
+Warning: Teleporting vehicle 'flow1.37'; waited too long, from edge 'start1':0, time 86.02.
+Warning: Vehicle 'flow0.27' teleports beyond arrival edge 'dest', time 482.12.
+Warning: Vehicle 'flow1.31' teleports beyond arrival edge 'dest', time 482.12.
+Warning: Teleporting vehicle 'flow3.18'; waited too long, from edge 'start3':0, time 86.99.
+Warning: Teleporting vehicle 'flow0.34'; waited too long, from edge 'start0':0, time 87.02.
+Warning: Teleporting vehicle 'flow1.38'; waited too long, from edge 'start1':0, time 87.02.
+Warning: Vehicle 'flow0.28' teleports beyond arrival edge 'dest', time 483.12.
+Warning: Vehicle 'flow1.32' teleports beyond arrival edge 'dest', time 483.12.
+Warning: Teleporting vehicle 'flow3.19'; waited too long, from edge 'start3':0, time 88.00.
+Warning: Teleporting vehicle 'flow0.35'; waited too long, from edge 'start0':0, time 88.02.
+Warning: Teleporting vehicle 'flow1.39'; waited too long, from edge 'start1':0, time 88.03.
+Warning: Vehicle 'flow3.13' ends teleporting on edge 'dest':0, time 88.85.
+Warning: Vehicle 'flow0.29' teleports beyond arrival edge 'dest', time 484.12.
+Warning: Vehicle 'flow1.33' teleports beyond arrival edge 'dest', time 484.13.
+Warning: Teleporting vehicle 'flow3.20'; waited too long, from edge 'start3':0, time 89.00.
+Warning: Teleporting vehicle 'flow0.36'; waited too long, from edge 'start0':0, time 89.02.
+Warning: Teleporting vehicle 'flow1.40'; waited too long, from edge 'start1':0, time 89.03.
+Warning: Vehicle 'flow3.14' teleports beyond arrival edge 'dest', time 485.10.
+Warning: Vehicle 'flow0.30' teleports beyond arrival edge 'dest', time 485.12.
+Warning: Vehicle 'flow1.34' teleports beyond arrival edge 'dest', time 485.13.
+Warning: Teleporting vehicle 'flow3.21'; waited too long, from edge 'start3':0, time 90.00.
+Warning: Teleporting vehicle 'flow0.37'; waited too long, from edge 'start0':0, time 90.02.
+Warning: Teleporting vehicle 'flow1.41'; waited too long, from edge 'start1':0, time 90.03.
+Warning: Vehicle 'flow3.15' teleports beyond arrival edge 'dest', time 486.10.
+Warning: Vehicle 'flow0.31' teleports beyond arrival edge 'dest', time 486.12.
+Warning: Vehicle 'flow1.35' teleports beyond arrival edge 'dest', time 486.13.
+Warning: Teleporting vehicle 'flow3.22'; waited too long, from edge 'start3':0, time 91.00.
+Warning: Teleporting vehicle 'flow0.38'; waited too long, from edge 'start0':0, time 91.02.
+Warning: Teleporting vehicle 'flow1.42'; waited too long, from edge 'start1':0, time 91.03.
+Warning: Vehicle 'flow3.16' teleports beyond arrival edge 'dest', time 487.10.
+Warning: Vehicle 'flow0.32' teleports beyond arrival edge 'dest', time 487.12.
+Warning: Vehicle 'flow1.36' teleports beyond arrival edge 'dest', time 487.13.
+Warning: Teleporting vehicle 'flow3.23'; waited too long, from edge 'start3':0, time 92.00.
+Warning: Teleporting vehicle 'flow0.39'; waited too long, from edge 'start0':0, time 92.02.
+Warning: Teleporting vehicle 'flow1.43'; waited too long, from edge 'start1':0, time 92.03.
+Warning: Vehicle 'flow3.17' ends teleporting on edge 'dest':0, time 92.85.
+Warning: Vehicle 'flow0.33' teleports beyond arrival edge 'dest', time 488.12.
+Warning: Vehicle 'flow1.37' teleports beyond arrival edge 'dest', time 488.13.
+Warning: Teleporting vehicle 'flow3.24'; waited too long, from edge 'start3':0, time 93.00.
+Warning: Teleporting vehicle 'flow0.40'; waited too long, from edge 'start0':0, time 93.02.
+Warning: Teleporting vehicle 'flow1.44'; waited too long, from edge 'start1':0, time 93.03.
+Warning: Vehicle 'flow3.18' teleports beyond arrival edge 'dest', time 489.10.
+Warning: Vehicle 'flow0.34' teleports beyond arrival edge 'dest', time 489.12.
+Warning: Vehicle 'flow1.38' teleports beyond arrival edge 'dest', time 489.13.
+Warning: Teleporting vehicle 'flow3.25'; waited too long, from edge 'start3':0, time 94.00.
+Warning: Teleporting vehicle 'flow0.41'; waited too long, from edge 'start0':0, time 94.02.
+Warning: Teleporting vehicle 'flow1.45'; waited too long, from edge 'start1':0, time 94.03.
+Warning: Vehicle 'flow3.19' teleports beyond arrival edge 'dest', time 490.10.
+Warning: Vehicle 'flow0.35' teleports beyond arrival edge 'dest', time 490.12.
+Warning: Vehicle 'flow1.39' teleports beyond arrival edge 'dest', time 490.13.
+Warning: Teleporting vehicle 'flow3.26'; waited too long, from edge 'start3':0, time 95.00.
+Warning: Teleporting vehicle 'flow0.42'; waited too long, from edge 'start0':0, time 95.02.
+Warning: Teleporting vehicle 'flow1.46'; waited too long, from edge 'start1':0, time 95.03.
+Warning: Vehicle 'flow3.20' teleports beyond arrival edge 'dest', time 491.10.
+Warning: Vehicle 'flow0.36' teleports beyond arrival edge 'dest', time 491.12.
+Warning: Vehicle 'flow1.40' teleports beyond arrival edge 'dest', time 491.13.
+Warning: Teleporting vehicle 'flow3.27'; waited too long, from edge 'start3':0, time 96.00.
+Warning: Teleporting vehicle 'flow0.43'; waited too long, from edge 'start0':0, time 96.03.
+Warning: Teleporting vehicle 'flow1.47'; waited too long, from edge 'start1':0, time 96.03.
+Warning: Vehicle 'flow3.21' ends teleporting on edge 'dest':0, time 96.85.
+Warning: Vehicle 'flow0.37' teleports beyond arrival edge 'dest', time 492.13.
+Warning: Vehicle 'flow1.41' teleports beyond arrival edge 'dest', time 492.13.
+Warning: Teleporting vehicle 'flow3.28'; waited too long, from edge 'start3':0, time 97.00.
+Warning: Teleporting vehicle 'flow0.44'; waited too long, from edge 'start0':0, time 97.03.
+Warning: Teleporting vehicle 'flow1.48'; waited too long, from edge 'start1':0, time 97.03.
+Warning: Vehicle 'flow3.22' teleports beyond arrival edge 'dest', time 493.11.
+Warning: Vehicle 'flow0.38' teleports beyond arrival edge 'dest', time 493.13.
+Warning: Vehicle 'flow1.42' teleports beyond arrival edge 'dest', time 493.13.
+Warning: Teleporting vehicle 'flow3.29'; waited too long, from edge 'start3':0, time 98.00.
+Warning: Teleporting vehicle 'flow0.45'; waited too long, from edge 'start0':0, time 98.03.
+Warning: Teleporting vehicle 'flow1.49'; waited too long, from edge 'start1':0, time 98.03.
+Warning: Vehicle 'flow3.23' teleports beyond arrival edge 'dest', time 494.11.
+Warning: Vehicle 'flow0.39' teleports beyond arrival edge 'dest', time 494.13.
+Warning: Vehicle 'flow1.43' teleports beyond arrival edge 'dest', time 494.14.
+Warning: Teleporting vehicle 'flow3.30'; waited too long, from edge 'start3':0, time 99.01.
+Warning: Teleporting vehicle 'flow0.46'; waited too long, from edge 'start0':0, time 99.03.
+Warning: Teleporting vehicle 'flow1.50'; waited too long, from edge 'start1':0, time 99.04.
 Warning: Teleporting vehicle 'flow2.0'; waited too long, from edge 'start2':0, time 99.81.
 Warning: Vehicle 'flow2.0' teleports beyond arrival edge 'dest', time 495.06.
-Warning: Vehicle 'flow0.27' ends teleporting on edge 'dest':0, time 99.99.
-Warning: Vehicle 'flow1.26' teleports beyond arrival edge 'dest', time 495.37.
-Warning: Teleporting vehicle 'flow2.1'; waited too long, from edge 'start2':0, time 100.94.
-Warning: Vehicle 'flow2.1' teleports beyond arrival edge 'dest', time 496.19.
-Warning: Vehicle 'flow0.28' teleports beyond arrival edge 'dest', time 496.24.
-Warning: Vehicle 'flow1.27' teleports beyond arrival edge 'dest', time 496.37.
-Warning: Vehicle 'flow0.29' teleports beyond arrival edge 'dest', time 497.25.
-Warning: Teleporting vehicle 'flow2.2'; waited too long, from edge 'start2':0, time 102.07.
-Warning: Vehicle 'flow2.2' teleports beyond arrival edge 'dest', time 497.32.
-Warning: Vehicle 'flow1.28' teleports beyond arrival edge 'dest', time 497.37.
-Warning: Vehicle 'flow0.30' teleports beyond arrival edge 'dest', time 498.25.
-Warning: Vehicle 'flow1.29' teleports beyond arrival edge 'dest', time 498.37.
-Warning: Teleporting vehicle 'flow2.3'; waited too long, from edge 'start2':0, time 103.20.
-Warning: Vehicle 'flow2.3' teleports beyond arrival edge 'dest', time 498.45.
-Warning: Vehicle 'flow0.31' ends teleporting on edge 'dest':0, time 104.00.
-Warning: Vehicle 'flow1.30' teleports beyond arrival edge 'dest', time 499.37.
-Warning: Teleporting vehicle 'flow2.4'; waited too long, from edge 'start2':0, time 104.33.
-Warning: Vehicle 'flow2.4' teleports beyond arrival edge 'dest', time 499.58.
-Warning: Vehicle 'flow0.32' teleports beyond arrival edge 'dest', time 500.25.
-Warning: Vehicle 'flow3.15' teleports beyond arrival edge 'dest', time 500.35.
-Warning: Vehicle 'flow1.31' teleports beyond arrival edge 'dest', time 500.38.
-Warning: Teleporting vehicle 'flow2.5'; waited too long, from edge 'start2':0, time 105.46.
-Warning: Vehicle 'flow2.5' teleports beyond arrival edge 'dest', time 500.71.
-Warning: Vehicle 'flow0.33' teleports beyond arrival edge 'dest', time 501.25.
-Warning: Vehicle 'flow3.16' teleports beyond arrival edge 'dest', time 501.36.
-Warning: Vehicle 'flow1.32' teleports beyond arrival edge 'dest', time 501.38.
-Warning: Teleporting vehicle 'flow2.6'; waited too long, from edge 'start2':0, time 106.59.
-Warning: Vehicle 'flow2.6' teleports beyond arrival edge 'dest', time 501.84.
-Warning: Teleporting vehicle 'flow0.0'; waited too long, from edge 'start2':0, time 107.72.
-Warning: Vehicle 'flow0.0' teleports beyond arrival edge 'dest', time 502.97.
-Warning: Teleporting vehicle 'flow1.33'; waited too long, from edge 'start1':0, time 107.94.
-Warning: Teleporting vehicle 'flow2.7'; waited too long, from edge 'start2':0, time 108.85.
-Warning: Vehicle 'flow2.7' teleports beyond arrival edge 'dest', time 504.10.
-Warning: Teleporting vehicle 'flow2.8'; waited too long, from edge 'start2':0, time 109.98.
-Warning: Vehicle 'flow2.8' teleports beyond arrival edge 'dest', time 505.23.
-Warning: Teleporting vehicle 'flow2.9'; waited too long, from edge 'start2':0, time 111.11.
-Warning: Vehicle 'flow2.9' teleports beyond arrival edge 'dest', time 506.36.
-Warning: Teleporting vehicle 'flow2.10'; waited too long, from edge 'start2':0, time 112.24.
-Warning: Vehicle 'flow2.10' teleports beyond arrival edge 'dest', time 507.49.
-Warning: Teleporting vehicle 'flow3.0'; waited too long, from edge 'start2':1, time 114.80.
-Warning: Vehicle 'flow3.0' teleports beyond arrival edge 'dest', time 510.05.
-Warning: Vehicle 'flow1.33' ends teleporting on edge 'dest':0, time 114.80.
-Warning: Teleporting vehicle 'flow3.18'; waited too long, from edge 'start3':0, time 116.07.
-Warning: Teleporting vehicle 'flow1.1'; waited too long, from edge 'start2':1, time 122.93.
-Warning: Vehicle 'flow1.1' teleports beyond arrival edge 'dest', time 518.18.
-Warning: Vehicle 'flow3.18' ends teleporting on edge 'dest':0, time 122.93.
-Warning: Teleporting vehicle 'flow3.1'; waited too long, from edge 'start2':1, time 124.06.
-Warning: Vehicle 'flow3.1' teleports beyond arrival edge 'dest', time 519.31.
-Warning: Teleporting vehicle 'flow3.19'; waited too long, from edge 'start3':0, time 124.20.
-Warning: Teleporting vehicle 'flow1.35'; waited too long, from edge 'start1':0, time 124.20.
-Warning: Teleporting vehicle 'flow1.2'; waited too long, from edge 'start2':1, time 131.06.
-Warning: Vehicle 'flow1.2' teleports beyond arrival edge 'dest', time 526.31.
-Warning: Vehicle 'flow3.19' ends teleporting on edge 'dest':0, time 131.06.
-Warning: Vehicle 'flow1.35' teleports beyond arrival edge 'dest', time 526.31.
-Warning: Teleporting vehicle 'flow3.2'; waited too long, from edge 'start2':1, time 132.19.
-Warning: Vehicle 'flow3.2' teleports beyond arrival edge 'dest', time 527.44.
-Warning: Teleporting vehicle 'flow1.36'; waited too long, from edge 'start1':0 to edge 'start2':1, time 132.33.
-Warning: Teleporting vehicle 'flow0.36'; waited too long, from edge 'start0':0 to edge 'start2':1, time 132.33.
-Warning: Teleporting vehicle 'flow1.3'; waited too long, from edge 'start2':1, time 134.06.
-Warning: Vehicle 'flow1.3' teleports beyond arrival edge 'dest', time 529.31.
-Warning: Teleporting vehicle 'flow3.3'; waited too long, from edge 'start2':1, time 135.19.
-Warning: Vehicle 'flow3.3' teleports beyond arrival edge 'dest', time 530.44.
-Warning: Teleporting vehicle 'flow1.4'; waited too long, from edge 'start2':1, time 137.06.
-Warning: Vehicle 'flow1.4' teleports beyond arrival edge 'dest', time 532.31.
-Warning: Teleporting vehicle 'flow3.4'; waited too long, from edge 'start2':1, time 138.19.
-Warning: Vehicle 'flow3.4' teleports beyond arrival edge 'dest', time 533.44.
-Warning: Teleporting vehicle 'flow0.2'; waited too long, from edge 'start2':1, time 139.92.
-Warning: Vehicle 'flow0.2' teleports beyond arrival edge 'dest', time 535.17.
-Warning: Teleporting vehicle 'flow1.37'; waited too long, from edge 'start1':0 to edge 'start2':1, time 140.46.
-Warning: Teleporting vehicle 'flow0.37'; waited too long, from edge 'start0':0 to edge 'start2':1, time 140.46.
-Warning: Teleporting vehicle 'flow1.5'; waited too long, from edge 'start2':1, time 141.05.
-Warning: Vehicle 'flow1.5' teleports beyond arrival edge 'dest', time 536.30.
-Warning: Teleporting vehicle 'flow3.5'; waited too long, from edge 'start2':1, time 142.18.
-Warning: Vehicle 'flow3.5' teleports beyond arrival edge 'dest', time 537.43.
-Warning: Teleporting vehicle 'flow3.6'; waited too long, from edge 'start2':2, time 143.06.
-Warning: Vehicle 'flow3.6' teleports beyond arrival edge 'dest', time 538.31.
-Warning: Teleporting vehicle 'flow1.38'; waited too long, from edge 'start1':0 to edge 'start2':1, time 143.46.
-Warning: Teleporting vehicle 'flow0.38'; waited too long, from edge 'start0':0 to edge 'start2':1, time 143.46.
-Warning: Teleporting vehicle 'flow0.4'; waited too long, from edge 'start2':2, time 145.93.
-Warning: Vehicle 'flow0.4' teleports beyond arrival edge 'dest', time 541.18.
-Warning: Teleporting vehicle 'flow1.39'; waited too long, from edge 'start1':0 to edge 'start2':1, time 146.46.
-Warning: Teleporting vehicle 'flow0.39'; waited too long, from edge 'start0':0 to edge 'start2':1, time 146.46.
-Warning: Teleporting vehicle 'flow3.7'; waited too long, from edge 'start2':2, time 147.06.
-Warning: Vehicle 'flow3.7' teleports beyond arrival edge 'dest', time 542.31.
-Warning: Teleporting vehicle 'flow0.5'; waited too long, from edge 'start2':2, time 148.93.
-Warning: Vehicle 'flow0.5' teleports beyond arrival edge 'dest', time 544.18.
-Warning: Teleporting vehicle 'flow3.21'; waited too long, from edge 'start3':0 to edge 'start2':1, time 149.33.
-Warning: Teleporting vehicle 'flow1.40'; waited too long, from edge 'start1':0 to edge 'start2':1, time 149.46.
-Warning: Teleporting vehicle 'flow0.40'; waited too long, from edge 'start0':0 to edge 'start2':1, time 149.46.
-Warning: Teleporting vehicle 'flow3.8'; waited too long, from edge 'start2':2, time 150.06.
-Warning: Vehicle 'flow3.8' teleports beyond arrival edge 'dest', time 545.31.
-Warning: Teleporting vehicle 'flow0.6'; waited too long, from edge 'start2':2, time 151.93.
-Warning: Vehicle 'flow0.6' teleports beyond arrival edge 'dest', time 547.18.
-Warning: Teleporting vehicle 'flow3.22'; waited too long, from edge 'start3':0 to edge 'start2':1, time 152.33.
-Warning: Teleporting vehicle 'flow1.41'; waited too long, from edge 'start1':0, time 152.46.
-Warning: Teleporting vehicle 'flow3.9'; waited too long, from edge 'start2':2, time 153.06.
-Warning: Vehicle 'flow3.9' teleports beyond arrival edge 'dest', time 548.31.
-Warning: Teleporting vehicle 'flow1.42'; waited too long, from edge 'start1':0, time 153.46.
-Warning: Teleporting vehicle 'flow1.43'; waited too long, from edge 'start1':0, time 154.47.
-Warning: Teleporting vehicle 'flow0.7'; waited too long, from edge 'start2':2, time 154.93.
-Warning: Vehicle 'flow0.7' teleports beyond arrival edge 'dest', time 550.18.
-Warning: Teleporting vehicle 'flow1.44'; waited too long, from edge 'start1':0, time 155.47.
-Warning: Teleporting vehicle 'flow3.10'; waited too long, from edge 'start2':2, time 156.06.
-Warning: Vehicle 'flow3.10' teleports beyond arrival edge 'dest', time 551.31.
-Warning: Teleporting vehicle 'flow1.45'; waited too long, from edge 'start1':0, time 156.47.
-Warning: Teleporting vehicle 'flow1.46'; waited too long, from edge 'start1':0, time 157.47.
-Warning: Teleporting vehicle 'flow0.8'; waited too long, from edge 'start2':2, time 157.93.
-Warning: Vehicle 'flow0.8' teleports beyond arrival edge 'dest', time 553.18.
-Warning: Teleporting vehicle 'flow1.47'; waited too long, from edge 'start1':0, time 158.47.
-Warning: Teleporting vehicle 'flow3.11'; waited too long, from edge 'start2':2, time 159.06.
-Warning: Vehicle 'flow3.11' teleports beyond arrival edge 'dest', time 554.31.
-Warning: Vehicle 'flow1.41' ends teleporting on edge 'dest':0, time 159.32.
-Warning: Teleporting vehicle 'flow1.48'; waited too long, from edge 'start1':0 to edge 'start2':2, time 159.47.
-Warning: Teleporting vehicle 'flow1.7'; waited too long, from edge 'start2':2, time 160.19.
-Warning: Vehicle 'flow1.7' teleports beyond arrival edge 'dest', time 555.44.
-Warning: Vehicle 'flow1.42' teleports beyond arrival edge 'dest', time 555.57.
-Warning: Teleporting vehicle 'flow0.9'; waited too long, from edge 'start2':2, time 161.32.
-Warning: Vehicle 'flow0.9' teleports beyond arrival edge 'dest', time 556.57.
-Warning: Vehicle 'flow1.43' teleports beyond arrival edge 'dest', time 556.57.
-Warning: Vehicle 'flow1.44' teleports beyond arrival edge 'dest', time 557.57.
-Warning: Teleporting vehicle 'flow3.12'; waited too long, from edge 'start2':2, time 162.45.
-Warning: Vehicle 'flow3.12' teleports beyond arrival edge 'dest', time 557.70.
-Warning: Teleporting vehicle 'flow1.49'; waited too long, from edge 'start1':0 to edge 'start2':2, time 162.47.
-Warning: Vehicle 'flow1.45' teleports beyond arrival edge 'dest', time 558.57.
-Warning: Vehicle 'flow1.46' teleports beyond arrival edge 'dest', time 559.58.
-Warning: Vehicle 'flow1.47' teleports beyond arrival edge 'dest', time 560.58.
-Warning: Teleporting vehicle 'flow1.50'; waited too long, from edge 'start1':0 to edge 'start2':2, time 165.47.
-Warning: Teleporting vehicle 'flow0.41'; waited too long, from edge 'start0':0 to edge 'start2':2, time 166.46.
-Warning: Teleporting vehicle 'flow1.51'; waited too long, from edge 'start1':0 to edge 'start2':2, time 168.47.
-Warning: Teleporting vehicle 'flow3.23'; waited too long, from edge 'start3':0 to edge 'start2':2, time 169.32.
-Warning: Teleporting vehicle 'flow0.42'; waited too long, from edge 'start0':0 to edge 'start2':2, time 169.46.
-Warning: Teleporting vehicle 'flow1.52'; waited too long, from edge 'start1':0 to edge 'start2':2, time 171.47.
-Warning: Teleporting vehicle 'flow3.24'; waited too long, from edge 'start3':0 to edge 'start2':2, time 172.32.
-Warning: Teleporting vehicle 'flow0.43'; waited too long, from edge 'start0':0 to edge 'start2':2, time 172.46.
-Warning: Teleporting vehicle 'flow1.53'; waited too long, from edge 'start1':0 to edge 'start2':2, time 174.47.
-Warning: Teleporting vehicle 'flow3.25'; waited too long, from edge 'start3':0 to edge 'start2':2, time 175.32.
-Warning: Teleporting vehicle 'flow0.44'; waited too long, from edge 'start0':0 to edge 'start2':3, time 175.46.
-Warning: Teleporting vehicle 'flow1.54'; waited too long, from edge 'start1':0 to edge 'start2':3, time 177.48.
-Warning: Teleporting vehicle 'flow0.45'; waited too long, from edge 'start0':0 to edge 'start2':3, time 178.46.
-Warning: Teleporting vehicle 'flow1.55'; waited too long, from edge 'start1':0 to edge 'start2':3, time 180.48.
-Warning: Teleporting vehicle 'flow0.46'; waited too long, from edge 'start0':0 to edge 'start2':3, time 181.46.
-Warning: Teleporting vehicle 'flow1.56'; waited too long, from edge 'start1':0 to edge 'start2':3, time 183.48.
-Warning: Teleporting vehicle 'flow0.47'; waited too long, from edge 'start0':0 to edge 'start2':3, time 184.46.
-Warning: Teleporting vehicle 'flow3.26'; waited too long, from edge 'start3':0 to edge 'start2':3, time 192.32.
-Warning: Teleporting vehicle 'flow3.27'; waited too long, from edge 'start3':0 to edge 'start2':3, time 195.32.
-Warning: Teleporting vehicle 'flow3.28'; waited too long, from edge 'start3':0 to edge 'start2':3, time 198.32.
-Warning: Teleporting vehicle 'flow0.34'; waited too long, from edge 'start2':0 to edge 'start2':3, time 199.63.
-Warning: Teleporting vehicle 'flow3.29'; waited too long, from edge 'start3':0 to edge 'start2':3, time 207.76.
-Warning: Teleporting vehicle 'flow0.48'; waited too long, from edge 'start0':0 to edge 'start2':3, time 207.76.
-Warning: Teleporting vehicle 'flow3.30'; waited too long, from edge 'start3':0 to edge 'start2':3, time 210.76.
-Warning: Teleporting vehicle 'flow0.49'; waited too long, from edge 'start0':0 to edge 'start2':3, time 210.76.
-Warning: Teleporting vehicle 'flow3.31'; waited too long, from edge 'start3':0, time 213.76.
-Warning: Teleporting vehicle 'flow1.0'; waited too long, from edge 'start2':1, time 214.61.
-Warning: Vehicle 'flow1.0' teleports beyond arrival edge 'dest', time 609.86.
-Warning: Teleporting vehicle 'flow3.32'; waited too long, from edge 'start3':0 to edge 'start2':1, time 214.76.
-Warning: Teleporting vehicle 'flow2.11'; waited too long, from edge 'start2':0, time 216.62.
-Warning: Vehicle 'flow2.11' teleports beyond arrival edge 'dest', time 611.87.
-Warning: Teleporting vehicle 'flow2.12'; waited too long, from edge 'start2':0, time 217.62.
-Warning: Vehicle 'flow2.12' teleports beyond arrival edge 'dest', time 612.87.
-Warning: Teleporting vehicle 'flow2.13'; waited too long, from edge 'start2':0, time 218.62.
-Warning: Vehicle 'flow2.13' teleports beyond arrival edge 'dest', time 613.88.
-Warning: Teleporting vehicle 'flow2.14'; waited too long, from edge 'start2':0, time 219.63.
-Warning: Vehicle 'flow2.14' teleports beyond arrival edge 'dest', time 614.88.
-Warning: Vehicle 'flow3.31' ends teleporting on edge 'dest':0, time 220.62.
-Warning: Teleporting vehicle 'flow3.17'; waited too long, from edge 'start2':0, time 220.63.
-Warning: Vehicle 'flow3.17' teleports beyond arrival edge 'dest', time 615.88.
-Warning: Teleporting vehicle 'flow2.15'; waited too long, from edge 'start2':0, time 221.63.
-Warning: Vehicle 'flow2.15' teleports beyond arrival edge 'dest', time 616.88.
-Warning: Teleporting vehicle 'flow2.16'; waited too long, from edge 'start2':0, time 222.63.
-Warning: Vehicle 'flow2.16' teleports beyond arrival edge 'dest', time 617.88.
-Warning: Teleporting vehicle 'flow0.1'; waited too long, from edge 'start2':1, time 222.74.
-Warning: Vehicle 'flow0.1' teleports beyond arrival edge 'dest', time 617.99.
-Warning: Teleporting vehicle 'flow2.18'; waited too long, from edge 'start2':0, time 231.87.
-Warning: Vehicle 'flow2.18' teleports beyond arrival edge 'dest', time 627.12.
-Warning: Teleporting vehicle 'flow1.36'; waited too long, from edge 'start2':1, time 232.14.
-Warning: Vehicle 'flow1.36' teleports beyond arrival edge 'dest', time 627.39.
-Warning: Teleporting vehicle 'flow0.36'; waited too long, from edge 'start2':1, time 233.27.
-Warning: Vehicle 'flow0.36' teleports beyond arrival edge 'dest', time 628.52.
-Warning: Teleporting vehicle 'flow3.33'; waited too long, from edge 'start3':0, time 234.88.
-Warning: Teleporting vehicle 'flow1.59'; waited too long, from edge 'start1':0, time 234.88.
-Warning: Teleporting vehicle 'flow1.37'; waited too long, from edge 'start2':1, time 240.27.
-Warning: Vehicle 'flow1.37' teleports beyond arrival edge 'dest', time 635.52.
-Warning: Teleporting vehicle 'flow0.37'; waited too long, from edge 'start2':1, time 241.40.
-Warning: Vehicle 'flow0.37' teleports beyond arrival edge 'dest', time 636.65.
-Warning: Vehicle 'flow3.33' ends teleporting on edge 'dest':0, time 241.74.
-Warning: Vehicle 'flow1.59' teleports beyond arrival edge 'dest', time 636.99.
-Warning: Teleporting vehicle 'flow0.3'; waited too long, from edge 'start2':2, time 242.88.
-Warning: Vehicle 'flow0.3' teleports beyond arrival edge 'dest', time 638.12.
-Warning: Teleporting vehicle 'flow1.60'; waited too long, from edge 'start1':0, time 243.01.
-Warning: Teleporting vehicle 'flow0.52'; waited too long, from edge 'start0':0, time 243.01.
-Warning: Vehicle 'flow1.60' ends teleporting on edge 'dest':0, time 249.87.
-Warning: Vehicle 'flow0.52' teleports beyond arrival edge 'dest', time 645.12.
-Warning: Teleporting vehicle 'flow1.6'; waited too long, from edge 'start2':2, time 251.00.
-Warning: Vehicle 'flow1.6' teleports beyond arrival edge 'dest', time 646.25.
-Warning: Teleporting vehicle 'flow0.53'; waited too long, from edge 'start0':0, time 251.14.
-Warning: Teleporting vehicle 'flow3.35'; waited too long, from edge 'start3':0, time 251.14.
-Warning: Vehicle 'flow0.53' ends teleporting on edge 'dest':0, time 258.00.
-Warning: Vehicle 'flow3.35' teleports beyond arrival edge 'dest', time 653.25.
-Warning: Teleporting vehicle 'flow3.36'; waited too long, from edge 'start3':0, time 259.27.
-Warning: Teleporting vehicle 'flow1.62'; waited too long, from edge 'start1':0, time 259.27.
-Warning: Teleporting vehicle 'flow1.48'; waited too long, from edge 'start2':2, time 259.28.
-Warning: Vehicle 'flow1.48' teleports beyond arrival edge 'dest', time 654.53.
-Warning: Teleporting vehicle 'flow1.49'; waited too long, from edge 'start2':2, time 262.28.
-Warning: Vehicle 'flow1.49' teleports beyond arrival edge 'dest', time 657.53.
-Warning: Teleporting vehicle 'flow1.50'; waited too long, from edge 'start2':2, time 265.29.
-Warning: Vehicle 'flow1.50' teleports beyond arrival edge 'dest', time 660.53.
-Warning: Vehicle 'flow3.36' ends teleporting on edge 'dest':0, time 266.13.
-Warning: Vehicle 'flow1.62' teleports beyond arrival edge 'dest', time 661.38.
-Warning: Teleporting vehicle 'flow0.41'; waited too long, from edge 'start2':2, time 266.42.
-Warning: Vehicle 'flow0.41' teleports beyond arrival edge 'dest', time 661.66.
-Warning: Teleporting vehicle 'flow1.63'; waited too long, from edge 'start1':0 to edge 'start2':1, time 267.40.
-Warning: Teleporting vehicle 'flow0.55'; waited too long, from edge 'start0':0 to edge 'start2':1, time 267.40.
-Warning: Teleporting vehicle 'flow1.51'; waited too long, from edge 'start2':2, time 268.29.
-Warning: Vehicle 'flow1.51' teleports beyond arrival edge 'dest', time 663.54.
-Warning: Teleporting vehicle 'flow3.23'; waited too long, from edge 'start2':2, time 269.42.
-Warning: Vehicle 'flow3.23' teleports beyond arrival edge 'dest', time 664.67.
-Warning: Teleporting vehicle 'flow0.42'; waited too long, from edge 'start2':2, time 270.55.
-Warning: Vehicle 'flow0.42' teleports beyond arrival edge 'dest', time 665.80.
-Warning: Teleporting vehicle 'flow1.52'; waited too long, from edge 'start2':2, time 271.68.
-Warning: Vehicle 'flow1.52' teleports beyond arrival edge 'dest', time 666.93.
-Warning: Teleporting vehicle 'flow3.24'; waited too long, from edge 'start2':2, time 272.81.
-Warning: Vehicle 'flow3.24' teleports beyond arrival edge 'dest', time 668.06.
-Warning: Teleporting vehicle 'flow0.43'; waited too long, from edge 'start2':2, time 273.94.
-Warning: Vehicle 'flow0.43' teleports beyond arrival edge 'dest', time 669.19.
-Warning: Teleporting vehicle 'flow1.64'; waited too long, from edge 'start1':0 to edge 'start2':1, time 275.53.
-Warning: Teleporting vehicle 'flow0.56'; waited too long, from edge 'start0':0 to edge 'start2':1, time 275.53.
-Warning: Teleporting vehicle 'flow1.65'; waited too long, from edge 'start1':0 to edge 'start2':1, time 278.53.
-Warning: Teleporting vehicle 'flow3.38'; waited too long, from edge 'start3':0 to edge 'start2':1, time 284.39.
-Warning: Teleporting vehicle 'flow0.57'; waited too long, from edge 'start0':0 to edge 'start2':1, time 292.52.
-Warning: Teleporting vehicle 'flow1.66'; waited too long, from edge 'start1':0 to edge 'start2':3, time 295.52.
-Warning: Teleporting vehicle 'flow1.67'; waited too long, from edge 'start1':0 to edge 'start2':3, time 298.52.
-Warning: Teleporting vehicle 'flow1.57'; waited too long, from edge 'start2':0 to edge 'start2':3, time 299.44.
-Warning: Teleporting vehicle 'flow1.68'; waited too long, from edge 'start1':0 to edge 'start2':1, time 308.52.
-Warning: Teleporting vehicle 'flow0.58'; waited too long, from edge 'start0':0 to edge 'start2':2, time 309.52.
-Warning: Teleporting vehicle 'flow0.59'; waited too long, from edge 'start0':0 to edge 'start2':2, time 312.52.
-Warning: Teleporting vehicle 'flow3.40'; waited too long, from edge 'start3':0 to edge 'start2':1, time 323.57.
-Warning: Teleporting vehicle 'flow1.69'; waited too long, from edge 'start1':0 to edge 'start2':3, time 325.51.
-Warning: Teleporting vehicle 'flow1.70'; waited too long, from edge 'start1':0 to edge 'start2':3, time 328.51.
-Warning: Teleporting vehicle 'flow1.71'; waited too long, from edge 'start1':0 to edge 'start2':1, time 339.56.
-Warning: Teleporting vehicle 'flow3.41'; waited too long, from edge 'start3':0 to edge 'start2':3, time 340.56.
-Warning: Teleporting vehicle 'flow3.42'; waited too long, from edge 'start3':0, time 343.56.
-Warning: Teleporting vehicle 'flow3.43'; waited too long, from edge 'start3':0, time 344.56.
-Warning: Teleporting vehicle 'flow3.44'; waited too long, from edge 'start3':0, time 345.56.
-Warning: Teleporting vehicle 'flow3.45'; waited too long, from edge 'start3':0, time 346.57.
-Warning: Teleporting vehicle 'flow3.46'; waited too long, from edge 'start3':0 to edge 'start2':2, time 347.57.
-Warning: Teleporting vehicle 'flow2.21'; waited too long, from edge 'start2':0, time 348.43.
-Warning: Vehicle 'flow2.21' teleports beyond arrival edge 'dest', time 743.68.
-Warning: Teleporting vehicle 'flow2.22'; waited too long, from edge 'start2':0, time 349.43.
-Warning: Vehicle 'flow2.22' teleports beyond arrival edge 'dest', time 744.68.
-Warning: Vehicle 'flow3.42' ends teleporting on edge 'dest':0, time 350.42.
-Warning: Teleporting vehicle 'flow2.23'; waited too long, from edge 'start2':0 to edge 'start2':2, time 350.43.
-Warning: Vehicle 'flow3.43' teleports beyond arrival edge 'dest', time 746.67.
-Warning: Vehicle 'flow3.44' teleports beyond arrival edge 'dest', time 747.67.
-Warning: Vehicle 'flow3.45' teleports beyond arrival edge 'dest', time 748.67.
-Warning: Teleporting vehicle 'flow3.47'; waited too long, from edge 'start3':0 to edge 'start2':2, time 364.69.
-Warning: Teleporting vehicle 'flow0.63'; waited too long, from edge 'start0':0, time 365.42.
-Warning: Teleporting vehicle 'flow0.64'; waited too long, from edge 'start0':0 to edge 'start2':2, time 366.43.
-Warning: Teleporting vehicle 'flow3.20'; waited too long, from edge 'start2':1, time 372.08.
-Warning: Vehicle 'flow3.20' teleports beyond arrival edge 'dest', time 767.33.
-Warning: Vehicle 'flow0.63' ends teleporting on edge 'dest':0, time 372.28.
-Warning: Teleporting vehicle 'flow1.63'; waited too long, from edge 'start2':1, time 373.08.
-Warning: Vehicle 'flow1.63' teleports beyond arrival edge 'dest', time 768.33.
-Warning: Teleporting vehicle 'flow1.73'; waited too long, from edge 'start1':0 to edge 'start2':1, time 373.55.
-Warning: Teleporting vehicle 'flow0.55'; waited too long, from edge 'start2':1, time 374.08.
-Warning: Vehicle 'flow0.55' teleports beyond arrival edge 'dest', time 769.33.
-Warning: Teleporting vehicle 'flow0.65'; waited too long, from edge 'start0':0, time 383.68.
-Warning: Vehicle 'flow0.65' ends teleporting on edge 'dest':0, time 390.54.
-Warning: Teleporting vehicle 'flow0.57'; waited too long, from edge 'start2':1 to edge 'start2':3, time 407.88.
-Warning: Teleporting vehicle 'flow3.52'; waited too long, from edge 'start3':0 to edge 'start2':1, time 481.23.
-Warning: Teleporting vehicle 'flow0.70'; waited too long, from edge 'start0':0 to edge 'start2':1, time 481.97.
-Warning: Teleporting vehicle 'flow3.53'; waited too long, from edge 'start3':0, time 484.23.
-Warning: Teleporting vehicle 'flow3.54'; waited too long, from edge 'start3':0, time 485.23.
-Warning: Teleporting vehicle 'flow3.55'; waited too long, from edge 'start3':0, time 486.23.
-Warning: Teleporting vehicle 'flow3.56'; waited too long, from edge 'start3':0, time 487.23.
-Warning: Teleporting vehicle 'flow3.57'; waited too long, from edge 'start3':0, time 488.24.
-Warning: Vehicle 'flow3.53' teleports beyond arrival edge 'dest', time 886.34.
-Warning: Vehicle 'flow3.54' teleports beyond arrival edge 'dest', time 887.34.
-Warning: Vehicle 'flow3.55' ends teleporting on edge 'dest':0, time 493.09.
-Warning: Vehicle 'flow3.56' teleports beyond arrival edge 'dest', time 889.34.
-Warning: Vehicle 'flow3.57' teleports beyond arrival edge 'dest', time 890.34.
-Warning: Teleporting vehicle 'flow1.79'; waited too long, from edge 'start1':0 to edge 'start2':1, time 496.75.
-Warning: Teleporting vehicle 'flow0.71'; waited too long, from edge 'start0':0, time 498.96.
+Warning: Vehicle 'flow3.24' teleports beyond arrival edge 'dest', time 495.11.
+Warning: Vehicle 'flow0.40' teleports beyond arrival edge 'dest', time 495.13.
+Warning: Vehicle 'flow1.44' teleports beyond arrival edge 'dest', time 495.14.
+Warning: Vehicle 'flow3.25' ends teleporting on edge 'dest':0, time 100.86.
+Warning: Vehicle 'flow0.41' teleports beyond arrival edge 'dest', time 496.13.
+Warning: Vehicle 'flow1.45' teleports beyond arrival edge 'dest', time 496.14.
+Warning: Vehicle 'flow3.26' teleports beyond arrival edge 'dest', time 497.11.
+Warning: Vehicle 'flow0.42' teleports beyond arrival edge 'dest', time 497.13.
+Warning: Vehicle 'flow1.46' teleports beyond arrival edge 'dest', time 497.14.
+Warning: Vehicle 'flow3.27' teleports beyond arrival edge 'dest', time 498.11.
+Warning: Vehicle 'flow0.43' teleports beyond arrival edge 'dest', time 498.13.
+Warning: Vehicle 'flow1.47' teleports beyond arrival edge 'dest', time 498.14.
+Warning: Vehicle 'flow3.28' teleports beyond arrival edge 'dest', time 499.11.
+Warning: Vehicle 'flow0.44' teleports beyond arrival edge 'dest', time 499.13.
+Warning: Vehicle 'flow1.48' teleports beyond arrival edge 'dest', time 499.14.
+Warning: Vehicle 'flow3.29' ends teleporting on edge 'dest':0, time 104.86.
+Warning: Vehicle 'flow0.45' teleports beyond arrival edge 'dest', time 500.13.
+Warning: Vehicle 'flow1.49' teleports beyond arrival edge 'dest', time 500.14.
+Warning: Vehicle 'flow3.30' teleports beyond arrival edge 'dest', time 501.11.
+Warning: Vehicle 'flow0.46' teleports beyond arrival edge 'dest', time 501.13.
+Warning: Vehicle 'flow1.50' teleports beyond arrival edge 'dest', time 501.14.
+Warning: Teleporting vehicle 'flow0.47'; waited too long, from edge 'start0':0, time 107.94.
+Warning: Teleporting vehicle 'flow1.51'; waited too long, from edge 'start1':0, time 107.94.
+Warning: Teleporting vehicle 'flow2.1'; waited too long, from edge 'start2':0, time 107.94.
+Warning: Vehicle 'flow2.1' teleports beyond arrival edge 'dest', time 503.19.
+Warning: Teleporting vehicle 'flow1.0'; waited too long, from edge 'start2':1, time 114.80.
+Warning: Vehicle 'flow1.0' teleports beyond arrival edge 'dest', time 510.05.
+Warning: Vehicle 'flow0.47' ends teleporting on edge 'dest':0, time 114.80.
+Warning: Vehicle 'flow1.51' teleports beyond arrival edge 'dest', time 510.05.
+Warning: Teleporting vehicle 'flow1.52'; waited too long, from edge 'start1':0, time 116.07.
+Warning: Teleporting vehicle 'flow3.32'; waited too long, from edge 'start3':0, time 116.81.
+Warning: Teleporting vehicle 'flow1.53'; waited too long, from edge 'start1':0, time 117.07.
+Warning: Teleporting vehicle 'flow3.33'; waited too long, from edge 'start3':0, time 117.81.
+Warning: Teleporting vehicle 'flow1.54'; waited too long, from edge 'start1':0, time 118.07.
+Warning: Teleporting vehicle 'flow3.34'; waited too long, from edge 'start3':0, time 118.81.
+Warning: Teleporting vehicle 'flow1.55'; waited too long, from edge 'start1':0, time 119.08.
+Warning: Teleporting vehicle 'flow3.35'; waited too long, from edge 'start3':0, time 119.81.
+Warning: Teleporting vehicle 'flow1.56'; waited too long, from edge 'start1':0, time 120.08.
+Warning: Teleporting vehicle 'flow3.36'; waited too long, from edge 'start3':0, time 120.81.
+Warning: Teleporting vehicle 'flow1.57'; waited too long, from edge 'start1':0, time 121.08.
+Warning: Teleporting vehicle 'flow3.37'; waited too long, from edge 'start3':0, time 121.81.
+Warning: Teleporting vehicle 'flow1.58'; waited too long, from edge 'start1':0, time 122.08.
+Warning: Teleporting vehicle 'flow3.38'; waited too long, from edge 'start3':0, time 122.82.
+Warning: Vehicle 'flow1.52' ends teleporting on edge 'dest':0, time 122.93.
+Warning: Teleporting vehicle 'flow3.0'; waited too long, from edge 'start2':1, time 122.93.
+Warning: Vehicle 'flow3.0' teleports beyond arrival edge 'dest', time 518.18.
+Warning: Teleporting vehicle 'flow1.59'; waited too long, from edge 'start1':0, time 123.08.
+Warning: Vehicle 'flow3.32' teleports beyond arrival edge 'dest', time 518.92.
+Warning: Teleporting vehicle 'flow3.39'; waited too long, from edge 'start3':0 to edge 'start2':1, time 123.82.
+Warning: Vehicle 'flow1.53' teleports beyond arrival edge 'dest', time 519.18.
+Warning: Teleporting vehicle 'flow1.60'; waited too long, from edge 'start1':0, time 124.08.
+Warning: Vehicle 'flow3.33' teleports beyond arrival edge 'dest', time 519.92.
+Warning: Vehicle 'flow1.54' teleports beyond arrival edge 'dest', time 520.18.
+Warning: Teleporting vehicle 'flow0.49'; waited too long, from edge 'start0':0, time 124.94.
+Warning: Teleporting vehicle 'flow1.61'; waited too long, from edge 'start1':0, time 125.08.
+Warning: Vehicle 'flow3.34' teleports beyond arrival edge 'dest', time 520.92.
+Warning: Vehicle 'flow1.55' teleports beyond arrival edge 'dest', time 521.18.
+Warning: Teleporting vehicle 'flow0.50'; waited too long, from edge 'start0':0, time 125.94.
+Warning: Teleporting vehicle 'flow1.62'; waited too long, from edge 'start1':0, time 126.08.
+Warning: Vehicle 'flow3.35' ends teleporting on edge 'dest':0, time 126.67.
+Warning: Vehicle 'flow1.56' teleports beyond arrival edge 'dest', time 522.18.
+Warning: Teleporting vehicle 'flow0.51'; waited too long, from edge 'start0':0, time 126.94.
+Warning: Teleporting vehicle 'flow1.63'; waited too long, from edge 'start1':0, time 127.08.
+Warning: Vehicle 'flow3.36' teleports beyond arrival edge 'dest', time 522.92.
+Warning: Teleporting vehicle 'flow0.5'; waited too long, from edge 'start2':2, time 127.81.
+Warning: Vehicle 'flow0.5' teleports beyond arrival edge 'dest', time 523.05.
+Warning: Vehicle 'flow1.57' teleports beyond arrival edge 'dest', time 523.18.
+Warning: Teleporting vehicle 'flow0.52'; waited too long, from edge 'start0':0 to edge 'start2':2, time 127.94.
+Warning: Teleporting vehicle 'flow1.64'; waited too long, from edge 'start1':0, time 128.08.
+Warning: Vehicle 'flow3.37' teleports beyond arrival edge 'dest', time 523.92.
+Warning: Vehicle 'flow1.58' teleports beyond arrival edge 'dest', time 524.18.
+Warning: Teleporting vehicle 'flow1.65'; waited too long, from edge 'start1':0, time 129.09.
+Warning: Vehicle 'flow3.38' teleports beyond arrival edge 'dest', time 524.92.
+Warning: Vehicle 'flow1.59' teleports beyond arrival edge 'dest', time 525.19.
+Warning: Teleporting vehicle 'flow1.66'; waited too long, from edge 'start1':0, time 130.09.
+Warning: Vehicle 'flow1.60' ends teleporting on edge 'dest':0, time 130.94.
+Warning: Teleporting vehicle 'flow0.1'; waited too long, from edge 'start2':1, time 131.06.
+Warning: Vehicle 'flow0.1' teleports beyond arrival edge 'dest', time 526.31.
+Warning: Vehicle 'flow0.49' teleports beyond arrival edge 'dest', time 527.05.
+Warning: Vehicle 'flow1.61' teleports beyond arrival edge 'dest', time 527.19.
+Warning: Vehicle 'flow0.50' teleports beyond arrival edge 'dest', time 528.05.
+Warning: Vehicle 'flow1.62' teleports beyond arrival edge 'dest', time 528.19.
+Warning: Vehicle 'flow0.51' teleports beyond arrival edge 'dest', time 529.05.
+Warning: Vehicle 'flow1.63' teleports beyond arrival edge 'dest', time 529.19.
+Warning: Vehicle 'flow1.64' ends teleporting on edge 'dest':0, time 134.94.
+Warning: Teleporting vehicle 'flow1.5'; waited too long, from edge 'start2':2, time 135.94.
+Warning: Vehicle 'flow1.5' teleports beyond arrival edge 'dest', time 531.18.
+Warning: Vehicle 'flow1.65' teleports beyond arrival edge 'dest', time 531.19.
+Warning: Vehicle 'flow1.66' teleports beyond arrival edge 'dest', time 532.19.
+Warning: Teleporting vehicle 'flow3.40'; waited too long, from edge 'start3':0 to edge 'start2':1, time 140.81.
+Warning: Teleporting vehicle 'flow0.6'; waited too long, from edge 'start2':2, time 144.06.
+Warning: Vehicle 'flow0.6' teleports beyond arrival edge 'dest', time 539.32.
+Warning: Teleporting vehicle 'flow0.53'; waited too long, from edge 'start0':0, time 144.94.
+Warning: Teleporting vehicle 'flow0.54'; waited too long, from edge 'start0':0 to edge 'start2':3, time 145.94.
+Warning: Teleporting vehicle 'flow2.4'; waited too long, from edge 'start2':0 to edge 'start2':2, time 148.06.
+Warning: Vehicle 'flow0.53' ends teleporting on edge 'dest':0, time 151.79.
+Warning: Teleporting vehicle 'flow1.6'; waited too long, from edge 'start2':2, time 152.19.
+Warning: Vehicle 'flow1.6' teleports beyond arrival edge 'dest', time 547.45.
+Warning: Teleporting vehicle 'flow3.41'; waited too long, from edge 'start3':0 to edge 'start2':1, time 157.81.
+Warning: Teleporting vehicle 'flow0.55'; waited too long, from edge 'start0':0 to edge 'start2':1, time 162.94.
+Warning: Teleporting vehicle 'flow2.5'; waited too long, from edge 'start2':0, time 165.06.
+Warning: Vehicle 'flow2.5' teleports beyond arrival edge 'dest', time 560.31.
+Warning: Teleporting vehicle 'flow2.6'; waited too long, from edge 'start2':0, time 166.06.
+Warning: Vehicle 'flow2.6' teleports beyond arrival edge 'dest', time 561.31.
+Warning: Teleporting vehicle 'flow0.0'; waited too long, from edge 'start2':0, time 167.06.
+Warning: Vehicle 'flow0.0' teleports beyond arrival edge 'dest', time 562.31.
+Warning: Teleporting vehicle 'flow2.7'; waited too long, from edge 'start2':0, time 168.06.
+Warning: Vehicle 'flow2.7' teleports beyond arrival edge 'dest', time 563.31.
+Warning: Teleporting vehicle 'flow3.42'; waited too long, from edge 'start3':0, time 174.81.
+Warning: Teleporting vehicle 'flow3.43'; waited too long, from edge 'start3':0, time 175.81.
+Warning: Teleporting vehicle 'flow3.44'; waited too long, from edge 'start3':0, time 176.81.
+Warning: Teleporting vehicle 'flow3.45'; waited too long, from edge 'start3':0, time 177.81.
+Warning: Teleporting vehicle 'flow3.46'; waited too long, from edge 'start3':0, time 178.81.
+Warning: Teleporting vehicle 'flow3.47'; waited too long, from edge 'start3':0, time 179.81.
+Warning: Teleporting vehicle 'flow0.56'; waited too long, from edge 'start0':0, time 179.93.
+Warning: Teleporting vehicle 'flow3.48'; waited too long, from edge 'start3':0 to edge 'start2':1, time 180.81.
+Warning: Teleporting vehicle 'flow0.57'; waited too long, from edge 'start0':0, time 180.93.
+Warning: Vehicle 'flow3.42' teleports beyond arrival edge 'dest', time 576.91.
+Warning: Teleporting vehicle 'flow0.58'; waited too long, from edge 'start0':0, time 181.93.
+Warning: Teleporting vehicle 'flow1.70'; waited too long, from edge 'start1':0, time 182.06.
+Warning: Vehicle 'flow3.43' ends teleporting on edge 'dest':0, time 182.66.
+Warning: Teleporting vehicle 'flow0.59'; waited too long, from edge 'start0':0, time 182.93.
+Warning: Teleporting vehicle 'flow1.71'; waited too long, from edge 'start1':0, time 183.06.
+Warning: Vehicle 'flow3.44' teleports beyond arrival edge 'dest', time 578.91.
+Warning: Teleporting vehicle 'flow0.60'; waited too long, from edge 'start0':0, time 183.94.
+Warning: Teleporting vehicle 'flow1.72'; waited too long, from edge 'start1':0, time 184.06.
+Warning: Vehicle 'flow3.45' teleports beyond arrival edge 'dest', time 579.91.
+Warning: Teleporting vehicle 'flow0.61'; waited too long, from edge 'start0':0, time 184.94.
+Warning: Teleporting vehicle 'flow1.73'; waited too long, from edge 'start1':0, time 185.06.
+Warning: Vehicle 'flow3.46' teleports beyond arrival edge 'dest', time 580.92.
+Warning: Teleporting vehicle 'flow0.62'; waited too long, from edge 'start0':0, time 185.94.
+Warning: Teleporting vehicle 'flow1.74'; waited too long, from edge 'start1':0, time 186.06.
+Warning: Vehicle 'flow3.47' teleports beyond arrival edge 'dest', time 581.92.
+Warning: Vehicle 'flow0.56' teleports beyond arrival edge 'dest', time 582.04.
+Warning: Teleporting vehicle 'flow0.63'; waited too long, from edge 'start0':0 to edge 'start2':1, time 186.94.
+Warning: Teleporting vehicle 'flow1.75'; waited too long, from edge 'start1':0, time 187.06.
+Warning: Vehicle 'flow0.57' teleports beyond arrival edge 'dest', time 583.04.
+Warning: Teleporting vehicle 'flow1.76'; waited too long, from edge 'start1':0, time 188.06.
+Warning: Vehicle 'flow0.58' teleports beyond arrival edge 'dest', time 584.04.
+Warning: Vehicle 'flow1.70' teleports beyond arrival edge 'dest', time 584.16.
+Warning: Teleporting vehicle 'flow2.9'; waited too long, from edge 'start2':0, time 188.98.
+Warning: Vehicle 'flow2.9' teleports beyond arrival edge 'dest', time 584.23.
+Warning: Vehicle 'flow0.59' teleports beyond arrival edge 'dest', time 585.04.
+Warning: Vehicle 'flow1.71' ends teleporting on edge 'dest':0, time 189.91.
+Warning: Teleporting vehicle 'flow2.10'; waited too long, from edge 'start2':0, time 189.98.
+Warning: Vehicle 'flow2.10' teleports beyond arrival edge 'dest', time 585.23.
+Warning: Vehicle 'flow0.60' teleports beyond arrival edge 'dest', time 586.04.
+Warning: Vehicle 'flow1.72' teleports beyond arrival edge 'dest', time 586.16.
+Warning: Vehicle 'flow0.61' teleports beyond arrival edge 'dest', time 587.04.
+Warning: Vehicle 'flow1.73' teleports beyond arrival edge 'dest', time 587.17.
+Warning: Vehicle 'flow0.62' teleports beyond arrival edge 'dest', time 588.04.
+Warning: Vehicle 'flow1.74' teleports beyond arrival edge 'dest', time 588.17.
+Warning: Vehicle 'flow1.75' ends teleporting on edge 'dest':0, time 193.92.
+Warning: Vehicle 'flow1.76' teleports beyond arrival edge 'dest', time 590.17.
+Warning: Teleporting vehicle 'flow3.49'; waited too long, from edge 'start3':0, time 197.81.
+Warning: Teleporting vehicle 'flow3.50'; waited too long, from edge 'start3':0, time 198.81.
+Warning: Teleporting vehicle 'flow3.51'; waited too long, from edge 'start3':0, time 199.81.
+Warning: Teleporting vehicle 'flow3.52'; waited too long, from edge 'start3':0, time 200.81.
+Warning: Teleporting vehicle 'flow3.53'; waited too long, from edge 'start3':0, time 201.81.
+Warning: Teleporting vehicle 'flow3.54'; waited too long, from edge 'start3':0, time 202.81.
+Warning: Teleporting vehicle 'flow3.55'; waited too long, from edge 'start3':0, time 203.81.
+Warning: Teleporting vehicle 'flow0.64'; waited too long, from edge 'start0':0, time 203.93.
+Warning: Vehicle 'flow3.49' teleports beyond arrival edge 'dest', time 599.91.
+Warning: Teleporting vehicle 'flow3.56'; waited too long, from edge 'start3':0 to edge 'start2':1, time 204.81.
+Warning: Teleporting vehicle 'flow0.65'; waited too long, from edge 'start0':0, time 204.94.
+Warning: Vehicle 'flow3.50' teleports beyond arrival edge 'dest', time 600.91.
+Warning: Teleporting vehicle 'flow0.66'; waited too long, from edge 'start0':0, time 205.94.
+Warning: Teleporting vehicle 'flow1.78'; waited too long, from edge 'start1':0, time 205.97.
+Warning: Vehicle 'flow3.51' ends teleporting on edge 'dest':0, time 206.67.
+Warning: Teleporting vehicle 'flow0.67'; waited too long, from edge 'start0':0, time 206.94.
+Warning: Teleporting vehicle 'flow1.79'; waited too long, from edge 'start1':0, time 206.98.
+Warning: Vehicle 'flow3.52' teleports beyond arrival edge 'dest', time 602.92.
+Warning: Teleporting vehicle 'flow0.68'; waited too long, from edge 'start0':0, time 207.94.
+Warning: Teleporting vehicle 'flow1.80'; waited too long, from edge 'start1':0, time 207.98.
+Warning: Vehicle 'flow3.53' teleports beyond arrival edge 'dest', time 603.92.
+Warning: Teleporting vehicle 'flow0.69'; waited too long, from edge 'start0':0, time 208.94.
+Warning: Teleporting vehicle 'flow1.81'; waited too long, from edge 'start1':0, time 208.98.
+Warning: Vehicle 'flow3.54' teleports beyond arrival edge 'dest', time 604.92.
+Warning: Teleporting vehicle 'flow0.70'; waited too long, from edge 'start0':0, time 209.94.
+Warning: Teleporting vehicle 'flow1.82'; waited too long, from edge 'start1':0, time 209.98.
+Warning: Vehicle 'flow3.55' ends teleporting on edge 'dest':0, time 210.67.
+Warning: Vehicle 'flow0.64' teleports beyond arrival edge 'dest', time 606.04.
+Warning: Teleporting vehicle 'flow0.71'; waited too long, from edge 'start0':0, time 210.94.
+Warning: Teleporting vehicle 'flow1.83'; waited too long, from edge 'start1':0, time 210.98.
+Warning: Vehicle 'flow0.65' teleports beyond arrival edge 'dest', time 607.04.
+Warning: Teleporting vehicle 'flow0.72'; waited too long, from edge 'start0':0 to edge 'start2':1, time 211.94.
+Warning: Teleporting vehicle 'flow1.84'; waited too long, from edge 'start1':0, time 211.98.
+Warning: Vehicle 'flow0.66' teleports beyond arrival edge 'dest', time 608.04.
+Warning: Vehicle 'flow1.78' teleports beyond arrival edge 'dest', time 608.08.
+Warning: Teleporting vehicle 'flow1.85'; waited too long, from edge 'start1':0, time 212.98.
+Warning: Teleporting vehicle 'flow2.12'; waited too long, from edge 'start2':0, time 213.37.
+Warning: Vehicle 'flow2.12' teleports beyond arrival edge 'dest', time 608.62.
+Warning: Vehicle 'flow0.67' teleports beyond arrival edge 'dest', time 609.04.
+Warning: Vehicle 'flow1.79' teleports beyond arrival edge 'dest', time 609.08.
+Warning: Teleporting vehicle 'flow3.31'; waited too long, from edge 'start2':0, time 214.37.
+Warning: Vehicle 'flow3.31' teleports beyond arrival edge 'dest', time 609.62.
+Warning: Vehicle 'flow0.68' teleports beyond arrival edge 'dest', time 610.04.
+Warning: Vehicle 'flow1.80' teleports beyond arrival edge 'dest', time 610.08.
+Warning: Vehicle 'flow0.69' teleports beyond arrival edge 'dest', time 611.05.
+Warning: Vehicle 'flow1.81' teleports beyond arrival edge 'dest', time 611.09.
+Warning: Vehicle 'flow0.70' teleports beyond arrival edge 'dest', time 612.05.
+Warning: Vehicle 'flow1.82' teleports beyond arrival edge 'dest', time 612.09.
+Warning: Vehicle 'flow0.71' ends teleporting on edge 'dest':0, time 217.80.
+Warning: Vehicle 'flow1.83' teleports beyond arrival edge 'dest', time 613.09.
+Warning: Vehicle 'flow1.84' teleports beyond arrival edge 'dest', time 614.09.
+Warning: Vehicle 'flow1.85' teleports beyond arrival edge 'dest', time 615.09.
+Warning: Teleporting vehicle 'flow3.57'; waited too long, from edge 'start3':0, time 221.81.
+Warning: Teleporting vehicle 'flow3.58'; waited too long, from edge 'start3':0, time 222.81.
+Warning: Teleporting vehicle 'flow3.59'; waited too long, from edge 'start3':0, time 223.81.
+Warning: Teleporting vehicle 'flow3.60'; waited too long, from edge 'start3':0, time 224.81.
+Warning: Teleporting vehicle 'flow3.61'; waited too long, from edge 'start3':0, time 225.81.
+Warning: Teleporting vehicle 'flow3.62'; waited too long, from edge 'start3':0, time 226.81.
+Warning: Teleporting vehicle 'flow3.63'; waited too long, from edge 'start3':0, time 227.82.
+Warning: Vehicle 'flow3.57' teleports beyond arrival edge 'dest', time 623.92.
+Warning: Teleporting vehicle 'flow3.64'; waited too long, from edge 'start3':0, time 228.82.
+Warning: Teleporting vehicle 'flow0.73'; waited too long, from edge 'start0':0 to edge 'start2':1, time 228.94.
+Warning: Vehicle 'flow3.58' teleports beyond arrival edge 'dest', time 624.92.
+Warning: Teleporting vehicle 'flow3.65'; waited too long, from edge 'start3':0, time 229.82.
+Warning: Teleporting vehicle 'flow1.87'; waited too long, from edge 'start1':0, time 230.37.
+Warning: Vehicle 'flow3.59' ends teleporting on edge 'dest':0, time 230.67.
+Warning: Teleporting vehicle 'flow3.66'; waited too long, from edge 'start3':0, time 230.82.
+Warning: Teleporting vehicle 'flow1.88'; waited too long, from edge 'start1':0, time 231.37.
+Warning: Vehicle 'flow3.60' teleports beyond arrival edge 'dest', time 626.92.
+Warning: Teleporting vehicle 'flow3.67'; waited too long, from edge 'start3':0, time 231.82.
+Warning: Teleporting vehicle 'flow1.89'; waited too long, from edge 'start1':0, time 232.37.
+Warning: Vehicle 'flow3.61' teleports beyond arrival edge 'dest', time 627.92.
+Warning: Teleporting vehicle 'flow3.68'; waited too long, from edge 'start3':0, time 232.82.
+Warning: Teleporting vehicle 'flow1.90'; waited too long, from edge 'start1':0, time 233.37.
+Warning: Vehicle 'flow3.62' teleports beyond arrival edge 'dest', time 628.92.
+Warning: Teleporting vehicle 'flow3.69'; waited too long, from edge 'start3':0, time 233.82.
+Warning: Teleporting vehicle 'flow1.91'; waited too long, from edge 'start1':0, time 234.37.
+Warning: Vehicle 'flow3.63' ends teleporting on edge 'dest':0, time 234.67.
+Warning: Teleporting vehicle 'flow3.70'; waited too long, from edge 'start3':0, time 234.82.
+Warning: Teleporting vehicle 'flow1.92'; waited too long, from edge 'start1':0, time 235.37.
+Warning: Vehicle 'flow3.64' teleports beyond arrival edge 'dest', time 630.92.
+Warning: Teleporting vehicle 'flow3.71'; waited too long, from edge 'start3':0 to edge 'start2':1, time 235.82.
+Warning: Teleporting vehicle 'flow1.93'; waited too long, from edge 'start1':0, time 236.37.
+Warning: Vehicle 'flow3.65' teleports beyond arrival edge 'dest', time 631.92.
+Warning: Vehicle 'flow1.87' teleports beyond arrival edge 'dest', time 632.47.
+Warning: Teleporting vehicle 'flow1.94'; waited too long, from edge 'start1':0, time 237.37.
+Warning: Vehicle 'flow3.66' teleports beyond arrival edge 'dest', time 632.93.
+Warning: Teleporting vehicle 'flow2.13'; waited too long, from edge 'start2':0, time 237.76.
+Warning: Vehicle 'flow2.13' teleports beyond arrival edge 'dest', time 633.01.
+Warning: Vehicle 'flow1.88' teleports beyond arrival edge 'dest', time 633.47.
+Warning: Vehicle 'flow3.67' teleports beyond arrival edge 'dest', time 633.93.
+Warning: Teleporting vehicle 'flow1.67'; waited too long, from edge 'start2':0, time 238.76.
+Warning: Vehicle 'flow1.67' teleports beyond arrival edge 'dest', time 634.01.
+Warning: Vehicle 'flow1.89' teleports beyond arrival edge 'dest', time 634.47.
+Warning: Vehicle 'flow3.68' teleports beyond arrival edge 'dest', time 634.93.
+Warning: Vehicle 'flow1.90' teleports beyond arrival edge 'dest', time 635.48.
+Warning: Vehicle 'flow3.69' teleports beyond arrival edge 'dest', time 635.93.
+Warning: Vehicle 'flow1.91' teleports beyond arrival edge 'dest', time 636.48.
+Warning: Vehicle 'flow3.70' ends teleporting on edge 'dest':0, time 241.68.
+Warning: Vehicle 'flow1.92' teleports beyond arrival edge 'dest', time 637.48.
+Warning: Vehicle 'flow1.93' teleports beyond arrival edge 'dest', time 638.48.
+Warning: Vehicle 'flow1.94' teleports beyond arrival edge 'dest', time 639.48.
+Warning: Teleporting vehicle 'flow0.74'; waited too long, from edge 'start0':0 to edge 'start2':1, time 245.93.
+Warning: Teleporting vehicle 'flow1.68'; waited too long, from edge 'start2':0, time 247.88.
+Warning: Vehicle 'flow1.68' teleports beyond arrival edge 'dest', time 643.13.
+Warning: Teleporting vehicle 'flow3.72'; waited too long, from edge 'start3':0 to edge 'start2':1, time 252.82.
+Warning: Teleporting vehicle 'flow1.96'; waited too long, from edge 'start1':0, time 254.75.
+Warning: Teleporting vehicle 'flow1.97'; waited too long, from edge 'start1':0, time 255.76.
+Warning: Teleporting vehicle 'flow1.98'; waited too long, from edge 'start1':0, time 256.76.
+Warning: Teleporting vehicle 'flow1.99'; waited too long, from edge 'start1':0, time 257.76.
+Warning: Teleporting vehicle 'flow1.100'; waited too long, from edge 'start1':0, time 258.76.
+Warning: Teleporting vehicle 'flow1.101'; waited too long, from edge 'start1':0, time 259.76.
+Warning: Teleporting vehicle 'flow1.102'; waited too long, from edge 'start1':0 to edge 'start2':1, time 260.76.
+Warning: Vehicle 'flow1.96' teleports beyond arrival edge 'dest', time 656.86.
+Warning: Vehicle 'flow1.97' teleports beyond arrival edge 'dest', time 657.86.
+Warning: Teleporting vehicle 'flow0.75'; waited too long, from edge 'start0':0, time 262.93.
+Warning: Vehicle 'flow1.98' ends teleporting on edge 'dest':0, time 263.61.
+Warning: Teleporting vehicle 'flow0.76'; waited too long, from edge 'start0':0, time 263.93.
+Warning: Vehicle 'flow1.99' teleports beyond arrival edge 'dest', time 659.87.
+Warning: Teleporting vehicle 'flow1.69'; waited too long, from edge 'start2':0, time 264.87.
+Warning: Vehicle 'flow1.69' teleports beyond arrival edge 'dest', time 660.12.
+Warning: Vehicle 'flow1.100' teleports beyond arrival edge 'dest', time 660.87.
+Warning: Vehicle 'flow1.101' teleports beyond arrival edge 'dest', time 661.87.
+Warning: Vehicle 'flow0.75' teleports beyond arrival edge 'dest', time 665.04.
+Warning: Vehicle 'flow0.76' teleports beyond arrival edge 'dest', time 666.04.
+Warning: Teleporting vehicle 'flow3.73'; waited too long, from edge 'start3':0, time 273.00.
+Warning: Teleporting vehicle 'flow3.74'; waited too long, from edge 'start3':0, time 274.00.
+Warning: Teleporting vehicle 'flow3.75'; waited too long, from edge 'start3':0, time 275.00.
+Warning: Teleporting vehicle 'flow3.76'; waited too long, from edge 'start3':0, time 276.01.
+Warning: Teleporting vehicle 'flow3.77'; waited too long, from edge 'start3':0, time 277.01.
+Warning: Teleporting vehicle 'flow1.103'; waited too long, from edge 'start1':0, time 277.76.
+Warning: Teleporting vehicle 'flow3.78'; waited too long, from edge 'start3':0, time 278.01.
+Warning: Teleporting vehicle 'flow1.104'; waited too long, from edge 'start1':0, time 278.76.
+Warning: Teleporting vehicle 'flow3.79'; waited too long, from edge 'start3':0, time 279.01.
+Warning: Teleporting vehicle 'flow1.105'; waited too long, from edge 'start1':0, time 279.76.
+Warning: Vehicle 'flow3.73' ends teleporting on edge 'dest':0, time 279.86.
+Warning: Teleporting vehicle 'flow3.80'; waited too long, from edge 'start3':0, time 280.01.
+Warning: Teleporting vehicle 'flow1.106'; waited too long, from edge 'start1':0 to edge 'start2':1, time 280.76.
+Warning: Vehicle 'flow3.74' teleports beyond arrival edge 'dest', time 676.11.
+Warning: Teleporting vehicle 'flow3.81'; waited too long, from edge 'start3':0, time 281.01.
+Warning: Vehicle 'flow3.75' teleports beyond arrival edge 'dest', time 677.11.
+Warning: Teleporting vehicle 'flow0.78'; waited too long, from edge 'start0':0, time 281.87.
+Warning: Teleporting vehicle 'flow3.82'; waited too long, from edge 'start3':0, time 282.01.
+Warning: Vehicle 'flow3.76' teleports beyond arrival edge 'dest', time 678.11.
+Warning: Teleporting vehicle 'flow0.79'; waited too long, from edge 'start0':0, time 282.87.
+Warning: Teleporting vehicle 'flow3.83'; waited too long, from edge 'start3':0, time 283.01.
+Warning: Vehicle 'flow3.77' ends teleporting on edge 'dest':0, time 283.86.
+Warning: Teleporting vehicle 'flow0.80'; waited too long, from edge 'start0':0, time 283.87.
+Warning: Teleporting vehicle 'flow3.84'; waited too long, from edge 'start3':0, time 284.01.
+Warning: Vehicle 'flow1.103' teleports beyond arrival edge 'dest', time 679.86.
+Warning: Vehicle 'flow3.78' teleports beyond arrival edge 'dest', time 680.12.
+Warning: Teleporting vehicle 'flow0.81'; waited too long, from edge 'start0':0 to edge 'start2':1, time 284.87.
+Warning: Teleporting vehicle 'flow3.85'; waited too long, from edge 'start3':0, time 285.01.
+Warning: Vehicle 'flow1.104' teleports beyond arrival edge 'dest', time 680.87.
+Warning: Vehicle 'flow3.79' teleports beyond arrival edge 'dest', time 681.12.
+Warning: Teleporting vehicle 'flow3.86'; waited too long, from edge 'start3':0, time 286.02.
+Warning: Vehicle 'flow1.105' teleports beyond arrival edge 'dest', time 681.87.
+Warning: Vehicle 'flow3.80' teleports beyond arrival edge 'dest', time 682.12.
+Warning: Teleporting vehicle 'flow3.87'; waited too long, from edge 'start3':0, time 287.02.
+Warning: Vehicle 'flow3.81' teleports beyond arrival edge 'dest', time 683.12.
+Warning: Teleporting vehicle 'flow3.88'; waited too long, from edge 'start3':0, time 288.02.
+Warning: Vehicle 'flow0.78' teleports beyond arrival edge 'dest', time 683.98.
+Warning: Vehicle 'flow3.82' teleports beyond arrival edge 'dest', time 684.12.
+Warning: Teleporting vehicle 'flow2.15'; waited too long, from edge 'start2':0, time 289.00.
+Warning: Vehicle 'flow2.15' teleports beyond arrival edge 'dest', time 684.25.
+Warning: Vehicle 'flow0.79' teleports beyond arrival edge 'dest', time 684.98.
+Warning: Vehicle 'flow3.83' teleports beyond arrival edge 'dest', time 685.12.
+Warning: Teleporting vehicle 'flow2.16'; waited too long, from edge 'start2':0, time 290.00.
+Warning: Vehicle 'flow2.16' teleports beyond arrival edge 'dest', time 685.25.
+Warning: Vehicle 'flow0.80' teleports beyond arrival edge 'dest', time 685.98.
+Warning: Vehicle 'flow3.84' ends teleporting on edge 'dest':0, time 290.87.
+Warning: Vehicle 'flow3.85' teleports beyond arrival edge 'dest', time 687.12.
+Warning: Vehicle 'flow3.86' teleports beyond arrival edge 'dest', time 688.12.
+Warning: Vehicle 'flow3.87' teleports beyond arrival edge 'dest', time 689.12.
+Warning: Vehicle 'flow3.88' teleports beyond arrival edge 'dest', time 690.12.
+Warning: Teleporting vehicle 'flow1.107'; waited too long, from edge 'start1':0, time 297.76.
+Warning: Teleporting vehicle 'flow1.108'; waited too long, from edge 'start1':0, time 298.76.
+Warning: Teleporting vehicle 'flow1.109'; waited too long, from edge 'start1':0, time 299.76.
+Warning: Teleporting vehicle 'flow1.110'; waited too long, from edge 'start1':0, time 300.76.
+Warning: Teleporting vehicle 'flow1.111'; waited too long, from edge 'start1':0, time 301.76.
+Warning: Teleporting vehicle 'flow0.82'; waited too long, from edge 'start0':0, time 301.87.
+Warning: Teleporting vehicle 'flow1.112'; waited too long, from edge 'start1':0, time 302.76.
+Warning: Teleporting vehicle 'flow0.83'; waited too long, from edge 'start0':0, time 302.87.
+Warning: Teleporting vehicle 'flow1.113'; waited too long, from edge 'start1':0, time 303.76.
+Warning: Teleporting vehicle 'flow0.84'; waited too long, from edge 'start0':0, time 303.87.
+Warning: Vehicle 'flow1.107' ends teleporting on edge 'dest':0, time 304.61.
+Warning: Teleporting vehicle 'flow1.114'; waited too long, from edge 'start1':0 to edge 'start2':1, time 304.76.
+Warning: Teleporting vehicle 'flow0.85'; waited too long, from edge 'start0':0, time 304.87.
+Warning: Vehicle 'flow1.108' teleports beyond arrival edge 'dest', time 700.86.
+Warning: Teleporting vehicle 'flow0.86'; waited too long, from edge 'start0':0, time 305.87.
+Warning: Teleporting vehicle 'flow3.90'; waited too long, from edge 'start3':0, time 306.00.
+Warning: Vehicle 'flow1.109' teleports beyond arrival edge 'dest', time 701.87.
+Warning: Teleporting vehicle 'flow0.87'; waited too long, from edge 'start0':0, time 306.87.
+Warning: Teleporting vehicle 'flow3.91'; waited too long, from edge 'start3':0, time 307.00.
+Warning: Vehicle 'flow1.110' teleports beyond arrival edge 'dest', time 702.87.
+Warning: Teleporting vehicle 'flow0.88'; waited too long, from edge 'start0':0, time 307.88.
+Warning: Teleporting vehicle 'flow3.92'; waited too long, from edge 'start3':0, time 308.00.
+Warning: Vehicle 'flow1.111' teleports beyond arrival edge 'dest', time 703.87.
+Warning: Vehicle 'flow0.82' teleports beyond arrival edge 'dest', time 703.98.
+Warning: Teleporting vehicle 'flow0.89'; waited too long, from edge 'start0':0 to edge 'start2':1, time 308.88.
+Warning: Teleporting vehicle 'flow3.93'; waited too long, from edge 'start3':0, time 309.00.
+Warning: Vehicle 'flow1.112' teleports beyond arrival edge 'dest', time 704.87.
+Warning: Vehicle 'flow0.83' teleports beyond arrival edge 'dest', time 704.98.
+Warning: Teleporting vehicle 'flow3.94'; waited too long, from edge 'start3':0, time 310.00.
+Warning: Vehicle 'flow1.113' teleports beyond arrival edge 'dest', time 705.87.
+Warning: Vehicle 'flow0.84' teleports beyond arrival edge 'dest', time 705.98.
+Warning: Teleporting vehicle 'flow3.95'; waited too long, from edge 'start3':0, time 311.00.
+Warning: Vehicle 'flow0.85' teleports beyond arrival edge 'dest', time 706.98.
+Warning: Teleporting vehicle 'flow3.96'; waited too long, from edge 'start3':0, time 312.00.
+Warning: Vehicle 'flow0.86' ends teleporting on edge 'dest':0, time 312.73.
+Warning: Vehicle 'flow3.90' teleports beyond arrival edge 'dest', time 708.10.
+Warning: Teleporting vehicle 'flow3.97'; waited too long, from edge 'start3':0, time 313.00.
+Warning: Teleporting vehicle 'flow1.77'; waited too long, from edge 'start2':0, time 313.39.
+Warning: Vehicle 'flow1.77' teleports beyond arrival edge 'dest', time 708.64.
+Warning: Vehicle 'flow0.87' teleports beyond arrival edge 'dest', time 708.98.
+Warning: Vehicle 'flow3.91' teleports beyond arrival edge 'dest', time 709.10.
+Warning: Teleporting vehicle 'flow2.18'; waited too long, from edge 'start2':0, time 314.39.
+Warning: Vehicle 'flow2.18' teleports beyond arrival edge 'dest', time 709.64.
+Warning: Vehicle 'flow0.88' teleports beyond arrival edge 'dest', time 709.98.
+Warning: Vehicle 'flow3.92' teleports beyond arrival edge 'dest', time 710.10.
+Warning: Vehicle 'flow3.93' teleports beyond arrival edge 'dest', time 711.11.
+Warning: Vehicle 'flow3.94' teleports beyond arrival edge 'dest', time 712.11.
+Warning: Vehicle 'flow3.95' teleports beyond arrival edge 'dest', time 713.11.
+Warning: Vehicle 'flow3.96' teleports beyond arrival edge 'dest', time 714.11.
+Warning: Vehicle 'flow3.97' teleports beyond arrival edge 'dest', time 715.11.
+Warning: Teleporting vehicle 'flow1.115'; waited too long, from edge 'start1':0, time 321.76.
+Warning: Teleporting vehicle 'flow1.116'; waited too long, from edge 'start1':0, time 322.76.
+Warning: Teleporting vehicle 'flow1.117'; waited too long, from edge 'start1':0, time 323.76.
+Warning: Teleporting vehicle 'flow1.118'; waited too long, from edge 'start1':0, time 324.76.
+Warning: Teleporting vehicle 'flow1.119'; waited too long, from edge 'start1':0, time 325.76.
+Warning: Teleporting vehicle 'flow0.90'; waited too long, from edge 'start0':0, time 325.87.
+Warning: Teleporting vehicle 'flow1.120'; waited too long, from edge 'start1':0, time 326.76.
+Warning: Teleporting vehicle 'flow0.91'; waited too long, from edge 'start0':0, time 326.87.
+Warning: Teleporting vehicle 'flow1.121'; waited too long, from edge 'start1':0, time 327.76.
+Warning: Teleporting vehicle 'flow0.92'; waited too long, from edge 'start0':0, time 327.87.
+Warning: Vehicle 'flow1.115' ends teleporting on edge 'dest':0, time 328.62.
+Warning: Teleporting vehicle 'flow1.122'; waited too long, from edge 'start1':0, time 328.77.
+Warning: Teleporting vehicle 'flow0.93'; waited too long, from edge 'start0':0, time 328.88.
+Warning: Vehicle 'flow1.116' teleports beyond arrival edge 'dest', time 724.87.
+Warning: Teleporting vehicle 'flow1.123'; waited too long, from edge 'start1':0 to edge 'start2':1, time 329.77.
+Warning: Teleporting vehicle 'flow0.94'; waited too long, from edge 'start0':0, time 329.88.
+Warning: Teleporting vehicle 'flow3.99'; waited too long, from edge 'start3':0, time 330.38.
+Warning: Vehicle 'flow1.117' teleports beyond arrival edge 'dest', time 725.87.
+Warning: Teleporting vehicle 'flow0.95'; waited too long, from edge 'start0':0, time 330.88.
+Warning: Teleporting vehicle 'flow3.100'; waited too long, from edge 'start3':0, time 331.39.
+Warning: Vehicle 'flow1.118' teleports beyond arrival edge 'dest', time 726.87.
+Warning: Teleporting vehicle 'flow0.96'; waited too long, from edge 'start0':0, time 331.88.
+Warning: Teleporting vehicle 'flow3.101'; waited too long, from edge 'start3':0, time 332.39.
+Warning: Vehicle 'flow1.119' ends teleporting on edge 'dest':0, time 332.62.
+Warning: Vehicle 'flow0.90' teleports beyond arrival edge 'dest', time 727.98.
+Warning: Teleporting vehicle 'flow0.97'; waited too long, from edge 'start0':0, time 332.88.
+Warning: Teleporting vehicle 'flow3.102'; waited too long, from edge 'start3':0 to edge 'start2':1, time 333.39.
+Warning: Vehicle 'flow1.120' teleports beyond arrival edge 'dest', time 728.87.
+Warning: Vehicle 'flow0.91' teleports beyond arrival edge 'dest', time 728.98.
+Warning: Teleporting vehicle 'flow0.98'; waited too long, from edge 'start0':0, time 333.88.
+Warning: Vehicle 'flow1.121' teleports beyond arrival edge 'dest', time 729.87.
+Warning: Vehicle 'flow0.92' teleports beyond arrival edge 'dest', time 729.98.
+Warning: Teleporting vehicle 'flow0.99'; waited too long, from edge 'start0':0, time 334.88.
+Warning: Vehicle 'flow1.122' teleports beyond arrival edge 'dest', time 730.87.
+Warning: Vehicle 'flow0.93' teleports beyond arrival edge 'dest', time 730.98.
+Warning: Teleporting vehicle 'flow0.100'; waited too long, from edge 'start0':0, time 335.88.
+Warning: Vehicle 'flow0.94' teleports beyond arrival edge 'dest', time 731.98.
+Warning: Teleporting vehicle 'flow0.101'; waited too long, from edge 'start0':0, time 336.88.
+Warning: Vehicle 'flow3.99' teleports beyond arrival edge 'dest', time 732.49.
+Warning: Vehicle 'flow0.95' teleports beyond arrival edge 'dest', time 732.98.
+Warning: Teleporting vehicle 'flow1.86'; waited too long, from edge 'start2':0, time 337.78.
+Warning: Vehicle 'flow1.86' teleports beyond arrival edge 'dest', time 733.03.
+Warning: Vehicle 'flow3.100' teleports beyond arrival edge 'dest', time 733.49.
+Warning: Vehicle 'flow0.96' teleports beyond arrival edge 'dest', time 733.99.
+Warning: Teleporting vehicle 'flow2.20'; waited too long, from edge 'start2':0, time 338.78.
+Warning: Vehicle 'flow2.20' teleports beyond arrival edge 'dest', time 734.03.
+Warning: Vehicle 'flow3.101' teleports beyond arrival edge 'dest', time 734.49.
+Warning: Vehicle 'flow0.97' ends teleporting on edge 'dest':0, time 339.74.
+Warning: Vehicle 'flow0.98' teleports beyond arrival edge 'dest', time 735.99.
+Warning: Vehicle 'flow0.99' teleports beyond arrival edge 'dest', time 736.99.
+Warning: Vehicle 'flow0.100' teleports beyond arrival edge 'dest', time 737.99.
+Warning: Vehicle 'flow0.101' teleports beyond arrival edge 'dest', time 738.99.
+Warning: Teleporting vehicle 'flow3.103'; waited too long, from edge 'start3':0 to edge 'start2':1, time 354.04.
+Warning: Teleporting vehicle 'flow0.103'; waited too long, from edge 'start0':0, time 354.77.
+Warning: Teleporting vehicle 'flow0.104'; waited too long, from edge 'start0':0, time 355.78.
+Warning: Teleporting vehicle 'flow0.105'; waited too long, from edge 'start0':0, time 356.78.
+Warning: Teleporting vehicle 'flow0.106'; waited too long, from edge 'start0':0 to edge 'start2':1, time 357.78.
+Warning: Vehicle 'flow0.103' ends teleporting on edge 'dest':0, time 361.63.
+Warning: Teleporting vehicle 'flow1.95'; waited too long, from edge 'start2':0, time 362.17.
+Warning: Vehicle 'flow1.95' teleports beyond arrival edge 'dest', time 757.42.
+Warning: Vehicle 'flow0.104' teleports beyond arrival edge 'dest', time 757.88.
+Warning: Teleporting vehicle 'flow2.22'; waited too long, from edge 'start2':0, time 363.17.
+Warning: Vehicle 'flow2.22' teleports beyond arrival edge 'dest', time 758.42.
+Warning: Vehicle 'flow0.105' teleports beyond arrival edge 'dest', time 758.88.
+Warning: Teleporting vehicle 'flow1.126'; waited too long, from edge 'start1':0 to edge 'start2':1, time 386.56.
+Warning: Teleporting vehicle 'flow3.105'; waited too long, from edge 'start3':0, time 387.29.
+Warning: Teleporting vehicle 'flow3.106'; waited too long, from edge 'start3':0, time 388.30.
+Warning: Teleporting vehicle 'flow3.107'; waited too long, from edge 'start3':0, time 389.30.
+Warning: Teleporting vehicle 'flow3.108'; waited too long, from edge 'start3':0 to edge 'start2':1, time 390.30.
+Warning: Vehicle 'flow3.105' ends teleporting on edge 'dest':0, time 394.15.
+Warning: Teleporting vehicle 'flow2.24'; waited too long, from edge 'start2':0, time 394.69.
+Warning: Vehicle 'flow2.24' teleports beyond arrival edge 'dest', time 789.94.
+Warning: Vehicle 'flow3.106' teleports beyond arrival edge 'dest', time 790.40.
+Warning: Teleporting vehicle 'flow3.89'; waited too long, from edge 'start2':0, time 395.69.
+Warning: Vehicle 'flow3.89' teleports beyond arrival edge 'dest', time 790.94.
+Warning: Vehicle 'flow3.107' teleports beyond arrival edge 'dest', time 791.40.
+Warning: Teleporting vehicle 'flow3.109'; waited too long, from edge 'start3':0, time 410.95.
+Warning: Vehicle 'flow3.109' ends teleporting on edge 'dest':0, time 417.80.
+Warning: Teleporting vehicle 'flow3.110'; waited too long, from edge 'start3':0, time 419.08.
+Warning: Teleporting vehicle 'flow1.129'; waited too long, from edge 'start1':0, time 419.08.
+Warning: Vehicle 'flow3.110' ends teleporting on edge 'dest':0, time 425.93.
+Warning: Vehicle 'flow1.129' teleports beyond arrival edge 'dest', time 821.18.
+Warning: Teleporting vehicle 'flow1.130'; waited too long, from edge 'start1':0, time 427.20.
+Warning: Vehicle 'flow1.130' ends teleporting on edge 'dest':0, time 434.06.
+Warning: Teleporting vehicle 'flow1.131'; waited too long, from edge 'start1':0 to edge 'start2':1, time 435.33.
+Warning: Teleporting vehicle 'flow0.110'; waited too long, from edge 'start0':0, time 436.07.
+Warning: Teleporting vehicle 'flow0.111'; waited too long, from edge 'start0':0, time 437.07.
+Warning: Teleporting vehicle 'flow0.112'; waited too long, from edge 'start0':0, time 438.07.
+Warning: Teleporting vehicle 'flow0.113'; waited too long, from edge 'start0':0 to edge 'start2':1, time 439.07.
+Warning: Vehicle 'flow0.110' ends teleporting on edge 'dest':0, time 442.93.
+Warning: Teleporting vehicle 'flow2.28'; waited too long, from edge 'start2':0, time 443.47.
+Warning: Vehicle 'flow2.28' teleports beyond arrival edge 'dest', time 838.72.
+Warning: Vehicle 'flow0.111' teleports beyond arrival edge 'dest', time 839.18.
+Warning: Teleporting vehicle 'flow0.102'; waited too long, from edge 'start2':0, time 444.47.
+Warning: Vehicle 'flow0.102' teleports beyond arrival edge 'dest', time 839.72.
+Warning: Vehicle 'flow0.112' teleports beyond arrival edge 'dest', time 840.18.
+Warning: Teleporting vehicle 'flow3.113'; waited too long, from edge 'start3':0 to edge 'start2':1, time 467.86.
+Warning: Teleporting vehicle 'flow1.133'; waited too long, from edge 'start1':0, time 468.59.
+Warning: Teleporting vehicle 'flow1.134'; waited too long, from edge 'start1':0, time 469.60.
+Warning: Teleporting vehicle 'flow1.135'; waited too long, from edge 'start1':0, time 470.60.
+Warning: Teleporting vehicle 'flow1.136'; waited too long, from edge 'start1':0 to edge 'start2':1, time 471.60.
+Warning: Vehicle 'flow1.133' ends teleporting on edge 'dest':0, time 475.45.
+Warning: Teleporting vehicle 'flow1.125'; waited too long, from edge 'start2':0, time 475.99.
+Warning: Vehicle 'flow1.125' teleports beyond arrival edge 'dest', time 871.24.
+Warning: Vehicle 'flow1.134' teleports beyond arrival edge 'dest', time 871.70.
+Warning: Teleporting vehicle 'flow2.30'; waited too long, from edge 'start2':0, time 476.99.
+Warning: Vehicle 'flow2.30' teleports beyond arrival edge 'dest', time 872.24.
+Warning: Vehicle 'flow1.135' teleports beyond arrival edge 'dest', time 872.70.

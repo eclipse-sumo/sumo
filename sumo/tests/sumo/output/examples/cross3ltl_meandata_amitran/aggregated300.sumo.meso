@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan  5 14:53:34 2017 by SUMO Version dev-SVN-r22466
+<!-- generated on Thu Jan  5 15:09:57 2017 by SUMO Version dev-SVN-r22466
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -107,14 +107,14 @@
         </link>
     </timeSlice>
     <timeSlice startTime="600000" duration="300000">
-        <link id="0" amount="120" averageSpeed="1101">
-            <actorConfig id="0" amount="120" averageSpeed="1101"/>
+        <link id="0" amount="120" averageSpeed="1100">
+            <actorConfig id="0" amount="120" averageSpeed="1100"/>
         </link>
         <link id="1" amount="90" averageSpeed="1111">
             <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
         <link id="2" amount="90" averageSpeed="1349">
-            <actorConfig id="0" amount="90" averageSpeed="1353"/>
+            <actorConfig id="0" amount="90" averageSpeed="1352"/>
         </link>
         <link id="3" amount="120" averageSpeed="1106">
             <actorConfig id="0" amount="120" averageSpeed="1105"/>
@@ -122,11 +122,11 @@
         <link id="4" amount="90" averageSpeed="1111">
             <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="5" amount="90" averageSpeed="1376">
-            <actorConfig id="0" amount="90" averageSpeed="1379"/>
+        <link id="5" amount="90" averageSpeed="1375">
+            <actorConfig id="0" amount="90" averageSpeed="1378"/>
         </link>
-        <link id="6" amount="151" averageSpeed="1043">
-            <actorConfig id="0" amount="151" averageSpeed="1033"/>
+        <link id="6" amount="151" averageSpeed="1042">
+            <actorConfig id="0" amount="151" averageSpeed="1031"/>
         </link>
         <link id="7" amount="90" averageSpeed="1111">
             <actorConfig id="0" amount="90" averageSpeed="1111"/>
@@ -140,19 +140,19 @@
         <link id="10" amount="90" averageSpeed="1111">
             <actorConfig id="0" amount="90" averageSpeed="1111"/>
         </link>
-        <link id="11" amount="90" averageSpeed="1389">
-            <actorConfig id="0" amount="90" averageSpeed="1389"/>
+        <link id="11" amount="91" averageSpeed="1389">
+            <actorConfig id="0" amount="91" averageSpeed="1388"/>
         </link>
     </timeSlice>
     <timeSlice startTime="900000" duration="100000">
         <link id="0" amount="40" averageSpeed="1099">
-            <actorConfig id="0" amount="40" averageSpeed="1093"/>
+            <actorConfig id="0" amount="40" averageSpeed="1094"/>
         </link>
         <link id="1" amount="30" averageSpeed="1111">
             <actorConfig id="0" amount="30" averageSpeed="1110"/>
         </link>
-        <link id="2" amount="30" averageSpeed="1349">
-            <actorConfig id="0" amount="30" averageSpeed="1352"/>
+        <link id="2" amount="30" averageSpeed="1350">
+            <actorConfig id="0" amount="30" averageSpeed="1357"/>
         </link>
         <link id="3" amount="40" averageSpeed="1105">
             <actorConfig id="0" amount="40" averageSpeed="1103"/>
@@ -160,17 +160,17 @@
         <link id="4" amount="30" averageSpeed="1110">
             <actorConfig id="0" amount="30" averageSpeed="1109"/>
         </link>
-        <link id="5" amount="30" averageSpeed="1375">
-            <actorConfig id="0" amount="30" averageSpeed="1373"/>
+        <link id="5" amount="30" averageSpeed="1374">
+            <actorConfig id="0" amount="30" averageSpeed="1369"/>
         </link>
-        <link id="6" amount="49" averageSpeed="1042">
-            <actorConfig id="0" amount="49" averageSpeed="1037"/>
+        <link id="6" amount="49" averageSpeed="1041">
+            <actorConfig id="0" amount="49" averageSpeed="1036"/>
         </link>
         <link id="7" amount="30" averageSpeed="1110">
             <actorConfig id="0" amount="30" averageSpeed="1109"/>
         </link>
         <link id="8" amount="30" averageSpeed="1380">
-            <actorConfig id="0" amount="30" averageSpeed="1387"/>
+            <actorConfig id="0" amount="30" averageSpeed="1388"/>
         </link>
         <link id="9" amount="30" averageSpeed="1111">
             <actorConfig id="0" amount="30" averageSpeed="1110"/>
@@ -178,8 +178,8 @@
         <link id="10" amount="30" averageSpeed="1110">
             <actorConfig id="0" amount="30" averageSpeed="1109"/>
         </link>
-        <link id="11" amount="31" averageSpeed="1389">
-            <actorConfig id="0" amount="31" averageSpeed="1389"/>
+        <link id="11" amount="30" averageSpeed="1388">
+            <actorConfig id="0" amount="30" averageSpeed="1384"/>
         </link>
     </timeSlice>
 </linkData>

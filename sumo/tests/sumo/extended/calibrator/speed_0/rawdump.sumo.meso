@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  1 15:29:09 2016 by SUMO Version dev-SVN-r21086
+<!-- generated on Thu Jan  5 15:10:00 2017 by SUMO Version dev-SVN-r22466
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -667,7 +667,7 @@
     </timestep>
     <timestep time="104.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="8.93"/>
             <vehicle id="calibtest.92000.4" pos="100.00" speed="6.23"/>
             <vehicle id="calibtest.86000.3" pos="100.00" speed="4.78"/>
@@ -678,7 +678,7 @@
     </timestep>
     <timestep time="105.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="8.93"/>
             <vehicle id="calibtest.92000.4" pos="100.00" speed="6.23"/>
             <vehicle id="calibtest.86000.3" pos="100.00" speed="4.78"/>
@@ -689,7 +689,7 @@
     </timestep>
     <timestep time="106.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="8.93"/>
             <vehicle id="calibtest.92000.4" pos="100.00" speed="6.23"/>
             <vehicle id="calibtest.86000.3" pos="100.00" speed="4.78"/>
@@ -700,7 +700,7 @@
     </timestep>
     <timestep time="107.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="8.93"/>
             <vehicle id="calibtest.92000.4" pos="100.00" speed="6.23"/>
             <vehicle id="calibtest.86000.3" pos="100.00" speed="4.78"/>
@@ -711,7 +711,7 @@
     </timestep>
     <timestep time="108.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="8.93"/>
             <vehicle id="calibtest.92000.4" pos="100.00" speed="6.23"/>
             <vehicle id="calibtest.86000.3" pos="100.00" speed="4.25"/>
@@ -722,7 +722,7 @@
     </timestep>
     <timestep time="109.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="8.93"/>
             <vehicle id="calibtest.92000.4" pos="100.00" speed="6.23"/>
             <vehicle id="calibtest.86000.3" pos="100.00" speed="4.25"/>
@@ -733,7 +733,7 @@
     </timestep>
     <timestep time="110.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="8.93"/>
             <vehicle id="calibtest.92000.4" pos="100.00" speed="5.28"/>
             <vehicle id="calibtest.86000.3" pos="200.00" speed="27.80"/>
@@ -744,7 +744,7 @@
     </timestep>
     <timestep time="111.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="6.97"/>
             <vehicle id="calibtest.92000.4" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.86000.3" pos="200.00" speed="27.80"/>
@@ -755,7 +755,7 @@
     </timestep>
     <timestep time="112.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="14.48"/>
+            <vehicle id="veh0" pos="100.00" speed="13.94"/>
             <vehicle id="calibtest.98000.5" pos="100.00" speed="6.97"/>
             <vehicle id="calibtest.92000.4" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.86000.3" pos="200.00" speed="27.80"/>
