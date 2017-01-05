@@ -14,6 +14,9 @@
       <xsd:sequence>
         <xsd:element minOccurs="0" maxOccurs="unbounded" ref="typedInterval"/>
       </xsd:sequence>
+      <xsd:attribute name="begin" use="required" type="nonNegativeFloatType"/>
+      <xsd:attribute name="end" use="required" type="nonNegativeFloatType"/>
+      <xsd:attribute name="id" use="required" type="xsd:string"/>
       <xsd:attribute name="sampledSeconds" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="density" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="occupancy" use="required" type="xsd:decimal"/>
@@ -28,6 +31,9 @@
 
   <xsd:element name="typedInterval">
     <xsd:complexType>
+      <xsd:attribute name="begin" use="required" type="nonNegativeFloatType"/>
+      <xsd:attribute name="end" use="required" type="nonNegativeFloatType"/>
+      <xsd:attribute name="id" use="required" type="xsd:string"/>
       <xsd:attribute name="type" use="required" type="xsd:string"/>
       <xsd:attribute name="sampledSeconds" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="density" use="optional" type="nonNegativeFloatType"/>
