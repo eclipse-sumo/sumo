@@ -268,9 +268,13 @@ MESegment::hasSpaceFor(const MEVehicle* veh, SUMOTime entryTime, bool init) cons
     // regular insertions and initial insertions must respect different constraints:
     // - regular insertions must respect entryBlockTime
     // - initial insertions should not cause additional jamming
+    // - inserted vehicle should be able to continue at the current speed
     if (init) {
-        // inserted vehicle should be able to continue at the current speed
-        return newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false), -1);
+        if (free()) {
+            return newOccupancy <= myJamThreshold;
+        } else {
+            return newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false), -1);
+        }
     }
     // maintain propper spacing between inflow from different lanes
     return entryTime >= myEntryBlockTime;
