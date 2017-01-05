@@ -100,6 +100,7 @@ MESegment::MESegment(const std::string& id,
                    parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink()),
     myEntryBlockTime(SUMOTime_MIN),
+    myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
     myLastMeanSpeedUpdate(SUMOTime_MIN) {
     myCarQues.push_back(std::vector<MEVehicle*>());
@@ -462,7 +463,8 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
     MEVehicle* lc = removeCar(veh, time, next); // new leaderCar
     myBlockTimes[veh->getQueIndex()] = time;
     if (!isInvalid(next)) {
-        myBlockTimes[veh->getQueIndex()] += next->getTimeHeadway(this, veh);
+        myLastHeadway = next->getTimeHeadway(this, veh);
+        myBlockTimes[veh->getQueIndex()] += myLastHeadway;
     }
     if (lc != 0) {
         lc->setEventTime(MAX2(lc->getEventTime(), myBlockTimes[veh->getQueIndex()]));

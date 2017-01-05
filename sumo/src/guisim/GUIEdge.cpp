@@ -188,7 +188,7 @@ GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = 0;
-    ret = new GUIParameterTableWindow(app, *this, 17);
+    ret = new GUIParameterTableWindow(app, *this, 18);
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
@@ -210,6 +210,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment flow [veh/h/lane]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getFlow));
     ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, SUMOReal, int>(segment, &MESegment::getCarNumber));
     ret->mkItem("segment leader leave time", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getEventTimeSeconds));
+    ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getLastHeadwaySeconds));
 
     // close building
     ret->closeBuilding();

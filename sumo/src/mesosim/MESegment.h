@@ -289,6 +289,11 @@ public:
         return STEPS2TIME(getEventTime());
     }
 
+    /// @brief get the last headway time in seconds
+    inline SUMOReal getLastHeadwaySeconds() const {
+        return STEPS2TIME(myLastHeadway);
+    }
+
     /// @name State saving/loading
     /// @{
 
@@ -483,6 +488,9 @@ private:
      * @note since we do not know which queue will be used there is only one
      * value for all queues */
     SUMOTime myEntryBlockTime;
+
+    /// @brief the last headway
+    SUMOTime myLastHeadway;
 
     /* @brief segment for signifying vaporization. This segment has invalid
      * data and should only be used as a unique pointer */
