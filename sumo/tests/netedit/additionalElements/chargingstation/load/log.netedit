@@ -1,17 +1,22 @@
 Warning: Essential string attribute 'id' of chargingStation is missing or invalid.
-Warning: Could not build chargingStation with id 'chargingStation_gneE0_0_0' in netedit; probably declared twice.
-Warning: Essential string attribute 'lane' of chargingStation with id = 'chargingStation_gneE0_0_1' is missing or invalid.
-Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_gneE0_0_2' is not known.
-Warning: Essential float attribute 'startPos' of chargingStation with id = 'chargingStation_gneE0_0_3' is missing or invalid.
-Warning: Invalid position for chargingStation 'chargingStation_gneE0_0_4'.
-Warning: Invalid position for chargingStation 'chargingStation_gneE0_0_5'.
-Warning: Essential float attribute 'endPos' of chargingStation with id = 'chargingStation_gneE0_0_6' is missing or invalid.
-Warning: Invalid position for chargingStation 'chargingStation_gneE0_0_7'.
-Warning: Invalid position for chargingStation 'chargingStation_gneE0_0_8'.
-Warning: Optional float attribute 'power' of chargingStation with id = 'chargingStation_gneE0_1_9' is missing or invalid; Default value '22000.00' will be used.
-Warning: Optional float attribute 'efficiency' of chargingStation with id = 'chargingStation_gneE0_1_11' is missing or invalid; Default value '0.95' will be used.
-Warning: Optional bool attribute 'chargeInTransit' of chargingStation with id = 'chargingStation_gneE0_1_13' is missing or invalid; Default value '0' will be used.
-Warning: Optional bool attribute 'chargeInTransit' of chargingStation with id = 'chargingStation_gneE0_1_14' is missing or invalid; Default value '0' will be used.
-Warning: Optional bool attribute 'chargeInTransit' of chargingStation with id = 'chargingStation_gneE0_1_15' is missing or invalid; Default value '0' will be used.
-Warning: Optional time attribute 'chargeDelay' of chargingStation with id = 'chargingStation_gneE0_1_16' is missing or invalid; Default value '0.00' will be used.
-Warning: Optional time attribute 'chargeDelay' of chargingStation with id = 'chargingStation_gneE0_1_17' is missing or invalid; Default value '0.00' will be used.
+Warning: Could not build chargingStation with id 'chargingStation_0' in netedit; probably declared twice.
+Warning: Essential string attribute 'lane' of chargingStation with id = 'chargingStation_1' is missing or invalid.
+Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_2' is not known.
+Warning: Essential float attribute 'startPos' of chargingStation with id = 'chargingStation_3' is missing or invalid.
+Warning: Essential float attribute 'startPos' of chargingStation with id = 'chargingStation_4' is missing or invalid.
+Warning: Invalid position for chargingStation 'chargingStation_5'.
+Warning: Invalid position for chargingStation 'chargingStation_6'.
+Warning: Essential float attribute 'endPos' of chargingStation with id = 'chargingStation_7' is missing or invalid.
+Warning: Essential float attribute 'endPos' of chargingStation with id = 'chargingStation_8' is missing or invalid.
+Warning: Invalid position for chargingStation 'chargingStation_9'.
+Warning: Invalid position for chargingStation 'chargingStation_10'.
+Warning: Optional float attribute 'power' of chargingStation with id = 'chargingStation_11' is missing or invalid; Default value '22000.00' will be used.
+Warning: Optional float attribute 'power' of chargingStation with id = 'chargingStation_12' is missing or invalid; Default value '22000.00' will be used.
+Warning: Optional float attribute 'efficiency' of chargingStation with id = 'chargingStation_14' is missing or invalid; Default value '0.95' will be used.
+Warning: Optional float attribute 'efficiency' of chargingStation with id = 'chargingStation_15' is missing or invalid; Default value '0.95' will be used.
+Warning: Optional bool attribute 'chargeInTransit' of chargingStation with id = 'chargingStation_17' is missing or invalid; Default value '0' will be used.
+Warning: Optional bool attribute 'chargeInTransit' of chargingStation with id = 'chargingStation_18' is missing or invalid; Default value '0' will be used.
+Warning: Optional bool attribute 'chargeInTransit' of chargingStation with id = 'chargingStation_19' is missing or invalid; Default value '0' will be used.
+Warning: Optional time attribute 'chargeDelay' of chargingStation with id = 'chargingStation_20' is missing or invalid; Default value '0.00' will be used.
+Warning: Optional time attribute 'chargeDelay' of chargingStation with id = 'chargingStation_21' is missing or invalid; Default value '0.00' will be used.
+Warning: Optional time attribute 'chargeDelay' of chargingStation with id = 'chargingStation_22' is missing or invalid; Default value '0.00' will be used.
