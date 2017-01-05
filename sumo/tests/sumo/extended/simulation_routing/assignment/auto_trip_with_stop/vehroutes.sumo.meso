@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan  5 09:21:22 2017 by SUMO Version dev-SVN-r22460
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="no_stop" depart="0.00" arrival="20.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="SC NC"/>
+            <route edges="SC CN NC"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="stop_middle" depart="12.00" arrival="37.00">
+        <route edges="SC CN NC"/>
+        <stop lane="CN_0" endPos="81.95" duration="5.00"/>
+    </vehicle>
+
+    <vehicle id="stop_first" depart="10.00" arrival="38.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="10.00" probability="0" edges="SC SC NC"/>
+            <route edges="SC CN NC"/>
+        </routeDistribution>
+        <stop lane="SC_0" endPos="81.95" duration="5.00"/>
+    </vehicle>
+
+    <vehicle id="stop_last" depart="14.00" arrival="44.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="14.00" probability="0" edges="SC NC NC"/>
+            <route edges="SC CN NC"/>
+        </routeDistribution>
+        <stop lane="NC_0" endPos="81.95" duration="5.00"/>
+    </vehicle>
+
+</routes>
