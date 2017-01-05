@@ -536,7 +536,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
             }
             cars.insert(cars.begin() + 1, veh);
         } else {
-            tleave = MAX2(leaderOut + myTau_ff, tleave);
+            tleave = MAX2(leaderOut + (SUMOTime)tauWithVehLength(myTau_ff, cars[0]->getVehicleType().getLengthWithGap()), tleave);
             cars.insert(cars.begin(), veh);
         }
     }
