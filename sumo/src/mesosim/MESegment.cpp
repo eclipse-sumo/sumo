@@ -54,7 +54,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#define DEFAULT_VEH_LENGHT_WITH_GAP 7.5f
+#define DEFAULT_VEH_LENGHT_WITH_GAP (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap)
 // avoid division by zero when driving very slowly
 #define MESO_MIN_SPEED ((SUMOReal)0.05)
 
@@ -194,8 +194,7 @@ MESegment::jamThresholdForSpeed(SUMOReal speed, SUMOReal jamThresh) const {
     if (speed == 0) {
         return std::numeric_limits<double>::max();  // never jam. Irrelevant at speed 0 anyway
     }
-    const SUMOReal defaultLengthWithGap = SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap;
-    return std::ceil((myLength / (-jamThresh * speed * STEPS2TIME(myTau_ff + defaultLengthWithGap / myTau_length)))) * defaultLengthWithGap;
+    return std::ceil((myLength / (-jamThresh * speed * STEPS2TIME(myTau_ff + DEFAULT_VEH_LENGHT_WITH_GAP / myTau_length)))) * DEFAULT_VEH_LENGHT_WITH_GAP;
 }
 
 
