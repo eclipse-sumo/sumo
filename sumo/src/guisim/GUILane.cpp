@@ -463,9 +463,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, getType());
     }
     // set lane color
-    if (!MSGlobals::gUseMesoSim) {
-        setColor(s);
-    } else {
+    setColor(s);
+    if (MSGlobals::gUseMesoSim) {
         myShapeColors.clear();
         const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)->getSegmentColors();
         if (segmentColors.size() > 0) {
@@ -502,9 +501,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glColor3d(1, 1, 1);
                 glTranslated(0, 0, .1);
                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
-                if (!MSGlobals::gUseMesoSim) {
-                    setColor(s);
-                }
+                setColor(s);
                 drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas) {
@@ -620,9 +617,7 @@ void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
-    if (!MSGlobals::gUseMesoSim) {
-        setColor(s);
-    }
+    setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
         SUMOReal mw = (myHalfLaneWidth + SUMO_const_laneOffset + .01) * scale * (MSNet::getInstance()->lefthand() ? -1 : 1);
@@ -864,9 +859,13 @@ GUILane::getLoadedEdgeWeight() const {
 
 void
 GUILane::setColor(const GUIVisualizationSettings& s) const {
-    const GUIColorer& c = s.laneColorer;
-    if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+    if (MSGlobals::gUseMesoSim) {
+        GLHelper::setColor(static_cast<const GUIEdge*>(myEdge)->getMesoColor());
+    } else {
+        const GUIColorer& c = s.laneColorer;
+        if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
+            GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        }
     }
 }
 

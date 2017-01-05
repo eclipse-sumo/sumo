@@ -409,9 +409,10 @@ GUIEdge::getRelativeSpeed() const {
 
 void
 GUIEdge::setColor(const GUIVisualizationSettings& s) const {
+    myMesoColor = RGBColor(0,0,0); // default background color when using multiColor
     const GUIColorer& c = s.edgeColorer;
     if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        myMesoColor = c.getScheme().getColor(getColorValue(c.getActive()));
     }
 }
 
@@ -422,7 +423,7 @@ GUIEdge::setFunctionalColor(int activeScheme) const {
         case 9: {
             const PositionVector& shape = getLanes()[0]->getShape();
             SUMOReal hue = GeomHelper::naviDegree(shape.beginEndAngle()); // [0-360]
-            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            myMesoColor = RGBColor::fromHSV(hue, 1., 1.);
             return true;
         }
         default:

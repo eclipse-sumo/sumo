@@ -214,8 +214,14 @@ public:
         return mySegmentColors;
     }
 
+    RGBColor getMesoColor() {
+        return myMesoColor;
+    }
+
     /// The color of the segments (cached)
     mutable std::vector<RGBColor> mySegmentColors;
+
+
 
 private:
     /// @brief invalidated copy constructor
@@ -228,6 +234,8 @@ private:
 private:
     /// The mutex used to avoid concurrent updates of myPersons/ myContainers
     mutable MFXMutex myLock;
+
+    mutable RGBColor myMesoColor;
 
 };
 
