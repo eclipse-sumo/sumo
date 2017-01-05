@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan  5 15:10:00 2017 by SUMO Version dev-SVN-r22466
+<!-- generated on Thu Jan  5 16:15:52 2017 by SUMO Version dev-SVN-r22466
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,8 +28,8 @@
 -->
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="27.89" aspiredSpeed="27.80"/>
-    <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1082" removed="0" inserted="1082" cleared="0" flow="2164.00" aspiredFlow="2500.00" speed="10.30" aspiredSpeed="15.00"/>
-    <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="9.83" aspiredSpeed="10.00"/>
-    <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="1071" removed="0" inserted="1071" cleared="0" flow="2142.00" aspiredFlow="2500.00" speed="5.09" aspiredSpeed="5.00"/>
+    <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="28.19" aspiredSpeed="27.80"/>
+    <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1249" removed="0" inserted="1249" cleared="0" flow="2498.00" aspiredFlow="2500.00" speed="15.32" aspiredSpeed="15.00"/>
+    <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="9.96" aspiredSpeed="10.00"/>
+    <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="1075" removed="0" inserted="1075" cleared="0" flow="2150.00" aspiredFlow="2500.00" speed="5.10" aspiredSpeed="5.00"/>
 </calibratorstats>

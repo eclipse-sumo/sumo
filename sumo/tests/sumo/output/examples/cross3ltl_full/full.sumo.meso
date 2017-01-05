@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan  5 15:09:57 2017 by SUMO Version dev-SVN-r22466
+<!-- generated on Thu Jan  5 15:50:43 2017 by SUMO Version dev-SVN-r22466
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -5263,7 +5263,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.37">
+            <edge id="3fi" traveltime="24.78">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">
@@ -5837,7 +5837,7 @@
                 <lane id="2si_1" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
                 <lane id="2si_2" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="50.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
-            <edge id="3fi" traveltime="22.37">
+            <edge id="3fi" traveltime="23.51">
                 <lane id="3fi_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="11.11" meanspeed="40.00" occupancy="0.00" vehicle_count="0"/>
             </edge>
             <edge id="3o" traveltime="43.98">

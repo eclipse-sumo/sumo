@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan  5 15:09:57 2017 by SUMO Version dev-SVN-r22466
+<!-- generated on Thu Jan  5 15:50:43 2017 by SUMO Version dev-SVN-r22466
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -861,6 +861,10 @@
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
     </vehicle>
 
+    <vehicle id="always_left.43" depart="530.00" arrival="890.00">
+        <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
+    </vehicle>
+
     <vehicle id="vertical.60" depart="700.00" arrival="892.00">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
     </vehicle>
@@ -869,16 +873,12 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="always_left.43" depart="530.00" arrival="892.00">
+    <vehicle id="always_left.44" depart="540.00" arrival="899.00">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
     </vehicle>
 
     <vehicle id="always_right.44" depart="540.00" arrival="899.00">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
-    </vehicle>
-
-    <vehicle id="always_left.44" depart="540.00" arrival="901.00">
-        <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
     </vehicle>
 
     <vehicle id="vertical.61" depart="710.00" arrival="902.00">
@@ -997,7 +997,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="vertical.68" depart="780.00" arrival="978.00">
+    <vehicle id="vertical.68" depart="783.00" arrival="978.00">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
     </vehicle>
 
@@ -1013,7 +1013,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="vertical.69" depart="790.00" arrival="982.00">
+    <vehicle id="vertical.69" depart="793.00" arrival="988.00">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
     </vehicle>
 
@@ -1029,7 +1029,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="vertical.70" depart="803.00" arrival="998.00">
+    <vehicle id="vertical.70" depart="802.00" arrival="998.00">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
     </vehicle>
 

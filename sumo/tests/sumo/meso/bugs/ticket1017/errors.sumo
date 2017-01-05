@@ -1,4 +1,8 @@
 Warning: Teleporting vehicle 'flow.13'; waited too long, from edge 'beg':1, time 336.10.
 Warning: Vehicle 'flow.13' ends teleporting on edge 'end':1, time 350.49.
 Warning: Teleporting vehicle 'flow.14'; waited too long, from edge 'middle':0 to edge 'end':1, time 664.73.
+Warning: Teleporting vehicle 'flow.41'; waited too long, from edge 'beg':0, time 966.40.
 Warning: Teleporting vehicle 'flow.15'; waited too long, from edge 'middle':0 to edge 'end':1, time 966.73.
+Warning: Vehicle 'flow.41' ends teleporting on edge 'end':1, time 980.79.
+Warning: Teleporting vehicle 'flow.43'; waited too long, from edge 'beg':0, time 1268.40.
+Warning: Vehicle 'flow.43' ends teleporting on edge 'end':2, time 1282.80.
