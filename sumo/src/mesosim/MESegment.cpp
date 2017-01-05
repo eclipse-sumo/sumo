@@ -163,7 +163,7 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     // downstream segment x
     // f is a linear function that passes through the following fixed points:
     // f(n_jam_threshold) = myTau_jf (for continuity)
-    // f(myHeadwayCapacity) = myTau_jj & myHeadwayCapacity
+    // f(myHeadwayCapacity) = myTau_jj * myHeadwayCapacity
 
     if (myJamThreshold < myCapacity) {
         // jamming is possible
