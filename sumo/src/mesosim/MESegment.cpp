@@ -544,7 +544,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     if (!isDepart) {
         // regular departs could take place anywhere on the edge so they should not block regular flow
         // the -1 facilitates interleaving of multiple streams
-        myEntryBlockTime = time + myTau_ff - 1;
+        myEntryBlockTime = time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap()) - 1;
     }
     veh->setEventTime(tleave);
     veh->setSegment(this, nextQueIndex);
