@@ -421,6 +421,9 @@ private:
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;
 
+    /// @brief whether the segment requires use of multiple queues
+    static bool useMultiQueue(bool multiQueue, const MSEdge& parent);
+
 private:
     /// @brief The microsim edge this segment belongs to
     const MSEdge& myEdge;

@@ -104,23 +104,20 @@ MESegment::MESegment(const std::string& id,
     myLastMeanSpeedUpdate(SUMOTime_MIN) {
     myCarQues.push_back(std::vector<MEVehicle*>());
     myBlockTimes.push_back(-1);
-    const std::vector<MSLane*>& lanes = parent.getLanes();
-    if (multiQueue && lanes.size() > 1) {
-        int numFollower = parent.getNumSuccessors();
-        if (numFollower > 1) {
-            while (myCarQues.size() < lanes.size()) {
-                myCarQues.push_back(std::vector<MEVehicle*>());
-                myBlockTimes.push_back(-1);
-            }
-            for (int i = 0; i < numFollower; ++i) {
-                const MSEdge* const edge = parent.getSuccessors()[i];
-                const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
-                assert(allowed != 0);
-                assert(allowed->size() > 0);
-                for (std::vector<MSLane*>::const_iterator j = allowed->begin(); j != allowed->end(); ++j) {
-                    std::vector<MSLane*>::const_iterator it = find(lanes.begin(), lanes.end(), *j);
-                    myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
-                }
+    if (useMultiQueue(multiQueue, parent)) {
+        const std::vector<MSLane*>& lanes = parent.getLanes();
+        while (myCarQues.size() < lanes.size()) {
+            myCarQues.push_back(std::vector<MEVehicle*>());
+            myBlockTimes.push_back(-1);
+        }
+        for (int i = 0; i < (int)parent.getNumSuccessors(); ++i) {
+            const MSEdge* const edge = parent.getSuccessors()[i];
+            const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
+            assert(allowed != 0);
+            assert(allowed->size() > 0);
+            for (std::vector<MSLane*>::const_iterator j = allowed->begin(); j != allowed->end(); ++j) {
+                std::vector<MSLane*>::const_iterator it = find(lanes.begin(), lanes.end(), *j);
+                myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
             }
         }
     }
@@ -138,6 +135,11 @@ MESegment::MESegment(const std::string& id):
     myMinorPenalty(false) {
 }
 
+
+bool 
+MESegment::useMultiQueue(bool multiQueue, const MSEdge& parent) {
+    return multiQueue && parent.getLanes().size() > 1 && parent.getNumSuccessors() > 1;
+}
 
 void
 MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
