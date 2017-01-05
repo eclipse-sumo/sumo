@@ -1,11 +1,12 @@
-Warning: Could not build e1Detector with id 'E1_gneE1_0_01' in netedit; probably declared twice.
-Warning: The lane 'dummyLane' to use within the e1Detector 'E1_gneE1_0_02' is not known.
-Warning: Essential string attribute 'lane' of e1Detector with id = 'E1_gneE1_0_03' is missing or invalid.
-Warning: Optional string attribute 'pos' of e1Detector with id = 'E1_gneE1_0_04' is missing or invalid; Default value '0.00' will be used.
-Warning: Optional time attribute 'freq' of e1Detector with id = 'E1_gneE1_0_07' is missing or invalid; Default value '100.00' will be used.
-Warning: Optional time attribute 'freq' of e1Detector with id = 'E1_gneE1_0_08' is missing or invalid; Default value '100.00' will be used.
-Warning: Optional time attribute 'freq' of e1Detector with id = 'E1_gneE1_0_09' is missing or invalid; Default value '100.00' will be used.
-Warning: Optional string attribute 'file' of e1Detector with id = 'E1_gneE1_0_11' is missing or invalid; Default value '' will be used.
-Warning: Optional string attribute 'file' of e1Detector with id = 'E1_gneE1_0_12' is missing or invalid; Default value '' will be used.
-Warning: Optional bool attribute 'splitByType' of e1Detector with id = 'E1_gneE1_0_15' is missing or invalid; Default value '0' will be used.
-Warning: Optional bool attribute 'splitByType' of e1Detector with id = 'E1_gneE1_0_16' is missing or invalid; Default value '0' will be used.
+Warning: Could not build e1Detector with id 'E1_01' in netedit; probably declared twice.
+Warning: Essential string attribute 'lane' of e1Detector with id = 'E1_02' is missing or invalid.
+Warning: The lane 'dummyLane' to use within the e1Detector 'E1_03' is not known.
+Warning: Optional string attribute 'pos' of e1Detector with id = 'E1_04' is missing or invalid; Default value '0.00' will be used.
+Warning: Optional string attribute 'pos' of e1Detector with id = 'E1_05' is missing or invalid; Default value '0.00' will be used.
+Warning: Optional time attribute 'freq' of e1Detector with id = 'E1_08' is missing or invalid; Default value '100.00' will be used.
+Warning: Optional time attribute 'freq' of e1Detector with id = 'E1_09' is missing or invalid; Default value '100.00' will be used.
+Warning: Optional time attribute 'freq' of e1Detector with id = 'E1_10' is missing or invalid; Default value '100.00' will be used.
+Warning: Optional string attribute 'file' of e1Detector with id = 'E1_12' is missing or invalid; Default value '' will be used.
+Warning: Optional string attribute 'file' of e1Detector with id = 'E1_13' is missing or invalid; Default value '' will be used.
+Warning: Optional bool attribute 'splitByType' of e1Detector with id = 'E1_16' is missing or invalid; Default value '0' will be used.
+Warning: Optional bool attribute 'splitByType' of e1Detector with id = 'E1_17' is missing or invalid; Default value '0' will be used.
