@@ -188,7 +188,7 @@ GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = 0;
-    ret = new GUIParameterTableWindow(app, *this, 16);
+    ret = new GUIParameterTableWindow(app, *this, 17);
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
@@ -201,6 +201,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
     ret->mkItem("segment index", false, segment->getIndex());
+    ret->mkItem("segment queues", false, segment->numQueues());
     ret->mkItem("segment length [m]", false, segment->getLength());
     ret->mkItem("segment allowed speed [m/s]", false, segment->getEdge().getSpeedLimit());
     ret->mkItem("segment jam threshold [%]", false, segment->getRelativeJamThreshold() * 100);
