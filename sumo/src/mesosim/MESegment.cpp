@@ -248,7 +248,7 @@ MESegment::prepareDetectorForWriting(MSMoveReminder& data) {
         for (std::vector<MEVehicle*>::const_reverse_iterator i = k->rbegin(); i != k->rend(); ++i) {
             const SUMOTime exitTime = MAX2(earliestExitTime, (*i)->getEventTime());
             (*i)->updateDetectorForWriting(&data, currentTime, exitTime);
-            earliestExitTime = exitTime + myTau_ff;
+            earliestExitTime = exitTime + tauWithVehLength(myTau_ff, (*i)->getVehicleType().getLengthWithGap());
         }
     }
 }
