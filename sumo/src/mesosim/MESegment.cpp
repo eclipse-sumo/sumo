@@ -194,7 +194,7 @@ MESegment::jamThresholdForSpeed(SUMOReal speed, SUMOReal jamThresh) const {
     if (speed == 0) {
         return std::numeric_limits<double>::max();  // never jam. Irrelevant at speed 0 anyway
     }
-    return std::ceil((myLength / (-jamThresh * speed * STEPS2TIME(myTau_ff + DEFAULT_VEH_LENGHT_WITH_GAP / myTau_length)))) * DEFAULT_VEH_LENGHT_WITH_GAP;
+    return std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) * DEFAULT_VEH_LENGHT_WITH_GAP;
 }
 
 
@@ -363,7 +363,7 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 SUMOTime
 MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
     if (pred->free()) {
-        const SUMOReal tau = (SUMOReal)(free() ? myTau_ff : myTau_fj) + veh->getVehicleType().getLengthWithGap() / myTau_length;
+        const SUMOReal tau = tauWithVehLength(free() ? myTau_ff : myTau_fj, veh->getVehicleType().getLengthWithGap());
         return (SUMOTime)(tau / pred->getTLSCapacity(veh));
     } else {
         if (free()) {
