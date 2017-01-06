@@ -1,34 +1,50 @@
 <additionals>
-	<!-- Without errors (containerStop Nº 1) -->
-	<containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2"/>
+    <!-- Without errors (containerStop Nº 1) -->
+    <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2"/>
+    
+    <!-- empty definition -->
+    <containerStop/>
+    
+    <!-- missing ID -->
+    <containerStop lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2"/>
+    
+    <!-- Duplicated ID -->
+    <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2"/>
+    
+    <!-- missing lane -->
+    <containerStop id="containerStop_01" startPos="15" endPos="20" lines="line1 line2"/>
+    
+    <!-- non valid lane -->
+    <containerStop id="containerStop_02" lane="dummyLane" startPos="15" endPos="20" lines="line1 line2"/>
+    
+    <!-- missing start position -->
+    <containerStop id="containerStop_03" lane="gneE0_0" endPos="30" lines="line1 line2"/>
+    
+	<!-- non valid start position (dummy) -->
+    <containerStop id="containerStop_04" lane="gneE0_0" startPos="dummyStartPosition" endPos="25" lines="line1 line2"/>
 	
-	<!-- missing ID -->
-	<containerStop lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2"/>
-	<!-- Duplicated ID -->
-	<containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2"/>
+    <!-- non valid start position (negative) -->
+    <containerStop id="containerStop_05" lane="gneE0_0" startPos="-25" endPos="25" lines="line1 line2"/>
+    
+    <!-- non valid start position (overpassing endPos) -->
+    <containerStop id="containerStop_06" lane="gneE0_0" startPos="45" endPos="25" lines="line1 line2"/>
+    
+    <!-- missing end position -->
+    <containerStop id="containerStop_07" lane="gneE0_0" startPos="35" lines="line1 line2"/>
+    
+	<!-- non valid end position (dummy) -->
+    <containerStop id="containerStop_08" lane="gneE0_0" startPos="35" endPos="dummyEndPos" lines="line1 line2"/>
 	
-	<!-- missing lane -->
-	<containerStop id="containerStop_gneE0_0_1" startPos="15" endPos="20" lines="line1 line2"/>
-	<!-- non valid lane -->
-	<containerStop id="containerStop_gneE0_0_2" lane="dummyLane" startPos="15" endPos="20" lines="line1 line2"/>
-	
-	<!-- missing start position -->
-	<containerStop id="containerStop_gneE0_0_3" lane="gneE0_0" endPos="30" lines="line1 line2"/>
-	<!-- non valid start position 1 -->
-	<containerStop id="containerStop_gneE0_0_4" lane="gneE0_0" startPos="-25" endPos="25" lines="line1 line2"/>
-	<!-- non valid start position 2 -->
-	<containerStop id="containerStop_gneE0_0_5" lane="gneE0_0" startPos="500" endPos="25" lines="line1 line2"/>
-	
-	<!-- missing end position -->
-	<containerStop id="containerStop_gneE0_0_6" lane="gneE0_0" startPos="35" lines="line1 line2"/>
-	<!-- non valid end position 1 -->
-	<containerStop id="containerStop_gneE0_0_7" lane="gneE0_0" startPos="35" endPos="40000" lines="line1 line2"/>
-	<!-- non valid end position 2 -->
-	<containerStop id="containerStop_gneE0_0_8" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2"/>
-	
-	<!-- missing lines (containerStop Nº 2) -->
-	<containerStop id="containerStop_gneE0_0_9" lane="gneE0_0" startPos="25" endPos="30"/>
-	
-	<!-- non valid format lines (containerStop Nº 3) -->
-	<containerStop id="containerStop_gneE0_0_10" lane="gneE0_0" startPos="35" endPos="40" lines="line1, line2"/>
+    <!-- non valid end position (overpassing lane) -->
+    <containerStop id="containerStop_09" lane="gneE0_0" startPos="35" endPos="40000" lines="line1 line2"/>
+    
+    <!-- non valid end position (<startPos) -->
+    <containerStop id="containerStop_10" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2"/>
+    
+    <!-- missing lines (containerStop Nº 2) -->
+    <containerStop id="containerStop_11" lane="gneE0_0" startPos="25" endPos="30"/>
+    
+    <!-- non valid format lines (containerStop Nº 3) -->
+    <containerStop id="containerStop_12" lane="gneE0_0" startPos="35" endPos="40" lines="line1, line2"/>
+    
 </additionals>

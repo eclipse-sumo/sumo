@@ -1,5 +1,5 @@
 <additionals>
-    <busStop id="busStop_gneE0_0_0" lane="gneE0_0" startPos="5.00" endPos="10.00" lines="line1 line2"/>
-    <busStop id="busStop_gneE0_0_10" lane="gneE0_0" startPos="35.00" endPos="40.00" lines="line1  line2"/>
-    <busStop id="busStop_gneE0_0_9" lane="gneE0_0" startPos="25.00" endPos="30.00"/>
+    <busStop id="busStop_00" lane="gneE0_0" startPos="5.00" endPos="10.00" lines="line1 line2"/>
+    <busStop id="busStop_11" lane="gneE0_0" startPos="25.00" endPos="30.00"/>
+    <busStop id="busStop_12" lane="gneE0_0" startPos="35.00" endPos="40.00" lines="line1  line2"/>
 </additionals>

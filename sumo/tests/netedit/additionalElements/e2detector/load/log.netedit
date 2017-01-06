@@ -1,5 +1,23 @@
-Warning: Could not build e2Detector with id 'E1_gneE0_0_01' in netedit; probably declared twice.
-Warning: The lane 'dummyLane' to use within the e2Detector 'E1_gneE0_0_02' is not known.
-Warning: Essential string attribute 'lane' of e2Detector with id = 'E1_gneE0_0_03' is missing or invalid.
-Error: Runtime error: Empty Data while parsing 'C:/Users/Palcraft/.texttest/tmp/netedit.server.04Jan141212.7112/netedit.server/additionalElements/e2detector/load\input_additionals.add.xml'
-Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.server.04Jan141212.7112/netedit.server/additionalElements/e2detector/load\input_additionals.add.xml failed.
+Warning: Essential string attribute 'id' of e2Detector is missing; Additional cannot be created
+Warning: Could not build e2Detector with id 'E2_01' in netedit; probably declared twice.
+Warning: The lane 'dummyLane' to use within the e2Detector 'E2_02' is not known.
+Warning: Essential string attribute 'lane' of e2Detector with id = 'E2_03' is missing; Additional cannot be created
+Warning: Essential string attribute 'pos' of e2Detector with id = 'E2_04' is missing; Additional cannot be created
+Warning: Format of essential string attribute 'pos' of e2Detector with id = 'E2_04' is invalid; Additional cannot be created
+Warning: Optional float attribute 'length' of e2Detector with id = 'E2_07' is missing; Default value '10.00' will be used.
+Warning: Optional time attribute 'freq' of e2Detector with id = 'E2_11' is missing; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of e2Detector with id = 'E2_12' is invalid; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of e2Detector with id = 'E2_13' is invalid; Default value '100.00' will be used.
+Warning: Optional string attribute 'file' of e2Detector with id = 'E2_15' is missing; Default value '' will be used.
+Warning: Format of optional string attribute 'file' of e2Detector with id = 'E2_16' is invalid; Default value '' will be used.
+Warning: Optional bool attribute 'cont' of e2Detector with id = 'E2_19' is missing; Default value '0' will be used.
+Warning: Format of optional bool attribute 'cont' of e2Detector with id = 'E2_20' is invalid; Default value '0' will be used.
+Warning: Format of optional bool attribute 'cont' of e2Detector with id = 'E2_21' is invalid; Default value '0' will be used.
+Warning: Format of optional bool attribute 'cont' of e2Detector with id = 'E2_22' is invalid; Default value '0' will be used.
+Warning: Optional time attribute 'timeThreshold' of e2Detector with id = 'E2_23' is missing; Default value '1.00' will be used.
+Warning: Format of optional time attribute 'timeThreshold' of e2Detector with id = 'E2_24' is invalid; Default value '1.00' will be used.
+Warning: Format of optional time attribute 'timeThreshold' of e2Detector with id = 'E2_25' is invalid; Default value '1.00' will be used.
+Warning: Optional float attribute 'speedThreshold' of e2Detector with id = 'E2_27' is missing; Default value '1.39' will be used.
+Warning: Format of optional float attribute 'speedThreshold' of e2Detector with id = 'E2_28' is invalid; Default value '1.39' will be used.
+Warning: Optional float attribute 'jamThreshold' of e2Detector with id = 'E2_31' is missing; Default value '10.00' will be used.
+Warning: Format of optional float attribute 'jamThreshold' of e2Detector with id = 'E2_32' is invalid; Default value '10.00' will be used.

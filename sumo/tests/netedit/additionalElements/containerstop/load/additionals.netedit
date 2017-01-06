@@ -1,5 +1,5 @@
 <additionals>
-    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="5.00" endPos="10.00" lines="line1 line2"/>
-    <containerStop id="containerStop_gneE0_0_10" lane="gneE0_0" startPos="35.00" endPos="40.00" lines="line1  line2"/>
-    <containerStop id="containerStop_gneE0_0_9" lane="gneE0_0" startPos="25.00" endPos="30.00"/>
+    <containerStop id="containerStop_00" lane="gneE0_0" startPos="5.00" endPos="10.00" lines="line1 line2"/>
+    <containerStop id="containerStop_11" lane="gneE0_0" startPos="25.00" endPos="30.00"/>
+    <containerStop id="containerStop_12" lane="gneE0_0" startPos="35.00" endPos="40.00" lines="line1  line2"/>
 </additionals>
