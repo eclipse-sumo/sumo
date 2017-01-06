@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan  6 08:51:55 2017 by SUMO Version dev-SVN-r22480
+<!-- generated on Fri Jan  6 15:11:30 2017 by SUMO Version dev-SVN-r22484
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,8 +32,8 @@
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1934.34" density="22.22" occupancy="6.67" waitingTime="0.00" speed="28.02" departed="0" arrived="560" entered="561" left="0"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2083.24" density="23.93" occupancy="7.18" waitingTime="0.00" speed="27.77" departed="2" arrived="597" entered="596" left="0"/>
-    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1697.29" density="19.50" occupancy="5.85" waitingTime="0.00" speed="30.85" departed="0" arrived="541" entered="542" left="0"/>
-    <interval begin="2700.00" end="2860.00" id="end2_0" sampledSeconds="314.59" density="20.33" occupancy="6.10" waitingTime="0.00" speed="30.80" departed="0" arrived="102" entered="99" left="0"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1741.85" density="20.01" occupancy="6.00" waitingTime="0.00" speed="28.76" departed="0" arrived="516" entered="519" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="1905.60" density="21.89" occupancy="6.57" waitingTime="0.00" speed="29.47" departed="3" arrived="581" entered="578" left="0"/>
+    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1854.94" density="21.31" occupancy="6.39" waitingTime="0.00" speed="29.53" departed="0" arrived="567" entered="566" left="0"/>
+    <interval begin="2700.00" end="2926.00" id="end2_0" sampledSeconds="418.83" density="19.16" occupancy="5.75" waitingTime="0.00" speed="31.21" departed="0" arrived="136" entered="134" left="0"/>
 </detector>

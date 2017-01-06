@@ -5,51 +5,27 @@ Warning: Teleporting vehicle '1to2.2'; waited too long, from edge '1si':2 to edg
 Warning: Teleporting vehicle '2to3.1'; waited too long, from edge '2si':2 to edge '3o':2, time 678.04.
 Warning: Teleporting vehicle '1to4.2'; waited too long, from edge '1si':2 to edge '4o':2, time 975.43.
 Warning: Teleporting vehicle '2to1.2'; waited too long, from edge '2si':2 to edge '1o':1, time 982.89.
-Warning: Teleporting vehicle '1to4.63'; waited too long, from edge '1fi':0, time 1277.02.
 Warning: Teleporting vehicle '1to2.3'; waited too long, from edge '1si':2 to edge '2o':1, time 1277.87.
-Warning: Teleporting vehicle '2to1.63'; waited too long, from edge '2fi':0, time 1284.47.
 Warning: Teleporting vehicle '2to3.2'; waited too long, from edge '2si':2 to edge '3o':1, time 1285.63.
-Warning: Vehicle '1to4.63' ends teleporting on edge '4o':0, time 1299.52.
-Warning: Vehicle '2to1.63' ends teleporting on edge '1o':0, time 1306.98.
 Warning: Teleporting vehicle '1to4.3'; waited too long, from edge '1si':2 to edge '4o':1, time 1583.02.
 Warning: Teleporting vehicle '2to1.3'; waited too long, from edge '2si':2 to edge '1o':2, time 1590.36.
-Warning: Teleporting vehicle '1to2.65'; waited too long, from edge '1fi':0, time 1884.60.
 Warning: Teleporting vehicle '1to2.4'; waited too long, from edge '1si':2 to edge '2o':1, time 1886.08.
-Warning: Teleporting vehicle '2to3.64'; waited too long, from edge '2fi':0, time 1891.94.
 Warning: Teleporting vehicle '2to3.3'; waited too long, from edge '2si':2 to edge '3o':1, time 1893.42.
-Warning: Vehicle '1to2.65' ends teleporting on edge '2o':1, time 1907.11.
-Warning: Vehicle '2to3.64' ends teleporting on edge '3o':0, time 1914.44.
 Warning: Teleporting vehicle '1to4.4'; waited too long, from edge '1si':2 to edge '4o':1, time 2191.60.
 Warning: Teleporting vehicle '2to1.4'; waited too long, from edge '2si':2 to edge '1o':1, time 2200.06.
-Warning: Teleporting vehicle '1to3.66'; waited too long, from edge '1fi':0, time 2493.19.
 Warning: Teleporting vehicle '1to2.5'; waited too long, from edge '1si':2 to edge '2o':1, time 2494.66.
-Warning: Teleporting vehicle '2to4.65'; waited too long, from edge '2fi':0, time 2501.65.
 Warning: Teleporting vehicle '2to3.4'; waited too long, from edge '2si':2 to edge '3o':1, time 2503.00.
-Warning: Vehicle '1to3.66' ends teleporting on edge '3o':0, time 2515.69.
-Warning: Vehicle '2to4.65' ends teleporting on edge '4o':0, time 2524.15.
-Warning: Teleporting vehicle '1to4.5'; waited too long, from edge '1si':2 to edge '4o':1, time 2800.42.
-Warning: Teleporting vehicle '2to1.5'; waited too long, from edge '2si':2 to edge '1o':3, time 2807.76.
-Warning: Teleporting vehicle '1to4.67'; waited too long, from edge '1fi':0, time 3102.00.
-Warning: Teleporting vehicle '1to2.6'; waited too long, from edge '1si':2 to edge '2o':1, time 3103.48.
-Warning: Teleporting vehicle '2to1.67'; waited too long, from edge '2fi':0, time 3109.34.
-Warning: Teleporting vehicle '2to3.5'; waited too long, from edge '2si':2 to edge '3o':1, time 3110.82.
-Warning: Vehicle '1to4.67' ends teleporting on edge '4o':2, time 3124.51.
-Warning: Vehicle '2to1.67' ends teleporting on edge '1o':1, time 3131.84.
-Warning: Teleporting vehicle '1to4.6'; waited too long, from edge '1si':2 to edge '4o':1, time 3410.00.
-Warning: Teleporting vehicle '2to1.6'; waited too long, from edge '2si':2 to edge '1o':1, time 3418.46.
-Warning: Teleporting vehicle '1to2.69'; waited too long, from edge '1fi':0, time 3711.59.
-Warning: Teleporting vehicle '1to2.7'; waited too long, from edge '1si':2 to edge '2o':1, time 3713.64.
-Warning: Teleporting vehicle '2to3.68'; waited too long, from edge '2fi':0, time 3720.05.
-Warning: Teleporting vehicle '2to3.6'; waited too long, from edge '2si':2 to edge '3o':1, time 3721.40.
-Warning: Vehicle '1to2.69' ends teleporting on edge '2o':1, time 3734.09.
-Warning: Vehicle '2to3.68' ends teleporting on edge '3o':0, time 3742.55.
-Warning: Teleporting vehicle '1to4.7'; waited too long, from edge '1si':2 to edge '4o':1, time 4018.59.
-Warning: Teleporting vehicle '2to1.7'; waited too long, from edge '2si':2 to edge '1o':1, time 4027.05.
-Warning: Teleporting vehicle '1to3.70'; waited too long, from edge '1fi':0, time 4320.18.
-Warning: Teleporting vehicle '1to2.8'; waited too long, from edge '1si':2 to edge '2o':1, time 4321.65.
-Warning: Teleporting vehicle '2to4.69'; waited too long, from edge '2fi':0, time 4328.63.
-Warning: Teleporting vehicle '2to3.7'; waited too long, from edge '2si':2 to edge '3o':1, time 4329.99.
-Warning: Vehicle '1to3.70' ends teleporting on edge '3o':0, time 4342.68.
-Warning: Vehicle '2to4.69' ends teleporting on edge '4o':0, time 4351.14.
-Warning: Teleporting vehicle '1to4.8'; waited too long, from edge '1si':2 to edge '4o':1, time 4627.20.
-Warning: Teleporting vehicle '2to1.8'; waited too long, from edge '2si':2 to edge '1o':1, time 4635.66.
+Warning: Teleporting vehicle '1to4.5'; waited too long, from edge '1si':2 to edge '4o':1, time 2800.39.
+Warning: Teleporting vehicle '2to1.5'; waited too long, from edge '2si':2 to edge '1o':3, time 2807.73.
+Warning: Teleporting vehicle '1to2.6'; waited too long, from edge '1si':2 to edge '2o':1, time 3103.83.
+Warning: Teleporting vehicle '2to3.5'; waited too long, from edge '2si':2 to edge '3o':1, time 3110.59.
+Warning: Teleporting vehicle '1to4.6'; waited too long, from edge '1si':2 to edge '4o':1, time 3408.97.
+Warning: Teleporting vehicle '2to1.6'; waited too long, from edge '2si':2 to edge '1o':3, time 3416.31.
+Warning: Teleporting vehicle '1to2.7'; waited too long, from edge '1si':2 to edge '2o':1, time 3712.42.
+Warning: Teleporting vehicle '2to3.6'; waited too long, from edge '2si':2 to edge '3o':1, time 3719.18.
+Warning: Teleporting vehicle '1to4.7'; waited too long, from edge '1si':2 to edge '4o':1, time 4017.56.
+Warning: Teleporting vehicle '2to1.7'; waited too long, from edge '2si':2 to edge '1o':3, time 4024.90.
+Warning: Teleporting vehicle '1to2.8'; waited too long, from edge '1si':2 to edge '2o':1, time 4320.42.
+Warning: Teleporting vehicle '2to3.7'; waited too long, from edge '2si':2 to edge '3o':1, time 4327.76.
+Warning: Teleporting vehicle '1to4.8'; waited too long, from edge '1si':2 to edge '4o':1, time 4626.15.
+Warning: Teleporting vehicle '2to1.8'; waited too long, from edge '2si':2 to edge '1o':3, time 4633.48.
