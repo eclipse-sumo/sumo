@@ -332,6 +332,10 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     if (oc.isDefault("no-internal-links") && !haveCrossings && myHaveLoadedNetworkWithoutInternalEdges) {
         oc.set("no-internal-links", "true");
+    } else if (!mayAddOrRemove && haveCrossings) {
+        // crossings added via netedit
+        oc.resetWritable();
+        oc.set("no-internal-links", "false");
     }
 
     //
