@@ -1,0 +1,2 @@
+--no-step-log --duration-log.statistics -n net.net.xml -r input_routes.rou.xml
+--time-to-teleport 500
