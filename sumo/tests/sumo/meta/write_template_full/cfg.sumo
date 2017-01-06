@@ -167,7 +167,7 @@
         <meso-edgelength value="98" type="FLOAT" help="Length of an edge segment in mesoscopic simulation"/>
         <meso-tauff value="1.13" type="TIME" help="Factor for calculating the net free-free headway time"/>
         <meso-taufj value="1.13" type="TIME" help="Factor for calculating the net free-jam headway time"/>
-        <meso-taujf value="2" type="TIME" help="Factor for calculating the jam-free headway time"/>
+        <meso-taujf value="1.73" type="TIME" help="Factor for calculating the jam-free headway time"/>
         <meso-taujj value="1.4" type="TIME" help="Factor for calculating the jam-jam headway time"/>
         <meso-jam-threshold value="-1" type="FLOAT" help="Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default)"/>
         <meso-multi-queue value="true" type="BOOL" help="Enable multiple queues at edge ends"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan  5 15:09:48 2017 by SUMO Version dev-SVN-r22466
+<!-- generated on Fri Jan  6 08:51:53 2017 by SUMO Version dev-SVN-r22480
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -39,7 +39,7 @@
     </interval>
     <interval begin="200.00" end="300.00" id="dump_15">
         <edge id="beg" sampledSeconds="1333.76" traveltime="17.27" overlapTraveltime="17.44" density="26.68" occupancy="4.45" waitingTime="0.00" speed="28.96" departed="77" arrived="0" entered="0" left="75" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="1436.31" traveltime="18.54" overlapTraveltime="18.72" density="28.73" occupancy="4.79" waitingTime="0.00" speed="26.98" departed="0" arrived="76" entered="75" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="1436.28" traveltime="18.53" overlapTraveltime="18.72" density="28.73" occupancy="4.79" waitingTime="0.00" speed="26.98" departed="0" arrived="76" entered="75" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="300.00" end="400.00" id="dump_15">
         <edge id="beg" sampledSeconds="1365.99" traveltime="17.72" overlapTraveltime="17.90" density="27.32" occupancy="4.55" waitingTime="0.00" speed="28.22" departed="77" arrived="0" entered="0" left="78" laneChangedFrom="0" laneChangedTo="0"/>

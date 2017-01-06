@@ -424,7 +424,7 @@
         <meso-taufj value="1.13" type="TIME"/>
 
         <!-- Factor for calculating the jam-free headway time -->
-        <meso-taujf value="2" type="TIME"/>
+        <meso-taujf value="1.73" type="TIME"/>
 
         <!-- Factor for calculating the jam-jam headway time -->
         <meso-taujj value="1.4" type="TIME"/>

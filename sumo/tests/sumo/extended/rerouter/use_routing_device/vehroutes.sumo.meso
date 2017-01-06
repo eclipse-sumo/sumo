@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan  5 15:50:44 2017 by SUMO Version dev-SVN-r22466
+<!-- generated on Fri Jan  6 08:52:03 2017 by SUMO Version dev-SVN-r22480
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -139,35 +139,35 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.2" depart="5.00" arrival="546.00">
+    <vehicle id="no_device.2" depart="5.00" arrival="545.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="5.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.3" depart="8.00" arrival="548.00">
+    <vehicle id="no_device.3" depart="8.00" arrival="547.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="8.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.4" depart="11.00" arrival="550.00">
+    <vehicle id="no_device.4" depart="11.00" arrival="549.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="11.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.5" depart="13.00" arrival="552.00">
+    <vehicle id="no_device.5" depart="13.00" arrival="551.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="13.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.6" depart="16.00" arrival="553.00">
+    <vehicle id="no_device.6" depart="16.00" arrival="552.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="16.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
@@ -181,14 +181,14 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.8" depart="21.00" arrival="556.00">
+    <vehicle id="no_device.8" depart="21.00" arrival="555.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="21.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.9" depart="24.00" arrival="557.00">
+    <vehicle id="no_device.9" depart="24.00" arrival="556.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="24.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>

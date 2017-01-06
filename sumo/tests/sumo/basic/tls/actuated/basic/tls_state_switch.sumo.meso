@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  6 12:30:49 2016 by SUMO Version dev-SVN-r22190
+<!-- generated on Fri Jan  6 08:51:55 2017 by SUMO Version dev-SVN-r22480
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -135,4 +135,12 @@
     <tlsstate time="611.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
     <tlsstate time="617.00" id="0" programID="0" phase="3" state="rryyrrrrrryyrrrr"/>
     <tlsstate time="621.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="630.00" id="0" programID="0" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="634.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="640.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="644.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="653.00" id="0" programID="0" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsstate time="657.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsstate time="663.00" id="0" programID="0" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsstate time="667.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
 </tls-states>
