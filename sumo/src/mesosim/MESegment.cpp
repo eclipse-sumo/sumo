@@ -162,14 +162,15 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     // the headway function f(x) depends on the number of vehicles in the
     // downstream segment x
     // f is a linear function that passes through the following fixed points:
-    // f(n_jam_threshold) = myTau_jf (for continuity)
+    // f(n_jam_threshold) = tau_jf_withLength (for continuity)
     // f(myHeadwayCapacity) = myTau_jj * myHeadwayCapacity
 
+    const SUMOReal tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGHT_WITH_GAP);
     if (myJamThreshold < myCapacity) {
         // jamming is possible
         const SUMOReal n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
         // solving f(x) = a * x + b
-        myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(myTau_jf)) / (myHeadwayCapacity - n_jam_threshold);
+        myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(tau_jf_withLength)) / (myHeadwayCapacity - n_jam_threshold);
         myB = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - myA);
 
         // note that the original Eissfeldt model (p. 69) used different fixed points
@@ -180,7 +181,7 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     } else {
         // dummy values. Should not be used
         myA = 0;
-        myB = STEPS2TIME(myTau_jf);
+        myB = STEPS2TIME(tau_jf_withLength);
     }
 }
 
@@ -371,7 +372,7 @@ MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
         return (SUMOTime)(tau / pred->getTLSCapacity(veh));
     } else {
         if (free()) {
-            return myTau_jf;
+            return (SUMOTime)tauWithVehLength(myTau_jf, veh->getVehicleType().getLengthWithGap());
         } else {
             // the gap has to move from the start of the segment to its end
             // this allows jams to clear and move upstream
