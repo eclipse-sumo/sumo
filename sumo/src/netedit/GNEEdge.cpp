@@ -543,7 +543,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WIDTH:
             if (myNBEdge.hasLaneSpecificWidth()) {
                 return "lane specific";
-            } else if (myNBEdge.getLaneWidth() == -1){
+            } else if (myNBEdge.getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH){
                 return "default";
             } else {
                 return toString(myNBEdge.getLaneWidth());
@@ -761,7 +761,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WIDTH:
             if(value == "default") {
-                myNBEdge.setLaneWidth(-1, -1);
+                myNBEdge.setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);
             } else {
                 myNBEdge.setLaneWidth(-1, parse<SUMOReal>(value));
             }
