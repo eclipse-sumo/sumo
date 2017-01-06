@@ -1,0 +1,3 @@
+--no-step-log --verbose --net-file=net.net.xml
+--routes=input_routes.rou.xml --meso-tls-penalty 1.0
+--duration-log.statistics
