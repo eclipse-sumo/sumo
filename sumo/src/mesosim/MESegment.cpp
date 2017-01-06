@@ -320,7 +320,7 @@ MESegment::getMeanSpeed(bool useCached) const {
             count += (int)k->size();
             for (std::vector<MEVehicle*>::const_reverse_iterator veh = k->rbegin(); veh != k->rend(); ++veh) {
                 v += (*veh)->getConservativeSpeed(earliestExitTime); // earliestExitTime is updated!
-                earliestExitTime += tau;
+                earliestExitTime += tauWithVehLength(tau, (*veh)->getVehicleType().getLengthWithGap());
             }
         }
         if (count == 0) {
