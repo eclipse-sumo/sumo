@@ -149,7 +149,12 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     }
     if (jamThresh < 0) {
         // compute based on speed
-        myJamThreshold = jamThresholdForSpeed(myEdge.getSpeedLimit(), jamThresh);
+        SUMOReal speed = myEdge.getSpeedLimit();
+        if (myTLSPenalty || myMinorPenalty) {
+            SUMOReal travelTime = myLength / MAX2(speed, NUMERICAL_EPS) + getMaxPenaltySeconds();
+            speed = myLength / travelTime;
+        }
+        myJamThreshold = jamThresholdForSpeed(speed, jamThresh);
     } else {
         // compute based on specified percentage
         myJamThreshold = jamThresh * myCapacity;
@@ -372,7 +377,7 @@ MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
         return (SUMOTime)(tau / pred->getTLSCapacity(veh));
     } else {
         if (free()) {
-            return (SUMOTime)tauWithVehLength(myTau_jf, veh->getVehicleType().getLengthWithGap());
+            return (SUMOTime)(tauWithVehLength(myTau_jf, veh->getVehicleType().getLengthWithGap()) / pred->getTLSCapacity(veh));
         } else {
             // the gap has to move from the start of the segment to its end
             // this allows jams to clear and move upstream
@@ -733,6 +738,22 @@ MESegment::getTLSCapacity(const MEVehicle* veh) const {
         }
     } 
     return 1;
+}
+
+
+SUMOReal 
+MESegment::getMaxPenaltySeconds() const {
+    SUMOReal maxPenalty = 0;
+    for (std::vector<MSLane*>::const_iterator i = myEdge.getLanes().begin(); i != myEdge.getLanes().end(); ++i) {
+        MSLane* l = *i;
+        const MSLinkCont& lc = l->getLinkCont();
+        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
+            MSLink* link = *j;
+            maxPenalty = MAX2(maxPenalty, STEPS2TIME(
+                        link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty)));
+        }
+    }
+    return maxPenalty;
 }
 
 /****************************************************************************/

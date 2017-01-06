@@ -349,7 +349,7 @@ public:
     /** @brief return whether this segment is considered free as opposed to jammed
      */
     inline bool free() const {
-        return (myOccupancy <= myJamThreshold) || myTLSPenalty;
+        return myOccupancy <= myJamThreshold;
     }
 
     /// @brief return the remaining physical space on this segment
@@ -427,6 +427,9 @@ private:
 
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;
+
+    /// @brief return the maximum tls penalty for all links from this edge
+    SUMOReal getMaxPenaltySeconds() const;
 
     /// @brief whether the segment requires use of multiple queues
     static bool useMultiQueue(bool multiQueue, const MSEdge& parent);
