@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on Fri 06 Jan 2017 10:38:39 AM CET by Netedit Version dev-SVN-r22484
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+        <additionals-output value="/home/erdm_ja/.texttest/tmp/netedit.server.06Jan103833.30439/netedit.server/basic/new_net_1edge/additionals.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/.texttest/tmp/netedit.server.06Jan103833.30439/netedit.server/basic/new_net_1edge/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <visualisation>
+        <window-size value="700,500"/>
+        <gui-testing value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="/home/erdm_ja/.texttest/tmp/netedit.server.06Jan103833.30439/netedit.server/basic/new_net_1edge/log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="5.00,35.00,85.00,35.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="27.20,35.00,107.20,35.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="80.00" shape="5.00,33.35 85.00,33.35"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="80.00" shape="27.20,33.35 107.20,33.35"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="5.00" y="35.00" incLanes="" intLanes="" shape="5.00,34.95 5.00,31.75"/>
-    <junction id="gneJ1" type="unregulated" x="85.00" y="35.00" incLanes="gneE0_0" intLanes="" shape="85.00,31.75 85.00,34.95"/>
+    <junction id="gneJ0" type="unregulated" x="27.20" y="35.00" incLanes="" intLanes="" shape="27.20,34.95 27.20,31.75"/>
+    <junction id="gneJ1" type="unregulated" x="107.20" y="35.00" incLanes="gneE0_0" intLanes="" shape="107.20,31.75 107.20,34.95"/>
 
 </net>
