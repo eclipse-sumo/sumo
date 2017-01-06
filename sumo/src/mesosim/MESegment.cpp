@@ -687,7 +687,7 @@ MESegment::getVehicles() const {
 bool 
 MESegment::hasBlockedLeader() const {
     for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        if (k->size() > 0 && (*k)[0]->getWaitingTime() > 0) {
+        if (k->size() > 0 && (*k).back()->getWaitingTime() > 0) {
             return true;
         }
     }
