@@ -1082,34 +1082,65 @@ GNEAdditionalHandler::checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const S
 template <typename T> T
 GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool &abort, bool report) {
     bool ok = true;
-    T parsedAttribute = attrs.get<T>(attribute, objectid, ok, false);
-    // Time attributes requieres a extra check
-    if(GNEAttributeCarrier::isTime(tag, attribute) && (GNEAttributeCarrier::parse<SUMOReal>(toString(parsedAttribute)) < 0)) {
-        ok = false;
-    }
-    // If attribute doesn't exists or has an invalid format
-    if (!ok) {
+    std::string parsedAttribute = "0";
+    // only show one warning for every error/warning loading additional
+    if(!abort) {
+        // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if(objectid) {
             additionalOfWarningMessage = toString(tag) + " with id = '" + toString(objectid) + "'";
         } else {
             additionalOfWarningMessage = toString(tag);
         }
-        // if attribute has a default value, take it. In other case, abort.
-        if(GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
-            parsedAttribute = GNEAttributeCarrier::getDefaultValue<T>(tag, attribute);
-            // report warning of default value
-            if(report) {
-                WRITE_WARNING("Optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
-                              additionalOfWarningMessage + " is missing or invalid; Default value '" + toString(parsedAttribute) + "' will be used.");
+        // first check that attribute exists
+        if(attrs.hasAttribute(attribute)) {
+            // Parse attribute as string
+            parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
+            // check that parsed attribute can be converted to type T
+            if(ok && !GNEAttributeCarrier::canParse<T>(parsedAttribute)) {
+                ok = false;
+            }
+            // Time attributes requieres a extra check, because time can be only positive
+            if(GNEAttributeCarrier::isTime(tag, attribute) && GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute) &&
+               GNEAttributeCarrier::parse<SUMOReal>(parsedAttribute) < 0) {
+                ok = false;
+            }
+            // If attribute has an invalid format
+            if (!ok) {
+                // if attribute has a default value, take it as string. In other case, abort.
+                if(GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
+                    parsedAttribute = toString(GNEAttributeCarrier::getDefaultValue<T>(tag, attribute));
+                    // report warning of default value
+                    if(report) {
+                        WRITE_WARNING("Format of optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
+                                      additionalOfWarningMessage + " is invalid; Default value '" + toString(parsedAttribute) + "' will be used.");
+                    }
+                } else {
+                    WRITE_WARNING("Format of essential " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
+                                  additionalOfWarningMessage +  " is invalid; Additional cannot be created");
+                    // set default value of parsedAttribute (to avoid exceptions during conversions)
+                    parsedAttribute = "0";
+                    abort = true;
+                }
             }
         } else {
-            WRITE_WARNING("Essential " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
-                          additionalOfWarningMessage +  " is missing or invalid.");
-            abort = true;
+            // if attribute has a default value, take it. In other case, abort.
+            if(GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
+                parsedAttribute = toString(GNEAttributeCarrier::getDefaultValue<T>(tag, attribute));
+                // report warning of default value
+                if(report) {
+                    WRITE_WARNING("Optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
+                                    additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
+                }
+            } else {
+                WRITE_WARNING("Essential " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
+                                additionalOfWarningMessage +  " is missing; Additional cannot be created");
+                abort = true;
+            }
         }
     }
-    return parsedAttribute;
+    // return parsed attribute
+    return GNEAttributeCarrier::parse<T>(parsedAttribute);
 }
 
 
