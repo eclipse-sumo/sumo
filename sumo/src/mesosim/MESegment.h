@@ -413,6 +413,8 @@ private:
      */
     SUMOTime newArrival(const MEVehicle* const v, SUMOReal newSpeed, SUMOTime currentTime);
 
+    /// @brief whether a leader in any queue is blocked
+    bool hasBlockedLeader() const;
 
     /** @brief compute a value for myJamThreshold
      * if jamThresh is negative, compute a value which allows free flow at mySpeed

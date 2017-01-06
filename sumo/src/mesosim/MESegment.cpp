@@ -271,7 +271,7 @@ MESegment::hasSpaceFor(const MEVehicle* veh, SUMOTime entryTime, bool init) cons
     // - initial insertions should not cause additional jamming
     // - inserted vehicle should be able to continue at the current speed
     if (init) {
-        if (free()) {
+        if (free() && !hasBlockedLeader()) {
             return newOccupancy <= myJamThreshold;
         } else {
             return newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false), -1);
@@ -681,6 +681,17 @@ MESegment::getVehicles() const {
         result.insert(result.end(), k->begin(), k->end());
     }
     return result;
+}
+
+
+bool 
+MESegment::hasBlockedLeader() const {
+    for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
+        if (k->size() > 0 && (*k)[0]->getWaitingTime() > 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
