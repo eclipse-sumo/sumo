@@ -163,7 +163,8 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     // update coefficients for the jam-jam headway function
     // this function models the effect that "empty space" needs to move
     // backwards through the downstream segment before the upstream segment may
-    // send annother vehicle
+    // send annother vehicle.
+    // this allows jams to clear and move upstream.
     // the headway function f(x) depends on the number of vehicles in the
     // downstream segment x
     // f is a linear function that passes through the following fixed points:
@@ -372,18 +373,10 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 
 SUMOTime
 MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
-    if (pred->free()) {
-        const SUMOReal tau = tauWithVehLength(free() ? myTau_ff : myTau_fj, veh->getVehicleType().getLengthWithGap());
-        return (SUMOTime)(tau / pred->getTLSCapacity(veh));
-    } else {
-        if (free()) {
-            return (SUMOTime)(tauWithVehLength(myTau_jf, veh->getVehicleType().getLengthWithGap()) / pred->getTLSCapacity(veh));
-        } else {
-            // the gap has to move from the start of the segment to its end
-            // this allows jams to clear and move upstream
-            return TIME2STEPS(myA * getCarNumber() + myB);
-        }
-    }
+    const SUMOReal tau = (pred->free()
+        ? (free() ? myTau_ff : myTau_fj) 
+        : (free() ? myTau_jf : TIME2STEPS(myA * getCarNumber() + myB)));
+    return tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap()) / pred->getTLSCapacity(veh);
 }
 
 
