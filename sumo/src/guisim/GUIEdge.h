@@ -214,7 +214,7 @@ public:
         return mySegmentColors;
     }
 
-    RGBColor getMesoColor() {
+    RGBColor getMesoColor() const {
         return myMesoColor;
     }
 
