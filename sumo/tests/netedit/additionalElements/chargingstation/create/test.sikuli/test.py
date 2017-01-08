@@ -26,7 +26,7 @@ netedit.leftClick(match, 250, 250)
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 1)
 
 # create chargingStation in mode "reference right"
-click(match.getTarget().offset(240, 250))
+netedit.leftClick(match, 240, 250)
 
 # change reference to center
 netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 2)

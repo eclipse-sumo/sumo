@@ -26,7 +26,7 @@ netedit.leftClick(match, 200, 250)
 netedit.modifyAttribute(comboboxAdditional, 2, "150")
 
 # create E1 with different frequency
-click(match.getTarget().offset(250, 250))
+netedit.leftClick(match, 250, 250)
 
 # Change frequency
 netedit.modifyBoolAttribute(comboboxAdditional, 3)

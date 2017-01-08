@@ -26,13 +26,13 @@ netedit.leftClick(match, 125, 250)
 netedit.modifyAttribute(comboboxAdditional, 2, "5")
 
 # create E2 with different lenght
-click(match.getTarget().offset(250, 250))
+netedit.leftClick(match, 250, 250)
 
 # Change frequency
 netedit.modifyAttribute(comboboxAdditional, 3, "120")
 
 # create E2 with different frequency
-click(match.getTarget().offset(350, 250))
+netedit.leftClick(match, 350, 250)
 
 # Change cont
 netedit.modifyBoolAttribute(comboboxAdditional, 4)
