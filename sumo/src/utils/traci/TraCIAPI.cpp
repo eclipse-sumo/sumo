@@ -1474,6 +1474,10 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
     myParent.send_commandGetVariable(CMD_GET_TL_VARIABLE, TL_COMPLETE_DEFINITION_RYG, tlsID);
     myParent.processGET(inMsg, CMD_GET_TL_VARIABLE, TYPE_COMPOUND);
     std::vector<TraCIAPI::TraCILogic> ret;
+
+	inMsg.readUnsignedByte();
+	inMsg.readInt();
+
     int logicNo = inMsg.readInt();
     for (int i = 0; i < logicNo; ++i) {
         inMsg.readUnsignedByte();
@@ -1514,15 +1518,24 @@ TraCIAPI::TrafficLightScope::getControlledLinks(const std::string& tlsID) const 
     myParent.send_commandGetVariable(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LINKS, tlsID);
     myParent.processGET(inMsg, CMD_GET_TL_VARIABLE, TYPE_COMPOUND);
     std::vector<TraCIAPI::TraCILink> ret;
+
+	inMsg.readUnsignedByte();
+	inMsg.readInt();
+
     int linkNo = inMsg.readInt();
     for (int i = 0; i < linkNo; ++i) {
         inMsg.readUnsignedByte();
-        std::string from = inMsg.readString();
-        inMsg.readUnsignedByte();
-        std::string via = inMsg.readString();
-        inMsg.readUnsignedByte();
-        std::string to = inMsg.readString();
-        ret.push_back(TraCIAPI::TraCILink(from, via, to));
+		int no = inMsg.readInt();
+
+		for (int i1 = 0; i1 < no; ++i1) {
+			inMsg.readUnsignedByte();
+			inMsg.readInt();
+			std::string from = inMsg.readString();
+			std::string via = inMsg.readString();
+			std::string to = inMsg.readString();
+			ret.push_back(TraCIAPI::TraCILink(from, via, to));
+		}
+
     }
     return ret;
 }
