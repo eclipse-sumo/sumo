@@ -197,8 +197,7 @@ void BinaryFormatter::writePosition(std::ostream& into, const Position& val) {
 
 template<>
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const Position& val) {
-    FileHelpers::writeByte(into, BF_XML_ATTRIBUTE);
-    FileHelpers::writeByte(into, static_cast<unsigned char>(attr));
+    BinaryFormatter::writeAttrHeader(into, attr);
     writePosition(into, val);
 }
 

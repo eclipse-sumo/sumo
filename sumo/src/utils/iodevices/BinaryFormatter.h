@@ -102,7 +102,9 @@ public:
         /// @brief
         BF_SCALED2INT_POSITION_2D,
         /// @brief
-        BF_SCALED2INT_POSITION_3D
+        BF_SCALED2INT_POSITION_3D,
+        /// @brief
+        BF_INVALID
     };
 
     /// @brief Constructor
@@ -217,12 +219,14 @@ private:
      * @param[in] attr The attribute (name)
      * @param[in] type The attribute type
      */
-    static inline void writeAttrHeader(std::ostream& into, const SumoXMLAttr attr, const DataType type) {
+    static inline void writeAttrHeader(std::ostream& into, const SumoXMLAttr attr, const DataType type=BF_INVALID) {
         FileHelpers::writeByte(into, static_cast<unsigned char>(BF_XML_ATTRIBUTE));
         const int attrNum = (int)attr;
         FileHelpers::writeByte(into, static_cast<unsigned char>(attrNum % 256));
         FileHelpers::writeByte(into, static_cast<unsigned char>(attrNum / 256));
-        FileHelpers::writeByte(into, static_cast<unsigned char>(type));
+        if (type != BF_INVALID) {
+            FileHelpers::writeByte(into, static_cast<unsigned char>(type));
+        }
     }
 
 
