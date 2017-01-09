@@ -21,6 +21,6 @@ Warning: Not joining junctions 1560224080,1599958758 because the cluster is too 
 Warning: Not joining junctions 2223009095,2223009466,2223042915 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 851572284,851572523 because the cluster is too complex (parallel incoming -142575658#2,71596029#1)
 Warning: Found sharp turn with radius 3.51 at the start of edge '213883655'.
-Warning: Found sharp turn with radius 6.56 at the end of edge '415852870'.
-Warning: Found sharp turn with radius 6.56 at the start of edge '415852954'.
-Warning: Found angle of 138.43 degrees at edge '415852979', segment 5
+Warning: Found sharp turn with radius 6.56 at the end of edge '415852871'.
+Warning: Found sharp turn with radius 6.56 at the start of edge '415852955'.
+Warning: Found angle of 138.43 degrees at edge '415852980', segment 5
