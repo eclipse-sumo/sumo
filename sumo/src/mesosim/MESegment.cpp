@@ -171,7 +171,7 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     // f(n_jam_threshold) = tau_jf_withLength (for continuity)
     // f(myHeadwayCapacity) = myTau_jj * myHeadwayCapacity
 
-    const SUMOReal tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGHT_WITH_GAP);
+    const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGHT_WITH_GAP);
     if (myJamThreshold < myCapacity) {
         // jamming is possible
         const SUMOReal n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
@@ -373,10 +373,10 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 
 SUMOTime
 MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
-    const SUMOReal tau = (pred->free()
+    const SUMOTime tau = (pred->free()
         ? (free() ? myTau_ff : myTau_fj) 
         : (free() ? myTau_jf : TIME2STEPS(myA * getCarNumber() + myB)));
-    return tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap()) / pred->getTLSCapacity(veh);
+    return (SUMOTime)(tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap()) / pred->getTLSCapacity(veh));
 }
 
 
@@ -539,7 +539,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
             }
             cars.insert(cars.begin() + 1, veh);
         } else {
-            tleave = MAX2(leaderOut + (SUMOTime)tauWithVehLength(myTau_ff, cars[0]->getVehicleType().getLengthWithGap()), tleave);
+            tleave = MAX2(leaderOut + tauWithVehLength(myTau_ff, cars[0]->getVehicleType().getLengthWithGap()), tleave);
             cars.insert(cars.begin(), veh);
         }
     }

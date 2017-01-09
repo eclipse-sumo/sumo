@@ -435,8 +435,8 @@ private:
     static bool useMultiQueue(bool multiQueue, const MSEdge& parent);
 
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front) 
-    inline SUMOReal tauWithVehLength(SUMOTime tau, SUMOReal lengthWithGap) const {
-        return (SUMOReal)tau + lengthWithGap / myTau_length;
+    inline SUMOTime tauWithVehLength(SUMOTime tau, SUMOReal lengthWithGap) const {
+        return tau + (SUMOTime)(lengthWithGap / myTau_length);
     }
 
 private:

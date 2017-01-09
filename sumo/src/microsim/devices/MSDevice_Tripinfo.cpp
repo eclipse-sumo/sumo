@@ -191,7 +191,7 @@ MSDevice_Tripinfo::computeLengthAndDuration(SUMOReal& routeLength, SUMOTime& dur
 
 void
 MSDevice_Tripinfo::generateOutput() const {
-    const SUMOReal timeLoss = MSGlobals::gUseMesoSim ? myMesoTimeLoss : static_cast<MSVehicle&>(myHolder).getTimeLoss();
+    const SUMOTime timeLoss = MSGlobals::gUseMesoSim ? myMesoTimeLoss : static_cast<MSVehicle&>(myHolder).getTimeLoss();
     updateStatistics(timeLoss);
     if (!OptionsCont::getOptions().isSet("tripinfo-output")) {
         return;
