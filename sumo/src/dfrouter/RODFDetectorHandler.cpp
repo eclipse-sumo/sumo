@@ -63,7 +63,7 @@ RODFDetectorHandler::~RODFDetectorHandler() {}
 void
 RODFDetectorHandler::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) {
-    if (element == SUMO_TAG_DETECTOR_DEFINITION) {
+    if (element == SUMO_TAG_DETECTOR_DEFINITION || element == SUMO_TAG_E1DETECTOR || element == SUMO_TAG_INDUCTION_LOOP) {
         try {
             bool ok = true;
             // get the id, report an error if not given or empty...
