@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<edges>
-    <edge id="this_way"      from="first"  to="second" speed="13.89" width="2.0" />
-    <edge id="the_other_way" from="second" to="first"  speed="13.89" width="2.0" />
-</edges>

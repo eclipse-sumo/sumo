@@ -1,7 +1,7 @@
 <nodes>
   
   <!-- points for straight edge both ways-->
-  <node id="a0"  x="100.0" y="0.0" z="10.0" />
+  <node id="a0"  x="100.0" y="0.0"  />
   <node id="a1"  x="200.0" y="0.0" z="10.0" />
 
   <!-- points for straight edge one way-->
