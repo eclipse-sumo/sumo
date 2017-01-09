@@ -1277,7 +1277,13 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                     for (std::vector< MSMoveReminder* >::const_iterator rem = myLane->getMoveReminders().begin(); rem != myLane->getMoveReminders().end(); ++rem) {
                         addReminder(*rem);
                     }
+                    Stop* currentStop = &stop;
                     activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE);
+                    if (myStops.empty() || &myStops.front() != currentStop) {
+                        // stop reference is invalidated through rerouting.
+                        // @todo refactor to be less ugly
+                        return currentVelocity;
+                    }
                 }
             }
 

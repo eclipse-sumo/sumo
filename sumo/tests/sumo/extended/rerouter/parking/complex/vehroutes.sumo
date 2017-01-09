@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 21 09:03:50 2016 by SUMO Version dev-SVN-r22342
+<!-- generated on Mon Jan  9 12:22:40 2017 by SUMO Version dev-SVN-r22517
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -66,7 +66,7 @@
         <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="flow1.5" depart="25.00" arrival="495.00">
+    <vehicle id="flow1.5" depart="25.00" arrival="494.00">
         <route edges="a b c"/>
         <stop parkingArea="ParkAreaA" duration="200.00" parking="1"/>
         <stop parkingArea="ParkAreaB" duration="200.00" parking="1"/>
