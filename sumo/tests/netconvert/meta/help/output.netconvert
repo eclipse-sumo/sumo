@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r22145
+SUMO netconvert Version dev-SVN-r22510
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -225,6 +225,9 @@ Processing Options:
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
                                          integers
+  --reserved-ids FILE                  Ensures that generated ids do not
+                                         included any of the typed IDs from FILE
+                                         (SUMO-GUI selection file format)
   --dismiss-vclasses                   Removes vehicle class restrictions from
                                          imported edges
   --no-turnarounds                     Disables building turnarounds
