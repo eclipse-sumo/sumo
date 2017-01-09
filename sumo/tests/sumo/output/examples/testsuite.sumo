@@ -2,6 +2,9 @@ cross3ltl_summary
 cross3ltl_fcd
 cross3ltl_inductloops
 cross3ltl_laneArea
+
+# lane area detectors that span multiple lanes
+cross3ltl_laneArea_cont
 cross3ltl_entryExit
 cross3ltl_meandata_constrained
 cross3ltl_meandata_edges

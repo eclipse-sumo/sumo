@@ -1,0 +1,5 @@
+<additional>
+	<e2Detector file="detector.xml" freq="15" friendlyPos="x" id="e2det_3si_0" lane="3si_0" length="400" cont="true" pos="187.05"/>
+	<e2Detector file="detector.xml" freq="15" friendlyPos="x" id="e2det_3si_1" lane="3si_1" length="400" cont="true" pos="187.05"/>
+	<e2Detector file="detector.xml" freq="15" friendlyPos="x" id="e2det_3si_2" lane="3si_2" length="400" cont="true" pos="187.05"/>
+</additional>
