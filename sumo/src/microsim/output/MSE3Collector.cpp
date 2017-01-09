@@ -196,6 +196,11 @@ MSE3Collector::enter(const SUMOVehicle& veh, const SUMOReal entryTimestep, const
         }
     }
     v.hadUpdate = false;
+    if (!MSGlobals::gUseMesoSim) {
+        v.timeLoss = static_cast<const MSVehicle&>(veh).getTimeLoss();
+        v.intervalTimeLoss = v.timeLoss;
+    }
+
     myEnteredContainer[&veh] = v;
 }
 
@@ -220,6 +225,13 @@ MSE3Collector::leave(const SUMOVehicle& veh, const SUMOReal leaveTimestep, const
         const SUMOReal speedFraction = veh.getSpeed() * (TS - fractionTimeOnDet);
         values.speedSum -= speedFraction;
         values.intervalSpeedSum -= speedFraction;
+        if (MSGlobals::gUseMesoSim) {
+            // not yet supported
+            values.timeLoss = 0;
+        } else {
+            // timeLoss was initialized when entering
+            values.timeLoss = static_cast<const MSVehicle&>(veh).getTimeLoss() - values.timeLoss;
+        }
         myEnteredContainer.erase(&veh);
         myLeftContainer[&veh] = values;
     }
@@ -236,17 +248,20 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     SUMOReal meanOverlapTravelTime = 0.;
     SUMOReal meanSpeed = 0.;
     SUMOReal meanHaltsPerVehicle = 0.;
+    SUMOTime meanTimeLoss = 0.;
     for (std::map<const SUMOVehicle*, E3Values>::iterator i = myLeftContainer.begin(); i != myLeftContainer.end(); ++i) {
         meanHaltsPerVehicle += (SUMOReal)(*i).second.haltings;
         meanTravelTime += (*i).second.frontLeaveTime - (*i).second.entryTime;
         const SUMOReal steps = (*i).second.backLeaveTime - (*i).second.entryTime;
         meanOverlapTravelTime += steps;
         meanSpeed += ((*i).second.speedSum / steps);
+        meanTimeLoss += (*i).second.timeLoss;
     }
     meanTravelTime = vehicleSum != 0 ? meanTravelTime / (SUMOReal)vehicleSum : -1;
     meanOverlapTravelTime = vehicleSum != 0 ? meanOverlapTravelTime / (SUMOReal)vehicleSum : -1;
     meanSpeed = vehicleSum != 0 ? meanSpeed / (SUMOReal)vehicleSum : -1;
     meanHaltsPerVehicle = vehicleSum != 0 ? meanHaltsPerVehicle / (SUMOReal) vehicleSum : -1;
+    meanTimeLoss = vehicleSum != 0 ? meanTimeLoss / (SUMOReal) vehicleSum : TIME2STEPS(-1);
     // clear container
     myLeftContainer.clear();
 
@@ -258,6 +273,7 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     SUMOReal meanIntervalSpeedWithin = 0.;
     SUMOReal meanIntervalHaltsPerVehicleWithin = 0.;
     SUMOReal meanIntervalDurationWithin = 0.;
+    SUMOTime meanTimeLossWithin = 0.;
     for (std::map<const SUMOVehicle*, E3Values>::iterator i = myEnteredContainer.begin(); i != myEnteredContainer.end(); ++i) {
         meanHaltsPerVehicleWithin += (SUMOReal)(*i).second.haltings;
         meanIntervalHaltsPerVehicleWithin += (SUMOReal)(*i).second.intervalHaltings;
@@ -275,6 +291,12 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
         // reset interval values
         (*i).second.intervalHaltings = 0;
         (*i).second.intervalSpeedSum = 0;
+
+        if (!MSGlobals::gUseMesoSim) {
+            const SUMOTime currentTimeLoss = static_cast<const MSVehicle*>(i->first)->getTimeLoss();
+            meanTimeLossWithin += currentTimeLoss - (*i).second.intervalTimeLoss;
+            (*i).second.intervalTimeLoss = currentTimeLoss;
+        }
     }
     myLastResetTime = stopTime;
     meanSpeedWithin = vehicleSumWithin != 0 ?  meanSpeedWithin / (SUMOReal) vehicleSumWithin : -1;
@@ -283,12 +305,14 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     meanIntervalSpeedWithin = vehicleSumWithin != 0 ?  meanIntervalSpeedWithin / (SUMOReal) vehicleSumWithin : -1;
     meanIntervalHaltsPerVehicleWithin = vehicleSumWithin != 0 ? meanIntervalHaltsPerVehicleWithin / (SUMOReal) vehicleSumWithin : -1;
     meanIntervalDurationWithin = vehicleSumWithin != 0 ? meanIntervalDurationWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanTimeLossWithin = vehicleSumWithin != 0 ? meanTimeLossWithin / (SUMOReal) vehicleSumWithin : TIME2STEPS(-1);
 
     // write values
     dev << "meanTravelTime=\"" << meanTravelTime
         << "\" meanOverlapTravelTime=\"" << meanOverlapTravelTime
         << "\" meanSpeed=\"" << meanSpeed
         << "\" meanHaltsPerVehicle=\"" << meanHaltsPerVehicle
+        << "\" meanTimeLoss=\"" << STEPS2TIME(meanTimeLoss)
         << "\" vehicleSum=\"" << vehicleSum
         << "\" meanSpeedWithin=\"" << meanSpeedWithin
         << "\" meanHaltsPerVehicleWithin=\"" << meanHaltsPerVehicleWithin
@@ -297,6 +321,7 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
         << "\" meanIntervalSpeedWithin=\"" << meanIntervalSpeedWithin
         << "\" meanIntervalHaltsPerVehicleWithin=\"" << meanIntervalHaltsPerVehicleWithin
         << "\" meanIntervalDurationWithin=\"" << meanIntervalDurationWithin
+        << "\" meanTimeLossWithin=\"" << STEPS2TIME(meanTimeLossWithin)
         << "\"/>\n";
 }
 

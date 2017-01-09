@@ -16,6 +16,7 @@
       <xsd:attribute name="meanOverlapTravelTime" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanSpeed" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanHaltsPerVehicle" use="required" type="xsd:decimal"/>
+      <xsd:attribute name="meanTimeLoss" use="required" type="xsd:decimal"/>
       <xsd:attribute name="vehicleSum" use="required" type="xsd:integer"/>
       <xsd:attribute name="meanSpeedWithin" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanHaltsPerVehicleWithin" use="required" type="xsd:decimal"/>
@@ -24,6 +25,7 @@
       <xsd:attribute name="meanIntervalSpeedWithin" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanIntervalHaltsPerVehicleWithin" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanIntervalDurationWithin" use="required" type="xsd:decimal"/>
+      <xsd:attribute name="meanTimeLossWithin" use="required" type="xsd:decimal"/>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>
