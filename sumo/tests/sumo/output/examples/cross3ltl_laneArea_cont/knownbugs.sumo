@@ -1,0 +1,8 @@
+
+[Reported by Windows at 09Jan17:02:28]
+search_string:interval
+trigger_on_absence:1
+search_file:detector
+ignore_other_errors:1
+bug_system:trac
+bug_id:2773
