@@ -99,6 +99,16 @@ class Lane:
         self._allowed = get_allowed(allow, disallow)
         edge.addLane(self)
 
+    def isInternal(self):
+        """Returns True, if the lane is an internal lane. 
+        
+        Raises a ValueError if the lane does not yet have an edge yet."""
+        
+        if self._edge is None:
+            raise ValueError, 'edge for this lane not yet defined'
+        else:
+            return self._edge.isInternal()
+        
     def getSpeed(self):
         return self._speed
 
