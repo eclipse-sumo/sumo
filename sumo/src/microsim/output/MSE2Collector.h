@@ -85,8 +85,19 @@ public:
     /** @brief Internal representation of a vehicle
     */
     struct VehicleInfo {
-        VehicleInfo(std::string _id, std::string _type, SUMOReal _speed, SUMOReal _timeOnDet, SUMOReal _lengthOnDet, SUMOReal _position, SUMOReal _lengthWithGap, SUMOReal _accel, bool _stillOnDet)
-            : id(_id), type(_type), speed(_speed), timeOnDet(_timeOnDet), lengthOnDet(_lengthOnDet), position(_position), lengthWithGap(_lengthWithGap), accel(_accel), stillOnDet(_stillOnDet) {}
+        VehicleInfo(std::string _id, std::string _type, SUMOReal _speed, SUMOReal _timeOnDet, 
+                SUMOReal _lengthOnDet, SUMOReal _position, SUMOReal _lengthWithGap, 
+                SUMOReal _accel, SUMOReal vmax, bool _stillOnDet) : 
+            id(_id), 
+            type(_type), 
+            speed(_speed), 
+            timeOnDet(_timeOnDet), 
+            lengthOnDet(_lengthOnDet), 
+            position(_position), 
+            lengthWithGap(_lengthWithGap), 
+            accel(_accel), 
+            timeLoss(vmax > 0 ? timeOnDet * (vmax - speed) / vmax : 0),
+            stillOnDet(_stillOnDet) {}
         std::string id;
         std::string type;
         SUMOReal speed;
@@ -95,6 +106,7 @@ public:
         SUMOReal position;
         SUMOReal lengthWithGap;
         SUMOReal accel;
+        SUMOReal timeLoss;
         bool stillOnDet;
     };
 
@@ -406,6 +418,8 @@ private:
     int myJamLengthInVehiclesSum;
     /// @brief The number of collected samples [#]
     SUMOReal myVehicleSamples;
+    /// @brief The sum of timeLoss values [s]
+    SUMOReal myTimeLossSum;
     /// @brief The current aggregation duration [#steps]
     int myTimeSamples;
     /// @brief The sum of occupancies [%]

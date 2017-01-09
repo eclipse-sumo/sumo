@@ -135,6 +135,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     // Treat the case that the vehicle's back left the lane in the last step
     const SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
     const SUMOReal newBackPos = newPos - veh.getVehicleType().getLength();
+    const SUMOReal vmax = myLane->getVehicleMaxSpeed(&veh);
     if (newBackPos > myEndPos) {
         assert(oldBackPos <= myEndPos);
         const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myEndPos, newBackPos, oldSpeed, newSpeed);
@@ -148,14 +149,14 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
             const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed) / 2.;
             myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), averageSpeedOnDetector,
                                                   timeOnDet, lengthOnDet, newPos,
-                                                  veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), false));
+                                                  veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), vmax, false));
         }
         return false;
     }
     const SUMOReal averageSpeedOnDetector = (enterSpeed + leaveSpeed) / 2.;
     myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), averageSpeedOnDetector,
                                           timeOnDet, lengthOnDet, newPos,
-                                          veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), true));
+                                          veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), vmax, true));
     DBG(
         std::ostringstream str;
         str << time2string(MSNet::getInstance()->getCurrentTimeStep())
@@ -198,6 +199,7 @@ MSE2Collector::reset() {
     myJamLengthInMetersSum = 0;
     myJamLengthInVehiclesSum = 0;
     myVehicleSamples = 0;
+    myTimeLossSum = 0;
     myOccupancySum = 0;
     myMaxOccupancy = 0;
     myMeanMaxJamInVehicles = 0;
@@ -236,6 +238,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     for (std::vector<VehicleInfo>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
         myVehicleSamples += i->timeOnDet;
         mySpeedSum += i->speed * i->timeOnDet;
+        myTimeLossSum += i->timeLoss;
         myCurrentMeanSpeed += i->speed * i->timeOnDet;
         lengthSum += i->lengthOnDet;
         myCurrentMeanLength += i->lengthOnDet;
@@ -372,6 +375,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     const SUMOReal meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (SUMOReal) myTimeSamples : 0;
     const SUMOReal meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (SUMOReal) myTimeSamples : 0;
     const SUMOReal meanVehicleNumber = myTimeSamples != 0 ? (SUMOReal) myMeanVehicleNumber / (SUMOReal) myTimeSamples : 0;
+    const SUMOReal meanTimeLoss = meanVehicleNumber != 0 ? myTimeLossSum / meanVehicleNumber : -1;
 
     SUMOTime haltingDurationSum = 0;
     SUMOTime maxHaltingDuration = 0;
@@ -406,6 +410,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     dev << "sampledSeconds=\"" << myVehicleSamples << "\" "
         << "nVehEntered=\"" << myPassedVeh << "\" "
         << "meanSpeed=\"" << meanSpeed << "\" "
+        << "meanTimeLoss=\"" << meanTimeLoss << "\" "
         << "meanOccupancy=\"" << meanOccupancy << "\" "
         << "maxOccupancy=\"" << myMaxOccupancy << "\" "
         << "meanMaxJamLengthInVehicles=\"" << meanJamLengthInVehicles << "\" "

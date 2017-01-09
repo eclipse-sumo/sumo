@@ -28,6 +28,7 @@
       <xsd:attribute name="meanMaxJamLengthInVehicles" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanOccupancy" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanSpeed" use="required" type="xsd:decimal"/>
+      <xsd:attribute name="meanTimeLoss" use="required" type="xsd:decimal"/>
       <xsd:attribute name="meanVehicleNumber" use="required" type="xsd:decimal"/>
       <xsd:attribute name="sampledSeconds" use="required" type="xsd:decimal"/>
       <xsd:attribute name="nVehEntered" use="required" type="xsd:integer"/>
