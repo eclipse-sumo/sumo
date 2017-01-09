@@ -35,9 +35,48 @@ class Node:
         self._prohibits = {}
         self._incLanes = incLanes
         self._intLanes = intLanes
+        self._shape3D = None
+        self._shape = None
 
     def getID(self):
         return self._id
+
+    def setShape(self, shape):
+        """Set the shape of the node.
+
+        Shape must be a list containing x,y,z coords as numbers
+        to represent the shape of the node.
+        """
+        for pp in shape:
+            if len(pp) != 3:
+                raise ValueError('shape point must consist of x,y,z')
+        self._shape3D = shape
+        self._shape = [(x,y) for x,y,z in shape]
+
+    def getShape(self):
+        """Returns the shape of the node in 2d.
+
+        This function returns the shape of the node, as defined in the net.xml 
+        file. The returned shape is a list containing numerical 
+        2-tuples representing the x,y coordinates of the shape points.
+
+        If no shape is defined in the xml, an empty list will be returned.
+        """
+
+        return self._shape
+
+    def getShape3D(self):
+        """Returns the shape of the node in 3d.
+
+        This function returns the shape of the node, as defined in the net.xml 
+        file. The returned shape is a list containing numerical 
+        3-tuples representing the x,y,z coordinates of the shape points.
+
+        If no shape is defined in the xml, an empty list will be returned.
+        """
+
+        return self._shape3D
+
 
     def addOutgoing(self, edge):
         self._outgoing.append(edge)

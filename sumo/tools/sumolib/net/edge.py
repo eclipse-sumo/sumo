@@ -159,40 +159,35 @@ class Edge:
         return self._lanes
 
     def rebuildShape(self):
-        noShapes = len(self._lanes)
-        if noShapes % 2 == 1:
-            self._shape3D = self._lanes[int(noShapes / 2)].getShape3D()
+        numLanes = len(self._lanes)
+        if numLanes % 2 == 1:
+            self._shape3D = self._lanes[int(numLanes / 2)].getShape3D()
         else:
-            shape = []
+            self._shape3D = []
             minLen = -1
             for l in self._lanes:
                 if minLen == -1 or minLen > len(l.getShape()):
                     minLen = len(l._shape)
-            for i in range(0, minLen):
+            for i in range(minLen):
                 x = 0.
                 y = 0.
                 z = 0.
-                for j in range(0, len(self._lanes)):
-                    x = x + self._lanes[j].getShape3D()[i][0]
-                    y = y + self._lanes[j].getShape3D()[i][1]
-                    z = z + self._lanes[j].getShape3D()[i][2]
-
-                x = x / float(len(self._lanes))
-                y = y / float(len(self._lanes))
-                z = z / float(len(self._lanes))
-                shape.append([x, y, z])
-            self._shape3D = shape
+                for l in self._lanes:
+                    x += l.getShape3D()[i][0]
+                    y += l.getShape3D()[i][1]
+                    z += l.getShape3D()[i][2]
+                self._shape3D.append((x / float(numLanes), y / float(numLanes), z / float(numLanes)))
 
         self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
                 self._from.getCoord3D(), self._to.getCoord3D())
-        
+
         if self._rawShape3D == []:
             self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 
         # 2d - versions
         self._shape = [(x,y) for x,y,z in self._shape3D]
         self._shapeWithJunctions = [(x,y) for x,y,z in self._shapeWithJunctions3D]
-        self._rawShape = [(x,y) for x,y,z in self._rawShape3D]        
+        self._rawShape = [(x,y) for x,y,z in self._rawShape3D]
 
     def getLength(self):
         return self._lanes[0].getLength()

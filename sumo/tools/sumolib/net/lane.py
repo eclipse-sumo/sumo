@@ -106,11 +106,35 @@ class Lane:
         return self._length
 
     def setShape(self, shape):
+        """Set the shape of the lane
+
+        shape must be a list containing x,y,z coords as numbers
+        to represent the shape of the lane
+        """
+        for pp in shape:
+            if len(pp) != 3:
+                raise ValueError('shape point must consist of x,y,z')
+        
         self._shape3D = shape
         self._shape = [(x,y) for x,y,z in shape]
 
     def getShape(self, includeJunctions=False):
-        if includeJunctions:
+        """Returns the shape of the lane in 2d.
+
+        This function returns the shape of the lane, as defined in the net.xml 
+        file. The returned shape is a list containing numerical
+        2-tuples representing the x,y coordinates of the shape points.
+
+        For includeJunctions=True the returned list will contain 
+        additionally the coords (x,y) of the fromNode of the 
+        corresponding edge as first element and the coords (x,y) 
+        of the toNode as last element. 
+
+        For internal lanes, includeJunctions is ignored and the unaltered 
+        shape of the lane is returned.
+        """
+
+        if includeJunctions and not self._edge.isSpecial():
             if self._shapeWithJunctions is None:
                 self._shapeWithJunctions = addJunctionPos(self._shape,
                         self._edge.getFromNode().getCoord(),
@@ -119,7 +143,23 @@ class Lane:
         return self._shape
 
     def getShape3D(self, includeJunctions=False):
-        if includeJunctions:
+        """Returns the shape of the lane in 3d.
+
+        This function returns the shape of the lane, as defined in the net.xml 
+        file. The returned shape is a list containing numerical 
+        3-tuples representing the x,y,z coordinates of the shape points 
+        where z defaults to zero. 
+
+        For includeJunction=True the returned list will contain 
+        additionally the coords (x,y,z) of the fromNode of the 
+        corresponding edge as first element and the coords (x,y,z) 
+        of the toNode as last element. 
+
+        For internal lanes, includeJunctions is ignored and the unaltered 
+        shape of the lane is returned.
+        """
+
+        if includeJunctions and not self._edge.isSpecial():
             if self._shapeWithJunctions3D is None:
                 self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
                         self._edge.getFromNode().getCoord3D(),
