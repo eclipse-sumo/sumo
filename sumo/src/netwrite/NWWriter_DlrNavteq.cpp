@@ -143,11 +143,16 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     }
     // write "internal" nodes
     std::vector<std::string> avoid;
+    std::set<std::string> reservedNodeIDs;
     const bool numericalIDs = oc.getBool("numerical-ids");
+    if (oc.isSet("reserved-ids")) {
+        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "node:", reservedNodeIDs);
+    }
     if (numericalIDs) {
         avoid = nc.getAllNames();
         std::vector<std::string> avoid2 = ec.getAllNames();
         avoid.insert(avoid.end(), avoid2.begin(), avoid2.end());
+        avoid.insert(avoid.end(), reservedNodeIDs.begin(), reservedNodeIDs.end());
     }
     IDSupplier idSupplier("", avoid);
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
@@ -155,8 +160,10 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
         const PositionVector& geom = e->getGeometry();
         if (geom.size() > 2) {
             std::string internalNodeID = e->getID();
-            if (internalNodeID == UNDEFINED ||
-                    (nc.retrieve(internalNodeID) != 0)) {
+            if (internalNodeID == UNDEFINED 
+                    || (nc.retrieve(internalNodeID) != 0)
+                    || reservedNodeIDs.count(internalNodeID) > 0
+                    ) {
                 // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
                 if (numericalIDs) {
                     internalNodeID = idSupplier.getNext();

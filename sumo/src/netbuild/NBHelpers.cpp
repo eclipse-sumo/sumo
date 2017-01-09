@@ -111,4 +111,20 @@ NBHelpers::loadEdgesFromFile(const std::string& file, std::set<std::string>& int
 }
 
 
+void
+NBHelpers::loadPrefixedIDsFomFile(const std::string& file, const std::string prefix, std::set<std::string>& into) {
+    std::ifstream strm(file.c_str());
+    if (!strm.good()) {
+        throw ProcessError("Could not load IDs from '" + file + "'.");
+    }
+    while (strm.good()) {
+        std::string prefixedID;
+        strm >> prefixedID;
+        if (StringUtils::startsWith(prefixedID, prefix)) {
+            into.insert(prefixedID.substr(prefix.size()));
+        }
+    }
+}
+
+
 /****************************************************************************/

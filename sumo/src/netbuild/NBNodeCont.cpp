@@ -1227,17 +1227,28 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
 
 
 int
-NBNodeCont::mapToNumericalIDs() {
-    IDSupplier idSupplier("", getAllNames());
-    std::vector<NBNode*> toChange;
+NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
+    std::vector<std::string> avoid = getAllNames();
+    std::set<std::string> reserve;
+    if (reservedIDs) {
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "node:", reserve);
+        avoid.insert(avoid.end(), reserve.begin(), reserve.end());
+    }
+    IDSupplier idSupplier("", avoid);
+    std::set<NBNode*, Named::ComparatorIdLess> toChange;
     for (NodeCont::iterator it = myNodes.begin(); it != myNodes.end(); it++) {
-        try {
-            TplConvert::_str2long(it->first);
-        } catch (NumberFormatException&) {
-            toChange.push_back(it->second);
+        if (numericaIDs) {
+            try {
+                TplConvert::_str2long(it->first);
+            } catch (NumberFormatException&) {
+                toChange.insert(it->second);
+            }
+        }
+        if (reservedIDs && reserve.count(it->first) > 0) {
+            toChange.insert(it->second);
         }
     }
-    for (std::vector<NBNode*>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
+    for (std::set<NBNode*>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBNode* node = *it;
         myNodes.erase(node->getID());
         node->setID(idSupplier.getNext());

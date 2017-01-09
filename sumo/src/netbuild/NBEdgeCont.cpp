@@ -1125,17 +1125,28 @@ NBEdgeCont::guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed,
 
 
 int
-NBEdgeCont::mapToNumericalIDs() {
-    IDSupplier idSupplier("", getAllNames());
-    EdgeVector toChange;
+NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
+    std::vector<std::string> avoid = getAllNames();
+    std::set<std::string> reserve;
+    if (reservedIDs) {
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "edge:", reserve);
+        avoid.insert(avoid.end(), reserve.begin(), reserve.end());
+    }
+    IDSupplier idSupplier("", avoid);
+    std::set<NBEdge*, Named::ComparatorIdLess> toChange;
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
-        try {
-            TplConvert::_str2long(it->first);
-        } catch (NumberFormatException&) {
-            toChange.push_back(it->second);
+        if (numericaIDs) {
+            try {
+                TplConvert::_str2long(it->first);
+            } catch (NumberFormatException&) {
+                toChange.insert(it->second);
+            }
+        }
+        if (reservedIDs && reserve.count(it->first) > 0) {
+            toChange.insert(it->second);
         }
     }
-    for (EdgeVector::iterator it = toChange.begin(); it != toChange.end(); ++it) {
+    for (std::set<NBEdge*>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBEdge* edge = *it;
         myEdges.erase(edge->getID());
         edge->setID(idSupplier.getNext());

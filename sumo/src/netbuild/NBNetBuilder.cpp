@@ -247,12 +247,10 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.recheckPostProcessConnections();
 
     // remap ids if wished
-    if (oc.getBool("numerical-ids")) {
-        int numChangedEdges = myEdgeCont.mapToNumericalIDs();
-        int numChangedNodes = myNodeCont.mapToNumericalIDs();
-        if (numChangedEdges + numChangedNodes > 0) {
-            WRITE_MESSAGE("Remapped " + toString(numChangedEdges) + " edge IDs and " + toString(numChangedNodes) + " node IDs.");
-        }
+    int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
+    int numChangedNodes = myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
+    if (numChangedEdges + numChangedNodes > 0) {
+        WRITE_MESSAGE("Remapped " + toString(numChangedEdges) + " edge IDs and " + toString(numChangedNodes) + " node IDs.");
     }
 
     //

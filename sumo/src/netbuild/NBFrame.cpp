@@ -96,6 +96,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("numerical-ids", new Option_Bool(false));
     oc.addDescription("numerical-ids", "Processing", "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers");
 
+    /// @todo not working for netgen
+    oc.doRegister("reserved-ids", new Option_FileName());
+    oc.addDescription("reserved-ids", "Processing", "Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)");
+
     if (!forNetgen) {
         oc.doRegister("dismiss-vclasses", new Option_Bool(false));
         oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges");

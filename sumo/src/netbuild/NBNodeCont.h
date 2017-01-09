@@ -278,8 +278,8 @@ public:
         mySplit.insert(node);
     }
 
-    /// @brief ensure that all node ids are numerical (long) and return the number of modified node ids
-    int mapToNumericalIDs();
+    /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
+    int remapIDs(bool numericaIDs, bool reservedIDs);
 
 private:
     /// @brief Definition of a node cluster container
