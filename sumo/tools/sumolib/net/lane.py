@@ -144,7 +144,7 @@ class Lane:
         shape of the lane is returned.
         """
 
-        if includeJunctions and not self._edge.isSpecial():
+        if includeJunctions and not self._edge.isInternal():
             if self._shapeWithJunctions is None:
                 self._shapeWithJunctions = addJunctionPos(self._shape,
                         self._edge.getFromNode().getCoord(),
