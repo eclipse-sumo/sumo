@@ -283,6 +283,13 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for form_of_way of link '" + id + "'.");
     }
+    // brunnel type (bridge/tunnel/ferry (for permissions)
+    int brunnel_type;
+    try {
+        brunnel_type = TplConvert::_2int(getColumn(st, BRUNNEL_TYPE).c_str());
+    } catch (NumberFormatException&) {
+        throw ProcessError("Non-numerical value for brunnel_type of link '" + id + "'.");
+    }
     // priority based on street_type / frc
     int priority;
     try {
@@ -369,6 +376,10 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         if (form_of_way == 14) { // pedestrian area (fussgaengerzone)
             // unfortunately, the veh_type string is misleading in this case
             e->disallowVehicleClass(-1, SVC_PASSENGER);
+        }
+        // permission modifications based on brunnel_type
+        if (brunnel_type == 10) { // ferry 
+            e->setPermissions(SVC_SHIP, -1);
         }
     }
 
