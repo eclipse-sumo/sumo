@@ -564,6 +564,9 @@ public:
      * */
     int checkCrossing(EdgeVector candidates);
 
+    /// @brief return true if already exist a crossing with the same edges as the input
+    bool checkCrossingDuplicated(EdgeVector edges);
+
     /// @brief build internal lanes, pedestrian crossings and walking areas
     void buildInnerEdges();
 
@@ -640,7 +643,6 @@ public:
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
     bool rightOnRedConflict(int index, int foeIndex) const;
-
 
     /// @brief sort all edge containers for this node
     void sortEdges(bool useNodeShape);

@@ -1976,6 +1976,23 @@ NBNode::checkCrossing(EdgeVector candidates) {
 }
 
 
+bool 
+NBNode::checkCrossingDuplicated(EdgeVector edges) {
+    // sort edge vector
+    std::sort(edges.begin(), edges.end());
+    // iterate over crossing to find a crossing with the same edges
+    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end(); it++) {
+        // sort edges of crossing before compare
+        EdgeVector edgesOfCrossing = it->edges;
+        std::sort(edgesOfCrossing.begin(), edgesOfCrossing.end());
+        if(edgesOfCrossing == edges) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 bool
 NBNode::forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalizedLanes, int startIndex) {
     for (int i = startIndex; i < (int)normalizedLanes.size(); ++i) {

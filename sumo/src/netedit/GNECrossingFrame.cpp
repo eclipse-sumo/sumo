@@ -615,14 +615,19 @@ long
 GNECrossingFrame::onCmdCreateCrossing(FXObject*, FXSelector, void*) {
     // First check that current parameters are valid
     if(myCrossingParameters->isCurrentParametersValid()) {
-        // create new crossing
-        myViewNet->getUndoList()->add(new GNEChange_Crossing(myEdgeSelector->getCurrentJunction(), 
-                                                             myCrossingParameters->getCrossingEdges(), 
-                                                             myCrossingParameters->getCrossingWidth(), 
-                                                             myCrossingParameters->getCrossingPriority(), 
-                                                             true), true);
-        // clear selected edges
-        myEdgeSelector->onCmdClearSelection(0, 0, 0);
+        // iterate over junction's crossing to find duplicated crossings
+        if(myEdgeSelector->getCurrentJunction()->getNBNode()->checkCrossingDuplicated(myCrossingParameters->getCrossingEdges()) == false) {
+            // create new crossing
+            myViewNet->getUndoList()->add(new GNEChange_Crossing(myEdgeSelector->getCurrentJunction(), 
+                                                                 myCrossingParameters->getCrossingEdges(), 
+                                                                 myCrossingParameters->getCrossingWidth(), 
+                                                                 myCrossingParameters->getCrossingPriority(), 
+                                                                 true), true);
+            // clear selected edges
+            myEdgeSelector->onCmdClearSelection(0, 0, 0);
+        } else {
+            WRITE_WARNING("There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed.");
+        }
     }
     return 1;
 }
