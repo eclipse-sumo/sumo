@@ -1146,7 +1146,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
             toChange.insert(it->second);
         }
     }
-    for (std::set<NBEdge*>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
+    for (std::set<NBEdge*, Named::ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBEdge* edge = *it;
         myEdges.erase(edge->getID());
         edge->setID(idSupplier.getNext());
