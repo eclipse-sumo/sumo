@@ -213,9 +213,6 @@ public:
     /// @brief whether this junction has a valid logic
     bool isLogicValid();
 
-    /// @brief modify the specified crossing (using friend privileges)
-    void updateCrossingAttributes(NBNode::Crossing crossing);
-
 private:
     /// @brief A reference to the represented junction
     NBNode& myNBNode;

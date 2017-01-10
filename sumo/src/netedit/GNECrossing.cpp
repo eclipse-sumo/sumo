@@ -48,6 +48,7 @@
 #include "GNEJunction.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
+#include "GNEEdge.h"
 #include "GNEViewNet.h"
 #include "GNEChange_Attribute.h"
 
@@ -204,8 +205,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_EDGES:
             throw InvalidArgument("modifying crossing attribute '" + toString(key) + "' not allowed");
+        case SUMO_ATTR_EDGES:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
@@ -220,8 +221,18 @@ bool
 GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_EDGES:
             return false;
+        case SUMO_ATTR_EDGES: {
+            std::vector<std::string> NBEdgeIDs;
+            SUMOSAXAttributes::parseStringVector(value, NBEdgeIDs);
+            // Obtain NBEdges of GNENet and check if exists
+            for(std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
+                if(myNet->retrieveEdge((*i), false) == NULL) {
+                    return false;
+                }
+            }
+            return true;
+        }
         case SUMO_ATTR_WIDTH:
             return isPositive<SUMOReal>(value);
         case SUMO_ATTR_PRIORITY:
@@ -239,17 +250,25 @@ void
 GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_EDGES:
             throw InvalidArgument("modifying crossing attribute '" + toString(key) + "' not allowed");
+        case SUMO_ATTR_EDGES: {
+            // remove edges of crossing
+            myCrossing.edges.clear();
+            std::vector<std::string> NBEdgeIDs;
+            SUMOSAXAttributes::parseStringVector(value, NBEdgeIDs);
+            // Obtain NBEdges of GNENet and insert it in the crossing
+            for(std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
+                myCrossing.edges.push_back(myNet->retrieveEdge(*i)->getNBEdge());
+            }
+            break;
+        }
         case SUMO_ATTR_WIDTH:
             // Change width an refresh element
             myCrossing.width = parse<SUMOReal>(value);
             myNet->refreshElement(this);
-            //myParentJunction.updateCrossingAttributes(myCrossing);
             break;
         case SUMO_ATTR_PRIORITY:
             myCrossing.priority = parse<bool>(value);
-            //myParentJunction.updateCrossingAttributes(myCrossing);
             break;
         default:
             throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");

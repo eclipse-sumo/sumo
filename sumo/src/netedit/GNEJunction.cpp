@@ -847,18 +847,4 @@ GNEJunction::removeTrafficLight(NBTrafficLightDefinition* tlDef) {
     myNBNode.removeTrafficLight(tlDef);
 }
 
-void
-GNEJunction::updateCrossingAttributes(NBNode::Crossing crossing) {
-    EdgeSet edgeSet(crossing.edges.begin(), crossing.edges.end());
-    for (std::vector<NBNode::Crossing>::iterator it = myNBNode.myCrossings.begin(); it != myNBNode.myCrossings.end(); ++it) {
-        EdgeSet edgeSet2((*it).edges.begin(), (*it).edges.end());
-        if (edgeSet == edgeSet2) {
-            (*it).width = crossing.width;
-            (*it).priority = crossing.priority;
-            myNet->refreshElement(this);
-            break;
-        }
-    }
-}
-
 /****************************************************************************/
