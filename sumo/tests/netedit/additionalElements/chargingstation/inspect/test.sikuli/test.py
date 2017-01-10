@@ -82,7 +82,6 @@ netedit.modifyAttribute(parametersReference, 3, "10")
 # Change parameter 3 with a valid value
 netedit.modifyAttribute(parametersReference, 3, "30")
 
-
 # Change parameter 4 with a non valid value 1
 netedit.modifyAttribute(parametersReference, 4, "dummyPower")
 
