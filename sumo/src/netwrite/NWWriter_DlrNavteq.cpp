@@ -71,6 +71,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     writeNodesUnsplitted(oc, nb.getNodeCont(), nb.getEdgeCont(), internalNodes);
     writeLinksUnsplitted(oc, nb.getEdgeCont(), internalNodes);
     writeTrafficSignals(oc, nb.getNodeCont());
+    writeProhibitedManoeuvres(oc, nb.getNodeCont());
 }
 
 
@@ -440,6 +441,34 @@ NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {
                        << pos.x() << "\t"
                        << pos.y() << "\t"
                        << e->getID() << "\n";
+            }
+        }
+    }
+}
+
+
+void
+NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, NBNodeCont& nc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_prohibited_manoeuvres.txt");
+    writeHeader(device, oc);
+    // write format specifier
+    device << "#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn\n";
+    device << "#NAVTEQ_LINK_ID1\t[NAVTEQ_LINK_ID2 ...]\n";
+    // write record for every pair of incoming/outgoing edge that are not connected despite having common permissions
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
+        const EdgeVector& incoming = n->getIncomingEdges();
+        const EdgeVector& outgoing = n->getOutgoingEdges();
+        for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
+            NBEdge* inEdge = *j;
+            const SVCPermissions inPerm = inEdge->getPermissions();
+            for (EdgeVector::const_iterator k = outgoing.begin(); k != outgoing.end(); ++k) {
+                NBEdge* outEdge = *k;
+                const SVCPermissions outPerm = outEdge->getPermissions();
+                const SVCPermissions commonPerm = inPerm & outPerm;
+                if (commonPerm != 0 && commonPerm != SVC_PEDESTRIAN && !inEdge->isConnectedTo(outEdge)) {
+                    device << inEdge->getID() << "\t" << outEdge->getID() << "\t\n";
+                }
             }
         }
     }
