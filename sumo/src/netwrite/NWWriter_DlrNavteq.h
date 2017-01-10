@@ -105,6 +105,12 @@ private:
      */
     static void writeProhibitedManoeuvres(const OptionsCont& oc, NBNodeCont& nc); 
 
+    /** @brief Writes the connected_lanes file
+     * @param[in] oc The options to use
+     * @param[in] nc The node-container from which to read data
+     */
+    static void writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc); 
+
     /// @brief write header comments (input paramters, date, etc...)
     static void writeHeader(OutputDevice& device, const OptionsCont& oc);
 

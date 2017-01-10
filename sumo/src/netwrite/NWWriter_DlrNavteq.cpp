@@ -72,6 +72,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     writeLinksUnsplitted(oc, nb.getEdgeCont(), internalNodes);
     writeTrafficSignals(oc, nb.getNodeCont());
     writeProhibitedManoeuvres(oc, nb.getNodeCont());
+    writeConnectedLanes(oc, nb.getNodeCont());
 }
 
 
@@ -474,6 +475,39 @@ NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, NBNodeCont&
     }
 }
 
+
+void
+NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_connected_lanes.txt");
+    writeHeader(device, oc);
+    // write format specifier
+    device << "#Lane connections related to LINK-IDs and NODE-ID.\n";
+    device << "#column format like pointcollection.\n";
+    device << "#NODE-ID\tVEHICLE-TYPE\tFROM_LANE\tTO_LANE\tTHROUGH_TRAFFIC\tLINK_IDs[2..*]\n";
+    // write record for every connection
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
+        const EdgeVector& incoming = n->getIncomingEdges();
+        const EdgeVector& outgoing = n->getOutgoingEdges();
+        for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
+            NBEdge* from = *j;
+            const SVCPermissions fromPerm = from->getPermissions();
+            const std::vector<NBEdge::Connection>& connections = from->getConnections();
+            for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
+                const NBEdge::Connection& c = *it_c;
+                device 
+                    << n->getID() << "\t"
+                    << getAllowedTypes(fromPerm & c.toEdge->getPermissions()) << "\t"
+                    << c.fromLane + 1 << "\t" // one-based
+                    << c.toLane + 1 << "\t" // one-based
+                    << 1 << "\t" // no information regarding permissibility of through traffic 
+                    << from->getID() << "\t"
+                    << c.toEdge->getID() << "\t"
+                    << "\n";
+            }
+        }
+    }
+}
 
 /****************************************************************************/
 
