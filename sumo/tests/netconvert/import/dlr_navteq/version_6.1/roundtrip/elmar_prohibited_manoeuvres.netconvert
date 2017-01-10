@@ -1,0 +1,33 @@
+# Generated on Mon Jan  9 15:57:35 2017 by SUMO netconvert Version dev-SVN-r22529
+# Format matches Extraction version: V6.5 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <dlr-navteq-prefix value="elmar"/>
+#     </input>
+# 
+#     <output>
+#         <dlr-navteq-output value="elmar_output"/>
+#     </output>
+# 
+#     <projection>
+#         <proj.scale value="5"/>
+#         <proj.utm value="true"/>
+#     </projection>
+# 
+#     <processing>
+#         <no-internal-links value="true"/>
+#         <numerical-ids value="true"/>
+#     </processing>
+# 
+#     <report>
+#         <xml-validation value="never"/>
+#     </report>
+# 
+# </configuration>
+# 
+#
+#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn
+#NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]

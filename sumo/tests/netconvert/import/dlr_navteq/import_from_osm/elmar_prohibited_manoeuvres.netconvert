@@ -1,0 +1,49 @@
+# Generated on Mon Jan  9 15:57:35 2017 by SUMO netconvert Version dev-SVN-r22529
+# Format matches Extraction version: V6.5 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <osm-files value="osm.xml"/>
+#     </input>
+# 
+#     <output>
+#         <output-file value="net.net.xml"/>
+#         <dlr-navteq-output value="elmar_output"/>
+#     </output>
+# 
+#     <projection>
+#         <proj.utm value="true"/>
+#     </projection>
+# 
+#     <tls_building>
+#         <tls.discard-simple value="true"/>
+#         <tls.join value="true"/>
+#         <tls.guess-signals value="true"/>
+#     </tls_building>
+# 
+#     <ramp_guessing>
+#         <ramps.guess value="true"/>
+#     </ramp_guessing>
+# 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <reserved-ids value="edge_ids.txt"/>
+#         <geometry.remove value="true"/>
+#         <roundabouts.guess value="true"/>
+#         <junctions.join value="true"/>
+#     </processing>
+# 
+#     <report>
+#         <xml-validation value="never"/>
+#     </report>
+# 
+# </configuration>
+# 
+#
+#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn
+#NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]
+415852964	415852961	
+224769559	415852921	
+180239847	16942869	
