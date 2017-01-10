@@ -31,11 +31,20 @@ netedit.modifyAttribute(parametersReference, 0, "dummyID")
 # Change Edges adding a new edge
 netedit.modifyAttribute(parametersReference, 1, "3 7 1")
 
+# rebuild network
+netedit.rebuildNetwork()
+
 # Change Edges with the same edges as another crossing (Duplicate crossings aren't allow)
-netedit.modifyAttribute(parametersReference, 1, "3 7 1")
+netedit.modifyAttribute(parametersReference, 1, "4 8")
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # Change Edges to a single edge
 netedit.modifyAttribute(parametersReference, 1, "3")
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # Change priority
 netedit.modifyBoolAttribute(parametersReference, 2)
