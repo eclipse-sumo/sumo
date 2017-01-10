@@ -33,7 +33,7 @@ netedit.modifyCrossingEdges(match, "1 5")
 netedit.createCrossing(match)
 netedit.rebuildNetwork()
 
-# create again the same crossing
+# try to create again the same crossing (cannot be possible, show warning instead)
 netedit.modifyCrossingEdges(match, "1 5")
 netedit.createCrossing(match)
 netedit.rebuildNetwork()
