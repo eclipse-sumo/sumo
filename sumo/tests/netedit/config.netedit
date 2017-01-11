@@ -19,8 +19,10 @@ output:\[log\]
 output:\[info\]
 output:SIKULIX_HOME in environment specified as
 output:running SikuliX:
+output:sikulix.jar -run
 output:+++
 output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+output:\\{REPLACE /}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
