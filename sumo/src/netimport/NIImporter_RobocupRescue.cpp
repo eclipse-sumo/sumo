@@ -166,7 +166,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
         }
 
         Position pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
-        NBNetBuilder::transformCoordinates(pos);
+        NBNetBuilder::transformCoordinate(pos);
         NBNode* node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);
         --noNodes;

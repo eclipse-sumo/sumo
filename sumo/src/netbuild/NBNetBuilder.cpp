@@ -539,7 +539,7 @@ NBNetBuilder::mirrorX() {
 
 
 bool
-NBNetBuilder::transformCoordinates(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
+NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     Position orig(from);
     bool ok = GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
     if (ok) {
@@ -563,7 +563,7 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
         // transformation to cartesian coordinates must happen before we can check segment length
         PositionVector copy = from;
         for (int i = 0; i < (int) from.size(); i++) {
-            transformCoordinates(copy[i], false);
+            transformCoordinate(copy[i], false);
         }
         // check lengths and insert new points where needed (in the original
         // coordinate system)
@@ -586,7 +586,7 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
     }
     bool ok = true;
     for (int i = 0; i < (int) from.size(); i++) {
-        ok = ok && transformCoordinates(from[i], includeInBoundary, from_srs);
+        ok = ok && transformCoordinate(from[i], includeInBoundary, from_srs);
     }
     return ok;
 }
