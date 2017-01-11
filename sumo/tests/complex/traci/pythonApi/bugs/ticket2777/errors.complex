@@ -1,0 +1,5 @@
+Error: Answered with error to command 0xc4: Stop for vehicle 'v0' on lane 'beg_0' is too close to break.
+Warning: Vehicle 'v2' performs emergency stop at the end of lane 'middle_0' because there is no connection to the next edge (decel=-13.89, offset = 6.39), time=41.00.
+Warning: Vehicle 'v3' performs emergency stop at the end of lane 'middle_0' because there is no connection to the next edge (decel=-13.89, offset = 6.39), time=61.00.
+Error: Answered with error to command 0xa4: Vehicle 'v3' is not known
+Error: Answered with error to command 0xa4: Vehicle 'v3' is not known
