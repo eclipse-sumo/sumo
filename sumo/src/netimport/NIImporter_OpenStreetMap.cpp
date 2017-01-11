@@ -785,7 +785,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
 
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") 
-                && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route") {
+                && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route" && key != "postal_code") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
@@ -909,6 +909,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
+        } else if (key == "postal_code") {
+            myCurrentEdge->addParameter(key, value);
         }
     }
 }

@@ -225,7 +225,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
                << UNDEFINED << "\t" // housenumbers_right
                << UNDEFINED << "\t" // housenumbers_left
-               << UNDEFINED << "\t" // ZIP_CODE
+               << e->getParameter("postal_code", UNDEFINED) << "\t" // ZIP_CODE
                << UNDEFINED << "\t" // AREA_ID
                << UNDEFINED << "\t" // SUBAREA_ID
                << "1\t" // through_traffic (allowed)
