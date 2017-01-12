@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r22510
+SUMO netconvert Version dev-SVN-r22569
  Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -217,6 +217,10 @@ Processing Options:
   --osm.layer-elevation FLOAT          Reconstruct (relative) elevation based
                                          on layer data. Each layer is raised by
                                          FLOAT m
+  --osm.layer-elevation.max-grade FLOAT  Maximum grade threshold in % at 50km/h
+                                         when reconstrucing elevation based on
+                                         layer data. The value is scaled
+                                         according to road speed.
   --osm.oneway-spread-right            Whether one-way roads should be spread
                                          to the side instead of centered
   --opendrive.import-all-lanes         Imports all lane types

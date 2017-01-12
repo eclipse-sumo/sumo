@@ -1156,26 +1156,60 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const SUMOReal layerElevatio
         std::cout << "\n";
     }
 #endif
-    // collect all nodes within a grade-dependent range around knownElevation-nodes
-    std::set<NBNode*> unknownElevation;
+    // layer data only provides a lower bound on elevation since it is used to
+    // resolve the relation among overlapping ways.
+    // Perform a sanity check for steep inclines and raise the knownElevation if necessary
+    std::map<NBNode*, SUMOReal> knownEleMax;
     for (std::set<NBNode*>::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
         SUMOReal eleMax = -std::numeric_limits<SUMOReal>::max();
-        SUMOReal eleSum = 0;
         const std::vector<std::pair<SUMOReal, SUMOReal> >& primaryLayers = layerForces[*it];
         for (std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator it_ele = primaryLayers.begin(); it_ele != primaryLayers.end(); ++it_ele) {
             eleMax = MAX2(eleMax, it_ele->first);
-            eleSum += it_ele->first;
         }
-        const SUMOReal eleAvg = eleSum / primaryLayers.size();
-        const SUMOReal maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, SUMOReal> neighbors = getNeighboringNodes(*it, maxDist);
-        for (std::map<NBNode*, SUMOReal>::iterator it_neigh = neighbors.begin(); it_neigh != neighbors.end(); ++it_neigh) {
-            unknownElevation.insert(it_neigh->first);
-            layerForces[it_neigh->first].push_back(std::make_pair(eleAvg, it_neigh->second));
+        knownEleMax[*it] = eleMax;
+    }
+    const SUMOReal gradeThreshold = OptionsCont::getOptions().getFloat("osm.layer-elevation.max-grade") / 100;
+    bool changed = true;
+    while (changed) {
+        changed = false;
+        for (std::set<NBNode*>::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
+            std::map<NBNode*, std::pair<SUMOReal, SUMOReal> > neighbors = getNeighboringNodes(*it, knownEleMax[*it] / gradeThreshold * 3, knownElevation);
+            for (std::map<NBNode*, std::pair<SUMOReal, SUMOReal> >::iterator it_neigh = neighbors.begin(); it_neigh != neighbors.end(); ++it_neigh) {
+                if (knownElevation.count(it_neigh->first) != 0) {
+                    const SUMOReal grade = fabs(knownEleMax[*it] - knownEleMax[it_neigh->first]) / MAX2(POSITION_EPS, it_neigh->second.first);
+#ifdef DEBUG_LAYER_ELEVATION
+                    std::cout << "   grade at node=" << (*it)->getID() << " ele=" << knownEleMax[*it] << " neigh=" << it_neigh->first->getID() << " neighEle=" << knownEleMax[it_neigh->first] << " grade=" << grade << " dist=" << it_neigh->second.first << " speed=" << it_neigh->second.second << "\n";
+#endif
+                    if (grade > gradeThreshold * 50 / 3.6 / it_neigh->second.second) {
+                        // raise the lower node to the higher level
+                        const SUMOReal eleMax = MAX2(knownEleMax[*it], knownEleMax[it_neigh->first]);
+                        if (knownEleMax[*it] < eleMax) {
+                            knownEleMax[*it] = eleMax;
+                        } else {
+                            knownEleMax[it_neigh->first] = eleMax;
+                        }
+                        changed = true;
+                    }
+                }
+            }
         }
     }
 
-    // collect forces from ground-level nodes (neither in knownElevation nor unknownElevation)
+    // collect all nodes within a grade-dependent range around knownElevation-nodes and apply knowElevation forces
+    std::set<NBNode*> unknownElevation;
+    for (std::set<NBNode*>::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
+        const SUMOReal eleMax = knownEleMax[*it];
+        const SUMOReal maxDist = fabs(eleMax) * 100 / layerElevation;
+        std::map<NBNode*, std::pair<SUMOReal, SUMOReal> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        for (std::map<NBNode*, std::pair<SUMOReal, SUMOReal> >::iterator it_neigh = neighbors.begin(); it_neigh != neighbors.end(); ++it_neigh) {
+            if (knownElevation.count(it_neigh->first) == 0) {
+                unknownElevation.insert(it_neigh->first);
+                layerForces[it_neigh->first].push_back(std::make_pair(eleMax, it_neigh->second.first));
+            }
+        }
+    }
+
+    // apply forces to ground-level nodes (neither in knownElevation nor unknownElevation)
     for (std::set<NBNode*>::iterator it = unknownElevation.begin(); it != unknownElevation.end(); ++it) {
         SUMOReal eleMax = -std::numeric_limits<SUMOReal>::max();
         const std::vector<std::pair<SUMOReal, SUMOReal> >& primaryLayers = layerForces[*it];
@@ -1183,10 +1217,10 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const SUMOReal layerElevatio
             eleMax = MAX2(eleMax, it_ele->first);
         }
         const SUMOReal maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, SUMOReal> neighbors = getNeighboringNodes(*it, maxDist);
-        for (std::map<NBNode*, SUMOReal>::iterator it_neigh = neighbors.begin(); it_neigh != neighbors.end(); ++it_neigh) {
+        std::map<NBNode*, std::pair<SUMOReal, SUMOReal> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        for (std::map<NBNode*, std::pair<SUMOReal, SUMOReal> >::iterator it_neigh = neighbors.begin(); it_neigh != neighbors.end(); ++it_neigh) {
             if (knownElevation.count(it_neigh->first) == 0 && unknownElevation.count(it_neigh->first) == 0) {
-                layerForces[*it].push_back(std::make_pair(0, it_neigh->second));
+                layerForces[*it].push_back(std::make_pair(0, it_neigh->second.first));
             }
         }
     }
@@ -1197,15 +1231,20 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const SUMOReal layerElevatio
     std::map<NBNode*, SUMOReal> nodeElevation;
     for (std::map<NBNode*, std::vector<std::pair<SUMOReal, SUMOReal> > >::iterator it = layerForces.begin(); it != layerForces.end(); ++it) {
         const std::vector<std::pair<SUMOReal, SUMOReal> >& forces = it->second;
-        if (forces.size() == 1) {
-            nodeElevation[it->first] = forces.front().first;
-        } else if (knownElevation.count(it->first) != 0) {
+        if (knownElevation.count(it->first) != 0) {
             // use the maximum value
+            /*
             SUMOReal eleMax = -std::numeric_limits<SUMOReal>::max();
             for (std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator it_force = forces.begin(); it_force != forces.end(); ++it_force) {
                 eleMax = MAX2(eleMax, it_force->first);
             }
-            nodeElevation[it->first] = eleMax;
+            */
+#ifdef DEBUG_LAYER_ELEVATION
+            std::cout << "   node=" << it->first->getID() << " knownElevation=" << knownEleMax[it->first] << "\n";
+#endif
+            nodeElevation[it->first] = knownEleMax[it->first];
+        } else if (forces.size() == 1) {
+            nodeElevation[it->first] = forces.front().first;
         } else {
             // use the weighted sum
             SUMOReal distSum = 0;
@@ -1235,7 +1274,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const SUMOReal layerElevatio
         std::cout << "  node=" << (it->first)->getID() << " ele=" << it->second << "\n";;
     }
 #endif
-    // apply node elevations and interpolate edge shapes in z-direction
+    // apply node elevations
     for (std::map<NBNode*, SUMOReal>::iterator it = nodeElevation.begin(); it != nodeElevation.end(); ++it) {
         NBNode* n = it->first;
         Position pos = n->getPosition();
@@ -1264,9 +1303,9 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const SUMOReal layerElevatio
 }
 
 
-std::map<NBNode*, SUMOReal>
-NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, SUMOReal maxDist) {
-    std::map<NBNode*, SUMOReal> result;
+std::map<NBNode*, std::pair<SUMOReal, SUMOReal> >
+NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, SUMOReal maxDist, const std::set<NBNode*>& knownElevation) {
+    std::map<NBNode*, std::pair<SUMOReal, SUMOReal> > result;
     std::set<NBNode*> visited;
     std::vector<NBNode*> open;
     open.push_back(node);
@@ -1286,13 +1325,14 @@ NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, SUMOReal maxDist) {
             } else {
                 s = e->getToNode();
             }
-            const SUMOReal dist = result[n] + e->getGeometry().length2D();
+            const SUMOReal dist = result[n].first + e->getGeometry().length2D();
+            const SUMOReal speed = MAX2(e->getSpeed(), result[n].second);
             if (result.count(s) == 0) {
-                result[s] = dist;
+                result[s] = std::make_pair(dist, speed);
             } else {
-                result[s] = MIN2(dist, result[s]);
+                result[s] = std::make_pair(MIN2(dist, result[s].first), MAX2(speed, result[s].second));
             }
-            if (dist < maxDist) {
+            if (dist < maxDist && knownElevation.count(s) == 0) {
                 open.push_back(s);
             }
         }

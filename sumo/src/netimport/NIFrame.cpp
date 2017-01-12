@@ -260,6 +260,9 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.layer-elevation", new Option_Float(0));
     oc.addDescription("osm.layer-elevation", "Processing", "Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m");
 
+    oc.doRegister("osm.layer-elevation.max-grade", new Option_Float(10));
+    oc.addDescription("osm.layer-elevation.max-grade", "Processing", "Maximum grade threshold in \% at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.");
+
     oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
     oc.addDescription("osm.oneway-spread-right", "Processing", "Whether one-way roads should be spread to the side instead of centered");
 

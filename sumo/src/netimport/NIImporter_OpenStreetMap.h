@@ -236,8 +236,8 @@ private:
     /// @brief reconstruct elevation from layer info
     void reconstructLayerElevation(SUMOReal layerElevation, NBNetBuilder& nb);
 
-    /// @brief collect neighboring nodes with their road distance
-    std::map<NBNode*, SUMOReal> getNeighboringNodes(NBNode* node, SUMOReal maxDist);
+    /// @brief collect neighboring nodes with their road distance and maximum between-speed. Search does not continue beyond knownElevation-nodes
+    std::map<NBNode*, std::pair<SUMOReal, SUMOReal> > getNeighboringNodes(NBNode* node, SUMOReal maxDist, const std::set<NBNode*>& knownElevation);
 
 protected:
     static const SUMOReal MAXSPEED_UNGIVEN;
