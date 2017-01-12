@@ -7,10 +7,10 @@
     <e3Detector id="e3Detector_02" freq="100.00" file="e3Detector_02.txt" timeThreshold="1.00" speedThreshold="1.39" x="6.00" y="10.00">
         <detEntry lane="gneE1_0" pos="16.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_03" freq="-30.00" file="e3Detector_03.txt" timeThreshold="1.00" speedThreshold="1.39" x="8.00" y="10.00">
+    <e3Detector id="e3Detector_03" freq="100.00" file="e3Detector_03.txt" timeThreshold="1.00" speedThreshold="1.39" x="8.00" y="10.00">
         <detEntry lane="gneE1_0" pos="18.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_04" freq="120.00" file="e3Detector_04.txt" timeThreshold="1.00" speedThreshold="1.39" x="10.00" y="10.00">
+    <e3Detector id="e3Detector_04" freq="100.00" file="e3Detector_04.txt" timeThreshold="1.00" speedThreshold="1.39" x="10.00" y="10.00">
         <detEntry lane="gneE1_0" pos="20.00"/>
     </e3Detector>
     <e3Detector id="e3Detector_05" freq="100.00" timeThreshold="1.00" speedThreshold="1.39" x="12.00" y="10.00">

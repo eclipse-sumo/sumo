@@ -2,7 +2,7 @@
     <chargingStation id="chargingStation_0" lane="gneE0_0" startPos="5.00" endPos="10.00" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
     <chargingStation id="chargingStation_11" lane="gneE1_0" startPos="0.00" endPos="2.00" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
     <chargingStation id="chargingStation_12" lane="gneE1_0" startPos="4.00" endPos="6.00" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
-    <chargingStation id="chargingStation_13" lane="gneE1_0" startPos="8.00" endPos="10.00" power="-22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+    <chargingStation id="chargingStation_13" lane="gneE1_0" startPos="8.00" endPos="10.00" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
     <chargingStation id="chargingStation_14" lane="gneE1_0" startPos="12.00" endPos="14.00" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
     <chargingStation id="chargingStation_15" lane="gneE1_0" startPos="16.00" endPos="18.00" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
     <chargingStation id="chargingStation_16" lane="gneE1_0" startPos="20.00" endPos="22.00" power="22000.00" efficiency="500.00" chargeInTransit="0" chargeDelay="0.00"/>

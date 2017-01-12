@@ -4,20 +4,21 @@ Warning: Could not build chargingStation with ID 'chargingStation_0' in netedit;
 Warning: Essential string attribute 'lane' of chargingStation with ID 'chargingStation_1' is missing; Additional cannot be created
 Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_2' is not known.
 Warning: Essential float attribute 'startPos' of chargingStation with ID 'chargingStation_3' is missing; Additional cannot be created
-Warning: Format of essential float attribute 'startPos' of chargingStation with ID 'chargingStation_4' is invalid; Additional cannot be created
-Warning: Invalid position for chargingStation 'chargingStation_5'.
+Warning: Format of essential float attribute 'startPos' of chargingStation with ID 'chargingStation_4' is invalid; Cannot be parsed to float; Additional cannot be created
+Warning: Format of essential float attribute 'startPos' of chargingStation with ID 'chargingStation_5' is invalid; Cannot be negative; Additional cannot be created
 Warning: Invalid position for chargingStation 'chargingStation_6'.
 Warning: Essential float attribute 'endPos' of chargingStation with ID 'chargingStation_7' is missing; Additional cannot be created
-Warning: Format of essential float attribute 'endPos' of chargingStation with ID 'chargingStation_8' is invalid; Additional cannot be created
+Warning: Format of essential float attribute 'endPos' of chargingStation with ID 'chargingStation_8' is invalid; Cannot be parsed to float; Additional cannot be created
 Warning: Invalid position for chargingStation 'chargingStation_9'.
 Warning: Invalid position for chargingStation 'chargingStation_10'.
 Warning: Optional float attribute 'power' of chargingStation with ID 'chargingStation_11' is missing; Default value '22000.00' will be used.
-Warning: Format of optional float attribute 'power' of chargingStation with ID 'chargingStation_12' is invalid; Default value '22000.00' will be used.
+Warning: Format of optional float attribute 'power' of chargingStation with ID 'chargingStation_12' is invalid; Cannot be parsed to float; Default value '22000.00' will be used.
+Warning: Format of optional float attribute 'power' of chargingStation with ID 'chargingStation_13' is invalid; Cannot be negative; Default value '22000.00' will be used.
 Warning: Optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_14' is missing; Default value '0.95' will be used.
-Warning: Format of optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_15' is invalid; Default value '0.95' will be used.
+Warning: Format of optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_15' is invalid; Cannot be parsed to float; Default value '0.95' will be used.
 Warning: Optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_17' is missing; Default value '0' will be used.
 Warning: Format of optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_18' is invalid; Default value '0' will be used.
 Warning: Format of optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_19' is invalid; Default value '0' will be used.
 Warning: Optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_20' is missing; Default value '0.00' will be used.
-Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_21' is invalid; Default value '0.00' will be used.
-Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_22' is invalid; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_21' is invalid; Cannot be parsed to time; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_22' is invalid; Time cannot be negative; Default value '0.00' will be used.

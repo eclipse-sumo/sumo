@@ -5,9 +5,10 @@ Warning: Essential string attribute 'lane' of e2Detector with ID 'E2_03' is miss
 Warning: Essential string attribute 'pos' of e2Detector with ID 'E2_04' is missing; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of e2Detector with ID 'E2_04' is invalid; Additional cannot be created
 Warning: Optional float attribute 'length' of e2Detector with ID 'E2_07' is missing; Default value '10.00' will be used.
+Warning: Format of optional float attribute 'length' of e2Detector with ID 'E2_08' is invalid; Cannot be negative; Default value '10.00' will be used.
 Warning: Optional time attribute 'freq' of e2Detector with ID 'E2_11' is missing; Default value '100.00' will be used.
-Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_12' is invalid; Default value '100.00' will be used.
-Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_13' is invalid; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_12' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_13' is invalid; Time cannot be negative; Default value '100.00' will be used.
 Warning: Optional string attribute 'file' of e2Detector with ID 'E2_15' is missing; Default value '' will be used.
 Warning: Format of optional string attribute 'file' of e2Detector with ID 'E2_16' is invalid; Default value '' will be used.
 Warning: Optional bool attribute 'cont' of e2Detector with ID 'E2_19' is missing; Default value '0' will be used.
@@ -15,9 +16,11 @@ Warning: Format of optional bool attribute 'cont' of e2Detector with ID 'E2_20' 
 Warning: Format of optional bool attribute 'cont' of e2Detector with ID 'E2_21' is invalid; Default value '0' will be used.
 Warning: Format of optional bool attribute 'cont' of e2Detector with ID 'E2_22' is invalid; Default value '0' will be used.
 Warning: Optional time attribute 'timeThreshold' of e2Detector with ID 'E2_23' is missing; Default value '1.00' will be used.
-Warning: Format of optional time attribute 'timeThreshold' of e2Detector with ID 'E2_24' is invalid; Default value '1.00' will be used.
-Warning: Format of optional time attribute 'timeThreshold' of e2Detector with ID 'E2_25' is invalid; Default value '1.00' will be used.
+Warning: Format of optional time attribute 'timeThreshold' of e2Detector with ID 'E2_24' is invalid; Cannot be parsed to time; Default value '1.00' will be used.
+Warning: Format of optional time attribute 'timeThreshold' of e2Detector with ID 'E2_25' is invalid; Time cannot be negative; Default value '1.00' will be used.
 Warning: Optional float attribute 'speedThreshold' of e2Detector with ID 'E2_27' is missing; Default value '1.39' will be used.
-Warning: Format of optional float attribute 'speedThreshold' of e2Detector with ID 'E2_28' is invalid; Default value '1.39' will be used.
+Warning: Format of optional float attribute 'speedThreshold' of e2Detector with ID 'E2_28' is invalid; Cannot be parsed to float; Default value '1.39' will be used.
+Warning: Format of optional float attribute 'speedThreshold' of e2Detector with ID 'E2_29' is invalid; Cannot be negative; Default value '1.39' will be used.
 Warning: Optional float attribute 'jamThreshold' of e2Detector with ID 'E2_31' is missing; Default value '10.00' will be used.
-Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_32' is invalid; Default value '10.00' will be used.
+Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_32' is invalid; Cannot be parsed to float; Default value '10.00' will be used.
+Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_33' is invalid; Cannot be negative; Default value '10.00' will be used.
