@@ -341,6 +341,8 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E3DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_TIME_THRESHOLD, "1"));
@@ -463,6 +465,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_HALTING_SPEED_THRESHOLD);
         myNumericalFloatAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_JAM_DIST_THRESHOLD);
         myNumericalFloatAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_LENGTH);
+        myNumericalFloatAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_X);
+        myNumericalFloatAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_Y);
         myNumericalFloatAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_HALTING_SPEED_THRESHOLD);
         myNumericalFloatAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_ENDOFFSET);
         myNumericalFloatAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_LENGTH);
@@ -570,6 +574,8 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_POSITION);
             myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FILE);
+            myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_X);
+            myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_Y);
             myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_SHAPE);
             myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_POSITION);
             myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_SHAPE);
@@ -854,6 +860,8 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_ID] = "ID (Must be unique)";
         myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_FREQUENCY] = "The aggregation period the values the detector collects shall be summed up";
         myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_FILE] = "The path to the output file";
+        myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_X] = "X position in editor (Only used in netedit)";
+        myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_Y] = "Y position in editor (Only used in netedit)";
         // Entry
         myAttrDefinitions[SUMO_TAG_DET_ENTRY][SUMO_ATTR_LANE] = "The id of the lane the detector shall be laid on. The lane must be a part of the network used";
         myAttrDefinitions[SUMO_TAG_DET_ENTRY][SUMO_ATTR_POSITION] = "The position on the lane the detector shall be laid on in meters";

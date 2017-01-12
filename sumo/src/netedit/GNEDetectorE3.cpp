@@ -210,8 +210,10 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+        case SUMO_ATTR_X:
+            return toString(myPosition.x());
+        case SUMO_ATTR_Y:
+            return toString(myPosition.x());
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_FILE:
@@ -236,7 +238,8 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_FREQUENCY:
-        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_X:
+        case SUMO_ATTR_Y:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -259,9 +262,10 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_POSITION:
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+        case SUMO_ATTR_X:
+            return canParse<SUMOReal>(value);
+        case SUMO_ATTR_Y:
+            return canParse<SUMOReal>(value);
         case SUMO_ATTR_FREQUENCY:
             return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) > 0);
         case SUMO_ATTR_FILE:
@@ -284,9 +288,13 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             setAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION:
-            bool ok;
-            myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];
+        case SUMO_ATTR_X:
+            myPosition.setx(parse<SUMOReal>(value));
+            updateGeometry();
+            getViewNet()->update();
+            break;
+        case SUMO_ATTR_Y:
+            myPosition.sety(parse<SUMOReal>(value));
             updateGeometry();
             getViewNet()->update();
             break;
