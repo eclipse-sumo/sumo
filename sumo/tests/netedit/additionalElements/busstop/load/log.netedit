@@ -1,14 +1,14 @@
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
-Warning: Could not build busStop with id 'busStop_00' in netedit; probably declared twice.
-Warning: Essential string attribute 'lane' of busStop with id = 'busStop_01' is missing; Additional cannot be created
+Warning: Could not build busStop with ID 'busStop_00' in netedit; probably declared twice.
+Warning: Essential string attribute 'lane' of busStop with ID 'busStop_01' is missing; Additional cannot be created
 Warning: The lane 'dummyLane' to use within the busStop 'busStop_02' is not known.
-Warning: Essential float attribute 'startPos' of busStop with id = 'busStop_03' is missing; Additional cannot be created
-Warning: Format of essential float attribute 'startPos' of busStop with id = 'busStop_04' is invalid; Additional cannot be created
+Warning: Essential float attribute 'startPos' of busStop with ID 'busStop_03' is missing; Additional cannot be created
+Warning: Format of essential float attribute 'startPos' of busStop with ID 'busStop_04' is invalid; Additional cannot be created
 Warning: Invalid position for busStop 'busStop_05'.
 Warning: Invalid position for busStop 'busStop_06'.
-Warning: Essential float attribute 'endPos' of busStop with id = 'busStop_07' is missing; Additional cannot be created
-Warning: Format of essential float attribute 'endPos' of busStop with id = 'busStop_08' is invalid; Additional cannot be created
+Warning: Essential float attribute 'endPos' of busStop with ID 'busStop_07' is missing; Additional cannot be created
+Warning: Format of essential float attribute 'endPos' of busStop with ID 'busStop_08' is invalid; Additional cannot be created
 Warning: Invalid position for busStop 'busStop_09'.
 Warning: Invalid position for busStop 'busStop_10'.
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
