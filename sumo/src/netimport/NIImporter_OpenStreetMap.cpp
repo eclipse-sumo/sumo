@@ -233,6 +233,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                 running = insertEdge(e, running, currentFrom, currentTo, passed, nb);
                 currentFrom = currentTo;
                 passed.clear();
+                passed.push_back(*j);
             }
         }
         if (running == 0) {
@@ -322,8 +323,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         // in the special case of a looped way split again using passed
         int intermediateIndex = (int)passed.size() / 2;
         NBNode* intermediate = insertNodeChecking(passed[intermediateIndex], nc, tlsc);
-        std::vector<long long int> part1(passed.begin(), passed.begin() + intermediateIndex);
-        std::vector<long long int> part2(passed.begin() + intermediateIndex + 1, passed.end());
+        std::vector<long long int> part1(passed.begin(), passed.begin() + intermediateIndex + 1);
+        std::vector<long long int> part2(passed.begin() + intermediateIndex, passed.end());
         index = insertEdge(e, index, from, intermediate, part1, nb);
         return insertEdge(e, index, intermediate, to, part2, nb);
     }
@@ -331,16 +332,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     // convert the shape
     PositionVector shape;
-    shape.push_back(from->getPosition());
     for (std::vector<long long int>::const_iterator i = passed.begin(); i != passed.end(); ++i) {
         NIOSMNode* n = myOSMNodes.find(*i)->second;
         Position pos(n->lon, n->lat, n->ele);
-        if (!NBNetBuilder::transformCoordinate(pos, true)) {
-            WRITE_ERROR("Unable to project coordinates for edge '" + id + "'.");
-        }
-        shape.push_back_noDoublePos(pos);
+        shape.push_back(pos);
     }
-    shape.push_back_noDoublePos(to->getPosition());
+    if (!NBNetBuilder::transformCoordinates(shape)) {
+        WRITE_ERROR("Unable to project coordinates for edge '" + id + "'.");
+    }
 
     std::string type = e->myHighWayType;
     if (!tc.knows(type)) {
