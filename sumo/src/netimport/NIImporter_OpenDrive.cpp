@@ -852,10 +852,8 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
             e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
         }
-        for (int j = 0; j < (int)e.geom.size(); ++j) {
-            if (!NBNetBuilder::transformCoordinate(e.geom[j])) {
-                WRITE_ERROR("Unable to project coordinates for.");
-            }
+        if (!NBNetBuilder::transformCoordinates(e.geom)) {
+            WRITE_ERROR("Unable to project coordinates for edge '" + e.id + "'.");
         }
         // add z-data
         int k = 0;
