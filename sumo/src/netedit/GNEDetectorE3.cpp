@@ -159,7 +159,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
         // Close tag
         device.closeTag();
     } else {
-        WRITE_WARNING(toString(getTag()) + " with ID = '" + getID() + "' cannot be writed in additional file because don't have childs.");
+        WRITE_WARNING(toString(getTag()) + " with ID '" + getID() + "' cannot be writed in additional file because doesn't have childs.");
     }
 }
 

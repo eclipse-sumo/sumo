@@ -272,7 +272,7 @@ GNEJunction::addIncomingGNEEdge(GNEEdge *edge) {
     // Check if incoming edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
     if(i != myGNEIncomingEdges.end()) {
-        throw InvalidArgument("Incoming GNEEdge with id = '" + edge->getID() + "' was already inserted into junction with id = " + getID() + "'");
+        throw InvalidArgument("Incoming GNEEdge with ID '" + edge->getID() + "' was already inserted into junction with ID " + getID() + "'");
     } else {
         // Add edge into containers
         myGNEIncomingEdges.push_back(edge);
@@ -286,7 +286,7 @@ GNEJunction::addOutgoingGNEEdge(GNEEdge *edge) {
     // Check if outgoing edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
     if(i != myGNEOutgoingEdges.end()) {
-        throw InvalidArgument("Outgoing GNEEdge with id = '" + edge->getID() + "' was already inserted into junction with id = " + getID() + "'");
+        throw InvalidArgument("Outgoing GNEEdge with ID '" + edge->getID() + "' was already inserted into junction with ID " + getID() + "'");
     } else {
         // Add edge into containers
         myGNEOutgoingEdges.push_back(edge);
@@ -300,7 +300,7 @@ GNEJunction::removeIncomingGNEEdge(GNEEdge *edge) {
     // Check if incoming edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
     if(i == myGNEIncomingEdges.end()) {
-        throw InvalidArgument("Incoming GNEEdge with id = '" + edge->getID() + "' doesn't found into junction with id = " + getID() + "'");
+        throw InvalidArgument("Incoming GNEEdge with ID '" + edge->getID() + "' doesn't found into junction with ID " + getID() + "'");
     } else {
         // remove edge from containers
         myGNEIncomingEdges.erase(i);
@@ -314,7 +314,7 @@ GNEJunction::removeOutgoingGNEEdge(GNEEdge *edge) {
     // Check if outgoing edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
     if(i == myGNEOutgoingEdges.end()) {
-        throw InvalidArgument("Outgoing GNEEdge with id = '" + edge->getID() + "' doesn't found into junction with id = " + getID() + "'");
+        throw InvalidArgument("Outgoing GNEEdge with ID '" + edge->getID() + "' doesn't found into junction with ID " + getID() + "'");
     } else {
         // remove edge from containers
         myGNEOutgoingEdges.erase(i);

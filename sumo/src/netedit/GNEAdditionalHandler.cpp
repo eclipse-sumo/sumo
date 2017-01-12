@@ -524,10 +524,9 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
 void
 GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
-    // parse attributes of Enty
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    SUMOReal position = getParsedAttribute<SUMOReal>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
+    // parse attributes of Entry
+    std::string laneId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE, abort);
+    SUMOReal position = getParsedAttribute<SUMOReal>(attrs, 0, tag, SUMO_ATTR_POSITION, abort);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get pointer to lane
@@ -552,9 +551,8 @@ void
 GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Exit
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    SUMOReal position = getParsedAttribute<SUMOReal>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
+    std::string laneId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE, abort);
+    SUMOReal position = getParsedAttribute<SUMOReal>(attrs, 0, tag, SUMO_ATTR_POSITION, abort);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get pointer to lane
@@ -800,7 +798,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, const std::string& id, G
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -815,7 +813,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, const std::string&
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -830,7 +828,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, const std::strin
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -845,7 +843,7 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -861,7 +859,7 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -876,7 +874,7 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -888,7 +886,8 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, const std::string&
     GNEDetectorE3* detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
     // Check if DetectorE3 parent is correct
     if (detectorE3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " '" + id + "' in netedit; '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' don't valid.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " '" + id + "' in netedit; " + 
+                      toString(SUMO_TAG_E3DETECTOR) +" parent with ID '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' doesn't exist.");
         return false;
     } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, id) == NULL) {
         // Create detector Entry if don't exist already in the net
@@ -898,7 +897,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, const std::string&
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -910,7 +909,8 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, const std::string& 
     GNEDetectorE3* detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
     // Check if DetectorE3 parent is correct
     if (detectorE3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " '" + id + "' in netedit; '" + idDetectorE3Parent + "' don't valid.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " '" + id + "' in netedit; " + 
+                      toString(SUMO_TAG_E3DETECTOR) +" parent with ID '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' doesn't exist.");
         return false;
     } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, id) == NULL) {
         // Create detector Exit if don't exist already in the net
@@ -920,7 +920,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, const std::string& 
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -935,7 +935,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -950,7 +950,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, 
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_REROUTER) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_REROUTER) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -965,7 +965,7 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -980,7 +980,7 @@ GNEAdditionalHandler::buildVariableSpeedSignal(GNEViewNet* viewNet, const std::s
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VSS) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VSS) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -995,7 +995,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, const std::string& id,
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VAPORIZER) + " with id '" + id + "' in netedit; probably declared twice.");
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VAPORIZER) + " with ID '" + id + "' in netedit; probably declared twice.");
         return false;
     }
 }
@@ -1088,7 +1088,7 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if(objectid) {
-            additionalOfWarningMessage = toString(tag) + " with id = '" + toString(objectid) + "'";
+            additionalOfWarningMessage = toString(tag) + " with ID '" + toString(objectid) + "'";
         } else {
             additionalOfWarningMessage = toString(tag);
         }

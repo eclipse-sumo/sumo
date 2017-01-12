@@ -233,7 +233,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 new FXMenuCommand(ret, ("lane position: " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
             }
         } else {
-            throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their lane as a ParentName()");
+            throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' don't have their lane as a ParentName()");
         }
     } else if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
         // If additional own an edge as attribute, get lane
@@ -248,7 +248,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 new FXMenuCommand(ret, ("edge position: " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
             }
         } else {
-            throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' don't have their edge as a ParentName()");
+            throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' don't have their edge as a ParentName()");
         }
     } else {
         new FXMenuCommand(ret, ("position in view: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
@@ -367,7 +367,7 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
 void
 GNEAdditional::changeEdge(const std::string& edgeID) {
     if (myEdge == NULL) {
-        throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' doesn't belong to a edge");
+        throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' doesn't belong to a edge");
     } else {
         myEdge->removeAdditionalChild(this);
         myEdge = getViewNet()->getNet()->retrieveEdge(edgeID);
@@ -381,7 +381,7 @@ GNEAdditional::changeEdge(const std::string& edgeID) {
 void
 GNEAdditional::changeLane(const std::string& laneID) {
     if (myLane == NULL) {
-        throw InvalidArgument("Additional with id = '" + getMicrosimID() + "' doesn't belong to a lane");
+        throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' doesn't belong to a lane");
     } else {
         myLane->removeAdditionalChild(this);
         myLane = getViewNet()->getNet()->retrieveLane(laneID);
