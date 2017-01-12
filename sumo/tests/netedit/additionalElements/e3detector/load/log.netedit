@@ -1,0 +1,18 @@
+Warning: Could not build e3Detector with ID 'e3Detector_00' in netedit; probably declared twice.
+Warning: Essential string attribute 'id' of e3Detector is missing; Additional cannot be created
+Warning: Format of optional int attribute 'freq' of e3Detector with ID 'e3Detector_02' is invalid; Default value '100.00' will be used.
+Warning: Optional string attribute 'file' of e3Detector with ID 'e3Detector_05' is missing; Default value '' will be used.
+Warning: Format of optional string attribute 'file' of e3Detector with ID 'e3Detector_06' is invalid; Default value '' will be used.
+Warning: Optional time attribute 'timeThreshold' of e3Detector with ID 'e3Detector_08' is missing; Default value '1.00' will be used.
+Warning: Format of optional time attribute 'timeThreshold' of e3Detector with ID 'e3Detector_09' is invalid; Default value '1.00' will be used.
+Warning: Format of optional time attribute 'timeThreshold' of e3Detector with ID 'e3Detector_10' is invalid; Default value '1.00' will be used.
+Warning: Optional float attribute 'speedThreshold' of e3Detector with ID 'e3Detector_12' is missing; Default value '1.39' will be used.
+Warning: Format of optional float attribute 'speedThreshold' of e3Detector with ID 'e3Detector_13' is invalid; Default value '1.39' will be used.
+Warning: Optional float attribute 'x' of e3Detector with ID 'e3Detector_16' is missing; Default value '0.00' will be used.
+Warning: Format of optional float attribute 'x' of e3Detector with ID 'e3Detector_17' is invalid; Default value '0.00' will be used.
+Warning: Optional float attribute 'y' of e3Detector with ID 'e3Detector_18' is missing; Default value '0.00' will be used.
+Warning: Format of optional float attribute 'y' of e3Detector with ID 'e3Detector_19' is invalid; Default value '0.00' will be used.
+Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
+Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
+Warning: e3Detector with ID 'e3Detector_20' cannot be writed in additional file because doesn't have childs.
+Warning: e3Detector with ID 'e3Detector_21' cannot be writed in additional file because doesn't have childs.

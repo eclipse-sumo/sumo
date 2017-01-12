@@ -1,0 +1,117 @@
+<additionals>
+	<!-- Without errors -->
+	<e3Detector id="e3Detector_00" freq="100.00" file="e3Detector_00.txt" timeThreshold="1.00" speedThreshold="1.39" x="0" y="10">
+		<detEntry lane="gneE1_0" pos="10"/>
+	</e3Detector>
+
+	<!-- non valid ID(Duplicated) -->
+	<e3Detector id="e3Detector_00" freq="100.00" file="e3Detector_00a.txt" timeThreshold="1.00" speedThreshold="1.39" x="2" y="10">
+		<detEntry lane="gneE1_0" pos="12"/>
+    </e3Detector>
+	
+	<!-- non valid ID (Missing) -->
+	<e3Detector freq="100.00" file="e3Detector_01.txt" timeThreshold="1.00" speedThreshold="1.39" x="4" y="10">
+		<detEntry lane="gneE1_0" pos="14"/>
+    </e3Detector>
+	
+	<!-- non valid freq (Dummy freq) -->
+	<e3Detector id="e3Detector_02" freq="dummyFreq" file="e3Detector_02.txt" timeThreshold="1.00" speedThreshold="1.39" x="6" y="10">
+		<detEntry lane="gneE1_0" pos="16"/>
+    </e3Detector>
+	
+	<!-- non valid freq (negative) -->
+	<e3Detector id="e3Detector_03" freq="-30.00" file="e3Detector_03.txt" timeThreshold="1.00" speedThreshold="1.39" x="8" y="10">
+		<detEntry lane="gneE1_0" pos="18"/>
+    </e3Detector>
+	
+	<!-- valid freq -->
+	<e3Detector id="e3Detector_04" freq="120.00" file="e3Detector_04.txt" timeThreshold="1.00" speedThreshold="1.39" x="10" y="10">
+		<detEntry lane="gneE1_0" pos="20"/>
+    </e3Detector>
+	
+	<!-- non valid file (missing) -->
+	<e3Detector id="e3Detector_05" freq="100.00" timeThreshold="1.00" speedThreshold="1.39" x="12" y="10">
+		<detEntry lane="gneE1_0" pos="22"/>
+    </e3Detector>
+	
+	<!-- non valid file (empty) -->
+	<e3Detector id="e3Detector_06" freq="100.00" file="" timeThreshold="1.00" speedThreshold="1.39" x="14" y="10">
+		<detEntry lane="gneE1_0" pos="24"/>
+    </e3Detector>
+	
+	<!-- valid file -->
+	<e3Detector id="e3Detector_07" freq="100.00" file="myOwnFile.txt" timeThreshold="1.00" speedThreshold="1.39" x="16" y="10">
+		<detEntry lane="gneE1_0" pos="26"/>
+    </e3Detector>
+
+	<!-- non valid timeThreshold missing) -->
+	<e3Detector id="e3Detector_08" freq="100.00" file="e3Detector_08.txt" speedThreshold="1.39" x="18" y="10">
+		<detEntry lane="gneE1_0" pos="28"/>
+    </e3Detector>
+	
+	<!-- non valid timeThreshold (dummy) -->
+	<e3Detector id="e3Detector_09" freq="100.00" file="e3Detector_09.txt" timeThreshold="dummyTimeTreshold" speedThreshold="1.39" x="20" y="10">
+		<detEntry lane="gneE1_0" pos="30"/>
+    </e3Detector>
+	
+	<!-- non valid timeThreshold (negative) -->
+	<e3Detector id="e3Detector_10" freq="100.00" file="e3Detector_10.txt" timeThreshold="-5" speedThreshold="1.39" x="22" y="10">
+		<detEntry lane="gneE1_0" pos="32"/>
+    </e3Detector>
+	
+	<!-- valid timeThreshold -->
+	<e3Detector id="e3Detector_11" freq="100.00" file="e3Detector_11.txt" timeThreshold="2.12" speedThreshold="1.39" x="24" y="10">
+		<detEntry lane="gneE1_0" pos="34"/>
+    </e3Detector>
+	
+	<!-- non valid speedThreshold (missing) -->
+	<e3Detector id="e3Detector_12" freq="100.00" file="e3Detector_12.txt" timeThreshold="1.00" x="26" y="10">
+		<detEntry lane="gneE1_0" pos="36"/>
+    </e3Detector>
+	
+	<!-- non valid speedThreshold (dummy)  -->
+	<e3Detector id="e3Detector_13" freq="100.00" file="e3Detector_13.txt" timeThreshold="1.00" speedThreshold="dummySpeedThreshold" x="28" y="10">
+		<detEntry lane="gneE1_0" pos="38"/>
+    </e3Detector>
+	
+	<!-- non valid speedThreshold (negative) -->
+	<e3Detector id="e3Detector_14" freq="100.00" file="e3Detector_14.txt" timeThreshold="1.00" speedThreshold="-2.12" x="30" y="10">
+		<detEntry lane="gneE1_0" pos="40"/>
+    </e3Detector>
+	
+	<!-- valid speedThreshold -->
+	<e3Detector id="e3Detector_15" freq="100.00" file="e3Detector_15.txt" timeThreshold="1.00" speedThreshold="3.19" x="32" y="10">
+		<detEntry lane="gneE1_0" pos="42"/>
+    </e3Detector>
+	
+	<!-- non valid X position (missing) -->
+	<e3Detector id="e3Detector_16" freq="100.00" file="e3Detector_16.txt" timeThreshold="1.00" speedThreshold="1.39" y="10">
+		<detEntry lane="gneE1_0" pos="44"/>
+    </e3Detector>
+	
+	<!-- non valid X position (dummy) -->
+	<e3Detector id="e3Detector_17" freq="100.00" file="e3Detector_17.txt" timeThreshold="1.00" speedThreshold="1.39" x="dummyX" y="10">
+		<detEntry lane="gneE1_0" pos="46"/>
+    </e3Detector>
+	
+	<!-- non valid Y position (missing) -->
+	<e3Detector id="e3Detector_18" freq="100.00" file="e3Detector_18.txt" timeThreshold="1.00" speedThreshold="1.39" x="38">
+		<detEntry lane="gneE1_0" pos="48"/>
+    </e3Detector>
+	
+	<!-- non valid Y position (dummy) -->
+	<e3Detector id="e3Detector_19" freq="100.00" file="e3Detector_19.txt" timeThreshold="1.00" speedThreshold="1.39" x="40" y="dummyY">
+		<detEntry lane="gneE1_0" pos="50"/>
+    </e3Detector>
+    
+	<!-- non valid E3Detector (empty). Will be created, but a warning will be show) -->
+	<e3Detector id="e3Detector_20" freq="100.00" file="e3Detector_20.txt" timeThreshold="1.00" speedThreshold="1.39" x="42" y="10">
+    </e3Detector>
+	
+	<!-- non valid E3Detector (empty due error creating Entry/exits). Will be created, but a warning will be show) -->
+	<e3Detector id="e3Detector_21" freq="100.00" file="e3Detector_21.txt" timeThreshold="1.00" speedThreshold="1.39" x="44" y="10">
+		<detEntry lane="dummyLane" pos="dummmyPosition"/>
+		<detExit lane="dummyLane" pos="dummmyPosition"/>
+    </e3Detector>
+	
+</additionals>
