@@ -459,7 +459,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     // PATCH NODE SHAPES
     if (oc.getFloat("junctions.scurve-stretch") > 0) {
-        // @note: notes have collected correction hints in buildInnerEdges()
+        // @note: nodes have collected correction hints in buildInnerEdges()
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("stretching junctions to smooth geometries");
         myEdgeCont.computeLaneShapes();
