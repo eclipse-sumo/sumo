@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 12 09:10:12 2017 by SUMO Version dev-SVN-r22560
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <amitran-output value="full.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="120"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
+    <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro4" ref="DEFAULT_VEHTYPE"/>
+    <vehicle id="0" actorConfig="0" startTime="100000" ref="always_left.0"/>
+    <motionState vehicle="0" speed="0" time="100000" acceleration="0"/>
+    <vehicle id="1" actorConfig="0" startTime="100000" ref="always_right.0"/>
+    <motionState vehicle="1" speed="0" time="100000" acceleration="0"/>
+    <vehicle id="2" actorConfig="0" startTime="100000" ref="horizontal.0"/>
+    <motionState vehicle="2" speed="0" time="100000" acceleration="0"/>
+    <motionState vehicle="0" speed="144" time="101000" acceleration="1442"/>
+    <motionState vehicle="1" speed="254" time="101000" acceleration="2541"/>
+    <motionState vehicle="2" speed="167" time="101000" acceleration="1674"/>
+    <motionState vehicle="0" speed="340" time="102000" acceleration="1961"/>
+    <motionState vehicle="1" speed="508" time="102000" acceleration="2543"/>
+    <motionState vehicle="2" speed="351" time="102000" acceleration="1833"/>
+    <motionState vehicle="0" speed="504" time="103000" acceleration="1634"/>
+    <motionState vehicle="1" speed="698" time="103000" acceleration="1891"/>
+    <motionState vehicle="2" speed="579" time="103000" acceleration="2278"/>
+    <vehicle id="3" actorConfig="0" startTime="103000" ref="vertical.0"/>
+    <motionState vehicle="3" speed="0" time="103000" acceleration="0"/>
+    <motionState vehicle="0" speed="667" time="104000" acceleration="1631"/>
+    <motionState vehicle="1" speed="870" time="104000" acceleration="1725"/>
+    <motionState vehicle="2" speed="838" time="104000" acceleration="2592"/>
+    <motionState vehicle="3" speed="199" time="104000" acceleration="1994"/>
+    <motionState vehicle="0" speed="868" time="105000" acceleration="2012"/>
+    <motionState vehicle="1" speed="1077" time="105000" acceleration="2066"/>
+    <motionState vehicle="2" speed="1024" time="105000" acceleration="1864"/>
+    <motionState vehicle="3" speed="452" time="105000" acceleration="2522"/>
+    <motionState vehicle="0" speed="997" time="106000" acceleration="1292"/>
+    <motionState vehicle="1" speed="1022" time="106000" acceleration="-544"/>
+    <motionState vehicle="2" speed="1069" time="106000" acceleration="450"/>
+    <motionState vehicle="3" speed="706" time="106000" acceleration="2540"/>
+    <motionState vehicle="0" speed="1044" time="107000" acceleration="471"/>
+    <motionState vehicle="1" speed="1029" time="107000" acceleration="65"/>
+    <motionState vehicle="2" speed="1071" time="107000" acceleration="19"/>
+    <motionState vehicle="3" speed="843" time="107000" acceleration="1379"/>
+    <motionState vehicle="0" speed="1004" time="108000" acceleration="-404"/>
+    <motionState vehicle="1" speed="1059" time="108000" acceleration="308"/>
+    <motionState vehicle="2" speed="996" time="108000" acceleration="-754"/>
+    <motionState vehicle="3" speed="1033" time="108000" acceleration="1892"/>
+    <motionState vehicle="0" speed="1080" time="109000" acceleration="764"/>
+    <motionState vehicle="1" speed="1072" time="109000" acceleration="123"/>
+    <motionState vehicle="2" speed="1107" time="109000" acceleration="1112"/>
+    <motionState vehicle="3" speed="1012" time="109000" acceleration="-210"/>
+    <motionState vehicle="0" speed="1090" time="110000" acceleration="101"/>
+    <vehicle id="4" actorConfig="0" startTime="110000" ref="always_left.1"/>
+    <motionState vehicle="4" speed="0" time="110000" acceleration="0"/>
+    <motionState vehicle="1" speed="1107" time="110000" acceleration="354"/>
+    <vehicle id="5" actorConfig="0" startTime="110000" ref="always_right.1"/>
+    <motionState vehicle="5" speed="0" time="110000" acceleration="0"/>
+    <motionState vehicle="2" speed="987" time="110000" acceleration="-1200"/>
+    <vehicle id="6" actorConfig="0" startTime="110000" ref="horizontal.1"/>
+    <motionState vehicle="6" speed="0" time="110000" acceleration="0"/>
+    <motionState vehicle="3" speed="1022" time="110000" acceleration="103"/>
+    <motionState vehicle="0" speed="1068" time="111000" acceleration="-223"/>
+    <motionState vehicle="4" speed="243" time="111000" acceleration="2432"/>
+    <motionState vehicle="1" speed="986" time="111000" acceleration="-1214"/>
+    <motionState vehicle="5" speed="231" time="111000" acceleration="2310"/>
+    <motionState vehicle="2" speed="1095" time="111000" acceleration="1081"/>
+    <motionState vehicle="6" speed="207" time="111000" acceleration="2065"/>
+    <motionState vehicle="3" speed="1077" time="111000" acceleration="547"/>
+    <motionState vehicle="0" speed="1089" time="112000" acceleration="212"/>
+    <motionState vehicle="4" speed="429" time="112000" acceleration="1857"/>
+    <motionState vehicle="1" speed="1099" time="112000" acceleration="1138"/>
+    <motionState vehicle="5" speed="398" time="112000" acceleration="1670"/>
+    <motionState vehicle="2" speed="1080" time="112000" acceleration="-150"/>
+    <motionState vehicle="6" speed="361" time="112000" acceleration="1545"/>
+    <motionState vehicle="3" speed="1024" time="112000" acceleration="-524"/>
+    <motionState vehicle="0" speed="1033" time="113000" acceleration="-556"/>
+    <motionState vehicle="4" speed="599" time="113000" acceleration="1701"/>
+    <motionState vehicle="1" speed="1071" time="113000" acceleration="-283"/>
+    <motionState vehicle="5" speed="583" time="113000" acceleration="1846"/>
+    <motionState vehicle="2" speed="989" time="113000" acceleration="-901"/>
+    <motionState vehicle="6" speed="496" time="113000" acceleration="1352"/>
+    <motionState vehicle="3" speed="1047" time="113000" acceleration="228"/>
+    <vehicle id="7" actorConfig="0" startTime="113000" ref="vertical.1"/>
+    <motionState vehicle="7" speed="0" time="113000" acceleration="0"/>
+    <motionState vehicle="0" speed="1089" time="114000" acceleration="556"/>
+    <motionState vehicle="4" speed="735" time="114000" acceleration="1359"/>
+    <motionState vehicle="1" speed="1091" time="114000" acceleration="203"/>
+    <motionState vehicle="5" speed="806" time="114000" acceleration="2238"/>
+    <motionState vehicle="2" speed="1087" time="114000" acceleration="977"/>
+    <motionState vehicle="6" speed="673" time="114000" acceleration="1766"/>
+    <motionState vehicle="3" speed="1107" time="114000" acceleration="604"/>
+    <motionState vehicle="7" speed="189" time="114000" acceleration="1889"/>
+    <motionState vehicle="0" speed="990" time="115000" acceleration="-987"/>
+    <motionState vehicle="4" speed="986" time="115000" acceleration="2513"/>
+    <motionState vehicle="1" speed="1070" time="115000" acceleration="-210"/>
+    <motionState vehicle="5" speed="1055" time="115000" acceleration="2488"/>
+    <motionState vehicle="2" speed="1088" time="115000" acceleration="6"/>
+    <motionState vehicle="6" speed="804" time="115000" acceleration="1310"/>
+    <motionState vehicle="3" speed="1067" time="115000" acceleration="-404"/>
+    <motionState vehicle="7" speed="375" time="115000" acceleration="1863"/>
+    <motionState vehicle="0" speed="1084" time="116000" acceleration="937"/>
+    <motionState vehicle="4" speed="1088" time="116000" acceleration="1014"/>
+    <motionState vehicle="1" speed="1017" time="116000" acceleration="-529"/>
+    <motionState vehicle="5" speed="1073" time="116000" acceleration="182"/>
+    <motionState vehicle="2" speed="1105" time="116000" acceleration="172"/>
+    <motionState vehicle="6" speed="1053" time="116000" acceleration="2496"/>
+    <motionState vehicle="3" speed="1065" time="116000" acceleration="-16"/>
+    <motionState vehicle="7" speed="608" time="116000" acceleration="2324"/>
+    <motionState vehicle="0" speed="1023" time="117000" acceleration="-612"/>
+    <motionState vehicle="4" speed="1056" time="117000" acceleration="-314"/>
+    <motionState vehicle="1" speed="1044" time="117000" acceleration="272"/>
+    <motionState vehicle="5" speed="1035" time="117000" acceleration="-382"/>
+    <motionState vehicle="2" speed="1031" time="117000" acceleration="-738"/>
+    <motionState vehicle="6" speed="1060" time="117000" acceleration="69"/>
+    <motionState vehicle="3" speed="1004" time="117000" acceleration="-615"/>
+    <motionState vehicle="7" speed="813" time="117000" acceleration="2058"/>
+    <motionState vehicle="0" speed="1064" time="118000" acceleration="408"/>
+    <motionState vehicle="4" speed="984" time="118000" acceleration="-719"/>
+    <motionState vehicle="1" speed="1097" time="118000" acceleration="531"/>
+    <motionState vehicle="5" speed="1030" time="118000" acceleration="-51"/>
+    <motionState vehicle="2" speed="1108" time="118000" acceleration="769"/>
+    <motionState vehicle="6" speed="1072" time="118000" acceleration="113"/>
+    <motionState vehicle="3" speed="997" time="118000" acceleration="-64"/>
+    <motionState vehicle="7" speed="953" time="118000" acceleration="1398"/>
+    <motionState vehicle="0" speed="1047" time="119000" acceleration="-165"/>
+    <motionState vehicle="4" speed="1056" time="119000" acceleration="717"/>
+    <motionState vehicle="1" speed="997" time="119000" acceleration="-999"/>
+    <motionState vehicle="5" speed="985" time="119000" acceleration="-449"/>
+    <motionState vehicle="2" speed="1019" time="119000" acceleration="-892"/>
+    <motionState vehicle="6" speed="1052" time="119000" acceleration="-198"/>
+    <motionState vehicle="3" speed="1036" time="119000" acceleration="392"/>
+    <motionState vehicle="7" speed="1072" time="119000" acceleration="1194"/>
+</trajectories>
