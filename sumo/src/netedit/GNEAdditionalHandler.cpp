@@ -1100,12 +1100,50 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
             if(ok && !GNEAttributeCarrier::canParse<T>(parsedAttribute)) {
                 ok = false;
             }
-            // Time attributes requieres a extra check, because time can be only positive
-            if(GNEAttributeCarrier::isTime(tag, attribute) && GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute) &&
-               GNEAttributeCarrier::parse<SUMOReal>(parsedAttribute) < 0) {
-                ok = false;
+            std::string errorFormat;
+            // Set extra checks for int values
+            if(GNEAttributeCarrier::isInt(tag, attribute)) {
+                if(GNEAttributeCarrier::canParse<int>(parsedAttribute)) {
+                    // parse to int and check if can be negative
+                    int parsedIntAttribute = GNEAttributeCarrier::parse<int>(parsedAttribute);
+                    if(GNEAttributeCarrier::isPositive(tag, attribute) && parsedIntAttribute < 0) {
+                        errorFormat = "Cannot be negative; ";
+                        ok = false;
+                    }
+                } else {
+                    errorFormat = "Cannot be parsed to int; ";
+                    ok = false;
+                }
             }
-            // If attribute has an invalid format
+            // Set extra checks for float(SUMOReal) values
+            if(GNEAttributeCarrier::isFloat(tag, attribute)) {
+                if(GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute)) {
+                    // parse to SUMOReal and check if can be negative
+                    SUMOReal parsedSumoRealAttribute = GNEAttributeCarrier::parse<SUMOReal>(parsedAttribute);
+                    if(GNEAttributeCarrier::isPositive(tag, attribute) && parsedSumoRealAttribute < 0) {
+                        errorFormat = "Cannot be negative; ";
+                        ok = false;
+                    }
+                } else {
+                    errorFormat = "Cannot be parsed to float; ";
+                    ok = false;
+                }
+            }
+            // set extra check for time(SUMOReal) values
+            if (GNEAttributeCarrier::isTime(tag, attribute)) {
+                if(GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute)) {
+                    // parse to SUMO Real and check if is negative
+                    SUMOReal parsedSumoRealAttribute = GNEAttributeCarrier::parse<SUMOReal>(parsedAttribute);
+                    if(parsedSumoRealAttribute < 0) {
+                        errorFormat = "Time cannot be negative; ";
+                        ok = false;
+                    }
+                } else {
+                    errorFormat = "Cannot be parsed to time; ";
+                    ok = false;
+                }
+            }
+                // If attribute has an invalid format
             if (!ok) {
                 // if attribute has a default value, take it as string. In other case, abort.
                 if(GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
@@ -1113,11 +1151,11 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
                     // report warning of default value
                     if(report) {
                         WRITE_WARNING("Format of optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
-                                      additionalOfWarningMessage + " is invalid; Default value '" + toString(parsedAttribute) + "' will be used.");
+                                      additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
                     }
                 } else {
                     WRITE_WARNING("Format of essential " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
-                                  additionalOfWarningMessage +  " is invalid; Additional cannot be created");
+                                  additionalOfWarningMessage +  " is invalid; " + errorFormat + "Additional cannot be created");
                     // set default value of parsedAttribute (to avoid exceptions during conversions)
                     parsedAttribute = "0";
                     abort = true;
