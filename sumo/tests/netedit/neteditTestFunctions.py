@@ -80,6 +80,8 @@ def rebuildNetwork():
     
 # netedit undo
 def undo(match, number):
+    # needed to avoid errors with undo/redo
+    inspectMode()
     click(match)
     for x in range(0, number):
         type("z", Key.CTRL)
@@ -87,6 +89,8 @@ def undo(match, number):
 
 # netedit redo
 def redo(match, number):
+    # needed to avoid errors with undo/redo
+    inspectMode()
     click(match)
     for x in range(0, number):
         type("y", Key.CTRL)
@@ -292,11 +296,15 @@ def getComboBoxAdditional(match):
     return match.getTarget().offset(-75, 50)
     
     
-def changeAdditional(comboboxAdditional, numDowns):
+def changeAdditional(comboboxAdditional, number):
     click(comboboxAdditional)
-    # select type of additionals depending of numDowns
-    for x in range(numDowns):
-        type(Key.DOWN)
+    # select type of additionals depending of number
+    if(number >= 0):
+        for x in range(number):
+            type(Key.DOWN)
+    else:
+        for x in range(-1*number):
+            type(Key.UP)
 
 
 # block additional
@@ -363,6 +371,23 @@ def addStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
         paste("Line" + str(x))
         type(Key.TAB)
     
+def selectChild(comboboxAdditional, numTabs, childNumber):
+    # first is needed to select childs with space
+    click(comboboxAdditional)
+    # place cursor in the list of childs
+    for x in range(0, numTabs):
+        type(Key.TAB)
+    type(Key.SPACE)
+    # now child can be selected
+    click(comboboxAdditional)
+    # place cursor in the list of childs
+    for x in range(0, numTabs):
+        type(Key.TAB)
+    # select child
+    for x in range(0, childNumber):
+        type(Key.DOWN)
+        
+        
 ################################################# 
 ### delete
 ################################################# 
