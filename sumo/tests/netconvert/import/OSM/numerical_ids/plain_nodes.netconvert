@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  4 12:08:26 2016 by SUMO netconvert Version dev-SVN-r20635
+<!-- generated on Thu Jan 12 10:33:00 2017 by SUMO netconvert Version dev-SVN-r22560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
     <output>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
+        <dlr-navteq-output value="elmar_output"/>
+        <output.street-names value="true"/>
     </output>
 
     <projection>
@@ -73,14 +74,14 @@
     <node id="294829798" x="922.84" y="406.82" type="priority"/>
     <node id="294829881" x="892.27" y="511.28" type="priority"/>
     <node id="294830184" x="921.09" y="477.93" type="right_before_left"/>
-    <node id="294830189" x="945.99" y="501.67" type="priority"/>
+    <node id="294830188" x="970.58" y="476.14" type="priority"/>
     <node id="294831560" x="543.50" y="292.50" type="right_before_left"/>
-    <node id="294831563" x="505.71" y="295.17" type="priority"/>
-    <node id="294831564" x="766.37" y="525.27" type="priority"/>
-    <node id="294831565" x="934.12" y="553.29" type="priority"/>
-    <node id="294831566" x="492.35" y="390.75" type="priority"/>
-    <node id="294831567" x="897.77" y="599.27" type="priority"/>
-    <node id="294831568" x="615.26" y="422.75" type="priority"/>
+    <node id="294831562" x="501.77" y="245.17" type="priority"/>
+    <node id="294831563" x="766.37" y="525.27" type="priority"/>
+    <node id="294831564" x="934.12" y="553.29" type="priority"/>
+    <node id="294831565" x="492.35" y="390.75" type="priority"/>
+    <node id="294831566" x="897.77" y="599.27" type="priority"/>
+    <node id="294831567" x="615.26" y="422.75" type="priority"/>
     <node id="32266935" x="478.98" y="121.02" type="traffic_light" tl="32266935"/>
     <node id="32266936" x="472.77" y="49.00" type="priority"/>
     <node id="32266938" x="477.79" y="107.21" type="priority"/>

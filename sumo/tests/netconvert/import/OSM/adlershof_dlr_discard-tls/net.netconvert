@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 15:44:00 2016 by SUMO netconvert Version dev-SVN-r21818
+<!-- generated on Thu Jan 12 10:32:59 2017 by SUMO netconvert Version dev-SVN-r22560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -115,20 +115,20 @@
     <edge id="-26843038#0" from="294830184" to="294829881" priority="2" type="highway.service">
         <lane id="-26843038#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="44.07" shape="919.12,482.73 896.62,508.76"/>
     </edge>
-    <edge id="-26843038#1" from="294830189" to="294830184" priority="2" type="highway.service" shape="945.99,501.67 970.58,476.14 943.81,451.65 921.09,477.93">
-        <lane id="-26843038#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="106.47" shape="947.05,498.20 968.21,476.21 943.94,454.01 925.34,475.54"/>
+    <edge id="-26843038#1" from="294830188" to="294830184" priority="2" type="highway.service" shape="970.58,476.14 943.81,451.65 921.09,477.93">
+        <lane id="-26843038#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="70.14" shape="967.00,475.11 943.94,454.01 925.34,475.54"/>
     </edge>
-    <edge id="-26843038#2" from="294830184" to="294830189" priority="2" type="highway.service">
-        <lane id="-26843038#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="34.41" shape="925.78,480.13 944.79,498.25"/>
+    <edge id="-26843038#2" from="294830184" to="294830188" priority="2" type="highway.service" shape="921.09,477.93 945.99,501.67 970.58,476.14">
+        <lane id="-26843038#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="68.97" shape="925.78,480.13 945.94,499.35 967.08,477.40"/>
     </edge>
     <edge id="-26843133#0" from="294831560" to="294169339" priority="2" type="highway.service">
         <lane id="-26843133#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="9.95" shape="545.52,297.08 545.56,297.64"/>
     </edge>
-    <edge id="-26843133#1" from="294831563" to="294831560" priority="2" type="highway.service" shape="505.71,295.17 501.77,245.17 539.68,243.24 543.50,292.50">
-        <lane id="-26843133#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="137.52" shape="503.81,292.08 499.99,243.61 541.20,241.51 544.78,287.61"/>
+    <edge id="-26843133#1" from="294831562" to="294831560" priority="2" type="highway.service" shape="501.77,245.17 539.68,243.24 543.50,292.50">
+        <lane id="-26843133#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="86.47" shape="505.02,243.35 541.20,241.51 544.78,287.61"/>
     </edge>
-    <edge id="-26843133#2" from="294831560" to="294831563" priority="2" type="highway.service">
-        <lane id="-26843133#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="37.89" shape="538.86,294.48 509.04,296.59"/>
+    <edge id="-26843133#2" from="294831560" to="294831562" priority="2" type="highway.service" shape="543.50,292.50 505.71,295.17 501.77,245.17">
+        <lane id="-26843133#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="87.15" shape="538.86,294.48 504.19,296.93 500.39,248.63"/>
     </edge>
     <edge id="-5198584" from="36268382" to="36268416" name="Justus-von-Liebig-Straße" priority="4" type="highway.residential" shape="1438.58,542.41 1262.01,371.09 1055.08,184.85">
         <lane id="-5198584_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="524.41" shape="1437.43,543.59 1260.88,372.29 1057.59,189.33"/>
@@ -409,20 +409,20 @@
     <edge id="26843038#0" from="294829881" to="294830184" priority="2" type="highway.service">
         <lane id="26843038#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="44.07" shape="894.13,506.60 916.63,480.57"/>
     </edge>
-    <edge id="26843038#1" from="294830184" to="294830189" priority="2" type="highway.service" shape="921.09,477.93 943.81,451.65 970.58,476.14 945.99,501.67">
-        <lane id="26843038#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="106.47" shape="922.84,473.38 943.67,449.29 972.94,476.07 949.42,500.49"/>
+    <edge id="26843038#1" from="294830184" to="294830188" priority="2" type="highway.service" shape="921.09,477.93 943.81,451.65 970.58,476.14">
+        <lane id="26843038#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="70.14" shape="922.84,473.38 943.67,449.29 969.23,472.67"/>
     </edge>
-    <edge id="26843038#2" from="294830189" to="294830184" priority="2" type="highway.service">
-        <lane id="26843038#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="34.41" shape="942.51,500.64 923.50,482.52"/>
+    <edge id="26843038#2" from="294830188" to="294830184" priority="2" type="highway.service" shape="970.58,476.14 945.99,501.67 921.09,477.93">
+        <lane id="26843038#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="68.97" shape="969.45,479.69 946.04,504.00 923.50,482.52"/>
     </edge>
     <edge id="26843133#0" from="294169339" to="294831560" priority="2" type="highway.service">
         <lane id="26843133#0_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="9.95" shape="542.27,297.90 542.23,297.34"/>
     </edge>
-    <edge id="26843133#1" from="294831560" to="294831563" priority="2" type="highway.service" shape="543.50,292.50 539.68,243.24 501.77,245.17 505.71,295.17">
-        <lane id="26843133#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="137.52" shape="541.49,287.87 538.16,244.97 503.55,246.73 507.10,291.83"/>
+    <edge id="26843133#1" from="294831560" to="294831562" priority="2" type="highway.service" shape="543.50,292.50 539.68,243.24 501.77,245.17">
+        <lane id="26843133#1_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="86.47" shape="541.49,287.87 538.16,244.97 505.19,246.65"/>
     </edge>
-    <edge id="26843133#2" from="294831563" to="294831560" priority="2" type="highway.service">
-        <lane id="26843133#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="37.89" shape="508.81,293.30 538.63,291.19"/>
+    <edge id="26843133#2" from="294831562" to="294831560" priority="2" type="highway.service" shape="501.77,245.17 505.71,295.17 543.50,292.50">
+        <lane id="26843133#2_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="87.15" shape="503.68,248.37 507.22,293.41 538.63,291.19"/>
     </edge>
     <edge id="27437972#0" from="38918157" to="36268398" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 891.80,605.66">
         <lane id="27437972#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="240.46" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 896.11,608.50"/>
@@ -861,7 +861,7 @@
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="294830189" type="priority" x="945.99" y="501.67" incLanes="26843038#1_0 -26843038#2_0" intLanes="" shape="950.58,501.60 945.89,497.09 941.41,501.80">
+    <junction id="294830188" type="priority" x="970.58" y="476.14" incLanes="26843038#1_0 -26843038#2_0" intLanes="" shape="970.31,471.49 965.92,476.29 970.61,480.80">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -878,7 +878,7 @@
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="294831563" type="priority" x="505.71" y="295.17" incLanes="-26843133#2_0 26843133#1_0" intLanes="" shape="509.15,298.18 508.69,291.70 502.21,292.21">
+    <junction id="294831562" type="priority" x="501.77" y="245.17" incLanes="-26843133#2_0 26843133#1_0" intLanes="" shape="498.79,248.75 505.27,248.24 504.94,241.75">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>

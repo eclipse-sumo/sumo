@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Jan 12 10:32:59 2017 by SUMO netconvert Version dev-SVN-r22560
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -69,9 +68,9 @@
     <node id="294829798" x="13.533153" y="52.429053" type="priority"/>
     <node id="294829881" x="13.532672" y="52.429987" type="priority"/>
     <node id="294830184" x="13.533106" y="52.429692" type="right_before_left"/>
-    <node id="294830189" x="13.533465" y="52.429910" type="priority"/>
+    <node id="294830188" x="13.533834" y="52.429685" type="priority"/>
     <node id="294831560" x="13.527610" y="52.427957" type="right_before_left"/>
-    <node id="294831563" x="13.527053" y="52.427974" type="priority"/>
+    <node id="294831562" x="13.527010" y="52.427524" type="priority"/>
     <node id="301292612" x="13.526904" y="52.428909" type="priority"/>
     <node id="306982585" x="13.532724" y="52.430784" type="priority"/>
     <node id="32266935" x="13.526713" y="52.426404" type="traffic_light" tl="32266935"/>
