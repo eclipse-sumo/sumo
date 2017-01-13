@@ -328,7 +328,7 @@ GUIIconSubSys::~GUIIconSubSys() {
 
 
 void
-GUIIconSubSys::init(FXApp* a) {
+GUIIconSubSys::initIcons(FXApp* a) {
     assert(myInstance == 0);
     myInstance = new GUIIconSubSys(a);
 }

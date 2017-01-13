@@ -108,18 +108,17 @@ GUITextureSubSys::~GUITextureSubSys() {
 
 
 void
-GUITextureSubSys::init(FXApp* a) {
+GUITextureSubSys::initTextures(FXApp* a) {
     assert(myInstance == 0);
     myInstance = new GUITextureSubSys(a);
 }
 
 
 GUIGlID
-GUITextureSubSys::getGif(GUITexture which) {
+GUITextureSubSys::getTexture(GUITexture which) {
     // Obtain GLID and boolean associated to this texture
     std::map<GUITexture, std::pair<bool, GUIGlID> >::iterator i = myInstance->myTextures.find(which);
-
-    // If texture isn't loaded
+    // If texture isn't loaded, load it
     if (i->second.first == false) {
         switch (i->first) {
             case GNETEXTURE_E1 :
@@ -206,8 +205,9 @@ GUITextureSubSys::getGif(GUITexture which) {
 
 
 void
-GUITextureSubSys::reset() {
+GUITextureSubSys::resetTextures() {
     // Reset all textures
+    GUITexturesHelper::clearTextures();
     for (std::map<GUITexture, std::pair<bool, GUIGlID> >::iterator i = myInstance->myTextures.begin(); i != myInstance->myTextures.end(); i++) {
         i->second.first = false;
     }

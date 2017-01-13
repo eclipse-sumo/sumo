@@ -349,11 +349,11 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 glRotated(90, 0, 0, 1);
                 // draw texture box depending of type of restriction
                 if (isRestricted(SVC_PEDESTRIAN)) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
                 } else if (isRestricted(SVC_BICYCLE)) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEBIKE), iconWidth);
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBIKE), iconWidth);
                 } else if (isRestricted(SVC_BUS)) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LANEBUS), iconWidth);
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBUS), iconWidth);
                 }
                 // Pop draw matrix 2
                 glPopMatrix();

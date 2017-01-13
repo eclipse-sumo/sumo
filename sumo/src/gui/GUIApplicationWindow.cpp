@@ -193,23 +193,23 @@ MTRand GUIApplicationWindow::myGamingRNG;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
-        const std::string& configPattern)
-    : GUIMainWindow(a),
-      myLoadThread(0), myRunThread(0),
-      myAmLoading(false),
-      myAlternateSimDelay(0),
-      myRecentNets(a, "nets"), myConfigPattern(configPattern),
-      hadDependentBuild(false),
-      myShowTimeAsHMS(false),
-      myAmFullScreen(false),
-      myHaveNotifiedAboutSimEnd(false),
-      // game specific
-      myJamSoundTime(60),
-      myPreviousCollisionNumber(0),
-      myWaitingTime(0),
-      myTimeLoss(0) {
-    GUIIconSubSys::init(a);
+GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) : 
+    GUIMainWindow(a),
+    myLoadThread(0), myRunThread(0),
+    myAmLoading(false),
+    myAlternateSimDelay(0),
+    myRecentNets(a, "nets"), 
+    myConfigPattern(configPattern),
+    hadDependentBuild(false),
+    myShowTimeAsHMS(false),
+    myAmFullScreen(false),
+    myHaveNotifiedAboutSimEnd(false),
+    // game specific
+    myJamSoundTime(60),
+    myPreviousCollisionNumber(0),
+    myWaitingTime(0),
+    myTimeLoss(0) {
+    GUIIconSubSys::initIcons(a);
 }
 
 
@@ -1108,6 +1108,7 @@ GUIApplicationWindow::onCmdListInternal(FXObject*, FXSelector, void*) {
     myListInternal = !myListInternal;
     return 1;
 }
+
 
 long
 GUIApplicationWindow::onCmdListParking(FXObject*, FXSelector, void*) {

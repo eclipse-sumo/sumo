@@ -197,7 +197,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {
         // Add a draw matrix
-        drawDetectorIcon(GUITextureSubSys::getGif(GNETEXTURE_E1));
+        drawDetectorIcon(GUITextureSubSys::getTexture(GNETEXTURE_E1));
 
         // Show Lock icon depending of the Edit mode
         drawLockIcon();

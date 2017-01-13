@@ -40,24 +40,26 @@
 
 class GUITextureSubSys {
 public:
-    /// @brief Initiate GUITextureSubSys for textures
-    /// @param[in] a FOX Toolkit APP
-    static void init(FXApp* a);
+    /**@brief Initiate GUITextureSubSys for textures
+     * @param[in] a FOX Toolkit APP
+     */
+    static void initTextures(FXApp* a);
 
-    /// @brief returns a texture Gif previously defined in the enum GUITexture
-    /// @param[in] GUITexture code of texture to use
-    static GUIGlID getGif(GUITexture which);
+    /**@brief returns a texture previously defined in the enum GUITexture
+     * @param[in] GUITexture code of texture to use
+     */
+    static GUIGlID getTexture(GUITexture which);
 
-    /// @brief Reset textures
-    /// @note Necessary to avoid problems with textures (ej: white empty)
-    static void reset();
+    /**@brief Reset textures
+     * @note Necessary to avoid problems with textures (ej: white empty)
+     */
+    static void resetTextures();
 
     /// @brief close GUITextureSubSys
     static void close();
 
 private:
-    /// @brief constructor
-    /// @note is private because is called by the static function init(FXApp* a)
+    /// @brief constructor private because is called by the static function init(FXApp* a
     GUITextureSubSys(FXApp* a);
 
     /// @brief destructor

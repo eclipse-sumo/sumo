@@ -39,20 +39,21 @@
 // ===========================================================================
 class GUIIconSubSys {
 public:
-    /// @brief Initiate GUIIconSubSys
-    /// @param[in] a FOX Toolkit APP
-    static void init(FXApp* a);
+    /**@brief Initiate GUIIconSubSys
+     * @param[in] a FOX Toolkit APP
+     */
+    static void initIcons(FXApp* a);
 
-    /// @brief returns a icon previously defined in the enum GUIIcon
-    /// @param[in] a FOX Toolkit APP
+    /**@brief returns a icon previously defined in the enum GUIIcon
+     * @param[in] which GUIIcon enum 
+     */
     static FXIcon* getIcon(GUIIcon which);
 
     /// @brief close GUIIconSubSys
     static void close();
 
 private:
-    /// @brief constructor
-    /// @note is private because is called by the static function init(FXApp* a)
+    /// @brief constructor is private because is called by the static function init(FXApp* a)
     GUIIconSubSys(FXApp* a);
 
     /// @brief destructor

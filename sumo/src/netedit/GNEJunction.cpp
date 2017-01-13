@@ -239,7 +239,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(1, 1, 1);
             const SUMOReal halfWidth = 32 / s.scale;
             const SUMOReal halfHeight = 64 / s.scale;
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
             glPopMatrix();
         }
         // draw crossings

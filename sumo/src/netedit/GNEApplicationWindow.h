@@ -369,7 +369,7 @@ private:
     /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
-    /// @brief opens a new simulation display */
+    /// @brief opens a new simulation display
     GUISUMOAbstractView* openNewView();
 
     /// @brief convenience method

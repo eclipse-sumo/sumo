@@ -191,10 +191,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myNet(0),
     myUndoList(new GNEUndoList(this)),
     myTitlePrefix("NETEDIT " VERSION_STRING) {
-    // Load icons
-    GUIIconSubSys::init(a);
-    // Load Gifs (Textures)
-    GUITextureSubSys::init(a);
+    // init icons
+    GUIIconSubSys::initIcons(a);
+    // init Textures
+    GUITextureSubSys::initTextures(a);
 }
 #ifdef _MSC_VER
 #pragma warning(default: 4355)
@@ -718,7 +718,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // Start operation for undo/redo
         myUndoList->p_begin("load additionals");
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(file, getView());
+        GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
         // Run parser
         if (!XMLSubSys::runParser(additionalHandler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
@@ -872,7 +872,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
     // check if additionals has to be loaded at start
-    if (OptionsCont::getOptions().isSet("sumo-additionals-file")) {
+    if (OptionsCont::getOptions().isSet("sumo-additionals-file") && myNet) {
         myAdditionalsFile = OptionsCont::getOptions().getString("sumo-additionals-file");
         WRITE_MESSAGE("Loading additionals from '" + myAdditionalsFile + "'");
         GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
@@ -998,7 +998,7 @@ GNEApplicationWindow::closeAllWindows() {
     }
     myMessageWindow->unregisterMsgHandlers();
     // Reset textures
-    GUITextureSubSys::reset();
+    GUITextureSubSys::resetTextures();
 }
 
 

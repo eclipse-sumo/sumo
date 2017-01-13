@@ -184,7 +184,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {
         // Draw icon
-        drawDetectorIcon(GUITextureSubSys::getGif(GNETEXTURE_EXIT), 1.5, 1);
+        drawDetectorIcon(GUITextureSubSys::getTexture(GNETEXTURE_EXIT), 1.5, 1);
 
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);

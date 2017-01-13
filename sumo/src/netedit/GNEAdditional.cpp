@@ -338,24 +338,24 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
         if (isAdditionalSelected()) {
             if (myMovable == false) {
                 // Draw not movable texture if additional isn't movable and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_NOTMOVINGSELECTED), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED), size);
             } else if (myBlocked) {
                 // Draw lock texture if additional is movable, is blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCKSELECTED), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
             } else {
                 // Draw empty texture if additional is movable, isn't blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_EMPTYSELECTED), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
             }
         } else {
             if (myMovable == false) {
                 // Draw not movable texture if additional isn't movable
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_NOTMOVING), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING), size);
             } else if (myBlocked) {
                 // Draw lock texture if additional is movable and is blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_LOCK), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
             } else {
                 // Draw empty texture if additional is movable and isn't blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getGif(GNETEXTURE_EMPTY), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTY), size);
             }
         }
         // Pop matrix

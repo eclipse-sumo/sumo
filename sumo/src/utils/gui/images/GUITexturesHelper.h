@@ -48,17 +48,18 @@ public:
     /// @brief return maximum number of pixels in x and y direction
     static int getMaxTextureSize();
 
-    /// Adds a texture to use
+    /// @brief Adds a texture to use
     static GUIGlID add(FXImage* i);
 
-    /// Draws a named texture as a box with the given size
+    /// @brief Draws a named texture as a box with the given size
     static void drawTexturedBox(int which, SUMOReal size);
 
-    /// Draws a named texture as a rectangle with the given sizes
+    /// @brief Draws a named texture as a rectangle with the given sizes
     static void drawTexturedBox(int which, SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
-    /// @brief return texture id for the given filename (initialize on first use)
-    // @note return -1 on failure
+    /**@brief return texture id for the given filename (initialize on first use)
+     * @note return -1 on failure
+     */
     static int getTextureID(const std::string& filename, const bool mirrorX = false);
 
     /// @brief clears loaded textures
