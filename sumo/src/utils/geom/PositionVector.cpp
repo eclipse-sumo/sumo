@@ -1240,5 +1240,47 @@ PositionVector::getOrthogonal(const Position& p, SUMOReal extend, SUMOReal& dist
     return result;
 }
 
+
+PositionVector
+PositionVector::smoothedZFront(SUMOReal dist) const {
+    PositionVector result = *this;
+    const SUMOReal z0 = (*this)[0].z();
+    // the z-delta of the first segment
+    const SUMOReal dz = (*this)[1].z() - z0;
+    // if the shape only has 2 points it is as smooth as possible already
+    if (size() > 2 && dz != 0) {
+        dist = MIN2(dist, length());
+        // check wether we need to insert a new point at dist
+        Position pDist = positionAtOffset(dist);
+        int iLast = indexOfClosest(pDist);
+        // prevent close spacing to reduce impact of rounding errors in z-axis
+        if (pDist.distanceTo2D((*this)[iLast]) > POSITION_EPS * 20) {
+            iLast = result.insertAtClosest(pDist);
+        }
+        SUMOReal dist2 = result.offsetAtIndex2D(iLast);
+        const SUMOReal dz2 = result[iLast].z() - z0;
+        SUMOReal seen = 0;
+        for (int i = 1; i < iLast; ++i) {
+            seen += result[i].distanceTo2D(result[i - 1]);
+            result[i].set(result[i].x(), result[i].y(), z0 + dz2 * seen / dist2);
+        }
+    }
+    return result;
+
+}
+
+
+SUMOReal 
+PositionVector::offsetAtIndex2D(int index) const {
+    if (index < 0 || index >= size()) {
+        return GeomHelper::INVALID_OFFSET;
+    }
+    SUMOReal seen = 0;
+    for (int i = 1; i <= index; ++i) {
+        seen += (*this)[i].distanceTo2D((*this)[i - 1]);
+    }
+    return seen;
+}
+
 /****************************************************************************/
 

@@ -362,6 +362,13 @@ public:
      */
     PositionVector getOrthogonal(const Position& p, SUMOReal extend, SUMOReal& distToClosest) const;
 
+
+    /// @brief returned vector that is smoothed at the front (within dist)
+    PositionVector smoothedZFront(SUMOReal dist) const; 
+
+    /// @brief return the offset at the given index 
+    SUMOReal offsetAtIndex2D(int index) const; 
+
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
     static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const SUMOReal withinDist = 0., SUMOReal* x = 0, SUMOReal* y = 0, SUMOReal* mu = 0);

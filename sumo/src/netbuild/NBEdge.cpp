@@ -628,6 +628,8 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         PositionVector ns = laneShape.getSubpart2D(pb, laneShape.length2D());
         //PositionVector ns = pb < (laneShape.length() - POSITION_EPS) ? laneShape.getSubpart2D(pb, laneShape.length()) : laneShape;
         ns[0].set(ns[0].x(), ns[0].y(), startNode->getPosition().z());
+        // cutting and patching z-coordinate may cause steep grades which should be smoothed
+        ns = ns.smoothedZFront(pb * 2);
         assert(ns.size() >= 2);
         return ns;
     } else if (nodeShape.intersects(lb)) {
