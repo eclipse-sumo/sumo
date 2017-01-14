@@ -40,3 +40,6 @@ binomial
 
 # generate validated trips
 validate
+
+# setting non-positive period should fail
+period_positive

@@ -102,13 +102,17 @@ def get_options(args=None):
     (options, args) = optParser.parse_args(args=args)
     if not options.netfile:
         optParser.print_help()
-        sys.exit()
+        sys.exit(1)
 
     if options.pedestrians:
         options.vclass = 'pedestrian'
 
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
+
+    if options.period <= 0:
+        print("period must be positive")
+        sys.exit(1)
     return options
 
 
