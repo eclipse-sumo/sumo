@@ -54,9 +54,8 @@ public:
      * @param[in] frequency The frequency in which to report the distribution
      * @param[in] filename The file for generated output
      * @param[in] begin The time at which to start generating output
-     * @param[in] blocked set initial blocking state of item
      */
-    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, SUMOReal begin, bool blocked);
+    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, SUMOReal begin);
 
     /// @brief Destructor
     ~GNERouteProbe();

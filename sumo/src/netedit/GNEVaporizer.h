@@ -51,11 +51,10 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] edge edge in which this vaporizer is placed
-     * @param[in] startTime
-     * @param[in] end
-     * @param[in] blocked set initial blocking state of item
+     * @param[in] startTime start time of vaporizer
+     * @param[in] end end time of vaporizer
      */
-    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal startTime, SUMOReal end, bool blocked);
+    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal startTime, SUMOReal end);
 
     /// @brief Destructor
     ~GNEVaporizer();

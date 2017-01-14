@@ -52,9 +52,8 @@ public:
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] parent pointer to GNEDetectorE3 of this additional element belongs
-     * @param[in] blocked set initial blocking state of item
      */
-    GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent, bool blocked = false);
+    GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent);
 
     /// @brief destructor
     ~GNEDetectorEntry();

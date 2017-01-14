@@ -58,12 +58,11 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additionalSet element belongs
      * @param[in] tag Type of xml tag that define the additionalSet element (SUMO_TAG_DETECTORE3, SUMO_TAG_REROUTER, etc...)
      * @param[in] icon GUIIcon associated to the additional
-     * @param[in] blocked enable or disable blocking. By default additionalSet element isn't blocked (i.e. value is false)
      * @param[in] additionalChilds
      * @param[in] edgeChilds
      * @param[in] laneChilds
      */
-    GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon, bool blocked = false,
+    GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon,
                      std::vector<GNEAdditional*> additionalChilds = std::vector<GNEAdditional*>(),
                      std::vector<GNEEdge*> edgeChilds = std::vector<GNEEdge*>(),
                      std::vector<GNELane*> laneChilds = std::vector<GNELane*>());

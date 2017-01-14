@@ -350,8 +350,8 @@ GNERerouter::rerouterInterval::getRouteProbReroutes() const {
 // GNERerouter - methods
 // ---------------------------------------------------------------------------
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<rerouterInterval>& rerouterIntervals, bool blocked) :
-    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER, blocked, std::vector<GNEAdditional * >(), edges),
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<rerouterInterval>& rerouterIntervals) :
+    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER, std::vector<GNEAdditional * >(), edges),
     myFilename(filename),
     myProbability(probability),
     myOff(off),

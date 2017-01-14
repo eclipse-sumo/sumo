@@ -64,8 +64,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditionalSet::GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon, bool blocked, std::vector<GNEAdditional*> additionalChilds, std::vector<GNEEdge*> edgeChilds, std::vector<GNELane*> laneChilds) :
-    GNEAdditional(id, viewNet, pos, tag, icon, NULL, blocked) {
+GNEAdditionalSet::GNEAdditionalSet(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon, 
+    std::vector<GNEAdditional*> additionalChilds, std::vector<GNEEdge*> edgeChilds, std::vector<GNELane*> laneChilds) :
+    GNEAdditional(id, viewNet, pos, tag, icon) {
     // Insert additionals
     for (int i = 0; i < (int)additionalChilds.size(); i++) {
         addAdditionalChild(additionalChilds.at(i));

@@ -48,10 +48,9 @@ public:
      * @param[in] pos position (center) of the rerouter in the map
      * @param[in] lanes vector with the lanes of variable speed signal
      * @param[in] filename The path to the definition file
-     * @param[in] VSSValues values with the interval and speeds of variable speed signals
-     * @param[in] blocked set initial blocking state of item
+     * @param[in] VSSValues values with the interval and speeds of variable speed signal
      */
-    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues, bool blocked);
+    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues);
 
     /// @brief Destructor
     ~GNEVariableSpeedSignal();

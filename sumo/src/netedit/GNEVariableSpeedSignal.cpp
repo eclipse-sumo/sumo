@@ -64,8 +64,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues, bool blocked) :
-    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL, blocked, std::vector<GNEAdditional * >(), std::vector<GNEEdge * >(), lanes),
+GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues) :
+    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL, std::vector<GNEAdditional * >(), std::vector<GNEEdge * >(), lanes),
     myFilename(filename),
     myVSSValues(VSSValues),
     mySaveInFilename(false) {

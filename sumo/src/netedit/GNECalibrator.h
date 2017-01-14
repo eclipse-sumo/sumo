@@ -79,9 +79,8 @@ public:
      * @param[in] frequency the aggregation interval in which to calibrate the flows
      * @param[in] output The output file for writing calibrator information
      * @param[in] flowValues values with the flow of calibrator
-     * @param[in] blocked set initial blocking state of item
      */
-    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOReal frequency, const std::string& output, const std::map<std::string, CalibratorFlow>& flowValues, bool blocked);
+    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOReal frequency, const std::string& output, const std::map<std::string, CalibratorFlow>& flowValues);
 
     /// @brief Destructor
     ~GNECalibrator();
