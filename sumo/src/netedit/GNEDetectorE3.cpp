@@ -121,7 +121,7 @@ GNEDetectorE3::getPositionInView() const {
 void
 GNEDetectorE3::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
     // change Position
-    myPosition = Position(offsetx, offsety);
+    myPosition.set(offsetx, offsety);
     updateGeometry();
 }
 
@@ -213,7 +213,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_X:
             return toString(myPosition.x());
         case SUMO_ATTR_Y:
-            return toString(myPosition.x());
+            return toString(myPosition.y());
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_FILE:
