@@ -488,7 +488,6 @@ NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         const EdgeVector& incoming = n->getIncomingEdges();
-        const EdgeVector& outgoing = n->getOutgoingEdges();
         for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
             NBEdge* from = *j;
             const SVCPermissions fromPerm = from->getPermissions();

@@ -63,7 +63,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntry::GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent) :
+GNEDetectorEntry::GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* /* parent */) :
     GNEDetector(id, viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, "") {
     // Update geometry;
     updateGeometry();

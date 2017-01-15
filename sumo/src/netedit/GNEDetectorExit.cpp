@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorExit::GNEDetectorExit(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent) :
+GNEDetectorExit::GNEDetectorExit(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* /* parent */) :
     GNEDetector(id, viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "") {
     // Update geometry;
     updateGeometry();
