@@ -181,7 +181,7 @@ protected:
      * @param[in] l The lane to return predecessors of
      * @return List of lanes predecessing the given one
      */
-    std::vector<MSLane*> getLanePredeccessorLanes(MSLane* l);
+    std::vector<MSLane*> getLanePredecessorLanes(MSLane* l);
 
 protected:
     /// @brief The position the collector starts at

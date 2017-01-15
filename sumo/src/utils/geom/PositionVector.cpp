@@ -1272,7 +1272,7 @@ PositionVector::smoothedZFront(SUMOReal dist) const {
 
 SUMOReal 
 PositionVector::offsetAtIndex2D(int index) const {
-    if (index < 0 || index >= size()) {
+    if (index < 0 || index >= (int)size()) {
         return GeomHelper::INVALID_OFFSET;
     }
     SUMOReal seen = 0;

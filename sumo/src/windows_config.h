@@ -29,6 +29,8 @@
 #error This file is for MSVC compilation only. GCC should use configure generated config.h.
 #endif
 
+/* Disable "decorated name length exceeded, name was truncated" warnings. */
+#pragma warning(disable: 4503)
 /* Disable "identifier truncated in debug info" warnings. */
 #pragma warning(disable: 4786)
 /* Disable "C++ Exception Specification ignored" warnings */
