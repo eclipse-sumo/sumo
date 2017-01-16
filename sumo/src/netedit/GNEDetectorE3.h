@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include "GNEAdditionalSet.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
@@ -45,11 +45,11 @@ class GNELane;
  * @class GNEDetectorE3
  * ------------
  */
-class GNEDetectorE3 : public GNEAdditionalSet {
+class GNEDetectorE3 : public GNEAdditional {
 public:
     /**@brief GNEDetectorE3 Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] viewNet pointer to GNEViewNet of this additionalSet element belongs
+     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position (center) of the detector in the map
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file
@@ -74,8 +74,8 @@ public:
     /// @brief updated geometry changes in the attributes of additional
     void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList);
 
-    /**@brief writte additionalSet element into a xml file
-     * @param[in] device device in which write parameters of additionalSet element
+    /**@brief writte additionals element into a xml file
+     * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device, const std::string& currentDirectory);
 
@@ -100,7 +100,7 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
-    /* @brief method for setting the attribute and letting the object perform additionalSet changes
+    /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes

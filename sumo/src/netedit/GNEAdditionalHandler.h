@@ -178,7 +178,7 @@ public:
     ///
     /// Called with parsed values, these methods build the trigger.
     /// @{
-    /**@brief Builds additional / additionalSet
+    /**@brief Build additionals
      * @param[in] viewNet pointer to viewNet in wich additional will be created
      * @param[in] tag tag of the additiona lto create
      * @param[in] values map with the attributes and values of the additional to create
@@ -383,8 +383,8 @@ protected:
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
 
-    /// @brief Id of the last inserted GNEAdditionalSet
-    std::string myAdditionalSetParent;
+    /// @brief Id of the last inserted GNEAdditional
+    std::string myAdditionalParent;
 
     /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
     GNERerouter::rerouterInterval* rerouterIntervalToInsertValues;

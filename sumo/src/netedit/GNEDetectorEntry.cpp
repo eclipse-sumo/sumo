@@ -100,9 +100,6 @@ GNEDetectorEntry::updateGeometry() {
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(myLane);
 
-    // Update parent geometry
-    myAdditionalSetParent->updateGeometry();
-
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
 }

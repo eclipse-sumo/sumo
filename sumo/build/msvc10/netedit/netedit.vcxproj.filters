@@ -90,9 +90,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEAdditional.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEAdditionalSet.cpp">
-      <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNECalibrator.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
     </ClCompile>
@@ -317,9 +314,6 @@
       <Filter>Header-Dateien\Items\NetElement</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNECalibrator.h">
-      <Filter>Header-Dateien\Items\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEAdditionalSet.h">
       <Filter>Header-Dateien\Items\Additionals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEAdditionalFrame.h">

@@ -41,7 +41,6 @@
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
-class GNEAdditionalSet;
 
 // ===========================================================================
 // class definitions
@@ -95,7 +94,7 @@ private:
     std::vector<GNEAdditional*> myAdditionalChilds;
 
     /// @brief we need to preserve the list of additional sets in which this lane is a child
-    std::vector<GNEAdditionalSet*> myAdditionalSetParents;
+    std::vector<GNEAdditional*> myAdditionalParents;
 };
 
 #endif

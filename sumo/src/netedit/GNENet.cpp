@@ -76,7 +76,6 @@
 #include "GNEChange_Additional.h"
 #include "GNEChange_Crossing.h"
 #include "GNEAdditional.h"
-#include "GNEAdditionalSet.h"
 #include "GNEStoppingPlace.h"
 #include "GNEDetector.h"
 #include "GNEViewNet.h"
@@ -673,10 +672,7 @@ GNENet::saveAdditionals(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        // Only write additional if don't belong to another additionalSet
-        if (i->second->getAdditionalSetParent() == NULL) {
-            i->second->writeAdditional(device, path);
-        }
+        i->second->writeAdditional(device, path);
     }
     device.close();
 }
@@ -829,11 +825,7 @@ GNENet::retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType 
                     ac = dynamic_cast<GNELane*>(object);
                     break;
                 case GLO_ADDITIONAL:
-                    if (dynamic_cast<GNEAdditional*>(object)) {
-                        ac = dynamic_cast<GNEAdditional*>(object);
-                    } else if (dynamic_cast<GNEAdditionalSet*>(object)) {
-                        ac = dynamic_cast<GNEAdditionalSet*>(object);
-                    }
+                    ac = dynamic_cast<GNEAdditional*>(object);
                     break;
                 default:
                     break;
@@ -1213,9 +1205,6 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
         if (additional->getLane()) {
             additional->getLane()->addAdditionalChild(additional);
         }
-        if (additional->getAdditionalSetParent() != NULL) {
-            additional->getAdditionalSetParent()->addAdditionalChild(additional);
-        }
         update();
     }
 }
@@ -1237,9 +1226,6 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         // If additional is vinculated with a lane, remove reference
         if (additional->getLane()) {
             additional->getLane()->removeAdditionalChild(additional);
-        }
-        if (additional->getAdditionalSetParent() != NULL) {
-            additional->getAdditionalSetParent()->removeAdditionalGeometryChild(additional);
         }
         update();
     }

@@ -74,7 +74,6 @@
 #include "GNEPoly.h"
 #include "GNECrossing.h"
 #include "GNEAdditional.h"
-#include "GNEAdditionalSet.h"
 #include "GNEAdditionalDialog.h"
 #include "GNERerouter.h"
 #include "GNEConnection.h"

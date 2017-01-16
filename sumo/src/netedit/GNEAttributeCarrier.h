@@ -111,9 +111,6 @@ public:
     /// @brief get type of attribute
     static std::string getAttributeType(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief get parent's tag of a certain additional element
-    static SumoXMLTag getParentType(SumoXMLTag tag);
-
     /// @brief get all editable attributes for tag and their default values.
     static const std::vector<std::pair<SumoXMLAttr, std::string> >& allowedAttributes(SumoXMLTag tag);
 
@@ -155,9 +152,6 @@ public:
 
     /// @brief whether an attribute is non editable
     static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief check if an element with certain tag has another additional element as parent
-    static bool hasParent(SumoXMLTag tag);
 
     /// @brief check if an element with certain tag has a certain attribute
     static bool hasAttribute(SumoXMLTag tag, SumoXMLAttr attr);

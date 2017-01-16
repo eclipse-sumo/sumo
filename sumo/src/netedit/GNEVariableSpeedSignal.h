@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include "GNEAdditionalSet.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
@@ -39,7 +39,7 @@
  * @class GNEVariableSpeedSignal
  * ------------
  */
-class GNEVariableSpeedSignal : public GNEAdditionalSet {
+class GNEVariableSpeedSignal : public GNEAdditional {
 public:
 
     /**@brief Constructor

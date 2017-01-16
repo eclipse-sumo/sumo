@@ -65,7 +65,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues) :
-    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL, std::vector<GNEAdditional * >(), std::vector<GNEEdge * >(), lanes),
+    GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL),
     myFilename(filename),
     myVSSValues(VSSValues),
     mySaveInFilename(false) {
@@ -97,7 +97,7 @@ GNEVariableSpeedSignal::updateGeometry() {
 
     // Set position
     myShape.push_back(myPosition);
-
+    /*
     // Add shape of childs (To avoid graphics errors)
     for (childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         myShape.append(i->lane->getShape());
@@ -105,7 +105,7 @@ GNEVariableSpeedSignal::updateGeometry() {
 
     // Update connections
     updateConnections();
-
+    */
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
 }
@@ -146,7 +146,7 @@ GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string&
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANES, joinToString(getLaneChildIds(), " ").c_str());
+    device.writeAttr(SUMO_ATTR_LANES, /*joinToString(getLaneChildIds(), " ").c_str()*/"");
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
     // If filenam isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
@@ -260,7 +260,7 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
 
     // Obtain exaggeration
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
-
+    /*
     // Iterate over lanes
     for (childLanes::const_iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         // Draw every signal over Lane
@@ -304,12 +304,9 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopMatrix();
     }
-
+    */
     // Pop symbol matrix
     glPopMatrix();
-
-    // Draw connections
-    drawConnections();
 
     // Draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
@@ -325,7 +322,7 @@ GNEVariableSpeedSignal::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANES:
-            return joinToString(getLaneChildIds(), " ");
+            return /*joinToString(getLaneChildIds(), " ")*/ "";
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -415,7 +412,7 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value) 
                 }
             }
             // Set new childs
-            setLaneChilds(lanes);
+            //setLaneChilds(lanes);
             break;
         }
         case SUMO_ATTR_POSITION:

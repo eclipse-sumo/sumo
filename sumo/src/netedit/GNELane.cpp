@@ -629,10 +629,6 @@ GNELane::updateGeometry() {
     for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
         (*i)->updateGeometry();
     }
-    // Update geometry of additionalSets vinculated to this lane
-    for (AdditionalSetVector::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); ++i) {
-        (*i)->updateGeometry();
-    }
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
         // Update incoming connections of this lane
@@ -733,40 +729,6 @@ GNELane::removeAdditionalChild(GNEAdditional* additional) {
 const std::vector<GNEAdditional*>&
 GNELane::getAdditionalChilds() const {
     return myAdditionals;
-}
-
-
-bool
-GNELane::addAdditionalSet(GNEAdditionalSet* additionalSet) {
-    // Check if additionalSet already exists before insertion
-    for (AdditionalSetVector::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
-        if ((*i) == additionalSet) {
-            return false;
-        }
-    }
-    // Insert it and retur true
-    myAdditionalSetParents.push_back(additionalSet);
-    return true;
-}
-
-
-bool
-GNELane::removeAdditionalGeometrySet(GNEAdditionalSet* additionalSet) {
-    // search additionalSet and remove it
-    for (AdditionalSetVector::iterator i = myAdditionalSetParents.begin(); i != myAdditionalSetParents.end(); i++) {
-        if ((*i) == additionalSet) {
-            myAdditionalSetParents.erase(i);
-            return true;
-        }
-    }
-    // If additionalSet wasn't found, return false
-    return false;
-}
-
-
-const std::vector<GNEAdditionalSet*>&
-GNELane::getAdditionalSetParents() {
-    return myAdditionalSetParents;
 }
 
 

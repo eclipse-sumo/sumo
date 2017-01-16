@@ -48,7 +48,6 @@ class GNEEdge;
 class GNELane;
 class GNENet;
 class GNEViewNet;
-class GNEAdditionalSet;
 class GNEAdditionalDialog;
 
 // ===========================================================================
@@ -138,9 +137,6 @@ public:
 
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
-
-    /// @brief get additionalSet parent, or NULL if don't belongs to an additionalSet
-    GNEAdditionalSet* getAdditionalSetParent() const;
 
     /// @brief set the ID of additional
     void setAdditionalID(const std::string& id);
@@ -252,9 +248,6 @@ protected:
     /// @brief The shape of the additional element
     /// @note must be configured in updateGeometry()
     PositionVector myShape;
-
-    /// @brief pointer to additional set parent, if belong to set
-    GNEAdditionalSet* myAdditionalSetParent;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

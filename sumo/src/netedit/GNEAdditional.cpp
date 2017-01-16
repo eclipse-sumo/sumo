@@ -71,7 +71,6 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
     myEdge(NULL),
     myLane(NULL),
     myPosition(pos),
-    myAdditionalSetParent(NULL),
     myBlockIconRotation(0),
     myBlocked(false),
     myInspectionable(true),
@@ -82,19 +81,10 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Positio
     myAdditionalDialog(NULL) {
     // Set rotation left hand
     myRotationLefthand = OptionsCont::getOptions().getBool("lefthand");
-    // If this additional belongs to a set, add it.
-    if (myAdditionalSetParent) {
-        myAdditionalSetParent->addAdditionalChild(this);
-    }
 }
 
 
-GNEAdditional::~GNEAdditional() {
-    // If this additional belongs to a set, remove it.
-    if (myAdditionalSetParent) {
-        myAdditionalSetParent->removeAdditionalGeometryChild(this);
-    }
-}
+GNEAdditional::~GNEAdditional() {}
 
 
 void
@@ -160,12 +150,6 @@ GNEAdditional::isAdditionalMovable() const {
 bool
 GNEAdditional::isAdditionalSelected() const {
     return gSelected.isSelected(getType(), getGlID());
-}
-
-
-GNEAdditionalSet*
-GNEAdditional::getAdditionalSetParent() const {
-    return myAdditionalSetParent;
 }
 
 
@@ -252,18 +236,6 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     } else {
         new FXMenuCommand(ret, ("position in view: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
-    }
-    // Show childs if this is is an additionalSet
-    GNEAdditionalSet* additionalSet = dynamic_cast<GNEAdditionalSet*>(this);
-    if (additionalSet) {
-        new FXMenuSeparator(ret);
-        if (additionalSet->getNumberOfAdditionalChilds() > 0) {
-            new FXMenuCommand(ret, ("number of additional childs: " + toString(additionalSet->getNumberOfAdditionalChilds())).c_str(), 0, 0, 0);
-        } else if (additionalSet->getNumberOfEdgeChilds() > 0) {
-            new FXMenuCommand(ret, ("number of edge childs: " + toString(additionalSet->getNumberOfEdgeChilds())).c_str(), 0, 0, 0);
-        } else if (additionalSet->getNumberOfLaneChilds() > 0) {
-            new FXMenuCommand(ret, ("number of lane childs: " + toString(additionalSet->getNumberOfLaneChilds())).c_str(), 0, 0, 0);
-        }
     }
     new FXMenuSeparator(ret);
     // let the GNEViewNet store the popup position

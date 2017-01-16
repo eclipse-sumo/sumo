@@ -351,7 +351,7 @@ GNERerouter::rerouterInterval::getRouteProbReroutes() const {
 // ---------------------------------------------------------------------------
 
 GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<rerouterInterval>& rerouterIntervals) :
-    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER, std::vector<GNEAdditional * >(), edges),
+    GNEAdditional(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER),
     myFilename(filename),
     myProbability(probability),
     myOff(off),
@@ -385,14 +385,15 @@ GNERerouter::updateGeometry() {
     // Set position
     myShape.push_back(myPosition);
 
+    /*
     // Add shape of childs (To avoid graphics errors)
     for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
         myShape.append(i->edge->getLanes().at(0)->getShape());
     }
-
-    // Update geometry of additionalSet parent
+    
+    // Update geometry of additional parent
     updateConnections();
-
+    */
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
 }
@@ -433,7 +434,7 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGES, joinToString(getEdgeChildIds(), " ").c_str());
+    device.writeAttr(SUMO_ATTR_EDGES, /*joinToString(getEdgeChildIds(), " ").c_str()*/ "");
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -514,10 +515,13 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Show Lock icon depending of the Edit mode
     drawLockIcon(0.4);
 
+    /*
     // Draw symbols in every lane
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    
     if (s.scale * exaggeration >= 3) {
         // draw rerouter symbol over all lanes
+        
         for (childEdges::const_iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
             for (int lanePosIt = 0; lanePosIt < (int)i->positionsOverLanes.size(); lanePosIt++) {
                 glPushMatrix();
@@ -562,7 +566,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw connections
     drawConnections();
-
+    */
     // Pop name
     glPopName();
 
@@ -577,7 +581,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGES:
-            return joinToString(getEdgeChildIds(), " ");
+            return /*joinToString(getEdgeChildIds(), " ")*/ "";
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -677,7 +681,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
                 }
             }
             // Set new childs
-            setEdgeChilds(edges);
+            //setEdgeChilds(edges);
             break;
         }
         case SUMO_ATTR_POSITION:

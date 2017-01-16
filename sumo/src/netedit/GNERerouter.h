@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include "GNEAdditionalSet.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
@@ -45,7 +45,7 @@ class GNEEdge;
  * @class GNERerouter
  * ------------
  */
-class GNERerouter : public GNEAdditionalSet {
+class GNERerouter : public GNEAdditional {
 public:
 
     // ===========================================================================

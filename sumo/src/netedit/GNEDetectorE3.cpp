@@ -65,7 +65,7 @@
 // ===========================================================================
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOReal freq, const std::string& filename, const SUMOReal timeThreshold, SUMOReal speedThreshold) :
-    GNEAdditionalSet(id, viewNet, pos, SUMO_TAG_E3DETECTOR, ICON_E3),
+    GNEAdditional(id, viewNet, pos, SUMO_TAG_E3DETECTOR, ICON_E3),
     myFreq(freq),
     myFilename(filename),
     myTimeThreshold(timeThreshold),
@@ -100,13 +100,14 @@ GNEDetectorE3::updateGeometry() {
     myShape.push_back(myPosition);
 
     // Add shape of childs (To avoid graphics errors)
+    /*
     for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
         myShape.append((*i)->getShape());
     }
 
     // Update connections
     updateConnections();
-
+    */
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
 }
@@ -140,7 +141,7 @@ GNEDetectorE3::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy
 void
 GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentDirectory) {
     // Only save E3 if have Entry/Exits
-    if (getNumberOfAdditionalChilds() > 0) {
+    if (/**getNumberOfAdditionalChilds() > 0**/ true) {
         // Write parameters
         device.openTag(getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
@@ -156,7 +157,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
             device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
         }
         // Write childs of this element
-        writeAdditionalChildrens(device, currentDirectory);
+        //writeAdditionalChildrens(device, currentDirectory);
         // Close tag
         device.closeTag();
     } else {
@@ -195,7 +196,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     drawLockIcon(0.4);
 
     // Draw connections
-    drawConnections();
+    //drawConnections();
 
     // Pop name
     glPopName();

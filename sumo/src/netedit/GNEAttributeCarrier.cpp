@@ -166,16 +166,6 @@ GNEAttributeCarrier::getAttributeType(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-SumoXMLTag
-GNEAttributeCarrier::getParentType(SumoXMLTag tag) {
-    if (hasParent(tag)) {
-        return myAllowedAdditionalWithParentTags[tag];
-    } else {
-        return SUMO_TAG_NOTHING;
-    }
-}
-
-
 bool
 GNEAttributeCarrier::isValidID(const std::string& value) {
     return value.find_first_of(" \t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
@@ -675,16 +665,6 @@ GNEAttributeCarrier::isNonEditable(SumoXMLTag tag, SumoXMLAttr attr) {
         myNonEditableAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_INDEX);
     }
     return myNonEditableAttrs[tag].count(attr) == 1;
-}
-
-bool
-GNEAttributeCarrier::hasParent(SumoXMLTag tag) {
-    // define on first access
-    if (myAllowedAdditionalWithParentTags.empty()) {
-        myAllowedAdditionalWithParentTags[SUMO_TAG_DET_ENTRY] = SUMO_TAG_E3DETECTOR;
-        myAllowedAdditionalWithParentTags[SUMO_TAG_DET_EXIT] = SUMO_TAG_E3DETECTOR;
-    }
-    return myAllowedAdditionalWithParentTags.count(tag) == 1;
 }
 
 

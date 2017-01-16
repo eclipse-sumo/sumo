@@ -220,7 +220,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // Obtain calibrator
-        GNECalibrator* calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, myAdditionalSetParent));
+        GNECalibrator* calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, myAdditionalParent));
         if (calibratorToInsertFlow == NULL) {
             WRITE_WARNING("A " + toString(SUMO_TAG_CALIBRATOR) + " must be inserter before insertion of the " + toString(tag) + " '" + flowId + "'");
         } else {
@@ -249,7 +249,7 @@ GNEAdditionalHandler::parseVariableSpeedSignalStep(const SUMOSAXAttributes& attr
     }
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        GNEVariableSpeedSignal* variableSpeedSignalToInsertStep = dynamic_cast<GNEVariableSpeedSignal*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalSetParent));
+        GNEVariableSpeedSignal* variableSpeedSignalToInsertStep = dynamic_cast<GNEVariableSpeedSignal*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalParent));
         if (variableSpeedSignalToInsertStep == NULL) {
             WRITE_WARNING("A " + toString(SUMO_TAG_VSS) + " must be inserter before insertion of a " + toString(tag));
         } else if (!variableSpeedSignalToInsertStep->insertStep(time, speed)) {
@@ -288,7 +288,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& 
         }
         // if operation of build variable speed signal was sucesfully, save Id
         if (buildVariableSpeedSignal(myViewNet, id, Position(posx, posy), lanes, file, VSSValues)) {
-            myAdditionalSetParent = id;
+            myAdditionalParent = id;
         }
     }
 }
@@ -326,7 +326,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         }
         // if operation of build variable speed signal was sucesfully, save Id
         if (buildRerouter(myViewNet, id, Position(posx, posy), edges, probability, file, off , rerouterIntervals)) {
-            myAdditionalSetParent = id;
+            myAdditionalParent = id;
         }
     }
 }
@@ -439,7 +439,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         } else {
             if (buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>())) {
                 // Save id for insert flows
-                myAdditionalSetParent = id;
+                myAdditionalParent = id;
             }
         }
     }
@@ -515,7 +515,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // if operation of build detector E3 was sucesfully, save Id
         if (buildDetectorE3(myViewNet, id, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold)) {
-            myAdditionalSetParent = id;
+            myAdditionalParent = id;
         }
     }
 }
@@ -537,11 +537,11 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
         } else {
             // get the ID. Note: This Id is interne, and cannot be defined by user
             int indexEntry = 0;
-            while (myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalSetParent) != NULL) {
+            while (myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalParent) != NULL) {
                 indexEntry++;
             }
             // build detector entry
-            buildDetectorEntry(myViewNet, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalSetParent, lane, position, myAdditionalSetParent);
+            buildDetectorEntry(myViewNet, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalParent, lane, position, myAdditionalParent);
         }
     }
 }
@@ -563,11 +563,11 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
         } else {
             // get the ID. Note: This Id is interne, and cannot be defined by user
             int indexExit = 0;
-            while (myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalSetParent) != NULL) {
+            while (myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalParent) != NULL) {
                 indexExit++;
             }
             // build detector Exit
-            buildDetectorExit(myViewNet, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalSetParent, lane, position, myAdditionalSetParent);
+            buildDetectorExit(myViewNet, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalParent, lane, position, myAdditionalParent);
         }
     }
 }

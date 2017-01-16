@@ -68,7 +68,6 @@ class GNELane;
 class GNEJunction;
 class GNEUndoList;
 class GNEAdditional;
-class GNEAdditionalSet;
 class GNEBusStop;
 class GNEChargingStation;
 class GNEDetectorE1;

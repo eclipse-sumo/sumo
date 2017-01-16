@@ -543,10 +543,10 @@ enum {
     MID_GNE_ADDSET,
     /// @brief remove set 
     MID_GNE_REMOVESET,
-    /// @brief search additionalSet 
-    MID_GNE_SEARCHADDITIONALSET,
-    /// @brief select additionalSet 
-    MID_GNE_SELECTADDITIONALSET,
+    /// @brief search additional parent
+    MID_GNE_SEARCHADDITIONALPARENT,
+    /// @brief select additional parent
+    MID_GNE_SELECTADDITIONALPARENT,
     /// @brief search edge 
     MID_GNE_SEARCHEDGE,
     /// @brief show only selected edge in a list

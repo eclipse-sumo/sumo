@@ -50,7 +50,6 @@
 #include "GNEJunction.h"
 #include "GNELane.h"
 #include "GNEAdditional.h"
-#include "GNEAdditionalSet.h"
 #include "GNEConnection.h"
 
 
@@ -117,10 +116,6 @@ GNEEdge::updateGeometry() {
     }
     // Update geometry of additionals vinculated to this edge
     for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        (*i)->updateGeometry();
-    }
-    // Update geometry of additionalSets vinculated to this edge
-    for (AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); ++i) {
         (*i)->updateGeometry();
     }
 }
@@ -979,40 +974,6 @@ GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
 const std::vector<GNEAdditional*>&
 GNEEdge::getAdditionalChilds() const {
     return myAdditionals;
-}
-
-
-bool
-GNEEdge::addAdditionalSet(GNEAdditionalSet* additionalSet) {
-    // Check if additionalSet already exists before insertion
-    for (AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
-        if ((*i) == additionalSet) {
-            return false;
-        }
-    }
-    // Insert it and retur true
-    myAdditionalSets.push_back(additionalSet);
-    return true;
-}
-
-
-bool
-GNEEdge::removeAdditionalGeometrySet(GNEAdditionalSet* additionalSet) {
-    // search additionalSet and remove it
-    for (AdditionalSetVector::iterator i = myAdditionalSets.begin(); i != myAdditionalSets.end(); i++) {
-        if ((*i) == additionalSet) {
-            myAdditionalSets.erase(i);
-            return true;
-        }
-    }
-    // If additionalSet wasn't found, return false
-    return false;
-}
-
-
-const std::vector<GNEAdditionalSet*>&
-GNEEdge::getAdditionalSets() {
-    return myAdditionalSets;
 }
 
 

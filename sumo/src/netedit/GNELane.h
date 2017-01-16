@@ -41,7 +41,6 @@ class GNETLSEditorFrame;
 class GNEEdge;
 class GNENet;
 class GNEAdditional;
-class GNEAdditionalSet;
 class GNEConnection;
 
 // ===========================================================================
@@ -59,9 +58,6 @@ class GNELane : public GNENetElement, public FXDelegator {
 public:
     /// @brief Definition of the additionals vector
     typedef std::vector<GNEAdditional*> AdditionalVector;
-
-    /// @brief Definition of the additionalSets vector
-    typedef std::vector<GNEAdditionalSet*> AdditionalSetVector;
 
     /**@brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
@@ -180,15 +176,6 @@ public:
     /// @brief get additional childs of lane
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
-    /// @brief add GNEAdditionalSet to this lane
-    bool addAdditionalSet(GNEAdditionalSet* additionalSet);
-
-    /// @brief remove GNEAdditionalSet from this lane
-    bool removeAdditionalGeometrySet(GNEAdditionalSet* additionalSet);
-
-    /// @brief return list of additionalSets parents of this lane
-    const std::vector<GNEAdditionalSet*>& getAdditionalSetParents();
-
     /// @brief check if this lane is restricted
     bool isRestricted(SUMOVehicleClass vclass) const;
 
@@ -247,9 +234,6 @@ protected:
 
     /// @brief list with the additonals vinculated with this lane
     AdditionalVector myAdditionals;
-
-    /// @brief list with the additonalSets parents of this lane
-    AdditionalSetVector myAdditionalSetParents;
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;

@@ -56,7 +56,6 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEChange_Additional.h"
 #include "GNEAdditional.h"
-#include "GNEAdditionalSet.h"
 #include "GNEAdditionalHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -92,38 +91,38 @@ FXDEFMAP(GNEAdditionalFrame::editorParameters) GNEEditorParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HELP,                                     GNEAdditionalFrame::editorParameters::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::additionalSetsSelector) GNEAdditionalSetsSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTADDITIONALSET, GNEAdditionalFrame::additionalSetsSelector::onCmdSelectAdditionalSet),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::additionalSetsSelector::onCmdHelp),
+FXDEFMAP(GNEAdditionalFrame::additionalParentSelector) GNEadditionalParentSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTADDITIONALPARENT, GNEAdditionalFrame::additionalParentSelector::onCmdSelectAdditionalParent),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                       GNEAdditionalFrame::additionalParentSelector::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::edgesSelector) GNEEdgesSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWONLYSELECTEDEDGES, GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEAREDGESELECTION,    GNEAdditionalFrame::edgesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTEDGESELECTION,   GNEAdditionalFrame::edgesSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHEDGE,            GNEAdditionalFrame::edgesSelector::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTEDGE,            GNEAdditionalFrame::edgesSelector::onCmdSelectEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                      GNEAdditionalFrame::edgesSelector::onCmdHelp),
+FXDEFMAP(GNEAdditionalFrame::edgeParentsSelector) GNEedgeParentsSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWONLYSELECTEDEDGES, GNEAdditionalFrame::edgeParentsSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEAREDGESELECTION,    GNEAdditionalFrame::edgeParentsSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTEDGESELECTION,   GNEAdditionalFrame::edgeParentsSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHEDGE,            GNEAdditionalFrame::edgeParentsSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTEDGE,            GNEAdditionalFrame::edgeParentsSelector::onCmdSelectEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                      GNEAdditionalFrame::edgeParentsSelector::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::lanesSelector) GNELanesSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_USESELECTEDLANES,    GNEAdditionalFrame::lanesSelector::onCmdUseSelectedLanes),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEARLANESELECTION,  GNEAdditionalFrame::lanesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTLANESELECTION, GNEAdditionalFrame::lanesSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHLANE,          GNEAdditionalFrame::lanesSelector::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTLANE,          GNEAdditionalFrame::lanesSelector::onCmdSelectLane),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::lanesSelector::onCmdHelp),
+FXDEFMAP(GNEAdditionalFrame::laneParentsSelector) GNElaneParentsSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_USESELECTEDLANES,    GNEAdditionalFrame::laneParentsSelector::onCmdUseSelectedLanes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEARLANESELECTION,  GNEAdditionalFrame::laneParentsSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTLANESELECTION, GNEAdditionalFrame::laneParentsSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHLANE,          GNEAdditionalFrame::laneParentsSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTLANE,          GNEAdditionalFrame::laneParentsSelector::onCmdSelectLane),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::laneParentsSelector::onCmdHelp),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEAdditionalFrame,                                FXVerticalFrame, GNEAdditionalMap,                    ARRAYNUMBER(GNEAdditionalMap))
-FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameter,     FXMatrix,       GNEsingleAdditionalParameterMap,     ARRAYNUMBER(GNEsingleAdditionalParameterMap))
-FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameterList, FXMatrix,       GNEsingleAdditionalParameterListMap, ARRAYNUMBER(GNEsingleAdditionalParameterListMap))
-FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,          FXGroupBox,     GNEadditionalParametersMap,          ARRAYNUMBER(GNEadditionalParametersMap))
-FXIMPLEMENT(GNEAdditionalFrame::editorParameters,              FXGroupBox,     GNEEditorParametersMap,              ARRAYNUMBER(GNEEditorParametersMap))
-FXIMPLEMENT(GNEAdditionalFrame::additionalSetsSelector,        FXGroupBox,     GNEAdditionalSetsSelectorMap,        ARRAYNUMBER(GNEAdditionalSetsSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::edgesSelector,                 FXGroupBox,     GNEEdgesSelectorMap,                 ARRAYNUMBER(GNEEdgesSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::lanesSelector,                 FXGroupBox,     GNELanesSelectorMap,                 ARRAYNUMBER(GNELanesSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameter,     FXMatrix,        GNEsingleAdditionalParameterMap,     ARRAYNUMBER(GNEsingleAdditionalParameterMap))
+FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameterList, FXMatrix,        GNEsingleAdditionalParameterListMap, ARRAYNUMBER(GNEsingleAdditionalParameterListMap))
+FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,          FXGroupBox,      GNEadditionalParametersMap,          ARRAYNUMBER(GNEadditionalParametersMap))
+FXIMPLEMENT(GNEAdditionalFrame::editorParameters,              FXGroupBox,      GNEEditorParametersMap,              ARRAYNUMBER(GNEEditorParametersMap))
+FXIMPLEMENT(GNEAdditionalFrame::additionalParentSelector,      FXGroupBox,      GNEadditionalParentSelectorMap,      ARRAYNUMBER(GNEadditionalParentSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::edgeParentsSelector,           FXGroupBox,      GNEedgeParentsSelectorMap,           ARRAYNUMBER(GNEedgeParentsSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::laneParentsSelector,           FXGroupBox,      GNElaneParentsSelectorMap,           ARRAYNUMBER(GNElaneParentsSelectorMap))
 
 // ===========================================================================
 // method definitions
@@ -146,13 +145,13 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame *horizontalFrameParent,
     myEditorParameters = new GNEAdditionalFrame::editorParameters(myContentFrame);
 
     // Create create list for additional Set
-    myAdditionalSet = new GNEAdditionalFrame::additionalSetsSelector(myContentFrame, myViewNet);
+    myAdditionalParentSelector = new GNEAdditionalFrame::additionalParentSelector(myContentFrame, myViewNet);
 
-    /// Create list for edgesSelector
-    myEdgesSelector = new GNEAdditionalFrame::edgesSelector(myContentFrame, myViewNet);
+    /// Create list for edgeParentsSelector
+    myedgeParentsSelector = new GNEAdditionalFrame::edgeParentsSelector(myContentFrame, myViewNet);
 
-    /// Create list for lanesSelector
-    myLanesSelector = new GNEAdditionalFrame::lanesSelector(myContentFrame, myViewNet);
+    /// Create list for laneParentsSelector
+    mylaneParentsSelector = new GNEAdditionalFrame::laneParentsSelector(myContentFrame, myViewNet);
 
     // Add options to myAdditionalMatchBox
     const std::vector<SumoXMLTag>& additionalTags = GNEAttributeCarrier::allowedTags(false);
@@ -325,20 +324,20 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
 
     // Save block value
     valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockEnabled());
-
-    // If element belongst to an additional Set, get id of parent from myAdditionalSet
+    /*
+    // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
     if (GNEAttributeCarrier::hasParent(myActualAdditionalType)) {
-        if (myAdditionalSet->getIdSelected() != "") {
-            valuesOfElement[GNE_ATTR_PARENT] = myAdditionalSet->getIdSelected();
+        if (myAdditionalParentSelector->getIdSelected() != "") {
+            valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
         } else {
-            WRITE_WARNING("A " + toString(myAdditionalSet->getCurrentAdditionalTag()) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
+            WRITE_WARNING("A " + toString(myAdditionalParentSelector->getCurrentAdditionalTag()) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
             return false;
         }
     }
-
-    // If element own a list of edgesSelector as attribute
+    */
+    // If element own a list of edgeParentsSelector as attribute
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
-        if (myEdgesSelector->isUseSelectedEdgesEnable()) {
+        if (myedgeParentsSelector->isUseSelectedEdgesEnable()) {
             // Declare a vector of Id's
             std::vector<std::string> vectorOfIds;
             // get Selected edges
@@ -350,7 +349,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             // Set saved Ids in attribute edges
             valuesOfElement[SUMO_ATTR_EDGES] = joinToString(vectorOfIds, " ");
         } else {
-            valuesOfElement[SUMO_ATTR_EDGES] = myEdgesSelector->getIdsSelected();
+            valuesOfElement[SUMO_ATTR_EDGES] = myedgeParentsSelector->getIdsSelected();
         }
         // check if attribute has at least an Edge
         if (valuesOfElement[SUMO_ATTR_EDGES] == "") {
@@ -359,9 +358,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         }
     }
 
-    // If element own a list of lanesSelector as attribute
+    // If element own a list of laneParentsSelector as attribute
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANES)) {
-        if (myLanesSelector->isUseSelectedLanesEnable()) {
+        if (mylaneParentsSelector->isUseSelectedLanesEnable()) {
             // Declare a vector of Id's
             std::vector<std::string> vectorOfIds;
             // get Selected lanes
@@ -373,7 +372,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             // Set saved Ids in attribute lanes
             valuesOfElement[SUMO_ATTR_LANES] = joinToString(vectorOfIds, " ");
         } else {
-            valuesOfElement[SUMO_ATTR_LANES] = myLanesSelector->getIdsSelected();
+            valuesOfElement[SUMO_ATTR_LANES] = mylaneParentsSelector->getIdsSelected();
         }
         // check if attribute has at least a lane
         if (valuesOfElement[SUMO_ATTR_LANES] == "") {
@@ -412,9 +411,9 @@ GNEAdditionalFrame::show() {
     // Show frame
     GNEFrame::show();
     // Update UseSelectedLane CheckBox
-    myEdgesSelector->updateUseSelectedEdges();
+    myedgeParentsSelector->updateUseSelectedEdges();
     // Update UseSelectedLane CheckBox
-    myLanesSelector->updateUseSelectedLanes();
+    mylaneParentsSelector->updateUseSelectedLanes();
 }
 
 
@@ -444,23 +443,25 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     } else {
         myadditionalParameters->hideAdditionalParameters();
     }
+    /*
     // Show set parameter if we're adding an additional with parent
     if (GNEAttributeCarrier::hasParent(myActualAdditionalType)) {
-        myAdditionalSet->showList(GNEAttributeCarrier::getParentType(myActualAdditionalType));
+        myAdditionalParentSelector->showList(GNEAttributeCarrier::getParentType(myActualAdditionalType));
     } else {
-        myAdditionalSet->hideList();
+        myAdditionalParentSelector->hideList();
     }
-    // Show edgesSelector if we're adding an additional that own the attribute SUMO_ATTR_EDGES
+    */
+    // Show edgeParentsSelector if we're adding an additional that own the attribute SUMO_ATTR_EDGES
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
-        myEdgesSelector->showList();
+        myedgeParentsSelector->showList();
     } else {
-        myEdgesSelector->hideList();
+        myedgeParentsSelector->hideList();
     }
-    // Show lanesSelector if we're adding an additional that own the attribute SUMO_ATTR_LANES
+    // Show laneParentsSelector if we're adding an additional that own the attribute SUMO_ATTR_LANES
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANES)) {
-        myLanesSelector->showList();
+        mylaneParentsSelector->showList();
     } else {
-        myLanesSelector->hideList();
+        mylaneParentsSelector->hideList();
     }
 }
 
@@ -1284,33 +1285,33 @@ GNEAdditionalFrame::getIdsSelected(const FXList* list) {
 
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::additionalSetsSelector - methods
+// GNEAdditionalFrame::additionalParentSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::additionalSetsSelector::additionalSetsSelector(FXComposite* parent, GNEViewNet* viewNet) :
+GNEAdditionalFrame::additionalParentSelector::additionalParentSelector(FXComposite* parent, GNEViewNet* viewNet) :
     FXGroupBox(parent, "Additional Set selector", GUIDesignGroupBoxFrame),
     myType(SUMO_TAG_NOTHING),
     myViewNet(viewNet) {
 
-    // Create label with the type of additionalSetsSelector
+    // Create label with the type of additionalParentSelector
     mySetLabel = new FXLabel(this, "Set Type:", 0, GUIDesignLabelLeftThick);
 
     // Create list
-    myList = new FXList(this, this, MID_GNE_SELECTADDITIONALSET, GUIDesignList, 0, 0, 0, 100);
+    myList = new FXList(this, this, MID_GNE_SELECTADDITIONALPARENT, GUIDesignList, 0, 0, 0, 100);
 
     // Create help button
-    helpAdditionalSet = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    myHelpAdditionalParentSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
 
     // Hide List
     hideList();
 }
 
 
-GNEAdditionalFrame::additionalSetsSelector::~additionalSetsSelector() {}
+GNEAdditionalFrame::additionalParentSelector::~additionalParentSelector() {}
 
 
 std::string
-GNEAdditionalFrame::additionalSetsSelector::getIdSelected() const {
+GNEAdditionalFrame::additionalParentSelector::getIdSelected() const {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->isItemSelected(i)) {
             return myList->getItem(i)->getText().text();
@@ -1321,18 +1322,18 @@ GNEAdditionalFrame::additionalSetsSelector::getIdSelected() const {
 
 
 SumoXMLTag
-GNEAdditionalFrame::additionalSetsSelector::getCurrentAdditionalTag() const {
+GNEAdditionalFrame::additionalParentSelector::getCurrentAdditionalTag() const {
     return myType;
 }
 
 
 void
-GNEAdditionalFrame::additionalSetsSelector::showList(SumoXMLTag type) {
+GNEAdditionalFrame::additionalParentSelector::showList(SumoXMLTag type) {
     myType = type;
     mySetLabel->setText(("Type of set: " + toString(myType)).c_str());
     myList->clearItems();
-    const std::vector<GNEAdditional*>& vectorOfAdditionalSets = myViewNet->getNet()->getAdditionals(myType);
-    for (std::vector<GNEAdditional*>::const_iterator i = vectorOfAdditionalSets.begin(); i != vectorOfAdditionalSets.end(); i++) {
+    const std::vector<GNEAdditional*>& vectorOfAdditionalParents = myViewNet->getNet()->getAdditionals(myType);
+    for (std::vector<GNEAdditional*>::const_iterator i = vectorOfAdditionalParents.begin(); i != vectorOfAdditionalParents.end(); i++) {
         myList->appendItem((*i)->getID().c_str());
     }
     show();
@@ -1340,29 +1341,29 @@ GNEAdditionalFrame::additionalSetsSelector::showList(SumoXMLTag type) {
 
 
 void
-GNEAdditionalFrame::additionalSetsSelector::hideList() {
+GNEAdditionalFrame::additionalParentSelector::hideList() {
     myType = SUMO_TAG_NOTHING;
     hide();
 }
 
 
 long
-GNEAdditionalFrame::additionalSetsSelector::onCmdSelectAdditionalSet(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::additionalParentSelector::onCmdSelectAdditionalParent(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::additionalSetsSelector::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::additionalParentSelector::onCmdHelp(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::edgesSelector - methods
+// GNEAdditionalFrame::edgeParentsSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::edgesSelector::edgesSelector(FXComposite* parent, GNEViewNet* viewNet) :
+GNEAdditionalFrame::edgeParentsSelector::edgeParentsSelector(FXComposite* parent, GNEViewNet* viewNet) :
     FXGroupBox(parent, "Edges", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create CheckBox for selected edges
@@ -1384,24 +1385,24 @@ GNEAdditionalFrame::edgesSelector::edgesSelector(FXComposite* parent, GNEViewNet
     myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButtonHelp);
 
     // Create help button
-    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    myHelpedgeParentsSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
 
     // Hide List
     hideList();
 }
 
 
-GNEAdditionalFrame::edgesSelector::~edgesSelector() {}
+GNEAdditionalFrame::edgeParentsSelector::~edgeParentsSelector() {}
 
 
 std::string
-GNEAdditionalFrame::edgesSelector::getIdsSelected() const {
+GNEAdditionalFrame::edgeParentsSelector::getIdsSelected() const {
     return GNEAdditionalFrame::getIdsSelected(myList);
 }
 
 
 void
-GNEAdditionalFrame::edgesSelector::showList(std::string search) {
+GNEAdditionalFrame::edgeParentsSelector::showList(std::string search) {
     // clear list of egdge ids
     myList->clearItems();
     // get all edges of net
@@ -1426,13 +1427,13 @@ GNEAdditionalFrame::edgesSelector::showList(std::string search) {
 
 
 void
-GNEAdditionalFrame::edgesSelector::hideList() {
+GNEAdditionalFrame::edgeParentsSelector::hideList() {
     FXGroupBox::hide();
 }
 
 
 void
-GNEAdditionalFrame::edgesSelector::updateUseSelectedEdges() {
+GNEAdditionalFrame::edgeParentsSelector::updateUseSelectedEdges() {
     // Enable or disable use selected edges
     if (myViewNet->getNet()->retrieveEdges(true).size() > 0) {
         myUseSelectedEdges->enable();
@@ -1443,7 +1444,7 @@ GNEAdditionalFrame::edgesSelector::updateUseSelectedEdges() {
 
 
 bool
-GNEAdditionalFrame::edgesSelector::isUseSelectedEdgesEnable() const {
+GNEAdditionalFrame::edgeParentsSelector::isUseSelectedEdgesEnable() const {
     if (myUseSelectedEdges->getCheck()) {
         return true;
     } else {
@@ -1453,19 +1454,19 @@ GNEAdditionalFrame::edgesSelector::isUseSelectedEdgesEnable() const {
 
 
 long
-GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgeParentsSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
     if (myUseSelectedEdges->getCheck()) {
         myEdgesSearch->hide();
         myList->hide();
         myClearEdgesSelection->hide();
         myInvertEdgesSelection->hide();
-        helpEdges->hide();
+        myHelpedgeParentsSelector->hide();
     } else {
         myEdgesSearch->show();
         myList->show();
         myClearEdgesSelection->show();
         myInvertEdgesSelection->show();
-        helpEdges->show();
+        myHelpedgeParentsSelector->show();
     }
     // Recalc Frame
     recalc();
@@ -1476,21 +1477,21 @@ GNEAdditionalFrame::edgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, 
 
 
 long
-GNEAdditionalFrame::edgesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of edgesSelector that contains the searched string
+GNEAdditionalFrame::edgeParentsSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of edgeParentsSelector that contains the searched string
     showList(myEdgesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::edgesSelector::onCmdSelectEdge(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgeParentsSelector::onCmdSelectEdge(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::edgesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgeParentsSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -1501,7 +1502,7 @@ GNEAdditionalFrame::edgesSelector::onCmdClearSelection(FXObject*, FXSelector, vo
 
 
 long
-GNEAdditionalFrame::edgesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgeParentsSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -1514,16 +1515,16 @@ GNEAdditionalFrame::edgesSelector::onCmdInvertSelection(FXObject*, FXSelector, v
 
 
 long
-GNEAdditionalFrame::edgesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::edgeParentsSelector::onCmdHelp(FXObject*, FXSelector, void*) {
     std::cout << "IMPLEMENT" << std::endl;
     return 1;
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::lanesSelector - methods
+// GNEAdditionalFrame::laneParentsSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::lanesSelector::lanesSelector(FXComposite* parent, GNEViewNet* viewNet) :
+GNEAdditionalFrame::laneParentsSelector::laneParentsSelector(FXComposite* parent, GNEViewNet* viewNet) :
     FXGroupBox(parent, "Lanes", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create CheckBox for selected lanes
@@ -1552,17 +1553,17 @@ GNEAdditionalFrame::lanesSelector::lanesSelector(FXComposite* parent, GNEViewNet
 }
 
 
-GNEAdditionalFrame::lanesSelector::~lanesSelector() {}
+GNEAdditionalFrame::laneParentsSelector::~laneParentsSelector() {}
 
 
 std::string
-GNEAdditionalFrame::lanesSelector::getIdsSelected() const {
+GNEAdditionalFrame::laneParentsSelector::getIdsSelected() const {
     return GNEAdditionalFrame::getIdsSelected(myList);
 }
 
 
 void
-GNEAdditionalFrame::lanesSelector::showList(std::string search) {
+GNEAdditionalFrame::laneParentsSelector::showList(std::string search) {
     myList->clearItems();
     std::vector<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
     for (std::vector<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++) {
@@ -1578,13 +1579,13 @@ GNEAdditionalFrame::lanesSelector::showList(std::string search) {
 
 
 void
-GNEAdditionalFrame::lanesSelector::hideList() {
+GNEAdditionalFrame::laneParentsSelector::hideList() {
     hide();
 }
 
 
 void
-GNEAdditionalFrame::lanesSelector::updateUseSelectedLanes() {
+GNEAdditionalFrame::laneParentsSelector::updateUseSelectedLanes() {
     // Enable or disable use selected Lanes
     if (myViewNet->getNet()->retrieveLanes(true).size() > 0) {
         myUseSelectedLanes->enable();
@@ -1595,7 +1596,7 @@ GNEAdditionalFrame::lanesSelector::updateUseSelectedLanes() {
 
 
 bool
-GNEAdditionalFrame::lanesSelector::isUseSelectedLanesEnable() const {
+GNEAdditionalFrame::laneParentsSelector::isUseSelectedLanesEnable() const {
     if (myUseSelectedLanes->getCheck()) {
         return true;
     } else {
@@ -1605,7 +1606,7 @@ GNEAdditionalFrame::lanesSelector::isUseSelectedLanesEnable() const {
 
 
 long
-GNEAdditionalFrame::lanesSelector::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::laneParentsSelector::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
     if (myUseSelectedLanes->getCheck()) {
         myLanesSearch->hide();
         myList->hide();
@@ -1628,21 +1629,21 @@ GNEAdditionalFrame::lanesSelector::onCmdUseSelectedLanes(FXObject*, FXSelector, 
 
 
 long
-GNEAdditionalFrame::lanesSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
-    // Show only Id's of lanesSelector that contains the searched string
+GNEAdditionalFrame::laneParentsSelector::onCmdTypeInSearchBox(FXObject*, FXSelector, void*) {
+    // Show only Id's of laneParentsSelector that contains the searched string
     showList(myLanesSearch->getText().text());
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::lanesSelector::onCmdSelectLane(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::laneParentsSelector::onCmdSelectLane(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GNEAdditionalFrame::lanesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::laneParentsSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -1653,7 +1654,7 @@ GNEAdditionalFrame::lanesSelector::onCmdClearSelection(FXObject*, FXSelector, vo
 
 
 long
-GNEAdditionalFrame::lanesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::laneParentsSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->isSelected()) {
             myList->deselectItem(i);
@@ -1666,7 +1667,7 @@ GNEAdditionalFrame::lanesSelector::onCmdInvertSelection(FXObject*, FXSelector, v
 
 
 long
-GNEAdditionalFrame::lanesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::laneParentsSelector::onCmdHelp(FXObject*, FXSelector, void*) {
     return 1;
 }
 

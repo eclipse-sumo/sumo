@@ -41,7 +41,6 @@ class GNEJunction;
 class GNELane;
 class GNEConnection;
 class GNEAdditional;
-class GNEAdditionalSet;
 
 // ===========================================================================
 // class definitions
@@ -67,9 +66,6 @@ public:
 
     /// @brief Definition of the additionals vector
     typedef std::vector<GNEAdditional*> AdditionalVector;
-
-    /// @brief Definition of the additionalSets vector
-    typedef std::vector<GNEAdditionalSet*> AdditionalSetVector;
 
     /**@brief Constructor.
      * @param[in] nbe The represented edge
@@ -236,15 +232,6 @@ public:
     /// @brief return list of additionals associated with this edge
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
-    /// @brief add GNEAdditionalSet to this edge
-    bool addAdditionalSet(GNEAdditionalSet* additionalSet);
-
-    /// @brief remove GNEAdditionalSet from this edge
-    bool removeAdditionalGeometrySet(GNEAdditionalSet* additionalSet);
-
-    /// @brief return list of additionalSets associated with this edge
-    const std::vector<GNEAdditionalSet*>& getAdditionalSets();
-
     /// @brief check if edge has a restricted lane
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
 
@@ -283,9 +270,6 @@ protected:
 
     /// @brief list with the additonals vinculated with this edge
     AdditionalVector myAdditionals;
-
-    /// @brief list with the additonalSets vinculated with this edge
-    AdditionalSetVector myAdditionalSets;
 
 private:
     /// @brief set attribute after validation

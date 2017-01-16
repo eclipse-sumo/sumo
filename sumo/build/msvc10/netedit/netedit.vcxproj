@@ -109,7 +109,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEAdditionalDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEAdditionalFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEAdditionalHandler.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEAdditionalSet.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEApplicationWindow.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEAttributeCarrier.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEBusStop.cpp" />
@@ -174,7 +173,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNEAdditionalDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEAdditionalFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEAdditionalHandler.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEAdditionalSet.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEApplicationWindow.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEAttributeCarrier.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEBusStop.h" />
