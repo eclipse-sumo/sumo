@@ -129,6 +129,8 @@ private:
     /// @brief get the length of the edge when measured up to the junction center
     static SUMOReal getGraphLength(NBEdge* edge);
 
+    static std::string getSinglePostalCode(const std::string& zipCode, const std::string edgeID); 
+
     /// @brief magic value for undefined stuff
     static const std::string UNDEFINED;
 

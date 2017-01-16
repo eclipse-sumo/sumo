@@ -40,6 +40,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -229,7 +230,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
                << UNDEFINED << "\t" // housenumbers_right
                << UNDEFINED << "\t" // housenumbers_left
-               << e->getParameter("postal_code", UNDEFINED) << "\t" // ZIP_CODE
+               << getSinglePostalCode(e->getParameter("postal_code", UNDEFINED), e->getID()) << "\t" // ZIP_CODE
                << UNDEFINED << "\t" // AREA_ID
                << UNDEFINED << "\t" // SUBAREA_ID
                << "1\t" // through_traffic (allowed)
@@ -419,6 +420,20 @@ NWWriter_DlrNavteq::getGraphLength(NBEdge* edge) {
     return geom.length();
 }
 
+
+std::string
+NWWriter_DlrNavteq::getSinglePostalCode(const std::string& zipCode, const std::string edgeID) {
+    // might be multiple codes
+    if (zipCode.find_first_of(" ,;") != std::string::npos) {
+        WRITE_WARNING("ambiguous zip code '" + zipCode + "' for edge '" + edgeID + "'. (using first value)");
+        StringTokenizer st(zipCode, " ,;", true);
+        std::vector<std::string> ret = st.getVector();
+        return ret[0];
+    } else if (zipCode.size() > 16) {
+        WRITE_WARNING("long zip code '" + zipCode + "' for edge '" + edgeID + "'");
+    }
+    return zipCode;
+}
 
 void
 NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {

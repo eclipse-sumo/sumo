@@ -4211,7 +4211,7 @@
     <tag k="maxspeed" v="50"/>
     <tag k="name" v="Wegedornstraße"/>
     <tag k="note" v="Radweg ohne Benutzungspflicht"/>
-    <tag k="postal_code" v="12489"/>
+    <tag k="postal_code" v="12489;12345"/>
     <tag k="sidewalk" v="both"/>
     <tag k="sidewalk:surface" v="paving_stones"/>
     <tag k="smoothness" v="good"/>
@@ -4542,7 +4542,7 @@
     <tag k="name" v="Rudower Chaussee"/>
     <tag k="oneway" v="yes"/>
     <tag k="parking:lane:right" v="parallel"/>
-    <tag k="postal_code" v="12489"/>
+    <tag k="postal_code" v="12489;12345;67890"/>
     <tag k="ref" v="L 1081"/>
     <tag k="sidewalk" v="right"/>
     <tag k="sidewalk:surface" v="paving_stones"/>
@@ -4569,7 +4569,7 @@
     <tag k="name" v="Eisenhutweg"/>
     <tag k="note" v="Übergeordnete Straße, Stufe III"/>
     <tag k="oneway" v="yes"/>
-    <tag k="postal_code" v="12487"/>
+    <tag k="postal_code" v="12487; 12345"/>
     <tag k="ref" v="L 1081"/>
     <tag k="sidewalk" v="right"/>
     <tag k="smoothness" v="good"/>

@@ -24,3 +24,11 @@ Warning: Found sharp turn with radius 3.51 at the start of edge '213883655'.
 Warning: Found sharp turn with radius 6.56 at the end of edge '415852871'.
 Warning: Found sharp turn with radius 6.56 at the start of edge '415852955'.
 Warning: Found angle of 138.43 degrees at edge '415852980', segment 5
+Warning: ambiguous zip code '12489;12345' for edge '415852868'. (using first value)
+Warning: ambiguous zip code '12489;12345' for edge '415852869'. (using first value)
+Warning: ambiguous zip code '12489;12345' for edge '415852946'. (using first value)
+Warning: ambiguous zip code '12489;12345' for edge '415852947'. (using first value)
+Warning: ambiguous zip code '12489;12345;67890' for edge '415852969'. (using first value)
+Warning: ambiguous zip code '12489;12345;67890' for edge '415852970'. (using first value)
+Warning: ambiguous zip code '12489;12345;67890' for edge '415852971'. (using first value)
+Warning: ambiguous zip code '12487; 12345' for edge '415852972'. (using first value)
