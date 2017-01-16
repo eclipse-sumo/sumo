@@ -1,4 +1,4 @@
-# Generated on Mon Dec  5 08:45:03 2016 by SUMO netconvert Version dev-SVN-r22185
+# Generated on Mon Jan 16 08:58:21 2017 by SUMO netconvert Version dev-SVN-r22593
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -37,4 +37,4 @@
 # [ymax] 5166
 1	0	1	512	4032
 2	0	1	7195	3761
-3	1	1	3681	5166
+3	1	1	3678	4995
