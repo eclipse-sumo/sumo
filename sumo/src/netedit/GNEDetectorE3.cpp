@@ -166,6 +166,18 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
 }
 
 
+std::string 
+GNEDetectorE3::generateEntryID() {
+    return toString(myGNEDetectorE3Entrys.size() + 1);
+}
+
+
+std::string 
+GNEDetectorE3::generateExitID() {
+    return toString(myGNEDetectorE3Exits.size() + 1);
+}
+
+
 const std::string&
 GNEDetectorE3::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();

@@ -63,8 +63,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntry::GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* /* parent */) :
-    GNEDetector(id, viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, "") {
+GNEDetectorEntry::GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, SUMOReal pos) :
+    GNEDetector(parent->generateEntryID(), viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, ""),
+    myE3Parent(parent) {
     // Update geometry;
     updateGeometry();
     // Set colors

@@ -531,17 +531,17 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        // get pointer to E3 parent
+        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myAdditionalParent, false));
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else if (E3Parent == NULL) {
+            // Write error if E3 isn't invalid
+            WRITE_WARNING("Definition of " + toString(tag) + " isn't within the definition  of a " + toString(SUMO_TAG_E3DETECTOR) + ".");
         } else {
-            // get the ID. Note: This Id is interne, and cannot be defined by user
-            int indexEntry = 0;
-            while (myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalParent) != NULL) {
-                indexEntry++;
-            }
-            // build detector entry
-            buildDetectorEntry(myViewNet, toString(tag) + "_" + toString(indexEntry) + "_" + myAdditionalParent, lane, position, myAdditionalParent);
+            // build detector Entry
+            buildDetectorEntry(myViewNet, E3Parent, lane, position);
         }
     }
 }
@@ -557,17 +557,17 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        // get pointer to E3 parent
+        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myAdditionalParent, false));
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else if (E3Parent == NULL) {
+            // Write error if E3 isn't invalid
+            WRITE_WARNING("Definition of " + toString(tag) + " isn't within the definition  of a " + toString(SUMO_TAG_E3DETECTOR) + ".");
         } else {
-            // get the ID. Note: This Id is interne, and cannot be defined by user
-            int indexExit = 0;
-            while (myViewNet->getNet()->getAdditional(tag, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalParent) != NULL) {
-                indexExit++;
-            }
             // build detector Exit
-            buildDetectorExit(myViewNet, toString(tag) + "_" + toString(indexExit) + "_" + myAdditionalParent, lane, position, myAdditionalParent);
+            buildDetectorExit(myViewNet, E3Parent, lane, position);
         }
     }
 }
@@ -678,10 +678,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             // obtain specify attributes of detector Entry
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             SUMOReal pos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_POSITION]);
-            std::string detectorE3ParentID = values[GNE_ATTR_PARENT];
+            GNEDetectorE3 *E3 = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->retrieveAdditional(values[GNE_ATTR_PARENT]));
             // Build detector Entry
-            if (lane && !detectorE3ParentID.empty()) {
-                return buildDetectorEntry(viewNet, "NON VALID ID", lane, pos, detectorE3ParentID);
+            if (lane && E3) {
+                return buildDetectorEntry(viewNet, E3, lane, pos);
             } else {
                 return false;
             }
@@ -690,10 +690,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             // obtain specify attributes of Detector Exit
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             SUMOReal pos = GNEAttributeCarrier::parse<SUMOReal>(values[SUMO_ATTR_POSITION]);
-            std::string detectorE3ParentID = values[GNE_ATTR_PARENT];
+            GNEDetectorE3 *E3 = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->retrieveAdditional(values[GNE_ATTR_PARENT]));
             // Build detector Exit
-            if (lane && !detectorE3ParentID.empty()) {
-                return buildDetectorExit(viewNet, "NON VALID ID", lane, pos, detectorE3ParentID);
+            if (lane && E3) {
+                return buildDetectorExit(viewNet, E3, lane, pos);
             } else {
                 return false;
             }
@@ -889,47 +889,41 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, std::string idDetectorE3Parent) {
-    // get DetectorE3 parent
-    GNEDetectorE3* detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
-    // Check if DetectorE3 parent is correct
-    if (detectorE3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " '" + id + "' in netedit; " + 
-                      toString(SUMO_TAG_E3DETECTOR) +" parent with ID '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' doesn't exist.");
+GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* E3Parent, GNELane* lane, SUMOReal pos) {
+    // Check if Detector E3 parent and lane is correct
+    if (lane == NULL) {
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) +" doesn't exist.");
         return false;
-    } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, id) == NULL) {
+    } else if (E3Parent == NULL) {
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) +" parent doesn't exist.");
+        return false;
+    } else {
         // Create detector Entry if don't exist already in the net
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_ENTRY));
-        GNEDetectorEntry* entry = new GNEDetectorEntry(id, viewNet, lane, pos, detectorE3Parent);
+        GNEDetectorEntry* entry = new GNEDetectorEntry(viewNet, E3Parent, lane, pos);
         viewNet->getUndoList()->add(new GNEChange_Additional(entry, true), true);
         viewNet->getUndoList()->p_end();
         return true;
-    } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
     }
 }
 
 
 bool
-GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, std::string idDetectorE3Parent) {
-    // get DetectorE3 parent
-    GNEDetectorE3* detectorE3Parent = dynamic_cast<GNEDetectorE3*>(viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, idDetectorE3Parent));
-    // Check if DetectorE3 parent is correct
-    if (detectorE3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " '" + id + "' in netedit; " + 
-                      toString(SUMO_TAG_E3DETECTOR) +" parent with ID '" + toString(SUMO_TAG_E3DETECTOR) + " '" + idDetectorE3Parent + "' doesn't exist.");
+GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* E3Parent, GNELane* lane, SUMOReal pos) {
+    // Check if Detector E3 parent and lane is correct
+    if (lane == NULL) {
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) +" doesn't exist.");
         return false;
-    } else if (viewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, id) == NULL) {
+    } else if (E3Parent == NULL) {
+        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) +" parent doesn't exist.");
+        return false;
+    } else {
         // Create detector Exit if don't exist already in the net
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_EXIT));
-        GNEDetectorExit* exit = new GNEDetectorExit(id, viewNet, lane, pos, detectorE3Parent);
+        GNEDetectorExit* exit = new GNEDetectorExit(viewNet, E3Parent, lane, pos);
         viewNet->getUndoList()->add(new GNEChange_Additional(exit, true), true);
         viewNet->getUndoList()->p_end();
         return true;
-    } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_EXIT) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
     }
 }
 

@@ -64,8 +64,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorExit::GNEDetectorExit(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* /* parent */) :
-    GNEDetector(id, viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "") {
+GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, SUMOReal pos) :
+    GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, ""),
+    myE3Parent(parent) {
     // Update geometry;
     updateGeometry();
     // Set colors

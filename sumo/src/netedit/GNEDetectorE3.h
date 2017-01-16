@@ -35,8 +35,10 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEDetectorE3EntryExit;
+
 class GNELane;
+class GNEDetectorE3Entry;
+class GNEDetectorE3Exit;
 
 // ===========================================================================
 // class definitions
@@ -78,6 +80,12 @@ public:
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device, const std::string& currentDirectory);
+
+    /// @brief gererate a new ID for an Entry detector child
+    std::string generateEntryID();
+
+    /// @brief gererate a new ID for an Exit detector child
+    std::string generateExitID();
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -129,7 +137,10 @@ protected:
     SUMOReal mySpeedThreshold;
 
     /// @brief vector with the GNEDetectorE3EntryExits of the detector
-    std::vector<GNEDetectorE3EntryExit*> myGNEDetectorE3EntryExits;
+    std::vector<GNEDetectorE3Entry*> myGNEDetectorE3Entrys;
+
+    /// @brief vector with the GNEDetectorE3EntryExits of the detector
+    std::vector<GNEDetectorE3Exit*> myGNEDetectorE3Exits;
 
 private:
     /// @brief set attribute after validation

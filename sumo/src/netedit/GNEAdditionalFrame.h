@@ -392,14 +392,11 @@ public:
         /// @brief get if currently additional Set
         std::string getIdSelected() const;
 
-        /// @brief get current tag
-        SumoXMLTag getCurrentAdditionalTag() const;
-
         /// @brief Show list of additionalParentSelector
-        void showList(SumoXMLTag type);
+        void showListOfAdditionals(SumoXMLTag type, bool uniqueSelection);
 
         /// @brief hide additionalParentSelector
-        void hideList();
+        void hideListOfAdditionals();
 
         /// @name FOX-callbacks
         /// @{
@@ -415,14 +412,15 @@ public:
         additionalParentSelector() {}
 
     private:
-        /// @brief current type
-        SumoXMLTag myType;
 
         /// @brief List of additional sets
         FXList* myList;
 
-        /// @brief Label with the name of Set
+        /// @brief Label with the name of additional
         FXLabel* mySetLabel;
+
+        /// @brief flag to check if only a single parent is allowed
+        bool myUniqueSelection;
 
         /// @brief button for help
         FXButton* myHelpAdditionalParentSelector;

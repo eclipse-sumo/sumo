@@ -50,6 +50,7 @@ class GNEUndoList;
 class GNEJunction;
 class GNEEdge;
 class GNELane;
+class GNEDetectorE3;
 
 // ===========================================================================
 // class definitions
@@ -271,25 +272,23 @@ public:
 
     /**@brief Builds a entry detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
-     * @param[in] id The id of the entry detector
+     * @param[in] E3Parent pointer to E3 detector parent
      * @param[in] lane The lane in which the entry detector is placed on
      * @param[in] pos position of the entry detector on the lane
-     * @param[in] idDetectorE3Parent id to parent detectorE3
      * @return true if was sucesfully created, false in other case
-     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
+     * @exception InvalidArgument If the entry detector can not be added to the net (invalid parent or lane)
      */
-    static bool buildDetectorEntry(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, std::string idDetectorE3Parent);
+    static bool buildDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* E3Parent, GNELane* lane, SUMOReal pos);
 
     /**@brief Builds a exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
-     * @param[in] id The id of the exit detector
+     * @param[in] E3Parent pointer to E3 detector parent
      * @param[in] lane The lane in which the exit detector is placed on
      * @param[in] pos position of the exit detector on the lane
-     * @param[in] idDetectorE3Parent id to parent detectorE3
      * @return true if was sucesfully created, false in other case
-     * @exception InvalidArgument If the exit detector can not be added to the net (is duplicate)
+     * @exception InvalidArgument If the exit detector can not be added to the net (invalid parent or lane
      */
-    static bool buildDetectorExit(GNEViewNet* viewNet, const std::string& id, GNELane* lane, SUMOReal pos, std::string idDetectorE3Parent);
+    static bool buildDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* E3Parent, GNELane* lane, SUMOReal pos);
 
     /**@brief builds a microscopic calibrator
      * @param[in] viewNet viewNet in which element will be inserted

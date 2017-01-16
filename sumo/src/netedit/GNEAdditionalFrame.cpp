@@ -324,17 +324,17 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
 
     // Save block value
     valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockEnabled());
-    /*
+    
     // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
-    if (GNEAttributeCarrier::hasParent(myActualAdditionalType)) {
+    if ((myActualAdditionalType == SUMO_TAG_DET_ENTRY) || (myActualAdditionalType == SUMO_TAG_DET_EXIT)) {
         if (myAdditionalParentSelector->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
         } else {
-            WRITE_WARNING("A " + toString(myAdditionalParentSelector->getCurrentAdditionalTag()) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
+            WRITE_WARNING("A " + toString(SUMO_TAG_E3DETECTOR) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
             return false;
         }
     }
-    */
+
     // If element own a list of edgeParentsSelector as attribute
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
         if (myedgeParentsSelector->isUseSelectedEdgesEnable()) {
@@ -443,14 +443,12 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     } else {
         myadditionalParameters->hideAdditionalParameters();
     }
-    /*
-    // Show set parameter if we're adding an additional with parent
-    if (GNEAttributeCarrier::hasParent(myActualAdditionalType)) {
-        myAdditionalParentSelector->showList(GNEAttributeCarrier::getParentType(myActualAdditionalType));
+    // Show myAdditionalParentSelector if we're adding a Entry/Exit
+    if ((myActualAdditionalType == SUMO_TAG_DET_ENTRY) || (myActualAdditionalType == SUMO_TAG_DET_EXIT)) {
+        myAdditionalParentSelector->showListOfAdditionals(SUMO_TAG_E3DETECTOR, true);
     } else {
-        myAdditionalParentSelector->hideList();
+        myAdditionalParentSelector->hideListOfAdditionals();
     }
-    */
     // Show edgeParentsSelector if we're adding an additional that own the attribute SUMO_ATTR_EDGES
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
         myedgeParentsSelector->showList();
@@ -1290,11 +1288,11 @@ GNEAdditionalFrame::getIdsSelected(const FXList* list) {
 
 GNEAdditionalFrame::additionalParentSelector::additionalParentSelector(FXComposite* parent, GNEViewNet* viewNet) :
     FXGroupBox(parent, "Additional Set selector", GUIDesignGroupBoxFrame),
-    myType(SUMO_TAG_NOTHING),
+    myUniqueSelection(false),
     myViewNet(viewNet) {
 
     // Create label with the type of additionalParentSelector
-    mySetLabel = new FXLabel(this, "Set Type:", 0, GUIDesignLabelLeftThick);
+    mySetLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
 
     // Create list
     myList = new FXList(this, this, MID_GNE_SELECTADDITIONALPARENT, GUIDesignList, 0, 0, 0, 100);
@@ -1303,7 +1301,7 @@ GNEAdditionalFrame::additionalParentSelector::additionalParentSelector(FXComposi
     myHelpAdditionalParentSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
 
     // Hide List
-    hideList();
+    hideListOfAdditionals();
 }
 
 
@@ -1321,19 +1319,15 @@ GNEAdditionalFrame::additionalParentSelector::getIdSelected() const {
 }
 
 
-SumoXMLTag
-GNEAdditionalFrame::additionalParentSelector::getCurrentAdditionalTag() const {
-    return myType;
-}
-
-
 void
-GNEAdditionalFrame::additionalParentSelector::showList(SumoXMLTag type) {
-    myType = type;
-    mySetLabel->setText(("Type of set: " + toString(myType)).c_str());
+GNEAdditionalFrame::additionalParentSelector::showListOfAdditionals(SumoXMLTag type, bool uniqueSelection) {
+    myUniqueSelection = uniqueSelection;
+    mySetLabel->setText(("" + toString(type)).c_str());
     myList->clearItems();
-    const std::vector<GNEAdditional*>& vectorOfAdditionalParents = myViewNet->getNet()->getAdditionals(myType);
-    for (std::vector<GNEAdditional*>::const_iterator i = vectorOfAdditionalParents.begin(); i != vectorOfAdditionalParents.end(); i++) {
+    // obtain all additionals of class "type"
+    std::vector<GNEAdditional*> vectorOfAdditionalParents = myViewNet->getNet()->getAdditionals(type);
+    // fill list with IDs of additionals
+    for (std::vector<GNEAdditional*>::iterator i = vectorOfAdditionalParents.begin(); i != vectorOfAdditionalParents.end(); i++) {
         myList->appendItem((*i)->getID().c_str());
     }
     show();
@@ -1341,8 +1335,7 @@ GNEAdditionalFrame::additionalParentSelector::showList(SumoXMLTag type) {
 
 
 void
-GNEAdditionalFrame::additionalParentSelector::hideList() {
-    myType = SUMO_TAG_NOTHING;
+GNEAdditionalFrame::additionalParentSelector::hideListOfAdditionals() {
     hide();
 }
 

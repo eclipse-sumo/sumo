@@ -39,6 +39,8 @@
 // ===========================================================================
 class GNEAdditional;
 class GNEViewNet;
+class GNEDetectorEntry;
+class GNEDetectorExit;
 
 // ===========================================================================
 // class definitions
@@ -80,6 +82,12 @@ private:
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEAdditional* myAdditional;
+
+    /// @brief list of Entry detectors child used by E3
+    std::vector<GNEDetectorEntry*> myEntryChilds;
+
+    /// @brief list of Exit detectors child used by E3
+    std::vector<GNEDetectorEntry*> myExitChilds;
 };
 
 #endif

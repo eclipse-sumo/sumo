@@ -47,13 +47,12 @@ class GNEDetectorE3;
 class GNEDetectorEntry  : public GNEDetector {
 public:
     /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] parent pointer to GNEDetectorE3 of this Entry belongs
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
-     * @param[in] parent pointer to GNEDetectorE3 of this additional element belongs
      */
-    GNEDetectorEntry(const std::string& id, GNEViewNet* viewNet, GNELane* lane, SUMOReal pos, GNEDetectorE3* parent);
+    GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, SUMOReal pos);
 
     /// @brief destructor
     ~GNEDetectorEntry();
@@ -103,11 +102,14 @@ public:
     /// @}
 
 private:
+    /// @brief pointer to E3 parent
+    GNEDetectorE3* myE3Parent;
+
     /// @brief variable to save detectorEntry icon
-    static GUIGlID detectorE3EntryGlID;
+    static GUIGlID detectorEntryGlID;
 
     /// @brief check if detectorEntry icon was inicilalizated
-    static bool detectorE3EntryInitialized;
+    static bool detectorEntryInitialized;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
