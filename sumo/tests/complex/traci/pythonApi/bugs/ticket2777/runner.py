@@ -6,7 +6,7 @@
 @author  Jakob Erdmann
 @author  Daniel Krajzewicz
 @date    2011-03-04
-@version $Id: runner.py 22334 2016-12-20 09:06:14Z namdre $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
