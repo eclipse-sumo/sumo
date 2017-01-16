@@ -72,7 +72,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     writeNodesUnsplitted(oc, nb.getNodeCont(), nb.getEdgeCont(), internalNodes);
     writeLinksUnsplitted(oc, nb.getEdgeCont(), internalNodes);
     writeTrafficSignals(oc, nb.getNodeCont());
-    writeProhibitedManoeuvres(oc, nb.getNodeCont());
+    writeProhibitedManoeuvres(oc, nb.getNodeCont(), nb.getEdgeCont());
     writeConnectedLanes(oc, nb.getNodeCont());
 }
 
@@ -393,7 +393,7 @@ NWWriter_DlrNavteq::getBrunnelType(NBEdge* edge) {
     } else if (edge->getTypeID() == "route.ferry") {
         return 10;
     }
-    return -1; // UNDEFINED;
+    return -1; // UNDEFINED
 }
 
 
@@ -468,12 +468,20 @@ NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {
 
 
 void
-NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, NBNodeCont& nc) {
+NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_prohibited_manoeuvres.txt");
     writeHeader(device, oc);
+    // need to invent id for relation
+    std::set<std::string> reservedRelIDs;
+    if (oc.isSet("reserved-ids")) {
+        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "rel:", reservedRelIDs);
+    }
+    std::vector<std::string> avoid = ec.getAllNames(); // already used for tls RELATREC_ID
+    avoid.insert(avoid.end(), reservedRelIDs.begin(), reservedRelIDs.end());
+    IDSupplier idSupplier("", avoid); // @note: use a global relRecIDsupplier if this is used more often 
     // write format specifier
     device << "#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn\n";
-    device << "#NAVTEQ_LINK_ID1\t[NAVTEQ_LINK_ID2 ...]\n";
+    device << "#RELATREC_ID\tPERMANENT_ID_INFO\tVALIDITY_PERIOD\tTHROUGH_TRAFFIC\tVEHICLE_TYPE\tNAVTEQ_LINK_ID1\t[NAVTEQ_LINK_ID2 ...]\n";
     // write record for every pair of incoming/outgoing edge that are not connected despite having common permissions
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
@@ -487,7 +495,14 @@ NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, NBNodeCont&
                 const SVCPermissions outPerm = outEdge->getPermissions();
                 const SVCPermissions commonPerm = inPerm & outPerm;
                 if (commonPerm != 0 && commonPerm != SVC_PEDESTRIAN && !inEdge->isConnectedTo(outEdge)) {
-                    device << inEdge->getID() << "\t" << outEdge->getID() << "\t\n";
+                    device 
+                        << idSupplier.getNext() << "\t"
+                        << n->getID() << "\t"
+                        << UNDEFINED << "\t"
+                        << 1 << "\t"
+                        << getAllowedTypes(SVCAll) << "\t"
+                        << inEdge->getID() << "\t" << outEdge->getID() << "\t"
+                        << "\n";
                 }
             }
         }

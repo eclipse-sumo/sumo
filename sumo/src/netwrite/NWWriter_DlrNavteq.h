@@ -103,7 +103,7 @@ private:
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      */
-    static void writeProhibitedManoeuvres(const OptionsCont& oc, NBNodeCont& nc); 
+    static void writeProhibitedManoeuvres(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec); 
 
     /** @brief Writes the connected_lanes file
      * @param[in] oc The options to use
