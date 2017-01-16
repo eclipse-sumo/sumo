@@ -39,6 +39,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/importio/LineReader.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -241,11 +242,12 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         if (!myColumns.empty()) {
             return true;
         }
-        const std::string marker = "Extraction version: V";
-        if (result.find(marker) == std::string::npos) {
+        const std::string marker = "extraction version: v";
+        const std::string lowerCase = StringUtils::to_lower_case(result);
+        if (lowerCase.find(marker) == std::string::npos) {
             return true;
         }
-        const int vStart = (int)(result.find(marker) + marker.size());
+        const int vStart = (int)(lowerCase.find(marker) + marker.size());
         const int vEnd = (int)result.find(" ", vStart);
         try {
             myVersion = TplConvert::_2SUMOReal(result.substr(vStart, vEnd - vStart).c_str());
@@ -266,7 +268,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
                 myColumns = std::vector<int>(columns, columns + NUM_COLUMNS);
             }
         } catch (NumberFormatException&) {
-            throw ProcessError("Non-numerical value for version string in file '" + myFile + "'.");
+            throw ProcessError("Non-numerical value '" + result.substr(vStart, vEnd - vStart) + "' for version string in file '" + myFile + "'.");
         }
         return true;
     }

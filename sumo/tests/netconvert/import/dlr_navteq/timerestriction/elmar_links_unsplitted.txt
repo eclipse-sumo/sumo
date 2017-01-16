@@ -1,4 +1,4 @@
-# Net version: NavTeq-2005-Q1 ; Extraction version: V2.3 ; Creator: Elmar Brockfeld, DLR-IVF ; Extraction date: 2006-11-23, 15:47:49 o'clock
+# Net version: NavTeq-2005-Q1 ; extraction version: v2.3 ; Creator: Elmar Brockfeld, DLR-IVF ; Extraction date: 2006-11-23, 15:47:49 o'clock
 # LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID	length	vehicle_type	form_of_way	brunnel_type	street_type	speed_category	number_of_lanes	average_speed	NAME_ID1_REGIONAL	NAME_ID2_LOCAL	housenumbers_right	housenumbers_left	ZIP_CODE	AREA_ID	SUBAREA_ID	through_traffic	special_restrictions	connection
 -1	0	1	-1	462.885	1000000000	1	-1	0	1	32	131	0050000597	0050000064	-1	-1	14797	0051000001	0050155873	1	-1	1
 -2	0	2	-1	467.319	1000000000	1	-1	0	1	32	131	0050000597	0050000064	-1	-1	14797	0051000001	0050155873	1	-1	1
