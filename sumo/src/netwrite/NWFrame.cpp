@@ -96,6 +96,9 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("dlr-navteq-output", new Option_FileName());
     oc.addDescription("dlr-navteq-output", "Output", "The generated net will be written to dlr-navteq files with the given PREFIX");
 
+    oc.doRegister("dlr-navteq.precision", new Option_Integer(0));
+    oc.addDescription("dlr-navteq.precision", "Output", "The network coordinates are written with the specified level of output precision");
+
     oc.doRegister("output.street-names", new Option_Bool(false));
     oc.addDescription("output.street-names", "Output", "Street names will be included in the output (if available)");
 

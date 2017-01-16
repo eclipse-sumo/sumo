@@ -105,7 +105,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     const bool haveGeo = gch.usingGeoProjection();
     const SUMOReal geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
-    device.setPrecision(0);
+    device.setPrecision(oc.getInt("dlr-navteq.precision"));
     if (!haveGeo) {
         WRITE_WARNING("DlrNavteq node data will be written in (floating point) cartesian coordinates");
     }
@@ -423,7 +423,7 @@ NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     const bool haveGeo = gch.usingGeoProjection();
     const SUMOReal geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
-    device.setPrecision(0);
+    device.setPrecision(oc.getInt("dlr-navteq.precision"));
     // write format specifier
     device << "#Traffic signal related to LINK_ID and NODE_ID with location relative to driving direction.\n#column format like pointcollection.\n#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK -1-keineAngabe\n#RELATREC_ID\tPOICOL_TYPE\tDESCRIPTION\tLONGITUDE\tLATITUDE\tLINK_ID\n";
     // write record for every edge incoming to a tls controlled node
