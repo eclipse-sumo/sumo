@@ -1,4 +1,4 @@
-# Generated on Mon Jan  9 15:57:36 2017 by SUMO netconvert Version dev-SVN-r22529
+# Generated on Mon Jan 16 13:09:19 2017 by SUMO netconvert Version dev-SVN-r22598
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -37,4 +37,4 @@
 # 
 #
 #No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn
-#NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]
+#RELATREC_ID	PERMANENT_ID_INFO	VALIDITY_PERIOD	THROUGH_TRAFFIC	VEHICLE_TYPE	NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]

@@ -138,6 +138,9 @@
         <!-- The generated net will be written to dlr-navteq files with the given PREFIX -->
         <dlr-navteq-output value="" type="FILE"/>
 
+        <!-- The network coordinates are written with the specified level of output precision -->
+        <dlr-navteq.precision value="2" type="INT"/>
+
         <!-- Street names will be included in the output (if available) -->
         <output.street-names value="false" type="BOOL"/>
 
