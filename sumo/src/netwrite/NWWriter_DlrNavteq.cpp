@@ -159,8 +159,12 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     IDSupplier idSupplier("", avoid);
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
-        const PositionVector& geom = e->getGeometry();
+        PositionVector geom = e->getGeometry();
         if (geom.size() > 2) {
+            if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+                // need to write center-line geometry instead
+                geom.move2side(e->getTotalWidth() / 2);
+            }
             std::string internalNodeID = e->getID();
             if (internalNodeID == UNDEFINED 
                     || (nc.retrieve(internalNodeID) != 0)
