@@ -1,4 +1,4 @@
-# Generated on Mon Jan 16 08:58:21 2017 by SUMO netconvert Version dev-SVN-r22593
+# Generated on Mon Jan 16 09:01:13 2017 by SUMO netconvert Version dev-SVN-r22593
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -25,16 +25,16 @@
 # 
 #
 # NODE_ID	IS_BETWEEN_NODE	amount_of_geocoordinates	x1	y1	[x2 y2  ... xn  yn]
-# [xmin_region] 512
-# [xmax_region] 7195
-# [ymin_region] 3761
-# [ymax_region] 5166
+# [xmin_region] 512.00
+# [xmax_region] 7195.00
+# [ymin_region] 3761.00
+# [ymax_region] 5166.00
 # [elements_multinode] 1
 # [elements_normalnode] 2
-# [xmin] 512
-# [xmax] 7195
-# [ymin] 3761
-# [ymax] 5166
-1	0	1	512	4032
-2	0	1	7195	3761
-3	1	1	3678	4995
+# [xmin] 512.00
+# [xmax] 7195.00
+# [ymin] 3761.00
+# [ymax] 5166.00
+1	0	1	512.00	4032.00
+2	0	1	7195.00	3761.00
+3	1	1	3677.86	4994.94

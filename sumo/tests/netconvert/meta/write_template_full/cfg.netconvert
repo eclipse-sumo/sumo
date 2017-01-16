@@ -39,7 +39,7 @@
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
-        <dlr-navteq.precision value="0" type="INT" help="The network coordinates are written with the specified level of output precision"/>
+        <dlr-navteq.precision value="2" type="INT" help="The network coordinates are written with the specified level of output precision"/>
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)"/>
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
         <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE"/>
