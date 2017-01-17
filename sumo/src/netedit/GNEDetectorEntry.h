@@ -61,8 +61,14 @@ public:
     /// @note: must be called when geometry changes (i.e. lane moved)
     void updateGeometry();
 
+    /// @brief update pre-computed geometry information called by E3 parent
+    void updateGeometryByParent();
+
     /// @brief Returns position of detector Entry in view
     Position getPositionInView() const;
+
+    /// @brief get E3 Detector parent
+    GNEDetectorE3 *getE3Parent() const;
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element

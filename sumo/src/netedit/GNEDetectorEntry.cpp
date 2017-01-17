@@ -66,8 +66,8 @@
 GNEDetectorEntry::GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, SUMOReal pos) :
     GNEDetector(parent->generateEntryID(), viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, ""),
     myE3Parent(parent) {
-    // Update geometry;
-    updateGeometry();
+    // Update geometry
+    updateGeometryByParent();
     // Set colors
     myBaseColor = RGBColor(0, 204, 0, 255);
     myBaseColorSelected = RGBColor(125, 204, 0, 255);
@@ -79,6 +79,12 @@ GNEDetectorEntry::~GNEDetectorEntry() {}
 
 void
 GNEDetectorEntry::updateGeometry() {
+    myE3Parent->updateGeometry();
+}
+
+
+void
+GNEDetectorEntry::updateGeometryByParent() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -105,10 +111,15 @@ GNEDetectorEntry::updateGeometry() {
     myViewNet->getNet()->refreshAdditional(this);
 }
 
-
 Position
 GNEDetectorEntry::getPositionInView() const {
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
+}
+
+
+GNEDetectorE3*
+GNEDetectorEntry::getE3Parent() const {
+    return myE3Parent;
 }
 
 

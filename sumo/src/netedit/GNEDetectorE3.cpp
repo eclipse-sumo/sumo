@@ -50,6 +50,8 @@
 #include <utils/common/MsgHandler.h>
 
 #include "GNEDetectorE3.h"
+#include "GNEDetectorEntry.h"
+#include "GNEDetectorExit.h"
 #include "GNELane.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
@@ -110,6 +112,24 @@ GNEDetectorE3::updateGeometry() {
     */
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
+
+
+
+    // Clear all containers
+    myShapeRotations.clear();
+    myShapeLengths.clear();
+
+
+    // iterate over entry childs and update their gemometries
+    for(std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+        (*i)->updateGeometryByParent();
+    }
+
+    // iterate over entry childs and update their gemometries
+    for(std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+        (*i)->updateGeometryByParent();
+    }
+
 }
 
 
@@ -168,19 +188,71 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
 
 std::string 
 GNEDetectorE3::generateEntryID() {
-    return toString(myGNEDetectorE3Entrys.size() + 1);
+    return toString(myGNEDetectorEntrys.size() + 1);
 }
 
 
 std::string 
 GNEDetectorE3::generateExitID() {
-    return toString(myGNEDetectorE3Exits.size() + 1);
+    return toString(myGNEDetectorExits.size() + 1);
 }
 
 
 const std::string&
 GNEDetectorE3::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
+}
+
+
+void 
+GNEDetectorE3::addEntryChild(GNEDetectorEntry *entry) {
+    // Check that entry is valid and doesn't exist previously
+    if(entry == NULL) {
+        throw InvalidArgument("Trying to add an empty entry child in " + getID());
+    } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) != myGNEDetectorEntrys.end()) {
+        throw InvalidArgument("Trying to add a duplicate entry child " + getID());
+    } else {
+        myGNEDetectorEntrys.push_back(entry);
+    }
+}
+
+
+void 
+GNEDetectorE3::removeEntryChild(GNEDetectorEntry *entry) {
+    // Check that entry is valid and exist previously
+    if(entry == NULL) {
+        throw InvalidArgument("Trying to remove an empty entry child " + getID());
+    } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) == myGNEDetectorEntrys.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted entry child " + getID());
+    } else {
+        myGNEDetectorEntrys.erase(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry));
+    }
+}
+
+
+void 
+GNEDetectorE3::addExitChild(GNEDetectorExit *exit) {
+    // Check that exit is valid and doesn't exist previously
+    if(exit == NULL) {
+        throw InvalidArgument("Trying to add an empty exit child in " + getID());
+    } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) != myGNEDetectorExits.end()) {
+        throw InvalidArgument("Trying to add a duplicate exit child " + getID());
+    } else {
+        myGNEDetectorExits.push_back(exit);
+    }
+}
+
+
+void 
+GNEDetectorE3::removeExitChild(GNEDetectorExit *exit) {
+    // Check that exit is valid and exist previously
+    if(exit == NULL) {
+        throw InvalidArgument("Trying to remove an empty exit child " + getID());
+    } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) == myGNEDetectorExits.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted exit child " + getID());
+    } else {
+        myGNEDetectorExits.erase(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit));
+    }
 }
 
 

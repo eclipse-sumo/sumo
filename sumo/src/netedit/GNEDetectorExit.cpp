@@ -67,8 +67,8 @@
 GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, SUMOReal pos) :
     GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, ""),
     myE3Parent(parent) {
-    // Update geometry;
-    updateGeometry();
+    // Update geometry
+    updateGeometryByParent();
     // Set colors
     myBaseColor = RGBColor(204, 0, 0, 255);
     myBaseColorSelected = RGBColor(204, 125, 0, 255);
@@ -80,6 +80,12 @@ GNEDetectorExit::~GNEDetectorExit() {}
 
 void
 GNEDetectorExit::updateGeometry() {
+    myE3Parent->updateGeometry();
+}
+
+
+void
+GNEDetectorExit::updateGeometryByParent() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -110,6 +116,12 @@ GNEDetectorExit::updateGeometry() {
 Position
 GNEDetectorExit::getPositionInView() const {
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
+}
+
+
+GNEDetectorE3*
+GNEDetectorExit::getE3Parent() const {
+    return myE3Parent;
 }
 
 

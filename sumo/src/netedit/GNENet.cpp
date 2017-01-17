@@ -1215,7 +1215,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     GNEAdditionals::iterator additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
     if (additionalToRemove == myAdditionals.end()) {
-        throw ProcessError("additional element with ID='" + additional->getID() + "' don't exist");
+        throw ProcessError("additional element with ID='" + additional->getID() + "' doesn't exist");
     } else {
         myAdditionals.erase(additionalToRemove);
         myGrid.removeAdditionalGLObject(additional);

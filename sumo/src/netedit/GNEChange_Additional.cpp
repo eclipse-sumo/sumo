@@ -31,6 +31,9 @@
 #include "GNENet.h"
 #include "GNEAdditional.h"
 #include "GNEViewNet.h"
+#include "GNEDetectorE3.h"
+#include "GNEDetectorEntry.h"
+#include "GNEDetectorExit.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -51,6 +54,16 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     myAdditional(additional) {
     assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
+    // handle additional with childs
+    if(myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
+        GNEDetectorE3* E3 = dynamic_cast<GNEDetectorE3*>(myAdditional);
+        myEntryChilds = E3->myGNEDetectorEntrys;
+        myExitChilds = E3->myGNEDetectorExits;
+    } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
+        myE3Parent = dynamic_cast<GNEDetectorEntry*>(myAdditional)->getE3Parent();
+    } else if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
+        myE3Parent = dynamic_cast<GNEDetectorExit*>(myAdditional)->getE3Parent();
+    }
 }
 
 
@@ -67,8 +80,34 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         myNet->deleteAdditional(myAdditional);
+        // hanlde  additional with childs
+        if(myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
+            for(std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                myNet->deleteAdditional(*i);
+            }
+            for(std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                myNet->deleteAdditional(*i);
+            }
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
+            myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
+            myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+        }
     } else {
         myNet->insertAdditional(myAdditional);
+        // hanlde  additional with childs
+        if(myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
+            for(std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                myNet->insertAdditional(*i);
+            }
+            for(std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                myNet->insertAdditional(*i);
+            }
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
+            myE3Parent->addEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
+            myE3Parent->addExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+        }
     }
 }
 
@@ -77,8 +116,34 @@ void
 GNEChange_Additional::redo() {
     if (myForward) {
         myNet->insertAdditional(myAdditional);
+        // hanlde  additional with childs
+        if(myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
+            for(std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                myNet->insertAdditional(*i);
+            }
+            for(std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                myNet->insertAdditional(*i);
+            }
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
+            myE3Parent->addEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
+            myE3Parent->addExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+        }
     } else {
         myNet->deleteAdditional(myAdditional);
+        // If additional is a E3 Detector, delete childs
+        if(myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
+            for(std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                myNet->deleteAdditional(*i);
+            }
+            for(std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                myNet->deleteAdditional(*i);
+            }
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
+            myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+        } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
+            myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+        }
     }
 }
 

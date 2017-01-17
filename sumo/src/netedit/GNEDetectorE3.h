@@ -37,8 +37,8 @@
 // ===========================================================================
 
 class GNELane;
-class GNEDetectorE3Entry;
-class GNEDetectorE3Exit;
+class GNEDetectorEntry;
+class GNEDetectorExit;
 
 // ===========================================================================
 // class definitions
@@ -48,6 +48,9 @@ class GNEDetectorE3Exit;
  * ------------
  */
 class GNEDetectorE3 : public GNEAdditional {
+    /// @brief declare friend class (needed to manage Entry/Exit childs)
+    friend class GNEChange_Additional;
+
 public:
     /**@brief GNEDetectorE3 Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -86,6 +89,18 @@ public:
 
     /// @brief gererate a new ID for an Exit detector child
     std::string generateExitID();
+
+    /// @brief add an Entry child
+    void addEntryChild(GNEDetectorEntry *entry);
+
+    /// @brief delete an Entry child
+    void removeEntryChild(GNEDetectorEntry *entry);
+
+    /// @brief add an Exit child
+    void addExitChild(GNEDetectorExit *exit);
+
+    /// @brief delete an Exit child
+    void removeExitChild(GNEDetectorExit *exit);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -137,10 +152,10 @@ protected:
     SUMOReal mySpeedThreshold;
 
     /// @brief vector with the GNEDetectorE3EntryExits of the detector
-    std::vector<GNEDetectorE3Entry*> myGNEDetectorE3Entrys;
+    std::vector<GNEDetectorEntry*> myGNEDetectorEntrys;
 
     /// @brief vector with the GNEDetectorE3EntryExits of the detector
-    std::vector<GNEDetectorE3Exit*> myGNEDetectorE3Exits;
+    std::vector<GNEDetectorExit*> myGNEDetectorExits;
 
 private:
     /// @brief set attribute after validation

@@ -64,10 +64,16 @@ public:
     /// @brief Returns position of detector Exit in view
     Position getPositionInView() const;
 
+    /// @brief get E3 Detector parent
+    GNEDetectorE3 *getE3Parent() const;
+
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device, const std::string&);
+
+    /// @brief update pre-computed geometry information called by E3 parent
+    void updateGeometryByParent();
 
     /// @name inherited from GUIGlObject
     /// @{
