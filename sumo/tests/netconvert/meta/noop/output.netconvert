@@ -1,5 +1,5 @@
 SUMO netconvert Version svn
  Build features: x86_64-suse-linux-gnu InternalLanes DoublePrecision TRACI PROJ GDAL GUI Python
- Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
+ Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
  License GPLv3+: GNU GPL Version 3 or later <http://gnu.org/licenses/gpl.html>
  Use --help to get the list of options.

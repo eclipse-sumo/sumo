@@ -1,6 +1,6 @@
 SUMO jtrrouter Version svn
  Build features: x86_64-suse-linux-gnu InternalLanes DoublePrecision TRACI PROJ GDAL GUI Python
- Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
+ Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 
 SUMO jtrrouter Version svn is part of SUMO.
 SUMO is free software: you can redistribute it and/or modify

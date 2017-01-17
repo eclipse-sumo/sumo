@@ -1,5 +1,5 @@
 SUMO activitygen Version svn
- Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
+ Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates routes of persons throughout a day for the microscopic road traffic
   simulation SUMO.

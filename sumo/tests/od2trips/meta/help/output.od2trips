@@ -1,5 +1,5 @@
 SUMO od2trips Version dev-SVN-r21953
- Copyright (C) 2001-2016 DLR and contributors; http://sumo.dlr.de
+ Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
 Usage: od2trips [OPTION]*
