@@ -339,7 +339,7 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
 void 
 GNEAdditional::drawParentAndChildrenConnections() const {
     // Iterate over myConnectionPositions
-    for (std::vector<std::vector<Position>>::const_iterator i = myConnectionPositions.begin(); i != myConnectionPositions.end(); i++) {
+    for (std::vector<std::vector<Position> >::const_iterator i = myConnectionPositions.begin(); i != myConnectionPositions.end(); i++) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis
