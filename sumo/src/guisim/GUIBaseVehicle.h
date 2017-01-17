@@ -341,6 +341,12 @@ protected:
 
     static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
 
+    /// @brief A shortcut to myVehicle.myType
+    inline const MSVehicleType& getVType() const {
+        return myVehicle.getVehicleType();
+    }
+
+
 protected:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
@@ -354,9 +360,6 @@ protected:
 private:
     /// @brief The vehicle to which all calls should be delegated
     MSBaseVehicle& myVehicle;
-
-    /// @brief A shortcut to myVehicle.myType
-    const MSVehicleType& myVType;
 
     MSDevice_Vehroutes* myRoutes;
 

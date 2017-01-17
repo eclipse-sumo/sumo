@@ -256,8 +256,8 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, vo
 
 GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
     GUIGlObject(GLO_VEHICLE, vehicle.getID()),
-    myVehicle(vehicle),
-    myVType(vehicle.getVehicleType()) {
+    myVehicle(vehicle) 
+{
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(myVehicle, myVehicle.myDevices, 5);
     myVehicle.myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
@@ -334,7 +334,7 @@ GUIBaseVehicle::getCenteringBoundary() const {
 void
 GUIBaseVehicle::drawAction_drawVehicleAsBoxPlus() const {
     glPushMatrix();
-    glScaled(myVType.getWidth(), myVType.getLength(), 1.);
+    glScaled(getVType().getWidth(), getVType().getLength(), 1.);
     glBegin(GL_TRIANGLE_STRIP);
     glVertex2d(0., 0.);
     glVertex2d(-.5, .15);
@@ -348,13 +348,13 @@ GUIBaseVehicle::drawAction_drawVehicleAsBoxPlus() const {
 
 void
 GUIBaseVehicle::drawAction_drawVehicleAsTrianglePlus() const {
-    const SUMOReal length = myVType.getLength();
+    const SUMOReal length = getVType().getLength();
     if (length >= 8.) {
         drawAction_drawVehicleAsBoxPlus();
         return;
     }
     glPushMatrix();
-    glScaled(myVType.getWidth(), length, 1.);
+    glScaled(getVType().getWidth(), length, 1.);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(-.5, 1.);
@@ -386,12 +386,12 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
     RGBColor lighter = current.changedBrightness(51);
     RGBColor darker = current.changedBrightness(-51);
 
-    const SUMOReal length = myVType.getLength();
-    const SUMOReal width = myVType.getWidth();
+    const SUMOReal length = getVType().getLength();
+    const SUMOReal width = getVType().getWidth();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
     glScaled(length, width, 1.);
-    SUMOVehicleShape shape = myVType.getGuiShape();
+    SUMOVehicleShape shape = getVType().getGuiShape();
 
     // draw main body
     switch (shape) {
@@ -803,15 +803,15 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
 
 bool
 GUIBaseVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length) const {
-    const std::string& file = myVType.getImgFile();
+    const std::string& file = getVType().getImgFile();
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
             const SUMOReal exaggeration = s.vehicleSize.getExaggeration(s);
             if (length < 0) {
-                length = myVType.getLength() * exaggeration;
+                length = getVType().getLength() * exaggeration;
             }
-            const SUMOReal halfWidth = myVType.getWidth() / 2.0 * exaggeration;
+            const SUMOReal halfWidth = getVType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length);
             return true;
         }
@@ -828,7 +828,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     const SUMOReal degAngle = RAD2DEG(angle + PI / 2.);
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
-        mySeatPositions[0] = myVehicle.getLane()->geometryPositionAtOffset(myVehicle.getPositionOnLane() - myVType.getLength() / 2);
+        mySeatPositions[0] = myVehicle.getLane()->geometryPositionAtOffset(myVehicle.getPositionOnLane() - getVType().getLength() / 2);
     } else {
         mySeatPositions[0] = p1;
     }
@@ -850,7 +850,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         }
         */
     // draw the vehicle
-    myCarriageLength = myVType.getLength();
+    myCarriageLength = getVType().getLength();
     switch (s.vehicleQuality) {
         case 0:
             drawAction_drawVehicleAsTrianglePlus();
@@ -861,7 +861,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         case 2:
             drawAction_drawVehicleAsPoly(s);
             // draw flashing blue light for emergency vehicles
-            if (myVType.getGuiShape() == SVS_EMERGENCY) {
+            if (getVType().getGuiShape() == SVS_EMERGENCY) {
                 glTranslated(0, 0, .1);
                 drawAction_drawVehicleBlueLight();
             }
@@ -870,7 +870,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         default:
             // draw as image but take special care for drawing trains
             // fallback to simple shapes
-            if (!drawAction_drawCarriageClass(s, myVType.getGuiShape(), true)) {
+            if (!drawAction_drawCarriageClass(s, getVType().getGuiShape(), true)) {
                 if (!drawAction_drawVehicleAsImage(s)) {
                     drawAction_drawVehicleAsPoly(s);
                 };
@@ -878,7 +878,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             break;
     }
     if (s.drawMinGap) {
-        const SUMOReal minGap = -myVType.getMinGap();
+        const SUMOReal minGap = -getVType().getMinGap();
         glColor3d(0., 1., 0.);
         glBegin(GL_LINES);
         glVertex2d(0., 0);
@@ -895,7 +895,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // draw the blinker and brakelights if wished
     if (s.showBlinker) {
         glTranslated(0, 0, .1);
-        switch (myVType.getGuiShape()) {
+        switch (getVType().getGuiShape()) {
             case SVS_PEDESTRIAN:
             case SVS_BICYCLE:
             case SVS_ANT:
@@ -962,11 +962,11 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glEnd();
     }
     */
-    glTranslated(0, MIN2(myVType.getLength() / 2, SUMOReal(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
+    glTranslated(0, MIN2(getVType().getLength() / 2, SUMOReal(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
     glRotated(-degAngle, 0, 0, 1);
     glScaled(1 / upscale, 1 / upscale, 1);
     drawName(Position(0, 0), s.scale,
-             myVType.getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
+             getVType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
     if (s.vehicleName.show && myVehicle.getParameter().line != "") {
         glTranslated(0, 0.6 * s.vehicleName.size / s.scale, 0);
         GLHelper::drawText("line:" + myVehicle.getParameter().line, Position(0, 0),
