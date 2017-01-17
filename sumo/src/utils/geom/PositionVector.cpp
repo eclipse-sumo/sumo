@@ -645,6 +645,9 @@ PositionVector::getSubpart(SUMOReal beginOffset, SUMOReal endOffset) const {
     }
     // append end
     ret.push_back_noDoublePos(endPos);
+    if (ret.size() == 1) {
+        ret.push_back(endPos);
+    }
     return ret;
 }
 
@@ -682,6 +685,9 @@ PositionVector::getSubpart2D(SUMOReal beginOffset, SUMOReal endOffset) const {
     }
     // append end
     ret.push_back_noDoublePos(endPos);
+    if (ret.size() == 1) {
+        ret.push_back(endPos);
+    }
     return ret;
 }
 

@@ -164,7 +164,11 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
         if (geom.size() > 2) {
             if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
                 // need to write center-line geometry instead
-                geom.move2side(e->getTotalWidth() / 2);
+                try {
+                    geom.move2side(e->getTotalWidth() / 2);
+                } catch (InvalidArgument& exception) {
+                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                }
             }
             std::string internalNodeID = e->getID();
             if (internalNodeID == UNDEFINED 
