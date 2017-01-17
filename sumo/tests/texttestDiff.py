@@ -15,7 +15,7 @@ It runs the textual diff tool (vim by default) and, if the differing files are
 sumo networks, opens both of them with sumo-gui.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2016 DLR/TS, Germany
+Copyright (C) 2009-2017 DLR/TS, Germany
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

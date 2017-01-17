@@ -7,7 +7,7 @@
 // The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -117,7 +117,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     // additional infos
     FXVerticalFrame* f3 = new FXVerticalFrame(f1, FRAME_NONE, 0, 0, 0, 0, 0, 0, 0, 0);
     // copyright notice
-    new FXLabel(f3, "Copyright (C) 2001-2016 DLR / Institute of Transportation Systems", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
+    new FXLabel(f3, "Copyright (C) 2001-2017 DLR / Institute of Transportation Systems", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0);
 
     FXLinkLabel* link = new FXLinkLabel(f3, "http://sumo.dlr.de", 0, LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL, 0, 0, 0, 0, 5, 5, 5, 5);
     link->setTipText("http://sumo.dlr.de");

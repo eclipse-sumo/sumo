@@ -11,7 +11,7 @@
 // streets, households, bus lines, work positions and schools
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2010-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/

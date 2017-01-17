@@ -8,7 +8,7 @@
 // A vector of links
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2002-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

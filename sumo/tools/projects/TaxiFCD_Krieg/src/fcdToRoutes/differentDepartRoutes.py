@@ -11,7 +11,7 @@
 Reads taxi routes and create several new routeFile with different depart times for each route.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2016 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

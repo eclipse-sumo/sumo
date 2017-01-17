@@ -12,7 +12,7 @@ It may copy more files than needed because it copies everything
 that is mentioned in the config under copy_test_path.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2016 DLR/TS, Germany
+Copyright (C) 2009-2017 DLR/TS, Germany
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

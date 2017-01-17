@@ -3,7 +3,7 @@
 if __name__ == '__main__':
     __version__ = "0.1a"
     __licence__ = """licensed under the GPL."""
-    __copyright__ = "(c) 2012-2016 University of Bologna - DICAM"
+    __copyright__ = "(c) 2012-2017 University of Bologna - DICAM"
     __author__ = "Joerg Schweizer"
 
     __usage__ = """USAGE:

@@ -7,7 +7,7 @@
 // A thread class together with a pool and a task for parallelized computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2004-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

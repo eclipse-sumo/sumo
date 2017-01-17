@@ -9,7 +9,7 @@
 // Writes e2 state of a link for the time the link has yellow/red
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

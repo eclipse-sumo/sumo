@@ -9,7 +9,7 @@
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2013-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

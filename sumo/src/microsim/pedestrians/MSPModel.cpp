@@ -7,7 +7,7 @@
 // The pedestrian following model (prototype)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2014-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

@@ -5,7 +5,7 @@
 @date    2014-08-22
 @version $Id$
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2012-2016 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

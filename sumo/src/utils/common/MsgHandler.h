@@ -9,7 +9,7 @@
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2003-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2003-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

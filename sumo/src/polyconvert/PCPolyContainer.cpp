@@ -10,7 +10,7 @@
 // A storage for loaded polygons and pois
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2005-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
