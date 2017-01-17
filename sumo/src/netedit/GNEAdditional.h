@@ -270,6 +270,9 @@ protected:
     /// @brief draw lock icon
     void drawLockIcon(SUMOReal size = 0.5) const;
 
+    /// @brief draw connections between Parent and childrens
+    void drawParentAndChildrenConnections() const;
+
     /// @brief position of the block icon
     Position myBlockIconPosition;
 
@@ -302,6 +305,9 @@ protected:
 
     /// @brief pointer to additional dialog
     GNEAdditionalDialog* myAdditionalDialog;
+
+    /// @brief Matrix with the Vertex's positions of connections between Additional Parent an their childs
+    std::vector<std::vector<Position> > myConnectionPositions;
 
 private:
     /// @brief set attribute after validation

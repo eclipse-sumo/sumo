@@ -101,19 +101,8 @@ GNEDetectorE3::updateGeometry() {
     // Set position
     myShape.push_back(myPosition);
 
-    // Add shape of childs (To avoid graphics errors)
-    /*
-    for (childAdditionals::iterator i = myChildAdditionals.begin(); i != myChildAdditionals.end(); i++) {
-        myShape.append((*i)->getShape());
-    }
-
-    // Update connections
-    updateConnections();
-    */
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
-
-
 
     // Clear all containers
     myShapeRotations.clear();
@@ -130,6 +119,8 @@ GNEDetectorE3::updateGeometry() {
         (*i)->updateGeometryByParent();
     }
 
+    // Update connection's geometry
+    updateGeometryConnections();
 }
 
 
@@ -280,7 +271,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     drawLockIcon(0.4);
 
     // Draw connections
-    //drawConnections();
+    drawParentAndChildrenConnections();
 
     // Pop name
     glPopName();
@@ -401,6 +392,58 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+    }
+}
+
+
+void 
+GNEDetectorE3::updateGeometryConnections() {
+    myConnectionPositions.clear();
+    // Iterate over Entrys
+    for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+        std::vector<Position> posConnection;
+        SUMOReal A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
+        SUMOReal B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back((*i)->getPositionInView());
+        if(getPositionInView().x() > (*i)->getPositionInView().x()) {
+            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
+            }
+        } else {
+            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myConnectionPositions.push_back(posConnection);
+    }
+    // Iterate over exits
+    for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+        std::vector<Position> posConnection;
+        SUMOReal A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
+        SUMOReal B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back((*i)->getPositionInView());
+        if(getPositionInView().x() > (*i)->getPositionInView().x()) {
+            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
+            }
+        } else {
+            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myConnectionPositions.push_back(posConnection);
     }
 }
 

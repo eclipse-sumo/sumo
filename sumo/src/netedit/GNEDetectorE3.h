@@ -161,6 +161,9 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief update Connection's geometry
+    void updateGeometryConnections();
+
     /// @brief Invalidated copy constructor.
     GNEDetectorE3(const GNEDetectorE3&);
 

@@ -90,8 +90,12 @@ GNEChange_Additional::undo() {
             }
         } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         }
     } else {
         myNet->insertAdditional(myAdditional);
@@ -105,8 +109,12 @@ GNEChange_Additional::undo() {
             }
         } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             myE3Parent->addEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             myE3Parent->addExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         }
     }
 }
@@ -126,8 +134,12 @@ GNEChange_Additional::redo() {
             }
         } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             myE3Parent->addEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             myE3Parent->addExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         }
     } else {
         myNet->deleteAdditional(myAdditional);
@@ -141,8 +153,12 @@ GNEChange_Additional::redo() {
             }
         } else if(myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         } else if(myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->updateGeometry();
+            myNet->getViewNet()->update();
         }
     }
 }
