@@ -1765,6 +1765,7 @@ TraCIAPI::VehicleTypeScope::setSpeedDeviation(const std::string& typeID, SUMORea
     myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
 }
 
+
 void
 TraCIAPI::VehicleTypeScope::setEmissionClass(const std::string& typeID, const std::string& clazz) const {
     tcpip::Storage content;
@@ -2013,6 +2014,15 @@ TraCIAPI::VehicleScope::getVia(const std::string& vehicleID) const {
     return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, VAR_VIA, vehicleID);
 }
 
+std::string
+TraCIAPI::VehicleScope::getEmissionClass(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_EMISSIONCLASS, vehicleID);
+}
+
+std::string
+TraCIAPI::VehicleScope::getShapeClass(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_SHAPECLASS, vehicleID);
+}
 
 std::vector<TraCIAPI::VehicleScope::NextTLSData>
 TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
@@ -2199,6 +2209,27 @@ TraCIAPI::VehicleScope::setVia(const std::string& vehicleID, const std::vector<s
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
 
+
+void
+TraCIAPI::VehicleScope::setShapeClass(const std::string& vehicleID, const std::string& clazz) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(clazz);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_SHAPECLASS, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+
+void
+TraCIAPI::VehicleScope::setEmissionClass(const std::string& vehicleID, const std::string& clazz) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(clazz);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_EMISSIONCLASS, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
 
 
 // ---------------------------------------------------------------------------

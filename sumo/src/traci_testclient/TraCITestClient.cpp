@@ -731,6 +731,8 @@ TraCITestClient::testAPI() {
     simulationStep();
     answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
     answerLog << "    getWaitingTime: " << vehicle.getWaitingTime("0") << "\n";
+    vehicle.setShapeClass("0", "bicycle");
+    answerLog << "    getShapeClass: " << vehicle.getShapeClass("0") << "\n";
     answerLog << "    remove:\n";
     vehicle.remove("0");
     answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";

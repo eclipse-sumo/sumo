@@ -674,10 +674,10 @@ public:
         void setSpeedFactor(const std::string& typeID, SUMOReal factor) const;
         void setSpeedDeviation(const std::string& typeID, SUMOReal deviation) const;
         void setEmissionClass(const std::string& typeID, const std::string& clazz) const;
+        void setShapeClass(const std::string& typeID, const std::string& shapeClass) const;
         void setWidth(const std::string& typeID, SUMOReal width) const;
         void setHeight(const std::string& typeID, SUMOReal height) const;
         void setMinGap(const std::string& typeID, SUMOReal minGap) const;
-        void setShapeClass(const std::string& typeID, const std::string& clazz) const;
         void setAccel(const std::string& typeID, SUMOReal accel) const;
         void setDecel(const std::string& typeID, SUMOReal decel) const;
         void setImperfection(const std::string& typeID, SUMOReal imperfection) const;
@@ -749,6 +749,8 @@ public:
         SUMOReal getSlope(const std::string& vehicleID) const;
         std::string getLine(const std::string& vehicleID) const;
         std::vector<std::string> getVia(const std::string& vehicleID) const;
+        std::string getEmissionClass(const std::string& vehicleID) const;
+        std::string getShapeClass(const std::string& vehicleID) const;
 
         /* /// not yet implemented
         SUMOReal getCO2Emissions(const std::string& vehicleID) const;
@@ -769,8 +771,6 @@ public:
         SUMOReal getSpeedFactor(const std::string& vehicleID) const;
         SUMOReal getSpeedDeviation(const std::string& vehicleID) const;
         std::string getVClass(const std::string& vehicleID) const;
-        std::string getEmissionClass(const std::string& vehicleID) const;
-        std::string getShapeClass(const std::string& vehicleID) const;
         SUMOReal getMinGap(const std::string& vehicleID) const;
         SUMOReal getWidth(const std::string& vehicleID) const;
         */
@@ -799,6 +799,8 @@ public:
         void setColor(const std::string& vehicleID, const TraCIColor& c) const;
         void setLine(const std::string& vehicleID, const std::string& line) const;
         void setVia(const std::string& vehicleID, const std::vector<std::string>& via) const;
+        void setShapeClass(const std::string& vehicleID, const std::string& clazz) const;
+        void setEmissionClass(const std::string& vehicleID, const std::string& clazz) const;
 
     private:
         /// @brief invalidated copy constructor
