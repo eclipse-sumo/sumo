@@ -726,10 +726,14 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         // no logic if nothing happens here
         myType = NODETYPE_NOJUNCTION;
         std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
-        removeTrafficLights();
         for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
-            (*i)->setParticipantsInformation();
-            (*i)->setTLControllingInformation();
+            // if this is the only controlled node we keep the tlDef as it is to generate a warning later
+            if ((*i)->getNodes().size() > 1) {
+                myTrafficLights.erase(*i);
+                (*i)->removeNode(this);
+                (*i)->setParticipantsInformation();
+                (*i)->setTLControllingInformation();
+            }
         }
         return;
     }

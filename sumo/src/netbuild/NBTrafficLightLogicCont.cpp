@@ -170,6 +170,9 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
 
 bool
 NBTrafficLightLogicCont::computeSingleLogic(OptionsCont& oc, NBTrafficLightDefinition* def) {
+    if (def->getNodes().size() == 0) {
+        return false;
+    }
     const std::string& id = def->getID();
     const std::string& programID = def->getProgramID();
     // build program
