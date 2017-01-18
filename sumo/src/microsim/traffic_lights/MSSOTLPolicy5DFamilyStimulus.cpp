@@ -8,7 +8,7 @@
 // The class for Swarm-based low-level policy
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright 2001-2013 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -19,8 +19,27 @@
 //
 /****************************************************************************/
 
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
+#include <utils/common/StringTokenizer.h>
 #include "MSSOTLPolicy5DFamilyStimulus.h"
 
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix,
         const std::map<std::string, std::string>& parameters) :
     MSSOTLPolicyDesirability(keyPrefix, parameters) {
@@ -72,27 +91,22 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
     for (int i = 0; i < (int)params_names.size(); i ++) {
         std::string key = keyPrefix + params_names[i];
         std::string param_list = getParameter(key, default_values[params_names[i]]);
+        std::vector<std::string> tokens = StringTokenizer(param_list, ";").getVector();
 
-        char* dup = strdup(param_list.c_str());
-        int token_counter;
-        char* pch;
-
-        for (token_counter = 0, pch = strtok(dup, ";"); token_counter < size_family; ++token_counter, pch = strtok(NULL, ";")) {
-            if (pch == NULL) {
+        for (int token_counter = 0; token_counter < size_family; ++token_counter) {
+            if (token_counter >= tokens.size()) {
                 std::ostringstream errorMessage;
                 errorMessage << "Error in " << key << ": not enough tokens.";
                 WRITE_ERROR(errorMessage.str());
                 assert(-1);
             }
-            std::string token_found(pch);
             DBG(
                 std::ostringstream str;
-                str << "found token " << token_found << " position " << token_counter;
+                str << "found token " << tokens[token_counter] << " position " << token_counter;
                 WRITE_MESSAGE(str.str());
             )
-            (sliced_maps[token_counter])[key] = token_found;
+            sliced_maps[token_counter][key] = tokens[token_counter];
         }
-        free(dup);
     }
 
     for (int i = 0; i < size_family; i++) {
