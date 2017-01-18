@@ -129,6 +129,10 @@ def waitQuestion(answer):
 
 # netedit quit
 def quit(neteditProcess, mustBeSaved, save):
+    if neteditProcess.poll() is not None:
+        # already quit
+        return
+
     # quit using hotkey
     type("q", Key.CTRL)
 
