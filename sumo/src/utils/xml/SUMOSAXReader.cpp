@@ -166,20 +166,31 @@ SUMOSAXReader::parseNext() {
                 myBinaryInput = 0;
                 return false;
             case BinaryFormatter::BF_XML_TAG_START: {
-                char t;
-                *myBinaryInput >> t;
-                SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)t), myBinaryInput, mySbxVersion);
-                myHandler->myStartElement(t, attrs);
+                int tag;
+                unsigned char tagByte;
+                *myBinaryInput >> tagByte;
+                tag = tagByte;
+                if (mySbxVersion > 1) {
+                    myBinaryInput->putback(BinaryFormatter::BF_BYTE);
+                    *myBinaryInput >> tagByte;
+                    tag += 256 * tagByte;
+                }
+                myXMLStack.push_back((SumoXMLTag)tag);
+                SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)tag), myBinaryInput, mySbxVersion);
+                myHandler->myStartElement(tag, attrs);
                 break;
             }
             case BinaryFormatter::BF_XML_TAG_END: {
-                char t;
-                *myBinaryInput >> t;
-                myHandler->myEndElement(t);
+                if (myXMLStack.empty()) {
+                    throw ProcessError("Binary file is invalid, unexpected tag end.");
+                }
+                myHandler->myEndElement(myXMLStack.back());
+                myXMLStack.pop_back();
+                myBinaryInput->read(mySbxVersion > 1 ? 1 : 2);
                 break;
             }
             default:
-                throw ProcessError("Invalid binary file");
+                throw ProcessError("Binary file is invalid, expected tag start or tag end.");
         }
         return true;
     } else {

@@ -156,7 +156,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 break;
             }
             default:
-                throw ProcessError("Invalid binary file");
+                throw ProcessError("Binary file is invalid, attribute type is unknown.");
         }
         myAttrs.insert(attr);
     }

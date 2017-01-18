@@ -118,6 +118,9 @@ private:
 
     char mySbxVersion;
 
+    /// @brief The stack of begun xml elements
+    std::vector<SumoXMLTag> myXMLStack;
+
     LocalSchemaResolver mySchemaResolver;
 
 private:

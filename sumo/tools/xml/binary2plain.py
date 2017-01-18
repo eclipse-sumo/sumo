@@ -182,8 +182,11 @@ while True:
         if startOpen:
             out.write(">\n")
         out.write("    " * len(stack))
-        stack.append(readByte(content))
-        out.write("<" + elements[stack[-1]])
+        tag = readByte(content)
+        if version > 1:
+            tag += 256 * readByte(content)
+        stack.append(tag)
+        out.write("<" + elements[tag])
         startOpen = True
     elif typ == XML_TAG_END:
         if startOpen:
@@ -193,7 +196,8 @@ while True:
         else:
             out.write("    " * (len(stack) - 1))
             out.write("</%s>\n" % elements[stack.pop()])
-        readByte(content)
+        if version == 1:
+            readByte(content)
         if len(stack) == 0:
             break
     elif typ == XML_ATTRIBUTE:
