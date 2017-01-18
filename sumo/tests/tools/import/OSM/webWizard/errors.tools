@@ -259,93 +259,11 @@ Warning: The rail crossing '3269783482' does not have any roads.
 Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
-Warning: The traffic light '160503146' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '160503146'
-Warning: The traffic light '1827996421' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1827996421'
-Warning: The traffic light '1828018094' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1828018094'
-Warning: The traffic light '1828018095' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1828018095'
-Warning: The traffic light '21487161' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '21487161'
 Warning: The traffic light '21487180' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '21487180'
-Warning: The traffic light '21487209' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '21487209'
-Warning: The traffic light '21487210' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '21487210'
-Warning: The traffic light '21487242' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '21487242'
 Warning: The traffic light '25662552' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '25662552'
-Warning: The traffic light '25664680' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '25664680'
-Warning: The traffic light '25665636' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '25665636'
-Warning: The traffic light '25954547' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '25954547'
-Warning: The traffic light '262469034' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '262469034'
-Warning: The traffic light '262818920' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '262818920'
-Warning: The traffic light '266540882' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '266540882'
-Warning: The traffic light '27411250' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '27411250'
-Warning: The traffic light '28373974' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '28373974'
-Warning: The traffic light '29123671' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '29123671'
-Warning: The traffic light '29123672' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '29123672'
 Warning: The traffic light '29219437' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29219437'
-Warning: The traffic light '29219440' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '29219440'
-Warning: The traffic light '29221504' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '29221504'
-Warning: The traffic light '29221506' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '29221506'
-Warning: The traffic light '3155751072' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '3155751072'
-Warning: The traffic light '3155751073' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '3155751073'
-Warning: The traffic light '3204786099' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '3204786099'
-Warning: The traffic light '392182854' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '392182854'
-Warning: The traffic light '52151282' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '52151282'
-Warning: The traffic light '538795142' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '538795142'
-Warning: The traffic light '677136755' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '677136755'
-Warning: The traffic light '961807409' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961807409'
-Warning: The traffic light '961807418' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961807418'
-Warning: The traffic light '961875299' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961875299'
-Warning: The traffic light '961875301' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961875301'
-Warning: The traffic light '961875308' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961875308'
-Warning: The traffic light '961875311' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961875311'
-Warning: The traffic light '961984568' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961984568'
-Warning: The traffic light '961984577' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961984577'
-Warning: The traffic light '961984592' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961984592'
-Warning: The traffic light '961984606' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '961984606'
-Warning: The traffic light '967017877' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '967017877'
-Warning: The traffic light 'GS_1275468904' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'GS_1275468904'
-Warning: The traffic light 'GS_2425782615' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'GS_2425782615'
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Missing yellow phase in tlLogic '310069196', program '0' for tl-index 0 when switching to phase 1

@@ -19,10 +19,9 @@ Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
-Computing traffic light logics... 
-done (0ms).
+Computing traffic light logics... done (0ms).
  2 traffic light(s) computed.
-Building inner edges... done (0ms).
+Building inner edges... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:

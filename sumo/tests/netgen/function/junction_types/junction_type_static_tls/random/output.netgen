@@ -17,7 +17,7 @@ Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
-Computing traffic light control information... done (0ms).
+Computing traffic light control information... done (1ms).
 Computing node logics... done (0ms).
 Computing traffic light logics... 
 done (0ms).

@@ -11,30 +11,29 @@ done.
    257 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
-Joining junction clusters... done (0ms).
+Joining junction clusters... done (1ms).
  Joined 6 junction cluster(s).
 Removing empty nodes and geometry nodes... done (1ms).
    245 nodes removed.
 Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
-Guessing and setting on-/off-ramps... done (0ms).
+Guessing and setting on-/off-ramps... done (1ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (5ms).
 Computing edge shapes... done (2ms).
 Computing node types... done (0ms).
-Computing priorities... done (0ms).
+Computing priorities... done (1ms).
 Computing approached edges... done (0ms).
 Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (1ms).
+Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
+Processing turnarounds... done (1ms).
 Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Joining traffic light nodes... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (2ms).
-Computing traffic light logics... 
-done (0ms).
+Computing node logics... done (1ms).
+Computing traffic light logics... done (1ms).
  6 traffic light(s) computed.
 Building inner edges... done (4ms).
 -----------------------------------------------------
@@ -48,6 +47,6 @@ Summary:
   Applied offset     : -398348.81,-5809189.04
   Converted boundary : 0.00,0.00,2640.77,946.75
 -----------------------------------------------------
-Writing network... done (48ms).
+Writing network... done (39ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/dynamic_gui.17Feb163026.3115/tools/import/OSM/build_passenger/net.netccfg'
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.18Jan134300.32696/tools/import/OSM/build_passenger/net.netccfg'

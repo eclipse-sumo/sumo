@@ -1,4 +1,2 @@
 Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_0'
 Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_0'
-Warning: The traffic light 'joinedS_20' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedS_20'

@@ -7,10 +7,6 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Not joining junctions 283018817,38919652,38919712,38919808 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 294168098,294169338,294169339 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 32266935,32266938 because the cluster is too complex (5 incoming edges)
-Warning: The traffic light 'joinedG_0' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_0'
-Warning: The traffic light 'joinedG_1' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'joinedG_1'
 --- 
 +++ 
 @@ -1,39 +1,5 @@

@@ -233,17 +233,3 @@ Warning: Found sharp turn with radius 3.90 at the end of edge '82[0]'.
 Warning: Found sharp turn with radius 4.23 at the start of edge '82[1]'.
 Warning: Found sharp turn with radius 5.98 at the start of edge '83[1]'.
 Warning: Found sharp turn with radius 7.81 at the end of edge '85[1][1][0]'.
-Warning: The traffic light '451' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '451'
-Warning: The traffic light '452' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '452'
-Warning: The traffic light '453' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '453'
-Warning: The traffic light '455' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '455'
-Warning: The traffic light '502' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '502'
-Warning: The traffic light '503' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '503'
-Warning: The traffic light '531' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '531'

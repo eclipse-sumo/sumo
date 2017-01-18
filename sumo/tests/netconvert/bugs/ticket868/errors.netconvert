@@ -4,10 +4,6 @@ Warning: Ignoring restriction relation '1995435' with unknown from-way.
 Warning: No way found for reference '4045173' in relation '2080223'
 Warning: Ignoring restriction relation '2080223' with unknown from-way.
 Warning: Found angle of 102.24 degrees at edge '151059738#0', segment 0
-Warning: The traffic light '1638988387' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1638988387'
-Warning: The traffic light '1672368516' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1672368516'
 Warning: The traffic light '249536359' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '249536359'
 Warning: The traffic light '255072664' does not control any links; it will not be build.

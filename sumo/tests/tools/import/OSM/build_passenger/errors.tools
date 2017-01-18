@@ -10,5 +10,3 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '190461577').
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: The traffic light '1704693513' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '1704693513'
