@@ -94,9 +94,9 @@ public:
     class Connection {
     public:
         Connection(EdgeInfo* t, SUMOReal c, SVCPermissions p): target(t), cost(c), permissions(p) {}
-        EdgeInfo* target;
-        SUMOReal cost;
-        SVCPermissions permissions;
+        EdgeInfo* const target;
+        const SUMOReal cost;
+        const SVCPermissions permissions;
     };
 
     /**
@@ -107,7 +107,7 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(const E* e) :
+        EdgeInfo(const E* const e) :
             edge(e),
             traveltime(std::numeric_limits<SUMOReal>::max()),
             prev(0),
@@ -115,7 +115,7 @@ public:
         }
 
         /// The current edge
-        const E* edge;
+        const E* const edge;
 
         /// Effort to reach the edge
         SUMOReal traveltime;
@@ -431,7 +431,7 @@ public:
     /// normal routing methods
 
     /// Builds the path from marked edges
-    void buildPathFromMeeting(Meeting meeting, Result& into) {
+    void buildPathFromMeeting(Meeting meeting, Result& into) const {
         std::deque<const E*> tmp;
         const EdgeInfo* backtrack = meeting.first;
         while (backtrack != 0) {
@@ -466,15 +466,14 @@ public:
 
     /// contraction related members
     typedef std::pair<const E*, const E*> ConstEdgePair;
-    typedef std::pair<E*, E*> EdgePair;
 
     struct Shortcut {
-        Shortcut(EdgePair e, SUMOReal c, int u, SVCPermissions p):
+        Shortcut(ConstEdgePair e, SUMOReal c, int u, SVCPermissions p):
             edgePair(e), cost(c), underlying(u), permissions(p) {}
-        EdgePair edgePair;
-        SUMOReal cost;
-        int underlying;
-        SVCPermissions permissions;
+        const ConstEdgePair edgePair;
+        const SUMOReal cost;
+        const int underlying;
+        const SVCPermissions permissions;
     };
 
     typedef std::vector<Shortcut> Shortcuts;
@@ -486,7 +485,7 @@ public:
     class CHInfo {
     public:
         /// @brief Constructor
-        CHInfo(E* e) :
+        CHInfo(const E* const e) :
             edge(e),
             contractedNeighbors(0),
             rank(-1),
@@ -535,7 +534,7 @@ public:
 #endif
                         const int underlying = aInfo.underlying + fInfo.underlying;
                         underlyingTotal += underlying;
-                        shortcuts.push_back(Shortcut(EdgePair(aInfo.target->edge, fInfo.target->edge),
+                        shortcuts.push_back(Shortcut(ConstEdgePair(aInfo.target->edge, fInfo.target->edge),
                                                      viaCost, underlying, viaPermissions));
 
                     } else if (validatePermissions) {
@@ -564,7 +563,7 @@ public:
                     const SVCPermissions viaPermissions = (aInfo->permissions & fInfo->permissions);
                     const int underlying = aInfo->underlying + fInfo->underlying;
                     underlyingTotal += underlying;
-                    shortcuts.push_back(Shortcut(EdgePair(aInfo->target->edge, fInfo->target->edge),
+                    shortcuts.push_back(Shortcut(ConstEdgePair(aInfo->target->edge, fInfo->target->edge),
                                                  viaCost, underlying, viaPermissions));
                 }
             }
@@ -607,7 +606,7 @@ public:
 
 
         /// @brief The current edge - not const since it may receive shortcut edges
-        E* edge;
+        const E* const edge;
         /// @brief The contraction priority
         SUMOReal priority;
         /// @brief The needed shortcuts
@@ -753,7 +752,7 @@ public:
 #ifdef CHRouter_DEBUG_CONTRACTION
             std::cout << "contracting '" << max->edge->getID() << "' with prio: " << max->priority << " (rank " << contractionRank << ")\n";
 #endif
-            E* edge = max->edge;
+            const E* const edge = max->edge;
             // add outgoing connections to the forward search
             EdgeInfo* edgeInfoFW = myForwardSearch.getEdgeInfo(edge);
             for (typename CHConnections::iterator it = max->followers.begin(); it != max->followers.end(); it++) {
@@ -774,7 +773,7 @@ public:
             }
             // add shortcuts to the net
             for (typename Shortcuts::iterator it = max->shortcuts.begin(); it != max->shortcuts.end(); it++) {
-                EdgePair& edgePair = it->edgePair;
+                const ConstEdgePair& edgePair = it->edgePair;
                 myShortcuts[edgePair] = edge;
                 CHInfo* from = getCHInfo(edgePair.first);
                 CHInfo* to = getCHInfo(edgePair.second);
@@ -812,9 +811,9 @@ public:
 
 private:
     // retrieve the via edge for a shortcut
-    const E* getVia(const E* forwardFrom, const E* forwardTo) {
+    const E* getVia(const E* forwardFrom, const E* forwardTo) const {
         ConstEdgePair forward(forwardFrom, forwardTo);
-        typename ShortcutVia::iterator it = myShortcuts.find(forward);
+        typename ShortcutVia::const_iterator it = myShortcuts.find(forward);
         if (it != myShortcuts.end()) {
             return it->second;
         } else {
