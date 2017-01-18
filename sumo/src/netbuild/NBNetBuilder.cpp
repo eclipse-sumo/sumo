@@ -480,6 +480,13 @@ NBNetBuilder::compute(OptionsCont& oc,
         myEdgeCont.checkOverlap(oc.getFloat("geometry.check-overlap"), oc.getFloat("geometry.check-overlap.vertical-threshold"));
         PROGRESS_TIME_MESSAGE(before);
     }
+    if (oc.exists("geometry.max-grade") && oc.getFloat("geometry.max-grade") > 0 && geoConvHelper.getConvBoundary().getZRange() > 0) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Checking edge grade");
+        // user input is in %
+        myEdgeCont.checkGrade(oc.getFloat("geometry.max-grade") / 100);
+        PROGRESS_TIME_MESSAGE(before);
+    }
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");

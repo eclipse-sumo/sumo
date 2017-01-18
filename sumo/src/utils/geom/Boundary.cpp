@@ -174,6 +174,12 @@ Boundary::getHeight() const {
 }
 
 
+SUMOReal
+Boundary::getZRange() const {
+    return myZmax - myZmin;
+}
+
+
 bool
 Boundary::around(const Position& p, SUMOReal offset) const {
     return

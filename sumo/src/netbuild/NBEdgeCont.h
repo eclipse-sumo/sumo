@@ -538,6 +538,9 @@ public:
     /// @brief check whether edges overlap
     void checkOverlap(SUMOReal threshold, SUMOReal zThreshold) const;
 
+    /// @brief check whether edges are to steep
+    void checkGrade(SUMOReal threshold) const; 
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *

@@ -98,6 +98,9 @@ public:
     /// Returns the height of the boundary (y-axis)
     SUMOReal getHeight() const;
 
+    /// Returns the elevation range of the boundary (z-axis)
+    SUMOReal getZRange() const;
+
     /// Returns whether the boundary contains the given coordinate
     bool around(const Position& p, SUMOReal offset = 0) const;
 

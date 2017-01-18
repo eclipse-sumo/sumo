@@ -1288,5 +1288,17 @@ PositionVector::offsetAtIndex2D(int index) const {
     return seen;
 }
 
+
+SUMOReal 
+PositionVector::getMaxGrade() const {
+    SUMOReal result = 0;
+    for (int i = 1; i < (int)size(); ++i) {
+        const Position& p1 = (*this)[i - 1];
+        const Position& p2 = (*this)[i];
+        result = MAX2(result, fabs((p1.z() - p2.z()) / p1.distanceTo2D(p2))); 
+    }
+    return result;
+}
+
 /****************************************************************************/
 

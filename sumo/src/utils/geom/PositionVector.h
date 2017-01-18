@@ -369,6 +369,9 @@ public:
     /// @brief return the offset at the given index 
     SUMOReal offsetAtIndex2D(int index) const; 
 
+    /// @brief return the maximum grade of all segments as a fraction of zRange/length2D
+    SUMOReal getMaxGrade() const; 
+
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
     static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const SUMOReal withinDist = 0., SUMOReal* x = 0, SUMOReal* y = 0, SUMOReal* mu = 0);
