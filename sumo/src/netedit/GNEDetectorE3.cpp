@@ -152,7 +152,7 @@ GNEDetectorE3::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy
 void
 GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentDirectory) {
     // Only save E3 if have Entry/Exits
-    if (/**getNumberOfAdditionalChilds() > 0**/ true) {
+    if ((myGNEDetectorEntrys.size() + myGNEDetectorExits.size()) > 0) {
         // Write parameters
         device.openTag(getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
@@ -164,12 +164,24 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
         device.writeAttr(SUMO_ATTR_X, myPosition.x());
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
-        if (myBlocked) {
-            device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
+
+        // Write entrys
+        for(std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+            device.openTag((*i)->getTag());
+            device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
+            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
+            device.closeTag();
         }
-        // Write childs of this element
-        //writeAdditionalChildrens(device, currentDirectory);
-        // Close tag
+
+        // Write exits
+        for(std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+            device.openTag((*i)->getTag());
+            device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
+            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
+            device.closeTag();
+        }
+
+        // Close E3 tag
         device.closeTag();
     } else {
         WRITE_WARNING(toString(getTag()) + " with ID '" + getID() + "' cannot be writed in additional file because doesn't have childs.");
@@ -179,13 +191,21 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentD
 
 std::string 
 GNEDetectorE3::generateEntryID() {
-    return toString(myGNEDetectorEntrys.size() + 1);
+    int counter = 0;
+    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, getID() + "_Entry" + toString(counter)) != NULL) {
+        counter++;
+    }
+    return (getID() + "_Entry" + toString(counter));
 }
 
 
 std::string 
 GNEDetectorE3::generateExitID() {
-    return toString(myGNEDetectorExits.size() + 1);
+    int counter = 0;
+    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, getID() + "_Exit" + toString(counter)) != NULL) {
+        counter++;
+    }
+    return (getID() + "_Exit" + toString(counter));
 }
 
 
@@ -363,6 +383,13 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             setAdditionalID(value);
+            // Change Ids of all Entry/Exits childs
+            for(std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+                (*i)->setAdditionalID(generateEntryID());
+            }
+            for(std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+                (*i)->setAdditionalID(generateExitID());
+            }
             break;
         case SUMO_ATTR_X:
             myPosition.setx(parse<SUMOReal>(value));

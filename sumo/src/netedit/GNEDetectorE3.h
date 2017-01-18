@@ -45,7 +45,7 @@ class GNEDetectorExit;
 // ===========================================================================
 /**
  * @class GNEDetectorE3
- * ------------
+ * Class for multy Entry/multy Exits detectors
  */
 class GNEDetectorE3 : public GNEAdditional {
     /// @brief declare friend class (needed to manage Entry/Exit childs)

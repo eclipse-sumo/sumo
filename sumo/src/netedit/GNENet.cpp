@@ -1235,7 +1235,9 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
 void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
     GNEAdditionals::iterator additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
-    if (additionalToUpdate != myAdditionals.end()) {
+    if (additionalToUpdate == myAdditionals.end()) {
+        throw ProcessError("additional element with old ID='" + oldID + "' doesn't exist");
+    } else {
         // remove an insert additional again into container
         myAdditionals.erase(additionalToUpdate);
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;

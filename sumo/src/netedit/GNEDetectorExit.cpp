@@ -126,16 +126,8 @@ GNEDetectorExit::getE3Parent() const {
 
 
 void
-GNEDetectorExit::writeAdditional(OutputDevice& device, const std::string&) {
-    // Write parameters
-    device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
-    if (myBlocked) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
-    }
-    // Close tag
-    device.closeTag();
+GNEDetectorExit::writeAdditional(OutputDevice&, const std::string&) {
+    // This additional cannot be writted calling this function because is writted by their E3Parent
 }
 
 
