@@ -9,3 +9,6 @@ assignment
 
 # various tests for computing edge weights during routing
 weights
+
+# handle input errors
+errors

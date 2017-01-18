@@ -128,11 +128,31 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
 bool
 MSDevice_Routing::checkOptions(OptionsCont& oc) {
+    bool ok = true;
     if (oc.getInt("device.rerouting.adaptation-steps") > 0 && !oc.isDefault("device.rerouting.adaptation-weight")) {
         WRITE_ERROR("Only one of the options 'device.rerouting.adaptation-steps' or 'device.rerouting.adaptation-weight' may be given.");
-        return false;
+        ok = false;
     }
-    return true;
+    if (oc.getFloat("weights.random-factor") < 1) {
+        WRITE_ERROR("weights.random-factor cannot be less than 1");
+        ok = false;
+    }
+    if (string2time(oc.getString("device.rerouting.adaptation-interval")) < 0) {
+        WRITE_ERROR("Negative value for device.rerouting.adaptation-interval!");
+        ok = false;
+    }
+    if (oc.getFloat("device.rerouting.adaptation-weight") < 0.  || 
+            oc.getFloat("device.rerouting.adaptation-weight") > 1.) {
+        WRITE_ERROR("The value for device.rerouting.adaptation-weight must be between 0 and 1!");
+        ok = false;
+    }
+#ifndef HAVE_FOX
+    if (oc.getInt("device.rerouting.threads") > 1) {
+        WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
+        ok = false;
+    }
+#endif
+    return ok;
 }
 
 
@@ -174,25 +194,11 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
             }
             myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
             myRandomizeWeightsFactor = oc.getFloat("weights.random-factor");
-            if (myRandomizeWeightsFactor < 1) {
-                WRITE_ERROR("weights.random-factor cannot be less than 1");
-            }
-#ifndef HAVE_FOX
-            if (oc.getInt("device.rerouting.threads") > 1) {
-                WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
-            }
-#endif
         }
         // make the weights be updated
         if (myAdaptationInterval == -1) {
             myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
-            if (myAdaptationInterval < 0) {
-                WRITE_ERROR("Negative value for device.rerouting.adaptation-interval!");
-            }
             myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
-            if (myAdaptationWeight < 0. || myAdaptationWeight > 1.) {
-                WRITE_ERROR("The value for device.rerouting.adaptation-weight must be between 0 and 1!");
-            }
             if (myAdaptationWeight < 1. && myAdaptationInterval > 0) {
                 myEdgeWeightSettingCommand = new StaticCommand<MSDevice_Routing>(&MSDevice_Routing::adaptEdgeEfforts);
                 MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(

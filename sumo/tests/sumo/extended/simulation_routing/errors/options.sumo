@@ -1,0 +1,3 @@
+--no-step-log --no-duration-log --net-file=three_split.net.xml
+-r=input_trips.trips.xml
+--device.rerouting.adaptation-interval -1
