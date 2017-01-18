@@ -84,6 +84,12 @@ NBEdge::Connection::getInternalLaneID() const {
 }
 
 
+std::string
+NBEdge::Connection::getDescription(const NBEdge* parent) const {
+    return Named::getIDSecure(parent) + "_" + toString(fromLane) + "->" + Named::getIDSecure(toEdge) + "_" + toString(toLane);
+}
+
+
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     fromLane(fromLane_),
     toEdge(toEdge_),

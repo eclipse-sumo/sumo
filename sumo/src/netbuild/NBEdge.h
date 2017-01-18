@@ -232,8 +232,11 @@ public:
         /// @brief The lane index of this internal lane within the internal edge
         int internalLaneIndex;
 
-        /// @brief get ID of internal lnae
+        /// @brief get ID of internal lane
         std::string getInternalLaneID() const;
+
+        /// @brief get string describing this connection
+        std::string getDescription(const NBEdge* parent) const;
     };
 
 

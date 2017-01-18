@@ -630,10 +630,10 @@ NBNode::bezierControlPoints(
 PositionVector
 NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError) const {
     if (con.fromLane >= fromE->getNumLanes()) {
-        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' starts at a non-existant lane.");
+        throw ProcessError("Connection '" + con.getDescription(fromE) + "' starts at a non-existant lane.");
     }
     if (con.toLane >= con.toEdge->getNumLanes()) {
-        throw ProcessError("Connection '" + fromE->getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' targets a non-existant lane.");
+        throw ProcessError("Connection '" + con.getDescription(fromE) + "' targets a non-existant lane.");
     }
     PositionVector ret;
     if (myCustomLaneShapes.size() > 0 && con.internalLaneIndex != NBEdge::UNSPECIFIED_INTERNAL_LANE_INDEX) {
