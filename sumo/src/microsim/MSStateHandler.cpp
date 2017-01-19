@@ -69,6 +69,8 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     myLastParameterised(0)
 {
     myAmLoadingState = true;
+    const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
+    myVehiclesToRemove.insert(vehIDs.begin(), vehIDs.end());
 }
 
 
@@ -195,20 +197,27 @@ MSStateHandler::myEndElement(int element) {
 void
 MSStateHandler::closeVehicle() {
     assert(myVehicleParameter != 0);
+    // the vehicle was already counted in MSVehicleControl::setState
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     // make a copy because myVehicleParameter is reset in closeVehicle()
     const std::string vehID = myVehicleParameter->id;
-    MSRouteHandler::closeVehicle();
-    // reset depart
-    MSVehicleControl& vc =  MSNet::getInstance()->getVehicleControl();
-    vc.discountStateLoaded();
-    SUMOVehicle* v = vc.getVehicle(vehID);
-    v->loadState(*myAttrs, myOffset);
-    if (v->hasDeparted()) {
-        // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
-        MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
-        if (routingDevice != 0) {
-            routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
+    if (myVehiclesToRemove.count(vehID) == 0) {
+        MSRouteHandler::closeVehicle();
+        // reset depart
+        vc.discountStateLoaded();
+        SUMOVehicle* v = vc.getVehicle(vehID);
+        v->loadState(*myAttrs, myOffset);
+        if (v->hasDeparted()) {
+            // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
+            MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
+            if (routingDevice != 0) {
+                routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
+            }
         }
+    } else {
+        vc.discountStateLoaded(true);
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
     }
     delete myAttrs;
 }

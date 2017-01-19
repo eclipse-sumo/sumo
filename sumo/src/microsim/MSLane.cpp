@@ -2294,11 +2294,12 @@ void
 MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
     for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
         MSVehicle* v = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
-        assert(v != 0);
-        v->updateBestLanes(false, this);
-        incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
-                           MSMoveReminder::NOTIFICATION_JUNCTION);
-        v->processNextStop(v->getSpeed());
+        if (v != 0) {
+            v->updateBestLanes(false, this);
+            incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
+                    MSMoveReminder::NOTIFICATION_JUNCTION);
+            v->processNextStop(v->getSpeed());
+        }
     }
 }
 

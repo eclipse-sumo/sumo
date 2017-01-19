@@ -425,8 +425,14 @@ public:
     /// @}
 
     /// @brief avoid counting a vehicle twice if it was loaded from state and route input
-    void discountStateLoaded() {
-        myLoadedVehNo--;
+    void discountStateLoaded(bool removed=false) {
+        if (removed) {
+            myRunningVehNo--;
+            myDiscarded++;
+            myEndedVehNo++;
+        } else {
+            myLoadedVehNo--;
+        }
     }
 
 

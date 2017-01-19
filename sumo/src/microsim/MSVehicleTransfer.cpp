@@ -220,7 +220,10 @@ MSVehicleTransfer::saveState(OutputDevice& out) const {
 void
 MSVehicleTransfer::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc) {
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vc.getVehicle(attrs.getString(SUMO_ATTR_ID)));
-    assert(veh != 0);
+    if (veh == 0) {
+        // deleted
+        return;
+    }
     SUMOTime proceedTime = (SUMOTime)attrs.getLong(SUMO_ATTR_DEPART);
     MSLane* parkingLane = attrs.hasAttribute(SUMO_ATTR_PARKING) ? MSLane::dictionary(attrs.getString(SUMO_ATTR_PARKING)): 0;
     myVehicles.push_back(VehicleInformation(veh, proceedTime + offset, parkingLane != 0));

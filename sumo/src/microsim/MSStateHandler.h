@@ -107,6 +107,9 @@ private:
     /// @brief the last object that potentially carries parameters
     Parameterised* myLastParameterised;
 
+    /// @brief vehicles that shall be removed when loading state
+    std::set<std::string> myVehiclesToRemove;
+
 
 private:
     /// @brief Invalidated copy constructor
