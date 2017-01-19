@@ -25,14 +25,14 @@ netedit.changeAdditional(comboboxAdditional, 8)
 # create E3 1
 netedit.leftClick(match, 250, 250)
 
-# create E3 2
+# create E3 2 (for check duplicated ID)
 netedit.leftClick(match, 450, 250)
 
 # select entry detector
 netedit.changeAdditional(comboboxAdditional, -4)
 
 # Create Entry detector E3 (for saving)
-netedit.selectChild(comboboxAdditional, 4, 1)
+netedit.selectChild(comboboxAdditional, 4, 0)
 netedit.leftClick(match, 100, 180)
 netedit.selectChild(comboboxAdditional, 4, 1)
 netedit.leftClick(match, 400, 180)
@@ -83,7 +83,7 @@ netedit.modifyAttribute(parametersReference, 3, "120")
 netedit.modifyAttribute(parametersReference, 4, "")
 
 # Change parameter 4 with a duplicated value
-netedit.modifyAttribute(parametersReference, 4, "e3Detector_1.txt.txt")
+netedit.modifyAttribute(parametersReference, 4, "e3Detector_1.txt")
 
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(parametersReference, 4, "myOwnOutput.txt")

@@ -1,4 +1,8 @@
 <additionals>
-    <e1Detector id="correct ID" lane="gneE2_0" pos="20.00" freq="120.00" file="myOwnOutput.txt" splitByType="1"/>
-    <e1Detector id="e1Detector_gneE2_1_1" lane="gneE2_1" pos="37.40" freq="100.00" file="e1Detector_gneE2_1_1.txt" splitByType="0"/>
+    <e3Detector id="correct ID" freq="120.00" file="myOwnOutput.txt" timeThreshold="4.00" speedThreshold="6.30" x="25.00" y="25.00">
+        <detEntry lane="gneE3_1" pos="33.77"/>
+    </e3Detector>
+    <e3Detector id="e3Detector_1" freq="100.00" file="e3Detector_1.txt" timeThreshold="1.00" speedThreshold="1.39" x="29.72" y="18.37">
+        <detEntry lane="gneE3_1" pos="22.21"/>
+    </e3Detector>
 </additionals>
