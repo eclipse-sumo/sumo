@@ -1450,6 +1450,14 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
         myEdges = newEdgeMap;
         myJunctions = newJunctionMap;
     }
+    // update rtree if necessary
+    if (!oc.getBool("offset.disable-normalization")) {
+        for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
+            refreshElement(it->second);
+        }
+    }
+    myGrid.reset();
+    myGrid.add(GeoConvHelper::getProcessing().getConvBoundary());
     // update precomputed geometries
     initGNEConnections();
 
