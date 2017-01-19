@@ -94,9 +94,9 @@ public:
     class Connection {
     public:
         Connection(EdgeInfo* t, SUMOReal c, SVCPermissions p): target(t), cost(c), permissions(p) {}
-        EdgeInfo* const target;
-        const SUMOReal cost;
-        const SVCPermissions permissions;
+        EdgeInfo* target;
+        SUMOReal cost;
+        SVCPermissions permissions;
     };
 
     /**
@@ -107,7 +107,7 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(const E* const e) :
+        EdgeInfo(const E* e) :
             edge(e),
             traveltime(std::numeric_limits<SUMOReal>::max()),
             prev(0),
@@ -115,7 +115,7 @@ public:
         }
 
         /// The current edge
-        const E* const edge;
+        const E* edge;
 
         /// Effort to reach the edge
         SUMOReal traveltime;
@@ -470,10 +470,10 @@ public:
     struct Shortcut {
         Shortcut(ConstEdgePair e, SUMOReal c, int u, SVCPermissions p):
             edgePair(e), cost(c), underlying(u), permissions(p) {}
-        const ConstEdgePair edgePair;
-        const SUMOReal cost;
-        const int underlying;
-        const SVCPermissions permissions;
+        ConstEdgePair edgePair;
+        SUMOReal cost;
+        int underlying;
+        SVCPermissions permissions;
     };
 
     typedef std::vector<Shortcut> Shortcuts;
@@ -485,7 +485,7 @@ public:
     class CHInfo {
     public:
         /// @brief Constructor
-        CHInfo(const E* const e) :
+        CHInfo(const E* e) :
             edge(e),
             contractedNeighbors(0),
             rank(-1),
@@ -606,7 +606,7 @@ public:
 
 
         /// @brief The current edge - not const since it may receive shortcut edges
-        const E* const edge;
+        const E* edge;
         /// @brief The contraction priority
         SUMOReal priority;
         /// @brief The needed shortcuts
