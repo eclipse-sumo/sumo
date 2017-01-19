@@ -1435,6 +1435,21 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
         }
     }
     myNetBuilder->compute(oc, liveExplicitTurnarounds, false);
+    // update ids if necessary
+    if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
+        GNEEdges newEdgeMap; 
+        GNEJunctions newJunctionMap; 
+        for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
+            it->second->setMicrosimID(it->second->getNBEdge()->getID());
+            newEdgeMap[it->second->getNBEdge()->getID()] = it->second;
+        }
+        for (GNEJunctions::const_iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
+            newJunctionMap[it->second->getNBNode()->getID()] = it->second;
+            it->second->setMicrosimID(it->second->getNBNode()->getID());
+        }
+        myEdges = newEdgeMap;
+        myJunctions = newJunctionMap;
+    }
     // update precomputed geometries
     initGNEConnections();
 
