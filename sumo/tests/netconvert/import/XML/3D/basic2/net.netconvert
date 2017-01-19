@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:19 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Thu Jan 19 15:04:50 2017 by SUMO netconvert Version dev-SVN-r22640
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
     <location netOffset="175.50,-42.11" convBoundary="0.00,0.00,393.41,148.74" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ4_0" function="internal">
-        <lane id=":gneJ4_0_0" index="0" speed="13.89" length="4.71" shape="394.63,98.99,80.00 395.60,100.14,80.00 395.74,100.98,80.00 395.08,101.52,80.00 393.59,101.74,80.00"/>
+        <lane id=":gneJ4_0_0" index="0" speed="13.89" length="4.71" shape="394.63,98.99,79.98 395.60,100.14,80.00 395.74,100.98,80.02 395.08,101.52,80.03 393.59,101.74,80.05"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
         <lane id=":gneJ5_0_0" index="0" speed="13.89" length="0.53" shape="296.26,105.59,40.00 296.11,105.60,40.00 296.00,105.61,40.00 295.90,105.64,40.00 295.75,105.69,40.00"/>
@@ -42,10 +42,10 @@
         <lane id="gneE2_0" index="0" speed="13.89" length="173.74" shape="166.39,1.67,50.00 0.02,4.00"/>
     </edge>
     <edge id="gneE3" from="gneJ2" to="gneJ4" priority="1">
-        <lane id="gneE3_0" index="0" speed="13.89" length="139.98" shape="294.25,3.51,100.00 394.63,98.99,80.00"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="139.98" shape="294.25,3.51,100.00 394.63,98.99,79.98"/>
     </edge>
     <edge id="gneE4" from="gneJ4" to="gneJ5" priority="1">
-        <lane id="gneE4_0" index="0" speed="13.89" length="105.30" shape="393.59,101.74,80.00 296.26,105.59,40.00"/>
+        <lane id="gneE4_0" index="0" speed="13.89" length="105.32" shape="393.59,101.74,80.05 296.26,105.59,40.00"/>
     </edge>
     <edge id="gneE5" from="gneJ5" to="gneJ6" priority="1">
         <lane id="gneE5_0" index="0" speed="13.89" length="130.15" shape="295.75,105.69,40.00 180.20,150.28"/>
