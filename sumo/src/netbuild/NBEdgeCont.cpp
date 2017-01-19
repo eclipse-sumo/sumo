@@ -1197,6 +1197,15 @@ NBEdgeCont::checkGrade(SUMOReal threshold) const {
                 break;
             }
         }
+        const std::vector<NBEdge::Connection>& connections = edge->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator it_con = connections.begin(); it_con != connections.end(); ++it_con) {
+            const NBEdge::Connection& c = *it_con;
+            const SUMOReal grade = MAX2(c.shape.getMaxGrade(), c.viaShape.getMaxGrade());
+            if (grade > threshold) {
+                WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a grade of " + toString(grade * 100) + "%.");
+                break;
+            }
+        }
     }
 }
 

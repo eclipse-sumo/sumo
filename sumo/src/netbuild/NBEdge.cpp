@@ -570,6 +570,15 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
             PositionVector tmp;
             tmp.push_back(shape[0]);
             tmp.push_back(shape[-1]);
+            // 3D geometry may be messed up since positions were extrapolated rather than interpolated due to cutting in the wrong direction
+            // make the edge level with one of the intersections (try to pick one that needs to be flat as well)
+            if (myTo->geometryLike()) {
+                tmp[0].setz(myFrom->getPosition().z());
+                tmp[1].setz(myFrom->getPosition().z());
+            } else {
+                tmp[0].setz(myTo->getPosition().z());
+                tmp[1].setz(myTo->getPosition().z());
+            }
             shape = tmp;
             if (tmp.length() < POSITION_EPS) {
                 // fall back to original shape
@@ -633,9 +642,12 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         }
         PositionVector ns = laneShape.getSubpart2D(pb, laneShape.length2D());
         //PositionVector ns = pb < (laneShape.length() - POSITION_EPS) ? laneShape.getSubpart2D(pb, laneShape.length()) : laneShape;
-        ns[0].set(ns[0].x(), ns[0].y(), startNode->getPosition().z());
-        // cutting and patching z-coordinate may cause steep grades which should be smoothed
-        ns = ns.smoothedZFront(pb * 2);
+        if (!startNode->geometryLike() || pb < 1) {
+            // make "real" intersections and small intersections flat
+            ns[0].setz(startNode->getPosition().z());
+            // cutting and patching z-coordinate may cause steep grades which should be smoothed
+            ns = ns.smoothedZFront(pb * 2);
+        }
         assert(ns.size() >= 2);
         return ns;
     } else if (nodeShape.intersects(lb)) {
@@ -646,7 +658,11 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         assert(pb >= 0);
         PositionVector result = laneShape.getSubpartByIndex(1, (int)laneShape.size() - 1);
         Position np = PositionVector::positionAtOffset2D(lb[0], lb[1], pb);
-        result.push_front_noDoublePos(Position(np.x(), np.y(), startNode->getPosition().z()));
+        if (!startNode->geometryLike()) {
+            // make "real" intersections flat
+            np.setz(startNode->getPosition().z());
+        }
+        result.push_front_noDoublePos(np);
         return result;
         //if (result.size() >= 2) {
         //    return result;

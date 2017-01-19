@@ -33,6 +33,7 @@
 #endif
 
 #include <vector>
+#include <limits>
 #include "AbstractPoly.h"
 
 
@@ -364,7 +365,7 @@ public:
 
 
     /// @brief returned vector that is smoothed at the front (within dist)
-    PositionVector smoothedZFront(SUMOReal dist) const; 
+    PositionVector smoothedZFront(SUMOReal dist=std::numeric_limits<SUMOReal>::max()) const; 
 
     /// @brief return the offset at the given index 
     SUMOReal offsetAtIndex2D(int index) const; 
