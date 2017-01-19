@@ -7,6 +7,10 @@ save_at_interval
 # the input is taken from test save2/state2.sumo
 load
 
+# the input is taken from test save2/state2.sumo
+# 1 vehicle is removed while loading
+load_remove
+
 # the input is taken from test save2/state.sumo
 load_late_insertion
 
