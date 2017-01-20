@@ -447,6 +447,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glVertex2d(size, 0);
             glEnd();
             glPopMatrix();
+
+            // Reset textures due bug #2780. This solution is only provisional, and must be updated in the future
+            GUITextureSubSys::resetTextures();
         }
     }
     glLineWidth(1);
