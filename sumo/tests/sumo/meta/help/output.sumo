@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r22416
+SUMO Version dev-SVN-r22644
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -23,6 +23,8 @@ Input Options:
   --load-state FILE                    Loads a network state from FILE
   --load-state.offset TIME             Shifts all times loaded from a saved
                                          state by the given offset
+  --load-state.remove-vehicles STR     Removes vehicles with the given IDs from
+                                         the loaded state
 
 Output Options:
   --output-prefix STR                  Prefix which is applied to all output
@@ -79,6 +81,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
