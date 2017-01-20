@@ -512,7 +512,10 @@ NIImporter_DlrNavteq::NamesHandler::report(const std::string& result) {
     }
     assert(st.size() >= 2);
     const std::string id = st.next();
-    myStreetNames[id] = joinToString(st.getVector(), " ");
+    if (st.size() > 2) {
+        const std::string permanent_id_info = st.next();
+    }
+    myStreetNames[id] = st.next();
     return true;
 }
 

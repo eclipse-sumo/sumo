@@ -1,0 +1,7 @@
+# Net version: NavTeq-2011-Q2 ; Extraction version: V3.1 ; Creator: Elmar Brockfeld, Sten Ruppe, DLR-TS, Berlin ; Extraction date: 2012-03-14, 13:29:34 o'clock
+# NAME_ID	Name
+4
+0050000597	PERWENITZER & WEG
+0050003488	BERLINER STRASSE
+0050036416	B24
+0050000065	A13

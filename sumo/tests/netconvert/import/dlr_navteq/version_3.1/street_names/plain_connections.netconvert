@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jun  9 13:51:02 2016 by SUMO netconvert Version dev-SVN-r20938
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.scale value="5"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-1" to="1" fromLane="2" toLane="2"/>
+
+    <connection from="-2" to="2" fromLane="2" toLane="2"/>
+
+    <connection from="-3" to="3" fromLane="2" toLane="1"/>
+
+    <connection from="-4" to="4" fromLane="2" toLane="1"/>
+
+    <connection from="1" to="-3" fromLane="0" toLane="0"/>
+    <connection from="1" to="-2" fromLane="0" toLane="0"/>
+    <connection from="1" to="-2" fromLane="1" toLane="1"/>
+    <connection from="1" to="-2" fromLane="2" toLane="2"/>
+    <connection from="1" to="-4" fromLane="2" toLane="2"/>
+    <connection from="1" to="-1" fromLane="2" toLane="2"/>
+
+    <connection from="2" to="-4" fromLane="0" toLane="0"/>
+    <connection from="2" to="-1" fromLane="0" toLane="0"/>
+    <connection from="2" to="-1" fromLane="1" toLane="1"/>
+    <connection from="2" to="-1" fromLane="2" toLane="2"/>
+    <connection from="2" to="-3" fromLane="2" toLane="2"/>
+    <connection from="2" to="-2" fromLane="2" toLane="2"/>
+
+    <connection from="3" to="-2" fromLane="0" toLane="0"/>
+    <connection from="3" to="-4" fromLane="0" toLane="1"/>
+    <connection from="3" to="-4" fromLane="1" toLane="2"/>
+    <connection from="3" to="-1" fromLane="1" toLane="2"/>
+    <connection from="3" to="-3" fromLane="1" toLane="2"/>
+
+    <connection from="4" to="-1" fromLane="0" toLane="0"/>
+    <connection from="4" to="-3" fromLane="0" toLane="1"/>
+    <connection from="4" to="-3" fromLane="1" toLane="2"/>
+    <connection from="4" to="-2" fromLane="1" toLane="2"/>
+    <connection from="4" to="-4" fromLane="1" toLane="2"/>
+
+</connections>

@@ -5,3 +5,6 @@ form_of_way
 
 # parse elmar files and spit them back out
 roundtrip
+
+# import street names from _names.txt
+street_names
