@@ -79,6 +79,9 @@ public:
     /** the ascii index of the highest whitespace character */
     static const int SPACE;
 
+    /** the ascii index of the tab character */
+    static const int TAB;
+
 public:
     /** default constructor */
     StringTokenizer() { }

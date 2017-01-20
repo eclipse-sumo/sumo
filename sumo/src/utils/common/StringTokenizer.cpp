@@ -47,6 +47,7 @@
 const int StringTokenizer::NEWLINE = -256;
 const int StringTokenizer::WHITECHARS = -257;
 const int StringTokenizer::SPACE = 32;
+const int StringTokenizer::TAB = 9;
 
 
 // ===========================================================================
@@ -69,6 +70,9 @@ StringTokenizer::StringTokenizer(std::string tosplit, int special)
     switch (special) {
         case NEWLINE:
             prepare(tosplit, "\r\n", true);
+            break;
+        case TAB:
+            prepare(tosplit, "\t", true);
             break;
         case WHITECHARS:
             prepareWhitechar(tosplit);

@@ -506,7 +506,7 @@ NIImporter_DlrNavteq::NamesHandler::report(const std::string& result) {
     if (result[0] == '#') {
         return true;
     }
-    StringTokenizer st(result, StringTokenizer::WHITECHARS);
+    StringTokenizer st(result, StringTokenizer::TAB);
     if (st.size() == 1) {
         return true; // one line with the number of data containing lines in it (also starts with a comment # since ersion 6.5)
     }
