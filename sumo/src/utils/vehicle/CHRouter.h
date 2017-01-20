@@ -284,7 +284,7 @@ public:
     CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
-             typename const CHBuilder<E, V>::Hierarchy* hierarchy):
+             const typename CHBuilder<E, V>::Hierarchy* hierarchy) :
         SUMOAbstractRouter<E, V>(operation, "CHRouter"),
         myEdges(edges),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
@@ -450,7 +450,7 @@ private:
     Unidirectional myBackwardSearch;
 
     CHBuilder<E, V>* myHierarchyBuilder;
-    typename const CHBuilder<E, V>::Hierarchy* myHierarchy;
+    const typename CHBuilder<E, V>::Hierarchy* myHierarchy;
 
     /// @brief the validity duration of one weight interval
     const SUMOTime myWeightPeriod;
