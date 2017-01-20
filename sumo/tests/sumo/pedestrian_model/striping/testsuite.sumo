@@ -27,5 +27,8 @@ disconnected_route
 # instant travel between disconnected points
 beaming
 
+# pedestrians with speedDev
+speedDev
+
 # walking to a busstop
 busstop
