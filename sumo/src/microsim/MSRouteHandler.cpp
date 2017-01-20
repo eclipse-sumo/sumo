@@ -222,8 +222,8 @@ MSRouteHandler::myStartElement(int element,
                     SUMOReal speed = DEFAULT_PEDESTRIAN_SPEED;
                     const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                     // need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
-                    if (vtype != 0 && vtype->wasSet(VTYPEPARS_MAXSPEED_SET)) {
-                        speed = vtype->getMaxSpeed();
+                    if (vtype != 0) {
+                        speed = vtype->getMaxSpeed() * vtype->computeChosenSpeedDeviation(&myParsingRNG);
                     }
                     speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, speed);
                     if (speed <= 0) {
