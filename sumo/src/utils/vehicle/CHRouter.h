@@ -43,15 +43,10 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
-#include "SPTree.h"
+#include "CHBuilder.h"
 
 //#define CHRouter_DEBUG_QUERY
 //#define CHRouter_DEBUG_QUERY_PERF
-//#define CHRouter_DEBUG_CONTRACTION
-//#define CHRouter_DEBUG_CONTRACTION_WITNESSES
-//#define CHRouter_DEBUG_CONTRACTION_QUEUE
-//#define CHRouter_DEBUG_CONTRACTION_DEGREE
-//#define CHRouter_DEBUG_WEIGHTS
 
 // ===========================================================================
 // class definitions
@@ -74,30 +69,8 @@ template<class E, class V, class PF>
 class CHRouter: public SUMOAbstractRouter<E, V>, public PF {
 
 public:
-    class EdgeInfo;
-
     /// Type of the function that is used to retrieve the edge effort.
     typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
-
-    /// A meeting point of the two search scopes
-    typedef std::pair<const EdgeInfo*, const EdgeInfo*> Meeting;
-
-    /// A set of (found) Edges
-    typedef std::set<const E*> EdgeSet;
-
-    /// The found route (used as output parameter)
-    typedef std::vector<const E*> Result;
-
-    /// @brief Forward/backward connection with associated forward/backward cost
-    // forward connections are used only in forward search
-    // backward connections are used only in backwards search
-    class Connection {
-    public:
-        Connection(EdgeInfo* t, SUMOReal c, SVCPermissions p): target(t), cost(c), permissions(p) {}
-        EdgeInfo* target;
-        SUMOReal cost;
-        SVCPermissions permissions;
-    };
 
     /**
      * @struct EdgeInfo
@@ -126,15 +99,15 @@ public:
         /// Whether the shortest path to this edge is already found
         bool visited;
 
-        /// Connections to higher ranked nodes
-        std::vector<Connection> upward;
-
         inline void reset() {
             traveltime = std::numeric_limits<SUMOReal>::max();
             visited = false;
         }
     };
 
+
+    /// A meeting point of the two search scopes
+    typedef std::pair<const EdgeInfo*, const EdgeInfo*> Meeting;
 
     /**
      * @class Unidirectional
@@ -186,7 +159,7 @@ public:
                 (*i)->reset();
             }
             myFrontier.clear();
-            for (typename EdgeSet::iterator i = myFound.begin(); i != myFound.end(); i++) {
+            for (typename std::set<const E*>::const_iterator i = myFound.begin(); i != myFound.end(); i++) {
                 getEdgeInfo(*i)->reset();
             }
             myFound.clear();
@@ -198,11 +171,12 @@ public:
         }
 
 
+        typedef std::vector<typename CHBuilder<E,V>::Connection> ConnectionVector;
         /** @brief explore on element from the frontier,update minTTSeen and meeting
          * if an EdgeInfo found by the otherSearch is encountered
          * returns whether stepping should continue
          */
-        bool step(const Unidirectional& otherSearch, SUMOReal& minTTSeen, Meeting& meeting) {
+        bool step(const std::vector<ConnectionVector>& uplinks, const Unidirectional& otherSearch, SUMOReal& minTTSeen, Meeting& meeting) {
             // pop the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontier.front();
             pop_heap(myFrontier.begin(), myFrontier.end(), myComparator);
@@ -237,8 +211,9 @@ public:
             minimumInfo->visited = true;
             // XXX we only need to keep found elements if they have a higher rank than the lowest rank in the other search queue
             myFound.insert(minimumInfo->edge);
-            for (typename std::vector<Connection>::iterator it = minimumInfo->upward.begin(); it != minimumInfo->upward.end(); it++) {
-                EdgeInfo* upwardInfo = it->target;
+            const ConnectionVector& upward = uplinks[minEdge->getNumericalID()];
+            for (typename ConnectionVector::const_iterator it = upward.begin(); it != upward.end(); it++) {
+                EdgeInfo* upwardInfo = &myEdgeInfos[it->target];
                 const SUMOReal traveltime = minimumInfo->traveltime + it->cost;
                 const SUMOVehicleClass svc = myVehicle->getVClass();
                 // check whether it can be used
@@ -267,21 +242,13 @@ public:
             return !myFrontier.empty() && myFrontier.front()->traveltime < minTTSeen;
         }
 
-
-        // reset state before rebuilding the contraction hierarchy
-        void reset() {
-            for (typename std::vector<EdgeInfo>::iterator it = myEdgeInfos.begin(); it != myEdgeInfos.end(); ++it) {
-                it->upward.clear();
-            }
-        }
-
     private:
         /// @brief the role of this search
         bool myAmForward;
         /// @brief the min edge heap
         std::vector<EdgeInfo*> myFrontier;
         /// @brief the set of visited (settled) Edges
-        EdgeSet myFound;
+        std::set<const E*> myFound;
         /// @brief The container of edge information
         std::vector<EdgeInfo> myEdgeInfos;
 
@@ -290,24 +257,6 @@ public:
         const V* myVehicle;
 
     };
-
-    class CHInfo;
-
-    /// @brief Forward/backward connection with associated FORWARD cost
-    class CHConnection {
-    public:
-        CHConnection(CHInfo* t, SUMOReal c, SVCPermissions p, int u):
-            target(t), cost(c), permissions(p), underlying(u) {}
-        CHInfo* target;
-        SUMOReal cost;
-        SVCPermissions permissions;
-        /// the number of connections underlying this connection
-        int underlying;
-    };
-
-    typedef std::vector<CHConnection> CHConnections;
-    typedef std::pair<const CHConnection*, const CHConnection*> CHConnectionPair;
-    typedef std::vector<CHConnectionPair> CHConnectionPairs;
 
     /** @brief Constructor
      * @param[in] validatePermissions Whether a multi-permission hierarchy shall be built
@@ -323,46 +272,43 @@ public:
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myForwardSearch(edges, true),
         myBackwardSearch(edges, false),
-        mySPTree(new SPTree<CHInfo, CHConnection>(4, validatePermissions)),
+        myHierarchyBuilder(new CHBuilder<E, V>(edges, unbuildIsWarning, svc, validatePermissions)),
+        myHierarchy(0),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
-        mySVC(svc),
-        myUpdateCount(0) {
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myCHInfos.push_back(CHInfo(*i));
-        }
+        mySVC(svc) {
+    }
+
+    /** @brief Cloning constructor
+     */
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation,
+             const SUMOVehicleClass svc,
+             SUMOTime weightPeriod,
+             typename CHBuilder<E, V>::Hierarchy* hierarchy):
+        SUMOAbstractRouter<E, V>(operation, "CHRouter"),
+        myEdges(edges),
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        myForwardSearch(edges, true),
+        myBackwardSearch(edges, false),
+        myHierarchyBuilder(0),
+        myHierarchy(hierarchy),
+        myWeightPeriod(weightPeriod),
+        myValidUntil(0),
+        mySVC(svc) {
     }
 
     /// Destructor
     virtual ~CHRouter() {
-        delete mySPTree;
+        delete myHierarchyBuilder;
+        delete myHierarchy;
     }
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
         CHRouter<E, V, PF>* clone = new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
-                                      mySVC, myWeightPeriod, mySPTree->validatePermissions());
+                                      mySVC, myWeightPeriod, myHierarchy);
         clone->myValidUntil = myValidUntil;
-        // add outgoing connections to the forward search
-        for (typename std::vector<E*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-            EdgeInfo* origEdgeInfoFW = myForwardSearch.getEdgeInfo(*i);
-            EdgeInfo* clonedEdgeInfoFW = clone->myForwardSearch.getEdgeInfo(*i);
-            for (typename std::vector<Connection>::const_iterator it = origEdgeInfoFW->upward.begin(); it != origEdgeInfoFW->upward.end(); ++it) {
-                EdgeInfo* followerInfoFW = clone->myForwardSearch.getEdgeInfo(it->target->edge);
-                clonedEdgeInfoFW->upward.push_back(Connection(followerInfoFW, it->cost, it->permissions));
-            }
-        }
-        // add incoming connections to the backward search
-        for (typename std::vector<E*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-            EdgeInfo* origEdgeInfoBW = myBackwardSearch.getEdgeInfo(*i);
-            EdgeInfo* clonedEdgeInfoBW = clone->myBackwardSearch.getEdgeInfo(*i);
-            for (typename std::vector<Connection>::const_iterator it = origEdgeInfoBW->upward.begin(); it != origEdgeInfoBW->upward.end(); ++it) {
-                EdgeInfo* approachingInfoBW = clone->myBackwardSearch.getEdgeInfo(it->target->edge);
-                clonedEdgeInfoBW->upward.push_back(Connection(approachingInfoBW, it->cost, it->permissions));
-            }
-        }
-        clone->myShortcuts = myShortcuts;
         return clone;
     }
 
@@ -371,9 +317,9 @@ public:
      * the computed routes only approximated shortest paths in the real graph
      * */
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
-                         SUMOTime msTime, Result& into) {
+                         SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
-        assert(mySPTree->validatePermissions() || vehicle->getVClass() == mySVC || mySVC == SVC_IGNORING);
+        // assert(myHierarchyBuilder.mySPTree->validatePermissions() || vehicle->getVClass() == mySVC || mySVC == SVC_IGNORING);
         // do we need to rebuild the hierarchy?
         if (msTime >= myValidUntil) {
             while (msTime >= myValidUntil) {
@@ -394,11 +340,11 @@ public:
         bool result = true;
         while (continueForward || continueBackward) {
             if (continueForward) {
-                continueForward = myForwardSearch.step(myBackwardSearch, minTTSeen, meeting);
+                continueForward = myForwardSearch.step(myHierarchy->forwardUplinks, myBackwardSearch, minTTSeen, meeting);
                 num_visited_fw += 1;
             }
             if (continueBackward) {
-                continueBackward = myBackwardSearch.step(myForwardSearch, minTTSeen, meeting);
+                continueBackward = myBackwardSearch.step(myHierarchy->backwardUplinks, myForwardSearch, minTTSeen, meeting);
                 num_visited_bw += 1;
             }
         }
@@ -431,7 +377,7 @@ public:
     /// normal routing methods
 
     /// Builds the path from marked edges
-    void buildPathFromMeeting(Meeting meeting, Result& into) const {
+    void buildPathFromMeeting(Meeting meeting, std::vector<const E*>& into) const {
         std::deque<const E*> tmp;
         const EdgeInfo* backtrack = meeting.first;
         while (backtrack != 0) {
@@ -464,391 +410,29 @@ public:
         }
     }
 
-    /// contraction related members
-    typedef std::pair<const E*, const E*> ConstEdgePair;
-
-    struct Shortcut {
-        Shortcut(ConstEdgePair e, SUMOReal c, int u, SVCPermissions p):
-            edgePair(e), cost(c), underlying(u), permissions(p) {}
-        ConstEdgePair edgePair;
-        SUMOReal cost;
-        int underlying;
-        SVCPermissions permissions;
-    };
-
-    typedef std::vector<Shortcut> Shortcuts;
-    typedef std::map<ConstEdgePair, const E*> ShortcutVia;
-
-    /* @brief container class to use when building the contraction hierarchy.
-     * instances are reused every time the hierarchy is rebuilt (new time slice)
-     * but they must be synchronized first */
-    class CHInfo {
-    public:
-        /// @brief Constructor
-        CHInfo(const E* e) :
-            edge(e),
-            contractedNeighbors(0),
-            rank(-1),
-            level(0),
-            underlyingTotal(0),
-            visited(false),
-            traveltime(std::numeric_limits<SUMOReal>::max()) {
-        }
-
-        /// @brief recompute the contraction priority and report whether it changed
-        bool updatePriority(SPTree<CHInfo, CHConnection>* spTree) {
-            if (spTree != 0) {
-                updateShortcuts(spTree);
-                updateLevel();
-            } else {
-                contractedNeighbors += 1; // called when a connected edge was contracted
-            }
-            const SUMOReal oldPriority = priority;
-            // priority term as used by abraham []
-            const int edge_difference = (int)followers.size() + (int)approaching.size() - 2 * (int)shortcuts.size();
-            priority = (SUMOReal)(2 * edge_difference - contractedNeighbors - underlyingTotal - 5 * level);
-            return priority != oldPriority;
-        }
-
-        /// compute needed shortcuts when contracting this edge
-        void updateShortcuts(SPTree<CHInfo, CHConnection>* spTree) {
-            const bool validatePermissions = spTree->validatePermissions();
-#ifdef CHRouter_DEBUG_CONTRACTION_DEGREE
-            const int degree = (int)approaching.size() + (int)followers.size();
-            std::cout << "computing shortcuts for '" + edge->getID() + "' with degree " + toString(degree) + "\n";
-#endif
-            shortcuts.clear();
-            underlyingTotal = 0;
-            for (typename CHConnections::iterator it_a = approaching.begin(); it_a != approaching.end(); it_a++) {
-                CHConnection& aInfo = *it_a;
-                // build shortest path tree in a fixed neighborhood
-                spTree->rebuildFrom(aInfo.target, this);
-                for (typename CHConnections::iterator it_f = followers.begin(); it_f != followers.end(); it_f++) {
-                    CHConnection& fInfo = *it_f;
-                    const SUMOReal viaCost = aInfo.cost + fInfo.cost;
-                    const SVCPermissions viaPermissions = (aInfo.permissions & fInfo.permissions);
-                    if (fInfo.target->traveltime > viaCost) {
-                        // found no faster path -> we need a shortcut via edge
-#ifdef CHRouter_DEBUG_CONTRACTION_WITNESSES
-                        debugNoWitness(aInfo, fInfo);
-#endif
-                        const int underlying = aInfo.underlying + fInfo.underlying;
-                        underlyingTotal += underlying;
-                        shortcuts.push_back(Shortcut(ConstEdgePair(aInfo.target->edge, fInfo.target->edge),
-                                                     viaCost, underlying, viaPermissions));
-
-                    } else if (validatePermissions) {
-                        if ((fInfo.target->permissions & viaPermissions) != viaPermissions) {
-                            // witness has weaker restrictions. try to find another witness
-                            spTree->registerForValidation(&aInfo, &fInfo);
-                        } else {
-#ifdef CHRouter_DEBUG_CONTRACTION_WITNESSES
-                            debugNoWitness(aInfo, fInfo);
-#endif
-                        }
-                    } else {
-#ifdef CHRouter_DEBUG_CONTRACTION_WITNESSES
-                        debugNoWitness(aInfo, fInfo);
-#endif
-                    }
-                }
-            }
-            // insert shortcuts needed due to unmet permissions
-            if (validatePermissions) {
-                const CHConnectionPairs& pairs = spTree->getNeededShortcuts(this);
-                for (typename CHConnectionPairs::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
-                    const CHConnection* aInfo = it->first;
-                    const CHConnection* fInfo = it->second;
-                    const SUMOReal viaCost = aInfo->cost + fInfo->cost;
-                    const SVCPermissions viaPermissions = (aInfo->permissions & fInfo->permissions);
-                    const int underlying = aInfo->underlying + fInfo->underlying;
-                    underlyingTotal += underlying;
-                    shortcuts.push_back(Shortcut(ConstEdgePair(aInfo->target->edge, fInfo->target->edge),
-                                                 viaCost, underlying, viaPermissions));
-                }
-            }
-        }
-
-
-        // update level as defined by Abraham
-        void updateLevel() {
-            int maxLower = std::numeric_limits<int>::min();
-            int otherRank;
-            for (typename CHConnections::iterator it = approaching.begin(); it != approaching.end(); it++) {
-                otherRank = it->target->rank;
-                if (otherRank < rank) {
-                    maxLower = MAX2(rank, maxLower);
-                }
-            }
-            for (typename CHConnections::iterator it = followers.begin(); it != followers.end(); it++) {
-                otherRank = it->target->rank;
-                if (otherRank < rank) {
-                    maxLower = MAX2(rank, maxLower);
-                }
-            }
-            if (maxLower == std::numeric_limits<int>::min()) {
-                level = 0;
-            } else {
-                level = maxLower + 1;
-            }
-        }
-
-        // resets state before rebuilding the hierarchy
-        void resetContractionState() {
-            contractedNeighbors = 0;
-            rank = -1;
-            level = 0;
-            underlyingTotal = 0;
-            shortcuts.clear();
-            followers.clear();
-            approaching.clear();
-        }
-
-
-        /// @brief The current edge - not const since it may receive shortcut edges
-        const E* edge;
-        /// @brief The contraction priority
-        SUMOReal priority;
-        /// @brief The needed shortcuts
-        Shortcuts shortcuts;
-        /// @brief priority subterms
-        int contractedNeighbors;
-        int rank;
-        int level;
-        int underlyingTotal;
-
-        /// @brief connections (only valid after synchronization)
-        CHConnections followers;
-        CHConnections approaching;
-
-
-        /// members used in SPTree
-        bool visited;
-        /// Effort to reach the edge
-        SUMOReal traveltime;
-        /// number of edges from start
-        int depth;
-        /// the permissions when reaching this edge on the fastest path
-        // @note: we may miss some witness paths by making traveltime the only
-        // criteria durinng search
-        SVCPermissions permissions;
-
-        inline void reset() {
-            traveltime = std::numeric_limits<SUMOReal>::max();
-            visited = false;
-        }
-
-
-        /// debugging methods
-        inline void debugNoWitness(const CHConnection& aInfo, const CHConnection& fInfo) {
-            std::cout << "adding shortcut between " << aInfo.target->edge->getID() << ", " << fInfo.target->edge->getID() << " via " << edge->getID() << "\n";
-        }
-
-        inline void debugWitness(const CHConnection& aInfo, const CHConnection& fInfo) {
-            const SUMOReal viaCost = aInfo.cost + fInfo.cost;
-            std::cout << "found witness with lenght " << fInfo.target->traveltime << " against via " << edge->getID() << " (length " << viaCost << ") for " << aInfo.target->edge->getID() << ", " << fInfo.target->edge->getID() << "\n";
-        }
-
-    };
-
-private:
-
-    /**
-     * @class EdgeInfoByRankComparator
-     * Class to compare (and so sort) nodes by their contraction priority
-     */
-    class CHInfoComparator {
-    public:
-        /// Comparing method
-        bool operator()(const CHInfo* a, const CHInfo* b) const {
-            if (a->priority == b->priority) {
-                return a->edge->getNumericalID() > b->edge->getNumericalID();
-            } else {
-                return a->priority < b->priority;
-            };
-        }
-    };
-
-
-    inline CHInfo* getCHInfo(const E* const edge) {
-        return &(myCHInfos[edge->getNumericalID()]);
-    }
-
-
-    /// @brief copy connections from the original net (modified destructively during contraction)
-    void synchronize(CHInfo& info, SUMOReal time, const V* const vehicle) {
-        // forward and backward connections are used only in forward search,
-        // thus approaching costs are those of the approaching edge and not of the edge itself
-        const bool prune = !mySPTree->validatePermissions();
-        const E* const edge = info.edge;
-        if (prune && ((edge->getPermissions() & mySVC) != mySVC)) {
-            return;
-        }
-        const SUMOReal cost = this->getEffort(edge, vehicle, time);
-
-        const std::vector<E*>& successors = edge->getSuccessors(mySVC);
-        for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-            const E* fEdge = *it;
-            if (prune && ((fEdge->getPermissions() & mySVC) != mySVC)) {
-                continue;
-            }
-            CHInfo* follower = getCHInfo(fEdge);
-            SVCPermissions permissions = (edge->getPermissions() & follower->edge->getPermissions());
-            info.followers.push_back(CHConnection(follower, cost, permissions, 1));
-            follower->approaching.push_back(CHConnection(&info, cost, permissions, 1));
-        }
-#ifdef CHRouter_DEBUG_WEIGHTS
-        std::cout << time << ": " << edge->getID() << " cost: " << cost << "\n";
-#endif
-        // @todo: check whether we even need to save approaching in ROEdge;
-    }
-
-
-    /// @brief remove all connections to/from the given edge (assume it exists only once)
-    void disconnect(CHConnections& connections, CHInfo* other) {
-        for (typename CHConnections::iterator it = connections.begin(); it != connections.end(); it++) {
-            if (it->target == other) {
-                connections.erase(it);
-                return;
-            }
-        }
-        assert(false);
-    }
-
-public:
     void buildContractionHierarchy(SUMOTime time, const V* const vehicle) {
-        const int numEdges = (int)myCHInfos.size();
-        const std::string vClass = (mySPTree->validatePermissions() ?
-                                    "all vehicle classes " : "vClass='" + SumoVehicleClassStrings.getString(mySVC) + "' ");
-        PROGRESS_BEGIN_MESSAGE("Building Contraction Hierarchy for " + vClass
-                               + "and time=" + time2string(time) + " (" + toString(numEdges) + " edges)\n");
-        const long startMillis = SysUtils::getCurrentMillis();
-        // init queue
-        std::vector<CHInfo*> queue; // max heap: edge to be contracted is front
-        myShortcuts.clear();
-        // reset previous connections etc
-        myForwardSearch.reset();
-        myBackwardSearch.reset();
-        for (int i = 0; i < numEdges; i++) {
-            myCHInfos[i].resetContractionState();
-        }
-        // copy connections from the original net
-        const SUMOReal time_seconds = STEPS2TIME(time); // timelines store seconds!
-        for (int i = 0; i < numEdges; i++) {
-            synchronize(myCHInfos[i], time_seconds, vehicle);
-        }
-        // synchronization is finished. now we can compute priorities for the first time
-        for (int i = 0; i < numEdges; i++) {
-            myCHInfos[i].updatePriority(mySPTree);
-            queue.push_back(&(myCHInfos[i]));
-        }
-        make_heap(queue.begin(), queue.end(), myCmp);
-        int contractionRank = 0;
-        // contraction loop
-        while (!queue.empty()) {
-            while (tryUpdateFront(queue)) {}
-            CHInfo* max = queue.front();
-            max->rank = contractionRank;
-#ifdef CHRouter_DEBUG_CONTRACTION
-            std::cout << "contracting '" << max->edge->getID() << "' with prio: " << max->priority << " (rank " << contractionRank << ")\n";
-#endif
-            const E* const edge = max->edge;
-            // add outgoing connections to the forward search
-            EdgeInfo* edgeInfoFW = myForwardSearch.getEdgeInfo(edge);
-            for (typename CHConnections::iterator it = max->followers.begin(); it != max->followers.end(); it++) {
-                CHConnection& con = *it;
-                EdgeInfo* followerInfoFW = myForwardSearch.getEdgeInfo(con.target->edge);
-                edgeInfoFW->upward.push_back(Connection(followerInfoFW, con.cost, con.permissions));
-                disconnect(con.target->approaching, max);
-                con.target->updatePriority(0);
-            }
-            // add incoming connections to the backward search
-            EdgeInfo* edgeInfoBW = myBackwardSearch.getEdgeInfo(edge);
-            for (typename CHConnections::iterator it = max->approaching.begin(); it != max->approaching.end(); it++) {
-                CHConnection& con = *it;
-                EdgeInfo* approachingInfoBW = myBackwardSearch.getEdgeInfo(con.target->edge);
-                edgeInfoBW->upward.push_back(Connection(approachingInfoBW, con.cost, con.permissions));
-                disconnect(con.target->followers, max);
-                con.target->updatePriority(0);
-            }
-            // add shortcuts to the net
-            for (typename Shortcuts::iterator it = max->shortcuts.begin(); it != max->shortcuts.end(); it++) {
-                const ConstEdgePair& edgePair = it->edgePair;
-                myShortcuts[edgePair] = edge;
-                CHInfo* from = getCHInfo(edgePair.first);
-                CHInfo* to = getCHInfo(edgePair.second);
-                from->followers.push_back(CHConnection(to, it->cost, it->permissions, it->underlying));
-                to->approaching.push_back(CHConnection(from, it->cost, it->permissions, it->underlying));
-            }
-            // remove from queue
-            pop_heap(queue.begin(), queue.end(), myCmp);
-            queue.pop_back();
-            /*
-            if (contractionRank % 10000 == 0) {
-                // update all and rebuild queue
-                for (typename std::vector<CHInfo*>::iterator it = queue.begin(); it != queue.end(); ++it) {
-                    (*it)->updatePriority(mySPTree);
-                }
-                make_heap(queue.begin(), queue.end(), myCmp);
-            }
-            */
-            contractionRank++;
-        }
-        // reporting
-        const long duration = SysUtils::getCurrentMillis() - startMillis;
-        WRITE_MESSAGE("Created " + toString(myShortcuts.size()) + " shortcuts.");
-        WRITE_MESSAGE("Recomputed priority " + toString(myUpdateCount) + " times.");
-        MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(duration) + "ms).");
-        PROGRESS_DONE_MESSAGE();
+        delete myHierarchy;
+        myHierarchy = myHierarchyBuilder->buildContractionHierarchy(time, vehicle, this);
         // declare new validUntil (prevent overflow)
         if (myWeightPeriod < std::numeric_limits<int>::max()) {
             myValidUntil = time + myWeightPeriod;
         } else {
             myValidUntil = myWeightPeriod;
         }
-        myUpdateCount = 0;
     }
 
 private:
     // retrieve the via edge for a shortcut
     const E* getVia(const E* forwardFrom, const E* forwardTo) const {
-        ConstEdgePair forward(forwardFrom, forwardTo);
-        typename ShortcutVia::const_iterator it = myShortcuts.find(forward);
-        if (it != myShortcuts.end()) {
+        typename CHBuilder<E,V>::ConstEdgePair forward(forwardFrom, forwardTo);
+        typename CHBuilder<E,V>::ShortcutVia::const_iterator it = myHierarchy->shortcuts.find(forward);
+        if (it != myHierarchy->shortcuts.end()) {
             return it->second;
         } else {
             return 0;
         }
     }
 
-
-    /** @brief tries to update the priority of the first edge
-     * @return wether updating changed the first edge
-     */
-    bool tryUpdateFront(std::vector<CHInfo*>& queue) {
-        myUpdateCount++;
-        CHInfo* max = queue.front();
-#ifdef CHRouter_DEBUG_CONTRACTION_QUEUE
-        std::cout << "updating '" << max->edge->getID() << "'\n";
-        debugPrintQueue(queue);
-#endif
-        if (max->updatePriority(mySPTree)) {
-            pop_heap(queue.begin(), queue.end(), myCmp);
-            push_heap(queue.begin(), queue.end(), myCmp);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // helper method for debugging
-    void debugPrintQueue(std::vector<CHInfo*>& queue) {
-        for (typename std::vector<CHInfo*>::iterator it = queue.begin(); it != queue.end(); it++) {
-            CHInfo* chInfo = *it;
-            std::cout << "(" << chInfo->edge->getID() << "," << chInfo->priority << ") ";
-        }
-        std::cout << "\n";
-    }
 
 private:
     /// @brief all edges with numerical ids
@@ -861,17 +445,8 @@ private:
     Unidirectional myForwardSearch;
     Unidirectional myBackwardSearch;
 
-    /// @brief map from (forward) shortcut to via-Edge
-    ShortcutVia myShortcuts;
-
-    /// @brief static vector for lookup
-    std::vector<CHInfo> myCHInfos;
-
-    /// @brief Comparator for contraction priority
-    CHInfoComparator myCmp;
-
-    /// @brief the shortest path tree to use when searching for shortcuts
-    SPTree<CHInfo, CHConnection>* mySPTree;
+    CHBuilder<E, V>* myHierarchyBuilder;
+    const typename CHBuilder<E, V>::Hierarchy* myHierarchy;
 
     /// @brief the validity duration of one weight interval
     const SUMOTime myWeightPeriod;
@@ -881,9 +456,6 @@ private:
 
     /// @brief the permissions for which the hierarchy was constructed
     const SUMOVehicleClass mySVC;
-
-    /// @brief counters for performance logging
-    int myUpdateCount;
 };
 
 
