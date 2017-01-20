@@ -734,15 +734,7 @@ GNELane::getAdditionalChilds() const {
 
 bool
 GNELane::isRestricted(SUMOVehicleClass vclass) const {
-    if (vclass == SVC_PEDESTRIAN) {
-        return (myParentEdge.getNBEdge()->getPermissions(myIndex) == 1048576);
-    } else if (vclass == SVC_BICYCLE) {
-        return (myParentEdge.getNBEdge()->getPermissions(myIndex) == 524288);
-    } else if (vclass == SVC_BUS) {
-        return (myParentEdge.getNBEdge()->getPermissions(myIndex) == 256);
-    } else {
-        return false;
-    }
+    return myParentEdge.getNBEdge()->getPermissions(myIndex) == vclass;
 }
 
 
