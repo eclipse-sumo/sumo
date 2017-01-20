@@ -60,6 +60,8 @@ def get_options(args=None):
                          help="generates weights files for visualisation")
     optParser.add_option("--pedestrians", action="store_true",
                          default=False, help="create a person file with pedestrian trips instead of vehicle trips")
+    optParser.add_option("--persontrips", action="store_true",
+                         default=False, help="create a person file with person trips instead of vehicle trips")
     optParser.add_option("--prefix", dest="tripprefix",
                          default="", help="prefix for the trip ids")
     optParser.add_option("-t", "--trip-attributes", dest="tripattrs",
@@ -103,6 +105,9 @@ def get_options(args=None):
     if not options.netfile:
         optParser.print_help()
         sys.exit(1)
+
+    if options.persontrips:
+        options.pedestrians = True
 
     if options.pedestrians:
         options.vclass = 'pedestrian'
@@ -260,12 +265,30 @@ def buildTripGenerator(net, options):
 
     return RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate, options.pedestrians)
 
-
 def is_walk_attribute(attr):
     for cand in ['departPos', 'arrivalPos', 'speed', 'duration', 'busStop']:
         if cand in attr:
             return True
     return False
+
+def is_persontrip_attribute(attr):
+    for cand in ['vTypes', 'modes']:
+        if cand in attr:
+            return True
+    return False
+
+
+def split_trip_attributes(tripattrs):
+    # figure out which of the tripattrs belong to the <person> and which
+    # belong to the <walk> or <persontrip>
+    personattrs = []
+    otherattrs = []
+    for a in tripattrs.split():
+        if is_walk_attribute(a) or is_persontrip_attribute(a):
+            otherattrs.append(a)
+        else:
+            personattrs.append(a)
+    return ' '.join(personattrs), ' '.join(otherattrs)
 
 
 def main(options):
@@ -283,12 +306,7 @@ def main(options):
     idx = 0
 
     if options.pedestrians:
-        # figure out which of the tripattrs belong to the <person> and which
-        # belong to the <walk>
-        walkattrs = ' '.join(
-            [a for a in options.tripattrs.split() if is_walk_attribute(a)])
-        personattrs = ' '.join(
-            [a for a in options.tripattrs.split() if not is_walk_attribute(a)])
+        personattrs, otherattrs = split_trip_attributes(options.tripattrs)
 
     def generate_one(idx):
         label = "%s%s" % (options.tripprefix, idx)
@@ -302,8 +320,12 @@ def main(options):
             if options.pedestrians:
                 fouttrips.write(
                     '    <person id="%s" depart="%.2f" %s>\n' % (label, depart, personattrs))
-                fouttrips.write(
-                    '        <walk from="%s" to="%s" %s/>\n' % (source_edge.getID(), sink_edge.getID(), walkattrs))
+                if options.persontrips:
+                    fouttrips.write(
+                            '        <personTrip from="%s" to="%s" %s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
+                else:
+                    fouttrips.write(
+                            '        <walk from="%s" to="%s" %s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 fouttrips.write('    </person>\n')
             else:
                 fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (

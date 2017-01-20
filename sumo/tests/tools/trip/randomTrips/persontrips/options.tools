@@ -1,0 +1,2 @@
+-n net.net.xml -s 42 --persontrips -e 100 --min-distance 1 --trip-attributes
+'departPos="random" color="red" modes="public"'

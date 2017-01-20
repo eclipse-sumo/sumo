@@ -35,6 +35,9 @@ no_valid_intermediate_edges
 no_valid_intermediate_edges_fail
 pedestrians
 
+# generate random persontrips
+persontrips
+
 # use binomially distributed arrivals
 binomial
 
