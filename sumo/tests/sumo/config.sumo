@@ -78,6 +78,8 @@ output:^Performance:{->}^Vehicles:
 output:Building Contraction Hierarchy{[->]}Simulation ended
 output:ms answering queries
 output:answered [0-9]* queries{REPLACE answered (NUMBER) queries}
+output:--python-script
+output:--osg-view{LINES 2}
 calibrator_log:<!--{[->]}-->
 detector:<!--{[->]}-->
 summary:<!--{[->]}-->
@@ -138,6 +140,11 @@ errors:primary document entity.*{REPLACE primary document entity <path_to_file>}
 output:movereminder-output{LINES 2}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
+cfg:<python-script
+cfg:embedded python
+cfg:<osg-view
+cfg:OpenSceneGraph
+cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 
