@@ -176,6 +176,8 @@ public:
                 from->followers.push_back(CHConnection(to, it->cost, it->permissions, it->underlying));
                 to->approaching.push_back(CHConnection(from, it->cost, it->permissions, it->underlying));
             }
+            // if you need to debug the chrouter with MSVC uncomment the following line, hierarchy building will get slower and the hierarchy may change though
+            //make_heap(queue.begin(), queue.end(), myCmp);
             // remove from queue
             pop_heap(queue.begin(), queue.end(), myCmp);
             queue.pop_back();

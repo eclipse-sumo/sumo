@@ -284,7 +284,7 @@ public:
     CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
-             typename CHBuilder<E, V>::Hierarchy* hierarchy):
+             typename const CHBuilder<E, V>::Hierarchy* hierarchy):
         SUMOAbstractRouter<E, V>(operation, "CHRouter"),
         myEdges(edges),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
@@ -299,8 +299,10 @@ public:
 
     /// Destructor
     virtual ~CHRouter() {
-        delete myHierarchyBuilder;
-        delete myHierarchy;
+        if (myHierarchyBuilder != 0) {
+            delete myHierarchy;
+            delete myHierarchyBuilder;
+        }
     }
 
 
@@ -411,8 +413,10 @@ public:
     }
 
     void buildContractionHierarchy(SUMOTime time, const V* const vehicle) {
-        delete myHierarchy;
-        myHierarchy = myHierarchyBuilder->buildContractionHierarchy(time, vehicle, this);
+        if (myHierarchyBuilder != 0) {
+            delete myHierarchy;
+            myHierarchy = myHierarchyBuilder->buildContractionHierarchy(time, vehicle, this);
+        }
         // declare new validUntil (prevent overflow)
         if (myWeightPeriod < std::numeric_limits<int>::max()) {
             myValidUntil = time + myWeightPeriod;
@@ -446,7 +450,7 @@ private:
     Unidirectional myBackwardSearch;
 
     CHBuilder<E, V>* myHierarchyBuilder;
-    const typename CHBuilder<E, V>::Hierarchy* myHierarchy;
+    typename const CHBuilder<E, V>::Hierarchy* myHierarchy;
 
     /// @brief the validity duration of one weight interval
     const SUMOTime myWeightPeriod;
