@@ -215,9 +215,10 @@ public:
      */
     void duplicateLane(GNELane* lane, GNEUndoList* undoList);
 
+    
     /**@brief transform lane to restricted lane
      * @param[in] vclass vehicle class to restrict
-     * @param[in] lane The lane to be trasformed
+     * @param[in] lane The lane to be transformed
      * @param[in] undoList The undolist in which to mark changes
      */
     bool restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoList);

@@ -426,28 +426,27 @@ GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList) {
 
 bool
 GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoList) {
-    // First check that edge don't have a sidewalk
-    GNEEdge& edge = lane->getParentEdge();
-    for (std::vector<GNELane*>::const_iterator i = edge.getLanes().begin(); i != edge.getLanes().end(); i++) {
-        if ((*i)->isRestricted(vclass)) {
-            return false;
+    bool addRestriction = true;
+    if (vclass == SVC_PEDESTRIAN) {
+        GNEEdge& edge = lane->getParentEdge();
+        for (std::vector<GNELane*>::const_iterator i = edge.getLanes().begin(); i != edge.getLanes().end(); i++) {
+            if ((*i)->isRestricted(SVC_PEDESTRIAN)) {
+                // prevent adding a 2nd sidewalk
+                addRestriction = false;
+            } else {
+                // ensure that the sidewalk is used exclusively
+                const SVCPermissions allOldWithoutPeds = edge.getNBEdge()->getPermissions((*i)->getIndex()) & ~SVC_PEDESTRIAN;
+                (*i)->setAttribute(SUMO_ATTR_ALLOW, getVehicleClassNames(allOldWithoutPeds), undoList);
+            }
         }
     }
-    // Get all possible vehicle classes
-    std::vector<std::string> VClasses = SumoVehicleClassStrings.getStrings();
-    std::vector<std::string> disallowedVClasses;
-    std::string restriction = toString(vclass);
-    std::string ignoring = toString(SVC_IGNORING);
-    // Iterate over vehicle classes to filter
-    for (int i = 0; i < (int)VClasses.size(); i++) {
-        if ((VClasses.at(i) != restriction) && (VClasses.at(i) != ignoring)) {
-            disallowedVClasses.push_back(VClasses.at(i));
-        }
+    // restrict the lane
+    if (addRestriction) {
+        lane->setAttribute(SUMO_ATTR_ALLOW, toString(vclass), undoList);
+        return true;
+    } else {
+        return false;
     }
-    // Change allow and disallow attributes of lane
-    lane->setAttribute(SUMO_ATTR_ALLOW, restriction, undoList);
-    lane->setAttribute(SUMO_ATTR_DISALLOW, joinToString(disallowedVClasses, " "), undoList);
-    return true;
 }
 
 
@@ -480,7 +479,7 @@ GNENet::addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* 
     // duplicate last lane
     duplicateLane(edge.getLanes().at(0), undoList);
     // transform the created (last) lane to a sidewalk
-    return restrictLane(vclass, edge.getLanes().at(0), undoList);
+    return restrictLane(vclass, edge.getLanes()[0], undoList);
 }
 
 
