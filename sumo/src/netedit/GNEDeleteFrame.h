@@ -78,12 +78,18 @@ public:
 
     long onCmdShowMenu(FXObject*, FXSelector, void*);
 
+    long onCmdCenterItem(FXObject*, FXSelector, void*);
+
+    long onCmdInspectItem(FXObject*, FXSelector, void*);
+
+    long onCmdDeleteItem(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief FOX needs this
     GNEDeleteFrame() {}
 
-    // @brief create pop-up menu
-    void createPopUpMenu();
+    // @brief create pop-up menu in the positions X-y
+    void createPopUpMenu(int X, int Y, std::string acID);
 
 private:
     /// @brief groupbox for current element
@@ -109,6 +115,9 @@ private:
 
     /// @brief tree list to show the childs of the element to erase
     FXTreeList *myTreelist;
+
+    /// @brief map used to save the Tree items with their AC
+    std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
 
     /// @brief pointer to marked attributeCarrier(element)
     GNEAttributeCarrier *myMarkedAc;

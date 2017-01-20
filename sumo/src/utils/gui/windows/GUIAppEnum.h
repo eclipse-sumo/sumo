@@ -635,6 +635,12 @@ enum {
     MID_GNE_CREATE_CROSSING,
     /// @brief Size of frame area updated 
     MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED,
+    /// @brief In GNEDeleteFrame, center element
+    MID_GNE_DELETEFRAME_CENTER,
+    /// @brief In GNEDeleteFrame, inspect element
+    MID_GNE_DELETEFRAME_INSPECT,
+    /// @brief In GNEDeleteFrame, delete element
+    MID_GNE_DELETEFRAME_DELETE,
     /// @}
 
     MID_LAST
