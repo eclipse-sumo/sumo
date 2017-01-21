@@ -214,6 +214,16 @@ enum GUIIcon {
     ICON_OPTIONS,
     /// @}
 
+    /// @name netedit netElements icons
+    /// @{
+    ICON_JUNCTION,
+    ICON_EDGE,
+    ICON_LANE,
+    ICON_CONNECTION,
+    ICON_PROHIBITION,
+    ICON_CROSSING,
+    /// @}
+
     /// @name netedit additional icons
     /// @{
     ICON_BUSSTOP,

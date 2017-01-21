@@ -145,6 +145,13 @@
 #include "joinjunctions.xpm"
 #include "options.xpm"
 
+#include "junction.xpm"
+#include "edge.xpm"
+#include "lane.xpm"
+#include "connection.xpm"
+#include "prohibition.xpm"
+#include "crossing.xpm"
+
 #include "busstop.xpm"
 #include "chargingstation.xpm"
 #include "containerstop.xpm"
@@ -296,6 +303,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[ICON_JOINJUNCTIONS] = new FXXPMIcon(a, joinjunctions_xpm);
     myIcons[ICON_OPTIONS] = new FXXPMIcon(a, options_xpm);
+
+    myIcons[ICON_JUNCTION] = new FXXPMIcon(a, junction_xpm);
+    myIcons[ICON_EDGE] = new FXXPMIcon(a, edge_xpm);
+    myIcons[ICON_LANE] = new FXXPMIcon(a, lane_xpm);
+    myIcons[ICON_CONNECTION] = new FXXPMIcon(a, connection_xpm);
+    myIcons[ICON_PROHIBITION] = new FXXPMIcon(a, prohibition_xpm);
+    myIcons[ICON_CROSSING] = new FXXPMIcon(a, crossing_xpm);
 
     myIcons[ICON_BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
     myIcons[ICON_CONTAINERSTOP] = new FXXPMIcon(a, containerstop_xpm);
