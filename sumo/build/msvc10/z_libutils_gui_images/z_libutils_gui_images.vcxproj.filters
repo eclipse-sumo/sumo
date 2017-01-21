@@ -471,5 +471,23 @@
     <None Include="..\..\..\src\utils\gui\images\calibrator.xpm">
       <Filter>Icons</Filter>
     </None>
+    <None Include="..\..\..\src\utils\gui\images\junction.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lane.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\edge.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\connection.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\prohibition.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\crossing.xpm">
+      <Filter>Icons</Filter>
+    </None>
   </ItemGroup>
 </Project>

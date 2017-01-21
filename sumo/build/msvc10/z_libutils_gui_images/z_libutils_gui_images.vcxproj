@@ -171,9 +171,11 @@
     <None Include="..\..\..\src\utils\gui\images\colour_lane.xpm" />
     <None Include="..\..\..\src\utils\gui\images\colour_vehicle.xpm" />
     <None Include="..\..\..\src\utils\gui\images\computejunctions.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\connection.xpm" />
     <None Include="..\..\..\src\utils\gui\images\cont.xpm" />
     <None Include="..\..\..\src\utils\gui\images\containerstop.xpm" />
     <None Include="..\..\..\src\utils\gui\images\create_graph.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\crossing.xpm" />
     <None Include="..\..\..\src\utils\gui\images\cut.xpm" />
     <None Include="..\..\..\src\utils\gui\images\dilate.xpm" />
     <None Include="..\..\..\src\utils\gui\images\document.xpm" />
@@ -182,6 +184,7 @@
     <None Include="..\..\..\src\utils\gui\images\e3.xpm" />
     <None Include="..\..\..\src\utils\gui\images\e3entry.xpm" />
     <None Include="..\..\..\src\utils\gui\images\e3exit.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\edge.xpm" />
     <None Include="..\..\..\src\utils\gui\images\edit_graph.xpm" />
     <None Include="..\..\..\src\utils\gui\images\erase_stains.xpm" />
     <None Include="..\..\..\src\utils\gui\images\erode.xpm" />
@@ -191,6 +194,8 @@
     <None Include="..\..\..\src\utils\gui\images\fileopen.xpm" />
     <None Include="..\..\..\src\utils\gui\images\fileprint.xpm" />
     <None Include="..\..\..\src\utils\gui\images\filesave.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\junction.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lane.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modeadditional.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modeconnection.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modecreateedge.xpm" />
@@ -233,6 +238,7 @@
     <None Include="..\..\..\src\utils\gui\images\paintbrush4x.xpm" />
     <None Include="..\..\..\src\utils\gui\images\paintbrush5x.xpm" />
     <None Include="..\..\..\src\utils\gui\images\play.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\prohibition.xpm" />
     <None Include="..\..\..\src\utils\gui\images\rarify.xpm" />
     <None Include="..\..\..\src\utils\gui\images\recenter_view.xpm" />
     <None Include="..\..\..\src\utils\gui\images\redo.xpm" />

@@ -142,7 +142,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                     // insert lanes
                     for(int j = 0; j < edge->getLanes().size(); j++) {
                         GNELane *lane = edge->getLanes().at(j);
-                        FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(j)).c_str(), edge->getIcon(), edge->getIcon());
+                        FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(j)).c_str(), lane->getIcon(), lane->getIcon());
                         myTreeItemToACMap[laneItem] = lane;
                         laneItem->setExpanded(true);
                         // insert additionals of lanes
@@ -180,7 +180,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                 // insert lanes
                 for(int i = 0; i < edge->getLanes().size(); i++) {
                     GNELane *lane = edge->getLanes().at(i);
-                    FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(i)).c_str(), edge->getIcon(), edge->getIcon());
+                    FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(i)).c_str(), lane->getIcon(), lane->getIcon());
                     myTreeItemToACMap[laneItem] = lane;
                     laneItem->setExpanded(true);
                     // insert additionals of lanes
