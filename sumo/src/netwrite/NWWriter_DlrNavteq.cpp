@@ -256,7 +256,9 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                 << 0 << "\t" 
                 << i->first << "\n";
         }
+        namesDevice.close();
     }
+    device.close();
 }
 
 
@@ -468,6 +470,7 @@ NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {
             }
         }
     }
+    device.close();
 }
 
 
@@ -511,6 +514,7 @@ NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, const NBNod
             }
         }
     }
+    device.close();
 }
 
 
@@ -544,6 +548,7 @@ NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
             }
         }
     }
+    device.close();
 }
 
 /****************************************************************************/
