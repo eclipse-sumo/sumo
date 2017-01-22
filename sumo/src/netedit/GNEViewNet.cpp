@@ -640,9 +640,13 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 if (ac) {
                     // if pointed element is an attribute carrier, remove it or mark it
                     if(markElementMode) {
-                        myViewParent->getDeleteFrame()->markAttributeCarrier(ac);
+                        if(myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != ac) {
+                            myViewParent->getDeleteFrame()->markAttributeCarrier(ac);
+                            myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
+                        }
                     } else if(myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != NULL) {
                         myViewParent->getDeleteFrame()->markAttributeCarrier(NULL);
+                        myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
                     } else {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(ac);
                     }   
@@ -839,8 +843,12 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             int glid = getObjectUnderCursor();
             GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(glid));
             GUIGlObjectStorage::gIDStorage.unblockObject(glid);
-            // show childs of object in GNEDeleteFrame
-            myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
+            // Update current label of delete frame
+            myViewParent->getDeleteFrame()->updateCurrentLabel(ac);
+            // show childs of object in GNEDeleteFrame if current there isn't a marked element
+            if(myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() == NULL) {
+                myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
+            }
         }
     } else {
         if (myPolyToMove) {

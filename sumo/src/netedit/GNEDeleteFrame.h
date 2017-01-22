@@ -59,7 +59,7 @@ public:
     /// @brief Destructor
     ~GNEDeleteFrame();
 
-    /// @brief show child of attributeCarrier (element) in frame
+    /// @brief show child of attributeCarrier in frame if previously there isn't a marked element
     void showAttributeCarrierChilds(GNEAttributeCarrier *ac);
 
     /// @brief remove attribute carrier (element)
@@ -69,6 +69,9 @@ public:
      * @note if ac == NULL current marked attribute carrier will be dismarked
      */
     void markAttributeCarrier(GNEAttributeCarrier *ac);
+
+    /// @brief update current label
+    void updateCurrentLabel(GNEAttributeCarrier *ac);
 
     /// @brief returns marked atrribute carrier
     GNEAttributeCarrier *getMarkedAttributeCarrier() const;
@@ -88,8 +91,8 @@ protected:
     /// @brief FOX needs this
     GNEDeleteFrame() {}
 
-    // @brief create pop-up menu in the positions X-y
-    void createPopUpMenu(int X, int Y, std::string acID);
+    // @brief create pop-up menu in the positions X-Y for the attribute carrier ac
+    void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
 
 private:
     /// @brief groupbox for current element
@@ -119,11 +122,14 @@ private:
     /// @brief map used to save the Tree items with their AC
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
 
-    /// @brief pointer to marked attributeCarrier(element)
+    /// @brief set used to save tree items without AC assigned (for example, Incoming/Outcoming connections)
+    std::set<FXTreeItem*> myTreeItesmWithoutAC;
+
+    /// @brief pointer to marked attributeCarrier (element)
     GNEAttributeCarrier *myMarkedAc;
 
     /// @brief current attribute carrier selected in three
-    GNEAttributeCarrier *mySelectedAc;
+    GNEAttributeCarrier *myClickedAc;
 };
 
 
