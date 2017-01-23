@@ -5,7 +5,6 @@
     <input>
         <node-files value="input_net.nod.xml"/>
         <edge-files value="input_net.edg.xml"/>
-        <connection-files value="input_net.con.xml"/>
     </input>
 
     <output>

@@ -38,8 +38,15 @@ netedit.modifyCrossingEdges(match, "1 5")
 netedit.createCrossing(match)
 netedit.rebuildNetwork()
 
-# create single crossing
+# create single crossing (fail)
 netedit.modifyCrossingEdges(match, "4")
+netedit.createCrossing(match)
+netedit.rebuildNetwork()
+
+# create split crossing
+netedit.modifyCrossingEdges(match, "4")
+netedit.createCrossing(match)
+netedit.modifyCrossingEdges(match, "8")
 netedit.createCrossing(match)
 netedit.rebuildNetwork()
 
