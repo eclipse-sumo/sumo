@@ -412,12 +412,6 @@ GNEDeleteFrame::getMarkedAttributeCarrier() const {
 
 
 long 
-GNEDeleteFrame::onCmdSelectItem(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
-
-long 
 GNEDeleteFrame::onCmdShowMenu(FXObject*, FXSelector, void* data) {
     // Obtain event
     FXEvent* e = (FXEvent*) data;

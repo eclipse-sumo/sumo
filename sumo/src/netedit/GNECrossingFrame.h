@@ -86,8 +86,6 @@ public:
         /// @brief return selected color
         const RGBColor &getSelectedColor() const;
 
-
-
         /// @name FOX-callbacks
         /// @{
         /// @brief called when useSelectedEdges button edge is pressed

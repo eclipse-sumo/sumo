@@ -76,16 +76,20 @@ public:
     /// @brief returns marked atrribute carrier
     GNEAttributeCarrier *getMarkedAttributeCarrier() const;
 
-
-    long onCmdSelectItem(FXObject*, FXSelector, void*);
-
+    /// @name FOX-callbacks
+    /// @{
+    /// @brief called when user press right click over an item of list of childs
     long onCmdShowMenu(FXObject*, FXSelector, void*);
 
+    /// @brief called when user select option "center item" of child Menu
     long onCmdCenterItem(FXObject*, FXSelector, void*);
 
+    /// @brief called when user select option "inspect item" of child menu
     long onCmdInspectItem(FXObject*, FXSelector, void*);
 
+    /// @brief called when user select option "delte item" of child menu
     long onCmdDeleteItem(FXObject*, FXSelector, void*);
+    /// @}
 
 protected:
     /// @brief FOX needs this
