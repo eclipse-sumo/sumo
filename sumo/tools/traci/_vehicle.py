@@ -746,16 +746,13 @@ class VehicleDomain(Domain):
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None Reroutes a vehicle. If
         currentTravelTimes is True (default) then the current traveltime of the
-        edges is loaded and used for rerouting. If currentTravelTimes is False,
-        travel times loaded from a weight file are used. In the absence of loaded
-        weights, the minimum travel time is used (speed limit). 
+        edges is loaded and used for rerouting. If currentTravelTimes is False
+        custom travel times are used. The various functions and options for
+        customizing travel times are described at http://sumo.dlr.de/wiki/Simulation/Routing
 
         When rerouteTravelTime has been called once with option
         currentTravelTimes=True, all edge weights are set to the current travel
         times at the time of that call (even for subsequent simulation steps). 
-        To speed up rerouting of many vehicles with currentTravelTimes=True,
-        only the first vehicle should set this option to True in each simulation
-        step (setting the edge weights is expensive for large networks).
         """
         if currentTravelTimes:
             time = self._connection.simulation.getCurrentTime()
