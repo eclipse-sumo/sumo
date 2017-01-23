@@ -984,8 +984,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingInt(inputStorage, signals)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting signals requires an integer.", outputStorage);
             }
+            // set influencer to make the change persistent
+            v->getInfluencer().setSignals(signals);
+            // set them now so that getSignals returns the correct value
             v->switchOffSignal(0x0fffffff);
-            v->switchOnSignal(signals);
+            if (signals >= 0) {
+                v->switchOnSignal(signals);
+            }
+
         }
         break;
         case VAR_MOVE_TO: {

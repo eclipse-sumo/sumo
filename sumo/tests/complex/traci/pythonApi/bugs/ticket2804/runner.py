@@ -61,7 +61,7 @@ traci.vehicle.add(vehID, "beg")
 traci.vehicle.setSpeed(vehID, 0)
 for i in range(3):
     traci.simulationStep()
-traci.vehicle.setSignals(vehID, 0)
+traci.vehicle.setSignals(vehID, 2048)
 for i in range(3):
     traci.simulationStep()
 traci.vehicle.setSignals(vehID, -1)

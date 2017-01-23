@@ -247,7 +247,9 @@ MSVehicle::Influencer::Influencer() :
     mySpeedGainLC(LC_NOCONFLICT),
     myRightDriveLC(LC_NOCONFLICT),
     mySublaneLC(LC_NOCONFLICT),
-    myTraciLaneChangePriority(LCP_URGENT) {
+    myTraciLaneChangePriority(LCP_URGENT),
+    myTraCISignals(-1)
+{
 }
 
 
@@ -3497,7 +3499,10 @@ MSVehicle::setBlinkerInformation() {
             }
         }
     }
-
+    if (myInfluencer != 0 && myInfluencer->getSignals() >= 0) {
+        mySignals = myInfluencer->getSignals();
+        myInfluencer->setSignals(-1); // overwrite computed signals only once
+    }
 }
 
 void

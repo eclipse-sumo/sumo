@@ -1308,6 +1308,14 @@ public:
 
         bool isVTDAffected(SUMOTime t) const;
 
+        void setSignals(int signals) {
+            myTraCISignals = signals;
+        }
+
+        int getSignals() const {
+            return myTraCISignals;
+        }
+
     private:
         /// @brief The velocity time line to apply
         std::vector<std::pair<SUMOTime, SUMOReal> > mySpeedTimeLine;
@@ -1360,6 +1368,9 @@ public:
         //@}
         ///* @brief flags for determining the priority of traci lane change requests
         TraciLaneChangePriority myTraciLaneChangePriority;
+
+        // @brief the signals set via TraCI
+        int myTraCISignals;
 
     };
 
