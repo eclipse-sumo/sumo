@@ -146,6 +146,9 @@ public:
         /// Returns the speed of the container
         SUMOReal getSpeed() const;
 
+        /// @brief the edges of the current stage
+        ConstMSEdgeVector getEdges() const;
+
         /// Returns the current stage description as a string
         std::string getStageDescription() const {
             return "tranship";

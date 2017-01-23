@@ -46,6 +46,7 @@ class OutputDevice;
 class SUMOVehicleParameter;
 class SUMOVehicle;
 
+typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -135,6 +136,9 @@ public:
         /// @brief the speed of the transportable
         virtual SUMOReal getSpeed() const = 0;
 
+        /// @brief the edges of the current stage
+        virtual ConstMSEdgeVector getEdges() const = 0;
+
         /// @brief get position on edge e at length at with orthogonal offset
         Position getEdgePosition(const MSEdge* e, SUMOReal at, SUMOReal offset) const;
 
@@ -222,6 +226,8 @@ public:
         SUMOTime getWaitingTime(SUMOTime now) const;
 
         SUMOReal getSpeed() const;
+
+        ConstMSEdgeVector getEdges() const;
 
         std::string getStageDescription() const {
             return "waiting (" + myActType + ")";
@@ -316,6 +322,8 @@ public:
         SUMOTime getWaitingTime(SUMOTime now) const;
 
         SUMOReal getSpeed() const;
+
+        ConstMSEdgeVector getEdges() const;
 
         void setVehicle(SUMOVehicle* v) {
             myVehicle = v;
@@ -433,6 +441,11 @@ public:
     /// @brief Return the current stage
     MSTransportable::Stage* getCurrentStage() const {
         return *myStep;
+    }
+
+    /// @brief Return the edges of the current stage
+    ConstMSEdgeVector getEdges() const {
+        return (*myStep)->getEdges();
     }
 
     /** @brief Called on writing tripinfo output

@@ -125,6 +125,11 @@ MSPerson::MSPersonStage_Walking::getSpeed() const {
 }
 
 
+ConstMSEdgeVector
+MSPerson::MSPersonStage_Walking::getEdges() const {
+    return myRoute;
+}
+
 void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
     previous->getEdge()->removePerson(person);

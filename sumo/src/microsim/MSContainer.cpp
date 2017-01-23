@@ -179,6 +179,12 @@ MSContainer::MSContainerStage_Tranship::getSpeed() const {
 }
 
 
+ConstMSEdgeVector
+MSContainer::MSContainerStage_Tranship::getEdges() const {
+    return myRoute;
+}
+
+
 void
 MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os) const {
     os.openTag("tranship").writeAttr("arrival", time2string(myArrived)).closeTag();

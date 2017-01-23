@@ -102,6 +102,9 @@ public:
 
         SUMOReal getSpeed() const;
 
+        /// @brief the edges of the current stage
+        ConstMSEdgeVector getEdges() const;
+
         std::string getStageDescription() const {
             return "walking";
         }

@@ -821,12 +821,15 @@ public:
 
         std::vector<std::string> getIDList() const;
         int getIDCount() const;
-        SUMOReal getSpeed(const std::string& typeID) const;
-        TraCIPosition getPosition(const std::string& typeID) const;
-        std::string getRoadID(const std::string& typeID) const;
-        std::string getTypeID(const std::string& typeID) const;
-        SUMOReal getWaitingTime(const std::string& typeID) const;
-        std::string getNextEdge(const std::string& typeID) const;
+        SUMOReal getSpeed(const std::string& personID) const;
+        TraCIPosition getPosition(const std::string& personID) const;
+        std::string getRoadID(const std::string& personID) const;
+        std::string getTypeID(const std::string& personID) const;
+        SUMOReal getWaitingTime(const std::string& personID) const;
+        std::string getNextEdge(const std::string& personID) const;
+        std::string getVehicle(const std::string& personID) const;
+        int getStage(const std::string& personID) const;
+        std::vector<std::string> getEdges(const std::string& personID) const;
 
     private:
         /// @brief invalidated copy constructor

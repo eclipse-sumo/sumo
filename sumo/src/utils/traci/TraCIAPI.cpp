@@ -2247,35 +2247,50 @@ TraCIAPI::PersonScope::getIDCount() const {
 }
 
 SUMOReal
-TraCIAPI::PersonScope::getSpeed(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_SPEED, typeID);
+TraCIAPI::PersonScope::getSpeed(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_SPEED, personID);
 }
 
 TraCIAPI::TraCIPosition
-TraCIAPI::PersonScope::getPosition(const std::string& typeID) const {
-    return myParent.getPosition(CMD_GET_PERSON_VARIABLE, VAR_POSITION, typeID);
+TraCIAPI::PersonScope::getPosition(const std::string& personID) const {
+    return myParent.getPosition(CMD_GET_PERSON_VARIABLE, VAR_POSITION, personID);
 }
 
 std::string
-TraCIAPI::PersonScope::getRoadID(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_ROAD_ID, typeID);
+TraCIAPI::PersonScope::getRoadID(const std::string& personID) const {
+    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_ROAD_ID, personID);
 }
 
 std::string
-TraCIAPI::PersonScope::getTypeID(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_TYPE, typeID);
+TraCIAPI::PersonScope::getTypeID(const std::string& personID) const {
+    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_TYPE, personID);
 }
 
 SUMOReal
-TraCIAPI::PersonScope::getWaitingTime(const std::string& typeID) const {
-    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_WAITING_TIME, typeID);
+TraCIAPI::PersonScope::getWaitingTime(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_WAITING_TIME, personID);
 }
 
 std::string
-TraCIAPI::PersonScope::getNextEdge(const std::string& typeID) const {
-    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_NEXT_EDGE, typeID);
+TraCIAPI::PersonScope::getNextEdge(const std::string& personID) const {
+    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_NEXT_EDGE, personID);
 }
 
+
+std::string
+TraCIAPI::PersonScope::getVehicle(const std::string& personID) const {
+    return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_VEHICLE, personID);
+}
+
+int
+TraCIAPI::PersonScope::getStage(const std::string& personID) const {
+    return myParent.getInt(CMD_GET_PERSON_VARIABLE, VAR_STAGE, personID);
+}
+
+std::vector<std::string>
+TraCIAPI::PersonScope::getEdges(const std::string& personID) const {
+    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, VAR_EDGES, personID);
+}
 
 /****************************************************************************/
 

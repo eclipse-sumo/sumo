@@ -215,6 +215,14 @@ MSTransportable::Stage_Waiting::getSpeed() const {
 }
 
 
+ConstMSEdgeVector
+MSTransportable::Stage_Waiting::getEdges() const {
+    ConstMSEdgeVector result;
+    result.push_back(&getDestination());
+    return result;
+}
+
+
 
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Driving - methods
@@ -301,6 +309,16 @@ SUMOReal
 MSTransportable::Stage_Driving::getSpeed() const {
     return isWaiting4Vehicle() ? 0 : myVehicle->getSpeed();
 }
+
+
+ConstMSEdgeVector
+MSTransportable::Stage_Driving::getEdges() const {
+    ConstMSEdgeVector result;
+    result.push_back(getFromEdge());
+    result.push_back(&getDestination());
+    return result;
+}
+
 
 
 void

@@ -38,6 +38,9 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             Storage.readStringList,
                       tc.VAR_WIDTH:           Storage.readDouble,
                       tc.VAR_MINGAP:          Storage.readDouble,
                       tc.VAR_NEXT_EDGE:       Storage.readString,
+                      tc.VAR_STAGE:           Storage.readInt,
+                      tc.VAR_VEHICLE:         Storage.readString,
+                      tc.VAR_EDGES:           Storage.readStringList,
                       }
 
 
@@ -142,5 +145,32 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_EDGE, personID)
 
+    def getEdges(self, personID):
+        """getEdges(string) -> list(string)
+
+        Returns a list of all edges in the current stage.
+        For waiting stages this is a single edge
+        For walking stages this is the complete route
+        For driving stages this is [origin, destination]
+        """
+        return self._getUniversal(tc.VAR_EDGES, personID)
+
+    def getStage(self, personID):
+        """getStage(string) -> int
+        Returns 
+          0 for driving
+          1 for waiting
+          2 for walking
+          3 for not-yet-departed
+        """
+        return self._getUniversal(tc.VAR_STAGE, personID)
+
+    def getVehicle(self, personID):
+        """getVehicle(string) -> string
+        Returns the id of the current vehicle if the person is in stage driving
+        and has entered a vehicle.
+        Return the empty string otherwise
+        """
+        return self._getUniversal(tc.VAR_VEHICLE, personID)
 
 PersonDomain()

@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:53329 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -16,6 +18,9 @@ length 0.215
 MinGap 0.25
 width 0.478
 waiting time 0.0
+stage 2
+edges ['2fi', '2si', '1o']
+vehicle 
 {0: ['horiz']}
 step 3
 {0: ['horiz']}
@@ -37,6 +42,9 @@ length 0.215
 MinGap 0.25
 width 0.478
 waiting time 0.0
+stage 2
+edges ['2fi', '2si', '1o']
+vehicle 
 persons ['horiz']
 person count 1
 examining bla

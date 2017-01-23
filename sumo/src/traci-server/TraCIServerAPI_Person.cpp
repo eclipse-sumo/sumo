@@ -61,6 +61,9 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != VAR_TYPE && variable != VAR_SHAPECLASS && variable != VAR_COLOR
             && variable != VAR_WAITING_TIME && variable != VAR_PARAMETER
             && variable != VAR_NEXT_EDGE
+            && variable != VAR_EDGES
+            && variable != VAR_STAGE
+            && variable != VAR_VEHICLE
        ) {
         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -138,6 +141,25 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(dynamic_cast<MSPerson*>(p)->getNextEdge());
                 break;
+            case VAR_EDGES: {
+                ConstMSEdgeVector edges = p->getEdges();
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeInt(edges.size());
+                for (ConstMSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+                    tempMsg.writeString((*i)->getID());
+                }
+                break;
+            }
+            case VAR_STAGE:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(p->getCurrentStageType());
+                break;
+            case VAR_VEHICLE: {
+                const SUMOVehicle* veh = p->getVehicle();
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(veh == 0 ? "" : veh->getID());
+                break;
+            }
             case VAR_PARAMETER: {
                 std::string paramName = "";
                 if (!server.readTypeCheckingString(inputStorage, paramName)) {

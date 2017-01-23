@@ -34,7 +34,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 13
+#define TRACI_VERSION 14
 
 
 // ****************************************
@@ -804,8 +804,8 @@
 // retrieve information regarding the next edge including crossings and walkingAreas (pedestrians only)
 #define VAR_NEXT_EDGE 0xc1
 
-// retrieve the number of stages (person, container)
-#define VAR_NUM_STAGES 0xc2
+// retrieve the current vehicle id for the driving stage (person, container)
+#define VAR_VEHICLE 0xc3
 
 // zoom
 #define VAR_VIEW_ZOOM 0xa0
