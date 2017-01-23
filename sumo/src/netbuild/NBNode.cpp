@@ -2009,21 +2009,23 @@ NBNode::forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalize
 
 
 void
-NBNode::buildCrossingsAndWalkingAreas() {
+NBNode::buildCrossingsAndWalkingAreas(bool discardInvalid) {
     buildCrossings();
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
     // ensure that all crossings are properly connected
-    for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
-        if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
-            WRITE_WARNING("Discarding invalid crossing '" + (*it).id + "' at junction '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
-            for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); it_wa++) {
-                if ((*it_wa).nextCrossing == (*it).id) {
-                    (*it_wa).nextCrossing = "";
+    if (discardInvalid) {
+        for (std::vector<Crossing>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
+            if ((*it).prevWalkingArea == "" || (*it).nextWalkingArea == "") {
+                WRITE_WARNING("Discarding invalid crossing '" + (*it).id + "' at junction '" + getID() + "' with edges '" + toString((*it).edges) + "'.");
+                for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); it_wa++) {
+                    if ((*it_wa).nextCrossing == (*it).id) {
+                        (*it_wa).nextCrossing = "";
+                    }
                 }
+                it = myCrossings.erase(it);
+            } else {
+                ++it;
             }
-            it = myCrossings.erase(it);
-        } else {
-            ++it;
         }
     }
 }
