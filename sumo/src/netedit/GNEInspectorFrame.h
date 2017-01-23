@@ -242,10 +242,16 @@ public:
     ~GNEInspectorFrame();
 
     /// @brief Inspect a single element
-    void inspect(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement = NULL);
+    void inspectElement(GNEAttributeCarrier* AC);
 
     /// @brief Inspect the given multi-selection
-    void inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttributeCarrier* previousElement = NULL);
+    void inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs);
+
+    /// @brief inspect child of already inspected element
+    void inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);
+
+    /// @brief inspect called from DeleteFrame
+    void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);
 
     /// @brief get current list of ACs
     const std::vector<GNEAttributeCarrier*>& getACs() const;
@@ -306,8 +312,11 @@ private:
     /// @brief pointer to additional element
     GNEAdditional* myAdditional;
 
-    /// @brief pointer to previous element (If exist)
-    GNEAttributeCarrier* myPreviousElement;
+    /// @brief pointer to previous element called by Inspector Frame
+    GNEAttributeCarrier* myPreviousElementInspect;
+
+    /// @brief pointer to previous element called by Delete Frame
+    GNEAttributeCarrier* myPreviousElementDelete;
 
     /// @brief groupBox for AttrConnection
     FXGroupBox* myGroupBoxForAttrConnections;

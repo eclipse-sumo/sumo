@@ -47,6 +47,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GNEDeleteFrame.h"
+#include "GNEInspectorFrame.h"
 #include "GNEAdditionalFrame.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
@@ -56,6 +57,7 @@
 #include "GNELane.h"
 #include "GNECrossing.h"
 #include "GNEPOI.h"
+#include "GNEPoly.h"
 #include "GNEConnection.h"
 #include "GNEUndoList.h"
 #include "GNEChange_Selection.h"
@@ -85,6 +87,7 @@ FXIMPLEMENT(GNEDeleteFrame, FXVerticalFrame, GNEDeleteFrameMap, ARRAYNUMBER(GNED
 // ===========================================================================
 GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Delete"),
+    myCurrentAC(NULL),
     myMarkedAc(NULL) {
     // Create Groupbox for current element
     myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current and marked element", GUIDesignGroupBoxFrame);
@@ -111,6 +114,7 @@ GNEDeleteFrame::~GNEDeleteFrame() {
 
 void 
 GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
+    myCurrentAC = ac;
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
@@ -279,9 +283,19 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                 break;
             }
             case GLO_POI: {
+                // insert POI root
+                GNEPOI *POI = dynamic_cast<GNEPOI*>(ac);
+                FXTreeItem *POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
+                myTreeItemToACMap[POIItem] = POI;
+                POIItem->setExpanded(true);
                 break;
             }
             case GLO_POLYGON: {
+                // insert polygon root
+                GNEPoly *polygon = dynamic_cast<GNEPoly*>(ac);
+                FXTreeItem *polygonItem = myTreelist->insertItem(0, 0, toString(polygon->getTag()).c_str(), polygon->getIcon(), polygon->getIcon());
+                myTreeItemToACMap[polygonItem] = polygon;
+                polygonItem->setExpanded(true);
                 break;
             }
             case GLO_CROSSING: {
@@ -413,18 +427,35 @@ GNEDeleteFrame::onCmdShowMenu(FXObject*, FXSelector, void* data) {
 
 long 
 GNEDeleteFrame::onCmdCenterItem(FXObject*, FXSelector, void*) {
+    if(dynamic_cast<GNENetElement*>(myClickedAc)) {
+        myViewNet->centerTo(dynamic_cast<GNENetElement*>(myClickedAc)->getGlID(), false); 
+    } else if (dynamic_cast<GNEAdditional*>(myClickedAc)) {
+        myViewNet->centerTo(dynamic_cast<GNEAdditional*>(myClickedAc)->getGlID(), false); 
+    } else if(dynamic_cast<GNEPOI*>(myClickedAc)) {
+        myViewNet->centerTo(dynamic_cast<GNEPOI*>(myClickedAc)->getGlID(), false); 
+    } else if(dynamic_cast<GNEPoly*>(myClickedAc)) {
+        myViewNet->centerTo(dynamic_cast<GNEPoly*>(myClickedAc)->getGlID(), false); 
+    }
+    myViewNet->update();
     return 1;
 }
 
 
 long 
 GNEDeleteFrame::onCmdInspectItem(FXObject*, FXSelector, void*) {
+    if(myMarkedAc != NULL) {
+        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAc, myMarkedAc);
+    } else if(myCurrentAC != NULL) {
+        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAc, myCurrentAC);
+    }
     return 1;
 }
 
 
 long 
 GNEDeleteFrame::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+    removeAttributeCarrier(myClickedAc);
+    showAttributeCarrierChilds(myCurrentAC);
     return 1;
 }
 

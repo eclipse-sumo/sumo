@@ -682,7 +682,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     pointedAC = pointed_connection;
                     pointedO = pointed_connection;
                 }
-
+                // obtain selected ACs
                 std::vector<GNEAttributeCarrier*> selected;
                 if (pointedO && gSelected.isSelected(pointedO->getType(), pointedO->getGlID())) {
                     std::set<GUIGlID> selectedIDs = gSelected.getSelected(pointedO->getType());
@@ -690,7 +690,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 } else if (pointedAC != 0) {
                     selected.push_back(pointedAC);
                 }
-                myViewParent->getInspectorFrame()->inspect(selected);
+                // Inspect seleted ACs, or single clicked AC
+                myViewParent->getInspectorFrame()->inspectMultisection(selected);
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 update();
                 break;

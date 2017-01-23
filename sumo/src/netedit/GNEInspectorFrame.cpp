@@ -102,9 +102,10 @@ FXIMPLEMENT(GNEInspectorFrame::AttrConnection, FXHorizontalFrame, AttrConnection
 
 GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
-    myEdgeTemplate(0),
-    myAdditional(0),
-    myPreviousElement(0) {
+    myEdgeTemplate(NULL),
+    myAdditional(NULL),
+    myPreviousElementInspect(NULL),
+    myPreviousElementDelete(NULL) {
 
     // Create back button
     myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECT_GOBACK, GUIDesignButtonHelp);
@@ -160,27 +161,18 @@ GNEInspectorFrame::~GNEInspectorFrame() {
 
 
 void
-GNEInspectorFrame::inspect(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
+GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     std::vector<GNEAttributeCarrier*> itemToInspect;
     itemToInspect.push_back(AC);
-    inspect(itemToInspect, previousElement);
+    inspectMultisection(itemToInspect);
 }
 
 
 void
-GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttributeCarrier* previousElement) {
+GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs) {
     // Assing ACs to myACs
     myACs = ACs;
-    // Show back button if previousElement was defined
-    myPreviousElement = previousElement;
-    if (myPreviousElement != NULL) {
-        myHeaderLeftFrame->show();
-        myBackButton->show();
-    } else {
-        myHeaderLeftFrame->hide();
-        myBackButton->hide();
-    }
     // Hide all elements
     myGroupBoxForAttributes->hide();
     myGroupBoxForTemplates->hide();
@@ -315,6 +307,36 @@ GNEInspectorFrame::inspect(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttr
     }
 }
 
+
+void 
+GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
+    // Show back button if previousElement was defined
+    myPreviousElementInspect = previousElement;
+    if (myPreviousElementInspect != NULL) {
+        myHeaderLeftFrame->show();
+        myBackButton->show();
+    } else {
+        myHeaderLeftFrame->hide();
+        myBackButton->hide();
+    }
+    inspectElement(AC);
+}
+
+
+void GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
+    // Show back button if previousElement was defined
+    myPreviousElementInspect = previousElement;
+    if (myPreviousElementInspect != NULL) {
+        myHeaderLeftFrame->show();
+        myBackButton->show();
+    } else {
+        myHeaderLeftFrame->hide();
+        myBackButton->hide();
+    }
+    inspectElement(AC);
+}
+
+
 GNEEdge*
 GNEInspectorFrame::getEdgeTemplate() const {
     return myEdgeTemplate;
@@ -340,7 +362,7 @@ GNEInspectorFrame::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
         GNEEdge* edge = dynamic_cast<GNEEdge*>(*it);
         assert(edge);
         edge->copyTemplate(myEdgeTemplate, myViewNet->getUndoList());
-        inspect(myACs);
+        inspectMultisection(myACs);
     }
     return 1;
 }
@@ -387,9 +409,9 @@ GNEInspectorFrame::onCmdSetBlocking(FXObject*, FXSelector, void*) {
 long
 GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     // Inspect previous element (if was defined)
-    if (myPreviousElement) {
-        inspect(myPreviousElement);
-    }
+    //if (myPreviousElement) {
+    //    inspect(myPreviousElement);
+    //}
     return 1;
 }
 
@@ -791,9 +813,9 @@ long
 GNEInspectorFrame::AttrConnection::onCmdInspectConnection(FXObject*, FXSelector, void*) {
     // Inspect connection depending of the checkBox "selectEdges"
     if (myInspectorFrameParent->getViewNet()->selectEdges()) {
-        myInspectorFrameParent->inspect(myConnection, myConnection->getEdgeFrom());
+        myInspectorFrameParent->inspectChild(myConnection, myConnection->getEdgeFrom());
     } else {
-        myInspectorFrameParent->inspect(myConnection, myConnection->getLaneFrom());
+        myInspectorFrameParent->inspectChild(myConnection, myConnection->getLaneFrom());
     }
     return 1;
 }

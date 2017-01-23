@@ -125,6 +125,9 @@ private:
     /// @brief set used to save tree items without AC assigned (for example, Incoming/Outcoming connections)
     std::set<FXTreeItem*> myTreeItesmWithoutAC;
 
+    /// @brief pointer to current AC
+    GNEAttributeCarrier *myCurrentAC;
+
     /// @brief pointer to marked attributeCarrier (element)
     GNEAttributeCarrier *myMarkedAc;
 
