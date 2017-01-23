@@ -127,19 +127,19 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                 myTreeItemToACMap[junctionItem] = junction;
                 junctionItem->setExpanded(true);
                 // insert edges
-                for(int i = 0; i < junction->getGNEEdges().size(); i++) {
+                for(int i = 0; i < (int)junction->getGNEEdges().size(); i++) {
                     GNEEdge *edge = junction->getGNEEdges().at(i);
                     FXTreeItem *edgeItem = myTreelist->insertItem(0, junctionItem, (toString(edge->getTag()) + " " + toString(i)).c_str(), edge->getIcon(), edge->getIcon());
                     myTreeItemToACMap[edgeItem] = edge;
                     edgeItem->setExpanded(true);
                     // insert lanes
-                    for(int j = 0; j < edge->getLanes().size(); j++) {
+                    for (int j = 0; j < (int)edge->getLanes().size(); j++) {
                         GNELane *lane = edge->getLanes().at(j);
                         FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(j)).c_str(), lane->getIcon(), lane->getIcon());
                         myTreeItemToACMap[laneItem] = lane;
                         laneItem->setExpanded(true);
                         // insert additionals of lanes
-                        for(int k = 0; k < lane->getAdditionalChilds().size(); k++) {
+                        for (int k = 0; k < (int)lane->getAdditionalChilds().size(); k++) {
                             GNEAdditional* additional = lane->getAdditionalChilds().at(k);
                             FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(k)).c_str(), additional->getIcon(), additional->getIcon());
                             myTreeItemToACMap[additionalItem] = additional;
@@ -171,7 +171,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                         }
                     }
                     // insert additionals of edge
-                    for(int j = 0; j < edge->getAdditionalChilds().size(); j++) {
+                    for (int j = 0; j < (int)edge->getAdditionalChilds().size(); j++) {
                         GNEAdditional* additional = edge->getAdditionalChilds().at(j);
                         FXTreeItem *additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(j)).c_str(), additional->getIcon(), additional->getIcon());
                         myTreeItemToACMap[additionalItem] = additional;
@@ -180,7 +180,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
 
                 }
                 // insert crossings
-                for(int i = 0; i < junction->getGNECrossings().size(); i++) {
+                for (int i = 0; i < (int)junction->getGNECrossings().size(); i++) {
                     GNECrossing *crossing = junction->getGNECrossings().at(i);
                     FXTreeItem *crossingItem = myTreelist->insertItem(0, junctionItem, (toString(crossing->getTag()) + " " + toString(i)).c_str(), crossing->getIcon(), crossing->getIcon());
                     myTreeItemToACMap[crossingItem] = crossing;
@@ -195,13 +195,13 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                 myTreeItemToACMap[edgeItem] = edge;
                 edgeItem->setExpanded(true);
                 // insert lanes
-                for(int i = 0; i < edge->getLanes().size(); i++) {
+                for (int i = 0; i < (int)edge->getLanes().size(); i++) {
                     GNELane *lane = edge->getLanes().at(i);
                     FXTreeItem *laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(i)).c_str(), lane->getIcon(), lane->getIcon());
                     myTreeItemToACMap[laneItem] = lane;
                     laneItem->setExpanded(true);
                     // insert additionals of lanes
-                    for(int j = 0; j < lane->getAdditionalChilds().size(); j++) {
+                    for (int j = 0; j < (int)lane->getAdditionalChilds().size(); j++) {
                         GNEAdditional* additional = lane->getAdditionalChilds().at(j);
                         FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(j)).c_str(), additional->getIcon(), additional->getIcon());
                         myTreeItemToACMap[additionalItem] = additional;
@@ -224,7 +224,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                         FXTreeItem *outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
                         myTreeItesmWithoutAC.insert(outgoingConnections);
                         outgoingConnections->setExpanded(false);
-                        for(int j = 0; j < lane->getGNEOutcomingConnections().size(); j++) {
+                        for (int j = 0; j < (int)lane->getGNEOutcomingConnections().size(); j++) {
                             GNEConnection* connection = lane->getGNEOutcomingConnections().at(j);
                             FXTreeItem *connectionItem = myTreelist->insertItem(0, outgoingConnections, (toString(connection->getTag()) + " " + toString(j)).c_str(), connection->getIcon(), connection->getIcon());
                             myTreeItemToACMap[connectionItem] = connection;
@@ -233,7 +233,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                     }
                 }
                 // insert additionals of edge
-                for(int i = 0; i < edge->getAdditionalChilds().size(); i++) {
+                for (int i = 0; i < (int)edge->getAdditionalChilds().size(); i++) {
                     GNEAdditional* additional = edge->getAdditionalChilds().at(i);
                     FXTreeItem *additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(i)).c_str(), additional->getIcon(), additional->getIcon());
                     myTreeItemToACMap[additionalItem] = additional;
@@ -248,7 +248,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
                 myTreeItemToACMap[laneItem] = lane;
                 laneItem->setExpanded(true);
                 // insert additionals of lanes
-                for(int i = 0; i < lane->getAdditionalChilds().size(); i++) {
+                for (int i = 0; i < (int)lane->getAdditionalChilds().size(); i++) {
                     GNEAdditional* additional = lane->getAdditionalChilds().at(i);
                     FXTreeItem *additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(i)).c_str(), additional->getIcon(), additional->getIcon());
                     myTreeItemToACMap[additionalItem] = additional;
