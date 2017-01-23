@@ -1,18 +1,18 @@
 Loading configuration... done.
-***Starting server on port 53975 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
+***Starting server on port 52484 ***
+Loading net-file from 'input_net.net.xml'... done (2ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 14.00
+Simulation ended at time: 2.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 9ms
- Real time factor: 1555.56
- UPS: 1222.222222
+ Duration: 4ms
+ Real time factor: 500
+ UPS: 0.000000
 Vehicles: 
- Inserted: 1
+ Inserted: 0 (Loaded: 1)
  Running: 0
  Waiting: 0
 
-Could not connect to TraCI server at localhost:53975 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:52484 [Errno 111] Connection refused
  Retrying in 1 seconds

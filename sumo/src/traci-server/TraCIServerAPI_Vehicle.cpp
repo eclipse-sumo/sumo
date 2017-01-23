@@ -1320,6 +1320,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     v->getLane()->removeVehicle(v, n);
                 }
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
+            } else {
+                MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
+                MSNet::getInstance()->getVehicleControl().deleteVehicle(v, true);
             }
         }
         break;
