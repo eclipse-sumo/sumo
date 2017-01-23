@@ -36,23 +36,6 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '-S', '-Q',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
-def check(vehID, steps=1):
-    for i in range(steps):
-        if i > 0:
-            traci.simulationStep()
-        try:
-            print("%s vehicle %s on lane=%s pos=%s speed=%s" % (
-                traci.simulation.getCurrentTime() / 1000.0,
-                vehID,
-                traci.vehicle.getLaneID(vehID),
-                traci.vehicle.getLanePosition(vehID),
-                traci.vehicle.getSpeed(vehID)))
-        except traci.TraCIException:
-            pass
-    if steps > 1:
-        print()
-
-
 vehID = "v0"
 traci.init(PORT)
 traci.simulationStep()
