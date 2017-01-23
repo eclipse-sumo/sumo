@@ -355,12 +355,25 @@ enum {
     MID_CHOOSEN_INVERT,
     /// @}
 
-        /// @name GNEDeleteFrame - childs
+    /// @name childs of elements in netedit
     /// @{
 
     /// @brief tree list with the childs
-    MID_GNEDELETE_CHILDS,
-
+    MID_GNE_CHILDS,
+    /// @brief In GNEDeleteFrame, center element
+    MID_GNE_DELETEFRAME_CENTER,
+    /// @brief In GNEDeleteFrame, inspect element
+    MID_GNE_DELETEFRAME_INSPECT,
+    /// @brief In GNEDeleteFrame, delete element
+    MID_GNE_DELETEFRAME_DELETE,
+    /// @brief tree list with the childs
+    MID_GNEINSPECT_CHILDS,
+    /// @brief In GNEInspectFrame, center element
+    MID_GNE_INSPECTFRAME_CENTER,
+    /// @brief In GNEInspectFrame, inspect element
+    MID_GNE_INSPECTFRAME_INSPECT,
+    /// @brief In GNEInspectFrame, delete element
+    MID_GNE_INSPECTFRAME_DELETE,
     /// @}
 
 
@@ -635,12 +648,6 @@ enum {
     MID_GNE_CREATE_CROSSING,
     /// @brief Size of frame area updated 
     MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED,
-    /// @brief In GNEDeleteFrame, center element
-    MID_GNE_DELETEFRAME_CENTER,
-    /// @brief In GNEDeleteFrame, inspect element
-    MID_GNE_DELETEFRAME_INSPECT,
-    /// @brief In GNEDeleteFrame, delete element
-    MID_GNE_DELETEFRAME_DELETE,
     /// @}
 
     MID_LAST

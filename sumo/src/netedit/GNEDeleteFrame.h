@@ -35,7 +35,6 @@
 // class declarations
 // ===========================================================================
 class GNEAttributeCarrier;
-class GNENetElement;
 
 // ===========================================================================
 // class definitions
@@ -79,7 +78,7 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief called when user press right click over an item of list of childs
-    long onCmdShowMenu(FXObject*, FXSelector, void*);
+    long onCmdShowChildMenu(FXObject*, FXSelector, void* data);
 
     /// @brief called when user select option "center item" of child Menu
     long onCmdCenterItem(FXObject*, FXSelector, void*);
@@ -133,10 +132,10 @@ private:
     GNEAttributeCarrier *myCurrentAC;
 
     /// @brief pointer to marked attributeCarrier (element)
-    GNEAttributeCarrier *myMarkedAc;
+    GNEAttributeCarrier *myMarkedAC;
 
     /// @brief current attribute carrier selected in three
-    GNEAttributeCarrier *myClickedAc;
+    GNEAttributeCarrier *myClickedAC;
 };
 
 
