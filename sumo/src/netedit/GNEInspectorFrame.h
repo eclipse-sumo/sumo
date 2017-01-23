@@ -241,6 +241,9 @@ public:
     /// @brief Destructor
     ~GNEInspectorFrame();
 
+    /// @brief show inspector frame
+    void show();
+
     /// @brief Inspect a single element
     void inspectElement(GNEAttributeCarrier* AC);
 
@@ -251,7 +254,7 @@ public:
     void inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);
 
     /// @brief inspect called from DeleteFrame
-    void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);
+    void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
     /// @brief get current list of ACs
     const std::vector<GNEAttributeCarrier*>& getACs() const;
@@ -317,6 +320,9 @@ private:
 
     /// @brief pointer to previous element called by Delete Frame
     GNEAttributeCarrier* myPreviousElementDelete;
+
+    /// @brief flag to ckec if myPreviousElementDelete was marked in Delete Frame
+    bool myPreviousElementDeleteWasMarked;
 
     /// @brief groupBox for AttrConnection
     FXGroupBox* myGroupBoxForAttrConnections;

@@ -107,9 +107,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEView
 }
 
 
-GNEDeleteFrame::~GNEDeleteFrame() {
-
-}
+GNEDeleteFrame::~GNEDeleteFrame() {}
 
 
 void 
@@ -332,43 +330,50 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier *ac) {
 
 void 
 GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier *ac) {
-    // check type of of GL object
-    switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
-        case GLO_JUNCTION: {
-            myViewNet->getNet()->deleteJunction(dynamic_cast<GNEJunction*>(ac), myViewNet->getUndoList());
-            break;
-        }
-        case GLO_EDGE: {
-            myViewNet->getNet()->deleteGeometryOrEdge(dynamic_cast<GNEEdge*>(ac), myViewNet->getPositionInformation(), myViewNet->getUndoList());
-            break;
-        }
-        case GLO_LANE: {
-            myViewNet->getNet()->deleteLane(dynamic_cast<GNELane*>(ac), myViewNet->getUndoList());
-            break;
-        }
-        case GLO_POI: {
-            // XXX this is a dirty dirty hack! implemente GNEChange_POI
-            myViewNet->getNet()->getShapeContainer().removePOI(dynamic_cast<GNEPOI*>(ac)->getMicrosimID());
-            break;
-        }
-        case GLO_POLYGON: {
-            //
-            break;
-        }
-        case GLO_CROSSING: {
-            myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(ac), myViewNet->getUndoList());
-            break;
-        }
-        case GLO_ADDITIONAL: {
-            myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
-            break;
-        }
-        case GLO_CONNECTION: {
-            myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(ac), myViewNet->getUndoList());
-            break;
-        }
-        default: {
-            break;
+    // To remove an attribute carrier deleteFrame must be visible
+    if(shown() == false) {
+        // Hide inspector frame and show delete frame
+        myViewNet->getViewParent()->getInspectorFrame()->hide();
+        show();
+    } else {
+        // check type of of GL object
+        switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
+            case GLO_JUNCTION: {
+                myViewNet->getNet()->deleteJunction(dynamic_cast<GNEJunction*>(ac), myViewNet->getUndoList());
+                break;
+            }
+            case GLO_EDGE: {
+                myViewNet->getNet()->deleteGeometryOrEdge(dynamic_cast<GNEEdge*>(ac), myViewNet->getPositionInformation(), myViewNet->getUndoList());
+                break;
+            }
+            case GLO_LANE: {
+                myViewNet->getNet()->deleteLane(dynamic_cast<GNELane*>(ac), myViewNet->getUndoList());
+                break;
+            }
+            case GLO_POI: {
+                // XXX this is a dirty dirty hack! implemente GNEChange_POI
+                myViewNet->getNet()->getShapeContainer().removePOI(dynamic_cast<GNEPOI*>(ac)->getMicrosimID());
+                break;
+            }
+            case GLO_POLYGON: {
+                //
+                break;
+            }
+            case GLO_CROSSING: {
+                myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(ac), myViewNet->getUndoList());
+                break;
+            }
+            case GLO_ADDITIONAL: {
+                myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
+                break;
+            }
+            case GLO_CONNECTION: {
+                myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(ac), myViewNet->getUndoList());
+                break;
+            }
+            default: {
+                break;
+            }
         }
     }
     // update view to show changes
@@ -444,9 +449,16 @@ GNEDeleteFrame::onCmdCenterItem(FXObject*, FXSelector, void*) {
 long 
 GNEDeleteFrame::onCmdInspectItem(FXObject*, FXSelector, void*) {
     if(myMarkedAc != NULL) {
-        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAc, myMarkedAc);
+        myViewNet->getViewParent()->getInspectorFrame()->show();
+        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAc, myMarkedAc, true);
+        // Hide delete frame and show inspector frame
+        hide();
+
     } else if(myCurrentAC != NULL) {
-        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAc, myCurrentAC);
+        myViewNet->getViewParent()->getInspectorFrame()->show();
+        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAc, myCurrentAC, false);
+        // Hide delete frame and show inspector frame
+        hide();
     }
     return 1;
 }

@@ -50,7 +50,8 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEConnection.h"
-#include "GNEViewNet.h"
+#include "GNEDeleteFrame.h"
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -109,6 +110,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, G
 
     // Create back button
     myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECT_GOBACK, GUIDesignButtonHelp);
+    myHeaderLeftFrame->hide();
     myBackButton->hide();
 
     // Create groupBox for attributes
@@ -160,17 +162,29 @@ GNEInspectorFrame::~GNEInspectorFrame() {
 }
 
 
+void 
+GNEInspectorFrame::show() {
+    inspectElement(NULL);
+    GNEFrame::show();
+}
+
+
 void
 GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     std::vector<GNEAttributeCarrier*> itemToInspect;
-    itemToInspect.push_back(AC);
+    if(AC != NULL) {
+        itemToInspect.push_back(AC);
+    }
     inspectMultisection(itemToInspect);
 }
 
 
 void
 GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs) {
+    // hide back button
+    myHeaderLeftFrame->hide();
+    myBackButton->hide();
     // Assing ACs to myACs
     myACs = ACs;
     // Hide all elements
@@ -304,36 +318,36 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         }
     } else {
         getFrameHeaderLabel()->setText("No Object selected");
+        myContentFrame->recalc();
     }
 }
 
 
 void 
 GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
-    // Show back button if previousElement was defined
+    // Show back button if myPreviousElementInspect was defined
     myPreviousElementInspect = previousElement;
     if (myPreviousElementInspect != NULL) {
+        // disable myPreviousElementDelete to avoid inconsistences
+        myPreviousElementDelete = NULL;
+        inspectElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
-    } else {
-        myHeaderLeftFrame->hide();
-        myBackButton->hide();
     }
-    inspectElement(AC);
 }
 
 
-void GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
-    // Show back button if previousElement was defined
-    myPreviousElementInspect = previousElement;
-    if (myPreviousElementInspect != NULL) {
+void GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked) {
+    myPreviousElementDelete = previousElement;
+    myPreviousElementDeleteWasMarked = previousElementWasMarked;
+    // Show back button if myPreviousElementDelete is valid
+    if (myPreviousElementDelete != NULL) {
+        // disable myPreviousElementInspect to avoid inconsistences
+        myPreviousElementInspect = NULL;
+        inspectElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
-    } else {
-        myHeaderLeftFrame->hide();
-        myBackButton->hide();
     }
-    inspectElement(AC);
 }
 
 
@@ -408,10 +422,20 @@ GNEInspectorFrame::onCmdSetBlocking(FXObject*, FXSelector, void*) {
 
 long
 GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
-    // Inspect previous element (if was defined)
-    //if (myPreviousElement) {
-    //    inspect(myPreviousElement);
-    //}
+    // Inspect previous element or go back to Delete Frame
+    if (myPreviousElementInspect) {
+        inspectElement(myPreviousElementInspect);
+        myPreviousElementInspect = NULL;
+    } else if (myPreviousElementDelete != NULL) {
+        myViewNet->getViewParent()->getDeleteFrame()->showAttributeCarrierChilds(myPreviousElementDelete);
+        if(myPreviousElementDeleteWasMarked) {
+            myViewNet->getViewParent()->getDeleteFrame()->markAttributeCarrier(myPreviousElementDelete);
+        }
+        myPreviousElementDelete = NULL;
+        // Hide inspect frame and show delete frame
+        hide();
+        myViewNet->getViewParent()->getDeleteFrame()->show();
+    }
     return 1;
 }
 
