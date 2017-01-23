@@ -473,7 +473,12 @@ GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
             lane = static_cast<GUILane*>(bestLaneConts[bestLaneIndex]);
             ++bestLaneIndex;
         } else {
-            lane = static_cast<GUILane*>((*i)->getLanes()[0]);
+            const std::vector<MSLane*>* allowed = (*i)->allowedLanes(getVClass());
+            if (allowed != 0 && allowed->size() != 0) {
+                lane = static_cast<GUILane*>((*allowed)[0]);
+            } else {
+                lane = static_cast<GUILane*>((*i)->getLanes()[0]);
+            }
         }
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
     }
