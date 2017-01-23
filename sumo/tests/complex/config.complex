@@ -41,6 +41,7 @@ tripinfo:tripinfo.xml
 net:net.net.xml
 vss:vss.xml
 rawdump:rawdump.xml
+fcd:fcd.xml
 results:results.csv
 tls_state:tls_state.xml
 
@@ -58,6 +59,7 @@ net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
+fcd:<!--{[->]}-->
 state:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:snapshot version="[^"]*"{REPLACE snapshot}
