@@ -515,6 +515,10 @@ private:
 
     /// @brief counters for performance logging
     int myUpdateCount;
+
+private:
+    /// @brief Invalidated assignment operator
+    CHBuilder& operator=(const CHBuilder& s);
 };
 
 

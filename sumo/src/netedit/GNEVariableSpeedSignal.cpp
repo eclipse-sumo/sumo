@@ -255,12 +255,12 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
     // Push matrix to draw every symbol over lane
     glPushMatrix();
 
-    // Traslate to 0,0
+    // Translate to 0,0
     glTranslated(0, 0, getType());
-
+    /*
     // Obtain exaggeration
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
-    /*
+
     // Iterate over lanes
     for (childLanes::const_iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
         // Draw every signal over Lane

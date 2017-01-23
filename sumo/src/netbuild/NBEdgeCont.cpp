@@ -1189,7 +1189,6 @@ void
 NBEdgeCont::checkGrade(SUMOReal threshold) const {
     for (EdgeCont::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         const NBEdge* edge = it->second;
-        const std::vector<NBEdge::Lane>& lanes = edge->getLanes();
         for (int i = 0; i < (int)edge->getNumLanes(); i++) {
             const SUMOReal grade = edge->getLaneShape(i).getMaxGrade();
             if (grade > threshold) {

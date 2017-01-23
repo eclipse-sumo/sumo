@@ -150,7 +150,7 @@ GNEDetectorE3::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy
 
 
 void
-GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& currentDirectory) {
+GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& /* currentDirectory */) {
     // Only save E3 if have Entry/Exits
     if ((myGNEDetectorEntrys.size() + myGNEDetectorExits.size()) > 0) {
         // Write parameters
