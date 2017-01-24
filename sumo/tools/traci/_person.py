@@ -46,6 +46,12 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             Storage.readStringList,
 
 
 class PersonDomain(Domain):
+    DEPART_NOW = -3
+
+    STAGE_DRIVING = 0
+    STAGE_WAITING = 1
+    STAGE_WALKING = 2
+    STAGE_AWAITING_DEPARTURE = 3
 
     def __init__(self):
         Domain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
@@ -173,7 +179,6 @@ class PersonDomain(Domain):
           3 for not-yet-departed
         nextStageIndex 0 retrieves value for the current stage.
         nextStageIndex must be lower then value of getRemainingStages(personID)
-
         """
         self._connection._beginMessage(
             tc.CMD_GET_PERSON_VARIABLE, tc.VAR_STAGE, personID, 1 + 4)
@@ -194,5 +199,105 @@ class PersonDomain(Domain):
         Return the empty string otherwise
         """
         return self._getUniversal(tc.VAR_VEHICLE, personID)
+
+
+    def remove(self, personID):
+        """remove(string)
+        Removes the person from the simulation
+        """
+        # remove all stages after the current and then abort the current stage
+        while getRemainingStages(personID) > 1:
+            removeStage(1);
+        removeStage(0);
+
+
+    def add(self, personID, edgeID, pos, depart=DEPART_NOW, typeID="DEFAULT_PEDTYPE"):
+        """add(string, string, double, int, string)
+        Inserts a new person to the simulation at the given edge, position and
+        time (in s). This function should be followed by appending Stages or the person
+        will immediatly vanish on departure.
+        """
+        if depart > 0:
+            depart *= 1000
+        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.ADD, personID,
+                                       1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+        self._connection._packString(typeID)
+        self._connection._packString(edgeID)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
+        self._connection._sendExact()
+
+    def appendWaitingStage(self, personID, duration, description="waiting", stopID=""):
+        """appendWaitingStage(string, int, string, string)
+        Appends a waiting stage with duration in s to the plan of the given person
+        """
+        duration *= 1000
+        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
+                                       1 + 4  # compound
+                                       + 1 + 4 # stage type
+                                       + 1 + 4 # duration
+                                       + 1 + 4 + len(description) 
+                                       + 1 + 4 + len(stopID))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, self.STAGE_WAITING)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, duration)
+        self._connection._packString(description)
+        self._connection._packString(stopID)
+        self._connection._sendExact()
+
+    def appendWalkingStage(self, personID, edges, arrivalPos, duration=-1, speed=-1, stopID=""):
+        """appendWalkingStage(string, stringList, double, int, double, string)
+        Appends a walking stage to the plan of the given person
+        The walking speed can either be specified, computed from the duration parameter (in s) or taken from the type of the person
+        """
+        if duration is not None:
+            duration *= 1000
+
+        if isinstance(edges, str):
+            edges = [edgeList]
+        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
+                                       1 + 4  # compound
+                                       + 1 + 4  # stageType
+                                       + 1 + 4 + sum(map(len, edges)) + 4 * len(edges) 
+                                       + 1 + 8 # arrivalPos
+                                       + 1 + 4 # duration
+                                       + 1 + 8 # speed
+                                       + 1 + 4 + len(stopID) 
+                                       )
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, self.STAGE_WALKING)
+        self._connection._packStringList(edges)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, arrivalPos)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, duration)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
+        self._connection._packString(stopID)
+        self._connection._sendExact()
+
+    def appendDrivingStage(self, personID, toEdge, lines, stopID=""):
+        """appendDrivingStage(string, string, string, string)
+        Appends a driving stage to the plan of the given person
+        The lines parameter should be a space-separated list of line ids
+        """
+        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
+                                       1 + 4 # compound
+                                       + 1 + 4 # stage type
+                                       + 1 + 4 + len(toEdge) 
+                                       + 1 + 4 + len(lines) 
+                                       + 1 + 4 + len(stopID))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, self.STAGE_DRIVING)
+        self._connection._packString(toEdge)
+        self._connection._packString(lines)
+        self._connection._packString(stopID)
+        self._connection._sendExact()
+
+    def removeStage(self, personID, nextStageIndex):
+        """removeStage(string, int)
+        Removes the the nth next stage
+        nextStageIndex must be lower then value of getRemainingStages(personID)
+        nextStageIndex 0 immediately aborts the current stage and proceeds to the next stage
+        """
+        pass
 
 PersonDomain()

@@ -41,6 +41,13 @@ def step():
     traci.simulationStep()
     return s
 
+# add walking person
+traci.person.add("newPerson", "3si", -10) 
+traci.person.appendWalkingStage("newPerson", ["3si", "2si"], -20)
+traci.person.appendWaitingStage("newPerson", 10, "twiddling thumbs")
+traci.person.appendWalkingStage("newPerson", ["2si", "2o"], 20)
+traci.person.appendWaitingStage("newPerson", 20, "arrived")
+
 for i in range(3):
     print("step", step())
 

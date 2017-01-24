@@ -1,11 +1,11 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:49425 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:47233 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
 step 2
-persons ['horiz']
-person count 1
+persons ['horiz', 'newPerson']
+person count 2
 examining horiz
 speed 1.38888888889
 pos (758.7222222222222, 504.975)
@@ -22,15 +22,15 @@ stage 2
 remainingStages 1
 edges ['2fi', '2si', '1o']
 vehicle 
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 3
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 4
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 5
-{0: ['horiz']}
-persons ['horiz']
-person count 1
+{0: ['horiz', 'newPerson']}
+persons ['horiz', 'newPerson']
+person count 2
 examining horiz
 speed 1.38888888889
 pos (754.5555555555555, 504.975)
@@ -47,24 +47,24 @@ stage 2
 remainingStages 1
 edges ['2fi', '2si', '1o']
 vehicle 
-persons ['horiz']
-person count 1
+persons ['horiz', 'newPerson']
+person count 2
 examining bla
 recovering from exception after asking for unknown person
 step 6
-getIDList ['horiz']
+getIDList ['horiz', 'newPerson']
 step 7
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 8
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 9
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 10
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 11
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 step 12
-{0: ['horiz']}
+{0: ['horiz', 'newPerson']}
 :0_w1
 9.97012861603
 :0_c0
