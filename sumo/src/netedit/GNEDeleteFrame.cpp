@@ -96,6 +96,10 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEView
     // Create Groupbox for current element
     myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
     
+    // Create checkbox for enable/disble automatically delete additionals childs (by default, enabled)
+    myCheckBoxAutomaticallyDeleteAdditionals = new FXMenuCheck(myGroupBoxOptions, "Force deletion of Additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignCheckButton);
+    myCheckBoxAutomaticallyDeleteAdditionals->setCheck(true);
+
     // Create groupbox for tree list 
     myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
     myMarkedElementLabel = new FXLabel(myGroupBoxTreeList, "No item marked", 0, GUIDesignLabelLeft);
@@ -343,11 +347,40 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier *ac) {
                 break;
             }
             case GLO_EDGE: {
-                myViewNet->getNet()->deleteGeometryOrEdge(dynamic_cast<GNEEdge*>(ac), myViewNet->getPositionInformation(), myViewNet->getUndoList());
+                GNEEdge *edge = dynamic_cast<GNEEdge*>(ac);
+                int numberOfAdditionals = (int)edge->getAdditionalChilds().size();
+                // Iterate over lanes and obtain total number of additional childs
+                for(std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
+                    numberOfAdditionals += (int)(*i)->getAdditionalChilds().size();
+                }
+                // Check if edge can be deleted
+                if(myCheckBoxAutomaticallyDeleteAdditionals->getCheck()) {
+                    myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
+                } else {
+                    if(numberOfAdditionals == 0) {
+                        myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
+                    } else {
+                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, 
+                                              ("Probem deleting " + toString(edge->getTag())).c_str(), 
+                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because hat " + toString(numberOfAdditionals) + " additional childs.\n Uncheck 'Force deletion of Additionals' to force deletion.").c_str());
+                    }
+                }
                 break;
             }
             case GLO_LANE: {
-                myViewNet->getNet()->deleteLane(dynamic_cast<GNELane*>(ac), myViewNet->getUndoList());
+                GNELane *lane = dynamic_cast<GNELane*>(ac);
+                // Check if lane can be deleted
+                if(myCheckBoxAutomaticallyDeleteAdditionals->getCheck()) {
+                    myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
+                } else {
+                    if(lane->getAdditionalChilds().size() == 0) {
+                        myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
+                    } else {
+                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, 
+                                              ("Problem deleting " + toString(lane->getTag())).c_str(), 
+                                              (toString(lane->getTag()) + " '" + lane->getID() + "' cannot be deleted because hat " + toString(lane->getAdditionalChilds().size()) + " additional childs.\n Uncheck 'Force deletion of Additionals' to force deletion.").c_str());
+                    }
+                }
                 break;
             }
             case GLO_POI: {

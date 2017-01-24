@@ -374,6 +374,8 @@ enum {
     MID_GNE_INSPECTFRAME_INSPECT,
     /// @brief In GNEInspectFrame, delete element
     MID_GNE_INSPECTFRAME_DELETE,
+    /// @brief automatically delete additional childs
+    MID_GNE_AUTOMATICALLYDELETEADDITIONALS,
     /// @}
 
 

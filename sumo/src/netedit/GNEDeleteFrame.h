@@ -110,7 +110,7 @@ private:
     /// @brief groupbox options
     FXGroupBox *myGroupBoxOptions;
     
-    /// @brief groupbox for tree list
+    /// @brief groupbox for tree list childs
     FXGroupBox *myGroupBoxTreeList;
 
     /// @brief groupbox for information
@@ -118,6 +118,9 @@ private:
 
     /// @brief Label for information 1
     FXLabel *myInformationLabel;
+
+    /// @brief checkbox for enable/disble automatically delete additionals childs
+    FXMenuCheck *myCheckBoxAutomaticallyDeleteAdditionals;
 
     /// @brief tree list to show the childs of the element to erase
     FXTreeList *myTreelist;

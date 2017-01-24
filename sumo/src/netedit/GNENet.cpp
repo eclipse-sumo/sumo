@@ -36,49 +36,50 @@
 #include <config.h>
 #endif
 
-#include <utility>
+#include <map>
 #include <set>
 #include <vector>
-#include <map>
 
-#include <utils/shapes/ShapeContainer.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/TplConvert.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/common/StringUtils.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBAlgorithms.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_XML.h>
-#include "GNENet.h"
+#include <utility>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/TplConvert.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+
+#include "GNEAdditional.h"
+#include "GNEAdditionalFrame.h"
 #include "GNEApplicationWindow.h"
-#include "GNEJunction.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
+#include "GNEChange_Additional.h"
+#include "GNEChange_Attribute.h"
+#include "GNEChange_Connection.h"
+#include "GNEChange_Crossing.h"
+#include "GNEChange_Edge.h"
+#include "GNEChange_Junction.h"
+#include "GNEChange_Lane.h"
+#include "GNEChange_Selection.h"
 #include "GNEConnection.h"
 #include "GNECrossing.h"
-#include "GNEUndoList.h"
-#include "GNEChange_Attribute.h"
-#include "GNEChange_Junction.h"
-#include "GNEChange_Edge.h"
-#include "GNEChange_Lane.h"
-#include "GNEChange_Connection.h"
-#include "GNEChange_Selection.h"
-#include "GNEChange_Additional.h"
-#include "GNEChange_Crossing.h"
-#include "GNEAdditional.h"
-#include "GNEStoppingPlace.h"
 #include "GNEDetector.h"
+#include "GNEEdge.h"
+#include "GNEJunction.h"
+#include "GNELane.h"
+#include "GNENet.h"
+#include "GNEStoppingPlace.h"
+#include "GNEUndoList.h"
 #include "GNEViewNet.h"
+#include "GNEViewParent.h"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -330,6 +331,18 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete edge");
+    // delete additionals childs of edge
+    std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
+    for(std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
+        undoList->add(new GNEChange_Additional((*i), false), true);
+    }
+    // delete additionals childs of lane
+    for(std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
+        std::vector<GNEAdditional*> copyOfLaneAdditionals = (*i)->getAdditionalChilds();
+        for(std::vector<GNEAdditional*>::iterator j = copyOfLaneAdditionals.begin(); j != copyOfLaneAdditionals.end(); j++) {
+            undoList->add(new GNEChange_Additional((*j), false), true);
+        }
+    }
 
     // invalidate junction (saving connections)
     edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
@@ -360,6 +373,11 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         deleteEdge(edge, undoList);
     } else {
         undoList->p_begin("delete lane");
+        // delete additionals childs of lane
+        std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
+        for(std::vector<GNEAdditional*>::const_iterator i = copyOfAdditionals.begin(); i != copyOfAdditionals.end(); i++) {
+            undoList->add(new GNEChange_Additional((*i), false), true);
+        }
         // invalidate junctions (saving connections)
         edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
         edge->getGNEJunctionDestiny()->removeFromCrossings(edge, undoList);
@@ -1196,14 +1214,6 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
     } else {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
-        // If additional is vinculated with a lane, add a reference
-        if (additional->getEdge()) {
-            additional->getEdge()->addAdditionalChild(additional);
-        }
-        // If additional is vinculated with an edge, add a reference
-        if (additional->getLane()) {
-            additional->getLane()->addAdditionalChild(additional);
-        }
         update();
     }
 }
@@ -1218,14 +1228,6 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     } else {
         myAdditionals.erase(additionalToRemove);
         myGrid.removeAdditionalGLObject(additional);
-        // If additional is vinculated with an edge, remove reference
-        if (additional->getEdge()) {
-            additional->getEdge()->removeAdditionalChild(additional);
-        }
-        // If additional is vinculated with a lane, remove reference
-        if (additional->getLane()) {
-            additional->getLane()->removeAdditionalChild(additional);
-        }
         update();
     }
 }

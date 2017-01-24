@@ -42,6 +42,7 @@ class GNEViewNet;
 class GNEDetectorEntry;
 class GNEDetectorExit;
 class GNEDetectorE3;
+class GNELane;
 
 // ===========================================================================
 // class definitions
@@ -83,6 +84,9 @@ private:
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEAdditional* myAdditional;
+
+    /// @brief pointer to lane (used by additionals with lane parent)
+    GNELane* myLaneParent;
 
     /// @brief pointer to E3 parent (used by Entry/exits)
     GNEDetectorE3 *myE3Parent;
