@@ -133,6 +133,19 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, G
         vectorOfAttrInput.push_back(new AttrInput(myGroupBoxForAttributes, this));
     }
 
+    // Create groupBox for editor parameters
+    myGroupBoxForEditor = new FXGroupBox(myContentFrame, "editor", GUIDesignGroupBoxFrame);
+    myGroupBoxForEditor->hide();
+
+    // Create check blocked button
+    myCheckBlocked = new FXCheckButton(myGroupBoxForEditor, "Block movement", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButton);
+    myCheckBlocked->hide();
+
+    // Create groupbox and tree list
+    myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
+    myTreelist = new FXTreeList(myGroupBoxForTreeList, this, MID_GNE_CHILDS, GUIDesignTreeListFrame);
+    myGroupBoxForTreeList->hide();
+
     // Create groupBox for templates
     myGroupBoxForTemplates = new FXGroupBox(myContentFrame, "Templates", GUIDesignGroupBoxFrame);
     myGroupBoxForTemplates->hide();
@@ -144,22 +157,6 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, G
     // Create set template button
     mySetTemplateButton = new FXButton(myGroupBoxForTemplates, "Set as Template\t\t", 0, this, MID_GNE_SET_TEMPLATE, GUIDesignButton);
     mySetTemplateButton->hide();
-
-    // Create groupBox for editor parameters
-    myGroupBoxForEditor = new FXGroupBox(myContentFrame, "editor", GUIDesignGroupBoxFrame);
-    myGroupBoxForEditor->hide();
-
-    // Create check blocked button
-    myCheckBlocked = new FXCheckButton(myGroupBoxForEditor, "Block movement", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButton);
-    myCheckBlocked->hide();
-
-    // Create groupBox for AttrConnection
-    myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Connections", GUIDesignGroupBoxFrame);
-    myGroupBoxForTreeList->hide();
-
-    // Create groupbox and tree list
-    myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
-    myTreelist = new FXTreeList(myGroupBoxForTreeList, this, GUIDesignTreeListFrame);
 }
 
 GNEInspectorFrame::~GNEInspectorFrame() {
@@ -262,18 +259,6 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             itAttrs++;
         }
 
-        // If attributes correspond to an Edge
-        if (dynamic_cast<GNEEdge*>(myACs.front())) {
-            // show groupBox for templates
-            myGroupBoxForTemplates->show();
-            // show "Copy Template" (caption supplied via onUpdate)
-            myCopyTemplateButton->show();
-            // show "Set As Template"
-            if (myACs.size() == 1) {
-                mySetTemplateButton->show();
-            }
-        }
-
         // If attributes correspond to an Additional
         if (dynamic_cast<GNEAdditional*>(myACs.front())) {
             // Get pointer to additional
@@ -295,6 +280,18 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         // if we inspect a single Attribute carrier vector, show their childs
         if(myACs.size() == 1) {
             showAttributeCarrierChilds();
+        }
+
+        // If attributes correspond to an Edge
+        if (dynamic_cast<GNEEdge*>(myACs.front())) {
+            // show groupBox for templates
+            myGroupBoxForTemplates->show();
+            // show "Copy Template" (caption supplied via onUpdate)
+            myCopyTemplateButton->show();
+            // show "Set As Template"
+            if (myACs.size() == 1) {
+                mySetTemplateButton->show();
+            }
         }
     } else {
         getFrameHeaderLabel()->setText("No Object selected");
