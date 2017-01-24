@@ -478,19 +478,33 @@ public:
      */
     virtual void routeOutput(OutputDevice& os) const = 0;
 
-    /// Whether the transportable waits for a vehicle of the line specified.
+    /// @brief Whether the transportable waits for a vehicle of the line specified.
     bool isWaitingFor(const std::string& line) const {
         return (*myStep)->isWaitingFor(line);
     }
 
-    /// Whether the transportable waits for a vehicle
+    /// @brief Whether the transportable waits for a vehicle
     bool isWaiting4Vehicle() const {
         return (*myStep)->isWaiting4Vehicle();
     }
 
-    /// The vehicle associated with this transportable
+    /// @brief The vehicle associated with this transportable
     SUMOVehicle* getVehicle() const {
         return (*myStep)->getVehicle();
+    }
+
+    /// @brief Appends the given stage to the current plan
+    void appendStage(Stage* stage);
+
+
+    /// @brief returns the final arrival pos
+    SUMOReal getArrivalPos() const {
+        return myPlan->back()->getArrivalPos();
+    }
+
+    /// @brief returns the final arrival edge
+    const MSEdge* getArrivalEdge() const {
+        return myPlan->back()->getEdges().back();
     }
 
 protected:

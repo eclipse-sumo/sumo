@@ -810,6 +810,12 @@
 // retrieve the current vehicle id for the driving stage (person, container)
 #define VAR_VEHICLE 0xc3
 
+// append a person stage (person)
+#define APPEND_STAGE 0xc4
+
+// append a person stage (person)
+#define REMOVE_STAGE 0xc5
+
 // zoom
 #define VAR_VIEW_ZOOM 0xa0
 

@@ -404,4 +404,12 @@ MSTransportable::getNumStages() const {
     return myPlan->size();
 }
 
+void 
+MSTransportable::appendStage(Stage* stage) {
+    // myStep is invalidated upon modifying myPlan
+    int stepIndex = myStep - myPlan->begin();
+    myPlan->push_back(stage);
+    myStep = myPlan->begin() + stepIndex;
+}
+
 /****************************************************************************/

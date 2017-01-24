@@ -30,6 +30,7 @@
 
 #ifndef NO_TRACI
 
+#include <utils/common/StringTokenizer.h>
 #include <microsim/MSTransportableControl.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSNet.h>
@@ -212,18 +213,229 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != VAR_PARAMETER
+            && variable != ADD
+            && variable != APPEND_STAGE
+            && variable != REMOVE_STAGE
        ) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
     std::string id = inputStorage.readString();
+    const bool shouldExist = variable != ADD;
     MSTransportable* p = c.get(id);
-    if (p == 0) {
+    if (p == 0 && shouldExist) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Person '" + id + "' is not known", outputStorage);
     }
     // process
     switch (variable) {
+        case ADD: {
+            if (p != 0) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The person " + id + " to add already exists.", outputStorage);
+            }
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a person requires a compound object.", outputStorage);
+            }
+            if (inputStorage.readInt() != 4) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a person needs four parameters.", outputStorage);
+            }
+            SUMOVehicleParameter vehicleParams;
+            vehicleParams.id = id;
+
+            std::string vTypeID;
+            if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "First parameter (type) requires a string.", outputStorage);
+            }
+            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
+            if (!vehicleType) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid type '" + vTypeID + "' for person '" + id + "'", outputStorage);
+            }
+
+            std::string edgeID;
+            if (!server.readTypeCheckingString(inputStorage, edgeID)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Second parameter (edge) requires a string.", outputStorage);
+            }
+            const MSEdge* edge = MSEdge::dictionary(edgeID);
+            if (!edge) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid edge '" + edgeID + "' for person: '" + id + "'", outputStorage);
+            }
+            int depart;
+            if (!server.readTypeCheckingInt(inputStorage, depart)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
+            }
+            if (depart < 0) {
+                const int proc = -depart;
+                if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid departure time.", outputStorage);
+                }
+                vehicleParams.departProcedure = (DepartDefinition)proc;
+                vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
+            } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
+                vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
+                WRITE_WARNING("Departure time for person '" + id + "' is in the past; using current time instead.");
+            } else {
+                vehicleParams.depart = depart;
+            }
+
+            double pos;
+            if (!server.readTypeCheckingDouble(inputStorage, pos)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
+            }
+            vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
+            if (fabs(pos) > edge->getLength()) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid departure position.", outputStorage);
+            }
+            if (pos < 0) {
+                pos += edge->getLength();
+            }
+            vehicleParams.departPos = pos;
+
+            SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
+            MSTransportable::MSTransportablePlan* plan = new MSTransportable::MSTransportablePlan();
+            plan->push_back(new MSTransportable::Stage_Waiting(*edge, 0, depart, pos, "awaiting departure", true));
+
+            try {
+                MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan);
+                MSNet::getInstance()->getPersonControl().add(person);
+            } catch (ProcessError& e) {
+                delete params;
+                delete plan;
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, e.what(), outputStorage);
+            }
+        }
+        break;
+        case APPEND_STAGE: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a person stage requires a compound object.", outputStorage);
+            }
+            int numParameters = inputStorage.readInt();
+            int stageType;
+            if (!server.readTypeCheckingInt(inputStorage, stageType)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
+            }
+            // append driving stage
+            if (stageType == MSTransportable::DRIVING) {
+                if (numParameters != 4) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a driving stage needs four parameters.", outputStorage);
+                }
+                std::string edgeID;
+                if (!server.readTypeCheckingString(inputStorage, edgeID)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Second parameter (edge) requires a string.", outputStorage);
+                }
+                const MSEdge* edge = MSEdge::dictionary(edgeID);
+                if (!edge) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid edge '" + edgeID + "' for person: '" + id + "'", outputStorage);
+                }
+                std::string lines;
+                if (!server.readTypeCheckingString(inputStorage, lines)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Third parameter (lines) requires a string.", outputStorage);
+                }
+                if (lines.size() == 0) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Empty lines parameter for person: '" + id + "'", outputStorage);
+                }
+                std::string stopID;
+                MSStoppingPlace* bs = 0;
+                if (!server.readTypeCheckingString(inputStorage, stopID)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
+                }
+                if (stopID != "") {
+                    bs = MSNet::getInstance()->getBusStop(stopID);
+                    if (bs == 0) {
+                        return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid stopping place id '" + stopID + "' for person: '" + id + "'", outputStorage);
+                    }
+                }
+                p->appendStage(new MSPerson::MSPersonStage_Driving(*edge, bs, -NUMERICAL_EPS, StringTokenizer(lines).getVector()));
+
+            // append waiting stage
+            } else if (stageType == MSTransportable::WAITING) {
+                if (numParameters != 4) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
+                }
+                int duration;
+                if (!server.readTypeCheckingInt(inputStorage, duration)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Second parameter (duration) requires an int.", outputStorage);
+                }
+                if (duration < 0) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Duration for person: '" + id + "' must not be negative", outputStorage);
+                }
+                std::string description;
+                if (!server.readTypeCheckingString(inputStorage, description)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Third parameter (description) requires a string.", outputStorage);
+                }
+                std::string stopID;
+                MSStoppingPlace* bs = 0;
+                if (!server.readTypeCheckingString(inputStorage, stopID)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
+                }
+                if (stopID != "") {
+                    bs = MSNet::getInstance()->getBusStop(stopID);
+                    if (bs == 0) {
+                        return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid stopping place id '" + stopID + "' for person: '" + id + "'", outputStorage);
+                    }
+                }
+                p->appendStage(new MSTransportable::Stage_Waiting(*p->getArrivalEdge(), duration, 0, p->getArrivalPos(), description, false));
+
+            // append walking stage
+            } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
+                if (numParameters != 6) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);
+                }
+                std::vector<std::string> edgeIDs;
+                if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Second parameter (edges) route must be defined as a list of edge ids.", outputStorage);
+                }
+                ConstMSEdgeVector edges;
+                try {
+                    MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
+                } catch (ProcessError& e) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, e.what(), outputStorage);
+                }
+                if (edges.empty()) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Empty edge list for walking stage of person '" + id + "'.", outputStorage);
+                }
+                double arrivalPos;
+                if (!server.readTypeCheckingDouble(inputStorage, arrivalPos)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Third parameter (arrivalPos) requires a double.", outputStorage);
+                }
+                if (fabs(arrivalPos) > edges.back()->getLength()) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid arrivalPos for walking stage of person '" + id + "'.", outputStorage);
+                }
+                if (arrivalPos < 0) {
+                    arrivalPos += edges.back()->getLength();
+                }
+                int duration;
+                if (!server.readTypeCheckingInt(inputStorage, duration)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (duration) requires an int.", outputStorage);
+                }
+                double speed;
+                if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fifth parameter (speed) requires a double.", outputStorage);
+                }
+                if (speed < 0) {
+                    speed = p->getVehicleType().getMaxSpeed();
+                }
+                std::string stopID;
+                MSStoppingPlace* bs = 0;
+                if (!server.readTypeCheckingString(inputStorage, stopID)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
+                }
+                if (stopID != "") {
+                    bs = MSNet::getInstance()->getBusStop(stopID);
+                    if (bs == 0) {
+                        return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid stopping place id '" + stopID + "' for person: '" + id + "'", outputStorage);
+                    }
+                }
+                p->appendStage(new MSPerson::MSPersonStage_Walking(edges, bs, duration, speed, p->getArrivalPos(), arrivalPos));
+
+
+            } else {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid stage type for person '" + id + "'", outputStorage);
+            }
+        }
+        break;
+        case REMOVE_STAGE: {
+        }
+        break;
         case VAR_PARAMETER: {
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
@@ -248,7 +460,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return false;
                 }
             } catch (ProcessError& e) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, e.what(), outputStorage);
             }
             */
             break;
