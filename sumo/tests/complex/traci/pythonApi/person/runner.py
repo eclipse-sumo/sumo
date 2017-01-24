@@ -32,7 +32,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+    "%s -c sumo.sumocfg --remote-port %s --fcd-output fcd.xml" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 
 
