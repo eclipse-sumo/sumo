@@ -829,6 +829,7 @@ public:
         std::string getNextEdge(const std::string& personID) const;
         std::string getVehicle(const std::string& personID) const;
         int getStage(const std::string& personID) const;
+        int getRemainingStages(const std::string& personID) const;
         std::vector<std::string> getEdges(const std::string& personID) const;
 
     private:

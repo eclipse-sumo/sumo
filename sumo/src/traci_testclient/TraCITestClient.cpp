@@ -776,6 +776,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getWaitingTime: " << person.getWaitingTime("p0") << "\n";
     answerLog << "    getNextEdge: " << person.getNextEdge("p0") << "\n";
     answerLog << "    getStage: " << person.getStage("p0") << "\n";
+    answerLog << "    getRemainingStages: " << person.getRemainingStages("p0") << "\n";
     answerLog << "    getVehicle: " << person.getVehicle("p0") << "\n";
     answerLog << "    getEdgse: " << joinToString(person.getEdges("p0"), " ") << "\n";
 

@@ -39,6 +39,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             Storage.readStringList,
                       tc.VAR_MINGAP:          Storage.readDouble,
                       tc.VAR_NEXT_EDGE:       Storage.readString,
                       tc.VAR_STAGE:           Storage.readInt,
+                      tc.VAR_STAGES_REMAINING: Storage.readInt,
                       tc.VAR_VEHICLE:         Storage.readString,
                       tc.VAR_EDGES:           Storage.readStringList,
                       }
@@ -164,6 +165,12 @@ class PersonDomain(Domain):
           3 for not-yet-departed
         """
         return self._getUniversal(tc.VAR_STAGE, personID)
+
+    def getRemainingStages(self, personID):
+        """getStage(string) -> int
+        Returns the number of remaining stages (at least 1)
+        """
+        return self._getUniversal(tc.VAR_STAGES_REMAINING, personID)
 
     def getVehicle(self, personID):
         """getVehicle(string) -> string

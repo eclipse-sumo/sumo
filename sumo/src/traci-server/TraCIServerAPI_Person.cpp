@@ -63,6 +63,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != VAR_NEXT_EDGE
             && variable != VAR_EDGES
             && variable != VAR_STAGE
+            && variable != VAR_STAGES_REMAINING
             && variable != VAR_VEHICLE
        ) {
         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -153,6 +154,10 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             case VAR_STAGE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(p->getCurrentStageType());
+                break;
+            case VAR_STAGES_REMAINING:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(p->getRemainingStages());
                 break;
             case VAR_VEHICLE: {
                 const SUMOVehicle* veh = p->getVehicle();

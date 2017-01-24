@@ -61,6 +61,7 @@ def check(personID):
     print("width", traci.person.getWidth(personID))
     print("waiting time", traci.person.getWaitingTime(personID))
     print("stage", traci.person.getStage(personID))
+    print("remainingStages", traci.person.getRemainingStages(personID))
     print("edges", traci.person.getEdges(personID))
     print("vehicle", traci.person.getVehicle(personID))
 

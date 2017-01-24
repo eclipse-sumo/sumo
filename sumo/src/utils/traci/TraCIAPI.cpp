@@ -2287,6 +2287,11 @@ TraCIAPI::PersonScope::getStage(const std::string& personID) const {
     return myParent.getInt(CMD_GET_PERSON_VARIABLE, VAR_STAGE, personID);
 }
 
+int
+TraCIAPI::PersonScope::getRemainingStages(const std::string& personID) const {
+    return myParent.getInt(CMD_GET_PERSON_VARIABLE, VAR_STAGES_REMAINING, personID);
+}
+
 std::vector<std::string>
 TraCIAPI::PersonScope::getEdges(const std::string& personID) const {
     return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, VAR_EDGES, personID);

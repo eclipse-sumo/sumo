@@ -394,4 +394,9 @@ MSTransportable::getSpeed() const {
 }
 
 
+int 
+MSTransportable::getRemainingStages() const {
+    return (myPlan->end() - myStep);
+}
+
 /****************************************************************************/

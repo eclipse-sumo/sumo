@@ -448,6 +448,9 @@ public:
         return (*myStep)->getEdges();
     }
 
+    /// @brief Return the number of remaining stages (including the current)
+    int getRemainingStages() const;
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
