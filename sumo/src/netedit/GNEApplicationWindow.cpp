@@ -235,10 +235,11 @@ GNEApplicationWindow::dependentBuild() {
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
-    new FXMDIWindowButton(myMenuBar, myMDIMenu, myMDIClient, FXMDIClient::ID_MDI_MENUWINDOW, GUIDesignMDIButtonLeft);
-    new FXMDIDeleteButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUCLOSE, GUIDesignMDIButtonRight);
-    new FXMDIRestoreButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENURESTORE, GUIDesignMDIButtonRight);
-    new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
+    // Due netedit only have a view, this buttons must be disabled (see #2807)
+    //new FXMDIWindowButton(myMenuBar, myMDIMenu, myMDIClient, FXMDIClient::ID_MDI_MENUWINDOW, GUIDesignMDIButtonLeft);
+    //new FXMDIDeleteButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUCLOSE, GUIDesignMDIButtonRight);
+    //new FXMDIRestoreButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENURESTORE, GUIDesignMDIButtonRight);
+    //new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
 
     // build the message window
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
@@ -922,19 +923,16 @@ GUISUMOAbstractView*
 GNEApplicationWindow::openNewView() {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
-    GNEViewParent* w = new GNEViewParent(myMDIClient,
-                                         myMDIMenu, FXString(caption.c_str()), this,
-                                         getBuildGLCanvas(), myNet, myUndoList,
-                                         GUIIconSubSys::getIcon(ICON_EMPTY),
-                                         opts, 10, 10, 300, 200);
+    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(), 
+                                                  myNet, myUndoList, NULL, opts, 10, 10, 300, 200);
     if (myMDIClient->numChildren() == 1) {
-        w->maximize();
+        viewParent->maximize();
     } else {
         myMDIClient->vertical(true);
     }
-    myMDIClient->setActiveChild(w);
+    myMDIClient->setActiveChild(viewParent);
     //v->grabKeyboard();
-    return w->getView();
+    return viewParent->getView();
 }
 
 
