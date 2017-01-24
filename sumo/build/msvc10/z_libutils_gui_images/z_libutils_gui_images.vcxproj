@@ -186,6 +186,7 @@
     <None Include="..\..\..\src\utils\gui\images\e3exit.xpm" />
     <None Include="..\..\..\src\utils\gui\images\edge.xpm" />
     <None Include="..\..\..\src\utils\gui\images\edit_graph.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\empty.xpm" />
     <None Include="..\..\..\src\utils\gui\images\erase_stains.xpm" />
     <None Include="..\..\..\src\utils\gui\images\erode.xpm" />
     <None Include="..\..\..\src\utils\gui\images\ext.xpm" />

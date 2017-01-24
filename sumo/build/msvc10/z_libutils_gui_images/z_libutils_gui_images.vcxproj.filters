@@ -489,5 +489,8 @@
     <None Include="..\..\..\src\utils\gui\images\crossing.xpm">
       <Filter>Icons</Filter>
     </None>
+    <None Include="..\..\..\src\utils\gui\images\empty.xpm">
+      <Filter>Icons</Filter>
+    </None>
   </ItemGroup>
 </Project>
