@@ -32,14 +32,14 @@
 #endif
 
 #include <map>
-
+#include "NBEdgeCont.h"
+#include "NBNodeCont.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class NBEdge;
-class NBNodeCont;
-class NBTypeCont;
+class NBNode;
 
 // ===========================================================================
 // class definitions
