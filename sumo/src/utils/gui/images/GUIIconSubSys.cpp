@@ -35,6 +35,7 @@
 #include "GUIIcons.h"
 #include "GUIIconSubSys.h"
 
+#include "empty.xpm"
 #include "filesave.xpm"
 #include "fileopen.xpm"
 #include "netopen.xpm"
@@ -165,13 +166,6 @@
 #include "vaporizer.xpm"
 #include "variablespeedsignal.xpm"
 #include "calibrator.xpm"
-
-
-static const char* empty_xpm[] = {
-    "    1    1        1            1",
-    ". c None",
-    "."
-};
 
 
 #ifdef CHECK_MEMORY_LEAKS
