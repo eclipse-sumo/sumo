@@ -155,7 +155,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 ConstMSEdgeVector edges = p->getEdges(nextStageIndex);
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeInt(edges.size());
+                tempMsg.writeInt((int)edges.size());
                 for (ConstMSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
                     tempMsg.writeString((*i)->getID());
                 }

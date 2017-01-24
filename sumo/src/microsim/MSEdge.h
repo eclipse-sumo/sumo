@@ -326,20 +326,6 @@ public:
     }
 
 
-    /** @brief Returns the list of edges from which this edge may be reached
-     * @return Edges from which this edge may be reached
-     */
-    const MSEdgeVector& getIncomingEdges() const {
-        return myPredecessors;
-    }
-
-    /** @brief Returns the list of edges that may be reached from this edge
-     * @return Edges that may be reached from this edge
-     */
-    const std::vector<MSEdge*>& getOutgoingEdges() const {
-        return mySuccessors;
-    }
-
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges
      */

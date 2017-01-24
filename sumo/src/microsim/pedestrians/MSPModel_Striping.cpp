@@ -218,7 +218,7 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
             // build all possible paths across this walkingArea
             // gather all incident lanes
             std::vector<const MSLane*> lanes;
-            const MSEdgeVector& incoming = edge->getIncomingEdges();
+            const MSEdgeVector& incoming = edge->getPredecessors();
             for (int j = 0; j < (int)incoming.size(); ++j) {
                 lanes.push_back(getSidewalk<MSEdge, MSLane>(incoming[j]));
             }

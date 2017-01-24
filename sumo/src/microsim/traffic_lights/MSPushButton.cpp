@@ -131,8 +131,8 @@ void getWalking(const std::vector<MSEdge*>& edges, std::vector< MSEdge*>& walkin
 ///@brief Get the walking areas adjacent to the crossing
 const std::vector<MSEdge*> getWalkingAreas(const MSEdge* crossing) {
     std::vector<MSEdge*> walkingEdges;
-    getWalking(crossing->getOutgoingEdges(), walkingEdges);
-    getWalking(crossing->getIncomingEdges(), walkingEdges);
+    getWalking(crossing->getSuccessors(), walkingEdges);
+    getWalking(crossing->getPredecessors(), walkingEdges);
     return walkingEdges;
 
 }

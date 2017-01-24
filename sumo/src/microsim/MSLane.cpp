@@ -1994,7 +1994,7 @@ MSLane::getLogicalPredecessorLane() const {
         return myLogicalPredecessorLane;
     }
     if (myLogicalPredecessorLane == 0) {
-        MSEdgeVector pred = myEdge->getIncomingEdges();
+        MSEdgeVector pred = myEdge->getPredecessors();
         // get only those edges which connect to this lane
         for (MSEdgeVector::iterator i = pred.begin(); i != pred.end();) {
             std::vector<IncomingLaneInfo>::const_iterator j = find_if(myIncomingLanes.begin(), myIncomingLanes.end(), edge_finder(*i));
