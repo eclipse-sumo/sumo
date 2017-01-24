@@ -437,6 +437,7 @@ public:
     /// @brief the stage type for the nth next stage
     StageType getStageType(int next) const {
         assert(myStep + next < myPlan->end());
+        assert(myStep + next >= myPlan->begin());
         return (*(myStep + next))->getStageType();
     }
 
@@ -453,11 +454,15 @@ public:
     /// @brief Return the edges of the nth next stage
     ConstMSEdgeVector getEdges(int next) const {
         assert(myStep + next < myPlan->end());
+        assert(myStep + next >= myPlan->begin());
         return (*(myStep + next))->getEdges();
     }
 
     /// @brief Return the number of remaining stages (including the current)
     int getRemainingStages() const;
+
+    /// @brief Return the total number stages in this persons plan
+    int getNumStages() const;
 
     /** @brief Called on writing tripinfo output
      *

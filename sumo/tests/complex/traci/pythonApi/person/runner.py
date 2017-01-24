@@ -89,5 +89,14 @@ for i in range(200):
 print(traci.person.getRoadID(personID))
 print(traci.person.getLanePosition(personID))
 print(traci.person.getNextEdge(personID))
+# retrieve invalid stages
+try:
+    print(traci.person.getStage(personID, 3))
+except traci.TraCIException:
+    print("recovering from exception after asking for invalid stage index")
+try:
+    print(traci.person.getStage(personID, -2))
+except traci.TraCIException:
+    print("recovering from exception after asking for invalid stage index")
 traci.close()
 sumoProcess.wait()

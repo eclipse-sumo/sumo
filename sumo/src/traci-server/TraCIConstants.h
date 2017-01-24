@@ -771,10 +771,10 @@
 
 
 
-// add an instance (poi, polygon, vehicle, route)
+// add an instance (poi, polygon, vehicle, person, route)
 #define ADD 0x80
 
-// remove an instance (poi, polygon, vehicle)
+// remove an instance (poi, polygon, vehicle, person)
 #define REMOVE 0x81
 
 // convert coordinates

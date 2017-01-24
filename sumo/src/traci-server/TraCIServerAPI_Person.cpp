@@ -150,6 +150,9 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 if (nextStageIndex >= p->getRemainingStages()) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
                 }
+                if (nextStageIndex < (p->getRemainingStages() - p->getNumStages())) {
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The negative stage index must refer to a valid previous stage.", outputStorage);
+                }
                 ConstMSEdgeVector edges = p->getEdges(nextStageIndex);
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 tempMsg.writeInt(edges.size());
@@ -165,6 +168,9 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 if (nextStageIndex >= p->getRemainingStages()) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
+                }
+                if (nextStageIndex < (p->getRemainingStages() - p->getNumStages())) {
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The negative stage index must refer to a valid previous stage.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(p->getStageType(nextStageIndex));

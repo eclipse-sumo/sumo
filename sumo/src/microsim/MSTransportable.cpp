@@ -399,4 +399,9 @@ MSTransportable::getRemainingStages() const {
     return (myPlan->end() - myStep);
 }
 
+int 
+MSTransportable::getNumStages() const {
+    return myPlan->size();
+}
+
 /****************************************************************************/
