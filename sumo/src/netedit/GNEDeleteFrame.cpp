@@ -90,16 +90,16 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEView
     myCurrentAC(NULL),
     myMarkedAC(NULL) {
     // Create Groupbox for current element
-    myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current and marked element", GUIDesignGroupBoxFrame);
-    myCurrentElementLabel = new FXLabel(myGroupBoxCurrentElement, "- ", 0, GUIDesignLabelLeft);
-    myMarkedElementLabel = new FXLabel(myGroupBoxCurrentElement, "- ", 0, GUIDesignLabelLeft);
+    myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current element", GUIDesignGroupBoxFrame);
+    myCurrentElementLabel = new FXLabel(myGroupBoxCurrentElement, "No item under cursor", 0, GUIDesignLabelLeft);
 
     // Create Groupbox for current element
     myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
     
     // Create groupbox for tree list 
     myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
-    myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_GNE_CHILDS, TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT, 0, 0, 0, 200);
+    myMarkedElementLabel = new FXLabel(myGroupBoxTreeList, "No item marked", 0, GUIDesignLabelLeft);
+    myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_GNE_CHILDS, GUIDesignTreeListFrame);
     
     // Create groupbox for help
     myGroupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
@@ -385,9 +385,11 @@ void
 GNEDeleteFrame::markAttributeCarrier(GNEAttributeCarrier *ac) {
     // Check if under cursor there are an Attribute Carrier
     if(ac != NULL) {
-        myMarkedElementLabel->setText(("- " + toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
+        myMarkedElementLabel->setText(("  " + toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
+        myMarkedElementLabel->setIcon(ac->getIcon());
     } else {
-        myMarkedElementLabel->setText("- ");
+        myMarkedElementLabel->setText("No item marked");
+        myMarkedElementLabel->setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     }
     // mark ac
     myMarkedAC = ac;
@@ -398,9 +400,11 @@ void
 GNEDeleteFrame::updateCurrentLabel(GNEAttributeCarrier *ac) {
     // change label
     if(ac != NULL) {
-        myCurrentElementLabel->setText(("- " + toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
+        myCurrentElementLabel->setText((toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
+        myCurrentElementLabel->setIcon(ac->getIcon());
     } else {
-        myCurrentElementLabel->setText("- ");
+        myCurrentElementLabel->setText("No item under cursor");
+        myCurrentElementLabel->setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     }
 }
 

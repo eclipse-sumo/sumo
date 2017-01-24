@@ -99,25 +99,25 @@
 /// @name FXLabels
 /// @{
     /// @brief label extended over over GNEFrame without thick and with text justify to left
-    #define GUIDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X)
+    #define GUIDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label extended over over GNEFrame without thick and with text justify to right
-    #define GUIDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X)
+    #define GUIDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label extended over over GNEFrame without thickand  with text justify to center
-    #define GUIDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X)
+    #define GUIDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label extended over over GNEFrame with thick and with text justify to left
-    #define GUIDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X)
+    #define GUIDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label extended over over GNEFrame with thick and with text justify to right
-    #define GUIDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X)
+    #define GUIDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label extended over over GNEFrame with thick and with text justify to center
-    #define GUIDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X)
+    #define GUIDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label extended over the matrix column with thick frame
-    #define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+    #define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 /// @}
 
 /// @name FXComboBox
@@ -220,6 +220,8 @@
     #define GUIDesignSpinDialAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | SPIN_NOMAX)
 /// @}
 
+    /// @brief Tree list used in frames to represent childs of elements
+    #define GUIDesignTreeListFrame          (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
 
