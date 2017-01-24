@@ -146,25 +146,40 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_EDGE, personID)
 
-    def getEdges(self, personID):
-        """getEdges(string) -> list(string)
+    def getEdges(self, personID, nextStageIndex=0):
+        """getEdges(string, int) -> list(string)
 
-        Returns a list of all edges in the current stage.
+        Returns a list of all edges in the nth next stage.
         For waiting stages this is a single edge
         For walking stages this is the complete route
         For driving stages this is [origin, destination]
-        """
-        return self._getUniversal(tc.VAR_EDGES, personID)
 
-    def getStage(self, personID):
-        """getStage(string) -> int
-        Returns 
+        nextStageIndex 0 retrieves value for the current stage.
+        nextStageIndex must be lower then value of getRemainingStages(personID)
+        """
+        self._connection._beginMessage(
+            tc.CMD_GET_PERSON_VARIABLE, tc.VAR_EDGES, personID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, nextStageIndex)
+        return self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
+                                             tc.VAR_EDGES, personID).readStringList()
+
+
+    def getStage(self, personID, nextStageIndex=0):
+        """getStage(string, int) -> int
+        Returns the type of the nth next stage
           0 for driving
           1 for waiting
           2 for walking
           3 for not-yet-departed
+        nextStageIndex 0 retrieves value for the current stage.
+        nextStageIndex must be lower then value of getRemainingStages(personID)
+
         """
-        return self._getUniversal(tc.VAR_STAGE, personID)
+        self._connection._beginMessage(
+            tc.CMD_GET_PERSON_VARIABLE, tc.VAR_STAGE, personID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, nextStageIndex)
+        return self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
+                                             tc.VAR_STAGE, personID).readInt()
 
     def getRemainingStages(self, personID):
         """getStage(string) -> int

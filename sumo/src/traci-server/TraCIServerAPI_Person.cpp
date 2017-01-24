@@ -143,7 +143,14 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 tempMsg.writeString(dynamic_cast<MSPerson*>(p)->getNextEdge());
                 break;
             case VAR_EDGES: {
-                ConstMSEdgeVector edges = p->getEdges();
+                int nextStageIndex = 0;
+                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage inde.", outputStorage);
+                }
+                if (nextStageIndex >= p->getRemainingStages()) {
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
+                }
+                ConstMSEdgeVector edges = p->getEdges(nextStageIndex);
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 tempMsg.writeInt(edges.size());
                 for (ConstMSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -151,10 +158,18 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 break;
             }
-            case VAR_STAGE:
+            case VAR_STAGE: {
+                int nextStageIndex = 0;
+                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage inde.", outputStorage);
+                }
+                if (nextStageIndex >= p->getRemainingStages()) {
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
+                }
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(p->getCurrentStageType());
+                tempMsg.writeInt(p->getStageType(nextStageIndex));
                 break;
+            }
             case VAR_STAGES_REMAINING:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(p->getRemainingStages());

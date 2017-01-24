@@ -2283,18 +2283,24 @@ TraCIAPI::PersonScope::getVehicle(const std::string& personID) const {
 }
 
 int
-TraCIAPI::PersonScope::getStage(const std::string& personID) const {
-    return myParent.getInt(CMD_GET_PERSON_VARIABLE, VAR_STAGE, personID);
-}
-
-int
 TraCIAPI::PersonScope::getRemainingStages(const std::string& personID) const {
     return myParent.getInt(CMD_GET_PERSON_VARIABLE, VAR_STAGES_REMAINING, personID);
 }
 
+int
+TraCIAPI::PersonScope::getStage(const std::string& personID, int nextStageIndex) const {
+    tcpip::Storage content;
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(nextStageIndex);
+    return myParent.getInt(CMD_GET_PERSON_VARIABLE, VAR_STAGE, personID, &content);
+}
+
 std::vector<std::string>
-TraCIAPI::PersonScope::getEdges(const std::string& personID) const {
-    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, VAR_EDGES, personID);
+TraCIAPI::PersonScope::getEdges(const std::string& personID, int nextStageIndex) const {
+    tcpip::Storage content;
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(nextStageIndex);
+    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, VAR_EDGES, personID, &content);
 }
 
 /****************************************************************************/

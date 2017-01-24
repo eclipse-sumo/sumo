@@ -30,6 +30,7 @@
 #endif
 
 #include <set>
+#include <cassert>
 #include <utils/common/SUMOTime.h>
 #include <utils/geom/Position.h>
 
@@ -433,6 +434,12 @@ public:
         return (*myStep)->getStageType();
     }
 
+    /// @brief the stage type for the nth next stage
+    StageType getStageType(int next) const {
+        assert(myStep + next < myPlan->end());
+        return (*(myStep + next))->getStageType();
+    }
+
     /// Returns the current stage description as a string
     std::string getCurrentStageDescription() const {
         return (*myStep)->getStageDescription();
@@ -443,9 +450,10 @@ public:
         return *myStep;
     }
 
-    /// @brief Return the edges of the current stage
-    ConstMSEdgeVector getEdges() const {
-        return (*myStep)->getEdges();
+    /// @brief Return the edges of the nth next stage
+    ConstMSEdgeVector getEdges(int next) const {
+        assert(myStep + next < myPlan->end());
+        return (*(myStep + next))->getEdges();
     }
 
     /// @brief Return the number of remaining stages (including the current)
