@@ -677,7 +677,12 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     // fill the public transport router with pre-parsed public transport lines
     for (std::map<std::string, SUMOVehicleParameter*>::const_iterator i = myInstance->myFlows.getMyMap().begin(); i != myInstance->myFlows.getMyMap().end(); ++i) {
         if (i->second->line != "") {
-            router.addSchedule(*i->second);
+            RORouteDef* route = myInstance->getRouteDef(i->second->routeid);
+            const std::vector<SUMOVehicleParameter::Stop>* addStops = 0;
+            if (route != 0 && route->getFirstRoute() != 0) {
+                addStops = &route->getFirstRoute()->getStops();
+            }
+            router.addSchedule(*i->second, addStops);
         }
     }
     for (RoutablesMap::const_iterator i = myInstance->myRoutables.begin(); i != myInstance->myRoutables.end(); ++i) {

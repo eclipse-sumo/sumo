@@ -136,9 +136,17 @@ public:
         }
     }
 
-    void addSchedule(const SUMOVehicleParameter& pars) {
+    void addSchedule(const SUMOVehicleParameter& pars, const std::vector<SUMOVehicleParameter::Stop>* addStops = 0) {
         SUMOTime lastUntil = 0;
         std::vector<SUMOVehicleParameter::Stop> validStops;
+        if (addStops != 0) {
+            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = addStops->begin(); s != addStops->end(); ++s) {
+                if (myStopConnections.count(s->busstop) > 0 && s->until >= lastUntil) {
+                    validStops.push_back(*s);
+                    lastUntil = s->until;
+                }
+            }
+        }
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
             if (myStopConnections.count(s->busstop) > 0 && s->until >= lastUntil) {
                 validStops.push_back(*s);
