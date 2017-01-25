@@ -561,6 +561,7 @@
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="departPos" type="departPosType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
+        <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="modes" type="xsd:string"/>
         <xsd:attribute name="vTypes" type="xsd:string"/>
     </xsd:complexType>
@@ -593,6 +594,7 @@
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="departPos" type="departPosType"/>
+        <xsd:attribute name="color" type="colorType"/>
     </xsd:complexType>
 
 </xsd:schema>
