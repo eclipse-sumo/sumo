@@ -50,7 +50,7 @@ public:
      * @param[in] filename The path to the definition file
      * @param[in] VSSValues values with the interval and speeds of variable speed signal
      */
-    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues);
+    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues);
 
     /// @brief Destructor
     ~GNEVariableSpeedSignal();

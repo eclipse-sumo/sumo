@@ -64,10 +64,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& VSSValues) :
+GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL),
     myFilename(filename),
-    myVSSValues(VSSValues),
+    myVSSValues(vssValues),
     mySaveInFilename(false) {
     // Update geometry;
     updateGeometry();

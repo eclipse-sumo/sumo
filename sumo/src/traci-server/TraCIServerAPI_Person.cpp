@@ -148,10 +148,10 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage inde.", outputStorage);
                 }
-                if (nextStageIndex >= p->getRemainingStages()) {
+                if (nextStageIndex >= p->getNumRemainingStages()) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
                 }
-                if (nextStageIndex < (p->getRemainingStages() - p->getNumStages())) {
+                if (nextStageIndex < (p->getNumRemainingStages() - p->getNumStages())) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The negative stage index must refer to a valid previous stage.", outputStorage);
                 }
                 ConstMSEdgeVector edges = p->getEdges(nextStageIndex);
@@ -167,10 +167,10 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage inde.", outputStorage);
                 }
-                if (nextStageIndex >= p->getRemainingStages()) {
+                if (nextStageIndex >= p->getNumRemainingStages()) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
                 }
-                if (nextStageIndex < (p->getRemainingStages() - p->getNumStages())) {
+                if (nextStageIndex < (p->getNumRemainingStages() - p->getNumStages())) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The negative stage index must refer to a valid previous stage.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
@@ -179,7 +179,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             }
             case VAR_STAGES_REMAINING:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(p->getRemainingStages());
+                tempMsg.writeInt(p->getNumRemainingStages());
                 break;
             case VAR_VEHICLE: {
                 const SUMOVehicle* veh = p->getVehicle();

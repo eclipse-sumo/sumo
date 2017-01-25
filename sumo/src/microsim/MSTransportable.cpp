@@ -395,19 +395,19 @@ MSTransportable::getSpeed() const {
 
 
 int 
-MSTransportable::getRemainingStages() const {
-    return (myPlan->end() - myStep);
+MSTransportable::getNumRemainingStages() const {
+    return (int)(myPlan->end() - myStep);
 }
 
 int 
 MSTransportable::getNumStages() const {
-    return myPlan->size();
+    return (int)myPlan->size();
 }
 
 void 
 MSTransportable::appendStage(Stage* stage) {
     // myStep is invalidated upon modifying myPlan
-    int stepIndex = myStep - myPlan->begin();
+    const int stepIndex = (int)(myStep - myPlan->begin());
     myPlan->push_back(stage);
     myStep = myPlan->begin() + stepIndex;
 }

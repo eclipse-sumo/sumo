@@ -94,7 +94,7 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
         std::vector<std::string> tokens = StringTokenizer(param_list, ";").getVector();
 
         for (int token_counter = 0; token_counter < size_family; ++token_counter) {
-            if (token_counter >= tokens.size()) {
+            if (token_counter >= (int)tokens.size()) {
                 std::ostringstream errorMessage;
                 errorMessage << "Error in " << key << ": not enough tokens.";
                 WRITE_ERROR(errorMessage.str());

@@ -459,7 +459,7 @@ public:
     }
 
     /// @brief Return the number of remaining stages (including the current)
-    int getRemainingStages() const;
+    int getNumRemainingStages() const;
 
     /// @brief Return the total number stages in this persons plan
     int getNumStages() const;
