@@ -6,10 +6,10 @@ Warning: The lane 'dummyLane' to use within the containerStop 'containerStop_02'
 Warning: Essential float attribute 'startPos' of containerStop with ID 'containerStop_03' is missing; Additional cannot be created
 Warning: Format of essential float attribute 'startPos' of containerStop with ID 'containerStop_04' is invalid; Cannot be parsed to float; Additional cannot be created
 Warning: Format of essential float attribute 'startPos' of containerStop with ID 'containerStop_05' is invalid; Cannot be negative; Additional cannot be created
-Warning: Invalid position for containerStop 'containerStop_06'.
+Warning: Invalid position for containerStop with ID = 'containerStop_06'.
 Warning: Essential float attribute 'endPos' of containerStop with ID 'containerStop_07' is missing; Additional cannot be created
 Warning: Format of essential float attribute 'endPos' of containerStop with ID 'containerStop_08' is invalid; Cannot be parsed to float; Additional cannot be created
-Warning: Invalid position for containerStop 'containerStop_09'.
-Warning: Invalid position for containerStop 'containerStop_10'.
+Warning: Invalid position for containerStop with ID = 'containerStop_09'.
+Warning: Invalid position for containerStop with ID = 'containerStop_10'.
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
