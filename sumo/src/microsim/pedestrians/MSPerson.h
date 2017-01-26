@@ -89,7 +89,7 @@ public:
         virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
 
         /// abort this stage (TraCI)
-        void abort();
+        void abort(MSTransportable*);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;

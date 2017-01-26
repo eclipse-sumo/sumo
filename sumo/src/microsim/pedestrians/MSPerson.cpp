@@ -151,7 +151,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
 }
 
 void
-MSPerson::MSPersonStage_Walking::abort() {
+MSPerson::MSPersonStage_Walking::abort(MSTransportable*) {
     MSPModel::getModel()->remove(myPedestrianState);
     myPedestrianState = 0;
 }

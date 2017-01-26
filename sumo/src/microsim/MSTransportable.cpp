@@ -319,6 +319,14 @@ MSTransportable::Stage_Driving::getEdges() const {
     return result;
 }
 
+void
+MSTransportable::Stage_Driving::abort(MSTransportable* t) {
+    if (myVehicle != 0) {
+        // jumping out of a moving vehicle!
+        dynamic_cast<MSVehicle*>(myVehicle)->removeTransportable(t);
+    }
+}
+
 
 
 void
@@ -428,7 +436,7 @@ MSTransportable::removeStage(int next) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
             appendStage(new Stage_Waiting(*getEdge(), 0, 0, getEdgePos(), "last stage removed", false));
         } 
-        (*myStep)->abort();
+        (*myStep)->abort(this);
         proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
     }
 }

@@ -113,7 +113,7 @@ public:
         virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) = 0;
 
         /// abort this stage (TraCI)
-        virtual void abort() {};
+        virtual void abort(MSTransportable*) {};
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -300,6 +300,9 @@ public:
 
         /// destructor
         virtual ~Stage_Driving();
+
+        /// abort this stage (TraCI)
+        void abort(MSTransportable*);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;

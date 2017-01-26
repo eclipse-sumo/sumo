@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:47233 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:34220 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -64,6 +64,14 @@ step 10
 step 11
 {0: ['horiz', 'newPerson']}
 step 12
+{0: ['horiz', 'newPerson']}
+step 13
+{0: ['horiz', 'newPerson']}
+step 14
+{0: ['horiz', 'newPerson']}
+step 15
+{0: ['horiz', 'newPerson']}
+step 16
 {0: ['horiz', 'newPerson']}
 :0_w1
 9.97012861603
