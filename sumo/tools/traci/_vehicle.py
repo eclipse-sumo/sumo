@@ -174,7 +174,7 @@ class VehicleDomain(Domain):
         return self._getUniversal(tc.VAR_POSITION, vehID)
 
     def getPosition3D(self, vehID):
-        """getPosition(string) -> (double, double, double)
+        """getPosition3D(string) -> (double, double, double)
 
         Returns the position of the named vehicle within the last step [m,m,m].
         """
@@ -524,7 +524,7 @@ class VehicleDomain(Domain):
     def getDrivingDistance(self, vehID, edgeID, pos, laneID=0):
         """getDrivingDistance(string, string, double, integer) -> double
 
-        .
+        Return the distance to the given edge and position along the vehicles route.
         """
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST,
                                        vehID, 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1)
@@ -537,7 +537,7 @@ class VehicleDomain(Domain):
     def getDrivingDistance2D(self, vehID, x, y):
         """getDrivingDistance2D(string, double, double) -> integer
 
-        .
+        Return the distance to the given network position along the vehicles route.
         """
         self._connection._beginMessage(
             tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1 + 4 + 1 + 8 + 8 + 1)

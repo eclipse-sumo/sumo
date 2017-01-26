@@ -66,7 +66,7 @@ class LaneAreaDomain(Domain):
     def getLastStepVehicleIDs(self, detID):
         """getLastStepVehicleIDs(string) -> list(string)
 
-        Returns the list of ids of vehicles that were on the named induction loop in the last simulation step.
+        Returns the list of ids of vehicles that were on the named detector in the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
 
@@ -101,7 +101,7 @@ class LaneAreaDomain(Domain):
     def getLastStepVehicleNumber(self, detID):
         """getLastStepVehicleNumber(string) -> integer
 
-        Returns the number of vehicles that were on the named induction loop within the last simulation step.
+        Returns the number of vehicles that were on the named detector within the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, detID)
 
