@@ -2406,5 +2406,15 @@ TraCIAPI::PersonScope::removeStage(const std::string& personID, int nextStageInd
 }
 
 
+void
+TraCIAPI::PersonScope::setSpeed(const std::string& personID, SUMOReal speed) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(speed);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, VAR_SPEED, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
 /****************************************************************************/
 

@@ -442,4 +442,20 @@ MSTransportable::removeStage(int next) {
 }
 
 
+void 
+MSTransportable::setSpeed(SUMOReal speed) {
+    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+        (*i)->setSpeed(speed);
+    }
+}
+
+
+void
+MSTransportable::replaceVehicleType(MSVehicleType* type) {
+    if (myVType->amVehicleSpecific()) {
+        delete myVType;
+    }
+    myVType = type;
+}
+
 /****************************************************************************/

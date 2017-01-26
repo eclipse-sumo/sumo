@@ -778,7 +778,10 @@ TraCITestClient::testAPI() {
     answerLog << "    getStage: " << person.getStage("p0") << "\n";
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p0") << "\n";
     answerLog << "    getVehicle: " << person.getVehicle("p0") << "\n";
-    answerLog << "    getEdgse: " << joinToString(person.getEdges("p0"), " ") << "\n";
+    answerLog << "    getEdges: " << joinToString(person.getEdges("p0"), " ") << "\n";
+    person.setSpeed("p0", 3);
+    simulationStep();
+    answerLog << "    getSpeed: " << person.getSpeed("p0") << "\n";
     person.add("p1", "e_u1", 10);
     std::vector<std::string> walkEdges;
     walkEdges.push_back("e_u1");

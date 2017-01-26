@@ -216,6 +216,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != ADD
             && variable != APPEND_STAGE
             && variable != REMOVE_STAGE
+            && variable != VAR_SPEED
        ) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -229,6 +230,17 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     }
     // process
     switch (variable) {
+        case VAR_SPEED: {
+            double speed = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Setting speed requires a double.", outputStorage);
+            }
+            // set the speed for all (walking) stages
+            p->setSpeed(speed);
+            // modify the vType so that stages added later are also affected
+            TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(p), server, inputStorage, outputStorage);
+        }
+        break;
         case ADD: {
             if (p != 0) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The person " + id + " to add already exists.", outputStorage);
@@ -492,16 +504,14 @@ TraCIServerAPI_Person::getPosition(const std::string& id, Position& p) {
 }
 
 
-/*
 MSVehicleType&
-TraCIServerAPI_Person::getSingularType(MSPerson* const person) {
-    const MSVehicleType& oType = person->getVehicleType();
-    std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + person->getID() : oType.getID();
+TraCIServerAPI_Person::getSingularType(MSTransportable* const t) {
+    const MSVehicleType& oType = t->getVehicleType();
+    std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + t->getID() : oType.getID();
     MSVehicleType* type = MSVehicleType::build(newID, &oType);
-    person->replaceVehicleType(type);
+    t->replaceVehicleType(type);
     return *type;
 }
-*/
 
 
 

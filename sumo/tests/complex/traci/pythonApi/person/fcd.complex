@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 26 11:16:37 2017 by SUMO Version dev-SVN-r22707
+<!-- generated on Thu Jan 26 15:49:40 2017 by SUMO Version dev-SVN-r22713
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,7 +25,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="53350"/>
+        <remote-port value="40608"/>
     </traci_server>
 
 </configuration>
@@ -38,47 +38,47 @@
     </timestep>
     <timestep time="1.00">
         <person id="horiz" x="760.11" y="504.98" angle="270.00" speed="1.39" pos="239.89" edge="2fi" slope="0.00"/>
-        <person id="newPerson" x="511.57" y="477.94" angle="0.00" speed="1.39" pos="226.44" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="511.57" y="477.75" angle="0.00" speed="1.20" pos="226.25" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
         <person id="horiz" x="758.72" y="504.98" angle="270.00" speed="1.39" pos="241.28" edge="2fi" slope="0.00"/>
-        <person id="newPerson" x="511.57" y="479.33" angle="0.00" speed="1.39" pos="227.83" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="511.57" y="478.95" angle="0.00" speed="1.20" pos="227.45" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
         <person id="horiz" x="757.33" y="504.98" angle="270.00" speed="1.39" pos="242.67" edge="2fi" slope="0.00"/>
-        <person id="newPerson" x="511.57" y="480.72" angle="0.00" speed="1.39" pos="229.22" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="511.57" y="480.15" angle="0.00" speed="1.20" pos="228.65" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
         <person id="horiz" x="755.94" y="504.98" angle="270.00" speed="1.39" pos="244.06" edge="2fi" slope="0.00"/>
-        <person id="newPerson" x="511.57" y="482.11" angle="0.00" speed="1.39" pos="230.61" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="511.57" y="481.35" angle="0.00" speed="1.20" pos="229.85" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
         <person id="horiz" x="754.56" y="504.98" angle="270.00" speed="1.39" pos="245.44" edge="2fi" slope="0.00"/>
-        <person id="newPerson" x="511.57" y="483.49" angle="0.00" speed="1.39" pos="231.99" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="511.57" y="482.55" angle="0.00" speed="1.20" pos="231.05" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
         <person id="horiz" x="753.17" y="504.98" angle="270.00" speed="1.39" pos="246.83" edge="2fi" slope="0.00"/>
-        <person id="newPerson" x="511.57" y="484.88" angle="0.00" speed="1.39" pos="233.38" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="511.57" y="483.75" angle="0.00" speed="1.20" pos="232.25" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
         <vehicle id="veh0" x="508.25" y="481.50" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="230.00" lane="3si_1" slope="0.00"/>
         <person id="horiz" x="751.78" y="504.98" angle="270.00" speed="1.39" pos="248.22" edge="2fi" slope="0.00"/>
-        <person id="newPerson" x="513.95" y="484.88" angle="270.00" speed="0.00" pos="233.38" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="513.95" y="483.75" angle="270.00" speed="0.00" pos="232.25" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
         <vehicle id="veh0" x="504.95" y="483.36" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.86" pos="231.86" lane="3si_2" slope="0.00"/>
         <person id="horiz" x="751.10" y="504.55" angle="351.38" speed="1.39" pos="1.11" edge=":m2_w0" slope="0.00"/>
-        <person id="newPerson" x="513.95" y="484.88" angle="270.00" speed="0.00" pos="233.38" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="513.95" y="483.75" angle="270.00" speed="0.00" pos="232.25" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
         <vehicle id="veh0" x="504.95" y="486.42" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.06" pos="234.92" lane="3si_2" slope="0.00"/>
         <person id="horiz" x="750.89" y="505.93" angle="351.38" speed="1.39" pos="2.50" edge=":m2_w0" slope="0.00"/>
-        <person id="newPerson" x="513.95" y="484.88" angle="270.00" speed="0.00" pos="233.38" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="513.95" y="483.75" angle="270.00" speed="0.00" pos="232.25" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
         <vehicle id="veh0" x="504.95" y="486.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.07" pos="234.99" lane="3si_2" slope="0.00"/>
         <person id="horiz" x="750.69" y="507.30" angle="351.38" speed="1.39" pos="3.89" edge=":m2_w0" slope="0.00"/>
-        <person id="newPerson" x="513.95" y="484.88" angle="270.00" speed="0.00" pos="233.38" edge="3si" slope="0.00"/>
+        <person id="newPerson" x="513.95" y="483.75" angle="270.00" speed="0.00" pos="232.25" edge="3si" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
         <vehicle id="veh0" x="504.95" y="486.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="234.99" lane="3si_2" slope="0.00"/>

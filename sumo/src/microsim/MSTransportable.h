@@ -115,6 +115,9 @@ public:
         /// abort this stage (TraCI)
         virtual void abort(MSTransportable*) {};
 
+        /// sets the walking speed (ignored in other stages)
+        virtual void setSpeed(SUMOReal) {};
+
         /// logs end of the step
         void setDeparted(SUMOTime now);
 
@@ -505,6 +508,9 @@ public:
     /// @brief removes the nth next stage
     void removeStage(int next);
 
+    /// sets the walking speed (ignored in other stages)
+    void setSpeed(SUMOReal speed);
+
     /// @brief returns the final arrival pos
     SUMOReal getArrivalPos() const {
         return myPlan->back()->getArrivalPos();
@@ -514,6 +520,9 @@ public:
     const MSEdge* getArrivalEdge() const {
         return myPlan->back()->getEdges().back();
     }
+
+    /// @brief replace myVType
+    void replaceVehicleType(MSVehicleType* type);
 
 protected:
     /// @brief the offset for computing positions when standing at an edge

@@ -156,6 +156,11 @@ MSPerson::MSPersonStage_Walking::abort(MSTransportable*) {
     myPedestrianState = 0;
 }
 
+void 
+MSPerson::MSPersonStage_Walking::setSpeed(SUMOReal speed) {
+    mySpeed = speed;
+}
+
 
 SUMOReal
 MSPerson::MSPersonStage_Walking::computeAverageSpeed() const {

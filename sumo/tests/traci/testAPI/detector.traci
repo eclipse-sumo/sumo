@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/28/16 10:26:43 by SUMO Version dev-SVN-r21501
+<!-- generated on Thu Jan 26 15:54:48 2017 by SUMO Version dev-SVN-r22713
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,7 +23,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="38741"/>
+        <remote-port value="50053"/>
     </traci_server>
 
 </configuration>
@@ -39,4 +39,5 @@
     <interval begin="6.00" end="7.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="7.00" end="8.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="8.00" end="9.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="9.00" end="10.00" id="det1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
 </detector>

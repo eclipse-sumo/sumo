@@ -91,6 +91,9 @@ public:
         /// abort this stage (TraCI)
         void abort(MSTransportable*);
 
+        /// sets the walking speed (ignored in other stages)
+        void setSpeed(SUMOReal speed);
+
         /// Returns the current edge
         const MSEdge* getEdge() const;
         const MSEdge* getFromEdge() const;

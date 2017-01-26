@@ -299,4 +299,12 @@ class PersonDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, nextStageIndex)
         self._connection._sendExact()
 
+    def setSpeed(self, personID, speed):
+        """setSpeed(string, double) -> None
+
+        Sets the maximum speed in m/s for the named person for subsequent step.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_PERSON_VARIABLE, tc.VAR_SPEED, personID, speed)
+
 PersonDomain()

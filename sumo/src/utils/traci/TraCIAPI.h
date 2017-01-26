@@ -838,6 +838,7 @@ public:
         void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, SUMOReal arrivalPos, SUMOReal duration=-1, SUMOReal speed=-1, const std::string& stopID="");
         void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID="");
         void removeStage(const std::string& personID, int nextStageIndex) const;
+        void setSpeed(const std::string& personID, SUMOReal speed) const;
 
     private:
         /// @brief invalidated copy constructor

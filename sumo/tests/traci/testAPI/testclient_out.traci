@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Jan 26 13:47:45 2017
+TraCITestClient output file. Date: Thu Jan 26 15:54:48 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -56,7 +56,8 @@ testAPI:
     getStage: 2
     getRemainingStages: 1
     getVehicle: 
-    getEdgse: e_m3 e_m4
+    getEdges: e_m3 e_m4
+    getSpeed: 3.00
     getRemainingStages: 4
     getRemainingStages: 3
     getRemainingStages: 1
@@ -69,11 +70,11 @@ testAPI:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=1  #variables=2
       VariableID=80      ok=1 valueDataType=12 string value: e_u1
-      VariableID=86      ok=1 valueDataType=11 Double value: 10.65
+      VariableID=86      ok=1 valueDataType=11 Double value: 16.19
   CommandID=154  ObjectID=e_u1  Domain=164  #variables=1
   #objects=1
    ObjectID=1
-      VariableID=86      ok=1 valueDataType=11 Double value: 10.65
+      VariableID=86      ok=1 valueDataType=11 Double value: 16.19
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: ]

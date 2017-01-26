@@ -78,7 +78,7 @@ public:
     static bool getPosition(const std::string& id, Position& p);
 
 private:
-    //static MSVehicleType& getSingularType(MSPerson* const person);
+    static MSVehicleType& getSingularType(MSTransportable* const t);
 
 private:
     /// @brief invalidated copy constructor
