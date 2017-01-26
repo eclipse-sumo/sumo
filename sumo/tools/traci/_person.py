@@ -307,4 +307,58 @@ class PersonDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_PERSON_VARIABLE, tc.VAR_SPEED, personID, speed)
 
+
+    def setType(self, personID, typeID):
+        """setType(string, string) -> None
+
+        Sets the id of the type for the named person.
+        """
+        self._connection._sendStringCmd(
+            tc.CMD_SET_PERSON_VARIABLE, tc.VAR_TYPE, personID, typeID)
+
+    def setWidth(self, personID, width):
+        """setWidth(string, double) -> None
+
+        Sets the width in m for this person.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_PERSON_VARIABLE, tc.VAR_WIDTH, personID, width)
+
+    def setHeight(self, personID, height):
+        """setHeight(string, double) -> None
+
+        Sets the height in m for this person.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_PERSON_VARIABLE, tc.VAR_HEIGHT, personID, height)
+
+    def setLength(self, personID, length):
+        """setLength(string, double) -> None
+
+        Sets the length in m for the given person.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_PERSON_VARIABLE, tc.VAR_LENGTH, personID, length)
+
+    def setMinGap(self, personID, minGap):
+        """setMinGap(string, double) -> None
+
+        Sets the offset (gap to front person if halting) for this vehicle.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_PERSON_VARIABLE, tc.VAR_MINGAP, personID, minGap)
+
+    def setColor(self, personID, color):
+        """setColor(string, (integer, integer, integer, integer))
+        sets color for person with the given ID.
+        i.e. (255,0,0,0) for the color red. 
+        The fourth integer (alpha) is only used when drawing persons with raster images
+        """
+        self._connection._beginMessage(
+            tc.CMD_SET_PERSON_VARIABLE, tc.VAR_COLOR, personID, 1 + 1 + 1 + 1 + 1)
+        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
+            color[0]), int(color[1]), int(color[2]), int(color[3]))
+        self._connection._sendExact()
+
+
 PersonDomain()

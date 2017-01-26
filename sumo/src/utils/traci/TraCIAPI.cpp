@@ -2416,5 +2416,72 @@ TraCIAPI::PersonScope::setSpeed(const std::string& personID, SUMOReal speed) con
     myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
 }
 
+
+void
+TraCIAPI::PersonScope::setType(const std::string& personID, const std::string& typeID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(typeID);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, VAR_TYPE, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+void
+TraCIAPI::PersonScope::setLength(const std::string& personID, SUMOReal length) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(length);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, VAR_LENGTH, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+
+void
+TraCIAPI::PersonScope::setWidth(const std::string& personID, SUMOReal width) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(width);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, VAR_WIDTH, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+void
+TraCIAPI::PersonScope::setHeight(const std::string& personID, SUMOReal height) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(height);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, VAR_HEIGHT, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+void
+TraCIAPI::PersonScope::setMinGap(const std::string& personID, SUMOReal minGap) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(minGap);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, VAR_MINGAP, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+
+void
+TraCIAPI::PersonScope::setColor(const std::string& personID, const TraCIColor& c) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COLOR);
+    content.writeUnsignedByte(c.r);
+    content.writeUnsignedByte(c.g);
+    content.writeUnsignedByte(c.b);
+    content.writeUnsignedByte(c.a);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, VAR_COLOR, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+
 /****************************************************************************/
 

@@ -52,6 +52,14 @@ traci.person.setSpeed("newPerson", 1.2)
 for i in range(3):
     print("step", step())
 
+personID = "horiz"
+traci.person.setType(personID, "pType2")
+traci.person.setLength(personID, 2)
+traci.person.setHeight(personID, 1.9)
+traci.person.setWidth(personID, 1.11)
+traci.person.setMinGap(personID, 2.22)
+traci.person.setColor(personID, (0,0,255,255))
+print("type", traci.person.getTypeID(personID))
 
 def check(personID):
     print("persons", traci.person.getIDList())
@@ -73,7 +81,6 @@ def check(personID):
     print("edges", traci.person.getEdges(personID))
     print("vehicle", traci.person.getVehicle(personID))
 
-personID = "horiz"
 check(personID)
 traci.person.subscribe(personID)
 print(traci.person.getSubscriptionResults(personID))

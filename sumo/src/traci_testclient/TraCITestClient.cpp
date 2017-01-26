@@ -770,6 +770,12 @@ TraCITestClient::testAPI() {
     }
 
     answerLog << "  person:\n";
+    person.setWidth("p0", 1);
+    person.setMinGap("p0", 2);
+    person.setLength("p0", 3);
+    person.setHeight("p0", 4);
+    person.setColor("p0", col1);
+    person.setType("p0", "stilts");
     answerLog << "    getIDList: " << joinToString(person.getIDList(), " ") << "\n";
     answerLog << "    getRoadID: " << person.getRoadID("p0") << "\n";
     answerLog << "    getTypeID: " << person.getTypeID("p0") << "\n";

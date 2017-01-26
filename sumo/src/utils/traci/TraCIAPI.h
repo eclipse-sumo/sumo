@@ -839,6 +839,12 @@ public:
         void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID="");
         void removeStage(const std::string& personID, int nextStageIndex) const;
         void setSpeed(const std::string& personID, SUMOReal speed) const;
+        void setType(const std::string& personID, const std::string& typeID) const;
+        void setLength(const std::string& personID, SUMOReal length) const;
+        void setWidth(const std::string& personID, SUMOReal width) const;
+        void setHeight(const std::string& personID, SUMOReal height) const;
+        void setMinGap(const std::string& personID, SUMOReal minGap) const;
+        void setColor(const std::string& personID, const TraCIColor& c) const;
 
     private:
         /// @brief invalidated copy constructor

@@ -217,6 +217,12 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != APPEND_STAGE
             && variable != REMOVE_STAGE
             && variable != VAR_SPEED
+            && variable != VAR_TYPE
+            && variable != VAR_LENGTH
+            && variable != VAR_WIDTH
+            && variable != VAR_HEIGHT
+            && variable != VAR_MINGAP
+            && variable != VAR_COLOR
        ) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -241,6 +247,18 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(p), server, inputStorage, outputStorage);
         }
         break;
+        case VAR_TYPE: {
+            std::string vTypeID;
+            if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The vehicle type id must be given as a string.", outputStorage);
+            }
+            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
+            if (vehicleType == 0) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle type '" + vTypeID + "' is not known.", outputStorage);
+            }
+            p->replaceVehicleType(vehicleType);
+            break;
+        }
         case ADD: {
             if (p != 0) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The person " + id + " to add already exists.", outputStorage);
@@ -477,15 +495,13 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         }
         break;
         default:
-            /*
             try {
-                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, getSingularType(v), server, inputStorage, outputStorage)) {
+                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, getSingularType(p), server, inputStorage, outputStorage)) {
                     return false;
                 }
             } catch (ProcessError& e) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, e.what(), outputStorage);
             }
-            */
             break;
     }
     server.writeStatusCmd(CMD_SET_PERSON_VARIABLE, RTYPE_OK, warning, outputStorage);
