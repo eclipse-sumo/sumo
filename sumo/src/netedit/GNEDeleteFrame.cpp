@@ -96,8 +96,8 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEView
     // Create Groupbox for current element
     myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
     
-    // Create checkbox for enable/disble automatically delete additionals childs (by default, enabled)
-    myCheckBoxAutomaticallyDeleteAdditionals = new FXMenuCheck(myGroupBoxOptions, "Force deletion of Additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignCheckButton);
+    // Create checkbox for enabling/disabling automatic deletion of additionals childs (by default, enabled)
+    myCheckBoxAutomaticallyDeleteAdditionals = new FXMenuCheck(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignCheckButton);
     myCheckBoxAutomaticallyDeleteAdditionals->setCheck(true);
 
     // Create groupbox for tree list 
@@ -361,8 +361,8 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier *ac) {
                         myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
                     } else {
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, 
-                                              ("Probem deleting " + toString(edge->getTag())).c_str(), 
-                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because hat " + toString(numberOfAdditionals) + " additional childs.\n Uncheck 'Force deletion of Additionals' to force deletion.").c_str());
+                            ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
+                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because it has " + toString(numberOfAdditionals) + " additional childs.\n Check 'Force deletion of additionals' to force deletion.").c_str());
                     }
                 }
                 break;
@@ -377,8 +377,8 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier *ac) {
                         myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
                     } else {
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, 
-                                              ("Problem deleting " + toString(lane->getTag())).c_str(), 
-                                              (toString(lane->getTag()) + " '" + lane->getID() + "' cannot be deleted because hat " + toString(lane->getAdditionalChilds().size()) + " additional childs.\n Uncheck 'Force deletion of Additionals' to force deletion.").c_str());
+                                              ("Problem deleting " + toString(lane->getTag())).c_str(), "%s",
+                                              (toString(lane->getTag()) + " '" + lane->getID() + "' cannot be deleted because it has " + toString(lane->getAdditionalChilds().size()) + " additional childs.\n Check 'Force deletion of Additionals' to force deletion.").c_str());
                     }
                 }
                 break;
