@@ -370,7 +370,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
             // Write error if position isn't valid
-            WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildBusStop(myViewNet, id, lane, startPos, endPos, lines)) {
             myLastTag = tag;
         }
@@ -399,7 +399,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
             // write error if position isn't valid
-            WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildContainerStop(myViewNet, id, lane, startPos, endPos, lines)) {
             myLastTag = tag;
         }
@@ -428,7 +428,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
             // write error if position isn't valid
-            WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildChargingStation(myViewNet, id, lane, startPos, endPos, chrgpower, efficiency, chargeInTransit, chargeDelay)) {
             myLastTag = tag;
         }
@@ -477,6 +477,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else if ((position < 0) || (position > (lane->getLaneShapeLenght()))) {
+            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildDetectorE1(myViewNet, id, lane, position, frequency, file, splitByType)) {
             myLastTag = tag;
         }
@@ -505,6 +507,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else if ((position < 0) || ((position + length) > (lane->getLaneShapeLenght()))) {
+            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildDetectorE2(myViewNet, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold)) {
             myLastTag = tag;
         }
@@ -550,6 +554,8 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else if ((position < 0) || (position > (lane->getLaneShapeLenght()))) {
+            WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else if (myE3Parent != NULL && buildDetectorEntry(myViewNet, myE3Parent, lane, position)) {
             myLastTag = tag;
         }
@@ -570,6 +576,8 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else if ((position < 0) || (position > (lane->getLaneShapeLenght()))) {
+            WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else if (myE3Parent != NULL && buildDetectorExit(myViewNet, myE3Parent, lane, position)) {
             myLastTag = tag;
         }
