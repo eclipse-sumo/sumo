@@ -60,10 +60,10 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 class MSTransportable {
 public:
     enum StageType {
-        DRIVING = 0,
+        WAITING_FOR_DEPART = 0,
         WAITING = 1,
         MOVING_WITHOUT_VEHICLE = 2, // walking for persons, tranship for containers
-        WAITING_FOR_DEPART = 3
+        DRIVING = 3
     };
 
     /**

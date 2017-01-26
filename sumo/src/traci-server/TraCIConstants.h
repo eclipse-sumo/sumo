@@ -389,12 +389,14 @@
 // ****************************************
 // PERSON/CONTAINER STAGES
 // ****************************************
-// person walking / container transhiping
-#define STAGE_WALKING 0x00
-// person riding / container being transported
-#define STAGE_DRIVING 0x01
 // person / container stopping
-#define STAGE_WAITING 0x02
+#define STAGE_WAITING_FOR_DEPART 0x00
+// person / container stopping
+#define STAGE_WAITING 0x01
+// person walking / container transhiping
+#define STAGE_WALKING 0x02
+// person riding / container being transported
+#define STAGE_DRIVING 0x03
 
 
 // ****************************************

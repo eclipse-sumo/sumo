@@ -48,11 +48,6 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             Storage.readStringList,
 class PersonDomain(Domain):
     DEPART_NOW = -3
 
-    STAGE_DRIVING = 0
-    STAGE_WAITING = 1
-    STAGE_WALKING = 2
-    STAGE_AWAITING_DEPARTURE = 3
-
     def __init__(self):
         Domain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
                         tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
@@ -173,10 +168,10 @@ class PersonDomain(Domain):
     def getStage(self, personID, nextStageIndex=0):
         """getStage(string, int) -> int
         Returns the type of the nth next stage
-          0 for driving
+          0 for not-yet-departed
           1 for waiting
           2 for walking
-          3 for not-yet-departed
+          3 for driving
         nextStageIndex 0 retrieves value for the current stage.
         nextStageIndex must be lower then value of getRemainingStages(personID)
         """
@@ -241,7 +236,7 @@ class PersonDomain(Domain):
                                        + 1 + 4 + len(description) 
                                        + 1 + 4 + len(stopID))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, self.STAGE_WAITING)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tc.STAGE_WAITING)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, duration)
         self._connection._packString(description)
         self._connection._packString(stopID)
@@ -267,7 +262,7 @@ class PersonDomain(Domain):
                                        + 1 + 4 + len(stopID) 
                                        )
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, self.STAGE_WALKING)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tc.STAGE_WALKING)
         self._connection._packStringList(edges)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, arrivalPos)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, duration)
@@ -287,7 +282,7 @@ class PersonDomain(Domain):
                                        + 1 + 4 + len(lines) 
                                        + 1 + 4 + len(stopID))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, self.STAGE_DRIVING)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tc.STAGE_DRIVING)
         self._connection._packString(toEdge)
         self._connection._packString(lines)
         self._connection._packString(stopID)
