@@ -159,5 +159,18 @@ MSDevice_Transportable::addTransportable(MSTransportable* transportable) {
 }
 
 
+void
+MSDevice_Transportable::removeTransportable(MSTransportable* transportable) {
+    myTransportables.erase(std::find(myTransportables.begin(), myTransportables.end(), transportable));
+    if (MSStopOut::active() && myHolder.isStopped()) {
+        if (myAmContainer) {
+            MSStopOut::getInstance()->loadedContainers(&myHolder, 1);
+        } else {
+            MSStopOut::getInstance()->loadedPersons(&myHolder, 1);
+        }
+    }
+}
+
+
 /****************************************************************************/
 

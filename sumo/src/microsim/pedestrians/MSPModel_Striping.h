@@ -69,6 +69,9 @@ public:
     /// @brief register the given person as a pedestrian
     PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now);
 
+    /// @brief remove the specified person from the pedestrian simulation
+    void remove(PedestrianState* state);
+
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
     bool blockedAtDist(const MSLane* lane, SUMOReal distToCrossing, std::vector<const MSPerson*>* collectBlockers);
 

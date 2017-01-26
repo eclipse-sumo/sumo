@@ -109,8 +109,11 @@ public:
         /// @brief return string representation of the current stage
         virtual std::string getStageDescription() const = 0;
 
-        /// proceeds to the next step
+        /// proceeds to this stage
         virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) = 0;
+
+        /// abort this stage (TraCI)
+        virtual void abort() {};
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -496,6 +499,8 @@ public:
     /// @brief Appends the given stage to the current plan
     void appendStage(Stage* stage);
 
+    /// @brief removes the nth next stage
+    void removeStage(int next);
 
     /// @brief returns the final arrival pos
     SUMOReal getArrivalPos() const {

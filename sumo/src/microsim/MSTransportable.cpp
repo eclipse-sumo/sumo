@@ -412,4 +412,26 @@ MSTransportable::appendStage(Stage* stage) {
     myStep = myPlan->begin() + stepIndex;
 }
 
+
+void 
+MSTransportable::removeStage(int next) {
+    assert(myStep + next < myPlan->end());
+    assert(next >= 0);
+    if (next > 0) {
+        // myStep is invalidated upon modifying myPlan
+        int stepIndex = (int)(myStep - myPlan->begin());
+        delete *(myStep + next);
+        myPlan->erase(myStep + next);
+        myStep = myPlan->begin() + stepIndex;
+    } else {
+        if (myStep + 1 == myPlan->end()) {
+            // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
+            appendStage(new Stage_Waiting(*getEdge(), 0, 0, getEdgePos(), "last stage removed", false));
+        } 
+        (*myStep)->abort();
+        proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
+    }
+}
+
+
 /****************************************************************************/

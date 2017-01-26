@@ -3433,6 +3433,16 @@ MSVehicle::addContainer(MSTransportable* container) {
 }
 
 
+void 
+MSVehicle::removeTransportable(MSTransportable* t) {
+    const bool isPerson = dynamic_cast<MSPerson*>(t) != 0;
+    MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
+    if (device != 0) {
+        device->removeTransportable(t);
+    }
+}
+
+
 const std::vector<MSTransportable*>&
 MSVehicle::getPersons() const {
     if (myPersonDevice == 0) {

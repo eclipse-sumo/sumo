@@ -201,14 +201,15 @@ class PersonDomain(Domain):
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
 
-    def remove(self, personID):
+    def removeStages(self, personID):
         """remove(string)
-        Removes the person from the simulation
+        Removes all stages of the person. If no new phases are appended, 
+        the person will be removed from the simulation in the next simulationStep().
         """
         # remove all stages after the current and then abort the current stage
-        while getRemainingStages(personID) > 1:
-            removeStage(1);
-        removeStage(0);
+        while self.getRemainingStages(personID) > 1:
+            self.removeStage(personID, 1);
+        self.removeStage(personID, 0);
 
 
     def add(self, personID, edgeID, pos, depart=DEPART_NOW, typeID="DEFAULT_PEDTYPE"):
@@ -298,6 +299,9 @@ class PersonDomain(Domain):
         nextStageIndex must be lower then value of getRemainingStages(personID)
         nextStageIndex 0 immediately aborts the current stage and proceeds to the next stage
         """
-        pass
+        self._connection._beginMessage(
+            tc.CMD_SET_PERSON_VARIABLE, tc.REMOVE_STAGE, personID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, nextStageIndex)
+        self._connection._sendExact()
 
 PersonDomain()

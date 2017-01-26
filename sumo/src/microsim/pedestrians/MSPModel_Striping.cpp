@@ -134,6 +134,20 @@ MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage,
 }
 
 
+void 
+MSPModel_Striping::remove(PedestrianState* state) {
+    const MSLane* lane = dynamic_cast<PState*>(state)->myLane;
+    Pedestrians& pedestrians = myActiveLanes[lane];
+    for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end(); ++it) {
+        if (*it == state) {
+            delete state;
+            pedestrians.erase(it);
+            return;
+        }
+    }
+}
+
+
 bool
 MSPModel_Striping::blockedAtDist(const MSLane* lane, SUMOReal distToCrossing, std::vector<const MSPerson*>* collectBlockers) {
     const Pedestrians& pedestrians = getPedestrians(lane);

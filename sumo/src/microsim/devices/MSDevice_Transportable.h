@@ -114,6 +114,13 @@ public:
     void addTransportable(MSTransportable* transportable);
 
 
+    /** @brief Remove a passenger (TraCI)
+     *
+     * @param[in] transportable The passenger / container to remove.
+     */
+    void removeTransportable(MSTransportable* transportable);
+
+
     /** @brief Return the number of passengers / containers
      * @return The number of stored transportables
      */

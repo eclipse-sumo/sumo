@@ -146,7 +146,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             case VAR_EDGES: {
                 int nextStageIndex = 0;
                 if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage inde.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                 }
                 if (nextStageIndex >= p->getNumRemainingStages()) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
@@ -165,7 +165,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
             case VAR_STAGE: {
                 int nextStageIndex = 0;
                 if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage inde.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                 }
                 if (nextStageIndex >= p->getNumRemainingStages()) {
                     return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
@@ -434,6 +434,17 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         }
         break;
         case REMOVE_STAGE: {
+            int nextStageIndex = 0;
+            if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
+                return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
+            }
+            if (nextStageIndex >= p->getNumRemainingStages()) {
+                return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
+            }
+            if (nextStageIndex < 0) {
+                return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index may not be negative.", outputStorage);
+            }
+            p->removeStage(nextStageIndex);
         }
         break;
         case VAR_PARAMETER: {

@@ -150,6 +150,12 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
     (*myRouteStep)->addPerson(person);
 }
 
+void
+MSPerson::MSPersonStage_Walking::abort() {
+    MSPModel::getModel()->remove(myPedestrianState);
+    myPedestrianState = 0;
+}
+
 
 SUMOReal
 MSPerson::MSPersonStage_Walking::computeAverageSpeed() const {
