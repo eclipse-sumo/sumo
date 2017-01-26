@@ -102,6 +102,12 @@ public:
     /// @brief delete an Exit child
     void removeExitChild(GNEDetectorExit *exit);
 
+    /// @brief get number of entry childs
+    int getNumberOfEntryChilds() const;
+
+    /// @brief get number of exit childs
+    int getNumberOfExitChilds() const;
+
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name of the parent object

@@ -267,6 +267,18 @@ GNEDetectorE3::removeExitChild(GNEDetectorExit *exit) {
 }
 
 
+int 
+GNEDetectorE3::getNumberOfEntryChilds() const {
+    return (int)myGNEDetectorEntrys.size();
+}
+
+
+int 
+GNEDetectorE3::getNumberOfExitChilds() const {
+    return (int)myGNEDetectorExits.size();
+}
+
+
 void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding an gl identificator

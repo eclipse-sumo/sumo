@@ -726,6 +726,8 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             // Abort undo/redo
             myUndoList->abort();
         } else {
+            // reset last tag (needed if user want to load more additionals)
+            additionalHandler.resetLastTag();
             // commit undo/redo operation
             myUndoList->p_end();
             update();
@@ -880,6 +882,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // Run parser
         if (!XMLSubSys::runParser(additionalHandler, myAdditionalsFile, false)) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
+        } else {
+            // reset last tag (needed if user want to load more additionals)
+            additionalHandler.resetLastTag();
         }
     }
     // check if additionals output must be changed

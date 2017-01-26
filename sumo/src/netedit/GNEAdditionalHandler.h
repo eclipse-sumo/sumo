@@ -378,15 +378,26 @@ public:
     */
     bool checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength, const SUMOReal minLength, const bool friendlyPos);
 
+    /**@brief reset last Tag and clear non-valid Additionals (For example, created E3 withouts Entry/Exit childs)
+     * @note must be called after a XML parsing
+     */
+    void resetLastTag();
+
 protected:
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
 
-    /// @brief Id of the last inserted GNEAdditional
-    std::string myAdditionalParent;
+    /// @brief Pointer to the last inserted E3
+    GNEDetectorE3 *myE3Parent;
+
+    /// @brief last used Tag
+    SumoXMLTag myLastTag;
 
     /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
     GNERerouter::rerouterInterval* rerouterIntervalToInsertValues;
+
+    /// @brief used to check hierarchy of aditionals with parents and childs (for example, E3)
+    bool checkAdditionalParent(SumoXMLTag currentTag);
 
 private:
     /// @brief get parsed attribute of XML and show warnings if there are problems

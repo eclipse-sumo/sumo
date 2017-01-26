@@ -60,7 +60,9 @@
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet) :
     SUMOSAXHandler(file),
     myViewNet(viewNet),
-    rerouterIntervalToInsertValues(NULL) {
+    rerouterIntervalToInsertValues(NULL),
+    myE3Parent(NULL),
+    myLastTag(SUMO_TAG_NOTHING) {
 }
 
 
@@ -71,58 +73,73 @@ void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // Call parse and build depending of tag
-    switch (element) {
-        case SUMO_TAG_BUS_STOP:
-            parseAndBuildBusStop(attrs, tag);
-            break;
-        case SUMO_TAG_CONTAINER_STOP:
-            parseAndBuildContainerStop(attrs, tag);
-            break;
-        case SUMO_TAG_CHARGING_STATION:
-            parseAndBuildChargingStation(attrs, tag);
-            break;
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-            parseAndBuildDetectorE1(attrs, tag);
-            break;
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-            parseAndBuildDetectorE2(attrs, tag);
-            break;
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-            parseAndBuildDetectorE3(attrs, tag);
-            break;
-        case SUMO_TAG_DET_ENTRY:
-            parseAndBuildDetectorEntry(attrs, tag);
-            break;
-        case SUMO_TAG_DET_EXIT:
-            parseAndBuildDetectorExit(attrs, tag);
-            break;
-        case SUMO_TAG_VSS:
-            parseAndBuildVariableSpeedSignal(attrs, tag);
-            break;
-        case SUMO_TAG_REROUTER:
-            parseAndBuildRerouter(attrs, tag);
-            break;
-        case SUMO_TAG_CALIBRATOR:
-            parseAndBuildCalibrator(attrs, tag);
-            break;
-        case SUMO_TAG_VAPORIZER:
-            parseAndBuildVaporizer(attrs, tag);
-            break;
-        case SUMO_TAG_ROUTEPROBE:
-            parseAndBuildRouteProbe(attrs, tag);
-            break;
-        case SUMO_TAG_FLOW:
-            parseCalibratorFlow(attrs, tag);
-            break;
-        case SUMO_TAG_STEP:
-            parseVariableSpeedSignalStep(attrs, tag);
-            break;
-        default:
-            break;
+    // first chek additional parent tag
+    if (checkAdditionalParent(tag)) {
+        // Call parse and build depending of tag
+        switch (element) {
+            case SUMO_TAG_BUS_STOP:
+                parseAndBuildBusStop(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                parseAndBuildContainerStop(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                parseAndBuildChargingStation(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_E1DETECTOR:
+            case SUMO_TAG_INDUCTION_LOOP:
+                parseAndBuildDetectorE1(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+                parseAndBuildDetectorE2(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+                parseAndBuildDetectorE3(attrs, tag);
+                break;
+            case SUMO_TAG_DET_ENTRY:
+                parseAndBuildDetectorEntry(attrs, tag);
+                break;
+            case SUMO_TAG_DET_EXIT:
+                parseAndBuildDetectorExit(attrs, tag);
+                break;
+            case SUMO_TAG_VSS:
+                parseAndBuildVariableSpeedSignal(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_REROUTER:
+                parseAndBuildRerouter(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_CALIBRATOR:
+                parseAndBuildCalibrator(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_VAPORIZER:
+                parseAndBuildVaporizer(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_ROUTEPROBE:
+                parseAndBuildRouteProbe(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_FLOW:
+                parseCalibratorFlow(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_STEP:
+                parseVariableSpeedSignalStep(attrs, tag);
+                myE3Parent = NULL;
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -220,7 +237,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // Obtain calibrator
-        GNECalibrator* calibratorToInsertFlow = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, myAdditionalParent));
+        GNECalibrator* calibratorToInsertFlow = /*dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, myAdditionalParent))*/ NULL;
         if (calibratorToInsertFlow == NULL) {
             WRITE_WARNING("A " + toString(SUMO_TAG_CALIBRATOR) + " must be inserter before insertion of the " + toString(tag) + " '" + flowId + "'");
         } else {
@@ -249,7 +266,7 @@ GNEAdditionalHandler::parseVariableSpeedSignalStep(const SUMOSAXAttributes& attr
     }
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        GNEVariableSpeedSignal* variableSpeedSignalToInsertStep = dynamic_cast<GNEVariableSpeedSignal*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalParent));
+        GNEVariableSpeedSignal* variableSpeedSignalToInsertStep = /*dynamic_cast<GNEVariableSpeedSignal*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalParent))*/ NULL;
         if (variableSpeedSignalToInsertStep == NULL) {
             WRITE_WARNING("A " + toString(SUMO_TAG_VSS) + " must be inserter before insertion of a " + toString(tag));
         } else if (!variableSpeedSignalToInsertStep->insertStep(time, speed)) {
@@ -288,7 +305,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& 
         }
         // if operation of build variable speed signal was sucesfully, save Id
         if (buildVariableSpeedSignal(myViewNet, id, Position(posx, posy), lanes, file, VSSValues)) {
-            myAdditionalParent = id;
+            ;//myAdditionalParent = id;
         }
     }
 }
@@ -326,7 +343,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         }
         // if operation of build variable speed signal was sucesfully, save Id
         if (buildRerouter(myViewNet, id, Position(posx, posy), edges, probability, file, off , rerouterIntervals)) {
-            myAdditionalParent = id;
+            ;//myAdditionalParent = id;
         }
     }
 }
@@ -354,9 +371,8 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
-        } else {
-            // build busStop
-            buildBusStop(myViewNet, id, lane, startPos, endPos, lines);
+        } else if (buildBusStop(myViewNet, id, lane, startPos, endPos, lines)) {
+            myLastTag = tag;
         }
     }
 }
@@ -381,11 +397,11 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-            // Check position and build container stop
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
+            // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
-        } else {
-            buildContainerStop(myViewNet, id, lane, startPos, endPos, lines);
+        } else if (buildContainerStop(myViewNet, id, lane, startPos, endPos, lines)) {
+            myLastTag = tag;
         }
     }
 }
@@ -411,9 +427,10 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLenght(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
+            // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " '" + id + "'.");
-        } else {
-            buildChargingStation(myViewNet, id, lane, startPos, endPos, chrgpower, efficiency, chargeInTransit, chargeDelay);
+        } else if (buildChargingStation(myViewNet, id, lane, startPos, endPos, chrgpower, efficiency, chargeInTransit, chargeDelay)) {
+            myLastTag = tag;
         }
     }
 }
@@ -436,11 +453,8 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         if (edge == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else {
-            if (buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>())) {
-                // Save id for insert flows
-                myAdditionalParent = id;
-            }
+        } else if (buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::map<std::string, GNECalibrator::CalibratorFlow>())) {
+            myLastTag = tag;
         }
     }
 }
@@ -463,9 +477,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else {
-            // build detector E1
-            buildDetectorE1(myViewNet, id, lane, position, frequency, file, splitByType);
+        } else if (buildDetectorE1(myViewNet, id, lane, position, frequency, file, splitByType)) {
+            myLastTag = tag;
         }
     }
 }
@@ -492,9 +505,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else {
-            // build detector E2
-            buildDetectorE2(myViewNet, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
+        } else if (buildDetectorE2(myViewNet, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold)) {
+            myLastTag = tag;
         }
     }
 }
@@ -513,9 +525,13 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
     SUMOReal posy = getParsedAttribute<SUMOReal>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // if operation of build detector E3 was sucesfully, save Id
-        if (buildDetectorE3(myViewNet, id, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold)) {
-            myAdditionalParent = id;
+        // Create without possibility of undo/redo
+        if (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, id) == NULL) {
+            myE3Parent = new GNEDetectorE3(id, myViewNet, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold);
+            myLastTag = myE3Parent->getTag();
+        } else {
+            WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
+            myE3Parent = NULL;
         }
     }
 }
@@ -531,17 +547,11 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        // get pointer to E3 parent
-        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myAdditionalParent, false));
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
-        } else if (E3Parent == NULL) {
-            // Write error if E3 isn't invalid
-            WRITE_WARNING("Definition of " + toString(tag) + " isn't within the definition  of a " + toString(SUMO_TAG_E3DETECTOR) + ".");
-        } else {
-            // build detector Entry
-            buildDetectorEntry(myViewNet, E3Parent, lane, position);
+        } else if (myE3Parent != NULL && buildDetectorEntry(myViewNet, myE3Parent, lane, position)) {
+            myLastTag = tag;
         }
     }
 }
@@ -557,17 +567,11 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        // get pointer to E3 parent
-        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myAdditionalParent, false));
         if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
-        } else if (E3Parent == NULL) {
-            // Write error if E3 isn't invalid
-            WRITE_WARNING("Definition of " + toString(tag) + " isn't within the definition  of a " + toString(SUMO_TAG_E3DETECTOR) + ".");
-        } else {
-            // build detector Exit
-            buildDetectorExit(myViewNet, E3Parent, lane, position);
+        } else if (myE3Parent != NULL && buildDetectorExit(myViewNet, myE3Parent, lane, position)) {
+            myLastTag = tag;
         }
     }
 }
@@ -898,6 +902,12 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* E3P
         WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) +" parent doesn't exist.");
         return false;
     } else {
+        // insert E3 parent in net if previoulsy wasn't inserted
+        if(viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
+            viewNet->getUndoList()->add(new GNEChange_Additional(E3Parent, true), true);
+            viewNet->getUndoList()->p_end();
+        }
         // Create detector Entry if don't exist already in the net
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_ENTRY));
         GNEDetectorEntry* entry = new GNEDetectorEntry(viewNet, E3Parent, lane, pos);
@@ -917,7 +927,13 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* E3Pa
     } else if (E3Parent == NULL) {
         WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) +" parent doesn't exist.");
         return false;
-    } else {
+    } else {        
+        // insert E3 parent in net if previoulsy wasn't inserted
+        if(viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
+            viewNet->getUndoList()->add(new GNEChange_Additional(E3Parent, true), true);
+            viewNet->getUndoList()->p_end();
+        }
         // Create detector Exit if don't exist already in the net
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_EXIT));
         GNEDetectorExit* exit = new GNEDetectorExit(viewNet, E3Parent, lane, pos);
@@ -1086,29 +1102,29 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
     bool ok = true;
     std::string parsedAttribute = "0";
     // only show one warning for every error/warning loading additional
-    if(!abort) {
+    if (!abort) {
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
-        if(objectid) {
+        if (objectid) {
             additionalOfWarningMessage = toString(tag) + " with ID '" + toString(objectid) + "'";
         } else {
             additionalOfWarningMessage = toString(tag);
         }
         // first check that attribute exists
-        if(attrs.hasAttribute(attribute)) {
+        if (attrs.hasAttribute(attribute)) {
             // Parse attribute as string
             parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
             // check that parsed attribute can be converted to type T
-            if(ok && !GNEAttributeCarrier::canParse<T>(parsedAttribute)) {
+            if (ok && !GNEAttributeCarrier::canParse<T>(parsedAttribute)) {
                 ok = false;
             }
             std::string errorFormat;
             // Set extra checks for int values
-            if(GNEAttributeCarrier::isInt(tag, attribute)) {
-                if(GNEAttributeCarrier::canParse<int>(parsedAttribute)) {
+            if (GNEAttributeCarrier::isInt(tag, attribute)) {
+                if (GNEAttributeCarrier::canParse<int>(parsedAttribute)) {
                     // parse to int and check if can be negative
                     int parsedIntAttribute = GNEAttributeCarrier::parse<int>(parsedAttribute);
-                    if(GNEAttributeCarrier::isPositive(tag, attribute) && parsedIntAttribute < 0) {
+                    if (GNEAttributeCarrier::isPositive(tag, attribute) && parsedIntAttribute < 0) {
                         errorFormat = "Cannot be negative; ";
                         ok = false;
                     }
@@ -1118,11 +1134,11 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
                 }
             }
             // Set extra checks for float(SUMOReal) values
-            if(GNEAttributeCarrier::isFloat(tag, attribute)) {
-                if(GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute)) {
+            if (GNEAttributeCarrier::isFloat(tag, attribute)) {
+                if (GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute)) {
                     // parse to SUMOReal and check if can be negative
                     SUMOReal parsedSumoRealAttribute = GNEAttributeCarrier::parse<SUMOReal>(parsedAttribute);
-                    if(GNEAttributeCarrier::isPositive(tag, attribute) && parsedSumoRealAttribute < 0) {
+                    if (GNEAttributeCarrier::isPositive(tag, attribute) && parsedSumoRealAttribute < 0) {
                         errorFormat = "Cannot be negative; ";
                         ok = false;
                     }
@@ -1133,10 +1149,10 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
             }
             // set extra check for time(SUMOReal) values
             if (GNEAttributeCarrier::isTime(tag, attribute)) {
-                if(GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute)) {
+                if (GNEAttributeCarrier::canParse<SUMOReal>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     SUMOReal parsedSumoRealAttribute = GNEAttributeCarrier::parse<SUMOReal>(parsedAttribute);
-                    if(parsedSumoRealAttribute < 0) {
+                    if (parsedSumoRealAttribute < 0) {
                         errorFormat = "Time cannot be negative; ";
                         ok = false;
                     }
@@ -1148,10 +1164,10 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
                 // If attribute has an invalid format
             if (!ok) {
                 // if attribute has a default value, take it as string. In other case, abort.
-                if(GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
+                if (GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
                     parsedAttribute = toString(GNEAttributeCarrier::getDefaultValue<T>(tag, attribute));
                     // report warning of default value
-                    if(report) {
+                    if (report) {
                         WRITE_WARNING("Format of optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
                                       additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
                     }
@@ -1165,10 +1181,10 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
             }
         } else {
             // if attribute has a default value, take it. In other case, abort.
-            if(GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
+            if (GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
                 parsedAttribute = toString(GNEAttributeCarrier::getDefaultValue<T>(tag, attribute));
                 // report warning of default value
-                if(report) {
+                if (report) {
                     WRITE_WARNING("Optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " + 
                                     additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
                 }
@@ -1188,6 +1204,52 @@ bool
 GNEAdditionalHandler::getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid) {
     bool ok = true;
     return attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, objectid, ok, false);
+}
+
+
+void 
+GNEAdditionalHandler::resetLastTag() {
+    myLastTag = SUMO_TAG_NOTHING;
+    if(myE3Parent != NULL && ((myE3Parent->getNumberOfEntryChilds() + myE3Parent->getNumberOfExitChilds()) == 0)) {
+        WRITE_WARNING((toString(myE3Parent->getTag()) + "s without " + toString(SUMO_TAG_DET_ENTRY) + "s or " + toString(SUMO_TAG_DET_EXIT) + " aren't allowed; " + 
+                        toString(myE3Parent->getTag()) + " with ID = '" + myE3Parent->getID() + "' cannot be created.").c_str());
+        delete myE3Parent;
+        myE3Parent = NULL;
+    }
+}
+
+
+bool
+GNEAdditionalHandler::checkAdditionalParent(SumoXMLTag currentTag) {
+    // If last tag was an E3 but next tag isn't an Entry or Exit
+    if (((myLastTag == SUMO_TAG_E3DETECTOR) || (myLastTag == SUMO_TAG_ENTRY_EXIT_DETECTOR)) &&
+       !((currentTag == SUMO_TAG_DET_ENTRY) || (currentTag == SUMO_TAG_DET_EXIT))) {
+        // Remove created E3 to avoid load empty detectors
+        if(myE3Parent != NULL) {
+            // show E3 empty warning and  delete empty E3
+            WRITE_WARNING((toString(myE3Parent->getTag()) + "s without " + toString(SUMO_TAG_DET_ENTRY) + "s or " + toString(SUMO_TAG_DET_EXIT) + " aren't allowed; " + 
+                            toString(myE3Parent->getTag()) + " with ID = '" + myE3Parent->getID() + "' cannot be created.").c_str());
+            delete myE3Parent;
+            myE3Parent = NULL;
+        }
+        // continue with the processing of additional
+        return true;
+    } 
+    
+    // if last tag wasn't an E3 but next tag is an entry or exit
+    if (!((myLastTag == SUMO_TAG_E3DETECTOR) || (myLastTag == SUMO_TAG_ENTRY_EXIT_DETECTOR)) &&
+         ((currentTag == SUMO_TAG_DET_ENTRY) || (currentTag == SUMO_TAG_DET_EXIT))) {
+             if(myE3Parent != NULL) {
+                 // In this case, we're loading a E3 with multiple entry exits, then continue
+                 return true;
+             } else {
+                // return false to stop procesing current entry or exit and go to the next tag (this avoid some useless warnings)
+                return false;
+             }
+    } else {
+        // all OK
+        return true;
+    }
 }
 
 /****************************************************************************/
