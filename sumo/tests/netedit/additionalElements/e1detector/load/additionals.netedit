@@ -1,7 +1,5 @@
 <additionals>
     <e1Detector id="E1_01" lane="gneE0_0" pos="3.00" freq="100.00" file="e1Detector_01.txt" splitByType="0"/>
-    <e1Detector id="E1_06" lane="gneE0_0" pos="-10.00" freq="100.00" file="e1Detector_06.txt" splitByType="0"/>
-    <e1Detector id="E1_07" lane="gneE0_0" pos="3000.00" freq="100.00" file="e1Detector_07.txt" splitByType="0"/>
     <e1Detector id="E1_08" lane="gneE0_0" pos="15.00" freq="100.00" file="e1Detector_08.txt" splitByType="0"/>
     <e1Detector id="E1_09" lane="gneE0_0" pos="18.00" freq="100.00" file="e1Detector_09.txt" splitByType="0"/>
     <e1Detector id="E1_10" lane="gneE0_0" pos="21.00" freq="100.00" file="e1Detector_10.txt" splitByType="0"/>

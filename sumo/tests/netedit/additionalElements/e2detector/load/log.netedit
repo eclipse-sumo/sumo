@@ -4,8 +4,11 @@ Warning: The lane 'dummyLane' to use within the e2Detector 'E2_02' is not known.
 Warning: Essential string attribute 'lane' of e2Detector with ID 'E2_03' is missing; Additional cannot be created
 Warning: Essential string attribute 'pos' of e2Detector with ID 'E2_04' is missing; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of e2Detector with ID 'E2_04' is invalid; Additional cannot be created
+Warning: Invalid position for e2Detector with ID = 'E2_05'.
+Warning: Invalid position for e2Detector with ID = 'E2_06'.
 Warning: Optional float attribute 'length' of e2Detector with ID 'E2_07' is missing; Default value '10.00' will be used.
 Warning: Format of optional float attribute 'length' of e2Detector with ID 'E2_08' is invalid; Cannot be negative; Default value '10.00' will be used.
+Warning: Invalid position for e2Detector with ID = 'E2_09'.
 Warning: Optional time attribute 'freq' of e2Detector with ID 'E2_11' is missing; Default value '100.00' will be used.
 Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_12' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
 Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_13' is invalid; Time cannot be negative; Default value '100.00' will be used.

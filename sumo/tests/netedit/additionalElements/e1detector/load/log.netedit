@@ -4,6 +4,8 @@ Warning: Essential string attribute 'lane' of e1Detector with ID 'E1_02' is miss
 Warning: The lane 'dummyLane' to use within the e1Detector 'E1_03' is not known.
 Warning: Essential string attribute 'pos' of e1Detector with ID 'E1_04' is missing; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of e1Detector with ID 'E1_05' is invalid; Additional cannot be created
+Warning: Invalid position for e1Detector with ID = 'E1_06'.
+Warning: Invalid position for e1Detector with ID = 'E1_07'.
 Warning: Optional time attribute 'freq' of e1Detector with ID 'E1_08' is missing; Default value '100.00' will be used.
 Warning: Format of optional time attribute 'freq' of e1Detector with ID 'E1_09' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
 Warning: Format of optional time attribute 'freq' of e1Detector with ID 'E1_10' is invalid; Time cannot be negative; Default value '100.00' will be used.
