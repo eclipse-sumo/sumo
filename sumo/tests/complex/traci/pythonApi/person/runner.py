@@ -85,12 +85,24 @@ try:
 except traci.TraCIException:
     print("recovering from exception after asking for unknown person")
 print("step", step())
+
+traci.person.removeStages("newPerson")
+traci.person.appendDrivingStage("newPerson", "1o", "B42")
+
+traci.route.add("r0", ["3si", "1o"])
+traci.vehicle.add("veh0", "r0", traci.vehicle.DEPART_TRIGGERED, pos=230)
+traci.vehicle.setLine("veh0", "B42")
+traci.vehicle.setStop("veh0", "3si", 235, laneIndex=2, startPos=230, duration=1000)
+
 print("getIDList", traci.person.getIDList())
-for i in range(6):
+for i in range(10):
     print("step", step())
     print(traci.person.getSubscriptionResults(personID))
 
-for i in range(200):
+traci.person.removeStages("newPerson")
+traci.person.appendWaitingStage("newPerson", 10, "Jumped out of a moving vehicle. Ouch!")
+
+for i in range(196):
     step()
 # person should be on a walkingArea in front of a crossing now
 print(traci.person.getRoadID(personID))
