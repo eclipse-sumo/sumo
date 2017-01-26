@@ -2303,5 +2303,108 @@ TraCIAPI::PersonScope::getEdges(const std::string& personID, int nextStageIndex)
     return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, VAR_EDGES, personID, &content);
 }
 
+void 
+TraCIAPI::PersonScope::removeStages(const std::string& personID) const {
+    // remove all stages after the current and then abort the current stage
+    while (getRemainingStages(personID) > 1) {
+        removeStage(personID, 1);
+    }
+    removeStage(personID, 0);
+}
+
+void 
+TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeID, SUMOReal pos, SUMOReal depart, const std::string typeID) {
+    if (depart > 0) {
+        depart*= 1000;
+    }
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(4);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(typeID);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(edgeID);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt((int)depart);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(pos);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, ADD, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+void 
+TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, SUMOReal duration, const std::string& description, const std::string& stopID) {
+    duration*= 1000;
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(4);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(STAGE_WAITING);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt((int)duration);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(description);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(stopID);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, APPEND_STAGE, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+void 
+TraCIAPI::PersonScope::appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, SUMOReal arrivalPos, SUMOReal duration, SUMOReal speed, const std::string& stopID) {
+    if (duration > 0) {
+        duration*= 1000;
+    }
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(6);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(STAGE_WALKING);
+    content.writeUnsignedByte(TYPE_STRINGLIST);
+    content.writeStringList(edges);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(arrivalPos);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt((int)duration);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(speed);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(stopID);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, APPEND_STAGE, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+void 
+TraCIAPI::PersonScope::appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(4);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(STAGE_DRIVING);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(toEdge);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(lines);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(stopID);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, APPEND_STAGE, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+void 
+TraCIAPI::PersonScope::removeStage(const std::string& personID, int nextStageIndex) const {
+    tcpip::Storage content;
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(nextStageIndex);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, REMOVE_STAGE, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
+
 /****************************************************************************/
 

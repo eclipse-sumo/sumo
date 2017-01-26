@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Jan 24 09:57:27 2017
+TraCITestClient output file. Date: Thu Jan 26 13:47:45 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -57,6 +57,10 @@ testAPI:
     getRemainingStages: 1
     getVehicle: 
     getEdgse: e_m3 e_m4
+    getRemainingStages: 4
+    getRemainingStages: 3
+    getRemainingStages: 1
+    getStage: 1
   gui:
     setScheme: 
     no support for gui commands

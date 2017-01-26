@@ -40,7 +40,6 @@
 #include <foreign/tcpip/socket.h>
 #include <traci-server/TraCIConstants.h>
 
-
 // ===========================================================================
 // global definitions
 // ===========================================================================
@@ -186,6 +185,7 @@ public:
     /// @}
 
 
+    static const SUMOReal DEPART_NOW = -3;
 
     /** @class TraCIScopeWrapper
      * @brief An abstract interface for accessing type-dependent values
@@ -831,6 +831,13 @@ public:
         int getRemainingStages(const std::string& personID) const;
         int getStage(const std::string& personID, int nextStageIndex=0) const;
         std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex=0) const;
+
+        void removeStages(const std::string& personID) const;
+        void add(const std::string& personID, const std::string& edgeID, SUMOReal pos, SUMOReal depart=DEPART_NOW, const std::string typeID="DEFAULT_PEDTYPE");
+        void appendWaitingStage(const std::string& personID, SUMOReal duration, const std::string& description="waiting", const std::string& stopID="");
+        void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, SUMOReal arrivalPos, SUMOReal duration=-1, SUMOReal speed=-1, const std::string& stopID="");
+        void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID="");
+        void removeStage(const std::string& personID, int nextStageIndex) const;
 
     private:
         /// @brief invalidated copy constructor

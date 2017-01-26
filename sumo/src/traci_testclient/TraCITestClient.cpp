@@ -779,6 +779,20 @@ TraCITestClient::testAPI() {
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p0") << "\n";
     answerLog << "    getVehicle: " << person.getVehicle("p0") << "\n";
     answerLog << "    getEdgse: " << joinToString(person.getEdges("p0"), " ") << "\n";
+    person.add("p1", "e_u1", 10);
+    std::vector<std::string> walkEdges;
+    walkEdges.push_back("e_u1");
+    walkEdges.push_back("e_shape1");
+    person.appendWalkingStage("p1", walkEdges, -20);
+    person.appendWaitingStage("p1", 5);
+    person.appendDrivingStage("p1", "e_vu2", "BusLine42");
+    // expect 4 stages due to the initial waiting-for-departure stage
+    answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
+    person.removeStage("p1", 3);
+    answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
+    person.removeStages("p1");
+    answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
+    answerLog << "    getStage: " << person.getStage("p1") << "\n";
 
     answerLog << "  gui:\n";
     try {
