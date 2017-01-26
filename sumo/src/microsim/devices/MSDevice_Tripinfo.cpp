@@ -234,6 +234,7 @@ MSDevice_Tripinfo::generateOutput() const {
     }
     os.writeAttr("devices", str.str());
     os.writeAttr("vType", myHolder.getVehicleType().getID());
+    os.writeAttr("speedFactor", myHolder.getChosenSpeedFactor());
     os.writeAttr("vaporized", (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0"));
     // cannot close tag because emission device output might follow
 }
