@@ -1,8 +1,6 @@
 <additionals>
     <e3Detector id="e3Detector_00" freq="100.00" file="e3Detector_00.txt" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="10.00">
         <detEntry lane="gneE1_0" pos="10.00"/>
-        <detEntry lane="gneE1_0" pos="12.00"/>
-        <detEntry lane="gneE1_0" pos="14.00"/>
     </e3Detector>
     <e3Detector id="e3Detector_02" freq="100.00" file="e3Detector_02.txt" timeThreshold="1.00" speedThreshold="1.39" x="6.00" y="10.00">
         <detEntry lane="gneE1_0" pos="16.00"/>
