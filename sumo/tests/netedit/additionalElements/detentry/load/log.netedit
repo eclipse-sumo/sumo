@@ -1,7 +1,8 @@
 Warning: Essential string attribute 'id' of e3Detector is missing; Additional cannot be created
-Warning: Definition of detEntry isn't within the definition  of a e3Detector.
 Warning: Essential string attribute 'lane' of detEntry is missing; Additional cannot be created
-Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
+Warning: The lane 'dummyLane' to use within the detEntry is not known.
 Warning: Essential string attribute 'pos' of detEntry is missing; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
+Warning: Invalid position for detEntry.
+Warning: Invalid position for detEntry.

@@ -1,19 +1,19 @@
 <additionals>
 	<!-- Entry with non valid E3 parent  (Without ID) -->
 	<e3Detector freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="22.97" y="6.36">
-		<detEntry lane="gneE1_0" pos="20"/>
+		<detEntry lane="gneE1_0" pos="10"/>
 	</e3Detector>
 	
 	<!-- Valid parent -->
     <e3Detector id="e3Detector_0" freq="100" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="22.97" y="6.36">
-		<!-- non valid Position (missing) -->
-		<detEntry pos="dummyPosition"/>		
+		<!-- non valid lane (missing) -->
+		<detEntry pos="20"/>		
 		
 		<!-- non valid Lane (dummy) -->
-		<detEntry lane="dummyLane" pos="dummyPosition"/>	
+		<detEntry lane="dummyLane" pos="30"/>	
 		
-		<!-- non valid Position (dummy) -->
-		<detEntry lane="gneE1_0" pos="30"/>
+		<!-- Valid Entry -->
+        <detEntry lane="gneE1_0" pos="40"/>
 		
 		<!-- non valid Position (missing) -->
 		<detEntry lane="gneE1_0"/>
@@ -27,11 +27,11 @@
 		<!-- non valid Position (negative) -->
         <detEntry lane="gneE1_0" pos="-10"/>
 		
-		<!-- non valid Position (overpassing) -->
+		<!-- non valid Position (overpassing lane) -->
         <detEntry lane="gneE1_0" pos="3000"/>
 		
 		<!-- Valid Entry -->
-        <detEntry lane="gneE1_0" pos="40"/>
+        <detEntry lane="gneE1_0" pos="50"/>
     </e3Detector>
 	
 	<!-- Entry without E3 parent -->
