@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/20/16 14:19:57 by SUMO Version dev-SVN-r20765
+<!-- generated on Thu Jan 26 09:25:11 2017 by SUMO Version dev-SVN-r22703
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -13,6 +13,7 @@
 
     <output>
         <tripinfo-output value="tripinfos.xml"/>
+        <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
@@ -29,7 +30,7 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="192.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="142.00" routeLength="467.98" waitSteps="0" timeLoss="11.68" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="192.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="142.00" routeLength="467.98" waitSteps="0" timeLoss="11.68" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="person0" depart="0.00">
         <walk arrival="47.00"/>
         <ride depart="121.00" arrival="140.00"/>
@@ -37,5 +38,5 @@
         <stop arrival="215.00"/>
         <ride depart="215.00" arrival="235.00"/>
     </personinfo>
-    <tripinfo id="car0" depart="215.00" departLane="1/4to2/4_0" departPos="50.00" departSpeed="0.00" departDelay="215.00" arrival="235.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="20.00" routeLength="242.00" waitSteps="0" timeLoss="2.19" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="car0" depart="215.00" departLane="1/4to2/4_0" departPos="50.00" departSpeed="0.00" departDelay="215.00" arrival="235.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="20.00" routeLength="242.00" waitSteps="0" timeLoss="2.19" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

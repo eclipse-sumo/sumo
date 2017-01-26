@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/26/16 12:40:04 by SUMO Version dev-SVN-r21793
+<!-- generated on Thu Jan 26 09:25:49 2017 by SUMO Version dev-SVN-r22703
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,6 +27,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="54.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="13.50" duration="54.00" routeLength="500.00" waitSteps="0" timeLoss="11.17" rerouteNo="0" devices="tripinfo_car" vType="car" vaporized=""/>
-    <tripinfo id="wide" depart="2.00" departLane="beg_1" departPos="0.00" departPosLat="-0.40" departSpeed="0.00" departDelay="0.00" arrival="55.00" arrivalLane="beg_1" arrivalPos="500.00" arrivalPosLat="-0.40" arrivalSpeed="14.72" duration="53.00" routeLength="500.00" waitSteps="5" timeLoss="28.89" rerouteNo="0" devices="tripinfo_wide" vType="wide_car" vaporized=""/>
+    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="54.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="13.50" duration="54.00" routeLength="500.00" waitSteps="0" timeLoss="11.17" rerouteNo="0" devices="tripinfo_car" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="wide" depart="2.00" departLane="beg_1" departPos="0.00" departPosLat="-0.40" departSpeed="0.00" departDelay="0.00" arrival="55.00" arrivalLane="beg_1" arrivalPos="500.00" arrivalPosLat="-0.40" arrivalSpeed="14.72" duration="53.00" routeLength="500.00" waitSteps="5" timeLoss="28.89" rerouteNo="0" devices="tripinfo_wide" vType="wide_car" speedFactor="1.50" vaporized=""/>
 </tripinfos>

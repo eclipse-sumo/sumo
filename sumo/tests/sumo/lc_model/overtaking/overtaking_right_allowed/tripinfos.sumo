@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug  4 13:46:01 2014 by SUMO sumo Version dev-SVN-r16824
+<!-- generated on Thu Jan 26 09:25:44 2017 by SUMO Version dev-SVN-r22703
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -28,6 +28,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="60.00" arrivalLane="beg_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="56.00" routeLength="1998.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" vaporized=""/>
-    <tripinfo id="slow_middle" depart="0.00" departLane="beg_1" departPos="1000.00" departSpeed="25.00" departDelay="0.00" arrival="80.00" arrivalLane="beg_1" arrivalPos="2998.50" arrivalSpeed="25.00" duration="80.00" routeLength="1998.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow_middle" vType="slow" vaporized=""/>
+    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="60.00" arrivalLane="beg_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="56.00" routeLength="1998.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="slow_middle" depart="0.00" departLane="beg_1" departPos="1000.00" departSpeed="25.00" departDelay="0.00" arrival="80.00" arrivalLane="beg_1" arrivalPos="2998.50" arrivalSpeed="25.00" duration="80.00" routeLength="1998.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow_middle" vType="slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>

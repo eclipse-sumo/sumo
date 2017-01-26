@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 10 10:55:05 2016 by SUMO Version dev-SVN-r21953
+<!-- generated on Thu Jan 26 09:25:48 2017 by SUMO Version dev-SVN-r22703
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,8 +24,8 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="12.64" duration="11.00" routeLength="100.00" waitSteps="0" timeLoss="2.91" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.53" duration="18.00" routeLength="200.00" waitSteps="0" timeLoss="3.35" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="24.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.66" duration="24.00" routeLength="160.00" waitSteps="0" timeLoss="7.71" rerouteNo="0" devices="tripinfo_stopped" vType="stopper" vaporized=""/>
-    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="26.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="12.95" duration="26.00" routeLength="200.00" waitSteps="0" timeLoss="11.14" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="12.64" duration="11.00" routeLength="100.00" waitSteps="0" timeLoss="2.91" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.53" duration="18.00" routeLength="200.00" waitSteps="0" timeLoss="3.35" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="24.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.66" duration="24.00" routeLength="160.00" waitSteps="0" timeLoss="7.71" rerouteNo="0" devices="tripinfo_stopped" vType="stopper" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="26.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="12.95" duration="26.00" routeLength="200.00" waitSteps="0" timeLoss="11.14" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

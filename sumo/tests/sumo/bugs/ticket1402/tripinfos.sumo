@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan  8 14:48:10 2015 by SUMO Version dev-SVN-r17561I
+<!-- generated on Thu Jan 26 09:25:52 2017 by SUMO Version dev-SVN-r22703
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="insert_step_0" depart="0.00" departLane="end2_0" departPos="0.00" departSpeed="36.00" departDelay="0.00" arrival="84.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="84.00" routeLength="2998.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_insert_step_0" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="fast_follower" depart="0.00" departLane="end_0" departPos="147.00" departSpeed="36.00" departDelay="0.00" arrival="85.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="85.00" routeLength="3051.92" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_fast_follower" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="insert_step_0" depart="0.00" departLane="end2_0" departPos="0.00" departSpeed="36.00" departDelay="0.00" arrival="84.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="84.00" routeLength="2998.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_insert_step_0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="fast_follower" depart="0.00" departLane="end_0" departPos="147.00" departSpeed="36.00" departDelay="0.00" arrival="85.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="85.00" routeLength="3051.92" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_fast_follower" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
