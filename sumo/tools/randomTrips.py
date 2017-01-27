@@ -315,6 +315,8 @@ def main(options):
         personattrs, otherattrs = split_trip_attributes(options.tripattrs)
     options.tripattrs = prependSpace(options.tripattrs)
 
+    vias = {}
+
     def generate_one(idx):
         label = "%s%s" % (options.tripprefix, idx)
         try:
@@ -324,6 +326,8 @@ def main(options):
             if len(intermediate) > 0:
                 via = ' via="%s" ' % ' '.join(
                     [e.getID() for e in intermediate])
+                if options.validate:
+                    vias[label] = via
             if options.pedestrians:
                 fouttrips.write(
                     '    <person id="%s" depart="%.2f"%s>\n' % (label, depart, personattrs))
@@ -376,7 +380,8 @@ def main(options):
 
     if options.validate:
         print("calling route2trips")
-        route2trips.main([options.routefile], outfile=options.tripfile)
+        route2trips.main([options.routefile], outfile=options.tripfile,
+                vias=vias, calledBy=" via randomTrips.py")
 
     if options.weights_outprefix:
         trip_generator.source_generator.write_weights(

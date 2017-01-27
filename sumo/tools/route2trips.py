@@ -22,15 +22,20 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
 import datetime
 
 from xml.sax import parse, handler
 
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+import sumolib
 
 class RouteReader(handler.ContentHandler):
 
-    def __init__(self, attrList, outfile):
+    def __init__(self, attrList, outfile, vias, calledBy=""):
         self._vType = ''
         self._vID = ''
         self._vDepart = 0
@@ -40,6 +45,8 @@ class RouteReader(handler.ContentHandler):
         self._attrList = attrList
         self._vehicleAttrs = None
         self.outfile = outfile
+        self.vias = vias
+        self.calledBy = calledBy
 
     def startElement(self, name, attrs):
         if name == 'vehicle':
@@ -59,9 +66,10 @@ class RouteReader(handler.ContentHandler):
             print('    <vType %s/>' % (' '.join(['%s="%s"' % (key, value) for key, value in sorted(dict(attrs).items())])),
                   file=self.outfile)
         elif name == 'routes':
-            print("""<?xml version="1.0"?>
-<!-- generated on %s by $Id$ -->
-<trips>""" % datetime.datetime.now(), file=self.outfile)
+            sumolib.writeXMLHeader(
+                    self.outfile, 
+                    "$Id$%s" % self.calledBy)
+            self.outfile.write("<trips>\n")
 
     def endElement(self, name):
         if name == 'route':
@@ -73,14 +81,16 @@ class RouteReader(handler.ContentHandler):
             edges = self._routeString.split()
             self._vehicleAttrs["from"] = edges[0]
             self._vehicleAttrs["to"] = edges[-1]
+            via = self.vias.get(self._vID, "")
             if self._attrList:
-                print('    <trip %s/>' % (' '.join(['%s="%s"' % (key, self._vehicleAttrs[key]) for key in self._attrList])),
+                print('    <trip %s%s/>' % (' '.join(['%s="%s"' % (key,
+                    self._vehicleAttrs[key]) for key in self._attrList]), via),
                       file=self.outfile)
             else:
                 del self._vehicleAttrs['id']
                 items = sorted(['%s="%s"' % (key, val)
                                 for key, val in self._vehicleAttrs.items()])
-                print('    <trip id="%s" %s/>' % (self._vID, ' '.join(items)),
+                print('    <trip id="%s" %s%s/>' % (self._vID, ' '.join(items), via),
                       file=self.outfile)
             self._vID = ''
             self._routeString = ''
@@ -91,14 +101,14 @@ class RouteReader(handler.ContentHandler):
         self._routeString += content
 
 
-def main(argv, outfile=None):
+def main(argv, outfile=None, vias={}, calledBy=""):
     routefile = argv[0]
     attrList = argv[1:]
     if outfile is None:
-        parse(routefile, RouteReader(attrList, sys.stdout))
+        parse(routefile, RouteReader(attrList, sys.stdout, vias, calledBy))
     else:
         with open(outfile, 'w') as outf:
-            parse(routefile, RouteReader(attrList, outf))
+            parse(routefile, RouteReader(attrList, outf, vias, calledBy))
 
 
 if __name__ == "__main__":
