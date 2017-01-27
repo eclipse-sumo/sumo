@@ -59,21 +59,21 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
+    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,             GUIDialog_ViewSettings::onCmdNameChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                        GUIDialog_ViewSettings::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,                    GUIDialog_ViewSettings::onCmdCancel),
     FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_ViewSettings::onCmdEditTable),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE,    GUIDialog_ViewSettings::onCmdSaveSetting),
-    FXMAPFUNC(SEL_UPDATE,  MID_SIMPLE_VIEW_SAVE,    GUIDialog_ViewSettings::onUpdSaveSetting),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_DELETE,    GUIDialog_ViewSettings::onCmdDeleteSetting),
-    FXMAPFUNC(SEL_UPDATE,  MID_SIMPLE_VIEW_DELETE,    GUIDialog_ViewSettings::onUpdDeleteSetting),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_EXPORT,    GUIDialog_ViewSettings::onCmdExportSetting),
-    FXMAPFUNC(SEL_UPDATE,  MID_SIMPLE_VIEW_EXPORT,    GUIDialog_ViewSettings::onUpdExportSetting),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_IMPORT,    GUIDialog_ViewSettings::onCmdImportSetting),
-    FXMAPFUNC(SEL_UPDATE,  MID_SIMPLE_VIEW_IMPORT,    GUIDialog_ViewSettings::onUpdImportSetting),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onCmdSaveSetting),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onUpdSaveSetting),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_DELETE, GUIDialog_ViewSettings::onCmdDeleteSetting),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_DELETE, GUIDialog_ViewSettings::onUpdDeleteSetting),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_EXPORT, GUIDialog_ViewSettings::onCmdExportSetting),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_EXPORT, GUIDialog_ViewSettings::onUpdExportSetting),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_IMPORT, GUIDialog_ViewSettings::onCmdImportSetting),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_IMPORT, GUIDialog_ViewSettings::onUpdImportSetting),
 
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_LOAD_DECALS,    GUIDialog_ViewSettings::onCmdLoadDecals),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE_DECALS,    GUIDialog_ViewSettings::onCmdSaveDecals),
@@ -87,10 +87,7 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
-        GUIVisualizationSettings* settings,
-        std::vector<GUISUMOAbstractView::Decal>* decals,
-        MFXMutex* decalsLock) :
+GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, MFXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myParent(parent), mySettings(settings),
     myDecals(decals), myDecalsLock(decalsLock),
@@ -114,14 +111,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         }
         mySchemeName->setNumVisible(5);
 
-        new FXButton(frame0, "\t\tSave the setting to registry",
-                     GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tRemove the setting from registry",
-                     GUIIconSubSys::getIcon(ICON_REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tExport setting to file",
-                     GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tLoad setting from file",
-                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(ICON_REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tExport setting to file", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tLoad setting from file", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
 
         new FXVerticalSeparator(frame0);
         new FXLabel(frame0, "Export includes:", 0, LAYOUT_CENTER_Y);
@@ -141,9 +134,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXVerticalFrame* frame1 =
             new FXVerticalFrame(genScroll, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
 
-        FXMatrix* m11 =
-            new FXMatrix(frame1, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m11 = new FXMatrix(frame1, 2, GUIDesignMatrixViewSettings);
         new FXLabel(m11, "Color", 0, LAYOUT_CENTER_Y);
         myBackgroundColor = new FXColorWell(m11, MFXUtils::getFXColor(settings->backgroundColor),
                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
@@ -165,8 +156,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m12 =
             new FXMatrix(frame1, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        myShowGrid =
-            new FXCheckButton(m12, "Show grid", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+        myShowGrid = new FXCheckButton(m12, "Show grid", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
         myShowGrid->setCheck(mySettings->showGrid);
         new FXLabel(m12, "");
         FXMatrix* m121 =
@@ -202,7 +192,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
         new FXLabel(m21, "Color", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+        myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
@@ -214,7 +204,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                          0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
         new FXLabel(m23, "Scale width", 0, LAYOUT_CENTER_Y);
         myLaneEdgeScaleMode = new FXComboBox(m23, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myLaneScaleInterpolation = new FXCheckButton(m23, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+        myLaneScaleInterpolation = new FXCheckButton(m23, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
         myLaneScaleSettingFrame = new FXVerticalFrame(frame23, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
         if (GUIVisualizationSettings::UseMesoSim) {
@@ -300,16 +290,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         mySettings->vehicleColorer.fill(*myVehicleColorMode);
         myVehicleColorMode->setNumVisible((int)mySettings->vehicleColorer.size());
-        myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+        myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
 
         myVehicleColorSettingFrame =
             new FXVerticalFrame(frame3, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
-        FXMatrix* m33 =
-            new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m33 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
         myShowBlinker = new FXCheckButton(m33, "Show blinker / brake lights", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowBlinker->setCheck(mySettings->showBlinker);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
@@ -368,16 +356,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myPersonColorMode = new FXComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         mySettings->personColorer.fill(*myPersonColorMode);
         myPersonColorMode->setNumVisible(10);
-        myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+        myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
 
         myPersonColorSettingFrame =
             new FXVerticalFrame(frame3, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
-        FXMatrix* m103 =
-            new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m103 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
         myPersonNamePanel = new NamePanel(m103, this, "Show person name", mySettings->personName);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
@@ -416,16 +402,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myContainerColorMode = new FXComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         mySettings->containerColorer.fill(*myContainerColorMode);
         myContainerColorMode->setNumVisible(9);
-        myContainerColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+        myContainerColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
 
         myContainerColorSettingFrame =
             new FXVerticalFrame(frame3, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
-        FXMatrix* m103 =
-            new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m103 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
         myContainerNamePanel = new NamePanel(m103, this, "Show container name", mySettings->containerName);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
@@ -448,15 +432,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myJunctionColorMode = new FXComboBox(m41, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         mySettings->junctionColorer.fill(*myJunctionColorMode);
         myJunctionColorMode->setNumVisible(3);
-        myJunctionColorInterpolation = new FXCheckButton(m41, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+        myJunctionColorInterpolation = new FXCheckButton(m41, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
 
         myJunctionColorSettingFrame =
             new FXVerticalFrame(frame4, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 
         new FXHorizontalSeparator(frame4, GUIDesignHorizontalSeparator);
-        FXMatrix* m42 =
-            new FXMatrix(frame4, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m42 = new FXMatrix(frame4, 2, GUIDesignMatrixViewSettings);
         myTLIndexPanel = new NamePanel(m42, this, "Show link tls index", mySettings->drawLinkTLIndex);
         myJunctionIndexPanel = new NamePanel(m42, this, "Show link junction index", mySettings->drawLinkJunctionIndex);
         myShowLane2Lane = new FXCheckButton(m42, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
@@ -484,15 +466,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXVerticalFrame* frame5 =
             new FXVerticalFrame(genScroll, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
 
-        FXMatrix* m51 =
-            new FXMatrix(frame5, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m51 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
         myAddNamePanel = new NamePanel(m51, this, "Show detector name", mySettings->addName);
         new FXHorizontalSeparator(frame5 , GUIDesignHorizontalSeparator);
 
-        FXMatrix* m52 =
-            new FXMatrix(frame5, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m52 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
         myAddSizePanel = new SizePanel(m52, this, mySettings->addSize);
 
         /*
@@ -509,16 +487,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXVerticalFrame* frame6 =
             new FXVerticalFrame(genScroll, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
 
-        FXMatrix* m61 =
-            new FXMatrix(frame6, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m61 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
         myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
         myPOITypePanel = new NamePanel(m61, this, "Show poi types", mySettings->poiType);
         new FXHorizontalSeparator(frame6 , GUIDesignHorizontalSeparator);
 
-        FXMatrix* m62 =
-            new FXMatrix(frame6, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m62 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
         myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
 
     } {
@@ -528,9 +502,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXVerticalFrame* frame9 =
             new FXVerticalFrame(genScroll, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
 
-        FXMatrix* m91 =
-            new FXMatrix(frame9, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m91 = new FXMatrix(frame9, 2, GUIDesignMatrixViewSettings);
         myPolyNamePanel = new NamePanel(m91, this, "Show polygon names", mySettings->polyName);
         myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
         new FXHorizontalSeparator(frame9 , GUIDesignHorizontalSeparator);
@@ -544,9 +516,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXVerticalFrame* frame7 =
             new FXVerticalFrame(genScroll, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
 
-        FXMatrix* m72 =
-            new FXMatrix(frame7, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m72 = new FXMatrix(frame7, 2, GUIDesignMatrixViewSettings);
         myShowSizeLegend = new FXCheckButton(m72, "Show Size Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowSizeLegend->setCheck(mySettings->showSizeLegend);
         new FXLabel(m72, "");
@@ -557,9 +527,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXVerticalFrame* frame8 =
             new FXVerticalFrame(genScroll, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
 
-        FXMatrix* m82 =
-            new FXMatrix(frame8, 1, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
-                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m82 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
         myAntialiase = new FXCheckButton(m82, "Antialiase", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myAntialiase->setCheck(mySettings->antialiase);
         myDither = new FXCheckButton(m82, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
@@ -1625,7 +1593,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     GUIDialog_ViewSettings* target,
     const std::string& title,
     const GUIVisualizationTextSettings& settings) {
-    myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+    myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
     myCheck->setCheck(settings.show);
     new FXLabel(parent, "");
     FXMatrix* m1 = new FXMatrix(parent, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
@@ -1664,7 +1632,7 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(
     FXMatrix* parent,
     GUIDialog_ViewSettings* target,
     const GUIVisualizationSizeSettings& settings) {
-    myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", target, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+    myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
     myCheck->setCheck(settings.constantSize);
     new FXLabel(parent, "");
     FXMatrix* m1 = new FXMatrix(parent, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,

@@ -143,11 +143,14 @@
     /// @brief Horizontal frame used in status bar
     #define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
     
-    /// @brief Matrix design extended over frame and used for represent attributes and their values
-    #define GUIDesignMatrixAttributes       (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
+    /// @brief Matrix design extended over GNEFrame and used for represent attributes and their values
+    #define GUIDesignMatrixAttributes           (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
     
     /// @brief Group box design extended over frame
-    #define GUIDesignGroupBoxFrame          (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
+    #define GUIDesignGroupBoxFrame              (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
+
+    /// @brief FXMatrix used to pack values in Viewsettings
+    #define GUIDesignMatrixViewSettings         (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5
 /// @}
 
 
@@ -225,7 +228,7 @@
 
 
     /// @brief CheckButton for GNEFrames extended over the frame
-    #define GUIDesignCheckButton            (LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL)
+    #define GUIDesignCheckButton            (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
 
