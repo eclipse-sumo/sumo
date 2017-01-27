@@ -289,8 +289,13 @@ def split_trip_attributes(tripattrs):
             otherattrs.append(a)
         else:
             personattrs.append(a)
-    return ' '.join(personattrs), ' '.join(otherattrs)
+    return prependSpace(' '.join(personattrs)), prependSpace(' '.join(otherattrs))
 
+def prependSpace(s):
+    if len(s) == 0 or s[0] == " ":
+        return s
+    else:
+        return " " + s
 
 def main(options):
     if options.seed:
@@ -308,6 +313,7 @@ def main(options):
 
     if options.pedestrians:
         personattrs, otherattrs = split_trip_attributes(options.tripattrs)
+    options.tripattrs = prependSpace(options.tripattrs)
 
     def generate_one(idx):
         label = "%s%s" % (options.tripprefix, idx)
@@ -316,20 +322,20 @@ def main(options):
                 options.min_distance, options.max_distance, options.maxtries)
             via = ""
             if len(intermediate) > 0:
-                via = 'via="%s" ' % ' '.join(
+                via = ' via="%s" ' % ' '.join(
                     [e.getID() for e in intermediate])
             if options.pedestrians:
                 fouttrips.write(
-                    '    <person id="%s" depart="%.2f" %s>\n' % (label, depart, personattrs))
+                    '    <person id="%s" depart="%.2f"%s>\n' % (label, depart, personattrs))
                 if options.persontrips:
                     fouttrips.write(
-                            '        <personTrip from="%s" to="%s" %s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
+                            '        <personTrip from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 else:
                     fouttrips.write(
-                            '        <walk from="%s" to="%s" %s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
+                            '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 fouttrips.write('    </person>\n')
             else:
-                fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s" %s%s/>\n' % (
+                fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s"%s%s/>\n' % (
                     label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
         except Exception as exc:
             print(exc, file=sys.stderr)
