@@ -810,21 +810,23 @@ NBEdgeCont::guessOpposites() {
 void
 NBEdgeCont::recheckLaneSpread() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        std::string oppositeID;
-        if ((*i).first[0] == '-') {
-            oppositeID = (*i).first.substr(1);
+        NBEdge* opposite = getOppositeByID(i->first);
+        if (opposite != 0) {
+            i->second->setLaneSpreadFunction(LANESPREAD_RIGHT);
+            opposite->setLaneSpreadFunction(LANESPREAD_RIGHT);
         } else {
-            oppositeID = "-" + (*i).first;
-        }
-        if (myEdges.find(oppositeID) != myEdges.end()) {
-            (*i).second->setLaneSpreadFunction(LANESPREAD_RIGHT);
-            myEdges.find(oppositeID)->second->setLaneSpreadFunction(LANESPREAD_RIGHT);
-        } else {
-            (*i).second->setLaneSpreadFunction(LANESPREAD_CENTER);
+            i->second->setLaneSpreadFunction(LANESPREAD_CENTER);
         }
     }
 }
 
+
+NBEdge* 
+NBEdgeCont::getOppositeByID(const std::string& edgeID) const {
+    const std::string oppositeID = edgeID[0] == '-' ? edgeID.substr(1) :  "-" + edgeID;
+    EdgeCont::const_iterator it = myEdges.find(oppositeID);
+    return it != myEdges.end() ? it->second : (NBEdge*)0;
+}
 
 
 // ----- other

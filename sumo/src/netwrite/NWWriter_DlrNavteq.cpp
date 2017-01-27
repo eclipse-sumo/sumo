@@ -162,14 +162,26 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
         NBEdge* e = (*i).second;
         PositionVector geom = e->getGeometry();
         if (geom.size() > 2) {
-            if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+            // the import NIImporter_DlrNavteq checks for the presence of a
+            // negated edge id to determine spread type. We may need to do some
+            // shifting to make this consistent
+            const bool hasOppositeID = ec.getOppositeByID(e->getID()) != 0;
+            if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT && !hasOppositeID) {
                 // need to write center-line geometry instead
                 try {
                     geom.move2side(e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
                     WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
                 }
+            } else if (e->getLaneSpreadFunction() == LANESPREAD_CENTER && hasOppositeID) {
+                // need to write left-border geometry instead
+                try {
+                    geom.move2side(-e->getTotalWidth() / 2);
+                } catch (InvalidArgument& exception) {
+                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                }
             }
+
             std::string internalNodeID = e->getID();
             if (internalNodeID == UNDEFINED 
                     || (nc.retrieve(internalNodeID) != 0)

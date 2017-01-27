@@ -452,8 +452,11 @@ public:
      * @todo Recheck usage; check whether this is really needed and whether it works at all
      */
     void recheckLaneSpread();
+
     /// @}
 
+    /// @brief Returns the edge with negated id if it exists
+    NBEdge* getOppositeByID(const std::string& edgeID) const; 
 
 
     /** @brief Determines which edges belong to roundabouts and increases their priority
