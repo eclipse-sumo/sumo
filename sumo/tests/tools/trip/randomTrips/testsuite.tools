@@ -43,6 +43,7 @@ binomial
 
 # generate validated trips
 validate
+validate_intermediate
 
 # setting non-positive period should fail
 period_positive
