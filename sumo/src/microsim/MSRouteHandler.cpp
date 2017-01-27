@@ -858,7 +858,10 @@ MSRouteHandler::closeContainer() {
 
 void
 MSRouteHandler::closeFlow() {
+    myInsertStopEdgesAt = -1;
     if (myVehicleParameter->repetitionNumber == 0) {
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
         return;
     }
     // let's check whether vehicles had to depart before the simulation starts
@@ -868,6 +871,8 @@ MSRouteHandler::closeFlow() {
         while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
             myVehicleParameter->repetitionsDone++;
             if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
+                delete myVehicleParameter;
+                myVehicleParameter = 0;
                 return;
             }
         }
@@ -894,7 +899,6 @@ MSRouteHandler::closeFlow() {
         }
     }
     myVehicleParameter = 0;
-    myInsertStopEdgesAt = -1;
 }
 
 
