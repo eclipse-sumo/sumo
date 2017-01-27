@@ -138,7 +138,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myGroupBoxForEditor->hide();
 
     // Create check blocked button
-    myCheckBlocked = new FXCheckButton(myGroupBoxForEditor, "Block movement", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButton);
+    myCheckBlocked = new FXMenuCheck(myGroupBoxForEditor, "Block movement", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
     myCheckBlocked->hide();
 
     // Create groupbox and tree list
@@ -742,7 +742,8 @@ GNEInspectorFrame::AttrInput::AttrInput(FXComposite* parent, GNEInspectorFrame* 
     myChoicesCombo = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myChoicesCombo->hide();
     // Create and hide checkButton
-    myCheckBox = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myCheckBox = new FXMenuCheck(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignMenuCheckAttribute);
+    myCheckBox->setWidth(20);
     myCheckBox->hide();
 }
 
@@ -759,6 +760,11 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // set value of checkbox
         myCheckBox->setCheck(GNEAttributeCarrier::parse<bool>(value));
+        if (myCheckBox->getCheck()) {
+            myCheckBox->setText("True");
+        } else {
+            myCheckBox->setText("False");
+        }
         myCheckBox->show();
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
@@ -816,6 +822,7 @@ GNEInspectorFrame::AttrInput::hideAttribute() {
     myLabel->hide();
     myTextFieldInt->hide();
     myTextFieldReal->hide();
+    myTimeSpinDial->hide();
     myTextFieldStrings->hide();
     myChoicesCombo->hide();
     myCheckBox->hide();
@@ -853,8 +860,10 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // Set true o false depending of the checBox
         if (myCheckBox->getCheck()) {
+            myCheckBox->setText("True");
             newVal = "true";
         } else {
+            myCheckBox->setText("False");
             newVal = "false";
         }
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
@@ -980,7 +989,7 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput* attrInputParent, FXTextFiel
     // Iterate over choices
     for (int i = 0; i < (int)choices.size(); i++) {
         // Create checkBox
-        myVectorOfCheckBox.at(i) = new FXCheckButton(myCheckBoxMatrix, choices.at(i).c_str(),NULL, 0, GUIDesignCheckButtonAttribute);
+        myVectorOfCheckBox.at(i) = new FXMenuCheck(myCheckBoxMatrix, choices.at(i).c_str(),NULL, 0, GUIDesignMenuCheckAttribute);
         // Set initial value
         if (oldValue.find(choices.at(i)) != std::string::npos) {
             myVectorOfCheckBox.at(i)->setCheck(true);

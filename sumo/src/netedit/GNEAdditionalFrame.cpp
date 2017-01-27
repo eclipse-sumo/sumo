@@ -553,7 +553,7 @@ GNEAdditionalFrame::singleAdditionalParameter::singleAdditionalParameter(FXCompo
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute, 0, 0, 60, 0);
     myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldAttributeStr);
     myTimeSpinDial = new FXSpinner(this, 7, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_DIAL, GUIDesignSpinDialAttribute);
-    myMenuCheck = new FXMenuCheck(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignCheckButtonAttribute);
+    myMenuCheck = new FXMenuCheck(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignMenuCheckAttribute);
     // Set widht of menuCheck manually
     myMenuCheck->setWidth(20);
     // Hide elements
@@ -614,10 +614,10 @@ GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag addition
     myLabel->show();
     if(value) {
         myMenuCheck->setCheck(true);
-        myMenuCheck->setText("Enabled");
+        myMenuCheck->setText("True");
     } else {
         myMenuCheck->setCheck(false);
-        myMenuCheck->setText("Disabled");
+        myMenuCheck->setText("False");
     }
     myMenuCheck->show();
     myCurrentValueValid = true;
@@ -715,9 +715,9 @@ GNEAdditionalFrame::singleAdditionalParameter::onCmdSetAttribute(FXObject*, FXSe
 long 
 GNEAdditionalFrame::singleAdditionalParameter::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
     if(myMenuCheck->getCheck()) {
-        myMenuCheck->setText("Enabled");
+        myMenuCheck->setText("True");
     } else {
-        myMenuCheck->setText("Disabled");
+        myMenuCheck->setText("False");
     }
     return 1;
 }
@@ -1134,10 +1134,10 @@ GNEAdditionalFrame::editorParameters::editorParameters(FXComposite* parent) :
     myLengthTextField->setText("10");
 
     // Create FXMenuCheck for the force option
-    myCheckForcePosition = new FXMenuCheck(this, "Force position", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignCheckButton);
+    myCheckForcePosition = new FXMenuCheck(this, "Force position", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignMenuCheck);
 
     // Create FXMenuCheck for the force option
-    myCheckBlock = new FXMenuCheck(this, "Block movement", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButton);
+    myCheckBlock = new FXMenuCheck(this, "Block movement", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
 
     // Create help button
     helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
@@ -1359,8 +1359,8 @@ GNEAdditionalFrame::additionalParentSelector::onCmdHelp(FXObject*, FXSelector, v
 GNEAdditionalFrame::edgeParentsSelector::edgeParentsSelector(FXComposite* parent, GNEViewNet* viewNet) :
     FXGroupBox(parent, "Edges", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
-    // Create CheckBox for selected edges
-    myUseSelectedEdges = new FXMenuCheck(this, "Use selected Edges", this, MID_GNE_SHOWONLYSELECTEDEDGES, GUIDesignCheckButton);
+    // Create menuCheck for selected edges
+    myUseSelectedEdges = new FXMenuCheck(this, "Use selected Edges", this, MID_GNE_SHOWONLYSELECTEDEDGES, GUIDesignMenuCheck);
 
     // Create search box
     myEdgesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SEARCHEDGE, GUIDesignTextField);
@@ -1521,7 +1521,7 @@ GNEAdditionalFrame::laneParentsSelector::laneParentsSelector(FXComposite* parent
     FXGroupBox(parent, "Lanes", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create CheckBox for selected lanes
-    myUseSelectedLanes = new FXMenuCheck(this, "Use selected Lanes", this, MID_GNE_USESELECTEDLANES, GUIDesignCheckButton);
+    myUseSelectedLanes = new FXMenuCheck(this, "Use selected Lanes", this, MID_GNE_USESELECTEDLANES, GUIDesignMenuCheck);
 
     // Create search box
     myLanesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SEARCHLANE, GUIDesignTextField);

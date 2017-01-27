@@ -114,8 +114,8 @@ public:
         /// @brief pointer to combo box choices
         FXComboBox* myChoicesCombo;
 
-        /// @brief pointer to checkBox
-        FXCheckButton* myCheckBox;
+        /// @brief pointer to menu check
+        FXMenuCheck* myCheckBox;
 
         /// @brief pointer to buttonCombinableChoices
         FXButton* myButtonCombinableChoices;
@@ -159,8 +159,8 @@ public:
         // @brief Matrix in that CheckBoxs will be inserted
         FXMatrix* myCheckBoxMatrix;
 
-        /// @brief vector of CheckBoxs
-        std::vector<FXCheckButton*> myVectorOfCheckBox;
+        /// @brief vector of Menuchecks
+        std::vector<FXMenuCheck*> myVectorOfCheckBox;
 
         /// @brief frame for the buttons
         FXHorizontalFrame* frameButtons;
@@ -274,8 +274,8 @@ private:
     /// @brief GropuBox for editor attributes
     FXGroupBox* myGroupBoxForEditor;
 
-    /// @brief pointer to check button block
-    FXCheckButton* myCheckBlocked;
+    /// @brief pointer to menu check block
+    FXMenuCheck* myCheckBlocked;
 
     /// @brief pointer to additional element
     GNEAdditional* myAdditional;

@@ -72,10 +72,10 @@ FXDEFMAP(GNECrossingFrame) GNECrossingMap[] = {
 };
 
 FXDEFMAP(GNECrossingFrame::edgesSelector) GNEEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,           MID_GNE_USEONLYSELECTEDEDGES, GNECrossingFrame::edgesSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,           MID_GNE_CLEAREDGESELECTION,    GNECrossingFrame::edgesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,           MID_GNE_INVERTEDGESELECTION,   GNECrossingFrame::edgesSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_COMMAND,           MID_HELP,                      GNECrossingFrame::edgesSelector::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USEONLYSELECTEDEDGES,   GNECrossingFrame::edgesSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEAREDGESELECTION,    GNECrossingFrame::edgesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTEDGESELECTION,   GNECrossingFrame::edgesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                      GNECrossingFrame::edgesSelector::onCmdHelp),
 };
 
 FXDEFMAP(GNECrossingFrame::crossingParameters) GNECrossingParametersMap[] = {
@@ -84,9 +84,9 @@ FXDEFMAP(GNECrossingFrame::crossingParameters) GNECrossingParametersMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECrossingFrame,                     FXVerticalFrame, GNECrossingMap,           ARRAYNUMBER(GNECrossingMap))
-FXIMPLEMENT(GNECrossingFrame::edgesSelector,      FXGroupBox,     GNEEdgesMap,              ARRAYNUMBER(GNEEdgesMap))
-FXIMPLEMENT(GNECrossingFrame::crossingParameters, FXGroupBox,     GNECrossingParametersMap, ARRAYNUMBER(GNECrossingParametersMap))
+FXIMPLEMENT(GNECrossingFrame,                     FXVerticalFrame,  GNECrossingMap,           ARRAYNUMBER(GNECrossingMap))
+FXIMPLEMENT(GNECrossingFrame::edgesSelector,      FXGroupBox,       GNEEdgesMap,              ARRAYNUMBER(GNEEdgesMap))
+FXIMPLEMENT(GNECrossingFrame::crossingParameters, FXGroupBox,       GNECrossingParametersMap, ARRAYNUMBER(GNECrossingParametersMap))
 
 // ===========================================================================
 // static members
@@ -229,7 +229,7 @@ GNECrossingFrame::crossingParameters::crossingParameters(GNECrossingFrame *cross
     myCrossingPriorityLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GUIDesignLabelAttribute);
     myCrossingPriorityLabel->disable();
     // create CheckBox for Priority
-    myCrossingPriority = new FXMenuCheck(myAttributesMatrix, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myCrossingPriority = new FXMenuCheck(myAttributesMatrix, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignMenuCheckAttribute);
     myCrossingPriority->disable();
     // create label for width
     myCrossingWidthLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_WIDTH).c_str(), 0, GUIDesignLabelAttribute);
@@ -272,6 +272,7 @@ GNECrossingFrame::crossingParameters::disableCrossingParameters() {
     // clear all values of parameters
     myCrossingEdges->setText("");
     myCrossingPriority->setCheck(false);
+    myCrossingPriority->setText("False");
     myCrossingWidth->setText("");    
     // Disable all elements of the crossing frames
     myCrossingEdgesLabel->disable();
@@ -453,6 +454,14 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     if(crossingEdges.empty()) {
         myCurrentParametersValid = false;
     }
+
+    // change label of crossing priority
+    if(myCrossingPriority->getCheck()) {
+        myCrossingPriority->setText("True");
+    } else {
+        myCrossingPriority->setText("False");
+    }
+
     // Check width
     if (TplCheck::_str2SUMOReal(myCrossingWidth->getText().text()) && 
         TplConvert::_str2SUMOReal(myCrossingWidth->getText().text()) > 0) {
@@ -462,6 +471,7 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         myCrossingWidth->setTextColor(FXRGB(255, 0, 0));
         myCurrentParametersValid = false;
     }
+
     // Enable or disable create crossing button depending of the current parameters
     myCrossingFrameParent->setCreateCrossingButton(myCurrentParametersValid);
     return 0;

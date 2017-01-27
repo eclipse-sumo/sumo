@@ -86,14 +86,14 @@
     #define GUIDesignMDIButtonRight         (FRAME_RAISED | LAYOUT_RIGHT)
 
 /// @}
-
-/// @name FXCheckBoxs
-/// @{
-    /// @brief Check button for GNEFrames extended over the frame
-    #define GUIDesignCheckButton            (LAYOUT_LEFT | ICON_BEFORE_TEXT)
     
-    /// @brief Check button for attributes extended over the matrix column
-    #define GUIDesignCheckButtonAttribute   (LAYOUT_LEFT | LAYOUT_FILL_COLUMN | ICON_BEFORE_TEXT)
+/// @name FXMenu Checks
+/// @{
+    /// @brief MenuCheck for GNEFrames extended over the frame
+    #define GUIDesignMenuCheck              (LAYOUT_LEFT | ICON_BEFORE_TEXT)
+
+    /// @brief MenuCheck button for attributes extended over the matrix column
+    #define GUIDesignMenuCheckAttribute     (LAYOUT_LEFT | LAYOUT_FILL_COLUMN | ICON_BEFORE_TEXT)
 /// @}
 
 /// @name FXLabels
@@ -222,6 +222,10 @@
 
     /// @brief Tree list used in frames to represent childs of elements
     #define GUIDesignTreeListFrame          (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
+
+
+    /// @brief CheckButton for GNEFrames extended over the frame
+    #define GUIDesignCheckButton            (LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL)
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
 

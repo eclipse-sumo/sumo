@@ -97,7 +97,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEView
     myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
     
     // Create checkbox for enabling/disabling automatic deletion of additionals childs (by default, enabled)
-    myCheckBoxAutomaticallyDeleteAdditionals = new FXMenuCheck(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignCheckButton);
+    myCheckBoxAutomaticallyDeleteAdditionals = new FXMenuCheck(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignMenuCheck);
     myCheckBoxAutomaticallyDeleteAdditionals->setCheck(true);
 
     // Create groupbox for tree list 
