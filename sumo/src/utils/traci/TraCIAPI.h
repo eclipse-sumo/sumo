@@ -185,7 +185,7 @@ public:
     /// @}
 
 
-    static const SUMOReal DEPART_NOW = -3;
+    static const SUMOReal DEPART_NOW;
 
     /** @class TraCIScopeWrapper
      * @brief An abstract interface for accessing type-dependent values
