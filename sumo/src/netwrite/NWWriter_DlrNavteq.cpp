@@ -516,12 +516,11 @@ NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, const NBNod
                 if (commonPerm != 0 && commonPerm != SVC_PEDESTRIAN && !inEdge->isConnectedTo(outEdge)) {
                     device 
                         << idSupplier.getNext() << "\t"
-                        << n->getID() << "\t"
+                        << 1 << "\t" // permanent id
                         << UNDEFINED << "\t"
                         << 1 << "\t"
                         << getAllowedTypes(SVCAll) << "\t"
-                        << inEdge->getID() << "\t" << outEdge->getID() << "\t"
-                        << "\n";
+                        << inEdge->getID() << "\t" << outEdge->getID() << "\n";
                 }
             }
         }
