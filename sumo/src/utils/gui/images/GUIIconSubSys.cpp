@@ -35,6 +35,8 @@
 #include "GUIIcons.h"
 #include "GUIIconSubSys.h"
 
+#include "dlr.xpm"
+
 #include "empty.xpm"
 #include "filesave.xpm"
 #include "fileopen.xpm"
@@ -167,6 +169,32 @@
 #include "variablespeedsignal.xpm"
 #include "calibrator.xpm"
 
+#include "vclass_ignoring.xpm"
+#include "vclass_private.xpm"
+#include "vclass_emergency.xpm"
+#include "vclass_authority.xpm"
+#include "vclass_army.xpm"
+#include "vclass_vip.xpm"
+#include "vclass_passenger.xpm"
+#include "vclass_hov.xpm"
+#include "vclass_taxi.xpm"
+#include "vclass_bus.xpm"
+#include "vclass_coach.xpm"
+#include "vclass_delivery.xpm"
+#include "vclass_truck.xpm"
+#include "vclass_trailer.xpm"
+#include "vclass_tram.xpm"
+#include "vclass_rail_urban.xpm"
+#include "vclass_rail.xpm"
+#include "vclass_rail_electric.xpm"
+#include "vclass_motorcycle.xpm"
+#include "vclass_moped.xpm"
+#include "vclass_bicycle.xpm"
+#include "vclass_pedestrian.xpm"
+#include "vclass_evehicle.xpm"
+#include "vclass_ship.xpm"
+#include "vclass_custom1.xpm"
+#include "vclass_custom2.xpm"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -186,6 +214,7 @@ GUIIconSubSys* GUIIconSubSys::myInstance = 0;
 GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
+    myIcons[ICON_DLR] = new FXXPMIcon(a, dlr_xpm);
     myIcons[ICON_EMPTY] = new FXXPMIcon(a, empty_xpm);
     myIcons[ICON_OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[ICON_OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
@@ -318,6 +347,33 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
     myIcons[ICON_VARIABLESPEEDSIGNAL] = new FXXPMIcon(a, variablespeedsignal_xpm);
     myIcons[ICON_CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
+
+    myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
+    myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
+    myIcons[ICON_VCLASS_EMERGENCY] = new FXXPMIcon(a, vclass_emergency_xpm);
+    myIcons[ICON_VCLASS_AUTHORITY] = new FXXPMIcon(a, vclass_authority_xpm);
+    myIcons[ICON_VCLASS_ARMY] = new FXXPMIcon(a, vclass_army_xpm);
+    myIcons[ICON_VCLASS_VIP] = new FXXPMIcon(a, vclass_vip_xpm);
+    myIcons[ICON_VCLASS_PASSENGER] = new FXXPMIcon(a, vclass_passenger_xpm);
+    myIcons[ICON_VCLASS_HOV] = new FXXPMIcon(a, vclass_hov_xpm);
+    myIcons[ICON_VCLASS_TAXI] = new FXXPMIcon(a, vclass_taxi_xpm);
+    myIcons[ICON_VCLASS_BUS] = new FXXPMIcon(a, vclass_bus_xpm);
+    myIcons[ICON_VCLASS_COACH] = new FXXPMIcon(a, vclass_coach_xpm);
+    myIcons[ICON_VCLASS_DELIVERY] = new FXXPMIcon(a, vclass_delivery_xpm);
+    myIcons[ICON_VCLASS_TRUCK] = new FXXPMIcon(a, vclass_truck_xpm);
+    myIcons[ICON_VCLASS_TRAILER] = new FXXPMIcon(a, vclass_trailer_xpm);
+    myIcons[ICON_VCLASS_TRAM] = new FXXPMIcon(a, vclass_tram_xpm);
+    myIcons[ICON_VCLASS_RAIL_URBAN] = new FXXPMIcon(a, vclass_rail_urban_xpm);
+    myIcons[ICON_VCLASS_RAIL] = new FXXPMIcon(a, vclass_rail_xpm);
+    myIcons[ICON_VCLASS_RAIL_ELECTRIC] = new FXXPMIcon(a, vclass_rail_electric_xpm);
+    myIcons[ICON_VCLASS_MOTORCYCLE] = new FXXPMIcon(a, vclass_motorcycle_xpm);
+    myIcons[ICON_VCLASS_MOPED] = new FXXPMIcon(a, vclass_moped_xpm);
+    myIcons[ICON_VCLASS_BICYCLE] = new FXXPMIcon(a, vclass_bicycle_xpm);
+    myIcons[ICON_VCLASS_PEDESTRIAN] = new FXXPMIcon(a, vclass_pedestrian_xpm);
+    myIcons[ICON_VCLASS_EVEHICLE] = new FXXPMIcon(a, vclass_evehicle_xpm);
+    myIcons[ICON_VCLASS_SHIP] = new FXXPMIcon(a, vclass_ship_xpm);
+    myIcons[ICON_VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
+    myIcons[ICON_VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
 
     // ... and create them
     for (int i = 0; i < ICON_MAX; i++) {

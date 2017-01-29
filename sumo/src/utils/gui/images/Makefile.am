@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libguiutilsimages.a
 
-EXTRA_DIST = allow_rotation.xpm empty.xpm \
+EXTRA_DIST = dlr.xpm allow_rotation.xpm empty.xpm \
 app_breakpoints.xpm app_finder.xpm \
 app_selector.xpm app_table.xpm app_tlstracker.xpm app_tracker.xpm \
 camera.xpm close_gaps.xpm closing.xpm colorwheel.xpm \
@@ -49,7 +49,13 @@ GNETexture_LaneBus.cpp GNETexture_LaneBike.cpp \
 GNETexture_LanePedestrian.cpp GNETexture_TLS.cpp \
 modeadditional.xpm modeconnection.xpm modecreateedge.xpm modecrossing.xpm \
 modedelete.xpm modeinspect.xpm modemove.xpm modeselect.xpm modetrafficlight.xpm
-
+vclass_ignoring.xpm vclass_private.xpm vclass_emergency.xpm vclass_authority.xpm \
+vclass_army.xpm vclass_vip.xpm vclass_passenger.xpm vclass_hov.xpm \
+vclass_taxi.xpm vclass_bus.xpm vclass_coach.xpm vclass_delivery.xpm \
+vclass_truck.xpm vclass_trailer.xpm vclass_tram.xpm vclass_rail_urban.xpm \
+vclass_rail.xpm vclass_rail_electric.xpm vclass_motorcycle.xpm vclass_moped.xpm \
+vclass_bicycle.xpm vclass_pedestrian.xpm vclass_evehicle.xpm vclass_ship.xpm \
+vclass_custom1.xpm vclass_custom2.xpm \
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
 GUITextureSubSys.cpp GUITextureSubSys.h \
 GUIIcons.h GUITexturesHelper.cpp GUITexturesHelper.h GUITextures.h
