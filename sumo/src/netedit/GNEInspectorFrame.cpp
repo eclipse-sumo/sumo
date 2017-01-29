@@ -971,7 +971,7 @@ GNEInspectorFrame::AttrInput::hide() {
 // ===========================================================================
 
 GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput* attrInputParent, FXTextField* textFieldAttr) :
-    FXDialogBox(attrInputParent->getApp(), ("Editing attribute '" + toString(attrInputParent->getAttr()) + "'").c_str(), DECOR_CLOSE | DECOR_TITLE),
+    FXDialogBox(attrInputParent->getApp(), ("Editing attribute '" + toString(attrInputParent->getAttr()) + "'").c_str(), GUIDesignDialogBox),
     myAttrInputParent(attrInputParent),
     myTextFieldAttr(textFieldAttr) {
     // Create matrix

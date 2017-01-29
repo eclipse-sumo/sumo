@@ -37,6 +37,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/ToString.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include "GNEDialog_Wizard.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -70,7 +71,7 @@ FXIMPLEMENT(GNEDialog_Wizard::InputFloat, FXHorizontalFrame, InputFloatMap, ARRA
 // method definitions
 // ===========================================================================
 GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int width, int height) :
-    FXDialogBox(parent, name, DECOR_CLOSE | DECOR_TITLE, 0, 0, width, height) {
+    FXDialogBox(parent, name, GUIDesignDialogBox, 0, 0, width, height) {
     OptionsCont& oc = OptionsCont::getOptions();
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
 
@@ -106,7 +107,7 @@ GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int widt
     }
 
     // ok-button
-    new FXButton(contentFrame, "OK\t\tContine with the import.", 0, this, ID_ACCEPT, LAYOUT_FIX_WIDTH | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | FRAME_THICK | FRAME_RAISED, 0, 0, 50, 30);
+    new FXButton(contentFrame, "OK\t\tContine with the import.", 0, this, ID_ACCEPT, GUIDesignButtonOK);
 }
 
 

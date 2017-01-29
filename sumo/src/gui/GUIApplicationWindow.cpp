@@ -1141,8 +1141,7 @@ GUIApplicationWindow::onCmdNewOSG(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
-    GUIDialog_AboutSUMO* about =
-        new GUIDialog_AboutSUMO(this, "About SUMO", 0, 0);
+    GUIDialog_AboutSUMO* about = new GUIDialog_AboutSUMO(this);
     about->create();
     about->show(PLACEMENT_OWNER);
     return 1;

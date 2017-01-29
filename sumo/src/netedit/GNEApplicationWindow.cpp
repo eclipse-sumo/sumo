@@ -793,8 +793,7 @@ GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
-    GNEDialog_About* about =
-        new GNEDialog_About(this);
+    GNEDialog_About* about = new GNEDialog_About(this);
     about->create();
     about->show(PLACEMENT_OWNER);
     return 1;
