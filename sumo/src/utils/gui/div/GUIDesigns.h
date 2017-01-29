@@ -79,14 +79,25 @@
     /// @brief little checkable button with icon placed in navigation toolbar
     #define GUIDesignButtonToolbarCheckable (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
 
+    /// @brief OK Button
+    #define GUIDesignButtonOK               (LAYOUT_FIX_WIDTH | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | FRAME_THICK | FRAME_RAISED), 0, 0, 50, 30
+
+    /// @brief Accept Button
+
+    /// @brief Cancel Button
+
+
+/// @}
+    
+/// @name MDI Buttons
+/// @{
     /// @brief MDIButton oriented to left
     #define GUIDesignMDIButtonLeft          (LAYOUT_LEFT)
 
     /// @brief MDIButton oriented to right
     #define GUIDesignMDIButtonRight         (FRAME_RAISED | LAYOUT_RIGHT)
-
 /// @}
-    
+
 /// @name FXMenu Checks
 /// @{
     /// @brief MenuCheck for GNEFrames extended over the frame
@@ -223,9 +234,34 @@
     #define GUIDesignSpinDialAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | SPIN_NOMAX)
 /// @}
 
+
+/// @name design for about dialogs (SUMO and netedit)
+/// @{
+
+    /// @brief design for Frame 1
+    #define GUIDesignAboutFrame1            (LAYOUT_TOP | FRAME_NONE | LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 1, 1
+
+    /// @brief design for Frame 2
+    #define GUIDesignAboutFrame2            (LAYOUT_TOP | LAYOUT_CENTER_X | FRAME_NONE), 0, 0, 0, 0, 0, 0, 1, 1
+
+    /// @brief design for Frame 3
+    #define GUIDesignAboutFrame3            (FRAME_NONE), 0, 0, 0, 0, 20, 0, 0, 0
+
+    /// @brief design for label with icon
+    #define GUIDesignAboutLabelIcon         (LAYOUT_CENTER_Y | TEXT_OVER_ICON), 5, 0, 45, 0, 12, 0, 0, 0
+
+    /// @brief design for label with description (centered, between two icons)
+    #define GUIDesignAboutLabelDescription  (LAYOUT_CENTER_Y | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 0, 0, 0, 0
+
+    /// @brief design for label with information (for example, copyright)
+    #define GUIDesignAboutLabelInformation  (LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 0, 0, 0, 0
+
+    /// @brief design for label with link to DLR's webpage
+    #define GUIDesignAboutLinkLabel         (LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 5, 5, 5, 5
+/// @}
+
     /// @brief Tree list used in frames to represent childs of elements
     #define GUIDesignTreeListFrame          (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
-
 
     /// @brief CheckButton for GNEFrames extended over the frame
     #define GUIDesignCheckButton            (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
