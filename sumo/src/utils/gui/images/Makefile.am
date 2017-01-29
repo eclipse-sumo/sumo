@@ -55,7 +55,8 @@ vclass_taxi.xpm vclass_bus.xpm vclass_coach.xpm vclass_delivery.xpm \
 vclass_truck.xpm vclass_trailer.xpm vclass_tram.xpm vclass_rail_urban.xpm \
 vclass_rail.xpm vclass_rail_electric.xpm vclass_motorcycle.xpm vclass_moped.xpm \
 vclass_bicycle.xpm vclass_pedestrian.xpm vclass_evehicle.xpm vclass_ship.xpm \
-vclass_custom1.xpm vclass_custom2.xpm \
+vclass_custom1.xpm vclass_custom2.xpm
+
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
 GUITextureSubSys.cpp GUITextureSubSys.h \
 GUIIcons.h GUITexturesHelper.cpp GUITexturesHelper.h GUITextures.h
