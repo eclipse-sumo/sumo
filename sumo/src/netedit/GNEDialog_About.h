@@ -50,14 +50,10 @@ public:
     /// @brief Destructor
     ~GNEDialog_About();
 
-    /// @brief Creates the widget (and the icons)
+    /// @brief Creates the widget
     void create();
 
-
 private:
-    /// @brief Icons for the widget
-    FXIcon* myDLRIcon;
-
     /// @brief Font for the widget
     FXFont* myHeadlineFont;
 };
