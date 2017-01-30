@@ -1,3 +1,4 @@
 <additionals>
-    <containerStop id="busStop_gneE0_0_1" lane="gneE0_0" startPos="32.40" endPos="42.40"/>
+    <containerStop id="containerStop_0" lane="gneE0_0" startPos="32.40" endPos="42.40"/>
+	<containerStop id="containerStop_1" lane="gneE1_0" startPos="10" endPos="20"/>
 </additionals>

@@ -28,12 +28,29 @@ netedit.deleteMode()
 # delete created busStop
 netedit.leftClick(match, 260, 250)
 
-# delete loaded busStop
+# delete first loaded busStop
 netedit.leftClick(match, 450, 250)
 
-# Check undo redo
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+# delete lane with the second loaded busStop
+netedit.leftClick(match, 200, 200)
+
+# Check undo
+netedit.undo(match, 3)
+
+# Change to delete
+netedit.deleteMode()
+
+# disble 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(match)
+
+# try to delete lane with the second loaded busStop (doesn't allowed)
+netedit.leftClick(match, 200, 200)
+
+# wait warning
+netedit.waitAutomaticallyDeleteAdditionalsWarning()
+
+# check redo
+netedit.redo(match, 3)
 
 # save additionals
 netedit.saveAdditionals()

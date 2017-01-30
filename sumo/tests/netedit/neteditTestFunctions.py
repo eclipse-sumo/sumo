@@ -399,3 +399,13 @@ def selectChild(comboboxAdditional, numTabs, childNumber):
 # Change to delete  mode
 def deleteMode():
     type("d")
+	
+# Enable or disable 'automatically delete Additionals'
+def changeAutomaticallyDeleteAdditionals(match):
+    click(match.getTarget().offset(-120, 100))
+	
+def waitAutomaticallyDeleteAdditionalsWarning():
+	# wait 0.5 second to question dialog
+	wait(0.5)
+	# press enter to close dialog
+	type(Key.ENTER)
