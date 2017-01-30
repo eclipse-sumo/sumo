@@ -1,0 +1,5 @@
+rerouteTraveltime_default
+rerouteTraveltime_adaptEdgeWeight
+
+# adapt vehicle specific custom edge weights
+rerouteTraveltime_adaptVehicleEdgeWeight_copy
