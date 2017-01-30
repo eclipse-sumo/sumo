@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-01-27 09:49:11.043596 by $Id: randomTrips.py 22721 2017-01-27 06:51:44Z namdre $
+<!-- generated on 2017-01-30 12:31:32.280000 by $Id: randomTrips.py 22733 2017-01-27 09:58:07Z namdre $
   options: -n net.net.xml -s 42 <doubleminus>binomial 4
 -->
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="2fi" to="1si"/>
     <trip id="1" depart="1.00" from="2si" to="1o"/>
     <trip id="2" depart="1.00" from="3fi" to="1o"/>
@@ -3585,4 +3585,4 @@
     <trip id="3579" depart="3593.00" from="4si" to="2o"/>
     <trip id="3580" depart="3596.00" from="4fi" to="1si"/>
     <trip id="3581" depart="3599.00" from="3fi" to="2o"/>
-</trips>
+</routes>

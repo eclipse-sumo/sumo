@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-01-27 10:56:46.144766 by $Id: route2trips.py 22608 2017-01-17 06:28:54Z behrisch $
+<!-- generated on 2017-01-30 12:31:33.273000 by $Id: route2trips.py 22733 2017-01-27 09:58:07Z namdre $
   options: routes.rou.xml id depart from to
 -->
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType accel="0.8" decel="4.5" id="DEFAULT_VEHTYPE" length="3" maxSpeed="10" minGap="2" sigma="0"/>
     <trip id="0" depart="0" from="4/1to3/1" to="1/1to0/1"/>
-</trips>
+</routes>

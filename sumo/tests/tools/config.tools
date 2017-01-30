@@ -162,6 +162,7 @@ image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
 net:0.0101
 image:0.001
 osmbatch:0.001
+osmtrips:0.0101
 
 [unordered_text]
 errors:ERROR:SCHEMA

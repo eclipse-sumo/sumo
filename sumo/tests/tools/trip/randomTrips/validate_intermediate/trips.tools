@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-01-27 10:50:12.532395 by $Id: route2trips.py 22608 2017-01-17 06:28:54Z behrisch $ via randomTrips.py
+<!-- generated on 2017-01-30 12:31:33.950000 by $Id: route2trips.py 22733 2017-01-27 09:58:07Z namdre $ via randomTrips.py
   options: -n net.net.xml -s 42 <doubleminus>intermediate 2 <doubleminus>validate
 -->
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="3si" to="1si" via="1si 2si" />
     <trip id="1" depart="1.00" from="3si" to="1o" via="3si 4si" />
     <trip id="2" depart="2.00" from="2si" to="3o" via="1si 1si" />
@@ -3603,4 +3603,4 @@
     <trip id="3597" depart="3597.00" from="1si" to="4o" via="4si 4si" />
     <trip id="3598" depart="3598.00" from="3fi" to="3si" via="4si 4si" />
     <trip id="3599" depart="3599.00" from="4si" to="2o" via="1si 4si" />
-</trips>
+</routes>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- generated on 2015-04-21 13:43:58.056276 by $Id: randomTrips.py 18249 2015-04-21 07:57:29Z namdre $
+<!-- generated on 2017-01-30 12:31:31.497000 by $Id: randomTrips.py 22733 2017-01-27 09:58:07Z namdre $
   options: -n net.net.xml -s 42 <doubleminus>pedestrians -e 100 <doubleminus>min-distance 1 <doubleminus>trip-attributes departPos="random" color="red"
 -->
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00" color="red">
         <walk from="NC" to="CS" departPos="random"/>
     </person>
@@ -303,4 +303,4 @@
     <person id="99" depart="99.00" color="red">
         <walk from="NC" to="CS" departPos="random"/>
     </person>
-</trips>
+</routes>

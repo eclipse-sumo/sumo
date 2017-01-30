@@ -117,7 +117,7 @@ def get_options(args=None):
         options.routefile = "routes.rou.xml"
 
     if options.period <= 0:
-        print("period must be positive")
+        print("Error: Period must be positive", file=sys.stderr)
         sys.exit(1)
     return options
 
@@ -347,8 +347,7 @@ def main(options):
 
     with open(options.tripfile, 'w') as fouttrips:
         sumolib.writeXMLHeader(
-            fouttrips, "$Id$")
-        fouttrips.write("<trips>\n")
+            fouttrips, "$Id$", "routes")
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s" />\n' %
                             (options.vehicle_class, options.vehicle_class))
@@ -368,7 +367,7 @@ def main(options):
                         if random.random() < prob:
                             idx = generate_one(idx)
                     depart += 1
-        fouttrips.write("</trips>\n")
+        fouttrips.write("</routes>\n")
 
     if options.routefile:
         args = [DUAROUTER, '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors',

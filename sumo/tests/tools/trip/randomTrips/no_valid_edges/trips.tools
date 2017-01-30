@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!-- generated on 2015-03-12 01:41:58.106000 by $Id: randomTrips.py 18071 2015-03-11 23:41:31Z namdre $
+<!-- generated on 2017-01-30 12:31:30.744000 by $Id: randomTrips.py 22733 2017-01-27 09:58:07Z namdre $
   options: -n net2.net.xml -s 42 -e 10 <doubleminus>vclass rail
 -->
-<trips>
-</trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>

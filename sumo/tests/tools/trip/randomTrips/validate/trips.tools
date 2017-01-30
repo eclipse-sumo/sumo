@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-01-27 10:50:50.495424 by $Id: route2trips.py 22608 2017-01-17 06:28:54Z behrisch $ via randomTrips.py
+<!-- generated on 2017-01-30 12:31:32.791000 by $Id: route2trips.py 22733 2017-01-27 09:58:07Z namdre $ via randomTrips.py
   options: -n net2.net.xml -s 42 -e 100 <doubleminus>validate
 -->
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="1" depart="1.00" from="beg2left" to="end"/>
     <trip id="5" depart="5.00" from="beg2left" to="left2end"/>
     <trip id="6" depart="6.00" from="beg" to="end"/>
@@ -67,4 +67,4 @@
     <trip id="96" depart="96.00" from="beg2left" to="rend"/>
     <trip id="97" depart="97.00" from="end" to="rend"/>
     <trip id="99" depart="99.00" from="middle" to="rend"/>
-</trips>
+</routes>

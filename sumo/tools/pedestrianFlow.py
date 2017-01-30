@@ -93,10 +93,8 @@ def write_ped(f, index, options, depart, edges):
 def main():
     options = get_options()
     with open(options.output, 'w') as f:
-        f.write('<!-- generated on %s by "%s" -->\n' %
-                (datetime.datetime.now(), os.path.basename(" ".join(sys.argv))))
-        f.write(
-            '<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n')
+        sumolib.writeXMLHeader(
+            fouttrips, "$Id$", "routes")
         index = options.index
         for depart in range(options.begin, options.end):
             if random.random() < options.prob:

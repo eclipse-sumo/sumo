@@ -222,10 +222,12 @@ def _laneID2edgeID(laneID):
     return laneID[:laneID.rfind("_")]
 
 
-def writeXMLHeader(outf, script):
+def writeXMLHeader(outf, script, root=None):
     outf.write("""<?xml version="1.0"?>
 <!-- generated on %s by %s
   options: %s
 -->
 """ % (datetime.datetime.now(), script,
        (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
+    if root is not None:
+        outf.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s_file.xsd">\n' % (root, root))

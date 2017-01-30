@@ -68,8 +68,7 @@ class RouteReader(handler.ContentHandler):
         elif name == 'routes':
             sumolib.writeXMLHeader(
                     self.outfile, 
-                    "$Id$%s" % self.calledBy)
-            self.outfile.write("<trips>\n")
+                    "$Id$%s" % self.calledBy, "routes")
 
     def endElement(self, name):
         if name == 'route':
@@ -95,7 +94,7 @@ class RouteReader(handler.ContentHandler):
             self._vID = ''
             self._routeString = ''
         elif name == 'routes':
-            print("</trips>", file=self.outfile)
+            print("</routes>", file=self.outfile)
 
     def characters(self, content):
         self._routeString += content
