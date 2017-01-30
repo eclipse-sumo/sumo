@@ -531,7 +531,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     // id
     std::string id = inputStorage.readString();
 #ifdef DEBUG_MOVEXY
-    WRITE_MESSAGE("Processing " + id);
+    std::cout << SIMTIME << " processSet veh=" << id << "\n";
 #endif
     const bool shouldExist = variable != ADD && variable != ADD_FULL;
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
@@ -1376,7 +1376,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 mayLeaveNetwork = (keepRouteFlag == 2);
             }
             // process
-            std::string origID = edgeID + " " + toString(laneNum);
             if (laneNum < 0) {
                 edgeID = '-' + edgeID;
                 laneNum = -laneNum;
@@ -1410,10 +1409,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 // case a): vehicle is on its earlier route
                 //  we additionally assume it is moving forward (SUMO-limit);
                 //  note that the route ("edges") is not changed in this case
-                found = vtdMap_matchingRoutePosition(pos, origID, *v, bestDistance, &lane, lanePos, routeOffset, edges);
+                found = vtdMap_matchingRoutePosition(pos, edgeID, *v, bestDistance, &lane, lanePos, routeOffset, edges);
                 // @note silenty ignoring mapping failure
             } else {
-                found = vtdMap(pos, maxRouteDistance, origID, angle, *v, server, bestDistance, &lane, lanePos, routeOffset, edges);
+                found = vtdMap(pos, maxRouteDistance, edgeID, angle, *v, server, bestDistance, &lane, lanePos, routeOffset, edges);
             }
             if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
                 // optionally compute lateral offset
@@ -1616,10 +1615,11 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             */
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << lane->getID() << " langle:" << langle << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) << " off:" << off << std::endl;
+            std::cout << lane->getID() << " param=" << lane->getParameter("origId", lane->getEdge().getID()) << " origID='" << origID << "\n";
 #endif
             lane2utility[lane] = LaneUtility(
                                      dist, GeomHelper::getMinAngleDiff(angle, langle),
-                                     lane->getParameter("origId", "") == origID,
+                                     lane->getParameter("origId", lane->getEdge().getID()) == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
             maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
@@ -1640,7 +1640,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
         SUMOReal sameEdgeN = u.sameEdge ? MIN2(v.getEdge()->getLength() / speed, (SUMOReal)1.) : 0;
         SUMOReal value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
                           + angleDiffN * 0.35 /*.5 */
-                          + idN * .1
+                          + idN * 1
                           + onRouteN * 0.1
                           + sameEdgeN * 0.1);
 #ifdef DEBUG_MOVEXY
@@ -1772,12 +1772,11 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
 
 
     // position may be inaccurate; let's checkt the given index, too
-    // a) is enabled for non-internal lanes only, as otherwise the position information may ambiguous
-    // b) it's something one has to enable when building the nework - keepin the OSM IDs - is probably not always done
+    // @note: this is enabled for non-internal lanes only, as otherwise the position information may ambiguous
     if ((*lane)->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
         for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-            if ((*i)->getParameter("origId", "") == origID) {
+            if ((*i)->getParameter("origId", (*i)->getEdge().getID()) == origID) {
                 *lane = *i;
                 break;
             }
@@ -1878,32 +1877,6 @@ TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) {
     MSVehicleType* type = MSVehicleType::build(newID, &oType);
     static_cast<MSVehicle*>(veh)->replaceVehicleType(type);
     return *type;
-}
-
-
-#include <microsim/MSEdgeControl.h>
-
-const std::map<std::string, std::vector<MSLane*> >&
-TraCIServerAPI_Vehicle::getOrBuildVTDMap() {
-    if (gVTDMap.size() == 0) {
-        const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const std::vector<MSLane*>& lanes = (*i)->getLanes();
-            for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-                if ((*j)->knowsParameter("origId")) {
-                    std::string origID = (*j)->getParameter("origId", "");
-                    if (gVTDMap.find(origID) == gVTDMap.end()) {
-                        gVTDMap[origID] = std::vector<MSLane*>();
-                    }
-                    gVTDMap[origID].push_back(*j);
-                }
-            }
-        }
-        if (gVTDMap.size() == 0) {
-            gVTDMap["unknown"] = std::vector<MSLane*>();
-        }
-    }
-    return gVTDMap;
 }
 
 
