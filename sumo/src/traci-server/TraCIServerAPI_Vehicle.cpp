@@ -59,8 +59,8 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-//#define DEBUG_VTD 1
-//#define DEBUG_VTD_ANGLE 1
+//#define DEBUG_MOVEXY 1
+//#define DEBUG_MOVEXY_ANGLE 1
 
 
 // ===========================================================================
@@ -524,13 +524,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_HEIGHT
             && variable != VAR_LINE
             && variable != VAR_VIA
-            && variable != VAR_MOVE_TO_VTD && variable != VAR_PARAMETER/* && variable != VAR_SPEED_TIME_LINE && variable != VAR_LANE_TIME_LINE*/
+            && variable != MOVE_TO_XY && variable != VAR_PARAMETER/* && variable != VAR_SPEED_TIME_LINE && variable != VAR_LANE_TIME_LINE*/
        ) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
-#ifdef DEBUG_VTD
+#ifdef DEBUG_MOVEXY
     WRITE_MESSAGE("Processing " + id);
 #endif
     const bool shouldExist = variable != ADD && variable != ADD_FULL;
@@ -1332,45 +1332,45 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
         }
         break;
-        case VAR_MOVE_TO_VTD: {
+        case MOVE_TO_XY: {
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting VTD vehicle requires a compound object.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "MoveToXY vehicle requires a compound object.", outputStorage);
             }
             const int numArgs = inputStorage.readInt();
             if (numArgs != 5 && numArgs != 6) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting VTD vehicle should obtain: edgeID, lane, x, y, angle and optionally keepRouteFlag.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "MoveToXY vehicle should obtain: edgeID, lane, x, y, angle and optionally keepRouteFlag.", outputStorage);
             }
             // edge ID
             std::string edgeID;
             if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first parameter for setting a VTD vehicle must be the edge ID given as a string.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first parameter for moveToXY must be the edge ID given as a string.", outputStorage);
             }
             // lane index
             int laneNum = 0;
             if (!server.readTypeCheckingInt(inputStorage, laneNum)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a VTD vehicle must be lane given as an int.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second parameter for moveToXY must be lane given as an int.", outputStorage);
             }
             // x
             double x = 0;
             double y = 0;
             double origAngle = 0;
             if (!server.readTypeCheckingDouble(inputStorage, x)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a VTD vehicle must be the x-position given as a double.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third parameter for moveToXY must be the x-position given as a double.", outputStorage);
             }
             // y
             if (!server.readTypeCheckingDouble(inputStorage, y)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fourth parameter for setting a VTD vehicle must be the y-position given as a double.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fourth parameter for moveToXY must be the y-position given as a double.", outputStorage);
             }
             // angle
             if (!server.readTypeCheckingDouble(inputStorage, origAngle)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth parameter for setting a VTD vehicle must be the angle given as a double.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth parameter for moveToXY must be the angle given as a double.", outputStorage);
             }
             bool keepRoute = v->getID() != "VTD_EGO";
             bool mayLeaveNetwork = false;
             if (numArgs == 6) {
                 int keepRouteFlag;
                 if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The sixth parameter for setting a VTD vehicle must be the keepRouteFlag given as a byte.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The sixth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
                 }
                 keepRoute = (keepRouteFlag == 1);
                 mayLeaveNetwork = (keepRouteFlag == 2);
@@ -1392,7 +1392,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
 
             Position vehPos = v->getPosition();
-#ifdef DEBUG_VTD
+#ifdef DEBUG_MOVEXY
             std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << Named::getIDSecure( v->getLane()) << std::endl;
             std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
 #endif
@@ -1533,7 +1533,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
         // the next if/the clause sets "onRoute", "prevEdge", and "nextEdge", depending on
         //  whether the currently seen edge is an internal one or a normal one
         if (ef != MSEdge::EDGEFUNCTION_INTERNAL) {
-#ifdef DEBUG_VTD_ANGLE
+#ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "Ego on normal" << std::endl;
 #endif
             // a normal edge
@@ -1554,7 +1554,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             // save prior and next edges
             prevEdge = e;
             nextEdge = !onRoute || edgePos == ev.end() - 1 ? 0 : *(edgePos + 1);
-#ifdef DEBUG_VTD_ANGLE
+#ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "normal:" << e->getID() << " prev:" << prevEdge->getID() << " next:";
             if (nextEdge != 0) {
                 std::cout << nextEdge->getID();
@@ -1562,7 +1562,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             std::cout << std::endl;
 #endif
         } else {
-#ifdef DEBUG_VTD_ANGLE
+#ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "Ego on internal" << std::endl;
 #endif
             // an internal edge
@@ -1583,7 +1583,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             if (prevEdgePos != ev.end() && (prevEdgePos + 1) != ev.end()) {
                 onRoute = *(prevEdgePos + 1) == nextEdge;
             }
-#ifdef DEBUG_VTD_ANGLE
+#ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "internal:" << e->getID() << " prev:" << prevEdge->getID() << " next:" << nextEdge->getID() << std::endl;
 #endif
         }
@@ -1614,7 +1614,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
                 rNextEdge = next == 0 ? 0 : &next->getEdge();
             }
             */
-#ifdef DEBUG_VTD_ANGLE
+#ifdef DEBUG_MOVEXY_ANGLE
             std::cout << lane->getID() << " langle:" << langle << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) << " off:" << off << std::endl;
 #endif
             lane2utility[lane] = LaneUtility(
@@ -1643,7 +1643,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
                           + idN * .1
                           + onRouteN * 0.1
                           + sameEdgeN * 0.1);
-#ifdef DEBUG_VTD
+#ifdef DEBUG_MOVEXY
         std::cout << " x; l:" << l->getID() << " d:" << u.dist << " dN:" << distN << " aD:" << angleDiffN <<
                   " ID:" << idN << " oRN:" << onRouteN << " sEN:" << sameEdgeN << " value:" << value << std::endl;
 #endif
@@ -1677,7 +1677,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             edges.push_back(u.nextEdge);
         }
         routeOffset = 0;
-#ifdef DEBUG_VTD_ANGLE
+#ifdef DEBUG_MOVEXY_ANGLE
         std::cout << "internal2:" << " prev:";
         if (u.prevEdge != 0) {
             std::cout << u.prevEdge->getID();
@@ -1703,7 +1703,7 @@ TraCIServerAPI_Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, 
     for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
         MSLane* candidateLane = *k;
         const SUMOReal dist = candidateLane->getShape().distance2D(pos); // get distance
-#ifdef DEBUG_VTD
+#ifdef DEBUG_MOVEXY
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
 #endif
         if (dist < bestDistance) {
@@ -1764,7 +1764,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     assert(lane != 0);
     // quit if no solution was found, reporting a failure
     if (lane == 0) {
-#ifdef DEBUG_VTD
+#ifdef DEBUG_MOVEXY
         std::cout << "  b failed - no best route lane" << std::endl;
 #endif
         return false;
@@ -1786,7 +1786,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     // check position, stuff, we should have the best lane along the route
     lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS), (*lane)->getShape().nearest_offset_to_point2D(pos, false)));
     //std::cout << SIMTIME << " vtdMap_matchingRoutePosition vehicle=" << v.getID() << " currLane=" << v.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
-#ifdef DEBUG_VTD
+#ifdef DEBUG_MOVEXY
     std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << std::endl;
 #endif
     return true;

@@ -621,7 +621,7 @@
 #define VAR_SPEEDSETMODE 0xb3
 
 // move vehicle, VTD version (set: vehicle)
-#define VAR_MOVE_TO_VTD 0xb4
+#define MOVE_TO_XY 0xb4
 
 // is the vehicle stopped, and if so parked and/or triggered?
 // value = stopped + 2 * parking + 4 * triggered

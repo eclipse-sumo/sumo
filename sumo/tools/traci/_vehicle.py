@@ -1007,7 +1007,7 @@ class VehicleDomain(Domain):
         If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=1
         but in addition to that may even move outside the road network.
         edgeID and lane are optional placement hints to resovle ambiguities'''
-        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO_VTD,
+        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.MOVE_TO_XY,
                                        vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 1)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
         self._connection._packString(edgeID)

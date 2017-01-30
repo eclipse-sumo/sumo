@@ -247,7 +247,7 @@ TraCIAPI::send_commandMoveToXY(const std::string& vehicleID, const std::string& 
     content.writeDouble(angle);
     content.writeUnsignedByte(TYPE_BYTE);
     content.writeByte(keepRoute);
-    send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MOVE_TO_VTD, vehicleID, content);
+    send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, MOVE_TO_XY, vehicleID, content);
 }
 
 void
