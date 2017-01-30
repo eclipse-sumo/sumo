@@ -1,0 +1,8 @@
+Warning: Essential string attribute 'id' of e3Detector is missing; Additional cannot be created
+Warning: Essential string attribute 'lane' of detExit is missing; Additional cannot be created
+Warning: The lane 'dummyLane' to use within the detExit is not known.
+Warning: Essential string attribute 'pos' of detExit is missing; Additional cannot be created
+Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
+Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
+Warning: Invalid position for detExit.
+Warning: Invalid position for detExit.

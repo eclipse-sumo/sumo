@@ -1,0 +1,39 @@
+<additionals>
+	<!-- Exit with non valid E3 parent  (Without ID) -->
+	<e3Detector freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="22.97" y="6.36">
+		<detExit lane="gneE1_0" pos="10"/>
+	</e3Detector>
+	
+	<!-- Valid parent -->
+    <e3Detector id="e3Detector_0" freq="100" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="22.97" y="6.36">
+		<!-- non valid lane (missing) -->
+		<detExit pos="20"/>		
+		
+		<!-- non valid Lane (dummy) -->
+		<detExit lane="dummyLane" pos="30"/>	
+		
+		<!-- Valid Exit -->
+        <detExit lane="gneE1_0" pos="40"/>
+		
+		<!-- non valid Position (missing) -->
+		<detExit lane="gneE1_0"/>
+		
+		<!-- non valid Position (dummy) -->
+		<detExit lane="gneE1_0" pos="dummyPosition"/>
+		
+		<!-- non valid Position (empty) -->
+        <detExit lane="gneE1_0" pos=""/>
+		
+		<!-- non valid Position (negative) -->
+        <detExit lane="gneE1_0" pos="-10"/>
+		
+		<!-- non valid Position (overpassing lane) -->
+        <detExit lane="gneE1_0" pos="3000"/>
+		
+		<!-- Valid Exit -->
+        <detExit lane="gneE1_0" pos="50"/>
+    </e3Detector>
+	
+	<!-- Exit without E3 parent -->
+	<detExit lane="gneE1_0" pos="10"/>
+</additionals>
