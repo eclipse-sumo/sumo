@@ -569,7 +569,7 @@ TraCIAPI::EdgeScope::getIDCount() const {
 }
 
 SUMOReal
-TraCIAPI::EdgeScope::getAdaptedTraveltime(const std::string& edgeID, SUMOTime time) const {
+TraCIAPI::EdgeScope::getAdaptedTraveltime(const std::string& edgeID, SUMOReal time) const {
     tcpip::Storage content;
     content.writeByte(TYPE_INTEGER);
     content.writeInt((int)time);
@@ -663,7 +663,7 @@ TraCIAPI::EdgeScope::getLastStepVehicleIDs(const std::string& edgeID) const {
 
 
 void
-TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, SUMOReal time, SUMOTime begin, SUMOTime end) const {
+TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, SUMOReal time, SUMOReal begin, SUMOReal end) const {
     tcpip::Storage content;
     content.writeByte(TYPE_COMPOUND);
     content.writeInt(3);

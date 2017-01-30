@@ -231,7 +231,7 @@ public:
 
         std::vector<std::string> getIDList() const;
         int getIDCount() const;
-        SUMOReal getAdaptedTraveltime(const std::string& edgeID, SUMOTime time) const;
+        SUMOReal getAdaptedTraveltime(const std::string& edgeID, SUMOReal time) const;
         SUMOReal getEffort(const std::string& edgeID, SUMOTime time) const;
         SUMOReal getCO2Emission(const std::string& edgeID) const;
         SUMOReal getCOEmission(const std::string& edgeID) const;
@@ -249,7 +249,7 @@ public:
         SUMOReal getLastStepHaltingNumber(const std::string& edgeID) const;
         std::vector<std::string> getLastStepVehicleIDs(const std::string& edgeID) const;
 
-        void adaptTraveltime(const std::string& edgeID, SUMOReal time, SUMOTime begin = 0, SUMOTime end = SUMOTime_MAX) const;
+        void adaptTraveltime(const std::string& edgeID, SUMOReal time, SUMOReal begin = 0, SUMOReal end = SUMOTime_MAX / 1000.0) const;
         void setEffort(const std::string& edgeID, SUMOReal effort, SUMOTime begin = 0, SUMOTime end = SUMOTime_MAX) const;
         void setMaxSpeed(const std::string& edgeID, SUMOReal speed) const;
 
