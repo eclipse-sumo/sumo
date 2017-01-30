@@ -1004,7 +1004,7 @@ class VehicleDomain(Domain):
         the given value (for drawing). If keepRoute is set to 1, the closest position
         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
         any edge in the network but it's route then only consists of that edge.
-        If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=1
+        If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
         edgeID and lane are optional placement hints to resovle ambiguities'''
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.MOVE_TO_XY,
