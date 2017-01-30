@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:60410 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:43119 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -261,9 +261,9 @@ step 20
 speed before moveToXY 20.0
 step 21
 speed after moveToVTD 20.0
-{80: '1o', 86: 6.160000000000026}
+{80: '1o', 86: 6.303079914048936}
 step 22
-{80: '1o', 86: 26.160000000000025}
+{80: '1o', 86: 26.303079914048936}
 step 23
 vehicles ['2', 'departInThePast', 'horiz']
 step 24
@@ -528,4 +528,4 @@ failVeh pos=2.44567394375 edges=['3fi', 'disconnected']
 step 132
 failVeh pos=6.62293354494 edges=['3fi', 'disconnected']
 step 133
-{80: '4o', 86: 246.16000000000003}
+{80: '4o', 86: 246.3030799140489}
