@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType accel="3.0" decel="6.0" id="CarA" length="5.0" minGap="2.5" maxSpeed="5.0" sigma="0.5" />
+
+<vehicle id="ego" depart="1.00" type="CarA" color="1,0,0" departPos="-20">
+	<route edges="24841299 25303915#3 25303915#4 25303915#0 25303915#1 25303915#2 25303915#3 25303915#4 25303915#0 25303915#1 25303912#0" />
+</vehicle>
+
+</routes>
