@@ -2430,6 +2430,7 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
     const MSLane::VehCont& vehs = l->getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         if ((*i)->getSpeed() < SUMO_const_haltingSpeed && !(*i)->getLane()->getEdge().isRoundabout()
+                && (*i) != this
                 // @todo recheck
                 && (*i)->isFrontOnLane(l)) {
             foundStopped = true;
@@ -2473,6 +2474,9 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                 if (item.myLink->hasFoes() && item.myLink->keepClear()/* && item.myLink->willHaveBlockedFoe()*/) {
                     seenSpace = seenSpace - approachedLane->getBruttoVehLenSum();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
+                    if (approachedLane == myLane) {
+                        seenSpace += getVehicleType().getLengthWithGap();
+                    }
                 } else {
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
@@ -2495,7 +2499,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             }
             approachedLane = item.myLink->getLane();
             const MSVehicle* last = approachedLane->getLastAnyVehicle();
-            if (last == 0) {
+            if (last == 0 || last == this) {
                 seenSpace += approachedLane->getLength();
                 item.availableSpace = seenSpace;
             } else if (!last->isFrontOnLane(approachedLane)) {
