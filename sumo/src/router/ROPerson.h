@@ -254,6 +254,9 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
+        bool hasBusStopDest() const {
+            return busStop != "";
+        }
         virtual bool needsRouting() const {
             return myTripItems.empty();
         }

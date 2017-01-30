@@ -175,7 +175,11 @@ ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const 
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         if (!it->edges.empty()) {
             if (it->line == "") {
-                trip->addTripItem(new Walk(it->edges, it->destStop));
+                if (it + 1 == result.end() && !trip->hasBusStopDest()) {
+                    trip->addTripItem(new Walk(it->edges));
+                } else {
+                    trip->addTripItem(new Walk(it->edges, it->destStop));
+                }
             } else if (veh != 0 && it->line == veh->getID()) {
                 trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->destStop));
                 veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", it->edges));
