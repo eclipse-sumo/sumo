@@ -390,11 +390,11 @@ protected:
     /// @brief Pointer to the last inserted E3
     GNEDetectorE3 *myE3Parent;
 
-    /// @brief last used Tag
-    SumoXMLTag myLastTag;
-
     /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
     GNERerouter::rerouterInterval* rerouterIntervalToInsertValues;
+
+    /// @brief last used Tag
+    SumoXMLTag myLastTag;
 
     /// @brief used to check hierarchy of aditionals with parents and childs (for example, E3)
     bool checkAdditionalParent(SumoXMLTag currentTag);

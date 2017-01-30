@@ -60,8 +60,8 @@
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet) :
     SUMOSAXHandler(file),
     myViewNet(viewNet),
-    rerouterIntervalToInsertValues(NULL),
     myE3Parent(NULL),
+    rerouterIntervalToInsertValues(NULL),
     myLastTag(SUMO_TAG_NOTHING) {
 }
 
