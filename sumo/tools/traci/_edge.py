@@ -225,8 +225,8 @@ class EdgeDomain(Domain):
                 tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 8)
             self._connection._string += struct.pack("!BiBiBiBd",
                                                     tc.TYPE_COMPOUND, 3,
-                                                    tc.TYPE_INTEGER, 1000 * begin,
-                                                    tc.TYPE_INTEGER, 1000 * end,
+                                                    tc.TYPE_INTEGER, begin,
+                                                    tc.TYPE_INTEGER, end,
                                                     tc.TYPE_DOUBLE, time)
             self._connection._sendExact()
         else:
