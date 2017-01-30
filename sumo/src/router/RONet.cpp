@@ -82,7 +82,7 @@ RONet::RONet()
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
-    SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_IGNORING);
+    SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     type->onlyReferenced = true;
     myVehicleTypes.add(type->id, type);
     SUMOVTypeParameter* defPedType = new SUMOVTypeParameter(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
