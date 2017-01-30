@@ -54,8 +54,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, NULL, 0)
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional),
-    myE3Parent(NULL),
-    myLaneParent(NULL) {
+    myLaneParent(NULL),
+    myE3Parent(NULL) {
     assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
     // handle additionals with lane parent
