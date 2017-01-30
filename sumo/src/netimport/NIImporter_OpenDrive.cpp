@@ -397,7 +397,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         NBEdge::Lane& sumoLane = currRight->getLaneStruct(sumoLaneIndex);
                         const OpenDriveLane& odLane = *k;
 
-                        sumoLane.origID = e->id + " -" + toString((*k).id);
+                        sumoLane.origID = e->id + "_" + toString((*k).id);
                         sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != 0 ? odLane.width : tc.getWidth(odLane.type);
@@ -434,7 +434,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         NBEdge::Lane& sumoLane = currLeft->getLaneStruct(sumoLaneIndex);
                         const OpenDriveLane& odLane = *k;
 
-                        sumoLane.origID = e->id + " " + toString((*k).id);
+                        sumoLane.origID = e->id + "_" + toString((*k).id);
                         sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != 0 ? odLane.width : tc.getWidth(odLane.type);
@@ -547,7 +547,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::vector<NBEdge::Connection>& cons = from->getConnections();
             for (std::vector<NBEdge::Connection>::iterator k = cons.begin(); k != cons.end(); ++k) {
                 if ((*k).fromLane == fromLane && (*k).toEdge == to && (*k).toLane == toLane) {
-                    (*k).origID = (*i).origID + " " + toString((*i).origLane);
+                    (*k).origID = (*i).origID + "_" + toString((*i).origLane);
                     break;
                 }
             }
