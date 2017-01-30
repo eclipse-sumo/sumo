@@ -1376,10 +1376,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 mayLeaveNetwork = (keepRouteFlag == 2);
             }
             // process
-            if (laneNum < 0) {
-                edgeID = '-' + edgeID;
-                laneNum = -laneNum;
-            }
+            const std::string origID = edgeID + "_" + toString(laneNum);
+            // @todo add an interpretation layer for OSM derived origID values (without lane index)
             Position pos(x, y);
             SUMOReal angle = origAngle;
             // angle must be in [0,360] because it will be compared against those returned by naviDegree()
@@ -1393,7 +1391,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             Position vehPos = v->getPosition();
 #ifdef DEBUG_MOVEXY
             std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << Named::getIDSecure( v->getLane()) << std::endl;
-            std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
+            std::cout << " want pos:" << pos << " origID:" << origID << " laneNum:" << laneNum << " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
 #endif
 
             ConstMSEdgeVector edges;
@@ -1409,10 +1407,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 // case a): vehicle is on its earlier route
                 //  we additionally assume it is moving forward (SUMO-limit);
                 //  note that the route ("edges") is not changed in this case
-                found = vtdMap_matchingRoutePosition(pos, edgeID, *v, bestDistance, &lane, lanePos, routeOffset, edges);
+                found = vtdMap_matchingRoutePosition(pos, origID, *v, bestDistance, &lane, lanePos, routeOffset, edges);
                 // @note silenty ignoring mapping failure
             } else {
-                found = vtdMap(pos, maxRouteDistance, edgeID, angle, *v, server, bestDistance, &lane, lanePos, routeOffset, edges);
+                found = vtdMap(pos, maxRouteDistance, origID, angle, *v, server, bestDistance, &lane, lanePos, routeOffset, edges);
             }
             if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
                 // optionally compute lateral offset
@@ -1615,11 +1613,11 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             */
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << lane->getID() << " langle:" << langle << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) << " off:" << off << std::endl;
-            std::cout << lane->getID() << " param=" << lane->getParameter("origId", lane->getEdge().getID()) << " origID='" << origID << "\n";
+            std::cout << lane->getID() << " param=" << lane->getParameter("origId", lane->getID()) << " origID='" << origID << "\n";
 #endif
             lane2utility[lane] = LaneUtility(
                                      dist, GeomHelper::getMinAngleDiff(angle, langle),
-                                     lane->getParameter("origId", lane->getEdge().getID()) == origID,
+                                     lane->getParameter("origId", lane->getID()) == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
             maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
@@ -1776,7 +1774,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     if ((*lane)->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
         for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-            if ((*i)->getParameter("origId", (*i)->getEdge().getID()) == origID) {
+            if ((*i)->getParameter("origId", (*i)->getID()) == origID) {
                 *lane = *i;
                 break;
             }
