@@ -391,11 +391,11 @@ const std::vector<SumoXMLTag>&
 GNEAttributeCarrier::allowedTags(bool net) {
     // define on first access
     if (myAllowedNetElementTags.empty()) {
-        myAllowedNetElementTags.push_back(SUMO_TAG_CONNECTION);
-        myAllowedNetElementTags.push_back(SUMO_TAG_CROSSING);
         myAllowedNetElementTags.push_back(SUMO_TAG_EDGE);
         myAllowedNetElementTags.push_back(SUMO_TAG_JUNCTION);
         myAllowedNetElementTags.push_back(SUMO_TAG_LANE);
+        myAllowedNetElementTags.push_back(SUMO_TAG_CONNECTION);
+        myAllowedNetElementTags.push_back(SUMO_TAG_CROSSING);
     }
     if (myAllowedAdditionalTags.empty()) {
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);

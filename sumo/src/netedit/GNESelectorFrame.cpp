@@ -163,7 +163,7 @@ GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
     for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
         myMatchTagComboBox->appendItem(toString(*it).c_str());
     }
-    myMatchTagComboBox->setCurrentItem(1); // edges
+    myMatchTagComboBox->setCurrentItem(0); // edges
     myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
     // Fill attributes with the current element type
     onCmdSelMBTag(0, 0, 0);
