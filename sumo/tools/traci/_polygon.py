@@ -24,6 +24,7 @@ from . import constants as tc
 
 _RETURN_VALUE_FUNC = {tc.VAR_TYPE:  Storage.readString,
                       tc.VAR_SHAPE: Storage.readShape,
+                      tc.VAR_FILL: lambda result: bool(result.read("!B")[0]),
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 
 
@@ -55,6 +56,12 @@ class PolygonDomain(Domain):
         Returns the rgba color of this polygon.
         """
         return self._getUniversal(tc.VAR_COLOR, polygonID)
+
+    def getFilled(self, polygonID):
+        """getFilled(string) -> bool
+        Returns whether the polygon is filled
+        """
+        return self._getUniversal(tc.VAR_FILL, polygonID)
 
     def setType(self, polygonID, polygonType):
         """setType(string, string) -> None
@@ -89,6 +96,13 @@ class PolygonDomain(Domain):
         self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
             color[0]), int(color[1]), int(color[2]), int(color[3]))
         self._connection._sendExact()
+
+    def setFilled(self, polygonID, filled):
+        """getFilled(string) -> bool
+        Returns whether the polygon is filled
+        """
+        self._connection._sendByteCmd(
+            tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_FILL, polygonID, (1 if filled else 0))
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0):
         self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.ADD, polygonID, 1 + 4 + 1 + 4 +

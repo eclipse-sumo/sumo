@@ -174,7 +174,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case VAR_FILL: {
             int value = 0;
-            if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+            if (!server.readTypeCheckingByte(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", outputStorage);
             }
             p->setFill(value != 0);
