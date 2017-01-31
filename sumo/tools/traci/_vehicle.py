@@ -309,8 +309,9 @@ class VehicleDomain(Domain):
 
     def getPersonNumber(self, vehID):
         """getPersonNumber(string) -> integer
-
-        .
+        Returns the total number of persons which includes those defined
+        using attribute 'personNumber' as well as <person>-objects which are riding in
+        this vehicle.
         """
         return self._getUniversal(tc.VAR_PERSON_NUMBER, vehID)
 
