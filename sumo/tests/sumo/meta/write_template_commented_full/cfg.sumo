@@ -51,6 +51,12 @@
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
 
+        <!-- Defines the number of digits after the comma for floating point output -->
+        <precision value="2" type="INT"/>
+
+        <!-- Defines the number of digits after the comma for lon,lat output -->
+        <precision.geo value="6" type="INT"/>
+
         <!-- Save complete network states into FILE -->
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
 
@@ -137,12 +143,6 @@
 
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
-
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
@@ -417,6 +417,9 @@
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
 
+        <!-- Runs TraCI script with embedded python -->
+        <python-script value="" type="STR"/>
+
     </traci_server>
 
     <mesoscopic>
@@ -497,6 +500,9 @@
 
         <!-- Create initial window at the given x,y position -->
         <window-pos value="" type="STR"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
     </gui_only>
 

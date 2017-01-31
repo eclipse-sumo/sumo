@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r21246
+SUMO dfrouter Version dev-SVN-r22796
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -21,6 +21,10 @@ Output Options:
   --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
+  --precision INT                      Defines the number of digits after the
+                                         comma for floating point output
+  --precision.geo INT                  Defines the number of digits after the
+                                         comma for lon,lat output
   -o, --routes-output FILE             Saves computed routes to FILE
   --routes-for-all                     Forces DFROUTER to compute routes for
                                          in-between detectors

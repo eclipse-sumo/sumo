@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r22626
+SUMO netconvert Version dev-SVN-r22796
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -38,6 +38,10 @@ Output Options:
   --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
+  --precision INT                      Defines the number of digits after the
+                                         comma for floating point output
+  --precision.geo INT                  Defines the number of digits after the
+                                         comma for lon,lat output
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --plain-output-prefix FILE           Prefix of files to write plain xml

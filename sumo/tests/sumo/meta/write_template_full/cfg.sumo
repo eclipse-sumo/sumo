@@ -23,6 +23,8 @@
 
     <output>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
+        <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE" help="Save complete network states into FILE"/>
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
         <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT" help="Write positions and speeds with the given precision (default 2)"/>
@@ -52,8 +54,6 @@
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <lanechange-output value="" type="FILE" help="Record lane changes and their motivations for all vehicles into FILE"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -163,6 +163,7 @@
 
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
+        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>
@@ -196,6 +197,7 @@
         <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
     </gui_only>
 
 </configuration>

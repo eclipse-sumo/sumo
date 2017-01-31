@@ -18,6 +18,8 @@
 
     <output>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
+        <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <output-file value="" synonymes="o output" type="FILE" help="Writes trip definitions into FILE"/>
         <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
         <flow-output.probability value="false" type="BOOL" help="Writes probabilistic flow instead of evenly spaced flow"/>

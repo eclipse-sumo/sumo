@@ -1,4 +1,4 @@
-SUMO duarouter Version svn
+SUMO duarouter Version dev-SVN-r22796
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -32,6 +32,10 @@ Output Options:
   --output-prefix STR              Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
                                      the current time.
+  --precision INT                  Defines the number of digits after the comma
+                                     for floating point output
+  --precision.geo INT              Defines the number of digits after the comma
+                                     for lon,lat output
   -o, --output-file FILE           Write generated routes to FILE
   --vtype-output FILE              Write used vehicle types into separate FILE
   --exit-times                     Write exit times (weights) for each edge

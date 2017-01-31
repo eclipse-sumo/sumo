@@ -36,6 +36,12 @@
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
 
+        <!-- Defines the number of digits after the comma for floating point output -->
+        <precision value="2" type="INT"/>
+
+        <!-- Defines the number of digits after the comma for lon,lat output -->
+        <precision.geo value="6" type="INT"/>
+
         <!-- Writes trip definitions into FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
 

@@ -25,6 +25,8 @@
 
     <output>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
+        <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
         <vtype-output value="" synonymes="vtype" type="FILE" help="Write used vehicle types into separate FILE"/>
         <exit-times value="false" type="BOOL" help="Write exit times (weights) for each edge"/>

@@ -14,3 +14,4 @@ signals
 
 # test angle output in all cardinal directions
 angle
+subsecond

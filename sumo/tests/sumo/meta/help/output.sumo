@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r22644
+SUMO Version dev-SVN-r22796
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -30,6 +30,10 @@ Output Options:
   --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
+  --precision INT                      Defines the number of digits after the
+                                         comma for floating point output
+  --precision.geo INT                  Defines the number of digits after the
+                                         comma for lon,lat output
   --netstate-dump FILE                 Save complete network states into FILE
   --netstate-dump.empty-edges          Write also empty edges completely when
                                          dumping
@@ -81,10 +85,6 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -265,6 +265,7 @@ Example Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
+  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
@@ -322,6 +323,8 @@ GUI Only Options:
                                          size
   --window-pos STR                     Create initial window at the given x,y
                                          position
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
 
 
 Examples:
