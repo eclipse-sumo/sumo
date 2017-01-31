@@ -80,6 +80,7 @@ GNEClosingLaneReroute.h GNEClosingLaneReroute.cpp \
 GNEClosingReroute.h GNEClosingReroute.cpp \
 GNEDestProbReroute.h GNEDestProbReroute.cpp \
 GNERouteProbReroute.h GNERouteProbReroute.cpp \
+GNERerouterInterval.h GNERerouterInterval.cpp \
 GNEReferenceCounter.h GNEEvent_NetworkLoaded.h
 
 netedit_LDADD = ../netimport/libnetimport.a \

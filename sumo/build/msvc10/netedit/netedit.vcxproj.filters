@@ -282,6 +282,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEClosingReroute.cpp">
       <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERerouterInterval.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -479,6 +482,9 @@
       <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEClosingReroute.h">
+      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERerouterInterval.h">
       <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
     </ClInclude>
   </ItemGroup>

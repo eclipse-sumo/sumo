@@ -314,7 +314,7 @@ public:
      * @param[in] rerouterInterval set with the rerouterintervals of rerouter
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouter::rerouterInterval>& rerouterIntervals);
+    static bool buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouterInterval*>& rerouterIntervals);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -390,8 +390,8 @@ protected:
     /// @brief Pointer to the last inserted E3
     GNEDetectorE3 *myE3Parent;
 
-    /// @brief rerouterInterval in whicn insert closingReroute, destProbReroute, etc.
-    GNERerouter::rerouterInterval* rerouterIntervalToInsertValues;
+    /// @brief rerouterInterval in whicn insert GNEClosingReroute, GNEDestProbReroute, etc.
+    GNERerouterInterval* rerouterIntervalToInsertValues;
 
     /// @brief last used Tag
     SumoXMLTag myLastTag;

@@ -30,23 +30,29 @@
 #include <utils/geom/GeomConvHelper.h>
 
 #include "GNEAdditionalHandler.h"
-#include "GNEUndoList.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNEJunction.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNEChange_Additional.h"
 #include "GNEBusStop.h"
+#include "GNEChange_Additional.h"
 #include "GNEChargingStation.h"
+#include "GNEClosingLaneReroute.h"
+#include "GNEClosingReroute.h"
+#include "GNEContainerStop.h"
+#include "GNEDestProbReroute.h"
 #include "GNEDetectorE1.h"
 #include "GNEDetectorE2.h"
 #include "GNEDetectorE3.h"
 #include "GNEDetectorEntry.h"
 #include "GNEDetectorExit.h"
+#include "GNEEdge.h"
+#include "GNEJunction.h"
+#include "GNELane.h"
+#include "GNENet.h"
+#include "GNERerouter.h"
+#include "GNERerouterInterval.h"
+#include "GNERouteProbReroute.h"
 #include "GNERouteProbe.h"
-#include "GNEContainerStop.h"
+#include "GNEUndoList.h"
 #include "GNEVaporizer.h"
+#include "GNEViewNet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -333,7 +339,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok, "", false), edgesID);
         // obtain Rerouter values Values
         // @ToDo Finish
-        std::set<GNERerouter::rerouterInterval> rerouterIntervals;
+        std::set<GNERerouterInterval*> rerouterIntervals;
         // Obtain pointer to edges
         std::vector<GNEEdge*> edges;
         for (int i = 0; i < (int)edgesID.size(); i++) {
@@ -771,7 +777,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
                 edges.push_back(viewNet->getNet()->retrieveEdge(edgeIds.at(i)));
             }
             // Obtain routerIntervals
-            std::set<GNERerouter::rerouterInterval> rerouterIntervals;
+            std::set<GNERerouterInterval*> rerouterIntervals;
             // Build rerouter
             if (pos.size() == 1) {
                 return buildRerouter(viewNet, id, pos[0], edges, prob, file, off, rerouterIntervals);
@@ -971,7 +977,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouter::rerouterInterval>& rerouterIntervals) {
+GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouterInterval*>& rerouterIntervals) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_REROUTER, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
         GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, file, prob, off, rerouterIntervals);
