@@ -301,7 +301,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
     const Position& f = shape[-2];
     const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     if (link == 0) {
-        GLHelper::setColor(getLinkColor(LINKSTATE_DEADEND));
+        GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LINKSTATE_DEADEND));
         glPushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
@@ -335,7 +335,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
                 glPushName(getGlID());
                 break;
         }
-        GLHelper::setColor(getLinkColor(link->getState()));
+        GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
         if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LINKSTATE_MAJOR) {
             // the white bar should be the default for most railway
             // links and looks ugly so we do not draw it
@@ -425,7 +425,7 @@ GUILane::drawLane2LaneConnections() const {
         if (connected == 0) {
             continue;
         }
-        GLHelper::setColor(getLinkColor((*i)->getState()));
+        GLHelper::setColor(GUIVisualizationSettings::getLinkColor((*i)->getState()));
         glBegin(GL_LINES);
         const Position& p1 = getShape()[-1];
         const Position& p2 = connected->getShape()[0];

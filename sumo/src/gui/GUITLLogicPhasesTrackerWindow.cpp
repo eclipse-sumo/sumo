@@ -42,6 +42,7 @@
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -372,7 +373,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             // determine the current link's color
             LinkState state = pi->getSignalState(j);
             // draw the bar (red is drawn as a line)
-            GLHelper::setColor(getLinkColor(state));
+            GLHelper::setColor(GUIVisualizationSettings::getLinkColor(state));
             switch (state) {
                 case LINKSTATE_TL_RED:
                 case LINKSTATE_TL_REDYELLOW:

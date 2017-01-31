@@ -112,7 +112,6 @@ public:
                     return false;
                 }
             } else if (data.at(i) < '0' || data.at(i) > '9') {
-                std::cout << i << " " << data.at(i) << std::endl;
                 return false;
             }
         }

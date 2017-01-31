@@ -324,6 +324,12 @@ public:
 
     /** @brief Comparison operator */
     bool operator==(const GUIVisualizationSettings& vs2);
+
+
+    /* @brief map from LinkState to color constants  */
+    static const RGBColor& getLinkColor(const LinkState& ls);
+
+
 };
 
 
