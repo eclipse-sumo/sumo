@@ -339,12 +339,17 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
             StringTokenizer st((*i)->getString(), ";, ", true);
             std::string conv;
             while (st.hasNext()) {
-                if (conv.length() != 0) {
-                    conv += ',';
-                }
                 std::string tmp = st.next();
+                // Test whether this is a whitespace string and disregard item if so.
+                // This may stem, e.g., from separating filenames by ', ' in the configuration file
+                if (tmp.find_first_not_of("\t ") == std::string::npos){
+                    continue;
+                }
                 if (!FileHelpers::isAbsolute(tmp)) {
                     tmp = FileHelpers::getConfigurationRelative(configuration, tmp);
+                }
+                if (conv.length() != 0) {
+                    conv += ',';
                 }
                 conv += StringUtils::urlDecode(tmp);
             }
