@@ -99,8 +99,6 @@ fi
 
 AC_DEFINE([POSITION_EPS], [(SUMOReal)0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([NUMERICAL_EPS], [(SUMOReal)0.001], [defines the epsilon to use on general floating point comparison])
-AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
-AC_DEFINE([GEO_OUTPUT_ACCURACY], [6], [defines the number of digits after the comma in geo-coordinates output])
 
 AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
 AM_CONDITIONAL(TRACI, test x$enable_traci != xno)
