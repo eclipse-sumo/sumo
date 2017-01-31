@@ -161,8 +161,8 @@ class VehicleDomain(Domain):
 
     def getSpeedWithoutTraCI(self, vehID):
         """getSpeedWithoutTraCI(string) -> double
-
-        .
+        Returns the speed that the vehicle would drive if not speed-influencing
+        command such as setSpeed or slowDown was given.
         """
         return self._getUniversal(tc.VAR_SPEED_WITHOUT_TRACI, vehID)
 
@@ -340,6 +340,10 @@ class VehicleDomain(Domain):
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID).readDouble()
 
     def isRouteValid(self, vehID):
+        """isRouteValid(string) -> bool
+        Returns whether the current vehicle route is connected for the vehicle
+        class of the given vehicle.
+        """
         return self._getUniversal(tc.VAR_ROUTE_VALID, vehID)
 
     def getSignals(self, vehID):
