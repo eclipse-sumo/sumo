@@ -222,5 +222,6 @@ ticket2670
 # Two flows inserted on neighboring lanes should be inserted synchronously (lane allowances are used to prevent lane changes for the first flow which would obscure the effect)
 ticket2740
 
+ticket2823
 # Two flows inserted on neighboring lanes should be inserted synchronously (lane allowances are used to prevent lane changes for the first flow which would obscure the effect)
 ticket2834
