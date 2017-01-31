@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-01-27 09:50:49.833182 by $Id: randomTrips.py 22721 2017-01-27 06:51:44Z namdre $
+<!-- generated on 2017-01-31 09:20:33.007061 by $Id: randomTrips.py 22767 2017-01-30 11:42:27Z behrisch $
   options: <doubleminus>testing
 -->
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="ped0" depart="0.00">
         <walk from="272780760#0" to="-143201759"/>
     </person>
@@ -687,4 +687,4 @@
     <person id="ped227" depart="899.58">
         <walk from="195411606" to="260138638#0"/>
     </person>
-</trips>
+</routes>
