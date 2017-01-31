@@ -290,7 +290,7 @@ class PersonDomain(Domain):
 
     def removeStage(self, personID, nextStageIndex):
         """removeStage(string, int)
-        Removes the the nth next stage
+        Removes the nth next stage
         nextStageIndex must be lower then value of getRemainingStages(personID)
         nextStageIndex 0 immediately aborts the current stage and proceeds to the next stage
         """
