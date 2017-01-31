@@ -76,9 +76,11 @@ GNECalibrator.h GNECalibrator.cpp \
 GNECalibratorDialog.h GNECalibratorDialog.cpp \
 GNEVariableSpeedSignal.h GNEVariableSpeedSignal.cpp \
 GNEVariableSpeedSignalDialog.h GNEVariableSpeedSignalDialog.cpp \
+GNEClosingLaneReroute.h GNEClosingLaneReroute.cpp \
+GNEClosingReroute.h GNEClosingReroute.cpp \
+GNEDestProbReroute.h GNEDestProbReroute.cpp \
+GNERouteProbReroute.h GNERouteProbReroute.cpp \
 GNEReferenceCounter.h GNEEvent_NetworkLoaded.h
-
-
 
 netedit_LDADD = ../netimport/libnetimport.a \
 ../netimport/vissim/libvissimimport.a \

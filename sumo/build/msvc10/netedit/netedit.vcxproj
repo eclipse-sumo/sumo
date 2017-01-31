@@ -125,12 +125,15 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChargingStation.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEClosingLaneReroute.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEClosingReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEConnection.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEConnectorFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEContainerStop.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNECrossing.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNECrossingFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDeleteFrame.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEDestProbReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDetector.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDetectorE1.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDetectorE2.cpp" />
@@ -154,6 +157,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNERerouter.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERerouterDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbe.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNERouteProbReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNESelectorFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEStoppingPlace.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNETLSEditorFrame.cpp" />
@@ -189,12 +193,15 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChargingStation.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEClosingLaneReroute.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEClosingReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEConnection.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEConnectorFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEContainerStop.h" />
     <ClInclude Include="..\..\..\src\netedit\GNECrossing.h" />
     <ClInclude Include="..\..\..\src\netedit\GNECrossingFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDeleteFrame.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEDestProbReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDetector.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDetectorE1.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDetectorE2.h" />
@@ -220,6 +227,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNERerouter.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERerouterDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbe.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNERouteProbReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNESelectorFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEStoppingPlace.h" />
     <ClInclude Include="..\..\..\src\netedit\GNETLSEditorFrame.h" />
