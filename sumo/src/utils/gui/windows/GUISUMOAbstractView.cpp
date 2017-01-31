@@ -206,7 +206,7 @@ GUISUMOAbstractView::updatePositionInformation() const {
     myApp->getCartesianLabel().setText(text.c_str());
     GeoConvHelper::getFinal().cartesian2geo(pos);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        text = "lat:" + toString(pos.y(), GEO_OUTPUT_ACCURACY) + ", lon:" + toString(pos.x(), GEO_OUTPUT_ACCURACY);
+        text = "lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo);
     } else {
         text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
     }

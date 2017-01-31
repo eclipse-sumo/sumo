@@ -136,7 +136,7 @@ public:
      * @param[in] precision the precision to achieve
      * @return The formatted string
      */
-    static std::string realString(const SUMOReal v, const int precision = OUTPUT_ACCURACY);
+    static std::string realString(const SUMOReal v, const int precision = gPrecision);
 
 
 public:
@@ -165,7 +165,7 @@ public:
     /** @brief Sets the precison or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
-    void setPrecision(int precision = OUTPUT_ACCURACY);
+    void setPrecision(int precision = gPrecision);
 
 
     /** @brief Writes an XML header with optional configuration

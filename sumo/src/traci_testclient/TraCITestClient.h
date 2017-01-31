@@ -37,7 +37,6 @@
 #include <vector>
 
 #include <foreign/tcpip/socket.h>
-#include <utils/common/SUMOTime.h>
 #include <utils/traci/TraCIAPI.h>
 
 

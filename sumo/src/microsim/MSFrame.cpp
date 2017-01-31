@@ -123,7 +123,7 @@ MSFrame::fillOptions() {
     oc.addSynonyme("netstate-dump.empty-edges", "netstate-output.empty-edges");
     oc.addSynonyme("netstate-dump.empty-edges", "dump-empty-edges", true);
     oc.addDescription("netstate-dump.empty-edges", "Output", "Write also empty edges completely when dumping");
-    oc.doRegister("netstate-dump.precision", new Option_Integer(OUTPUT_ACCURACY));
+    oc.doRegister("netstate-dump.precision", new Option_Integer(2));
     oc.addSynonyme("netstate-dump.precision", "netstate.precision");
     oc.addSynonyme("netstate-dump.precision", "netstate-output.precision");
     oc.addSynonyme("netstate-dump.precision", "dump-precision", true);
@@ -132,12 +132,12 @@ MSFrame::fillOptions() {
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
-    oc.doRegister("emission-output.precision", new Option_Integer(OUTPUT_ACCURACY));
+    oc.doRegister("emission-output.precision", new Option_Integer(2));
     oc.addDescription("emission-output.precision", "Output", "Write emission values with the given precision (default 2)");
 
     oc.doRegister("battery-output", new Option_FileName());
     oc.addDescription("battery-output", "Output", "Save the battery values of each vehicle");
-    oc.doRegister("battery-output.precision", new Option_Integer(OUTPUT_ACCURACY));
+    oc.doRegister("battery-output.precision", new Option_Integer(2));
     oc.addDescription("battery-output.precision", "Output", "Write battery values with the given precision (default 2)");
 
     oc.doRegister("fcd-output", new Option_FileName());
@@ -523,7 +523,22 @@ MSFrame::checkOptions() {
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.set("verbose", "true");
     }
+    if (oc.isDefault("precision") && string2time(oc.getString("step-length")) < 10) {
+        oc.set("precision", "3");
+    }
+    if (oc.getInt("precision") > 2) { 
+        if (oc.isDefault("netstate-dump.precision")) {
+            oc.set("netstate-dump.precision", toString(oc.getInt("precision")));
+        }
+        if (oc.isDefault("emission-output.precision")) {
+            oc.set("emission-output.precision", toString(oc.getInt("precision")));
+        }
+        if (oc.isDefault("battery-output.precision")) {
+            oc.set("battery-output.precision", toString(oc.getInt("precision")));
+        }
+    }
     ok &= MSDevice::checkOptions(oc);
+    ok &= SystemFrame::checkOptions();
     return ok;
 }
 

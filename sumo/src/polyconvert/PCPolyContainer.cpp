@@ -121,7 +121,7 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional", "additional_file.xsd");
     if (useGeo) {
-        out.setPrecision(GEO_OUTPUT_ACCURACY);
+        out.setPrecision(gPrecisionGeo);
     } else if (gch.usingGeoProjection()) {
         GeoConvHelper::writeLocation(out);
     }

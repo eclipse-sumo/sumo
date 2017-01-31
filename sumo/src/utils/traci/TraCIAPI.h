@@ -44,7 +44,7 @@
 // global definitions
 // ===========================================================================
 #define DEFAULT_VIEW "View #0"
-
+#define PRECISION 2
 
 // ===========================================================================
 // class definitions
@@ -971,7 +971,7 @@ protected:
     void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, SubscribedValues& into);
 
     template <class T>
-    static inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURACY) {
+    static inline std::string toString(const T& t, std::streamsize accuracy = PRECISION) {
         std::ostringstream oss;
         oss.setf(std::ios::fixed , std::ios::floatfield);
         oss << std::setprecision(accuracy);

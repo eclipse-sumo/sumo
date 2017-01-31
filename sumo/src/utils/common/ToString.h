@@ -52,7 +52,7 @@
  * (when supplied by c++/the stl)
  */
 template <class T>
-inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string toString(const T& t, std::streamsize accuracy = gPrecision) {
     std::ostringstream oss;
     oss.setf(std::ios::fixed , std::ios::floatfield);
     oss << std::setprecision(accuracy);
@@ -165,13 +165,13 @@ inline std::string toString<LaneChangeAction>(const LaneChangeAction& action, st
 }
 
 template <typename V>
-inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy = gPrecision) {
     return toString<V>(v.begin(), v.end(), accuracy);
 }
 
 
 template <typename V>
-inline std::string toString(const typename std::vector<V*>::const_iterator& b, const typename std::vector<V*>::const_iterator& e, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string toString(const typename std::vector<V*>::const_iterator& b, const typename std::vector<V*>::const_iterator& e, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);
     std::ostringstream oss;
     for (typename std::vector<V*>::const_iterator it = b; it != e; ++it) {
@@ -185,7 +185,7 @@ inline std::string toString(const typename std::vector<V*>::const_iterator& b, c
 
 
 template <typename T, typename T_BETWEEN>
-inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& between, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& between, std::streamsize accuracy = gPrecision) {
     std::ostringstream oss;
     bool connect = false;
     for (typename std::vector<T>::const_iterator it = v.begin(); it != v.end(); ++it) {
@@ -201,7 +201,7 @@ inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& betwee
 
 
 template <typename T, typename T_BETWEEN>
-inline std::string joinToStringSorting(const std::vector<T>& v, const T_BETWEEN& between, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string joinToStringSorting(const std::vector<T>& v, const T_BETWEEN& between, std::streamsize accuracy = gPrecision) {
     std::vector<T> sorted(v);
     std::sort(sorted.begin(), sorted.end());
     return joinToString(sorted, between, accuracy);
@@ -209,7 +209,7 @@ inline std::string joinToStringSorting(const std::vector<T>& v, const T_BETWEEN&
 
 
 template <typename V>
-inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);
     std::vector<std::string> ids;
     for (typename std::set<V*>::const_iterator it = v.begin(); it != v.end(); ++it) {
@@ -238,7 +238,7 @@ inline std::string toString(const std::vector<SUMOReal>& v, std::streamsize accu
 
 
 template <typename T, typename T_BETWEEN>
-inline std::string joinToString(const std::set<T>& s, const T_BETWEEN& between, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string joinToString(const std::set<T>& s, const T_BETWEEN& between, std::streamsize accuracy = gPrecision) {
     std::ostringstream oss;
     bool connect = false;
     for (typename std::set<T>::const_iterator it = s.begin(); it != s.end(); ++it) {
@@ -260,7 +260,7 @@ inline std::string toString(const std::set<std::string>& v, std::streamsize) {
 
 
 template <typename KEY, typename VAL, typename T_BETWEEN, typename T_BETWEEN_KEYVAL>
-inline std::string joinToString(const std::map<KEY, VAL>& s, const T_BETWEEN& between, const T_BETWEEN_KEYVAL& between_keyval, std::streamsize accuracy = OUTPUT_ACCURACY) {
+inline std::string joinToString(const std::map<KEY, VAL>& s, const T_BETWEEN& between, const T_BETWEEN_KEYVAL& between_keyval, std::streamsize accuracy = gPrecision) {
     std::ostringstream oss;
     bool connect = false;
     for (typename std::map<KEY, VAL>::const_iterator it = s.begin(); it != s.end(); ++it) {

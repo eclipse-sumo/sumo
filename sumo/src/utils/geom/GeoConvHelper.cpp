@@ -455,7 +455,7 @@ GeoConvHelper::writeLocation(OutputDevice& into) {
     into.writeAttr(SUMO_ATTR_NET_OFFSET, myFinal.getOffsetBase());
     into.writeAttr(SUMO_ATTR_CONV_BOUNDARY, myFinal.getConvBoundary());
     if (myFinal.usingGeoProjection()) {
-        into.setPrecision(GEO_OUTPUT_ACCURACY);
+        into.setPrecision(gPrecisionGeo);
     }
     into.writeAttr(SUMO_ATTR_ORIG_BOUNDARY, myFinal.getOrigBoundary());
     if (myFinal.usingGeoProjection()) {

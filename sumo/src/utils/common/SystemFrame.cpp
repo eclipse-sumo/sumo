@@ -33,6 +33,7 @@
 #include "SystemFrame.h"
 #include <string>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -109,6 +110,21 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
     oc.doRegister("output-prefix", new Option_String());
     oc.addDescription("output-prefix", "Output", "Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.");
+
+    oc.doRegister("precision", new Option_Integer(2));
+    oc.addDescription("precision", "Output", "Defines the number of digits after the comma for floating point output");
+
+    oc.doRegister("precision.geo", new Option_Integer(6));
+    oc.addDescription("precision.geo", "Output", "Defines the number of digits after the comma for lon,lat output");
+}
+
+
+bool 
+SystemFrame::checkOptions() {
+    OptionsCont& oc = OptionsCont::getOptions();
+    gPrecision = oc.getInt("precision");
+    gPrecisionGeo = oc.getInt("precision.geo");
+    return true;
 }
 
 

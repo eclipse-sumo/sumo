@@ -99,7 +99,8 @@ GNELoadThread::run() {
     MsgHandler::initOutputOptions();
     if (!(NIFrame::checkOptions() &&
             NBFrame::checkOptions() &&
-            NWFrame::checkOptions())) {
+            NWFrame::checkOptions() &&
+            SystemFrame::checkOptions())) {
         // options are not valid
         WRITE_ERROR("Invalid Options. Nothing loaded");
         submitEndAndCleanup(net);

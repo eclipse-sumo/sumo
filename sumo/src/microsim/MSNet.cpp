@@ -744,7 +744,7 @@ MSNet::postSimStepOutput() const {
         std::ostringstream oss;
         oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
         oss.setf(std::ios::showpoint);    // print decimal point
-        oss << std::setprecision(OUTPUT_ACCURACY);
+        oss << std::setprecision(gPrecision);
         if (mySimStepDuration != 0) {
             const SUMOReal durationSec = (SUMOReal)mySimStepDuration / 1000.;
             oss << " (" << mySimStepDuration << "ms ~= "

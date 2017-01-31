@@ -331,6 +331,7 @@ main(int argc, char** argv) {
             }
             delete reader;
         }
+        SystemFrame::checkOptions();
         // read in the data
         PCLoaderXML::loadIfSet(oc, toFill, tm); // SUMO-XML
         PCLoaderOSM::loadIfSet(oc, toFill, tm); // OSM-XML

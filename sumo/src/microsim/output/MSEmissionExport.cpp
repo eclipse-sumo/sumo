@@ -73,6 +73,6 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
             of.closeTag();
         }
     }
-    of.setPrecision(OUTPUT_ACCURACY);
+    of.setPrecision(gPrecision);
     of.closeTag();
 }

@@ -30,7 +30,9 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-
+// set by option --precision (see SystemFrame.cpp)
+int gPrecision = 2;
+int gPrecisionGeo = 6;
 
 bool gDebugFlag1 = false;
 bool gDebugFlag2 = false;

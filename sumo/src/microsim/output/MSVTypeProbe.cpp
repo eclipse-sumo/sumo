@@ -88,7 +88,7 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
                 }
                 if (GeoConvHelper::getFinal().usingGeoProjection()) {
                     GeoConvHelper::getFinal().cartesian2geo(pos);
-                    myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);
+                    myOutputDevice.setPrecision(gPrecisionGeo);
                     myOutputDevice.writeAttr(SUMO_ATTR_LAT, pos.y());
                     myOutputDevice.writeAttr(SUMO_ATTR_LON, pos.x());
                     myOutputDevice.setPrecision();

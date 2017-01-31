@@ -108,7 +108,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             gch.cartesian2geo(pos);
         }
         if (geoAccuracy) {
-            device.setPrecision(GEO_OUTPUT_ACCURACY);
+            device.setPrecision(gPrecisionGeo);
         }
         NWFrame::writePositionLong(pos, device);
         if (geoAccuracy) {
@@ -203,7 +203,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 }
             }
             if (geoAccuracy) {
-                edevice.setPrecision(GEO_OUTPUT_ACCURACY);
+                edevice.setPrecision(gPrecisionGeo);
             }
             edevice.writeAttr(SUMO_ATTR_SHAPE, geom);
             if (geoAccuracy) {

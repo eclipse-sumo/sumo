@@ -107,6 +107,12 @@ ISNAN(T a) {
     return d != d;
 }
 
+
+/// the precision for floating point outputs
+extern int gPrecision;
+extern int gPrecisionGeo; // for lon,lat
+
+
 /// @brief global utility flags for debugging
 extern bool gDebugFlag1;
 extern bool gDebugFlag2;

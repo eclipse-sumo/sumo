@@ -72,6 +72,8 @@ public:
      */
     static void addReportOptions(OptionsCont& oc);
 
+    /// @brief checks shared options and sets StdDefs
+    static bool checkOptions();
 
     /** @brief Closes all of an applications subsystems
      *

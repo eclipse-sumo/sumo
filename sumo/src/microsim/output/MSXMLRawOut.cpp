@@ -64,7 +64,7 @@ MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
     for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         writeEdge(of, **e, timestep);
     }
-    of.setPrecision(OUTPUT_ACCURACY);
+    of.setPrecision(gPrecision);
     of.closeTag();
 }
 
