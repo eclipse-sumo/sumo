@@ -835,7 +835,12 @@ MSVehicle::computeAngle() const {
     } else {
         p1 = getPosition();
     }
-    const Position p2 = getBackPosition();
+
+    Position p2 = getBackPosition();
+    if (p2 == Position::INVALID){
+        // Handle special case of vehicle's back reaching out of the network
+        p2 = myFurtherLanes.back()->geometryPositionAtOffset(0, -myFurtherLanesPosLat.back());
+    }
     SUMOReal result = (p1 != p2 ? p2.angleTo2D(p1) :
                        myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
     if (getLaneChangeModel().isChangingLanes()) {
