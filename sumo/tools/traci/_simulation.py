@@ -176,8 +176,7 @@ class SimulationDomain(Domain):
 
     def getBusStopWaiting(self):
         """getBusStopWaiting() -> integer
-
-        .
+        Get the total number of waiting persons at the named bus stop.
         """
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING)
 
@@ -211,8 +210,7 @@ class SimulationDomain(Domain):
 
     def getDeltaT(self):
         """getDeltaT() -> integer
-
-        .
+        Returns the length of one simulation step in milliseconds
         """
         return self._getUniversal(tc.VAR_DELTA_T)
 

@@ -839,8 +839,8 @@ class VehicleDomain(Domain):
 
     def setSpeedDeviation(self, vehID, deviation):
         """setSpeedDeviation(string, double) -> None
-
-        Sets the maximum speed deviation for this vehicle.
+        Sets the maximum speed deviation for this vehicle. 
+        Warning: This method currently has no effect.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED_DEVIATION, vehID, deviation)
