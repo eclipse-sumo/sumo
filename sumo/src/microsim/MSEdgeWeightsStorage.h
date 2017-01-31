@@ -31,7 +31,6 @@
 #include <config.h>
 #endif
 
-#include <utils/common/SUMOTime.h>
 #include <utils/common/ValueTimeLine.h>
 
 
