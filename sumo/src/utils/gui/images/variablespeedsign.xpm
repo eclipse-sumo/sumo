@@ -1,5 +1,5 @@
 /* XPM */
-static const char *variablespeedsignal_xpm[] = {
+static const char *variablespeedsign_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 256 2 ",
 "   c #505050",

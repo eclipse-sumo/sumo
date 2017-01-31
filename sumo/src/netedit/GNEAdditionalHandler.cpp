@@ -116,7 +116,7 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 parseAndBuildDetectorExit(attrs, tag);
                 break;
             case SUMO_TAG_VSS:
-                parseAndBuildVariableSpeedSignal(attrs, tag);
+                parseAndBuildVariableSpeedSign(attrs, tag);
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_REROUTER:
@@ -140,7 +140,7 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_STEP:
-                parseVariableSpeedSignalStep(attrs, tag);
+                parseVariableSpeedSignStep(attrs, tag);
                 myE3Parent = NULL;
                 break;
             default:
@@ -257,7 +257,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
 
 
 void
-GNEAdditionalHandler::parseVariableSpeedSignalStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool ok = true;
     bool abort = false;
     // Load step values
@@ -275,10 +275,10 @@ GNEAdditionalHandler::parseVariableSpeedSignalStep(const SUMOSAXAttributes& attr
     }
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        GNEVariableSpeedSignal* variableSpeedSignalToInsertStep = /*dynamic_cast<GNEVariableSpeedSignal*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalParent))*/ NULL;
-        if (variableSpeedSignalToInsertStep == NULL) {
+        GNEVariableSpeedSign* variableSpeedSignToInsertStep = /*dynamic_cast<GNEVariableSpeedSign*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalParent))*/ NULL;
+        if (variableSpeedSignToInsertStep == NULL) {
             WRITE_WARNING("A " + toString(SUMO_TAG_VSS) + " must be inserter before insertion of a " + toString(tag));
-        } else if (!variableSpeedSignalToInsertStep->insertStep(time, speed)) {
+        } else if (!variableSpeedSignToInsertStep->insertStep(time, speed)) {
             WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TIME) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_VSS) + " is duplicated");
         }
     }
@@ -286,7 +286,7 @@ GNEAdditionalHandler::parseVariableSpeedSignalStep(const SUMOSAXAttributes& attr
 
 
 void
-GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of VSS
     std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
@@ -313,7 +313,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& 
             }
         }
         // if operation of build variable speed signal was sucesfully, save Id
-        if (buildVariableSpeedSignal(myViewNet, id, Position(posx, posy), lanes, file, VSSValues)) {
+        if (buildVariableSpeedSign(myViewNet, id, Position(posx, posy), lanes, file, VSSValues)) {
             ;//myAdditionalParent = id;
         }
     }
@@ -736,7 +736,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             }
             std::string file = values[SUMO_ATTR_FILE];
             if (pos.size() == 1) {
-                return buildVariableSpeedSignal(viewNet, id, pos[0], lanes, file, VSSValues);
+                return buildVariableSpeedSign(viewNet, id, pos[0], lanes, file, VSSValues);
             } else {
                 return false;
             }
@@ -1007,11 +1007,11 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildVariableSpeedSignal(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& file, const std::map<SUMOReal, SUMOReal>& VSSValues) {
+GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& file, const std::map<SUMOReal, SUMOReal>& VSSValues) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_VSS, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
-        GNEVariableSpeedSignal* variableSpeedSignal = new GNEVariableSpeedSignal(id, viewNet, pos, lanes, file, VSSValues);
-        viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSignal, true), true);
+        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, file, VSSValues);
+        viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
         viewNet->getUndoList()->p_end();
         return true;
     } else {

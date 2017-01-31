@@ -74,8 +74,8 @@ GNERouteProbe.h GNERouteProbe.cpp \
 GNEVaporizer.h GNEVaporizer.cpp \
 GNECalibrator.h GNECalibrator.cpp \
 GNECalibratorDialog.h GNECalibratorDialog.cpp \
-GNEVariableSpeedSignal.h GNEVariableSpeedSignal.cpp \
-GNEVariableSpeedSignalDialog.h GNEVariableSpeedSignalDialog.cpp \
+GNEVariableSpeedSign.h GNEVariableSpeedSign.cpp \
+GNEVariableSpeedSignDialog.h GNEVariableSpeedSignDialog.cpp \
 GNEClosingLaneReroute.h GNEClosingLaneReroute.cpp \
 GNEClosingReroute.h GNEClosingReroute.cpp \
 GNEDestProbReroute.h GNEDestProbReroute.cpp \

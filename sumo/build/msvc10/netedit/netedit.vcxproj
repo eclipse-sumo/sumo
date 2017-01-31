@@ -164,8 +164,8 @@
     <ClCompile Include="..\..\..\src\netedit\GNETLSEditorFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEUndoList.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEVaporizer.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignal.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignalDialog.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEViewNet.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEViewParent.cpp" />
     <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
@@ -235,8 +235,8 @@
     <ClInclude Include="..\..\..\src\netedit\GNETLSEditorFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEUndoList.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEVaporizer.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignal.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignalDialog.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSign.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h" />
   </ItemGroup>

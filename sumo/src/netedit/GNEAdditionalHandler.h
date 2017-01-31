@@ -38,7 +38,7 @@
 
 #include "GNECalibrator.h"
 #include "GNERerouter.h"
-#include "GNEVariableSpeedSignal.h"
+#include "GNEVariableSpeedSign.h"
 
 // ===========================================================================
 // class declarations
@@ -94,7 +94,7 @@ public:
      * @param[in] tag of the additional
      * @see buildLaneSpeedTrigger
      */
-    void parseAndBuildVariableSpeedSignal(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the trigger
@@ -168,11 +168,11 @@ public:
      */
     void parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
-    /**@brief Parses step values of VariableSpeedSignals
+    /**@brief Parses step values of VariableSpeedSigns
      * @param[in] attrs SAX-attributes which define the steps
      * @param[in] tag of the additional
      */
-    void parseVariableSpeedSignalStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
     /// @}
 
     /// @name building methods
@@ -328,7 +328,7 @@ public:
      */
     static bool buildRouteProbe(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, SUMOReal freq, const std::string& file, SUMOReal begin);
 
-    /**@brief Builds a VariableSpeedSignal (lane speed trigger)
+    /**@brief Builds a VariableSpeedSign (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] id The id of the lane speed trigger
      * @param[in] destLanes List of lanes affected by this speed trigger
@@ -337,7 +337,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildVariableSpeedSignal(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::map<SUMOReal, SUMOReal>& VSSValues);
+    static bool buildVariableSpeedSign(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::map<SUMOReal, SUMOReal>& VSSValues);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted

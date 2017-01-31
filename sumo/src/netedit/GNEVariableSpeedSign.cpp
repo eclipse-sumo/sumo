@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    GNEVariableSpeedSignal.cpp
+/// @file    GNEVariableSpeedSign.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSign.cpp 22699 2017-01-25 14:56:03Z behrisch $
 ///
 ///
 /****************************************************************************/
@@ -48,13 +48,13 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
-#include "GNEVariableSpeedSignal.h"
+#include "GNEVariableSpeedSign.h"
 #include "GNELane.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNEVariableSpeedSignalDialog.h"
+#include "GNEVariableSpeedSignDialog.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -64,8 +64,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues) :
-    GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGNAL),
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues) :
+    GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
     myFilename(filename),
     myVSSValues(vssValues),
     mySaveInFilename(false) {
@@ -77,12 +77,12 @@ GNEVariableSpeedSignal::GNEVariableSpeedSignal(const std::string& id, GNEViewNet
 }
 
 
-GNEVariableSpeedSignal::~GNEVariableSpeedSignal() {
+GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 }
 
 
 void
-GNEVariableSpeedSignal::updateGeometry() {
+GNEVariableSpeedSign::updateGeometry() {
     // Clear shape
     myShape.clear();
 
@@ -112,19 +112,19 @@ GNEVariableSpeedSignal::updateGeometry() {
 
 
 Position
-GNEVariableSpeedSignal::getPositionInView() const {
+GNEVariableSpeedSign::getPositionInView() const {
     return myPosition;
 }
 
 
 void
-GNEVariableSpeedSignal::openAdditionalDialog() {
-    GNEVariableSpeedSignalDialog variableSpeedSignalDialog(this);
+GNEVariableSpeedSign::openAdditionalDialog() {
+    GNEVariableSpeedSignDialog variableSpeedSignDialog(this);
 }
 
 
 void
-GNEVariableSpeedSignal::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+GNEVariableSpeedSign::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
     // change Position
     myPosition = Position(offsetx, offsety);
     updateGeometry();
@@ -132,7 +132,7 @@ GNEVariableSpeedSignal::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offset
 
 
 void
-GNEVariableSpeedSignal::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+GNEVariableSpeedSign::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
     undoList->p_end();
@@ -142,7 +142,7 @@ GNEVariableSpeedSignal::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMORea
 
 
 void
-GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string& currentDirectory) {
+GNEVariableSpeedSign::writeAdditional(OutputDevice& device, const std::string& currentDirectory) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -188,31 +188,31 @@ GNEVariableSpeedSignal::writeAdditional(OutputDevice& device, const std::string&
 
 
 std::string
-GNEVariableSpeedSignal::getFilename() const {
+GNEVariableSpeedSign::getFilename() const {
     return myFilename;
 }
 
 
 std::map<SUMOReal, SUMOReal>
-GNEVariableSpeedSignal::getVariableSpeedSignalSteps() const {
+GNEVariableSpeedSign::getVariableSpeedSignSteps() const {
     return myVSSValues;
 }
 
 
 void
-GNEVariableSpeedSignal::setFilename(std::string filename) {
+GNEVariableSpeedSign::setFilename(std::string filename) {
     myFilename = filename;
 }
 
 
 void
-GNEVariableSpeedSignal::setVariableSpeedSignalSteps(const std::map<SUMOReal, SUMOReal>& vssValues) {
+GNEVariableSpeedSign::setVariableSpeedSignSteps(const std::map<SUMOReal, SUMOReal>& vssValues) {
     myVSSValues = vssValues;
 }
 
 
 bool
-GNEVariableSpeedSignal::insertStep(const SUMOReal time, const SUMOReal speed) {
+GNEVariableSpeedSign::insertStep(const SUMOReal time, const SUMOReal speed) {
     if (myVSSValues.find(time) == myVSSValues.end()) {
         myVSSValues[time] = speed;
         return true;
@@ -223,13 +223,13 @@ GNEVariableSpeedSignal::insertStep(const SUMOReal time, const SUMOReal speed) {
 
 
 const std::string&
-GNEVariableSpeedSignal::getParentName() const {
+GNEVariableSpeedSign::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }
 
 
 void
-GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
+GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding an gl identificator
     glPushName(getGlID());
 
@@ -241,9 +241,9 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw icon depending of rerouter is or isn't selected
     if (isAdditionalSelected()) {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNALSELECTED), 1);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), 1);
     } else {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNAL), 1);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);
     }
 
     // Pop draw icon matrix
@@ -317,7 +317,7 @@ GNEVariableSpeedSignal::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEVariableSpeedSignal::getAttribute(SumoXMLAttr key) const {
+GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
@@ -336,7 +336,7 @@ GNEVariableSpeedSignal::getAttribute(SumoXMLAttr key) const {
 
 
 void
-GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -356,7 +356,7 @@ GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value, 
 
 
 bool
-GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
+GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
@@ -393,7 +393,7 @@ GNEVariableSpeedSignal::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVariableSpeedSignal::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             setAdditionalID(value);

@@ -49,8 +49,8 @@
 #include "GNETexture_RouteProbeSelected.cpp"
 #include "GNETexture_Vaporizer.cpp"
 #include "GNETexture_VaporizerSelected.cpp"
-#include "GNETexture_VariableSpeedSignal.cpp"
-#include "GNETexture_VariableSpeedSignalSelected.cpp"
+#include "GNETexture_VariableSpeedSign.cpp"
+#include "GNETexture_VariableSpeedSignSelected.cpp"
 #include "GNETexture_NotMoving.cpp"
 #include "GNETexture_NotMovingSelected.cpp"
 #include "GNETexture_LaneBus.cpp"
@@ -95,8 +95,8 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GNETEXTURE_TLS] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_VAPORIZER] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_VAPORIZERSELECTED] = std::pair<bool, GUIGlID>(false, 0);
-    myTextures[GNETEXTURE_VARIABLESPEEDSIGNAL] = std::pair<bool, GUIGlID>(false, 0);
-    myTextures[GNETEXTURE_VARIABLESPEEDSIGNALSELECTED] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_VARIABLESPEEDSIGN] = std::pair<bool, GUIGlID>(false, 0);
+    myTextures[GNETEXTURE_VARIABLESPEEDSIGNSELECTED] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_LANEBIKE] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_LANEBUS] = std::pair<bool, GUIGlID>(false, 0);
     myTextures[GNETEXTURE_LANEPEDESTRIAN] = std::pair<bool, GUIGlID>(false, 0);
@@ -178,11 +178,11 @@ GUITextureSubSys::getTexture(GUITexture which) {
             case GNETEXTURE_VAPORIZERSELECTED :
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VaporizerSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            case GNETEXTURE_VARIABLESPEEDSIGNAL :
-                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSignal, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+            case GNETEXTURE_VARIABLESPEEDSIGN :
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSign, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            case GNETEXTURE_VARIABLESPEEDSIGNALSELECTED :
-                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSignalSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+            case GNETEXTURE_VARIABLESPEEDSIGNSELECTED :
+                i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSignSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             case GNETEXTURE_LANEBIKE :
                 i->second.second = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LaneBike, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));

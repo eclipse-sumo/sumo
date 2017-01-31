@@ -137,8 +137,8 @@
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_TLS.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Vaporizer.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VaporizerSelected.cpp" />
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignal.cpp" />
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignalSelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSign.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignSelected.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GUITextureSubSys.cpp" />
@@ -261,7 +261,7 @@
     <None Include="..\..\..\src\utils\gui\images\stop.xpm" />
     <None Include="..\..\..\src\utils\gui\images\undo.xpm" />
     <None Include="..\..\..\src\utils\gui\images\vaporizer.xpm" />
-    <None Include="..\..\..\src\utils\gui\images\variablespeedsignal.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\variablespeedsign.xpm" />
     <None Include="..\..\..\src\utils\gui\images\vclass_army.xpm" />
     <None Include="..\..\..\src\utils\gui\images\vclass_authority.xpm" />
     <None Include="..\..\..\src\utils\gui\images\vclass_bicycle.xpm" />

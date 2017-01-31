@@ -166,7 +166,7 @@
 #include "rerouter.xpm"
 #include "routeprobe.xpm"
 #include "vaporizer.xpm"
-#include "variablespeedsignal.xpm"
+#include "variablespeedsign.xpm"
 #include "calibrator.xpm"
 
 #include "vclass_ignoring.xpm"
@@ -345,7 +345,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_REROUTER] = new FXXPMIcon(a, rerouter_xpm);
     myIcons[ICON_ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
     myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
-    myIcons[ICON_VARIABLESPEEDSIGNAL] = new FXXPMIcon(a, variablespeedsignal_xpm);
+    myIcons[ICON_VARIABLESPEEDSIGN] = new FXXPMIcon(a, variablespeedsign_xpm);
     myIcons[ICON_CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);

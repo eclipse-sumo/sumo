@@ -34,10 +34,10 @@ lanebike.xpm lanebus.xpm lanepedestrian.xpm \
 cleanjunctions.xpm computejunctions.xpm joinjunctions.xpm options.xpm \
 busstop.xpm chargingstation.xpm containerstop.xpm e1.xpm \
 e2.xpm e3.xpm e3entry.xpm e3exit.xpm rerouter.xpm routeprobe.xpm \
-vaporizer.xpm variablespeedsignal.xpm calibrator.xpm \
+vaporizer.xpm variablespeedsig.xpm calibrator.xpm \
 GNETexture_Rerouter.cpp GNETexture_RerouterSelected.cpp \
 GNETexture_RouteProbe.cpp GNETexture_RouteProbeSelected.cpp \
-GNETexture_VariableSpeedSignal.cpp GNETexture_VariableSpeedSignalSelected.cpp \
+GNETexture_VariableSpeedSign.cpp GNETexture_VariableSpeedSignSelected.cpp \
 GNETexture_Vaporizer.cpp GNETexture_VaporizerSelected.cpp \
 GNETexture_E1.cpp GNETexture_E2.cpp \
 GNETexture_E3.cpp GNETexture_E3Selected.cpp \

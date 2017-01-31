@@ -107,12 +107,6 @@
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VaporizerSelected.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignal.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignalSelected.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\images\manip.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
@@ -123,6 +117,12 @@
       <Filter>Textures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LanePedestrian.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSign.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
   </ItemGroup>
@@ -426,9 +426,6 @@
     <None Include="..\..\..\src\utils\gui\images\e3entry.xpm">
       <Filter>Icons\Additionals</Filter>
     </None>
-    <None Include="..\..\..\src\utils\gui\images\variablespeedsignal.xpm">
-      <Filter>Icons\Additionals</Filter>
-    </None>
     <None Include="..\..\..\src\utils\gui\images\rerouter.xpm">
       <Filter>Icons\Additionals</Filter>
     </None>
@@ -584,6 +581,9 @@
     </None>
     <None Include="..\..\..\src\utils\gui\images\vclass_evehicle.xpm">
       <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\variablespeedsign.xpm">
+      <Filter>Icons\Additionals</Filter>
     </None>
   </ItemGroup>
 </Project>

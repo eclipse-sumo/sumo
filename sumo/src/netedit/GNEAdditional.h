@@ -111,7 +111,7 @@ public:
     virtual Position getPositionInView() const = 0;
 
     /// @brief open Additional Dialog
-    /// @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSignal)
+    /// @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
     virtual void openAdditionalDialog();
 
     /// @brief returns the ID of additional

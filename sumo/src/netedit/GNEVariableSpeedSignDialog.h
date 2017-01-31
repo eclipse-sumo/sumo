@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    GNEVariableSpeedSignalDialog.h
+/// @file    GNEVariableSpeedSignDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSignDialog.h 22608 2017-01-17 06:28:54Z behrisch $
 ///
 /// A class for edit phases of Variable Speed Signals
 /****************************************************************************/
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GNEVariableSpeedSignalDialog_h
-#define GNEVariableSpeedSignalDialog_h
+#ifndef GNEVariableSpeedSignDialog_h
+#define GNEVariableSpeedSignDialog_h
 
 // ===========================================================================
 // included modules
@@ -38,7 +38,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEVariableSpeedSignal;
+class GNEVariableSpeedSign;
 
 // ===========================================================================
 // class definitions
@@ -48,16 +48,16 @@ class GNEVariableSpeedSignal;
  * @class GNEAdditionalDialog
  * @brief Dialog to edit sequences, parameters, etc.. of Additionals
  */
-class GNEVariableSpeedSignalDialog : public GNEAdditionalDialog {
+class GNEVariableSpeedSignDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNEVariableSpeedSignalDialog)
+    FXDECLARE(GNEVariableSpeedSignDialog)
 
 public:
     // Constructor
-    GNEVariableSpeedSignalDialog(GNEVariableSpeedSignal* variableSpeedSignalParent);
+    GNEVariableSpeedSignDialog(GNEVariableSpeedSign* variableSpeedSignParent);
 
     // destructor
-    ~GNEVariableSpeedSignalDialog();
+    ~GNEVariableSpeedSignDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -79,10 +79,10 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEVariableSpeedSignalDialog() {}
+    GNEVariableSpeedSignDialog() {}
 
     /// @brief Pointer to Variable Speed Signal
-    GNEVariableSpeedSignal* myVariableSpeedSignalParent;
+    GNEVariableSpeedSign* myVariableSpeedSignParent;
 
     /// @brief Map with the temporal VSSValues
     std::map<SUMOReal, SUMOReal> myVSSValues;
@@ -107,10 +107,10 @@ private:
     void updateTable();
 
     /// @brief Invalidated copy constructor.
-    GNEVariableSpeedSignalDialog(const GNEVariableSpeedSignalDialog&);
+    GNEVariableSpeedSignDialog(const GNEVariableSpeedSignDialog&);
 
     /// @brief Invalidated assignment operator.
-    GNEVariableSpeedSignalDialog& operator=(const GNEVariableSpeedSignalDialog&);
+    GNEVariableSpeedSignDialog& operator=(const GNEVariableSpeedSignDialog&);
 };
 
 #endif

@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    GNEVariableSpeedSignal.h
+/// @file    GNEVariableSpeedSign.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSign.h 22699 2017-01-25 14:56:03Z behrisch $
 ///
 ///
 /****************************************************************************/
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GNEVariableSpeedSignal_h
-#define GNEVariableSpeedSignal_h
+#ifndef GNEVariableSpeedSign_h
+#define GNEVariableSpeedSign_h
 
 
 // ===========================================================================
@@ -36,10 +36,10 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEVariableSpeedSignal
+ * @class GNEVariableSpeedSign
  * ------------
  */
-class GNEVariableSpeedSignal : public GNEAdditional {
+class GNEVariableSpeedSign : public GNEAdditional {
 public:
 
     /**@brief Constructor
@@ -50,10 +50,10 @@ public:
      * @param[in] filename The path to the definition file
      * @param[in] VSSValues values with the interval and speeds of variable speed signal
      */
-    GNEVariableSpeedSignal(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues);
 
     /// @brief Destructor
-    ~GNEVariableSpeedSignal();
+    ~GNEVariableSpeedSign();
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved)
@@ -62,7 +62,7 @@ public:
     /// @brief Returns position of Variable Speed Signal in view
     Position getPositionInView() const;
 
-    /// @brief open GNEVariableSpeedSignalDialog
+    /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();
 
     /// @brief change the position of the rerouter geometry
@@ -81,13 +81,13 @@ public:
     std::string getFilename() const;
 
     /// @brief get values of variable speed signal
-    std::map<SUMOReal, SUMOReal> getVariableSpeedSignalSteps() const;
+    std::map<SUMOReal, SUMOReal> getVariableSpeedSignSteps() const;
 
     /// @brief set filename of rerouter
     void setFilename(std::string filename);
 
     /// @brief set values of variable speed signal
-    void setVariableSpeedSignalSteps(const std::map<SUMOReal, SUMOReal>& vssValues);
+    void setVariableSpeedSignSteps(const std::map<SUMOReal, SUMOReal>& vssValues);
 
     /// @brief insert a new step in variable speed signal
     /// @return true if step was sucesfully inserted, false in other case (Time duplicated)
@@ -144,10 +144,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEVariableSpeedSignal(const GNEVariableSpeedSignal&);
+    GNEVariableSpeedSign(const GNEVariableSpeedSign&);
 
     /// @brief Invalidated assignment operator.
-    GNEVariableSpeedSignal& operator=(const GNEVariableSpeedSignal&);
+    GNEVariableSpeedSign& operator=(const GNEVariableSpeedSign&);
 };
 
 #endif
