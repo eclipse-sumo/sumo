@@ -79,7 +79,7 @@ protected:
     GNECalibrator* myCalibratorParent;
 
     /// @brief Map with the temporal FlowValues
-    std::map<std::string, GNECalibrator::CalibratorFlow> myFlowValues;
+    std::vector<GNECalibrator::GNECalibratorFlow*> myFlowValues;
 
     /// @brief Table with the data
     FXTable* myDataList;
