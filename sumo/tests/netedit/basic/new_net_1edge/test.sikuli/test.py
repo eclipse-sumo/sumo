@@ -1,4 +1,4 @@
-# Import libraries
+# import common functions for netedit tests
 import os
 import sys
 
@@ -8,18 +8,24 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-_, match = netedit.setupAndStart(neteditTestRoot, True)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 
 # Focus netedit window
-click(match.getTarget().offset(0, -105))
+netedit.leftClick(match, 0, -105)
 
 # Change to create mode
 type("e")
 
 # Create two nodes
-click(match.getTarget().offset(100, 300))
-click(match.getTarget().offset(500, 300))
+netedit.leftClick(match, 100, 300)
+netedit.leftClick(match, 500, 300)
 
-# save network and quit
-type("s", Key.CTRL)
-type("q", Key.CTRL)
+# Check undo and redo
+netedit.undo(match, 1)
+netedit.redo(match, 1)
+
+# save newtork
+netedit.saveNetwork()
+
+# quit netedit 
+netedit.quit(neteditProcess, False, False)
