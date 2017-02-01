@@ -5,6 +5,7 @@
     <input>
         <node-files value="motorway.nod.xml"/>
         <edge-files value="motorway.edg.xml"/>
+        <connection-files value="motorway.con.xml"/>
     </input>
 
     <output>

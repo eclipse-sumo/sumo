@@ -8,6 +8,6 @@
     <edge id="end2"  from="E" to="F" numLanes="1" speed="36.00" spreadType="center"/>
     <edge id="end3"  from="F" to="G" numLanes="1" speed="36.00" spreadType="center"/>
 
-    <edge id="onRamp"  from="onRampBeg" to="C"  numLanes="1" speed="36.00" spreadType="center" shape="-300,-50 -30,-5.0 0,-4.8"/>
-    <edge id="offRamp" from="D" to="offRampEnd" numLanes="1" speed="36.00" spreadType="center" shape="100,-4.8 150,-5.0 300,-50"/>
+    <edge id="onRamp"  from="onRampBeg" to="C"  numLanes="1" speed="36.00" spreadType="center" shape="-300,-50 -30,-5.0 0,-5.0"/>
+    <edge id="offRamp" from="D" to="offRampEnd" numLanes="1" speed="36.00" spreadType="center" shape="100,-5.0 150,-5.0 300,-50"/>
 </edges>

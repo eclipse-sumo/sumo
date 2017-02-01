@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 01 Feb 2017 04:02:56 PM CET by Netedit Version dev-SVN-r22813
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/motorway.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/motorway.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoI/sumo/tests/sumo/motorway.edg.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="beg" to="beg2" fromLane="0" toLane="0"/>
+    <connection from="beg" to="beg2" fromLane="1" toLane="1"/>
+
+    <connection from="beg2" to="merge" fromLane="0" toLane="1" pass="1"/>
+    <connection from="beg2" to="merge" fromLane="1" toLane="2" pass="1"/>
+
+    <connection from="end" to="end2" fromLane="0" toLane="0"/>
+
+    <connection from="end2" to="end3" fromLane="0" toLane="0"/>
+
+    <connection from="merge" to="offRamp" fromLane="0" toLane="0" pass="1"/>
+    <connection from="merge" to="end" fromLane="1" toLane="0" pass="1"/>
+    <connection from="merge" to="end" fromLane="2" toLane="1" pass="1"/>
+
+    <connection from="onRamp" to="merge" fromLane="0" toLane="0" pass="1"/>
+
+</connections>
