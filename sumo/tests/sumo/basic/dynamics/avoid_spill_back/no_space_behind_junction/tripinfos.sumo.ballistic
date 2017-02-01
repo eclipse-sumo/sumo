@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  5 13:40:40 2016 by SUMO Version dev-SVN-r20343
+<!-- generated on Wed Feb  1 08:07:12 2017 by SUMO Version dev-SVN-r22802
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -18,6 +18,10 @@
         <end value="30"/>
     </time>
 
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -28,5 +32,5 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="across" depart="0.00" departLane="across1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="14.00" arrivalLane="across2_0" arrivalPos="18.55" arrivalSpeed="13.80" duration="14.00" routeLength="114.90" waitSteps="0" timeLoss="4.63" rerouteNo="0" devices="tripinfo_across" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="across" depart="0.00" departLane="across1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="14.00" arrivalLane="across2_0" arrivalPos="18.55" arrivalSpeed="13.80" duration="14.00" routeLength="114.90" waitSteps="0" timeLoss="4.63" rerouteNo="0" devices="tripinfo_across" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

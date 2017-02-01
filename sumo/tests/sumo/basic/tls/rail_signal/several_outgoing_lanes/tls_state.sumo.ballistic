@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  5 13:40:39 2016 by SUMO Version dev-SVN-r20343
+<!-- generated on Wed Feb  1 08:07:11 2017 by SUMO Version dev-SVN-r22802
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -19,6 +19,10 @@
         <end value="200"/>
     </time>
 
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -28,7 +32,7 @@
 </configuration>
 -->
 
-<tls-states>
+<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
     <tlsState time="0.00" id="gneJ2" programID="0" phase="0" state="GGG"/>
     <tlsState time="1.00" id="gneJ2" programID="0" phase="0" state="GGG"/>
     <tlsState time="2.00" id="gneJ2" programID="0" phase="0" state="GGG"/>
