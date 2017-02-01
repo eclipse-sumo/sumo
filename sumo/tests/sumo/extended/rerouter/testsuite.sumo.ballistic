@@ -1,0 +1,9 @@
+# closing an edge with modifying permissions
+closing_with_disallow
+
+# closing 2 lanes from a 3-lane road which results in reduced flow
+closingLane
+
+# closing 2 lanes from a 3-lane road which results in reduced flow and causes some vehicles to reroute
+closingLane_with_rerouting
+

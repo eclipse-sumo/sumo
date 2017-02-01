@@ -1,0 +1,29 @@
+# Tests whether rerouter works; also tests functioning of vehroutes output
+rerouter
+
+# Tests for dua-inc emissions
+inc-dua
+
+# Tests whether stops work
+stops
+
+# Tests whether calibrators work
+calibrator
+
+# Tests for HBEFA-based emission computation
+hbefa
+
+# Tests for bus stops
+busses
+
+# test continuous lane change maneuvers
+continuous_lanechange
+
+# tests for bt devices
+device_bt
+
+# tests for battery device and charging station
+electric
+
+# check options for collision handling
+collisions

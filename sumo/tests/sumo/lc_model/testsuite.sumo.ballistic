@@ -1,0 +1,11 @@
+# vehicles should keep right if there is no reason against it (assuming right-hand driving)
+keep_right
+
+# overtaking a slower vehicle
+overtaking
+
+# testing cooperative speed adjustments
+speed_assistance
+
+# behavior when approaching a lane that is targeted twice from the same edge
+double_connection
