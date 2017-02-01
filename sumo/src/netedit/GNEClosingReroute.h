@@ -30,8 +30,10 @@
 #include <config.h>
 #endif
 
-
 #include <vector>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations
@@ -51,38 +53,45 @@ class GNERerouterInterval;
 class GNEClosingReroute {
 public:
     /// @brief constructor
-    GNEClosingReroute(GNERerouterInterval *rerouterIntervalParent, std::string closedEdgeId, std::vector<std::string> allowVehicles, std::vector<std::string> disallowVehicles);
+    GNEClosingReroute(GNERerouterInterval *rerouterIntervalParent, std::string closedEdgeId, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles);
 
     /// @brief destructor
     ~GNEClosingReroute();
 
-    /// @brief insert an allow vehicle
-    /// @throw ProcessError if allowed vehicle was already inserted
-    void insertAllowVehicle(std::string vehicleid);
+    /**@brief insert an allow vehicle
+     * @throw ProcessError if allowed vehicle was already inserted
+     */
+    void insertAllowVehicle(SUMOVehicleClass vclass);
 
-    /// @brief remove a previously inserted allow vehicle
-    /// @throw ProcessError if allowed vehicle cannot be found in the container
-    void removeAllowVehicle(std::string vehicleid);
+    /**@brief remove a previously inserted allow vehicle
+     * @throw ProcessError if allowed vehicle cannot be found
+     */
+    void removeAllowVehicle(SUMOVehicleClass vclass);
 
-    /// @brief insert a disallow vehicle
-    /// @throw ProcessError if disallowed vehicle was already inserted
-    void insertDisallowVehicle(std::string vehicleid);
+    /**@brief insert a disallow vehicle
+     * @throw ProcessError if disallowed vehicle was already inserted
+     */
+    void insertDisallowVehicle(SUMOVehicleClass vclass);
 
-    /// @brief remove a previously inserted disallow vehicle
-    /// @throw ProcessError if disallowed vehicle cannot be found in the container
-    void removeDisallowVehicle(std::string vehicleid);
+    /**@brief remove a previously inserted disallow vehicle
+     * @throw ProcessError if disallowed vehicle cannot be found
+     */
+    void removeDisallowVehicle(SUMOVehicleClass vclass);
 
     /// @brief get allow vehicles
-    std::vector<std::string> getAllowVehicles() const;
+    const std::vector<SUMOVehicleClass> &getAllowVehicles() const;
 
     /// @brief get disallow vehicles
-    std::vector<std::string> getDisallowVehicles() const;
+    const std::vector<SUMOVehicleClass> &getDisallowVehicles() const;
 
     /// @brief get closed edge Id
     std::string getClosedEdgeId() const;
 
     /// @brief get tag
     SumoXMLTag getTag() const;
+
+    /// @brief get rerouter interval parent
+    GNERerouterInterval *getRerouterIntervalParent() const;
 
 private:
     /// @brief pointer to rerouter interval parent
@@ -95,10 +104,10 @@ private:
     std::string myClosedEdgeId;
 
     /// @brief vector of allow vehicles
-    std::vector<std::string> myAllowVehicles;
+    std::vector<SUMOVehicleClass> myAllowVehicles;
 
     /// @brief vector of disallow vehicles
-    std::vector<std::string> myDisallowVehicles;
+    std::vector<SUMOVehicleClass> myDisallowVehicles;
 };
 
 #endif

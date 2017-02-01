@@ -31,6 +31,8 @@
 #endif
 
 #include <vector>
+#include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations

@@ -31,6 +31,8 @@
 #endif
 
 #include <vector>
+#include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations
@@ -44,7 +46,7 @@ class GNERerouterInterval;
 // ===========================================================================
 /**
  * @class GNEDestProbReroute
- * ------------
+ * forces the rerouter to assign a new route
  */
 class GNEDestProbReroute {
 public:
@@ -55,17 +57,19 @@ public:
     ~GNEDestProbReroute();
 
     /// @brief id of new edge destination
-    std::string getNewDestinationId() const;
+    const std::string &getNewDestinationId() const;
 
     /// @brief get probability
     SUMOReal getProbability() const;
 
-    /// @brief set probability
-    /// @throw InvalidArgument if probability isn't valid
-    void setProbability(SUMOReal probability);
+    /// @brief set probability, if new probability is valid
+    bool setProbability(SUMOReal probability);
 
     /// @brief get tag
     SumoXMLTag getTag() const;
+
+    /// @brief get rerouter interval parent
+    GNERerouterInterval *getRerouterIntervalParent() const;
 
 private:
     /// @brief pointer to rerouter interval parent

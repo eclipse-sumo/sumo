@@ -27,36 +27,9 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/GeomConvHelper.h>
-#include <foreign/polyfonts/polyfonts.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
 
-#include "GNEViewNet.h"
 #include "GNERouteProbReroute.h"
-#include "GNERerouterDialog.h"
-#include "GNELane.h"
-#include "GNEEdge.h"
-#include "GNEViewNet.h"
-#include "GNEUndoList.h"
-#include "GNENet.h"
-#include "GNEChange_Attribute.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -103,6 +76,12 @@ GNERouteProbReroute::setProbability(SUMOReal probability) {
 SumoXMLTag 
 GNERouteProbReroute::getTag() const {
     return myTag;
+}
+
+
+GNERerouterInterval*
+GNERouteProbReroute::getRerouterIntervalParent() const {
+    return myRerouterIntervalParent;
 }
 
 /****************************************************************************/

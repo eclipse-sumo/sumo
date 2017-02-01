@@ -27,36 +27,9 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/GeomConvHelper.h>
-#include <foreign/polyfonts/polyfonts.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
 
-#include "GNEViewNet.h"
 #include "GNEClosingLaneReroute.h"
-#include "GNERerouterDialog.h"
-#include "GNELane.h"
-#include "GNEEdge.h"
-#include "GNEViewNet.h"
-#include "GNEUndoList.h"
-#include "GNENet.h"
-#include "GNEChange_Attribute.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -66,7 +39,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval *rerouterIntervalParent, std::string closedEdgeId, std::vector<std::string> allowVehicles, std::vector<std::string> disallowVehicles) :
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval *rerouterIntervalParent, std::string closedEdgeId, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
     myClosedEdgeId(closedEdgeId),
     myAllowVehicles(allowVehicles),
     myDisallowVehicles(disallowVehicles),
@@ -80,66 +53,58 @@ GNEClosingLaneReroute::~GNEClosingLaneReroute() {
 
 
 void
-GNEClosingLaneReroute::insertAllowVehicle(std::string vehicleid) {
-    // Check if was already inserted
-    for (std::vector<std::string>::iterator i = myAllowVehicles.begin(); i != myAllowVehicles.end(); i++) {
-        if ((*i) == vehicleid) {
-            throw ProcessError(vehicleid + " already inserted");
-        }
+GNEClosingLaneReroute::insertAllowVehicle(SUMOVehicleClass vclass) {
+    // Check if was already allowed
+    if (std::find(myAllowVehicles.begin(), myAllowVehicles.end(), vclass) != myAllowVehicles.end()) {
+        throw ProcessError(toString(vclass) + " was already allowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdgeId + "'");
     }
     // insert in vector
-    myAllowVehicles.push_back(vehicleid);
+    myAllowVehicles.push_back(vclass);
 }
 
 
 void
-GNEClosingLaneReroute::removeAllowVehicle(std::string vehicleid) {
-    // find and remove
-    for (std::vector<std::string>::iterator i = myAllowVehicles.begin(); i != myAllowVehicles.end(); i++) {
-        if ((*i) == vehicleid) {
-            myAllowVehicles.erase(i);
-            return;
-        }
+GNEClosingLaneReroute::removeAllowVehicle(SUMOVehicleClass vclass) {
+    // Check if was already allowed
+    std::vector<SUMOVehicleClass>::iterator i = std::find(myAllowVehicles.begin(), myAllowVehicles.end(), vclass);
+    if ( i == myAllowVehicles.end()) {
+        throw ProcessError(toString(vclass) + " wasn't previously allowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdgeId + "'");
+    } else {
+        myAllowVehicles.erase(i);
     }
-    // Throw error if don't exist
-    throw ProcessError(vehicleid + " not exist");
 }
 
 
 void
-GNEClosingLaneReroute::insertDisallowVehicle(std::string vehicleid) {
-    // Check if was already inserted
-    for (std::vector<std::string>::iterator i = myDisallowVehicles.begin(); i != myDisallowVehicles.end(); i++) {
-        if ((*i) == vehicleid) {
-            throw ProcessError(vehicleid + " already inserted");
-        }
+GNEClosingLaneReroute::insertDisallowVehicle(SUMOVehicleClass vclass) {
+    // Check if was already disallowed
+    if (std::find(myAllowVehicles.begin(), myDisallowVehicles.end(), vclass) != myDisallowVehicles.end()) {
+        throw ProcessError(toString(vclass) + " was already disallowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdgeId + "'");
     }
     // insert in vector
-    myDisallowVehicles.push_back(vehicleid);
+    myDisallowVehicles.push_back(vclass);
 }
 
 
 void
-GNEClosingLaneReroute::removeDisallowVehicle(std::string vehicleid) {
-    // find and remove
-    for (std::vector<std::string>::iterator i = myDisallowVehicles.begin(); i != myDisallowVehicles.end(); i++) {
-        if ((*i) == vehicleid) {
-            myDisallowVehicles.erase(i);
-            return;
-        }
+GNEClosingLaneReroute::removeDisallowVehicle(SUMOVehicleClass vclass) {
+    // Check if was already disallowed
+    std::vector<SUMOVehicleClass>::iterator i = std::find(myDisallowVehicles.begin(), myDisallowVehicles.end(), vclass);
+    if ( i == myAllowVehicles.end()) {
+        throw ProcessError(toString(vclass) + " wasn't previously disallowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdgeId + "'");
+    } else {
+        myDisallowVehicles.erase(i);
     }
-    // Throw error if don't exist
-    throw ProcessError(vehicleid + " not exist");
 }
 
 
-std::vector<std::string>
+const std::vector<SUMOVehicleClass>&
 GNEClosingLaneReroute::getAllowVehicles() const {
     return myAllowVehicles;
 }
 
 
-std::vector<std::string>
+const std::vector<SUMOVehicleClass>&
 GNEClosingLaneReroute::getDisallowVehicles() const {
     return myDisallowVehicles;
 }
@@ -154,6 +119,12 @@ GNEClosingLaneReroute::getClosedEdgeId() const {
 SumoXMLTag 
 GNEClosingLaneReroute::getTag() const {
     return myTag;
+}
+
+
+GNERerouterInterval*
+GNEClosingLaneReroute::getRerouterIntervalParent() const {
+    return myRerouterIntervalParent;
 }
 
 /****************************************************************************/

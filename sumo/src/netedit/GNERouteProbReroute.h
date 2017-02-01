@@ -31,6 +31,8 @@
 #endif
 
 #include <vector>
+#include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations
@@ -67,6 +69,9 @@ public:
 
     /// @brief get tag
     SumoXMLTag getTag() const;
+
+    /// @brief get rerouter interval parent
+    GNERerouterInterval *getRerouterIntervalParent() const;
 
 private:
     /// @brief pointer to rerouter interval parent
