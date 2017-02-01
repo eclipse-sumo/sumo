@@ -30,6 +30,7 @@
 #include <utils/common/ToString.h>
 
 #include "GNERouteProbReroute.h"
+#include "GNEEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -44,6 +45,8 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval *rerouterIntervalPa
     myProbability(probability),
     myRerouterIntervalParent(rerouterIntervalParent),
     myTag(SUMO_TAG_ROUTE_PROB_REROUTE) {
+    // set probability manually to avoid non valid values
+    setProbability(probability);
 }
 
 
@@ -63,12 +66,13 @@ GNERouteProbReroute::getProbability() const {
 }
 
 
-void
+bool
 GNERouteProbReroute::setProbability(SUMOReal probability) {
     if (probability >= 0 && probability <= 1) {
         myProbability = probability;
+        return true;
     } else {
-        throw InvalidArgument(toString(probability) + " isn't a probability");
+        return false;
     }
 }
 

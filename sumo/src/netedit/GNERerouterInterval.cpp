@@ -34,6 +34,7 @@
 #include "GNEClosingReroute.h"
 #include "GNEDestProbReroute.h"
 #include "GNERouteProbReroute.h"
+#include "GNEEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -47,6 +48,8 @@ GNERerouterInterval::GNERerouterInterval(GNERerouter *rerouterParent, SUMOReal b
     std::pair<SUMOReal, SUMOReal>(begin, end), 
     myRerouterParent(rerouterParent),
     myTag(SUMO_TAG_INTERVAL) {
+    // bendegin cannot be minor that begin
+    assert(begin <= end);
 }
 
 
@@ -77,7 +80,7 @@ void
 GNERerouterInterval::insertClosinLanegReroutes(GNEClosingLaneReroute* clr) {
     // Check if was already inserted
     if(std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr) != myClosingLaneReroutes.end()) {
-        throw ProcessError(clr->getTag() + " with ID = " + clr->getClosedEdgeId() + "' was already inserted");
+        throw ProcessError(clr->getTag() + " with ID = " + clr->getClosedEdge()->getID() + "' was already inserted");
     }
     // insert in vector
     myClosingLaneReroutes.push_back(clr);
@@ -89,7 +92,7 @@ GNERerouterInterval::removeClosingLaneReroutes(GNEClosingLaneReroute* clr) {
     std::vector<GNEClosingLaneReroute*>::iterator i = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr);
     // check if exists
     if(i == myClosingLaneReroutes.end()) {
-        throw ProcessError(clr->getTag() + " with ID = " + clr->getClosedEdgeId() + "' wasn't inserted");
+        throw ProcessError(clr->getTag() + " with ID = " + clr->getClosedEdge()->getID() + "' wasn't inserted");
     }
     // remove it from vector
     myClosingLaneReroutes.erase(i);
@@ -100,7 +103,7 @@ void
 GNERerouterInterval::insertClosingReroutes(GNEClosingReroute* cr) {
     // Check if was already inserted
     if(std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr) != myClosingReroutes.end()) {
-        throw ProcessError(cr->getTag() + " with ID = " + cr->getClosedEdgeId() + "' was already inserted");
+        throw ProcessError(cr->getTag() + " with ID = " + cr->getClosedEdge()->getID() + "' was already inserted");
     }
     // insert in vector
     myClosingReroutes.push_back(cr);
@@ -112,7 +115,7 @@ GNERerouterInterval::removeClosingReroutes(GNEClosingReroute* cr) {
     std::vector<GNEClosingReroute*>::iterator i = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr);
     // check if exists
     if(i == myClosingReroutes.end()) {
-        throw ProcessError(cr->getTag() + " with ID = " + cr->getClosedEdgeId() + "' wasn't inserted");
+        throw ProcessError(cr->getTag() + " with ID = " + cr->getClosedEdge()->getID() + "' wasn't inserted");
     }
     // remove it from vector
     myClosingReroutes.erase(i);
@@ -123,7 +126,7 @@ void
 GNERerouterInterval::insertDestProbReroutes(GNEDestProbReroute* dpr) {
     // Check if was already inserted
     if(std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr) != myDestProbReroutes.end()) {
-        throw ProcessError(dpr->getTag() + " with ID = " + dpr->getNewDestinationId() + "' was already inserted");
+        throw ProcessError(dpr->getTag() + " with ID = " + dpr->getNewDestination()->getID() + "' was already inserted");
     }
     // insert in vector
     myDestProbReroutes.push_back(dpr);
@@ -135,7 +138,7 @@ GNERerouterInterval::removeDestProbReroutes(GNEDestProbReroute* dpr) {
     std::vector<GNEDestProbReroute*>::iterator i = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr);
     // check if exists
     if(i == myDestProbReroutes.end()) {
-        throw ProcessError(dpr->getTag() + " with ID = " + dpr->getNewDestinationId() + "' wasn't inserted");
+        throw ProcessError(dpr->getTag() + " with ID = " + dpr->getNewDestination()->getID() + "' wasn't inserted");
     }
     // remove it from vector
     myDestProbReroutes.erase(i);

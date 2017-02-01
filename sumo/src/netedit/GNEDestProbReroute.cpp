@@ -30,6 +30,7 @@
 #include <utils/common/ToString.h>
 
 #include "GNEDestProbReroute.h"
+#include "GNEEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -39,11 +40,13 @@
 // member method definitions
 // ===========================================================================
 
-GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval *rerouterIntervalParent, std::string newDestinationId, SUMOReal probability):
-    myNewDestinationId(newDestinationId),
+GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval *rerouterIntervalParent, GNEEdge *newEdgeDestination, SUMOReal probability):
+    myNewEdgeDestination(newEdgeDestination),
     myProbability(0),
     myRerouterIntervalParent(rerouterIntervalParent),
     myTag(SUMO_TAG_DEST_PROB_REROUTE) {
+    // edge cannot be NULL 
+    assert(myNewEdgeDestination);
     // set probability manually to avoid non valid values
     setProbability(probability);
 }
@@ -53,9 +56,9 @@ GNEDestProbReroute::~GNEDestProbReroute() {
 }
 
 
-const std::string&
-GNEDestProbReroute::getNewDestinationId() const {
-    return myNewDestinationId;
+GNEEdge*
+GNEDestProbReroute::getNewDestination() const {
+    return myNewEdgeDestination;
 }
 
 

@@ -63,9 +63,8 @@ public:
     /// @brief get probability
     SUMOReal getProbability() const;
 
-    /// @brief set probability
-    /// @throw InvalidArgument if probability isn't valid
-    void setProbability(SUMOReal probability);
+    /// @brief set probability, if the new probability is valid
+    bool setProbability(SUMOReal probability);
 
     /// @brief get tag
     SumoXMLTag getTag() const;
@@ -81,6 +80,7 @@ private:
     SumoXMLTag myTag;
 
     /// @brief id of new route
+    /// @todo change string to GNERoute
     std::string myNewRouteId;
 
     /// @brief probability with which a vehicle will use the given edge as destination
