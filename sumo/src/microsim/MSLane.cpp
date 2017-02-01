@@ -1036,8 +1036,8 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         // (lanechanger-style)
 
         // XXX quick hack: check each in myVehicles against all others
-        for (VehCont::iterator veh = myVehicles.begin(); veh != myVehicles.end(); ++veh) {
-            MSVehicle* follow = *veh;
+        for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
+            MSVehicle* follow = (MSVehicle*)*veh;
             for (AnyVehicleIterator veh2 = anyVehiclesBegin(); veh2 != anyVehiclesEnd(); ++veh2) {
                 MSVehicle* lead = (MSVehicle*)*veh2;
                 if (lead == follow) {
@@ -1050,7 +1050,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     break;
                 }
             }
-            if (follow->getLaneChangeModel().getShadowLane() != 0) {
+            if (follow->getLaneChangeModel().getShadowLane() != 0 && follow->getLane() == this) {
                 // check whether follow collides on the shadow lane
                 const MSLane* shadowLane = follow->getLaneChangeModel().getShadowLane();
                 MSLeaderInfo ahead = shadowLane->getLastVehicleInformation(follow,

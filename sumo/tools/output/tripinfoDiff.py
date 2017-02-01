@@ -27,13 +27,7 @@ from sumolib.output import parse
 from sumolib.miscutils import uMax, Statistics
 
 
-def update_earliest(earliest_diffs, diff, timestamp, tag):
-    if timestamp < earliest_diffs[diff][0]:
-        earliest_diffs[diff] = (timestamp, tag)
-
-
-def write_diff(orig, new, out, earliest_out=None):
-    earliest_diffs = defaultdict(lambda: (uMax, None))  # diff -> (time, veh)
+def write_diff(orig, new, out):
     vehicles_orig = dict([(v.id, v) for v in parse(orig, 'tripinfo')])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
@@ -62,11 +56,6 @@ def write_diff(orig, new, out, earliest_out=None):
         for id in vehicles_orig.keys():
             f.write('    <vehicle id="%s" comment="missing"/>\n' % id)
         f.write("</tripDiffs>\n")
-
-    if earliest_out is not None:
-        with open(earliest_out, 'w') as f:
-            for diff in reversed(sorted(earliest_diffs.keys())):
-                f.write("%s, %s\n" % (diff, earliest_diffs[diff]))
 
     print(origDurations)
     print(durations)
