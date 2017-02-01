@@ -1,0 +1,7 @@
+<tripDiffs>
+    <vehicle id="0" departDiff="0.0" arrivalDiff="0.0" timeLossDiff="0.0" durationDiff="0.0" routeLengthDiff="0.0"/>
+    <vehicle id="1" departDiff="0.0" arrivalDiff="0.0" timeLossDiff="0.0" durationDiff="0.0" routeLengthDiff="0.0"/>
+    <vehicle id="25" comment="new"/>
+    <vehicle id="3" comment="missing"/>
+    <vehicle id="2" comment="missing"/>
+</tripDiffs>

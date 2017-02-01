@@ -16,3 +16,4 @@ generateMeanDataDefinitions
 # Tests for output converters
 converter
 vehrouteDiff
+tripinfoDiff
