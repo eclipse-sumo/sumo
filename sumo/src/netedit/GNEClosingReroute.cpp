@@ -66,10 +66,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingReroute::GNEClosingReroute(std::string closedEdgeId, std::vector<std::string> allowVehicles, std::vector<std::string> disallowVehicles) :
+GNEClosingReroute::GNEClosingReroute(GNERerouterInterval *rerouterIntervalParent, std::string closedEdgeId, std::vector<std::string> allowVehicles, std::vector<std::string> disallowVehicles) :
     myClosedEdgeId(closedEdgeId),
     myAllowVehicles(allowVehicles),
-    myDisallowVehicles(disallowVehicles) {
+    myDisallowVehicles(disallowVehicles),
+    myRerouterIntervalParent(rerouterIntervalParent),
+    myTag(SUMO_TAG_CLOSING_REROUTE) {
 }
 
 
@@ -148,5 +150,10 @@ GNEClosingReroute::getClosedEdgeId() const {
     return myClosedEdgeId;
 }
 
+
+SumoXMLTag 
+GNEClosingReroute::getTag() const {
+    return myTag;
+}
 
 /****************************************************************************/

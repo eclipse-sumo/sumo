@@ -36,7 +36,9 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
+class GNERerouterInterval;
 
 // ===========================================================================
 // class definitions
@@ -49,7 +51,7 @@ class GNEEdge;
 class GNEClosingReroute {
 public:
     /// @brief constructor
-    GNEClosingReroute(std::string closedEdgeId, std::vector<std::string> allowVehicles, std::vector<std::string> disallowVehicles);
+    GNEClosingReroute(GNERerouterInterval *rerouterIntervalParent, std::string closedEdgeId, std::vector<std::string> allowVehicles, std::vector<std::string> disallowVehicles);
 
     /// @brief destructor
     ~GNEClosingReroute();
@@ -79,7 +81,16 @@ public:
     /// @brief get closed edge Id
     std::string getClosedEdgeId() const;
 
+    /// @brief get tag
+    SumoXMLTag getTag() const;
+
 private:
+    /// @brief pointer to rerouter interval parent
+    GNERerouterInterval *myRerouterIntervalParent;
+
+    /// @brief XML Tag of closing reroute
+    SumoXMLTag myTag;
+
     /// @brief edge ID
     std::string myClosedEdgeId;
 

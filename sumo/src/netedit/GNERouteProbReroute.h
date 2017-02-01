@@ -37,6 +37,7 @@
 // ===========================================================================
 
 class GNEEdge;
+class GNERerouterInterval;
 
 // ===========================================================================
 // class definitions
@@ -49,7 +50,7 @@ class GNEEdge;
 class GNERouteProbReroute {
 public:
     /// @brief constructor
-    GNERouteProbReroute(std::string newRouteId, SUMOReal probability);
+    GNERouteProbReroute(GNERerouterInterval *rerouterIntervalParent, std::string newRouteId, SUMOReal probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();
@@ -64,7 +65,16 @@ public:
     /// @throw InvalidArgument if probability isn't valid
     void setProbability(SUMOReal probability);
 
+    /// @brief get tag
+    SumoXMLTag getTag() const;
+
 private:
+    /// @brief pointer to rerouter interval parent
+    GNERerouterInterval *myRerouterIntervalParent;
+
+    /// @brief XML Tag of route probability reroute
+    SumoXMLTag myTag;
+
     /// @brief id of new route
     std::string myNewRouteId;
 

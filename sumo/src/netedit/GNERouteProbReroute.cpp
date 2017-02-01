@@ -66,9 +66,11 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbReroute::GNERouteProbReroute(std::string newRouteId, SUMOReal probability) :
+GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval *rerouterIntervalParent, std::string newRouteId, SUMOReal probability) :
     myNewRouteId(newRouteId),
-    myProbability(probability) {
+    myProbability(probability),
+    myRerouterIntervalParent(rerouterIntervalParent),
+    myTag(SUMO_TAG_ROUTE_PROB_REROUTE) {
 }
 
 
@@ -95,6 +97,12 @@ GNERouteProbReroute::setProbability(SUMOReal probability) {
     } else {
         throw InvalidArgument(toString(probability) + " isn't a probability");
     }
+}
+
+
+SumoXMLTag 
+GNERouteProbReroute::getTag() const {
+    return myTag;
 }
 
 /****************************************************************************/
