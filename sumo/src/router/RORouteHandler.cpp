@@ -485,6 +485,9 @@ RORouteHandler::closeVehicle() {
         // fix the type id in case we used a distribution
         myVehicleParameter->vtypeid = type->id;
     }
+    if (type->vehicleClass == SVC_PEDESTRIAN) {
+        WRITE_WARNING("Vehicle type '" + type->id + "' with vClass=pedestrian should only be used for persons and not for vehicle '" + myVehicleParameter->id + "'.");
+    }
     // get the route
     RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
     if (route == 0) {

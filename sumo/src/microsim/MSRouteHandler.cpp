@@ -695,6 +695,9 @@ MSRouteHandler::closeVehicle() {
             if (vtype == 0) {
                 throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
             }
+            if (vtype->getVehicleClass() == SVC_PEDESTRIAN) {
+                WRITE_WARNING("Vehicle type '" + vtype->getID() + "' with vClass=pedestrian should only be used for persons and not for vehicle '" + myVehicleParameter->id + "'.");
+            }
         } else {
             // there should be one (at least the default one)
             vtype = vehControl.getVType(DEFAULT_VTYPE_ID, &myParsingRNG);
