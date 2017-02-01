@@ -101,7 +101,7 @@ class PolygonDomain(Domain):
         """getFilled(string) -> bool
         Returns whether the polygon is filled
         """
-        self._connection._sendByteCmd(
+        self._connection._sendUByteCmd(
             tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_FILL, polygonID, (1 if filled else 0))
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0):
