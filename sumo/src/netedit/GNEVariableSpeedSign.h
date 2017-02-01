@@ -2,7 +2,7 @@
 /// @file    GNEVariableSpeedSign.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id: GNEVariableSpeedSign.h 22699 2017-01-25 14:56:03Z behrisch $
+/// @version $Id$
 ///
 ///
 /****************************************************************************/

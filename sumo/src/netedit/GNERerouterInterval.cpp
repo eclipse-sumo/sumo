@@ -2,7 +2,7 @@
 /// @file    GNERerouterInterval.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2017
-/// @version $Id: GNERerouter.cpp 22699 2017-01-25 14:56:03Z behrisch $
+/// @version $Id$
 ///
 ///
 /****************************************************************************/

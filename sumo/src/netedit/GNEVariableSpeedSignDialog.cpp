@@ -2,7 +2,7 @@
 /// @file    GNEVariableSpeedSignDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id: GNEVariableSpeedSignDialog.cpp 22608 2017-01-17 06:28:54Z behrisch $
+/// @version $Id$
 ///
 /// A class for edit phases of Variable Speed Signals
 /****************************************************************************/
