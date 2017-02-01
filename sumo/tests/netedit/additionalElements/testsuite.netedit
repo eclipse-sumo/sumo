@@ -22,18 +22,18 @@ detentry
 #det exit
 detexit
 
-#variable speed signal
-variablespeedsign
+#variable speed sign
+#variablespeedsign
 
 #calibrator
-calibrator
+#calibrator
 
 #rerouter
-rerouter
+#rerouter
 
 #routeprobe
-routeprobe
+#routeprobe
 
 #vaporizer
-vaporizer
+#vaporizer
 

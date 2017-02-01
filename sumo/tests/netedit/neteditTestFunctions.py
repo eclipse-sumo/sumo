@@ -56,21 +56,27 @@ def Popen(newNet):
 
 
 # obtain match 
-def getReferenceMatch(neProcess):
+def getReferenceMatch(neProcess, waitTime):
     try:
-        return wait(referenceImage, 20)
+        return wait(referenceImage, waitTime)
     except:
         neProcess.kill()
         sys.exit("Killed netedit process. 'reference.png' not found")
 
 # setup and start netedit
-def setupAndStart(testRoot, newNet):
+def setupAndStart(testRoot, newNet = False, searchReference = True, waitTime = 20):
     setup(testRoot)
     # Open netedit
     neteditProcess = Popen(newNet)
     atexit.register(quit, neteditProcess, False, False)
     # Wait for netedit reference
-    return neteditProcess, getReferenceMatch(neteditProcess)
+    if(searchReference):
+        # Wait for netedit reference
+        return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
+    else:
+        # Wait 1 second for netedit
+        wait(1)
+        return neteditProcess
 
     
 # rebuild network
@@ -399,13 +405,13 @@ def selectChild(comboboxAdditional, numTabs, childNumber):
 # Change to delete  mode
 def deleteMode():
     type("d")
-	
+    
 # Enable or disable 'automatically delete Additionals'
 def changeAutomaticallyDeleteAdditionals(match):
     click(match.getTarget().offset(-120, 100))
-	
+    
 def waitAutomaticallyDeleteAdditionalsWarning():
-	# wait 0.5 second to question dialog
-	wait(0.5)
-	# press enter to close dialog
-	type(Key.ENTER)
+    # wait 0.5 second to question dialog
+    wait(0.5)
+    # press enter to close dialog
+    type(Key.ENTER)
