@@ -606,7 +606,7 @@ MSVehicle::hasArrived() const {
 
 
 bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
+MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops) {
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
@@ -647,8 +647,8 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
             ++iter;
         }
     }
-    // add new stops (unless when we are replacing a parking area)
-    if (myReplacedStops.size() == 0) {
+    // add new stops
+    if (addStops) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
             std::string error;
             addStop(*i, error);
@@ -656,7 +656,6 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
                 WRITE_WARNING(error);
             }
         }
-        myReplacedStops.clear();
     }
     return true;
 }
@@ -1017,82 +1016,71 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
 
 
 bool
-MSVehicle::replaceParkingArea(MSParkingArea* parkingArea) {
+MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
     // Check if there is a parking area to be replaced
-    if (parkingArea == 0)
-        return false;
-
-    std::string errorMsg;
+    assert(parkingArea != 0);
     if (myStops.empty()) {
         errorMsg = "Vehicle '" + myParameter->id + "' has no stops.";
         return false;
     }
-
     SUMOVehicleParameter::Stop stopPar;
     Stop stop = myStops.front();
-    if (!stop.reached && stop.parkingarea != 0 && stop.parkingarea != parkingArea) {
-        stopPar.lane = parkingArea->getLane().getID();
-        if (!parkingArea->getLane().allowsVehicleClass(myType->getVehicleClass())) {
-            errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
-            return false;
-        }
-
-        // merge duplicated stops equals to parking area
-        int removeStops = 0;
-        SUMOTime duration = 0;
-
-        for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
-            if (duration == 0) {
-                duration = iter->duration;
-                ++removeStops;
-            } else {
-                if (iter->parkingarea != 0 && iter->parkingarea == parkingArea) {
-                    duration += iter->duration;
-                    ++removeStops;
-                } else
-                    break;
-            }
-        }
-
-        stopPar.index = 0;
-        stopPar.busstop = "";
-        stopPar.chargingStation = "";
-        stopPar.containerstop = "";
-        stopPar.parkingarea = parkingArea->getID();
-        stopPar.startPos = parkingArea->getBeginLanePosition();
-        stopPar.endPos = parkingArea->getEndLanePosition();
-        stopPar.duration = duration;
-        stopPar.until = stop.until;
-        stopPar.awaitedPersons = stop.awaitedPersons;
-        stopPar.awaitedContainers = stop.awaitedContainers;
-        stopPar.triggered = stop.triggered;
-        stopPar.containerTriggered = stop.containerTriggered;
-        stopPar.parking = stop.parking;
-
-        // save stops before replace operation
-        myReplacedStops = myStops;
-
-        // remove stops equals to parking area
-        while (removeStops > 0) {
-            myStops.pop_front();
-            --removeStops;
-        }
-        const bool result = addStop(stopPar, errorMsg);
-        if (result) {
-            if (myLane != 0) {
-                updateBestLanes(true);
-            }
-        } else {
-            myStops = myReplacedStops;
-        }
-        return result;
-    } else {
-        if (stop.parkingarea == parkingArea)
-            errorMsg = "Vehicle '" + myParameter->id + "' has the same parking area, no need replace.";
-        else
-            errorMsg = "Vehicle '" + myParameter->id + "' has no valid parking area.";
+    if (stop.reached) {
+        errorMsg = "current stop already reached";
         return false;
     }
+    if (stop.parkingarea == 0) {
+        errorMsg = "current stop is not a parkingArea";
+        return false;
+    }
+    if (stop.parkingarea == parkingArea) {
+        errorMsg = "current stop is the same as the new parking area";
+        return false;
+    }
+    stopPar.lane = parkingArea->getLane().getID();
+
+    // merge duplicated stops equals to parking area
+    int removeStops = 0;
+    SUMOTime duration = 0;
+
+    for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
+        if (duration == 0) {
+            duration = iter->duration;
+            ++removeStops;
+        } else {
+            if (iter->parkingarea != 0 && iter->parkingarea == parkingArea) {
+                duration += iter->duration;
+                ++removeStops;
+            } else
+                break;
+        }
+    }
+
+    stopPar.index = 0;
+    stopPar.busstop = "";
+    stopPar.chargingStation = "";
+    stopPar.containerstop = "";
+    stopPar.parkingarea = parkingArea->getID();
+    stopPar.startPos = parkingArea->getBeginLanePosition();
+    stopPar.endPos = parkingArea->getEndLanePosition();
+    stopPar.duration = duration;
+    stopPar.until = stop.until;
+    stopPar.awaitedPersons = stop.awaitedPersons;
+    stopPar.awaitedContainers = stop.awaitedContainers;
+    stopPar.triggered = stop.triggered;
+    stopPar.containerTriggered = stop.containerTriggered;
+    stopPar.parking = stop.parking;
+
+    // remove stops equals to parking area
+    while (removeStops > 0) {
+        myStops.pop_front();
+        --removeStops;
+    }
+    const bool result = addStop(stopPar, errorMsg);
+    if (myLane != 0) {
+        updateBestLanes(true);
+    }
+    return result;
 }
 
 

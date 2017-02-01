@@ -275,7 +275,7 @@ public:
      * @param[in] route The new route to pass
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0);
+    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true);
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -853,13 +853,9 @@ public:
      */
     bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0);
 
-    /// @brief list of stops before stop replacing operation
-    std::list<Stop> myReplacedStops;
-
-
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
-    bool replaceParkingArea(MSParkingArea* parkingArea = 0);
+    bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
     
 
     /** @brief get the current parking area stop

@@ -205,9 +205,10 @@ public:
      * @param[in] edges The new list of edges to pass
      * @param[in] onInit Whether the vehicle starts with this route
      * @param[in] check Whether the route should be checked for validity
+     * @param[in] addStops Parameter for replaceRoute
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false, bool addStops = true);
 
 
     /** @brief Returns the vehicle's acceleration

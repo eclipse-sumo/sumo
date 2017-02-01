@@ -165,10 +165,10 @@ public:
      * @param[in] check Whether the route should be checked for validity
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false) = 0;
+    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false, bool addStops = true) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0) = 0;
+    virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true) = 0;
 
     /** @brief Performs a rerouting using the given router
      *
@@ -319,7 +319,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    virtual bool replaceParkingArea(MSParkingArea* parkingArea = 0) = 0;
+    virtual bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) = 0;
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the has stopped

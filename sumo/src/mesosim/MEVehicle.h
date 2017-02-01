@@ -179,7 +179,7 @@ public:
 
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
-    bool replaceParkingArea(MSParkingArea* /* parkingArea = 0 */) { 
+    bool replaceParkingArea(MSParkingArea* /* parkingArea = 0 */, std::string& /*errorMsg*/) { 
         throw ProcessError("parkingZoneReroute not implemented for meso");
     }
     
@@ -305,7 +305,7 @@ public:
 
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0);
+    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction
      * @return true iff the vehicle may drive over the next junction
