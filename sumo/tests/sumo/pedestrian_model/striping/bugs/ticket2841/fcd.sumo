@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb  2 14:34:28 2017 by SUMO Version dev-SVN-r22824
+<!-- generated on Thu Feb  2 14:36:08 2017 by SUMO Version dev-SVN-r22822
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
         <person id="p0" x="37.30" y="-1.93" angle="90.39" speed="0.00" pos="37.31" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <person id="p0" x="38.10" y="-1.05" angle="49.09" speed="1.39" pos="0.89" edge=":C_w0" slope="0.00"/>
+        <person id="p0" x="38.51" y="-1.52" angle="49.09" speed="1.39" pos="0.89" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
         <person id="p0" x="39.98" y="-1.68" angle="90.00" speed="1.39" pos="1.88" edge="end" slope="0.00"/>

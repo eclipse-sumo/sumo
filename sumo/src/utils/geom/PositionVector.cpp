@@ -215,6 +215,7 @@ PositionVector::operator[](int index) {
 
 Position
 PositionVector::positionAtOffset(SUMOReal pos, SUMOReal lateralOffset) const {
+    assert(size != 0);
     const_iterator i = begin();
     SUMOReal seenLength = 0;
     do {
@@ -224,7 +225,11 @@ PositionVector::positionAtOffset(SUMOReal pos, SUMOReal lateralOffset) const {
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
-    return back();
+    if (lateralOffset == 0 || size() < 2) {
+        return back();
+    } else {
+        return positionAtOffset(*(end() - 2), *(end() - 1), (*(end() - 2)).distanceTo(*(end() - 1)), lateralOffset);
+    }
 }
 
 
