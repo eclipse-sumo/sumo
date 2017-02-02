@@ -354,6 +354,9 @@ protected:
     /// @brief move pedestrians forward on one lane
     void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
+    /// @brief handle arrivals and lane advancement
+    void arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
+
     const ActiveLanes& getActiveLanes() {
         return myActiveLanes;
     }

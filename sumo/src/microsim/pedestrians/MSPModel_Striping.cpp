@@ -658,24 +658,30 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
         } else {
             moveInDirectionOnLane(pedestrians, lane, currentTime, changedLane, dir);
         }
-        // advance to the next lane / arrive at destination
-        sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
-        // can't use iterators because we do concurrent modification
-        for (int i = 0; i < (int)pedestrians.size(); i++) {
-            PState* const p = pedestrians[i];
-            if (p->myDir == dir && p->distToLaneEnd() < 0) {
-                // moveToNextLane may trigger re-insertion (for consecutive
-                // walks) so erase must be called first
-                pedestrians.erase(pedestrians.begin() + i);
-                i--;
-                p->moveToNextLane(currentTime);
-                if (p->myLane != 0) {
-                    changedLane.insert(p->myPerson);
-                    myActiveLanes[p->myLane].push_back(p);
-                } else {
-                    delete p;
-                    myNumActivePedestrians--;
-                }
+        arriveAndAdvance(pedestrians, currentTime, changedLane, dir);
+    }
+}
+
+
+void 
+MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir) {
+    // advance to the next lane / arrive at destination
+    sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
+    // can't use iterators because we do concurrent modification
+    for (int i = 0; i < (int)pedestrians.size(); i++) {
+        PState* const p = pedestrians[i];
+        if (p->myDir == dir && p->distToLaneEnd() < 0) {
+            // moveToNextLane may trigger re-insertion (for consecutive
+            // walks) so erase must be called first
+            pedestrians.erase(pedestrians.begin() + i);
+            i--;
+            p->moveToNextLane(currentTime);
+            if (p->myLane != 0) {
+                changedLane.insert(p->myPerson);
+                myActiveLanes[p->myLane].push_back(p);
+            } else {
+                delete p;
+                myNumActivePedestrians--;
             }
         }
     }
@@ -694,6 +700,9 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         Obstacles currentObs = obs;
         if (p.myDir != dir || changedLane.count(p.myPerson) != 0) {
             if (!p.myWaitingToEnter) {
+                //if DEBUGCOND(p.myPerson->getID()) {
+                //    std::cout << "   obs=" << p.myPerson->getID() << "  y=" << p.myRelY << "  stripe=" << p.stripe() << " oStripe=" << p.otherStripe() << "\n";
+                //}
                 Obstacle o(p);
                 obs[p.stripe()] = o;
                 obs[p.otherStripe()] = o;
@@ -1285,6 +1294,9 @@ MSPModel_Striping::PState::distanceTo(const Obstacle& obs, const bool includeMin
     // check for overlap
     const SUMOReal maxX = getMaxX(includeMinGap);
     const SUMOReal minX = getMinX(includeMinGap);
+    //if (DEBUGCOND(myPerson->getID())) {
+    //    std::cout << std::setprecision(8) <<   "   distanceTo=" << obs.description << " maxX=" << maxX << " minX=" << minX << " obs.xFwd=" << obs.xFwd << " obs.xBack=" << obs.xBack << "\n";
+    //}
     if ((obs.xFwd >= maxX && obs.xBack <= maxX) || (obs.xFwd <= maxX && obs.xFwd >= minX)) {
         return DIST_OVERLAP;
     }
