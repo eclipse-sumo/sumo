@@ -37,8 +37,11 @@
 // class declarations
 // ===========================================================================
 
-class GNERerouter;
 class GNERerouterInterval;
+class GNEClosingLaneReroute;
+class GNEClosingReroute;
+class GNEDestProbReroute;
+class GNERouteProbReroute;
 
 // ===========================================================================
 // class definitions
@@ -55,7 +58,7 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     // Constructor
-    GNERerouterIntervalDialog(GNERerouter* rerouterParent);
+    GNERerouterIntervalDialog(GNERerouterInterval *rerouterInterval);
 
     // destructor
     ~GNERerouterIntervalDialog();
@@ -71,28 +74,64 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove/edit interval
-    long onCmdDoubleClicked(FXObject*, FXSelector, void*);
+    /// @brief add/remove/edit closing lane reroute
+    long onCmdDoubleClickedClosingLaneReroute(FXObject*, FXSelector, void*);
+
+    /// @brief add/remove/edit closing reroute
+    long onCmdDoubleClickedClosingReroute(FXObject*, FXSelector, void*);
+
+    /// @brief add/remove/edit dest prob reroute
+    long onCmdDoubleClickedDestProbReroute(FXObject*, FXSelector, void*);
+
+    /// @brief add/remove/edit route prob reroute
+    long onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
     /// @brief FOX needs this
     GNERerouterIntervalDialog() {}
 
-    /// @brief pointer to rerouter parent
-    GNERerouter* myRerouterParent;
+    /// @brief pointer to rerouter interval
+    GNERerouterInterval* myRerouterInterval;
 
-    /// @brief list with intervals
-    FXTable* myIntervalList;
+    /// @brief list with closing lane reroutes
+    FXTable* myClosingLaneRerouteList;
 
-    /// @brief set with a copy of rerouter intervals
-    std::vector<GNERerouterInterval*> myRerouterIntervals;
+    /// @brief list with closing reroutes
+    FXTable* myClosingRerouteList;
 
-    // @brief copy original intervals from rerouter to myRerouterIntervals
-    void copyIntervals();
+    /// @brief list with destiny probability reroutes
+    FXTable* myDestProbRerouteList;
 
-    /// @brief update data table
-    void updateTable();
+    /// @brief list with route probability reroute
+    FXTable* myRouteProbReroute;
+
+    /// @brief vector with the closingLaneReroutes
+    std::vector<GNEClosingLaneReroute*> myCopyOfClosingLaneReroutes;
+
+    /// @brief vector with a copy of the closingReroutes
+    std::vector<GNEClosingReroute*> myCopyOfClosingReroutes;
+
+    /// @brief vector with a copy of the destProbReroutes
+    std::vector<GNEDestProbReroute*> CopyOfmyDestProbReroutes;
+
+    /// @brief vector with a copy of the routeProbReroutes
+    std::vector<GNERouteProbReroute*> myCopyOfRouteProbReroutes;
+
+    // @brief copy original elements from interval to copy lists
+    void copyElements();
+
+    /// @brief update data of closing lane reroute table
+    void updateClosingLaneReroutesTable();
+
+    /// @brief update data of closing reroute table
+    void updateClosingReroutesTable();
+
+    /// @brief update data of destiny probabilitry reroute table
+    void updateDestProbReroutesTable();
+
+    /// @brief update data of probabilitry reroutes table
+    void updateRouteProbReroutesTable();
 
 private:
     /// @brief Invalidated copy constructor.

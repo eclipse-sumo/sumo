@@ -54,11 +54,14 @@ class GNERerouterDialog : public GNEAdditionalDialog {
     FXDECLARE(GNERerouterDialog)
 
 public:
-    // Constructor
+    /// @brief Constructor
     GNERerouterDialog(GNERerouter* rerouterParent);
 
-    // destructor
+    /// @brief destructor
     ~GNERerouterDialog();
+
+    /// @brief get rerouter parent
+    GNERerouter* getRerouterParent() const;
 
     /// @name FOX-callbacks
     /// @{

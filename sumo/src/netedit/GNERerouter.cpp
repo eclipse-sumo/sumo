@@ -123,7 +123,8 @@ GNERerouter::getPositionInView() const {
 
 void
 GNERerouter::openAdditionalDialog() {
-    GNERerouterDialog rerouterDialog(this);
+    // Open rerouter dialog
+    GNERerouterDialog(this);
 }
 
 

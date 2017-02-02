@@ -88,10 +88,6 @@ protected:
     FXButton* myResetButton;
 
 private:
-    /// @brief update data table
-    /// @note must be implemented in all childs
-    virtual void updateTable() = 0;
-
     /// @brief frame for buttons (Not accesible for childs)
     FXHorizontalFrame* myButtonFrame;
 

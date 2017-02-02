@@ -34,6 +34,7 @@
 #include "GNERerouterDialog.h"
 #include "GNERerouter.h"
 #include "GNERerouterInterval.h"
+#include "GNERerouterIntervalDialog.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -72,6 +73,12 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
 
 
 GNERerouterDialog::~GNERerouterDialog() {
+}
+
+
+GNERerouter* 
+GNERerouterDialog::getRerouterParent() const {
+    return myRerouterParent;
 }
 
 
@@ -121,10 +128,8 @@ GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
     if(myIntervalList->getNumRows() > 0) {
         // check if add button was pressed
         if(myIntervalList->getItem((int)myRerouterIntervals.size(), 3)->hasFocus()) {
-            if(true) {
-                std::cout << "add row " << std::endl;
-                return 1;
-            }
+            GNERerouterIntervalDialog(new GNERerouterInterval(myRerouterParent, 10, 10));
+            return 1;
         } else {
             // check if some delete button was pressed
             for(int i = 0; i < (int)myRerouterIntervals.size(); i++) {
