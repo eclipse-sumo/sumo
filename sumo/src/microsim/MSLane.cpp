@@ -1043,7 +1043,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 if (lead == follow) {
                     continue;
                 }
-                if (lead->getPositionOnLane(this) < follow->getPositionOnLane()) {
+                if (lead->getPositionOnLane(this) < follow->getPositionOnLane(this)) {
                     continue;
                 }
                 if (detectCollisionBetween(timestep, stage, follow, lead, toRemove, toTeleport)) {
@@ -1117,11 +1117,13 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
         return false;
     }
 #endif
-    const bool bothOpposite = victim->getLaneChangeModel().isOpposite() && collider->getLaneChangeModel().isOpposite();
+    const bool colliderOpposite = collider->getLaneChangeModel().isOpposite();
+    const bool bothOpposite = victim->getLaneChangeModel().isOpposite() && colliderOpposite;
     if (bothOpposite) {
         std::swap(victim, collider);
     }
-    SUMOReal gap = victim->getBackPositionOnLane(this) - collider->getPositionOnLane() - collider->getVehicleType().getMinGap();
+    const SUMOReal colliderPos = colliderOpposite ? collider->getBackPositionOnLane(this) : collider->getPositionOnLane(this);
+    SUMOReal gap = victim->getBackPositionOnLane(this) - colliderPos - collider->getVehicleType().getMinGap();
     if (bothOpposite) {
         gap = -gap - 2 * collider->getVehicleType().getMinGap();
     }
@@ -1132,9 +1134,9 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
             << " victim=" << victim->getID()
             << " colliderLane=" << collider->getLane()->getID()
             << " victimLane=" << victim->getLane()->getID()
-            << " colliderPos=" << collider->getPositionOnLane()
+            << " colliderPos=" << colliderPos
             << " victimBackPos=" << victim->getBackPositionOnLane(this)
-            << " colliderLat=" << collider->getCenterOnEdge()
+            << " colliderLat=" << collider->getCenterOnEdge(this)
             << " victimLat=" << victim->getCenterOnEdge(this)
             << " gap=" << gap
             << "\n";
@@ -1142,7 +1144,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     if (gap < -NUMERICAL_EPS) {
         SUMOReal latGap = 0;
         if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
-            latGap = (fabs(victim->getCenterOnEdge(this) - collider->getCenterOnEdge())
+            latGap = (fabs(victim->getCenterOnEdge(this) - collider->getCenterOnEdge(this))
                       - 0.5 * fabs(victim->getVehicleType().getWidth() + collider->getVehicleType().getWidth()));
             if (latGap + NUMERICAL_EPS > 0) {
                 return false;
