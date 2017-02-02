@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 02 Feb 2017 02:33:18 PM CET by Netedit Version dev-SVN-r22822
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoID/sumo/tests/sumo/pedestrian_model/striping/bugs/ticket2841/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoID/sumo/tests/sumo/pedestrian_model/striping/bugs/ticket2841/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <crossings.guess value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,-0.25,80.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_w0" function="walkingarea">
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.40" width="2.00" shape="38.10,-0.05 38.10,-2.05 37.79,-2.31 37.81,-0.31"/>
+    </edge>
+    <edge id="beg" from="gneJ0" to="C" priority="1" shape="0.00,0.00 35.91,-0.25">
+        <lane id="beg_0" index="0" allow="pedestrian" speed="13.89" length="37.81" width="2.00" shape="-0.01,-1.05 37.80,-1.31"/>
+    </edge>
+    <edge id="end" from="C" to="gneJ2" priority="1">
+        <lane id="end_0" index="0" allow="pedestrian" speed="13.89" length="41.90" width="2.00" shape="38.10,-1.05 80.00,-1.05"/>
+    </edge>
+
+    <junction id="C" type="dead_end" x="40.00" y="0.00" incLanes="beg_0" intLanes="" shape="38.10,-0.05 38.10,-2.05 37.79,-2.31 37.81,-0.31"/>
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.01,-2.05"/>
+    <junction id="gneJ2" type="unregulated" x="80.00" y="0.00" incLanes="end_0" intLanes="" shape="80.00,-2.05 80.00,-0.05"/>
+
+    <connection from=":C_w0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>
