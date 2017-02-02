@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GNERerouterDialog.cpp
+/// @file    GNERerouterIntervalDialog.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    April 2016
-/// @version $Id$
+/// @date    eb 2017
+/// @version $Id: GNERerouterIntervalDialog.cpp 22824 2017-02-02 09:51:02Z palcraft $
 ///
-/// Dialog for edit rerouters
+/// Dialog for edit rerouter intervals
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
@@ -31,7 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
-#include "GNERerouterDialog.h"
+#include "GNERerouterIntervalDialog.h"
 #include "GNERerouter.h"
 #include "GNERerouterInterval.h"
 
@@ -43,21 +43,21 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_MODE_ADDITIONALDIALOG_TABLE,    GNERerouterDialog::onCmdDoubleClicked),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNERerouterDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNERerouterDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_RESET,    GNERerouterDialog::onCmdReset),
+FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
+    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_MODE_ADDITIONALDIALOG_TABLE,    GNERerouterIntervalDialog::onCmdDoubleClicked),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNERerouterIntervalDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNERerouterIntervalDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_RESET,    GNERerouterIntervalDialog::onCmdReset),
 };
 
 // Object implementation
-FXIMPLEMENT(GNERerouterDialog, FXDialogBox, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT(GNERerouterIntervalDialog, FXDialogBox, GNERerouterIntervalDialogMap, ARRAYNUMBER(GNERerouterIntervalDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouter* rerouterParent) :
     GNEAdditionalDialog(rerouterParent, 320, 240),
     myRerouterParent(rerouterParent) {
     // Create table, copy intervals and update table
@@ -71,12 +71,12 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
 }
 
 
-GNERerouterDialog::~GNERerouterDialog() {
+GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {
 }
 
 
 long
-GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     
     // in this point we need to use GNEChange_RerouterInterval to allow undo/redos of rerouterIntervals
 
@@ -89,7 +89,7 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
 long
-GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // Clear copied intervals
     for(std::vector<GNERerouterInterval*>::const_iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         delete (*i);
@@ -102,7 +102,7 @@ GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // clear copied/modified intervals
     for(std::vector<GNERerouterInterval*>::const_iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         delete (*i);
@@ -116,7 +116,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 long 
-GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
     // First check if
     if(myIntervalList->getNumRows() > 0) {
         // check if add button was pressed
@@ -141,7 +141,7 @@ GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
 
 
 void 
-GNERerouterDialog::copyIntervals() {
+GNERerouterIntervalDialog::copyIntervals() {
     myRerouterIntervals.clear();
     for(std::vector<GNERerouterInterval*>::const_iterator i = myRerouterParent->getRerouterIntervals().begin(); i != myRerouterParent->getRerouterIntervals().end(); i++) {
         myRerouterIntervals.push_back(new GNERerouterInterval(*i));
@@ -149,7 +149,7 @@ GNERerouterDialog::copyIntervals() {
 }
 
 void
-GNERerouterDialog::updateTable() {
+GNERerouterIntervalDialog::updateTable() {
      // clear table
     myIntervalList->clearItems();
     // set number of rows

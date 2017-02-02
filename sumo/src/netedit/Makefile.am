@@ -70,6 +70,7 @@ GNEDetectorEntry.h GNEDetectorEntry.cpp \
 GNEDetectorExit.h GNEDetectorExit.cpp \
 GNERerouter.h GNERerouter.cpp \
 GNERerouterDialog.h GNERerouterDialog.cpp \
+GNERerouterIntervalDialog.h GNERerouterIntervalDialog.cpp \
 GNERouteProbe.h GNERouteProbe.cpp \
 GNEVaporizer.h GNEVaporizer.cpp \
 GNECalibrator.h GNECalibrator.cpp \

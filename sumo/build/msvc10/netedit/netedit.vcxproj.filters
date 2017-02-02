@@ -285,6 +285,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.cpp">
       <Filter>Quellcodedateien\Dialogs\AdditionalDialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERerouterIntervalDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -485,6 +488,9 @@
       <Filter>Header-Dateien\Items\Additionals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERerouterIntervalDialog.h">
       <Filter>Header-Dateien\Dialogs\AdditionalDialogs</Filter>
     </ClInclude>
   </ItemGroup>

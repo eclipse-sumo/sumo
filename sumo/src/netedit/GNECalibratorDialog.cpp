@@ -46,8 +46,8 @@ FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,  GNECalibratorDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,  GNECalibratorDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_RESET,   GNECalibratorDialog::onCmdReset),
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_CALIBRATOR_ADDROW,             GNECalibratorDialog::onCmdAddRow),
-    FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_CALIBRATOR_REMOVEROW,          GNECalibratorDialog::onCmdRemoveRow),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_TABLE,   GNECalibratorDialog::onCmdAddRow),
+    FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_MODE_ADDITIONALDIALOG_TABLE,   GNECalibratorDialog::onCmdRemoveRow),
 };
 
 // Object implementation
@@ -62,71 +62,71 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* calibratorParent) :
     myCalibratorParent(calibratorParent) {
 
     // create List with the data
-    myDataList = new FXTable(myContentFrame, this, MID_GNE_CALIBRATOR_REMOVEROW, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myDataList = new FXTable(myContentFrame, this, MID_GNE_MODE_ADDITIONALDIALOG_TABLE, LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myDataList->setEditable(false);
 
     // create Horizontal frame for row elements
     myRowFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_FILL_X);
 
     // create Text field for id
-    myTextFieldId = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldId = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for begin
-    myTextFieldBegin = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldBegin = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for end
-    myTextFieldEnd = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldEnd = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for type
-    myTextFieldType = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldType = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for route
-    myTextFieldRoute = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldRoute = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for color
-    myTextFieldColor = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldColor = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for depart lane
-    myTextFieldDepartLane = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldDepartLane = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for depart pos
-    myTextFieldDepartPos = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldDepartPos = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for depart speed
-    myTextFieldDepartSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldDepartSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for arrival lane
-    myTextFieldArrivalLane = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldArrivalLane = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for arrival pos
-    myTextFieldArrivalPos = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldArrivalPos = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for arrival speed
-    myTextFieldArrivalSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldArrivalSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for line
-    myTextFieldLine = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldLine = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for person number
-    myTextFieldPersonNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldPersonNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for container number
-    myTextFieldContainerNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldContainerNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for vehsPerHour
-    myTextFieldVehsPerHour = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldVehsPerHour = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for period
-    myTextFieldPeriod = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldPeriod = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for probability
-    myTextFieldProbability = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldProbability = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_REAL | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Text field for number
-    myTextFieldNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_CALIBRATOR_CHANGEVALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
+    myTextFieldNumber = new FXTextField(myRowFrame, 10, this, MID_GNE_MODE_ADDITIONALDIALOG_VALUE, TEXTFIELD_INTEGER | FRAME_THICK | LAYOUT_FILL_X);
 
     // create Button for insert row
-    myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_CALIBRATOR_ADDROW, FRAME_THICK | LAYOUT_FILL_X);
+    myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_TABLE, FRAME_THICK | LAYOUT_FILL_X);
 
     // Get values of variable speed signal
     myFlowValues = myCalibratorParent->getFlowValues();

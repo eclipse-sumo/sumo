@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GNERerouterDialog.h
+/// @file    GNERerouterIntervalDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    April 2016
-/// @version $Id$
+/// @date    Feb 2017
+/// @version $Id: GNERerouterIntervalDialog.h 22824 2017-02-02 09:51:02Z palcraft $
 ///
-/// Dialog for edit rerouters
+/// Dialog for edit rerouter intervals
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GNERerouterDialog_h
-#define GNERerouterDialog_h
+#ifndef GNERerouterIntervalDialog_h
+#define GNERerouterIntervalDialog_h
 
 // ===========================================================================
 // included modules
@@ -45,20 +45,20 @@ class GNERerouterInterval;
 // ===========================================================================
 
 /**
- * @class GNERerouterDialog
- * @brief Dialog for edit rerouters
+ * @class GNERerouterIntervalDialog
+ * @brief Dialog for edit rerouter intervals
  */
 
-class GNERerouterDialog : public GNEAdditionalDialog {
+class GNERerouterIntervalDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNERerouterDialog)
+    FXDECLARE(GNERerouterIntervalDialog)
 
 public:
     // Constructor
-    GNERerouterDialog(GNERerouter* rerouterParent);
+    GNERerouterIntervalDialog(GNERerouter* rerouterParent);
 
     // destructor
-    ~GNERerouterDialog();
+    ~GNERerouterIntervalDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -77,7 +77,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNERerouterDialog() {}
+    GNERerouterIntervalDialog() {}
 
     /// @brief pointer to rerouter parent
     GNERerouter* myRerouterParent;
@@ -96,10 +96,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNERerouterDialog(const GNERerouterDialog&);
+    GNERerouterIntervalDialog(const GNERerouterIntervalDialog&);
 
     /// @brief Invalidated assignment operator.
-    GNERerouterDialog& operator=(const GNERerouterDialog&);
+    GNERerouterIntervalDialog& operator=(const GNERerouterIntervalDialog&);
 };
 
 #endif

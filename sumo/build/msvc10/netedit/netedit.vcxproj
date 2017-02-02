@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNERerouter.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERerouterDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERerouterInterval.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNERerouterIntervalDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbe.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNESelectorFrame.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNERerouter.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERerouterDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERerouterInterval.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNERerouterIntervalDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbe.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNESelectorFrame.h" />
