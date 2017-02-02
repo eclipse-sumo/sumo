@@ -53,6 +53,9 @@ public:
     /// @brief constructor
     GNEDestProbReroute(GNERerouterInterval *rerouterIntervalParent, GNEEdge *newEdgeDestination, SUMOReal probability);
 
+    /// @brief copy constructor using a pointer (used in Rerouter dialog)
+    GNEDestProbReroute(GNEDestProbReroute* destProbReroute);
+
     /// @brief destructor
     ~GNEDestProbReroute();
 
@@ -71,7 +74,7 @@ public:
     /// @brief get rerouter interval parent
     GNERerouterInterval *getRerouterIntervalParent() const;
 
-private:
+protected:
     /// @brief pointer to rerouter interval parent
     GNERerouterInterval *myRerouterIntervalParent;
 
@@ -83,6 +86,13 @@ private:
 
     /// @brief probability with which a vehicle will use the given edge as destination
     SUMOReal myProbability;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNEDestProbReroute(const GNEDestProbReroute&);
+
+    /// @brief Invalidated assignment operator.
+    GNEDestProbReroute& operator=(const GNEDestProbReroute&);
 };
 
 #endif

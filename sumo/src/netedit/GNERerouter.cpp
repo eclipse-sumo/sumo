@@ -67,12 +67,11 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> /* edges */, const std::string& filename, SUMOReal probability, bool off, const std::set<GNERerouterInterval*>& rerouterIntervals) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> /* edges */, const std::string& filename, SUMOReal probability, bool off) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER),
     myFilename(filename),
     myProbability(probability),
-    myOff(off),
-    myRerouterIntervals(rerouterIntervals) {
+    myOff(off) {
     // Update geometry;
     updateGeometry();
     // Set colors
@@ -124,7 +123,7 @@ GNERerouter::getPositionInView() const {
 
 void
 GNERerouter::openAdditionalDialog() {
-    //GNERerouterDialog rerouterDialog(this);
+    GNERerouterDialog rerouterDialog(this);
 }
 
 
@@ -166,39 +165,31 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
 }
 
 
-std::string
-GNERerouter::getFilename() const {
-    return myFilename;
+bool 
+GNERerouter::addEdgeChild(GNEEdge* edge) {
+    return false;
 }
 
 
-SUMOReal
-GNERerouter::getProbability() const {
-    return myProbability;
+bool 
+GNERerouter::removeEdgeChild(GNEEdge* edge) {
+    return false;
 }
 
 
-bool
-GNERerouter::getOff() const {
-    return myOff;
-}
-
-
-void
-GNERerouter::setFilename(std::string filename) {
-    myFilename = filename;
+const std::vector<GNERerouterInterval*>&
+GNERerouter::getRerouterIntervals() const {
+    return myRerouterIntervals;
 }
 
 
 void
-GNERerouter::setProbability(SUMOReal probability) {
-    myProbability = probability;
-}
-
-
-void
-GNERerouter::setOff(bool off) {
-    myOff = off;
+GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals) {
+    // delete al lintervals
+    for(std::vector<GNERerouterInterval*>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+        delete (*i);
+    }
+    myRerouterIntervals = rerouterIntervals;
 }
 
 

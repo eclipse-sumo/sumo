@@ -53,6 +53,33 @@ GNERerouterInterval::GNERerouterInterval(GNERerouter *rerouterParent, SUMOReal b
 }
 
 
+GNERerouterInterval::GNERerouterInterval(GNERerouterInterval* rerouterInterval) :
+    std::pair<SUMOReal, SUMOReal>(rerouterInterval->getBegin(), rerouterInterval->getEnd()), 
+    myRerouterParent(rerouterInterval->getRerouterParent()),
+    myTag(SUMO_TAG_INTERVAL) {
+    // create closing lane reroutes
+    for(std::vector<GNEClosingLaneReroute*>::const_iterator i = rerouterInterval->getClosingLaneReroutes().begin(); i != rerouterInterval->getClosingLaneReroutes().end(); i++) {
+        myClosingLaneReroutes.push_back(new GNEClosingLaneReroute(*i)); 
+    }
+
+    // create closing reroutes
+    for(std::vector<GNEClosingReroute*>::const_iterator i = rerouterInterval->getClosingReroutes().begin(); i != rerouterInterval->getClosingReroutes().end(); i++) {
+        myClosingReroutes.push_back(new GNEClosingReroute(*i)); 
+    }
+
+    // create destiny Probability reroutes
+    for(std::vector<GNEDestProbReroute*>::const_iterator i = rerouterInterval->getDestProbReroutes().begin(); i != rerouterInterval->getDestProbReroutes().end(); i++) {
+        myDestProbReroutes.push_back(new GNEDestProbReroute(*i));
+    }
+
+    // create route probability reroutes
+    for(std::vector<GNERouteProbReroute*>::const_iterator i = rerouterInterval->getRouteProbReroutes().begin(); i != rerouterInterval->getRouteProbReroutes().end(); i++) {
+        myRouteProbReroutes.push_back(new GNERouteProbReroute(*i));
+    }
+
+}
+
+
 GNERerouterInterval::~GNERerouterInterval() {
     // delete all closing lane reroutes
     for(std::vector<GNEClosingLaneReroute*>::iterator i = myClosingLaneReroutes.begin(); i != myClosingLaneReroutes.end(); i++) {
@@ -165,6 +192,12 @@ GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* rpr) {
     }
     // remove it from vector
     myRouteProbReroutes.erase(i);
+}
+
+
+GNERerouter*
+GNERerouterInterval::getRerouterParent() {
+    return myRerouterParent;
 }
 
 

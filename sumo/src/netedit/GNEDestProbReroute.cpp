@@ -52,6 +52,16 @@ GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval *rerouterIntervalPare
 }
 
 
+GNEDestProbReroute::GNEDestProbReroute(GNEDestProbReroute *destProbReroute):
+    myNewEdgeDestination(destProbReroute->getNewDestination()),
+    myProbability(destProbReroute->getProbability()),
+    myRerouterIntervalParent(destProbReroute->getRerouterIntervalParent()),
+    myTag(SUMO_TAG_DEST_PROB_REROUTE) {
+    // edge cannot be NULL 
+    assert(myNewEdgeDestination);
+}
+
+
 GNEDestProbReroute::~GNEDestProbReroute() {
 }
 

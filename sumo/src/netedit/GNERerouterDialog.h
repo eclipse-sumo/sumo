@@ -38,6 +38,7 @@
 // ===========================================================================
 
 class GNERerouter;
+class GNERerouterInterval;
 
 // ===========================================================================
 // class definitions
@@ -69,6 +70,12 @@ public:
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @brief add interval
+    long onCmdAddInterval(FXObject*, FXSelector, void*);
+
+    /// @brief add interval
+    long onCmdRemoveInterval(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -78,10 +85,19 @@ protected:
     /// @brief pointer to rerouter parent
     GNERerouter* myRerouterParent;
 
-private:
+    /// @brief list with intervals
+    FXTable* myIntervalList;
+
+    /// @brief set with a copy of rerouter intervals
+    std::vector<GNERerouterInterval*> myRerouterIntervals;
+
+    // @brief copy original intervals from rerouter to myRerouterIntervals
+    void copyIntervals();
+
     /// @brief update data table
     void updateTable();
 
+private:
     /// @brief Invalidated copy constructor.
     GNERerouterDialog(const GNERerouterDialog&);
 

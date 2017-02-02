@@ -338,8 +338,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         bool ok = false;
         SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok, "", false), edgesID);
         // obtain Rerouter values Values
-        // @ToDo Finish
-        std::set<GNERerouterInterval*> rerouterIntervals;
+
         // Obtain pointer to edges
         std::vector<GNEEdge*> edges;
         for (int i = 0; i < (int)edgesID.size(); i++) {
@@ -351,7 +350,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
             }
         }
         // if operation of build variable speed signal was sucesfully, save Id
-        if (buildRerouter(myViewNet, id, Position(posx, posy), edges, probability, file, off , rerouterIntervals)) {
+        if (buildRerouter(myViewNet, id, Position(posx, posy), edges, probability, file, off)) {
             ;//myAdditionalParent = id;
         }
     }
@@ -776,11 +775,9 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             for (int i = 0; i < (int)edgeIds.size(); i++) {
                 edges.push_back(viewNet->getNet()->retrieveEdge(edgeIds.at(i)));
             }
-            // Obtain routerIntervals
-            std::set<GNERerouterInterval*> rerouterIntervals;
             // Build rerouter
             if (pos.size() == 1) {
-                return buildRerouter(viewNet, id, pos[0], edges, prob, file, off, rerouterIntervals);
+                return buildRerouter(viewNet, id, pos[0], edges, prob, file, off);
             } else {
                 return false;
             }
@@ -977,10 +974,10 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouterInterval*>& rerouterIntervals) {
+GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_REROUTER, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
-        GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, file, prob, off, rerouterIntervals);
+        GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, file, prob, off);
         viewNet->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
         viewNet->getUndoList()->p_end();
         return true;

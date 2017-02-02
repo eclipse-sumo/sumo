@@ -55,6 +55,9 @@ public:
     /// @brief constructor
     GNEClosingReroute(GNERerouterInterval *rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles);
 
+    /// @brief copy constructor using a pointer (used in Rerouter dialog)
+    GNEClosingReroute(GNEClosingReroute* closingReroute);
+
     /// @brief destructor
     ~GNEClosingReroute();
 
@@ -93,7 +96,7 @@ public:
     /// @brief get rerouter interval parent
     GNERerouterInterval *getRerouterIntervalParent() const;
 
-private:
+protected:
     /// @brief pointer to rerouter interval parent
     GNERerouterInterval *myRerouterIntervalParent;
 
@@ -108,6 +111,13 @@ private:
 
     /// @brief vector of disallow vehicles
     std::vector<SUMOVehicleClass> myDisallowVehicles;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNEClosingReroute(const GNEClosingReroute&);
+
+    /// @brief Invalidated assignment operator.
+    GNEClosingReroute& operator=(const GNEClosingReroute&);
 };
 
 #endif

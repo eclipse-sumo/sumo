@@ -56,9 +56,8 @@ public:
      * @param[in] filename The path to the definition file
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
-     * @param[in] rerouterIntervals set with the rerouter intervals
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off, const std::set<GNERerouterInterval*>& rerouterIntervals);
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off);
 
     /// @brief Destructor
     ~GNERerouter();
@@ -84,38 +83,26 @@ public:
      */
     void writeAdditional(OutputDevice& device, const std::string&);
 
-    /// @brief add edge to rerouter
-    /// @return true if was sucesfully inserted, false if is duplicated
-    bool addEdge(GNEEdge* edge);
+    /// @brief add edge child
+    bool addEdgeChild(GNEEdge* edge);
 
-    /// @brief remove edge of rerouter
-    /// @return true if was scuesfully removed, false if wasn't found
-    bool removeEdge(GNEEdge* edge);
+    /// @brief remove edge child
+    bool removeEdgeChild(GNEEdge* edge);
 
-    /// @brief get filename of rerouter
-    std::string getFilename() const;
+    /// @brief get rerouter intervals
+    const std::vector<GNERerouterInterval*> &getRerouterIntervals() const;
 
-    /// @brief get probability of rerouter
-    SUMOReal getProbability() const;
-
-    /// @brief get attribute to enable or disable inactive initially
-    bool getOff() const;
-
-    /// @brief set filename of rerouter
-    void setFilename(std::string filename);
-
-    /// @brief set probability of rerouter
-    void setProbability(SUMOReal probability);
-
-    /// @brief set attribute to enable or disable inactive initially
-    void setOff(bool off);
+    /**@brief set rerouter intervals
+     * @note all previously intervals will be deleted
+    */
+    void setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals);
 
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
-
     const std::string& getParentName() const;
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -157,7 +144,7 @@ protected:
     bool myOff;
 
     /// @brief set with the GNERerouterInterval
-    std::set<GNERerouterInterval*> myRerouterIntervals;
+    std::vector<GNERerouterInterval*> myRerouterIntervals;
 
 private:
     /// @brief set attribute after validation

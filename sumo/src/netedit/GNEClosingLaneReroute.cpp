@@ -51,6 +51,17 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval *rerouterInterv
 }
 
 
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNEClosingLaneReroute *closingLaneReroute) :
+    myClosedEdge(closingLaneReroute->getClosedEdge()),
+    myAllowVehicles(closingLaneReroute->getAllowVehicles()),
+    myDisallowVehicles(closingLaneReroute->getDisallowVehicles()),
+    myRerouterIntervalParent(closingLaneReroute->getRerouterIntervalParent()),
+    myTag(SUMO_TAG_CLOSING_LANE_REROUTE) {
+    // edge cannot be NULL 
+    assert(myClosedEdge);
+}
+
+
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {
 }
 

@@ -50,6 +50,14 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval *rerouterIntervalPa
 }
 
 
+GNERouteProbReroute::GNERouteProbReroute(GNERouteProbReroute* routeProbReroute) :
+    myNewRouteId(routeProbReroute->getNewRouteId()),
+    myProbability(routeProbReroute->getProbability()),
+    myRerouterIntervalParent(routeProbReroute->getRerouterIntervalParent()),
+    myTag(SUMO_TAG_ROUTE_PROB_REROUTE) {
+}
+
+
 GNERouteProbReroute::~GNERouteProbReroute() {
 }
 

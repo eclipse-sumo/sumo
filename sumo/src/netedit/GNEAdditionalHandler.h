@@ -311,10 +311,9 @@ public:
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
-     * @param[in] rerouterInterval set with the rerouterintervals of rerouter
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off, const std::set<GNERerouterInterval*>& rerouterIntervals);
+    static bool buildRerouter(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, SUMOReal prob, const std::string& file, bool off);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted

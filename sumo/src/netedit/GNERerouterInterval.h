@@ -57,6 +57,9 @@ public:
     /// @brief constructor
     GNERerouterInterval(GNERerouter *rerouterParent, SUMOReal begin, SUMOReal end);
 
+    /// @brief copy constructor using a pointer (used in Rerouter dialog)
+    GNERerouterInterval(GNERerouterInterval* rerouterInterval);
+
     /// @brief destructor
     ~GNERerouterInterval();
 
@@ -100,6 +103,9 @@ public:
      */
     void removeRouteProbReroute(GNERouteProbReroute* rpr);
 
+    /// @brief get rerouter parent
+    GNERerouter *getRerouterParent();
+
     /// @brief get begin time
     SUMOReal getBegin() const;
 
@@ -121,7 +127,7 @@ public:
     /// @brief get reoute probability reroutes
     const std::vector<GNERouteProbReroute*> &getRouteProbReroutes() const;
 
-private:
+protected:
     /// @brief poniter to rerouter parent
     GNERerouter *myRerouterParent;
 
@@ -139,6 +145,13 @@ private:
 
     /// @brief vector with the routeProbReroutes
     std::vector<GNERouteProbReroute*> myRouteProbReroutes;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNERerouterInterval(const GNERerouterInterval&);
+
+    /// @brief Invalidated assignment operator.
+    GNERerouterInterval& operator=(const GNERerouterInterval&);
 };
 
 #endif
