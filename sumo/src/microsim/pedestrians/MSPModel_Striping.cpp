@@ -46,8 +46,8 @@
 // DEBUGGING HELPERS
 // ===========================================================================
 //
-#define DEBUG1 "1878"
-#define DEBUG2 "1745"
+#define DEBUG1 ""
+#define DEBUG2 ""
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
 //#define LOG_ALL 1
 
@@ -1252,6 +1252,17 @@ MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& st
     if (myWalkingAreaPath == 0) {
         return stage.getLanePosition(myLane, myRelX, lateral_offset);
     } else {
+        if DEBUGCOND(myPerson->getID()) {
+            std::cout << SIMTIME
+                << " getPosition (walkingArea)"
+                << " p=" << myPerson->getID()
+                << " x=" << myRelX
+                << " y=" << myRelY
+                << " latOffset=" << lateral_offset
+                << " shape=" << myWalkingAreaPath->shape
+                << " pos=" << myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset)
+                << "\n";
+        }
         return myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset);
     }
 }
