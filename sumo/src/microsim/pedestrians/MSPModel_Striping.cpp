@@ -46,8 +46,8 @@
 // DEBUGGING HELPERS
 // ===========================================================================
 //
-#define DEBUG1 ""
-#define DEBUG2 ""
+#define DEBUG1 "1878"
+#define DEBUG2 "1745"
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
 //#define LOG_ALL 1
 
@@ -650,6 +650,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     }
                 }
                 moveInDirectionOnLane(transformedPeds, lane, currentTime, changedLane, dir);
+                arriveAndAdvance(pedestrians, currentTime, changedLane, dir);
                 // clean up
                 for (Pedestrians::iterator it_p = toDelete.begin(); it_p != toDelete.end(); ++it_p) {
                     delete *it_p;
@@ -657,8 +658,8 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
             }
         } else {
             moveInDirectionOnLane(pedestrians, lane, currentTime, changedLane, dir);
+            arriveAndAdvance(pedestrians, currentTime, changedLane, dir);
         }
-        arriveAndAdvance(pedestrians, currentTime, changedLane, dir);
     }
 }
 
