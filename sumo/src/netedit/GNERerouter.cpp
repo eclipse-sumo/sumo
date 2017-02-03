@@ -167,13 +167,13 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
 
 
 bool 
-GNERerouter::addEdgeChild(GNEEdge* edge) {
+GNERerouter::addEdgeChild(GNEEdge* /* edge */) {
     return false;
 }
 
 
 bool 
-GNERerouter::removeEdgeChild(GNEEdge* edge) {
+GNERerouter::removeEdgeChild(GNEEdge* /* edge */) {
     return false;
 }
 
