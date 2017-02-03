@@ -37,8 +37,14 @@
 
 /// @name FXTextFields
 /// @{
-    /// @brief text field extended over GNEFrame with thick frame
+    /// @brief text field extended over Frame with thick frame
     #define GUIDesignTextField              (FRAME_THICK | LAYOUT_FILL_X)
+
+    /// @brief text field extended over Frame with thick frame and limited to Integers
+    #define GUIDesignTextFieldInt  (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
+
+    /// @brief text field extended over Frame with thick frame and limited to Doubles/SUMOReals
+    #define GUIDesignTextFieldReal (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_REAL)
 
     /// @brief text field extended over the matrix column with thick frame and limited to integers
     #define GUIDesignTextFieldAttributeInt  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
@@ -55,13 +61,13 @@
 
 /// @name FXButtons
 /// @{
-    /// @brief button extended over over GNEFrame with thick and raise frame 
+    /// @brief button extended over over Frame with thick and raise frame 
     #define GUIDesignButton                 (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X) , 0, 0, 0, 0, 4, 4, 3, 3
 
     /// @brief button extended over over column with thick and raise frame 
     #define GUIDesignButtonAttribute        (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
 
-    /// @brief button with size limited by text, centered over GNEFrame with thick and raise frame 
+    /// @brief button with size limited by text, centered over Frame with thick and raise frame 
     #define GUIDesignButtonDialog           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_CENTER_X | JUSTIFY_NORMAL)
 
     /// @brief little button for help in frames
@@ -80,12 +86,16 @@
     #define GUIDesignButtonToolbarCheckable (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
 
     /// @brief OK Button
-    #define GUIDesignButtonOK               (LAYOUT_FIX_WIDTH | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | FRAME_THICK | FRAME_RAISED), 0, 0, 50, 30
+    #define GUIDesignButtonOK               (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, 23, 2, 2, 2, 2
 
     /// @brief Accept Button
-
+    #define GUIDesignButtonAccept           (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, 23, 2, 2, 2, 2
+    
     /// @brief Cancel Button
+    #define GUIDesignButtonCancel           (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, 23, 2, 2, 2, 2
 
+    /// @brief Reset Button
+    #define GUIDesignButtonReset            (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, 23, 2, 2, 2, 2
 
 /// @}
     
@@ -100,7 +110,7 @@
 
 /// @name FXMenu Checks
 /// @{
-    /// @brief MenuCheck for GNEFrames extended over the frame
+    /// @brief MenuCheck for Frames extended over the frame
     #define GUIDesignMenuCheck              (LAYOUT_LEFT | ICON_BEFORE_TEXT)
 
     /// @brief MenuCheck button for attributes extended over the matrix column
@@ -109,22 +119,25 @@
 
 /// @name FXLabels
 /// @{
-    /// @brief label extended over over GNEFrame without thick and with text justify to left
+    /// @brief label extended over over frame without thick and with text justify to left
     #define GUIDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-    /// @brief label extended over over GNEFrame without thick and with text justify to right
+    /// @brief label extended over over frame without thick and with text justify to right
     #define GUIDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-    /// @brief label extended over over GNEFrame without thickand  with text justify to center
+    /// @brief label extended over over frame without thickand  with text justify to center
     #define GUIDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-    /// @brief label extended over over GNEFrame with thick and with text justify to left
+    /// @brief label extended over over frame with thick and with text justify to left
+    #define GUIDesignLabelThick             (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+
+    /// @brief label extended over over frame with thick and with text justify to left
     #define GUIDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-    /// @brief label extended over over GNEFrame with thick and with text justify to right
+    /// @brief label extended over over frame with thick and with text justify to right
     #define GUIDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-    /// @brief label extended over over GNEFrame with thick and with text justify to center
+    /// @brief label extended over over frame with thick and with text justify to center
     #define GUIDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label extended over the matrix column with thick frame
@@ -151,12 +164,18 @@
     /// @brief Horizontal frame extended over frame
     #define GUIDesignHorizontalFrame        (LAYOUT_FILL_X | LAYOUT_LEFT)
 
+    /// @brief Vertical frame extended over frame
+    #define GUIDesignVerticalFrame          (LAYOUT_FILL_Y | LAYOUT_LEFT)
+
     /// @brief Horizontal frame used in status bar
     #define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
     
-    /// @brief Matrix design extended over GNEFrame and used for represent attributes and their values
-    #define GUIDesignMatrixAttributes           (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
+    /// @brief Matrix design extended over Frame packed by columns
+    #define GUIDesignMatrix                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
     
+    /// @brief Matrix design extended over Frame and used for represent attributes and their values
+    #define GUIDesignMatrixAttributes           (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
+
     /// @brief Group box design extended over frame
     #define GUIDesignGroupBoxFrame              (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
 
@@ -260,10 +279,16 @@
     #define GUIDesignAboutLinkLabel         (LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 5, 5, 5, 5
 /// @}
 
+/// @name design for Tables
+
+    /// @brief design for tables which their rows and columns cannot be selected
+    #define GUIDesignTableNoRowColSelectables   (LAYOUT_FILL_X | LAYOUT_FILL_Y | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT)
+/// @}
+
     /// @brief Tree list used in frames to represent childs of elements
     #define GUIDesignTreeListFrame          (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
-    /// @brief CheckButton for GNEFrames extended over the frame
+    /// @brief CheckButton for Frames extended over the frame
     #define GUIDesignCheckButton            (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)

@@ -46,8 +46,6 @@ GNEClosingReroute::GNEClosingReroute(GNERerouterInterval &rerouterIntervalParent
     myDisallowVehicles(disallowVehicles),
     myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_CLOSING_REROUTE) {
-    // edge cannot be NULL 
-    assert(myClosedEdge);
 }
 
 

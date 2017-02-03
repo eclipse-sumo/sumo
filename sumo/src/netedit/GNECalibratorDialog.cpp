@@ -264,7 +264,7 @@ GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal
-    getApp()->stopModal(this, TRUE);
+    getApp()->stopModal(this, FALSE);
     return 1;
 }
 

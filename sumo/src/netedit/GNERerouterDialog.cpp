@@ -30,6 +30,7 @@
 #include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNERerouterDialog.h"
 #include "GNERerouter.h"
@@ -62,11 +63,10 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     GNEAdditionalDialog(rerouterParent, 320, 240),
     myRerouterParent(rerouterParent) {
     // Create table, copy intervals and update table
-    myIntervalList = new FXTable(myContentFrame, this, MID_GNE_MODE_ADDITIONALDIALOG_TABLE, TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myIntervalList = new FXTable(myContentFrame, this, MID_GNE_MODE_ADDITIONALDIALOG_TABLE, GUIDesignTableNoRowColSelectables);
     myIntervalList->setEditable(false);
     myRerouterIntervals = myRerouterParent->getRerouterIntervals();
     updateTable();
-
     // Execute additional dialog (To make it modal)
     execute();
 }
@@ -97,8 +97,9 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+
     // Stop Modal
-    getApp()->stopModal(this, TRUE);
+    getApp()->stopModal(this, FALSE);
     return 1;
 }
 
@@ -119,19 +120,39 @@ GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
     if(myIntervalList->getNumRows() > 0) {
         // check if add button was pressed
         if(myIntervalList->getItem((int)myRerouterIntervals.size(), 3)->hasFocus()) {
-            //GNERerouterIntervalDialog(new GNERerouterInterval(myRerouterParent, 10, 10));
+            GNERerouterInterval newInterval(myRerouterParent, 0, 0);
+            if(GNERerouterIntervalDialog(newInterval).execute() == TRUE) {
+                myRerouterIntervals.push_back(newInterval);
+                updateTable();
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
             // check if some delete button was pressed
             for(int i = 0; i < (int)myRerouterIntervals.size(); i++) {
                 if(myIntervalList->getItem(i, 3)->hasFocus()) {
+                    // remove row
                     myIntervalList->removeRows(i);
                     myRerouterIntervals.erase(myRerouterIntervals.begin() + i);
                     return 1;
                 }
             }
+            // check if some edit button was pressed
+            for(int i = 0; i < (int)myRerouterIntervals.size(); i++) {
+                if(myIntervalList->getItem(i, 2)->hasFocus()) {
+                    // edit interval
+                    GNERerouterIntervalDialog(*(myRerouterIntervals.begin() + i)).execute();
+                    return 1;
+                }
+            }
+            // nothing to do
+            return 0;
         }
+    } else {
+        // there aren't row
+        return 0;
     }
-    return 1;
 }
 
 
@@ -163,6 +184,9 @@ GNERerouterDialog::updateTable() {
         // Set speed
         item = new FXTableItem(toString(i->getEnd()).c_str());
         myIntervalList->setItem(indexRow, 1, item);
+        // Set edit
+        item = new FXTableItem("");
+        myIntervalList->setItem(indexRow, 2, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);

@@ -29,6 +29,8 @@
 
 #include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "GNEAdditionalDialog.h"
 #include "GNEAdditional.h"
 #include "GNEViewNet.h"
@@ -56,15 +58,18 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXDialogBox, GNEAdditionalDialogMap, A
 // ===========================================================================
 
 GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int height) :
-    FXDialogBox(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), LAYOUT_EXPLICIT | DECOR_TITLE | DECOR_BORDER, 0, 0, width, height) {
+    FXDialogBox(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), LAYOUT_EXPLICIT | DECOR_TITLE | DECOR_BORDER, 0, 0, width, height, 0, 0, 0, 0) {
+    
+    FXVerticalFrame *mainFrame = new FXVerticalFrame(this, LAYOUT_FILL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     // Create frames
-    myContentFrame = new FXVerticalFrame(this, LAYOUT_EXPLICIT, 0, 0, width, height - 30);
-    myButtonFrame = new FXHorizontalFrame(this, LAYOUT_EXPLICIT, 0, height - 30, width, 30);
-    // create buttons
+    myContentFrame = new FXVerticalFrame(mainFrame, LAYOUT_FILL);
+    myButtonFrame = new FXHorizontalFrame(mainFrame, LAYOUT_FILL_X);
+
+    // create buttons centered
     new FXHorizontalFrame(myButtonFrame, LAYOUT_FILL_X);
-    myAcceptButton = new FXButton(myButtonFrame, "accept\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT, ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED, 0, 0, 75, 23, 2, 2, 2, 2);
-    myCancelButton = new FXButton(myButtonFrame, "cancel\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED, 0, 0, 75, 23, 2, 2, 2, 2);
-    myResetButton = new FXButton(myButtonFrame,  "reset\t\tclose",  0, this, MID_GNE_MODE_ADDITIONALDIALOG_RESET,  ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED, 0, 0, 75, 23, 2, 2, 2, 2);
+    myAcceptButton = new FXButton(myButtonFrame, "accept\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(myButtonFrame, "cancel\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(myButtonFrame,  "reset\t\tclose",  0, this, MID_GNE_MODE_ADDITIONALDIALOG_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(myButtonFrame, LAYOUT_FILL_X);
 }
 

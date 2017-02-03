@@ -89,6 +89,30 @@ protected:
     /// @brief pointer to rerouter interval
     GNERerouterInterval *myRerouterInterval;
 
+    /// @brief begin/end time label
+    FXLabel *myBeginEndLabel;
+
+    /// @brief begin time text field
+    FXTextField *myBeginTextField;
+
+    /// @brief end time text field
+    FXTextField *myEndTextField;
+
+    /// @brief begin/end time check label
+    FXLabel *myCheckLabel;
+
+    /// @brief closing lane reroutes label
+    FXLabel *myClosingLaneReroutesLabel;
+
+    /// @brief closing reroutes label 
+    FXLabel *myCLosingReroutesLabel;
+
+    /// @brief dest prob reroutes label
+    FXLabel *myDestProbReroutesLabel;
+
+    /// @brief route prob reroutes label
+    FXLabel *myRouteProbReroutesLabel;
+
     /// @brief list with closing lane reroutes
     FXTable* myClosingLaneRerouteList;
 
@@ -108,7 +132,7 @@ protected:
     std::vector<GNEClosingReroute> myCopyOfClosingReroutes;
 
     /// @brief vector with a copy of the destProbReroutes
-    std::vector<GNEDestProbReroute> CopyOfmyDestProbReroutes;
+    std::vector<GNEDestProbReroute> myCopyOfmyDestProbReroutes;
 
     /// @brief vector with a copy of the routeProbReroutes
     std::vector<GNERouteProbReroute> myCopyOfRouteProbReroutes;

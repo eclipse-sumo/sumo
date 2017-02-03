@@ -39,6 +39,7 @@
 
 class GNERerouter;
 class GNERerouterInterval;
+class GNERerouterIntervalDialog;
 
 // ===========================================================================
 // class definitions
@@ -90,7 +91,7 @@ protected:
 
     /// @brief set with a copy of rerouter intervals
     std::vector<GNERerouterInterval> myRerouterIntervals;
-
+  
     /// @brief update data table
     void updateTable();
 

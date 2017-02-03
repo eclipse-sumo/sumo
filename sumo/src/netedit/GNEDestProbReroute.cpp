@@ -45,8 +45,6 @@ GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval &rerouterIntervalPare
     myProbability(0),
     myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_DEST_PROB_REROUTE) {
-    // edge cannot be NULL 
-    assert(myNewEdgeDestination);
     // set probability manually to avoid non valid values
     setProbability(probability);
 }
