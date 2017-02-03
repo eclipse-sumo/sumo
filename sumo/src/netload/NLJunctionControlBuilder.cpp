@@ -54,6 +54,7 @@
 #include <microsim/traffic_lights/MSSwarmTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDeterministicHiLevelTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSSOTLWaveTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
@@ -309,7 +310,12 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                     myAdditionalParameter, basePath);
             break;
-        case TLTYPE_DELAYBASED: // placeholder for future development
+        case TLTYPE_DELAYBASED:
+            tlLogic = new MSDelayBasedTrafficLightLogic(getTLLogicControlToUse(),
+                    myActiveKey, myActiveProgram,
+                    myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
+                    myAdditionalParameter, basePath);
+            break;
         case TLTYPE_STATIC:
             tlLogic =
                 new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),

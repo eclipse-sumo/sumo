@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSDelayBasedTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSDeterministicHiLevelTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSPhasedTrafficLightLogic.cpp" />
@@ -171,7 +172,7 @@
     <ClCompile Include="..\..\..\src\microsim\traffic_lights\MSTrafficLightLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSActuatedTrafficLightLogic.h" />
+    <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSDelayBasedTrafficLightLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSDeterministicHiLevelTrafficLightLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSOffTrafficLightLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\traffic_lights\MSPhaseDefinition.h" />
