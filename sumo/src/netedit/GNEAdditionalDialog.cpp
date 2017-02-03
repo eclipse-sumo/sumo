@@ -58,24 +58,32 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXDialogBox, GNEAdditionalDialogMap, A
 // ===========================================================================
 
 GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int height) :
-    FXDialogBox(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), LAYOUT_EXPLICIT | DECOR_TITLE | DECOR_BORDER, 0, 0, width, height, 0, 0, 0, 0) {
-    
-    FXVerticalFrame *mainFrame = new FXVerticalFrame(this, LAYOUT_FILL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    // Create frames
-    myContentFrame = new FXVerticalFrame(mainFrame, LAYOUT_FILL);
-    myButtonFrame = new FXHorizontalFrame(mainFrame, LAYOUT_FILL_X);
-
+    FXDialogBox(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0) {
+    // check that parent isn't NULL
+    assert(parent != NULL);
+    // set icon
+    setIcon(parent->getIcon());
+    // create main frame
+    FXVerticalFrame *mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // Create frame for contents
+    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
     // create buttons centered
-    new FXHorizontalFrame(myButtonFrame, LAYOUT_FILL_X);
-    myAcceptButton = new FXButton(myButtonFrame, "accept\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(myButtonFrame, "cancel\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(myButtonFrame,  "reset\t\tclose",  0, this, MID_GNE_MODE_ADDITIONALDIALOG_RESET,  GUIDesignButtonReset);
-    new FXHorizontalFrame(myButtonFrame, LAYOUT_FILL_X);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrameButton);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignHorizontalFrameButton);
+    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", 0, this, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  0, this, MID_GNE_MODE_ADDITIONALDIALOG_RESET,  GUIDesignButtonReset);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignHorizontalFrameButton);
 }
 
 
-GNEAdditionalDialog::~GNEAdditionalDialog() {
-}
+GNEAdditionalDialog::~GNEAdditionalDialog() {}
 
+
+void 
+GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string &newHeader) {
+    // change FXDialogBox title
+    setTitle(newHeader.c_str());
+}
 
 /****************************************************************************/

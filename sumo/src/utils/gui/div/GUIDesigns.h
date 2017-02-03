@@ -162,10 +162,13 @@
 /// @name FXPackers
 /// @{
     /// @brief Horizontal frame extended over frame
-    #define GUIDesignHorizontalFrame        (LAYOUT_FILL_X | LAYOUT_LEFT)
+    #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X | LAYOUT_LEFT)
 
     /// @brief Vertical frame extended over frame
-    #define GUIDesignVerticalFrame          (LAYOUT_FILL_Y | LAYOUT_LEFT)
+    #define GUIDesignVerticalFrame              (LAYOUT_FILL_Y | LAYOUT_LEFT)
+
+    /// @brief Horizontal frame used in Button Frames
+    #define GUIDesignHorizontalFrameButton      (LAYOUT_FILL_X)
 
     /// @brief Horizontal frame used in status bar
     #define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
@@ -194,6 +197,9 @@
     
     /// @brief design for the content frame of every frame
     #define GUIDesignContentsScrollWindow   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
+
+    /// @brief design for auxiliar frame used to pack another frames
+    #define GUIDesignAuxiliarFrame          (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
     /// @brief design for the content frame of every frame
     #define GUIDesignContentsFrame          (LAYOUT_FILL_X | LAYOUT_FILL_Y)
@@ -279,11 +285,24 @@
     #define GUIDesignAboutLinkLabel         (LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 5, 5, 5, 5
 /// @}
 
+
 /// @name design for Tables
+/// @{
 
     /// @brief design for tables which their rows and columns cannot be selected
     #define GUIDesignTableNoRowColSelectables   (LAYOUT_FILL_X | LAYOUT_FILL_Y | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT)
 /// @}
+
+
+/// @name design for dialog boxs
+/// @{
+    /// @brief design for standard dialog box (for example, about dialog)
+    #define GUIDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
+
+    /// @brief design for dialog box with specift width and height (for example, additional dialogs)
+    #define GUIDesignDialogBoxExplicit      (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT)
+/// @}
+
 
     /// @brief Tree list used in frames to represent childs of elements
     #define GUIDesignTreeListFrame          (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
@@ -294,8 +313,6 @@
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
 
     #define GUIDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
-
-    #define GUIDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
 
     #define GUIDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
 

@@ -52,10 +52,10 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
     FXDECLARE(GNERerouterIntervalDialog)
 
 public:
-    // Constructor
+    /// @brief constructor
     GNERerouterIntervalDialog(GNERerouterInterval &rerouterInterval);
 
-    // destructor
+    /// @brief destructor
     ~GNERerouterIntervalDialog();
 
     /// @name FOX-callbacks

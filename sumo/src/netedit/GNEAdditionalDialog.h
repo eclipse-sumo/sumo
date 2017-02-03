@@ -53,11 +53,14 @@ class GNEAdditionalDialog : public FXDialogBox {
     FXDECLARE_ABSTRACT(GNEAdditionalDialog)
 
 public:
-    // Constructor
+    /// @brief constructor
     GNEAdditionalDialog(GNEAdditional* parent, int width, int height);
 
-    // destructor
+    /// @brief destructor
     ~GNEAdditionalDialog();
+
+    /// @brief change additional dialog header
+    void changeAdditionalDialogHeader(const std::string &newHeader);
 
     /// @name FOX-callbacks
     /// @{
@@ -88,9 +91,6 @@ protected:
     FXButton* myResetButton;
 
 private:
-    /// @brief frame for buttons (Not accesible for childs)
-    FXHorizontalFrame* myButtonFrame;
-
     /// @brief Invalidated copy constructor
     GNEAdditionalDialog(const GNEAdditionalDialog&);
 
