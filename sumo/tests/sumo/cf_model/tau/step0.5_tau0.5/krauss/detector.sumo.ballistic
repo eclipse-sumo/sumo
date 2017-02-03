@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep  9 15:31:35 2016 by SUMO Version dev-SVN-r21424
+<!-- generated on Wed Feb  1 11:29:12 2017 by SUMO Version dev-SVN-r21650
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<instantE1>
+<instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
     <instantOut id="beg_end" time="23.59" state="enter" vehID="leader" speed="20.00" length="5.00" type="leader"/>
     <instantOut id="beg_end" time="23.84" state="leave" vehID="leader" speed="20.00" length="5.00" type="leader" occupancy="0.25"/>
     <instantOut id="beg_end" time="24.41" state="enter" vehID="follower" speed="20.28" length="5.00" type="follower" gap="0.56"/>

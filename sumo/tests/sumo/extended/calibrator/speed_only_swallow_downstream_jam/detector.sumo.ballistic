@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  5 13:45:14 2016 by SUMO Version dev-SVN-r20343
+<!-- generated on Wed Feb  1 11:28:58 2017 by SUMO Version dev-SVN-r21650
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,10 @@
         <end value="5401"/>
     </time>
 
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -24,7 +28,7 @@
 </configuration>
 -->
 
-<calibratorstats>
-   <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="531" removed="0" inserted="0" cleared="661" flow="531.00" aspiredFlow="-1.00" speed="1.24" aspiredSpeed="27.80"/>
-   <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="211" removed="0" inserted="0" cleared="389" flow="422.00" aspiredFlow="-1.00" speed="1.03" aspiredSpeed="27.80"/>
+<calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
+    <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="531" removed="0" inserted="0" cleared="661" flow="531.00" aspiredFlow="-1.00" speed="1.25" aspiredSpeed="27.80"/>
+    <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="211" removed="0" inserted="0" cleared="389" flow="422.00" aspiredFlow="-1.00" speed="1.03" aspiredSpeed="27.80"/>
 </calibratorstats>

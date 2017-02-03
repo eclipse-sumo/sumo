@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct  6 14:21:26 2016 by SUMO Version dev-SVN-r21424
+<!-- generated on Wed Feb  1 11:29:16 2017 by SUMO Version dev-SVN-r21650
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,6 +32,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="needsHelp" depart="0.00" departLane="end_1" departPos="196.99" departSpeed="0.00" departDelay="0.00" arrival="91.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="91.00" routeLength="3001.93" waitSteps="3" timeLoss="7.39" rerouteNo="0" devices="tripinfo_needsHelp" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="speedAssist" depart="0.00" departLane="end_0" departPos="185.00" departSpeed="3.00" departDelay="0.00" arrival="92.20" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="92.20" routeLength="3013.92" waitSteps="0" timeLoss="8.31" rerouteNo="0" devices="tripinfo_speedAssist" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="needsHelp" depart="0.00" departLane="end_1" departPos="196.99" departSpeed="0.00" departDelay="0.00" arrival="91.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="91.00" routeLength="3001.93" waitSteps="3" timeLoss="7.40" rerouteNo="0" devices="tripinfo_needsHelp" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="speedAssist" depart="0.00" departLane="end_0" departPos="185.00" departSpeed="3.00" departDelay="0.00" arrival="92.20" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="92.20" routeLength="3013.92" waitSteps="0" timeLoss="8.31" rerouteNo="0" devices="tripinfo_speedAssist" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

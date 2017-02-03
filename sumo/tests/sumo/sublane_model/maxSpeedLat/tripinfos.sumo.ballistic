@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb  1 11:29:17 2017 by SUMO Version dev-SVN-r21650
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.8"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.70" departSpeed="0.00" departDelay="0.00" arrival="41.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.70" arrivalSpeed="13.71" duration="41.00" routeLength="500.00" waitSteps="0" timeLoss="4.32" rerouteNo="0" devices="tripinfo_car" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car2" depart="3.00" departLane="beg_0" departPos="0.00" departPosLat="-0.70" departSpeed="0.00" departDelay="1.00" arrival="52.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="-0.70" arrivalSpeed="12.82" duration="49.00" routeLength="500.00" waitSteps="0" timeLoss="12.12" rerouteNo="0" devices="tripinfo_car2" vType="car2" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bike" depart="0.00" departLane="beg_0" departPos="20.00" departPosLat="-1.28" departSpeed="0.00" departDelay="0.00" arrival="95.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="-1.28" arrivalSpeed="5.50" duration="95.00" routeLength="480.00" waitSteps="0" timeLoss="7.40" rerouteNo="0" devices="tripinfo_bike" vType="bike" speedFactor="1.00" vaporized=""/>
+</tripinfos>

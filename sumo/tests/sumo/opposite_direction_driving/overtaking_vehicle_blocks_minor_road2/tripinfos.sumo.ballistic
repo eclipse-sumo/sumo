@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 13 12:08:04 2016 by SUMO Version dev-SVN-r21424
+<!-- generated on Wed Feb  1 11:29:17 2017 by SUMO Version dev-SVN-r21650
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,9 +28,9 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="oncoming1" depart="3.00" departLane="NC_0" departPos="94.25" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.78" duration="15.00" routeLength="151.82" waitSteps="0" timeLoss="3.08" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="overtaking" depart="2.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="24.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.08" duration="22.00" routeLength="195.25" waitSteps="0" timeLoss="6.75" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="oncoming2" depart="3.00" departLane="NC_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="27.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.36" duration="24.00" routeLength="226.07" waitSteps="0" timeLoss="6.96" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="oncoming3" depart="3.00" departLane="NC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="30.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.52" duration="27.00" routeLength="246.07" waitSteps="0" timeLoss="8.05" rerouteNo="0" devices="tripinfo_oncoming3" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="stopped2" depart="2.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="122.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.02" duration="120.00" routeLength="155.25" waitSteps="1" timeLoss="6.82" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="oncoming1" depart="3.00" departLane="NC_0" departPos="94.25" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.45" duration="15.00" routeLength="151.82" waitSteps="0" timeLoss="2.91" rerouteNo="0" devices="tripinfo_oncoming1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="2.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="23.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.86" duration="21.00" routeLength="195.25" waitSteps="0" timeLoss="5.96" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="oncoming2" depart="3.00" departLane="NC_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="27.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="13.50" duration="24.00" routeLength="226.07" waitSteps="0" timeLoss="6.84" rerouteNo="0" devices="tripinfo_oncoming2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="oncoming3" depart="3.00" departLane="NC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="30.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="12.87" duration="27.00" routeLength="246.07" waitSteps="0" timeLoss="8.22" rerouteNo="0" devices="tripinfo_oncoming3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped2" depart="2.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="122.00" arrivalLane="VODUGES_end_0" arrivalPos="140.50" arrivalSpeed="12.93" duration="120.00" routeLength="155.25" waitSteps="1" timeLoss="7.01" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
