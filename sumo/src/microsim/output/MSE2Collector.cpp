@@ -7,6 +7,7 @@
 /// @author  Michael Behrisch
 /// @author  Robbin Blokpoel
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    Mon Feb 03 2014 10:13 CET
 /// @version $Id$
 ///
@@ -46,6 +47,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define DEBUG_NOTIFY_MOVE
 
 // ===========================================================================
 // method definitions
@@ -157,14 +159,18 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     myKnownVehicles.push_back(VehicleInfo(veh.getID(), veh.getVehicleType().getID(), averageSpeedOnDetector,
                                           timeOnDet, lengthOnDet, newPos,
                                           veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), vmax, true));
-    DBG(
+//    DBG(
+#ifdef DEBUG_NOTIFY_MOVE
         std::ostringstream str;
         str << time2string(MSNet::getInstance()->getCurrentTimeStep())
         << " MSE2Collector::notifyMove::"
         << " lane " << myLane->getID()
-        << " passedVeh " << myPassedVeh;
-        WRITE_MESSAGE(str.str());
-    )
+        << " passedVeh " << myPassedVeh
+        << " myKnownVehicles-length " << myPreviousKnownVehicles.size();
+//        WRITE_MESSAGE(str.str());
+        std::cout << str.str() << std::endl;
+#endif
+//    )
     return true;
 }
 
@@ -234,6 +240,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
 
     // go through the (sorted) list of vehicles positioned on the detector
     //  sum up values and prepare the list of jams
+    std::vector<VehicleInfo>::const_iterator iv;
     const int numVehicles = (int)myKnownVehicles.size();
     for (std::vector<VehicleInfo>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
         myVehicleSamples += i->timeOnDet;
@@ -360,6 +367,24 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     for (std::vector<JamInfo*>::iterator i = jams.begin(); i != jams.end(); ++i) {
         delete *i;
     }
+
+
+    // Accumulate the timelosses for the individual vehicles
+    // TODO: This could be speeded up by (1) not starting the search from the begin() but using the previous iv+1 as a start point and
+    //       looking in a zigzag fashion for the next vehicle; (2) not using strings in the comparison but (maybe) pointers
+    //       (include in VehicleInfo?); (3) including this code into the first loop above on the price of using a non-constant
+    //       iterator there.
+    for (std::vector<VehicleInfo>::iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
+        for (iv = myPreviousKnownVehicles.begin(); iv != myPreviousKnownVehicles.end(); ++iv){
+            // if the vehicle was here before, account for the accumulated timeloss as well (i->timeLoss is only the last step's timeloss)
+            if (iv->id == i->id){
+                i->accumulatedTimeLoss += iv->timeLoss;
+                break;
+            }
+        }
+    }
+
+
     myPreviousKnownVehicles = myKnownVehicles;
     myKnownVehicles.clear();
 }

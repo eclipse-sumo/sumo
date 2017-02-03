@@ -6,6 +6,7 @@
 /// @author  Michael Behrisch
 /// @author  Robbin Blokpoel
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    Mon Feb 03 2014 14:13 CET
 /// @version $Id$
 ///
@@ -97,6 +98,7 @@ public:
             lengthWithGap(_lengthWithGap), 
             accel(_accel), 
             timeLoss(vmax > 0 ? timeOnDet * (vmax - speed) / vmax : 0),
+            accumulatedTimeLoss(timeLoss),
             stillOnDet(_stillOnDet) {}
         std::string id;
         std::string type;
@@ -107,6 +109,7 @@ public:
         SUMOReal lengthWithGap;
         SUMOReal accel;
         SUMOReal timeLoss;
+        SUMOReal accumulatedTimeLoss;
         bool stillOnDet;
     };
 
