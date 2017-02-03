@@ -72,7 +72,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
 
     myMaxGap = TplConvert::_2SUMOReal(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
-    myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str());
+    myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str()); // passing-time seems obsolete... (Leo)
     myDetectorGap = TplConvert::_2SUMOReal(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
@@ -185,7 +185,7 @@ MSActuatedTrafficLightLogic::gapControl() {
                 if (myInductLoops.find(*j) == myInductLoops.end()) {
                     continue;
                 }
-                if (!MSGlobals::gUseMesoSim) {
+                if (!MSGlobals::gUseMesoSim) { // why not check outside the loop? (Leo)
                     const SUMOReal actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimestepsSinceLastDetection();
                     if (actualGap < myMaxGap) {
                         result = MIN2(result, actualGap);
