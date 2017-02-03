@@ -46,7 +46,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Junction, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-// Constructor for creating a junction
+/// @brief constructor for creating a junction
 GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
     GNEChange(junction->getNet(), forward),
     myJunction(junction) {

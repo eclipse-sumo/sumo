@@ -49,7 +49,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-// Constructor for creating an edge
+/// @brief constructor for creating an edge
 GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID):
     GNEChange(junction->getNet(), forward),
     myJunction(junction),

@@ -53,10 +53,10 @@ class GNEVariableSpeedSignDialog : public GNEAdditionalDialog {
     FXDECLARE(GNEVariableSpeedSignDialog)
 
 public:
-    // Constructor
+    /// @brief constructor
     GNEVariableSpeedSignDialog(GNEVariableSpeedSign* variableSpeedSignParent);
 
-    // destructor
+    /// @brief destructor
     ~GNEVariableSpeedSignDialog();
 
     /// @name FOX-callbacks

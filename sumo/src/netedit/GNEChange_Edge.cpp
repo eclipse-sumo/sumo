@@ -47,7 +47,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-// Constructor for creating an edge
+/// @brief constructor for creating an edge
 GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
     GNEChange(edge->getNet(), forward),
     myEdge(edge) {

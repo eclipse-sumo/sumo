@@ -48,7 +48,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-// Constructor for creating an crossing
+/// @brief constructor for creating an crossing
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*> &edges, SUMOReal width, bool priority, bool forward):
     GNEChange(junctionParent->getNet(), forward),
     myJunctionParent(junctionParent),

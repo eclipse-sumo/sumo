@@ -46,10 +46,10 @@ class GNECalibratorDialog : public GNEAdditionalDialog {
     FXDECLARE(GNECalibratorDialog)
 
 public:
-    // Constructor
+    /// @brief constructor
     GNECalibratorDialog(GNECalibrator* calibratorParent);
 
-    // destructor
+    /// @brief destructor
     ~GNECalibratorDialog();
 
     /// @name FOX-callbacks

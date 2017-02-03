@@ -46,10 +46,10 @@
  */
 class GNEReferenceCounter {
 public:
-    /// constructor
+    //// @brief constructor
     GNEReferenceCounter(): myCount(0) {}
 
-    /// destructor
+    //// @brief destructor
     ~GNEReferenceCounter() {
         if (myCount) {
             // cannot print id here, it already got destructed
