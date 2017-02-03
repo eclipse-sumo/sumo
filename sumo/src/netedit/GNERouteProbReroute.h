@@ -52,10 +52,7 @@ class GNERerouterInterval;
 class GNERouteProbReroute {
 public:
     /// @brief constructor
-    GNERouteProbReroute(GNERerouterInterval *rerouterIntervalParent, std::string newRouteId, SUMOReal probability);
-
-    /// @brief copy constructor using a pointer (used in Rerouter dialog)
-    GNERouteProbReroute(GNERouteProbReroute* routeProbReroute);
+    GNERouteProbReroute(GNERerouterInterval &rerouterIntervalParent, std::string newRouteId, SUMOReal probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();
@@ -73,10 +70,13 @@ public:
     SumoXMLTag getTag() const;
 
     /// @brief get rerouter interval parent
-    GNERerouterInterval *getRerouterIntervalParent() const;
+    const GNERerouterInterval &getRerouterIntervalParent() const;
+
+    /// @brief overload == operator
+    bool operator==(const GNERouteProbReroute &routeProbReroute);
 
 protected:
-    /// @brief pointer to rerouter interval parent
+    /// @brief reference to rerouter interval parent
     GNERerouterInterval *myRerouterIntervalParent;
 
     /// @brief XML Tag of route probability reroute
@@ -88,13 +88,6 @@ protected:
 
     /// @brief probability with which a vehicle will use the given edge as destination
     SUMOReal myProbability;
-
-private:
-    /// @brief Invalidated copy constructor.
-    GNERouteProbReroute(const GNERouteProbReroute&);
-
-    /// @brief Invalidated assignment operator.
-    GNERouteProbReroute& operator=(const GNERouteProbReroute&);
 };
 
 #endif

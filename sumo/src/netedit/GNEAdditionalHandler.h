@@ -37,8 +37,8 @@
 #include <utils/geom/Position.h>
 
 #include "GNECalibrator.h"
-#include "GNERerouter.h"
 #include "GNEVariableSpeedSign.h"
+#include "GNERerouterInterval.h"
 
 // ===========================================================================
 // class declarations
@@ -389,8 +389,8 @@ protected:
     /// @brief Pointer to the last inserted E3
     GNEDetectorE3 *myE3Parent;
 
-    /// @brief rerouterInterval in whicn insert GNEClosingReroute, GNEDestProbReroute, etc.
-    GNERerouterInterval* rerouterIntervalToInsertValues;
+    /// @brief pointer to rerouterInterval in which insert GNEClosingReroute, GNEDestProbReroute, etc.
+    GNERerouterInterval *rerouterIntervalToInsertValues;
 
     /// @brief last used Tag
     SumoXMLTag myLastTag;

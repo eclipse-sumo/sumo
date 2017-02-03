@@ -31,17 +31,12 @@
 #endif
 
 #include "GNEAdditionalDialog.h"
+#include "GNERerouterInterval.h"
+#include "GNEClosingLaneReroute.h"
+#include "GNEClosingReroute.h"
+#include "GNEDestProbReroute.h"
+#include "GNERouteProbReroute.h"
 
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNERerouterInterval;
-class GNEClosingLaneReroute;
-class GNEClosingReroute;
-class GNEDestProbReroute;
-class GNERouteProbReroute;
 
 // ===========================================================================
 // class definitions
@@ -58,7 +53,7 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     // Constructor
-    GNERerouterIntervalDialog(GNERerouterInterval *rerouterInterval);
+    GNERerouterIntervalDialog(GNERerouterInterval &rerouterInterval);
 
     // destructor
     ~GNERerouterIntervalDialog();
@@ -92,7 +87,7 @@ protected:
     GNERerouterIntervalDialog() {}
 
     /// @brief pointer to rerouter interval
-    GNERerouterInterval* myRerouterInterval;
+    GNERerouterInterval *myRerouterInterval;
 
     /// @brief list with closing lane reroutes
     FXTable* myClosingLaneRerouteList;
@@ -107,19 +102,16 @@ protected:
     FXTable* myRouteProbReroute;
 
     /// @brief vector with the closingLaneReroutes
-    std::vector<GNEClosingLaneReroute*> myCopyOfClosingLaneReroutes;
+    std::vector<GNEClosingLaneReroute> myCopyOfClosingLaneReroutes;
 
     /// @brief vector with a copy of the closingReroutes
-    std::vector<GNEClosingReroute*> myCopyOfClosingReroutes;
+    std::vector<GNEClosingReroute> myCopyOfClosingReroutes;
 
     /// @brief vector with a copy of the destProbReroutes
-    std::vector<GNEDestProbReroute*> CopyOfmyDestProbReroutes;
+    std::vector<GNEDestProbReroute> CopyOfmyDestProbReroutes;
 
     /// @brief vector with a copy of the routeProbReroutes
-    std::vector<GNERouteProbReroute*> myCopyOfRouteProbReroutes;
-
-    // @brief copy original elements from interval to copy lists
-    void copyElements();
+    std::vector<GNERouteProbReroute> myCopyOfRouteProbReroutes;
 
     /// @brief update data of closing lane reroute table
     void updateClosingLaneReroutesTable();

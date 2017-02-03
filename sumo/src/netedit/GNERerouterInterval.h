@@ -33,17 +33,12 @@
 #include <vector>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include "GNERerouter.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNERerouter;
-class GNEClosingLaneReroute;
-class GNEClosingReroute;
-class GNEDestProbReroute;
-class GNERouteProbReroute;
-
+#include "GNEClosingLaneReroute.h"
+#include "GNEClosingReroute.h"
+#include "GNEDestProbReroute.h"
+#include "GNERouteProbReroute.h"
 
 // ===========================================================================
 // class definitions
@@ -52,13 +47,10 @@ class GNERouteProbReroute;
  * @class GNERerouterInterval
  * class used to represent a interval used in rerouters
  */
-class GNERerouterInterval : public std::pair<SUMOReal, SUMOReal> {
+class GNERerouterInterval {
 public:
     /// @brief constructor
     GNERerouterInterval(GNERerouter *rerouterParent, SUMOReal begin, SUMOReal end);
-
-    /// @brief copy constructor using a pointer (used in Rerouter dialog)
-    GNERerouterInterval(GNERerouterInterval* rerouterInterval);
 
     /// @brief destructor
     ~GNERerouterInterval();
@@ -66,45 +58,45 @@ public:
     /**@brief insert a new closing lane reroute
      * @throw ProcessError if closing lane reroute was already inserted
      */
-    void insertClosinLanegReroutes(GNEClosingLaneReroute* clr);
+    void insertClosinLanegReroutes(const GNEClosingLaneReroute &clr);
 
     /**@brief remove a previously inserted closing reroute
      * @throw ProcessError if closing lane reroute cannot be found
      */
-    void removeClosingLaneReroutes(GNEClosingLaneReroute* clr);
+    void removeClosingLaneReroutes(const GNEClosingLaneReroute &clr);
 
     /**@brief insert a new closing lane reroute
      * @throw ProcessError if closing reroute was already inserted
      */
-    void insertClosingReroutes(GNEClosingReroute* cr);
+    void insertClosingReroutes(const GNEClosingReroute &cr);
 
     /**@brief remove a previously inserted closing reroute
      * @throw ProcessError if closing reroute cannot be found
      */
-    void removeClosingReroutes(GNEClosingReroute* cr);
+    void removeClosingReroutes(const GNEClosingReroute &cr);
 
     /**@brief insert destiny probability reroute
      * @throw ProcessError if destiny probability reroute was already inserted
      */
-    void insertDestProbReroutes(GNEDestProbReroute* dpr);
+    void insertDestProbReroutes(const GNEDestProbReroute &dpr);
 
     /**@brief remove a previously inserted destiny probability reroute
      * @throw ProcessError if destiny probability reroute cannot be found
      */
-    void removeDestProbReroutes(GNEDestProbReroute* dpr);
+    void removeDestProbReroutes(const GNEDestProbReroute &dpr);
 
     /**@brief insert route probability reroute
      * @throw ProcessError if route probability reroute was already inserted
      */
-    void insertRouteProbReroute(GNERouteProbReroute* rpr);
+    void insertRouteProbReroute(const GNERouteProbReroute &rpr);
 
     /**@brief remove a previously inserted route probability reroute
      * @throw ProcessError if route probability reroute cannot be found
      */
-    void removeRouteProbReroute(GNERouteProbReroute* rpr);
+    void removeRouteProbReroute(const GNERouteProbReroute &rpr);
 
     /// @brief get rerouter parent
-    GNERerouter *getRerouterParent();
+    GNERerouter *getRerouterParent() const;
 
     /// @brief get begin time
     SUMOReal getBegin() const;
@@ -116,42 +108,44 @@ public:
     SumoXMLTag getTag() const;
 
     /// @brief get closing reroutes
-    const std::vector<GNEClosingLaneReroute*> &getClosingLaneReroutes() const;
+    const std::vector<GNEClosingLaneReroute> &getClosingLaneReroutes() const;
 
     /// @brief get closing reroutes
-    const std::vector<GNEClosingReroute*> &getClosingReroutes() const;
+    const std::vector<GNEClosingReroute> &getClosingReroutes() const;
 
     /// @brief get destiny probability reroutes
-    const std::vector<GNEDestProbReroute*> &getDestProbReroutes() const;
+    const std::vector<GNEDestProbReroute> &getDestProbReroutes() const;
 
     /// @brief get reoute probability reroutes
-    const std::vector<GNERouteProbReroute*> &getRouteProbReroutes() const;
+    const std::vector<GNERouteProbReroute> &getRouteProbReroutes() const;
+
+    /// @brief overload operator =
+    GNERerouterInterval &operator=(const GNERerouterInterval &rerouterInterval);
 
 protected:
-    /// @brief poniter to rerouter parent
+    /// @brief pointer to rerouter parent
     GNERerouter *myRerouterParent;
+
+    /// @brief begin timeStep
+    SUMOReal myBegin;
+
+    /// @brief end timeStep
+    SUMOReal myEnd;
 
     /// @brief XML Tag of a rerouter interval
     SumoXMLTag myTag;
 
     /// @brief vector with the closingLaneReroutes
-    std::vector<GNEClosingLaneReroute*> myClosingLaneReroutes;
+    std::vector<GNEClosingLaneReroute> myClosingLaneReroutes;
 
     /// @brief vector with the closingReroutes
-    std::vector<GNEClosingReroute*> myClosingReroutes;
+    std::vector<GNEClosingReroute> myClosingReroutes;
 
     /// @brief vector with the destProbReroutes
-    std::vector<GNEDestProbReroute*> myDestProbReroutes;
+    std::vector<GNEDestProbReroute> myDestProbReroutes;
 
     /// @brief vector with the routeProbReroutes
-    std::vector<GNERouteProbReroute*> myRouteProbReroutes;
-
-private:
-    /// @brief Invalidated copy constructor.
-    GNERerouterInterval(const GNERerouterInterval&);
-
-    /// @brief Invalidated assignment operator.
-    GNERerouterInterval& operator=(const GNERerouterInterval&);
+    std::vector<GNERouteProbReroute> myRouteProbReroutes;
 };
 
 #endif

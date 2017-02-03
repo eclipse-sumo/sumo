@@ -40,22 +40,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingReroute::GNEClosingReroute(GNERerouterInterval *rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
+GNEClosingReroute::GNEClosingReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
     myClosedEdge(closedEdge),
     myAllowVehicles(allowVehicles),
     myDisallowVehicles(disallowVehicles),
-    myRerouterIntervalParent(rerouterIntervalParent),
-    myTag(SUMO_TAG_CLOSING_REROUTE) {
-    // edge cannot be NULL 
-    assert(myClosedEdge);
-}
-
-
-GNEClosingReroute::GNEClosingReroute(GNEClosingReroute *closingReroute) :
-    myClosedEdge(closingReroute->getClosedEdge()),
-    myAllowVehicles(closingReroute->getAllowVehicles()),
-    myDisallowVehicles(closingReroute->getDisallowVehicles()),
-    myRerouterIntervalParent(closingReroute->getRerouterIntervalParent()),
+    myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_CLOSING_REROUTE) {
     // edge cannot be NULL 
     assert(myClosedEdge);
@@ -136,9 +125,22 @@ GNEClosingReroute::getTag() const {
 }
 
 
-GNERerouterInterval*
+const GNERerouterInterval&
 GNEClosingReroute::getRerouterIntervalParent() const {
-    return myRerouterIntervalParent;
+    return *myRerouterIntervalParent;
+}
+
+
+bool 
+GNEClosingReroute::operator==(const GNEClosingReroute &closingReroute) {
+    if((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
+       (myClosedEdge == closingReroute.myClosedEdge) &&
+       (myAllowVehicles == closingReroute.myAllowVehicles) &&
+       (myDisallowVehicles == closingReroute.myDisallowVehicles)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /****************************************************************************/

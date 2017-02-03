@@ -64,7 +64,7 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     // Create table, copy intervals and update table
     myIntervalList = new FXTable(myContentFrame, this, MID_GNE_MODE_ADDITIONALDIALOG_TABLE, TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myIntervalList->setEditable(false);
-    copyIntervals();
+    myRerouterIntervals = myRerouterParent->getRerouterIntervals();
     updateTable();
 
     // Execute additional dialog (To make it modal)
@@ -97,11 +97,6 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Clear copied intervals
-    for(std::vector<GNERerouterInterval*>::const_iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
-        delete (*i);
-    }
-    myRerouterIntervals.clear();
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -110,12 +105,8 @@ GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // clear copied/modified intervals
-    for(std::vector<GNERerouterInterval*>::const_iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
-        delete (*i);
-    }
     // Copy original intervals again and update table
-    copyIntervals();
+    myRerouterIntervals = myRerouterParent->getRerouterIntervals();
     updateTable();
     return 1;
 }
@@ -128,7 +119,7 @@ GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
     if(myIntervalList->getNumRows() > 0) {
         // check if add button was pressed
         if(myIntervalList->getItem((int)myRerouterIntervals.size(), 3)->hasFocus()) {
-            GNERerouterIntervalDialog(new GNERerouterInterval(myRerouterParent, 10, 10));
+            //GNERerouterIntervalDialog(new GNERerouterInterval(myRerouterParent, 10, 10));
             return 1;
         } else {
             // check if some delete button was pressed
@@ -144,14 +135,6 @@ GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
     }
 }
 
-
-void 
-GNERerouterDialog::copyIntervals() {
-    myRerouterIntervals.clear();
-    for(std::vector<GNERerouterInterval*>::const_iterator i = myRerouterParent->getRerouterIntervals().begin(); i != myRerouterParent->getRerouterIntervals().end(); i++) {
-        myRerouterIntervals.push_back(new GNERerouterInterval(*i));
-    }
-}
 
 void
 GNERerouterDialog::updateTable() {
@@ -174,12 +157,12 @@ GNERerouterDialog::updateTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::vector<GNERerouterInterval*>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+    for (std::vector<GNERerouterInterval>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         // Set time
-        item = new FXTableItem(toString((*i)->getBegin()).c_str());
+        item = new FXTableItem(toString(i->getBegin()).c_str());
         myIntervalList->setItem(indexRow, 0, item);
         // Set speed
-        item = new FXTableItem(toString((*i)->getEnd()).c_str());
+        item = new FXTableItem(toString(i->getEnd()).c_str());
         myIntervalList->setItem(indexRow, 1, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));

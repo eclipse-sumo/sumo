@@ -90,12 +90,12 @@ public:
     bool removeEdgeChild(GNEEdge* edge);
 
     /// @brief get rerouter intervals
-    const std::vector<GNERerouterInterval*> &getRerouterIntervals() const;
+    const std::vector<GNERerouterInterval> &getRerouterIntervals() const;
 
     /**@brief set rerouter intervals
      * @note all previously intervals will be deleted
     */
-    void setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals);
+    void setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -144,7 +144,7 @@ protected:
     bool myOff;
 
     /// @brief set with the GNERerouterInterval
-    std::vector<GNERerouterInterval*> myRerouterIntervals;
+    std::vector<GNERerouterInterval> myRerouterIntervals;
 
 private:
     /// @brief set attribute after validation

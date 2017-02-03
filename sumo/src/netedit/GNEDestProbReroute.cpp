@@ -40,25 +40,15 @@
 // member method definitions
 // ===========================================================================
 
-GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval *rerouterIntervalParent, GNEEdge *newEdgeDestination, SUMOReal probability):
+GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *newEdgeDestination, SUMOReal probability):
     myNewEdgeDestination(newEdgeDestination),
     myProbability(0),
-    myRerouterIntervalParent(rerouterIntervalParent),
+    myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_DEST_PROB_REROUTE) {
     // edge cannot be NULL 
     assert(myNewEdgeDestination);
     // set probability manually to avoid non valid values
     setProbability(probability);
-}
-
-
-GNEDestProbReroute::GNEDestProbReroute(GNEDestProbReroute *destProbReroute):
-    myNewEdgeDestination(destProbReroute->getNewDestination()),
-    myProbability(destProbReroute->getProbability()),
-    myRerouterIntervalParent(destProbReroute->getRerouterIntervalParent()),
-    myTag(SUMO_TAG_DEST_PROB_REROUTE) {
-    // edge cannot be NULL 
-    assert(myNewEdgeDestination);
 }
 
 
@@ -95,8 +85,22 @@ GNEDestProbReroute::getTag() const {
 }
 
 
-GNERerouterInterval*
+const GNERerouterInterval&
 GNEDestProbReroute::getRerouterIntervalParent() const {
-    return myRerouterIntervalParent;
+    return *myRerouterIntervalParent;
 }
+
+
+bool 
+GNEDestProbReroute::operator==(const GNEDestProbReroute &destProbReroute) {
+    if((myRerouterIntervalParent == destProbReroute.myRerouterIntervalParent) &&
+       (myNewEdgeDestination == destProbReroute.myNewEdgeDestination) &&
+       (myProbability == destProbReroute.myProbability)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 /****************************************************************************/

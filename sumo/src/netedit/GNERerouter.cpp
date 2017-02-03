@@ -178,18 +178,14 @@ GNERerouter::removeEdgeChild(GNEEdge* edge) {
 }
 
 
-const std::vector<GNERerouterInterval*>&
+const std::vector<GNERerouterInterval>&
 GNERerouter::getRerouterIntervals() const {
     return myRerouterIntervals;
 }
 
 
 void
-GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals) {
-    // delete al lintervals
-    for(std::vector<GNERerouterInterval*>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
-        delete (*i);
-    }
+GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals) {
     myRerouterIntervals = rerouterIntervals;
 }
 

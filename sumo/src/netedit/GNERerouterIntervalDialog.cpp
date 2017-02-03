@@ -66,16 +66,19 @@ FXIMPLEMENT(GNERerouterIntervalDialog, FXDialogBox, GNERerouterIntervalDialogMap
 // member method definitions
 // ===========================================================================
 
-GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval *rerouterInterval) :
-    GNEAdditionalDialog(rerouterInterval->getRerouterParent(), 320, 240),
-    myRerouterInterval(rerouterInterval) {
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval &rerouterInterval) :
+    GNEAdditionalDialog(rerouterInterval.getRerouterParent(), 320, 240),
+    myRerouterInterval(&rerouterInterval) {
     // Create table, copy intervals and update table
     myClosingLaneRerouteList = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE, TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myClosingRerouteList = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_CLOSINGREROUTE, TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y);;
     myDestProbRerouteList = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_DESTPROBREROUTE, TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y);;
     myRouteProbReroute = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE, TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y);;
     // copy Elements
-    copyElements();
+    myCopyOfClosingLaneReroutes = myRerouterInterval->getClosingLaneReroutes();
+    myCopyOfClosingReroutes = myRerouterInterval->getClosingReroutes();
+    CopyOfmyDestProbReroutes = myRerouterInterval->getDestProbReroutes();
+    myCopyOfRouteProbReroutes = myRerouterInterval->getRouteProbReroutes();
     // update tables
     updateClosingLaneReroutesTable();
     updateClosingReroutesTable();
@@ -108,26 +111,6 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterIntervalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Clear copied elements
-    for(std::vector<GNEClosingLaneReroute*>::const_iterator i = myRerouterInterval->getClosingLaneReroutes().begin(); i != myRerouterInterval->getClosingLaneReroutes().end(); i++) {
-        delete(*i);
-    }
-    myCopyOfClosingLaneReroutes.clear();
-
-    for(std::vector<GNEClosingReroute*>::const_iterator i = myRerouterInterval->getClosingReroutes().begin(); i != myRerouterInterval->getClosingReroutes().end(); i++) {
-        delete(*i);
-    }
-    myCopyOfClosingReroutes.clear();
-
-    for(std::vector<GNEDestProbReroute*>::const_iterator i = myRerouterInterval->getDestProbReroutes().begin(); i != myRerouterInterval->getDestProbReroutes().end(); i++) {
-        delete(*i);
-    }
-     CopyOfmyDestProbReroutes.clear();
-
-    for(std::vector<GNERouteProbReroute*>::const_iterator i = myRerouterInterval->getRouteProbReroutes().begin(); i != myRerouterInterval->getRouteProbReroutes().end(); i++) {
-        delete(*i);
-    }
-    myCopyOfRouteProbReroutes.clear();
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -136,24 +119,11 @@ GNERerouterIntervalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // clear copied/modified elements
-    for(std::vector<GNEClosingLaneReroute*>::const_iterator i = myRerouterInterval->getClosingLaneReroutes().begin(); i != myRerouterInterval->getClosingLaneReroutes().end(); i++) {
-        delete(*i);
-    }
-
-    for(std::vector<GNEClosingReroute*>::const_iterator i = myRerouterInterval->getClosingReroutes().begin(); i != myRerouterInterval->getClosingReroutes().end(); i++) {
-        delete(*i);
-    }
-
-    for(std::vector<GNEDestProbReroute*>::const_iterator i = myRerouterInterval->getDestProbReroutes().begin(); i != myRerouterInterval->getDestProbReroutes().end(); i++) {
-        delete(*i);
-    }
-
-    for(std::vector<GNERouteProbReroute*>::const_iterator i = myRerouterInterval->getRouteProbReroutes().begin(); i != myRerouterInterval->getRouteProbReroutes().end(); i++) {
-        delete(*i);
-    }
     // Copy original intervals again
-    copyElements();
+    myCopyOfClosingLaneReroutes = myRerouterInterval->getClosingLaneReroutes();
+    myCopyOfClosingReroutes = myRerouterInterval->getClosingReroutes();
+    CopyOfmyDestProbReroutes = myRerouterInterval->getDestProbReroutes();
+    myCopyOfRouteProbReroutes = myRerouterInterval->getRouteProbReroutes();
     // update tables
     updateClosingLaneReroutesTable();
     updateClosingReroutesTable();
@@ -275,29 +245,6 @@ GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelec
 }
 
 
-void 
-GNERerouterIntervalDialog::copyElements() {
-    myCopyOfClosingLaneReroutes.clear();
-    for(std::vector<GNEClosingLaneReroute*>::const_iterator i = myRerouterInterval->getClosingLaneReroutes().begin(); i != myRerouterInterval->getClosingLaneReroutes().end(); i++) {
-        myCopyOfClosingLaneReroutes.push_back(new GNEClosingLaneReroute(*i));
-    }
-
-    myCopyOfClosingReroutes.clear();
-    for(std::vector<GNEClosingReroute*>::const_iterator i = myRerouterInterval->getClosingReroutes().begin(); i != myRerouterInterval->getClosingReroutes().end(); i++) {
-        myCopyOfClosingReroutes.push_back(new GNEClosingReroute(*i));
-    }
-
-    CopyOfmyDestProbReroutes.clear();
-        for(std::vector<GNEDestProbReroute*>::const_iterator i = myRerouterInterval->getDestProbReroutes().begin(); i != myRerouterInterval->getDestProbReroutes().end(); i++) {
-        CopyOfmyDestProbReroutes.push_back(new GNEDestProbReroute(*i));
-    }
-
-    myCopyOfRouteProbReroutes.clear();
-        for(std::vector<GNERouteProbReroute*>::const_iterator i = myRerouterInterval->getRouteProbReroutes().begin(); i != myRerouterInterval->getRouteProbReroutes().end(); i++) {
-        myCopyOfRouteProbReroutes.push_back(new GNERouteProbReroute(*i));
-    }
-}
-
 
 void 
 GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
@@ -321,7 +268,7 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::vector<GNERerouterInterval*>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+    for (std::vector<GNERerouterInterval>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         // Set time
         item = new FXTableItem(toString((*i)->getBegin()).c_str());
         myIntervalList->setItem(indexRow, 0, item);
@@ -365,7 +312,7 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::vector<GNERerouterInterval*>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+    for (std::vector<GNERerouterInterval>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         // Set time
         item = new FXTableItem(toString((*i)->getBegin()).c_str());
         myIntervalList->setItem(indexRow, 0, item);
@@ -409,7 +356,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::vector<GNERerouterInterval*>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+    for (std::vector<GNERerouterInterval>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         // Set time
         item = new FXTableItem(toString((*i)->getBegin()).c_str());
         myIntervalList->setItem(indexRow, 0, item);
@@ -453,7 +400,7 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::vector<GNERerouterInterval*>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+    for (std::vector<GNERerouterInterval>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         // Set time
         item = new FXTableItem(toString((*i)->getBegin()).c_str());
         myIntervalList->setItem(indexRow, 0, item);

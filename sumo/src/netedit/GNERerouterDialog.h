@@ -89,10 +89,7 @@ protected:
     FXTable* myIntervalList;
 
     /// @brief set with a copy of rerouter intervals
-    std::vector<GNERerouterInterval*> myRerouterIntervals;
-
-    // @brief copy original intervals from rerouter to myRerouterIntervals
-    void copyIntervals();
+    std::vector<GNERerouterInterval> myRerouterIntervals;
 
     /// @brief update data table
     void updateTable();

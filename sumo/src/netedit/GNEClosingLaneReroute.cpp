@@ -40,22 +40,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval *rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
     myClosedEdge(closedEdge),
     myAllowVehicles(allowVehicles),
     myDisallowVehicles(disallowVehicles),
-    myRerouterIntervalParent(rerouterIntervalParent),
-    myTag(SUMO_TAG_CLOSING_LANE_REROUTE) {
-    // edge cannot be NULL 
-    assert(myClosedEdge);
-}
-
-
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNEClosingLaneReroute *closingLaneReroute) :
-    myClosedEdge(closingLaneReroute->getClosedEdge()),
-    myAllowVehicles(closingLaneReroute->getAllowVehicles()),
-    myDisallowVehicles(closingLaneReroute->getDisallowVehicles()),
-    myRerouterIntervalParent(closingLaneReroute->getRerouterIntervalParent()),
+    myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_CLOSING_LANE_REROUTE) {
     // edge cannot be NULL 
     assert(myClosedEdge);
@@ -136,9 +125,21 @@ GNEClosingLaneReroute::getTag() const {
 }
 
 
-GNERerouterInterval*
+const GNERerouterInterval&
 GNEClosingLaneReroute::getRerouterIntervalParent() const {
-    return myRerouterIntervalParent;
+    return *myRerouterIntervalParent;
 }
 
+
+bool 
+GNEClosingLaneReroute::operator==(const GNEClosingLaneReroute &closingReroute) {
+    if((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
+       (myClosedEdge == closingReroute.myClosedEdge) &&
+       (myAllowVehicles == closingReroute.myAllowVehicles) &&
+       (myDisallowVehicles == closingReroute.myDisallowVehicles)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 /****************************************************************************/

@@ -52,10 +52,7 @@ class GNERerouterInterval;
 class GNEClosingLaneReroute {
 public:
     /// @brief constructor
-    GNEClosingLaneReroute(GNERerouterInterval *rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles);
-
-    /// @brief copy constructor using a pointer (used in Rerouter dialog)
-    GNEClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
+    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles);
 
     /// @brief destructor
     ~GNEClosingLaneReroute();
@@ -93,10 +90,13 @@ public:
     SumoXMLTag getTag() const;
 
     /// @brief get rerouter interval parent
-    GNERerouterInterval *getRerouterIntervalParent() const;
+    const GNERerouterInterval &getRerouterIntervalParent() const;
+
+    /// @brief overload operator ==
+    bool operator==(const GNEClosingLaneReroute &closingLaneReroute);
 
 protected:
-    /// @brief pointer to rerouter interval parent
+    /// @brief reference to rerouter interval parent
     GNERerouterInterval *myRerouterIntervalParent;
 
     /// @brief XML Tag of closing lane reroute
@@ -110,13 +110,6 @@ protected:
 
     /// @brief vector of disallow vehicles
     std::vector<SUMOVehicleClass> myDisallowVehicles;
-
-private:
-    /// @brief Invalidated copy constructor.
-    GNEClosingLaneReroute(const GNEClosingLaneReroute&);
-
-    /// @brief Invalidated assignment operator.
-    GNEClosingLaneReroute& operator=(const GNEClosingLaneReroute&);
 };
 
 #endif
