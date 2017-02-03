@@ -120,7 +120,6 @@ GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
         // check if add button was pressed
         if(myIntervalList->getItem((int)myRerouterIntervals.size(), 3)->hasFocus()) {
             //GNERerouterIntervalDialog(new GNERerouterInterval(myRerouterParent, 10, 10));
-            return 1;
         } else {
             // check if some delete button was pressed
             for(int i = 0; i < (int)myRerouterIntervals.size(); i++) {
@@ -130,9 +129,9 @@ GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
                     return 1;
                 }
             }
-            return 1;
         }
     }
+    return 1;
 }
 
 
