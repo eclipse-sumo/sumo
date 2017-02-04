@@ -59,6 +59,7 @@
     #define GUIDesignTextFieldNCol          1
 /// @}
 
+
 /// @name FXButtons
 /// @{
     /// @brief button extended over over Frame with thick and raise frame 
@@ -99,6 +100,7 @@
 
 /// @}
     
+
 /// @name MDI Buttons
 /// @{
     /// @brief MDIButton oriented to left
@@ -108,6 +110,7 @@
     #define GUIDesignMDIButtonRight         (FRAME_RAISED | LAYOUT_RIGHT)
 /// @}
 
+
 /// @name FXMenu Checks
 /// @{
     /// @brief MenuCheck for Frames extended over the frame
@@ -116,6 +119,7 @@
     /// @brief MenuCheck button for attributes extended over the matrix column
     #define GUIDesignMenuCheckAttribute     (LAYOUT_LEFT | LAYOUT_FILL_COLUMN | ICON_BEFORE_TEXT)
 /// @}
+
 
 /// @name FXLabels
 /// @{
@@ -142,7 +146,11 @@
 
     /// @brief label extended over the matrix column with thick frame
     #define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+
+    /// @brief label ticked filled only with an icon
+    #define GUIDesignLabelOnlyIcon          (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH), 0, 0, 23, 0, 2, 2, 2, 2
 /// @}
+
 
 /// @name FXComboBox
 /// @{
@@ -158,6 +166,7 @@
     /// @brief number of column of every combo box
     #define GUIDesignComboBoxNCol           1
 /// @}
+
 
 /// @name FXPackers
 /// @{
@@ -190,22 +199,31 @@
 /// @name General design for netedit frames
 /// @{
     /// @brief design for frames area
-    #define GUIDesignFrameArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    #define GUIDesignFrameArea                  (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
     
     /// @brief design for viewn area
-    #define GUIDesignViewnArea              (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+    #define GUIDesignViewnArea                  (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
     
     /// @brief design for the content frame of every frame
-    #define GUIDesignContentsScrollWindow   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
+    #define GUIDesignContentsScrollWindow       (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
 
-    /// @brief design for auxiliar frame used to pack another frames
-    #define GUIDesignAuxiliarFrame          (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    /// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
+    #define GUIDesignAuxiliarFrame              (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-    /// @brief design for the content frame of every frame
-    #define GUIDesignContentsFrame          (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+    /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
+    #define GUIDesignAuxiliarHorizontalFrame    (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
+    #define GUIDesignAuxiliarVerticalFrame      (LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    /// @brief design for horizontal frame used to pack another frames with a uniform width
+    #define GUIDesignUniformHorizontalFrame    (LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH)
+
+    /// @brief design for the main content frame of every frame/dialog
+    #define GUIDesignContentsFrame              (LAYOUT_FILL_X | LAYOUT_FILL_Y)
     
     /// @brief design for all frames
-    #define GUIDesignFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    #define GUIDesignFrame                      (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 /// @}
 
 
@@ -304,6 +322,19 @@
 /// @}
 
 
+/// @name design for FXTables and their cells
+/// @{
+
+    /// @brief design for table used in TLS editor
+    #define GUIDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
+
+    /// @brief design for tables used in additional dialogs
+    #define GUIDesignTableAdditionals       (LAYOUT_FILL | VSCROLLER_ALWAYS | HSCROLLER_NEVER)
+
+    /// @brief width of cells that only contains an Icon
+    #define GUIDesignTableIconCellWidth     23
+/// @}
+
     /// @brief Tree list used in frames to represent childs of elements
     #define GUIDesignTreeListFrame          (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
@@ -311,8 +342,6 @@
     #define GUIDesignCheckButton            (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
-
-    #define GUIDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
 
     #define GUIDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
 

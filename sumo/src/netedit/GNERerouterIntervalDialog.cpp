@@ -71,35 +71,36 @@ FXIMPLEMENT(GNERerouterIntervalDialog, FXDialogBox, GNERerouterIntervalDialogMap
 GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval &rerouterInterval) :
     GNEAdditionalDialog(rerouterInterval.getRerouterParent(), 640, 480),
     myRerouterInterval(&rerouterInterval) {
-    // create horizoontal frame for begin and end elements
-    FXHorizontalFrame * beginEndElements = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrame);
-    myBeginEndLabel = new FXLabel(beginEndElements, "Begin and end times", 0, GUIDesignLabelLeftThick);
 
-    myBeginTextField = new FXTextField(beginEndElements, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGESTART, GUIDesignTextFieldReal);
+    // Create auxiliar frames for tables
+    FXHorizontalFrame *columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
+    FXVerticalFrame *columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame *columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+
+    // create horizontal frame for begin and end label
+    FXHorizontalFrame *beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
+    myBeginEndLabel = new FXLabel(beginEndElementsLeft, "Begin and end times", 0, GUIDesignLabelLeftThick);
+    myCheckLabel = new FXLabel(beginEndElementsLeft, " ", 0, GUIDesignLabelOnlyIcon);
+
+    // create horizontal frame for begin and end text fields
+    FXHorizontalFrame * beginEndElementsRight = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
+    myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGESTART, GUIDesignTextFieldReal);
     myBeginTextField->setText(toString(myRerouterInterval->getBegin()).c_str());
-    
-    myEndTextField = new FXTextField(beginEndElements, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGEEND, GUIDesignTextFieldReal);
+    myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGEEND, GUIDesignTextFieldReal);
     myEndTextField->setText(toString(myRerouterInterval->getEnd()).c_str());
-
-    myCheckLabel = new FXLabel(beginEndElements, " ", 0, GUIDesignLabelLeftThick);
-
-    // Create frames for tables
-    FXHorizontalFrame *columns = new FXHorizontalFrame(myContentFrame, LAYOUT_FILL |PACK_UNIFORM_WIDTH);
-    FXVerticalFrame *columnLeft = new FXVerticalFrame(columns, LAYOUT_FILL, 0, 0, 0, 0,0,0,0,0,0,0);
-    FXVerticalFrame *columnRight = new FXVerticalFrame(columns, LAYOUT_FILL, 0, 0, 0, 0,0,0,0,0,0,0);
 
     // Create labels and tables
     myClosingLaneReroutesLabel = new FXLabel(columnLeft, "List of Closing Lane Reroutes", 0, GUIDesignLabelThick);
-    myClosingLaneRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE, LAYOUT_FILL);
+    myClosingLaneRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE, GUIDesignTableAdditionals);
     
     myCLosingReroutesLabel = new FXLabel(columnLeft, "List of Closing Reroutes", 0, GUIDesignLabelThick);
-    myClosingRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_CLOSINGREROUTE, LAYOUT_FILL);
+    myClosingRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_CLOSINGREROUTE, GUIDesignTableAdditionals);
     
     myDestProbReroutesLabel = new FXLabel(columnRight, "List of Destiny Probability Reroutes", 0, GUIDesignLabelThick);
-    myDestProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_DESTPROBREROUTE, LAYOUT_FILL);
+    myDestProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_DESTPROBREROUTE, GUIDesignTableAdditionals);
     
     myRouteProbReroutesLabel = new FXLabel(columnRight, "List of Route Probability Reroutes", 0, GUIDesignLabelThick);
-    myRouteProbReroute = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE, LAYOUT_FILL);
+    myRouteProbReroute = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
 
     // copy Elements
     myCopyOfClosingLaneReroutes = myRerouterInterval->getClosingLaneReroutes();
@@ -275,14 +276,14 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     myClosingLaneRerouteList->setTableSize(int(myCopyOfClosingLaneReroutes.size()) + 1, 5);
     // Configure list
     myClosingLaneRerouteList->setVisibleColumns(5);
-    myClosingLaneRerouteList->setColumnWidth(0, 60);
-    myClosingLaneRerouteList->setColumnWidth(1, 100);
-    myClosingLaneRerouteList->setColumnWidth(2, 100);
-    myClosingLaneRerouteList->setColumnWidth(3, 20);
-    myClosingLaneRerouteList->setColumnWidth(4, 20);
+    myClosingLaneRerouteList->setColumnWidth(0, 83);
+    myClosingLaneRerouteList->setColumnWidth(1, 83);
+    myClosingLaneRerouteList->setColumnWidth(2, 83);
+    myClosingLaneRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
+    myClosingLaneRerouteList->setColumnWidth(4, GUIDesignTableIconCellWidth);
     myClosingLaneRerouteList->setColumnText(0, "Closed edge");
-    myClosingLaneRerouteList->setColumnText(1, "Allowed vehicles");
-    myClosingLaneRerouteList->setColumnText(2, "Disallowed vehicles");
+    myClosingLaneRerouteList->setColumnText(1, "Allowed");
+    myClosingLaneRerouteList->setColumnText(2, "Disallowed");
     myClosingLaneRerouteList->setColumnText(3, "");
     myClosingLaneRerouteList->setColumnText(4, "");
     myClosingLaneRerouteList->getRowHeader()->setWidth(0);
@@ -331,14 +332,14 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     myClosingRerouteList->setTableSize(int(myCopyOfClosingReroutes.size()) + 1, 5);
     // Configure list
     myClosingRerouteList->setVisibleColumns(5);
-    myClosingRerouteList->setColumnWidth(0, 60);
-    myClosingRerouteList->setColumnWidth(1, 100);
-    myClosingRerouteList->setColumnWidth(2, 100);
-    myClosingRerouteList->setColumnWidth(3, 20);
-    myClosingRerouteList->setColumnWidth(4, 20);
+    myClosingRerouteList->setColumnWidth(0, 83);
+    myClosingRerouteList->setColumnWidth(1, 83);
+    myClosingRerouteList->setColumnWidth(2, 83);
+    myClosingRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
+    myClosingRerouteList->setColumnWidth(4, GUIDesignTableIconCellWidth);
     myClosingRerouteList->setColumnText(0, "Closed edge");
-    myClosingRerouteList->setColumnText(1, "Allowed vehicles");
-    myClosingRerouteList->setColumnText(2, "Disallowed vehicles");
+    myClosingRerouteList->setColumnText(1, "Allowed");
+    myClosingRerouteList->setColumnText(2, "Disallowed");
     myClosingRerouteList->setColumnText(3, "");
     myClosingRerouteList->setColumnText(4, "");
     myClosingRerouteList->getRowHeader()->setWidth(0);
@@ -387,10 +388,10 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     myDestProbRerouteList->setTableSize(int(myCopyOfmyDestProbReroutes.size()) + 1, 4);
     // Configure list
     myDestProbRerouteList->setVisibleColumns(4);
-    myDestProbRerouteList->setColumnWidth(0, 130);
-    myDestProbRerouteList->setColumnWidth(1, 130);
-    myDestProbRerouteList->setColumnWidth(2, 20);
-    myDestProbRerouteList->setColumnWidth(3, 20);
+    myDestProbRerouteList->setColumnWidth(0, 125);
+    myDestProbRerouteList->setColumnWidth(1, 124);
+    myDestProbRerouteList->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myDestProbRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
     myDestProbRerouteList->setColumnText(0, "Edge destination");
     myDestProbRerouteList->setColumnText(1, "Probability ");
     myDestProbRerouteList->setColumnText(2, "");
@@ -435,10 +436,10 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     myRouteProbReroute->setTableSize(int(myCopyOfRouteProbReroutes.size()) + 1, 4);
     // Configure list
     myRouteProbReroute->setVisibleColumns(4);
-    myRouteProbReroute->setColumnWidth(0, 130);
-    myRouteProbReroute->setColumnWidth(1, 130);
-    myRouteProbReroute->setColumnWidth(2, 20);
-    myRouteProbReroute->setColumnWidth(3, 20);
+    myRouteProbReroute->setColumnWidth(0, 125);
+    myRouteProbReroute->setColumnWidth(1, 124);
+    myRouteProbReroute->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myRouteProbReroute->setColumnWidth(3, GUIDesignTableIconCellWidth);
     myRouteProbReroute->setColumnText(0, "New Route ID");
     myRouteProbReroute->setColumnText(1, "Probability");
     myRouteProbReroute->setColumnText(2, "");
