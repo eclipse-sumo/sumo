@@ -1104,7 +1104,7 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, maxSizeColumnDefinitions * 6);
     // Button Close
-    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -1258,7 +1258,7 @@ GNEAdditionalFrame::editorParameters::onCmdHelp(FXObject*, FXSelector, void*) {
             << "the mouse. This option can be modified with the Inspector.";
     new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tclose", 0, helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;

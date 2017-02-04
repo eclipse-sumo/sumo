@@ -40,6 +40,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNEInspectorFrame.h"
 #include "GNEConnectorFrame.h"
@@ -104,10 +105,10 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, G
     
     // Create "Cancel" button
     myCancelButton = new FXButton(myGroupBoxModifications, "Cancel\t\tDiscard connection modifications (Esc)", 
-                                  0, this, MID_CANCEL, GUIDesignButton);
+                                  GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
     mySaveButton = new FXButton(myGroupBoxModifications, "OK\t\tSave connection modifications (Enter)", 
-                                0, this, MID_OK, GUIDesignButton);
+                                GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
     
     // Create groupbox for operations
     myGroupBoxOperations = new FXGroupBox(myContentFrame, "Operations", GUIDesignGroupBoxFrame);

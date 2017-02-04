@@ -347,7 +347,7 @@ GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
             << "edge; speed; '>10' -> match all edges with a speed above 10\n";
     new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tSave modifications", 0, helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tSave modifications", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
     helpDialog->create();
     helpDialog->show();
     return 1;

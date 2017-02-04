@@ -74,7 +74,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     link->setTipText("http://sumo.dlr.de");
 
     // ok-button
-    new FXButton(f1, "OK\t\t", 0, this, ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(f1, "OK\t\t", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
 }
 

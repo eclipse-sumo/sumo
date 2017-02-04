@@ -107,7 +107,7 @@ GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int widt
     }
 
     // ok-button
-    new FXButton(contentFrame, "OK\t\tContine with the import.", 0, this, ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(contentFrame, "OK\t\tContine with the import.", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
 }
 
 
