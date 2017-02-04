@@ -152,6 +152,7 @@
     <ClInclude Include="..\..\..\src\utils\gui\images\GUITextureSubSys.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\src\utils\gui\images\accept.xpm" />
     <None Include="..\..\..\src\utils\gui\images\add.xpm" />
     <None Include="..\..\..\src\utils\gui\images\allow_rotation.xpm" />
     <None Include="..\..\..\src\utils\gui\images\app_breakpoints.xpm" />
@@ -163,6 +164,7 @@
     <None Include="..\..\..\src\utils\gui\images\busstop.xpm" />
     <None Include="..\..\..\src\utils\gui\images\calibrator.xpm" />
     <None Include="..\..\..\src\utils\gui\images\camera.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\cancel.xpm" />
     <None Include="..\..\..\src\utils\gui\images\chargingstation.xpm" />
     <None Include="..\..\..\src\utils\gui\images\cleanjunctions.xpm" />
     <None Include="..\..\..\src\utils\gui\images\close_gaps.xpm" />
@@ -174,6 +176,7 @@
     <None Include="..\..\..\src\utils\gui\images\connection.xpm" />
     <None Include="..\..\..\src\utils\gui\images\cont.xpm" />
     <None Include="..\..\..\src\utils\gui\images\containerstop.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\correct.xpm" />
     <None Include="..\..\..\src\utils\gui\images\create_graph.xpm" />
     <None Include="..\..\..\src\utils\gui\images\crossing.xpm" />
     <None Include="..\..\..\src\utils\gui\images\cut.xpm" />
@@ -189,6 +192,7 @@
     <None Include="..\..\..\src\utils\gui\images\empty.xpm" />
     <None Include="..\..\..\src\utils\gui\images\erase_stains.xpm" />
     <None Include="..\..\..\src\utils\gui\images\erode.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\error.xpm" />
     <None Include="..\..\..\src\utils\gui\images\ext.xpm" />
     <None Include="..\..\..\src\utils\gui\images\extract_streets.xpm" />
     <None Include="..\..\..\src\utils\gui\images\eyedrop.xpm" />
@@ -247,6 +251,7 @@
     <None Include="..\..\..\src\utils\gui\images\remove.xpm" />
     <None Include="..\..\..\src\utils\gui\images\removedb.xpm" />
     <None Include="..\..\..\src\utils\gui\images\rerouter.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\reset.xpm" />
     <None Include="..\..\..\src\utils\gui\images\routeprobe.xpm" />
     <None Include="..\..\..\src\utils\gui\images\rubber1x.xpm" />
     <None Include="..\..\..\src\utils\gui\images\rubber2x.xpm" />
@@ -291,6 +296,7 @@
     <None Include="..\..\..\src\utils\gui\images\view1.xpm" />
     <None Include="..\..\..\src\utils\gui\images\view2.xpm" />
     <None Include="..\..\..\src\utils\gui\images\view3.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\warning.xpm" />
     <None Include="..\..\..\src\utils\gui\images\windows_cascade.xpm" />
     <None Include="..\..\..\src\utils\gui\images\windows_tile_horizontally.xpm" />
     <None Include="..\..\..\src\utils\gui\images\windows_tile_vertically.xpm" />

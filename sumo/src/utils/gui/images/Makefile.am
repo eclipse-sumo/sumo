@@ -29,6 +29,7 @@ step.xpm stop.xpm view1.xpm view2.xpm view3.xpm \
 windows_cascade.xpm windows_tile_horizontally.xpm windows_tile_vertically.xpm \
 yellow_edge.xpm yellow_person.xpm yellow_vehicle.xpm \
 yes.xpm lock.xpm add.xpm remove.xpm \
+accept.xpm cancel.xpm correct.xpm error.xpm reset.xpm warning.xpm \
 junction.xpm edge.xpm lane.xpm connection.xpm prohibition.xpm crossing.xpm \
 lanebike.xpm lanebus.xpm lanepedestrian.xpm \
 cleanjunctions.xpm computejunctions.xpm joinjunctions.xpm options.xpm \

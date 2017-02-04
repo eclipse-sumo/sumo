@@ -272,6 +272,16 @@ enum GUIIcon {
     ICON_VCLASS_CUSTOM2,
     /// @}
 
+    /// @name icons for status
+    /// @{
+    ICON_ACCEPT,
+    ICON_CANCEL,
+    ICON_CORRECT,
+    ICON_ERROR,
+    ICON_RESET,
+    ICON_WARNING,
+    /// @}
+
     /// @brief max number of icons
     ICON_MAX
 };

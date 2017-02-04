@@ -196,6 +196,13 @@
 #include "vclass_custom1.xpm"
 #include "vclass_custom2.xpm"
 
+#include "accept.xpm"
+#include "cancel.xpm"
+#include "correct.xpm"
+#include "error.xpm"
+#include "reset.xpm"
+#include "warning.xpm"
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -374,6 +381,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_VCLASS_SHIP] = new FXXPMIcon(a, vclass_ship_xpm);
     myIcons[ICON_VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
     myIcons[ICON_VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
+
+    myIcons[ICON_ACCEPT] = new FXXPMIcon(a, accept_xpm);
+    myIcons[ICON_CANCEL] = new FXXPMIcon(a, cancel_xpm);
+    myIcons[ICON_CORRECT] = new FXXPMIcon(a, correct_xpm);
+    myIcons[ICON_ERROR] = new FXXPMIcon(a, error_xpm);
+    myIcons[ICON_RESET] = new FXXPMIcon(a, reset_xpm);
+    myIcons[ICON_WARNING] = new FXXPMIcon(a, warning_xpm);
 
     // ... and create them
     for (int i = 0; i < ICON_MAX; i++) {

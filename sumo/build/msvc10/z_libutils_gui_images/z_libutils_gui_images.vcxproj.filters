@@ -585,5 +585,23 @@
     <None Include="..\..\..\src\utils\gui\images\variablespeedsign.xpm">
       <Filter>Icons\Additionals</Filter>
     </None>
+    <None Include="..\..\..\src\utils\gui\images\correct.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\error.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\reset.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\warning.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\accept.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\cancel.xpm">
+      <Filter>Icons</Filter>
+    </None>
   </ItemGroup>
 </Project>
