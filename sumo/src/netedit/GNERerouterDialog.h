@@ -63,6 +63,15 @@ public:
 
     /// @brief get rerouter parent
     GNERerouter* getRerouterParent() const;
+    
+    /// @brief check if a interval exists
+    bool findInterval(SUMOReal begin, SUMOReal end) const;
+
+    /// @brief check begin and end of an new interval
+    bool checkInterval(SUMOReal begin, SUMOReal end) const;
+
+    /// @brief check if begin and end of an existent interval can be modified
+    bool checkModifyInterval(SUMOReal oldBegin, SUMOReal oldEnd, SUMOReal newBegin, SUMOReal newEnd) const;
 
     /// @name FOX-callbacks
     /// @{
@@ -90,7 +99,7 @@ protected:
     FXTable* myIntervalList;
 
     /// @brief set with a copy of rerouter intervals
-    std::vector<GNERerouterInterval> myRerouterIntervals;
+    std::vector<GNERerouterInterval> myCopyOfRerouterIntervals;
   
     /// @brief update data table
     void updateTable();

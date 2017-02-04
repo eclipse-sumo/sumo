@@ -39,6 +39,13 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GNERerouterDialog;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -53,7 +60,7 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNERerouterInterval &rerouterInterval);
+    GNERerouterIntervalDialog(GNERerouterDialog *rerouterDialog, GNERerouterInterval &rerouterInterval);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
@@ -80,11 +87,20 @@ public:
 
     /// @brief add/remove/edit route prob reroute
     long onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelector, void*);
+
+    /// @brief called when begin is changed
+    long onCmdChangeBegin(FXObject*, FXSelector, void*);
+
+    /// @brief called when begin is changed
+    long onCmdChangeEnd(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
     /// @brief FOX needs this
     GNERerouterIntervalDialog() {}
+
+    /// @brief pointer to GNERerouterDialog parent
+    GNERerouterDialog *myRerouterDialogParent;
 
     /// @brief pointer to rerouter interval
     GNERerouterInterval *myRerouterInterval;
@@ -125,17 +141,32 @@ protected:
     /// @brief list with route probability reroute
     FXTable* myRouteProbReroute;
 
+    /// @brief flag to check if begin an end are valid
+    bool myBeginEndValid;
+
     /// @brief vector with the closingLaneReroutes
     std::vector<GNEClosingLaneReroute> myCopyOfClosingLaneReroutes;
+
+    /// @brief flag to check if closing lane reroutes are valid
+    bool myClosingLaneReroutesValid;
 
     /// @brief vector with a copy of the closingReroutes
     std::vector<GNEClosingReroute> myCopyOfClosingReroutes;
 
+    /// @brief flag to check if closing reroutes are valid
+    bool myClosingReroutesValid;
+
     /// @brief vector with a copy of the destProbReroutes
     std::vector<GNEDestProbReroute> myCopyOfmyDestProbReroutes;
 
+    /// @brief flag to check if Destiny probability reroutes are valid
+    bool myDestProbReroutesValid;
+
     /// @brief vector with a copy of the routeProbReroutes
     std::vector<GNERouteProbReroute> myCopyOfRouteProbReroutes;
+
+    /// @brief flag to check if route prob reroutes are valid
+    bool myRouteProbReroutesValid;
 
     /// @brief update data of closing lane reroute table
     void updateClosingLaneReroutesTable();

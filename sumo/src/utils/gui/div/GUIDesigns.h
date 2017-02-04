@@ -148,7 +148,7 @@
     #define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
     /// @brief label ticked filled only with an icon
-    #define GUIDesignLabelOnlyIcon          (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH), 0, 0, 23, 0, 2, 2, 2, 2
+    #define GUIDesignLabelOnlyIcon          (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH), 0, 0, 24, 0, 2, 2, 2, 2
 /// @}
 
 
@@ -304,14 +304,6 @@
 /// @}
 
 
-/// @name design for Tables
-/// @{
-
-    /// @brief design for tables which their rows and columns cannot be selected
-    #define GUIDesignTableNoRowColSelectables   (LAYOUT_FILL_X | LAYOUT_FILL_Y | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT)
-/// @}
-
-
 /// @name design for dialog boxs
 /// @{
     /// @brief design for standard dialog box (for example, about dialog)
@@ -326,13 +318,16 @@
 /// @{
 
     /// @brief design for table used in TLS editor
-    #define GUIDesignTable                  (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
+    #define GUIDesignTable                      (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
 
     /// @brief design for tables used in additional dialogs
-    #define GUIDesignTableAdditionals       (LAYOUT_FILL | VSCROLLER_ALWAYS | HSCROLLER_NEVER)
+    #define GUIDesignTableAdditionals           (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER)
+
+    /// @brief design for non-editable tables which their rows and columns cannot be selected
+    #define GUIDesignTableAdditionalsNoSelct    (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT)
 
     /// @brief width of cells that only contains an Icon
-    #define GUIDesignTableIconCellWidth     23
+    #define GUIDesignTableIconCellWidth         23
 /// @}
 
     /// @brief Tree list used in frames to represent childs of elements
