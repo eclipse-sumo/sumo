@@ -360,9 +360,9 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier *ac) {
                     if(numberOfAdditionals == 0) {
                         myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
                     } else {
-                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, 
-                            ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
-                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because it has " + toString(numberOfAdditionals) + " additional childs.\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
+                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because it has " + 
+                                              toString(numberOfAdditionals) + " additional childs.\n Check 'Force deletion of additionals' to force deletion.").c_str());
                     }
                 }
                 break;
@@ -376,9 +376,9 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier *ac) {
                     if(lane->getAdditionalChilds().size() == 0) {
                         myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
                     } else {
-                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, 
-                                              ("Problem deleting " + toString(lane->getTag())).c_str(), "%s",
-                                              (toString(lane->getTag()) + " '" + lane->getID() + "' cannot be deleted because it has " + toString(lane->getAdditionalChilds().size()) + " additional childs.\n Check 'Force deletion of Additionals' to force deletion.").c_str());
+                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(lane->getTag())).c_str(), "%s",
+                                              (toString(lane->getTag()) + " '" + lane->getID() + "' cannot be deleted because it has " + 
+                                              toString(lane->getAdditionalChilds().size()) + " additional childs.\n Check 'Force deletion of Additionals' to force deletion.").c_str());
                     }
                 }
                 break;
