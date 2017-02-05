@@ -76,17 +76,29 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove/edit closing lane reroute
+    /// @brief add/remove closing lane reroute
     long onCmdDoubleClickedClosingLaneReroute(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove/edit closing reroute
+    /// @brief add/remove closing reroute
     long onCmdDoubleClickedClosingReroute(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove/edit dest prob reroute
+    /// @brief add/remove dest prob reroute
     long onCmdDoubleClickedDestProbReroute(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove/edit route prob reroute
+    /// @brief add/remove route prob reroute
     long onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelector, void*);
+
+    /// @brief /edit closing lane reroute
+    long onCmdEditClosingLaneReroute(FXObject*, FXSelector, void*);
+
+    /// @brief /edit closing reroute
+    long onCmdEditClosingReroute(FXObject*, FXSelector, void*);
+
+    /// @brief /edit dest prob reroute
+    long onCmdEditDestProbReroute(FXObject*, FXSelector, void*);
+
+    /// @brief /edit route prob reroute
+    long onCmdEditRouteProbReroute(FXObject*, FXSelector, void*);
 
     /// @brief called when begin is changed
     long onCmdChangeBegin(FXObject*, FXSelector, void*);

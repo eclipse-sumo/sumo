@@ -103,7 +103,7 @@ GNERerouterDialog::checkInterval(SUMOReal begin, SUMOReal end) const {
     } else if (begin >= end) {
         return false;
     } else {
-        /// CHECK OVERLAPPING
+        /// CHECK OVERLAPPING (Ticket #2843)
         return true;
     }
 }
@@ -122,7 +122,7 @@ GNERerouterDialog::checkModifyInterval(SUMOReal oldBegin, SUMOReal oldEnd, SUMOR
             } else if (newBegin >= newEnd) {
                 return false;
             } else {
-                /// CHECK OVERLAPPING
+                /// CHECK OVERLAPPING (Ticket #2843)
                 return true;
             }
         }
@@ -133,9 +133,8 @@ GNERerouterDialog::checkModifyInterval(SUMOReal oldBegin, SUMOReal oldEnd, SUMOR
 
 long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    
-    // in this point we need to use GNEChange_RerouterInterval to allow undo/redos of rerouterIntervals
-
+    /// in this point we need to use GNEChange_RerouterInterval to allow undo/redos of rerouterIntervals
+    /// see Ticket #2844
     // set new intervals into rerouter
     myRerouterParent->setRerouterIntervals(myCopyOfRerouterIntervals);
     // Stop Modal
@@ -216,8 +215,8 @@ GNERerouterDialog::updateTable() {
     myIntervalList->setColumnWidth(0, 137);
     myIntervalList->setColumnWidth(1, 137);
     myIntervalList->setColumnWidth(2, GUIDesignTableIconCellWidth);
-    myIntervalList->setColumnText(0, "start");
-    myIntervalList->setColumnText(1, "end");
+    myIntervalList->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
+    myIntervalList->setColumnText(1, toString(SUMO_ATTR_END).c_str());
     myIntervalList->setColumnText(2, "");
     myIntervalList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
@@ -234,13 +233,21 @@ GNERerouterDialog::updateTable() {
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+        item->setEnabled(false);
         myIntervalList->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }
-    // set add
+    // set add row
+    item = new FXTableItem("");
+    item->setEnabled(false);
+    myIntervalList->setItem(indexRow, 0, item);
+    item = new FXTableItem("");
+    item->setEnabled(false);
+    myIntervalList->setItem(indexRow, 1, item);
     item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ADD));
     item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+    item->setEnabled(false);
     myIntervalList->setItem(indexRow, 2, item);
 }
 
