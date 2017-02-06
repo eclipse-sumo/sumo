@@ -52,7 +52,8 @@ class GNERerouterInterval;
 class GNEClosingLaneReroute {
 public:
     /// @brief constructor
-    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, SVCPermissions allowedVehicles = SVC_UNSPECIFIED, SVCPermissions disallowedVehicles = SVC_UNSPECIFIED);
+    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, 
+                         SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);
 
     /// @brief destructor
     ~GNEClosingLaneReroute();

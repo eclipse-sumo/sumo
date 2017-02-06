@@ -53,7 +53,8 @@ class GNERerouterInterval;
 class GNEClosingReroute {
 public:
     /// @brief constructor
-    GNEClosingReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, SVCPermissions allowedVehicles = SVC_UNSPECIFIED, SVCPermissions disallowedVehicles = SVC_UNSPECIFIED);
+    GNEClosingReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, 
+                      SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);
 
     /// @brief destructor
     ~GNEClosingReroute();
