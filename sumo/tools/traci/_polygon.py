@@ -98,7 +98,7 @@ class PolygonDomain(Domain):
         self._connection._sendExact()
 
     def setFilled(self, polygonID, filled):
-        """getFilled(string) -> bool
+        """setFilled(string) -> bool
         Returns whether the polygon is filled
         """
         self._connection._sendUByteCmd(
