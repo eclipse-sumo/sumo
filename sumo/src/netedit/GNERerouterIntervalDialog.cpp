@@ -97,7 +97,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterDialog *rerouter
 
     // create horizontal frame for begin and end label
     FXHorizontalFrame *beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myBeginEndLabel = new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) +" and " + toString(SUMO_ATTR_END) + " of " + toString(rerouterInterval.getTag())).c_str(), 0, GUIDesignLabelLeftThick);
+    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) +" and " + toString(SUMO_ATTR_END) + " of " + toString(rerouterInterval.getTag())).c_str(), 0, GUIDesignLabelLeftThick);
     myCheckLabel = new FXLabel(beginEndElementsLeft, "", 0, GUIDesignLabelOnlyIcon);
 
     // create horizontal frame for begin and end text fields
