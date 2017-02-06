@@ -46,10 +46,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_MODE_ADDITIONALDIALOG_TABLE,    GNERerouterDialog::onCmdDoubleClicked),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNERerouterDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNERerouterDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_RESET,    GNERerouterDialog::onCmdReset),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_MODE_ADDITIONALDIALOG_TABLE,    GNERerouterDialog::onCmdClicked),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNERerouterDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNERerouterDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,    GNERerouterDialog::onCmdReset),
 };
 
 // Object implementation
@@ -163,7 +163,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 long 
-GNERerouterDialog::onCmdDoubleClicked(FXObject*, FXSelector, void*) {
+GNERerouterDialog::onCmdClicked(FXObject*, FXSelector, void*) {
     // First check if
     if(myIntervalList->getNumRows() > 0) {
         // check if add button was pressed
@@ -213,7 +213,7 @@ GNERerouterDialog::updateTable() {
     // Configure list
     myIntervalList->setVisibleColumns(4);
     myIntervalList->setColumnWidth(0, 137);
-    myIntervalList->setColumnWidth(1, 137);
+    myIntervalList->setColumnWidth(1, 136);
     myIntervalList->setColumnWidth(2, GUIDesignTableIconCellWidth);
     myIntervalList->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
     myIntervalList->setColumnText(1, toString(SUMO_ATTR_END).c_str());

@@ -77,16 +77,16 @@ public:
     long onCmdReset(FXObject*, FXSelector, void*);
 
     /// @brief add/remove closing lane reroute
-    long onCmdDoubleClickedClosingLaneReroute(FXObject*, FXSelector, void*);
+    long onCmdClickedClosingLaneReroute(FXObject*, FXSelector, void*);
 
     /// @brief add/remove closing reroute
-    long onCmdDoubleClickedClosingReroute(FXObject*, FXSelector, void*);
+    long onCmdClickedClosingReroute(FXObject*, FXSelector, void*);
 
     /// @brief add/remove dest prob reroute
-    long onCmdDoubleClickedDestProbReroute(FXObject*, FXSelector, void*);
+    long onCmdClickedDestProbReroute(FXObject*, FXSelector, void*);
 
     /// @brief add/remove route prob reroute
-    long onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelector, void*);
+    long onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*);
 
     /// @brief /edit closing lane reroute
     long onCmdEditClosingLaneReroute(FXObject*, FXSelector, void*);

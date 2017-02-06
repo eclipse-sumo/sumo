@@ -85,7 +85,7 @@ public:
     long onCmdReset(FXObject*, FXSelector, void*);
 
     /// @brief add/remove/edit interval
-    long onCmdDoubleClicked(FXObject*, FXSelector, void*);
+    long onCmdClicked(FXObject*, FXSelector, void*);
     /// @}
 
 protected:

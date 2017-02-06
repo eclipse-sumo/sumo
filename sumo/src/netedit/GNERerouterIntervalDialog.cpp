@@ -55,19 +55,19 @@
 // ===========================================================================
 
 FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE,   GNERerouterIntervalDialog::onCmdDoubleClickedClosingLaneReroute),
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdDoubleClickedClosingReroute),
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdDoubleClickedDestProbReroute),
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute),
-    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE,   GNERerouterIntervalDialog::onCmdEditClosingLaneReroute),
-    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdEditClosingReroute),
-    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdEditDestProbReroute),
-    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdEditRouteProbReroute),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_CHANGESTART,          GNERerouterIntervalDialog::onCmdChangeBegin),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_CHANGEEND,            GNERerouterIntervalDialog::onCmdChangeEnd),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,       GNERerouterIntervalDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,       GNERerouterIntervalDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_RESET,        GNERerouterIntervalDialog::onCmdReset),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE,   GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_REROUTEDIALOG_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdClickedClosingReroute),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_REROUTEDIALOG_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdClickedDestProbReroute),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdClickedRouteProbReroute),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE,   GNERerouterIntervalDialog::onCmdEditClosingLaneReroute),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_REROUTEDIALOG_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdEditClosingReroute),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_REROUTEDIALOG_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdEditDestProbReroute),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdEditRouteProbReroute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REROUTEDIALOG_CHANGESTART,          GNERerouterIntervalDialog::onCmdChangeBegin),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REROUTEDIALOG_CHANGEEND,            GNERerouterIntervalDialog::onCmdChangeEnd),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,       GNERerouterIntervalDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,       GNERerouterIntervalDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,        GNERerouterIntervalDialog::onCmdReset),
 };
 
 // Object implementation
@@ -87,8 +87,8 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterDialog *rerouter
     myDestProbReroutesValid(true),
     myRouteProbReroutesValid(true) {
     // change default header
-    changeAdditionalDialogHeader(("Edit " + toString(rerouterInterval.getTag()) + " of " + toString(rerouterInterval.getRerouterParent()->getTag()) + 
-                                  "'" + rerouterInterval.getRerouterParent()->getID() + "'").c_str());
+    changeAdditionalDialogHeader("Edit " + toString(rerouterInterval.getTag()) + " of " + toString(rerouterInterval.getRerouterParent()->getTag()) + 
+                                 "'" + rerouterInterval.getRerouterParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame *columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -151,34 +151,39 @@ long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if(myBeginEndValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK, 
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because " + toString(myRerouterInterval->getTag()) + " defined by " + 
-                              toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
+                              " cannot be updated because " + toString(myRerouterInterval->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         return 0;
     } else if(myCopyOfClosingLaneReroutes.empty() && myCopyOfClosingReroutes.empty() && myCopyOfDestProbReroutes.empty() && myCopyOfRouteProbReroutes.empty()) {
         FXMessageBox::warning(getApp(), MBOX_OK, 
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + "'s element must be defined.").c_str());
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
+                              " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + "'s element must be defined.").c_str());
         return 0;
     } else if(myClosingLaneReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
+                              " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
         return 0;
     } else if(myClosingReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
+                              " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
         return 0;
     } else if(myDestProbReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
+                              " cannot be updated because there are invalid "+ toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
         return 0;
     } else if(myRouteProbReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
+                              " cannot be updated because there are invalid "+ toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
         return 0;
     } else{
         // set new values of rerouter interval
@@ -221,7 +226,7 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 long 
-GNERerouterIntervalDialog::onCmdDoubleClickedClosingLaneReroute(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute(FXObject*, FXSelector, void*) {
     // First check if list is emty
     if(myClosingLaneRerouteList->getNumRows() > 0) {
         // check if add button was pressed
@@ -236,6 +241,7 @@ GNERerouterIntervalDialog::onCmdDoubleClickedClosingLaneReroute(FXObject*, FXSel
                 if(myClosingLaneRerouteList->getItem(i, 4)->hasFocus()) {
                     myClosingLaneRerouteList->removeRows(i);
                     myCopyOfClosingLaneReroutes.erase(myCopyOfClosingLaneReroutes.begin() + i);
+                    updateClosingLaneReroutesTable();
                     return 1;
                 }
             }
@@ -248,7 +254,7 @@ GNERerouterIntervalDialog::onCmdDoubleClickedClosingLaneReroute(FXObject*, FXSel
 
 
 long 
-GNERerouterIntervalDialog::onCmdDoubleClickedClosingReroute(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdClickedClosingReroute(FXObject*, FXSelector, void*) {
     // First check if list is emty
     if(myClosingRerouteList->getNumRows() > 0) {
         // check if add button was pressed
@@ -263,6 +269,7 @@ GNERerouterIntervalDialog::onCmdDoubleClickedClosingReroute(FXObject*, FXSelecto
                 if(myClosingRerouteList->getItem(i, 4)->hasFocus()) {
                     myClosingRerouteList->removeRows(i);
                     myCopyOfClosingReroutes.erase(myCopyOfClosingReroutes.begin() + i);
+                    updateClosingReroutesTable();
                     return 1;
                 }
             }
@@ -275,7 +282,7 @@ GNERerouterIntervalDialog::onCmdDoubleClickedClosingReroute(FXObject*, FXSelecto
 
 
 long 
-GNERerouterIntervalDialog::onCmdDoubleClickedDestProbReroute(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdClickedDestProbReroute(FXObject*, FXSelector, void*) {
     // First check if list is emty
     if(myDestProbRerouteList->getNumRows() > 0) {
         // check if add button was pressed
@@ -290,6 +297,7 @@ GNERerouterIntervalDialog::onCmdDoubleClickedDestProbReroute(FXObject*, FXSelect
                 if(myDestProbRerouteList->getItem(i, 3)->hasFocus()) {
                     myDestProbRerouteList->removeRows(i);
                     myCopyOfDestProbReroutes.erase(myCopyOfDestProbReroutes.begin() + i);
+                    updateDestProbReroutesTable();
                     return 1;
                 }
             }
@@ -302,7 +310,7 @@ GNERerouterIntervalDialog::onCmdDoubleClickedDestProbReroute(FXObject*, FXSelect
 
 
 long 
-GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelector, void*) {
+GNERerouterIntervalDialog::onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*) {
     // First check if list is emty
     if(myRouteProbRerouteList->getNumRows() > 0) {
         // check if add button was pressed
@@ -317,6 +325,7 @@ GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelec
                 if(myRouteProbRerouteList->getItem(i, 3)->hasFocus()) {
                     myRouteProbRerouteList->removeRows(i);
                     myCopyOfRouteProbReroutes.erase(myCopyOfRouteProbReroutes.begin() + i);
+                    updateRouteProbReroutesTable();
                     return 1;
                 }
             }
@@ -476,7 +485,7 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     myClosingLaneRerouteList->setVisibleColumns(5);
     myClosingLaneRerouteList->setColumnWidth(0, 83);
     myClosingLaneRerouteList->setColumnWidth(1, 83);
-    myClosingLaneRerouteList->setColumnWidth(2, 83);
+    myClosingLaneRerouteList->setColumnWidth(2, 82);
     myClosingLaneRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
     myClosingLaneRerouteList->setColumnWidth(4, GUIDesignTableIconCellWidth);
     myClosingLaneRerouteList->setColumnText(0, toString(SUMO_ATTR_LANE).c_str());
@@ -553,7 +562,7 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     myClosingRerouteList->setVisibleColumns(5);
     myClosingRerouteList->setColumnWidth(0, 83);
     myClosingRerouteList->setColumnWidth(1, 83);
-    myClosingRerouteList->setColumnWidth(2, 83);
+    myClosingRerouteList->setColumnWidth(2, 82);
     myClosingRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
     myClosingRerouteList->setColumnWidth(4, GUIDesignTableIconCellWidth);
     myClosingRerouteList->setColumnText(0, toString(SUMO_ATTR_EDGE).c_str());
@@ -628,7 +637,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     myDestProbRerouteList->setTableSize(int(myCopyOfDestProbReroutes.size()) + 1, 4);
     // Configure list
     myDestProbRerouteList->setVisibleColumns(4);
-    myDestProbRerouteList->setColumnWidth(0, 125);
+    myDestProbRerouteList->setColumnWidth(0, 124);
     myDestProbRerouteList->setColumnWidth(1, 124);
     myDestProbRerouteList->setColumnWidth(2, GUIDesignTableIconCellWidth);
     myDestProbRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
@@ -697,7 +706,7 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     myRouteProbRerouteList->setTableSize(int(myCopyOfRouteProbReroutes.size()) + 1, 4);
     // Configure list
     myRouteProbRerouteList->setVisibleColumns(4);
-    myRouteProbRerouteList->setColumnWidth(0, 125);
+    myRouteProbRerouteList->setColumnWidth(0, 124);
     myRouteProbRerouteList->setColumnWidth(1, 124);
     myRouteProbRerouteList->setColumnWidth(2, GUIDesignTableIconCellWidth);
     myRouteProbRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
