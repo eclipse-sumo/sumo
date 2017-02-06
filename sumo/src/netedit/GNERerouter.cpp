@@ -161,6 +161,50 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
     if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
+    // write intervals
+    for (std::vector<GNERerouterInterval>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+        device.openTag(i->getTag());
+        device.writeAttr(SUMO_ATTR_BEGIN, i->getBegin());
+        device.writeAttr(SUMO_ATTR_END, i->getEnd());
+
+        // write closing lane reroutes
+        for(std::vector<GNEClosingLaneReroute>::const_iterator j = i->getClosingLaneReroutes().begin(); j != i->getClosingLaneReroutes().end(); j++) {
+            device.openTag(j->getTag());
+            device.writeAttr(SUMO_ATTR_LANE, j->getClosedLane()->getID());
+            device.writeAttr(SUMO_ATTR_ALLOW, j->getAllowVehicles());
+            device.writeAttr(SUMO_ATTR_DISALLOW, j->getDisallowVehicles());
+            device.closeTag();
+        }
+
+        // write closing reroutes
+        for(std::vector<GNEClosingReroute>::const_iterator j = i->getClosingReroutes().begin(); j != i->getClosingReroutes().end(); j++) {
+            device.openTag(j->getTag());
+            device.writeAttr(SUMO_ATTR_EDGE, j->getClosedEdge()->getID());
+            device.writeAttr(SUMO_ATTR_ALLOW, j->getAllowVehicles());
+            device.writeAttr(SUMO_ATTR_DISALLOW, j->getDisallowVehicles());
+            device.closeTag();
+        }
+        
+        // write dest prob reroutes
+        for(std::vector<GNEDestProbReroute>::const_iterator j = i->getDestProbReroutes().begin(); j != i->getDestProbReroutes().end(); j++) {
+            device.openTag(j->getTag());
+            device.writeAttr(SUMO_ATTR_EDGE, j->getNewDestination()->getID());
+            device.writeAttr(SUMO_ATTR_PROB, j->getProbability());
+            device.closeTag();
+        }
+        
+        // write route prob reroutes
+        for(std::vector<GNERouteProbReroute>::const_iterator j = i->getRouteProbReroutes().begin(); j != i->getRouteProbReroutes().end(); j++) {
+            device.openTag(j->getTag());
+            device.writeAttr(SUMO_ATTR_ROUTE, j->getNewRouteId());
+            device.writeAttr(SUMO_ATTR_PROB, j->getProbability());
+            device.closeTag();
+        }
+        
+        // Close tag
+        device.closeTag();
+    }
+
     // Close tag
     device.closeTag();
 }
