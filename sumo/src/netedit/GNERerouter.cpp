@@ -171,8 +171,8 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
         for(std::vector<GNEClosingLaneReroute>::const_iterator j = i->getClosingLaneReroutes().begin(); j != i->getClosingLaneReroutes().end(); j++) {
             device.openTag(j->getTag());
             device.writeAttr(SUMO_ATTR_LANE, j->getClosedLane()->getID());
-            device.writeAttr(SUMO_ATTR_ALLOW, j->getAllowVehicles());
-            device.writeAttr(SUMO_ATTR_DISALLOW, j->getDisallowVehicles());
+            device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNamesList(j->getAllowedVehicles()));
+            device.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNamesList(j->getDisallowedVehicles()));
             device.closeTag();
         }
 
@@ -180,8 +180,8 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
         for(std::vector<GNEClosingReroute>::const_iterator j = i->getClosingReroutes().begin(); j != i->getClosingReroutes().end(); j++) {
             device.openTag(j->getTag());
             device.writeAttr(SUMO_ATTR_EDGE, j->getClosedEdge()->getID());
-            device.writeAttr(SUMO_ATTR_ALLOW, j->getAllowVehicles());
-            device.writeAttr(SUMO_ATTR_DISALLOW, j->getDisallowVehicles());
+            device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNamesList(j->getAllowedVehicles()));
+            device.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNamesList(j->getDisallowedVehicles()));
             device.closeTag();
         }
         

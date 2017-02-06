@@ -52,36 +52,22 @@ class GNERerouterInterval;
 class GNEClosingLaneReroute {
 public:
     /// @brief constructor
-    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles);
+    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, SVCPermissions allowedVehicles = SVC_UNSPECIFIED, SVCPermissions disallowedVehicles = SVC_UNSPECIFIED);
 
     /// @brief destructor
     ~GNEClosingLaneReroute();
 
-    /**@brief insert an allow vehicle
-     * @throw ProcessError if allowed vehicle was already inserted
-     */
-    void insertAllowVehicle(SUMOVehicleClass vclass);
+    /// @brief get allowed vehicles
+    SVCPermissions getAllowedVehicles() const;
 
-    /**@brief remove a previously inserted allow vehicle
-     * @throw ProcessError if allowed vehicle cannot be found
-     */
-    void removeAllowVehicle(SUMOVehicleClass vclass);
+    /// @brief get disallowed vehicles
+    SVCPermissions getDisallowedVehicles() const;
 
-    /**@brief insert a disallow vehicle
-     * @throw ProcessError if disallowed vehicle was already inserted
-     */
-    void insertDisallowVehicle(SUMOVehicleClass vclass);
+    /// @brief set allowed vehicles
+    void setAllowedVehicles(SVCPermissions allowed);
 
-    /**@brief remove a previously inserted disallow vehicle
-     * @throw ProcessError if disallowed vehicle cannot be found
-     */
-    void removeDisallowVehicle(SUMOVehicleClass vclass);
-
-    /// @brief get allow vehicles
-    const std::vector<SUMOVehicleClass> &getAllowVehicles() const;
-
-    /// @brief get disallow vehicles
-    const std::vector<SUMOVehicleClass> &getDisallowVehicles() const;
+    /// @brief set disallowed vehicles
+    void setDisallowedVehicles(SVCPermissions disallowed);
 
     /// @brief get closed lane Id
     GNELane *getClosedLane() const;
@@ -108,11 +94,11 @@ protected:
     /// @brief closed lane
     GNELane *myClosedLane;
 
-    /// @brief vector of allow vehicles
-    std::vector<SUMOVehicleClass> myAllowVehicles;
+    /// @brief codified allowed vehicles
+    SVCPermissions myAllowedVehicles;
 
-    /// @brief vector of disallow vehicles
-    std::vector<SUMOVehicleClass> myDisallowVehicles;
+    /// @brief codified disallowed vehicles
+    SVCPermissions myDisallowedVehicles;
 };
 
 #endif

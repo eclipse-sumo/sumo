@@ -40,10 +40,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
     myClosedLane(closedLane),
-    myAllowVehicles(allowVehicles),
-    myDisallowVehicles(disallowVehicles),
+    myAllowedVehicles(allowedVehicles),
+    myDisallowedVehicles(disallowedVehicles),
     myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_CLOSING_LANE_REROUTE) {
 }
@@ -52,62 +52,27 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterInterv
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {
 }
 
-
-void
-GNEClosingLaneReroute::insertAllowVehicle(SUMOVehicleClass vclass) {
-    // Check if was already allowed
-    if (std::find(myAllowVehicles.begin(), myAllowVehicles.end(), vclass) != myAllowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " was already allowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
-    }
-    // insert in vector
-    myAllowVehicles.push_back(vclass);
+SVCPermissions
+GNEClosingLaneReroute::getAllowedVehicles() const {
+    return myAllowedVehicles;
 }
 
 
-void
-GNEClosingLaneReroute::removeAllowVehicle(SUMOVehicleClass vclass) {
-    // Check if was already allowed
-    std::vector<SUMOVehicleClass>::iterator i = std::find(myAllowVehicles.begin(), myAllowVehicles.end(), vclass);
-    if ( i == myAllowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " wasn't previously allowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
-    } else {
-        myAllowVehicles.erase(i);
-    }
+SVCPermissions
+GNEClosingLaneReroute::getDisallowedVehicles() const {
+    return myDisallowedVehicles;
 }
 
 
-void
-GNEClosingLaneReroute::insertDisallowVehicle(SUMOVehicleClass vclass) {
-    // Check if was already disallowed
-    if (std::find(myAllowVehicles.begin(), myDisallowVehicles.end(), vclass) != myDisallowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " was already disallowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
-    }
-    // insert in vector
-    myDisallowVehicles.push_back(vclass);
+void 
+GNEClosingLaneReroute::setAllowedVehicles(SVCPermissions allowed) {
+    myAllowedVehicles = allowed;
 }
 
 
-void
-GNEClosingLaneReroute::removeDisallowVehicle(SUMOVehicleClass vclass) {
-    // Check if was already disallowed
-    std::vector<SUMOVehicleClass>::iterator i = std::find(myDisallowVehicles.begin(), myDisallowVehicles.end(), vclass);
-    if ( i == myAllowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " wasn't previously disallowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
-    } else {
-        myDisallowVehicles.erase(i);
-    }
-}
-
-
-const std::vector<SUMOVehicleClass>&
-GNEClosingLaneReroute::getAllowVehicles() const {
-    return myAllowVehicles;
-}
-
-
-const std::vector<SUMOVehicleClass>&
-GNEClosingLaneReroute::getDisallowVehicles() const {
-    return myDisallowVehicles;
+void 
+GNEClosingLaneReroute::setDisallowedVehicles(SVCPermissions disallowed) {
+    myDisallowedVehicles = disallowed;
 }
 
 
@@ -139,8 +104,8 @@ bool
 GNEClosingLaneReroute::operator==(const GNEClosingLaneReroute &closingReroute) {
     if((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
        (myClosedLane == closingReroute.myClosedLane) &&
-       (myAllowVehicles == closingReroute.myAllowVehicles) &&
-       (myDisallowVehicles == closingReroute.myDisallowVehicles)) {
+       (myAllowedVehicles == closingReroute.myAllowedVehicles) &&
+       (myDisallowedVehicles == closingReroute.myDisallowedVehicles)) {
         return true;
     } else {
         return false;

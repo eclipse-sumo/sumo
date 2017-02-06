@@ -232,7 +232,7 @@ GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute(FXObject*, FXSelector,
         // check if add button was pressed
         if(myClosingLaneRerouteList->getItem((int)myCopyOfClosingLaneReroutes.size(), 4)->hasFocus()) {
             // add new element and update table
-            myCopyOfClosingLaneReroutes.push_back(GNEClosingLaneReroute(*myRerouterInterval, NULL, std::vector<SUMOVehicleClass>(), std::vector<SUMOVehicleClass>()));
+            myCopyOfClosingLaneReroutes.push_back(GNEClosingLaneReroute(*myRerouterInterval, NULL));
             updateClosingLaneReroutesTable();
             return 1;
         } else {
@@ -260,7 +260,7 @@ GNERerouterIntervalDialog::onCmdClickedClosingReroute(FXObject*, FXSelector, voi
         // check if add button was pressed
         if(myClosingRerouteList->getItem((int)myCopyOfClosingReroutes.size(), 4)->hasFocus()) {
             // add new element and update table
-            myCopyOfClosingReroutes.push_back(GNEClosingReroute(*myRerouterInterval, NULL, std::vector<SUMOVehicleClass>(), std::vector<SUMOVehicleClass>()));
+            myCopyOfClosingReroutes.push_back(GNEClosingReroute(*myRerouterInterval, NULL));
             updateClosingReroutesTable();
             return 1;
         } else {
@@ -346,9 +346,15 @@ GNERerouterIntervalDialog::onCmdEditClosingLaneReroute(FXObject*, FXSelector, vo
         if(lane == NULL) {
             myClosingLaneReroutesValid = false;
             myClosingLaneRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if(canParseVehicleClasses(myClosingLaneRerouteList->getItem(i, 1)->getText().text()) == false) {
+            myClosingLaneReroutesValid = false;
+            myClosingLaneRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if(canParseVehicleClasses(myClosingLaneRerouteList->getItem(i, 2)->getText().text()) == false) {
+            myClosingLaneReroutesValid = false;
+            myClosingLaneRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
-            // Allow/disallow vehicles must be implemented
-            // see #2845
+            myCopyOfClosingLaneReroutes.at(i).setAllowedVehicles(parseVehicleClasses(myClosingLaneRerouteList->getItem(i, 1)->getText().text()));
+            myCopyOfClosingLaneReroutes.at(i).setDisallowedVehicles(parseVehicleClasses(myClosingLaneRerouteList->getItem(i, 2)->getText().text()));
             myCopyOfClosingLaneReroutes.at(i).setClosedLane(lane);
             myClosingLaneRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -368,9 +374,15 @@ GNERerouterIntervalDialog::onCmdEditClosingReroute(FXObject*, FXSelector, void*)
         if(edge == NULL) {
             myClosingReroutesValid = false;
             myClosingRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if(canParseVehicleClasses(myClosingRerouteList->getItem(i, 1)->getText().text()) == false) {
+            myClosingReroutesValid = false;
+            myClosingRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if(canParseVehicleClasses(myClosingRerouteList->getItem(i, 2)->getText().text()) == false) {
+            myClosingReroutesValid = false;
+            myClosingRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
-            // Allow/disallow vehicles must be implemented
-            // see #2845
+            myCopyOfClosingReroutes.at(i).setAllowedVehicles(parseVehicleClasses(myClosingRerouteList->getItem(i, 1)->getText().text()));
+            myCopyOfClosingReroutes.at(i).setDisallowedVehicles(parseVehicleClasses(myClosingRerouteList->getItem(i, 2)->getText().text()));
             myCopyOfClosingReroutes.at(i).setClosedEdge(edge);
             myClosingRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
