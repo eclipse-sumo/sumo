@@ -95,9 +95,9 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterDialog *rerouter
     FXVerticalFrame *columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame *columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
 
-    // create horizontal frame for begin and end label
+    // create horizontal frame for begin and end labels
     FXHorizontalFrame *beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myBeginEndLabel = new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) +" and " + toString(SUMO_ATTR_END) + " of " + toString(rerouterInterval.getTag())).c_str(), 0, GUIDesignLabelLeftThick);
+    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) +" and " + toString(SUMO_ATTR_END) + " of " + toString(rerouterInterval.getTag())).c_str(), 0, GUIDesignLabelLeftThick);
     myCheckLabel = new FXLabel(beginEndElementsLeft, "", 0, GUIDesignLabelOnlyIcon);
 
     // create horizontal frame for begin and end text fields
@@ -117,22 +117,22 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterDialog *rerouter
     }
 
     // Create labels and tables
-    myClosingLaneReroutesLabel = new FXLabel(columnLeft, ("List of " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(columnLeft, ("List of " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
     myClosingLaneRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE, GUIDesignTableAdditionals);
     myClosingLaneRerouteList->setSelBackColor(FXRGBA(255,255,255,255));
     myClosingLaneRerouteList->setSelTextColor(FXRGBA(0,0,0,255));
 
-    myCLosingReroutesLabel = new FXLabel(columnLeft, ("List of " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(columnLeft, ("List of " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
     myClosingRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_CLOSINGREROUTE, GUIDesignTableAdditionals);
     myClosingRerouteList->setSelBackColor(FXRGBA(255,255,255,255));
     myClosingRerouteList->setSelTextColor(FXRGBA(0,0,0,255));
 
-    myDestProbReroutesLabel = new FXLabel(columnRight, ("List of " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(columnRight, ("List of " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
     myDestProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_DESTPROBREROUTE, GUIDesignTableAdditionals);
     myDestProbRerouteList->setSelBackColor(FXRGBA(255,255,255,255));
     myDestProbRerouteList->setSelTextColor(FXRGBA(0,0,0,255));
 
-    myRouteProbReroutesLabel = new FXLabel(columnRight, ("List of " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    FXLabel(columnRight, ("List of " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
     myRouteProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
     myRouteProbRerouteList->setSelBackColor(FXRGBA(255,255,255,255));
     myRouteProbRerouteList->setSelTextColor(FXRGBA(0,0,0,255));
@@ -562,12 +562,22 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     item = new FXTableItem("");
     item->setEnabled(false);
     myClosingLaneRerouteList->setItem(indexRow, 1, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myClosingLaneRerouteList->setItem(indexRow, 2, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myClosingLaneRerouteList->setItem(indexRow, 3, item);
+    // set help information depending of there are already inserted rows
+    if(myCopyOfClosingLaneReroutes.size() == 0) {
+        item = new FXTableItem("Add new item");
+        item->setEnabled(false);
+        myClosingLaneRerouteList->setItem(indexRow, 2, item);
+        item = new FXTableItem("->");
+        item->setEnabled(false);
+        myClosingLaneRerouteList->setItem(indexRow, 3, item);
+    } else {
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myClosingLaneRerouteList->setItem(indexRow, 2, item);
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myClosingLaneRerouteList->setItem(indexRow, 3, item);
+    }
     item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ADD));
     item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     item->setEnabled(false);
@@ -638,12 +648,22 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     item = new FXTableItem("");
     item->setEnabled(false);
     myClosingRerouteList->setItem(indexRow, 1, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myClosingRerouteList->setItem(indexRow, 2, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myClosingRerouteList->setItem(indexRow, 3, item);
+    // set help information depending of there are already inserted rows
+    if(myCopyOfClosingReroutes.size() == 0) {
+        item = new FXTableItem("Add new item");
+        item->setEnabled(false);
+        myClosingRerouteList->setItem(indexRow, 2, item);
+        item = new FXTableItem("->");
+        item->setEnabled(false);
+        myClosingRerouteList->setItem(indexRow, 3, item);
+    } else {
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myClosingRerouteList->setItem(indexRow, 2, item);
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myClosingRerouteList->setItem(indexRow, 3, item);
+    }
     item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ADD));
     item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     item->setEnabled(false);
@@ -706,12 +726,22 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     item = new FXTableItem("");
     item->setEnabled(false);
     myDestProbRerouteList->setItem(indexRow, 0, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myDestProbRerouteList->setItem(indexRow, 1, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myDestProbRerouteList->setItem(indexRow, 2, item);
+    // set help information depending of there are already inserted rows
+    if(myCopyOfDestProbReroutes.size() == 0) {
+        item = new FXTableItem("Add new item");
+        item->setEnabled(false);
+        myDestProbRerouteList->setItem(indexRow, 1, item);
+        item = new FXTableItem("->");
+        item->setEnabled(false);
+        myDestProbRerouteList->setItem(indexRow, 2, item);
+    } else {
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myDestProbRerouteList->setItem(indexRow, 1, item);
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myDestProbRerouteList->setItem(indexRow, 2, item);
+    }
     item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ADD));
     item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     item->setEnabled(false);
@@ -769,12 +799,22 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     item = new FXTableItem("");
     item->setEnabled(false);
     myRouteProbRerouteList->setItem(indexRow, 0, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myRouteProbRerouteList->setItem(indexRow, 1, item);
-    item = new FXTableItem("");
-    item->setEnabled(false);
-    myRouteProbRerouteList->setItem(indexRow, 2, item);
+    // set help information depending of there are already inserted rows
+    if(myCopyOfRouteProbReroutes.size() == 0) {
+        item = new FXTableItem("Add new item");
+        item->setEnabled(false);
+        myRouteProbRerouteList->setItem(indexRow, 1, item);
+        item = new FXTableItem("->");
+        item->setEnabled(false);
+        myRouteProbRerouteList->setItem(indexRow, 2, item);
+    } else {
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myRouteProbRerouteList->setItem(indexRow, 1, item);
+        item = new FXTableItem("");
+        item->setEnabled(false);
+        myRouteProbRerouteList->setItem(indexRow, 2, item);
+    }
     item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ADD));
     item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     item->setEnabled(false);
