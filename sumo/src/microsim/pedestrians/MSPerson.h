@@ -80,7 +80,8 @@ public:
 
     public:
         /// constructor
-        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime, 
+                SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal departPosLat);
 
         /// destructor
         ~MSPersonStage_Walking();
@@ -151,6 +152,11 @@ public:
         inline SUMOReal getDepartPos() const {
             return myDepartPos;
         }
+
+        inline SUMOReal getDepartPosLat() const {
+            return myDepartPosLat;
+        }
+
         inline SUMOReal getArrivalPos() const {
             return myArrivalPos;
         }
@@ -174,7 +180,7 @@ public:
     private:
 
         /* @brief compute average speed if the total walking duration is given
-         * @note Must be callled when the previous stage changes myDepartPos from the default*/
+         * @note Must be called when the previous stage changes myDepartPos from the default*/
         SUMOReal computeAverageSpeed() const;
 
 
@@ -192,6 +198,7 @@ public:
         MSEdge* myCurrentInternalEdge;
 
         SUMOReal myDepartPos;
+        SUMOReal myDepartPosLat;
         SUMOReal mySpeed;
 
         /// @brief state that is to be manipulated by MSPModel

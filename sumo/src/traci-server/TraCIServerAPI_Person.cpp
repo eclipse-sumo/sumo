@@ -455,7 +455,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid stopping place id '" + stopID + "' for person: '" + id + "'", outputStorage);
                     }
                 }
-                p->appendStage(new MSPerson::MSPersonStage_Walking(edges, bs, duration, speed, p->getArrivalPos(), arrivalPos));
+                p->appendStage(new MSPerson::MSPersonStage_Walking(edges, bs, duration, speed, p->getArrivalPos(), arrivalPos, 0));
 
 
             } else {

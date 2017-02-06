@@ -46,7 +46,7 @@
 // DEBUGGING HELPERS
 // ===========================================================================
 //
-#define DEBUG1 ""
+#define DEBUG1 "ped1"
 #define DEBUG2 ""
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
 //#define LOG_ALL 1
@@ -823,7 +823,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
     myStage(stage),
     myLane(lane),
     myRelX(stage->getDepartPos()),
-    myRelY(0),
+    myRelY(stage->getDepartPosLat()),
     myDir(FORWARD),
     mySpeed(0),
     myWaitingToEnter(true),
@@ -862,7 +862,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
     }
     if (myDir == FORWARD) {
         // start at the right side of the sidewalk
-        myRelY = stripeWidth * (numStripes(lane) - 1);
+        myRelY = stripeWidth * (numStripes(lane) - 1) - myRelY;
     }
     if DEBUGCOND(myPerson->getID()) {
         std::cout << "  added new pedestrian " << myPerson->getID() << " on " << lane->getID() << " myRelX=" << myRelX << " myRelY=" << myRelY << " dir=" << myDir << " route=" << toString(myStage->getRoute()) << "\n";

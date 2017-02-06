@@ -60,11 +60,12 @@
 MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& route,
         MSStoppingPlace* toStop,
         SUMOTime walkingTime, SUMOReal speed,
-        SUMOReal departPos, SUMOReal arrivalPos) :
+        SUMOReal departPos, SUMOReal arrivalPos, SUMOReal departPosLat) :
     MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
                                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
     myCurrentInternalEdge(0),
     myDepartPos(departPos),
+    myDepartPosLat(departPosLat),
     mySpeed(speed),
     myPedestrianState(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(

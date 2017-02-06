@@ -273,7 +273,8 @@ MSRouteHandler::myStartElement(int element,
                         myActivePlan->push_back(new MSTransportable::Stage_Waiting(
                                                     *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
                     }
-                    myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos));
+                    const SUMOReal departPosLat = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
+                    myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
                     myActiveRoute.clear();
                 } catch (ProcessError&) {
                     deleteActivePlans();
