@@ -153,32 +153,32 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         FXMessageBox::warning(getApp(), MBOX_OK, 
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
                               (toString(myRerouterInterval->getTag()) + " cannot be updated because " + toString(myRerouterInterval->getTag()) + " defined by " + 
-                              toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " isn't valid").c_str());
+                              toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         return 0;
     } else if(myCopyOfClosingLaneReroutes.empty() && myCopyOfClosingReroutes.empty() && myCopyOfDestProbReroutes.empty() && myCopyOfRouteProbReroutes.empty()) {
         FXMessageBox::warning(getApp(), MBOX_OK, 
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + "'s element must be defined").c_str());
+                              (toString(myRerouterInterval->getTag()) + " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + "'s element must be defined.").c_str());
         return 0;
     } else if(myClosingLaneReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are "+ toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s invalid").c_str());
+                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
         return 0;
     } else if(myClosingReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are "+ toString(SUMO_TAG_CLOSING_REROUTE) + "s invalid").c_str());
+                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
         return 0;
     } else if(myDestProbReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there "+ toString(SUMO_TAG_DEST_PROB_REROUTE) + "s invalid").c_str());
+                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
         return 0;
     } else if(myRouteProbReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are "+ toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s invalid").c_str());
+                              (toString(myRerouterInterval->getTag()) + " cannot be updated because there are invalid "+ toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
         return 0;
     } else{
         // set new values of rerouter interval
@@ -504,8 +504,14 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
         // Set disallow
         // @todo item = new FXTableItem(toString((*i)->getEnd()).c_str());
         // @todo myClosingLaneRerouteList->setItem(indexRow, 2, item);
-        // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
+        // set valid icon
+        item = new FXTableItem("");
+        if(i->getClosedLane()) {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        } else {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+            myClosingLaneReroutesValid = false;
+        }
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myClosingLaneRerouteList->setItem(indexRow, 3, item);
@@ -568,6 +574,7 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
         } else {
             item = new FXTableItem("");
             myClosingRerouteList->setItem(indexRow, 0, item);
+            myClosingReroutesValid = false;
         }
         // Set allow
         // @todo item = new FXTableItem(toString((*i)->getEnd()).c_str());
@@ -576,7 +583,12 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
         // @todo item = new FXTableItem(toString((*i)->getEnd()).c_str());
         // @todo myClosingRerouteList->setItem(indexRow, 1, item);
         // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
+        item = new FXTableItem("");
+        if(i->getClosedEdge()) {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        } else {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        }
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myClosingRerouteList->setItem(indexRow, 3, item);
@@ -642,7 +654,13 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
         item = new FXTableItem(toString(i->getProbability()).c_str());
         myDestProbRerouteList->setItem(indexRow, 1, item);
         // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
+        item = new FXTableItem("");
+        if((i->getNewDestination() != NULL) && (i->getProbability() >= 0) && (i->getProbability() <= 1)) {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        } else {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+            myDestProbReroutesValid = false;
+        }
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myDestProbRerouteList->setItem(indexRow, 2, item);
@@ -700,7 +718,13 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
         item = new FXTableItem(toString(i->getProbability()).c_str());
         myRouteProbRerouteList->setItem(indexRow, 1, item);
         // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
+        item = new FXTableItem("");
+        if((i->getNewRouteId().size() > 0) && (i->getProbability() >= 0) && (i->getProbability() <= 1)) {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        } else {
+            item->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+            myRouteProbReroutesValid = false;
+        }
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myRouteProbRerouteList->setItem(indexRow, 2, item);
