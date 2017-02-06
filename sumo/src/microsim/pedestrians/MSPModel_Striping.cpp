@@ -46,7 +46,7 @@
 // DEBUGGING HELPERS
 // ===========================================================================
 //
-#define DEBUG1 "ped1"
+#define DEBUG1 ""
 #define DEBUG2 ""
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
 //#define LOG_ALL 1
