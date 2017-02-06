@@ -943,7 +943,7 @@ class VehicleDomain(Domain):
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LANECHANGE_MODE, vehID, lcm)
 
     def setSpeedMode(self, vehID, sm):
-        """setLaneChangeMode(string, integer) -> None
+        """setSpeedMode(string, integer) -> None
 
         Sets the vehicle's speed mode as a bitset.
         """
