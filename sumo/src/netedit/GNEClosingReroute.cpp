@@ -116,6 +116,10 @@ GNEClosingReroute::getClosedEdge() const {
     return myClosedEdge;
 }
 
+void 
+GNEClosingReroute::setClosedEdge(GNEEdge *edge) {
+    myClosedEdge = edge;
+}
 
 SumoXMLTag 
 GNEClosingReroute::getTag() const {

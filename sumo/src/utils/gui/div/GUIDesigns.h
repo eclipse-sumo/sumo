@@ -280,7 +280,6 @@
 
 /// @name design for about dialogs (SUMO and netedit)
 /// @{
-
     /// @brief design for Frame 1
     #define GUIDesignAboutFrame1            (LAYOUT_TOP | FRAME_NONE | LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 1, 1
 
@@ -321,10 +320,7 @@
     #define GUIDesignTable                      (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
 
     /// @brief design for tables used in additional dialogs
-    #define GUIDesignTableAdditionals           (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER)
-
-    /// @brief design for non-editable tables which their rows and columns cannot be selected
-    #define GUIDesignTableAdditionalsNoSelct    (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT)
+    #define GUIDesignTableAdditionals           (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT)
 
     /// @brief width of cells that only contains an Icon
     #define GUIDesignTableIconCellWidth         23

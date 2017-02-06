@@ -60,6 +60,12 @@ GNEDestProbReroute::getNewDestination() const {
 }
 
 
+void
+GNEDestProbReroute::setNewDestination(GNEEdge* edge) {
+    myNewEdgeDestination = edge;
+}
+
+
 SUMOReal
 GNEDestProbReroute::getProbability() const {
     return myProbability;

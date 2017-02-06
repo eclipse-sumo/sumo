@@ -30,7 +30,7 @@
 #include <utils/common/ToString.h>
 
 #include "GNEClosingLaneReroute.h"
-#include "GNEEdge.h"
+#include "GNELane.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -40,8 +40,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
-    myClosedEdge(closedEdge),
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles) :
+    myClosedLane(closedLane),
     myAllowVehicles(allowVehicles),
     myDisallowVehicles(disallowVehicles),
     myRerouterIntervalParent(&rerouterIntervalParent),
@@ -57,7 +57,7 @@ void
 GNEClosingLaneReroute::insertAllowVehicle(SUMOVehicleClass vclass) {
     // Check if was already allowed
     if (std::find(myAllowVehicles.begin(), myAllowVehicles.end(), vclass) != myAllowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " was already allowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdge->getID() + "'");
+        throw ProcessError(toString(vclass) + " was already allowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
     }
     // insert in vector
     myAllowVehicles.push_back(vclass);
@@ -69,7 +69,7 @@ GNEClosingLaneReroute::removeAllowVehicle(SUMOVehicleClass vclass) {
     // Check if was already allowed
     std::vector<SUMOVehicleClass>::iterator i = std::find(myAllowVehicles.begin(), myAllowVehicles.end(), vclass);
     if ( i == myAllowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " wasn't previously allowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdge->getID() + "'");
+        throw ProcessError(toString(vclass) + " wasn't previously allowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
     } else {
         myAllowVehicles.erase(i);
     }
@@ -80,7 +80,7 @@ void
 GNEClosingLaneReroute::insertDisallowVehicle(SUMOVehicleClass vclass) {
     // Check if was already disallowed
     if (std::find(myAllowVehicles.begin(), myDisallowVehicles.end(), vclass) != myDisallowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " was already disallowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdge->getID() + "'");
+        throw ProcessError(toString(vclass) + " was already disallowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
     }
     // insert in vector
     myDisallowVehicles.push_back(vclass);
@@ -92,7 +92,7 @@ GNEClosingLaneReroute::removeDisallowVehicle(SUMOVehicleClass vclass) {
     // Check if was already disallowed
     std::vector<SUMOVehicleClass>::iterator i = std::find(myDisallowVehicles.begin(), myDisallowVehicles.end(), vclass);
     if ( i == myAllowVehicles.end()) {
-        throw ProcessError(toString(vclass) + " wasn't previously disallowed in " + toString(myTag) + " with closed edge ID ='" + myClosedEdge->getID() + "'");
+        throw ProcessError(toString(vclass) + " wasn't previously disallowed in " + toString(myTag) + " with closed lane ID ='" + myClosedLane->getID() + "'");
     } else {
         myDisallowVehicles.erase(i);
     }
@@ -111,9 +111,15 @@ GNEClosingLaneReroute::getDisallowVehicles() const {
 }
 
 
-GNEEdge*
-GNEClosingLaneReroute::getClosedEdge() const {
-    return myClosedEdge;
+GNELane*
+GNEClosingLaneReroute::getClosedLane() const {
+    return myClosedLane;
+}
+
+
+void
+GNEClosingLaneReroute::setClosedLane(GNELane* lane) {
+    myClosedLane = lane;
 }
 
 
@@ -132,7 +138,7 @@ GNEClosingLaneReroute::getRerouterIntervalParent() const {
 bool 
 GNEClosingLaneReroute::operator==(const GNEClosingLaneReroute &closingReroute) {
     if((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
-       (myClosedEdge == closingReroute.myClosedEdge) &&
+       (myClosedLane == closingReroute.myClosedLane) &&
        (myAllowVehicles == closingReroute.myAllowVehicles) &&
        (myDisallowVehicles == closingReroute.myDisallowVehicles)) {
         return true;

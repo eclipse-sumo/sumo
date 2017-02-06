@@ -151,7 +151,7 @@ protected:
     FXTable* myDestProbRerouteList;
 
     /// @brief list with route probability reroute
-    FXTable* myRouteProbReroute;
+    FXTable* myRouteProbRerouteList;
 
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;
@@ -169,7 +169,7 @@ protected:
     bool myClosingReroutesValid;
 
     /// @brief vector with a copy of the destProbReroutes
-    std::vector<GNEDestProbReroute> myCopyOfmyDestProbReroutes;
+    std::vector<GNEDestProbReroute> myCopyOfDestProbReroutes;
 
     /// @brief flag to check if Destiny probability reroutes are valid
     bool myDestProbReroutesValid;

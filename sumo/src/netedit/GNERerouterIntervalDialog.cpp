@@ -42,6 +42,9 @@
 #include "GNEDestProbReroute.h"
 #include "GNERouteProbReroute.h"
 #include "GNEEdge.h"
+#include "GNELane.h"
+#include "GNEViewNet.h"
+#include "GNENet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -56,10 +59,10 @@ FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
     FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdDoubleClickedClosingReroute),
     FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdDoubleClickedDestProbReroute),
     FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute),
-    FXMAPFUNC(SEL_KEYRELEASE,       MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE,   GNERerouterIntervalDialog::onCmdEditClosingLaneReroute),
-    FXMAPFUNC(SEL_KEYRELEASE,       MID_GNE_REROUTEDIALOG_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdEditClosingReroute),
-    FXMAPFUNC(SEL_KEYRELEASE,       MID_GNE_REROUTEDIALOG_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdEditDestProbReroute),
-    FXMAPFUNC(SEL_KEYRELEASE,       MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdEditRouteProbReroute),
+    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_CLOSINGLANEREORUTE,   GNERerouterIntervalDialog::onCmdEditClosingLaneReroute),
+    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdEditClosingReroute),
+    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdEditDestProbReroute),
+    FXMAPFUNC(SEL_CHANGED,          MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdEditRouteProbReroute),
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_CHANGESTART,          GNERerouterIntervalDialog::onCmdChangeBegin),
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_CHANGEEND,            GNERerouterIntervalDialog::onCmdChangeEnd),
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,       GNERerouterIntervalDialog::onCmdAccept),
@@ -124,13 +127,14 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterDialog *rerouter
     myDestProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_DESTPROBREROUTE, GUIDesignTableAdditionals);
     
     myRouteProbReroutesLabel = new FXLabel(columnRight, ("List of " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myRouteProbReroute = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
+    myRouteProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
 
     // copy Elements
     myCopyOfClosingLaneReroutes = myRerouterInterval->getClosingLaneReroutes();
     myCopyOfClosingReroutes = myRerouterInterval->getClosingReroutes();
-    myCopyOfmyDestProbReroutes = myRerouterInterval->getDestProbReroutes();
+    myCopyOfDestProbReroutes = myRerouterInterval->getDestProbReroutes();
     myCopyOfRouteProbReroutes = myRerouterInterval->getRouteProbReroutes();
+
     // update tables
     updateClosingLaneReroutesTable();
     updateClosingReroutesTable();
@@ -151,10 +155,10 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                               (toString(myRerouterInterval->getTag()) + " cannot be updated because " + toString(myRerouterInterval->getTag()) + " defined by " + 
                               toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " isn't valid").c_str());
         return 0;
-    } else if(myCopyOfClosingLaneReroutes.empty() && myCopyOfClosingReroutes.empty() && myCopyOfmyDestProbReroutes.empty() && myCopyOfRouteProbReroutes.empty()) {
+    } else if(myCopyOfClosingLaneReroutes.empty() && myCopyOfClosingReroutes.empty() && myCopyOfDestProbReroutes.empty() && myCopyOfRouteProbReroutes.empty()) {
         FXMessageBox::warning(getApp(), MBOX_OK, 
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(SUMO_TAG_REROUTER)).c_str(), 
-                              (toString(myRerouterInterval->getTag()) + " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + " must be defined").c_str());
+                              (toString(myRerouterInterval->getTag()) + " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + "'s element must be defined").c_str());
         return 0;
     } else if(myClosingLaneReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
@@ -180,7 +184,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // set new values of rerouter interval
         myRerouterInterval->setClosingLaneReroutes(myCopyOfClosingLaneReroutes);
         myRerouterInterval->setClosingReroutes(myCopyOfClosingReroutes);
-        myRerouterInterval->setDestProbReroutes(myCopyOfmyDestProbReroutes);
+        myRerouterInterval->setDestProbReroutes(myCopyOfDestProbReroutes);
         myRerouterInterval->setRouteProbReroutes(myCopyOfRouteProbReroutes);
         myRerouterInterval->setBegin(GNEAttributeCarrier::parse<SUMOReal>(myBeginTextField->getText().text()));
         myRerouterInterval->setEnd(GNEAttributeCarrier::parse<SUMOReal>(myEndTextField->getText().text()));
@@ -205,7 +209,7 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // Copy original intervals again
     myCopyOfClosingLaneReroutes = myRerouterInterval->getClosingLaneReroutes();
     myCopyOfClosingReroutes = myRerouterInterval->getClosingReroutes();
-    myCopyOfmyDestProbReroutes = myRerouterInterval->getDestProbReroutes();
+    myCopyOfDestProbReroutes = myRerouterInterval->getDestProbReroutes();
     myCopyOfRouteProbReroutes = myRerouterInterval->getRouteProbReroutes();
     // update tables
     updateClosingLaneReroutesTable();
@@ -275,17 +279,17 @@ GNERerouterIntervalDialog::onCmdDoubleClickedDestProbReroute(FXObject*, FXSelect
     // First check if list is emty
     if(myDestProbRerouteList->getNumRows() > 0) {
         // check if add button was pressed
-        if(myDestProbRerouteList->getItem((int)myCopyOfmyDestProbReroutes.size(), 3)->hasFocus()) {
+        if(myDestProbRerouteList->getItem((int)myCopyOfDestProbReroutes.size(), 3)->hasFocus()) {
             // add new element and update table
-            myCopyOfmyDestProbReroutes.push_back(GNEDestProbReroute(*myRerouterInterval, NULL, 0));
+            myCopyOfDestProbReroutes.push_back(GNEDestProbReroute(*myRerouterInterval, NULL, 0));
             updateDestProbReroutesTable();
             return 1;
         } else {
             // check if some delete button was pressed
-            for(int i = 0; i < (int)myCopyOfmyDestProbReroutes.size(); i++) {
+            for(int i = 0; i < (int)myCopyOfDestProbReroutes.size(); i++) {
                 if(myDestProbRerouteList->getItem(i, 3)->hasFocus()) {
                     myDestProbRerouteList->removeRows(i);
-                    myCopyOfmyDestProbReroutes.erase(myCopyOfmyDestProbReroutes.begin() + i);
+                    myCopyOfDestProbReroutes.erase(myCopyOfDestProbReroutes.begin() + i);
                     return 1;
                 }
             }
@@ -300,9 +304,9 @@ GNERerouterIntervalDialog::onCmdDoubleClickedDestProbReroute(FXObject*, FXSelect
 long 
 GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelector, void*) {
     // First check if list is emty
-    if(myRouteProbReroute->getNumRows() > 0) {
+    if(myRouteProbRerouteList->getNumRows() > 0) {
         // check if add button was pressed
-        if(myRouteProbReroute->getItem((int)myCopyOfRouteProbReroutes.size(), 3)->hasFocus()) {
+        if(myRouteProbRerouteList->getItem((int)myCopyOfRouteProbReroutes.size(), 3)->hasFocus()) {
             // add new element and update table
             myCopyOfRouteProbReroutes.push_back(GNERouteProbReroute(*myRerouterInterval,"", 0));
             updateRouteProbReroutesTable();
@@ -310,8 +314,8 @@ GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelec
         } else {
             // check if some delete button was pressed
             for(int i = 0; i < (int)myCopyOfRouteProbReroutes.size(); i++) {
-                if(myRouteProbReroute->getItem(i, 3)->hasFocus()) {
-                    myRouteProbReroute->removeRows(i);
+                if(myRouteProbRerouteList->getItem(i, 3)->hasFocus()) {
+                    myRouteProbRerouteList->removeRows(i);
                     myCopyOfRouteProbReroutes.erase(myCopyOfRouteProbReroutes.begin() + i);
                     return 1;
                 }
@@ -326,28 +330,106 @@ GNERerouterIntervalDialog::onCmdDoubleClickedRouteProbReroute(FXObject*, FXSelec
 
 long 
 GNERerouterIntervalDialog::onCmdEditClosingLaneReroute(FXObject*, FXSelector, void*) {
-    std::cout << "EDITA 1" << std::endl;
+    myClosingLaneReroutesValid = true;
+    // iterate over table and check that all parameters are correct
+    for(int i = 0; i < (myClosingLaneRerouteList->getNumRows() - 1); i++) {
+        GNELane *lane = myRerouterInterval->getRerouterParent()->getViewNet()->getNet()->retrieveLane(myClosingLaneRerouteList->getItem(i, 0)->getText().text(), false);
+        if(lane == NULL) {
+            myClosingLaneReroutesValid = false;
+            myClosingLaneRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else {
+            // Allow/disallow vehicles must be implemented
+            // see #2845
+            myCopyOfClosingLaneReroutes.at(i).setClosedLane(lane);
+            myClosingLaneRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        }
+    }
+    // update list
+    myClosingLaneRerouteList->update();
     return 1;
 }
 
 
 long 
 GNERerouterIntervalDialog::onCmdEditClosingReroute(FXObject*, FXSelector, void*) {
-    std::cout << "EDITA 2" << std::endl;
+    myClosingReroutesValid = true;
+    // iterate over table and check that all parameters are correct
+    for(int i = 0; i < (myClosingRerouteList->getNumRows() - 1); i++) {
+        GNEEdge *edge = myRerouterInterval->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(myClosingRerouteList->getItem(i, 0)->getText().text(), false);
+        if(edge == NULL) {
+            myClosingReroutesValid = false;
+            myClosingRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else {
+            // Allow/disallow vehicles must be implemented
+            // see #2845
+            myCopyOfClosingReroutes.at(i).setClosedEdge(edge);
+            myClosingRerouteList->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        }
+    }
+    // update list
+    myClosingRerouteList->update();
     return 1;
 }
 
 
 long 
 GNERerouterIntervalDialog::onCmdEditDestProbReroute(FXObject*, FXSelector, void*) {
-    std::cout << "EDITA 3" << std::endl;
+    myDestProbReroutesValid = true;
+    // iterate over table and check that all parameters are correct
+    for(int i = 0; i < (myDestProbRerouteList->getNumRows() - 1); i++) {
+        GNEEdge *edge = myRerouterInterval->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(myDestProbRerouteList->getItem(i, 0)->getText().text(), false);
+        SUMOReal probability = -1;
+        // try to parse probability
+        if(GNEAttributeCarrier::canParse<SUMOReal>(myDestProbRerouteList->getItem(i, 1)->getText().text())) {
+            probability = GNEAttributeCarrier::parse<SUMOReal>(myDestProbRerouteList->getItem(i, 1)->getText().text());
+        }
+        // check if values are valid
+        if(edge == NULL) {
+            myDestProbReroutesValid = false;
+            myDestProbRerouteList->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if ((probability < 0) || (probability > 1)){
+            myDestProbReroutesValid = false;
+            myDestProbRerouteList->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else {
+            myCopyOfDestProbReroutes.at(i).setNewDestination(edge);
+            myCopyOfDestProbReroutes.at(i).setProbability(probability);
+            myDestProbRerouteList->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+            myDestProbRerouteList->update();
+        }
+    }
+    // update list
+    myDestProbRerouteList->update();
     return 1;
 }
 
 
 long 
 GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void*) {
-    std::cout << "EDITA 4" << std::endl;
+    myRouteProbReroutesValid = true;
+    // iterate over table and check that all parameters are correct
+    for(int i = 0; i < (myRouteProbRerouteList->getNumRows() - 1); i++) {
+        SUMOReal probability = -1;
+        std::string route = myRouteProbRerouteList->getItem(i, 0)->getText().text();
+        // try to parse probability
+        if(GNEAttributeCarrier::canParse<SUMOReal>(myRouteProbRerouteList->getItem(i, 1)->getText().text())) {
+            probability = GNEAttributeCarrier::parse<SUMOReal>(myRouteProbRerouteList->getItem(i, 1)->getText().text());
+        }
+        // check if values are valid
+        if(route.empty()) {
+            myRouteProbReroutesValid = false;
+            myRouteProbRerouteList->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if ((probability < 0) || (probability > 1)){
+            myRouteProbReroutesValid = false;
+            myRouteProbRerouteList->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else {
+            myCopyOfRouteProbReroutes.at(i).setNewRouteId(myRouteProbRerouteList->getItem(i, 0)->getText().text());
+            myCopyOfRouteProbReroutes.at(i).setProbability(probability);
+            myRouteProbRerouteList->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+            myRouteProbRerouteList->update();
+        }
+    }
+    // update list
+    myRouteProbRerouteList->update();
     return 1;
 }
 
@@ -409,8 +491,8 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     // iterate over values
     for (std::vector<GNEClosingLaneReroute>::iterator i = myCopyOfClosingLaneReroutes.begin(); i != myCopyOfClosingLaneReroutes.end(); i++) {
         // Set closing edge
-        if(i->getClosedEdge() != NULL) {
-            item = new FXTableItem(i->getClosedEdge()->getID().c_str());
+        if(i->getClosedLane() != NULL) {
+            item = new FXTableItem(i->getClosedLane()->getID().c_str());
             myClosingLaneRerouteList->setItem(indexRow, 0, item);
         } else {
             item = new FXTableItem("");
@@ -423,7 +505,7 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
         // @todo item = new FXTableItem(toString((*i)->getEnd()).c_str());
         // @todo myClosingLaneRerouteList->setItem(indexRow, 2, item);
         // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_CORRECT));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myClosingLaneRerouteList->setItem(indexRow, 3, item);
@@ -494,7 +576,7 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
         // @todo item = new FXTableItem(toString((*i)->getEnd()).c_str());
         // @todo myClosingRerouteList->setItem(indexRow, 1, item);
         // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_CORRECT));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myClosingRerouteList->setItem(indexRow, 3, item);
@@ -531,7 +613,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     // clear table
     myDestProbRerouteList->clearItems();
     // set number of rows
-    myDestProbRerouteList->setTableSize(int(myCopyOfmyDestProbReroutes.size()) + 1, 4);
+    myDestProbRerouteList->setTableSize(int(myCopyOfDestProbReroutes.size()) + 1, 4);
     // Configure list
     myDestProbRerouteList->setVisibleColumns(4);
     myDestProbRerouteList->setColumnWidth(0, 125);
@@ -547,7 +629,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::vector<GNEDestProbReroute>::iterator i = myCopyOfmyDestProbReroutes.begin(); i != myCopyOfmyDestProbReroutes.end(); i++) {
+    for (std::vector<GNEDestProbReroute>::iterator i = myCopyOfDestProbReroutes.begin(); i != myCopyOfDestProbReroutes.end(); i++) {
         // Set new destination
         if(i->getNewDestination() != NULL) {
             item = new FXTableItem(i->getNewDestination()->getID().c_str());
@@ -560,7 +642,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
         item = new FXTableItem(toString(i->getProbability()).c_str());
         myDestProbRerouteList->setItem(indexRow, 1, item);
         // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_CORRECT));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myDestProbRerouteList->setItem(indexRow, 2, item);
@@ -592,20 +674,20 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
 void 
 GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     // clear table
-    myRouteProbReroute->clearItems();
+    myRouteProbRerouteList->clearItems();
     // set number of rows
-    myRouteProbReroute->setTableSize(int(myCopyOfRouteProbReroutes.size()) + 1, 4);
+    myRouteProbRerouteList->setTableSize(int(myCopyOfRouteProbReroutes.size()) + 1, 4);
     // Configure list
-    myRouteProbReroute->setVisibleColumns(4);
-    myRouteProbReroute->setColumnWidth(0, 125);
-    myRouteProbReroute->setColumnWidth(1, 124);
-    myRouteProbReroute->setColumnWidth(2, GUIDesignTableIconCellWidth);
-    myRouteProbReroute->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myRouteProbReroute->setColumnText(0, toString(SUMO_ATTR_ROUTE).c_str());
-    myRouteProbReroute->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
-    myRouteProbReroute->setColumnText(2, "");
-    myRouteProbReroute->setColumnText(3, "");
-    myRouteProbReroute->getRowHeader()->setWidth(0);
+    myRouteProbRerouteList->setVisibleColumns(4);
+    myRouteProbRerouteList->setColumnWidth(0, 125);
+    myRouteProbRerouteList->setColumnWidth(1, 124);
+    myRouteProbRerouteList->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myRouteProbRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
+    myRouteProbRerouteList->setColumnText(0, toString(SUMO_ATTR_ROUTE).c_str());
+    myRouteProbRerouteList->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
+    myRouteProbRerouteList->setColumnText(2, "");
+    myRouteProbRerouteList->setColumnText(3, "");
+    myRouteProbRerouteList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
     FXTableItem* item = 0;
@@ -613,37 +695,37 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     for (std::vector<GNERouteProbReroute>::iterator i = myCopyOfRouteProbReroutes.begin(); i != myCopyOfRouteProbReroutes.end(); i++) {
         // Set new route
         item = new FXTableItem(i->getNewRouteId().c_str());
-        myRouteProbReroute->setItem(indexRow, 0, item);
+        myRouteProbRerouteList->setItem(indexRow, 0, item);
         // Set probability
         item = new FXTableItem(toString(i->getProbability()).c_str());
-        myRouteProbReroute->setItem(indexRow, 1, item);
+        myRouteProbRerouteList->setItem(indexRow, 1, item);
         // set valid
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_CORRECT));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ERROR));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
-        myRouteProbReroute->setItem(indexRow, 2, item);
+        myRouteProbRerouteList->setItem(indexRow, 2, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
-        myRouteProbReroute->setItem(indexRow, 3, item);
+        myRouteProbRerouteList->setItem(indexRow, 3, item);
         // Update index
         indexRow++;
     }
     // set add
     item = new FXTableItem("");
     item->setEnabled(false);
-    myRouteProbReroute->setItem(indexRow, 0, item);
+    myRouteProbRerouteList->setItem(indexRow, 0, item);
     item = new FXTableItem("");
     item->setEnabled(false);
-    myRouteProbReroute->setItem(indexRow, 1, item);
+    myRouteProbRerouteList->setItem(indexRow, 1, item);
     item = new FXTableItem("");
     item->setEnabled(false);
-    myRouteProbReroute->setItem(indexRow, 2, item);
+    myRouteProbRerouteList->setItem(indexRow, 2, item);
     item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_ADD));
     item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     item->setEnabled(false);
-    myRouteProbReroute->setItem(indexRow, 3, item);
+    myRouteProbRerouteList->setItem(indexRow, 3, item);
 }
 
 

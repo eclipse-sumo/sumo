@@ -61,6 +61,12 @@ GNERouteProbReroute::getNewRouteId() const {
 }
 
 
+void 
+GNERouteProbReroute::setNewRouteId(std::string newRouteId) {
+    myNewRouteId = newRouteId;
+}
+
+
 SUMOReal
 GNERouteProbReroute::getProbability() const {
     return myProbability;

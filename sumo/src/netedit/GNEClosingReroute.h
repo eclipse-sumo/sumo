@@ -87,6 +87,9 @@ public:
     /// @brief get closed edge
     GNEEdge *getClosedEdge() const;
 
+    /// @brief set closed edge
+    void setClosedEdge(GNEEdge * edge);
+
     /// @brief get tag
     SumoXMLTag getTag() const;
 

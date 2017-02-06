@@ -39,7 +39,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEEdge;
+class GNELane;
 class GNERerouterInterval;
 
 // ===========================================================================
@@ -52,7 +52,7 @@ class GNERerouterInterval;
 class GNEClosingLaneReroute {
 public:
     /// @brief constructor
-    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles);
+    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, std::vector<SUMOVehicleClass> allowVehicles, std::vector<SUMOVehicleClass> disallowVehicles);
 
     /// @brief destructor
     ~GNEClosingLaneReroute();
@@ -83,8 +83,11 @@ public:
     /// @brief get disallow vehicles
     const std::vector<SUMOVehicleClass> &getDisallowVehicles() const;
 
-    /// @brief get closed edge Id
-    GNEEdge *getClosedEdge() const;
+    /// @brief get closed lane Id
+    GNELane *getClosedLane() const;
+
+    /// @brief set closed lane Id
+    void setClosedLane(GNELane *lane);
 
     /// @brief get tag
     SumoXMLTag getTag() const;
@@ -102,8 +105,8 @@ protected:
     /// @brief XML Tag of closing lane reroute
     SumoXMLTag myTag;
 
-    /// @brief closed edge
-    GNEEdge *myClosedEdge;
+    /// @brief closed lane
+    GNELane *myClosedLane;
 
     /// @brief vector of allow vehicles
     std::vector<SUMOVehicleClass> myAllowVehicles;

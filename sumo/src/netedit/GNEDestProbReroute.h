@@ -59,6 +59,9 @@ public:
     /// @brief get edge destination
     GNEEdge *getNewDestination() const;
 
+    /// @brief set edge destination
+    void setNewDestination(GNEEdge* edge);
+
     /// @brief get probability
     SUMOReal getProbability() const;
 

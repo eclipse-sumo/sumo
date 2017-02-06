@@ -60,6 +60,9 @@ public:
     /// @brief get new route id
     std::string getNewRouteId() const;
 
+    /// @brief set new route id
+    void setNewRouteId(std::string newRouteId);
+
     /// @brief get probability
     SUMOReal getProbability() const;
 

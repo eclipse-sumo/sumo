@@ -32,6 +32,7 @@
 
 #include "GNERerouterInterval.h"
 #include "GNEEdge.h"
+#include "GNELane.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -59,7 +60,7 @@ bool
 GNERerouterInterval::insertClosinLanegReroutes(const GNEClosingLaneReroute &clr) {
     // Check if was already inserted due uplicates aren't allowed
     if(std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr) != myClosingLaneReroutes.end()) {
-        WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedEdge()->getID() + "' was already inserted; Duplicates aren't allowed");
+        WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedLane()->getID() + "' was already inserted; Duplicates aren't allowed");
         return false;
     } else {
         // insert in vector
@@ -74,7 +75,7 @@ GNERerouterInterval::removeClosingLaneReroutes(const GNEClosingLaneReroute &clr)
     std::vector<GNEClosingLaneReroute>::iterator i = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr);
     // check if exists
     if(i == myClosingLaneReroutes.end()) {
-        WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedEdge()->getID() + "' wasn't previously inserted");
+        WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedLane()->getID() + "' wasn't previously inserted");
         return false;
     } else {
         // remove it from vector

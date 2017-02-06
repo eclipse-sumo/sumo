@@ -63,7 +63,7 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     GNEAdditionalDialog(rerouterParent, 320, 240),
     myRerouterParent(rerouterParent) {
     // Create table, copy intervals and update table
-    myIntervalList = new FXTable(myContentFrame, this, MID_GNE_MODE_ADDITIONALDIALOG_TABLE, GUIDesignTableAdditionalsNoSelct);
+    myIntervalList = new FXTable(myContentFrame, this, MID_GNE_MODE_ADDITIONALDIALOG_TABLE, GUIDesignTableAdditionals);
     myIntervalList->setEditable(false);
     myCopyOfRerouterIntervals = myRerouterParent->getRerouterIntervals();
     updateTable();
