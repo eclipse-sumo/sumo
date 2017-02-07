@@ -392,6 +392,12 @@ private:
     /// @brief retrieves the pedestian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);
 
+    /* @brief compute stripe-offset to transform relY values from a lane with origStripes into a lane wit destStrips
+     * @note this is called once for transforming nextLane peds to into the current system as obstacles and another time 
+     * (in reverse) to transform the pedestrian coordinates into the nextLane-coordinates when changing lanes
+     */
+    static int getStripeOffset(int origStripes, int destStripes, bool addRemainder);
+
 
 private:
     /// @brief the MovePedestrians command that is registered
