@@ -148,7 +148,7 @@ GNEBusStop::updateGeometry() {
 
 
 void
-GNEBusStop::writeAdditional(OutputDevice& device, const std::string&) {
+GNEBusStop::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

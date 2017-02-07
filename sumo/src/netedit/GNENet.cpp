@@ -681,15 +681,10 @@ GNENet::save(OptionsCont& oc) {
 
 void
 GNENet::saveAdditionals(const std::string& filename) {
-    // Extract path of filename
-    std::string path = filename;
-    while (!path.empty() && path[path.size() - 1] != '\\') {
-        path = path.substr(0, path.size() - 1);
-    }
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        i->second->writeAdditional(device, path);
+        i->second->writeAdditional(device);
     }
     device.close();
 }

@@ -78,7 +78,7 @@ public:
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
-    virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
+    virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief Returns the position of the detector over lane
     SUMOReal getPositionOverLane() const;

@@ -152,7 +152,7 @@ GNEChargingStation::updateGeometry() {
 
 
 void
-GNEChargingStation::writeAdditional(OutputDevice& device, const std::string&) {
+GNEChargingStation::writeAdditional(OutputDevice& device) const {
     // Write additional
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

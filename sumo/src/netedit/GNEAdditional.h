@@ -145,10 +145,11 @@ public:
     /// @note movement cannot be undo with GNEUndoRedo
     void setPositionInView(const Position& pos);
 
-    /// @brief writte additional element into a xml file
-    /// @param[in] device device in which write parameters of additional element
-    /// @note must be implemented in all childrens
-    virtual void writeAdditional(OutputDevice& device, const std::string& currentDirectory) = 0;
+    /**@brief writte additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     * @note must be implemented in all derived classes
+     */
+    virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief get edge of additional, or NULL if additional isn't placed over an edge
     GNEEdge* getEdge() const;
@@ -158,8 +159,7 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /// @brief Returns the name of the parent object
-    /// @return This object's parent id
+    /// @brief Returns the name (ID) of the parent object
     virtual const std::string& getParentName() const = 0;
 
     /**@brief Returns an own popup-menu
@@ -233,20 +233,24 @@ protected:
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
-    /// @brief The edge this additional belongs
-    /// @bote NULL if additional doesnt' belongs to a edge
+    /**@brief The edge this additional belongs. 
+     * @note is NULL if additional doesnt' belongs to a edge
+     */
     GNEEdge* myEdge;
 
-    /// @brief The lane this additional belongs
-    /// @bote NULL if additional doesnt' belongs to a lane
+    /**@brief The lane this additional belongs. 
+     * @note is NULL if additional doesnt' belongs to a lane
+     */
     GNELane* myLane;
 
-    /// @brief The position in which this additional element is located
-    /// @note if this element belongs to a Lane, x() value will be the position over Lane
+    /**@brief The position in which this additional element is located
+     * @note if this element belongs to a Lane, x() value will be the position over Lane
+     */
     Position myPosition;
 
-    /// @brief The shape of the additional element
-    /// @note must be configured in updateGeometry()
+    /**@brief The shape of the additional element
+     * @note must be configured in updateGeometry()
+     */
     PositionVector myShape;
 
     /// @name computed only once (for performance) in updateGeometry()
@@ -263,8 +267,9 @@ protected:
 
     /// @name members and functions relative to block icon
     /// @{
-    /// @brief set Rotation of block Icon
-    /// @note must be called in updateGeometry() after setting of Shape, and use parameter "lane" if additional is placed over a lane
+    /**@brief set Rotation of block Icon
+     * @note must be called in updateGeometry() after setting of Shape, and use parameter "lane" if additional is placed over a lane
+     */
     void setBlockIconRotation(GNELane* lane = NULL);
 
     /// @brief draw lock icon
@@ -295,12 +300,14 @@ protected:
     /// @brief boolean to check if additional element is movable (with the mouse). By default true
     bool myMovable;
 
-    /// @brief base color (Default green)
-    /// @note default color can be defined in the constructor of every additional
+    /**@brief base color (Default green)
+     * @note default color can be defined in the constructor of every additional
+     */
     RGBColor myBaseColor;
 
-    /// @brief base color selected (Default blue)
-    /// @note default color can be defined in the constructor of every additional
+    /**@brief base color selected (Default blue)
+     * @note default color can be defined in the constructor of every additional
+     */
     RGBColor myBaseColorSelected;
 
     /// @brief pointer to additional dialog

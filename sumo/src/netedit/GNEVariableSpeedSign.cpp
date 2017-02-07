@@ -142,7 +142,7 @@ GNEVariableSpeedSign::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal 
 
 
 void
-GNEVariableSpeedSign::writeAdditional(OutputDevice& device, const std::string& currentDirectory) {
+GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -154,6 +154,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device, const std::string& c
         // Write filename attribute
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
         // Save values in a different file
+        /*
         OutputDevice& deviceVSS = OutputDevice::getDevice(currentDirectory + myFilename);
         deviceVSS.openTag("VSS");
         for (std::map<SUMOReal, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
@@ -167,6 +168,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device, const std::string& c
             deviceVSS.closeTag();
         }
         deviceVSS.close();
+        */
     } else {
         for (std::map<SUMOReal, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
             // Open VSS tag

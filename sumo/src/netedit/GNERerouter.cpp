@@ -148,13 +148,13 @@ GNERerouter::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, 
 
 
 void
-GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
+GNERerouter::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     // obtain ID's of Edges
     std::vector<std::string> edgeIDs;
-    for(std::vector<GNEEdge*>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+    for(std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         edgeIDs.push_back((*i)->getID());
     }
     device.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " ").c_str());
@@ -168,7 +168,7 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // write intervals
-    for (std::vector<GNERerouterInterval>::iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+    for (std::vector<GNERerouterInterval>::const_iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         device.openTag(i->getTag());
         device.writeAttr(SUMO_ATTR_BEGIN, i->getBegin());
         device.writeAttr(SUMO_ATTR_END, i->getEnd());
