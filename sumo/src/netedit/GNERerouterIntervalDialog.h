@@ -76,16 +76,28 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove closing lane reroute
+    /// @brief add closing lane reroute
+    long onCmdAddClosingLaneReroute(FXObject*, FXSelector, void*);
+
+    /// @brief add closing reroute
+    long onCmdAddClosingReroute(FXObject*, FXSelector, void*);
+
+    /// @brief add dest prob reroute
+    long onCmdAddDestProbReroute(FXObject*, FXSelector, void*);
+
+    /// @brief add route prob reroute
+    long onCmdAddRouteProbReroute(FXObject*, FXSelector, void*);
+
+    /// @brief remove closing lane reroute
     long onCmdClickedClosingLaneReroute(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove closing reroute
+    /// @brief remove closing reroute
     long onCmdClickedClosingReroute(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove dest prob reroute
+    /// @brief remove dest prob reroute
     long onCmdClickedDestProbReroute(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove route prob reroute
+    /// @brief remove route prob reroute
     long onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*);
 
     /// @brief /edit closing lane reroute
@@ -125,6 +137,18 @@ protected:
 
     /// @brief begin/end time check label
     FXLabel *myCheckLabel;
+
+    /// @brief button for add new closing lane reroutes
+    FXButton *myAddClosingLaneReroutes;
+
+    /// @brief button for add new closing reroutes
+    FXButton *myAddClosingReroutes;
+
+    /// @brief button for add new destiny probability reroutes
+    FXButton *myAddDestProbReroutes;
+
+    /// @brief button for add new route probability reroutes
+    FXButton *myAddRouteProbReroute;
 
     /// @brief list with closing lane reroutes
     FXTable* myClosingLaneRerouteList;

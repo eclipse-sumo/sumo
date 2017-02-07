@@ -49,7 +49,6 @@ class GNERerouterIntervalDialog;
  * @class GNERerouterDialog
  * @brief Dialog for edit rerouters
  */
-
 class GNERerouterDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNERerouterDialog)
@@ -84,8 +83,11 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add/remove/edit interval
-    long onCmdClicked(FXObject*, FXSelector, void*);
+    /// @brief add new interval
+    long onCmdAddInterval(FXObject*, FXSelector, void*);
+
+    /// @brief remove or edit interval
+    long onCmdClickedInterval(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -95,6 +97,9 @@ protected:
     /// @brief pointer to rerouter parent
     GNERerouter* myRerouterParent;
 
+    /// @brief button for add new interval
+    FXButton* myAddInterval;
+
     /// @brief list with intervals
     FXTable* myIntervalList;
 
@@ -102,7 +107,7 @@ protected:
     std::vector<GNERerouterInterval> myCopyOfRerouterIntervals;
   
     /// @brief update data table
-    void updateTable();
+    void updateIntervalTable();
 
 private:
     /// @brief Invalidated copy constructor.
