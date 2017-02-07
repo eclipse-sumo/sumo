@@ -218,7 +218,9 @@ MSLane::setPartialOccupation(MSVehicle* v) {
     }
 #endif
     // XXX update occupancy here?
+    getVehiclesSecure();
     myPartialVehicles.push_back(v);
+    releaseVehicles();
     return myLength;
 }
 
@@ -230,14 +232,17 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
         std::cout << SIMTIME << " resetPartialOccupation. lane=" << getID() << " veh=" << v->getID() << "\n";
     }
 #endif
+    getVehiclesSecure();
     for (VehCont::iterator i = myPartialVehicles.begin(); i != myPartialVehicles.end(); ++i) {
         if (v == *i) {
             myPartialVehicles.erase(i);
             // XXX update occupancy here?
             //std::cout << "    removed from myPartialVehicles\n";
+            releaseVehicles();
             return;
         }
     }
+    releaseVehicles();
     assert(false);
 }
 
@@ -2079,8 +2084,8 @@ MSLane::getCrossingIndex() const {
 // ------------ Current state retrieval
 SUMOReal
 MSLane::getBruttoOccupancy() const {
-    SUMOReal fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
     getVehiclesSecure();
+    SUMOReal fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
         if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
@@ -2094,8 +2099,8 @@ MSLane::getBruttoOccupancy() const {
 
 SUMOReal
 MSLane::getNettoOccupancy() const {
-    SUMOReal fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
     getVehiclesSecure();
+    SUMOReal fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
         if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
