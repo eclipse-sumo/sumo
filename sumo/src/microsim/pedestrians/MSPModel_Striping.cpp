@@ -1206,7 +1206,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     //         chosen -= 1;
     //     }
     //}
-    const SUMOReal maxYSpeed = MAX2(vMax * LATERAL_SPEED_FACTOR, vMax - xSpeed);
+    const SUMOReal maxYSpeed = MIN3(vMax * LATERAL_SPEED_FACTOR, vMax - xSpeed, stripeWidth);
     SUMOReal ySpeed = 0;
     SUMOReal yDist = 0;
     if (utility[next] > OBSTRUCTION_THRESHOLD && utility[chosen] > OBSTRUCTION_THRESHOLD) {
