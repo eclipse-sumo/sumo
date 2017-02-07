@@ -75,6 +75,7 @@ GNERerouterIntervalDialog.h GNERerouterIntervalDialog.cpp \
 GNERouteProbe.h GNERouteProbe.cpp \
 GNEVaporizer.h GNEVaporizer.cpp \
 GNECalibrator.h GNECalibrator.cpp \
+GNECalibratorFlow.h GNECalibratorFlow.cpp \
 GNECalibratorDialog.h GNECalibratorDialog.cpp \
 GNEVariableSpeedSign.h GNEVariableSpeedSign.cpp \
 GNEVariableSpeedSignDialog.h GNEVariableSpeedSignDialog.cpp \

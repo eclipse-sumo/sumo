@@ -91,12 +91,15 @@
     <Filter Include="Quellcodedateien\Items\Additionals\Rerouter">
       <UniqueIdentifier>{a89f84a4-21ee-48f4-a70a-cb6545593ff2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\Calibrator">
+      <UniqueIdentifier>{a41bc2cc-a179-4e89-92bc-e1ca9d731cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals\Calibrator">
+      <UniqueIdentifier>{bb370bbf-896a-4108-9725-037cf33131f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netedit\GNEAdditional.cpp">
-      <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNECalibrator.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEChange.cpp">
@@ -291,6 +294,12 @@
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_AllowDisallow.cpp">
       <Filter>Quellcodedateien\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibrator.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorFlow.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -336,9 +345,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h">
       <Filter>Header-Dateien\Items\NetElement</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNECalibrator.h">
-      <Filter>Header-Dateien\Items\Additionals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEAdditionalFrame.h">
       <Filter>Header-Dateien\Frames</Filter>
@@ -498,6 +504,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_AllowDisallow.h">
       <Filter>Header-Dateien\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibrator.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorFlow.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

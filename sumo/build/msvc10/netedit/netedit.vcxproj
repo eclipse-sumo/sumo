@@ -114,6 +114,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEBusStop.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNECalibrator.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorDialog.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorFlow.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Attribute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Additional.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEBusStop.h" />
     <ClInclude Include="..\..\..\src\netedit\GNECalibrator.h" />
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorDialog.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorFlow.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Attribute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Additional.h" />
