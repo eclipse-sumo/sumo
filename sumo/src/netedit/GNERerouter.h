@@ -84,10 +84,10 @@ public:
     void writeAdditional(OutputDevice& device, const std::string&);
 
     /// @brief add edge child
-    bool addEdgeChild(GNEEdge* edge);
+    void addEdgeChild(GNEEdge* edge);
 
     /// @brief remove edge child
-    bool removeEdgeChild(GNEEdge* edge);
+    void removeEdgeChild(GNEEdge* edge);
 
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval> &getRerouterIntervals() const;
@@ -134,6 +134,9 @@ public:
     /// @}
 
 protected:
+    /// @brief edges of Rerouter
+    std::vector<GNEEdge*> myEdges;
+
     /// @brief filename of rerouter
     std::string myFilename;
 

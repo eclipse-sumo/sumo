@@ -67,8 +67,9 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> /* edges */, const std::string& filename, SUMOReal probability, bool off) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER),
+    myEdges(edges),
     myFilename(filename),
     myProbability(probability),
     myOff(off) {
@@ -151,7 +152,12 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGES, /*joinToString(getEdgeChildIds(), " ").c_str()*/ "");
+    // obtain ID's of Edges
+    std::vector<std::string> edgeIDs;
+    for(std::vector<GNEEdge*>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+        edgeIDs.push_back((*i)->getID());
+    }
+    device.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " ").c_str());
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -210,15 +216,29 @@ GNERerouter::writeAdditional(OutputDevice& device, const std::string&) {
 }
 
 
-bool 
-GNERerouter::addEdgeChild(GNEEdge* /* edge */) {
-    return false;
+void 
+GNERerouter::addEdgeChild(GNEEdge* edge) {
+    // Check that edge is valid and doesn't exist previously
+    if(edge == NULL) {
+        throw InvalidArgument("Trying to add an empty edge in " + getID());
+    } else if(std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end()) {
+        throw InvalidArgument("Trying to add a duplicate edge" + getID());
+    } else {
+        myEdges.push_back(edge);
+    }
 }
 
 
-bool 
-GNERerouter::removeEdgeChild(GNEEdge* /* edge */) {
-    return false;
+void 
+GNERerouter::removeEdgeChild(GNEEdge* edge) {
+    // Check that edge is valid and exist previously
+    if(edge == NULL) {
+        throw InvalidArgument("Trying to remove an empty edge child " + getID());
+    } else if(std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted edge in " + getID());
+    } else {
+        myEdges.erase(std::find(myEdges.begin(), myEdges.end(), edge));
+    }
 }
 
 
@@ -329,8 +349,14 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_EDGES:
-            return /*joinToString(getEdgeChildIds(), " ")*/ "";
+        case SUMO_ATTR_EDGES: {
+            // obtain ID's of Edges
+            std::vector<std::string> edgeIDs;
+            for(std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+                edgeIDs.push_back((*i)->getID());
+            }
+            return joinToString(edgeIDs, " ");
+        }
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -385,12 +411,13 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             if (edgeIds.empty()) {
                 return false;
             }
-            // Iterate over parsed edges
+            // Iterate over parsed edges and check that exists
             for (int i = 0; i < (int)edgeIds.size(); i++) {
                 if (myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false) == NULL) {
                     return false;
                 }
             }
+            // all edges exist, then is valid
             return true;
         }
         case SUMO_ATTR_POSITION:
@@ -419,18 +446,19 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES: {
             // Declare variables
             std::vector<std::string> edgeIds;
-            std::vector<GNEEdge*> edges;
             GNEEdge* edge;
+            // clear previous edges
+            myEdges.clear();
             SUMOSAXAttributes::parseStringVector(value, edgeIds);
             // Iterate over parsed edges and obtain pointer to edges
             for (int i = 0; i < (int)edgeIds.size(); i++) {
                 edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
                 if (edge) {
-                    edges.push_back(edge);
+                    myEdges.push_back(edge);
+                } else {
+                    throw InvalidArgument("Trying to set an non-valid edge in " + getID());
                 }
             }
-            // Set new childs
-            //setEdgeChilds(edges);
             break;
         }
         case SUMO_ATTR_POSITION:
