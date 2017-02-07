@@ -1,0 +1,14 @@
+<routes>
+    <person id="ped0" depart="0">>
+        <walk edges="beg middle end" departPos="10" arrivalPos="10" departPosLat="0"/>
+    </person>
+    <person id="ped1" depart="0">>
+        <walk edges="beg middle end" departPos="10" arrivalPos="10" departPosLat="0.65"/>
+    </person>
+    <person id="ped2" depart="0">>
+        <walk edges="beg middle end" departPos="10" arrivalPos="10" departPosLat="1.30"/>
+    </person>
+    <person id="ped3" depart="0">>
+        <walk edges="beg middle end" departPos="10" arrivalPos="10" departPosLat="1.95"/>
+    </person>
+</routes>

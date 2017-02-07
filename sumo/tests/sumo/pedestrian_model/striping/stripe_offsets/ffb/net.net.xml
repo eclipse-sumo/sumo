@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 06 Feb 2017 03:45:06 PM CET by Netedit Version dev-SVN-r22854
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="bff.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/stripeTransform/ffb.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,60.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="beg" from="A" to="B" priority="1" spreadType="center">
+        <lane id="beg_0" index="0" allow="pedestrian" speed="13.89" length="20.00" width="3.00" shape="0.00,0.00 20.00,0.00"/>
+    </edge>
+    <edge id="end" from="D" to="C" priority="1" spreadType="center">
+        <lane id="end_0" index="0" allow="pedestrian" speed="13.89" length="20.00" width="3.00" shape="60.00,0.00 41.50,0.00"/>
+    </edge>
+    <edge id="middle" from="B" to="C" priority="1" spreadType="center">
+        <lane id="middle_0" index="0" allow="pedestrian" speed="13.89" length="20.00" width="6.00" shape="20.00,0.00 38.50,0.00"/>
+    </edge>
+
+    <junction id="A" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,1.50 0.00,-1.50"/>
+    <junction id="B" type="unregulated" x="20.00" y="0.00" incLanes="beg_0" intLanes="" shape="20.00,3.00 20.00,-1.50 20.00,1.50"/>
+    <junction id="C" type="unregulated" x="40.00" y="0.00" incLanes="end_0 middle_0" intLanes="" shape="41.50,1.50 41.50,-1.50 38.50,-3.00 38.50,3.00"/>
+    <junction id="D" type="unregulated" x="60.00" y="0.00" incLanes="" intLanes="" shape="60.00,-1.50 60.00,1.50"/>
+
+</net>
