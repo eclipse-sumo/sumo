@@ -97,6 +97,12 @@
     <Filter Include="Quellcodedateien\Items\Additionals\Calibrator">
       <UniqueIdentifier>{bb370bbf-896a-4108-9725-037cf33131f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialog">
+      <UniqueIdentifier>{1dd91376-dd79-4198-a839-be27b17af8bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Dialogs\AdditionalDialogs\Calibrator">
+      <UniqueIdentifier>{371666ad-29e9-4b55-9eea-a8af4be2e96c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netedit\GNEAdditional.cpp">
@@ -210,9 +216,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbe.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNECalibratorDialog.cpp">
-      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEConnection.cpp">
       <Filter>Quellcodedateien\Items\NetElement</Filter>
     </ClCompile>
@@ -299,6 +302,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorFlow.cpp">
       <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorRoute.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorRouteDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorFlowDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\Calibrator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -421,9 +436,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbe.h">
       <Filter>Header-Dateien\Items\Additionals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNECalibratorDialog.h">
-      <Filter>Header-Dateien\Dialogs\AdditionalDialogs</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNENet.h">
       <Filter>Header-Dateien\Main</Filter>
     </ClInclude>
@@ -510,6 +522,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorFlow.h">
       <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorRoute.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorRouteDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorFlowDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialog</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
