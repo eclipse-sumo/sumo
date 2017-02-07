@@ -215,7 +215,7 @@ MSE2Collector::reset() {
     myTimeSamples = 0;
     myMeanVehicleNumber = 0;
     myMaxVehicleNumber = 0;
-    for (std::map<const std::string, SUMOTime>::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<std::string, SUMOTime>::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
         (*i).second = 0;
     }
     myPastStandingDurations.clear();
@@ -228,8 +228,8 @@ MSE2Collector::reset() {
 void
 MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     JamInfo* currentJam = 0;
-    std::map<const std::string, SUMOTime> haltingVehicles;
-    std::map<const std::string, SUMOTime> intervalHaltingVehicles;
+    std::map<std::string, SUMOTime> haltingVehicles;
+    std::map<std::string, SUMOTime> intervalHaltingVehicles;
     std::vector<JamInfo*> jams;
 
     SUMOReal lengthSum = 0;
@@ -274,7 +274,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
             }
         } else {
             // is not standing anymore; keep duration information
-            std::map<const std::string, SUMOTime>::iterator v = myHaltingVehicleDurations.find(i->id);
+            std::map<std::string, SUMOTime>::iterator v = myHaltingVehicleDurations.find(i->id);
             if (v != myHaltingVehicleDurations.end()) {
                 myPastStandingDurations.push_back((*v).second);
                 myHaltingVehicleDurations.erase(v);
@@ -410,7 +410,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i));
         haltingNo++;
     }
-    for (std::map<const std::string, SUMOTime> ::iterator i = myHaltingVehicleDurations.begin(); i != myHaltingVehicleDurations.end(); ++i) {
+    for (std::map<std::string, SUMOTime> ::iterator i = myHaltingVehicleDurations.begin(); i != myHaltingVehicleDurations.end(); ++i) {
         haltingDurationSum += (*i).second;
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i).second);
         haltingNo++;
@@ -425,7 +425,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i));
         intervalHaltingNo++;
     }
-    for (std::map<const std::string, SUMOTime> ::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<std::string, SUMOTime> ::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
         intervalHaltingDurationSum += (*i).second;
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i).second);
         intervalHaltingNo++;
