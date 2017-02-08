@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb  8 14:26:17 2017 by SUMO Version dev-SVN-r22880
+<!-- generated on Wed Feb  8 15:31:31 2017 by SUMO Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -34,141 +34,153 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="ped45" depart="40.00">
-        <walk arrival="219.00"/>
-    </personinfo>
-    <personinfo id="ped77" depart="77.00">
-        <walk arrival="220.00"/>
+        <walk arrival="217.00"/>
     </personinfo>
     <personinfo id="ped42" depart="35.00">
-        <walk arrival="221.00"/>
+        <walk arrival="220.00"/>
     </personinfo>
-    <personinfo id="ped6" depart="5.00">
+    <personinfo id="ped80" depart="80.00">
+        <walk arrival="220.00"/>
+    </personinfo>
+    <personinfo id="ped48" depart="43.00">
         <walk arrival="221.00"/>
     </personinfo>
     <personinfo id="ped37" depart="29.00">
-        <walk arrival="222.00"/>
+        <walk arrival="223.00"/>
     </personinfo>
-    <personinfo id="ped80" depart="80.00">
-        <walk arrival="222.00"/>
+    <personinfo id="ped77" depart="77.00">
+        <walk arrival="223.00"/>
     </personinfo>
-    <personinfo id="ped22" depart="17.00">
-        <walk arrival="225.00"/>
-    </personinfo>
-    <personinfo id="ped47" depart="43.00">
-        <walk arrival="226.00"/>
-    </personinfo>
-    <personinfo id="ped36" depart="28.00">
-        <walk arrival="228.00"/>
+    <personinfo id="ped52" depart="48.00">
+        <walk arrival="224.00"/>
     </personinfo>
     <personinfo id="ped38" depart="30.00">
-        <walk arrival="228.00"/>
-    </personinfo>
-    <personinfo id="ped128" depart="139.00">
-        <walk arrival="229.00"/>
-    </personinfo>
-    <personinfo id="ped29" depart="24.00">
-        <walk arrival="230.00"/>
+        <walk arrival="225.00"/>
     </personinfo>
     <personinfo id="ped71" depart="69.00">
+        <walk arrival="226.00"/>
+    </personinfo>
+    <personinfo id="ped94" depart="100.00">
+        <walk arrival="226.00"/>
+    </personinfo>
+    <personinfo id="ped92" depart="95.00">
+        <walk arrival="226.00"/>
+    </personinfo>
+    <personinfo id="ped120" depart="133.00">
+        <walk arrival="227.00"/>
+    </personinfo>
+    <personinfo id="ped20" depart="17.00">
+        <walk arrival="228.00"/>
+    </personinfo>
+    <personinfo id="ped87" depart="89.00">
+        <walk arrival="229.00"/>
+    </personinfo>
+    <personinfo id="ped36" depart="28.00">
         <walk arrival="230.00"/>
     </personinfo>
     <personinfo id="ped8" depart="7.00">
         <walk arrival="230.00"/>
     </personinfo>
-    <personinfo id="ped94" depart="100.00">
+    <personinfo id="ped93" depart="96.00">
         <walk arrival="231.00"/>
     </personinfo>
-    <personinfo id="ped52" depart="48.00">
-        <walk arrival="231.00"/>
+    <personinfo id="ped47" depart="43.00">
+        <walk arrival="232.00"/>
+    </personinfo>
+    <personinfo id="ped6" depart="5.00">
+        <walk arrival="232.00"/>
     </personinfo>
     <personinfo id="ped61" depart="58.00">
         <walk arrival="233.00"/>
     </personinfo>
+    <personinfo id="ped53" depart="48.00">
+        <walk arrival="235.00"/>
+    </personinfo>
+    <personinfo id="ped84" depart="84.00">
+        <walk arrival="235.00"/>
+    </personinfo>
+    <personinfo id="ped29" depart="24.00">
+        <walk arrival="235.00"/>
+    </personinfo>
     <personinfo id="ped96" depart="102.00">
-        <walk arrival="234.00"/>
-    </personinfo>
-    <personinfo id="ped78" depart="78.00">
         <walk arrival="235.00"/>
     </personinfo>
-    <personinfo id="ped104" depart="110.00">
+    <personinfo id="ped101" depart="109.00">
         <walk arrival="235.00"/>
     </personinfo>
-    <personinfo id="ped93" depart="96.00">
+    <personinfo id="ped82" depart="81.00">
         <walk arrival="235.00"/>
     </personinfo>
-    <personinfo id="ped48" depart="43.00">
+    <personinfo id="ped22" depart="17.00">
         <walk arrival="235.00"/>
     </personinfo>
     <personinfo id="ped0" depart="0.00">
         <walk arrival="236.00"/>
     </personinfo>
-    <personinfo id="ped72" depart="70.00">
+    <personinfo id="ped26" depart="20.00">
         <walk arrival="236.00"/>
     </personinfo>
-    <personinfo id="ped26" depart="20.00">
+    <personinfo id="ped114" depart="129.00">
+        <walk arrival="236.00"/>
+    </personinfo>
+    <personinfo id="ped74" depart="71.00">
         <walk arrival="237.00"/>
+    </personinfo>
+    <personinfo id="ped78" depart="78.00">
+        <walk arrival="237.00"/>
+    </personinfo>
+    <personinfo id="ped72" depart="70.00">
+        <walk arrival="238.00"/>
     </personinfo>
     <personinfo id="ped115" depart="130.00">
-        <walk arrival="237.00"/>
-    </personinfo>
-    <personinfo id="ped53" depart="48.00">
         <walk arrival="238.00"/>
     </personinfo>
-    <personinfo id="ped84" depart="84.00">
-        <walk arrival="238.00"/>
-    </personinfo>
-    <personinfo id="ped20" depart="17.00">
-        <walk arrival="238.00"/>
-    </personinfo>
-    <personinfo id="ped101" depart="109.00">
-        <walk arrival="238.00"/>
-    </personinfo>
-    <personinfo id="ped82" depart="81.00">
+    <personinfo id="ped104" depart="110.00">
         <walk arrival="238.00"/>
     </personinfo>
     <personinfo id="ped35" depart="28.00">
         <walk arrival="239.00"/>
     </personinfo>
+    <personinfo id="ped60" depart="58.00">
+        <walk arrival="240.00"/>
+    </personinfo>
+    <personinfo id="ped54" depart="49.00">
+        <walk arrival="241.00"/>
+    </personinfo>
     <personinfo id="ped10" depart="10.00">
         <walk arrival="241.00"/>
     </personinfo>
-    <personinfo id="ped74" depart="71.00">
+    <personinfo id="ped4" depart="2.00">
         <walk arrival="241.00"/>
-    </personinfo>
-    <personinfo id="ped33" depart="26.00">
-        <walk arrival="241.00"/>
-    </personinfo>
-    <personinfo id="ped24" depart="18.00">
-        <walk arrival="242.00"/>
-    </personinfo>
-    <personinfo id="ped13" depart="13.00">
-        <walk arrival="242.00"/>
-    </personinfo>
-    <personinfo id="ped54" depart="49.00">
-        <walk arrival="244.00"/>
     </personinfo>
     <personinfo id="ped51" depart="47.00">
-        <walk arrival="249.00"/>
+        <walk arrival="245.00"/>
+    </personinfo>
+    <personinfo id="ped62" depart="59.00">
+        <walk arrival="245.00"/>
+    </personinfo>
+    <personinfo id="ped73" depart="70.00">
+        <walk arrival="246.00"/>
     </personinfo>
     <personinfo id="ped102" depart="110.00">
         <walk arrival="249.00"/>
     </personinfo>
-    <personinfo id="ped60" depart="58.00">
-        <walk arrival="249.00"/>
+    <personinfo id="ped81" depart="80.00">
+        <walk arrival="250.00"/>
     </personinfo>
-    <personinfo id="ped4" depart="2.00">
+    <personinfo id="ped13" depart="13.00">
         <walk arrival="250.00"/>
     </personinfo>
     <personinfo id="ped106" depart="115.00">
+        <walk arrival="251.00"/>
+    </personinfo>
+    <personinfo id="ped33" depart="26.00">
         <walk arrival="252.00"/>
     </personinfo>
-    <personinfo id="ped62" depart="59.00">
-        <walk arrival="252.00"/>
+    <personinfo id="ped111" depart="126.00">
+        <walk arrival="254.00"/>
     </personinfo>
-    <personinfo id="ped73" depart="70.00">
-        <walk arrival="255.00"/>
-    </personinfo>
-    <personinfo id="ped81" depart="80.00">
+    <personinfo id="ped24" depart="18.00">
         <walk arrival="256.00"/>
     </personinfo>
 </tripinfos>

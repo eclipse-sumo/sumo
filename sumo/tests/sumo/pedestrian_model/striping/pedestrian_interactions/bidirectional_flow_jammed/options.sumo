@@ -1,1 +1,2 @@
---net-file net.net.xml --additional-files input_routes.rou.xml --no-step-log --tripinfo-output tripinfos.xml -e 1000 --pedestrian.striping.jamtime 180
+--net-file net.net.xml --additional-files input_routes.rou.xml --no-step-log
+--tripinfo-output tripinfos.xml -e 400 --pedestrian.striping.jamtime 180
