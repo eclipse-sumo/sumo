@@ -727,6 +727,10 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 //    std::cout << "   obs=" << p.myPerson->getID() << "  y=" << p.myRelY << "  stripe=" << p.stripe() << " oStripe=" << p.otherStripe() << "\n";
                 //}
                 Obstacle o(p);
+                if (p.myDir != dir && p.mySpeed == 0) {
+                    // ensure recognition of oncoming
+                    o.speed = (p.myDir == FORWARD ? 0.1 : -0.1);
+                }
                 obs[p.stripe()] = o;
                 obs[p.otherStripe()] = o;
             }
@@ -1156,19 +1160,11 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
             utility[i] += ONCOMING_CONFLICT_PENALTY + distance[i];
         }
     }
-    // bonus to remain on the rightmost lane (in walking direction) if there
-    // are oncoming
-    if (((myDir == FORWARD && current == sMax)
-            || (myDir == BACKWARD && current == 0))
-            && obs[current].speed * myDir < 0) {
-        utility[current] -= ONCOMING_CONFLICT_PENALTY;
-    }
-    // bonus to leave the leftmost lane (in walking direction) if there
-    // are oncoming
-    if (((myDir == BACKWARD && current == sMax)
-            || (myDir == FORWARD && current == 0))
-            && obs[current].speed * myDir < 0) {
-        utility[current] += ONCOMING_CONFLICT_PENALTY;
+    // discourage use of the leftmost lane (in walking direction) if there are oncoming
+    if (myDir == FORWARD && obs[0].speed < 0) {
+        utility[0] += ONCOMING_CONFLICT_PENALTY;
+    } else if (myDir == BACKWARD && obs[sMax].speed > 0) {
+        utility[sMax] += ONCOMING_CONFLICT_PENALTY;
     }
     // penalize lateral movement (if the current stripe permits walking)
     if (distance[current] > 0 && myWaitingTime == 0 ) {
@@ -1236,7 +1232,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     //         chosen -= 1;
     //     }
     //}
-    const SUMOReal maxYSpeed = MIN3(vMax * LATERAL_SPEED_FACTOR, vMax - xSpeed, stripeWidth);
+    const SUMOReal maxYSpeed = MIN2(MAX2(vMax * LATERAL_SPEED_FACTOR, vMax - xSpeed), stripeWidth);
     SUMOReal ySpeed = 0;
     SUMOReal yDist = 0;
     if (utility[next] > OBSTRUCTION_THRESHOLD && utility[chosen] > OBSTRUCTION_THRESHOLD) {
