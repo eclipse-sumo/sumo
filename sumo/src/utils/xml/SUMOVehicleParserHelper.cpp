@@ -533,6 +533,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = krausParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_PLUS_SLOPE] = krausParams;
 
+
         std::set<SumoXMLAttr> smartSKParams;
         smartSKParams.insert(SUMO_ATTR_ACCEL);
         smartSKParams.insert(SUMO_ATTR_DECEL);
@@ -597,6 +598,11 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_SECURITY);
         wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
         allowedCFModelAttrs[SUMO_TAG_CF_WIEDEMANN] = wiedemannParams;
+
+        std::set<SumoXMLAttr> railParamms;
+        railParamms.insert(SUMO_ATTR_ACCEL);
+        railParamms.insert(SUMO_ATTR_DECEL);
+        allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParamms;
     }
     return allowedCFModelAttrs;
 }

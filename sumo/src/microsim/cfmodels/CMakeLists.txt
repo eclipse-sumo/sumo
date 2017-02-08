@@ -11,6 +11,6 @@ set(cfmodels_files
 	MSCFModel_PWag2009.cpp MSCFModel_PWag2009.h
 	MSCFModel_SmartSK.cpp MSCFModel_SmartSK.h
 	MSCFModel_Wiedemann.cpp MSCFModel_Wiedemann.h
-	)
+		MSCFModel_Rail.cpp MSCFModel_Rail.h)
 
 add_library(mscfmodels STATIC ${cfmodels_files})
