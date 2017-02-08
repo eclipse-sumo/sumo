@@ -181,8 +181,8 @@ protected:
         /// @brief create an obstacle from ped for ego moving in dir
         Obstacle(const PState& ped);
         /// @brief create an obstacle from explict values
-        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description, const SUMOReal width = 0., bool _nextEnd=false)
-            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), description(_description), nextEnd(_nextEnd) {};
+        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description, const SUMOReal width = 0., bool _border=false)
+            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), description(_description), border(_border) {};
 
         /// @brief maximal position on the current lane in forward direction
         SUMOReal xFwd;
@@ -190,8 +190,8 @@ protected:
         SUMOReal xBack;
         /// @brief speed relative to lane direction (positive means in the same direction)
         SUMOReal speed;
-        /// @brief whether this obstacle denotes the end of the next lane
-        bool nextEnd;
+        /// @brief whether this obstacle denotes a border or a pedestrian
+        bool border;
         /// @brief the id / description of the obstacle
         std::string description;
     };
